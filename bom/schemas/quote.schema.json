@@ -1,0 +1,209 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gredice.github.io/arbi/schemas/quote.schema.json",
+  "title": "ARBI destination quote snapshot",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "id",
+    "destinationId",
+    "capturedAt",
+    "exchangeRates",
+    "offerPrices",
+    "checkoutGroups"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "id": {
+      "$ref": "#/$defs/id"
+    },
+    "destinationId": {
+      "$ref": "#/$defs/id"
+    },
+    "capturedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "exchangeRates": {
+      "type": "object",
+      "required": [
+        "reportCurrency",
+        "rates"
+      ],
+      "properties": {
+        "reportCurrency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$"
+        },
+        "rates": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/decimal"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "offerPrices": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "offerId",
+          "availability",
+          "observedAt",
+          "taxTreatment",
+          "price"
+        ],
+        "properties": {
+          "offerId": {
+            "$ref": "#/$defs/id"
+          },
+          "availability": {
+            "enum": [
+              "available",
+              "in-stock",
+              "out-of-stock",
+              "unknown"
+            ]
+          },
+          "observedAt": {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "taxTreatment": {
+            "enum": [
+              "included",
+              "excluded",
+              "not-applicable",
+              "unknown"
+            ]
+          },
+          "price": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "required": [
+                  "basis",
+                  "amount",
+                  "currency"
+                ],
+                "properties": {
+                  "basis": {
+                    "enum": [
+                      "base-unit",
+                      "purchase-unit"
+                    ]
+                  },
+                  "amount": {
+                    "$ref": "#/$defs/decimal"
+                  },
+                  "currency": {
+                    "type": "string",
+                    "pattern": "^[A-Z]{3}$"
+                  },
+                  "normalizationNote": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "checkoutGroups": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "checkoutGroupId",
+          "supplierId",
+          "status",
+          "observedAt",
+          "amount",
+          "currency",
+          "taxTreatment",
+          "note"
+        ],
+        "properties": {
+          "checkoutGroupId": {
+            "$ref": "#/$defs/id"
+          },
+          "supplierId": {
+            "$ref": "#/$defs/id"
+          },
+          "status": {
+            "enum": [
+              "known",
+              "unknown",
+              "not-applicable"
+            ]
+          },
+          "observedAt": {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "amount": {
+            "oneOf": [
+              {
+                "$ref": "#/$defs/decimal"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "currency": {
+            "type": "string",
+            "pattern": "^[A-Z]{3}$"
+          },
+          "taxTreatment": {
+            "enum": [
+              "included",
+              "excluded",
+              "not-applicable",
+              "unknown"
+            ]
+          },
+          "note": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "decimal": {
+      "type": "string",
+      "pattern": "^(?:0|[1-9]\\d*)(?:\\.\\d+)?$"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+    }
+  }
+}

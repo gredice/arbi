@@ -1,0 +1,152 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gredice.github.io/arbi/schemas/parts.schema.json",
+  "title": "ARBI canonical part catalog",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "catalogId",
+    "parts"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "catalogId": {
+      "$ref": "#/$defs/id"
+    },
+    "description": {
+      "type": "string"
+    },
+    "parts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "baseUnit",
+          "kind",
+          "lifecycle",
+          "disciplines",
+          "traits",
+          "requirements"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/$defs/id"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "baseUnit": {
+            "enum": [
+              "each",
+              "m"
+            ]
+          },
+          "kind": {
+            "enum": [
+              "component",
+              "material",
+              "consumable"
+            ]
+          },
+          "lifecycle": {
+            "enum": [
+              "active",
+              "planned"
+            ]
+          },
+          "disciplines": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          },
+          "traits": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          },
+          "requirements": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "notes": {
+            "type": "string"
+          },
+          "fabrication": {
+            "type": "object",
+            "required": [
+              "process",
+              "modelStatus",
+              "sources"
+            ],
+            "properties": {
+              "process": {
+                "const": "openscad"
+              },
+              "modelStatus": {
+                "enum": [
+                  "planned",
+                  "concept-unvalidated",
+                  "prototype",
+                  "validated",
+                  "released",
+                  "deprecated"
+                ]
+              },
+              "sources": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "path",
+                    "module"
+                  ],
+                  "properties": {
+                    "path": {
+                      "type": "string",
+                      "pattern": "^hardware/.+\\.scad$"
+                    },
+                    "module": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "modelId": {
+                      "$ref": "#/$defs/id"
+                    },
+                    "revision": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "decimal": {
+      "type": "string",
+      "pattern": "^(?:0|[1-9]\\d*)(?:\\.\\d+)?$"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+    }
+  }
+}

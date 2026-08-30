@@ -1,0 +1,786 @@
+{
+  "schemaVersion": 1,
+  "id": "hr-zagreb-2026-08-30",
+  "destinationId": "hr-zagreb",
+  "capturedAt": "2026-08-30T00:35:21.952Z",
+  "exchangeRates": {
+    "reportCurrency": "EUR",
+    "rates": {
+      "EUR": "1"
+    }
+  },
+  "offerPrices": [
+    {
+      "offerId": "aliexpress-as5600-angle-sensor",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": null
+    },
+    {
+      "offerId": "aliexpress-bearing-608-2rs",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "base-unit",
+        "amount": "0.397",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "aliexpress-bulk-capacitor-1000uf",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "base-unit",
+        "amount": "0.1645",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "aliexpress-cable-gland-assortment",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "base-unit",
+        "amount": "11.19",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "aliexpress-capsule-slip-ring-6x2a",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "base-unit",
+        "amount": "9.69",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "aliexpress-controller-buck-converter-48v-5v",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "base-unit",
+        "amount": "5.55",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "aliexpress-emergency-stop-switch",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "base-unit",
+        "amount": "11.95",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "aliexpress-extension-spring-assortment",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "base-unit",
+        "amount": "12.63",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "aliexpress-flexible-jaw-coupling-8mm",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "base-unit",
+        "amount": "3.05",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "aliexpress-heat-set-insert-assortment",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "base-unit",
+        "amount": "16",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "aliexpress-micro-pan-tilt-servo",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "purchase-unit",
+        "amount": "16.72",
+        "currency": "EUR",
+        "normalizationNote": "Recorded per-servo value was a repeating decimal for a three-servo pack."
+      }
+    },
+    {
+      "offerId": "aliexpress-pod-buck-converter-48v-5v",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "base-unit",
+        "amount": "5.55",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "aliexpress-pod-power-wire-black-awg26",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "base-unit",
+        "amount": "0.2076",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "aliexpress-pod-power-wire-red-awg26",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "base-unit",
+        "amount": "0.2076",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "aliexpress-roller-lever-microswitch",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "base-unit",
+        "amount": "0.479",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "aliexpress-shaft-collar-8mm",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "base-unit",
+        "amount": "5.05",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "aliexpress-stainless-fastener-assortment",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "base-unit",
+        "amount": "16",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "aliexpress-winch-drum-shaft-8mm",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "base-unit",
+        "amount": "4.16",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "aliexpress-wind-sensor-rs485-transceiver",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": null
+    },
+    {
+      "offerId": "bauhaus-din-rail-ground-distribution-block",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "base-unit",
+        "amount": "5.95",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "bauhaus-guy-turnbuckle-m12",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "base-unit",
+        "amount": "7.29",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "bauhaus-guy-wire-3mm",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "base-unit",
+        "amount": "3.04",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "bauhaus-motor-power-branch-cable",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "base-unit",
+        "amount": "1.78",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "bauhaus-post-electronics-enclosure",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "base-unit",
+        "amount": "6.89",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "bauhaus-pulley-bracket-backing-plate",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "base-unit",
+        "amount": "3.55",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "bauhaus-pulley-bracket-locknut-m12",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "base-unit",
+        "amount": "0.18",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "bauhaus-pulley-bracket-shackle-m8",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "base-unit",
+        "amount": "3.57",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "bauhaus-pulley-bracket-through-bolt-m12x160",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "base-unit",
+        "amount": "0.83",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "bauhaus-pulley-bracket-washer-m12",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "base-unit",
+        "amount": "0.16",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "bauhaus-top-pulley-bracket",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "base-unit",
+        "amount": "4.15",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "bauhaus-underground-cable-sleeve",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "base-unit",
+        "amount": "1.3956",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "bauhaus-wire-rope-clamp-3mm",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "base-unit",
+        "amount": "2.24",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "bauhaus-wire-rope-thimble-3mm",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "base-unit",
+        "amount": "0.52",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "bauhaus-zinc-spray",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "base-unit",
+        "amount": "11.69",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "cotra-zagreb-corner-post-treated-timber",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": null
+    },
+    {
+      "offerId": "dive-store-dyneema-positioning-line",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "base-unit",
+        "amount": "0.3676",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "harken-348",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": null
+    },
+    {
+      "offerId": "imnasa-lewmar-l29901321bk",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": null
+    },
+    {
+      "offerId": "imnasa-viadana-28000013",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": null
+    },
+    {
+      "offerId": "in-house-fabrication-camera-gimbal",
+      "availability": "available",
+      "observedAt": null,
+      "taxTreatment": "not-applicable",
+      "price": null
+    },
+    {
+      "offerId": "in-house-fabrication-camera-pod-chassis",
+      "availability": "available",
+      "observedAt": null,
+      "taxTreatment": "not-applicable",
+      "price": null
+    },
+    {
+      "offerId": "in-house-fabrication-dock-capture-set",
+      "availability": "available",
+      "observedAt": null,
+      "taxTreatment": "not-applicable",
+      "price": null
+    },
+    {
+      "offerId": "in-house-fabrication-dock-latch-hardware",
+      "availability": "available",
+      "observedAt": null,
+      "taxTreatment": "not-applicable",
+      "price": null
+    },
+    {
+      "offerId": "in-house-fabrication-dock-weather-hood",
+      "availability": "available",
+      "observedAt": null,
+      "taxTreatment": "not-applicable",
+      "price": null
+    },
+    {
+      "offerId": "in-house-fabrication-top-pulley-keeper",
+      "availability": "available",
+      "observedAt": null,
+      "taxTreatment": "not-applicable",
+      "price": null
+    },
+    {
+      "offerId": "in-house-fabrication-winch-drum",
+      "availability": "available",
+      "observedAt": null,
+      "taxTreatment": "not-applicable",
+      "price": null
+    },
+    {
+      "offerId": "in-house-fabrication-winch-fail-safe-brake",
+      "availability": "available",
+      "observedAt": null,
+      "taxTreatment": "not-applicable",
+      "price": null
+    },
+    {
+      "offerId": "in-house-fabrication-winch-mount-and-guard",
+      "availability": "available",
+      "observedAt": null,
+      "taxTreatment": "not-applicable",
+      "price": null
+    },
+    {
+      "offerId": "kabel24-control-panel-enclosure",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "base-unit",
+        "amount": "58.91",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "kiwi-pico-terminal-expansion",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": null
+    },
+    {
+      "offerId": "baseline-combined-top-pulley-offer",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "base-unit",
+        "amount": "14.2",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "njuskalo-guy-ground-anchor",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "base-unit",
+        "amount": "4",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "pimoroni-raspberry-pi-3a-plus",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "base-unit",
+        "amount": "28",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "ronis-outdoor-cat5e-signal-cable",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "base-unit",
+        "amount": "0.52",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "stepperonline-4-axis-v2-kit",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "purchase-unit",
+        "amount": "256.68",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "tme-microsd-card-32gb",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "base-unit",
+        "amount": "24",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "tme-pico-terminal-expansion-board",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "base-unit",
+        "amount": "9.4",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "tme-raspberry-pi-camera-module-3",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "base-unit",
+        "amount": "37.51",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "tme-raspberry-pi-pico-2-w",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": {
+        "basis": "base-unit",
+        "amount": "8.59",
+        "currency": "EUR"
+      }
+    },
+    {
+      "offerId": "wasi-barton-30mm",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": null
+    },
+    {
+      "offerId": "ziegelmayer-allen-a2030",
+      "availability": "unknown",
+      "observedAt": null,
+      "taxTreatment": "unknown",
+      "price": null
+    }
+  ],
+  "checkoutGroups": [
+    {
+      "checkoutGroupId": "aliexpress-hr",
+      "supplierId": "aliexpress",
+      "status": "unknown",
+      "observedAt": null,
+      "amount": null,
+      "currency": "EUR",
+      "taxTreatment": "unknown",
+      "note": "No shipping value was recorded; null is not treated as free."
+    },
+    {
+      "checkoutGroupId": "bauhaus-hr",
+      "supplierId": "bauhaus",
+      "status": "unknown",
+      "observedAt": null,
+      "amount": null,
+      "currency": "EUR",
+      "taxTreatment": "unknown",
+      "note": "No shipping value was recorded; null is not treated as free."
+    },
+    {
+      "checkoutGroupId": "cotra-zagreb-hr",
+      "supplierId": "cotra-zagreb",
+      "status": "unknown",
+      "observedAt": null,
+      "amount": null,
+      "currency": "EUR",
+      "taxTreatment": "unknown",
+      "note": "No shipping value was recorded; null is not treated as free."
+    },
+    {
+      "checkoutGroupId": "dive-store-hr",
+      "supplierId": "dive-store",
+      "status": "known",
+      "observedAt": null,
+      "amount": "6.25",
+      "currency": "EUR",
+      "taxTreatment": "unknown",
+      "note": "Captured once on the Dyneema order."
+    },
+    {
+      "checkoutGroupId": "harken-hr",
+      "supplierId": "harken",
+      "status": "unknown",
+      "observedAt": null,
+      "amount": null,
+      "currency": "EUR",
+      "taxTreatment": "unknown",
+      "note": "No shipping value was recorded; null is not treated as free."
+    },
+    {
+      "checkoutGroupId": "imnasa-hr",
+      "supplierId": "imnasa",
+      "status": "unknown",
+      "observedAt": null,
+      "amount": null,
+      "currency": "EUR",
+      "taxTreatment": "unknown",
+      "note": "No shipping value was recorded; null is not treated as free."
+    },
+    {
+      "checkoutGroupId": "in-house-fabrication-hr",
+      "supplierId": "in-house-fabrication",
+      "status": "not-applicable",
+      "observedAt": null,
+      "amount": "0",
+      "currency": "EUR",
+      "taxTreatment": "not-applicable",
+      "note": "Explicit zero shipping for in-house fabrication."
+    },
+    {
+      "checkoutGroupId": "kabel24-hr",
+      "supplierId": "kabel24",
+      "status": "unknown",
+      "observedAt": null,
+      "amount": null,
+      "currency": "EUR",
+      "taxTreatment": "unknown",
+      "note": "No shipping value was recorded; null is not treated as free."
+    },
+    {
+      "checkoutGroupId": "kiwi-electronics-hr",
+      "supplierId": "kiwi-electronics",
+      "status": "unknown",
+      "observedAt": null,
+      "amount": null,
+      "currency": "EUR",
+      "taxTreatment": "unknown",
+      "note": "No shipping value was recorded; null is not treated as free."
+    },
+    {
+      "checkoutGroupId": "baseline-top-pulley-combined-hr",
+      "supplierId": "baseline-top-pulley-combined",
+      "status": "known",
+      "observedAt": null,
+      "amount": "6",
+      "currency": "EUR",
+      "taxTreatment": "unknown",
+      "note": "Captured on the unresolved combined Ziegelmayer/WASI row."
+    },
+    {
+      "checkoutGroupId": "njuskalo-hr",
+      "supplierId": "njuskalo",
+      "status": "unknown",
+      "observedAt": null,
+      "amount": null,
+      "currency": "EUR",
+      "taxTreatment": "unknown",
+      "note": "No shipping value was recorded; null is not treated as free."
+    },
+    {
+      "checkoutGroupId": "pimoroni-hr",
+      "supplierId": "pimoroni",
+      "status": "unknown",
+      "observedAt": null,
+      "amount": null,
+      "currency": "EUR",
+      "taxTreatment": "unknown",
+      "note": "No shipping value was recorded; null is not treated as free."
+    },
+    {
+      "checkoutGroupId": "ronis-hr",
+      "supplierId": "ronis",
+      "status": "unknown",
+      "observedAt": null,
+      "amount": null,
+      "currency": "EUR",
+      "taxTreatment": "unknown",
+      "note": "No shipping value was recorded; null is not treated as free."
+    },
+    {
+      "checkoutGroupId": "stepperonline-hr",
+      "supplierId": "stepperonline",
+      "status": "known",
+      "observedAt": null,
+      "amount": "34.01",
+      "currency": "EUR",
+      "taxTreatment": "unknown",
+      "note": "Captured once on the motor-kit order."
+    },
+    {
+      "checkoutGroupId": "tme-hr",
+      "supplierId": "tme",
+      "status": "known",
+      "observedAt": null,
+      "amount": "2.46",
+      "currency": "EUR",
+      "taxTreatment": "unknown",
+      "note": "Deduplicated checkout shipping. The recorded TME shipping value is applied once to the checkout group."
+    },
+    {
+      "checkoutGroupId": "wasi-hr",
+      "supplierId": "wasi",
+      "status": "unknown",
+      "observedAt": null,
+      "amount": null,
+      "currency": "EUR",
+      "taxTreatment": "unknown",
+      "note": "No shipping value was recorded; null is not treated as free."
+    },
+    {
+      "checkoutGroupId": "ziegelmayer-hr",
+      "supplierId": "ziegelmayer",
+      "status": "unknown",
+      "observedAt": null,
+      "amount": null,
+      "currency": "EUR",
+      "taxTreatment": "unknown",
+      "note": "No shipping value was recorded; null is not treated as free."
+    }
+  ]
+}

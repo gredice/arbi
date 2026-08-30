@@ -1,0 +1,1430 @@
+{
+  "schemaVersion": 1,
+  "offers": [
+    {
+      "id": "aliexpress-as5600-angle-sensor",
+      "supplierId": "aliexpress",
+      "checkoutGroupId": "aliexpress-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": null,
+        "marketRegion": "World"
+      },
+      "purchaseUnit": {
+        "label": "unit",
+        "packagingKnown": false,
+        "minimum": null,
+        "increment": null,
+        "contents": [
+          {
+            "partId": "as5600-angle-sensor",
+            "quantity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "aliexpress-bearing-608-2rs",
+      "supplierId": "aliexpress",
+      "checkoutGroupId": "aliexpress-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": "https://www.aliexpress.com/item/33041905684.html",
+        "marketRegion": "World"
+      },
+      "purchaseUnit": {
+        "label": "10-piece pack",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "bearing-608-2rs",
+            "quantity": "10"
+          }
+        ]
+      }
+    },
+    {
+      "id": "aliexpress-bulk-capacitor-1000uf",
+      "supplierId": "aliexpress",
+      "checkoutGroupId": "aliexpress-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": "https://www.aliexpress.com/item/1005009403966913.html",
+        "marketRegion": "World"
+      },
+      "purchaseUnit": {
+        "label": "20-capacitor pack",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "bulk-capacitor-1000uf",
+            "quantity": "20"
+          }
+        ]
+      }
+    },
+    {
+      "id": "aliexpress-cable-gland-assortment",
+      "supplierId": "aliexpress",
+      "checkoutGroupId": "aliexpress-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": "https://www.aliexpress.com/item/1005011895745886.html",
+        "marketRegion": "World"
+      },
+      "purchaseUnit": {
+        "label": "set",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "cable-gland-assortment",
+            "quantity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "aliexpress-capsule-slip-ring-6x2a",
+      "supplierId": "aliexpress",
+      "checkoutGroupId": "aliexpress-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": "https://www.aliexpress.com/item/1005012038401588.html",
+        "marketRegion": "World"
+      },
+      "purchaseUnit": {
+        "label": "single unit",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "capsule-slip-ring-6x2a",
+            "quantity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "aliexpress-controller-buck-converter-48v-5v",
+      "supplierId": "aliexpress",
+      "checkoutGroupId": "aliexpress-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": "https://www.aliexpress.com/item/1005007014032926.html",
+        "marketRegion": "World"
+      },
+      "purchaseUnit": {
+        "label": "single unit",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "controller-buck-converter-48v-5v",
+            "quantity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "aliexpress-emergency-stop-switch",
+      "supplierId": "aliexpress",
+      "checkoutGroupId": "aliexpress-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": "https://www.aliexpress.com/item/4000677308715.html",
+        "marketRegion": "World"
+      },
+      "purchaseUnit": {
+        "label": "unit",
+        "packagingKnown": false,
+        "minimum": null,
+        "increment": null,
+        "contents": [
+          {
+            "partId": "emergency-stop-switch",
+            "quantity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "aliexpress-extension-spring-assortment",
+      "supplierId": "aliexpress",
+      "checkoutGroupId": "aliexpress-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": "https://www.aliexpress.com/item/1005009951478456.html",
+        "marketRegion": "World"
+      },
+      "purchaseUnit": {
+        "label": "set",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "extension-spring-assortment",
+            "quantity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "aliexpress-flexible-jaw-coupling-8mm",
+      "supplierId": "aliexpress",
+      "checkoutGroupId": "aliexpress-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": "https://www.aliexpress.com/item/1005012268948343.html",
+        "marketRegion": "World"
+      },
+      "purchaseUnit": {
+        "label": "unit",
+        "packagingKnown": false,
+        "minimum": null,
+        "increment": null,
+        "contents": [
+          {
+            "partId": "flexible-jaw-coupling-8mm",
+            "quantity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "aliexpress-heat-set-insert-assortment",
+      "supplierId": "aliexpress",
+      "checkoutGroupId": "aliexpress-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": "https://www.aliexpress.com/item/1005008897571758.html",
+        "marketRegion": "World"
+      },
+      "purchaseUnit": {
+        "label": "set",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "heat-set-insert-assortment",
+            "quantity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "aliexpress-micro-pan-tilt-servo",
+      "supplierId": "aliexpress",
+      "checkoutGroupId": "aliexpress-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": "https://www.aliexpress.com/item/1005008522859580.html",
+        "marketRegion": "World"
+      },
+      "purchaseUnit": {
+        "label": "3-servo pack",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "micro-pan-tilt-servo",
+            "quantity": "3"
+          }
+        ]
+      }
+    },
+    {
+      "id": "aliexpress-pod-buck-converter-48v-5v",
+      "supplierId": "aliexpress",
+      "checkoutGroupId": "aliexpress-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": "https://www.aliexpress.com/item/1005007014032926.html",
+        "marketRegion": "World"
+      },
+      "purchaseUnit": {
+        "label": "single unit",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "pod-buck-converter-48v-5v",
+            "quantity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "aliexpress-pod-power-wire-black-awg26",
+      "supplierId": "aliexpress",
+      "checkoutGroupId": "aliexpress-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": "https://www.aliexpress.com/item/1005006250522147.html",
+        "marketRegion": "World"
+      },
+      "purchaseUnit": {
+        "label": "5 m purchase unit",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "pod-power-wire-black-awg26",
+            "quantity": "5"
+          }
+        ]
+      }
+    },
+    {
+      "id": "aliexpress-pod-power-wire-red-awg26",
+      "supplierId": "aliexpress",
+      "checkoutGroupId": "aliexpress-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": "https://www.aliexpress.com/item/1005006250522147.html",
+        "marketRegion": "World"
+      },
+      "purchaseUnit": {
+        "label": "5 m purchase unit",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "pod-power-wire-red-awg26",
+            "quantity": "5"
+          }
+        ]
+      }
+    },
+    {
+      "id": "aliexpress-roller-lever-microswitch",
+      "supplierId": "aliexpress",
+      "checkoutGroupId": "aliexpress-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": "https://www.aliexpress.com/item/32273125391.html",
+        "marketRegion": "World"
+      },
+      "purchaseUnit": {
+        "label": "10-switch pack",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "roller-lever-microswitch",
+            "quantity": "10"
+          }
+        ]
+      }
+    },
+    {
+      "id": "aliexpress-shaft-collar-8mm",
+      "supplierId": "aliexpress",
+      "checkoutGroupId": "aliexpress-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": "https://www.aliexpress.com/item/1005012344473966.html",
+        "marketRegion": "World"
+      },
+      "purchaseUnit": {
+        "label": "2-piece pack",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "shaft-collar-8mm",
+            "quantity": "2"
+          }
+        ]
+      }
+    },
+    {
+      "id": "aliexpress-stainless-fastener-assortment",
+      "supplierId": "aliexpress",
+      "checkoutGroupId": "aliexpress-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": "https://www.aliexpress.com/item/4001068956302.html",
+        "marketRegion": "World"
+      },
+      "purchaseUnit": {
+        "label": "set",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "stainless-fastener-assortment",
+            "quantity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "aliexpress-winch-drum-shaft-8mm",
+      "supplierId": "aliexpress",
+      "checkoutGroupId": "aliexpress-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": "https://www.aliexpress.com/item/1005005041338002.html",
+        "marketRegion": "World"
+      },
+      "purchaseUnit": {
+        "label": "unit",
+        "packagingKnown": false,
+        "minimum": null,
+        "increment": null,
+        "contents": [
+          {
+            "partId": "winch-drum-shaft-8mm",
+            "quantity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "aliexpress-wind-sensor-rs485-transceiver",
+      "supplierId": "aliexpress",
+      "checkoutGroupId": "aliexpress-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": null,
+        "marketRegion": "World"
+      },
+      "purchaseUnit": {
+        "label": "unit",
+        "packagingKnown": false,
+        "minimum": null,
+        "increment": null,
+        "contents": [
+          {
+            "partId": "wind-sensor-rs485-transceiver",
+            "quantity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "bauhaus-din-rail-ground-distribution-block",
+      "supplierId": "bauhaus",
+      "checkoutGroupId": "bauhaus-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": "https://www.bauhaus.hr/ormarici-za-brojila/hager-pe-terminalni-blok/p/20749213",
+        "marketRegion": "Croatia"
+      },
+      "purchaseUnit": {
+        "label": "single unit",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "din-rail-ground-distribution-block",
+            "quantity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "bauhaus-guy-turnbuckle-m12",
+      "supplierId": "bauhaus",
+      "checkoutGroupId": "bauhaus-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": "https://www.bauhaus.hr/zatezaci/conacord-zatezac-vijak/p/24838441",
+        "marketRegion": "Croatia"
+      },
+      "purchaseUnit": {
+        "label": "unit",
+        "packagingKnown": false,
+        "minimum": null,
+        "increment": null,
+        "contents": [
+          {
+            "partId": "guy-turnbuckle-m12",
+            "quantity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "bauhaus-guy-wire-3mm",
+      "supplierId": "bauhaus",
+      "checkoutGroupId": "bauhaus-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": "https://www.bauhaus.hr/celicna-uzad/stabilit-sajla-na-metre/p/10193151",
+        "marketRegion": "Croatia"
+      },
+      "purchaseUnit": {
+        "label": "unit",
+        "packagingKnown": false,
+        "minimum": null,
+        "increment": null,
+        "contents": [
+          {
+            "partId": "guy-wire-3mm",
+            "quantity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "bauhaus-motor-power-branch-cable",
+      "supplierId": "bauhaus",
+      "checkoutGroupId": "bauhaus-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": "https://www.bauhaus.hr/podzemni-kabeli/podzemni-kabel-nyy-j-5x15/p/12185057",
+        "marketRegion": "Croatia"
+      },
+      "purchaseUnit": {
+        "label": "50 m purchase unit",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "motor-power-branch-cable",
+            "quantity": "50"
+          }
+        ]
+      }
+    },
+    {
+      "id": "bauhaus-post-electronics-enclosure",
+      "supplierId": "bauhaus",
+      "checkoutGroupId": "bauhaus-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": "https://www.bauhaus.hr/razvodne-kutije/exteh-razvodna-kutija/p/22682086",
+        "marketRegion": "Croatia"
+      },
+      "purchaseUnit": {
+        "label": "unit",
+        "packagingKnown": false,
+        "minimum": null,
+        "increment": null,
+        "contents": [
+          {
+            "partId": "post-electronics-enclosure",
+            "quantity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "bauhaus-pulley-bracket-backing-plate",
+      "supplierId": "bauhaus",
+      "checkoutGroupId": "bauhaus-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": "20137067",
+        "url": "https://www.bauhaus.hr/vezni-elementi-s-rupicama/stabilit-perforirana-plocica/p/20137067",
+        "marketRegion": "Croatia"
+      },
+      "purchaseUnit": {
+        "label": "single unit",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "pulley-bracket-backing-plate",
+            "quantity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "bauhaus-pulley-bracket-locknut-m12",
+      "supplierId": "bauhaus",
+      "checkoutGroupId": "bauhaus-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": "20169149",
+        "url": "https://www.bauhaus.hr/zaustavne-matice/profi-depot-zaustavna-matica-vz/p/20169149",
+        "marketRegion": "Croatia"
+      },
+      "purchaseUnit": {
+        "label": "50-piece box",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "pulley-bracket-locknut-m12",
+            "quantity": "50"
+          }
+        ]
+      }
+    },
+    {
+      "id": "bauhaus-pulley-bracket-shackle-m8",
+      "supplierId": "bauhaus",
+      "checkoutGroupId": "bauhaus-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": "10849144",
+        "url": "https://www.bauhaus.hr/okovi/marinetech-okovi/p/10849144",
+        "marketRegion": "Croatia"
+      },
+      "purchaseUnit": {
+        "label": "single unit",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "pulley-bracket-shackle-m8",
+            "quantity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "bauhaus-pulley-bracket-through-bolt-m12x160",
+      "supplierId": "bauhaus",
+      "checkoutGroupId": "bauhaus-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": "10827726",
+        "url": "https://www.bauhaus.hr/navojni-vijci/profi-depot-sesterokutni-navojni-vijak/p/10827726",
+        "marketRegion": "Croatia"
+      },
+      "purchaseUnit": {
+        "label": "40-piece box",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "pulley-bracket-through-bolt-m12x160",
+            "quantity": "40"
+          }
+        ]
+      }
+    },
+    {
+      "id": "bauhaus-pulley-bracket-washer-m12",
+      "supplierId": "bauhaus",
+      "checkoutGroupId": "bauhaus-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": "10827018",
+        "url": "https://www.bauhaus.hr/podlozne-i-brtvene-plocice/profi-depot-podloska/p/10827018",
+        "marketRegion": "Croatia"
+      },
+      "purchaseUnit": {
+        "label": "100-piece box",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "pulley-bracket-washer-m12",
+            "quantity": "100"
+          }
+        ]
+      }
+    },
+    {
+      "id": "bauhaus-top-pulley-bracket",
+      "supplierId": "bauhaus",
+      "checkoutGroupId": "bauhaus-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": "10670739",
+        "url": "https://www.bauhaus.hr/kutnici-za-velika-opterecenja/stabilit-cvrsti-kutnik/p/10670739",
+        "marketRegion": "Croatia"
+      },
+      "purchaseUnit": {
+        "label": "single unit",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "top-pulley-bracket",
+            "quantity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "bauhaus-underground-cable-sleeve",
+      "supplierId": "bauhaus",
+      "checkoutGroupId": "bauhaus-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": "https://www.bauhaus.hr/savitljive-cijevi/fleksibilna-cijev-za-beton/p/21209224",
+        "marketRegion": "Croatia"
+      },
+      "purchaseUnit": {
+        "label": "25 m purchase unit",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "underground-cable-sleeve",
+            "quantity": "25"
+          }
+        ]
+      }
+    },
+    {
+      "id": "bauhaus-wire-rope-clamp-3mm",
+      "supplierId": "bauhaus",
+      "checkoutGroupId": "bauhaus-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": "https://www.bauhaus.hr/stezaljke-za-uzad/conacord-stezaljka-za-uze/p/24852520",
+        "marketRegion": "Croatia"
+      },
+      "purchaseUnit": {
+        "label": "unit",
+        "packagingKnown": false,
+        "minimum": null,
+        "increment": null,
+        "contents": [
+          {
+            "partId": "wire-rope-clamp-3mm",
+            "quantity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "bauhaus-wire-rope-thimble-3mm",
+      "supplierId": "bauhaus",
+      "checkoutGroupId": "bauhaus-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": "https://www.bauhaus.hr/usice/conacord-umetak-za-celicno-uze/p/24845663",
+        "marketRegion": "Croatia"
+      },
+      "purchaseUnit": {
+        "label": "unit",
+        "packagingKnown": false,
+        "minimum": null,
+        "increment": null,
+        "contents": [
+          {
+            "partId": "wire-rope-thimble-3mm",
+            "quantity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "bauhaus-zinc-spray",
+      "supplierId": "bauhaus",
+      "checkoutGroupId": "bauhaus-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": "15070949",
+        "url": "https://www.bauhaus.hr/posebni-sprejevi/dupli-color-basic-cink-u-spreju/p/15070949",
+        "marketRegion": "Croatia"
+      },
+      "purchaseUnit": {
+        "label": "single unit",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "zinc-spray",
+            "quantity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cotra-zagreb-corner-post-treated-timber",
+      "supplierId": "cotra-zagreb",
+      "checkoutGroupId": "cotra-zagreb-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": "https://cotra.hr/kontakt/",
+        "marketRegion": "Croatia"
+      },
+      "purchaseUnit": {
+        "label": "unit",
+        "packagingKnown": false,
+        "minimum": null,
+        "increment": null,
+        "contents": [
+          {
+            "partId": "corner-post-treated-timber",
+            "quantity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "dive-store-dyneema-positioning-line",
+      "supplierId": "dive-store",
+      "checkoutGroupId": "dive-store-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": "CA-PD15N-50",
+        "url": "https://divestore.hr/en/dyneema-poliester-1-5-mm",
+        "marketRegion": "Croatia"
+      },
+      "purchaseUnit": {
+        "label": "50 m spool",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "dyneema-positioning-line",
+            "quantity": "50"
+          }
+        ]
+      }
+    },
+    {
+      "id": "harken-348",
+      "supplierId": "harken",
+      "checkoutGroupId": "harken-hr",
+      "qualification": "candidate",
+      "listing": {
+        "supplierSku": null,
+        "url": null,
+        "marketRegion": null
+      },
+      "purchaseUnit": {
+        "label": "single pulley",
+        "packagingKnown": false,
+        "minimum": null,
+        "increment": null,
+        "contents": [
+          {
+            "partId": "top-positioning-line-pulley",
+            "quantity": "1"
+          }
+        ]
+      },
+      "note": "Harken 348 alternative; price and package details are not recorded."
+    },
+    {
+      "id": "imnasa-lewmar-l29901321bk",
+      "supplierId": "imnasa",
+      "checkoutGroupId": "imnasa-hr",
+      "qualification": "candidate",
+      "listing": {
+        "supplierSku": null,
+        "url": "https://www.imnasa.com/hr/katroli/control-pulley-simple-30mm-black-lewmar-l29901321bk",
+        "marketRegion": null
+      },
+      "purchaseUnit": {
+        "label": "single pulley",
+        "packagingKnown": false,
+        "minimum": null,
+        "increment": null,
+        "contents": [
+          {
+            "partId": "top-positioning-line-pulley",
+            "quantity": "1"
+          }
+        ]
+      },
+      "note": "Lewmar alternative; price and package details are not recorded."
+    },
+    {
+      "id": "imnasa-viadana-28000013",
+      "supplierId": "imnasa",
+      "checkoutGroupId": "imnasa-hr",
+      "qualification": "candidate",
+      "listing": {
+        "supplierSku": null,
+        "url": "https://www.imnasa.com/hr/katroli/fixed-block-simple-25mm-s-s-viadana-28000013",
+        "marketRegion": null
+      },
+      "purchaseUnit": {
+        "label": "single pulley",
+        "packagingKnown": false,
+        "minimum": null,
+        "increment": null,
+        "contents": [
+          {
+            "partId": "top-positioning-line-pulley",
+            "quantity": "1"
+          }
+        ]
+      },
+      "note": "Viadana alternative; price and package details are not recorded."
+    },
+    {
+      "id": "in-house-fabrication-camera-gimbal",
+      "supplierId": "in-house-fabrication",
+      "checkoutGroupId": "in-house-fabrication-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": null,
+        "marketRegion": "Existing/free"
+      },
+      "purchaseUnit": {
+        "label": "single unit",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "camera-gimbal",
+            "quantity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "in-house-fabrication-camera-pod-chassis",
+      "supplierId": "in-house-fabrication",
+      "checkoutGroupId": "in-house-fabrication-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": null,
+        "marketRegion": "Existing/free"
+      },
+      "purchaseUnit": {
+        "label": "single unit",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "camera-pod-chassis",
+            "quantity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "in-house-fabrication-dock-capture-set",
+      "supplierId": "in-house-fabrication",
+      "checkoutGroupId": "in-house-fabrication-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": null,
+        "marketRegion": "Existing/free"
+      },
+      "purchaseUnit": {
+        "label": "set",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "dock-funnel",
+            "quantity": "1"
+          },
+          {
+            "partId": "dock-nest",
+            "quantity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "in-house-fabrication-dock-latch-hardware",
+      "supplierId": "in-house-fabrication",
+      "checkoutGroupId": "in-house-fabrication-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": null,
+        "marketRegion": "Existing/free"
+      },
+      "purchaseUnit": {
+        "label": "set",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "dock-latch-hardware",
+            "quantity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "in-house-fabrication-dock-weather-hood",
+      "supplierId": "in-house-fabrication",
+      "checkoutGroupId": "in-house-fabrication-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": null,
+        "marketRegion": "Existing/free"
+      },
+      "purchaseUnit": {
+        "label": "pc",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "dock-weather-hood",
+            "quantity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "in-house-fabrication-top-pulley-keeper",
+      "supplierId": "in-house-fabrication",
+      "checkoutGroupId": "in-house-fabrication-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": null,
+        "marketRegion": "Existing/free"
+      },
+      "purchaseUnit": {
+        "label": "pc",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "top-pulley-keeper",
+            "quantity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "in-house-fabrication-winch-drum",
+      "supplierId": "in-house-fabrication",
+      "checkoutGroupId": "in-house-fabrication-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": null,
+        "marketRegion": "Existing/free"
+      },
+      "purchaseUnit": {
+        "label": "pc",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "winch-drum",
+            "quantity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "in-house-fabrication-winch-fail-safe-brake",
+      "supplierId": "in-house-fabrication",
+      "checkoutGroupId": "in-house-fabrication-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": null,
+        "marketRegion": "Existing/free"
+      },
+      "purchaseUnit": {
+        "label": "pc",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "winch-fail-safe-brake",
+            "quantity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "in-house-fabrication-winch-mount-and-guard",
+      "supplierId": "in-house-fabrication",
+      "checkoutGroupId": "in-house-fabrication-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": null,
+        "marketRegion": "Existing/free"
+      },
+      "purchaseUnit": {
+        "label": "set",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "winch-mount-and-guard",
+            "quantity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "kabel24-control-panel-enclosure",
+      "supplierId": "kabel24",
+      "checkoutGroupId": "kabel24-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": "https://ekabel24.de/en/detail/a8af8738a4a5484bafdf6ff351f3e518",
+        "marketRegion": "EU"
+      },
+      "purchaseUnit": {
+        "label": "unit",
+        "packagingKnown": false,
+        "minimum": null,
+        "increment": null,
+        "contents": [
+          {
+            "partId": "control-panel-enclosure",
+            "quantity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "kiwi-pico-terminal-expansion",
+      "supplierId": "kiwi-electronics",
+      "checkoutGroupId": "kiwi-electronics-hr",
+      "qualification": "candidate",
+      "listing": {
+        "supplierSku": null,
+        "url": "https://www.kiwi-electronics.com/en/terminal-expansion-board-for-raspberry-pi-pico-11279",
+        "marketRegion": null
+      },
+      "purchaseUnit": {
+        "label": "single board",
+        "packagingKnown": false,
+        "minimum": null,
+        "increment": null,
+        "contents": [
+          {
+            "partId": "pico-terminal-expansion-board",
+            "quantity": "1"
+          }
+        ]
+      },
+      "note": "Alternative source; price and package details are not recorded."
+    },
+    {
+      "id": "baseline-combined-top-pulley-offer",
+      "supplierId": "baseline-top-pulley-combined",
+      "checkoutGroupId": "baseline-top-pulley-combined-hr",
+      "qualification": "unresolved",
+      "listing": {
+        "supplierSku": "A 01090",
+        "url": "https://wasi.hr/kolotura-jednostruka-fiksna-za-uze-do-8m",
+        "marketRegion": "EU"
+      },
+      "purchaseUnit": {
+        "label": "unit",
+        "packagingKnown": false,
+        "minimum": null,
+        "increment": null,
+        "contents": [
+          {
+            "partId": "top-positioning-line-pulley",
+            "quantity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "njuskalo-guy-ground-anchor",
+      "supplierId": "njuskalo",
+      "checkoutGroupId": "njuskalo-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": "https://www.njuskalo.hr/strojevi-gospodarstvo/sidro-ankeri-anker-vinograd-vocnjake-oglas-7637386",
+        "marketRegion": "Croatia"
+      },
+      "purchaseUnit": {
+        "label": "unit",
+        "packagingKnown": false,
+        "minimum": null,
+        "increment": null,
+        "contents": [
+          {
+            "partId": "guy-ground-anchor",
+            "quantity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pimoroni-raspberry-pi-3a-plus",
+      "supplierId": "pimoroni",
+      "checkoutGroupId": "pimoroni-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": "https://shop.pimoroni.com/products/raspberry-pi-3-a-plus?variant=17989206507603",
+        "marketRegion": "EU"
+      },
+      "purchaseUnit": {
+        "label": "single unit",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "raspberry-pi-3a-plus",
+            "quantity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ronis-outdoor-cat5e-signal-cable",
+      "supplierId": "ronis",
+      "checkoutGroupId": "ronis-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": "https://www.ms-zagreb.hr/proizvod/kabel-cat5e-sf-utp-kruti-cca-oklopljen-vanjski-pe-100m/",
+        "marketRegion": "Croatia"
+      },
+      "purchaseUnit": {
+        "label": "100 m reel",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "outdoor-cat5e-signal-cable",
+            "quantity": "100"
+          }
+        ]
+      }
+    },
+    {
+      "id": "stepperonline-4-axis-v2-kit",
+      "supplierId": "stepperonline",
+      "checkoutGroupId": "stepperonline-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": "4-CLYS30-V20",
+        "url": "https://www.omc-stepperonline.com/ys-series-4-axis-closed-loop-stepper-cnc-kit-v2-0-3-00nm-424-83oz-in-nema-23-motor-w-2-0m-cables-power-supply-4-clys30-v20",
+        "marketRegion": "EU"
+      },
+      "purchaseUnit": {
+        "label": "four-axis kit",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "nema23-closed-loop-motor",
+            "quantity": "4"
+          },
+          {
+            "partId": "cl57y-v20-driver",
+            "quantity": "4"
+          },
+          {
+            "partId": "matched-motor-cable",
+            "quantity": "4"
+          },
+          {
+            "partId": "power-supply-48v-350w",
+            "quantity": "2"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tme-microsd-card-32gb",
+      "supplierId": "tme",
+      "checkoutGroupId": "tme-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": null,
+        "url": "https://www.tme.eu/hr/details/sdsqunr-032g-gn3mn/memorijske-kartice/sandisk/",
+        "marketRegion": "EU"
+      },
+      "purchaseUnit": {
+        "label": "single unit",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "microsd-card-32gb",
+            "quantity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tme-pico-terminal-expansion-board",
+      "supplierId": "tme",
+      "checkoutGroupId": "tme-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": "EP-0145",
+        "url": "https://www.tme.eu/pl/details/krpi-pico-exp/akcesoria-do-systemow-embedded/kamami/kamodrpi-pico-expansion/",
+        "marketRegion": "EU"
+      },
+      "purchaseUnit": {
+        "label": "single unit",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "pico-terminal-expansion-board",
+            "quantity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tme-raspberry-pi-camera-module-3",
+      "supplierId": "tme",
+      "checkoutGroupId": "tme-hr",
+      "qualification": "unresolved",
+      "listing": {
+        "supplierSku": null,
+        "url": "https://www.tme.eu/hr/details/sc1224/raspberry-pi-dodaci/raspberry-pi/camera-module-3-wide/",
+        "marketRegion": "EU"
+      },
+      "purchaseUnit": {
+        "label": "single unit",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "raspberry-pi-camera-module-3",
+            "quantity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tme-raspberry-pi-pico-2-w",
+      "supplierId": "tme",
+      "checkoutGroupId": "tme-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": "SC1634",
+        "url": "https://www.tme.eu/hr/details/sc1634/raspberry-pi-ugradeni-sustavi/raspberry-pi/raspberry-pi-pico-2-wh/",
+        "marketRegion": "EU"
+      },
+      "purchaseUnit": {
+        "label": "single unit",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "raspberry-pi-pico-2-w",
+            "quantity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "wasi-barton-30mm",
+      "supplierId": "wasi",
+      "checkoutGroupId": "wasi-hr",
+      "qualification": "candidate",
+      "listing": {
+        "supplierSku": null,
+        "url": "https://wasi.hr/kolotura-jednostruka-fiksna-za-uze-do-8m",
+        "marketRegion": null
+      },
+      "purchaseUnit": {
+        "label": "single pulley",
+        "packagingKnown": false,
+        "minimum": null,
+        "increment": null,
+        "contents": [
+          {
+            "partId": "top-positioning-line-pulley",
+            "quantity": "1"
+          }
+        ]
+      },
+      "note": "Local Barton 30 mm alternative; price is not recorded separately."
+    },
+    {
+      "id": "ziegelmayer-allen-a2030",
+      "supplierId": "ziegelmayer",
+      "checkoutGroupId": "ziegelmayer-hr",
+      "qualification": "candidate",
+      "listing": {
+        "supplierSku": null,
+        "url": null,
+        "marketRegion": null
+      },
+      "purchaseUnit": {
+        "label": "single pulley",
+        "packagingKnown": false,
+        "minimum": null,
+        "increment": null,
+        "contents": [
+          {
+            "partId": "top-positioning-line-pulley",
+            "quantity": "1"
+          }
+        ]
+      },
+      "note": "Allen A2030 alternative; price and package details are not recorded."
+    }
+  ]
+}

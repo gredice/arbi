@@ -1,0 +1,30 @@
+{
+    "name": "@arbi/monorepo",
+    "version": "0.0.0",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "turbo build",
+        "clean": "turbo clean",
+        "docs:check": "node ./scripts/check-docs.mjs",
+        "lint": "turbo lint",
+        "typecheck": "turbo typecheck",
+        "test": "turbo test",
+        "cad:check": "node ./scripts/check-cad.mjs",
+        "bom:generate": "pnpm --filter @arbi/bom generate",
+        "bom:check": "pnpm --filter @arbi/bom check"
+    },
+    "devDependencies": {
+        "@types/node": "24.12.4",
+        "ajv": "8.17.1",
+        "turbo": "2.10.4",
+        "typescript": "7.0.2"
+    },
+    "packageManager": "pnpm@11.5.2+sha512.71c631e382066efc25625d5cf029075de07b61b37f6e27350fbd84b1bda5864c8c1967adc280776b45c30a715c0359a3be08fef42d5bb09e2b99029979692916",
+    "engines": {
+        "node": ">=24"
+    },
+    "dependencies": {
+        "corepack": "0.35.0"
+    }
+}

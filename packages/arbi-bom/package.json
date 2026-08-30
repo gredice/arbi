@@ -1,0 +1,27 @@
+{
+  "name": "@arbi/bom",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "arbi-bom": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "lint": "tsc -p tsconfig.json --noEmit",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "pnpm build && node --test dist/*.test.js",
+    "generate": "pnpm build && node dist/cli.js generate",
+    "check": "pnpm build && node dist/cli.js check"
+  },
+  "devDependencies": {
+    "@types/node": "24.12.4",
+    "ajv": "8.17.1",
+    "typescript": "7.0.2"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}

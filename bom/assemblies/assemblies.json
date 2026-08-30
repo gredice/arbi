@@ -1,0 +1,441 @@
+{
+  "schemaVersion": 1,
+  "assemblies": [
+    {
+      "id": "corner-support-set",
+      "kind": "physical",
+      "parentAssemblyId": null,
+      "name": "Corner support set",
+      "description": "The four installed posts, guying, top-pulley mounts, line keepers, and their fasteners.",
+      "disciplines": [
+        "mechanical",
+        "cabling",
+        "fasteners",
+        "fabrication"
+      ],
+      "usages": [
+        {
+          "partId": "guy-wire-3mm",
+          "quantity": "16",
+          "inclusion": "base"
+        },
+        {
+          "partId": "wire-rope-clamp-3mm",
+          "quantity": "16",
+          "inclusion": "base"
+        },
+        {
+          "partId": "wire-rope-thimble-3mm",
+          "quantity": "8",
+          "inclusion": "base"
+        },
+        {
+          "partId": "corner-post-treated-timber",
+          "quantity": "4",
+          "inclusion": "base"
+        },
+        {
+          "partId": "guy-ground-anchor",
+          "quantity": "4",
+          "inclusion": "base"
+        },
+        {
+          "partId": "pulley-bracket-washer-m12",
+          "quantity": "16",
+          "inclusion": "base"
+        },
+        {
+          "partId": "pulley-bracket-locknut-m12",
+          "quantity": "8",
+          "inclusion": "base"
+        },
+        {
+          "partId": "guy-turnbuckle-m12",
+          "quantity": "4",
+          "inclusion": "base"
+        },
+        {
+          "partId": "pulley-bracket-through-bolt-m12x160",
+          "quantity": "8",
+          "inclusion": "base"
+        },
+        {
+          "partId": "pulley-bracket-shackle-m8",
+          "quantity": "4",
+          "inclusion": "base"
+        },
+        {
+          "partId": "top-pulley-keeper",
+          "quantity": "4",
+          "inclusion": "base"
+        },
+        {
+          "partId": "pulley-bracket-backing-plate",
+          "quantity": "8",
+          "inclusion": "base"
+        },
+        {
+          "partId": "top-positioning-line-pulley",
+          "quantity": "4",
+          "inclusion": "base"
+        },
+        {
+          "partId": "top-pulley-bracket",
+          "quantity": "4",
+          "inclusion": "base"
+        },
+        {
+          "partId": "zinc-spray",
+          "quantity": "1",
+          "inclusion": "base"
+        }
+      ]
+    },
+    {
+      "id": "winch-set",
+      "kind": "physical",
+      "parentAssemblyId": null,
+      "name": "Winch set",
+      "description": "Four winches including drivetrain, drums, local motor electronics, homing, guards, and optional tension/safety mechanisms.",
+      "disciplines": [
+        "mechanical",
+        "electrical",
+        "electronics",
+        "fasteners",
+        "fabrication"
+      ],
+      "usages": [
+        {
+          "partId": "bearing-608-2rs",
+          "quantity": "10",
+          "inclusion": "base"
+        },
+        {
+          "partId": "shaft-collar-8mm",
+          "quantity": "8",
+          "inclusion": "base"
+        },
+        {
+          "partId": "winch-drum-shaft-8mm",
+          "quantity": "4",
+          "inclusion": "base"
+        },
+        {
+          "partId": "flexible-jaw-coupling-8mm",
+          "quantity": "4",
+          "inclusion": "base"
+        },
+        {
+          "partId": "as5600-angle-sensor",
+          "quantity": "5",
+          "inclusion": "deferred"
+        },
+        {
+          "partId": "post-electronics-enclosure",
+          "quantity": "4",
+          "inclusion": "base"
+        },
+        {
+          "partId": "winch-fail-safe-brake",
+          "quantity": "4",
+          "inclusion": "deferred"
+        },
+        {
+          "partId": "winch-drum",
+          "quantity": "4",
+          "inclusion": "base"
+        },
+        {
+          "partId": "winch-mount-and-guard",
+          "quantity": "4",
+          "inclusion": "base"
+        },
+        {
+          "partId": "extension-spring-assortment",
+          "quantity": "1",
+          "inclusion": "optional"
+        },
+        {
+          "partId": "nema23-closed-loop-motor",
+          "quantity": "4",
+          "inclusion": "base",
+          "note": "Component supplied through a multi-part purchase bundle."
+        },
+        {
+          "partId": "cl57y-v20-driver",
+          "quantity": "4",
+          "inclusion": "base",
+          "note": "Component supplied through a multi-part purchase bundle."
+        },
+        {
+          "partId": "matched-motor-cable",
+          "quantity": "4",
+          "inclusion": "base",
+          "note": "Component supplied through a multi-part purchase bundle."
+        },
+        {
+          "partId": "roller-lever-microswitch",
+          "quantity": "4",
+          "inclusion": "base",
+          "note": "Installed in the winch assembly."
+        }
+      ]
+    },
+    {
+      "id": "positioning-line-set",
+      "kind": "physical",
+      "parentAssemblyId": null,
+      "name": "Positioning line set",
+      "description": "Three passive positioning lines and one powered positioning line, including conductors and slip ring.",
+      "disciplines": [
+        "mechanical",
+        "electrical",
+        "cabling"
+      ],
+      "usages": [
+        {
+          "partId": "dyneema-positioning-line",
+          "quantity": "180",
+          "inclusion": "base"
+        },
+        {
+          "partId": "pod-power-wire-black-awg26",
+          "quantity": "50",
+          "inclusion": "base"
+        },
+        {
+          "partId": "pod-power-wire-red-awg26",
+          "quantity": "50",
+          "inclusion": "base"
+        },
+        {
+          "partId": "capsule-slip-ring-6x2a",
+          "quantity": "1",
+          "inclusion": "base"
+        }
+      ]
+    },
+    {
+      "id": "camera-pod",
+      "kind": "physical",
+      "parentAssemblyId": null,
+      "name": "Camera pod",
+      "description": "Flying chassis, compute, pod power, imaging, and pan/tilt gimbal.",
+      "disciplines": [
+        "mechanical",
+        "electrical",
+        "electronics",
+        "optics",
+        "fabrication",
+        "fasteners"
+      ],
+      "usages": [
+        {
+          "partId": "microsd-card-32gb",
+          "quantity": "1",
+          "inclusion": "base"
+        },
+        {
+          "partId": "pod-buck-converter-48v-5v",
+          "quantity": "1",
+          "inclusion": "base"
+        },
+        {
+          "partId": "micro-pan-tilt-servo",
+          "quantity": "2",
+          "inclusion": "base"
+        },
+        {
+          "partId": "camera-pod-chassis",
+          "quantity": "1",
+          "inclusion": "base"
+        },
+        {
+          "partId": "camera-gimbal",
+          "quantity": "1",
+          "inclusion": "base"
+        },
+        {
+          "partId": "raspberry-pi-3a-plus",
+          "quantity": "1",
+          "inclusion": "base"
+        },
+        {
+          "partId": "raspberry-pi-camera-module-3",
+          "quantity": "1",
+          "inclusion": "base"
+        },
+        {
+          "partId": "bulk-capacitor-1000uf",
+          "quantity": "2",
+          "inclusion": "base"
+        }
+      ]
+    },
+    {
+      "id": "dock",
+      "kind": "physical",
+      "parentAssemblyId": null,
+      "name": "Dock",
+      "description": "High dock, capture hardware, weather cover, and docked-position detection.",
+      "disciplines": [
+        "mechanical",
+        "electronics",
+        "fabrication",
+        "fasteners"
+      ],
+      "usages": [
+        {
+          "partId": "dock-latch-hardware",
+          "quantity": "1",
+          "inclusion": "base"
+        },
+        {
+          "partId": "dock-weather-hood",
+          "quantity": "1",
+          "inclusion": "base"
+        },
+        {
+          "partId": "dock-funnel",
+          "quantity": "1",
+          "inclusion": "base"
+        },
+        {
+          "partId": "dock-nest",
+          "quantity": "1",
+          "inclusion": "base",
+          "note": "Funnel and nest are separate physical artifacts with separate CAD entrypoints."
+        },
+        {
+          "partId": "roller-lever-microswitch",
+          "quantity": "1",
+          "inclusion": "base",
+          "note": "Installed in the dock assembly in addition to the winch home switches."
+        }
+      ]
+    },
+    {
+      "id": "control-cabinet",
+      "kind": "physical",
+      "parentAssemblyId": null,
+      "name": "Control cabinet",
+      "description": "Central cabinet, 48 V power, motion controller, distribution, and hardwired emergency stop.",
+      "disciplines": [
+        "mechanical",
+        "electrical",
+        "electronics",
+        "cabling",
+        "fasteners"
+      ],
+      "usages": [
+        {
+          "partId": "controller-buck-converter-48v-5v",
+          "quantity": "1",
+          "inclusion": "base"
+        },
+        {
+          "partId": "pico-terminal-expansion-board",
+          "quantity": "1",
+          "inclusion": "base"
+        },
+        {
+          "partId": "control-panel-enclosure",
+          "quantity": "1",
+          "inclusion": "base"
+        },
+        {
+          "partId": "din-rail-ground-distribution-block",
+          "quantity": "1",
+          "inclusion": "base"
+        },
+        {
+          "partId": "raspberry-pi-pico-2-w",
+          "quantity": "1",
+          "inclusion": "base"
+        },
+        {
+          "partId": "power-supply-48v-350w",
+          "quantity": "2",
+          "inclusion": "base",
+          "note": "Component supplied through a multi-part purchase bundle."
+        },
+        {
+          "partId": "emergency-stop-switch",
+          "quantity": "1",
+          "inclusion": "base"
+        }
+      ]
+    },
+    {
+      "id": "site-installation",
+      "kind": "physical",
+      "parentAssemblyId": null,
+      "name": "Site installation",
+      "description": "Installed buried/outdoor power and signal routes plus the deferred site weather-sensing endpoint and its cabinet interface.",
+      "disciplines": [
+        "electrical",
+        "cabling",
+        "mechanical"
+      ],
+      "usages": [
+        {
+          "partId": "motor-power-branch-cable",
+          "quantity": "50",
+          "inclusion": "base"
+        },
+        {
+          "partId": "underground-cable-sleeve",
+          "quantity": "50",
+          "inclusion": "optional"
+        },
+        {
+          "partId": "outdoor-cat5e-signal-cable",
+          "quantity": "85",
+          "inclusion": "base"
+        },
+        {
+          "partId": "wind-sensor-rs485-transceiver",
+          "quantity": "2",
+          "inclusion": "deferred",
+          "note": "Site weather endpoint with a control-cabinet interface."
+        },
+        {
+          "partId": "wind-speed-sensor",
+          "quantity": "1",
+          "inclusion": "deferred",
+          "note": "Installed site weather endpoint."
+        }
+      ]
+    },
+    {
+      "id": "shared-procurement-stock",
+      "kind": "shared-procurement-stock",
+      "parentAssemblyId": null,
+      "name": "Shared procurement stock",
+      "description": "Non-subsystem purchasing bucket for assortments whose exact installed size-level consumption cannot yet be allocated defensibly.",
+      "disciplines": [
+        "mechanical",
+        "electrical",
+        "fasteners",
+        "fabrication"
+      ],
+      "usages": [
+        {
+          "partId": "heat-set-insert-assortment",
+          "quantity": "1",
+          "inclusion": "base"
+        },
+        {
+          "partId": "cable-gland-assortment",
+          "quantity": "1",
+          "inclusion": "base"
+        },
+        {
+          "partId": "stainless-fastener-assortment",
+          "quantity": "1",
+          "inclusion": "base"
+        }
+      ]
+    }
+  ]
+}

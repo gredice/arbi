@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gredice.github.io/arbi/schemas/scenario.schema.json",
+  "title": "ARBI calculation scenarios",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "scenarios"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "scenarios": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "buildId",
+          "destinationId",
+          "quoteSnapshotId",
+          "reportCurrency",
+          "include",
+          "selection",
+          "unknownPolicy"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/$defs/id"
+          },
+          "name": {
+            "type": "string"
+          },
+          "buildId": {
+            "$ref": "#/$defs/id"
+          },
+          "destinationId": {
+            "$ref": "#/$defs/id"
+          },
+          "quoteSnapshotId": {
+            "$ref": "#/$defs/id"
+          },
+          "reportCurrency": {
+            "type": "string",
+            "pattern": "^[A-Z]{3}$"
+          },
+          "include": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "base",
+                "optional",
+                "deferred"
+              ]
+            },
+            "uniqueItems": true
+          },
+          "selection": {
+            "type": "object",
+            "required": [
+              "mode",
+              "allowedQualifications",
+              "pins"
+            ],
+            "properties": {
+              "mode": {
+                "const": "pinned"
+              },
+              "allowedQualifications": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "enum": [
+                    "approved",
+                    "baseline-selected",
+                    "candidate",
+                    "unresolved"
+                  ]
+                }
+              },
+              "pins": {
+                "type": "object",
+                "additionalProperties": {
+                  "$ref": "#/$defs/id"
+                }
+              }
+            },
+            "additionalProperties": false
+          },
+          "unknownPolicy": {
+            "const": "report-incomplete"
+          },
+          "notes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "decimal": {
+      "type": "string",
+      "pattern": "^(?:0|[1-9]\\d*)(?:\\.\\d+)?$"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+    }
+  }
+}

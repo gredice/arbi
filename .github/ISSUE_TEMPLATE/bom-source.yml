@@ -1,0 +1,55 @@
+name: Part or supplier source
+description: Add or correct a part, supplier offer, destination, or shipping assumption.
+title: "[BOM] "
+body:
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Change kind
+      options:
+        - Part specification
+        - Assembly quantity or usage
+        - Supplier identity
+        - Supplier offer
+        - Destination or shipping
+        - Exchange rate or calculation assumption
+    validations:
+      required: true
+
+  - type: input
+    id: identifiers
+    attributes:
+      label: Existing identifiers
+      description: Part, assembly, supplier, offer, destination, or build IDs when they already exist.
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Source evidence
+      description: Provide public source URLs, manufacturer or supplier identifiers, currency, observed date, pack quantity, destination applicability, and availability. Do not include account-only pricing or personal data.
+    validations:
+      required: true
+
+  - type: textarea
+    id: requested
+    attributes:
+      label: Requested data change
+      description: Explain the normalized input change. Do not paste a generated report as the source.
+    validations:
+      required: true
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: Build and cost impact
+      description: Identify affected assembly/build configurations and any shipping, tax, currency, substitution, or staleness assumptions.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Data safety
+      options:
+        - label: The source can be shared publicly and contains no account credentials, order details, addresses, or personal information.
+          required: true

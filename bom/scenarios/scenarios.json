@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "scenarios": [
+    {
+      "id": "arbi-v1-hr-zagreb",
+      "name": "ARBI V1 — Zagreb repository baseline",
+      "buildId": "arbi-v1",
+      "destinationId": "hr-zagreb",
+      "quoteSnapshotId": "hr-zagreb-2026-08-30",
+      "reportCurrency": "EUR",
+      "include": [
+        "base"
+      ],
+      "selection": {
+        "mode": "pinned",
+        "allowedQualifications": [
+          "baseline-selected",
+          "unresolved"
+        ],
+        "pins": {
+          "bearing-608-2rs": "aliexpress-bearing-608-2rs",
+          "bulk-capacitor-1000uf": "aliexpress-bulk-capacitor-1000uf",
+          "cable-gland-assortment": "aliexpress-cable-gland-assortment",
+          "camera-gimbal": "in-house-fabrication-camera-gimbal",
+          "camera-pod-chassis": "in-house-fabrication-camera-pod-chassis",
+          "capsule-slip-ring-6x2a": "aliexpress-capsule-slip-ring-6x2a",
+          "cl57y-v20-driver": "stepperonline-4-axis-v2-kit",
+          "control-panel-enclosure": "kabel24-control-panel-enclosure",
+          "controller-buck-converter-48v-5v": "aliexpress-controller-buck-converter-48v-5v",
+          "corner-post-treated-timber": "cotra-zagreb-corner-post-treated-timber",
+          "din-rail-ground-distribution-block": "bauhaus-din-rail-ground-distribution-block",
+          "dock-funnel": "in-house-fabrication-dock-capture-set",
+          "dock-latch-hardware": "in-house-fabrication-dock-latch-hardware",
+          "dock-nest": "in-house-fabrication-dock-capture-set",
+          "dock-weather-hood": "in-house-fabrication-dock-weather-hood",
+          "dyneema-positioning-line": "dive-store-dyneema-positioning-line",
+          "emergency-stop-switch": "aliexpress-emergency-stop-switch",
+          "flexible-jaw-coupling-8mm": "aliexpress-flexible-jaw-coupling-8mm",
+          "guy-ground-anchor": "njuskalo-guy-ground-anchor",
+          "guy-turnbuckle-m12": "bauhaus-guy-turnbuckle-m12",
+          "guy-wire-3mm": "bauhaus-guy-wire-3mm",
+          "heat-set-insert-assortment": "aliexpress-heat-set-insert-assortment",
+          "matched-motor-cable": "stepperonline-4-axis-v2-kit",
+          "micro-pan-tilt-servo": "aliexpress-micro-pan-tilt-servo",
+          "microsd-card-32gb": "tme-microsd-card-32gb",
+          "motor-power-branch-cable": "bauhaus-motor-power-branch-cable",
+          "nema23-closed-loop-motor": "stepperonline-4-axis-v2-kit",
+          "outdoor-cat5e-signal-cable": "ronis-outdoor-cat5e-signal-cable",
+          "pico-terminal-expansion-board": "tme-pico-terminal-expansion-board",
+          "pod-buck-converter-48v-5v": "aliexpress-pod-buck-converter-48v-5v",
+          "pod-power-wire-black-awg26": "aliexpress-pod-power-wire-black-awg26",
+          "pod-power-wire-red-awg26": "aliexpress-pod-power-wire-red-awg26",
+          "post-electronics-enclosure": "bauhaus-post-electronics-enclosure",
+          "power-supply-48v-350w": "stepperonline-4-axis-v2-kit",
+          "pulley-bracket-backing-plate": "bauhaus-pulley-bracket-backing-plate",
+          "pulley-bracket-locknut-m12": "bauhaus-pulley-bracket-locknut-m12",
+          "pulley-bracket-shackle-m8": "bauhaus-pulley-bracket-shackle-m8",
+          "pulley-bracket-through-bolt-m12x160": "bauhaus-pulley-bracket-through-bolt-m12x160",
+          "pulley-bracket-washer-m12": "bauhaus-pulley-bracket-washer-m12",
+          "raspberry-pi-3a-plus": "pimoroni-raspberry-pi-3a-plus",
+          "raspberry-pi-camera-module-3": "tme-raspberry-pi-camera-module-3",
+          "raspberry-pi-pico-2-w": "tme-raspberry-pi-pico-2-w",
+          "roller-lever-microswitch": "aliexpress-roller-lever-microswitch",
+          "shaft-collar-8mm": "aliexpress-shaft-collar-8mm",
+          "stainless-fastener-assortment": "aliexpress-stainless-fastener-assortment",
+          "top-positioning-line-pulley": "baseline-combined-top-pulley-offer",
+          "top-pulley-bracket": "bauhaus-top-pulley-bracket",
+          "top-pulley-keeper": "in-house-fabrication-top-pulley-keeper",
+          "winch-drum": "in-house-fabrication-winch-drum",
+          "winch-drum-shaft-8mm": "aliexpress-winch-drum-shaft-8mm",
+          "winch-mount-and-guard": "in-house-fabrication-winch-mount-and-guard",
+          "wire-rope-clamp-3mm": "bauhaus-wire-rope-clamp-3mm",
+          "wire-rope-thimble-3mm": "bauhaus-wire-rope-thimble-3mm",
+          "zinc-spray": "bauhaus-zinc-spray"
+        }
+      },
+      "unknownPolicy": "report-incomplete",
+      "notes": [
+        "Pins record the repository baseline offer selection; they do not imply that price, tax, availability, or packaging has been reverified.",
+        "Optional and deferred usages are excluded."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,131 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  workspace:
+    name: Validate workspace
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6.0.3
+        with:
+          persist-credentials: false
+
+      - uses: pnpm/action-setup@v6.0.8
+        name: Install pnpm
+
+      - uses: actions/setup-node@v6.4.0
+        name: Set up Node.js
+        with:
+          node-version: 24.15.0
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check whitespace
+        run: git diff --check "$(git hash-object -t tree -w /dev/null)" HEAD -- .
+
+      - name: Check Markdown links
+        run: pnpm docs:check
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Test
+        run: pnpm test
+
+      - name: Build
+        run: pnpm build
+
+  bom:
+    name: Validate generated BOM
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6.0.3
+        with:
+          persist-credentials: false
+
+      - uses: pnpm/action-setup@v6.0.8
+        name: Install pnpm
+
+      - uses: actions/setup-node@v6.4.0
+        name: Set up Node.js
+        with:
+          node-version: 24.15.0
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Validate BOM inputs and tracked reports
+        run: pnpm bom:check
+
+      - name: Regenerate BOM reports
+        run: pnpm bom:generate
+
+      - name: Verify generated BOM is clean
+        run: git diff --exit-code -- bom/generated
+
+  cad:
+    name: Validate OpenSCAD models
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6.0.3
+        with:
+          persist-credentials: false
+
+      - uses: pnpm/action-setup@v6.0.8
+        name: Install pnpm
+
+      - uses: actions/setup-node@v6.4.0
+        name: Set up Node.js
+        with:
+          node-version: 24.15.0
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install OpenSCAD
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes openscad=2021.01-6build4
+
+      - name: Validate and compile registered models
+        run: pnpm cad:check -- --require-openscad
+
+  ci_ok:
+    name: "[CI] OK"
+    if: ${{ always() }}
+    needs:
+      - workspace
+      - bom
+      - cad
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Fail unless every required job succeeded
+        if: ${{ needs.workspace.result != 'success' || needs.bom.result != 'success' || needs.cad.result != 'success' }}
+        run: exit 1
+
+      - name: Confirm required jobs passed
+        if: ${{ needs.workspace.result == 'success' && needs.bom.result == 'success' && needs.cad.result == 'success' }}
+        run: echo "All required CI jobs passed."

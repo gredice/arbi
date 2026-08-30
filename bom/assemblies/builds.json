@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "builds": [
+    {
+      "id": "arbi-v1",
+      "name": "ARBI V1 baseline",
+      "assemblies": [
+        {
+          "assemblyId": "corner-support-set",
+          "quantity": "1"
+        },
+        {
+          "assemblyId": "winch-set",
+          "quantity": "1"
+        },
+        {
+          "assemblyId": "positioning-line-set",
+          "quantity": "1"
+        },
+        {
+          "assemblyId": "camera-pod",
+          "quantity": "1"
+        },
+        {
+          "assemblyId": "dock",
+          "quantity": "1"
+        },
+        {
+          "assemblyId": "control-cabinet",
+          "quantity": "1"
+        },
+        {
+          "assemblyId": "site-installation",
+          "quantity": "1"
+        },
+        {
+          "assemblyId": "shared-procurement-stock",
+          "quantity": "1"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2367 @@
+{
+  "schemaVersion": 1,
+  "scenarioId": "arbi-v1-hr-zagreb",
+  "scenarioName": "ARBI V1 — Zagreb repository baseline",
+  "buildId": "arbi-v1",
+  "destinationId": "hr-zagreb",
+  "destinationName": "Zagreb, Croatia",
+  "quoteSnapshotId": "hr-zagreb-2026-08-30",
+  "inputDigest": "sha256:d39c1f376900d6797932710455046e3d5dae21fdaac5038feaafeda8a3adb884",
+  "reportCurrency": "EUR",
+  "complete": false,
+  "completeLandedTotal": null,
+  "knownGoodsSubtotal": "867.73",
+  "knownShippingSubtotal": "48.72",
+  "knownSubtotal": "916.45",
+  "requirements": [
+    {
+      "partId": "bearing-608-2rs",
+      "required": "10",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "winch-set",
+          "kind": "physical",
+          "quantity": "10"
+        }
+      ],
+      "selectedOfferId": "aliexpress-bearing-608-2rs"
+    },
+    {
+      "partId": "bulk-capacitor-1000uf",
+      "required": "2",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "camera-pod",
+          "kind": "physical",
+          "quantity": "2"
+        }
+      ],
+      "selectedOfferId": "aliexpress-bulk-capacitor-1000uf"
+    },
+    {
+      "partId": "cable-gland-assortment",
+      "required": "1",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "shared-procurement-stock",
+          "kind": "shared-procurement-stock",
+          "quantity": "1"
+        }
+      ],
+      "selectedOfferId": "aliexpress-cable-gland-assortment"
+    },
+    {
+      "partId": "camera-gimbal",
+      "required": "1",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "camera-pod",
+          "kind": "physical",
+          "quantity": "1"
+        }
+      ],
+      "selectedOfferId": "in-house-fabrication-camera-gimbal"
+    },
+    {
+      "partId": "camera-pod-chassis",
+      "required": "1",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "camera-pod",
+          "kind": "physical",
+          "quantity": "1"
+        }
+      ],
+      "selectedOfferId": "in-house-fabrication-camera-pod-chassis"
+    },
+    {
+      "partId": "capsule-slip-ring-6x2a",
+      "required": "1",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "positioning-line-set",
+          "kind": "physical",
+          "quantity": "1"
+        }
+      ],
+      "selectedOfferId": "aliexpress-capsule-slip-ring-6x2a"
+    },
+    {
+      "partId": "cl57y-v20-driver",
+      "required": "4",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "winch-set",
+          "kind": "physical",
+          "quantity": "4"
+        }
+      ],
+      "selectedOfferId": "stepperonline-4-axis-v2-kit"
+    },
+    {
+      "partId": "control-panel-enclosure",
+      "required": "1",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "control-cabinet",
+          "kind": "physical",
+          "quantity": "1"
+        }
+      ],
+      "selectedOfferId": "kabel24-control-panel-enclosure"
+    },
+    {
+      "partId": "controller-buck-converter-48v-5v",
+      "required": "1",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "control-cabinet",
+          "kind": "physical",
+          "quantity": "1"
+        }
+      ],
+      "selectedOfferId": "aliexpress-controller-buck-converter-48v-5v"
+    },
+    {
+      "partId": "corner-post-treated-timber",
+      "required": "4",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "corner-support-set",
+          "kind": "physical",
+          "quantity": "4"
+        }
+      ],
+      "selectedOfferId": "cotra-zagreb-corner-post-treated-timber"
+    },
+    {
+      "partId": "din-rail-ground-distribution-block",
+      "required": "1",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "control-cabinet",
+          "kind": "physical",
+          "quantity": "1"
+        }
+      ],
+      "selectedOfferId": "bauhaus-din-rail-ground-distribution-block"
+    },
+    {
+      "partId": "dock-funnel",
+      "required": "1",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "dock",
+          "kind": "physical",
+          "quantity": "1"
+        }
+      ],
+      "selectedOfferId": "in-house-fabrication-dock-capture-set"
+    },
+    {
+      "partId": "dock-latch-hardware",
+      "required": "1",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "dock",
+          "kind": "physical",
+          "quantity": "1"
+        }
+      ],
+      "selectedOfferId": "in-house-fabrication-dock-latch-hardware"
+    },
+    {
+      "partId": "dock-nest",
+      "required": "1",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "dock",
+          "kind": "physical",
+          "quantity": "1"
+        }
+      ],
+      "selectedOfferId": "in-house-fabrication-dock-capture-set"
+    },
+    {
+      "partId": "dock-weather-hood",
+      "required": "1",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "dock",
+          "kind": "physical",
+          "quantity": "1"
+        }
+      ],
+      "selectedOfferId": "in-house-fabrication-dock-weather-hood"
+    },
+    {
+      "partId": "dyneema-positioning-line",
+      "required": "180",
+      "unit": "m",
+      "assemblies": [
+        {
+          "assemblyId": "positioning-line-set",
+          "kind": "physical",
+          "quantity": "180"
+        }
+      ],
+      "selectedOfferId": "dive-store-dyneema-positioning-line"
+    },
+    {
+      "partId": "emergency-stop-switch",
+      "required": "1",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "control-cabinet",
+          "kind": "physical",
+          "quantity": "1"
+        }
+      ],
+      "selectedOfferId": "aliexpress-emergency-stop-switch"
+    },
+    {
+      "partId": "flexible-jaw-coupling-8mm",
+      "required": "4",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "winch-set",
+          "kind": "physical",
+          "quantity": "4"
+        }
+      ],
+      "selectedOfferId": "aliexpress-flexible-jaw-coupling-8mm"
+    },
+    {
+      "partId": "guy-ground-anchor",
+      "required": "4",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "corner-support-set",
+          "kind": "physical",
+          "quantity": "4"
+        }
+      ],
+      "selectedOfferId": "njuskalo-guy-ground-anchor"
+    },
+    {
+      "partId": "guy-turnbuckle-m12",
+      "required": "4",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "corner-support-set",
+          "kind": "physical",
+          "quantity": "4"
+        }
+      ],
+      "selectedOfferId": "bauhaus-guy-turnbuckle-m12"
+    },
+    {
+      "partId": "guy-wire-3mm",
+      "required": "16",
+      "unit": "m",
+      "assemblies": [
+        {
+          "assemblyId": "corner-support-set",
+          "kind": "physical",
+          "quantity": "16"
+        }
+      ],
+      "selectedOfferId": "bauhaus-guy-wire-3mm"
+    },
+    {
+      "partId": "heat-set-insert-assortment",
+      "required": "1",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "shared-procurement-stock",
+          "kind": "shared-procurement-stock",
+          "quantity": "1"
+        }
+      ],
+      "selectedOfferId": "aliexpress-heat-set-insert-assortment"
+    },
+    {
+      "partId": "matched-motor-cable",
+      "required": "4",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "winch-set",
+          "kind": "physical",
+          "quantity": "4"
+        }
+      ],
+      "selectedOfferId": "stepperonline-4-axis-v2-kit"
+    },
+    {
+      "partId": "micro-pan-tilt-servo",
+      "required": "2",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "camera-pod",
+          "kind": "physical",
+          "quantity": "2"
+        }
+      ],
+      "selectedOfferId": "aliexpress-micro-pan-tilt-servo"
+    },
+    {
+      "partId": "microsd-card-32gb",
+      "required": "1",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "camera-pod",
+          "kind": "physical",
+          "quantity": "1"
+        }
+      ],
+      "selectedOfferId": "tme-microsd-card-32gb"
+    },
+    {
+      "partId": "motor-power-branch-cable",
+      "required": "50",
+      "unit": "m",
+      "assemblies": [
+        {
+          "assemblyId": "site-installation",
+          "kind": "physical",
+          "quantity": "50"
+        }
+      ],
+      "selectedOfferId": "bauhaus-motor-power-branch-cable"
+    },
+    {
+      "partId": "nema23-closed-loop-motor",
+      "required": "4",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "winch-set",
+          "kind": "physical",
+          "quantity": "4"
+        }
+      ],
+      "selectedOfferId": "stepperonline-4-axis-v2-kit"
+    },
+    {
+      "partId": "outdoor-cat5e-signal-cable",
+      "required": "85",
+      "unit": "m",
+      "assemblies": [
+        {
+          "assemblyId": "site-installation",
+          "kind": "physical",
+          "quantity": "85"
+        }
+      ],
+      "selectedOfferId": "ronis-outdoor-cat5e-signal-cable"
+    },
+    {
+      "partId": "pico-terminal-expansion-board",
+      "required": "1",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "control-cabinet",
+          "kind": "physical",
+          "quantity": "1"
+        }
+      ],
+      "selectedOfferId": "tme-pico-terminal-expansion-board"
+    },
+    {
+      "partId": "pod-buck-converter-48v-5v",
+      "required": "1",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "camera-pod",
+          "kind": "physical",
+          "quantity": "1"
+        }
+      ],
+      "selectedOfferId": "aliexpress-pod-buck-converter-48v-5v"
+    },
+    {
+      "partId": "pod-power-wire-black-awg26",
+      "required": "50",
+      "unit": "m",
+      "assemblies": [
+        {
+          "assemblyId": "positioning-line-set",
+          "kind": "physical",
+          "quantity": "50"
+        }
+      ],
+      "selectedOfferId": "aliexpress-pod-power-wire-black-awg26"
+    },
+    {
+      "partId": "pod-power-wire-red-awg26",
+      "required": "50",
+      "unit": "m",
+      "assemblies": [
+        {
+          "assemblyId": "positioning-line-set",
+          "kind": "physical",
+          "quantity": "50"
+        }
+      ],
+      "selectedOfferId": "aliexpress-pod-power-wire-red-awg26"
+    },
+    {
+      "partId": "post-electronics-enclosure",
+      "required": "4",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "winch-set",
+          "kind": "physical",
+          "quantity": "4"
+        }
+      ],
+      "selectedOfferId": "bauhaus-post-electronics-enclosure"
+    },
+    {
+      "partId": "power-supply-48v-350w",
+      "required": "2",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "control-cabinet",
+          "kind": "physical",
+          "quantity": "2"
+        }
+      ],
+      "selectedOfferId": "stepperonline-4-axis-v2-kit"
+    },
+    {
+      "partId": "pulley-bracket-backing-plate",
+      "required": "8",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "corner-support-set",
+          "kind": "physical",
+          "quantity": "8"
+        }
+      ],
+      "selectedOfferId": "bauhaus-pulley-bracket-backing-plate"
+    },
+    {
+      "partId": "pulley-bracket-locknut-m12",
+      "required": "8",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "corner-support-set",
+          "kind": "physical",
+          "quantity": "8"
+        }
+      ],
+      "selectedOfferId": "bauhaus-pulley-bracket-locknut-m12"
+    },
+    {
+      "partId": "pulley-bracket-shackle-m8",
+      "required": "4",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "corner-support-set",
+          "kind": "physical",
+          "quantity": "4"
+        }
+      ],
+      "selectedOfferId": "bauhaus-pulley-bracket-shackle-m8"
+    },
+    {
+      "partId": "pulley-bracket-through-bolt-m12x160",
+      "required": "8",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "corner-support-set",
+          "kind": "physical",
+          "quantity": "8"
+        }
+      ],
+      "selectedOfferId": "bauhaus-pulley-bracket-through-bolt-m12x160"
+    },
+    {
+      "partId": "pulley-bracket-washer-m12",
+      "required": "16",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "corner-support-set",
+          "kind": "physical",
+          "quantity": "16"
+        }
+      ],
+      "selectedOfferId": "bauhaus-pulley-bracket-washer-m12"
+    },
+    {
+      "partId": "raspberry-pi-3a-plus",
+      "required": "1",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "camera-pod",
+          "kind": "physical",
+          "quantity": "1"
+        }
+      ],
+      "selectedOfferId": "pimoroni-raspberry-pi-3a-plus"
+    },
+    {
+      "partId": "raspberry-pi-camera-module-3",
+      "required": "1",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "camera-pod",
+          "kind": "physical",
+          "quantity": "1"
+        }
+      ],
+      "selectedOfferId": "tme-raspberry-pi-camera-module-3"
+    },
+    {
+      "partId": "raspberry-pi-pico-2-w",
+      "required": "1",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "control-cabinet",
+          "kind": "physical",
+          "quantity": "1"
+        }
+      ],
+      "selectedOfferId": "tme-raspberry-pi-pico-2-w"
+    },
+    {
+      "partId": "roller-lever-microswitch",
+      "required": "5",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "dock",
+          "kind": "physical",
+          "quantity": "1"
+        },
+        {
+          "assemblyId": "winch-set",
+          "kind": "physical",
+          "quantity": "4"
+        }
+      ],
+      "selectedOfferId": "aliexpress-roller-lever-microswitch"
+    },
+    {
+      "partId": "shaft-collar-8mm",
+      "required": "8",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "winch-set",
+          "kind": "physical",
+          "quantity": "8"
+        }
+      ],
+      "selectedOfferId": "aliexpress-shaft-collar-8mm"
+    },
+    {
+      "partId": "stainless-fastener-assortment",
+      "required": "1",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "shared-procurement-stock",
+          "kind": "shared-procurement-stock",
+          "quantity": "1"
+        }
+      ],
+      "selectedOfferId": "aliexpress-stainless-fastener-assortment"
+    },
+    {
+      "partId": "top-positioning-line-pulley",
+      "required": "4",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "corner-support-set",
+          "kind": "physical",
+          "quantity": "4"
+        }
+      ],
+      "selectedOfferId": "baseline-combined-top-pulley-offer"
+    },
+    {
+      "partId": "top-pulley-bracket",
+      "required": "4",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "corner-support-set",
+          "kind": "physical",
+          "quantity": "4"
+        }
+      ],
+      "selectedOfferId": "bauhaus-top-pulley-bracket"
+    },
+    {
+      "partId": "top-pulley-keeper",
+      "required": "4",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "corner-support-set",
+          "kind": "physical",
+          "quantity": "4"
+        }
+      ],
+      "selectedOfferId": "in-house-fabrication-top-pulley-keeper"
+    },
+    {
+      "partId": "winch-drum",
+      "required": "4",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "winch-set",
+          "kind": "physical",
+          "quantity": "4"
+        }
+      ],
+      "selectedOfferId": "in-house-fabrication-winch-drum"
+    },
+    {
+      "partId": "winch-drum-shaft-8mm",
+      "required": "4",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "winch-set",
+          "kind": "physical",
+          "quantity": "4"
+        }
+      ],
+      "selectedOfferId": "aliexpress-winch-drum-shaft-8mm"
+    },
+    {
+      "partId": "winch-mount-and-guard",
+      "required": "4",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "winch-set",
+          "kind": "physical",
+          "quantity": "4"
+        }
+      ],
+      "selectedOfferId": "in-house-fabrication-winch-mount-and-guard"
+    },
+    {
+      "partId": "wire-rope-clamp-3mm",
+      "required": "16",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "corner-support-set",
+          "kind": "physical",
+          "quantity": "16"
+        }
+      ],
+      "selectedOfferId": "bauhaus-wire-rope-clamp-3mm"
+    },
+    {
+      "partId": "wire-rope-thimble-3mm",
+      "required": "8",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "corner-support-set",
+          "kind": "physical",
+          "quantity": "8"
+        }
+      ],
+      "selectedOfferId": "bauhaus-wire-rope-thimble-3mm"
+    },
+    {
+      "partId": "zinc-spray",
+      "required": "1",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "corner-support-set",
+          "kind": "physical",
+          "quantity": "1"
+        }
+      ],
+      "selectedOfferId": "bauhaus-zinc-spray"
+    }
+  ],
+  "selections": [
+    {
+      "offerId": "aliexpress-bearing-608-2rs",
+      "supplierId": "aliexpress",
+      "checkoutGroupId": "aliexpress-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": "1",
+      "knownGoodsAmount": "3.97",
+      "currency": "EUR",
+      "coverage": [
+        {
+          "partId": "bearing-608-2rs",
+          "required": "10",
+          "purchased": "10",
+          "surplus": "0",
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "Availability is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval.",
+        "Tax/VAT treatment is unknown."
+      ]
+    },
+    {
+      "offerId": "aliexpress-bulk-capacitor-1000uf",
+      "supplierId": "aliexpress",
+      "checkoutGroupId": "aliexpress-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": "1",
+      "knownGoodsAmount": "3.29",
+      "currency": "EUR",
+      "coverage": [
+        {
+          "partId": "bulk-capacitor-1000uf",
+          "required": "2",
+          "purchased": "20",
+          "surplus": "18",
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "Availability is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval.",
+        "Tax/VAT treatment is unknown."
+      ]
+    },
+    {
+      "offerId": "aliexpress-cable-gland-assortment",
+      "supplierId": "aliexpress",
+      "checkoutGroupId": "aliexpress-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": "1",
+      "knownGoodsAmount": "11.19",
+      "currency": "EUR",
+      "coverage": [
+        {
+          "partId": "cable-gland-assortment",
+          "required": "1",
+          "purchased": "1",
+          "surplus": "0",
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "Availability is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval.",
+        "Tax/VAT treatment is unknown."
+      ]
+    },
+    {
+      "offerId": "aliexpress-capsule-slip-ring-6x2a",
+      "supplierId": "aliexpress",
+      "checkoutGroupId": "aliexpress-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": "1",
+      "knownGoodsAmount": "9.69",
+      "currency": "EUR",
+      "coverage": [
+        {
+          "partId": "capsule-slip-ring-6x2a",
+          "required": "1",
+          "purchased": "1",
+          "surplus": "0",
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "Availability is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval.",
+        "Tax/VAT treatment is unknown."
+      ]
+    },
+    {
+      "offerId": "aliexpress-controller-buck-converter-48v-5v",
+      "supplierId": "aliexpress",
+      "checkoutGroupId": "aliexpress-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": "1",
+      "knownGoodsAmount": "5.55",
+      "currency": "EUR",
+      "coverage": [
+        {
+          "partId": "controller-buck-converter-48v-5v",
+          "required": "1",
+          "purchased": "1",
+          "surplus": "0",
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "Availability is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval.",
+        "Tax/VAT treatment is unknown."
+      ]
+    },
+    {
+      "offerId": "aliexpress-emergency-stop-switch",
+      "supplierId": "aliexpress",
+      "checkoutGroupId": "aliexpress-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": null,
+      "knownGoodsAmount": null,
+      "currency": null,
+      "coverage": [
+        {
+          "partId": "emergency-stop-switch",
+          "required": "1",
+          "purchased": null,
+          "surplus": null,
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "A quoted price cannot be extended without package data.",
+        "Availability is unknown.",
+        "Package size/MOQ is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval."
+      ]
+    },
+    {
+      "offerId": "aliexpress-flexible-jaw-coupling-8mm",
+      "supplierId": "aliexpress",
+      "checkoutGroupId": "aliexpress-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": null,
+      "knownGoodsAmount": null,
+      "currency": null,
+      "coverage": [
+        {
+          "partId": "flexible-jaw-coupling-8mm",
+          "required": "4",
+          "purchased": null,
+          "surplus": null,
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "A quoted price cannot be extended without package data.",
+        "Availability is unknown.",
+        "Package size/MOQ is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval."
+      ]
+    },
+    {
+      "offerId": "aliexpress-heat-set-insert-assortment",
+      "supplierId": "aliexpress",
+      "checkoutGroupId": "aliexpress-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": "1",
+      "knownGoodsAmount": "16",
+      "currency": "EUR",
+      "coverage": [
+        {
+          "partId": "heat-set-insert-assortment",
+          "required": "1",
+          "purchased": "1",
+          "surplus": "0",
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "Availability is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval.",
+        "Tax/VAT treatment is unknown."
+      ]
+    },
+    {
+      "offerId": "aliexpress-micro-pan-tilt-servo",
+      "supplierId": "aliexpress",
+      "checkoutGroupId": "aliexpress-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": "1",
+      "knownGoodsAmount": "16.72",
+      "currency": "EUR",
+      "coverage": [
+        {
+          "partId": "micro-pan-tilt-servo",
+          "required": "2",
+          "purchased": "3",
+          "surplus": "1",
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "Availability is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval.",
+        "Tax/VAT treatment is unknown."
+      ]
+    },
+    {
+      "offerId": "aliexpress-pod-buck-converter-48v-5v",
+      "supplierId": "aliexpress",
+      "checkoutGroupId": "aliexpress-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": "1",
+      "knownGoodsAmount": "5.55",
+      "currency": "EUR",
+      "coverage": [
+        {
+          "partId": "pod-buck-converter-48v-5v",
+          "required": "1",
+          "purchased": "1",
+          "surplus": "0",
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "Availability is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval.",
+        "Tax/VAT treatment is unknown."
+      ]
+    },
+    {
+      "offerId": "aliexpress-pod-power-wire-black-awg26",
+      "supplierId": "aliexpress",
+      "checkoutGroupId": "aliexpress-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": "10",
+      "knownGoodsAmount": "10.38",
+      "currency": "EUR",
+      "coverage": [
+        {
+          "partId": "pod-power-wire-black-awg26",
+          "required": "50",
+          "purchased": "50",
+          "surplus": "0",
+          "unit": "m"
+        }
+      ],
+      "warnings": [
+        "Availability is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval.",
+        "Tax/VAT treatment is unknown."
+      ]
+    },
+    {
+      "offerId": "aliexpress-pod-power-wire-red-awg26",
+      "supplierId": "aliexpress",
+      "checkoutGroupId": "aliexpress-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": "10",
+      "knownGoodsAmount": "10.38",
+      "currency": "EUR",
+      "coverage": [
+        {
+          "partId": "pod-power-wire-red-awg26",
+          "required": "50",
+          "purchased": "50",
+          "surplus": "0",
+          "unit": "m"
+        }
+      ],
+      "warnings": [
+        "Availability is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval.",
+        "Tax/VAT treatment is unknown."
+      ]
+    },
+    {
+      "offerId": "aliexpress-roller-lever-microswitch",
+      "supplierId": "aliexpress",
+      "checkoutGroupId": "aliexpress-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": "1",
+      "knownGoodsAmount": "4.79",
+      "currency": "EUR",
+      "coverage": [
+        {
+          "partId": "roller-lever-microswitch",
+          "required": "5",
+          "purchased": "10",
+          "surplus": "5",
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "Availability is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval.",
+        "Tax/VAT treatment is unknown."
+      ]
+    },
+    {
+      "offerId": "aliexpress-shaft-collar-8mm",
+      "supplierId": "aliexpress",
+      "checkoutGroupId": "aliexpress-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": "4",
+      "knownGoodsAmount": "40.4",
+      "currency": "EUR",
+      "coverage": [
+        {
+          "partId": "shaft-collar-8mm",
+          "required": "8",
+          "purchased": "8",
+          "surplus": "0",
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "Availability is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval.",
+        "Tax/VAT treatment is unknown."
+      ]
+    },
+    {
+      "offerId": "aliexpress-stainless-fastener-assortment",
+      "supplierId": "aliexpress",
+      "checkoutGroupId": "aliexpress-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": "1",
+      "knownGoodsAmount": "16",
+      "currency": "EUR",
+      "coverage": [
+        {
+          "partId": "stainless-fastener-assortment",
+          "required": "1",
+          "purchased": "1",
+          "surplus": "0",
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "Availability is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval.",
+        "Tax/VAT treatment is unknown."
+      ]
+    },
+    {
+      "offerId": "aliexpress-winch-drum-shaft-8mm",
+      "supplierId": "aliexpress",
+      "checkoutGroupId": "aliexpress-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": null,
+      "knownGoodsAmount": null,
+      "currency": null,
+      "coverage": [
+        {
+          "partId": "winch-drum-shaft-8mm",
+          "required": "4",
+          "purchased": null,
+          "surplus": null,
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "A quoted price cannot be extended without package data.",
+        "Availability is unknown.",
+        "Package size/MOQ is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval."
+      ]
+    },
+    {
+      "offerId": "baseline-combined-top-pulley-offer",
+      "supplierId": "baseline-top-pulley-combined",
+      "checkoutGroupId": "baseline-top-pulley-combined-hr",
+      "qualification": "unresolved",
+      "purchaseUnits": null,
+      "knownGoodsAmount": null,
+      "currency": null,
+      "coverage": [
+        {
+          "partId": "top-positioning-line-pulley",
+          "required": "4",
+          "purchased": null,
+          "surplus": null,
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "A quoted price cannot be extended without package data.",
+        "Availability is unknown.",
+        "Package size/MOQ is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Qualification is unresolved; the recorded selection is not engineering approval."
+      ]
+    },
+    {
+      "offerId": "bauhaus-din-rail-ground-distribution-block",
+      "supplierId": "bauhaus",
+      "checkoutGroupId": "bauhaus-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": "1",
+      "knownGoodsAmount": "5.95",
+      "currency": "EUR",
+      "coverage": [
+        {
+          "partId": "din-rail-ground-distribution-block",
+          "required": "1",
+          "purchased": "1",
+          "surplus": "0",
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "Availability is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval.",
+        "Tax/VAT treatment is unknown."
+      ]
+    },
+    {
+      "offerId": "bauhaus-guy-turnbuckle-m12",
+      "supplierId": "bauhaus",
+      "checkoutGroupId": "bauhaus-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": null,
+      "knownGoodsAmount": null,
+      "currency": null,
+      "coverage": [
+        {
+          "partId": "guy-turnbuckle-m12",
+          "required": "4",
+          "purchased": null,
+          "surplus": null,
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "A quoted price cannot be extended without package data.",
+        "Availability is unknown.",
+        "Package size/MOQ is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval."
+      ]
+    },
+    {
+      "offerId": "bauhaus-guy-wire-3mm",
+      "supplierId": "bauhaus",
+      "checkoutGroupId": "bauhaus-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": null,
+      "knownGoodsAmount": null,
+      "currency": null,
+      "coverage": [
+        {
+          "partId": "guy-wire-3mm",
+          "required": "16",
+          "purchased": null,
+          "surplus": null,
+          "unit": "m"
+        }
+      ],
+      "warnings": [
+        "A quoted price cannot be extended without package data.",
+        "Availability is unknown.",
+        "Package size/MOQ is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval."
+      ]
+    },
+    {
+      "offerId": "bauhaus-motor-power-branch-cable",
+      "supplierId": "bauhaus",
+      "checkoutGroupId": "bauhaus-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": "1",
+      "knownGoodsAmount": "89",
+      "currency": "EUR",
+      "coverage": [
+        {
+          "partId": "motor-power-branch-cable",
+          "required": "50",
+          "purchased": "50",
+          "surplus": "0",
+          "unit": "m"
+        }
+      ],
+      "warnings": [
+        "Availability is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval.",
+        "Tax/VAT treatment is unknown."
+      ]
+    },
+    {
+      "offerId": "bauhaus-post-electronics-enclosure",
+      "supplierId": "bauhaus",
+      "checkoutGroupId": "bauhaus-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": null,
+      "knownGoodsAmount": null,
+      "currency": null,
+      "coverage": [
+        {
+          "partId": "post-electronics-enclosure",
+          "required": "4",
+          "purchased": null,
+          "surplus": null,
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "A quoted price cannot be extended without package data.",
+        "Availability is unknown.",
+        "Package size/MOQ is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval."
+      ]
+    },
+    {
+      "offerId": "bauhaus-pulley-bracket-backing-plate",
+      "supplierId": "bauhaus",
+      "checkoutGroupId": "bauhaus-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": "8",
+      "knownGoodsAmount": "28.4",
+      "currency": "EUR",
+      "coverage": [
+        {
+          "partId": "pulley-bracket-backing-plate",
+          "required": "8",
+          "purchased": "8",
+          "surplus": "0",
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "Availability is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval.",
+        "Tax/VAT treatment is unknown."
+      ]
+    },
+    {
+      "offerId": "bauhaus-pulley-bracket-locknut-m12",
+      "supplierId": "bauhaus",
+      "checkoutGroupId": "bauhaus-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": "1",
+      "knownGoodsAmount": "9",
+      "currency": "EUR",
+      "coverage": [
+        {
+          "partId": "pulley-bracket-locknut-m12",
+          "required": "8",
+          "purchased": "50",
+          "surplus": "42",
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "Availability is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval.",
+        "Tax/VAT treatment is unknown."
+      ]
+    },
+    {
+      "offerId": "bauhaus-pulley-bracket-shackle-m8",
+      "supplierId": "bauhaus",
+      "checkoutGroupId": "bauhaus-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": "4",
+      "knownGoodsAmount": "14.28",
+      "currency": "EUR",
+      "coverage": [
+        {
+          "partId": "pulley-bracket-shackle-m8",
+          "required": "4",
+          "purchased": "4",
+          "surplus": "0",
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "Availability is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval.",
+        "Tax/VAT treatment is unknown."
+      ]
+    },
+    {
+      "offerId": "bauhaus-pulley-bracket-through-bolt-m12x160",
+      "supplierId": "bauhaus",
+      "checkoutGroupId": "bauhaus-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": "1",
+      "knownGoodsAmount": "33.2",
+      "currency": "EUR",
+      "coverage": [
+        {
+          "partId": "pulley-bracket-through-bolt-m12x160",
+          "required": "8",
+          "purchased": "40",
+          "surplus": "32",
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "Availability is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval.",
+        "Tax/VAT treatment is unknown."
+      ]
+    },
+    {
+      "offerId": "bauhaus-pulley-bracket-washer-m12",
+      "supplierId": "bauhaus",
+      "checkoutGroupId": "bauhaus-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": "1",
+      "knownGoodsAmount": "16",
+      "currency": "EUR",
+      "coverage": [
+        {
+          "partId": "pulley-bracket-washer-m12",
+          "required": "16",
+          "purchased": "100",
+          "surplus": "84",
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "Availability is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval.",
+        "Tax/VAT treatment is unknown."
+      ]
+    },
+    {
+      "offerId": "bauhaus-top-pulley-bracket",
+      "supplierId": "bauhaus",
+      "checkoutGroupId": "bauhaus-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": "4",
+      "knownGoodsAmount": "16.6",
+      "currency": "EUR",
+      "coverage": [
+        {
+          "partId": "top-pulley-bracket",
+          "required": "4",
+          "purchased": "4",
+          "surplus": "0",
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "Availability is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval.",
+        "Tax/VAT treatment is unknown."
+      ]
+    },
+    {
+      "offerId": "bauhaus-wire-rope-clamp-3mm",
+      "supplierId": "bauhaus",
+      "checkoutGroupId": "bauhaus-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": null,
+      "knownGoodsAmount": null,
+      "currency": null,
+      "coverage": [
+        {
+          "partId": "wire-rope-clamp-3mm",
+          "required": "16",
+          "purchased": null,
+          "surplus": null,
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "A quoted price cannot be extended without package data.",
+        "Availability is unknown.",
+        "Package size/MOQ is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval."
+      ]
+    },
+    {
+      "offerId": "bauhaus-wire-rope-thimble-3mm",
+      "supplierId": "bauhaus",
+      "checkoutGroupId": "bauhaus-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": null,
+      "knownGoodsAmount": null,
+      "currency": null,
+      "coverage": [
+        {
+          "partId": "wire-rope-thimble-3mm",
+          "required": "8",
+          "purchased": null,
+          "surplus": null,
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "A quoted price cannot be extended without package data.",
+        "Availability is unknown.",
+        "Package size/MOQ is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval."
+      ]
+    },
+    {
+      "offerId": "bauhaus-zinc-spray",
+      "supplierId": "bauhaus",
+      "checkoutGroupId": "bauhaus-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": "1",
+      "knownGoodsAmount": "11.69",
+      "currency": "EUR",
+      "coverage": [
+        {
+          "partId": "zinc-spray",
+          "required": "1",
+          "purchased": "1",
+          "surplus": "0",
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "Availability is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval.",
+        "Tax/VAT treatment is unknown."
+      ]
+    },
+    {
+      "offerId": "cotra-zagreb-corner-post-treated-timber",
+      "supplierId": "cotra-zagreb",
+      "checkoutGroupId": "cotra-zagreb-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": null,
+      "knownGoodsAmount": null,
+      "currency": null,
+      "coverage": [
+        {
+          "partId": "corner-post-treated-timber",
+          "required": "4",
+          "purchased": null,
+          "surplus": null,
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "Availability is unknown.",
+        "Package size/MOQ is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Price is unknown.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval."
+      ]
+    },
+    {
+      "offerId": "dive-store-dyneema-positioning-line",
+      "supplierId": "dive-store",
+      "checkoutGroupId": "dive-store-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": "4",
+      "knownGoodsAmount": "73.52",
+      "currency": "EUR",
+      "coverage": [
+        {
+          "partId": "dyneema-positioning-line",
+          "required": "180",
+          "purchased": "200",
+          "surplus": "20",
+          "unit": "m"
+        }
+      ],
+      "warnings": [
+        "Availability is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval.",
+        "Tax/VAT treatment is unknown."
+      ]
+    },
+    {
+      "offerId": "in-house-fabrication-camera-gimbal",
+      "supplierId": "in-house-fabrication",
+      "checkoutGroupId": "in-house-fabrication-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": "1",
+      "knownGoodsAmount": null,
+      "currency": null,
+      "coverage": [
+        {
+          "partId": "camera-gimbal",
+          "required": "1",
+          "purchased": "1",
+          "surplus": "0",
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Price is unknown.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval."
+      ]
+    },
+    {
+      "offerId": "in-house-fabrication-camera-pod-chassis",
+      "supplierId": "in-house-fabrication",
+      "checkoutGroupId": "in-house-fabrication-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": "1",
+      "knownGoodsAmount": null,
+      "currency": null,
+      "coverage": [
+        {
+          "partId": "camera-pod-chassis",
+          "required": "1",
+          "purchased": "1",
+          "surplus": "0",
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Price is unknown.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval."
+      ]
+    },
+    {
+      "offerId": "in-house-fabrication-dock-capture-set",
+      "supplierId": "in-house-fabrication",
+      "checkoutGroupId": "in-house-fabrication-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": "1",
+      "knownGoodsAmount": null,
+      "currency": null,
+      "coverage": [
+        {
+          "partId": "dock-funnel",
+          "required": "1",
+          "purchased": "1",
+          "surplus": "0",
+          "unit": "each"
+        },
+        {
+          "partId": "dock-nest",
+          "required": "1",
+          "purchased": "1",
+          "surplus": "0",
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Price is unknown.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval."
+      ]
+    },
+    {
+      "offerId": "in-house-fabrication-dock-latch-hardware",
+      "supplierId": "in-house-fabrication",
+      "checkoutGroupId": "in-house-fabrication-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": "1",
+      "knownGoodsAmount": null,
+      "currency": null,
+      "coverage": [
+        {
+          "partId": "dock-latch-hardware",
+          "required": "1",
+          "purchased": "1",
+          "surplus": "0",
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Price is unknown.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval."
+      ]
+    },
+    {
+      "offerId": "in-house-fabrication-dock-weather-hood",
+      "supplierId": "in-house-fabrication",
+      "checkoutGroupId": "in-house-fabrication-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": "1",
+      "knownGoodsAmount": null,
+      "currency": null,
+      "coverage": [
+        {
+          "partId": "dock-weather-hood",
+          "required": "1",
+          "purchased": "1",
+          "surplus": "0",
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Price is unknown.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval."
+      ]
+    },
+    {
+      "offerId": "in-house-fabrication-top-pulley-keeper",
+      "supplierId": "in-house-fabrication",
+      "checkoutGroupId": "in-house-fabrication-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": "4",
+      "knownGoodsAmount": null,
+      "currency": null,
+      "coverage": [
+        {
+          "partId": "top-pulley-keeper",
+          "required": "4",
+          "purchased": "4",
+          "surplus": "0",
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Price is unknown.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval."
+      ]
+    },
+    {
+      "offerId": "in-house-fabrication-winch-drum",
+      "supplierId": "in-house-fabrication",
+      "checkoutGroupId": "in-house-fabrication-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": "4",
+      "knownGoodsAmount": null,
+      "currency": null,
+      "coverage": [
+        {
+          "partId": "winch-drum",
+          "required": "4",
+          "purchased": "4",
+          "surplus": "0",
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Price is unknown.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval."
+      ]
+    },
+    {
+      "offerId": "in-house-fabrication-winch-mount-and-guard",
+      "supplierId": "in-house-fabrication",
+      "checkoutGroupId": "in-house-fabrication-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": "4",
+      "knownGoodsAmount": null,
+      "currency": null,
+      "coverage": [
+        {
+          "partId": "winch-mount-and-guard",
+          "required": "4",
+          "purchased": "4",
+          "surplus": "0",
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Price is unknown.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval."
+      ]
+    },
+    {
+      "offerId": "kabel24-control-panel-enclosure",
+      "supplierId": "kabel24",
+      "checkoutGroupId": "kabel24-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": null,
+      "knownGoodsAmount": null,
+      "currency": null,
+      "coverage": [
+        {
+          "partId": "control-panel-enclosure",
+          "required": "1",
+          "purchased": null,
+          "surplus": null,
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "A quoted price cannot be extended without package data.",
+        "Availability is unknown.",
+        "Package size/MOQ is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval."
+      ]
+    },
+    {
+      "offerId": "njuskalo-guy-ground-anchor",
+      "supplierId": "njuskalo",
+      "checkoutGroupId": "njuskalo-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": null,
+      "knownGoodsAmount": null,
+      "currency": null,
+      "coverage": [
+        {
+          "partId": "guy-ground-anchor",
+          "required": "4",
+          "purchased": null,
+          "surplus": null,
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "A quoted price cannot be extended without package data.",
+        "Availability is unknown.",
+        "Package size/MOQ is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval."
+      ]
+    },
+    {
+      "offerId": "pimoroni-raspberry-pi-3a-plus",
+      "supplierId": "pimoroni",
+      "checkoutGroupId": "pimoroni-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": "1",
+      "knownGoodsAmount": "28",
+      "currency": "EUR",
+      "coverage": [
+        {
+          "partId": "raspberry-pi-3a-plus",
+          "required": "1",
+          "purchased": "1",
+          "surplus": "0",
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "Availability is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval.",
+        "Tax/VAT treatment is unknown."
+      ]
+    },
+    {
+      "offerId": "ronis-outdoor-cat5e-signal-cable",
+      "supplierId": "ronis",
+      "checkoutGroupId": "ronis-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": "1",
+      "knownGoodsAmount": "52",
+      "currency": "EUR",
+      "coverage": [
+        {
+          "partId": "outdoor-cat5e-signal-cable",
+          "required": "85",
+          "purchased": "100",
+          "surplus": "15",
+          "unit": "m"
+        }
+      ],
+      "warnings": [
+        "Availability is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval.",
+        "Tax/VAT treatment is unknown."
+      ]
+    },
+    {
+      "offerId": "stepperonline-4-axis-v2-kit",
+      "supplierId": "stepperonline",
+      "checkoutGroupId": "stepperonline-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": "1",
+      "knownGoodsAmount": "256.68",
+      "currency": "EUR",
+      "coverage": [
+        {
+          "partId": "cl57y-v20-driver",
+          "required": "4",
+          "purchased": "4",
+          "surplus": "0",
+          "unit": "each"
+        },
+        {
+          "partId": "matched-motor-cable",
+          "required": "4",
+          "purchased": "4",
+          "surplus": "0",
+          "unit": "each"
+        },
+        {
+          "partId": "nema23-closed-loop-motor",
+          "required": "4",
+          "purchased": "4",
+          "surplus": "0",
+          "unit": "each"
+        },
+        {
+          "partId": "power-supply-48v-350w",
+          "required": "2",
+          "purchased": "2",
+          "surplus": "0",
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "Availability is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval.",
+        "Tax/VAT treatment is unknown."
+      ]
+    },
+    {
+      "offerId": "tme-microsd-card-32gb",
+      "supplierId": "tme",
+      "checkoutGroupId": "tme-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": "1",
+      "knownGoodsAmount": "24",
+      "currency": "EUR",
+      "coverage": [
+        {
+          "partId": "microsd-card-32gb",
+          "required": "1",
+          "purchased": "1",
+          "surplus": "0",
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "Availability is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval.",
+        "Tax/VAT treatment is unknown."
+      ]
+    },
+    {
+      "offerId": "tme-pico-terminal-expansion-board",
+      "supplierId": "tme",
+      "checkoutGroupId": "tme-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": "1",
+      "knownGoodsAmount": "9.4",
+      "currency": "EUR",
+      "coverage": [
+        {
+          "partId": "pico-terminal-expansion-board",
+          "required": "1",
+          "purchased": "1",
+          "surplus": "0",
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "Availability is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval.",
+        "Tax/VAT treatment is unknown."
+      ]
+    },
+    {
+      "offerId": "tme-raspberry-pi-camera-module-3",
+      "supplierId": "tme",
+      "checkoutGroupId": "tme-hr",
+      "qualification": "unresolved",
+      "purchaseUnits": "1",
+      "knownGoodsAmount": "37.51",
+      "currency": "EUR",
+      "coverage": [
+        {
+          "partId": "raspberry-pi-camera-module-3",
+          "required": "1",
+          "purchased": "1",
+          "surplus": "0",
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "Availability is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Qualification is unresolved; the recorded selection is not engineering approval.",
+        "Tax/VAT treatment is unknown."
+      ]
+    },
+    {
+      "offerId": "tme-raspberry-pi-pico-2-w",
+      "supplierId": "tme",
+      "checkoutGroupId": "tme-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": "1",
+      "knownGoodsAmount": "8.59",
+      "currency": "EUR",
+      "coverage": [
+        {
+          "partId": "raspberry-pi-pico-2-w",
+          "required": "1",
+          "purchased": "1",
+          "surplus": "0",
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "Availability is unknown.",
+        "Price and availability observation date is unknown; quote capture time is not verification time.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval.",
+        "Tax/VAT treatment is unknown."
+      ]
+    }
+  ],
+  "shipping": [
+    {
+      "checkoutGroupId": "aliexpress-hr",
+      "supplierId": "aliexpress",
+      "chargedOnce": true,
+      "status": "unknown",
+      "knownAmount": null,
+      "currency": "EUR",
+      "warnings": [
+        "Shipping is unknown; null is not treated as free.",
+        "Shipping observation date is unknown; quote capture time is not verification time."
+      ]
+    },
+    {
+      "checkoutGroupId": "baseline-top-pulley-combined-hr",
+      "supplierId": "baseline-top-pulley-combined",
+      "chargedOnce": true,
+      "status": "known",
+      "knownAmount": "6",
+      "currency": "EUR",
+      "warnings": [
+        "Shipping observation date is unknown; quote capture time is not verification time.",
+        "Shipping tax/VAT treatment is unknown."
+      ]
+    },
+    {
+      "checkoutGroupId": "bauhaus-hr",
+      "supplierId": "bauhaus",
+      "chargedOnce": true,
+      "status": "unknown",
+      "knownAmount": null,
+      "currency": "EUR",
+      "warnings": [
+        "Shipping is unknown; null is not treated as free.",
+        "Shipping observation date is unknown; quote capture time is not verification time."
+      ]
+    },
+    {
+      "checkoutGroupId": "cotra-zagreb-hr",
+      "supplierId": "cotra-zagreb",
+      "chargedOnce": true,
+      "status": "unknown",
+      "knownAmount": null,
+      "currency": "EUR",
+      "warnings": [
+        "Shipping is unknown; null is not treated as free.",
+        "Shipping observation date is unknown; quote capture time is not verification time."
+      ]
+    },
+    {
+      "checkoutGroupId": "dive-store-hr",
+      "supplierId": "dive-store",
+      "chargedOnce": true,
+      "status": "known",
+      "knownAmount": "6.25",
+      "currency": "EUR",
+      "warnings": [
+        "Shipping observation date is unknown; quote capture time is not verification time.",
+        "Shipping tax/VAT treatment is unknown."
+      ]
+    },
+    {
+      "checkoutGroupId": "in-house-fabrication-hr",
+      "supplierId": "in-house-fabrication",
+      "chargedOnce": true,
+      "status": "not-applicable",
+      "knownAmount": "0",
+      "currency": "EUR",
+      "warnings": [
+        "Shipping observation date is unknown; quote capture time is not verification time."
+      ]
+    },
+    {
+      "checkoutGroupId": "kabel24-hr",
+      "supplierId": "kabel24",
+      "chargedOnce": true,
+      "status": "unknown",
+      "knownAmount": null,
+      "currency": "EUR",
+      "warnings": [
+        "Shipping is unknown; null is not treated as free.",
+        "Shipping observation date is unknown; quote capture time is not verification time."
+      ]
+    },
+    {
+      "checkoutGroupId": "njuskalo-hr",
+      "supplierId": "njuskalo",
+      "chargedOnce": true,
+      "status": "unknown",
+      "knownAmount": null,
+      "currency": "EUR",
+      "warnings": [
+        "Shipping is unknown; null is not treated as free.",
+        "Shipping observation date is unknown; quote capture time is not verification time."
+      ]
+    },
+    {
+      "checkoutGroupId": "pimoroni-hr",
+      "supplierId": "pimoroni",
+      "chargedOnce": true,
+      "status": "unknown",
+      "knownAmount": null,
+      "currency": "EUR",
+      "warnings": [
+        "Shipping is unknown; null is not treated as free.",
+        "Shipping observation date is unknown; quote capture time is not verification time."
+      ]
+    },
+    {
+      "checkoutGroupId": "ronis-hr",
+      "supplierId": "ronis",
+      "chargedOnce": true,
+      "status": "unknown",
+      "knownAmount": null,
+      "currency": "EUR",
+      "warnings": [
+        "Shipping is unknown; null is not treated as free.",
+        "Shipping observation date is unknown; quote capture time is not verification time."
+      ]
+    },
+    {
+      "checkoutGroupId": "stepperonline-hr",
+      "supplierId": "stepperonline",
+      "chargedOnce": true,
+      "status": "known",
+      "knownAmount": "34.01",
+      "currency": "EUR",
+      "warnings": [
+        "Shipping observation date is unknown; quote capture time is not verification time.",
+        "Shipping tax/VAT treatment is unknown."
+      ]
+    },
+    {
+      "checkoutGroupId": "tme-hr",
+      "supplierId": "tme",
+      "chargedOnce": true,
+      "status": "known",
+      "knownAmount": "2.46",
+      "currency": "EUR",
+      "warnings": [
+        "Shipping observation date is unknown; quote capture time is not verification time.",
+        "Shipping tax/VAT treatment is unknown."
+      ]
+    }
+  ],
+  "assemblyKnownGoods": [
+    {
+      "assemblyId": "camera-pod",
+      "amount": "115.07"
+    },
+    {
+      "assemblyId": "control-cabinet",
+      "amount": "29.49"
+    },
+    {
+      "assemblyId": "corner-support-set",
+      "amount": "129.17"
+    },
+    {
+      "assemblyId": "dock",
+      "amount": "0.96"
+    },
+    {
+      "assemblyId": "positioning-line-set",
+      "amount": "103.97"
+    },
+    {
+      "assemblyId": "site-installation",
+      "amount": "141"
+    },
+    {
+      "assemblyId": "winch-set",
+      "amount": "48.2"
+    }
+  ],
+  "sharedProcurementStockKnownGoods": "43.19",
+  "sharedBundleGoods": "256.68",
+  "sharedShipping": "48.72",
+  "warnings": [
+    "aliexpress-bearing-608-2rs: Availability is unknown.",
+    "aliexpress-bearing-608-2rs: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "aliexpress-bearing-608-2rs: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "aliexpress-bearing-608-2rs: Tax/VAT treatment is unknown.",
+    "aliexpress-bulk-capacitor-1000uf: Availability is unknown.",
+    "aliexpress-bulk-capacitor-1000uf: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "aliexpress-bulk-capacitor-1000uf: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "aliexpress-bulk-capacitor-1000uf: Tax/VAT treatment is unknown.",
+    "aliexpress-cable-gland-assortment: Availability is unknown.",
+    "aliexpress-cable-gland-assortment: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "aliexpress-cable-gland-assortment: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "aliexpress-cable-gland-assortment: Tax/VAT treatment is unknown.",
+    "aliexpress-capsule-slip-ring-6x2a: Availability is unknown.",
+    "aliexpress-capsule-slip-ring-6x2a: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "aliexpress-capsule-slip-ring-6x2a: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "aliexpress-capsule-slip-ring-6x2a: Tax/VAT treatment is unknown.",
+    "aliexpress-controller-buck-converter-48v-5v: Availability is unknown.",
+    "aliexpress-controller-buck-converter-48v-5v: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "aliexpress-controller-buck-converter-48v-5v: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "aliexpress-controller-buck-converter-48v-5v: Tax/VAT treatment is unknown.",
+    "aliexpress-emergency-stop-switch: A quoted price cannot be extended without package data.",
+    "aliexpress-emergency-stop-switch: Availability is unknown.",
+    "aliexpress-emergency-stop-switch: Package size/MOQ is unknown.",
+    "aliexpress-emergency-stop-switch: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "aliexpress-emergency-stop-switch: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "aliexpress-flexible-jaw-coupling-8mm: A quoted price cannot be extended without package data.",
+    "aliexpress-flexible-jaw-coupling-8mm: Availability is unknown.",
+    "aliexpress-flexible-jaw-coupling-8mm: Package size/MOQ is unknown.",
+    "aliexpress-flexible-jaw-coupling-8mm: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "aliexpress-flexible-jaw-coupling-8mm: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "aliexpress-heat-set-insert-assortment: Availability is unknown.",
+    "aliexpress-heat-set-insert-assortment: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "aliexpress-heat-set-insert-assortment: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "aliexpress-heat-set-insert-assortment: Tax/VAT treatment is unknown.",
+    "aliexpress-hr: Shipping is unknown; null is not treated as free.",
+    "aliexpress-hr: Shipping observation date is unknown; quote capture time is not verification time.",
+    "aliexpress-micro-pan-tilt-servo: Availability is unknown.",
+    "aliexpress-micro-pan-tilt-servo: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "aliexpress-micro-pan-tilt-servo: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "aliexpress-micro-pan-tilt-servo: Tax/VAT treatment is unknown.",
+    "aliexpress-pod-buck-converter-48v-5v: Availability is unknown.",
+    "aliexpress-pod-buck-converter-48v-5v: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "aliexpress-pod-buck-converter-48v-5v: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "aliexpress-pod-buck-converter-48v-5v: Tax/VAT treatment is unknown.",
+    "aliexpress-pod-power-wire-black-awg26: Availability is unknown.",
+    "aliexpress-pod-power-wire-black-awg26: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "aliexpress-pod-power-wire-black-awg26: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "aliexpress-pod-power-wire-black-awg26: Tax/VAT treatment is unknown.",
+    "aliexpress-pod-power-wire-red-awg26: Availability is unknown.",
+    "aliexpress-pod-power-wire-red-awg26: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "aliexpress-pod-power-wire-red-awg26: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "aliexpress-pod-power-wire-red-awg26: Tax/VAT treatment is unknown.",
+    "aliexpress-roller-lever-microswitch: Availability is unknown.",
+    "aliexpress-roller-lever-microswitch: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "aliexpress-roller-lever-microswitch: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "aliexpress-roller-lever-microswitch: Tax/VAT treatment is unknown.",
+    "aliexpress-shaft-collar-8mm: Availability is unknown.",
+    "aliexpress-shaft-collar-8mm: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "aliexpress-shaft-collar-8mm: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "aliexpress-shaft-collar-8mm: Tax/VAT treatment is unknown.",
+    "aliexpress-stainless-fastener-assortment: Availability is unknown.",
+    "aliexpress-stainless-fastener-assortment: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "aliexpress-stainless-fastener-assortment: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "aliexpress-stainless-fastener-assortment: Tax/VAT treatment is unknown.",
+    "aliexpress-winch-drum-shaft-8mm: A quoted price cannot be extended without package data.",
+    "aliexpress-winch-drum-shaft-8mm: Availability is unknown.",
+    "aliexpress-winch-drum-shaft-8mm: Package size/MOQ is unknown.",
+    "aliexpress-winch-drum-shaft-8mm: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "aliexpress-winch-drum-shaft-8mm: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "baseline-combined-top-pulley-offer: A quoted price cannot be extended without package data.",
+    "baseline-combined-top-pulley-offer: Availability is unknown.",
+    "baseline-combined-top-pulley-offer: Package size/MOQ is unknown.",
+    "baseline-combined-top-pulley-offer: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "baseline-combined-top-pulley-offer: Qualification is unresolved; the recorded selection is not engineering approval.",
+    "baseline-top-pulley-combined-hr: Shipping observation date is unknown; quote capture time is not verification time.",
+    "baseline-top-pulley-combined-hr: Shipping tax/VAT treatment is unknown.",
+    "bauhaus-din-rail-ground-distribution-block: Availability is unknown.",
+    "bauhaus-din-rail-ground-distribution-block: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "bauhaus-din-rail-ground-distribution-block: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "bauhaus-din-rail-ground-distribution-block: Tax/VAT treatment is unknown.",
+    "bauhaus-guy-turnbuckle-m12: A quoted price cannot be extended without package data.",
+    "bauhaus-guy-turnbuckle-m12: Availability is unknown.",
+    "bauhaus-guy-turnbuckle-m12: Package size/MOQ is unknown.",
+    "bauhaus-guy-turnbuckle-m12: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "bauhaus-guy-turnbuckle-m12: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "bauhaus-guy-wire-3mm: A quoted price cannot be extended without package data.",
+    "bauhaus-guy-wire-3mm: Availability is unknown.",
+    "bauhaus-guy-wire-3mm: Package size/MOQ is unknown.",
+    "bauhaus-guy-wire-3mm: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "bauhaus-guy-wire-3mm: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "bauhaus-hr: Shipping is unknown; null is not treated as free.",
+    "bauhaus-hr: Shipping observation date is unknown; quote capture time is not verification time.",
+    "bauhaus-motor-power-branch-cable: Availability is unknown.",
+    "bauhaus-motor-power-branch-cable: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "bauhaus-motor-power-branch-cable: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "bauhaus-motor-power-branch-cable: Tax/VAT treatment is unknown.",
+    "bauhaus-post-electronics-enclosure: A quoted price cannot be extended without package data.",
+    "bauhaus-post-electronics-enclosure: Availability is unknown.",
+    "bauhaus-post-electronics-enclosure: Package size/MOQ is unknown.",
+    "bauhaus-post-electronics-enclosure: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "bauhaus-post-electronics-enclosure: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "bauhaus-pulley-bracket-backing-plate: Availability is unknown.",
+    "bauhaus-pulley-bracket-backing-plate: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "bauhaus-pulley-bracket-backing-plate: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "bauhaus-pulley-bracket-backing-plate: Tax/VAT treatment is unknown.",
+    "bauhaus-pulley-bracket-locknut-m12: Availability is unknown.",
+    "bauhaus-pulley-bracket-locknut-m12: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "bauhaus-pulley-bracket-locknut-m12: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "bauhaus-pulley-bracket-locknut-m12: Tax/VAT treatment is unknown.",
+    "bauhaus-pulley-bracket-shackle-m8: Availability is unknown.",
+    "bauhaus-pulley-bracket-shackle-m8: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "bauhaus-pulley-bracket-shackle-m8: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "bauhaus-pulley-bracket-shackle-m8: Tax/VAT treatment is unknown.",
+    "bauhaus-pulley-bracket-through-bolt-m12x160: Availability is unknown.",
+    "bauhaus-pulley-bracket-through-bolt-m12x160: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "bauhaus-pulley-bracket-through-bolt-m12x160: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "bauhaus-pulley-bracket-through-bolt-m12x160: Tax/VAT treatment is unknown.",
+    "bauhaus-pulley-bracket-washer-m12: Availability is unknown.",
+    "bauhaus-pulley-bracket-washer-m12: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "bauhaus-pulley-bracket-washer-m12: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "bauhaus-pulley-bracket-washer-m12: Tax/VAT treatment is unknown.",
+    "bauhaus-top-pulley-bracket: Availability is unknown.",
+    "bauhaus-top-pulley-bracket: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "bauhaus-top-pulley-bracket: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "bauhaus-top-pulley-bracket: Tax/VAT treatment is unknown.",
+    "bauhaus-wire-rope-clamp-3mm: A quoted price cannot be extended without package data.",
+    "bauhaus-wire-rope-clamp-3mm: Availability is unknown.",
+    "bauhaus-wire-rope-clamp-3mm: Package size/MOQ is unknown.",
+    "bauhaus-wire-rope-clamp-3mm: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "bauhaus-wire-rope-clamp-3mm: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "bauhaus-wire-rope-thimble-3mm: A quoted price cannot be extended without package data.",
+    "bauhaus-wire-rope-thimble-3mm: Availability is unknown.",
+    "bauhaus-wire-rope-thimble-3mm: Package size/MOQ is unknown.",
+    "bauhaus-wire-rope-thimble-3mm: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "bauhaus-wire-rope-thimble-3mm: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "bauhaus-zinc-spray: Availability is unknown.",
+    "bauhaus-zinc-spray: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "bauhaus-zinc-spray: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "bauhaus-zinc-spray: Tax/VAT treatment is unknown.",
+    "cotra-zagreb-corner-post-treated-timber: Availability is unknown.",
+    "cotra-zagreb-corner-post-treated-timber: Package size/MOQ is unknown.",
+    "cotra-zagreb-corner-post-treated-timber: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "cotra-zagreb-corner-post-treated-timber: Price is unknown.",
+    "cotra-zagreb-corner-post-treated-timber: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "cotra-zagreb-hr: Shipping is unknown; null is not treated as free.",
+    "cotra-zagreb-hr: Shipping observation date is unknown; quote capture time is not verification time.",
+    "dive-store-dyneema-positioning-line: Availability is unknown.",
+    "dive-store-dyneema-positioning-line: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "dive-store-dyneema-positioning-line: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "dive-store-dyneema-positioning-line: Tax/VAT treatment is unknown.",
+    "dive-store-hr: Shipping observation date is unknown; quote capture time is not verification time.",
+    "dive-store-hr: Shipping tax/VAT treatment is unknown.",
+    "hr-zagreb: Destination tax/VAT status is unknown and blocks a complete landed total.",
+    "in-house-fabrication-camera-gimbal: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "in-house-fabrication-camera-gimbal: Price is unknown.",
+    "in-house-fabrication-camera-gimbal: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "in-house-fabrication-camera-pod-chassis: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "in-house-fabrication-camera-pod-chassis: Price is unknown.",
+    "in-house-fabrication-camera-pod-chassis: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "in-house-fabrication-dock-capture-set: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "in-house-fabrication-dock-capture-set: Price is unknown.",
+    "in-house-fabrication-dock-capture-set: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "in-house-fabrication-dock-latch-hardware: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "in-house-fabrication-dock-latch-hardware: Price is unknown.",
+    "in-house-fabrication-dock-latch-hardware: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "in-house-fabrication-dock-weather-hood: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "in-house-fabrication-dock-weather-hood: Price is unknown.",
+    "in-house-fabrication-dock-weather-hood: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "in-house-fabrication-hr: Shipping observation date is unknown; quote capture time is not verification time.",
+    "in-house-fabrication-top-pulley-keeper: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "in-house-fabrication-top-pulley-keeper: Price is unknown.",
+    "in-house-fabrication-top-pulley-keeper: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "in-house-fabrication-winch-drum: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "in-house-fabrication-winch-drum: Price is unknown.",
+    "in-house-fabrication-winch-drum: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "in-house-fabrication-winch-mount-and-guard: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "in-house-fabrication-winch-mount-and-guard: Price is unknown.",
+    "in-house-fabrication-winch-mount-and-guard: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "kabel24-control-panel-enclosure: A quoted price cannot be extended without package data.",
+    "kabel24-control-panel-enclosure: Availability is unknown.",
+    "kabel24-control-panel-enclosure: Package size/MOQ is unknown.",
+    "kabel24-control-panel-enclosure: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "kabel24-control-panel-enclosure: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "kabel24-hr: Shipping is unknown; null is not treated as free.",
+    "kabel24-hr: Shipping observation date is unknown; quote capture time is not verification time.",
+    "njuskalo-guy-ground-anchor: A quoted price cannot be extended without package data.",
+    "njuskalo-guy-ground-anchor: Availability is unknown.",
+    "njuskalo-guy-ground-anchor: Package size/MOQ is unknown.",
+    "njuskalo-guy-ground-anchor: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "njuskalo-guy-ground-anchor: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "njuskalo-hr: Shipping is unknown; null is not treated as free.",
+    "njuskalo-hr: Shipping observation date is unknown; quote capture time is not verification time.",
+    "pimoroni-hr: Shipping is unknown; null is not treated as free.",
+    "pimoroni-hr: Shipping observation date is unknown; quote capture time is not verification time.",
+    "pimoroni-raspberry-pi-3a-plus: Availability is unknown.",
+    "pimoroni-raspberry-pi-3a-plus: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "pimoroni-raspberry-pi-3a-plus: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "pimoroni-raspberry-pi-3a-plus: Tax/VAT treatment is unknown.",
+    "ronis-hr: Shipping is unknown; null is not treated as free.",
+    "ronis-hr: Shipping observation date is unknown; quote capture time is not verification time.",
+    "ronis-outdoor-cat5e-signal-cable: Availability is unknown.",
+    "ronis-outdoor-cat5e-signal-cable: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "ronis-outdoor-cat5e-signal-cable: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "ronis-outdoor-cat5e-signal-cable: Tax/VAT treatment is unknown.",
+    "stepperonline-4-axis-v2-kit: Availability is unknown.",
+    "stepperonline-4-axis-v2-kit: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "stepperonline-4-axis-v2-kit: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "stepperonline-4-axis-v2-kit: Tax/VAT treatment is unknown.",
+    "stepperonline-hr: Shipping observation date is unknown; quote capture time is not verification time.",
+    "stepperonline-hr: Shipping tax/VAT treatment is unknown.",
+    "tme-hr: Shipping observation date is unknown; quote capture time is not verification time.",
+    "tme-hr: Shipping tax/VAT treatment is unknown.",
+    "tme-microsd-card-32gb: Availability is unknown.",
+    "tme-microsd-card-32gb: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "tme-microsd-card-32gb: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "tme-microsd-card-32gb: Tax/VAT treatment is unknown.",
+    "tme-pico-terminal-expansion-board: Availability is unknown.",
+    "tme-pico-terminal-expansion-board: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "tme-pico-terminal-expansion-board: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "tme-pico-terminal-expansion-board: Tax/VAT treatment is unknown.",
+    "tme-raspberry-pi-camera-module-3: Availability is unknown.",
+    "tme-raspberry-pi-camera-module-3: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "tme-raspberry-pi-camera-module-3: Qualification is unresolved; the recorded selection is not engineering approval.",
+    "tme-raspberry-pi-camera-module-3: Tax/VAT treatment is unknown.",
+    "tme-raspberry-pi-pico-2-w: Availability is unknown.",
+    "tme-raspberry-pi-pico-2-w: Price and availability observation date is unknown; quote capture time is not verification time.",
+    "tme-raspberry-pi-pico-2-w: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "tme-raspberry-pi-pico-2-w: Tax/VAT treatment is unknown."
+  ]
+}

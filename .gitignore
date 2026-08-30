@@ -1,0 +1,39 @@
+# Operating systems and editors
+.DS_Store
+._*
+*.swp
+*.swo
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# Node.js and package managers
+node_modules/
+.pnpm-store/
+*.tsbuildinfo
+*.log
+coverage/
+.turbo/
+.next/
+dist/
+out/
+
+# Local environment and tool state
+.env
+.env.*
+!.env.example
+!apps/**/.env.example
+.vercel/
+
+# Tests
+test-results/
+playwright-report/
+
+# OpenSCAD generated outputs. Source .scad files stay tracked.
+hardware/generated/
+*.amf
+*.csg
+*.3mf
+*.off
+*.stl

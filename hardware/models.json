@@ -1,0 +1,80 @@
+{
+    "$schema": "./models.schema.json",
+    "schemaVersion": 1,
+    "units": "mm",
+    "openScadVersion": "2021.01",
+    "models": [
+        {
+            "id": "winch-drum",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "reference",
+            "bomPartIds": [],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-drum.scad",
+            "output": "winch-drum-r0.1.0.csg",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Non-manufacturing nominal 100 mm single-layer capacity and groove geometry study."
+        },
+        {
+            "id": "camera-pod-envelope",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "reference",
+            "bomPartIds": [],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/camera-pod-envelope.scad",
+            "output": "camera-pod-envelope-r0.1.0.csg",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Non-manufacturing pod, gimbal-sweep, and docking-interface keep-out reference."
+        },
+        {
+            "id": "camera-pod-spider",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": ["camera-pod-chassis"],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/camera-pod-spider.scad",
+            "output": "camera-pod-spider-r0.1.0.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Four-arm line-termination and pod-mounting spider concept."
+        },
+        {
+            "id": "dock-funnel",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": ["dock-funnel"],
+            "assembly": "dock",
+            "entrypoint": "hardware/assemblies/dock/dock-funnel.scad",
+            "output": "dock-funnel-r0.1.0.stl",
+            "documentation": "hardware/assemblies/dock/README.md",
+            "description": "Passive tapered alignment funnel concept for docking approach."
+        },
+        {
+            "id": "dock-nest",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": ["dock-nest"],
+            "assembly": "dock",
+            "entrypoint": "hardware/assemblies/dock/dock-nest.scad",
+            "output": "dock-nest-r0.1.0.stl",
+            "documentation": "hardware/assemblies/dock/README.md",
+            "description": "Pod locating pocket and dock mounting plate concept."
+        },
+        {
+            "id": "top-pulley-keeper",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": ["top-pulley-keeper"],
+            "assembly": "corner-station",
+            "entrypoint": "hardware/assemblies/corner-station/top-pulley-keeper.scad",
+            "output": "top-pulley-keeper-r0.1.0.stl",
+            "documentation": "hardware/assemblies/corner-station/README.md",
+            "description": "Two-cheek upper line-retention keeper concept for a corner pulley."
+        }
+    ]
+}

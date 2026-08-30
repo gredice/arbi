@@ -1,0 +1,59 @@
+name: Design proposal
+description: Propose a physical, electrical, software, interface, safety, or V1 baseline change.
+title: "[Design] "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or opportunity
+      description: Describe the current evidence, constraint, or failure that motivates this proposal.
+    validations:
+      required: true
+
+  - type: textarea
+    id: affected
+    attributes:
+      label: Affected boundaries
+      description: Name physical assemblies, interfaces, BOM builds, model IDs, protocols, software packages, operating states, and documentation.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed design
+      description: Explain responsibilities, dimensions or units, interfaces, failure behavior, versioning, and migration.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Include retaining the current baseline when applicable.
+    validations:
+      required: true
+
+  - type: textarea
+    id: safety
+    attributes:
+      label: Safety, security, and privacy
+      description: Identify hazards, abuse cases, mitigations, residual risk, and review still required.
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Validation plan
+      description: Separate source checks, simulation, calculation, bench testing, field testing, and qualified review.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: decision
+    attributes:
+      label: Decision record
+      options:
+        - label: I understand that an accepted repository-wide or V1 baseline change may require an ADR before implementation merges.
+          required: true

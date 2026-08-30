@@ -1,0 +1,73 @@
+name: Bug report
+description: Report reproducible incorrect behavior in implemented repository content.
+title: "[Bug] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use the private security-reporting link instead if this could be exploited or exposes sensitive information. A concept gap or proposed design change belongs in the design proposal form.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Documentation
+        - BOM and sourcing
+        - OpenSCAD and hardware sources
+        - Software package
+        - CI and repository tooling
+        - Other implemented behavior
+    validations:
+      required: true
+
+  - type: input
+    id: revision
+    attributes:
+      label: Affected revision
+      description: Commit, tag, model revision, assembly revision, BOM build, or package version.
+      placeholder: e.g. commit abc123 or winch-drum 0.1.0
+    validations:
+      required: true
+
+  - type: textarea
+    id: current
+    attributes:
+      label: Current behavior
+      description: Include the exact command, input, environment, and observed result.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: Explain the documented or tested result you expected.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Provide the smallest safe, repeatable steps and any non-sensitive logs.
+    validations:
+      required: true
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: Safety and compatibility impact
+      description: State any physical safety, privacy, generated-artifact, protocol, or backwards-compatibility effect. Write "None known" when appropriate.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Preflight
+      options:
+        - label: I searched existing issues and pull requests.
+          required: true
+        - label: This report contains no credentials, private vulnerability details, or sensitive site information.
+          required: true

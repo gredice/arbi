@@ -1,0 +1,1096 @@
+{
+  "schemaVersion": 1,
+  "catalogId": "arbi-parts",
+  "description": "Canonical engineering parts. Quantities live only in physical assembly usages.",
+  "parts": [
+    {
+      "id": "as5600-angle-sensor",
+      "name": "AS5600 magnetic angle sensor + magnet",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "planned",
+      "disciplines": [
+        "electronics"
+      ],
+      "traits": [
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "Optional dancer/tension sensing for cable-compliance mechanism; not required to block first V1 motion prototype."
+      ]
+    },
+    {
+      "id": "bearing-608-2rs",
+      "name": "608-2RS sealed bearing",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "8×22×7 mm rubber-sealed bearings. Two per independent drum support plus extras for guides/tensioners."
+      ]
+    },
+    {
+      "id": "bulk-capacitor-1000uf",
+      "name": "1000 µF 5 V rail bulk capacitor",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "electronics"
+      ],
+      "traits": [
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "Low-ESR capacitor sized/rated appropriately above 5 V; one installed + spare; buffers servo-current spikes."
+      ]
+    },
+    {
+      "id": "cable-gland-assortment",
+      "name": "IP68 cable gland assortment",
+      "baseUnit": "each",
+      "kind": "consumable",
+      "lifecycle": "active",
+      "disciplines": [
+        "electrical"
+      ],
+      "traits": [
+        "cable",
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "Mix M12/M16/M20 for cabinet, post-driver boxes and dock/pod wiring."
+      ]
+    },
+    {
+      "id": "camera-gimbal",
+      "name": "Pan/tilt camera gimbal",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical",
+        "optics"
+      ],
+      "traits": [
+        "fabricated",
+        "printed"
+      ],
+      "requirements": [
+        "Lightweight 2-axis Camera Module 3 gimbal; approx. ±90° pan and 0–70° tilt target."
+      ],
+      "fabrication": {
+        "process": "openscad",
+        "modelStatus": "planned",
+        "sources": []
+      }
+    },
+    {
+      "id": "camera-pod-chassis",
+      "name": "Camera pod spider/chassis",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical",
+        "optics"
+      ],
+      "traits": [
+        "fabricated",
+        "printed"
+      ],
+      "requirements": [
+        "ASA/PETG lightweight cable spider and electronics chassis sized for Raspberry Pi 3A+, 48 V → 5 V converter and bulk capacitor fixed on the pod. Complete flying pod target ~100–120 g; hard design limit ~170 g."
+      ],
+      "notes": "Updated for Raspberry Pi 3A+ V1 pod architecture; replaces earlier Pi Zero 2 W mass/layout assumptions.",
+      "fabrication": {
+        "process": "openscad",
+        "modelStatus": "concept-unvalidated",
+        "sources": [
+          {
+            "path": "hardware/assemblies/camera-pod/camera-pod-spider.scad",
+            "module": "camera_pod_spider",
+            "modelId": "camera-pod-spider",
+            "revision": "0.1.0"
+          }
+        ]
+      }
+    },
+    {
+      "id": "capsule-slip-ring-6x2a",
+      "name": "Capsule slip ring, ≥6 channels × 2 A",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "electrical",
+        "electronics"
+      ],
+      "traits": [
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "Use three channels in parallel for +48 V and three for GND. One installed on powered-line winch + one spare."
+      ]
+    },
+    {
+      "id": "cl57y-v20-driver",
+      "name": "CL57Y-V20 closed-loop motor driver",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "electronics",
+        "electrical"
+      ],
+      "traits": [
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "Provided by the selected StepperOnline 4-axis V2.0 kit; exact included model must match the captured kit specification."
+      ]
+    },
+    {
+      "id": "control-panel-enclosure",
+      "name": "Central outdoor electrical cabinet",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "electrical"
+      ],
+      "traits": [
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "IP65+ approx. 400×300/400×200 mm, large enough for both 48 V PSUs, Pico, protection, fusing and cable management."
+      ],
+      "notes": "IP65/IP66 cabinet with equivalent usable internal dimensions is preferred if cheaper."
+    },
+    {
+      "id": "controller-buck-converter-48v-5v",
+      "name": "48 V → 5 V controller buck converter",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "electronics"
+      ],
+      "traits": [
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "Input rating ≥60 V; 5 V output with sufficient current for Pico 2 W and cabinet auxiliaries."
+      ]
+    },
+    {
+      "id": "corner-post-treated-timber",
+      "name": "Ground-contact treated timber corner post",
+      "baseUnit": "each",
+      "kind": "material",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "bulk-material"
+      ],
+      "requirements": [
+        "Approx. 100×100 mm square or Ø100–140 mm round; 3.8–4.0 m total; 0.8–1.0 m direct embedment; ~3.0 m exposed."
+      ],
+      "notes": "Recorded candidate source for ~4 m pressure-treated ground-contact poles. Final post section/diameter and treatment must match structural requirement."
+    },
+    {
+      "id": "din-rail-ground-distribution-block",
+      "name": "DIN-rail GND distribution block",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "DIN-rail ground distribution block with enough terminals for Pico/controller ground plus dedicated STEP and DIR return conductors for four CL57Y-V20 driver branches."
+      ],
+      "notes": "Mount in central cabinet next to Pico terminal board. Keeps field Cat5e returns on proper screw terminals rather than stacking multiple wires into one Pico breakout terminal."
+    },
+    {
+      "id": "dock-funnel",
+      "name": "High-dock alignment funnel",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "fabricated",
+        "printed"
+      ],
+      "requirements": [
+        "Approx. 250–300 mm approach opening guiding the pod toward the separate locating nest; dock capture at ~2.65–2.70 m."
+      ],
+      "fabrication": {
+        "process": "openscad",
+        "modelStatus": "concept-unvalidated",
+        "sources": [
+          {
+            "path": "hardware/assemblies/dock/dock-funnel.scad",
+            "module": "dock_funnel",
+            "modelId": "dock-funnel",
+            "revision": "0.1.0"
+          }
+        ]
+      }
+    },
+    {
+      "id": "dock-nest",
+      "name": "High-dock locating nest",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "fabricated",
+        "printed"
+      ],
+      "requirements": [
+        "One locating socket and mounting plate receiving the pod after the separate alignment funnel."
+      ],
+      "fabrication": {
+        "process": "openscad",
+        "modelStatus": "concept-unvalidated",
+        "sources": [
+          {
+            "path": "hardware/assemblies/dock/dock-nest.scad",
+            "module": "dock_nest",
+            "modelId": "dock-nest",
+            "revision": "0.1.0"
+          }
+        ]
+      }
+    },
+    {
+      "id": "dock-latch-hardware",
+      "name": "Dock mushroom locating stud + passive latch hardware",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "fabricated"
+      ],
+      "requirements": [
+        "Centred pod stud, passive spring latch, stainless pivot pins/bolts; magnets optional for centring only, not structural retention."
+      ],
+      "fabrication": {
+        "process": "openscad",
+        "modelStatus": "planned",
+        "sources": []
+      }
+    },
+    {
+      "id": "dock-weather-hood",
+      "name": "Dock weather roof / hood",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "fabricated",
+        "printed"
+      ],
+      "requirements": [
+        "Approx. 300×300 mm sloped rain/sun cover with drainage and unobstructed optical opening."
+      ],
+      "fabrication": {
+        "process": "openscad",
+        "modelStatus": "planned",
+        "sources": []
+      }
+    },
+    {
+      "id": "dyneema-positioning-line",
+      "name": "1.5 mm Dyneema positioning line, 50 m",
+      "baseUnit": "m",
+      "kind": "material",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "bulk-material",
+        "cable"
+      ],
+      "requirements": [
+        "Four primary positioning lines. Approx. 50 m per spool gives installation and termination margin."
+      ]
+    },
+    {
+      "id": "emergency-stop-switch",
+      "name": "Waterproof emergency-stop switch",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "electronics"
+      ],
+      "traits": [
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "22 mm mushroom E-stop with normally-closed contacts for hardwired motor safety path."
+      ]
+    },
+    {
+      "id": "extension-spring-assortment",
+      "name": "Stainless extension spring assortment",
+      "baseUnit": "each",
+      "kind": "consumable",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "Candidate springs for future/optional cable dancer tensioners."
+      ]
+    },
+    {
+      "id": "flexible-jaw-coupling-8mm",
+      "name": "8 mm → 8 mm flexible jaw coupling",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "Flexible jaw coupling, approximately D20/L25, 8 mm motor shaft to independent 8 mm drum shaft."
+      ]
+    },
+    {
+      "id": "guy-ground-anchor",
+      "name": "Guy ground anchor",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "Approx. 800 mm or stronger ground anchor; actual capacity must be verified by pull test in site soil."
+      ],
+      "notes": "Prototype guy-anchor example from recorded baseline. Must be validated by pull test in actual site soil before relying on it."
+    },
+    {
+      "id": "guy-turnbuckle-m12",
+      "name": "M12 guy turnbuckle",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "fastener",
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "Galvanized/stainless turnbuckle for each outward post guy."
+      ]
+    },
+    {
+      "id": "guy-wire-3mm",
+      "name": "3 mm stainless/galvanized guy wire",
+      "baseUnit": "m",
+      "kind": "material",
+      "lifecycle": "active",
+      "disciplines": [
+        "electrical"
+      ],
+      "traits": [
+        "bulk-material",
+        "cable"
+      ],
+      "requirements": [
+        "Approximate total; final length after post/anchor geometry."
+      ]
+    },
+    {
+      "id": "heat-set-insert-assortment",
+      "name": "Heat-set threaded insert assortment",
+      "baseUnit": "each",
+      "kind": "consumable",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "fastener",
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "M3/M4/M5 brass inserts for printed assemblies."
+      ]
+    },
+    {
+      "id": "matched-motor-cable",
+      "name": "Matched closed-loop motor cable",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "electrical"
+      ],
+      "traits": [
+        "cable",
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "Provided by the selected StepperOnline 4-axis V2.0 kit; exact included model must match the captured kit specification."
+      ]
+    },
+    {
+      "id": "micro-pan-tilt-servo",
+      "name": "Micro pan/tilt servo",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "electronics"
+      ],
+      "traits": [
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "~3.7 g digital micro servo; two-axis camera gimbal only, Pi/power stage remain fixed to pod."
+      ]
+    },
+    {
+      "id": "microsd-card-32gb",
+      "name": "32 GB microSD card",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "32 GB microSD for pod Linux OS, local capture buffer and logs."
+      ]
+    },
+    {
+      "id": "motor-power-branch-cable",
+      "name": "48 V motor power branch cable",
+      "baseUnit": "m",
+      "kind": "material",
+      "lifecycle": "active",
+      "disciplines": [
+        "electrical"
+      ],
+      "traits": [
+        "bulk-material",
+        "cable"
+      ],
+      "requirements": [
+        "Outdoor/burial-rated low-voltage cable for central cabinet to four corner drivers. Final length confirmed after cabinet position is fixed.\n\nCabinet positioned at one corner would need 9m A>B, 32m A>C and 9m C>D."
+      ]
+    },
+    {
+      "id": "nema23-closed-loop-motor",
+      "name": "3.0 Nm NEMA 23 closed-loop motor",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "electrical",
+        "mechanical"
+      ],
+      "traits": [
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "Provided by the selected StepperOnline 4-axis V2.0 kit; exact included model must match the captured kit specification."
+      ]
+    },
+    {
+      "id": "outdoor-cat5e-signal-cable",
+      "name": "Outdoor Cat5e signal cable",
+      "baseUnit": "m",
+      "kind": "material",
+      "lifecycle": "active",
+      "disciplines": [
+        "electrical"
+      ],
+      "traits": [
+        "bulk-material",
+        "cable"
+      ],
+      "requirements": [
+        "Outdoor-rated Cat5e; four point-to-point controller-to-driver runs. Each twisted pair carries STEP+return, DIR+return, optional enable/alarm/spare."
+      ]
+    },
+    {
+      "id": "pico-terminal-expansion-board",
+      "name": "52Pi EP-0145 Screw Terminal Expansion Board",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "electronics"
+      ],
+      "traits": [
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "Solderless screw-terminal breakout for Raspberry Pi Pico/Pico 2. Headered Pico plugs directly into board; exposes GPIO and power/ground on labeled screw terminals for field wiring."
+      ],
+      "notes": "Solderless screw-terminal breakout. Alternative source: https://www.kiwi-electronics.com/en/terminal-expansion-board-for-raspberry-pi-pico-11279"
+    },
+    {
+      "id": "pod-buck-converter-48v-5v",
+      "name": "48 V → 5 V pod buck converter",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "electronics"
+      ],
+      "traits": [
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "Input rating ≥60 V; 48 V nominal input; regulated 5 V output; ≥3 A. One active + one spare."
+      ]
+    },
+    {
+      "id": "pod-power-wire-black-awg26",
+      "name": "AWG26 flexible silicone wire — black",
+      "baseUnit": "m",
+      "kind": "material",
+      "lifecycle": "active",
+      "disciplines": [
+        "electrical"
+      ],
+      "traits": [
+        "bulk-material",
+        "cable"
+      ],
+      "requirements": [
+        "High-flex fine-strand black conductor helically wrapped around one Dyneema line for pod GND."
+      ]
+    },
+    {
+      "id": "pod-power-wire-red-awg26",
+      "name": "AWG26 flexible silicone wire — red",
+      "baseUnit": "m",
+      "kind": "material",
+      "lifecycle": "active",
+      "disciplines": [
+        "electrical"
+      ],
+      "traits": [
+        "bulk-material",
+        "cable"
+      ],
+      "requirements": [
+        "High-flex fine-strand red conductor helically wrapped around one Dyneema line for pod +48 V."
+      ]
+    },
+    {
+      "id": "post-electronics-enclosure",
+      "name": "IP65/IP67 ABS post electronics box",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "Approx. 150×100×70 mm or sized after driver/mount CAD; four corner boxes + one spare."
+      ]
+    },
+    {
+      "id": "power-supply-48v-350w",
+      "name": "48 V / 350 W power supply",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "electrical",
+        "electronics"
+      ],
+      "traits": [
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "Provided by the selected StepperOnline 4-axis V2.0 kit; exact included model must match the captured kit specification."
+      ]
+    },
+    {
+      "id": "pulley-bracket-backing-plate",
+      "name": "Rear backing plate for top-pulley bracket — stacked BAUHAUS plates",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "Stabilit 100 × 200 × 2 mm galvanized perforated steel plate. Stack two plates per post to make an approximately 4 mm rear backing plate; drill two aligned Ø13 mm holes for M12 through-bolts."
+      ],
+      "notes": "Eight plates total: two per post. Spreads cyclic pulley load across the timber and reduces local crushing."
+    },
+    {
+      "id": "pulley-bracket-locknut-m12",
+      "name": "M12 galvanized locking nut for pulley bracket",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "fastener",
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "Galvanized M12 DIN 985 nylon-insert locking nut; one per through-bolt, two per post and eight total."
+      ],
+      "notes": "Linked BAUHAUS product is sold as a 50-piece box. Re-check clamp after timber settlement; replace the nut if the nylon insert is damaged or repeatedly removed."
+    },
+    {
+      "id": "pulley-bracket-shackle-m8",
+      "name": "M8 A4 shackle for pulley-to-bracket connection",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "fastener",
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "Marinetech short round A4 stainless shackle with 8 mm removable pin; one per pulley. Pass through the bracket's Ø9 mm terminal hole and the pulley attachment."
+      ],
+      "notes": "Confirm the selected pulley fits and articulates freely without side-plate distortion. If incompatible, use an M8 A2/A4 bolt with spacers/washers and a locking nut as the attachment pin."
+    },
+    {
+      "id": "pulley-bracket-through-bolt-m12x160",
+      "name": "M12 × 160 galvanized 8.8 through-bolt for pulley bracket",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "fastener",
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "DIN 931, class 8.8, galvanized M12 × 160 mm hex through-bolt; two per post. Length suits 100–120 mm timber plus 5 mm angle, two 2 mm backing plates, washers and locking nut; confirm against actual stack before purchase."
+      ],
+      "notes": "Project uses 8; linked BAUHAUS product is sold as a 40-piece box. Do not use DIN 571 wood/coach screws."
+    },
+    {
+      "id": "pulley-bracket-washer-m12",
+      "name": "M12 DIN 9021 large washer for pulley bracket",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "fastener",
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "Galvanized DIN 9021 washer, 13 mm ID × 37 mm OD × 3 mm thick. Use one under every M12 bolt head and one under every locking nut: four per post, 16 total."
+      ],
+      "notes": "Linked BAUHAUS product is sold as a 100-piece box."
+    },
+    {
+      "id": "raspberry-pi-3a-plus",
+      "name": "Raspberry Pi 3A+",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "electronics"
+      ],
+      "traits": [
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "Raspberry Pi 3 Model A+ for the flying pod: Camera Module 3 capture/autofocus, Wi-Fi image upload, local capture buffering and pan/tilt control. Full-size 15-pin CSI camera connector avoids the special Pi Zero ribbon."
+      ]
+    },
+    {
+      "id": "raspberry-pi-camera-module-3",
+      "name": "Raspberry Pi Camera Module 3 Standard",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "electronics",
+        "optics"
+      ],
+      "traits": [
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "Standard-FOV 12 MP autofocus version, Wide or Standard."
+      ]
+    },
+    {
+      "id": "raspberry-pi-pico-2-w",
+      "name": "Raspberry Pi Pico 2 W with headers",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "electronics"
+      ],
+      "traits": [
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "Central deterministic 4-axis motion controller generating synchronized STEP/DIR. Must be the pre-soldered-header version so it plugs directly into the 52Pi EP-0145 terminal board without soldering."
+      ],
+      "notes": "Keep in central cabinet; plug into 52Pi EP-0145 screw-terminal expansion board."
+    },
+    {
+      "id": "roller-lever-microswitch",
+      "name": "Winch home/reference and docked position roller microswitch",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "electronics"
+      ],
+      "traits": [
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "Roller-lever microswitch, e.g. KW12-3 class. Four installed for lines and 1 for docking + spares."
+      ]
+    },
+    {
+      "id": "shaft-collar-8mm",
+      "name": "8 mm clamp shaft collar",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "fastener",
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "Clamp-style rather than grub-screw-only if possible."
+      ]
+    },
+    {
+      "id": "stainless-fastener-assortment",
+      "name": "Stainless metric fastener assortment",
+      "baseUnit": "each",
+      "kind": "consumable",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "fastener",
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "M3/M4/M5/M6 bolts, washers and nyloc nuts for printed assemblies."
+      ]
+    },
+    {
+      "id": "top-positioning-line-pulley",
+      "name": "Top positioning-line pulley",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "Weather-resistant 25–30 mm marine single block for ~1.5 mm Dyneema; 30 mm preferred. Low-friction ball bearing preferred for repeated movement; positive side enclosure plus printed keeper. Mount near ~3.0–3.1 m on the through-bolted offset steel bracket."
+      ],
+      "notes": "Primary: Allen A2030 30 mm Dynamic, 26 g, SWL 140 kg. Zagreb/local alternative: Barton 30 mm Standard, WASI, https://wasi.hr/kolotura-jednostruka-fiksna-za-uze-do-8m. Other suitable options: Harken 348 29 mm fixed Carbo; Lewmar 30 mm Control, https://www.imnasa.com/hr/katroli/control-pulley-simple-30mm-black-lewmar-l29901321bk; Viadana 25 mm fixed stainless, https://www.imnasa.com/hr/katroli/fixed-block-simple-25mm-s-s-viadana-28000013. Check stock and price before ordering."
+    },
+    {
+      "id": "top-pulley-bracket",
+      "name": "Top-pulley offset steel mounting bracket — BAUHAUS Stabilit solid angle",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "150 × 40 × 150 mm equal-leg solid angle, 5 mm galvanized steel. One per post: vertical leg through-bolted to timber; horizontal leg projects inward. Drill/enlarge two Ø13 mm mounting holes and one centred Ø9 mm shackle hole ~25 mm from the outer end for ~125 mm pulley offset."
+      ],
+      "notes": "Drill-only V1 solution; no welding. Deburr and recoat new holes with zinc-rich spray. Controlled proof-load required before overhead use."
+    },
+    {
+      "id": "top-pulley-keeper",
+      "name": "Top-pulley Dyneema keeper / weather cover",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "cable",
+        "fabricated",
+        "printed"
+      ],
+      "requirements": [
+        "ASA preferred; PETG acceptable for prototype. Close side gaps around 1.5 mm Dyneema, keep line centred, prevent jump-off, shield direct rain/UV, drain below and remain removable for inspection."
+      ],
+      "notes": "Non-structural only; must not carry pulley or cable load and should not rub the line during normal running.",
+      "fabrication": {
+        "process": "openscad",
+        "modelStatus": "concept-unvalidated",
+        "sources": [
+          {
+            "path": "hardware/assemblies/corner-station/top-pulley-keeper.scad",
+            "module": "top_pulley_keeper",
+            "modelId": "top-pulley-keeper",
+            "revision": "0.1.0"
+          }
+        ]
+      }
+    },
+    {
+      "id": "underground-cable-sleeve",
+      "name": "Underground cable sleeve",
+      "baseUnit": "m",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "electrical"
+      ],
+      "traits": [
+        "cable",
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "For cables that run underground"
+      ]
+    },
+    {
+      "id": "winch-drum",
+      "name": "Single-layer grooved winch drum",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "fabricated",
+        "printed"
+      ],
+      "requirements": [
+        "Direct-drive, single-layer grooved drum on independent 8 mm shaft. No GT2 pulley, belt or gearbox in V1."
+      ],
+      "fabrication": {
+        "process": "openscad",
+        "modelStatus": "planned",
+        "sources": []
+      }
+    },
+    {
+      "id": "winch-drum-shaft-8mm",
+      "name": "8 mm × ~200 mm drum shaft",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "Straight stainless/hardened shaft for direct-drive drum; supported independently by bearings."
+      ]
+    },
+    {
+      "id": "winch-fail-safe-brake",
+      "name": "Mechanical drum lock / fail-safe brake",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "planned",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "fabricated"
+      ],
+      "requirements": [
+        "Normally-engaged drum lock/brake for future revision; explicitly deferred after V1."
+      ],
+      "fabrication": {
+        "process": "openscad",
+        "modelStatus": "planned",
+        "sources": []
+      }
+    },
+    {
+      "id": "winch-mount-and-guard",
+      "name": "Winch bearing/motor mount and guard",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "fabricated",
+        "printed"
+      ],
+      "requirements": [
+        "Motor mount, two bearing supports, line guide, coupling guard and weather cover for direct-drive winch."
+      ],
+      "fabrication": {
+        "process": "openscad",
+        "modelStatus": "planned",
+        "sources": []
+      }
+    },
+    {
+      "id": "wind-sensor-rs485-transceiver",
+      "name": "3.3 V RS485 transceiver module for wind sensor",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "planned",
+      "disciplines": [
+        "electronics"
+      ],
+      "traits": [
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "MAX3485/SP3485-class 3.3 V UART↔RS485 module; one active + one spare. This is only for weather sensor, not motor control."
+      ]
+    },
+    {
+      "id": "wind-speed-sensor",
+      "name": "RS485/Modbus wind-speed sensor",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "planned",
+      "disciplines": [
+        "electronics"
+      ],
+      "traits": [
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "12–24 V anemometer with Modbus RTU. Used to reject imaging and send pod to high dock above wind threshold."
+      ]
+    },
+    {
+      "id": "wire-rope-clamp-3mm",
+      "name": "3 mm wire-rope clamp",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "electrical"
+      ],
+      "traits": [
+        "cable",
+        "fastener",
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "Stainless"
+      ]
+    },
+    {
+      "id": "wire-rope-thimble-3mm",
+      "name": "3 mm wire-rope thimble",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "electrical"
+      ],
+      "traits": [
+        "cable",
+        "fastener",
+        "off-the-shelf"
+      ],
+      "requirements": []
+    },
+    {
+      "id": "zinc-spray",
+      "name": "Zinc-rich spray for drilled pulley-bracket edges",
+      "baseUnit": "each",
+      "kind": "consumable",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "Dupli-Color Basic zinc spray, 400 ml. Deburr, clean and coat every hole drilled through galvanized bracket/backing plates before outdoor assembly."
+      ],
+      "notes": "Protects exposed steel where drilling removes the factory zinc coating."
+    }
+  ]
+}

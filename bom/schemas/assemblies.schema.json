@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gredice.github.io/arbi/schemas/assemblies.schema.json",
+  "title": "ARBI physical assemblies",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "assemblies"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "assemblies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "kind",
+          "parentAssemblyId",
+          "name",
+          "description",
+          "disciplines",
+          "usages"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/$defs/id"
+          },
+          "kind": {
+            "enum": [
+              "physical",
+              "shared-procurement-stock"
+            ]
+          },
+          "parentAssemblyId": {
+            "oneOf": [
+              {
+                "$ref": "#/$defs/id"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "disciplines": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          },
+          "usages": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "partId",
+                "quantity",
+                "inclusion"
+              ],
+              "properties": {
+                "partId": {
+                  "$ref": "#/$defs/id"
+                },
+                "quantity": {
+                  "$ref": "#/$defs/decimal"
+                },
+                "inclusion": {
+                  "enum": [
+                    "base",
+                    "optional",
+                    "deferred"
+                  ]
+                },
+                "note": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "decimal": {
+      "type": "string",
+      "pattern": "^(?:0|[1-9]\\d*)(?:\\.\\d+)?$"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+    }
+  }
+}

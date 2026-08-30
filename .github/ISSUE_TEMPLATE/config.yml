@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a security vulnerability privately
+    url: https://github.com/gredice/arbi/security/advisories/new
+    about: Do not disclose vulnerabilities, credentials, or sensitive site details in a public issue.

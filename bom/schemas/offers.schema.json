@@ -1,0 +1,153 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gredice.github.io/arbi/schemas/offers.schema.json",
+  "title": "ARBI supplier offers",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "offers"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "offers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "supplierId",
+          "checkoutGroupId",
+          "qualification",
+          "listing",
+          "purchaseUnit"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/$defs/id"
+          },
+          "supplierId": {
+            "$ref": "#/$defs/id"
+          },
+          "checkoutGroupId": {
+            "$ref": "#/$defs/id"
+          },
+          "qualification": {
+            "enum": [
+              "approved",
+              "baseline-selected",
+              "candidate",
+              "unresolved"
+            ]
+          },
+          "listing": {
+            "type": "object",
+            "required": [
+              "supplierSku",
+              "url",
+              "marketRegion"
+            ],
+            "properties": {
+              "supplierSku": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "url": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "uri"
+              },
+              "marketRegion": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "purchaseUnit": {
+            "type": "object",
+            "required": [
+              "label",
+              "packagingKnown",
+              "minimum",
+              "increment",
+              "contents"
+            ],
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "packagingKnown": {
+                "type": "boolean"
+              },
+              "minimum": {
+                "oneOf": [
+                  {
+                    "$ref": "#/$defs/decimal"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "increment": {
+                "oneOf": [
+                  {
+                    "$ref": "#/$defs/decimal"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "contents": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "partId",
+                    "quantity"
+                  ],
+                  "properties": {
+                    "partId": {
+                      "$ref": "#/$defs/id"
+                    },
+                    "quantity": {
+                      "$ref": "#/$defs/decimal"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            },
+            "additionalProperties": false
+          },
+          "note": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "decimal": {
+      "type": "string",
+      "pattern": "^(?:0|[1-9]\\d*)(?:\\.\\d+)?$"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+    }
+  }
+}

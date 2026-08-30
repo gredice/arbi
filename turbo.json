@@ -1,0 +1,22 @@
+{
+    "$schema": "https://v2-9-16.turborepo.dev/schema.json",
+    "concurrency": "12",
+    "tasks": {
+        "build": {
+            "dependsOn": ["^build"],
+            "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
+        },
+        "clean": {
+            "cache": false
+        },
+        "lint": {},
+        "typecheck": {
+            "dependsOn": ["^typecheck"],
+            "outputs": []
+        },
+        "test": {
+            "dependsOn": ["^build"],
+            "outputs": ["coverage/**", "dist/**"]
+        }
+    }
+}

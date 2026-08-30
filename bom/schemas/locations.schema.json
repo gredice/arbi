@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gredice.github.io/arbi/schemas/locations.schema.json",
+  "title": "ARBI destinations",
+  "type": "object",
+  "required": ["schemaVersion", "locations"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "locations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "country", "region", "postalCode", "reportCurrency", "tax"],
+        "properties": {
+          "id": { "$ref": "#/$defs/id" },
+          "name": { "type": "string", "minLength": 1 },
+          "country": { "type": "string", "pattern": "^[A-Z]{2}$" },
+          "region": { "type": "string" },
+          "postalCode": { "type": "string" },
+          "reportCurrency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+          "tax": {
+            "type": "object",
+            "required": ["status", "note"],
+            "properties": {
+              "status": { "enum": ["known", "unknown"] },
+              "note": { "type": "string", "minLength": 1 }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$" }
+  }
+}

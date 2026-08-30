@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "locations": [
+    {
+      "id": "hr-zagreb",
+      "name": "Zagreb, Croatia",
+      "country": "HR",
+      "region": "Zagreb",
+      "postalCode": "10000",
+      "reportCurrency": "EUR",
+      "tax": {
+        "status": "unknown",
+        "note": "The recorded supplier prices do not state whether VAT/import tax is included. No street address or personal data is stored."
+      }
+    }
+  ]
+}

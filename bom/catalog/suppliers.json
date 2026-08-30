@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 1,
+  "suppliers": [
+    {
+      "id": "aliexpress",
+      "name": "AliExpress",
+      "checkoutGroupIds": [
+        "aliexpress-hr"
+      ],
+      "website": null
+    },
+    {
+      "id": "bauhaus",
+      "name": "BAUHAUS",
+      "checkoutGroupIds": [
+        "bauhaus-hr"
+      ],
+      "website": null
+    },
+    {
+      "id": "cotra-zagreb",
+      "name": "Cotra Zagreb / treated-pole supplier",
+      "checkoutGroupIds": [
+        "cotra-zagreb-hr"
+      ],
+      "website": null
+    },
+    {
+      "id": "dive-store",
+      "name": "Dive Store Croatia",
+      "checkoutGroupIds": [
+        "dive-store-hr"
+      ],
+      "website": null
+    },
+    {
+      "id": "harken",
+      "name": "Harken reseller",
+      "checkoutGroupIds": [
+        "harken-hr"
+      ],
+      "website": null
+    },
+    {
+      "id": "imnasa",
+      "name": "IMNASA reseller",
+      "checkoutGroupIds": [
+        "imnasa-hr"
+      ],
+      "website": null
+    },
+    {
+      "id": "in-house-fabrication",
+      "name": "In-house fabrication",
+      "checkoutGroupIds": [
+        "in-house-fabrication-hr"
+      ],
+      "website": null
+    },
+    {
+      "id": "kabel24",
+      "name": "Kabel24",
+      "checkoutGroupIds": [
+        "kabel24-hr"
+      ],
+      "website": null
+    },
+    {
+      "id": "kiwi-electronics",
+      "name": "Kiwi Electronics",
+      "checkoutGroupIds": [
+        "kiwi-electronics-hr"
+      ],
+      "website": null
+    },
+    {
+      "id": "baseline-top-pulley-combined",
+      "name": "Combined top-pulley source",
+      "checkoutGroupIds": [
+        "baseline-top-pulley-combined-hr"
+      ],
+      "website": null
+    },
+    {
+      "id": "njuskalo",
+      "name": "Njuškalo marketplace",
+      "checkoutGroupIds": [
+        "njuskalo-hr"
+      ],
+      "website": null
+    },
+    {
+      "id": "pimoroni",
+      "name": "Pimoroni",
+      "checkoutGroupIds": [
+        "pimoroni-hr"
+      ],
+      "website": null
+    },
+    {
+      "id": "ronis",
+      "name": "Ronis",
+      "checkoutGroupIds": [
+        "ronis-hr"
+      ],
+      "website": null
+    },
+    {
+      "id": "stepperonline",
+      "name": "StepperOnline",
+      "checkoutGroupIds": [
+        "stepperonline-hr"
+      ],
+      "website": null
+    },
+    {
+      "id": "tme",
+      "name": "TME",
+      "checkoutGroupIds": [
+        "tme-hr"
+      ],
+      "website": null
+    },
+    {
+      "id": "wasi",
+      "name": "WASI Zagreb",
+      "checkoutGroupIds": [
+        "wasi-hr"
+      ],
+      "website": null
+    },
+    {
+      "id": "ziegelmayer",
+      "name": "Ziegelmayer",
+      "checkoutGroupIds": [
+        "ziegelmayer-hr"
+      ],
+      "website": null
+    }
+  ]
+}
