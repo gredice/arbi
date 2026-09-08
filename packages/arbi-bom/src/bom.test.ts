@@ -131,6 +131,28 @@ test("TME shipping is applied once per checkout group", async () => {
   assert.equal(tme[0]?.chargedOnce, true);
 });
 
+test("AliExpress delivery is EUR 3 per distinct selected offer regardless of quantity", async () => {
+  const repository = await loadBomRepository(repositoryRoot);
+  const before = calculateBom(repository);
+  const offers = before.selections.filter((item) => item.checkoutGroupId === "aliexpress-hr");
+  const delivery = before.shipping.find((item) => item.checkoutGroupId === "aliexpress-hr");
+  assert.ok(delivery);
+  assert.equal(delivery.basis, "selected-offer");
+  assert.equal(delivery.chargeCount, offers.length);
+  assert.equal(delivery.knownAmount, String(offers.length * 3));
+  assert.ok(repository.offers.offers.filter((item) => item.supplierId === "aliexpress").length > offers.length);
+
+  for (const assembly of repository.assemblies.assemblies) {
+    for (const item of assembly.usages) {
+      if (item.partId === "pod-power-wire-red-awg26") item.quantity = "100";
+    }
+  }
+  const after = calculateBom(repository);
+  assert.notEqual(selection(after, "aliexpress-pod-power-wire-red-awg26").purchaseUnits,
+    selection(before, "aliexpress-pod-power-wire-red-awg26").purchaseUnits);
+  assert.equal(after.shipping.find((item) => item.checkoutGroupId === "aliexpress-hr")?.knownAmount, delivery.knownAmount);
+});
+
 test("StepperOnline kit covers all physical component requirements once", async () => {
   const calculated = await result();
   const kit = selection(calculated, "stepperonline-4-axis-v2-kit");

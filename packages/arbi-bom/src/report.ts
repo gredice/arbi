@@ -139,6 +139,10 @@ export function renderMarkdown(result: CalculationResult): string {
       ? "Shipping is evaluated once per checkout group. The recorded TME EUR 2.46 charge is represented once."
       : "Shipping is evaluated once per checkout group.",
     "",
+    ...result.shipping.filter((item) => item.basis === "selected-offer").flatMap((item) => [
+      cell(item.checkoutGroupId) + ": " + item.chargeCount + " distinct selected offers; fixed charge per offer, independent of quantity. " + cell(item.note),
+      "",
+    ]),
     "## Selected purchase units",
     "",
     "| Offer | Qualification | Purchase units | Coverage and surplus | Known goods |",

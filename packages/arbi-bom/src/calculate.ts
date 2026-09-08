@@ -376,13 +376,17 @@ export function calculateBom(
       globalWarnings.add(checkoutGroupId + ": Shipping policy is missing.");
       continue;
     }
+    const basis = quote.basis ?? "checkout-group";
+    const chargeCount = basis === "selected-offer"
+      ? new Set(selections.filter((item) => item.checkoutGroupId === checkoutGroupId).map((item) => item.offerId)).size
+      : 1;
     let knownAmount: Decimal | null = null;
     if (quote.status === "unknown" || quote.amount === null) {
       warnings.push("Shipping is unknown; null is not treated as free.");
     } else {
       knownAmount = convertMoney(
         repository,
-        Decimal.parse(quote.amount),
+        Decimal.parse(quote.amount).multiplyInteger(BigInt(chargeCount)),
         quote.currency,
         scenario.reportCurrency,
       );
@@ -413,6 +417,9 @@ export function calculateBom(
       globalWarnings.add(checkoutGroupId + ": " + warning);
     }
     shipping.push({
+      basis,
+      chargeCount,
+      note: quote.note,
       checkoutGroupId,
       supplierId: quote.supplierId,
       chargedOnce: true,

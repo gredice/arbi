@@ -143,6 +143,7 @@ export interface OfferPrice {
 }
 
 export interface CheckoutGroupQuote {
+  basis?: "checkout-group" | "selected-offer";
   checkoutGroupId: string;
   supplierId: string;
   status: "known" | "unknown" | "not-applicable";
@@ -239,6 +240,9 @@ export interface SelectionResult {
 }
 
 export interface ShippingResult {
+  basis: "checkout-group" | "selected-offer";
+  chargeCount: number;
+  note: string;
   checkoutGroupId: string;
   supplierId: string;
   chargedOnce: true;

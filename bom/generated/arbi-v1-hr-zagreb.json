@@ -5,14 +5,14 @@
   "buildId": "arbi-v1",
   "destinationId": "hr-zagreb",
   "destinationName": "Zagreb, Croatia",
-  "quoteSnapshotId": "hr-zagreb-2026-08-30",
-  "inputDigest": "sha256:d39c1f376900d6797932710455046e3d5dae21fdaac5038feaafeda8a3adb884",
+  "quoteSnapshotId": "hr-zagreb-2026-09-08",
+  "inputDigest": "sha256:e535c58a070557b335a5f3383e6e678621a52a24140bec935d758793991a0797",
   "reportCurrency": "EUR",
   "complete": false,
   "completeLandedTotal": null,
   "knownGoodsSubtotal": "867.73",
-  "knownShippingSubtotal": "48.72",
-  "knownSubtotal": "916.45",
+  "knownShippingSubtotal": "96.72",
+  "knownSubtotal": "964.45",
   "requirements": [
     {
       "partId": "bearing-608-2rs",
@@ -1958,18 +1958,23 @@
   ],
   "shipping": [
     {
+      "basis": "selected-offer",
+      "chargeCount": 16,
+      "note": "Owner-confirmed Croatian delivery/customs costing assumption on 2026-09-08: EUR 3 per distinct selected AliExpress offer, regardless of unit or pack quantity, for orders below EUR 150. This replaces the unknown delivery allowance. One BOM offer is treated as one declared item; actual declaration grouping and split shipments are not modeled. Legal context: https://carina.gov.hr/print.aspx?id=2718&url=print . Other prices and observations are carried forward from hr-zagreb-2026-08-30 without re-verification. Date-only confirmation is normalized to midnight UTC.",
       "checkoutGroupId": "aliexpress-hr",
       "supplierId": "aliexpress",
       "chargedOnce": true,
-      "status": "unknown",
-      "knownAmount": null,
+      "status": "known",
+      "knownAmount": "48",
       "currency": "EUR",
       "warnings": [
-        "Shipping is unknown; null is not treated as free.",
-        "Shipping observation date is unknown; quote capture time is not verification time."
+        "Shipping tax/VAT treatment is unknown."
       ]
     },
     {
+      "basis": "checkout-group",
+      "chargeCount": 1,
+      "note": "Captured on the unresolved combined Ziegelmayer/WASI row.",
       "checkoutGroupId": "baseline-top-pulley-combined-hr",
       "supplierId": "baseline-top-pulley-combined",
       "chargedOnce": true,
@@ -1982,6 +1987,9 @@
       ]
     },
     {
+      "basis": "checkout-group",
+      "chargeCount": 1,
+      "note": "No shipping value was recorded; null is not treated as free.",
       "checkoutGroupId": "bauhaus-hr",
       "supplierId": "bauhaus",
       "chargedOnce": true,
@@ -1994,6 +2002,9 @@
       ]
     },
     {
+      "basis": "checkout-group",
+      "chargeCount": 1,
+      "note": "No shipping value was recorded; null is not treated as free.",
       "checkoutGroupId": "cotra-zagreb-hr",
       "supplierId": "cotra-zagreb",
       "chargedOnce": true,
@@ -2006,6 +2017,9 @@
       ]
     },
     {
+      "basis": "checkout-group",
+      "chargeCount": 1,
+      "note": "Captured once on the Dyneema order.",
       "checkoutGroupId": "dive-store-hr",
       "supplierId": "dive-store",
       "chargedOnce": true,
@@ -2018,6 +2032,9 @@
       ]
     },
     {
+      "basis": "checkout-group",
+      "chargeCount": 1,
+      "note": "Explicit zero shipping for in-house fabrication.",
       "checkoutGroupId": "in-house-fabrication-hr",
       "supplierId": "in-house-fabrication",
       "chargedOnce": true,
@@ -2029,6 +2046,9 @@
       ]
     },
     {
+      "basis": "checkout-group",
+      "chargeCount": 1,
+      "note": "No shipping value was recorded; null is not treated as free.",
       "checkoutGroupId": "kabel24-hr",
       "supplierId": "kabel24",
       "chargedOnce": true,
@@ -2041,6 +2061,9 @@
       ]
     },
     {
+      "basis": "checkout-group",
+      "chargeCount": 1,
+      "note": "No shipping value was recorded; null is not treated as free.",
       "checkoutGroupId": "njuskalo-hr",
       "supplierId": "njuskalo",
       "chargedOnce": true,
@@ -2053,6 +2076,9 @@
       ]
     },
     {
+      "basis": "checkout-group",
+      "chargeCount": 1,
+      "note": "No shipping value was recorded; null is not treated as free.",
       "checkoutGroupId": "pimoroni-hr",
       "supplierId": "pimoroni",
       "chargedOnce": true,
@@ -2065,6 +2091,9 @@
       ]
     },
     {
+      "basis": "checkout-group",
+      "chargeCount": 1,
+      "note": "No shipping value was recorded; null is not treated as free.",
       "checkoutGroupId": "ronis-hr",
       "supplierId": "ronis",
       "chargedOnce": true,
@@ -2077,6 +2106,9 @@
       ]
     },
     {
+      "basis": "checkout-group",
+      "chargeCount": 1,
+      "note": "Captured once on the motor-kit order.",
       "checkoutGroupId": "stepperonline-hr",
       "supplierId": "stepperonline",
       "chargedOnce": true,
@@ -2089,6 +2121,9 @@
       ]
     },
     {
+      "basis": "checkout-group",
+      "chargeCount": 1,
+      "note": "Deduplicated checkout shipping. The recorded TME shipping value is applied once to the checkout group.",
       "checkoutGroupId": "tme-hr",
       "supplierId": "tme",
       "chargedOnce": true,
@@ -2133,7 +2168,7 @@
   ],
   "sharedProcurementStockKnownGoods": "43.19",
   "sharedBundleGoods": "256.68",
-  "sharedShipping": "48.72",
+  "sharedShipping": "96.72",
   "warnings": [
     "aliexpress-bearing-608-2rs: Availability is unknown.",
     "aliexpress-bearing-608-2rs: Price and availability observation date is unknown; quote capture time is not verification time.",
@@ -2169,8 +2204,7 @@
     "aliexpress-heat-set-insert-assortment: Price and availability observation date is unknown; quote capture time is not verification time.",
     "aliexpress-heat-set-insert-assortment: Qualification is baseline-selected; the recorded selection is not engineering approval.",
     "aliexpress-heat-set-insert-assortment: Tax/VAT treatment is unknown.",
-    "aliexpress-hr: Shipping is unknown; null is not treated as free.",
-    "aliexpress-hr: Shipping observation date is unknown; quote capture time is not verification time.",
+    "aliexpress-hr: Shipping tax/VAT treatment is unknown.",
     "aliexpress-micro-pan-tilt-servo: Availability is unknown.",
     "aliexpress-micro-pan-tilt-servo: Price and availability observation date is unknown; quote capture time is not verification time.",
     "aliexpress-micro-pan-tilt-servo: Qualification is baseline-selected; the recorded selection is not engineering approval.",

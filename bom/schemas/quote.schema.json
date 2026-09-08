@@ -189,6 +189,12 @@
           },
           "note": {
             "type": "string"
+          },
+          "basis": {
+            "enum": [
+              "checkout-group",
+              "selected-offer"
+            ]
           }
         },
         "additionalProperties": false

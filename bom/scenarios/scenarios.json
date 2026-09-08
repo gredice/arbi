@@ -6,7 +6,7 @@
       "name": "ARBI V1 — Zagreb repository baseline",
       "buildId": "arbi-v1",
       "destinationId": "hr-zagreb",
-      "quoteSnapshotId": "hr-zagreb-2026-08-30",
+      "quoteSnapshotId": "hr-zagreb-2026-09-08",
       "reportCurrency": "EUR",
       "include": [
         "base"

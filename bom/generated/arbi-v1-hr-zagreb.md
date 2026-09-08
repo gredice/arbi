@@ -8,12 +8,12 @@
 - Scenario: arbi-v1-hr-zagreb
 - Build: arbi-v1
 - Destination: hr-zagreb
-- Quote snapshot: hr-zagreb-2026-08-30
-- Input digest: sha256:d39c1f376900d6797932710455046e3d5dae21fdaac5038feaafeda8a3adb884
+- Quote snapshot: hr-zagreb-2026-09-08
+- Input digest: sha256:e535c58a070557b335a5f3383e6e678621a52a24140bec935d758793991a0797
 - Complete landed total: **unavailable**
 - Known quoted goods subtotal: **EUR 867.73**
-- Known checkout-group shipping subtotal: **EUR 48.72**
-- Known partial subtotal: **EUR 916.45**
+- Known checkout-group shipping subtotal: **EUR 96.72**
+- Known partial subtotal: **EUR 964.45**
 
 The known partial subtotal is evidence about recorded values only. It excludes every unresolved amount and must not be presented as the project cost.
 
@@ -29,7 +29,7 @@ The known partial subtotal is evidence about recorded values only. It excludes e
 | site-installation | EUR 141.00 |
 | winch-set | EUR 48.20 |
 | Shared multi-part purchase bundles | EUR 256.68 |
-| Shared checkout-group shipping | EUR 48.72 |
+| Shared checkout-group shipping | EUR 96.72 |
 
 Bundle and shipping costs stay in explicit shared buckets when the committed record does not provide defensible physical-assembly allocation weights.
 
@@ -45,7 +45,7 @@ This bucket is not a subsystem or physical owner. It holds assortment purchases 
 
 | Checkout group | Supplier | Shipping evidence | Charged |
 | --- | --- | --- | ---: |
-| aliexpress-hr | aliexpress | unknown | unknown |
+| aliexpress-hr | aliexpress | known | EUR 48.00 |
 | baseline-top-pulley-combined-hr | baseline-top-pulley-combined | known | EUR 6.00 |
 | bauhaus-hr | bauhaus | unknown | unknown |
 | cotra-zagreb-hr | cotra-zagreb | unknown | unknown |
@@ -59,6 +59,8 @@ This bucket is not a subsystem or physical owner. It holds assortment purchases 
 | tme-hr | tme | known | EUR 2.46 |
 
 Shipping is evaluated once per checkout group. The recorded TME EUR 2.46 charge is represented once.
+
+aliexpress-hr: 16 distinct selected offers; fixed charge per offer, independent of quantity. Owner-confirmed Croatian delivery/customs costing assumption on 2026-09-08: EUR 3 per distinct selected AliExpress offer, regardless of unit or pack quantity, for orders below EUR 150. This replaces the unknown delivery allowance. One BOM offer is treated as one declared item; actual declaration grouping and split shipments are not modeled. Legal context: https://carina.gov.hr/print.aspx?id=2718&url=print . Other prices and observations are carried forward from hr-zagreb-2026-08-30 without re-verification. Date-only confirmation is normalized to midnight UTC.
 
 ## Selected purchase units
 
@@ -210,8 +212,7 @@ Shipping is evaluated once per checkout group. The recorded TME EUR 2.46 charge 
 - aliexpress-heat-set-insert-assortment: Price and availability observation date is unknown; quote capture time is not verification time.
 - aliexpress-heat-set-insert-assortment: Qualification is baseline-selected; the recorded selection is not engineering approval.
 - aliexpress-heat-set-insert-assortment: Tax/VAT treatment is unknown.
-- aliexpress-hr: Shipping is unknown; null is not treated as free.
-- aliexpress-hr: Shipping observation date is unknown; quote capture time is not verification time.
+- aliexpress-hr: Shipping tax/VAT treatment is unknown.
 - aliexpress-micro-pan-tilt-servo: Availability is unknown.
 - aliexpress-micro-pan-tilt-servo: Price and availability observation date is unknown; quote capture time is not verification time.
 - aliexpress-micro-pan-tilt-servo: Qualification is baseline-selected; the recorded selection is not engineering approval.

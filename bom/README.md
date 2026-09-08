@@ -55,6 +55,10 @@ An offer purchase unit can contain one part, a spool or box quantity, or several
 
 Shipping belongs to a checkout group and is charged once. A supplier can own multiple checkout groups when seller, basket, or warehouse boundaries create separate charges; each offer selects exactly one group. Null shipping means unknown, never free. Different currencies are converted only through explicit rates committed in the quote snapshot.
 
+A checkout quote can set `basis: "selected-offer"` to apply its fixed amount once per distinct selected offer in the group, independent of required quantity or purchase-unit count. Omitted basis defaults to `checkout-group`. Unselected offers incur no charge.
+
+The [2026-09-08 Croatian quote](quotes/hr-zagreb-2026-09-08.json) applies the owner's EUR 3 delivery/customs allowance to each selected AliExpress offer for orders below EUR 150. This assumes one BOM offer per declared item and does not model split shipments or customs grouping. [Croatian Customs guidance](https://carina.gov.hr/print.aspx?id=2718&url=print) describes the duty per declared item. Other prices retain their earlier observation dates; this snapshot does not re-verify them. The earlier quote remains preserved.
+
 `capturedAt` records when a quote snapshot was assembled. It does not claim that every price, availability state, or shipping charge was observed at that instant. Individual rows use `observedAt: null` until a defensible observation time is known, and the calculator reports the missing evidence as a completeness warning.
 
 In-house fabrication offers keep a null goods price until material, energy, machine time, labour, scrap, and safety costs are evidenced. `not-applicable` shipping means only that there is no external shipment; it must never be interpreted as zero fabrication cost.
