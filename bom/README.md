@@ -61,6 +61,12 @@ In-house fabrication offers keep a null goods price until material, energy, mach
 
 ## Reports
 
+### Delivery tracking
+
+[Receipt log](receipts.md) records actual deliveries confirmed by the owner, using the stable offer IDs from `catalog/offers.json`. Keep received quantities and confirmation dates separate from calculated purchase quantities. Items absent from the log have no recorded receipt; this does not establish whether they were ordered or are in transit. Receipt records do not change offer qualification or establish inspection, testing, or installation status.
+
+The receipt log is maintained manually and is not consumed by the BOM calculator or generated reports.
+
 `generated/arbi-v1-hr-zagreb.json` is the deterministic machine-readable result. `generated/arbi-v1-hr-zagreb.md` is the GitHub-readable report.
 
 The current report is intentionally incomplete. It exposes a known partial subtotal but leaves the complete landed total unavailable while package rules, prices, tax treatment, shipping, availability, and qualification remain unresolved. The partial subtotal must not be presented as the project cost.

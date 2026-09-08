@@ -6,15 +6,15 @@
     "models": [
         {
             "id": "winch-drum",
-            "revision": "0.1.0",
+            "revision": "1.0.0",
             "status": "concept-unvalidated",
             "artifactRole": "reference",
             "bomPartIds": [],
             "assembly": "winch",
             "entrypoint": "hardware/assemblies/winch/winch-drum.scad",
-            "output": "winch-drum-r0.1.0.csg",
+            "output": "winch-drum-r1.0.0.csg",
             "documentation": "hardware/assemblies/winch/README.md",
-            "description": "Non-manufacturing nominal 100 mm single-layer capacity and groove geometry study."
+            "description": "Non-manufacturing nominal 100 mm continuous helical groove and reserve-wrap capacity study."
         },
         {
             "id": "camera-pod-envelope",

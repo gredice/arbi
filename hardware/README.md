@@ -8,7 +8,7 @@ The machine-readable registry is [models.json](models.json). It declares stable 
 
 | Model | Assembly | Revision | Purpose |
 | --- | --- | --- | --- |
-| `winch-drum` | [Winch](assemblies/winch/README.md) | `0.1.0` | Non-manufacturing nominal 100 mm capacity/groove study |
+| `winch-drum` | [Winch](assemblies/winch/README.md) | `1.0.0` | Non-manufacturing continuous helix and reserve-wrap capacity study |
 | `camera-pod-envelope` | [Camera pod](assemblies/camera-pod/README.md) | `0.1.0` | Non-manufacturing pod and motion keep-out reference |
 | `camera-pod-spider` | [Camera pod](assemblies/camera-pod/README.md) | `0.1.0` | Four-line load-interface spider concept |
 | `dock-funnel` | [Dock](assemblies/dock/README.md) | `0.1.0` | Passive conical alignment funnel concept |

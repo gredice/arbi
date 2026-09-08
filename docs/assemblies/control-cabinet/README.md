@@ -42,6 +42,8 @@ Direct 3.3 V single-ended signaling over long outdoor runs is **unverified**. Be
 
 ## Field wiring baseline
 
+The [winch wiring diagrams](../winch/wiring.md) show the cabinet-to-driver paths, per-axis GPIO assignment, signal returns, and local motor/encoder harnesses.
+
 Each pole needs:
 
 - separately protected 48 V and return;

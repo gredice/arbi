@@ -76,6 +76,8 @@ The slip-ring mount, cover, and service access are part of the powered winch rev
 
 ## Motor driver, cabling, and homing
 
+See the [motor and controller wiring diagrams](wiring.md) for the four-axis overview, single-axis power/control/encoder connections, GPIO and cable-pair schedules, and unresolved interfaces.
+
 The CL57Y-V20 driver mounts near the motor because the kit's matched cables are approximately 2 m. The driver receives a separately protected 48 V branch and single-ended 3.3 V STEP/DIR signals from the Pico baseline. Long outdoor control runs need signal-integrity, grounding, surge, and fault testing.
 
 Each winch has a home/reference switch. After position loss, the baseline sequence moves slowly toward the reference, establishes a spool-angle reference, then transitions to calibrated cable length. Define switch technology, mechanical actuation, repeatability, independent travel limits, cable failure behavior, and how a homing move avoids over-tension or slack.
