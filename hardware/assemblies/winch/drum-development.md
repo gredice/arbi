@@ -20,6 +20,25 @@ The reference remains a solid core with an illustrative 8.2 mm bore. Neither a
 plain bore nor reserve wraps establish torque transfer or line retention. Do not
 print this full reference as a working drum.
 
+## Owner constraints recorded on 2026-09-08
+
+The owner confirmed a **Bambu Lab X1 Carbon (X1C)**, no shaft on hand, and an
+already ordered AliExpress coupling. The BOM specifies an 8-to-8 mm jaw coupling,
+approximately D20/L25; its actual clamping and engagement dimensions await receipt.
+
+[Bambu's specification](https://us.store.bambulab.com/products/x1-carbon?variant=42698346037384)
+lists 256 × 256 × 256 mm nominal volume, with a default 250 mm print height and a
+filament-cutter exclusion area. The current 270.9 mm drum cannot print upright as
+one part. Proposed construction: two axial drum sections, approximately 135.45 mm
+body length each before joint details, with positive angular registration of the
+helical groove and a bolted connection. Keep each finished part below 240 mm in
+height and check brim/exclusion clearance in Bambu Studio. The joint, hub, groove
+seam, hollow walls and print orientation are not yet modeled or released.
+
+Domestic shaft research is recorded in the [dated sourcing note](../../../bom/sourcing/winch-shaft-2026-09-08.md).
+A ground Ø8 mm shaft is the procurement candidate; a 400 mm blank per winch is an
+allowance for the complete stack, not a final cut length or structural approval.
+
 ## Interfaces to resolve before a fabrication model
 
 - Printer model, usable build volume, material, and process: choose a one-piece or

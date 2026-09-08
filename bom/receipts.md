@@ -1,6 +1,20 @@
-# BOM receipt log
+# BOM order and receipt log
 
-Actual deliveries for the ARBI V1 build, linked by offer ID to the [offer catalog](catalog/offers.json). Quantities below are owner-confirmed receipts, not the calculator's planned purchase quantities.
+Owner-confirmed orders and deliveries for the ARBI V1 build, linked by offer ID to the [offer catalog](catalog/offers.json). Actual ordered and received quantities are kept separate from the calculator's planned purchase quantities.
+
+## Incoming orders confirmed on 2026-09-08
+
+Evidence: Aleks reported that the following AliExpress items were ordered and are incoming. “microswitchessplit shaft collars” is interpreted as two items: microswitches and split shaft collars. Exact ordered quantities, order dates, and arrival estimates were not supplied.
+
+| Supplier | Offer ID / BOM mapping | Item reported | Ordered quantity | Status |
+| --- | --- | --- | --- | --- |
+| AliExpress | `aliexpress-micro-pan-tilt-servo` | 3 g micro servos | Not specified | Ordered / incoming |
+| AliExpress | `aliexpress-flexible-jaw-coupling-8mm` | Couplings | Not specified | Ordered / incoming |
+| AliExpress | `aliexpress-controller-buck-converter-48v-5v`, `aliexpress-pod-buck-converter-48v-5v` (allocation unconfirmed) | Step-down converters | Not specified | Ordered / incoming |
+| AliExpress | `aliexpress-roller-lever-microswitch` | Microswitches | Not specified | Ordered / incoming |
+| AliExpress | `aliexpress-shaft-collar-8mm` | Split shaft collars | Not specified | Ordered / incoming |
+
+Mappings identify the corresponding BOM items; exact ordered variants have not been checked. The step-down order is recorded as a single category pending confirmation of allocation to the controller and pod. These entries do not establish receipt or inspection, and planned pack sizes are not treated as confirmed order quantities.
 
 ## Receipts confirmed on 2026-09-08
 
@@ -19,4 +33,4 @@ The catalog lists four motors, four CL57Y-V20 drivers, four matched motor cables
 
 Exact delivered camera and terminal-board variants have not been inspected against the BOM requirements. Receipt does not resolve existing catalog qualification or model discrepancies, or establish functional testing or installation.
 
-Append future deliveries with their confirmation date, evidence, stable offer ID, and actual quantity. Do not infer receipt for unlisted items. This manual log is not included in generated cost reports.
+Append future orders and deliveries with their confirmation date, evidence, stable offer ID, and actual quantity when known. When incoming items arrive, record receipt separately so the order history remains traceable. Do not infer receipt for unlisted items. This manual log is not included in generated cost reports.
