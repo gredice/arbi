@@ -8,12 +8,12 @@
 - Scenario: arbi-v1-hr-zagreb
 - Build: arbi-v1
 - Destination: hr-zagreb
-- Quote snapshot: hr-zagreb-2026-09-08
-- Input digest: sha256:e535c58a070557b335a5f3383e6e678621a52a24140bec935d758793991a0797
+- Quote snapshot: hr-zagreb-2026-09-08-bauhaus-shaft
+- Input digest: sha256:14cbabdf4d1064562156c1fe7fcf2162a14597fb252b3ab2eaa4a584273903a1
 - Complete landed total: **unavailable**
-- Known quoted goods subtotal: **EUR 867.73**
-- Known checkout-group shipping subtotal: **EUR 96.72**
-- Known partial subtotal: **EUR 964.45**
+- Known quoted goods subtotal: **EUR 874.68**
+- Known checkout-group shipping subtotal: **EUR 93.72**
+- Known partial subtotal: **EUR 968.40**
 
 The known partial subtotal is evidence about recorded values only. It excludes every unresolved amount and must not be presented as the project cost.
 
@@ -27,9 +27,9 @@ The known partial subtotal is evidence about recorded values only. It excludes e
 | dock | EUR 0.96 |
 | positioning-line-set | EUR 103.97 |
 | site-installation | EUR 141.00 |
-| winch-set | EUR 48.20 |
+| winch-set | EUR 55.15 |
 | Shared multi-part purchase bundles | EUR 256.68 |
-| Shared checkout-group shipping | EUR 96.72 |
+| Shared checkout-group shipping | EUR 93.72 |
 
 Bundle and shipping costs stay in explicit shared buckets when the committed record does not provide defensible physical-assembly allocation weights.
 
@@ -45,7 +45,7 @@ This bucket is not a subsystem or physical owner. It holds assortment purchases 
 
 | Checkout group | Supplier | Shipping evidence | Charged |
 | --- | --- | --- | ---: |
-| aliexpress-hr | aliexpress | known | EUR 48.00 |
+| aliexpress-hr | aliexpress | known | EUR 45.00 |
 | baseline-top-pulley-combined-hr | baseline-top-pulley-combined | known | EUR 6.00 |
 | bauhaus-hr | bauhaus | unknown | unknown |
 | cotra-zagreb-hr | cotra-zagreb | unknown | unknown |
@@ -60,7 +60,7 @@ This bucket is not a subsystem or physical owner. It holds assortment purchases 
 
 Shipping is evaluated once per checkout group. The recorded TME EUR 2.46 charge is represented once.
 
-aliexpress-hr: 16 distinct selected offers; fixed charge per offer, independent of quantity. Owner-confirmed Croatian delivery/customs costing assumption on 2026-09-08: EUR 3 per distinct selected AliExpress offer, regardless of unit or pack quantity, for orders below EUR 150. This replaces the unknown delivery allowance. One BOM offer is treated as one declared item; actual declaration grouping and split shipments are not modeled. Legal context: https://carina.gov.hr/print.aspx?id=2718&url=print . Other prices and observations are carried forward from hr-zagreb-2026-08-30 without re-verification. Date-only confirmation is normalized to midnight UTC.
+aliexpress-hr: 15 distinct selected offers; fixed charge per offer, independent of quantity. Owner-confirmed Croatian delivery/customs costing assumption on 2026-09-08: EUR 3 per distinct selected AliExpress offer, regardless of unit or pack quantity, for orders below EUR 150. This replaces the unknown delivery allowance. One BOM offer is treated as one declared item; actual declaration grouping and split shipments are not modeled. Legal context: https://carina.gov.hr/print.aspx?id=2718&url=print . Other prices and observations are carried forward from hr-zagreb-2026-08-30 without re-verification. Date-only confirmation is normalized to midnight UTC.
 
 ## Selected purchase units
 
@@ -81,7 +81,6 @@ aliexpress-hr: 16 distinct selected offers; fixed charge per offer, independent 
 | aliexpress-roller-lever-microswitch | baseline-selected | 1 | roller-lever-microswitch: 5 each required, 10 each purchased; 5 surplus | EUR 4.79 |
 | aliexpress-shaft-collar-8mm | baseline-selected | 4 | shaft-collar-8mm: 8 each required, 8 each purchased; 0 surplus | EUR 40.40 |
 | aliexpress-stainless-fastener-assortment | baseline-selected | 1 | stainless-fastener-assortment: 1 each required, 1 each purchased; 0 surplus | EUR 16.00 |
-| aliexpress-winch-drum-shaft-8mm | baseline-selected | unknown | winch-drum-shaft-8mm: 4 each required, unknown purchase quantity | unknown |
 | baseline-combined-top-pulley-offer | unresolved | unknown | top-positioning-line-pulley: 4 each required, unknown purchase quantity | unknown |
 | bauhaus-din-rail-ground-distribution-block | baseline-selected | 1 | din-rail-ground-distribution-block: 1 each required, 1 each purchased; 0 surplus | EUR 5.95 |
 | bauhaus-guy-turnbuckle-m12 | baseline-selected | unknown | guy-turnbuckle-m12: 4 each required, unknown purchase quantity | unknown |
@@ -94,6 +93,7 @@ aliexpress-hr: 16 distinct selected offers; fixed charge per offer, independent 
 | bauhaus-pulley-bracket-through-bolt-m12x160 | baseline-selected | 1 | pulley-bracket-through-bolt-m12x160: 8 each required, 40 each purchased; 32 surplus | EUR 33.20 |
 | bauhaus-pulley-bracket-washer-m12 | baseline-selected | 1 | pulley-bracket-washer-m12: 16 each required, 100 each purchased; 84 surplus | EUR 16.00 |
 | bauhaus-top-pulley-bracket | baseline-selected | 4 | top-pulley-bracket: 4 each required, 4 each purchased; 0 surplus | EUR 16.60 |
+| bauhaus-winch-drum-shaft-8mm | baseline-selected | 1 | winch-drum-shaft-8mm: 4 each required, 4 each purchased; 0 surplus | EUR 6.95 |
 | bauhaus-wire-rope-clamp-3mm | baseline-selected | unknown | wire-rope-clamp-3mm: 16 each required, unknown purchase quantity | unknown |
 | bauhaus-wire-rope-thimble-3mm | baseline-selected | unknown | wire-rope-thimble-3mm: 8 each required, unknown purchase quantity | unknown |
 | bauhaus-zinc-spray | baseline-selected | 1 | zinc-spray: 1 each required, 1 each purchased; 0 surplus | EUR 11.69 |
@@ -170,7 +170,7 @@ aliexpress-hr: 16 distinct selected offers; fixed charge per offer, independent 
 | top-pulley-bracket | 4 each | corner-support-set (4 each) | bauhaus-top-pulley-bracket |
 | top-pulley-keeper | 4 each | corner-support-set (4 each) | in-house-fabrication-top-pulley-keeper |
 | winch-drum | 4 each | winch-set (4 each) | in-house-fabrication-winch-drum |
-| winch-drum-shaft-8mm | 4 each | winch-set (4 each) | aliexpress-winch-drum-shaft-8mm |
+| winch-drum-shaft-8mm | 4 each | winch-set (4 each) | bauhaus-winch-drum-shaft-8mm |
 | winch-mount-and-guard | 4 each | winch-set (4 each) | in-house-fabrication-winch-mount-and-guard |
 | wire-rope-clamp-3mm | 16 each | corner-support-set (16 each) | bauhaus-wire-rope-clamp-3mm |
 | wire-rope-thimble-3mm | 8 each | corner-support-set (8 each) | bauhaus-wire-rope-thimble-3mm |
@@ -241,11 +241,6 @@ aliexpress-hr: 16 distinct selected offers; fixed charge per offer, independent 
 - aliexpress-stainless-fastener-assortment: Price and availability observation date is unknown; quote capture time is not verification time.
 - aliexpress-stainless-fastener-assortment: Qualification is baseline-selected; the recorded selection is not engineering approval.
 - aliexpress-stainless-fastener-assortment: Tax/VAT treatment is unknown.
-- aliexpress-winch-drum-shaft-8mm: A quoted price cannot be extended without package data.
-- aliexpress-winch-drum-shaft-8mm: Availability is unknown.
-- aliexpress-winch-drum-shaft-8mm: Package size/MOQ is unknown.
-- aliexpress-winch-drum-shaft-8mm: Price and availability observation date is unknown; quote capture time is not verification time.
-- aliexpress-winch-drum-shaft-8mm: Qualification is baseline-selected; the recorded selection is not engineering approval.
 - baseline-combined-top-pulley-offer: A quoted price cannot be extended without package data.
 - baseline-combined-top-pulley-offer: Availability is unknown.
 - baseline-combined-top-pulley-offer: Package size/MOQ is unknown.
@@ -302,6 +297,8 @@ aliexpress-hr: 16 distinct selected offers; fixed charge per offer, independent 
 - bauhaus-top-pulley-bracket: Price and availability observation date is unknown; quote capture time is not verification time.
 - bauhaus-top-pulley-bracket: Qualification is baseline-selected; the recorded selection is not engineering approval.
 - bauhaus-top-pulley-bracket: Tax/VAT treatment is unknown.
+- bauhaus-winch-drum-shaft-8mm: Availability is unknown.
+- bauhaus-winch-drum-shaft-8mm: Qualification is baseline-selected; the recorded selection is not engineering approval.
 - bauhaus-wire-rope-clamp-3mm: A quoted price cannot be extended without package data.
 - bauhaus-wire-rope-clamp-3mm: Availability is unknown.
 - bauhaus-wire-rope-clamp-3mm: Package size/MOQ is unknown.

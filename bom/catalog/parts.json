@@ -952,7 +952,7 @@
     },
     {
       "id": "winch-drum-shaft-8mm",
-      "name": "8 mm × ~200 mm drum shaft",
+      "name": "8 mm steel drum-shaft blank (~400 mm allowance)",
       "baseUnit": "each",
       "kind": "component",
       "lifecycle": "active",
@@ -963,8 +963,10 @@
         "off-the-shelf"
       ],
       "requirements": [
-        "Straight stainless/hardened shaft for direct-drive drum; supported independently by bearings."
-      ]
+        "Solid nominal 8 mm steel shaft blank for the direct-drive drum, supported independently by bearings. Reserve approximately 400 mm per winch; final cut length follows the complete drum, bearing, collar and coupling stack.",
+        "Prototype selection: BAUHAUS hot-rolled stock. Inspect actual diameter, roundness, straightness and 608 bearing/coupling fit before use; no precision tolerance or structural qualification is claimed."
+      ],
+      "notes": "Owner selected BAUHAUS rod on 2026-09-08. One 2000 mm rod is allocated to four approximately 400 mm blanks, leaving about 400 mm for saw kerfs and offcut. Cutting, deburring, corrosion protection and any fit finishing are not included in the stock price. The previous approximately 200 mm allowance was shorter than the current drum."
     },
     {
       "id": "winch-fail-safe-brake",

@@ -1425,6 +1425,30 @@
         ]
       },
       "note": "Allen A2030 alternative; price and package details are not recorded."
+    },
+    {
+      "id": "bauhaus-winch-drum-shaft-8mm",
+      "supplierId": "bauhaus",
+      "checkoutGroupId": "bauhaus-hr",
+      "qualification": "baseline-selected",
+      "listing": {
+        "supplierSku": "10504331",
+        "url": "https://www.bauhaus.hr/sipke/kantoflex-okrugla-sipka/p/10504331",
+        "marketRegion": "Croatia"
+      },
+      "purchaseUnit": {
+        "label": "one 2000 mm rod; allocated yield of four ~400 mm shaft blanks",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
+        "contents": [
+          {
+            "partId": "winch-drum-shaft-8mm",
+            "quantity": "4"
+          }
+        ]
+      },
+      "note": "Kantoflex nominal Ø8 mm hot-rolled steel stock, owner-selected on 2026-09-08 for the prototype. Contents express the planned cut yield, not four supplied finished shafts: 4 × 400 mm leaves 400 mm for kerfs/offcut. No cutting service, machining cost, precision shaft tolerance or engineering approval is included. Confirm local stock and inspect bearing/coupling fit and straightness."
     }
   ]
 }

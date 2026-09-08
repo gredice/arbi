@@ -1,7 +1,6 @@
 # Winch shaft sourcing — 2026-09-08
 
-Destination: Zagreb, Croatia. Research candidates only; no purchase or canonical
-BOM supplier replacement has been made. Website listings are dated observations,
+Destination: Zagreb, Croatia. Initial research candidates, followed by the owner selection recorded below. Website listings are dated observations,
 not reserved stock or supplier-confirmed quotes. Shipping and cutting costs are
 unknown unless stated below.
 
@@ -43,3 +42,14 @@ coupling interface while evaluating a separate clamping drum hub.
 
 This sourcing note does not approve an 8 mm shaft's bending/fatigue performance or
 release a new BOM length. See the [drum development proposal](../../hardware/assemblies/winch/drum-development.md).
+
+## Subsequent owner selection — 2026-09-08
+
+The owner selected BAUHAUS Kantoflex 10504331 for the prototype. The canonical
+scenario now pins `bauhaus-winch-drum-shaft-8mm`, with one 2000 mm stock rod
+allocated to four approximately 400 mm shaft blanks. Its EUR 6.95 VAT-inclusive
+stock price is recorded in the [new quote snapshot](../quotes/hr-zagreb-2026-09-08-bauhaus-shaft.json).
+Earlier candidate assessments above are retained as research history. This
+selection does not record a purchase, receipt, precision fit or structural approval.
+Stock remains unconfirmed; cutting, finishing and shipping are not included in
+that goods price. The ordered AliExpress coupling remains selected.

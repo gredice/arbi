@@ -59,6 +59,8 @@ A checkout quote can set `basis: "selected-offer"` to apply its fixed amount onc
 
 The [2026-09-08 Croatian quote](quotes/hr-zagreb-2026-09-08.json) applies the owner's EUR 3 delivery/customs allowance to each selected AliExpress offer for orders below EUR 150. This assumes one BOM offer per declared item and does not model split shipments or customs grouping. [Croatian Customs guidance](https://carina.gov.hr/print.aspx?id=2718&url=print) describes the duty per declared item. Other prices retain their earlier observation dates; this snapshot does not re-verify them. The earlier quote remains preserved.
 
+The [BAUHAUS shaft revision of the 2026-09-08 quote](quotes/hr-zagreb-2026-09-08-bauhaus-shaft.json) preserves those observations and adds the owner-selected EUR 6.95, VAT-inclusive 2000 mm steel rod. Its planned cut yield supplies four approximately 400 mm shaft blanks. Local availability, cutting/finishing cost and BAUHAUS shipping remain unknown; the earlier snapshot is preserved.
+
 `capturedAt` records when a quote snapshot was assembled. It does not claim that every price, availability state, or shipping charge was observed at that instant. Individual rows use `observedAt: null` until a defensible observation time is known, and the calculator reports the missing evidence as a completeness warning.
 
 In-house fabrication offers keep a null goods price until material, energy, machine time, labour, scrap, and safety costs are evidenced. `not-applicable` shipping means only that there is no external shipment; it must never be interpreted as zero fabrication cost.

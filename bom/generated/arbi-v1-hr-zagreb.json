@@ -5,14 +5,14 @@
   "buildId": "arbi-v1",
   "destinationId": "hr-zagreb",
   "destinationName": "Zagreb, Croatia",
-  "quoteSnapshotId": "hr-zagreb-2026-09-08",
-  "inputDigest": "sha256:e535c58a070557b335a5f3383e6e678621a52a24140bec935d758793991a0797",
+  "quoteSnapshotId": "hr-zagreb-2026-09-08-bauhaus-shaft",
+  "inputDigest": "sha256:14cbabdf4d1064562156c1fe7fcf2162a14597fb252b3ab2eaa4a584273903a1",
   "reportCurrency": "EUR",
   "complete": false,
   "completeLandedTotal": null,
-  "knownGoodsSubtotal": "867.73",
-  "knownShippingSubtotal": "96.72",
-  "knownSubtotal": "964.45",
+  "knownGoodsSubtotal": "874.68",
+  "knownShippingSubtotal": "93.72",
+  "knownSubtotal": "968.4",
   "requirements": [
     {
       "partId": "bearing-608-2rs",
@@ -667,7 +667,7 @@
           "quantity": "4"
         }
       ],
-      "selectedOfferId": "aliexpress-winch-drum-shaft-8mm"
+      "selectedOfferId": "bauhaus-winch-drum-shaft-8mm"
     },
     {
       "partId": "winch-mount-and-guard",
@@ -1086,31 +1086,6 @@
       ]
     },
     {
-      "offerId": "aliexpress-winch-drum-shaft-8mm",
-      "supplierId": "aliexpress",
-      "checkoutGroupId": "aliexpress-hr",
-      "qualification": "baseline-selected",
-      "purchaseUnits": null,
-      "knownGoodsAmount": null,
-      "currency": null,
-      "coverage": [
-        {
-          "partId": "winch-drum-shaft-8mm",
-          "required": "4",
-          "purchased": null,
-          "surplus": null,
-          "unit": "each"
-        }
-      ],
-      "warnings": [
-        "A quoted price cannot be extended without package data.",
-        "Availability is unknown.",
-        "Package size/MOQ is unknown.",
-        "Price and availability observation date is unknown; quote capture time is not verification time.",
-        "Qualification is baseline-selected; the recorded selection is not engineering approval."
-      ]
-    },
-    {
       "offerId": "baseline-combined-top-pulley-offer",
       "supplierId": "baseline-top-pulley-combined",
       "checkoutGroupId": "baseline-top-pulley-combined-hr",
@@ -1400,6 +1375,28 @@
         "Price and availability observation date is unknown; quote capture time is not verification time.",
         "Qualification is baseline-selected; the recorded selection is not engineering approval.",
         "Tax/VAT treatment is unknown."
+      ]
+    },
+    {
+      "offerId": "bauhaus-winch-drum-shaft-8mm",
+      "supplierId": "bauhaus",
+      "checkoutGroupId": "bauhaus-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": "1",
+      "knownGoodsAmount": "6.95",
+      "currency": "EUR",
+      "coverage": [
+        {
+          "partId": "winch-drum-shaft-8mm",
+          "required": "4",
+          "purchased": "4",
+          "surplus": "0",
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "Availability is unknown.",
+        "Qualification is baseline-selected; the recorded selection is not engineering approval."
       ]
     },
     {
@@ -1959,13 +1956,13 @@
   "shipping": [
     {
       "basis": "selected-offer",
-      "chargeCount": 16,
+      "chargeCount": 15,
       "note": "Owner-confirmed Croatian delivery/customs costing assumption on 2026-09-08: EUR 3 per distinct selected AliExpress offer, regardless of unit or pack quantity, for orders below EUR 150. This replaces the unknown delivery allowance. One BOM offer is treated as one declared item; actual declaration grouping and split shipments are not modeled. Legal context: https://carina.gov.hr/print.aspx?id=2718&url=print . Other prices and observations are carried forward from hr-zagreb-2026-08-30 without re-verification. Date-only confirmation is normalized to midnight UTC.",
       "checkoutGroupId": "aliexpress-hr",
       "supplierId": "aliexpress",
       "chargedOnce": true,
       "status": "known",
-      "knownAmount": "48",
+      "knownAmount": "45",
       "currency": "EUR",
       "warnings": [
         "Shipping tax/VAT treatment is unknown."
@@ -2163,12 +2160,12 @@
     },
     {
       "assemblyId": "winch-set",
-      "amount": "48.2"
+      "amount": "55.15"
     }
   ],
   "sharedProcurementStockKnownGoods": "43.19",
   "sharedBundleGoods": "256.68",
-  "sharedShipping": "96.72",
+  "sharedShipping": "93.72",
   "warnings": [
     "aliexpress-bearing-608-2rs: Availability is unknown.",
     "aliexpress-bearing-608-2rs: Price and availability observation date is unknown; quote capture time is not verification time.",
@@ -2233,11 +2230,6 @@
     "aliexpress-stainless-fastener-assortment: Price and availability observation date is unknown; quote capture time is not verification time.",
     "aliexpress-stainless-fastener-assortment: Qualification is baseline-selected; the recorded selection is not engineering approval.",
     "aliexpress-stainless-fastener-assortment: Tax/VAT treatment is unknown.",
-    "aliexpress-winch-drum-shaft-8mm: A quoted price cannot be extended without package data.",
-    "aliexpress-winch-drum-shaft-8mm: Availability is unknown.",
-    "aliexpress-winch-drum-shaft-8mm: Package size/MOQ is unknown.",
-    "aliexpress-winch-drum-shaft-8mm: Price and availability observation date is unknown; quote capture time is not verification time.",
-    "aliexpress-winch-drum-shaft-8mm: Qualification is baseline-selected; the recorded selection is not engineering approval.",
     "baseline-combined-top-pulley-offer: A quoted price cannot be extended without package data.",
     "baseline-combined-top-pulley-offer: Availability is unknown.",
     "baseline-combined-top-pulley-offer: Package size/MOQ is unknown.",
@@ -2294,6 +2286,8 @@
     "bauhaus-top-pulley-bracket: Price and availability observation date is unknown; quote capture time is not verification time.",
     "bauhaus-top-pulley-bracket: Qualification is baseline-selected; the recorded selection is not engineering approval.",
     "bauhaus-top-pulley-bracket: Tax/VAT treatment is unknown.",
+    "bauhaus-winch-drum-shaft-8mm: Availability is unknown.",
+    "bauhaus-winch-drum-shaft-8mm: Qualification is baseline-selected; the recorded selection is not engineering approval.",
     "bauhaus-wire-rope-clamp-3mm: A quoted price cannot be extended without package data.",
     "bauhaus-wire-rope-clamp-3mm: Availability is unknown.",
     "bauhaus-wire-rope-clamp-3mm: Package size/MOQ is unknown.",

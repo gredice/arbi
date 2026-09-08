@@ -6,7 +6,7 @@
       "name": "ARBI V1 — Zagreb repository baseline",
       "buildId": "arbi-v1",
       "destinationId": "hr-zagreb",
-      "quoteSnapshotId": "hr-zagreb-2026-09-08",
+      "quoteSnapshotId": "hr-zagreb-2026-09-08-bauhaus-shaft",
       "reportCurrency": "EUR",
       "include": [
         "base"
@@ -67,7 +67,7 @@
           "top-pulley-bracket": "bauhaus-top-pulley-bracket",
           "top-pulley-keeper": "in-house-fabrication-top-pulley-keeper",
           "winch-drum": "in-house-fabrication-winch-drum",
-          "winch-drum-shaft-8mm": "aliexpress-winch-drum-shaft-8mm",
+          "winch-drum-shaft-8mm": "bauhaus-winch-drum-shaft-8mm",
           "winch-mount-and-guard": "in-house-fabrication-winch-mount-and-guard",
           "wire-rope-clamp-3mm": "bauhaus-wire-rope-clamp-3mm",
           "wire-rope-thimble-3mm": "bauhaus-wire-rope-thimble-3mm",
@@ -77,7 +77,8 @@
       "unknownPolicy": "report-incomplete",
       "notes": [
         "Pins record the repository baseline offer selection; they do not imply that price, tax, availability, or packaging has been reverified.",
-        "Optional and deferred usages are excluded."
+        "Optional and deferred usages are excluded.",
+        "BAUHAUS 2000 mm rod is allocated to four approximately 400 mm prototype shaft blanks; cutting/fit finishing and local stock remain unconfirmed."
       ]
     }
   ]

@@ -36,8 +36,10 @@ height and check brim/exclusion clearance in Bambu Studio. The joint, hub, groov
 seam, hollow walls and print orientation are not yet modeled or released.
 
 Domestic shaft research is recorded in the [dated sourcing note](../../../bom/sourcing/winch-shaft-2026-09-08.md).
-A ground Ø8 mm shaft is the procurement candidate; a 400 mm blank per winch is an
-allowance for the complete stack, not a final cut length or structural approval.
+The owner subsequently selected BAUHAUS nominal Ø8 mm hot-rolled steel rod for
+the prototype. A 400 mm blank per winch is an allowance for the complete stack,
+not a final cut length or structural approval. Measure the rod before assigning
+final bore clearances and inspect bearing/coupling fit and straightness.
 
 ## Interfaces to resolve before a fabrication model
 
