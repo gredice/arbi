@@ -53,3 +53,11 @@ Earlier candidate assessments above are retained as research history. This
 selection does not record a purchase, receipt, precision fit or structural approval.
 Stock remains unconfirmed; cutting, finishing and shipping are not included in
 that goods price. The ordered AliExpress coupling remains selected.
+
+## Segmented drum layout update — 2026-09-08
+
+The subsequent CAD pass supersedes the four 400 mm allowance: three passive
+shafts use 340 mm each and one powered shaft uses 660 mm. Their 1680 mm total
+leaves 320 mm of the same 2000 mm stock for kerfs/offcut. The supplier selection
+and stock price are unchanged. This is layout evidence, not shaft stiffness or
+load validation. See the [current drum README](../../hardware/assemblies/winch/README.md).

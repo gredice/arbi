@@ -3,6 +3,22 @@
 Status: **Proposed, concept-unvalidated**. This working proposal does not release a
 manufacturing interface or change the direct-drive V1 baseline.
 
+## Implemented CAD pass — 2026-09-08
+
+The earlier concept study has been replaced by a segmented assembly reference
+(revision 2.0.0) and ten fabrication entrypoints (each 0.1.0). The
+[current model README](README.md) owns dimensions, print counts, fasteners,
+assembly and limitations. The proposal text below records the earlier assumptions;
+where those differ, use the current model README for the implemented geometry.
+
+Implemented: two passive and three powered grooved body sections; shared flanges,
+two-piece screw clamp, Dyneema tail clamp, alignment pins and M5 through-rod joints.
+The nominal full-travel shaft allowances are now 340 mm passive and 660 mm powered,
+not four 400 mm blanks. Three passive shafts and one powered shaft use 1680 mm of
+the BAUHAUS 2000 mm stock before kerfs. The longer powered shaft still requires
+structural review. Slip-ring mounting and electrical strain relief remain outside
+these drum parts. The model status remains concept-unvalidated.
+
 ## First geometry pass
 
 Keep the nominal 100 mm core and the 1.5 mm passive-line starting point. Replace
@@ -41,17 +57,65 @@ the prototype. A 400 mm blank per winch is an allowance for the complete stack,
 not a final cut length or structural approval. Measure the rod before assigning
 final bore clearances and inspect bearing/coupling fit and straightness.
 
-## Interfaces to resolve before a fabrication model
+## Nominal inputs and tolerance strategy — 2026-09-08
 
-- Printer model, usable build volume, material, and process: choose a one-piece or
-  segmented construction only after checking the complete flange/hub envelope.
-- Measured 8 mm shaft and coupling: propose a metal clamping hub with a bolted drum
-  interface, then dimension its actual pilot, bolt circle, axial retention and
-  torque path. This is a candidate, not a selected component or approved interface.
+Owner direction: use BOM nominal dimensions and mechanical adjustment rather than
+blocking the CAD on measurements of parts already specified. These are sufficient
+to develop the first passive-line prototype; inspection is a fabrication/assembly
+check, not a prerequisite for drawing it.
+
+| Interface | BOM fact | CAD treatment |
+| --- | --- | --- |
+| Shaft | BAUHAUS nominal Ø8 mm steel | Expose nominal diameter and diametral clearance separately. Use 0.2 mm initial diametral clearance for printed locating bores, plus a split clamp and through-bolts/nuts for take-up; do not depend on an exact printed press fit. |
+| Bearings | 608-2RS, 8 × 22 × 7 mm | Reserve the stated envelope. Printed housing clearance is adjustable, but the steel bearing's 8 mm bore is fixed; reject or finish rod stock that will not fit without forcing. |
+| Motor coupling | 8-to-8 mm jaw coupling, approximately Ø20 × 25 mm | Reserve the full outside envelope. Use 10 mm shaft engagement as an explicit layout assumption, with axial positioning allowance; it is not a supplier-specified engagement depth. Do not infer 12.5 mm simply by halving total length because jaws/spider occupy the centre. |
+| Passive line | 1.5 mm Dyneema | Use the existing 1.5 mm nominal line, 0.2 mm radial groove clearance, 0.45 mm groove depth and 2.2 mm pitch as prototype defaults. |
+| Powered line | 1.5 mm core plus two AWG26 silicone-insulated wires, each provisionally 1.5 mm OD | Use a 4.5 mm opposed-wire envelope before groove clearance, based on the owner-supplied table. Keep wire OD and groove clearance separate parameters. The passive groove is not the powered-line design. |
+
+The proposed split clamp uses machine screws, washers and captive/accessible metal
+nuts rather than threads cut directly into printed plastic. Bolt hole clearance,
+nut clearance and clamp gap must be independent parameters. Include a positive
+angular locating feature and bolted joint between drum sections so the helical
+groove joins in phase. Axial location uses the already selected shaft collars.
+Clamp torque transfer, joint strength and retained line wraps still require bench
+verification; adjustment does not establish those ratings.
+
+The coupling's exact engagement does not determine the drum geometry: axial
+positioning and the 400 mm shaft blank allowance can accommodate the chosen layout
+before final cutting. The powered-line envelope remains a separate engineering
+variant because increasing its groove pitch also changes total winding width and
+shaft length; do not squeeze it into the passive groove or silently reduce travel.
+
+## Materials and readiness — 2026-09-08
+
+Owner-selected print sequence: **PLA for the first prototype; ASA for the later
+revision**. Use PLA for dimensional assembly and controlled bench evaluation.
+Do not transfer fit, clamp preload, creep or load-test results automatically to
+ASA; its print process and resulting parts need their own inspection and evidence.
+Neither material selection establishes outdoor operating readiness.
+
+The [owner-supplied wire table](../../../bom/sourcing/pod-wire-dimensions-2026-09-08.md)
+is now recorded with the BOM wire parts. Nominal inputs are sufficient to continue
+both passive and powered drum CAD without another measurement request. Remaining
+items below are design and verification work, not missing owner decisions. Keep
+32 m capacity and three reserve turns as explicit sizing assumptions.
+
+The passive two-section layout and four 400 mm shaft-blank allocation must not be
+assumed to fit the powered variant. Its 4.5 mm line envelope requires a wider
+pitch and potentially more printed sections and a longer shaft. Reconcile that
+layout with the 2000 mm BAUHAUS stock before finalizing purchasing yield or cuts.
+
+## Design work before a fabrication model
+
+- Use the X1C and PLA prototype baseline; size printed sections to the usable
+  volume and define print orientation and process settings.
+- Model the nominal 8 mm split-clamp shaft interface and bolted drum connection
+  using the tolerance strategy above. Verify fit and torque retention before use;
+  a separate metal clamping hub remains an alternative if the printed clamp fails
+  the required torque/creep checks.
 - Full shaft stack: drum, hub, two external bearings, retention, coupling engagement
-  and assembly clearance. The catalog's approximately 200 mm shaft cannot contain
-  the current full-capacity drum; reconcile travel and geometry before selecting
-  a replacement shaft or shortening the drum.
+  and assembly clearance. The selected stock is a 2000 mm BAUHAUS rod with provisional 400 mm blanks;
+  reconcile the passive and powered layouts before establishing final cut lengths.
 - Line termination: provide an accessible, radiused mechanical attachment and a
   justified minimum retained-wrap count; test pullout and reversals on the selected
   Dyneema. The previous shallow witness holes were not working anchors.

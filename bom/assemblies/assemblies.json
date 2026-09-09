@@ -89,7 +89,8 @@
           "quantity": "1",
           "inclusion": "base"
         }
-      ]
+      ],
+      "documentation": "docs/assemblies/corner-station/README.md"
     },
     {
       "id": "winch-set",
@@ -178,8 +179,19 @@
           "quantity": "4",
           "inclusion": "base",
           "note": "Installed in the winch assembly."
+        },
+        {
+          "partId": "winch-drum-joining-hardware",
+          "quantity": "1",
+          "inclusion": "base"
+        },
+        {
+          "partId": "winch-mount-hardware",
+          "quantity": "1",
+          "inclusion": "base"
         }
-      ]
+      ],
+      "documentation": "docs/assemblies/winch/README.md"
     },
     {
       "id": "positioning-line-set",
@@ -213,7 +225,8 @@
           "quantity": "1",
           "inclusion": "base"
         }
-      ]
+      ],
+      "documentation": "docs/assemblies/positioning-lines/README.md"
     },
     {
       "id": "camera-pod",
@@ -270,7 +283,8 @@
           "quantity": "2",
           "inclusion": "base"
         }
-      ]
+      ],
+      "documentation": "docs/assemblies/camera-pod/README.md"
     },
     {
       "id": "dock",
@@ -312,7 +326,8 @@
           "inclusion": "base",
           "note": "Installed in the dock assembly in addition to the winch home switches."
         }
-      ]
+      ],
+      "documentation": "docs/assemblies/dock/README.md"
     },
     {
       "id": "control-cabinet",
@@ -364,7 +379,8 @@
           "quantity": "1",
           "inclusion": "base"
         }
-      ]
+      ],
+      "documentation": "docs/assemblies/control-cabinet/README.md"
     },
     {
       "id": "site-installation",
@@ -405,7 +421,8 @@
           "inclusion": "deferred",
           "note": "Installed site weather endpoint."
         }
-      ]
+      ],
+      "documentation": "docs/assemblies/site-installation/README.md"
     },
     {
       "id": "shared-procurement-stock",
@@ -435,7 +452,8 @@
           "quantity": "1",
           "inclusion": "base"
         }
-      ]
+      ],
+      "documentation": "bom/README.md#physical-ownership"
     }
   ]
 }

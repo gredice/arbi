@@ -22,6 +22,14 @@ Supplier websites and offer URLs are procurement evidence. Dated price, availabi
 
 Fasteners, cables, electronics, electrical parts, mechanical parts, optics, and printed or fabricated parts are disciplines or traits. They can appear inside every physical assembly; they are not top-level ownership categories.
 
+## Item pages
+
+Browse the [BOM item index](generated/parts/README.md) for a separate Markdown page for every catalog part, including optional and deferred items. Link directly to `bom/generated/parts/<part-id>.md` from other documents using a relative path. Stable part IDs keep these links usable when display names change.
+
+Each page shows canonical requirements and notes, assembly usage quantities and inclusion status, links to the owning assembly documentation and BOM reports, and fabrication sources where recorded. Assembly `documentation` links are repository-relative paths in `assemblies/assemblies.json`. Quantities shown on item pages are per assembly definition; scenario reports apply build multipliers and inclusion policy.
+
+Item pages and their index are generated: change canonical inputs and run `pnpm bom:generate`. `pnpm bom:check` detects missing, stale, and orphaned item pages. Both commands handle the complete item catalog even when a single scenario is requested.
+
 ## Physical ownership
 
 The V1 build has seven canonical physical root owners: the corner-support set, four-winch set, positioning-line set, camera pod, dock, control cabinet, and site installation. Site installation owns installed power and signal routes plus the deferred weather-sensing endpoint rather than promoting cabling or weather into type-based top-level subsystems. A complex root may gain physical child assemblies through `parentAssemblyId`; parent links must stay within the physical hierarchy and cannot self-reference or form cycles.
@@ -59,7 +67,7 @@ A checkout quote can set `basis: "selected-offer"` to apply its fixed amount onc
 
 The [2026-09-08 Croatian quote](quotes/hr-zagreb-2026-09-08.json) applies the owner's EUR 3 delivery/customs allowance to each selected AliExpress offer for orders below EUR 150. This assumes one BOM offer per declared item and does not model split shipments or customs grouping. [Croatian Customs guidance](https://carina.gov.hr/print.aspx?id=2718&url=print) describes the duty per declared item. Other prices retain their earlier observation dates; this snapshot does not re-verify them. The earlier quote remains preserved.
 
-The [BAUHAUS shaft revision of the 2026-09-08 quote](quotes/hr-zagreb-2026-09-08-bauhaus-shaft.json) preserves those observations and adds the owner-selected EUR 6.95, VAT-inclusive 2000 mm steel rod. Its planned cut yield supplies four approximately 400 mm shaft blanks. Local availability, cutting/finishing cost and BAUHAUS shipping remain unknown; the earlier snapshot is preserved.
+The [BAUHAUS shaft revision of the 2026-09-08 quote](quotes/hr-zagreb-2026-09-08-bauhaus-shaft.json) preserves those observations and adds the owner-selected EUR 6.95, VAT-inclusive 2000 mm steel rod. The later segmented-drum layout allocates three 340 mm passive shafts and one 660 mm powered shaft from the same rod, superseding four approximately 400 mm blanks. Local availability, cutting/finishing cost and BAUHAUS shipping remain unknown; the earlier snapshot is preserved.
 
 `capturedAt` records when a quote snapshot was assembled. It does not claim that every price, availability state, or shipping charge was observed at that instant. Individual rows use `observedAt: null` until a defensible observation time is known, and the calculator reports the missing evidence as a completeness warning.
 

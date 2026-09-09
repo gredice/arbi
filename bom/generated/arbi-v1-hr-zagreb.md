@@ -3,13 +3,15 @@
 > **Status: INCOMPLETE. This is not a trustworthy complete landed total.**
 > Unknown package rules, prices, tax treatment, shipping, availability, and unqualified baseline selections remain visible below. Null values are never treated as zero.
 
+[BOM overview](../README.md) · [All item pages](parts/README.md)
+
 ## Calculation identity
 
 - Scenario: arbi-v1-hr-zagreb
 - Build: arbi-v1
 - Destination: hr-zagreb
 - Quote snapshot: hr-zagreb-2026-09-08-bauhaus-shaft
-- Input digest: sha256:14cbabdf4d1064562156c1fe7fcf2162a14597fb252b3ab2eaa4a584273903a1
+- Input digest: sha256:aeee80e80633b6fb3e5c1f58da19ae27a077c753e07480e2264c1600e326df49
 - Complete landed total: **unavailable**
 - Known quoted goods subtotal: **EUR 874.68**
 - Known checkout-group shipping subtotal: **EUR 93.72**
@@ -66,115 +68,119 @@ aliexpress-hr: 15 distinct selected offers; fixed charge per offer, independent 
 
 | Offer | Qualification | Purchase units | Coverage and surplus | Known goods |
 | --- | --- | ---: | --- | ---: |
-| aliexpress-bearing-608-2rs | baseline-selected | 1 | bearing-608-2rs: 10 each required, 10 each purchased; 0 surplus | EUR 3.97 |
-| aliexpress-bulk-capacitor-1000uf | baseline-selected | 1 | bulk-capacitor-1000uf: 2 each required, 20 each purchased; 18 surplus | EUR 3.29 |
-| aliexpress-cable-gland-assortment | baseline-selected | 1 | cable-gland-assortment: 1 each required, 1 each purchased; 0 surplus | EUR 11.19 |
-| aliexpress-capsule-slip-ring-6x2a | baseline-selected | 1 | capsule-slip-ring-6x2a: 1 each required, 1 each purchased; 0 surplus | EUR 9.69 |
-| aliexpress-controller-buck-converter-48v-5v | baseline-selected | 1 | controller-buck-converter-48v-5v: 1 each required, 1 each purchased; 0 surplus | EUR 5.55 |
-| aliexpress-emergency-stop-switch | baseline-selected | unknown | emergency-stop-switch: 1 each required, unknown purchase quantity | unknown |
-| aliexpress-flexible-jaw-coupling-8mm | baseline-selected | unknown | flexible-jaw-coupling-8mm: 4 each required, unknown purchase quantity | unknown |
-| aliexpress-heat-set-insert-assortment | baseline-selected | 1 | heat-set-insert-assortment: 1 each required, 1 each purchased; 0 surplus | EUR 16.00 |
-| aliexpress-micro-pan-tilt-servo | baseline-selected | 1 | micro-pan-tilt-servo: 2 each required, 3 each purchased; 1 surplus | EUR 16.72 |
-| aliexpress-pod-buck-converter-48v-5v | baseline-selected | 1 | pod-buck-converter-48v-5v: 1 each required, 1 each purchased; 0 surplus | EUR 5.55 |
-| aliexpress-pod-power-wire-black-awg26 | baseline-selected | 10 | pod-power-wire-black-awg26: 50 m required, 50 m purchased; 0 surplus | EUR 10.38 |
-| aliexpress-pod-power-wire-red-awg26 | baseline-selected | 10 | pod-power-wire-red-awg26: 50 m required, 50 m purchased; 0 surplus | EUR 10.38 |
-| aliexpress-roller-lever-microswitch | baseline-selected | 1 | roller-lever-microswitch: 5 each required, 10 each purchased; 5 surplus | EUR 4.79 |
-| aliexpress-shaft-collar-8mm | baseline-selected | 4 | shaft-collar-8mm: 8 each required, 8 each purchased; 0 surplus | EUR 40.40 |
-| aliexpress-stainless-fastener-assortment | baseline-selected | 1 | stainless-fastener-assortment: 1 each required, 1 each purchased; 0 surplus | EUR 16.00 |
-| baseline-combined-top-pulley-offer | unresolved | unknown | top-positioning-line-pulley: 4 each required, unknown purchase quantity | unknown |
-| bauhaus-din-rail-ground-distribution-block | baseline-selected | 1 | din-rail-ground-distribution-block: 1 each required, 1 each purchased; 0 surplus | EUR 5.95 |
-| bauhaus-guy-turnbuckle-m12 | baseline-selected | unknown | guy-turnbuckle-m12: 4 each required, unknown purchase quantity | unknown |
-| bauhaus-guy-wire-3mm | baseline-selected | unknown | guy-wire-3mm: 16 m required, unknown purchase quantity | unknown |
-| bauhaus-motor-power-branch-cable | baseline-selected | 1 | motor-power-branch-cable: 50 m required, 50 m purchased; 0 surplus | EUR 89.00 |
-| bauhaus-post-electronics-enclosure | baseline-selected | unknown | post-electronics-enclosure: 4 each required, unknown purchase quantity | unknown |
-| bauhaus-pulley-bracket-backing-plate | baseline-selected | 8 | pulley-bracket-backing-plate: 8 each required, 8 each purchased; 0 surplus | EUR 28.40 |
-| bauhaus-pulley-bracket-locknut-m12 | baseline-selected | 1 | pulley-bracket-locknut-m12: 8 each required, 50 each purchased; 42 surplus | EUR 9.00 |
-| bauhaus-pulley-bracket-shackle-m8 | baseline-selected | 4 | pulley-bracket-shackle-m8: 4 each required, 4 each purchased; 0 surplus | EUR 14.28 |
-| bauhaus-pulley-bracket-through-bolt-m12x160 | baseline-selected | 1 | pulley-bracket-through-bolt-m12x160: 8 each required, 40 each purchased; 32 surplus | EUR 33.20 |
-| bauhaus-pulley-bracket-washer-m12 | baseline-selected | 1 | pulley-bracket-washer-m12: 16 each required, 100 each purchased; 84 surplus | EUR 16.00 |
-| bauhaus-top-pulley-bracket | baseline-selected | 4 | top-pulley-bracket: 4 each required, 4 each purchased; 0 surplus | EUR 16.60 |
-| bauhaus-winch-drum-shaft-8mm | baseline-selected | 1 | winch-drum-shaft-8mm: 4 each required, 4 each purchased; 0 surplus | EUR 6.95 |
-| bauhaus-wire-rope-clamp-3mm | baseline-selected | unknown | wire-rope-clamp-3mm: 16 each required, unknown purchase quantity | unknown |
-| bauhaus-wire-rope-thimble-3mm | baseline-selected | unknown | wire-rope-thimble-3mm: 8 each required, unknown purchase quantity | unknown |
-| bauhaus-zinc-spray | baseline-selected | 1 | zinc-spray: 1 each required, 1 each purchased; 0 surplus | EUR 11.69 |
-| cotra-zagreb-corner-post-treated-timber | baseline-selected | unknown | corner-post-treated-timber: 4 each required, unknown purchase quantity | unknown |
-| dive-store-dyneema-positioning-line | baseline-selected | 4 | dyneema-positioning-line: 180 m required, 200 m purchased; 20 surplus | EUR 73.52 |
-| in-house-fabrication-camera-gimbal | baseline-selected | 1 | camera-gimbal: 1 each required, 1 each purchased; 0 surplus | unknown |
-| in-house-fabrication-camera-pod-chassis | baseline-selected | 1 | camera-pod-chassis: 1 each required, 1 each purchased; 0 surplus | unknown |
-| in-house-fabrication-dock-capture-set | baseline-selected | 1 | dock-funnel: 1 each required, 1 each purchased; 0 surplus; dock-nest: 1 each required, 1 each purchased; 0 surplus | unknown |
-| in-house-fabrication-dock-latch-hardware | baseline-selected | 1 | dock-latch-hardware: 1 each required, 1 each purchased; 0 surplus | unknown |
-| in-house-fabrication-dock-weather-hood | baseline-selected | 1 | dock-weather-hood: 1 each required, 1 each purchased; 0 surplus | unknown |
-| in-house-fabrication-top-pulley-keeper | baseline-selected | 4 | top-pulley-keeper: 4 each required, 4 each purchased; 0 surplus | unknown |
-| in-house-fabrication-winch-drum | baseline-selected | 4 | winch-drum: 4 each required, 4 each purchased; 0 surplus | unknown |
-| in-house-fabrication-winch-mount-and-guard | baseline-selected | 4 | winch-mount-and-guard: 4 each required, 4 each purchased; 0 surplus | unknown |
-| kabel24-control-panel-enclosure | baseline-selected | unknown | control-panel-enclosure: 1 each required, unknown purchase quantity | unknown |
-| njuskalo-guy-ground-anchor | baseline-selected | unknown | guy-ground-anchor: 4 each required, unknown purchase quantity | unknown |
-| pimoroni-raspberry-pi-3a-plus | baseline-selected | 1 | raspberry-pi-3a-plus: 1 each required, 1 each purchased; 0 surplus | EUR 28.00 |
-| ronis-outdoor-cat5e-signal-cable | baseline-selected | 1 | outdoor-cat5e-signal-cable: 85 m required, 100 m purchased; 15 surplus | EUR 52.00 |
-| stepperonline-4-axis-v2-kit | baseline-selected | 1 | cl57y-v20-driver: 4 each required, 4 each purchased; 0 surplus; matched-motor-cable: 4 each required, 4 each purchased; 0 surplus; nema23-closed-loop-motor: 4 each required, 4 each purchased; 0 surplus; power-supply-48v-350w: 2 each required, 2 each purchased; 0 surplus | EUR 256.68 |
-| tme-microsd-card-32gb | baseline-selected | 1 | microsd-card-32gb: 1 each required, 1 each purchased; 0 surplus | EUR 24.00 |
-| tme-pico-terminal-expansion-board | baseline-selected | 1 | pico-terminal-expansion-board: 1 each required, 1 each purchased; 0 surplus | EUR 9.40 |
-| tme-raspberry-pi-camera-module-3 | unresolved | 1 | raspberry-pi-camera-module-3: 1 each required, 1 each purchased; 0 surplus | EUR 37.51 |
-| tme-raspberry-pi-pico-2-w | baseline-selected | 1 | raspberry-pi-pico-2-w: 1 each required, 1 each purchased; 0 surplus | EUR 8.59 |
+| aliexpress-bearing-608-2rs | baseline-selected | 1 | [bearing-608-2rs](parts/bearing-608-2rs.md): 10 each required, 10 each purchased; 0 surplus | EUR 3.97 |
+| aliexpress-bulk-capacitor-1000uf | baseline-selected | 1 | [bulk-capacitor-1000uf](parts/bulk-capacitor-1000uf.md): 2 each required, 20 each purchased; 18 surplus | EUR 3.29 |
+| aliexpress-cable-gland-assortment | baseline-selected | 1 | [cable-gland-assortment](parts/cable-gland-assortment.md): 1 each required, 1 each purchased; 0 surplus | EUR 11.19 |
+| aliexpress-capsule-slip-ring-6x2a | baseline-selected | 1 | [capsule-slip-ring-6x2a](parts/capsule-slip-ring-6x2a.md): 1 each required, 1 each purchased; 0 surplus | EUR 9.69 |
+| aliexpress-controller-buck-converter-48v-5v | baseline-selected | 1 | [controller-buck-converter-48v-5v](parts/controller-buck-converter-48v-5v.md): 1 each required, 1 each purchased; 0 surplus | EUR 5.55 |
+| aliexpress-emergency-stop-switch | baseline-selected | unknown | [emergency-stop-switch](parts/emergency-stop-switch.md): 1 each required, unknown purchase quantity | unknown |
+| aliexpress-flexible-jaw-coupling-8mm | baseline-selected | unknown | [flexible-jaw-coupling-8mm](parts/flexible-jaw-coupling-8mm.md): 4 each required, unknown purchase quantity | unknown |
+| aliexpress-heat-set-insert-assortment | baseline-selected | 1 | [heat-set-insert-assortment](parts/heat-set-insert-assortment.md): 1 each required, 1 each purchased; 0 surplus | EUR 16.00 |
+| aliexpress-micro-pan-tilt-servo | baseline-selected | 1 | [micro-pan-tilt-servo](parts/micro-pan-tilt-servo.md): 2 each required, 3 each purchased; 1 surplus | EUR 16.72 |
+| aliexpress-pod-buck-converter-48v-5v | baseline-selected | 1 | [pod-buck-converter-48v-5v](parts/pod-buck-converter-48v-5v.md): 1 each required, 1 each purchased; 0 surplus | EUR 5.55 |
+| aliexpress-pod-power-wire-black-awg26 | baseline-selected | 10 | [pod-power-wire-black-awg26](parts/pod-power-wire-black-awg26.md): 50 m required, 50 m purchased; 0 surplus | EUR 10.38 |
+| aliexpress-pod-power-wire-red-awg26 | baseline-selected | 10 | [pod-power-wire-red-awg26](parts/pod-power-wire-red-awg26.md): 50 m required, 50 m purchased; 0 surplus | EUR 10.38 |
+| aliexpress-roller-lever-microswitch | baseline-selected | 1 | [roller-lever-microswitch](parts/roller-lever-microswitch.md): 5 each required, 10 each purchased; 5 surplus | EUR 4.79 |
+| aliexpress-shaft-collar-8mm | baseline-selected | 4 | [shaft-collar-8mm](parts/shaft-collar-8mm.md): 8 each required, 8 each purchased; 0 surplus | EUR 40.40 |
+| aliexpress-stainless-fastener-assortment | baseline-selected | 1 | [stainless-fastener-assortment](parts/stainless-fastener-assortment.md): 1 each required, 1 each purchased; 0 surplus | EUR 16.00 |
+| baseline-combined-top-pulley-offer | unresolved | unknown | [top-positioning-line-pulley](parts/top-positioning-line-pulley.md): 4 each required, unknown purchase quantity | unknown |
+| bauhaus-din-rail-ground-distribution-block | baseline-selected | 1 | [din-rail-ground-distribution-block](parts/din-rail-ground-distribution-block.md): 1 each required, 1 each purchased; 0 surplus | EUR 5.95 |
+| bauhaus-guy-turnbuckle-m12 | baseline-selected | unknown | [guy-turnbuckle-m12](parts/guy-turnbuckle-m12.md): 4 each required, unknown purchase quantity | unknown |
+| bauhaus-guy-wire-3mm | baseline-selected | unknown | [guy-wire-3mm](parts/guy-wire-3mm.md): 16 m required, unknown purchase quantity | unknown |
+| bauhaus-motor-power-branch-cable | baseline-selected | 1 | [motor-power-branch-cable](parts/motor-power-branch-cable.md): 50 m required, 50 m purchased; 0 surplus | EUR 89.00 |
+| bauhaus-post-electronics-enclosure | baseline-selected | unknown | [post-electronics-enclosure](parts/post-electronics-enclosure.md): 4 each required, unknown purchase quantity | unknown |
+| bauhaus-pulley-bracket-backing-plate | baseline-selected | 8 | [pulley-bracket-backing-plate](parts/pulley-bracket-backing-plate.md): 8 each required, 8 each purchased; 0 surplus | EUR 28.40 |
+| bauhaus-pulley-bracket-locknut-m12 | baseline-selected | 1 | [pulley-bracket-locknut-m12](parts/pulley-bracket-locknut-m12.md): 8 each required, 50 each purchased; 42 surplus | EUR 9.00 |
+| bauhaus-pulley-bracket-shackle-m8 | baseline-selected | 4 | [pulley-bracket-shackle-m8](parts/pulley-bracket-shackle-m8.md): 4 each required, 4 each purchased; 0 surplus | EUR 14.28 |
+| bauhaus-pulley-bracket-through-bolt-m12x160 | baseline-selected | 1 | [pulley-bracket-through-bolt-m12x160](parts/pulley-bracket-through-bolt-m12x160.md): 8 each required, 40 each purchased; 32 surplus | EUR 33.20 |
+| bauhaus-pulley-bracket-washer-m12 | baseline-selected | 1 | [pulley-bracket-washer-m12](parts/pulley-bracket-washer-m12.md): 16 each required, 100 each purchased; 84 surplus | EUR 16.00 |
+| bauhaus-top-pulley-bracket | baseline-selected | 4 | [top-pulley-bracket](parts/top-pulley-bracket.md): 4 each required, 4 each purchased; 0 surplus | EUR 16.60 |
+| bauhaus-winch-drum-shaft-8mm | baseline-selected | 1 | [winch-drum-shaft-8mm](parts/winch-drum-shaft-8mm.md): 4 each required, 4 each purchased; 0 surplus | EUR 6.95 |
+| bauhaus-wire-rope-clamp-3mm | baseline-selected | unknown | [wire-rope-clamp-3mm](parts/wire-rope-clamp-3mm.md): 16 each required, unknown purchase quantity | unknown |
+| bauhaus-wire-rope-thimble-3mm | baseline-selected | unknown | [wire-rope-thimble-3mm](parts/wire-rope-thimble-3mm.md): 8 each required, unknown purchase quantity | unknown |
+| bauhaus-zinc-spray | baseline-selected | 1 | [zinc-spray](parts/zinc-spray.md): 1 each required, 1 each purchased; 0 surplus | EUR 11.69 |
+| cotra-zagreb-corner-post-treated-timber | baseline-selected | unknown | [corner-post-treated-timber](parts/corner-post-treated-timber.md): 4 each required, unknown purchase quantity | unknown |
+| dive-store-dyneema-positioning-line | baseline-selected | 4 | [dyneema-positioning-line](parts/dyneema-positioning-line.md): 180 m required, 200 m purchased; 20 surplus | EUR 73.52 |
+| in-house-fabrication-camera-gimbal | baseline-selected | 1 | [camera-gimbal](parts/camera-gimbal.md): 1 each required, 1 each purchased; 0 surplus | unknown |
+| in-house-fabrication-camera-pod-chassis | baseline-selected | 1 | [camera-pod-chassis](parts/camera-pod-chassis.md): 1 each required, 1 each purchased; 0 surplus | unknown |
+| in-house-fabrication-dock-capture-set | baseline-selected | 1 | [dock-funnel](parts/dock-funnel.md): 1 each required, 1 each purchased; 0 surplus; [dock-nest](parts/dock-nest.md): 1 each required, 1 each purchased; 0 surplus | unknown |
+| in-house-fabrication-dock-latch-hardware | baseline-selected | 1 | [dock-latch-hardware](parts/dock-latch-hardware.md): 1 each required, 1 each purchased; 0 surplus | unknown |
+| in-house-fabrication-dock-weather-hood | baseline-selected | 1 | [dock-weather-hood](parts/dock-weather-hood.md): 1 each required, 1 each purchased; 0 surplus | unknown |
+| in-house-fabrication-top-pulley-keeper | baseline-selected | 4 | [top-pulley-keeper](parts/top-pulley-keeper.md): 4 each required, 4 each purchased; 0 surplus | unknown |
+| in-house-fabrication-winch-drum | baseline-selected | 4 | [winch-drum](parts/winch-drum.md): 4 each required, 4 each purchased; 0 surplus | unknown |
+| in-house-fabrication-winch-mount-and-guard | baseline-selected | 4 | [winch-mount-and-guard](parts/winch-mount-and-guard.md): 4 each required, 4 each purchased; 0 surplus | unknown |
+| kabel24-control-panel-enclosure | baseline-selected | unknown | [control-panel-enclosure](parts/control-panel-enclosure.md): 1 each required, unknown purchase quantity | unknown |
+| njuskalo-guy-ground-anchor | baseline-selected | unknown | [guy-ground-anchor](parts/guy-ground-anchor.md): 4 each required, unknown purchase quantity | unknown |
+| pimoroni-raspberry-pi-3a-plus | baseline-selected | 1 | [raspberry-pi-3a-plus](parts/raspberry-pi-3a-plus.md): 1 each required, 1 each purchased; 0 surplus | EUR 28.00 |
+| ronis-outdoor-cat5e-signal-cable | baseline-selected | 1 | [outdoor-cat5e-signal-cable](parts/outdoor-cat5e-signal-cable.md): 85 m required, 100 m purchased; 15 surplus | EUR 52.00 |
+| stepperonline-4-axis-v2-kit | baseline-selected | 1 | [cl57y-v20-driver](parts/cl57y-v20-driver.md): 4 each required, 4 each purchased; 0 surplus; [matched-motor-cable](parts/matched-motor-cable.md): 4 each required, 4 each purchased; 0 surplus; [nema23-closed-loop-motor](parts/nema23-closed-loop-motor.md): 4 each required, 4 each purchased; 0 surplus; [power-supply-48v-350w](parts/power-supply-48v-350w.md): 2 each required, 2 each purchased; 0 surplus | EUR 256.68 |
+| tme-microsd-card-32gb | baseline-selected | 1 | [microsd-card-32gb](parts/microsd-card-32gb.md): 1 each required, 1 each purchased; 0 surplus | EUR 24.00 |
+| tme-pico-terminal-expansion-board | baseline-selected | 1 | [pico-terminal-expansion-board](parts/pico-terminal-expansion-board.md): 1 each required, 1 each purchased; 0 surplus | EUR 9.40 |
+| tme-raspberry-pi-camera-module-3 | unresolved | 1 | [raspberry-pi-camera-module-3](parts/raspberry-pi-camera-module-3.md): 1 each required, 1 each purchased; 0 surplus | EUR 37.51 |
+| tme-raspberry-pi-pico-2-w | baseline-selected | 1 | [raspberry-pi-pico-2-w](parts/raspberry-pi-pico-2-w.md): 1 each required, 1 each purchased; 0 surplus | EUR 8.59 |
+| unresolved-winch-drum-joining-hardware | unresolved | unknown | [winch-drum-joining-hardware](parts/winch-drum-joining-hardware.md): 1 each required, unknown purchase quantity | unknown |
+| unresolved-winch-mount-hardware | unresolved | unknown | [winch-mount-hardware](parts/winch-mount-hardware.md): 1 each required, unknown purchase quantity | unknown |
 
 ## Required parts by physical owner or procurement bucket
 
 | Part | Required | Owner or typed purchasing bucket | Pinned offer |
 | --- | ---: | --- | --- |
-| bearing-608-2rs | 10 each | winch-set (10 each) | aliexpress-bearing-608-2rs |
-| bulk-capacitor-1000uf | 2 each | camera-pod (2 each) | aliexpress-bulk-capacitor-1000uf |
-| cable-gland-assortment | 1 each | shared-procurement-stock [non-physical] (1 each) | aliexpress-cable-gland-assortment |
-| camera-gimbal | 1 each | camera-pod (1 each) | in-house-fabrication-camera-gimbal |
-| camera-pod-chassis | 1 each | camera-pod (1 each) | in-house-fabrication-camera-pod-chassis |
-| capsule-slip-ring-6x2a | 1 each | positioning-line-set (1 each) | aliexpress-capsule-slip-ring-6x2a |
-| cl57y-v20-driver | 4 each | winch-set (4 each) | stepperonline-4-axis-v2-kit |
-| control-panel-enclosure | 1 each | control-cabinet (1 each) | kabel24-control-panel-enclosure |
-| controller-buck-converter-48v-5v | 1 each | control-cabinet (1 each) | aliexpress-controller-buck-converter-48v-5v |
-| corner-post-treated-timber | 4 each | corner-support-set (4 each) | cotra-zagreb-corner-post-treated-timber |
-| din-rail-ground-distribution-block | 1 each | control-cabinet (1 each) | bauhaus-din-rail-ground-distribution-block |
-| dock-funnel | 1 each | dock (1 each) | in-house-fabrication-dock-capture-set |
-| dock-latch-hardware | 1 each | dock (1 each) | in-house-fabrication-dock-latch-hardware |
-| dock-nest | 1 each | dock (1 each) | in-house-fabrication-dock-capture-set |
-| dock-weather-hood | 1 each | dock (1 each) | in-house-fabrication-dock-weather-hood |
-| dyneema-positioning-line | 180 m | positioning-line-set (180 m) | dive-store-dyneema-positioning-line |
-| emergency-stop-switch | 1 each | control-cabinet (1 each) | aliexpress-emergency-stop-switch |
-| flexible-jaw-coupling-8mm | 4 each | winch-set (4 each) | aliexpress-flexible-jaw-coupling-8mm |
-| guy-ground-anchor | 4 each | corner-support-set (4 each) | njuskalo-guy-ground-anchor |
-| guy-turnbuckle-m12 | 4 each | corner-support-set (4 each) | bauhaus-guy-turnbuckle-m12 |
-| guy-wire-3mm | 16 m | corner-support-set (16 m) | bauhaus-guy-wire-3mm |
-| heat-set-insert-assortment | 1 each | shared-procurement-stock [non-physical] (1 each) | aliexpress-heat-set-insert-assortment |
-| matched-motor-cable | 4 each | winch-set (4 each) | stepperonline-4-axis-v2-kit |
-| micro-pan-tilt-servo | 2 each | camera-pod (2 each) | aliexpress-micro-pan-tilt-servo |
-| microsd-card-32gb | 1 each | camera-pod (1 each) | tme-microsd-card-32gb |
-| motor-power-branch-cable | 50 m | site-installation (50 m) | bauhaus-motor-power-branch-cable |
-| nema23-closed-loop-motor | 4 each | winch-set (4 each) | stepperonline-4-axis-v2-kit |
-| outdoor-cat5e-signal-cable | 85 m | site-installation (85 m) | ronis-outdoor-cat5e-signal-cable |
-| pico-terminal-expansion-board | 1 each | control-cabinet (1 each) | tme-pico-terminal-expansion-board |
-| pod-buck-converter-48v-5v | 1 each | camera-pod (1 each) | aliexpress-pod-buck-converter-48v-5v |
-| pod-power-wire-black-awg26 | 50 m | positioning-line-set (50 m) | aliexpress-pod-power-wire-black-awg26 |
-| pod-power-wire-red-awg26 | 50 m | positioning-line-set (50 m) | aliexpress-pod-power-wire-red-awg26 |
-| post-electronics-enclosure | 4 each | winch-set (4 each) | bauhaus-post-electronics-enclosure |
-| power-supply-48v-350w | 2 each | control-cabinet (2 each) | stepperonline-4-axis-v2-kit |
-| pulley-bracket-backing-plate | 8 each | corner-support-set (8 each) | bauhaus-pulley-bracket-backing-plate |
-| pulley-bracket-locknut-m12 | 8 each | corner-support-set (8 each) | bauhaus-pulley-bracket-locknut-m12 |
-| pulley-bracket-shackle-m8 | 4 each | corner-support-set (4 each) | bauhaus-pulley-bracket-shackle-m8 |
-| pulley-bracket-through-bolt-m12x160 | 8 each | corner-support-set (8 each) | bauhaus-pulley-bracket-through-bolt-m12x160 |
-| pulley-bracket-washer-m12 | 16 each | corner-support-set (16 each) | bauhaus-pulley-bracket-washer-m12 |
-| raspberry-pi-3a-plus | 1 each | camera-pod (1 each) | pimoroni-raspberry-pi-3a-plus |
-| raspberry-pi-camera-module-3 | 1 each | camera-pod (1 each) | tme-raspberry-pi-camera-module-3 |
-| raspberry-pi-pico-2-w | 1 each | control-cabinet (1 each) | tme-raspberry-pi-pico-2-w |
-| roller-lever-microswitch | 5 each | dock (1 each), winch-set (4 each) | aliexpress-roller-lever-microswitch |
-| shaft-collar-8mm | 8 each | winch-set (8 each) | aliexpress-shaft-collar-8mm |
-| stainless-fastener-assortment | 1 each | shared-procurement-stock [non-physical] (1 each) | aliexpress-stainless-fastener-assortment |
-| top-positioning-line-pulley | 4 each | corner-support-set (4 each) | baseline-combined-top-pulley-offer |
-| top-pulley-bracket | 4 each | corner-support-set (4 each) | bauhaus-top-pulley-bracket |
-| top-pulley-keeper | 4 each | corner-support-set (4 each) | in-house-fabrication-top-pulley-keeper |
-| winch-drum | 4 each | winch-set (4 each) | in-house-fabrication-winch-drum |
-| winch-drum-shaft-8mm | 4 each | winch-set (4 each) | bauhaus-winch-drum-shaft-8mm |
-| winch-mount-and-guard | 4 each | winch-set (4 each) | in-house-fabrication-winch-mount-and-guard |
-| wire-rope-clamp-3mm | 16 each | corner-support-set (16 each) | bauhaus-wire-rope-clamp-3mm |
-| wire-rope-thimble-3mm | 8 each | corner-support-set (8 each) | bauhaus-wire-rope-thimble-3mm |
-| zinc-spray | 1 each | corner-support-set (1 each) | bauhaus-zinc-spray |
+| [bearing-608-2rs](parts/bearing-608-2rs.md) | 10 each | winch-set (10 each) | aliexpress-bearing-608-2rs |
+| [bulk-capacitor-1000uf](parts/bulk-capacitor-1000uf.md) | 2 each | camera-pod (2 each) | aliexpress-bulk-capacitor-1000uf |
+| [cable-gland-assortment](parts/cable-gland-assortment.md) | 1 each | shared-procurement-stock [non-physical] (1 each) | aliexpress-cable-gland-assortment |
+| [camera-gimbal](parts/camera-gimbal.md) | 1 each | camera-pod (1 each) | in-house-fabrication-camera-gimbal |
+| [camera-pod-chassis](parts/camera-pod-chassis.md) | 1 each | camera-pod (1 each) | in-house-fabrication-camera-pod-chassis |
+| [capsule-slip-ring-6x2a](parts/capsule-slip-ring-6x2a.md) | 1 each | positioning-line-set (1 each) | aliexpress-capsule-slip-ring-6x2a |
+| [cl57y-v20-driver](parts/cl57y-v20-driver.md) | 4 each | winch-set (4 each) | stepperonline-4-axis-v2-kit |
+| [control-panel-enclosure](parts/control-panel-enclosure.md) | 1 each | control-cabinet (1 each) | kabel24-control-panel-enclosure |
+| [controller-buck-converter-48v-5v](parts/controller-buck-converter-48v-5v.md) | 1 each | control-cabinet (1 each) | aliexpress-controller-buck-converter-48v-5v |
+| [corner-post-treated-timber](parts/corner-post-treated-timber.md) | 4 each | corner-support-set (4 each) | cotra-zagreb-corner-post-treated-timber |
+| [din-rail-ground-distribution-block](parts/din-rail-ground-distribution-block.md) | 1 each | control-cabinet (1 each) | bauhaus-din-rail-ground-distribution-block |
+| [dock-funnel](parts/dock-funnel.md) | 1 each | dock (1 each) | in-house-fabrication-dock-capture-set |
+| [dock-latch-hardware](parts/dock-latch-hardware.md) | 1 each | dock (1 each) | in-house-fabrication-dock-latch-hardware |
+| [dock-nest](parts/dock-nest.md) | 1 each | dock (1 each) | in-house-fabrication-dock-capture-set |
+| [dock-weather-hood](parts/dock-weather-hood.md) | 1 each | dock (1 each) | in-house-fabrication-dock-weather-hood |
+| [dyneema-positioning-line](parts/dyneema-positioning-line.md) | 180 m | positioning-line-set (180 m) | dive-store-dyneema-positioning-line |
+| [emergency-stop-switch](parts/emergency-stop-switch.md) | 1 each | control-cabinet (1 each) | aliexpress-emergency-stop-switch |
+| [flexible-jaw-coupling-8mm](parts/flexible-jaw-coupling-8mm.md) | 4 each | winch-set (4 each) | aliexpress-flexible-jaw-coupling-8mm |
+| [guy-ground-anchor](parts/guy-ground-anchor.md) | 4 each | corner-support-set (4 each) | njuskalo-guy-ground-anchor |
+| [guy-turnbuckle-m12](parts/guy-turnbuckle-m12.md) | 4 each | corner-support-set (4 each) | bauhaus-guy-turnbuckle-m12 |
+| [guy-wire-3mm](parts/guy-wire-3mm.md) | 16 m | corner-support-set (16 m) | bauhaus-guy-wire-3mm |
+| [heat-set-insert-assortment](parts/heat-set-insert-assortment.md) | 1 each | shared-procurement-stock [non-physical] (1 each) | aliexpress-heat-set-insert-assortment |
+| [matched-motor-cable](parts/matched-motor-cable.md) | 4 each | winch-set (4 each) | stepperonline-4-axis-v2-kit |
+| [micro-pan-tilt-servo](parts/micro-pan-tilt-servo.md) | 2 each | camera-pod (2 each) | aliexpress-micro-pan-tilt-servo |
+| [microsd-card-32gb](parts/microsd-card-32gb.md) | 1 each | camera-pod (1 each) | tme-microsd-card-32gb |
+| [motor-power-branch-cable](parts/motor-power-branch-cable.md) | 50 m | site-installation (50 m) | bauhaus-motor-power-branch-cable |
+| [nema23-closed-loop-motor](parts/nema23-closed-loop-motor.md) | 4 each | winch-set (4 each) | stepperonline-4-axis-v2-kit |
+| [outdoor-cat5e-signal-cable](parts/outdoor-cat5e-signal-cable.md) | 85 m | site-installation (85 m) | ronis-outdoor-cat5e-signal-cable |
+| [pico-terminal-expansion-board](parts/pico-terminal-expansion-board.md) | 1 each | control-cabinet (1 each) | tme-pico-terminal-expansion-board |
+| [pod-buck-converter-48v-5v](parts/pod-buck-converter-48v-5v.md) | 1 each | camera-pod (1 each) | aliexpress-pod-buck-converter-48v-5v |
+| [pod-power-wire-black-awg26](parts/pod-power-wire-black-awg26.md) | 50 m | positioning-line-set (50 m) | aliexpress-pod-power-wire-black-awg26 |
+| [pod-power-wire-red-awg26](parts/pod-power-wire-red-awg26.md) | 50 m | positioning-line-set (50 m) | aliexpress-pod-power-wire-red-awg26 |
+| [post-electronics-enclosure](parts/post-electronics-enclosure.md) | 4 each | winch-set (4 each) | bauhaus-post-electronics-enclosure |
+| [power-supply-48v-350w](parts/power-supply-48v-350w.md) | 2 each | control-cabinet (2 each) | stepperonline-4-axis-v2-kit |
+| [pulley-bracket-backing-plate](parts/pulley-bracket-backing-plate.md) | 8 each | corner-support-set (8 each) | bauhaus-pulley-bracket-backing-plate |
+| [pulley-bracket-locknut-m12](parts/pulley-bracket-locknut-m12.md) | 8 each | corner-support-set (8 each) | bauhaus-pulley-bracket-locknut-m12 |
+| [pulley-bracket-shackle-m8](parts/pulley-bracket-shackle-m8.md) | 4 each | corner-support-set (4 each) | bauhaus-pulley-bracket-shackle-m8 |
+| [pulley-bracket-through-bolt-m12x160](parts/pulley-bracket-through-bolt-m12x160.md) | 8 each | corner-support-set (8 each) | bauhaus-pulley-bracket-through-bolt-m12x160 |
+| [pulley-bracket-washer-m12](parts/pulley-bracket-washer-m12.md) | 16 each | corner-support-set (16 each) | bauhaus-pulley-bracket-washer-m12 |
+| [raspberry-pi-3a-plus](parts/raspberry-pi-3a-plus.md) | 1 each | camera-pod (1 each) | pimoroni-raspberry-pi-3a-plus |
+| [raspberry-pi-camera-module-3](parts/raspberry-pi-camera-module-3.md) | 1 each | camera-pod (1 each) | tme-raspberry-pi-camera-module-3 |
+| [raspberry-pi-pico-2-w](parts/raspberry-pi-pico-2-w.md) | 1 each | control-cabinet (1 each) | tme-raspberry-pi-pico-2-w |
+| [roller-lever-microswitch](parts/roller-lever-microswitch.md) | 5 each | dock (1 each), winch-set (4 each) | aliexpress-roller-lever-microswitch |
+| [shaft-collar-8mm](parts/shaft-collar-8mm.md) | 8 each | winch-set (8 each) | aliexpress-shaft-collar-8mm |
+| [stainless-fastener-assortment](parts/stainless-fastener-assortment.md) | 1 each | shared-procurement-stock [non-physical] (1 each) | aliexpress-stainless-fastener-assortment |
+| [top-positioning-line-pulley](parts/top-positioning-line-pulley.md) | 4 each | corner-support-set (4 each) | baseline-combined-top-pulley-offer |
+| [top-pulley-bracket](parts/top-pulley-bracket.md) | 4 each | corner-support-set (4 each) | bauhaus-top-pulley-bracket |
+| [top-pulley-keeper](parts/top-pulley-keeper.md) | 4 each | corner-support-set (4 each) | in-house-fabrication-top-pulley-keeper |
+| [winch-drum](parts/winch-drum.md) | 4 each | winch-set (4 each) | in-house-fabrication-winch-drum |
+| [winch-drum-joining-hardware](parts/winch-drum-joining-hardware.md) | 1 each | winch-set (1 each) | unresolved-winch-drum-joining-hardware |
+| [winch-drum-shaft-8mm](parts/winch-drum-shaft-8mm.md) | 4 each | winch-set (4 each) | bauhaus-winch-drum-shaft-8mm |
+| [winch-mount-and-guard](parts/winch-mount-and-guard.md) | 4 each | winch-set (4 each) | in-house-fabrication-winch-mount-and-guard |
+| [winch-mount-hardware](parts/winch-mount-hardware.md) | 1 each | winch-set (1 each) | unresolved-winch-mount-hardware |
+| [wire-rope-clamp-3mm](parts/wire-rope-clamp-3mm.md) | 16 each | corner-support-set (16 each) | bauhaus-wire-rope-clamp-3mm |
+| [wire-rope-thimble-3mm](parts/wire-rope-thimble-3mm.md) | 8 each | corner-support-set (8 each) | bauhaus-wire-rope-thimble-3mm |
+| [zinc-spray](parts/zinc-spray.md) | 1 each | corner-support-set (1 each) | bauhaus-zinc-spray |
 
 ## Incompleteness warnings
 
@@ -402,6 +408,14 @@ aliexpress-hr: 15 distinct selected offers; fixed charge per offer, independent 
 - tme-raspberry-pi-pico-2-w: Price and availability observation date is unknown; quote capture time is not verification time.
 - tme-raspberry-pi-pico-2-w: Qualification is baseline-selected; the recorded selection is not engineering approval.
 - tme-raspberry-pi-pico-2-w: Tax/VAT treatment is unknown.
+- unresolved-winch-drum-joining-hardware: Destination quote row is missing.
+- unresolved-winch-drum-joining-hardware: Package size/MOQ is unknown.
+- unresolved-winch-drum-joining-hardware: Price is unknown.
+- unresolved-winch-drum-joining-hardware: Qualification is unresolved; the recorded selection is not engineering approval.
+- unresolved-winch-mount-hardware: Destination quote row is missing.
+- unresolved-winch-mount-hardware: Package size/MOQ is unknown.
+- unresolved-winch-mount-hardware: Price is unknown.
+- unresolved-winch-mount-hardware: Qualification is unresolved; the recorded selection is not engineering approval.
 
 ## Evidence boundary
 

@@ -6,15 +6,15 @@
     "models": [
         {
             "id": "winch-drum",
-            "revision": "1.0.0",
+            "revision": "2.1.0",
             "status": "concept-unvalidated",
             "artifactRole": "reference",
             "bomPartIds": [],
             "assembly": "winch",
             "entrypoint": "hardware/assemblies/winch/winch-drum.scad",
-            "output": "winch-drum-r1.0.0.csg",
+            "output": "winch-drum-r2.1.0.csg",
             "documentation": "hardware/assemblies/winch/README.md",
-            "description": "Non-manufacturing nominal 100 mm continuous helical groove and reserve-wrap capacity study."
+            "description": "Segmented passive/powered drum assembly reference with contextual steel hardware."
         },
         {
             "id": "camera-pod-envelope",
@@ -33,7 +33,9 @@
             "revision": "0.1.0",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
-            "bomPartIds": ["camera-pod-chassis"],
+            "bomPartIds": [
+                "camera-pod-chassis"
+            ],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/camera-pod-spider.scad",
             "output": "camera-pod-spider-r0.1.0.stl",
@@ -45,7 +47,9 @@
             "revision": "0.1.0",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
-            "bomPartIds": ["dock-funnel"],
+            "bomPartIds": [
+                "dock-funnel"
+            ],
             "assembly": "dock",
             "entrypoint": "hardware/assemblies/dock/dock-funnel.scad",
             "output": "dock-funnel-r0.1.0.stl",
@@ -57,7 +61,9 @@
             "revision": "0.1.0",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
-            "bomPartIds": ["dock-nest"],
+            "bomPartIds": [
+                "dock-nest"
+            ],
             "assembly": "dock",
             "entrypoint": "hardware/assemblies/dock/dock-nest.scad",
             "output": "dock-nest-r0.1.0.stl",
@@ -69,12 +75,222 @@
             "revision": "0.1.0",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
-            "bomPartIds": ["top-pulley-keeper"],
+            "bomPartIds": [
+                "top-pulley-keeper"
+            ],
             "assembly": "corner-station",
             "entrypoint": "hardware/assemblies/corner-station/top-pulley-keeper.scad",
             "output": "top-pulley-keeper-r0.1.0.stl",
             "documentation": "hardware/assemblies/corner-station/README.md",
             "description": "Two-cheek upper line-retention keeper concept for a corner pulley."
+        },
+        {
+            "id": "winch-drum-alignment-pin",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "winch-drum"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-drum-alignment-pin.scad",
+            "output": "winch-drum-alignment-pin-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "PLA prototype drum component; see print counts, variant and assembly instructions."
+        },
+        {
+            "id": "winch-drum-clamp-half",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "winch-drum"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-drum-clamp-half.scad",
+            "output": "winch-drum-clamp-half-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "PLA prototype drum component; see print counts, variant and assembly instructions."
+        },
+        {
+            "id": "winch-drum-flange",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "winch-drum"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-drum-flange.scad",
+            "output": "winch-drum-flange-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "PLA prototype drum component; see print counts, variant and assembly instructions."
+        },
+        {
+            "id": "winch-drum-passive-1",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "winch-drum"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-drum-passive-1.scad",
+            "output": "winch-drum-passive-1-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "PLA prototype drum component; see print counts, variant and assembly instructions."
+        },
+        {
+            "id": "winch-drum-passive-2",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "winch-drum"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-drum-passive-2.scad",
+            "output": "winch-drum-passive-2-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "PLA prototype drum component; see print counts, variant and assembly instructions."
+        },
+        {
+            "id": "winch-drum-powered-1",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "winch-drum"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-drum-powered-1.scad",
+            "output": "winch-drum-powered-1-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "PLA prototype drum component; see print counts, variant and assembly instructions."
+        },
+        {
+            "id": "winch-drum-powered-2",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "winch-drum"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-drum-powered-2.scad",
+            "output": "winch-drum-powered-2-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "PLA prototype drum component; see print counts, variant and assembly instructions."
+        },
+        {
+            "id": "winch-drum-powered-3",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "winch-drum"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-drum-powered-3.scad",
+            "output": "winch-drum-powered-3-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "PLA prototype drum component; see print counts, variant and assembly instructions."
+        },
+        {
+            "id": "winch-drum-tail-clamp",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "winch-drum"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-drum-tail-clamp.scad",
+            "output": "winch-drum-tail-clamp-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "PLA prototype drum component; see print counts, variant and assembly instructions."
+        },
+        {
+            "id": "winch-drum-flange-right",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "winch-drum"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-drum-flange-right.scad",
+            "output": "winch-drum-flange-right-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Handed clamp-side flange, printed with its inward locating socket facing up."
+        },
+        {
+            "id": "winch-bearing-lower",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "winch-mount-and-guard"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-bearing-lower.scad",
+            "output": "winch-bearing-lower-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Split 608 bearing pedestal; two per winch."
+        },
+        {
+            "id": "winch-bearing-cap",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "winch-mount-and-guard"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-bearing-cap.scad",
+            "output": "winch-bearing-cap-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Removable bearing cap; two per winch."
+        },
+        {
+            "id": "winch-motor-stand",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "winch-mount-and-guard"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-motor-stand.scad",
+            "output": "winch-motor-stand-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Slotted NEMA23 motor stand; one per winch."
+        },
+        {
+            "id": "winch-coupling-guard",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "winch-mount-and-guard"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-coupling-guard.scad",
+            "output": "winch-coupling-guard-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Removable open-bottom coupling cover; one per winch."
+        },
+        {
+            "id": "winch-mount",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "reference",
+            "bomPartIds": [],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-mount.scad",
+            "output": "winch-mount-r0.1.0.csg",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Passive/powered winch bearing, drum, motor and rigid base assembly reference."
         }
     ]
 }

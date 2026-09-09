@@ -31,6 +31,8 @@ Knots, generic crimping, adhesive, or improvised fittings are not accepted witho
 
 ## Powered hybrid line
 
+The [powered-winch connection plan](../winch/pole-box-wiring.md) traces the separate cabinet pod-power branch through the pole box and slip ring to the red/black hybrid-line conductors and pod converter input.
+
 The repository's starting construction is:
 
 - approximately 1–1.5 mm Dyneema core;

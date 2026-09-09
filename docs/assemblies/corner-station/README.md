@@ -97,6 +97,8 @@ The station drawing must define the winch mounting interface, guard envelope, se
 
 ## Electronics, cabling, and retention
 
+See the [pole-base box connection plan](../winch/pole-box-wiring.md) for cable entries, local terminals, remaining wiring details, and the additional pod-power branch at the powered-line corner.
+
 Each pole is expected to carry a nearby CL57Y-V20 driver because the baseline motor and encoder cables are approximately 2 m. The corner-station variant therefore needs protected mounting/routing for:
 
 - a separately protected 48 V and return branch;

@@ -605,7 +605,8 @@
       ],
       "requirements": [
         "High-flex fine-strand black conductor helically wrapped around one Dyneema line for pod GND."
-      ]
+      ],
+      "notes": "Prototype geometry basis from owner-supplied AWG26 table on 2026-09-08: insulated OD 1.5 mm, 30 strands × 0.08 mm, claimed copper area 0.15 mm². Applies provisionally to the selected variant; not a delivered measurement. Supersedes earlier buyer-comment dimensions. Evidence and limitations: bom/sourcing/pod-wire-dimensions-2026-09-08.md."
     },
     {
       "id": "pod-power-wire-red-awg26",
@@ -622,7 +623,8 @@
       ],
       "requirements": [
         "High-flex fine-strand red conductor helically wrapped around one Dyneema line for pod +48 V."
-      ]
+      ],
+      "notes": "Prototype geometry basis from owner-supplied AWG26 table on 2026-09-08: insulated OD 1.5 mm, 30 strands × 0.08 mm, claimed copper area 0.15 mm². Applies provisionally to the selected variant; not a delivered measurement. Supersedes earlier buyer-comment dimensions. Evidence and limitations: bom/sourcing/pod-wire-dimensions-2026-09-08.md."
     },
     {
       "id": "post-electronics-enclosure",
@@ -946,13 +948,75 @@
       ],
       "fabrication": {
         "process": "openscad",
-        "modelStatus": "planned",
-        "sources": []
-      }
+        "modelStatus": "concept-unvalidated",
+        "sources": [
+          {
+            "path": "hardware/assemblies/winch/winch-drum-alignment-pin.scad",
+            "module": "wd_alignment_pin",
+            "modelId": "winch-drum-alignment-pin",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/winch/winch-drum-clamp-half.scad",
+            "module": "wd_clamp_half",
+            "modelId": "winch-drum-clamp-half",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/winch/winch-drum-flange.scad",
+            "module": "wd_flange",
+            "modelId": "winch-drum-flange",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/winch/winch-drum-passive-1.scad",
+            "module": "wd_body_section",
+            "modelId": "winch-drum-passive-1",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/winch/winch-drum-passive-2.scad",
+            "module": "wd_body_section",
+            "modelId": "winch-drum-passive-2",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/winch/winch-drum-powered-1.scad",
+            "module": "wd_body_section",
+            "modelId": "winch-drum-powered-1",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/winch/winch-drum-powered-2.scad",
+            "module": "wd_body_section",
+            "modelId": "winch-drum-powered-2",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/winch/winch-drum-powered-3.scad",
+            "module": "wd_body_section",
+            "modelId": "winch-drum-powered-3",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/winch/winch-drum-tail-clamp.scad",
+            "module": "wd_tail_clamp",
+            "modelId": "winch-drum-tail-clamp",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/winch/winch-drum-flange-right.scad",
+            "module": "wd_flange_right",
+            "modelId": "winch-drum-flange-right",
+            "revision": "0.1.0"
+          }
+        ]
+      },
+      "notes": "One assembled drum per BOM unit. Print three passive kits and one powered kit using hardware/assemblies/winch/README.md; source list is a variant/component library, not one copy of every source per drum. PLA first prototype; later ASA requires separate fit/process qualification. Full-travel powered drum is substantially wider and its shaft deflection is unvalidated."
     },
     {
       "id": "winch-drum-shaft-8mm",
-      "name": "8 mm steel drum-shaft blank (~400 mm allowance)",
+      "name": "8 mm steel drum shaft (variant cut allowance)",
       "baseUnit": "each",
       "kind": "component",
       "lifecycle": "active",
@@ -963,10 +1027,10 @@
         "off-the-shelf"
       ],
       "requirements": [
-        "Solid nominal 8 mm steel shaft blank for the direct-drive drum, supported independently by bearings. Reserve approximately 400 mm per winch; final cut length follows the complete drum, bearing, collar and coupling stack.",
+        "Solid nominal 8 mm steel shaft for the direct-drive drum, supported independently by bearings. Layout allowances: three passive shafts 340 mm and one powered shaft 660 mm; verify the full shaft stack before cutting.",
         "Prototype selection: BAUHAUS hot-rolled stock. Inspect actual diameter, roundness, straightness and 608 bearing/coupling fit before use; no precision tolerance or structural qualification is claimed."
       ],
-      "notes": "Owner selected BAUHAUS rod on 2026-09-08. One 2000 mm rod is allocated to four approximately 400 mm blanks, leaving about 400 mm for saw kerfs and offcut. Cutting, deburring, corrosion protection and any fit finishing are not included in the stock price. The previous approximately 200 mm allowance was shorter than the current drum."
+      "notes": "Owner-selected BAUHAUS 2000 mm stock rod. Modeled layout allocates 3 × 340 mm + 1 × 660 mm = 1680 mm before kerfs, leaving 320 mm for kerfs/offcut. This supersedes four approximate 400 mm blanks; length is not structural approval. Cutting, deburring, corrosion protection and fit finishing are not included in the stock price."
     },
     {
       "id": "winch-fail-safe-brake",
@@ -1007,9 +1071,35 @@
       ],
       "fabrication": {
         "process": "openscad",
-        "modelStatus": "planned",
-        "sources": []
-      }
+        "modelStatus": "concept-unvalidated",
+        "sources": [
+          {
+            "path": "hardware/assemblies/winch/winch-bearing-lower.scad",
+            "module": "wm_bearing_lower",
+            "modelId": "winch-bearing-lower",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/winch/winch-bearing-cap.scad",
+            "module": "wm_bearing_cap",
+            "modelId": "winch-bearing-cap",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/winch/winch-motor-stand.scad",
+            "module": "wm_motor_stand",
+            "modelId": "winch-motor-stand",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/winch/winch-coupling-guard.scad",
+            "module": "wm_coupling_guard",
+            "modelId": "winch-coupling-guard",
+            "revision": "0.1.0"
+          }
+        ]
+      },
+      "notes": "Partial mount kit: per winch print two bearing lowers, two caps, one motor stand and one coupling cover. Requires separately budgeted rigid base, spacers and fasteners. Full drum/weather guard, line guide, homing and powered slip-ring mount remain unfinished; see hardware/assemblies/winch/mount.md."
     },
     {
       "id": "wind-sensor-rs485-transceiver",
@@ -1093,6 +1183,48 @@
         "Dupli-Color Basic zinc spray, 400 ml. Deburr, clean and coat every hole drilled through galvanized bracket/backing plates before outdoor assembly."
       ],
       "notes": "Protects exposed steel where drilling removes the factory zinc coating."
+    },
+    {
+      "id": "winch-drum-joining-hardware",
+      "name": "Joining and clamp hardware for four segmented drums",
+      "baseUnit": "each",
+      "kind": "consumable",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "fastener",
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "One procurement set for three passive and one powered drum: five 1000 mm M5 threaded rods, 24 M5 locking nuts and 24 M5 washers; 24 M4×25 screws, eight M4×45 screws, 32 M4 locking nuts and 64 M4 washers.",
+        "Cut M5 rods into nine 280 mm and three 610 mm lengths. Three stock rods each yield 610+280 mm; two each yield 3×280 mm, leaving kerf allowance. Confirm actual screw lengths and access during bench assembly."
+      ],
+      "notes": "Explicit procurement allowance, not a confirmed commercial kit. Existing mixed fastener assortment has no verified size-level contents, so coverage is not assumed. See drum README."
+    },
+    {
+      "id": "winch-mount-hardware",
+      "name": "Rigid bases, bearing spacers and fasteners for four winch mounts",
+      "baseUnit": "each",
+      "kind": "consumable",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "fastener",
+        "off-the-shelf",
+        "bulk-material"
+      ],
+      "requirements": [
+        "One unquoted procurement set for three passive and one powered mount: three 550×180×8 mm and one 880×180×8 mm aluminium base blanks; four 100×180×4 mm steel post backing plates. Dimensions are prototype assumptions, not structural ratings.",
+        "Eight steel bearing inner-ring spacers: nominal 8.2 mm bore, 11 mm OD, 2 mm thickness; verify actual bearing inner-ring contact annulus.",
+        "32 M6×30 base screws, 32 M6 locking nuts, 64 M6 washers; 16 M5×35 bearing-cap screws, 16 ordinary M5 hex nuts for captive windows and 16 M5 washers. Use a reviewed locking method on cap screws.",
+        "16 M4×20 coupling-cover screws, 16 M4 locking nuts and 32 M4 washers; 16 motor mounting screws/nuts/washers with diameter and length selected after inspecting received motor flange (M4×25 provisional allowance).",
+        "16 M8×160 post through-bolts, 16 M8 locking nuts and 32 large M8 washers; actual length and backing-plate fit depend on post thickness."
+      ],
+      "notes": "Not included in existing mixed fastener assortment without content verification. Supplier, grade, corrosion treatment, stock availability, shipping and prices unresolved. PLA inspection prototype only; powered shaft stiffness remains unresolved."
     }
   ]
 }

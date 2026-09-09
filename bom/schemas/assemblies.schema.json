@@ -87,6 +87,11 @@
               },
               "additionalProperties": false
             }
+          },
+          "documentation": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Repository-relative Markdown link to the owning assembly documentation."
           }
         },
         "additionalProperties": false

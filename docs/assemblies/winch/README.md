@@ -43,6 +43,11 @@ Multilayer winding is excluded because each layer changes effective radius and t
 
 OpenSCAD source must parameterize the line diameter, groove pitch, usable turns, diameter, width, shaft interface, and revision. Generated meshes are not canonical design sources.
 
+The current [segmented drum prototype](../../../hardware/assemblies/winch/README.md)
+and [bearing/motor mount prototype](../../../hardware/assemblies/winch/mount.md)
+now provide fabrication geometry. Both remain concept-unvalidated; line guidance,
+complete guarding and the powered shaft stiffness case remain unresolved.
+
 ## Shaft, bearings, coupling, and fasteners
 
 The mechanical stack must define:

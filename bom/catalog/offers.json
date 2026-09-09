@@ -1437,7 +1437,7 @@
         "marketRegion": "Croatia"
       },
       "purchaseUnit": {
-        "label": "one 2000 mm rod; allocated yield of four ~400 mm shaft blanks",
+        "label": "one 2000 mm rod; allocated yield of three passive and one powered shaft",
         "packagingKnown": true,
         "minimum": "1",
         "increment": "1",
@@ -1448,7 +1448,54 @@
           }
         ]
       },
-      "note": "Kantoflex nominal Ø8 mm hot-rolled steel stock, owner-selected on 2026-09-08 for the prototype. Contents express the planned cut yield, not four supplied finished shafts: 4 × 400 mm leaves 400 mm for kerfs/offcut. No cutting service, machining cost, precision shaft tolerance or engineering approval is included. Confirm local stock and inspect bearing/coupling fit and straightness."
+      "note": "Owner-selected nominal Ø8 mm hot-rolled rod. Planned yield is 3 × 340 mm passive + 1 × 660 mm powered = 1680 mm, leaving 320 mm for kerfs/offcut. Four BOM units describe cut yield, not supplied finished shafts. Verify fit, straightness, complete stack and structural behavior before use."
+    },
+    {
+      "id": "unresolved-winch-drum-joining-hardware",
+      "supplierId": "bauhaus",
+      "checkoutGroupId": "bauhaus-hr",
+      "qualification": "unresolved",
+      "listing": {
+        "supplierSku": null,
+        "url": null,
+        "marketRegion": "Croatia"
+      },
+      "purchaseUnit": {
+        "label": "procurement allowance for four drum assemblies; not a supplier kit",
+        "packagingKnown": false,
+        "minimum": null,
+        "increment": null,
+        "contents": [
+          {
+            "partId": "winch-drum-joining-hardware",
+            "quantity": "1"
+          }
+        ]
+      },
+      "note": "Target local fastener procurement. Exact BAUHAUS articles, packaging, prices and stock have not been researched; existing assortment coverage is unknown."
+    },
+    {
+      "id": "unresolved-winch-mount-hardware",
+      "supplierId": "bauhaus",
+      "checkoutGroupId": "bauhaus-hr",
+      "qualification": "unresolved",
+      "listing": {
+        "supplierSku": null,
+        "url": null,
+        "marketRegion": "Croatia"
+      },
+      "purchaseUnit": {
+        "label": "Unquoted four-mount material and hardware allowance",
+        "packagingKnown": false,
+        "minimum": null,
+        "increment": null,
+        "contents": [
+          {
+            "partId": "winch-mount-hardware",
+            "quantity": "1"
+          }
+        ]
+      }
     }
   ]
 }

@@ -44,6 +44,7 @@ export interface AssemblyUsage {
 }
 
 export interface Assembly {
+  documentation?: string;
   id: string;
   kind: "physical" | "shared-procurement-stock";
   parentAssemblyId: string | null;

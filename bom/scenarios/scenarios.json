@@ -71,14 +71,16 @@
           "winch-mount-and-guard": "in-house-fabrication-winch-mount-and-guard",
           "wire-rope-clamp-3mm": "bauhaus-wire-rope-clamp-3mm",
           "wire-rope-thimble-3mm": "bauhaus-wire-rope-thimble-3mm",
-          "zinc-spray": "bauhaus-zinc-spray"
+          "zinc-spray": "bauhaus-zinc-spray",
+          "winch-drum-joining-hardware": "unresolved-winch-drum-joining-hardware",
+          "winch-mount-hardware": "unresolved-winch-mount-hardware"
         }
       },
       "unknownPolicy": "report-incomplete",
       "notes": [
         "Pins record the repository baseline offer selection; they do not imply that price, tax, availability, or packaging has been reverified.",
         "Optional and deferred usages are excluded.",
-        "BAUHAUS 2000 mm rod is allocated to four approximately 400 mm prototype shaft blanks; cutting/fit finishing and local stock remain unconfirmed."
+        "BAUHAUS 2000 mm rod is allocated to three 340 mm passive and one 660 mm powered prototype shaft allowances; cutting/fit finishing and local stock remain unconfirmed."
       ]
     }
   ]

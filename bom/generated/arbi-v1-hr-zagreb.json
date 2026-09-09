@@ -6,7 +6,7 @@
   "destinationId": "hr-zagreb",
   "destinationName": "Zagreb, Croatia",
   "quoteSnapshotId": "hr-zagreb-2026-09-08-bauhaus-shaft",
-  "inputDigest": "sha256:14cbabdf4d1064562156c1fe7fcf2162a14597fb252b3ab2eaa4a584273903a1",
+  "inputDigest": "sha256:aeee80e80633b6fb3e5c1f58da19ae27a077c753e07480e2264c1600e326df49",
   "reportCurrency": "EUR",
   "complete": false,
   "completeLandedTotal": null,
@@ -657,6 +657,19 @@
       "selectedOfferId": "in-house-fabrication-winch-drum"
     },
     {
+      "partId": "winch-drum-joining-hardware",
+      "required": "1",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "winch-set",
+          "kind": "physical",
+          "quantity": "1"
+        }
+      ],
+      "selectedOfferId": "unresolved-winch-drum-joining-hardware"
+    },
+    {
       "partId": "winch-drum-shaft-8mm",
       "required": "4",
       "unit": "each",
@@ -681,6 +694,19 @@
         }
       ],
       "selectedOfferId": "in-house-fabrication-winch-mount-and-guard"
+    },
+    {
+      "partId": "winch-mount-hardware",
+      "required": "1",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "winch-set",
+          "kind": "physical",
+          "quantity": "1"
+        }
+      ],
+      "selectedOfferId": "unresolved-winch-mount-hardware"
     },
     {
       "partId": "wire-rope-clamp-3mm",
@@ -1951,6 +1977,54 @@
         "Qualification is baseline-selected; the recorded selection is not engineering approval.",
         "Tax/VAT treatment is unknown."
       ]
+    },
+    {
+      "offerId": "unresolved-winch-drum-joining-hardware",
+      "supplierId": "bauhaus",
+      "checkoutGroupId": "bauhaus-hr",
+      "qualification": "unresolved",
+      "purchaseUnits": null,
+      "knownGoodsAmount": null,
+      "currency": null,
+      "coverage": [
+        {
+          "partId": "winch-drum-joining-hardware",
+          "required": "1",
+          "purchased": null,
+          "surplus": null,
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "Destination quote row is missing.",
+        "Package size/MOQ is unknown.",
+        "Price is unknown.",
+        "Qualification is unresolved; the recorded selection is not engineering approval."
+      ]
+    },
+    {
+      "offerId": "unresolved-winch-mount-hardware",
+      "supplierId": "bauhaus",
+      "checkoutGroupId": "bauhaus-hr",
+      "qualification": "unresolved",
+      "purchaseUnits": null,
+      "knownGoodsAmount": null,
+      "currency": null,
+      "coverage": [
+        {
+          "partId": "winch-mount-hardware",
+          "required": "1",
+          "purchased": null,
+          "surplus": null,
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "Destination quote row is missing.",
+        "Package size/MOQ is unknown.",
+        "Price is unknown.",
+        "Qualification is unresolved; the recorded selection is not engineering approval."
+      ]
     }
   ],
   "shipping": [
@@ -2390,6 +2464,14 @@
     "tme-raspberry-pi-pico-2-w: Availability is unknown.",
     "tme-raspberry-pi-pico-2-w: Price and availability observation date is unknown; quote capture time is not verification time.",
     "tme-raspberry-pi-pico-2-w: Qualification is baseline-selected; the recorded selection is not engineering approval.",
-    "tme-raspberry-pi-pico-2-w: Tax/VAT treatment is unknown."
+    "tme-raspberry-pi-pico-2-w: Tax/VAT treatment is unknown.",
+    "unresolved-winch-drum-joining-hardware: Destination quote row is missing.",
+    "unresolved-winch-drum-joining-hardware: Package size/MOQ is unknown.",
+    "unresolved-winch-drum-joining-hardware: Price is unknown.",
+    "unresolved-winch-drum-joining-hardware: Qualification is unresolved; the recorded selection is not engineering approval.",
+    "unresolved-winch-mount-hardware: Destination quote row is missing.",
+    "unresolved-winch-mount-hardware: Package size/MOQ is unknown.",
+    "unresolved-winch-mount-hardware: Price is unknown.",
+    "unresolved-winch-mount-hardware: Qualification is unresolved; the recorded selection is not engineering approval."
   ]
 }

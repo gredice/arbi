@@ -7,6 +7,7 @@ import { fileURLToPath } from "node:url";
 import { calculateBom } from "./calculate.js";
 import { unexpectedScenarioReportFiles } from "./generated-reports.js";
 import { loadBomRepository } from "./load.js";
+import { renderPartPages } from "./part-pages.js";
 import { renderJson, renderMarkdown } from "./report.js";
 import { validateRepository } from "./validate.js";
 
@@ -82,6 +83,36 @@ async function expectedReports(scenarioId: string): Promise<{
   };
 }
 
+async function syncPartPages(mode: "generate" | "check"): Promise<void> {
+  const repository = await loadBomRepository(repositoryRoot);
+  const validation = validateRepository(repository);
+  if (validation.errors.length > 0) throw new Error(validation.errors.join("\n"));
+  const pages = renderPartPages(repository);
+  const directory = resolve(generatedDirectory, "parts");
+  const existing = await readdir(directory).catch((error: unknown) => {
+    if (error instanceof Error && "code" in error && error.code === "ENOENT") return [];
+    throw error;
+  });
+  const orphaned = existing.filter((name) => name.endsWith(".md") && !pages.has(name));
+  if (orphaned.length) {
+    throw new Error("Generated pages exist for removed or renamed parts: " +
+      orphaned.map((name) => "bom/generated/parts/" + name).join(", ") +
+      ". Review and remove these exact files explicitly.");
+  }
+  if (mode === "generate") await mkdir(directory, { recursive: true });
+  const stale: string[] = [];
+  for (const [name, content] of pages) {
+    const path = resolve(directory, name);
+    if (mode === "generate") {
+      await writeFile(path, content, "utf8");
+    } else if (await readFile(path, "utf8").catch(() => null) !== content) {
+      stale.push("bom/generated/parts/" + name);
+    }
+  }
+  if (stale.length) throw new Error("Generated BOM item pages are missing or stale: " +
+    stale.join(", ") + ". Run pnpm bom:generate.");
+}
+
 async function generate(): Promise<void> {
   const allIds = await scenarioIds();
   await assertNoOrphanReports(allIds);
@@ -96,6 +127,7 @@ async function generate(): Promise<void> {
       writeFile(resolve(generatedDirectory, scenarioId + ".md"), reports.markdown, "utf8"),
     ]);
   }
+  await syncPartPages("generate");
   console.log(
     "Generated " +
       ids.length +
@@ -132,6 +164,7 @@ async function check(): Promise<void> {
         ". Run pnpm --filter @arbi/bom generate.",
     );
   }
+  await syncPartPages("check");
   console.log(
     "BOM inputs are valid and generated reports are current (" +
       warningCount +

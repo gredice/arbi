@@ -25,6 +25,11 @@ The committed material is a **design baseline**, not proof of a built or safe in
 - [Dock](assemblies/dock/README.md)
 - [Control cabinet](assemblies/control-cabinet/README.md)
 
+## Components and procurement
+
+- [Bill of materials](../bom/README.md)
+- [Individual BOM item pages](../bom/generated/parts/README.md)
+
 ## Operations
 
 - [Imaging and calibration](operations/imaging-and-calibration.md)

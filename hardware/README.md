@@ -8,14 +8,18 @@ The machine-readable registry is [models.json](models.json). It declares stable 
 
 | Model | Assembly | Revision | Purpose |
 | --- | --- | --- | --- |
-| `winch-drum` | [Winch](assemblies/winch/README.md) | `1.0.0` | Non-manufacturing continuous helix and reserve-wrap capacity study |
+| `winch-drum` | [Winch](assemblies/winch/README.md) | `2.1.0` | Segmented drum assembly reference |
+| `winch-drum-passive-1/2`, `winch-drum-powered-1/2/3` | [Winch](assemblies/winch/README.md) | `0.1.0` | Five variant-specific grooved body sections |
+| `winch-drum-flange`, `winch-drum-flange-right`, `winch-drum-clamp-half`, `winch-drum-tail-clamp`, `winch-drum-alignment-pin` | [Winch](assemblies/winch/README.md) | `0.1.0` | Shared drum fabrication components |
+| `winch-mount` | [Winch mount](assemblies/winch/mount.md) | `0.1.0` | Passive/powered mount assembly and base drilling reference |
+| `winch-bearing-lower`, `winch-bearing-cap`, `winch-motor-stand`, `winch-coupling-guard` | [Winch mount](assemblies/winch/mount.md) | `0.1.0` | Bearing supports, adjustable motor stand and coupling cover |
 | `camera-pod-envelope` | [Camera pod](assemblies/camera-pod/README.md) | `0.1.0` | Non-manufacturing pod and motion keep-out reference |
 | `camera-pod-spider` | [Camera pod](assemblies/camera-pod/README.md) | `0.1.0` | Four-line load-interface spider concept |
 | `dock-funnel` | [Dock](assemblies/dock/README.md) | `0.1.0` | Passive conical alignment funnel concept |
 | `dock-nest` | [Dock](assemblies/dock/README.md) | `0.1.0` | Pod locating nest and mounting plate concept |
 | `top-pulley-keeper` | [Corner station](assemblies/corner-station/README.md) | `0.1.0` | Line-retention keeper around the top pulley concept |
 
-Fabrication models identify their canonical BOM part IDs in the registry. The winch-drum study and camera-pod envelope are deliberately `reference` artifacts with no BOM part IDs and export CSG rather than printable meshes. All defaults illustrate parameter ownership and interfaces; they are not purchasing, printing, or construction instructions.
+Fabrication models identify their canonical BOM part IDs in the registry. The winch-drum assembly and camera-pod envelope are `reference` artifacts with no BOM part IDs and export CSG. Individual drum components now export fabrication STL and map to the drum BOM; their README defines the variant print counts and proposed PLA bench process. All models remain concept-unvalidated.
 
 ## Validation
 
@@ -39,3 +43,7 @@ Compilation writes declared STL fabrication meshes and CSG reference artifacts i
 5. Run the required CAD check and review the generated geometry visually before proposing a release.
 
 The system requirements and evidence status live in the matching documents under [`docs/assemblies`](../docs/assemblies).
+
+The [winch mount family](assemblies/winch/mount.md) adds a bearing lower, bearing
+cap, motor stand and coupling cover (0.1.0), with a passive/powered assembly
+reference. Metal base stock is a drilling proposal, not a printed release part.

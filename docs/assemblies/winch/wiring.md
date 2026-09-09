@@ -4,6 +4,8 @@
 
 ## Four-axis overview
 
+For pole-base box entries, local terminal identifiers, and the separate slip-ring/pod-power path at the powered winch, see [pole-box and powered-line wiring](pole-box-wiring.md).
+
 Solid arrows show power or control paths; motor links include a separate encoder feedback cable. The distribution block represents separately protected circuits, **not a connection between the two supplies' outputs**. Supply-to-load allocation remains unresolved.
 
 ```mermaid
@@ -176,5 +178,5 @@ The kit page also identifies a separate **thick black shielding lead** and permi
 - **3.3 V signaling:** the [CL57Y-V20 product page](https://www.omc-stepperonline.com/y-series-v2-0-closed-loop-stepper-driver-0-7-0a-24-50vdc-for-nema-17-23-24-stepper-motor-cl57y-v20) describes a 5 V/24 V input selector. That alone does not establish direct Pico compatibility. Verify the V2.0 manual, selector setting, input thresholds/current, Pico output capability, pulse timing, and real cable performance before energizing this concept. The linked manual download could not be retrieved during this documentation update (2026-09-08), so exact input-terminal mapping remains unverified.
 - **Enable, alarm, home, and limits:** define GPIO allocation, voltage interface, polarity, cable-failure detection, and startup/fault behavior. Do not infer that reserved conductors or omitted enable wiring provide a safe stop. See the [safety case](../../system/safety-case.md).
 - **Power and bonding:** finalize supply allocation, branch protection, conductor sizes, voltage drop, transient/regenerative voltage handling, signal-ground/return/PE relationships, shields, and enclosure bonding. Do not parallel supply outputs without manufacturer permission and a reviewed design.
-- **Powered-line winch:** its slip ring uses the separate protected pod-power branch described in the [positioning-line documentation](../positioning-lines/README.md). It does not connect to the motor phase outputs or encoder harness.
+- **Powered-line winch:** follow the [pole-box and powered-line connection plan](pole-box-wiring.md) for the separate protected pod branch, stationary/rotating slip-ring sides, and red/black hybrid-line conductors. Slip-ring lead identification and permission to parallel contacts remain unresolved.
 - **Acceptance:** issue an as-built terminal schedule, then record continuity/polarity inspection, unloaded direction and encoder checks, loaded signal-integrity/thermal tests, and reset/alarm/home/stop behavior in the [commissioning plan](../../operations/prototype-and-commissioning.md). No bench or installed wiring validation is claimed here.

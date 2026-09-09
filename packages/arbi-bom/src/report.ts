@@ -24,7 +24,7 @@ function coverageSummary(
             coverage.surplus +
             " surplus";
       return (
-        coverage.partId +
+        "[" + coverage.partId + "](parts/" + coverage.partId + ".md)" +
         ": " +
         coverage.required +
         " " +
@@ -50,6 +50,8 @@ export function renderMarkdown(result: CalculationResult): string {
     result.complete
       ? "> The complete landed total includes every selected purchase and checkout-group charge under the pinned scenario."
       : "> Unknown package rules, prices, tax treatment, shipping, availability, and unqualified baseline selections remain visible below. Null values are never treated as zero.",
+    "",
+    "[BOM overview](../README.md) · [All item pages](parts/README.md)",
     "",
     "## Calculation identity",
     "",
@@ -189,7 +191,7 @@ export function renderMarkdown(result: CalculationResult): string {
       .join(", ");
     lines.push(
       "| " +
-        cell(requirement.partId) +
+        "[" + cell(requirement.partId) + "](parts/" + requirement.partId + ".md)" +
         " | " +
         requirement.required +
         " " +
