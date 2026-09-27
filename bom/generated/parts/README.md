@@ -59,6 +59,7 @@ One stable page per catalog part, including optional and deferred items. Usage q
 | [Top-pulley offset steel mounting bracket — BAUHAUS Stabilit solid angle](top-pulley-bracket.md) | top-pulley-bracket |
 | [Top-pulley Dyneema keeper / weather cover](top-pulley-keeper.md) | top-pulley-keeper |
 | [Underground cable sleeve](underground-cable-sleeve.md) | underground-cable-sleeve |
+| [Optional passive winch desk-foot kit](winch-desk-feet.md) | winch-desk-feet |
 | [Single-layer grooved winch drum](winch-drum.md) | winch-drum |
 | [Joining and clamp hardware for four segmented drums](winch-drum-joining-hardware.md) | winch-drum-joining-hardware |
 | [8 mm steel drum shaft (variant cut allowance)](winch-drum-shaft-8mm.md) | winch-drum-shaft-8mm |

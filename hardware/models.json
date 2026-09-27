@@ -291,6 +291,34 @@
             "output": "winch-mount-r0.1.0.csg",
             "documentation": "hardware/assemblies/winch/README.md",
             "description": "Passive/powered winch bearing, drum, motor and rigid base assembly reference."
+        },
+        {
+            "id": "winch-desk-foot-short",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "winch-desk-feet"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-desk-foot-short.scad",
+            "output": "winch-desk-foot-short-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Optional passive-winch bench foot, short variant; print two; unloaded desk checks only."
+        },
+        {
+            "id": "winch-desk-foot-long",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "winch-desk-feet"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-desk-foot-long.scad",
+            "output": "winch-desk-foot-long-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Optional passive-winch bench foot, long variant; print two; unloaded desk checks only."
         }
     ]
 }

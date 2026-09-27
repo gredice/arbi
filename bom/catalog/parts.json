@@ -1225,6 +1225,45 @@
         "16 M8×160 post through-bolts, 16 M8 locking nuts and 32 large M8 washers; actual length and backing-plate fit depend on post thickness."
       ],
       "notes": "Not included in existing mixed fastener assortment without content verification. Supplier, grade, corrosion treatment, stock availability, shipping and prices unresolved. PLA inspection prototype only; powered shaft stiffness remains unresolved."
+    },
+    {
+      "id": "winch-desk-feet",
+      "name": "Optional passive winch desk-foot kit",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "fabricated",
+        "printed"
+      ],
+      "requirements": [
+        "One bench kit contains two short and two long feet for the passive 550 x 180 x 8 mm base, using its existing 50 x 120 mm post-hole pattern.",
+        "35 mm plate underside height; existing mounting fasteners may protrude at most 25 mm below the plate.",
+        "Attach with four M8 x 35 bolts, eight standard M8 washers and four M8 nuts; these are separate from the printed parts.",
+        "Unloaded desk assembly and rotation checks only; physical fit and stability are unverified."
+      ],
+      "fabrication": {
+        "process": "openscad",
+        "modelStatus": "concept-unvalidated",
+        "sources": [
+          {
+            "path": "hardware/assemblies/winch/winch-desk-foot-short.scad",
+            "module": "wdf_print_foot",
+            "modelId": "winch-desk-foot-short",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/winch/winch-desk-foot-long.scad",
+            "module": "wdf_print_foot",
+            "modelId": "winch-desk-foot-long",
+            "revision": "0.1.0"
+          }
+        ]
+      },
+      "notes": "Optional bench fixture, excluded from installed-system assembly quantities and procurement totals. Print settings and installation: hardware/assemblies/winch/desk-feet.md. No structural or loaded-line qualification."
     }
   ]
 }
