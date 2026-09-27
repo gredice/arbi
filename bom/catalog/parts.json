@@ -1095,7 +1095,7 @@
             "path": "hardware/assemblies/winch/winch-coupling-guard.scad",
             "module": "wm_coupling_guard",
             "modelId": "winch-coupling-guard",
-            "revision": "0.1.0"
+            "revision": "0.1.1"
           }
         ]
       },

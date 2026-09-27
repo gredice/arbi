@@ -1,4 +1,4 @@
-// ARBI winch-mount 0.1.0 — concept-unvalidated assembly reference.
+// ARBI winch-mount 0.1.1 — concept-unvalidated assembly reference.
 include <../../lib/winch-mount.scad>
 powered = false;
 show_drum = true;

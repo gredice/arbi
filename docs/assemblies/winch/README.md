@@ -123,3 +123,8 @@ The drum, coupling, shaft, and line entry create pinch, entanglement, and stored
 - Need and timing for a normally engaged brake or drum lock.
 - Final home switch and independent hard-limit architecture.
 - Long-run STEP/DIR signal integrity and whether differential signaling becomes necessary.
+
+## Assembly booklet
+
+Use the [STL-based assembly booklet and model pack](booklet/README.md) for the
+passive winch, updated coupling cover and optional desk feet.

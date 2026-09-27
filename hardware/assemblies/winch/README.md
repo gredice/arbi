@@ -6,6 +6,8 @@ Wire evidence: [AWG26 table](../../../bom/sourcing/pod-wire-dimensions-2026-09-0
 
 ## Passive-base bench aids
 
+- [STL-based assembly booklet and model pack](../../../docs/assemblies/winch/booklet/README.md),
+  including the revised motor-fastener-clearance coupling cover **0.1.1**.
 - [Printable drilling template](passive-base-drilling-A4.pdf) and
   [printing/alignment instructions](drilling-template.md) for the 550 x 180 mm base.
 - [Optional desk feet](desk-feet.md): print two

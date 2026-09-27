@@ -1,6 +1,7 @@
 # Drum and winch mount
 
-Status: **concept-unvalidated**, revision **0.1.0**, PLA inspection prototype.
+Status: **concept-unvalidated**, reference/cover revision **0.1.1**; bearing
+lowers, caps and motor stand remain **0.1.0**, PLA inspection prototypes.
 The [development proposal](mount-development.md) records scope; the
 [drum guide](README.md) defines compatible printed drum parts, revision 0.1.0.
 The contextual drum reference is now revision 2.1.0 because bearing inner-ring
@@ -125,7 +126,31 @@ The coupling envelope is still the ordered part's nominal Ø20 × 25 mm; a 10 mm
 engagement at each end leaves 5 mm between shaft tips in this layout. Confirm
 actual jaw/spider clearances and locking-screw access. The two shafts must not touch.
 
-Fit the removable coupling cover last. It has 4 mm walls and an open underside
+Fit the removable coupling cover last. Revision **0.1.1** fixes the reported
+collision between the original cover and the motor mounting screws, washers and
+nuts. Reprint the cover only; the motor stand, attachment-hole pattern and M4×20
+cover hardware remain unchanged. The motor end has a wider open-bottom recess:
+
+| Clearance item | Revision 0.1.1 envelope |
+| --- | --- |
+| Motor fastener stack diameter (head/nut/washer) | At most 12 mm |
+| Projection from coupling-side stand face, including screw tips | At most 14 mm |
+| Additional radial and axial clearance | 1 mm |
+| Allowed motor vertical adjustment | ±2 mm, full existing slot range |
+| Motor-end cavity width / height above shaft axis / axial depth | 61.14 / 32.57 / 15 mm |
+| Widened motor-end wall thickness | 3 mm |
+| Cover mounting washers | M4, 9 mm outside diameter |
+
+Check those dimensions on the received hardware before printing. Oversize washers
+or longer screw tips need a revised envelope, not force when seating the cover.
+The wider shell stays 0.43 mm clear of the nominal cover-washer envelope; include
+that small gap in the physical inspection. Lower the cover vertically over the
+coupling after securing the motor. Fit its four screws, washers and locknuts only
+after the flange seats flush. No motor hardware should have to be loosened to fit
+or remove it. See the [new geometry check](coupling-cover-geometry-check.md) and
+[STL-based booklet](../../../docs/assemblies/winch/booklet/README.md).
+
+The front shell retains 4 mm walls and an open underside
 and axial ends; it is a local cover, **not complete entanglement protection or
 an outdoor enclosure**. It can be removed without disturbing shaft alignment.
 

@@ -1,0 +1,6 @@
+numpy>=1.26,<3
+trimesh>=4,<6
+vtk==9.5.2
+Pillow>=10,<13
+reportlab>=4,<5
+manifold3d>=3,<4

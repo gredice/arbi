@@ -268,7 +268,7 @@
         },
         {
             "id": "winch-coupling-guard",
-            "revision": "0.1.0",
+            "revision": "0.1.1",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
             "bomPartIds": [
@@ -276,19 +276,19 @@
             ],
             "assembly": "winch",
             "entrypoint": "hardware/assemblies/winch/winch-coupling-guard.scad",
-            "output": "winch-coupling-guard-r0.1.0.stl",
+            "output": "winch-coupling-guard-r0.1.1.stl",
             "documentation": "hardware/assemblies/winch/README.md",
-            "description": "Removable open-bottom coupling cover; one per winch."
+            "description": "Removable open-bottom cover with motor-fastener clearance recess; one per winch."
         },
         {
             "id": "winch-mount",
-            "revision": "0.1.0",
+            "revision": "0.1.1",
             "status": "concept-unvalidated",
             "artifactRole": "reference",
             "bomPartIds": [],
             "assembly": "winch",
             "entrypoint": "hardware/assemblies/winch/winch-mount.scad",
-            "output": "winch-mount-r0.1.0.csg",
+            "output": "winch-mount-r0.1.1.csg",
             "documentation": "hardware/assemblies/winch/README.md",
             "description": "Passive/powered winch bearing, drum, motor and rigid base assembly reference."
         },

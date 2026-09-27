@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create Assembly Booklets"
+  short_description: "Build accurate assembly guides from actual CAD meshes"
+  default_prompt: "Use $create-assembly-booklets to create an STL-based assembly booklet for this project."
