@@ -87,9 +87,47 @@
       ],
       "fabrication": {
         "process": "openscad",
-        "modelStatus": "planned",
-        "sources": []
-      }
+        "modelStatus": "concept-unvalidated",
+        "sources": [
+          {
+            "path": "hardware/assemblies/camera-pod/payload-pan-yoke.scad",
+            "module": "payload_pan_yoke",
+            "modelId": "payload-pan-yoke",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/camera-pod/payload-camera-cradle.scad",
+            "module": "payload_camera_cradle",
+            "modelId": "payload-camera-cradle",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/camera-pod/payload-horn-retainer.scad",
+            "module": "payload_horn_retainer",
+            "modelId": "payload-horn-retainer",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/camera-pod/payload-camera-hood.scad",
+            "module": "payload_camera_hood",
+            "modelId": "payload-camera-hood",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/camera-pod/payload-servo-fit-coupon.scad",
+            "module": "payload_servo_fit_coupon",
+            "modelId": "payload-servo-fit-coupon",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/camera-pod/payload-tilt-pivot-support.scad",
+            "module": "payload_tilt_pivot_support",
+            "modelId": "payload-tilt-pivot-support",
+            "revision": "0.1.0"
+          }
+        ]
+      },
+      "notes": "Bench mount set r0.1.0. Print quantities and hardware are in hardware/assemblies/camera-pod/payload-mounts.md. Servo dimensions are provisional; geometry checks are not physical validation."
     },
     {
       "id": "camera-pod-chassis",
@@ -108,7 +146,7 @@
       "requirements": [
         "ASA/PETG lightweight cable spider and electronics chassis sized for Raspberry Pi 3A+, 48 V → 5 V converter and bulk capacitor fixed on the pod. Complete flying pod target ~100–120 g; hard design limit ~170 g."
       ],
-      "notes": "Updated for Raspberry Pi 3A+ V1 pod architecture; replaces earlier Pi Zero 2 W mass/layout assumptions.",
+      "notes": "Bench mount set r0.1.0. Print quantities and hardware are in hardware/assemblies/camera-pod/payload-mounts.md. Servo dimensions are provisional; geometry checks are not physical validation. Updated for Raspberry Pi 3A+ V1 pod architecture; replaces earlier Pi Zero 2 W mass/layout assumptions.",
       "fabrication": {
         "process": "openscad",
         "modelStatus": "concept-unvalidated",
@@ -117,6 +155,30 @@
             "path": "hardware/assemblies/camera-pod/camera-pod-spider.scad",
             "module": "camera_pod_spider",
             "modelId": "camera-pod-spider",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/camera-pod/payload-electronics-deck.scad",
+            "module": "payload_electronics_deck",
+            "modelId": "payload-electronics-deck",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/camera-pod/payload-pan-servo-mount.scad",
+            "module": "payload_pan_servo_mount",
+            "modelId": "payload-pan-servo-mount",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/camera-pod/payload-electronics-cover.scad",
+            "module": "payload_electronics_cover",
+            "modelId": "payload-electronics-cover",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/camera-pod/payload-spider-spacer.scad",
+            "module": "payload_spider_spacer",
+            "modelId": "payload-spider-spacer",
             "revision": "0.1.0"
           }
         ]

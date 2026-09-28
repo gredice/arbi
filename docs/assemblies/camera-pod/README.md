@@ -70,7 +70,9 @@ The pod has no battery. It must start, stop, and recover deterministically when 
 
 ## Printed parts and fasteners
 
-Expected custom models include:
+The [bench mount set r0.1.0](../../../hardware/assemblies/camera-pod/payload-mounts.md) now has canonical CAD and an [illustrated assembly booklet](booklet/README.md). It supplies the fixed electronics deck, servo mounts, supported camera cradle, removable pivot support, horn retainers, cover, hood and tie pads. [Geometry checks](../../../hardware/assemblies/camera-pod/payload-geometry-check.md) use provisional servo/power envelopes; physical fits and the flying mass limit are not demonstrated.
+
+The full scope still includes:
 
 - cable spider/chassis;
 - Pi and power-electronics mount;

@@ -15,3 +15,9 @@ Registry ID and design revision: `camera-pod-envelope` `0.1.0`, role `reference`
 Registry ID and design revision: `camera-pod-spider` `0.1.0`, status `concept-unvalidated`.
 
 Before prototype use, measure the real camera, compute, converter, gimbal, line terminations, connectors, and service clearances. Validate mass, centre of gravity, stiffness, fatigue, dielectric separation, retention, and weather behavior as an assembly.
+
+## Bench mounting parts
+
+The [payload mount set r0.1.0](payload-mounts.md) now supplies the fixed deck, spider spacers, pan mount, pan yoke, detachable tilt-pivot support, camera cradle, stock-horn retainers, optical hood and electronics cover. The [assembled reference](payload-assembly.scad) shows printed parts in their assembled positions. The [booklet](../../../docs/assemblies/camera-pod/booklet/README.md) uses the actual fabrication and nominal hardware meshes.
+
+All remain concept-unvalidated. [CAD checks](payload-geometry-check.md) cover represented geometry only; the actual servo and power-module dimensions, ribbon, mass and physical performance remain open. The original envelope is a legacy space reservation and is not the bounds of this new bench assembly.
