@@ -34,6 +34,12 @@ The first command always validates registry metadata against its JSON Schema, ch
 
 Compilation writes declared STL fabrication meshes and CSG reference artifacts into a temporary directory and removes it afterward. Generated STL, 3MF, CSG, and bulk render output are not committed. A successful compile proves only that source geometry can be evaluated.
 
+## CAD downloads
+
+[GitHub Releases](https://github.com/gredice/arbi/releases) publishes a complete CAD snapshot whenever OpenSCAD sources, the model registry, or the CAD build workflow change on `main`. Each release tag is `cad-<full commit SHA>` and contains every registered STL fabrication part, CSG reference assembly, a ZIP of the tracked `hardware/` sources (including all SCAD files), and SHA-256 checksums. The workflow can also be run manually from GitHub Actions. A release records a reproducible source commit; it does not change any model's evidence status or establish that a part is safe to build or install.
+
+To keep compiled files locally, pass an empty output directory: `pnpm cad:check -- --require-openscad --output-dir /path/to/empty-directory`.
+
 ## Adding a model
 
 1. Read [conventions.md](conventions.md).

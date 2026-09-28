@@ -1,0 +1,92 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+
+name: Publish CAD models
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'hardware/**/*.scad'
+      - 'hardware/models.json'
+      - 'hardware/models.schema.json'
+      - 'scripts/check-cad.mjs'
+      - '.github/workflows/cad-release.yml'
+  workflow_dispatch:
+
+# Serialize releases so a slower build cannot replace a newer "Latest" release.
+concurrency:
+  group: cad-release
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    name: Build and publish CAD snapshot
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6.0.3
+        with:
+          persist-credentials: false
+
+      - uses: pnpm/action-setup@v6.0.8
+        name: Install pnpm
+
+      - uses: actions/setup-node@v6.4.0
+        name: Set up Node.js
+        with:
+          node-version: 24.15.0
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install pinned OpenSCAD
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes openscad=2021.01-6build4
+
+      - name: Validate and export every registered model
+        env:
+          CAD_OUTPUT: ${{ runner.temp }}/cad-release
+        run: pnpm cad:check -- --require-openscad --output-dir "$CAD_OUTPUT"
+
+      - name: Package commit-matched sources and checksums
+        env:
+          CAD_OUTPUT: ${{ runner.temp }}/cad-release
+        run: |
+          git archive --format=zip --output="$CAD_OUTPUT/cad-sources-${GITHUB_SHA}.zip" HEAD hardware
+          cd "$CAD_OUTPUT"
+          sha256sum -- *.stl *.csg *.zip > SHA256SUMS.txt
+
+      - name: Publish commit-versioned release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CAD_OUTPUT: ${{ runner.temp }}/cad-release
+        run: |
+          tag="cad-${GITHUB_SHA}"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            echo "Release $tag already exists."
+            exit 0
+          fi
+
+          notes="${RUNNER_TEMP}/cad-release-notes.md"
+          {
+            printf 'CAD snapshot for commit [`%s`](https://github.com/%s/commit/%s).\n\n' "${GITHUB_SHA:0:12}" "$GITHUB_REPOSITORY" "$GITHUB_SHA"
+            printf 'All %s registered models were built with OpenSCAD %s. Download individual STL fabrication parts, CSG assembly references, or the ZIP of all tracked hardware sources. `SHA256SUMS.txt` verifies the assets.\n\n' "$(jq '.models | length' hardware/models.json)" "$(jq -r '.openScadVersion' hardware/models.json)"
+            printf 'Model revisions and evidence status are recorded in `hardware/models.json`. These CAD exports do not by themselves establish printability, fit, strength, or installation safety.\n'
+          } > "$notes"
+
+          latest=false
+          if [[ "$(git ls-remote origin refs/heads/main | cut -f1)" == "$GITHUB_SHA" ]]; then
+            latest=true
+          fi
+
+          gh release create "$tag" "$CAD_OUTPUT"/* \
+            --target "$GITHUB_SHA" \
+            --title "CAD models ${GITHUB_SHA:0:12}" \
+            --notes-file "$notes" \
+            --latest="$latest"

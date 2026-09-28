@@ -5,6 +5,7 @@ import { spawnSync } from 'node:child_process';
 import {
     existsSync,
     mkdtempSync,
+    mkdirSync,
     readFileSync,
     readdirSync,
     rmSync,
@@ -328,8 +329,15 @@ function detectOpenScad() {
     };
 }
 
-function compileModels(registry, openScadVersion) {
-    const outputDirectory = mkdtempSync(join(tmpdir(), 'arbi-cad-'));
+function compileModels(registry, openScadVersion, requestedOutputDirectory) {
+    const outputDirectory = requestedOutputDirectory ?? mkdtempSync(join(tmpdir(), 'arbi-cad-'));
+    if (requestedOutputDirectory) {
+        mkdirSync(outputDirectory, { recursive: true });
+        assert(
+            readdirSync(outputDirectory).length === 0,
+            `CAD output directory must be empty: ${outputDirectory}`,
+        );
+    }
     console.log(`Compiling ${registry.models.length} model(s) with ${openScadVersion}.`);
 
     try {
@@ -357,7 +365,9 @@ function compileModels(registry, openScadVersion) {
             console.log(`  compiled ${model.id} ${model.revision}`);
         }
     } finally {
-        rmSync(outputDirectory, { recursive: true, force: true });
+        if (!requestedOutputDirectory) {
+            rmSync(outputDirectory, { recursive: true, force: true });
+        }
     }
 }
 
@@ -365,15 +375,23 @@ function parseArguments() {
     const options = {
         requireOpenScad: false,
         staticOnly: false,
+        outputDirectory: null,
     };
 
-    for (const argument of process.argv.slice(2)) {
+    const arguments_ = process.argv.slice(2);
+    for (let index = 0; index < arguments_.length; index += 1) {
+        const argument = arguments_[index];
         if (argument === '--') {
             continue;
         } else if (argument === '--require-openscad') {
             options.requireOpenScad = true;
         } else if (argument === '--static-only') {
             options.staticOnly = true;
+        } else if (argument === '--output-dir') {
+            const path = arguments_[++index];
+            assert(path && !path.startsWith('--'), '--output-dir requires a directory path.');
+            assert(options.outputDirectory === null, '--output-dir may only be set once.');
+            options.outputDirectory = resolve(repositoryRoot, path);
         } else {
             fail(`Unknown argument: ${argument}`);
         }
@@ -382,6 +400,10 @@ function parseArguments() {
     assert(
         !(options.requireOpenScad && options.staticOnly),
         '--require-openscad and --static-only cannot be used together.',
+    );
+    assert(
+        !(options.outputDirectory && options.staticOnly),
+        '--output-dir and --static-only cannot be used together.',
     );
     return options;
 }
@@ -398,9 +420,11 @@ try {
                 openScad.version === registry.openScadVersion,
                 `OpenSCAD ${openScad.version} is installed, but the model registry requires exactly ${registry.openScadVersion}.`,
             );
-            compileModels(registry, openScad.label);
+            compileModels(registry, openScad.label, options.outputDirectory);
         } else if (options.requireOpenScad) {
             fail('OpenSCAD is required but the openscad executable was not found.');
+        } else if (options.outputDirectory) {
+            fail('--output-dir requires OpenSCAD, but the openscad executable was not found.');
         } else {
             console.log('OpenSCAD is not installed; compilation skipped.');
         }
