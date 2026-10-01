@@ -14,12 +14,15 @@ The machine-readable registry is [models.json](models.json). It declares stable 
 | `winch-mount` | [Winch mount](assemblies/winch/mount.md) | `0.1.0` | Passive/powered mount assembly and base drilling reference |
 | `winch-bearing-lower`, `winch-bearing-cap`, `winch-motor-stand`, `winch-coupling-guard` | [Winch mount](assemblies/winch/mount.md) | `0.1.0` | Bearing supports, adjustable motor stand and coupling cover |
 | `camera-pod-envelope` | [Camera pod](assemblies/camera-pod/README.md) | `0.1.0` | Non-manufacturing pod and motion keep-out reference |
+| `camera-pod-assembly` | [Camera pod](assemblies/camera-pod/README.md) | `0.1.0` | Non-manufacturing stacked payload layout |
 | `camera-pod-spider` | [Camera pod](assemblies/camera-pod/README.md) | `0.1.0` | Four-line load-interface spider concept |
+| `camera-pod-electronics-mount`, `camera-pod-docking-stud`, `camera-pod-line-strain-relief` | [Camera pod](assemblies/camera-pod/README.md) | `0.1.0` | Fixed electronics plate, mushroom stud and line fairleads |
+| `camera-gimbal-base`, `camera-gimbal-yoke`, `camera-gimbal-camera-plate`, `camera-gimbal-rain-cap`, `camera-gimbal-optical-hood` | [Camera pod](assemblies/camera-pod/README.md) | `0.1.0` | Two-axis gimbal fabrication set |
 | `dock-funnel` | [Dock](assemblies/dock/README.md) | `0.1.0` | Passive conical alignment funnel concept |
 | `dock-nest` | [Dock](assemblies/dock/README.md) | `0.1.0` | Pod locating nest and mounting plate concept |
 | `top-pulley-keeper` | [Corner station](assemblies/corner-station/README.md) | `0.1.0` | Line-retention keeper around the top pulley concept |
 
-Fabrication models identify their canonical BOM part IDs in the registry. The winch-drum assembly and camera-pod envelope are `reference` artifacts with no BOM part IDs and export CSG. Individual drum components now export fabrication STL and map to the drum BOM; their README defines the variant print counts and proposed PLA bench process. All models remain concept-unvalidated.
+Fabrication models identify their canonical BOM part IDs in the registry. The winch-drum assembly, winch-mount, camera-pod envelope, and camera-pod assembly are `reference` artifacts with no BOM part IDs and export CSG. Individual drum, mount, camera-pod chassis, and gimbal components export fabrication STL and map to their BOM parts. All models remain concept-unvalidated.
 
 ## Validation
 

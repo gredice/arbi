@@ -70,17 +70,21 @@ The pod has no battery. It must start, stop, and recover deterministically when 
 
 ## Printed parts and fasteners
 
-Expected custom models include:
+Registered OpenSCAD concept models now cover the expected custom kit. All remain **concept-unvalidated**:
 
-- cable spider/chassis;
-- Pi and power-electronics mount;
-- lightweight pan/tilt gimbal;
-- servo-body rain cap;
-- optical hood/protection;
-- hybrid-line strain relief;
-- docking stud mount.
+| Model | BOM part | Role |
+| --- | --- | --- |
+| `camera-pod-spider` | `camera-pod-chassis` | Four-line cable spider |
+| `camera-pod-electronics-mount` | `camera-pod-chassis` | Pi and power-electronics mount |
+| `camera-pod-docking-stud` | `camera-pod-chassis` | Docking stud |
+| `camera-pod-line-strain-relief` | `camera-pod-chassis` | Hybrid-line strain relief (print 4) |
+| `camera-gimbal-base`, `camera-gimbal-yoke`, `camera-gimbal-camera-plate` | `camera-gimbal` | Lightweight pan/tilt gimbal |
+| `camera-gimbal-rain-cap` | `camera-gimbal` | Servo-body rain cap |
+| `camera-gimbal-optical-hood` | `camera-gimbal` | Optical hood/protection |
 
-ASA is preferred for exposed release parts. PETG is acceptable for prototypes pending creep and weather evidence. Each OpenSCAD model needs a stable part ID/revision, interface dimensions, material and print specification, expected mass, and test evidence. Small servo screws, horns, inserts, pivots, and camera fasteners must be documented with the same care as larger parts.
+See [camera pod OpenSCAD sources](../../../hardware/assemblies/camera-pod/README.md) for print counts, bolt-circle sandwich, and starting COTS envelopes. Compilation does not prove mass, fit, strength, or weather behavior.
+
+ASA is preferred for exposed release parts. PETG is acceptable for prototypes pending creep and weather evidence. Each model still needs interface confirmation from measured hardware, material and print specification, expected mass, and test evidence. Small servo screws, horns, inserts, pivots, and camera fasteners must be documented with the same care as larger parts.
 
 ## Weather and environmental behavior
 

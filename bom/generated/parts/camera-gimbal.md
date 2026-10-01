@@ -32,7 +32,11 @@ Quantities are per assembly definition, before build multipliers. Optional and d
 ## Fabrication
 
 - Process: openscad
-- Model status: planned
-- No manufacturing source claimed yet.
+- Model status: concept-unvalidated
+- [hardware/assemblies/camera-pod/camera-gimbal-base.scad](../../../hardware/assemblies/camera-pod/camera-gimbal-base.scad) — module `camera_gimbal_base`; revision 0.1.0.
+- [hardware/assemblies/camera-pod/camera-gimbal-camera-plate.scad](../../../hardware/assemblies/camera-pod/camera-gimbal-camera-plate.scad) — module `camera_gimbal_camera_plate`; revision 0.1.0.
+- [hardware/assemblies/camera-pod/camera-gimbal-optical-hood.scad](../../../hardware/assemblies/camera-pod/camera-gimbal-optical-hood.scad) — module `camera_gimbal_optical_hood`; revision 0.1.0.
+- [hardware/assemblies/camera-pod/camera-gimbal-rain-cap.scad](../../../hardware/assemblies/camera-pod/camera-gimbal-rain-cap.scad) — module `camera_gimbal_rain_cap`; revision 0.1.0.
+- [hardware/assemblies/camera-pod/camera-gimbal-yoke.scad](../../../hardware/assemblies/camera-pod/camera-gimbal-yoke.scad) — module `camera_gimbal_yoke`; revision 0.1.0.
 
 Catalog lifecycle, procurement, and generated documentation do not establish physical validation. See the owning assembly for evidence and acceptance requirements.

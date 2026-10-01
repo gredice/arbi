@@ -37,6 +37,9 @@ Quantities are per assembly definition, before build multipliers. Optional and d
 
 - Process: openscad
 - Model status: concept-unvalidated
+- [hardware/assemblies/camera-pod/camera-pod-docking-stud.scad](../../../hardware/assemblies/camera-pod/camera-pod-docking-stud.scad) — module `camera_pod_docking_stud`; revision 0.1.0.
+- [hardware/assemblies/camera-pod/camera-pod-electronics-mount.scad](../../../hardware/assemblies/camera-pod/camera-pod-electronics-mount.scad) — module `camera_pod_electronics_mount`; revision 0.1.0.
+- [hardware/assemblies/camera-pod/camera-pod-line-strain-relief.scad](../../../hardware/assemblies/camera-pod/camera-pod-line-strain-relief.scad) — module `camera_pod_line_strain_relief`; revision 0.1.0.
 - [hardware/assemblies/camera-pod/camera-pod-spider.scad](../../../hardware/assemblies/camera-pod/camera-pod-spider.scad) — module `camera_pod_spider`; revision 0.1.0.
 
 Catalog lifecycle, procurement, and generated documentation do not establish physical validation. See the owning assembly for evidence and acceptance requirements.
