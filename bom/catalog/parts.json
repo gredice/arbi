@@ -87,8 +87,39 @@
       ],
       "fabrication": {
         "process": "openscad",
-        "modelStatus": "planned",
-        "sources": []
+        "modelStatus": "concept-unvalidated",
+        "sources": [
+          {
+            "path": "hardware/assemblies/camera-pod/camera-gimbal-base.scad",
+            "module": "camera_gimbal_base",
+            "modelId": "camera-gimbal-base",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/camera-pod/camera-gimbal-camera-plate.scad",
+            "module": "camera_gimbal_camera_plate",
+            "modelId": "camera-gimbal-camera-plate",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/camera-pod/camera-gimbal-optical-hood.scad",
+            "module": "camera_gimbal_optical_hood",
+            "modelId": "camera-gimbal-optical-hood",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/camera-pod/camera-gimbal-rain-cap.scad",
+            "module": "camera_gimbal_rain_cap",
+            "modelId": "camera-gimbal-rain-cap",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/camera-pod/camera-gimbal-yoke.scad",
+            "module": "camera_gimbal_yoke",
+            "modelId": "camera-gimbal-yoke",
+            "revision": "0.1.0"
+          }
+        ]
       }
     },
     {
@@ -113,6 +144,24 @@
         "process": "openscad",
         "modelStatus": "concept-unvalidated",
         "sources": [
+          {
+            "path": "hardware/assemblies/camera-pod/camera-pod-docking-stud.scad",
+            "module": "camera_pod_docking_stud",
+            "modelId": "camera-pod-docking-stud",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/camera-pod/camera-pod-electronics-mount.scad",
+            "module": "camera_pod_electronics_mount",
+            "modelId": "camera-pod-electronics-mount",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/camera-pod/camera-pod-line-strain-relief.scad",
+            "module": "camera_pod_line_strain_relief",
+            "modelId": "camera-pod-line-strain-relief",
+            "revision": "0.1.0"
+          },
           {
             "path": "hardware/assemblies/camera-pod/camera-pod-spider.scad",
             "module": "camera_pod_spider",
