@@ -1351,6 +1351,34 @@
         }
       ],
       "error": "INVALID_MESSAGE"
+    },
+    {
+      "name": "unknown-body-field",
+      "base": "move",
+      "changes": [
+        {
+          "path": [
+            "body",
+            "bogus"
+          ],
+          "value": true
+        }
+      ],
+      "error": "UNKNOWN_FIELD"
+    },
+    {
+      "name": "unknown-source-field",
+      "base": "move",
+      "changes": [
+        {
+          "path": [
+            "source",
+            "bogus"
+          ],
+          "value": true
+        }
+      ],
+      "error": "UNKNOWN_FIELD"
     }
   ]
 }

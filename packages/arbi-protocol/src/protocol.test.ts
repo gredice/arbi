@@ -60,6 +60,7 @@ test("duplicate admission returns receipt after expiry without replay; changed i
   const ledger = createCommandLedger();
   assert.equal(admitCommand(move(), context(), ledger).ok, true);
   const duplicate = move(); duplicate.sequence = "11"; duplicate.messageId = "retry-1";
+  duplicate.command.target = { sessionId: receiver.sessionId, deviceId: receiver.deviceId, bootId: receiver.bootId };
   const replay = admitCommand(duplicate, { ...context(), nowMonotonicMs: 2000 }, ledger);
   assert.equal(replay.ok && replay.value.decision, "duplicate");
   assert.equal(ledger.receipts.size, 1);

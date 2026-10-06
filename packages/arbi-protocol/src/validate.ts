@@ -25,12 +25,16 @@ const bodyTypes = (name: string): string[] => {
   return (body.oneOf ?? [body]).map((b) => b.properties!.type.const);
 };
 const knownTypes = { command: bodyTypes("CommandBody"), event: bodyTypes("EventBody"), telemetry: bodyTypes("TelemetryBody") };
+const bodyValidators = Object.fromEntries(Object.entries(knownTypes).map(([kind, types]) => [kind,
+  Object.fromEntries(types.map((type, index) => [type, ajv.compile({
+    $ref: `https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/${kind[0].toUpperCase()}${kind.slice(1)}Body${kind === "telemetry" ? "" : `/oneOf/${index}`}`,
+  })])),
+]));
 const record = (value: unknown): value is Record<string, unknown> => typeof value === "object" && value !== null && !Array.isArray(value);
 const sameIdentity = (a: Identity, b: Identity): boolean => a.deviceId === b.deviceId && a.bootId === b.bootId && a.sessionId === b.sessionId;
 
 function schemaFailure(errors: ErrorObject[]): Result<never> {
-  // Ignore failures from nonmatching oneOf branches; stable codes never expose Ajv prose.
-  const unknown = errors.find((e) => e.keyword === "additionalProperties" && !e.schemaPath.includes("oneOf"));
+  const unknown = errors.find((e) => e.keyword === "additionalProperties");
   if (unknown) return fail("UNKNOWN_FIELD", `${unknown.instancePath}/${String(unknown.params.additionalProperty)}`);
   const range = errors.find((e) => ["minimum", "maximum"].includes(e.keyword));
   if (range) return fail("INVALID_RANGE", range.instancePath);
@@ -42,8 +46,14 @@ export function validateMessage(input: unknown): Result<Message> {
   if (input.protocol !== PROTOCOL_VERSION) return fail("UNSUPPORTED_VERSION", "/protocol");
   const kind = input.kind;
   if (kind !== "command" && kind !== "event" && kind !== "telemetry") return fail("UNKNOWN_KIND", "/kind");
-  if (record(input.body) && !knownTypes[kind].includes(String(input.body.type))) return fail("UNKNOWN_TYPE", "/body/type");
-  if (!validators[kind](input)) return schemaFailure(validators[kind].errors ?? []);
+  const bodyData = input.body;
+  if (record(bodyData) && !knownTypes[kind].includes(String(bodyData.type))) return fail("UNKNOWN_TYPE", "/body/type");
+  if (!validators[kind](input)) {
+    const body = record(bodyData) ? bodyValidators[kind][String(bodyData.type)] : undefined;
+    // Validate only the selected discriminated body to avoid errors from unrelated branches.
+    if (body && !body(bodyData)) return schemaFailure((body.errors ?? []).map((e) => ({ ...e, instancePath: `/body${e.instancePath}` })));
+    return schemaFailure((validators[kind].errors ?? []).filter((e) => !e.instancePath.startsWith("/body")));
+  }
   const message = input as Message;
   const counters: Array<[string, string]> = [[message.sequence, "/sequence"]];
   if (message.kind === "command") {
