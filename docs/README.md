@@ -49,6 +49,7 @@ The committed material is a **design baseline**, not proof of a built or safe in
 ## Software evidence
 
 - [Transport capability review and bounded local recovery experiment](evidence/software-transport-feasibility.md)
+- [Protocol 1.0 contracts, semantic rules and host reference-test boundary](software/protocol.md)
 
 ## Evidence language
 
