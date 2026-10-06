@@ -178,7 +178,7 @@ begin('12  Desk feet and final checks','Optional desk setup for the passive base
 fig('feet-install',10,51,190,76)
 text(16,135,'2 SHORT FEET: away from motor',10,True,BLUE)
 text(16,143,'2 LONG FEET: toward motor',10,True,BLUE)
-para(16,150,178,'Use four M8 x 35 bolts, eight standard washers and four nuts on the 8 mm plate. Recess the nuts inside the feet. Plate underside is 35 mm above the desk; existing screws may protrude at most 25 mm.',small=True,max_h=20)
+para(16,150,178,'Use four M8 x 35 bolts, eight standard washers and four M8 locknuts on the 8 mm plate. Recess the nuts inside the feet. Plate underside is 35 mm above the desk; existing screws may protrude at most 25 mm.',small=True,max_h=20)
 fig('feet-final',12,174,186,57)
 checks=['All drum joints close flush; the groove is continuous.','Shaft turns freely; collars do not preload bearings.','Rods, nuts, flanges and clamp clear the supports through a full turn.','Motor shafts align; coupling has axial clearance; all feet sit flat.']
 for i,s in enumerate(checks):

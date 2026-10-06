@@ -20,6 +20,8 @@ The purchased-part models are simplified reference geometry, not supplier-certif
 manufacturing models or printed substitutes. All model dimensions are in mm.
 The booklet distinguishes mesh/clearance checks from unperformed physical tests.
 
+The 6 October 2026 text correction makes the desk-foot assembly instructions specify M8 locknuts, matching the hardware table and nominal reference mesh. The PDF was regenerated and its copy and builder in the ZIP were refreshed; original CAD, meshes and figures were retained.
+
 The owner explicitly requested this PDF and downloadable STL/source bundle be
 committed on 27 September 2026. They are published artifact snapshots; canonical
 geometry remains in `hardware/**/*.scad`. Individual working STLs and bulk render
