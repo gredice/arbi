@@ -4,6 +4,8 @@
 
 Every interface must name its endpoints, owner, revision, normal range, startup state, failure detection, isolation method, and acceptance test. Connector color alone is not an interface definition.
 
+[ADR-0006](../decisions/0006-local-safety-authority-and-instrumentation.md) and the [local safety interface matrix](local-safety-interface-matrix.md) assign motion/stop authority, required observations and stage-specific evidence. They do not allocate additional GPIOs or validate circuits. Independent safeguards must survive normal-control failure; driver disable/power removal requires a reviewed restraint response, and `Parked` cannot authorize updates by itself.
+
 ## Physical interfaces
 
 | Interface | Endpoint A | Endpoint B | Owner |
@@ -119,7 +121,7 @@ The current baseline does not yet define adequate total-power-loss line-clearanc
 
 ## Open questions
 
-- Which subsystem has final authority to de-energize each actuator?
+- What circuit and restraint sequence implements the cabinet-owned independent inhibition/isolation and Pico/pod local protections assigned in ADR-0006?
 - Is the dock sensor redundant or cross-checked with motor/tension evidence?
 - How is latch release actuated and proven clear?
 - Which alarm and enable signals are carried on the reserved control pairs?
