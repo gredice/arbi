@@ -10,7 +10,7 @@ The current exact compatible version is `arbi/1.0`. Snapshot advertisements list
 
 Structural validation uses JSON Schema 2020-12 plus these required semantic checks: uint64 bounds, UTC/uncertainty pairing, deadline/target epoch equality, sample age arithmetic, duplicate metrics and snapshot cursor binding. Other languages must port both layers. The generated TypeScript file describes structural types only. Generation is deterministic and checked in `build`/`lint`.
 
-Validation returns `{ ok: false, error: { code, path } }`, with schema-owned stable codes; callers must branch on `code`, not library prose or diagnostic paths. Top-level dispatch errors take precedence over schema failures; range violations return `INVALID_RANGE`, other shape violations `INVALID_MESSAGE`. Unknown top-level fields return `UNKNOWN_FIELD`. Admission then checks realm/site/source/target/actor/capability before any replay, lifetime, configuration or lease decision. No rejected input changes the reference ledger or telemetry state.
+Validation returns `{ ok: false, error: { code, path } }`, with schema-owned stable codes; callers must branch on `code`, not library prose or diagnostic paths. Top-level dispatch errors take precedence over schema failures; the selected body is validated independently so errors from unrelated variants cannot change the result. Unknown fields return `UNKNOWN_FIELD`, range violations `INVALID_RANGE`, other shape violations `INVALID_MESSAGE`. Admission then checks realm/site/source/target/actor/capability before any replay, lifetime, configuration or lease decision. No rejected input changes the reference ledger or telemetry state.
 
 | Error group | Representative codes | Required handling |
 | --- | --- | --- |

@@ -10,7 +10,7 @@ export const PROTOCOL_VERSION = "arbi/1.0";
 
 const schema = JSON.parse(readFileSync(new URL("../schema/message.schema.json", import.meta.url), "utf8")) as { $defs: Record<string, object> };
 const ajv = new Ajv2020({ allErrors: true, strict: true, strictTypes: false });
-ajv.addFormat("utc-ms", {
+ajv.addFormat("date-time", {
   type: "string",
   validate: (value: string) => /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/.test(value)
     && !Number.isNaN(Date.parse(value)) && new Date(value).toISOString() === value,
