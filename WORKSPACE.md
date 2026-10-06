@@ -81,7 +81,7 @@ The following paths are reserved but should not exist until implementation begin
 - `apps/arbi-pod-firmware`: pod camera, gimbal, power-health, and local service target;
 - `apps/arbi-control-cabinet-firmware`: motion/safety controller target if it remains separate;
 - `packages/arbi-protocol`: versioned commands, configuration, telemetry, units, and fixtures;
-- `packages/arbi-gredice`: implemented identity/site/bed/plant integration adapter;
+- `packages/arbi-gredice`: planned identity/site/bed/plant integration adapter, created only with an implemented integration slice;
 - `packages/arbi-control`: pure control and geometry logic when shared;
 - `packages/arbi-simulation-core`: deterministic simulated time, plant/sensor/actuator models, scenarios, and traces.
 

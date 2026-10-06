@@ -38,6 +38,7 @@ test('bounded recovery across disposable HTTP workers', async (t) => {
 
     const testKey = randomBytes(32);
     const productionKey = randomBytes(32);
+    /** Sign a synthetic credential with no authority outside this experiment. */
     function token(claims, key = testKey) {
         const data = Buffer.from(JSON.stringify(claims)).toString('base64url');
         return `${data}.${createHmac('sha256', key).update(data).digest('hex')}`;
@@ -46,6 +47,7 @@ test('bounded recovery across disposable HTTP workers', async (t) => {
     const credential = token(identity);
     let bodyBytes = 0;
 
+    /** Start a disposable loopback worker with an independent journal connection. */
     async function startWorker() {
         // Each worker has its own store connection and no retained session/cursor.
         const reader = new DatabaseSync(path, { readOnly: true });
@@ -115,6 +117,7 @@ test('bounded recovery across disposable HTTP workers', async (t) => {
         workers.push(worker);
         return worker;
     }
+    /** Retrieve one bounded page and count response bodies, excluding network overhead. */
     async function recover(worker, query = '?cursor=0', authorization = credential) {
         const response = await fetch(`${worker.url}/recover${query}`, {
             headers: { authorization }, signal: AbortSignal.timeout(3000),
