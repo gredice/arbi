@@ -19,6 +19,7 @@ This is a current evidence inventory, not a purchasing list and not a certificat
 | Imaging software | Move, stop, gimbal, settle, autofocus, capture, rectify, upload | Desired workflow; settling time and repeatability unverified |
 | Safety | Workspace limits, fault handling, docking, low-voltage overhead, structural checks | Minimum topics identified; safety case incomplete |
 | Simulation | Future digital twin and controller-tuning environment | Boundary recorded; model not yet validated |
+| Online software and deployment | [ADR-0005](../decisions/0005-software-architecture-and-deployment.md): Vercel dashboard/API, Ably notifications, external Postgres/private objects, independent local runtimes and releases | [Capability review and local recovery experiment](../evidence/software-transport-feasibility.md) recorded; provider integration, live media, OTA recovery and physical operation unverified |
 
 ## Baseline choices that must remain traceable
 

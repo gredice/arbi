@@ -73,17 +73,21 @@ Generated BOM Markdown and JSON are intentionally tracked because they are direc
 
 The following paths are reserved but should not exist until implementation begins:
 
+- `apps/arbi-dashboard`: authenticated user/engineering dashboard and HTTP API in Gredice's Vercel team;
 - `apps/arbi-docs`: Next.js/Vercel public documentation and interactive BOM;
 - `apps/arbi-simulator`: executable simulator or simulator UI;
 - `apps/arbi-edge-controller`: local job, state, and hardware-adapter ownership;
-- `apps/arbi-cloud`: remote integration if the architecture requires a separate deployable;
+- `apps/arbi-cloud`: reserved only if a later reviewed decision requires an independent backend; the initial API belongs to `apps/arbi-dashboard`;
 - `apps/arbi-pod-firmware`: pod camera, gimbal, power-health, and local service target;
 - `apps/arbi-control-cabinet-firmware`: motion/safety controller target if it remains separate;
 - `packages/arbi-protocol`: versioned commands, configuration, telemetry, units, and fixtures;
+- `packages/arbi-gredice`: implemented identity/site/bed/plant integration adapter;
 - `packages/arbi-control`: pure control and geometry logic when shared;
 - `packages/arbi-simulation-core`: deterministic simulated time, plant/sensor/actuator models, scenarios, and traces.
 
 The simulator and real adapters must consume the same versioned contracts and units. Simulator success cannot be used as installed-system proof.
+
+[ADR-0005](docs/decisions/0005-software-architecture-and-deployment.md) owns software deployment, transport/storage selection, environment isolation and release boundaries. Its [bounded feasibility experiment](docs/evidence/software-transport-feasibility.md) runs with `node --test scripts/spikes/software-recovery.test.mjs`; it needs loopback listening and uses only temporary synthetic data. It is not an implemented app or provider integration.
 
 ## Future Vercel site
 

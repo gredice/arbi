@@ -13,6 +13,12 @@ The roadmap advances from isolated evidence to an integrated outdoor system. A l
 
 **Gate:** documentation links resolve, data validates, the project has no external authoring or synchronization dependency, and every baseline claim is labeled by evidence state.
 
+### Parallel software foundation and isolated online milestone
+
+[ADR-0005](../decisions/0005-software-architecture-and-deployment.md) permits software development before physical integration: implement the authenticated Gredice-team Vercel dashboard with user/engineering modes against an isolated simulated installation over the selected cloud-edge protocol. Include command outcomes, truthful diagnostics, release availability, usage and audit visibility. [#62](https://github.com/gredice/arbi/issues/62) owns that deployed software milestone.
+
+Preview/test resources and simulator credentials cannot authenticate production devices or acquire live actuator authority. This work does not advance the physical gates below or permit live controls. Production capabilities remain disabled until the local safety, commissioning and [software-to-field release gates](https://github.com/gredice/arbi/issues/79) accept the exact installation/configuration. Recording remains deferred and disabled initially.
+
 ## Phase 1 — bench winch
 
 - Acquire the selected four-axis closed-loop stepper kit, test line, bearings, shaft, coupling, and controller parts.
@@ -62,7 +68,7 @@ The roadmap advances from isolated evidence to an integrated outdoor system. A l
 - Install the control cabinet, field distribution, lines, pod, dock, and fiducials.
 - Calibrate anchors, cable-length references, bed targets, camera geometry, and safe workspace.
 - Run staged commissioning with exclusion zones before any public operation.
-- Integrate the Gredice imaging API only after local operation and safety behavior are accepted.
+- Enable the Gredice imaging API against real actuators only after local operation and safety behavior are accepted; isolated simulated integration may precede this phase.
 
 **Gate:** the as-built revision has signed commissioning records, an updated hazard log, operating limits, inspection intervals, recovery procedures, and qualified approval for its intended environment.
 
