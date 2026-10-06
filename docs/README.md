@@ -12,6 +12,7 @@ The committed material is a **design baseline**, not proof of a built or safe in
 - [Site geometry](system/site-geometry.md)
 - [Interfaces and operating states](system/interfaces-and-operating-states.md)
 - [Safety case](system/safety-case.md)
+- [Local safety interface matrix](system/local-safety-interface-matrix.md)
 - [Prototype and commissioning plan](operations/prototype-and-commissioning.md)
 - [Repository source-of-truth policy](project/repository-source-of-truth.md)
 
@@ -43,6 +44,7 @@ The committed material is a **design baseline**, not proof of a built or safe in
 - [ADR-0003: Separate parts, assembly quantities, and supplier offers](decisions/0003-bom-separation.md)
 - [ADR-0004: Share contracts between hardware control and simulation](decisions/0004-simulator-boundary.md)
 - [ADR-0005: Software architecture and deployment boundaries](decisions/0005-software-architecture-and-deployment.md)
+- [ADR-0006: Local safety authority and instrumentation](decisions/0006-local-safety-authority-and-instrumentation.md)
 
 ## Software evidence
 

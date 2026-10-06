@@ -95,6 +95,8 @@ The motion and safety system must remain locally effective if the edge applicati
 
 The Pico firmware should generate synchronized trajectories, apply local workspace/configuration limits, handle home/reference and driver signals, and expose deterministic command/telemetry behavior. A normal application heartbeat is not a substitute for independent limits or emergency isolation.
 
+[ADR-0006](../../decisions/0006-local-safety-authority-and-instrumentation.md) and the [local safety interface matrix](../../system/local-safety-interface-matrix.md) assign the cabinet's independent stop/limit/supervision and energy-isolation requirements. LS-01–LS-09 and LS-12–LS-18 require reviewed interface revisions and physical evidence before affected operational capabilities can be enabled. Enable/alarm/home/limit circuits, output states and restraint sequencing remain unverified; no extra GPIO or reserved-pair assignment follows from this requirements record.
+
 The cabinet design must establish:
 
 - safe startup and outputs after reset/brownout;

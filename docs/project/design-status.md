@@ -17,7 +17,7 @@ This is a current evidence inventory, not a purchasing list and not a certificat
 | Control cabinet | Protected 230 V entry, two 48 V/350 W supplies, Pico 2 W control, fused branches | Logical baseline recorded; cabinet, protection coordination, earthing, thermal, and field wiring unverified |
 | Motion software | Local synchronized STEP/DIR control, Euclidean cable targets, positive tension | No implementation or real-system validation recorded here |
 | Imaging software | Move, stop, gimbal, settle, autofocus, capture, rectify, upload | Desired workflow; settling time and repeatability unverified |
-| Safety | Workspace limits, fault handling, docking, low-voltage overhead, structural checks | Minimum topics identified; safety case incomplete |
+| Safety | [Local safety authority and instrumentation requirements](../decisions/0006-local-safety-authority-and-instrumentation.md), independent limits/stopping, docking and restraint | [Interface owners and evidence gates](../system/local-safety-interface-matrix.md) recorded; circuits, measurements, power-loss restraint and qualified physical review remain unverified; safety case incomplete |
 | Simulation | Future digital twin and controller-tuning environment | Boundary recorded; model not yet validated |
 | Online software and deployment | [ADR-0005](../decisions/0005-software-architecture-and-deployment.md): Vercel dashboard/API, Ably notifications, external Postgres/private objects, independent local runtimes and releases | [Capability review and local recovery experiment](../evidence/software-transport-feasibility.md) recorded; provider integration, live media, OTA recovery and physical operation unverified |
 
@@ -47,6 +47,8 @@ The committed requirements specify a permanent high dock and also ask for servic
 This interpretation still needs a validated recovery and maintenance procedure. See [weather, parking, and maintenance](../operations/weather-parking-and-maintenance.md).
 
 ## Evidence still required before public operation
+
+Loaded/installed operational actuation and motion-controller updates remain disabled until the [stage-specific local safety gates](../operations/prototype-and-commissioning.md#local-safety-and-update-gates) pass. Explicitly authorized secured isolated bench/HIL testing and flashing under a reviewed procedure may generate evidence; source checks and simulation cannot clear physical gates. Current driver-local encoders provide no measured position or tension to the Pico, and `Parked` alone is not update-safe.
 
 - actual site survey and geotechnical/anchor assessment;
 - maximum configured line tension and structural calculations;

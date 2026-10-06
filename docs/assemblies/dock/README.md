@@ -86,6 +86,8 @@ Do not intentionally slack all four lines in V1. The current baseline targets:
 
 The dock mechanically retains the pod, but V1 currently relies on powered winches to preserve line clearance. A normally engaged brake/drum lock is deferred in the current baseline. Therefore total-power-loss line sag remains a critical unresolved safety issue and may make a fail-safe brake necessary before public operation.
 
+Under [ADR-0006](../../decisions/0006-local-safety-authority-and-instrumentation.md), `Parked`/`DOCKED` cannot authorize controller reset or updates. [LS-16–LS-18](../../system/local-safety-interface-matrix.md#dock-restraint-and-pod-outputs) require accepted capture/release confirmation, pod support and all-line restraint/clearance through driver disable and total/partial power loss, plus a bounded recovery procedure. Loaded/installed motion-controller updates stay disabled until that stage's evidence passes. Secured isolated bench/HIL flashing is separately permitted under the [reviewed test gates](../../operations/prototype-and-commissioning.md#local-safety-and-update-gates).
+
 ## Electronics, cabling, and software
 
 The dock may require latch release power, sensor wiring, local protection, connectorization, and service isolation. Routing must avoid the moving pod, lines, latch, water paths, and structural inspection points.

@@ -4,6 +4,8 @@
 
 ARBI is an unvalidated engineering concept for an outdoor, overhead moving-line system near people, plants, weather, and mains-powered fixed equipment. This page is a safety-case scaffold. It is not a certification, declaration of conformity, or authorization for public operation.
 
+[ADR-0006](../decisions/0006-local-safety-authority-and-instrumentation.md) and the [local safety interface matrix](local-safety-interface-matrix.md) assign required inputs/outputs, local authority, independent stopping/restraint and evidence owners. Their acceptance records requirements, not completed circuits or physical safety evidence. Loaded/installed operational actuation and motion-controller updates remain disabled pending the [stage-specific commissioning gates](../operations/prototype-and-commissioning.md#local-safety-and-update-gates); explicitly authorized secured isolated bench/HIL work may produce that evidence under reviewed procedures.
+
 ## Top-level safety claim
 
 The intended top-level claim is:
@@ -16,7 +18,7 @@ That claim is currently **not demonstrated**.
 
 - independent hard travel limits and a safe software workspace;
 - motor-fault handling;
-- cable-tension sanity checking where practical;
+- evidenced line slack/overload detection and accepted tension/clearance behavior, with sensing or an explicitly reviewed alternative;
 - HOME docking and a secure inactive state;
 - low-voltage operation on overhead and moving equipment;
 - strain relief on the powered line;
@@ -41,9 +43,9 @@ These topics are necessary but not sufficient.
 | Privacy or data exposure | Images include people or private areas; public telemetry leaks location | Capture zones; masking; access control; retention policy; secret and location scrub |
 | Unsafe maintenance | Automatic lowering, stored energy, remote start, ladder access | Manual maintenance mode; area-cleared interlock/procedure; isolation; lockout; no unattended low positioning |
 
-## Safety architecture still required
+## Safety implementation and evidence still required
 
-The design must define and validate:
+The matrix assigns functional responsibility. Assembly design and validation must still establish:
 
 - a readily accessible means of emergency isolation and a safe-stop strategy;
 - which limits are independent of cloud, edge application, and normal motion planning;
@@ -102,4 +104,5 @@ Simulator results may guide tests and expose defects, but never replace structur
 - How are slack, line failure, and abnormal tension detected?
 - What wind, rain, lightning, and temperature limits apply, and how are they determined locally?
 - Which safeguards are independent enough to survive the same failure as normal control?
+- Which target-specific restraint and recovery procedure preserves every line's clearance through controller update/reset, driver disable and complete or partial power loss? `Parked` and the pod latch alone do not establish it.
 - What legal, electrical, structural, privacy, and workplace reviews apply at the installation site?

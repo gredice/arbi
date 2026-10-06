@@ -64,6 +64,8 @@ Before each operating period, confirm:
 
 Remote weather forecasts may be one input but cannot prove local line/wind conditions.
 
+[LS-14 and LS-15](../system/local-safety-interface-matrix.md#required-measurements-and-permission-inputs) assign local weather/access permission, validity and failure behavior. The BOM's weather-sensor entries are deferred, not evidence of fitted sensors; this requirement does not change V1's anemometer selection. A reviewed local observation/inspection or sensing policy must define the accepted envelope and expiry. Weather readings remain unavailable until a reviewed interface and measurements exist; unknown conditions inhibit dependent operation.
+
 ## Routine inspection
 
 Define intervals by elapsed time, travel/cycle count, exposure event, and observed condition. At minimum inspect:
