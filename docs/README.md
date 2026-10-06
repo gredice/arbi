@@ -42,6 +42,11 @@ The committed material is a **design baseline**, not proof of a built or safe in
 - [ADR-0002: Treat OpenSCAD files as canonical model sources](decisions/0002-openscad-canonical-sources.md)
 - [ADR-0003: Separate parts, assembly quantities, and supplier offers](decisions/0003-bom-separation.md)
 - [ADR-0004: Share contracts between hardware control and simulation](decisions/0004-simulator-boundary.md)
+- [ADR-0005: Software architecture and deployment boundaries](decisions/0005-software-architecture-and-deployment.md)
+
+## Software evidence
+
+- [Transport capability review and bounded local recovery experiment](evidence/software-transport-feasibility.md)
 
 ## Evidence language
 

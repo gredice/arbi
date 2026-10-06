@@ -79,7 +79,7 @@ The enclosure design must address:
 
 ## Edge service boundary
 
-The architecture depends on a local edge service, but its hardware, OS, networking, storage, and cabinet integration are not selected. It is expected to:
+[ADR-0005](../../decisions/0005-software-architecture-and-deployment.md) selects a supervised Linux edge service with a local SQLite journal and bounded capture spool, plus authenticated outbound cloud connectivity. Exact hardware, Linux distribution, local MCU/pod transport, storage durability, update recovery and cabinet integration remain unverified decisions/tests under [#23](https://github.com/gredice/arbi/issues/23). The service is expected to:
 
 - map bed/plant targets to physical position and framing presets;
 - queue and sequence local motion/capture jobs;

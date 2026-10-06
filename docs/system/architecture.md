@@ -57,7 +57,7 @@ flowchart TD
 - The pod service controls gimbal limits, camera sequencing, local health, and image transfer.
 - Loss of Internet must not remove local stopping, docking, or fault-handling behavior.
 
-The exact edge-computer hardware and operating system are open decisions.
+[ADR-0005](../decisions/0005-software-architecture-and-deployment.md) selects Linux as the edge runtime boundary, with a supervised Node.js/TypeScript service and local persistence. Exact hardware, Linux distribution, cabinet integration and recovery implementation remain open under [#23](https://github.com/gredice/arbi/issues/23). The ADR also owns online dashboard/API deployment, outbound transport, external storage, Gredice integration, media and update boundaries; none is deployed by the decision alone.
 
 ### Software responsibility baseline
 
@@ -99,8 +99,8 @@ See the [OpenSCAD](../decisions/0002-openscad-canonical-sources.md), [BOM](../de
 
 ## Open questions
 
-- Which hardware and OS host the edge service?
+- Which hardware and Linux distribution host the edge service, and how is power-loss/update recovery demonstrated?
 - Where is the authoritative safety-state machine implemented and independently supervised?
 - Which measurements are needed to resolve four-line tension and detect slack or overload?
-- How should commands, configuration, and telemetry be authenticated and upgraded?
+- How are the authentication, environment isolation and release boundaries in ADR-0005 implemented and proven with the versioned protocol?
 - Which control algorithms can be shared directly with simulation without compromising MCU determinism?

@@ -43,6 +43,9 @@ jobs:
       - name: Check Markdown links
         run: pnpm docs:check
 
+      - name: Check architecture recovery experiment
+        run: node --test scripts/spikes/software-recovery.test.mjs
+
       - name: Lint
         run: pnpm lint
 
