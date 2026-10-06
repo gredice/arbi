@@ -19,7 +19,7 @@ const telemetry = (): Telemetry => structuredClone(fixtures.valid.telemetry) as 
 const receiver = move().command.target;
 const context = (): CommandGate => ({
   realm: move().realm, executionMode: "simulation", siteId: move().siteId, authenticatedSource: move().source,
-  receiver, nowMonotonicMs: 1000, maxDeadlineAheadMs: 30000, authorizedActorId: "operator-1",
+  receiver, nowMonotonicMs: 1000, maxDeadlineAheadMs: 30000, authorizedActor: { kind: "human", id: "operator-1" },
   allowedTypes: ["motion.move", "control.stop", "camera.gimbal", "camera.capture", "camera.preview.start", "camera.preview.stop", "command.cancel", "state.resync"],
   supportedTypes: ["motion.move", "control.stop", "camera.gimbal", "camera.capture", "camera.preview.start", "camera.preview.stop", "command.cancel", "state.resync"],
   configRevision: "config-1", faultInhibited: false,
@@ -93,7 +93,8 @@ test("exact fence, holder, receiver epoch and lease expiry are required", () => 
 test("authorization, realm, site and source remain mandatory for stop", () => {
   const stop = structuredClone(fixtures.valid.stop);
   assert.equal(admitCommand(stop, { ...context(), lease: null, faultInhibited: true }, createCommandLedger()).ok, true);
-  error(admitCommand(stop, { ...context(), authorizedActorId: "other" }, createCommandLedger()), "NOT_AUTHORIZED");
+  error(admitCommand(stop, { ...context(), authorizedActor: { kind: "human", id: "other" } }, createCommandLedger()), "NOT_AUTHORIZED");
+  error(admitCommand(stop, { ...context(), authorizedActor: { kind: "device", id: "operator-1" } }, createCommandLedger()), "NOT_AUTHORIZED");
   error(admitCommand(stop, { ...context(), realm: { ...context().realm, environment: "production" } }, createCommandLedger()), "REALM_MISMATCH");
   error(admitCommand(stop, { ...context(), executionMode: "hardware" }, createCommandLedger()), "REALM_MISMATCH");
   error(admitCommand(stop, { ...context(), siteId: "other" }, createCommandLedger()), "SITE_MISMATCH");

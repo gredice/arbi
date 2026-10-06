@@ -1,4 +1,4 @@
-import type { Capability, Command, Event, Identity, Message, Realm, Sample, Telemetry } from "./messages.js";
+import type { Actor, Capability, Command, Event, Identity, Message, Realm, Sample, Telemetry } from "./messages.js";
 import { fail, validateMessage, type Result } from "./validate.js";
 
 const equal = (a: unknown, b: unknown): boolean => canonical(a) === canonical(b);
@@ -28,7 +28,7 @@ export interface CommandGate extends Boundary {
   receiver: Identity;
   nowMonotonicMs: number;
   maxDeadlineAheadMs: number;
-  authorizedActorId: string;
+  authorizedActor: Actor;
   allowedTypes: Command["body"]["type"][];
   supportedTypes: Command["body"]["type"][];
   configRevision: string;
@@ -55,7 +55,7 @@ export function admitCommand(input: unknown, context: CommandGate, ledger: Comma
   if (c.target.deviceId !== context.receiver.deviceId) return fail("TARGET_MISMATCH", "/command/target");
   if (c.target.bootId !== context.receiver.bootId) return fail("TARGET_RESTARTED", "/command/target/bootId");
   if (c.target.sessionId !== context.receiver.sessionId) return fail("SESSION_MISMATCH", "/command/target/sessionId");
-  if (c.actor.id !== context.authorizedActorId || !context.allowedTypes.includes(message.body.type)) return fail("NOT_AUTHORIZED", "/command/actor");
+  if (!equal(c.actor, context.authorizedActor) || !context.allowedTypes.includes(message.body.type)) return fail("NOT_AUTHORIZED", "/command/actor");
   if (!context.supportedTypes.includes(message.body.type)) return fail("UNSUPPORTED_CAPABILITY", "/body/type");
   if (!Number.isSafeInteger(context.nowMonotonicMs) || context.nowMonotonicMs < 0 || !Number.isSafeInteger(context.maxDeadlineAheadMs) || context.maxDeadlineAheadMs < 1 || context.maxDeadlineAheadMs > 30000) return fail("CLOCK_INVALID");
   const key = `${sourceKey(message.source)}/${c.idempotencyKey}`;
