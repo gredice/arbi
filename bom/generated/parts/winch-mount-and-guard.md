@@ -40,6 +40,6 @@ Quantities are per assembly definition, before build multipliers. Optional and d
 - [hardware/assemblies/winch/winch-bearing-lower.scad](../../../hardware/assemblies/winch/winch-bearing-lower.scad) — module `wm_bearing_lower`; revision 0.1.0.
 - [hardware/assemblies/winch/winch-bearing-cap.scad](../../../hardware/assemblies/winch/winch-bearing-cap.scad) — module `wm_bearing_cap`; revision 0.1.0.
 - [hardware/assemblies/winch/winch-motor-stand.scad](../../../hardware/assemblies/winch/winch-motor-stand.scad) — module `wm_motor_stand`; revision 0.1.0.
-- [hardware/assemblies/winch/winch-coupling-guard.scad](../../../hardware/assemblies/winch/winch-coupling-guard.scad) — module `wm_coupling_guard`; revision 0.1.0.
+- [hardware/assemblies/winch/winch-coupling-guard.scad](../../../hardware/assemblies/winch/winch-coupling-guard.scad) — module `wm_coupling_guard`; revision 0.1.1.
 
 Catalog lifecycle, procurement, and generated documentation do not establish physical validation. See the owning assembly for evidence and acceptance requirements.

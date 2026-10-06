@@ -37,3 +37,8 @@ hardware/generated/
 *.3mf
 *.off
 *.stl
+
+# Python booklet tooling
+__pycache__/
+*.pyc
+.venv/

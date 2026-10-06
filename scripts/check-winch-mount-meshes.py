@@ -1,10 +1,11 @@
 """Independent default winch mesh checks (requires trimesh, numpy, manifold3d).
 
 Usage: python scripts/check-winch-mount-meshes.py MOUNT_STL_DIR DRUM_STL_DIR
-Exports must match registered 0.1.0 fabrication models. No files are modified.
+Exports must match the current hardware/models.json revisions. No files are modified.
 This checks solid geometry only, not print fits, strengths or operating safety.
 """
 import argparse
+import json
 from itertools import combinations
 from pathlib import Path
 import numpy as np
@@ -14,10 +15,12 @@ parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('mount_dir', type=Path)
 parser.add_argument('drum_dir', type=Path)
 args = parser.parse_args()
+registry = json.loads((Path(__file__).resolve().parents[1] / 'hardware/models.json').read_text())
+outputs = {model['id']: model['output'] for model in registry['models']}
 
 
 def load(folder, name):
-    mesh = trimesh.load_mesh(folder / f'{name}-r0.1.0.stl')
+    mesh = trimesh.load_mesh(folder / outputs[name])
     assert mesh.is_watertight and mesh.body_count == 1 and mesh.volume > 0, name
     return mesh
 
@@ -70,6 +73,37 @@ for variant, width, count in [('passive', 246.9, 2), ('powered', 570.3, 3)]:
         'guard': move(mounts['coupling-guard'], [face-8, 0, 80], rotation(-90, [0, 1, 0])),
         'motor envelope': move(trimesh.creation.box([122, 57, 57]), [face+61, 0, 80]),
     }
+    # 12 mm across the complete head/nut/washer stack, 14 mm proud of stand.
+    # Hull the +/-2 mm slot positions to check the whole adjustment envelope.
+    motor_hardware = {}
+    for y in [-23.57, 23.57]:
+        for z in [-23.57, 23.57]:
+            ends = [move(trimesh.creation.cylinder(radius=6, height=14, sections=96),
+                         [face-15, y, 80+z+dz], ry) for dz in [-2, 2]]
+            envelope = trimesh.convex.convex_hull(np.vstack([end.vertices for end in ends]))
+            name = f'motor fastener {y} {z}'
+            motor_hardware[name] = envelope
+            fixed[name] = envelope
+    for y in [-38.5, 38.5]:
+        for z in [-20, 20]:
+            fixed[f'cover screw head/washer {y} {z}'] = move(
+                ring(9, 4.3, 4.8), [face-14.4, y, 80+z], ry)
+    # Regression control: original 0.1.0 U shell collides with motor hardware.
+    old_outer = move(trimesh.creation.box([39, 56, 53]), [face-27.5, 0, 81.5])
+    old_flange = move(trimesh.creation.box([4, 86, 62]), [face-10, 0, 81])
+    old_void = move(trimesh.creation.box([42, 48, 55]), [face-27, 0, 76.5])
+    old_guard = trimesh.boolean.difference([
+        trimesh.boolean.union([old_outer, old_flange], engine='manifold'), old_void], engine='manifold')
+    old_overlap = sum(overlap(old_guard, part) for part in motor_hardware.values())
+    assert old_overlap > 1, ('old guard regression control', old_overlap)
+    # Cover lifts vertically off the coupling after its own screws are removed.
+    insertion_tests = 0
+    for lift in np.arange(0, 71, 1):
+        raised = move(fixed['guard'], [0, 0, lift])
+        for name, part in motor_hardware.items():
+            assert overlap(raised, part) < 0.001, (variant, 'cover insertion', lift, name)
+            insertion_tests += 1
+    print(f'{variant}: old cover overlap {old_overlap:.3f} mm^3; {insertion_tests} motor-fastener insertion checks passed')
     for side, x in [('left', -5.5), ('right', width+37.5)]:
         for y in [-18, 18]:
             fixed[f'{side} cap screw head {y}'] = move(trimesh.creation.cylinder(radius=5, height=6, sections=32), [x, y, 99])

@@ -392,7 +392,7 @@
         },
         {
             "id": "winch-coupling-guard",
-            "revision": "0.1.0",
+            "revision": "0.1.1",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
             "bomPartIds": [
@@ -400,21 +400,201 @@
             ],
             "assembly": "winch",
             "entrypoint": "hardware/assemblies/winch/winch-coupling-guard.scad",
-            "output": "winch-coupling-guard-r0.1.0.stl",
+            "output": "winch-coupling-guard-r0.1.1.stl",
             "documentation": "hardware/assemblies/winch/README.md",
-            "description": "Removable open-bottom coupling cover; one per winch."
+            "description": "Removable open-bottom cover with motor-fastener clearance recess; one per winch."
         },
         {
             "id": "winch-mount",
-            "revision": "0.1.0",
+            "revision": "0.1.1",
             "status": "concept-unvalidated",
             "artifactRole": "reference",
             "bomPartIds": [],
             "assembly": "winch",
             "entrypoint": "hardware/assemblies/winch/winch-mount.scad",
-            "output": "winch-mount-r0.1.0.csg",
+            "output": "winch-mount-r0.1.1.csg",
             "documentation": "hardware/assemblies/winch/README.md",
             "description": "Passive/powered winch bearing, drum, motor and rigid base assembly reference."
+        },
+        {
+            "id": "winch-desk-foot-short",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "winch-desk-feet"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-desk-foot-short.scad",
+            "output": "winch-desk-foot-short-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Optional passive-winch bench foot, short variant; print two; unloaded desk checks only."
+        },
+        {
+            "id": "winch-desk-foot-long",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "winch-desk-feet"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-desk-foot-long.scad",
+            "output": "winch-desk-foot-long-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Optional passive-winch bench foot, long variant; print two; unloaded desk checks only."
+        },
+        {
+            "id": "payload-electronics-deck",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "camera-pod-chassis"
+            ],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/payload-electronics-deck.scad",
+            "output": "payload-electronics-deck-r0.1.0.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Bench prototype electronics deck; nominal servo interfaces require measurement."
+        },
+        {
+            "id": "payload-pan-servo-mount",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "camera-pod-chassis"
+            ],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/payload-pan-servo-mount.scad",
+            "output": "payload-pan-servo-mount-r0.1.0.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Bench prototype pan servo mount; nominal servo interfaces require measurement."
+        },
+        {
+            "id": "payload-pan-yoke",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "camera-gimbal"
+            ],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/payload-pan-yoke.scad",
+            "output": "payload-pan-yoke-r0.1.0.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Bench prototype pan yoke; nominal servo interfaces require measurement."
+        },
+        {
+            "id": "payload-camera-cradle",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "camera-gimbal"
+            ],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/payload-camera-cradle.scad",
+            "output": "payload-camera-cradle-r0.1.0.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Bench prototype camera cradle; nominal servo interfaces require measurement."
+        },
+        {
+            "id": "payload-horn-retainer",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "camera-gimbal"
+            ],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/payload-horn-retainer.scad",
+            "output": "payload-horn-retainer-r0.1.0.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Bench prototype horn retainer; nominal servo interfaces require measurement."
+        },
+        {
+            "id": "payload-camera-hood",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "camera-gimbal"
+            ],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/payload-camera-hood.scad",
+            "output": "payload-camera-hood-r0.1.0.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Bench prototype camera hood; nominal servo interfaces require measurement."
+        },
+        {
+            "id": "payload-electronics-cover",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "camera-pod-chassis"
+            ],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/payload-electronics-cover.scad",
+            "output": "payload-electronics-cover-r0.1.0.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Bench prototype electronics cover; nominal servo interfaces require measurement."
+        },
+        {
+            "id": "payload-servo-fit-coupon",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "camera-gimbal"
+            ],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/payload-servo-fit-coupon.scad",
+            "output": "payload-servo-fit-coupon-r0.1.0.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Bench prototype servo fit coupon; nominal servo interfaces require measurement."
+        },
+        {
+            "id": "payload-spider-spacer",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "camera-pod-chassis"
+            ],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/payload-spider-spacer.scad",
+            "output": "payload-spider-spacer-r0.1.0.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Bench prototype spider spacer; nominal servo interfaces require measurement."
+        },
+        {
+            "id": "payload-assembly",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "reference",
+            "bomPartIds": [],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/payload-assembly.scad",
+            "output": "payload-assembly-r0.1.0.csg",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Assembled printed payload mount reference with articulated pan and tilt. Not a fabrication STL."
+        },
+        {
+            "id": "payload-tilt-pivot-support",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "camera-gimbal"
+            ],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/payload-tilt-pivot-support.scad",
+            "output": "payload-tilt-pivot-support-r0.1.0.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Removable opposite-side camera tilt pivot support with hard stops."
         }
     ]
 }

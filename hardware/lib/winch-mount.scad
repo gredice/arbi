@@ -1,4 +1,4 @@
-// ARBI winch-mount family 0.1.0 — concept-unvalidated.
+// ARBI winch-mount reference/cover 0.1.1; other mounts 0.1.0 — concept-unvalidated.
 // X = shaft axis; Y = transverse; Z = outward from mounting plane.
 include <winch-drum.scad>
 
@@ -18,6 +18,15 @@ mount_m4_hole = 4.5;
 mount_m5_hole = 5.5;
 mount_m6_hole = 6.6;
 base_thickness = 8;
+// Cover clearance envelope, measured from the coupling-side stand face.
+// Includes screw heads OR nuts/washers and projecting screw tips.
+guard_motor_fastener_diameter = 12;
+guard_motor_fastener_projection = 14;
+guard_fastener_clearance = 1;
+guard_rear_wall = 3;
+function wm_guard_rear_half_width() = motor_hole_pitch/2 + guard_motor_fastener_diameter/2 + guard_fastener_clearance;
+function wm_guard_rear_top() = wm_guard_rear_half_width() + motor_adjustment;
+function wm_guard_recess_start() = -8-guard_motor_fastener_projection-guard_fastener_clearance;
 function wm_bearing_thickness() = bearing_width + bearing_axial_clearance + 2*bearing_lip;
 function wm_motor_face(powered) = wd_width(powered)+81+motor_shaft_length-10;
 function wm_base_length(powered) = ceil((wd_width(powered)+300)/10)*10;
@@ -34,6 +43,10 @@ module wm_checks() {
     assert(motor_body_length <= 130 && motor_shaft_length >= 20 && motor_shaft_length <= 24);
     assert(base_thickness >= 8);
     assert(mount_axis_height <= 150, "Mount exceeds intended print envelope.");
+    assert(guard_motor_fastener_diameter > 0 && guard_motor_fastener_diameter <= 12);
+    assert(guard_motor_fastener_projection >= 0 && guard_motor_fastener_projection <= 14);
+    assert(wm_guard_rear_half_width()+guard_rear_wall < 34,
+        "Cover rear shell must clear the M4 attachment washers (9 mm OD).");
     children();
 }
 module wm_xhole(d, length) { rotate([0,90,0]) cylinder(d=d,h=length,center=true,$fn=64); }
@@ -103,13 +116,23 @@ module wm_motor_stand() {
     }
 }
 module wm_guard_installed() {
+    rear_half = wm_guard_rear_half_width();
+    rear_top = wm_guard_rear_top();
+    recess_start = wm_guard_recess_start();
     difference() {
         union() {
             // Open underside, removable from the coupling without moving shafts.
             translate([-47,-28,mount_axis_height-25]) cube([39,56,53]);
             translate([-12,-43,mount_axis_height-30]) cube([4,86,62]);
+            // Wider motor end encloses all four mounting fastener stacks.
+            // Keep the existing stand interface and 39 mm overall axial length.
+            translate([recess_start-guard_rear_wall,-rear_half-guard_rear_wall,mount_axis_height-25])
+                cube([-8-recess_start+guard_rear_wall,2*(rear_half+guard_rear_wall),25+rear_top+guard_rear_wall]);
         }
         translate([-48,-24,mount_axis_height-31]) cube([42,48,55]);
+        // Open downward for installation over already-tightened motor hardware.
+        translate([recess_start,-rear_half,mount_axis_height-31])
+            cube([-8-recess_start+ARBI_EPSILON,2*rear_half,31+rear_top]);
         for(y=[-38.5,38.5],z=[-20,20]) translate([-10,y,mount_axis_height+z]) wm_xhole(mount_m4_hole,8);
     }
 }

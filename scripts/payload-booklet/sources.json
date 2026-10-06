@@ -1,0 +1,51 @@
+{
+  "observed_date": "2026-09-28",
+  "sources": [
+    {
+      "component": "Raspberry Pi 3 Model A+",
+      "url": "https://pip.raspberrypi.com/categories/512-raspberry-pi-3-model-a",
+      "drawing": "https://pip-assets.raspberrypi.com/categories/512-raspberry-pi-3-model-a/documents/RP-008330-DS-1-raspberry-pi-3-a-plus-mechanical-drawing.pdf",
+      "model": "65 x 56 mm board; nominal 58 x 49 mm mounting pattern and 2.75 mm holes",
+      "limits": "Drawing located through official portal; direct file download failed with HTTP 403. Simplified connector/component envelopes, not a supplier STEP model or close-fitting enclosure reference. Verify hole centres and clearances against received board."
+    },
+    {
+      "component": "Camera Module 3 Standard",
+      "url": "https://datasheets.raspberrypi.com/camera/camera-module-3-standard-mechanical-drawing.pdf",
+      "design_files": "https://pip.raspberrypi.com/categories/1207-design-files",
+      "model": "25 x 23.862 mm board, 1.12 mm PCB; nominal 21 x 12.5 mm mounting pattern, 2.2 mm holes; simplified 11.3 mm total depth",
+      "limits": "Drawing dimensions retrieved as text; official STEP download unavailable locally. Lens/connector geometry is simplified. The open hood and connector relief clear these nominal envelopes; inspect the received board and the image for obstruction."
+    },
+    {
+      "component": "CSI connection procedure",
+      "url": "https://www.raspberrypi.com/documentation/accessories/camera.html",
+      "model": "15-pin standard-to-standard cable; 16 x 60 x 0.3 mm flat mesh is an arbitrary illustrative segment, not a selected cable length"
+    },
+    {
+      "component": "Micro servo and horn",
+      "url": "https://www.aliexpress.com/item/1005008522859580.html",
+      "basis": "Existing BOM listing; no exact SKU or accessible dimensional drawing",
+      "model": "UNVERIFIED placeholder: 20 x 8.5 x 18 mm case, 27 mm lug span, 24 mm hole pitch, 1.7 mm holes, 5 mm output-axis offset",
+      "limits": "No exact servo model, spline, horn pattern, mounting screw, rated voltage or usable travel is verified. The bench mounts use these explicitly provisional dimensions; measure the actual parts and rebuild if they differ."
+    },
+    {
+      "component": "Buck converter",
+      "url": "https://www.aliexpress.com/item/1005007014032926.html",
+      "basis": "Existing BOM listing, unable to verify dimensions or delivered variant",
+      "model": "UNVERIFIED 45 x 25 mm board, 15 mm overall height, no claimed mounting holes",
+      "limits": "Illustrative terminal blocks have no pinout. Geometry does not establish the repository's >=60 V input / 5 V approximately 3 A target."
+    },
+    {
+      "component": "1000 uF capacitor",
+      "url": "https://www.aliexpress.com/item/1005009403966913.html",
+      "basis": "Existing BOM, exact capacitance/voltage variant and physical size not verified",
+      "model": "UNVERIFIED 10 mm can diameter, 16 mm can height, 5 mm lead pitch",
+      "limits": "One fitted plus one spare is the prose/BOM allowance interpretation; the assembly usage table lists two. Electrical rating, polarity, ESR and suitability must be checked on the real part."
+    }
+  ],
+  "mount_set": {
+    "revision": "0.1.0",
+    "state": "unbuilt bench prototype",
+    "basis": "Canonical parametric mounts designed for the stated nominal references; actual supplier dimensions require measurement",
+    "camera_optical_check": "66 degree horizontal / 41 degree vertical from official Standard mechanical drawing; checked near-field to 80 mm"
+  }
+}

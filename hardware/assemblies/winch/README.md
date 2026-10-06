@@ -4,6 +4,19 @@ System requirements: [winch](../../../docs/assemblies/winch/README.md).
 Design rationale and owner inputs: [development proposal](drum-development.md).
 Wire evidence: [AWG26 table](../../../bom/sourcing/pod-wire-dimensions-2026-09-08.md).
 
+## Passive-base bench aids
+
+- [STL-based assembly booklet and model pack](../../../docs/assemblies/winch/booklet/README.md),
+  including the revised motor-fastener-clearance coupling cover **0.1.1**.
+- [Printable drilling template](passive-base-drilling-A4.pdf) and
+  [printing/alignment instructions](drilling-template.md) for the 550 x 180 mm base.
+- [Optional desk feet](desk-feet.md): print two
+  [short feet](winch-desk-foot-short.scad) and two
+  [long feet](winch-desk-foot-long.scad) to lift that base by 35 mm for unloaded
+  desk checks. See the [geometry check record](desk-feet-geometry-check.md).
+
+## Drum family
+
 The drum family now contains individual **concept-unvalidated fabrication models**
 for an X1C PLA bench prototype. [winch-drum.scad](winch-drum.scad), revision `2.1.0`,
 is the assembly reference; all new component entrypoints are revision `0.1.0`.

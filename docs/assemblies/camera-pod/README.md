@@ -70,7 +70,9 @@ The pod has no battery. It must start, stop, and recover deterministically when 
 
 ## Printed parts and fasteners
 
-Registered OpenSCAD concept models now cover the expected custom kit. All remain **concept-unvalidated**:
+The [bench mount set r0.1.0](../../../hardware/assemblies/camera-pod/payload-mounts.md) has canonical CAD and an [illustrated assembly booklet](booklet/README.md). It supplies the fixed electronics deck, servo mounts, supported camera cradle, removable pivot support, horn retainers, cover, hood and tie pads. [Geometry checks](../../../hardware/assemblies/camera-pod/payload-geometry-check.md) use provisional servo/power envelopes; physical fits and the flying mass limit are not demonstrated.
+
+The camera-pod concept family below remains available as a separate arrangement. Both families share the spider and remain **concept-unvalidated**; do not combine their gimbal or electronics mounts into one print kit. The bench set does not resolve the docking or load-rated line interfaces.
 
 | Model | BOM part | Role |
 | --- | --- | --- |

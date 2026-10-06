@@ -17,7 +17,7 @@
 
 ## Notes
 
-Updated for Raspberry Pi 3A+ V1 pod architecture; replaces earlier Pi Zero 2 W mass/layout assumptions.
+Includes the camera-pod concept family and the alternative payload bench mount set r0.1.0, sharing the camera-pod-spider. Select one arrangement; these sources are not a combined print kit. Bench quantities and hardware are in hardware/assemblies/camera-pod/payload-mounts.md. Geometry checks are not physical validation. Updated for Raspberry Pi 3A+ V1 pod architecture; replaces earlier Pi Zero 2 W mass/layout assumptions.
 
 ## Used in
 
@@ -41,5 +41,9 @@ Quantities are per assembly definition, before build multipliers. Optional and d
 - [hardware/assemblies/camera-pod/camera-pod-electronics-mount.scad](../../../hardware/assemblies/camera-pod/camera-pod-electronics-mount.scad) — module `camera_pod_electronics_mount`; revision 0.1.0.
 - [hardware/assemblies/camera-pod/camera-pod-line-strain-relief.scad](../../../hardware/assemblies/camera-pod/camera-pod-line-strain-relief.scad) — module `camera_pod_line_strain_relief`; revision 0.1.0.
 - [hardware/assemblies/camera-pod/camera-pod-spider.scad](../../../hardware/assemblies/camera-pod/camera-pod-spider.scad) — module `camera_pod_spider`; revision 0.1.0.
+- [hardware/assemblies/camera-pod/payload-electronics-deck.scad](../../../hardware/assemblies/camera-pod/payload-electronics-deck.scad) — module `payload_electronics_deck`; revision 0.1.0.
+- [hardware/assemblies/camera-pod/payload-pan-servo-mount.scad](../../../hardware/assemblies/camera-pod/payload-pan-servo-mount.scad) — module `payload_pan_servo_mount`; revision 0.1.0.
+- [hardware/assemblies/camera-pod/payload-electronics-cover.scad](../../../hardware/assemblies/camera-pod/payload-electronics-cover.scad) — module `payload_electronics_cover`; revision 0.1.0.
+- [hardware/assemblies/camera-pod/payload-spider-spacer.scad](../../../hardware/assemblies/camera-pod/payload-spider-spacer.scad) — module `payload_spider_spacer`; revision 0.1.0.
 
 Catalog lifecycle, procurement, and generated documentation do not establish physical validation. See the owning assembly for evidence and acceptance requirements.

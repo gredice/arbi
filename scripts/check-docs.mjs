@@ -33,6 +33,11 @@ function listMarkdownFiles(directory) {
         }
 
         const path = resolve(directory, entry.name);
+        // CAD/booklet working outputs contain portable partial source snapshots.
+        // Validate canonical documentation, not these ignored build copies.
+        if (entry.isDirectory() && path === resolve(repositoryRoot, 'hardware/generated')) {
+            return [];
+        }
         if (entry.isDirectory()) {
             return listMarkdownFiles(path);
         }
