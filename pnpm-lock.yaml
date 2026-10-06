@@ -37,6 +37,19 @@ importers:
         specifier: 7.0.2
         version: 7.0.2
 
+  packages/arbi-protocol:
+    dependencies:
+      ajv:
+        specifier: 8.17.1
+        version: 8.17.1
+    devDependencies:
+      '@types/node':
+        specifier: 24.12.4
+        version: 24.12.4
+      typescript:
+        specifier: 7.0.2
+        version: 7.0.2
+
 packages:
 
   '@turbo/darwin-64@2.10.4':

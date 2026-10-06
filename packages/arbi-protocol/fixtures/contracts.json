@@ -1,0 +1,1356 @@
+{
+  "valid": {
+    "move": {
+      "protocol": "arbi/1.0",
+      "messageId": "message-command",
+      "realm": {
+        "environment": "test",
+        "namespaceId": "fixture-run"
+      },
+      "siteId": "synthetic-site",
+      "source": {
+        "deviceId": "cloud",
+        "bootId": "cloud-boot-1",
+        "sessionId": "cloud-session-1"
+      },
+      "sequence": "10",
+      "sourceTime": {
+        "utc": "2026-10-07T12:00:00.000Z",
+        "monotonicMs": 1000,
+        "uncertaintyMs": 500
+      },
+      "ingestTime": null,
+      "kind": "command",
+      "command": {
+        "commandId": "command-1",
+        "correlationId": "job-1",
+        "idempotencyKey": "key-1",
+        "actor": {
+          "kind": "human",
+          "id": "operator-1"
+        },
+        "target": {
+          "deviceId": "edge",
+          "bootId": "edge-boot-1",
+          "sessionId": "edge-session-1"
+        },
+        "deadline": {
+          "bootId": "edge-boot-1",
+          "sessionId": "edge-session-1",
+          "expiresMonotonicMs": 1500
+        },
+        "lease": {
+          "id": "lease-1",
+          "holderId": "operator-1",
+          "fence": "9007199254740993"
+        },
+        "configRevision": "config-1"
+      },
+      "body": {
+        "type": "motion.move",
+        "positionMm": {
+          "x": 1000,
+          "y": 2000,
+          "z": 2500
+        },
+        "frame": {
+          "name": "site",
+          "revision": "frame-1"
+        },
+        "maxSpeedMmPerS": 50,
+        "maxDurationMs": 500
+      },
+      "executionMode": "simulation"
+    },
+    "stop": {
+      "protocol": "arbi/1.0",
+      "messageId": "message-command",
+      "realm": {
+        "environment": "test",
+        "namespaceId": "fixture-run"
+      },
+      "siteId": "synthetic-site",
+      "source": {
+        "deviceId": "cloud",
+        "bootId": "cloud-boot-1",
+        "sessionId": "cloud-session-1"
+      },
+      "sequence": "10",
+      "sourceTime": {
+        "utc": "2026-10-07T12:00:00.000Z",
+        "monotonicMs": 1000,
+        "uncertaintyMs": 500
+      },
+      "ingestTime": null,
+      "kind": "command",
+      "command": {
+        "commandId": "command-1",
+        "correlationId": "job-1",
+        "idempotencyKey": "key-1",
+        "actor": {
+          "kind": "human",
+          "id": "operator-1"
+        },
+        "target": {
+          "deviceId": "edge",
+          "bootId": "edge-boot-1",
+          "sessionId": "edge-session-1"
+        },
+        "deadline": {
+          "bootId": "edge-boot-1",
+          "sessionId": "edge-session-1",
+          "expiresMonotonicMs": 1500
+        },
+        "lease": null,
+        "configRevision": "config-1"
+      },
+      "body": {
+        "type": "control.stop",
+        "reason": "operator"
+      },
+      "executionMode": "simulation"
+    },
+    "gimbal": {
+      "protocol": "arbi/1.0",
+      "messageId": "message-command",
+      "realm": {
+        "environment": "test",
+        "namespaceId": "fixture-run"
+      },
+      "siteId": "synthetic-site",
+      "source": {
+        "deviceId": "cloud",
+        "bootId": "cloud-boot-1",
+        "sessionId": "cloud-session-1"
+      },
+      "sequence": "10",
+      "sourceTime": {
+        "utc": "2026-10-07T12:00:00.000Z",
+        "monotonicMs": 1000,
+        "uncertaintyMs": 500
+      },
+      "ingestTime": null,
+      "kind": "command",
+      "command": {
+        "commandId": "command-1",
+        "correlationId": "job-1",
+        "idempotencyKey": "key-1",
+        "actor": {
+          "kind": "human",
+          "id": "operator-1"
+        },
+        "target": {
+          "deviceId": "edge",
+          "bootId": "edge-boot-1",
+          "sessionId": "edge-session-1"
+        },
+        "deadline": {
+          "bootId": "edge-boot-1",
+          "sessionId": "edge-session-1",
+          "expiresMonotonicMs": 1500
+        },
+        "lease": {
+          "id": "lease-1",
+          "holderId": "operator-1",
+          "fence": "9007199254740993"
+        },
+        "configRevision": "config-1"
+      },
+      "body": {
+        "type": "camera.gimbal",
+        "panDeg": 20,
+        "tiltDeg": -10,
+        "frame": {
+          "name": "pod-gimbal",
+          "revision": "gimbal-1"
+        },
+        "maxDurationMs": 500
+      },
+      "executionMode": "simulation"
+    },
+    "capture": {
+      "protocol": "arbi/1.0",
+      "messageId": "message-command",
+      "realm": {
+        "environment": "test",
+        "namespaceId": "fixture-run"
+      },
+      "siteId": "synthetic-site",
+      "source": {
+        "deviceId": "cloud",
+        "bootId": "cloud-boot-1",
+        "sessionId": "cloud-session-1"
+      },
+      "sequence": "10",
+      "sourceTime": {
+        "utc": "2026-10-07T12:00:00.000Z",
+        "monotonicMs": 1000,
+        "uncertaintyMs": 500
+      },
+      "ingestTime": null,
+      "kind": "command",
+      "command": {
+        "commandId": "command-1",
+        "correlationId": "job-1",
+        "idempotencyKey": "key-1",
+        "actor": {
+          "kind": "human",
+          "id": "operator-1"
+        },
+        "target": {
+          "deviceId": "edge",
+          "bootId": "edge-boot-1",
+          "sessionId": "edge-session-1"
+        },
+        "deadline": {
+          "bootId": "edge-boot-1",
+          "sessionId": "edge-session-1",
+          "expiresMonotonicMs": 1500
+        },
+        "lease": {
+          "id": "lease-1",
+          "holderId": "operator-1",
+          "fence": "9007199254740993"
+        },
+        "configRevision": "config-1"
+      },
+      "body": {
+        "type": "camera.capture",
+        "resourceId": "image-1",
+        "maxDurationMs": 500
+      },
+      "executionMode": "simulation"
+    },
+    "preview-start": {
+      "protocol": "arbi/1.0",
+      "messageId": "message-command",
+      "realm": {
+        "environment": "test",
+        "namespaceId": "fixture-run"
+      },
+      "siteId": "synthetic-site",
+      "source": {
+        "deviceId": "cloud",
+        "bootId": "cloud-boot-1",
+        "sessionId": "cloud-session-1"
+      },
+      "sequence": "10",
+      "sourceTime": {
+        "utc": "2026-10-07T12:00:00.000Z",
+        "monotonicMs": 1000,
+        "uncertaintyMs": 500
+      },
+      "ingestTime": null,
+      "kind": "command",
+      "command": {
+        "commandId": "command-1",
+        "correlationId": "job-1",
+        "idempotencyKey": "key-1",
+        "actor": {
+          "kind": "human",
+          "id": "operator-1"
+        },
+        "target": {
+          "deviceId": "edge",
+          "bootId": "edge-boot-1",
+          "sessionId": "edge-session-1"
+        },
+        "deadline": {
+          "bootId": "edge-boot-1",
+          "sessionId": "edge-session-1",
+          "expiresMonotonicMs": 1500
+        },
+        "lease": {
+          "id": "lease-1",
+          "holderId": "operator-1",
+          "fence": "9007199254740993"
+        },
+        "configRevision": "config-1"
+      },
+      "body": {
+        "type": "camera.preview.start",
+        "viewSessionId": "view-1",
+        "maxDurationMs": 500,
+        "maxWidthPx": 640,
+        "maxFps": 15,
+        "maxBitrateBitsPerS": 200000
+      },
+      "executionMode": "simulation"
+    },
+    "preview-stop": {
+      "protocol": "arbi/1.0",
+      "messageId": "message-command",
+      "realm": {
+        "environment": "test",
+        "namespaceId": "fixture-run"
+      },
+      "siteId": "synthetic-site",
+      "source": {
+        "deviceId": "cloud",
+        "bootId": "cloud-boot-1",
+        "sessionId": "cloud-session-1"
+      },
+      "sequence": "10",
+      "sourceTime": {
+        "utc": "2026-10-07T12:00:00.000Z",
+        "monotonicMs": 1000,
+        "uncertaintyMs": 500
+      },
+      "ingestTime": null,
+      "kind": "command",
+      "command": {
+        "commandId": "command-1",
+        "correlationId": "job-1",
+        "idempotencyKey": "key-1",
+        "actor": {
+          "kind": "human",
+          "id": "operator-1"
+        },
+        "target": {
+          "deviceId": "edge",
+          "bootId": "edge-boot-1",
+          "sessionId": "edge-session-1"
+        },
+        "deadline": {
+          "bootId": "edge-boot-1",
+          "sessionId": "edge-session-1",
+          "expiresMonotonicMs": 1500
+        },
+        "lease": {
+          "id": "lease-1",
+          "holderId": "operator-1",
+          "fence": "9007199254740993"
+        },
+        "configRevision": "config-1"
+      },
+      "body": {
+        "type": "camera.preview.stop",
+        "viewSessionId": "view-1"
+      },
+      "executionMode": "simulation"
+    },
+    "cancel": {
+      "protocol": "arbi/1.0",
+      "messageId": "message-command",
+      "realm": {
+        "environment": "test",
+        "namespaceId": "fixture-run"
+      },
+      "siteId": "synthetic-site",
+      "source": {
+        "deviceId": "cloud",
+        "bootId": "cloud-boot-1",
+        "sessionId": "cloud-session-1"
+      },
+      "sequence": "10",
+      "sourceTime": {
+        "utc": "2026-10-07T12:00:00.000Z",
+        "monotonicMs": 1000,
+        "uncertaintyMs": 500
+      },
+      "ingestTime": null,
+      "kind": "command",
+      "command": {
+        "commandId": "command-1",
+        "correlationId": "job-1",
+        "idempotencyKey": "key-1",
+        "actor": {
+          "kind": "human",
+          "id": "operator-1"
+        },
+        "target": {
+          "deviceId": "edge",
+          "bootId": "edge-boot-1",
+          "sessionId": "edge-session-1"
+        },
+        "deadline": {
+          "bootId": "edge-boot-1",
+          "sessionId": "edge-session-1",
+          "expiresMonotonicMs": 1500
+        },
+        "lease": {
+          "id": "lease-1",
+          "holderId": "operator-1",
+          "fence": "9007199254740993"
+        },
+        "configRevision": "config-1"
+      },
+      "body": {
+        "type": "command.cancel",
+        "commandId": "command-0"
+      },
+      "executionMode": "simulation"
+    },
+    "resync": {
+      "protocol": "arbi/1.0",
+      "messageId": "message-command",
+      "realm": {
+        "environment": "test",
+        "namespaceId": "fixture-run"
+      },
+      "siteId": "synthetic-site",
+      "source": {
+        "deviceId": "cloud",
+        "bootId": "cloud-boot-1",
+        "sessionId": "cloud-session-1"
+      },
+      "sequence": "10",
+      "sourceTime": {
+        "utc": "2026-10-07T12:00:00.000Z",
+        "monotonicMs": 1000,
+        "uncertaintyMs": 500
+      },
+      "ingestTime": null,
+      "kind": "command",
+      "command": {
+        "commandId": "command-1",
+        "correlationId": "job-1",
+        "idempotencyKey": "key-1",
+        "actor": {
+          "kind": "human",
+          "id": "operator-1"
+        },
+        "target": {
+          "deviceId": "edge",
+          "bootId": "edge-boot-1",
+          "sessionId": "edge-session-1"
+        },
+        "deadline": {
+          "bootId": "edge-boot-1",
+          "sessionId": "edge-session-1",
+          "expiresMonotonicMs": 1500
+        },
+        "lease": null,
+        "configRevision": "config-1"
+      },
+      "body": {
+        "type": "state.resync",
+        "cursor": {
+          "source": {
+            "deviceId": "edge",
+            "bootId": "edge-boot-1",
+            "sessionId": "edge-session-1"
+          },
+          "stream": "event",
+          "sequence": "18446744073709551615"
+        },
+        "committedCursor": {
+          "logId": "cloud-events",
+          "epoch": "journal-1",
+          "token": "synthetic-committed-cursor-13"
+        }
+      },
+      "executionMode": "simulation"
+    },
+    "outcome-requested": {
+      "protocol": "arbi/1.0",
+      "messageId": "message-event",
+      "realm": {
+        "environment": "test",
+        "namespaceId": "fixture-run"
+      },
+      "siteId": "synthetic-site",
+      "source": {
+        "deviceId": "cloud",
+        "bootId": "cloud-boot-1",
+        "sessionId": "cloud-session-1"
+      },
+      "sequence": "11",
+      "sourceTime": {
+        "utc": "2026-10-07T12:00:00.000Z",
+        "monotonicMs": 1000,
+        "uncertaintyMs": 500
+      },
+      "ingestTime": null,
+      "kind": "event",
+      "body": {
+        "type": "command.outcome",
+        "commandId": "command-1",
+        "correlationId": "job-1",
+        "requestSource": {
+          "deviceId": "cloud",
+          "bootId": "cloud-boot-1",
+          "sessionId": "cloud-session-1"
+        },
+        "outcome": "requested",
+        "error": null,
+        "resourceId": null
+      },
+      "executionMode": "simulation"
+    },
+    "outcome-accepted": {
+      "protocol": "arbi/1.0",
+      "messageId": "message-event",
+      "realm": {
+        "environment": "test",
+        "namespaceId": "fixture-run"
+      },
+      "siteId": "synthetic-site",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "edge-boot-1",
+        "sessionId": "edge-session-1"
+      },
+      "sequence": "11",
+      "sourceTime": {
+        "utc": "2026-10-07T12:00:00.000Z",
+        "monotonicMs": 1000,
+        "uncertaintyMs": 500
+      },
+      "ingestTime": null,
+      "kind": "event",
+      "body": {
+        "type": "command.outcome",
+        "commandId": "command-1",
+        "correlationId": "job-1",
+        "requestSource": {
+          "deviceId": "cloud",
+          "bootId": "cloud-boot-1",
+          "sessionId": "cloud-session-1"
+        },
+        "outcome": "accepted",
+        "error": null,
+        "resourceId": null
+      },
+      "executionMode": "simulation"
+    },
+    "outcome-rejected": {
+      "protocol": "arbi/1.0",
+      "messageId": "message-event",
+      "realm": {
+        "environment": "test",
+        "namespaceId": "fixture-run"
+      },
+      "siteId": "synthetic-site",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "edge-boot-1",
+        "sessionId": "edge-session-1"
+      },
+      "sequence": "11",
+      "sourceTime": {
+        "utc": "2026-10-07T12:00:00.000Z",
+        "monotonicMs": 1000,
+        "uncertaintyMs": 500
+      },
+      "ingestTime": null,
+      "kind": "event",
+      "body": {
+        "type": "command.outcome",
+        "commandId": "command-1",
+        "correlationId": "job-1",
+        "requestSource": {
+          "deviceId": "cloud",
+          "bootId": "cloud-boot-1",
+          "sessionId": "cloud-session-1"
+        },
+        "outcome": "rejected",
+        "error": {
+          "code": "EXECUTION_FAILED",
+          "retryable": false
+        },
+        "resourceId": null
+      },
+      "executionMode": "simulation"
+    },
+    "outcome-running": {
+      "protocol": "arbi/1.0",
+      "messageId": "message-event",
+      "realm": {
+        "environment": "test",
+        "namespaceId": "fixture-run"
+      },
+      "siteId": "synthetic-site",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "edge-boot-1",
+        "sessionId": "edge-session-1"
+      },
+      "sequence": "11",
+      "sourceTime": {
+        "utc": "2026-10-07T12:00:00.000Z",
+        "monotonicMs": 1000,
+        "uncertaintyMs": 500
+      },
+      "ingestTime": null,
+      "kind": "event",
+      "body": {
+        "type": "command.outcome",
+        "commandId": "command-1",
+        "correlationId": "job-1",
+        "requestSource": {
+          "deviceId": "cloud",
+          "bootId": "cloud-boot-1",
+          "sessionId": "cloud-session-1"
+        },
+        "outcome": "running",
+        "error": null,
+        "resourceId": null
+      },
+      "executionMode": "simulation"
+    },
+    "outcome-completed": {
+      "protocol": "arbi/1.0",
+      "messageId": "message-event",
+      "realm": {
+        "environment": "test",
+        "namespaceId": "fixture-run"
+      },
+      "siteId": "synthetic-site",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "edge-boot-1",
+        "sessionId": "edge-session-1"
+      },
+      "sequence": "11",
+      "sourceTime": {
+        "utc": "2026-10-07T12:00:00.000Z",
+        "monotonicMs": 1000,
+        "uncertaintyMs": 500
+      },
+      "ingestTime": null,
+      "kind": "event",
+      "body": {
+        "type": "command.outcome",
+        "commandId": "command-1",
+        "correlationId": "job-1",
+        "requestSource": {
+          "deviceId": "cloud",
+          "bootId": "cloud-boot-1",
+          "sessionId": "cloud-session-1"
+        },
+        "outcome": "completed",
+        "error": null,
+        "resourceId": null
+      },
+      "executionMode": "simulation"
+    },
+    "outcome-failed": {
+      "protocol": "arbi/1.0",
+      "messageId": "message-event",
+      "realm": {
+        "environment": "test",
+        "namespaceId": "fixture-run"
+      },
+      "siteId": "synthetic-site",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "edge-boot-1",
+        "sessionId": "edge-session-1"
+      },
+      "sequence": "11",
+      "sourceTime": {
+        "utc": "2026-10-07T12:00:00.000Z",
+        "monotonicMs": 1000,
+        "uncertaintyMs": 500
+      },
+      "ingestTime": null,
+      "kind": "event",
+      "body": {
+        "type": "command.outcome",
+        "commandId": "command-1",
+        "correlationId": "job-1",
+        "requestSource": {
+          "deviceId": "cloud",
+          "bootId": "cloud-boot-1",
+          "sessionId": "cloud-session-1"
+        },
+        "outcome": "failed",
+        "error": {
+          "code": "EXECUTION_FAILED",
+          "retryable": false
+        },
+        "resourceId": null
+      },
+      "executionMode": "simulation"
+    },
+    "outcome-cancelled": {
+      "protocol": "arbi/1.0",
+      "messageId": "message-event",
+      "realm": {
+        "environment": "test",
+        "namespaceId": "fixture-run"
+      },
+      "siteId": "synthetic-site",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "edge-boot-1",
+        "sessionId": "edge-session-1"
+      },
+      "sequence": "11",
+      "sourceTime": {
+        "utc": "2026-10-07T12:00:00.000Z",
+        "monotonicMs": 1000,
+        "uncertaintyMs": 500
+      },
+      "ingestTime": null,
+      "kind": "event",
+      "body": {
+        "type": "command.outcome",
+        "commandId": "command-1",
+        "correlationId": "job-1",
+        "requestSource": {
+          "deviceId": "cloud",
+          "bootId": "cloud-boot-1",
+          "sessionId": "cloud-session-1"
+        },
+        "outcome": "cancelled",
+        "error": {
+          "code": "CANCELLED",
+          "retryable": false
+        },
+        "resourceId": null
+      },
+      "executionMode": "simulation"
+    },
+    "fault": {
+      "protocol": "arbi/1.0",
+      "messageId": "message-event",
+      "realm": {
+        "environment": "test",
+        "namespaceId": "fixture-run"
+      },
+      "siteId": "synthetic-site",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "edge-boot-1",
+        "sessionId": "edge-session-1"
+      },
+      "sequence": "12",
+      "sourceTime": {
+        "utc": "2026-10-07T12:00:00.000Z",
+        "monotonicMs": 1000,
+        "uncertaintyMs": 500
+      },
+      "ingestTime": null,
+      "kind": "event",
+      "body": {
+        "type": "fault.changed",
+        "faultId": "driver-alarm-a",
+        "state": "raised",
+        "severity": "stop",
+        "error": {
+          "code": "FAULT_INHIBITED",
+          "retryable": false
+        }
+      },
+      "executionMode": "simulation"
+    },
+    "snapshot": {
+      "protocol": "arbi/1.0",
+      "messageId": "message-event",
+      "realm": {
+        "environment": "test",
+        "namespaceId": "fixture-run"
+      },
+      "siteId": "synthetic-site",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "edge-boot-1",
+        "sessionId": "edge-session-1"
+      },
+      "sequence": "13",
+      "sourceTime": {
+        "utc": "2026-10-07T12:00:00.000Z",
+        "monotonicMs": 1000,
+        "uncertaintyMs": 500
+      },
+      "ingestTime": null,
+      "kind": "event",
+      "body": {
+        "type": "state.snapshot",
+        "configRevision": "config-1",
+        "capabilitiesRevision": "cap-1",
+        "capabilities": [
+          {
+            "metric": "position.x",
+            "qualities": [
+              "commanded",
+              "estimated"
+            ]
+          },
+          {
+            "metric": "line.tension.a",
+            "qualities": []
+          }
+        ],
+        "state": "Boot",
+        "eventCursor": {
+          "source": {
+            "deviceId": "edge",
+            "bootId": "edge-boot-1",
+            "sessionId": "edge-session-1"
+          },
+          "stream": "event",
+          "sequence": "13"
+        },
+        "telemetryCursor": null,
+        "committedCursor": {
+          "logId": "cloud-events",
+          "epoch": "journal-1",
+          "token": "synthetic-committed-cursor-13"
+        },
+        "supportedCommands": [
+          "motion.move",
+          "control.stop",
+          "state.resync"
+        ],
+        "supportedProtocols": [
+          "arbi/1.0"
+        ]
+      },
+      "executionMode": "simulation"
+    },
+    "telemetry": {
+      "protocol": "arbi/1.0",
+      "messageId": "message-telemetry",
+      "realm": {
+        "environment": "test",
+        "namespaceId": "fixture-run"
+      },
+      "siteId": "synthetic-site",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "edge-boot-1",
+        "sessionId": "edge-session-1"
+      },
+      "sequence": "9007199254740993",
+      "sourceTime": {
+        "utc": "2026-10-07T12:00:00.000Z",
+        "monotonicMs": 1000,
+        "uncertaintyMs": 500
+      },
+      "ingestTime": null,
+      "kind": "telemetry",
+      "body": {
+        "type": "telemetry.samples",
+        "capabilitiesRevision": "cap-1",
+        "samples": [
+          {
+            "metric": "position.x",
+            "quality": "commanded",
+            "value": 1000,
+            "unit": "mm",
+            "frame": {
+              "name": "site",
+              "revision": "frame-1"
+            },
+            "sampleMonotonicMs": 950,
+            "ageMs": 50,
+            "uncertainty": null,
+            "reason": null,
+            "originQuality": null
+          },
+          {
+            "metric": "line.tension.a",
+            "quality": "unavailable",
+            "value": null,
+            "unit": "N",
+            "frame": {
+              "name": "none",
+              "revision": null
+            },
+            "sampleMonotonicMs": null,
+            "ageMs": null,
+            "uncertainty": null,
+            "reason": "sensor-not-installed",
+            "originQuality": null
+          }
+        ]
+      },
+      "executionMode": "simulation"
+    },
+    "telemetry-stale": {
+      "protocol": "arbi/1.0",
+      "messageId": "message-telemetry",
+      "realm": {
+        "environment": "test",
+        "namespaceId": "fixture-run"
+      },
+      "siteId": "synthetic-site",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "edge-boot-1",
+        "sessionId": "edge-session-1"
+      },
+      "sequence": "9007199254740993",
+      "sourceTime": {
+        "utc": "2026-10-07T12:00:00.000Z",
+        "monotonicMs": 1000,
+        "uncertaintyMs": 500
+      },
+      "ingestTime": null,
+      "kind": "telemetry",
+      "body": {
+        "type": "telemetry.samples",
+        "capabilitiesRevision": "cap-1",
+        "samples": [
+          {
+            "metric": "position.x",
+            "quality": "stale",
+            "value": 1000,
+            "unit": "mm",
+            "frame": {
+              "name": "site",
+              "revision": "frame-1"
+            },
+            "sampleMonotonicMs": 950,
+            "ageMs": 50,
+            "uncertainty": null,
+            "reason": "expired",
+            "originQuality": "commanded"
+          },
+          {
+            "metric": "line.tension.a",
+            "quality": "unavailable",
+            "value": null,
+            "unit": "N",
+            "frame": {
+              "name": "none",
+              "revision": null
+            },
+            "sampleMonotonicMs": null,
+            "ageMs": null,
+            "uncertainty": null,
+            "reason": "sensor-not-installed",
+            "originQuality": null
+          }
+        ]
+      },
+      "executionMode": "simulation"
+    },
+    "telemetry-measured-power": {
+      "protocol": "arbi/1.0",
+      "messageId": "message-telemetry",
+      "realm": {
+        "environment": "test",
+        "namespaceId": "fixture-run"
+      },
+      "siteId": "synthetic-site",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "edge-boot-1",
+        "sessionId": "edge-session-1"
+      },
+      "sequence": "9007199254740993",
+      "sourceTime": {
+        "utc": "2026-10-07T12:00:00.000Z",
+        "monotonicMs": 1000,
+        "uncertaintyMs": 500
+      },
+      "ingestTime": null,
+      "kind": "telemetry",
+      "body": {
+        "type": "telemetry.samples",
+        "capabilitiesRevision": "cap-1",
+        "samples": [
+          {
+            "metric": "power.voltage",
+            "quality": "measured",
+            "value": 48.1,
+            "unit": "V",
+            "frame": {
+              "name": "none",
+              "revision": null
+            },
+            "sampleMonotonicMs": 900,
+            "ageMs": 100,
+            "uncertainty": 0.2,
+            "reason": null,
+            "originQuality": null
+          }
+        ]
+      },
+      "executionMode": "simulation"
+    },
+    "telemetry-unknown-clock": {
+      "protocol": "arbi/1.0",
+      "messageId": "message-telemetry",
+      "realm": {
+        "environment": "test",
+        "namespaceId": "fixture-run"
+      },
+      "siteId": "synthetic-site",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "edge-boot-1",
+        "sessionId": "edge-session-1"
+      },
+      "sequence": "9007199254740993",
+      "sourceTime": {
+        "utc": null,
+        "monotonicMs": 1000,
+        "uncertaintyMs": null
+      },
+      "ingestTime": null,
+      "kind": "telemetry",
+      "body": {
+        "type": "telemetry.samples",
+        "capabilitiesRevision": "cap-1",
+        "samples": [
+          {
+            "metric": "position.x",
+            "quality": "commanded",
+            "value": 1000,
+            "unit": "mm",
+            "frame": {
+              "name": "site",
+              "revision": "frame-1"
+            },
+            "sampleMonotonicMs": 950,
+            "ageMs": 50,
+            "uncertainty": null,
+            "reason": null,
+            "originQuality": null
+          },
+          {
+            "metric": "line.tension.a",
+            "quality": "unavailable",
+            "value": null,
+            "unit": "N",
+            "frame": {
+              "name": "none",
+              "revision": null
+            },
+            "sampleMonotonicMs": null,
+            "ageMs": null,
+            "uncertainty": null,
+            "reason": "sensor-not-installed",
+            "originQuality": null
+          }
+        ]
+      },
+      "executionMode": "simulation"
+    }
+  },
+  "invalid": [
+    {
+      "name": "old-version",
+      "base": "move",
+      "changes": [
+        {
+          "path": [
+            "protocol"
+          ],
+          "value": "arbi/0.9"
+        }
+      ],
+      "error": "UNSUPPORTED_VERSION"
+    },
+    {
+      "name": "unknown-major",
+      "base": "move",
+      "changes": [
+        {
+          "path": [
+            "protocol"
+          ],
+          "value": "arbi/2.0"
+        }
+      ],
+      "error": "UNSUPPORTED_VERSION"
+    },
+    {
+      "name": "unknown-minor",
+      "base": "move",
+      "changes": [
+        {
+          "path": [
+            "protocol"
+          ],
+          "value": "arbi/1.1"
+        }
+      ],
+      "error": "UNSUPPORTED_VERSION"
+    },
+    {
+      "name": "unknown-command",
+      "base": "move",
+      "changes": [
+        {
+          "path": [
+            "body",
+            "type"
+          ],
+          "value": "recording.start"
+        }
+      ],
+      "error": "UNKNOWN_TYPE"
+    },
+    {
+      "name": "unknown-kind",
+      "base": "move",
+      "changes": [
+        {
+          "path": [
+            "kind"
+          ],
+          "value": "recording"
+        }
+      ],
+      "error": "UNKNOWN_KIND"
+    },
+    {
+      "name": "unknown-envelope-field",
+      "base": "move",
+      "changes": [
+        {
+          "path": [
+            "password"
+          ],
+          "value": "forbidden-fixture"
+        }
+      ],
+      "error": "UNKNOWN_FIELD"
+    },
+    {
+      "name": "negative-speed",
+      "base": "move",
+      "changes": [
+        {
+          "path": [
+            "body",
+            "maxSpeedMmPerS"
+          ],
+          "value": -1
+        }
+      ],
+      "error": "INVALID_RANGE"
+    },
+    {
+      "name": "unbounded-speed",
+      "base": "move",
+      "changes": [
+        {
+          "path": [
+            "body",
+            "maxSpeedMmPerS"
+          ],
+          "value": 1001
+        }
+      ],
+      "error": "INVALID_RANGE"
+    },
+    {
+      "name": "unbounded-coordinate",
+      "base": "move",
+      "changes": [
+        {
+          "path": [
+            "body",
+            "positionMm",
+            "x"
+          ],
+          "value": 100001
+        }
+      ],
+      "error": "INVALID_RANGE"
+    },
+    {
+      "name": "unsafe-number-sequence",
+      "base": "move",
+      "changes": [
+        {
+          "path": [
+            "sequence"
+          ],
+          "value": 9007199254740992
+        }
+      ],
+      "error": "INVALID_MESSAGE"
+    },
+    {
+      "name": "counter-overflow",
+      "base": "move",
+      "changes": [
+        {
+          "path": [
+            "sequence"
+          ],
+          "value": "18446744073709551616"
+        }
+      ],
+      "error": "INVALID_RANGE"
+    },
+    {
+      "name": "counter-leading-zero",
+      "base": "move",
+      "changes": [
+        {
+          "path": [
+            "sequence"
+          ],
+          "value": "01"
+        }
+      ],
+      "error": "INVALID_MESSAGE"
+    },
+    {
+      "name": "counter-negative",
+      "base": "move",
+      "changes": [
+        {
+          "path": [
+            "sequence"
+          ],
+          "value": "-1"
+        }
+      ],
+      "error": "INVALID_MESSAGE"
+    },
+    {
+      "name": "deadline-other-boot",
+      "base": "move",
+      "changes": [
+        {
+          "path": [
+            "command",
+            "deadline",
+            "bootId"
+          ],
+          "value": "boot-old"
+        }
+      ],
+      "error": "INVALID_MESSAGE"
+    },
+    {
+      "name": "invalid-calendar-date",
+      "base": "move",
+      "changes": [
+        {
+          "path": [
+            "sourceTime",
+            "utc"
+          ],
+          "value": "2026-02-30T12:00:00.000Z"
+        }
+      ],
+      "error": "INVALID_MESSAGE"
+    },
+    {
+      "name": "unknown-clock-with-uncertainty",
+      "base": "move",
+      "changes": [
+        {
+          "path": [
+            "sourceTime",
+            "utc"
+          ],
+          "value": null
+        }
+      ],
+      "error": "CLOCK_INVALID"
+    },
+    {
+      "name": "sample-age-mismatch",
+      "base": "telemetry",
+      "changes": [
+        {
+          "path": [
+            "body",
+            "samples",
+            0,
+            "ageMs"
+          ],
+          "value": 49
+        }
+      ],
+      "error": "CLOCK_INVALID"
+    },
+    {
+      "name": "future-sample",
+      "base": "telemetry",
+      "changes": [
+        {
+          "path": [
+            "body",
+            "samples",
+            0,
+            "sampleMonotonicMs"
+          ],
+          "value": 1001
+        }
+      ],
+      "error": "CLOCK_INVALID"
+    },
+    {
+      "name": "wrong-unit",
+      "base": "telemetry",
+      "changes": [
+        {
+          "path": [
+            "body",
+            "samples",
+            0,
+            "unit"
+          ],
+          "value": "m"
+        }
+      ],
+      "error": "INVALID_MESSAGE"
+    },
+    {
+      "name": "unavailable-is-not-zero",
+      "base": "telemetry",
+      "changes": [
+        {
+          "path": [
+            "body",
+            "samples",
+            1,
+            "value"
+          ],
+          "value": 0
+        }
+      ],
+      "error": "INVALID_MESSAGE"
+    },
+    {
+      "name": "commanded-cannot-have-stale-origin",
+      "base": "telemetry",
+      "changes": [
+        {
+          "path": [
+            "body",
+            "samples",
+            0,
+            "originQuality"
+          ],
+          "value": "measured"
+        }
+      ],
+      "error": "INVALID_MESSAGE"
+    },
+    {
+      "name": "failed-needs-error",
+      "base": "outcome-failed",
+      "changes": [
+        {
+          "path": [
+            "body",
+            "error"
+          ],
+          "value": null
+        }
+      ],
+      "error": "INVALID_MESSAGE"
+    },
+    {
+      "name": "completed-cannot-have-error",
+      "base": "outcome-completed",
+      "changes": [
+        {
+          "path": [
+            "body",
+            "error"
+          ],
+          "value": {
+            "code": "EXECUTION_FAILED",
+            "retryable": false
+          }
+        }
+      ],
+      "error": "INVALID_MESSAGE"
+    }
+  ]
+}
