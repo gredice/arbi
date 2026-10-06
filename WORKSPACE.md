@@ -8,6 +8,7 @@ Use this guide for repository layout, toolchains, commands, package boundaries, 
 - `hardware`: OpenSCAD sources, shared modules, model registry metadata, and model documentation.
 - `bom`: canonical procurement and assembly inputs plus deterministic generated reports.
 - `packages/arbi-bom`: implemented BOM schemas, calculations, generators, and tests.
+- `packages/arbi-protocol`: [implemented versioned message contracts](packages/arbi-protocol/README.md), runtime validation, consumed TypeScript bindings and reference fixtures; configuration/calibration remains follow-up work.
 - `scripts/check-cad.mjs`: registry, source, include, and optional OpenSCAD compilation validation.
 - `.github`: issue forms, pull request guidance, and fork-safe CI.
 
@@ -80,7 +81,6 @@ The following paths are reserved but should not exist until implementation begin
 - `apps/arbi-cloud`: reserved only if a later reviewed decision requires an independent backend; the initial API belongs to `apps/arbi-dashboard`;
 - `apps/arbi-pod-firmware`: pod camera, gimbal, power-health, and local service target;
 - `apps/arbi-control-cabinet-firmware`: motion/safety controller target if it remains separate;
-- `packages/arbi-protocol`: versioned commands, configuration, telemetry, units, and fixtures;
 - `packages/arbi-gredice`: planned identity/site/bed/plant integration adapter, created only with an implemented integration slice;
 - `packages/arbi-control`: pure control and geometry logic when shared;
 - `packages/arbi-simulation-core`: deterministic simulated time, plant/sensor/actuator models, scenarios, and traces.

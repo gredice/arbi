@@ -1,6 +1,6 @@
 # ARBI protocol 1.0
 
-Work record: [#14](https://github.com/gredice/arbi/issues/14). The [package](../../packages/arbi-protocol/README.md), [canonical schema](../../packages/arbi-protocol/schema/message.schema.json), [fixtures](../../packages/arbi-protocol/fixtures/contracts.json) and [reference rules](../../packages/arbi-protocol/src/reference.ts) implement an initial testable software boundary. They do not implement a transport, authenticate devices or validate installed operation. [ADR-0004](../decisions/0004-simulator-boundary.md) requires hardware and simulation to share this boundary; architecture acceptance is owned by [#13](https://github.com/gredice/arbi/issues/13).
+Work record: [#14](https://github.com/gredice/arbi/issues/14). The [package](../../packages/arbi-protocol/README.md), [canonical schema](../../packages/arbi-protocol/schema/message.schema.json), [fixtures](../../packages/arbi-protocol/fixtures/contracts.json) and [reference rules](../../packages/arbi-protocol/src/reference.ts) implement an initial testable software boundary. They do not implement a transport, authenticate devices or validate installed operation. [ADR-0004](../decisions/0004-simulator-boundary.md) requires hardware and simulation to share this boundary; accepted [ADR-0005](../decisions/0005-software-architecture-and-deployment.md) owns deployment, trusted routing, durable recovery and independent local control.
 
 ## Encoding, version and error boundary
 
