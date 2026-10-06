@@ -49,7 +49,9 @@ if __name__=='__main__':
       'unverified placeholder' if 'UNVERIFIED' in n else 'simplified hardware reference',n) for n in NAMES]
     registry=json.loads((ROOT/'source/arbi-hardware/models.json').read_text())
     for model in registry['models']:
-        if model['assembly']=='camera-pod' and model['artifactRole']=='fabrication':
+        # The camera-pod concept family is an alternative kit, not part of this bench assembly.
+        if (model['assembly']=='camera-pod' and model['artifactRole']=='fabrication'
+            and (model['id']=='camera-pod-spider' or model['id'].startswith('payload-'))):
             source=ROOT/'source/arbi-hardware'/Path(model['entrypoint']).relative_to('hardware')
             jobs.append((Path(model['output']).stem,source,'printable',[],
                          'canonical concept fabrication geometry; bed translation only',model['id']))

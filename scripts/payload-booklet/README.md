@@ -2,6 +2,8 @@
 
 Build the actual registered printed mounts, simplified purchased hardware, collision-checked assembly, illustrated A4 booklet, and distributable pack.
 
+The exporter selects the shared `camera-pod-spider` and the `payload-*` fabrication models for this bench arrangement. The separate `camera-pod-*` and `camera-gimbal-*` concept kit remains registered but is not included in this booklet. Model reuse also checks the shared camera-pod library that defines the spider.
+
 ```bash
 python3 -m pip install -r scripts/winch-booklet/requirements.txt
 python3 scripts/payload-booklet/build.py --output hardware/generated/payload-booklet

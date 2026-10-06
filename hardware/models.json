@@ -43,6 +43,130 @@
             "description": "Four-arm line-termination and pod-mounting spider concept."
         },
         {
+            "id": "camera-pod-electronics-mount",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "camera-pod-chassis"
+            ],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/camera-pod-electronics-mount.scad",
+            "output": "camera-pod-electronics-mount-r0.1.0.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Fixed Raspberry Pi 3A+, converter and capacitor mount that sandwiches onto the spider hub."
+        },
+        {
+            "id": "camera-pod-docking-stud",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "camera-pod-chassis"
+            ],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/camera-pod-docking-stud.scad",
+            "output": "camera-pod-docking-stud-r0.1.0.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Mushroom docking stud on the spider bolt circle for high-dock capture."
+        },
+        {
+            "id": "camera-pod-line-strain-relief",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "camera-pod-chassis"
+            ],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/camera-pod-line-strain-relief.scad",
+            "output": "camera-pod-line-strain-relief-r0.1.0.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Arm-end line fairlead and conductor-loop sleeve; four required, including the powered line."
+        },
+        {
+            "id": "camera-gimbal-base",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "camera-gimbal"
+            ],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/camera-gimbal-base.scad",
+            "output": "camera-gimbal-base-r0.1.0.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Pan-servo cradle that hangs from the spider hub bolt circle."
+        },
+        {
+            "id": "camera-gimbal-yoke",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "camera-gimbal"
+            ],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/camera-gimbal-yoke.scad",
+            "output": "camera-gimbal-yoke-r0.1.0.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Pan-horn U-yoke carrying the tilt servo and opposite pivot."
+        },
+        {
+            "id": "camera-gimbal-camera-plate",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "camera-gimbal"
+            ],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/camera-gimbal-camera-plate.scad",
+            "output": "camera-gimbal-camera-plate-r0.1.0.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Camera Module 3 plate with tilt-horn flange and opposite pivot lug."
+        },
+        {
+            "id": "camera-gimbal-rain-cap",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "camera-gimbal"
+            ],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/camera-gimbal-rain-cap.scad",
+            "output": "camera-gimbal-rain-cap-r0.1.0.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Open-bottom splash cap over the pan-servo cradle; not a waterproof enclosure."
+        },
+        {
+            "id": "camera-gimbal-optical-hood",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "camera-gimbal"
+            ],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/camera-gimbal-optical-hood.scad",
+            "output": "camera-gimbal-optical-hood-r0.1.0.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Lightweight rectangular visor around Camera Module 3; vignetting is unverified."
+        },
+        {
+            "id": "camera-pod-assembly",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "reference",
+            "bomPartIds": [],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/camera-pod-assembly.scad",
+            "output": "camera-pod-assembly-r0.1.0.csg",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Non-manufacturing stacked payload layout of chassis and gimbal printed parts."
+        },
+        {
             "id": "dock-funnel",
             "revision": "0.1.0",
             "status": "concept-unvalidated",

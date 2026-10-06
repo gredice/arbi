@@ -70,19 +70,23 @@ The pod has no battery. It must start, stop, and recover deterministically when 
 
 ## Printed parts and fasteners
 
-The [bench mount set r0.1.0](../../../hardware/assemblies/camera-pod/payload-mounts.md) now has canonical CAD and an [illustrated assembly booklet](booklet/README.md). It supplies the fixed electronics deck, servo mounts, supported camera cradle, removable pivot support, horn retainers, cover, hood and tie pads. [Geometry checks](../../../hardware/assemblies/camera-pod/payload-geometry-check.md) use provisional servo/power envelopes; physical fits and the flying mass limit are not demonstrated.
+The [bench mount set r0.1.0](../../../hardware/assemblies/camera-pod/payload-mounts.md) has canonical CAD and an [illustrated assembly booklet](booklet/README.md). It supplies the fixed electronics deck, servo mounts, supported camera cradle, removable pivot support, horn retainers, cover, hood and tie pads. [Geometry checks](../../../hardware/assemblies/camera-pod/payload-geometry-check.md) use provisional servo/power envelopes; physical fits and the flying mass limit are not demonstrated.
 
-The full scope still includes:
+The camera-pod concept family below remains available as a separate arrangement. Both families share the spider and remain **concept-unvalidated**; do not combine their gimbal or electronics mounts into one print kit. The bench set does not resolve the docking or load-rated line interfaces.
 
-- cable spider/chassis;
-- Pi and power-electronics mount;
-- lightweight pan/tilt gimbal;
-- servo-body rain cap;
-- optical hood/protection;
-- hybrid-line strain relief;
-- docking stud mount.
+| Model | BOM part | Role |
+| --- | --- | --- |
+| `camera-pod-spider` | `camera-pod-chassis` | Four-line cable spider |
+| `camera-pod-electronics-mount` | `camera-pod-chassis` | Pi and power-electronics mount |
+| `camera-pod-docking-stud` | `camera-pod-chassis` | Docking stud |
+| `camera-pod-line-strain-relief` | `camera-pod-chassis` | Hybrid-line strain relief (print 4) |
+| `camera-gimbal-base`, `camera-gimbal-yoke`, `camera-gimbal-camera-plate` | `camera-gimbal` | Lightweight pan/tilt gimbal |
+| `camera-gimbal-rain-cap` | `camera-gimbal` | Servo-body rain cap |
+| `camera-gimbal-optical-hood` | `camera-gimbal` | Optical hood/protection |
 
-ASA is preferred for exposed release parts. PETG is acceptable for prototypes pending creep and weather evidence. Each OpenSCAD model needs a stable part ID/revision, interface dimensions, material and print specification, expected mass, and test evidence. Small servo screws, horns, inserts, pivots, and camera fasteners must be documented with the same care as larger parts.
+See [camera pod OpenSCAD sources](../../../hardware/assemblies/camera-pod/README.md) for print counts, bolt-circle sandwich, and starting COTS envelopes. Compilation does not prove mass, fit, strength, or weather behavior.
+
+ASA is preferred for exposed release parts. PETG is acceptable for prototypes pending creep and weather evidence. Each model still needs interface confirmation from measured hardware, material and print specification, expected mass, and test evidence. Small servo screws, horns, inserts, pivots, and camera fasteners must be documented with the same care as larger parts.
 
 ## Weather and environmental behavior
 

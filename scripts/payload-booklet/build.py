@@ -50,7 +50,7 @@ def main():
     parser.add_argument('--publish',action='store_true',help='Copy requested release snapshots into the owning docs folder')
     parser.add_argument('--reuse-models',action='store_true',help='Reuse only if source and STL hashes match')
     args=parser.parse_args();root=args.output.resolve();(root/'source').mkdir(parents=True,exist_ok=True)
-    inputs=list((REPO/'hardware/assemblies/camera-pod').glob('*.scad'))+[REPO/'hardware/lib/arbi.scad',REPO/'hardware/lib/payload-mounts.scad',REPO/'hardware/models.json',HERE/'reference-parts.scad',HERE/'export_models.py']
+    inputs=list((REPO/'hardware/assemblies/camera-pod').glob('*.scad'))+[REPO/'hardware/lib/arbi.scad',REPO/'hardware/lib/camera-pod.scad',REPO/'hardware/lib/payload-mounts.scad',REPO/'hardware/models.json',HERE/'reference-parts.scad',HERE/'export_models.py']
     hashes={str(p.relative_to(REPO)):hashlib.sha256(p.read_bytes()).hexdigest() for p in inputs}
     if args.reuse_models:
         assert json.loads((root/'build-input-hashes.json').read_text())==hashes,'CAD changed; use a full export'
