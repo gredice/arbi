@@ -67,6 +67,7 @@ export function validateAccounting(input: unknown): AccountingResult<AccountingR
 }
 
 export function parseAccounting(json: string): AccountingResult<AccountingRecord> {
+  if (typeof json !== "string") return bad("INVALID_JSON");
   if (Buffer.byteLength(json, "utf8") > MAX_ACCOUNTING_BYTES) return bad("RECORD_TOO_LARGE");
   try { return validateAccounting(JSON.parse(json)); } catch { return bad("INVALID_JSON"); }
 }
@@ -97,7 +98,8 @@ export interface UsageReconciliation {
 
 /** Compare ONE selected layer's total with its exclusive classification partition.
  * Never add the total to its parts or add payload/WAN/provider observations. */
-export function reconcileUsage(totalInput: unknown, partInputs: readonly unknown[], nowUtc: string): AccountingResult<UsageReconciliation> {
+export function reconcileUsage(totalInput: unknown, partInputs: unknown, nowUtc: string): AccountingResult<UsageReconciliation> {
+  if (!Array.isArray(partInputs)) return bad("INVALID_ACCOUNTING", "/parts");
   if (partInputs.length > 128) return bad("RESOURCE_LIMIT");
   const parsed = validateAccounting(totalInput);
   if (!parsed.ok) return parsed;
@@ -214,7 +216,7 @@ export function cycleAllowance(planInput: unknown, previousUnusedBaseBytes: stri
   if (!base.ok) return base;
   if (plan.rollover.policy === "none") return good(base.value);
   if (previousUnusedBaseBytes === null) return good(null);
-  if (!/^(0|[1-9][0-9]{0,19})$/.test(previousUnusedBaseBytes) || BigInt(previousUnusedBaseBytes) > BigInt(base.value)) return bad("INVALID_RANGE");
+  if (typeof previousUnusedBaseBytes !== "string" || !/^(0|[1-9][0-9]{0,19})$/.test(previousUnusedBaseBytes) || BigInt(previousUnusedBaseBytes) > BigInt(base.value)) return bad("INVALID_RANGE");
   const cap = quantityToBytes(plan.rollover.cap);
   if (!cap.ok) return cap;
   const carry = BigInt(previousUnusedBaseBytes) < BigInt(cap.value) ? BigInt(previousUnusedBaseBytes) : BigInt(cap.value);

@@ -65,6 +65,7 @@ test("mixed layers, totals as parts, duplicate attribution and epoch mismatch ar
   const narrower = structuredClone(fixture.attributions[0]); narrower.evidence.includes = ["payload"];
   error(reconcileUsage(fixture.total, [narrower], fixture.nowUtc), "SCOPE_MISMATCH");
   error(reconcileUsage(fixture.total, Array(129).fill(fixture.attributions[0]), fixture.nowUtc), "RESOURCE_LIMIT");
+  error(reconcileUsage(fixture.total, null, fixture.nowUtc), "INVALID_ACCOUNTING");
 });
 test("missing, partial, estimated and stale breakdowns keep coverage and quality visible", () => {
   const fixture = fixtures.scenarios[0];
@@ -103,6 +104,7 @@ test("schema and semantic boundary reject adversarial external observations", ()
     assert.equal(validateAccounting(row).ok, false, name); error(validateAccounting(row), code);
   }
   error(parseAccounting("{"), "INVALID_JSON");
+  error(parseAccounting(null as unknown as string), "INVALID_JSON");
   error(parseAccounting(" ".repeat(MAX_ACCOUNTING_BYTES + 1)), "RECORD_TOO_LARGE");
   error(validateAccounting(null), "INVALID_ACCOUNTING");
   const exact = observation(); exact.bytes = "9007199254740993";
@@ -146,6 +148,7 @@ test("cycle reset, unknown rollover and configured direction charging have no ca
   assert.equal(value(cycleAllowance(p, "6000000000")), "25000000000");
   assert.equal(value(cycleAllowance(p, "1000000000")), "21000000000");
   error(cycleAllowance(p, "20000000001"), "INVALID_RANGE");
+  error(cycleAllowance(p, 100 as unknown as string), "INVALID_RANGE");
   assert.equal(value(directionIsCharged(p, "upload")), true);
   assert.equal(value(directionIsCharged(p, "download")), true);
   p.chargedDirections = "download";
