@@ -9,6 +9,7 @@ FIGS=ROOT/'figures'
 FIGS.mkdir(exist_ok=True)
 WHITE=(.94,.94,.92); CORE=(.12,.14,.15); STEEL=(.66,.70,.73); DARK=CORE
 W=246.9
+POWERED=False
 cache={}
 manifest={}
 registry=json.loads((ROOT/'source/arbi-hardware/models.json').read_text())
@@ -26,29 +27,30 @@ DR=T(z=80)@R('y',90)@R('z',180)
 
 def A(name,m=None):
     # Role color is stable in installed, exploded and inventory views.
-    c=WHITE if name=='coupling-guard' else CORE
+    c=WHITE if name=='coupling-guard' or (name.startswith('cover-') and name not in ['cover-clip','cover-cable-anchor']) else CORE
     return {'file':'models/arbi/'+outputs['winch-'+name],'matrix':(np.eye(4) if m is None else m).tolist(),'color':c}
 def H(name,m=None,c=STEEL):return {'file':f'models/reference/{name}.stl','matrix':(np.eye(4) if m is None else m).tolist(),'color':c}
 def transform(items,m):
     return [{**p,'matrix':(m@np.array(p['matrix'])).tolist()} for p in items]
 
 def drum_parts(explode=0,clamp=True,tail=True,hardware=True,shaft=False):
-    parts=[A('drum-flange',T(z=-explode)),
-      A('drum-passive-1',T(z=6)),
-      A('drum-passive-2',T(z=6+W/2+explode)),
-      A('drum-flange-right',T(z=W+12+2*explode)@R('x',180))]
-    for i in range(3):parts.append(A('drum-alignment-pin',T(26,0,6+i*W/2-4+i*explode)))
+    count=3 if POWERED else 2
+    variant='powered' if POWERED else 'passive'
+    parts=[A('drum-flange',T(z=-explode))]
+    for i in range(count):parts.append(A(f'drum-{variant}-{i+1}',T(z=6+i*W/count+i*explode)))
+    parts.append(A('drum-flange-right',T(z=W+12+count*explode)@R('x',180)))
+    for i in range(count+1):parts.append(A('drum-alignment-pin',T(26,0,6+i*W/count-4+i*explode)))
     if clamp:
         for a in [0,180]:parts.append(A('drum-clamp-half',T(z=W+12+2*explode)@R('z',a)))
     if tail:parts.append(A('drum-tail-clamp',T(-14,49,W+12+2*explode)))
     if hardware:
         for angle in [0,115,240]:
             x,y=39*math.cos(math.radians(angle)),39*math.sin(math.radians(angle))
-            parts.append(H('tie-rod-M5x280',T(x,y,-9)))
+            parts.append(H('tie-rod-M5x610' if POWERED else 'tie-rod-M5x280',T(x,y,-9)))
             for z in [-1,W+12]:parts.append(H('washer-M5',T(x,y,z)))
             parts.append(H('nyloc-M5',T(x,y,-6)))
             parts.append(H('nyloc-M5',T(x,y,W+13)))
-    if shaft:parts.append(H('shaft-8x340',T(z=-27.1)))
+    if shaft:parts.append(H('shaft-8x660' if POWERED else 'shaft-8x340',T(z=W+66-(660 if POWERED else 340))))
     return parts
 
 def clamp_hardware():
@@ -73,7 +75,7 @@ def rings(c=STEEL,explode=0):
     return out
 
 def supports(caps=True,cap_lift=0,motor=True,bolts=False):
-    out=[H('base-plate-passive',c=(.85,.87,.89)),A('bearing-lower',T(-5.5)),
+    out=[H('base-plate-powered' if POWERED else 'base-plate-passive',c=(.85,.87,.89)),A('bearing-lower',T(-5.5)),
       A('bearing-lower',T(W+37.5)@R('z',180))]
     if caps:
         for x in [-5.5,W+37.5]:out.append(A('bearing-cap',T(x,0,80.2+cap_lift)))
@@ -133,6 +135,49 @@ def desk_feet(drop=0):
         out.append(A('desk-foot-long',T(148.45,y,-43-drop)@T(-22,-30)))
     return out
 
+def cover_parts(explode=0,shutter_out=0,hardware=True,main=True,shutters=True):
+    variant='powered' if POWERED else 'passive'
+    count=5 if POWERED else 3
+    end=826 if POWERED else 496
+    pitch=(end+46)/count
+    out=[]
+    for i in range(count):
+        x=-46+i*pitch
+        name=('left' if i==0 else 'right' if i==count-1 else
+              'transition' if POWERED and i==3 else 'middle')
+        # Inverse of canonical print transform; reused meshes, no proxy shells.
+        b=np.array([[0,0,1,x],[1,0,0,-100],[0,1,0,explode+i*(12 if explode else 0)],[0,0,0,1]])
+        if main:out.append(A(f'cover-{variant}-{name}',b))
+        if shutters and i<count-1:
+            b=np.array([[1,0,0,x],[0,0,-1,80+shutter_out],[0,1,0,14],[0,0,0,1]])
+            out.append(A(f'cover-{variant}-shutter',b))
+        for cx in [x+16,x+pitch-16]:
+            for sy in [-1,1]:
+                out.append(A('cover-clip',T(cx)@np.diag([1,sy,1,1])@T(-10,68)))
+                if hardware:
+                    out.extend([H('bolt-M4x25',T(cx,sy*82,6.8)@R('x',180)),H('washer-M4',T(cx,sy*82,6)),H('washer-M4',T(cx,sy*82,-8.8)),H('nyloc-M4',T(cx,sy*82,-13.8))])
+                    # Plain captive nut is inside clip; all screws are visible in final pose.
+                    out.append(H('nut-M4',T(cx,sy*72.2,24)@R('x',90 if sy==1 else -90)))
+                    if main and not explode and not shutter_out:
+                        rot=R('x',90 if sy==1 else -90)
+                        out.extend([H('bolt-M4x16',T(cx,sy*80.8,24)@rot),H('washer-M4',T(cx,sy*80.8,24)@rot)])
+    out.append(A('cover-cable-anchor',T(end-40,-60)))
+    if hardware:
+        for cx in [end-32,end-12]:
+            out.extend([H('bolt-M4x25',T(cx,-48,6.8)@R('x',180)),H('washer-M4',T(cx,-48,6)),H('washer-M4',T(cx,-48,-8.8)),H('nyloc-M4',T(cx,-48,-13.8))])
+    return out
+
+def covered(explode=0,shutter_out=0,main=True,shutters=True):
+    variant='powered' if POWERED else 'passive'
+    out=[p for p in full(guard=True) if 'base-plate' not in p['file']]
+    out.append(H(f'base-plate-{variant}-covered',c=STEEL))
+    out+=cover_parts(explode,shutter_out,main=main,shutters=shutters)
+    out.append(H('line-'+variant+'-reference',T(6+W/2,50,130.9 if POWERED else 130.3)@R('x',-90),CORE))
+    end=826 if POWERED else 496
+    for z in [50,75]:out.append(H('loom-10mm-reference',T(end-8,-48,z)@R('y',90),CORE))
+    return out
+
+
 def polydata(file):
     if file not in cache:
         read=vtk.vtkSTLReader();read.SetFileName(str(ROOT/file));read.Update()
@@ -176,6 +221,7 @@ def render(name,parts,direction=(.55,-1,.65),up=(0,0,1),size=(1500,950),anchors=
     print('Rendered '+name,flush=True)
 
 def main():
+    global W,POWERED
     render('finished',full(guard=True,feet=True),size=(1800,1000))
     for name in ['drum-passive-1','drum-passive-2','drum-flange','drum-flange-right','drum-clamp-half',
       'drum-tail-clamp','drum-alignment-pin','bearing-lower','bearing-cap','motor-stand','coupling-guard',
@@ -230,6 +276,17 @@ def main():
     render('guard-installed',[A('coupling-guard',T(W+85,0,80)@R('y',-90))]+close+cover_hardware(),direction=(-.65,-1,.4),size=(1350,800))
     render('feet-install',[H('base-plate-passive')]+desk_feet(drop=22),direction=(.4,-1,.55),size=(1800,800))
     render('feet-final',full(guard=True,feet=True),direction=(-.25,-1,.7),size=(1800,1000))
+    render('cover-passive-installed',covered(),direction=(.35,1,.7),up=(0,1,0),size=(1800,1000))
+    render('cover-passive-exploded',covered(explode=190,shutter_out=90),direction=(.35,1,.7),up=(0,1,0),size=(1800,1200),anchors={'hood_base':[50,-60,164],'hood_out':[50,-60,354],'shutter_base':[50,78,60],'shutter_out':[50,168,60]})
+    render('cover-shutter-removal',covered(shutter_out=60),direction=(.35,1,.7),up=(0,1,0),size=(1800,1000))
+    render('cover-core-service',covered(main=False,shutters=False),direction=(.35,1,.7),up=(0,1,0),size=(1800,1000))
+    render('cover-clip-detail',[A('cover-clip'),H('nut-M4',T(-12,4.2,24)@R('x',90)),H('bolt-M4x16',T(10,32,24)@R('x',90)),H('washer-M4',T(10,24,24)@R('x',90))],direction=(-1,-1,.7),size=(1000,700))
+    render('cover-base-drilling',[H('base-plate-passive-covered')],direction=(0,0,1),up=(0,1,0),size=(1800,750))
+    render('cover-rear-ports',covered(),direction=(1,-.3,.35),up=(0,1,0),size=(1300,900))
+    POWERED=True;W=570.3
+    render('cover-powered-installed',covered(),direction=(.25,1,.65),up=(0,1,0),size=(2000,900))
+    render('cover-powered-exploded',covered(explode=190,shutter_out=90),direction=(.3,1,.7),up=(0,1,0),size=(2000,1100))
+    POWERED=False;W=246.9
     (ROOT/'figure-manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
     (ROOT/'tail-routing-anchors.json').write_text(json.dumps(manifest['tail-routing']['anchors'])+'\n')
     (ROOT/'shaft-gap-anchors.json').write_text(json.dumps(manifest['shaft-tip-gap']['anchors'])+'\n')

@@ -155,10 +155,10 @@ module wm_base(powered=false) {
         for(x=[w/2-25,w/2+25],y=[-60,60]) translate([x,y,-base_thickness-1]) cylinder(d=9,h=base_thickness+2,$fn=32);
     }
 }
-module wm_assembly(powered=false,show_drum=true,show_guard=true) {
+module wm_assembly(powered=false,show_drum=true,show_guard=true,show_base=true) {
     wm_checks() {
         w=wd_width(powered); m=wm_motor_face(powered);
-        color("lightgray") wm_base(powered);
+        if(show_base) color("lightgray") wm_base(powered);
         color(ARBI_CORE) {
             translate([-5.5,0,0]) wm_bearing_assembly(false);
             translate([w+37.5,0,0]) wm_bearing_assembly(true);

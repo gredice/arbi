@@ -1239,7 +1239,7 @@
           }
         ]
       },
-      "notes": "Partial mount kit: per winch print two bearing lowers, two caps, one motor stand and one coupling cover. Requires separately budgeted rigid base, spacers and fasteners. Full drum/weather guard, line guide, homing and powered slip-ring mount remain unfinished; see hardware/assemblies/winch/mount.md."
+      "notes": "Mount kit: per winch print two bearing lowers, two caps, one motor stand and one coupling guard. Requires separately budgeted rigid base, spacers and fasteners. The full shell is the separate winch-full-cover kit; line guidance, homing and powered slip-ring support remain unfinished. See hardware/assemblies/winch/mount.md and full-cover.md."
     },
     {
       "id": "wind-sensor-rs485-transceiver",
@@ -1404,6 +1404,120 @@
         ]
       },
       "notes": "Optional bench fixture, excluded from installed-system assembly quantities and procurement totals. Print settings and installation: hardware/assemblies/winch/desk-feet.md. No structural or loaded-line qualification."
+    },
+    {
+      "id": "winch-full-cover",
+      "name": "Modular full-winch protective shell kit",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "fabricated",
+        "printed"
+      ],
+      "requirements": [
+        "One kit per winch: passive left/middle/right main panels (3) plus two identical payout shutters; powered left/two middle/transition/right main panels (5) plus four identical payout shutters. Four base clips per main-panel position and one fixed-loom anchor.",
+        "Warm-white rounded removable shell over existing dark core. Full-width 24 mm payout slot for 1.5 mm passive or nominal 4.5 mm hybrid line; no fixed fairlead or completed slip-ring support.",
+        "Concept-unvalidated: drilling, fit, full-travel abrasion, ventilation, heat, rain, strength and safe guarding require physical acceptance."
+      ],
+      "fabrication": {
+        "process": "openscad",
+        "modelStatus": "concept-unvalidated",
+        "sources": [
+          {
+            "path": "hardware/assemblies/winch/winch-cover-passive-left.scad",
+            "module": "wc_print_panel",
+            "modelId": "winch-cover-passive-left",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/winch/winch-cover-passive-middle.scad",
+            "module": "wc_print_panel",
+            "modelId": "winch-cover-passive-middle",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/winch/winch-cover-passive-right.scad",
+            "module": "wc_print_panel",
+            "modelId": "winch-cover-passive-right",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/winch/winch-cover-powered-left.scad",
+            "module": "wc_print_panel",
+            "modelId": "winch-cover-powered-left",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/winch/winch-cover-powered-middle.scad",
+            "module": "wc_print_panel",
+            "modelId": "winch-cover-powered-middle",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/winch/winch-cover-powered-transition.scad",
+            "module": "wc_print_panel",
+            "modelId": "winch-cover-powered-transition",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/winch/winch-cover-powered-right.scad",
+            "module": "wc_print_panel",
+            "modelId": "winch-cover-powered-right",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/winch/winch-cover-clip.scad",
+            "module": "wc_print_clip",
+            "modelId": "winch-cover-clip",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/winch/winch-cover-cable-anchor.scad",
+            "module": "wc_print_cable_anchor",
+            "modelId": "winch-cover-cable-anchor",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/winch/winch-cover-passive-shutter.scad",
+            "module": "wc_print_shutter",
+            "modelId": "winch-cover-passive-shutter",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/winch/winch-cover-powered-shutter.scad",
+            "module": "wc_print_shutter",
+            "modelId": "winch-cover-powered-shutter",
+            "revision": "0.1.0"
+          }
+        ]
+      },
+      "notes": "Three passive plus one powered kit: 14 main panels, 10 payout shutters, 56 clips and four cable anchors (84 added prints). No drivetrain reprints. Existing aluminium plates need dedicated cover/anchor holes. Remove shutters along +Y before lifting main panels along +Z; see hardware/assemblies/winch/full-cover.md."
+    },
+    {
+      "id": "winch-full-cover-hardware",
+      "name": "Four-winch full-cover fastening and loom allowance",
+      "baseUnit": "each",
+      "kind": "consumable",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical",
+        "electrical"
+      ],
+      "traits": [
+        "fastener",
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "One unquoted set for 3 passive + 1 powered cover: 56 M4x16 shell screws, 56 plain M4 captive nuts and 56 M4 washers (9 mm OD). Use a reviewed removable screw-locking method.",
+        "56 M4x25 clip-to-base screws plus 8 M4x25 cable-anchor screws; 64 M4 locknuts and 128 M4 washers. Stack: 6 mm print, 8 mm base, two 0.8 mm washers, 5 mm locknut, 4.4 mm nominal tip projection.",
+        "Eight soft hook-and-loop loom wraps (two per base anchor), at most 5.5 mm wide and 2.5 mm thick for 6x3 mm slots; eight soft-edged nominal 14 mm fixed-loom exits. Exact edging, cable ODs and received lead bend radii require selection.",
+        "Additional base holes: 14 per passive base / 22 per powered base, diameter 4.5 mm. Existing load-bearing interface holes and blank dimensions retained."
+      ],
+      "notes": "No supplier offers or prices asserted. Do not assume assortment coverage. Motor/encoder looms <=10 mm OD each are envelope assumptions. Separate rotating-conductor/slip-ring support remains unresolved."
     }
   ]
 }

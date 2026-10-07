@@ -64,6 +64,8 @@ One stable page per catalog part, including optional and deferred items. Usage q
 | [Joining and clamp hardware for four segmented drums](winch-drum-joining-hardware.md) | winch-drum-joining-hardware |
 | [8 mm steel drum shaft (variant cut allowance)](winch-drum-shaft-8mm.md) | winch-drum-shaft-8mm |
 | [Mechanical drum lock / fail-safe brake](winch-fail-safe-brake.md) | winch-fail-safe-brake |
+| [Modular full-winch protective shell kit](winch-full-cover.md) | winch-full-cover |
+| [Four-winch full-cover fastening and loom allowance](winch-full-cover-hardware.md) | winch-full-cover-hardware |
 | [Winch bearing/motor mount and guard](winch-mount-and-guard.md) | winch-mount-and-guard |
 | [Rigid bases, bearing spacers and fasteners for four winch mounts](winch-mount-hardware.md) | winch-mount-hardware |
 | [3.3 V RS485 transceiver module for wind sensor](wind-sensor-rs485-transceiver.md) | wind-sensor-rs485-transceiver |

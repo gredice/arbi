@@ -677,6 +677,172 @@
             "output": "payload-rain-assembly-r0.1.1.csg",
             "documentation": "hardware/assemblies/camera-pod/README.md",
             "description": "Non-manufacturing black/white enclosure assembly reference using revised deck/yoke; no physical rain, fit or mass validation."
+        },
+        {
+            "id": "winch-cover-passive-left",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "winch-full-cover"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-cover-passive-left.scad",
+            "output": "winch-cover-passive-left-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Passive full-winch shell left panel; axial seam on print bed."
+        },
+        {
+            "id": "winch-cover-passive-middle",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "winch-full-cover"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-cover-passive-middle.scad",
+            "output": "winch-cover-passive-middle-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Passive full-winch shell middle panel; axial seam on print bed."
+        },
+        {
+            "id": "winch-cover-passive-right",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "winch-full-cover"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-cover-passive-right.scad",
+            "output": "winch-cover-passive-right-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Passive full-winch shell right panel; axial seam on print bed."
+        },
+        {
+            "id": "winch-cover-powered-left",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "winch-full-cover"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-cover-powered-left.scad",
+            "output": "winch-cover-powered-left-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Powered full-winch shell left panel; axial seam on print bed."
+        },
+        {
+            "id": "winch-cover-powered-middle",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "winch-full-cover"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-cover-powered-middle.scad",
+            "output": "winch-cover-powered-middle-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Powered full-winch shell middle panel for indices 1 and 2; axial seam on print bed."
+        },
+        {
+            "id": "winch-cover-powered-transition",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "winch-full-cover"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-cover-powered-transition.scad",
+            "output": "winch-cover-powered-transition-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Powered full-winch shell index-3 payout-to-bearing transition panel; axial seam on print bed."
+        },
+        {
+            "id": "winch-cover-powered-right",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "winch-full-cover"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-cover-powered-right.scad",
+            "output": "winch-cover-powered-right-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Powered full-winch shell right panel; axial seam on print bed."
+        },
+        {
+            "id": "winch-cover-clip",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "winch-full-cover"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-cover-clip.scad",
+            "output": "winch-cover-clip-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Identical captive-nut base clip; four per shell panel."
+        },
+        {
+            "id": "winch-cover-cable-anchor",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "winch-full-cover"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-cover-cable-anchor.scad",
+            "output": "winch-cover-cable-anchor-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Independent fixed-loom soft-wrap anchor; one per winch."
+        },
+        {
+            "id": "winch-cover-assembly",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "reference",
+            "bomPartIds": [],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-cover-assembly.scad",
+            "output": "winch-cover-assembly-r0.1.0.csg",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Modular passive/powered assembly cover reference; existing drivetrain retained, added base holes."
+        },
+        {
+            "id": "winch-cover-passive-shutter",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "winch-full-cover"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-cover-passive-shutter.scad",
+            "output": "winch-cover-passive-shutter-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Passive payout-side lower shutter; remove outward along +Y before lifting the main hood."
+        },
+        {
+            "id": "winch-cover-powered-shutter",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "winch-full-cover"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-cover-powered-shutter.scad",
+            "output": "winch-cover-powered-shutter-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Powered payout-side lower shutter; remove outward along +Y before lifting the main hood."
         }
     ]
 }

@@ -168,8 +168,11 @@ bearing seats, screw/nut access, rod fit/straightness, flange clearance, motor
 alignment and free rotation. Inspect motor temperature and printed-part creep
 before any endurance test. ASA must repeat fit and load/cycle checks.
 
-Full-travel line guidance, the complete drum/weather guard, homing actuator,
-slip-ring support/strain relief and field structural qualification remain open.
+The [full assembly cover r0.1.0](full-cover.md) adds removable rounded panels
+and payout shutters over this unchanged mount/guard using extra base holes.
+CAD checks do not close physical fit, heat, weather or safe-guarding acceptance.
+Full-travel line guidance, homing, slip-ring support/strain relief and field
+structural qualification remain open.
 A stationary eye close to either wide drum would create a substantial fleet
 angle; this model does not pretend that a simple eye solves line management.
 Do not operate a loaded powered winch on the strength of these CAD checks.

@@ -6,7 +6,7 @@
   "destinationId": "hr-zagreb",
   "destinationName": "Zagreb, Croatia",
   "quoteSnapshotId": "hr-zagreb-2026-09-08-bauhaus-shaft",
-  "inputDigest": "sha256:d1e337da73b6ab72b87667abd7c769e9ab02f05d6fbe24440350c7dd29749bce",
+  "inputDigest": "sha256:0f5146ef8ae467101355cfd6cfaa43cef95e2e6859b2307baf3853be5b581532",
   "reportCurrency": "EUR",
   "complete": false,
   "completeLandedTotal": null,
@@ -681,6 +681,32 @@
         }
       ],
       "selectedOfferId": "bauhaus-winch-drum-shaft-8mm"
+    },
+    {
+      "partId": "winch-full-cover",
+      "required": "4",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "winch-set",
+          "kind": "physical",
+          "quantity": "4"
+        }
+      ],
+      "selectedOfferId": null
+    },
+    {
+      "partId": "winch-full-cover-hardware",
+      "required": "1",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "winch-set",
+          "kind": "physical",
+          "quantity": "1"
+        }
+      ],
+      "selectedOfferId": null
     },
     {
       "partId": "winch-mount-and-guard",
@@ -2241,6 +2267,8 @@
   "sharedBundleGoods": "256.68",
   "sharedShipping": "93.72",
   "warnings": [
+    "Required part winch-full-cover has no pinned offer.",
+    "Required part winch-full-cover-hardware has no pinned offer.",
     "aliexpress-bearing-608-2rs: Availability is unknown.",
     "aliexpress-bearing-608-2rs: Price and availability observation date is unknown; quote capture time is not verification time.",
     "aliexpress-bearing-608-2rs: Qualification is baseline-selected; the recorded selection is not engineering approval.",
