@@ -9,7 +9,7 @@ export type AuditEvidence = "intent" | "authorization" | "access-grant" | "devic
 
 export type AuditOutcome = "requested" | "allow" | "deny" | "succeeded" | "fail" | "unknown" | "interrupted" | "observed";
 
-export type AuditReason = "requested" | "authorized" | "not-authorized" | "invalid-request" | "unsupported" | "disabled" | "local-inhibit" | "completed" | "execution-failed" | "cancelled" | "connection-lost" | "response-lost" | "source-restarted" | "timeout" | "revoked" | "observed" | "heartbeat" | "storage-failed" | "delivery-failed" | "ended";
+export type AuditReason = "requested" | "authorized" | "not-authorized" | "invalid-request" | "unsupported" | "disabled" | "local-inhibit" | "completed" | "execution-failed" | "cancelled" | "interrupted" | "connection-lost" | "response-lost" | "source-restarted" | "timeout" | "revoked" | "observed" | "heartbeat" | "storage-failed" | "delivery-failed" | "ended";
 
 export type AuditSource = { "module": "cloud" | "edge" | "motion" | "pod" | "browser" | "media"; "identity": Identity; };
 

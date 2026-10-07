@@ -209,6 +209,12 @@ test("failed and interrupted reports remain distinct; a later report supplements
   assert.equal(failed.ok && failed.value.outcome, "fail");
   const interrupted = auditFromProtocolOutcome(intent, protocolRecord("interrupted", "cancelled"), outcomeBinding("interrupted"));
   assert.equal(interrupted.ok && interrupted.value.outcome, "interrupted");
+  assert.equal(interrupted.ok && interrupted.value.reason, "cancelled");
+  const interruptionReport = protocolRecord("motion", "failed");
+  if (interruptionReport.body.type === "command.outcome") interruptionReport.body.error = { code: "INTERRUPTED", retryable: false };
+  const sourceInterrupted = auditFromProtocolOutcome(intent, interruptionReport, outcomeBinding("motion"));
+  assert.equal(sourceInterrupted.ok && sourceInterrupted.value.outcome, "interrupted");
+  assert.equal(sourceInterrupted.ok && sourceInterrupted.value.reason, "interrupted");
   const unknown = fixture("unknown"), copy = structuredClone(unknown);
   assert.equal(unknown.effect, "unknown");
   assert.equal(auditFromProtocolOutcome(intent, protocolRecord("motion"), outcomeBinding("motion")).ok, true);

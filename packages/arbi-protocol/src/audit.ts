@@ -164,7 +164,7 @@ export function auditFromProtocolOutcome(intentInput: unknown, outcomeInput: unk
     sequence: binding.sequence, sourceTime: structuredClone(record.sourceTime), ingestTime: structuredClone(binding.ingestTime),
     resource: structuredClone(binding.resource), action: binding.action, evidence: "device-outcome",
     outcome: interrupted ? "interrupted" : body.outcome === "completed" ? "succeeded" : "fail",
-    effect: "device-reported", reason: interrupted ? "cancelled" : body.outcome === "completed" ? "completed" : "execution-failed",
+    effect: "device-reported", reason: interrupted ? (body.outcome === "cancelled" ? "cancelled" : "interrupted") : body.outcome === "completed" ? "completed" : "execution-failed",
     links: { ...structuredClone(root.value.links), intentEventId: root.value.eventId, causationEventId: root.value.eventId,
       commandId: binding.commandId, requestSource: structuredClone(binding.requestSource), target: structuredClone(binding.target) },
     record: { kind: "protocol-event", id: record.messageId }, metadata: {}, change: null,

@@ -71,6 +71,7 @@
         "completed",
         "execution-failed",
         "cancelled",
+        "interrupted",
         "connection-lost",
         "response-lost",
         "source-restarted",
@@ -294,7 +295,7 @@
             "properties": {
               "outcome": {"enum":["succeeded","fail","interrupted"]},
               "effect": {"enum":["device-reported"]},
-              "reason": {"enum":["completed","execution-failed","cancelled","local-inhibit","source-restarted","timeout"]},
+              "reason": {"enum":["completed","execution-failed","cancelled","interrupted","local-inhibit","source-restarted","timeout"]},
               "source": {"properties":{"module":{"enum":["edge","motion","pod"]}}}
             }
           }
