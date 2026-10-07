@@ -1,6 +1,6 @@
 # Modular full-winch cover
 
-Status: **concept-unvalidated**, all added models **r0.1.0**. This is a printable
+Status: **concept-unvalidated**, kit **r0.2.0**. Main panels, shutters, clips and assembly reference are r0.2.0; anchor and new concealment prints are r0.1.0. This is a printable
 assembly-cover proposal under [ADR-0007](../../../docs/decisions/0007-integrated-product-design.md),
 using the [rounded warm-white shell / charcoal core convention](../../../docs/project/industrial-design.md).
 It does not establish safe contact protection, an ingress rating or thermal suitability.
@@ -26,7 +26,7 @@ every source mesh and transform. Post mounting is shown +Y up; no field test is 
 
 Reuse the drum components r0.1.0, bearing lowers/caps and motor stand r0.1.0,
 coupling guard r0.1.1, shaft, coupling, collars, spacers and existing fasteners.
-No drivetrain reprint or changed shaft/bearing/stand pattern is required. The
+Reprint the main panels, payout shutters and all base clips at r0.2.0. Reuse the r0.1.0 loom anchor. No drivetrain reprint or changed shaft/bearing/stand pattern is required. **Post mounting changes:** use four 25 mm steel M8 standoffs (nominal 16 mm OD / 9 mm bore) per winch; a flush post mounting is incompatible with the rear hardware and shields. This spacing is a concept interface requiring structural/bolt-bending review before installation. No printed part carries post load. The
 cover installs over the existing coupling guard; remove that guard separately
 for coupling service. This shell contains the committed winch mechanical assembly
 and motor. The CL57Y driver is not represented by that CAD; its near-motor
@@ -55,7 +55,11 @@ strength, corrosion treatment and access behind the installed plate physically.
 | [Fixed-loom anchor](winch-cover-cable-anchor.scad) | 1 | 1 | 4 |
 | [Passive payout shutter](winch-cover-passive-shutter.scad) | 2 | 0 | 6 |
 | [Powered payout shutter](winch-cover-powered-shutter.scad) | 0 | 4 | 4 |
-| Added prints total | 18 | 30 | 84 |
+| Variant fascia strip, two per panel | 6 | 10 | 28 |
+| Rear-left shield | 1 | 2 | 5 |
+| Rear-right shield | 2 | 3 | 9 |
+| Common removable bench blank (optional) | 1 | 1 | 4 |
+| Added prints total, including bench blanks | 28 | 46 | 130 |
 
 All release entrypoints are registered in [models.json](../../models.json).
 The powered transition is a distinct print: the payout opening ends at X=580.3
@@ -77,11 +81,12 @@ unloaded inspection and is not the rain-facing field orientation.
 | Item | Passive | Powered |
 | --- | ---: | ---: |
 | Base X bounds | -50..500 mm | -50..830 mm |
-| Cover nominal X bounds | -46..495.4 mm | -46..825.4 mm |
+| Main cover including end returns, X | -54..504 mm | -54..834 mm |
 | Panel pitch / count | 180.667 mm / 3 | 174.4 mm / 5 |
 | Shell main Y bounds / front Z | ±80 / 164 mm | ±80 / 164 mm |
 | Overlap cuff / payout brow extent | Y=-82.5..100, Z≤166.5 mm | Same |
-| Open base-face skirt gap | 14 mm | 14 mm |
+| Concealment Y / rear Z envelope | ±98 / -32 mm | Same |
+| Rear shield Z faces | -27.6..-24.6 mm | Same |
 | Internal side / front faces | Y=±76, Z=160 mm | Same |
 | Motor rear to inner end wall | 29.5 mm | 39.1 mm |
 
@@ -112,7 +117,7 @@ Per clip: one M4×25 base screw, two 9 mm OD washers and one M4 locknut; one
 M4×16 shell screw, one washer and one plain M4 nut in the side-loaded pocket.
 The nominal base stack is 6 mm print + 8 mm plate + 1.6 mm washers + 5 mm nut,
 leaving 4.4 mm tip projection. The shell screw goes inward along Y at Z=24 mm;
-its washer/head are visible and reachable below the payout slot. Use a reviewed
+its washer/head are reachable below the payout slot **after removing the fascia**. Closed white fascia conceals the heads, washers and clip-to-base stacks; rear shields conceal the underside nuts and tips. Use a reviewed
 removable locking method with the plain captive nut; no plastic threads.
 The anchor uses two additional M4×25 screws, four washers and two locknuts.
 
@@ -161,10 +166,8 @@ against the actual slip ring before powering the hybrid line; the cover does
 not complete that unresolved interface. Do not stuff wires behind the drum.
 
 The continuous rounded front and +Y payout brows shed direct splash; the exterior
-cuffs reduce straight seam exposure. The 14 mm open base-face gap provides
-continuous drainage/air exchange and leaves the original mount screws inside
-the covered volume. Five 10 × 5 mm motor vent slots on the **-Y downward side**
-add 250 mm² of opening; do not orient them upward or block them. No gasket,
+cuffs reduce straight seam exposure. The original main-shell skirt remains 14 mm above the base, behind the new fascia. End returns and rear shields obscure base hardware. Seams, underside release pockets and seven 8 × 2 mm end-return drains per end provide unsealed drainage; their field behavior is unverified. Five 10 × 5 mm motor vent slots at **Z=58..63 mm** on the **-Y downward side**, above the fascia at Z≤45 mm and overlap visors at Z=49..53 mm,
+retain 250 mm² of opening; do not orient them upward or block them. No gasket,
 screen, filtered airflow, thermal analysis or IP rating is asserted. Confirm
 motor cooling at configured current/duty, print creep and temperature before
 endurance operation. PLA is an inspection prototype; qualify ASA or another
@@ -196,10 +199,11 @@ these settings do not establish print strength or weather resistance.
    M4×16 screws per panel position (two on the hood and two on its shutter at
    payout positions; all four on the motor-end hood); do
    not pull warped walls into position using screw torque.
-5. Rotate unpowered through a full revolution and traverse the planned payout
+5. Seat rear shields, then fit the smooth fascia to the clip keys (lift fascia/shields 2 mm +Z, slide fascia inward along Y, lower together). Tighten and inspect every metal stack first. For post mounting **omit the common bench blank**: the 102 mm rear opening clears a nominal 100 mm post without a plastic structural load path. The steel standoffs put the post front at Z=-33 mm, leaving 1 mm nominal clearance behind the rear cover at Z=-32 mm. Verify the received stack, washer seats, thread engagement and backing surface. M8×160 has 11.8 mm nominal tip projection with 100 mm timber, a 4 mm backing plate, two 1.6 mm washers and an 8 mm nut; thicker timber or other stacks require a revised length. The post backing plate and its far-side nuts are the separate site attachment; this enclosure does not cover the far side of the timber. Round/oversized posts need a separate interface review. Use the original desk feet only in the open service configuration.
+6. Rotate unpowered through a full revolution and traverse the planned payout
    positions. Verify no rubbing, hardware contact, trapped loom or blocked drain.
 
-For bearing/coupling/drum service, isolate and secure first; remove shell screws
+For bearing/coupling/drum service, isolate and secure first. Lift fascia and rear shields together **2 mm +Z**, using the underside finger pockets. Withdraw fascia along ±Y while keeping that lift; a straight sideways pull is captured by the clip keys. Remove rear shields toward -Z, then remove shell screws
 then withdraw the lower payout shutters at least 20 mm toward +Y. Lift main
 panels at least 130 mm outward +Z **left to right**. Fixed clips and anchor stay
 on the plate. The secured line can remain threaded within the checked corridor. The
@@ -209,7 +213,17 @@ can lift and the shaft/drum can lift out after the coupling and restraints are
 released. Measure available field working space; the CAD path uses an unloaded
 rigid assembly. Reassembly must repeat alignment, line-routing and hand-spin checks.
 
-The payout slot, vents and open skirt can admit fingers, tools and water. This
+The payout slot, vents and unsealed baffles can admit fingers, tools and water. This
 cover alone does not demonstrate complete entanglement protection. Keep the
 assembly isolated for public-access, loaded and rotating acceptance work until
 the safety case and physical tests are completed.
+
+## Concealment and retention boundary
+
+The closed bench configuration includes the rear blank; the post configuration replaces that blank with the actual support. Main-panel end returns close the original view under the end skirts. Two white fascia strips per panel surround shell screw heads, clip bolt heads and rear clip nuts. Three/five rear shield segments hide the original M6 base nuts and loom-anchor hardware. The bought metal remains in every installed preview; it is occluded by actual CAD meshes. Functional line and loom openings remain open.
+
+Fascia has two blind key sockets at each clip position, a rear-lip groove and underside finger access. Keys are captured at the installed height. Lift fascia and rear shields together 2 mm +Z to align the socket necks, then withdraw fascia along ±Y. No elastic snap deformation is required for the nominal path. The checker requires a straight-pull collision and checks the lifted removal path. These CAD checks do **not** establish retention under vibration, print fit, wear, creep or service life. Prototype the keys before full panels. Reject cracked or loose keys; qualify the outdoor material/process before service. Cosmetic parts do not retain the drivetrain, line or plate.
+
+Fascia prints outer face down; rear shields and blank print rear face down. Rear lengths: passive left 122.45 mm / right 162.775 mm (two copies); powered left 142.075 mm (two copies) / right 164.616667 mm (three copies), with 0.6 mm seams subtracted from each exported length. The common blank is 101 mm wide; it leaves 0.5 mm nominal seams on each side of the post opening. All exports remain within 240 mm per axis.
+
+The [r0.1.0 record](full-cover-check-r0.1.0.md) is preserved. The [current record](full-cover-check.md) identifies the new revision, explicit hardware limits, sampled concealment rays, omitted-cover control and unverified physical retention.

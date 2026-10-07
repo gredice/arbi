@@ -1,6 +1,8 @@
-// ARBI winch-cover-assembly 0.1.0 — concept-unvalidated reference.
+// ARBI winch-cover-assembly 0.2.0 — concept-unvalidated reference.
 include <../../lib/winch-cover.scad>
 powered=false;
 exploded=false;
 show_core=true;
-wc_assembly(powered,exploded,show_core);
+show_fascia=true;
+post_mounted=false;
+wc_assembly(powered,exploded,show_core,show_fascia,post_mounted);

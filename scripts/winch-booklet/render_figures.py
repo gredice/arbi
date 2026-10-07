@@ -135,7 +135,7 @@ def desk_feet(drop=0):
         out.append(A('desk-foot-long',T(148.45,y,-43-drop)@T(-22,-30)))
     return out
 
-def cover_parts(explode=0,shutter_out=0,hardware=True,main=True,shutters=True):
+def cover_parts(explode=0,shutter_out=0,hardware=True,main=True,shutters=True,conceal=True):
     variant='powered' if POWERED else 'passive'
     count=5 if POWERED else 3
     end=826 if POWERED else 496
@@ -146,32 +146,44 @@ def cover_parts(explode=0,shutter_out=0,hardware=True,main=True,shutters=True):
         name=('left' if i==0 else 'right' if i==count-1 else
               'transition' if POWERED and i==3 else 'middle')
         # Inverse of canonical print transform; reused meshes, no proxy shells.
-        b=np.array([[0,0,1,x],[1,0,0,-100],[0,1,0,explode+i*(12 if explode else 0)],[0,0,0,1]])
+        b=np.array([[0,0,1,x-(8 if i==0 else 0)],[1,0,0,-100],[0,1,0,-32+explode+i*(12 if explode else 0)],[0,0,0,1]])
         if main:out.append(A(f'cover-{variant}-{name}',b))
         if shutters and i<count-1:
-            b=np.array([[1,0,0,x],[0,0,-1,80+shutter_out],[0,1,0,14],[0,0,0,1]])
+            b=np.array([[1,0,0,x],[0,0,-1,84+shutter_out],[0,1,0,14],[0,0,0,1]])
             out.append(A(f'cover-{variant}-shutter',b))
         for cx in [x+16,x+pitch-16]:
             for sy in [-1,1]:
                 out.append(A('cover-clip',T(cx)@np.diag([1,sy,1,1])@T(-10,68)))
                 if hardware:
                     out.extend([H('bolt-M4x25',T(cx,sy*82,6.8)@R('x',180)),H('washer-M4',T(cx,sy*82,6)),H('washer-M4',T(cx,sy*82,-8.8)),H('nyloc-M4',T(cx,sy*82,-13.8))])
-                    # Plain captive nut is inside clip; all screws are visible in final pose.
+                    # Keep every metal stack in the scene; actual fascia meshes occlude them.
                     out.append(H('nut-M4',T(cx,sy*72.2,24)@R('x',90 if sy==1 else -90)))
                     if main and not explode and not shutter_out:
                         rot=R('x',90 if sy==1 else -90)
                         out.extend([H('bolt-M4x16',T(cx,sy*80.8,24)@rot),H('washer-M4',T(cx,sy*80.8,24)@rot)])
+        if conceal and main:
+            for sy in [-1,1]:
+                b=np.array([[1,0,0,x],[0,0,-1,98],[0,1,0,-32],[0,0,0,1]])
+                out.append(A(f'cover-{variant}-fascia',T(0,sy*(55 if explode else 0),2 if explode else 0)@np.diag([1,sy,1,1])@b))
+    if conceal and main:
+        for left,number in [(True,2 if POWERED else 1),(False,3 if POWERED else 2)]:
+            start=-50 if left else W/2+51
+            stop=W/2-51 if left else end+4
+            length=(stop-start)/number
+            for i in range(number):
+                out.append(A(f'cover-{variant}-rear-{"left" if left else "right"}',T(start+i*length,-93.2,-27.6-(50 if explode else 0))))
+        out.append(A('cover-rear-blank',T(W/2-50.5,-93.2,-27.6-(50 if explode else 0))))
     out.append(A('cover-cable-anchor',T(end-40,-60)))
     if hardware:
         for cx in [end-32,end-12]:
             out.extend([H('bolt-M4x25',T(cx,-48,6.8)@R('x',180)),H('washer-M4',T(cx,-48,6)),H('washer-M4',T(cx,-48,-8.8)),H('nyloc-M4',T(cx,-48,-13.8))])
     return out
 
-def covered(explode=0,shutter_out=0,main=True,shutters=True):
+def covered(explode=0,shutter_out=0,main=True,shutters=True,conceal=True):
     variant='powered' if POWERED else 'passive'
     out=[p for p in full(guard=True) if 'base-plate' not in p['file']]
     out.append(H(f'base-plate-{variant}-covered',c=STEEL))
-    out+=cover_parts(explode,shutter_out,main=main,shutters=shutters)
+    out+=cover_parts(explode,shutter_out,main=main,shutters=shutters,conceal=conceal)
     out.append(H('line-'+variant+'-reference',T(6+W/2,50,130.9 if POWERED else 130.3)@R('x',-90),CORE))
     end=826 if POWERED else 496
     for z in [50,75]:out.append(H('loom-10mm-reference',T(end-8,-48,z)@R('y',90),CORE))
@@ -286,10 +298,11 @@ def main():
     render('feet-final',full(guard=True,feet=True),direction=(-.25,-1,.7),size=(1800,1000))
     render('cover-passive-installed',covered(),direction=(.35,1,.7),up=(0,1,0),size=(1800,1000))
     render('cover-passive-exploded',covered(explode=190,shutter_out=90),direction=(.35,1,.7),up=(0,1,0),size=(1800,1200),anchors={'hood_base':[50,-60,164],'hood_out':[50,-60,354],'shutter_base':[50,78,60],'shutter_out':[50,168,60]})
-    render('cover-shutter-removal',covered(shutter_out=60),direction=(.35,1,.7),up=(0,1,0),size=(1800,1000))
+    render('cover-shutter-removal',covered(shutter_out=60,conceal=False),direction=(.35,1,.7),up=(0,1,0),size=(1800,1000))
     render('cover-core-service',covered(main=False,shutters=False),direction=(.35,1,.7),up=(0,1,0),size=(1800,1000))
     render('cover-clip-detail',[A('cover-clip'),H('nut-M4',T(-12,4.2,24)@R('x',90)),H('bolt-M4x16',T(10,32,24)@R('x',90)),H('washer-M4',T(10,24,24)@R('x',90))],direction=(-1,-1,.7),size=(1000,700))
     render('cover-base-drilling',[H('base-plate-passive-covered')],direction=(0,0,1),up=(0,1,0),size=(1800,750))
+    render('cover-concealment-rear',covered(),direction=(.25,-.6,-1),up=(0,1,0),size=(1500,900))
     render('cover-rear-ports',covered(),direction=(1,-.3,.35),up=(0,1,0),size=(1300,900))
     POWERED=True;W=570.3
     render('cover-powered-installed',covered(),direction=(.25,1,.65),up=(0,1,0),size=(2000,900))

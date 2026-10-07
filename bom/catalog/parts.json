@@ -1419,7 +1419,7 @@
         "printed"
       ],
       "requirements": [
-        "One kit per winch: passive left/middle/right main panels (3) plus two identical payout shutters; powered left/two middle/transition/right main panels (5) plus four identical payout shutters. Four base clips per main-panel position and one fixed-loom anchor.",
+        "One kit per winch: passive 3 main panels, 2 payout shutters, 6 fascia strips, 3 rear shield segments and one removable bench blank; powered 5 main panels, 4 shutters, 10 fascia strips, 5 rear shield segments and one blank. Four r0.2.0 base clips per main-panel position and one fixed-loom anchor.",
         "Warm-white rounded removable shell over existing dark core. Full-width 24 mm payout slot for 1.5 mm passive or nominal 4.5 mm hybrid line; no fixed fairlead or completed slip-ring support.",
         "Concept-unvalidated: drilling, fit, full-travel abrasion, ventilation, heat, rain, strength and safe guarding require physical acceptance."
       ],
@@ -1431,49 +1431,49 @@
             "path": "hardware/assemblies/winch/winch-cover-passive-left.scad",
             "module": "wc_print_panel",
             "modelId": "winch-cover-passive-left",
-            "revision": "0.1.0"
+            "revision": "0.2.0"
           },
           {
             "path": "hardware/assemblies/winch/winch-cover-passive-middle.scad",
             "module": "wc_print_panel",
             "modelId": "winch-cover-passive-middle",
-            "revision": "0.1.0"
+            "revision": "0.2.0"
           },
           {
             "path": "hardware/assemblies/winch/winch-cover-passive-right.scad",
             "module": "wc_print_panel",
             "modelId": "winch-cover-passive-right",
-            "revision": "0.1.0"
+            "revision": "0.2.0"
           },
           {
             "path": "hardware/assemblies/winch/winch-cover-powered-left.scad",
             "module": "wc_print_panel",
             "modelId": "winch-cover-powered-left",
-            "revision": "0.1.0"
+            "revision": "0.2.0"
           },
           {
             "path": "hardware/assemblies/winch/winch-cover-powered-middle.scad",
             "module": "wc_print_panel",
             "modelId": "winch-cover-powered-middle",
-            "revision": "0.1.0"
+            "revision": "0.2.0"
           },
           {
             "path": "hardware/assemblies/winch/winch-cover-powered-transition.scad",
             "module": "wc_print_panel",
             "modelId": "winch-cover-powered-transition",
-            "revision": "0.1.0"
+            "revision": "0.2.0"
           },
           {
             "path": "hardware/assemblies/winch/winch-cover-powered-right.scad",
             "module": "wc_print_panel",
             "modelId": "winch-cover-powered-right",
-            "revision": "0.1.0"
+            "revision": "0.2.0"
           },
           {
             "path": "hardware/assemblies/winch/winch-cover-clip.scad",
             "module": "wc_print_clip",
             "modelId": "winch-cover-clip",
-            "revision": "0.1.0"
+            "revision": "0.2.0"
           },
           {
             "path": "hardware/assemblies/winch/winch-cover-cable-anchor.scad",
@@ -1485,17 +1485,59 @@
             "path": "hardware/assemblies/winch/winch-cover-passive-shutter.scad",
             "module": "wc_print_shutter",
             "modelId": "winch-cover-passive-shutter",
-            "revision": "0.1.0"
+            "revision": "0.2.0"
           },
           {
             "path": "hardware/assemblies/winch/winch-cover-powered-shutter.scad",
             "module": "wc_print_shutter",
             "modelId": "winch-cover-powered-shutter",
+            "revision": "0.2.0"
+          },
+          {
+            "path": "hardware/assemblies/winch/winch-cover-passive-fascia.scad",
+            "module": "wc_print_fascia",
+            "modelId": "winch-cover-passive-fascia",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/winch/winch-cover-passive-rear-left.scad",
+            "module": "wc_print_rear",
+            "modelId": "winch-cover-passive-rear-left",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/winch/winch-cover-passive-rear-right.scad",
+            "module": "wc_print_rear",
+            "modelId": "winch-cover-passive-rear-right",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/winch/winch-cover-powered-fascia.scad",
+            "module": "wc_print_fascia",
+            "modelId": "winch-cover-powered-fascia",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/winch/winch-cover-powered-rear-left.scad",
+            "module": "wc_print_rear",
+            "modelId": "winch-cover-powered-rear-left",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/winch/winch-cover-powered-rear-right.scad",
+            "module": "wc_print_rear",
+            "modelId": "winch-cover-powered-rear-right",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/winch/winch-cover-rear-blank.scad",
+            "module": "wc_print_rear_blank",
+            "modelId": "winch-cover-rear-blank",
             "revision": "0.1.0"
           }
         ]
       },
-      "notes": "Three passive plus one powered kit: 14 main panels, 10 payout shutters, 56 clips and four cable anchors (84 added prints). No drivetrain reprints. Existing aluminium plates need dedicated cover/anchor holes. Remove shutters along +Y before lifting main panels along +Z; see hardware/assemblies/winch/full-cover.md."
+      "notes": "Three passive plus one powered kit: 14 main panels, 10 payout shutters, 56 clips, four cable anchors, 28 fascia strips, 14 rear shield segments and four optional bench blanks (130 prints including blanks). Reprint main panels, shutters and clips at r0.2.0; reuse drivetrain and anchors. Fascia and rear shields conceal all represented enclosure fasteners. Remove the bench blank for the 100 mm nominal post interface. Physical snap retention, received hardware and support fit remain unverified. See hardware/assemblies/winch/full-cover.md."
     },
     {
       "id": "winch-full-cover-hardware",
@@ -1515,7 +1557,8 @@
         "One unquoted set for 3 passive + 1 powered cover: 56 M4x16 shell screws, 56 plain M4 captive nuts and 56 M4 washers (9 mm OD). Use a reviewed removable screw-locking method.",
         "56 M4x25 clip-to-base screws plus 8 M4x25 cable-anchor screws; 64 M4 locknuts and 128 M4 washers. Stack: 6 mm print, 8 mm base, two 0.8 mm washers, 5 mm locknut, 4.4 mm nominal tip projection.",
         "Eight soft hook-and-loop loom wraps (two per base anchor), at most 5.5 mm wide and 2.5 mm thick for 6x3 mm slots; eight soft-edged nominal 14 mm fixed-loom exits. Exact edging, cable ODs and received lead bend radii require selection.",
-        "Additional base holes: 14 per passive base / 22 per powered base, diameter 4.5 mm. Existing load-bearing interface holes and blank dimensions retained."
+        "Additional base holes: 14 per passive base / 22 per powered base, diameter 4.5 mm. Existing load-bearing interface holes and blank dimensions retained.",
+        "16 steel M8 standoffs, 25 mm long, nominal 16 mm OD / 9 mm bore (four per winch), between the aluminium base and 100 mm timber post. Existing M8x160 length gives 11.8 mm nominal projection after 8 mm base, 25 mm spacer, 100 mm timber, 4 mm backing, two 1.6 mm washers and 8 mm locknut. Structural capacity, received stack and installation remain unverified; no printed structural spacers."
       ],
       "notes": "No supplier offers or prices asserted. Do not assume assortment coverage. Motor/encoder looms <=10 mm OD each are envelope assumptions. Separate rotating-conductor/slip-ring support remains unresolved."
     }

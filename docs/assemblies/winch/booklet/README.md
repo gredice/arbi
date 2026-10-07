@@ -1,7 +1,7 @@
 # STL-based winch assembly booklet
 
-- [Assembly booklet, revision 7](ARBI-winch-assembly-STL.pdf) — 18 A4 pages.
-- [STL and source pack](ARBI-winch-STL-pack.zip) — 27 ARBI fabrication meshes,
+- [Assembly booklet, revision 8](ARBI-winch-assembly-STL.pdf) — 19 A4 pages.
+- [STL and source pack](ARBI-winch-STL-pack.zip) — 34 ARBI fabrication meshes,
   35 nominal hardware/base/routing references, source snapshots and illustration manifests.
 - [Generator and rebuild instructions](../../../../scripts/winch-booklet/README.md).
 - [Cover clearance evidence](../../../../hardware/assemblies/winch/coupling-cover-geometry-check.md).
@@ -10,15 +10,14 @@ This edition uses furniture-instruction-style line drawings of the actual meshes
 opaque white faces with dark visible outlines and feature edges, without the STL
 triangle grid. The [white-shell / black-core conventions](../../../project/industrial-design.md)
 remain the product palette in the manifests. It includes the
-[full cover r0.1.0](../../../../hardware/assemblies/winch/full-cover.md): three main
+[full cover r0.2.0](../../../../hardware/assemblies/winch/full-cover.md): three main
 panels and two payout shutters for passive, five main panels and four shutters
-for powered. Pages 15-18 give clips, added base holes, routing and ordered service.
+for powered. Pages 15-19 give clips, added base holes, routing and ordered service.
 It covers the passive-line winch and desk feet; powered drum STLs are included
 for completeness. The passive-line winch still has a motor.
 
 Coupling cover **0.1.1** adds clearance for the motor mounting screws, washers
-and nuts. Reprint only `winch-coupling-guard-r0.1.1.stl`. Other fabrication models
-remain 0.1.0. The cover accepts a nominal 12 mm-diameter fastener envelope,
+and nuts. Its replacement print is `winch-coupling-guard-r0.1.1.stl`. Main full-cover panels, shutters and clips now use r0.2.0; the other fabrication models remain r0.1.0. The cover accepts a nominal 12 mm-diameter fastener envelope,
 14 mm projection from the stand, and the full ±2 mm adjustment with 1 mm added
 clearance. Check the actual hardware and dry-fit the replacement.
 
@@ -40,3 +39,5 @@ winch and both payload variants on relevant PRs and manual runs. On `main`, thei
 PDFs and STL/source packs join the same commit's
 [CAD release](../../../../.github/workflows/cad-release.yml). The files above are
 the checked-in publication snapshot; release downloads match their tagged commit.
+
+Revision 8 adds actual fascia, rear-shield and bench-blank meshes, keeps the metal fasteners in installed views, and gives reprint quantities, the nominal post opening and release sequence on page 19. The key interfaces still require physical retention/cycle testing.

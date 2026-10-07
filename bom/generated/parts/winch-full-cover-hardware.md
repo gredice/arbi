@@ -17,6 +17,7 @@
 - 56 M4x25 clip-to-base screws plus 8 M4x25 cable-anchor screws; 64 M4 locknuts and 128 M4 washers. Stack: 6 mm print, 8 mm base, two 0.8 mm washers, 5 mm locknut, 4.4 mm nominal tip projection.
 - Eight soft hook-and-loop loom wraps (two per base anchor), at most 5.5 mm wide and 2.5 mm thick for 6x3 mm slots; eight soft-edged nominal 14 mm fixed-loom exits. Exact edging, cable ODs and received lead bend radii require selection.
 - Additional base holes: 14 per passive base / 22 per powered base, diameter 4.5 mm. Existing load-bearing interface holes and blank dimensions retained.
+- 16 steel M8 standoffs, 25 mm long, nominal 16 mm OD / 9 mm bore (four per winch), between the aluminium base and 100 mm timber post. Existing M8x160 length gives 11.8 mm nominal projection after 8 mm base, 25 mm spacer, 100 mm timber, 4 mm backing, two 1.6 mm washers and 8 mm locknut. Structural capacity, received stack and installation remain unverified; no printed structural spacers.
 
 ## Notes
 

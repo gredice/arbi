@@ -33,8 +33,8 @@ The integrated rain kit is the preferred public pod preview. `camera-pod-assembl
 
 Apply the role palette to winch drum/mount previews and all published booklets. The existing coupling guard is white, while drum, bearing supports and motor stand are dark. Its dimensions are unchanged. Dock protection, corner-station housings and the control-cabinet outer enclosure should use white rounded protective surfaces over dark fixtures when their housing geometry is designed. Existing dock/funnel load and capture surfaces retain their committed dimensions.
 
-The [full winch cover r0.1.0](../../hardware/assemblies/winch/full-cover.md) adds
-three/five removable white panels over the existing dark drivetrain, with
+The [full winch cover r0.2.0](../../hardware/assemblies/winch/full-cover.md) adds
+three/five removable white panels with fascia, rear shields and concealed enclosure fasteners over the existing dark drivetrain, with
 explicit nominal clearances, base drilling and service sequence. Its
 [geometry record](../../hardware/assemblies/winch/full-cover-check.md) and
 open-core assembly views distinguish CAD checks from physical acceptance.
