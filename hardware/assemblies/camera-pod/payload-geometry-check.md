@@ -48,7 +48,7 @@ The neutral assembled bounds including nominal hardware are approximately **169.
 
 ## Repeat
 
-The following commands describe the original dry bench pipeline invocation. Run it against the historical source snapshot to reproduce the recorded configuration; running current sources instead evaluates later revisions and must produce a separately identified record.
+Run the following commands against current canonical CAD to reproduce this revised dry bench configuration. Use the separately dated source/evidence record when reproducing the earlier r0.1.0 kit.
 
 ```bash
 python3 scripts/payload-booklet/build.py --output hardware/generated/payload-booklet
