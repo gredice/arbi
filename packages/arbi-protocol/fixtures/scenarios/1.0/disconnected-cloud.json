@@ -1,0 +1,727 @@
+{
+  "schemaVersion": "arbi.scenario/1.0",
+  "id": "disconnected-cloud",
+  "executionMode": "simulation",
+  "identity": {
+    "protocol": "arbi/1.0",
+    "configurationSchema": "arbi.configuration/1.0",
+    "configurationRevision": "config-1",
+    "configurationDigest": "15f54c85545697d1da5736ef52c0188a0cb8f9dd0916b90c915cba1e6d2ec153",
+    "geometryRevision": "geometry-1",
+    "calibrationRevision": "calibration-1",
+    "siteFrame": {
+      "name": "site",
+      "revision": "frame-1"
+    },
+    "gimbalFrame": {
+      "name": "pod-gimbal",
+      "revision": "gimbal-1"
+    },
+    "referenceDigest": "e31d9fcf7ba58872ea4954d140944c0c72354524582f1d82c735e1a8343a3f6f"
+  },
+  "units": {
+    "position": "mm",
+    "angle": "deg",
+    "speed": "mm/s",
+    "acceleration": "mm/s^2",
+    "force": "N",
+    "time": "ms",
+    "voltage": "V"
+  },
+  "provenance": {
+    "model": {
+      "id": "arbi.affine-reference",
+      "revision": "1.0",
+      "buildId": "affine-reference-1"
+    },
+    "controller": {
+      "id": "arbi.protocol-reference",
+      "revision": "1.0",
+      "buildId": "protocol-reference-1"
+    },
+    "runner": {
+      "id": "arbi.offline-runner",
+      "revision": "1.0",
+      "buildId": "offline-runner-1"
+    },
+    "evidence": "synthetic-host-reference",
+    "fidelity": "affine-kinematic-no-dynamics"
+  },
+  "clock": {
+    "startMs": 1000,
+    "durationMs": 500,
+    "stepMs": 50,
+    "ordering": "time-then-explicit-order",
+    "sampling": "advance-events-sample",
+    "normalization": "q6-floor-half-up"
+  },
+  "seed": 42,
+  "gate": {
+    "source": {
+      "deviceId": "cloud",
+      "bootId": "cloud-boot-1",
+      "sessionId": "cloud-session-1"
+    },
+    "receiver": {
+      "deviceId": "edge",
+      "bootId": "edge-boot-1",
+      "sessionId": "edge-session-1"
+    },
+    "actor": {
+      "kind": "human",
+      "id": "operator-1"
+    },
+    "lease": {
+      "id": "lease-1",
+      "holderId": "operator-1",
+      "fence": "9007199254740993",
+      "expiresMonotonicMs": 3000
+    },
+    "maxDeadlineAheadMs": 1000
+  },
+  "initial": {
+    "state": "Ready",
+    "positionMm": {
+      "x": 1000,
+      "y": 2000,
+      "z": 2490
+    },
+    "panDeg": 0,
+    "tiltDeg": 0,
+    "cloudConnected": true,
+    "driverFault": false,
+    "powerAvailable": true,
+    "voltageV": 48
+  },
+  "inputs": [
+    {
+      "atMs": 1000,
+      "order": 1,
+      "kind": "command",
+      "message": {
+        "protocol": "arbi/1.0",
+        "messageId": "message-10",
+        "realm": {
+          "environment": "test",
+          "namespaceId": "fixture-run"
+        },
+        "siteId": "synthetic-site",
+        "source": {
+          "deviceId": "cloud",
+          "bootId": "cloud-boot-1",
+          "sessionId": "cloud-session-1"
+        },
+        "sequence": "10",
+        "sourceTime": {
+          "utc": "2026-10-07T12:00:00.000Z",
+          "monotonicMs": 1000,
+          "uncertaintyMs": 500
+        },
+        "ingestTime": null,
+        "kind": "command",
+        "command": {
+          "commandId": "command-10",
+          "correlationId": "job-1",
+          "idempotencyKey": "key-10",
+          "actor": {
+            "kind": "human",
+            "id": "operator-1"
+          },
+          "target": {
+            "deviceId": "edge",
+            "bootId": "edge-boot-1",
+            "sessionId": "edge-session-1"
+          },
+          "deadline": {
+            "bootId": "edge-boot-1",
+            "sessionId": "edge-session-1",
+            "expiresMonotonicMs": 1500
+          },
+          "lease": {
+            "id": "lease-1",
+            "holderId": "operator-1",
+            "fence": "9007199254740993"
+          },
+          "configRevision": "config-1"
+        },
+        "body": {
+          "type": "motion.move",
+          "positionMm": {
+            "x": 1000,
+            "y": 2000,
+            "z": 2500
+          },
+          "frame": {
+            "name": "site",
+            "revision": "frame-1"
+          },
+          "maxSpeedMmPerS": 50,
+          "maxDurationMs": 500
+        },
+        "executionMode": "simulation"
+      }
+    },
+    {
+      "atMs": 1050,
+      "order": 0,
+      "kind": "cloud",
+      "connected": false
+    },
+    {
+      "atMs": 1300,
+      "order": 1,
+      "kind": "command",
+      "message": {
+        "protocol": "arbi/1.0",
+        "messageId": "message-11",
+        "realm": {
+          "environment": "test",
+          "namespaceId": "fixture-run"
+        },
+        "siteId": "synthetic-site",
+        "source": {
+          "deviceId": "cloud",
+          "bootId": "cloud-boot-1",
+          "sessionId": "cloud-session-1"
+        },
+        "sequence": "11",
+        "sourceTime": {
+          "utc": "2026-10-07T12:00:00.000Z",
+          "monotonicMs": 1000,
+          "uncertaintyMs": 500
+        },
+        "ingestTime": null,
+        "kind": "command",
+        "command": {
+          "commandId": "command-11",
+          "correlationId": "job-1",
+          "idempotencyKey": "key-11",
+          "actor": {
+            "kind": "human",
+            "id": "operator-1"
+          },
+          "target": {
+            "deviceId": "edge",
+            "bootId": "edge-boot-1",
+            "sessionId": "edge-session-1"
+          },
+          "deadline": {
+            "bootId": "edge-boot-1",
+            "sessionId": "edge-session-1",
+            "expiresMonotonicMs": 1800
+          },
+          "lease": {
+            "id": "lease-1",
+            "holderId": "operator-1",
+            "fence": "9007199254740993"
+          },
+          "configRevision": "config-1"
+        },
+        "body": {
+          "type": "motion.move",
+          "positionMm": {
+            "x": 1000,
+            "y": 2000,
+            "z": 2500
+          },
+          "frame": {
+            "name": "site",
+            "revision": "frame-1"
+          },
+          "maxSpeedMmPerS": 50,
+          "maxDurationMs": 500
+        },
+        "executionMode": "simulation"
+      }
+    }
+  ],
+  "trajectories": [
+    {
+      "id": "affine-0",
+      "startMm": {
+        "x": -3,
+        "y": 10,
+        "z": 1000
+      },
+      "targetMm": {
+        "x": 7,
+        "y": -10,
+        "z": 1005
+      },
+      "durationMs": 100,
+      "elapsedMs": 0,
+      "expectedPositionMm": {
+        "x": -3.0,
+        "y": 10.0,
+        "z": 1000.0
+      }
+    },
+    {
+      "id": "affine-25",
+      "startMm": {
+        "x": -3,
+        "y": 10,
+        "z": 1000
+      },
+      "targetMm": {
+        "x": 7,
+        "y": -10,
+        "z": 1005
+      },
+      "durationMs": 100,
+      "elapsedMs": 25,
+      "expectedPositionMm": {
+        "x": -0.5,
+        "y": 5.0,
+        "z": 1001.25
+      }
+    },
+    {
+      "id": "affine-50",
+      "startMm": {
+        "x": -3,
+        "y": 10,
+        "z": 1000
+      },
+      "targetMm": {
+        "x": 7,
+        "y": -10,
+        "z": 1005
+      },
+      "durationMs": 100,
+      "elapsedMs": 50,
+      "expectedPositionMm": {
+        "x": 2.0,
+        "y": 0.0,
+        "z": 1002.5
+      }
+    },
+    {
+      "id": "affine-100",
+      "startMm": {
+        "x": -3,
+        "y": 10,
+        "z": 1000
+      },
+      "targetMm": {
+        "x": 7,
+        "y": -10,
+        "z": 1005
+      },
+      "durationMs": 100,
+      "elapsedMs": 100,
+      "expectedPositionMm": {
+        "x": 7.0,
+        "y": -10.0,
+        "z": 1005.0
+      }
+    },
+    {
+      "id": "affine-150",
+      "startMm": {
+        "x": -3,
+        "y": 10,
+        "z": 1000
+      },
+      "targetMm": {
+        "x": 7,
+        "y": -10,
+        "z": 1005
+      },
+      "durationMs": 100,
+      "elapsedMs": 150,
+      "expectedPositionMm": {
+        "x": 7,
+        "y": -10,
+        "z": 1005
+      }
+    }
+  ],
+  "transitions": [
+    {
+      "current": null,
+      "next": "requested",
+      "expected": "requested"
+    },
+    {
+      "current": null,
+      "next": "accepted",
+      "expected": "INVALID_TRANSITION"
+    },
+    {
+      "current": null,
+      "next": "running",
+      "expected": "INVALID_TRANSITION"
+    },
+    {
+      "current": null,
+      "next": "rejected",
+      "expected": "INVALID_TRANSITION"
+    },
+    {
+      "current": null,
+      "next": "completed",
+      "expected": "INVALID_TRANSITION"
+    },
+    {
+      "current": null,
+      "next": "failed",
+      "expected": "INVALID_TRANSITION"
+    },
+    {
+      "current": null,
+      "next": "cancelled",
+      "expected": "INVALID_TRANSITION"
+    },
+    {
+      "current": "requested",
+      "next": "requested",
+      "expected": "requested"
+    },
+    {
+      "current": "requested",
+      "next": "accepted",
+      "expected": "accepted"
+    },
+    {
+      "current": "requested",
+      "next": "running",
+      "expected": "INVALID_TRANSITION"
+    },
+    {
+      "current": "requested",
+      "next": "rejected",
+      "expected": "rejected"
+    },
+    {
+      "current": "requested",
+      "next": "completed",
+      "expected": "INVALID_TRANSITION"
+    },
+    {
+      "current": "requested",
+      "next": "failed",
+      "expected": "failed"
+    },
+    {
+      "current": "requested",
+      "next": "cancelled",
+      "expected": "cancelled"
+    },
+    {
+      "current": "accepted",
+      "next": "requested",
+      "expected": "INVALID_TRANSITION"
+    },
+    {
+      "current": "accepted",
+      "next": "accepted",
+      "expected": "accepted"
+    },
+    {
+      "current": "accepted",
+      "next": "running",
+      "expected": "running"
+    },
+    {
+      "current": "accepted",
+      "next": "rejected",
+      "expected": "INVALID_TRANSITION"
+    },
+    {
+      "current": "accepted",
+      "next": "completed",
+      "expected": "INVALID_TRANSITION"
+    },
+    {
+      "current": "accepted",
+      "next": "failed",
+      "expected": "failed"
+    },
+    {
+      "current": "accepted",
+      "next": "cancelled",
+      "expected": "cancelled"
+    },
+    {
+      "current": "running",
+      "next": "requested",
+      "expected": "INVALID_TRANSITION"
+    },
+    {
+      "current": "running",
+      "next": "accepted",
+      "expected": "INVALID_TRANSITION"
+    },
+    {
+      "current": "running",
+      "next": "running",
+      "expected": "running"
+    },
+    {
+      "current": "running",
+      "next": "rejected",
+      "expected": "INVALID_TRANSITION"
+    },
+    {
+      "current": "running",
+      "next": "completed",
+      "expected": "completed"
+    },
+    {
+      "current": "running",
+      "next": "failed",
+      "expected": "failed"
+    },
+    {
+      "current": "running",
+      "next": "cancelled",
+      "expected": "cancelled"
+    },
+    {
+      "current": "rejected",
+      "next": "requested",
+      "expected": "INVALID_TRANSITION"
+    },
+    {
+      "current": "rejected",
+      "next": "accepted",
+      "expected": "INVALID_TRANSITION"
+    },
+    {
+      "current": "rejected",
+      "next": "running",
+      "expected": "INVALID_TRANSITION"
+    },
+    {
+      "current": "rejected",
+      "next": "rejected",
+      "expected": "rejected"
+    },
+    {
+      "current": "rejected",
+      "next": "completed",
+      "expected": "INVALID_TRANSITION"
+    },
+    {
+      "current": "rejected",
+      "next": "failed",
+      "expected": "INVALID_TRANSITION"
+    },
+    {
+      "current": "rejected",
+      "next": "cancelled",
+      "expected": "INVALID_TRANSITION"
+    },
+    {
+      "current": "completed",
+      "next": "requested",
+      "expected": "INVALID_TRANSITION"
+    },
+    {
+      "current": "completed",
+      "next": "accepted",
+      "expected": "INVALID_TRANSITION"
+    },
+    {
+      "current": "completed",
+      "next": "running",
+      "expected": "INVALID_TRANSITION"
+    },
+    {
+      "current": "completed",
+      "next": "rejected",
+      "expected": "INVALID_TRANSITION"
+    },
+    {
+      "current": "completed",
+      "next": "completed",
+      "expected": "completed"
+    },
+    {
+      "current": "completed",
+      "next": "failed",
+      "expected": "INVALID_TRANSITION"
+    },
+    {
+      "current": "completed",
+      "next": "cancelled",
+      "expected": "INVALID_TRANSITION"
+    },
+    {
+      "current": "failed",
+      "next": "requested",
+      "expected": "INVALID_TRANSITION"
+    },
+    {
+      "current": "failed",
+      "next": "accepted",
+      "expected": "INVALID_TRANSITION"
+    },
+    {
+      "current": "failed",
+      "next": "running",
+      "expected": "INVALID_TRANSITION"
+    },
+    {
+      "current": "failed",
+      "next": "rejected",
+      "expected": "INVALID_TRANSITION"
+    },
+    {
+      "current": "failed",
+      "next": "completed",
+      "expected": "INVALID_TRANSITION"
+    },
+    {
+      "current": "failed",
+      "next": "failed",
+      "expected": "failed"
+    },
+    {
+      "current": "failed",
+      "next": "cancelled",
+      "expected": "INVALID_TRANSITION"
+    },
+    {
+      "current": "cancelled",
+      "next": "requested",
+      "expected": "INVALID_TRANSITION"
+    },
+    {
+      "current": "cancelled",
+      "next": "accepted",
+      "expected": "INVALID_TRANSITION"
+    },
+    {
+      "current": "cancelled",
+      "next": "running",
+      "expected": "INVALID_TRANSITION"
+    },
+    {
+      "current": "cancelled",
+      "next": "rejected",
+      "expected": "INVALID_TRANSITION"
+    },
+    {
+      "current": "cancelled",
+      "next": "completed",
+      "expected": "INVALID_TRANSITION"
+    },
+    {
+      "current": "cancelled",
+      "next": "failed",
+      "expected": "INVALID_TRANSITION"
+    },
+    {
+      "current": "cancelled",
+      "next": "cancelled",
+      "expected": "cancelled"
+    }
+  ],
+  "expected": {
+    "traceDigest": "9c6a82cfb2b049fb576dd41e0dbf44a1dfe518cd7657416451406db051fdddf3",
+    "invariants": [
+      {
+        "id": "within-workspace",
+        "passed": true
+      },
+      {
+        "id": "truthful-feedback",
+        "passed": true
+      },
+      {
+        "id": "rejected-no-dispatch",
+        "passed": true
+      },
+      {
+        "id": "local-progress-offline",
+        "passed": true
+      },
+      {
+        "id": "bounded-trace",
+        "passed": true
+      }
+    ],
+    "checkpoints": [
+      {
+        "atMs": 1000,
+        "state": "Moving",
+        "positionQ6": {
+          "x": 1000000000,
+          "y": 2000000000,
+          "z": 2490000000
+        },
+        "lengthQ6": {
+          "a": 2698166044,
+          "b": 3908976848,
+          "c": 4503343203,
+          "d": 3504297362
+        }
+      },
+      {
+        "atMs": 1100,
+        "state": "Moving",
+        "positionQ6": {
+          "x": 1000000000,
+          "y": 2000000000,
+          "z": 2495000000
+        },
+        "lengthQ6": {
+          "a": 2695371032,
+          "b": 3907048118,
+          "c": 4501669135,
+          "d": 3502145771
+        }
+      },
+      {
+        "atMs": 1200,
+        "state": "Ready",
+        "positionQ6": {
+          "x": 1000000000,
+          "y": 2000000000,
+          "z": 2500000000
+        },
+        "lengthQ6": {
+          "a": 2692582404,
+          "b": 3905124838,
+          "c": 4500000000,
+          "d": 3500000000
+        }
+      },
+      {
+        "atMs": 1500,
+        "state": "Ready",
+        "positionQ6": {
+          "x": 1000000000,
+          "y": 2000000000,
+          "z": 2500000000
+        },
+        "lengthQ6": {
+          "a": 2692582404,
+          "b": 3905124838,
+          "c": 4500000000,
+          "d": 3500000000
+        }
+      }
+    ],
+    "outcomes": [
+      {
+        "commandId": "command-10",
+        "outcomes": [
+          "requested",
+          "accepted",
+          "running",
+          "completed"
+        ]
+      },
+      {
+        "commandId": "command-11",
+        "outcomes": [
+          "requested",
+          "rejected"
+        ]
+      }
+    ]
+  }
+}

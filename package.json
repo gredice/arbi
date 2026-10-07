@@ -13,7 +13,8 @@
         "cad:check": "node ./scripts/check-cad.mjs",
         "bom:generate": "pnpm --filter @arbi/bom generate",
         "bom:check": "pnpm --filter @arbi/bom check",
-        "protocol:check": "pnpm --filter @arbi/protocol conformance"
+        "protocol:check": "pnpm --filter @arbi/protocol conformance",
+        "scenario:check": "pnpm --filter @arbi/simulation-core conformance"
     },
     "devDependencies": {
         "@types/node": "24.12.4",
