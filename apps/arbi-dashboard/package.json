@@ -1,0 +1,34 @@
+{
+  "name": "@arbi/dashboard",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "start": "next start",
+    "build": "next build --webpack",
+    "lint": "tsc --noEmit",
+    "typecheck": "tsc --noEmit",
+    "test": "node --import tsx --test src/enrollment/*.test.ts",
+    "test:postgres": "node scripts/test-postgres.mjs",
+    "test:http": "node scripts/test-http.mjs",
+    "db:migrate": "node --import tsx scripts/migrate.ts"
+  },
+  "dependencies": {
+    "@arbi/gredice": "workspace:*",
+    "@arbi/protocol": "workspace:*",
+    "next": "16.3.8",
+    "pg": "8.23.1",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "0.5.8",
+    "@types/node": "24.12.4",
+    "@types/pg": "8.23.1",
+    "@types/react": "19.3.0",
+    "tsx": "4.21.0",
+    "typescript": "7.0.2"
+  },
+  "engines": { "node": ">=24" }
+}

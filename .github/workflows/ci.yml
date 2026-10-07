@@ -92,11 +92,17 @@ jobs:
       - name: Test
         run: pnpm test
 
+      - name: Check enrollment transactions on isolated PostgreSQL
+        run: pnpm --filter @arbi/dashboard test:postgres
+
       - name: Check cross-runtime reference fixtures
         run: pnpm protocol:check
 
       - name: Build
         run: pnpm build
+
+      - name: Check built enrollment HTTP boundary
+        run: pnpm --filter @arbi/dashboard test:http
 
   bom:
     name: Validate generated BOM
