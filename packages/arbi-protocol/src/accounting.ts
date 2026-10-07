@@ -142,7 +142,7 @@ export function reconcileUsage(totalInput: unknown, partInputs: unknown, nowUtc:
   }
   const observed = total.bytes === null ? null : BigInt(total.bytes);
   const residual = observed === null || sum > observed || stale ? null : observed - sum;
-  const status = observed === null ? "unavailable" : stale ? "stale" : sum > observed ? "inconsistent"
+  const status = observed === null ? "unavailable" : sum > observed ? "inconsistent" : stale ? "stale"
     : complete && residual === 0n && unknown === 0n ? "complete" : "partial";
   return good({ totalBytes: total.bytes, attributedBytes: sum.toString(), explicitlyUnknownBytes: unknown.toString(),
     unattributedBytes: residual?.toString() ?? null, status, quality, layer: total.layer, freshness: stale ? "stale" : fresh.value });
