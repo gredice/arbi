@@ -1,4 +1,4 @@
-// ARBI payload-assembly 0.1.0 — concept-unvalidated reference, not a print job.
+// ARBI payload-assembly 0.1.1 — revised deck/yoke; concept-unvalidated reference, not a print job.
 // Printed parts in their actual assembled frames. Hardware/fastener view is in the STL booklet.
 include <../../lib/payload-mounts.scad>
 use <camera-pod-spider.scad>

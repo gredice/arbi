@@ -446,7 +446,7 @@
         },
         {
             "id": "payload-electronics-deck",
-            "revision": "0.1.0",
+            "revision": "0.1.1",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
             "bomPartIds": [
@@ -454,9 +454,9 @@
             ],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/payload-electronics-deck.scad",
-            "output": "payload-electronics-deck-r0.1.0.stl",
+            "output": "payload-electronics-deck-r0.1.1.stl",
             "documentation": "hardware/assemblies/camera-pod/README.md",
-            "description": "Bench prototype electronics deck; nominal servo interfaces require measurement."
+            "description": "Fixed Pi/power deck r0.1.1 with aligned CSI passage and separate soft-wrap/power tie anchors; provisional received-hardware fit."
         },
         {
             "id": "payload-pan-servo-mount",
@@ -474,7 +474,7 @@
         },
         {
             "id": "payload-pan-yoke",
-            "revision": "0.1.0",
+            "revision": "0.1.1",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
             "bomPartIds": [
@@ -482,9 +482,9 @@
             ],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/payload-pan-yoke.scad",
-            "output": "payload-pan-yoke-r0.1.0.stl",
+            "output": "payload-pan-yoke-r0.1.1.stl",
             "documentation": "hardware/assemblies/camera-pod/README.md",
-            "description": "Bench prototype pan yoke; nominal servo interfaces require measurement."
+            "description": "Pan yoke r0.1.1 with removable tilt-servo boot attachment ears; provisional servo/horn fit."
         },
         {
             "id": "payload-camera-cradle",
@@ -540,7 +540,7 @@
             "entrypoint": "hardware/assemblies/camera-pod/payload-electronics-cover.scad",
             "output": "payload-electronics-cover-r0.1.0.stl",
             "documentation": "hardware/assemblies/camera-pod/README.md",
-            "description": "Bench prototype electronics cover; nominal servo interfaces require measurement."
+            "description": "Dry bench electronics splash cover; omitted when payload-rain-hood and payload-enclosure-base are installed."
         },
         {
             "id": "payload-servo-fit-coupon",
@@ -572,13 +572,13 @@
         },
         {
             "id": "payload-assembly",
-            "revision": "0.1.0",
+            "revision": "0.1.1",
             "status": "concept-unvalidated",
             "artifactRole": "reference",
             "bomPartIds": [],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/payload-assembly.scad",
-            "output": "payload-assembly-r0.1.0.csg",
+            "output": "payload-assembly-r0.1.1.csg",
             "documentation": "hardware/assemblies/camera-pod/README.md",
             "description": "Assembled printed payload mount reference with articulated pan and tilt. Not a fabrication STL."
         },
@@ -595,6 +595,88 @@
             "output": "payload-tilt-pivot-support-r0.1.0.stl",
             "documentation": "hardware/assemblies/camera-pod/README.md",
             "description": "Removable opposite-side camera tilt pivot support with hard stops."
+        },
+        {
+            "id": "payload-rain-hood",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "camera-pod-chassis"
+            ],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/payload-rain-hood.scad",
+            "output": "payload-rain-hood-r0.1.0.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "White rounded upper electronics rain shield with side-loaded captive nuts and a continuous roof; ordinary-rain/splash protection unverified."
+        },
+        {
+            "id": "payload-enclosure-base",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "camera-pod-chassis"
+            ],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/payload-enclosure-base.scad",
+            "output": "payload-enclosure-base-r0.1.0.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Black upper rain tray with downward harness ports, raised lip and drainage; removable lower pan fairing attaches separately."
+        },
+        {
+            "id": "payload-pan-fairing",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "camera-pod-chassis"
+            ],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/payload-pan-fairing.scad",
+            "output": "payload-pan-fairing-r0.1.0.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Removable black lower pan-servo splash fairing with between-arm towers and M2 attachments to the rain tray; spider unchanged."
+        },
+        {
+            "id": "payload-tilt-servo-boot",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "camera-gimbal"
+            ],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/payload-tilt-servo-boot.scad",
+            "output": "payload-tilt-servo-boot-r0.1.0.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Removable moving tilt-servo splash shield, open at spline side and downward lead relief; attaches to pan yoke r0.1.1."
+        },
+        {
+            "id": "payload-camera-cowl",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "camera-gimbal"
+            ],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/payload-camera-cowl.scad",
+            "output": "payload-camera-cowl-r0.1.0.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Removable moving rear camera splash shield with nominal CSI exit; shares four camera axes using longer screws and extra nuts."
+        },
+        {
+            "id": "payload-rain-assembly",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "reference",
+            "bomPartIds": [],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/payload-rain-assembly.scad",
+            "output": "payload-rain-assembly-r0.1.0.csg",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Non-manufacturing black/white enclosure assembly reference using revised deck/yoke; no physical rain, fit or mass validation."
         }
     ]
 }
