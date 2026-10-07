@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@theme {
+    --color-paper: #e8e7e3;
+    --color-tile: #f3f2ef;
+    --color-well: #dcdbd6;
+    --color-ink: #121212;
+    --color-mute: #7d7c78;
+    --font-sans: "Inter", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+@layer base {
+    html {
+        -webkit-font-smoothing: antialiased;
+    }
+    body {
+        @apply bg-paper text-ink font-sans;
+    }
+}
+
+@utility label {
+    @apply font-mono text-[11px] uppercase tracking-[0.1em] text-mute;
+}

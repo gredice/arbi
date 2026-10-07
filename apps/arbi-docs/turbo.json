@@ -1,0 +1,17 @@
+{
+    "$schema": "https://v2-9-16.turborepo.dev/schema.json",
+    "extends": ["//"],
+    "tasks": {
+        "build": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/README.md",
+                "$TURBO_ROOT$/docs/**",
+                "$TURBO_ROOT$/hardware/**",
+                "$TURBO_ROOT$/bom/**",
+                "!public/mockups/data/**"
+            ],
+            "outputs": [".next/**", "!.next/cache/**", "public/mockups/data/**"]
+        }
+    }
+}
