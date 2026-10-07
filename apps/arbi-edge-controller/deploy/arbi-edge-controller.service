@@ -1,0 +1,47 @@
+[Unit]
+Description=ARBI isolated edge controller (hardware activation disabled)
+After=network.target
+StartLimitIntervalSec=60
+StartLimitBurst=5
+
+[Service]
+Type=exec
+User=arbi-edge
+Group=arbi-edge
+WorkingDirectory=/opt/arbi/apps/arbi-edge-controller
+ExecStart=/usr/bin/node --max-old-space-size=256 /opt/arbi/apps/arbi-edge-controller/dist/cli.js --config /etc/arbi-edge/simulation.json
+Restart=on-failure
+RestartSec=2
+RestartPreventExitStatus=78
+TimeoutStopSec=5
+KillSignal=SIGTERM
+KillMode=control-group
+NoNewPrivileges=true
+CapabilityBoundingSet=
+AmbientCapabilities=
+PrivateTmp=true
+PrivateDevices=true
+DevicePolicy=closed
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+RestrictAddressFamilies=AF_INET AF_UNIX
+IPAddressDeny=any
+IPAddressAllow=localhost
+UMask=0077
+MemoryHigh=384M
+MemoryMax=512M
+CPUQuota=100%
+TasksMax=32
+LimitNOFILE=128
+LimitCORE=0
+StandardOutput=journal
+StandardError=journal
+LogRateLimitIntervalSec=30
+LogRateLimitBurst=100
+
+[Install]
+WantedBy=multi-user.target

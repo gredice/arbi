@@ -12,6 +12,7 @@ Use this guide for repository layout, toolchains, commands, package boundaries, 
 - `packages/arbi-simulation-core`: [implemented offline scenario runner and adapter seams](packages/arbi-simulation-core/README.md), bounded virtual time, seeded disturbances and analytical references; physical models and runtime integration remain follow-up work.
 - `packages/arbi-gredice`: [implemented signed identity, current account/site permissions and server request boundary](packages/arbi-gredice/README.md), with an isolated simulation identity provider; live Gredice provisioning and resource implementations remain separate work.
 - `apps/arbi-dashboard`: [implemented Next.js enrollment and image-storage HTTP boundaries](apps/arbi-dashboard/README.md), simulation-only device identity/inventory lifecycle, private Blob SDK adapter and transactional PostgreSQL metadata/audit; live provider setup, dashboard UI and jobs remain separate work.
+- `apps/arbi-edge-controller`: [executable supervised edge prototype](apps/arbi-edge-controller/README.md), bounded authenticated loopback module transport, diagnostic health/readiness and Linux service definition; physical host/transport activation remains gated by ADR-0008.
 - `scripts/check-cad.mjs`: registry, source, include, and optional OpenSCAD compilation validation.
 - `.github`: issue forms, pull request guidance, and fork-safe CI.
 
@@ -89,7 +90,6 @@ The following paths are reserved but should not exist until implementation begin
 - `apps/arbi-dashboard`: implemented enrollment and [image-storage HTTP slices](docs/software/image-storage.md); authenticated user/engineering dashboard and remaining HTTP API in Gredice's Vercel team are follow-up work;
 - `apps/arbi-docs`: Next.js/Vercel public documentation and interactive BOM;
 - `apps/arbi-simulator`: executable simulator or simulator UI;
-- `apps/arbi-edge-controller`: local job, state, and hardware-adapter ownership;
 - `apps/arbi-cloud`: reserved only if a later reviewed decision requires an independent backend; the initial API belongs to `apps/arbi-dashboard`;
 - `apps/arbi-pod-firmware`: pod camera, gimbal, power-health, and local service target;
 - `apps/arbi-control-cabinet-firmware`: motion/safety controller target if it remains separate;
