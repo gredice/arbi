@@ -195,6 +195,20 @@ test("native PostgreSQL jobs: independent connections, fences, crash/replay, sig
   await pool.query("UPDATE arbi_job_sites SET clock_floor_ms=$1 WHERE site_id=$2",[Date.now()+60_000,timeSite]);
   await assert.rejects(time.b.device(timeSite,time.f.upload("poll",{})),{ code: "CLOCK_UNCERTAIN" });
 
+  // A slow later directory read cannot return an earlier command after its page lifetime expires.
+  const page = await setup(), pageSite = page.f.registry.siteId;
+  const pageLease = await page.a.lease(page.one.context,"acquire",request);
+  const early = await page.a.submit(page.one.context,{ ...input,key: "early",leaseId: pageLease.id,fence: pageLease.fence,timeoutMs: 900,body: { ...input.body,maxDurationMs: 100 } });
+  const later = await page.a.submit(page.one.context,{ ...input,key: "later",leaseId: pageLease.id,fence: pageLease.fence });
+  let reads = 0;
+  const slowPage = new PostgresJobStore(postgresDatabase(pool),realm,async (previous,signal) => {
+    if (++reads === 3) await new Promise((resolve) => setTimeout(resolve,750));
+    return page.f.currentAuthority(previous,signal);
+  });
+  const pageResult = await slowPage.device(pageSite,page.f.upload("poll",{})) as { commands: Command[] };
+  assert.deepEqual(pageResult.commands.map((command) => command.command.commandId),[later.id]);
+  assert.equal((await pool.query("SELECT record FROM arbi_command_jobs WHERE id=$1",[early.id])).rows[0].record.cloudDisposition,"expired");
+
   // Separate process crashes before COMMIT and after admission COMMIT/before delivery; recovery never mints a new envelope.
   const c = await setup(), csite = c.f.registry.siteId;
   const cl = await c.a.lease(c.one.context,"acquire",request), ci = { ...input,key: "crash-intent",leaseId: cl.id,fence: cl.fence };

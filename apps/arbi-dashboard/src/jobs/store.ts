@@ -310,8 +310,16 @@ export class PostgresJobStore {
         exact(request.payload,[]);
         const jobs = (await tx.sql.query<Row<Job>>(`SELECT record FROM arbi_command_jobs WHERE environment=$1 AND namespace_id=$2 AND site_id=$3
           AND record->'command'->'command'->'target'->>'deviceId'=$4 AND record->>'cloudDisposition'='admitted' AND record->'terminal'='null'::jsonb ORDER BY expires_at_ms,id LIMIT 8`,[...scope(this.realm,siteId),uploader.id])).rows;
+        const ready: Job[] = [];
+        for (const row of jobs) { await this.refresh(tx,row.record);if (row.record.cloudDisposition === "admitted" && row.record.deviceStatus === null) ready.push(row.record); }
+        // A later bounded authority read in this same page may consume an earlier command's remaining lifetime.
+        await this.tick(tx);
         const commands: Command[] = [];
-        for (const row of jobs) { await this.refresh(tx,row.record);if (row.record.cloudDisposition === "admitted" && row.record.deviceStatus === null) commands.push(row.record.command); }
+        for (const job of ready) {
+          if (job.expiresAtMs <= tx.now) {
+            job.cloudDisposition = "expired";await this.observation(tx,job.intent,"timeout");await this.save(tx,job);
+          } else commands.push(job.command);
+        }
         // Repeated delivery returns exactly the durable envelope. A response or socket write changes no device status.
         return { commands };
       }
