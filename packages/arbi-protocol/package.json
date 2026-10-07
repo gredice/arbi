@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" },
+    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js", "default": "./dist/index.js" },
     "./schema": "./schema/message.schema.json",
     "./configuration-schema": "./schema/configuration.schema.json",
     "./audit-schema": "./schema/audit-event.schema.json",

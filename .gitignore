@@ -42,3 +42,4 @@ hardware/generated/
 __pycache__/
 *.pyc
 .venv/
+.vercel

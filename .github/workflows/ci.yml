@@ -131,6 +131,12 @@ jobs:
       - name: Build
         run: pnpm build
 
+      - name: Install dashboard browser
+        run: pnpm --filter @arbi/dashboard exec playwright install --with-deps chromium
+
+      - name: Check dashboard browser and protected synthetic PostgreSQL flow
+        run: pnpm --filter @arbi/dashboard test:browser
+
       - name: Check built enrollment HTTP boundary
         run: pnpm --filter @arbi/dashboard test:http
 

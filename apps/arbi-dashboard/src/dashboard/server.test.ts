@@ -1,0 +1,92 @@
+import assert from "node:assert/strict";
+import { randomBytes } from "node:crypto";
+import { test } from "node:test";
+import { PGlite } from "@electric-sql/pglite";
+import { createDashboardTestProvider } from "./test-provider";
+import { provisionDashboardTest } from "./provision-test";
+import { DashboardServer } from "./server";
+import { displayedSample, freshness } from "./contracts";
+import type { SqlDatabase } from "../enrollment/store";
+import type { DashboardContext } from "./contracts";
+
+async function fixture() {
+  const pg = await PGlite.create(); let clock = Date.now();
+  const db: SqlDatabase = { transaction: work => pg.transaction(tx => work({ query: async <T extends Record<string, unknown>>(sql: string, parameters?: unknown[]) => {
+    if (!parameters) { await tx.exec(sql); return { rows: [] as T[] }; }
+    const result = await tx.query<T>(sql, parameters); return { rows: result.rows };
+  } })) };
+  const realm = { environment: "test" as const, namespaceId: "synthetic-dashboard" };
+  await provisionDashboardTest(db, realm);
+  const provider = createDashboardTestProvider({ realm, verificationKey: randomBytes(32), accessCode: "s".repeat(48), viewerCode: "v".repeat(48), browserOrigins: ["http://localhost:3000"], db, now: () => clock });
+  const token = (await provider.login("s".repeat(48)))!;
+  const request = (site = "synthetic-site", credential = token, headers = {}) => new Request(`http://localhost:3000/api/sites/${site}/dashboard/context`, { headers: { authorization: `Bearer ${credential}`, ...headers } });
+  return { pg, db, provider, token, request, advance: (ms: number) => { clock += ms; } };
+}
+test("signed identity, current site capabilities and bounded module data are protected and uncached", async () => {
+  const f = await fixture();
+  try {
+    const response = await f.provider.server.handle(f.request(), "synthetic-site"); assert.equal(response.status, 200);
+    assert.equal(response.headers.get("cache-control"), "private, no-store");
+    const body = await response.json() as DashboardContext;
+    assert.equal(body.identity.actorId, "synthetic-engineer"); assert.equal(body.executionMode, "simulation");
+    assert.ok(body.capabilities.includes("diagnostics.read")); assert.ok(!body.capabilities.includes("manipulation.request"));
+    assert.equal(body.state.snapshot?.body.type, "state.snapshot");
+    assert.ok(body.state.telemetry?.body.samples.every(sample => sample.quality !== "measured"));
+    assert.equal(body.state.telemetry?.body.samples.find(s => s.metric === "line.tension.a")?.value, null);
+    assert.ok(!JSON.stringify(body).includes(f.token));
+    const records = await f.pg.query<{ count: string }>("SELECT COUNT(*) FROM arbi_audit_history"); assert.ok(Number(records.rows[0].count) >= 2);
+  } finally { await f.pg.close(); }
+});
+test("current membership, diagnostics permission, expired and revoked sessions deny direct reads", async () => {
+  const f = await fixture();
+  try {
+    const viewer = (await f.provider.login("v".repeat(48)))!;
+    assert.equal((await f.provider.server.handle(f.request("synthetic-offline", viewer), "synthetic-offline")).status, 403);
+    assert.equal((await f.provider.server.handle(f.request("synthetic-site", viewer, { "x-arbi-role": "engineer" }), "synthetic-site", "diagnostics")).status, 403);
+    await f.pg.query("UPDATE arbi_dashboard_memberships SET active=false,revision='membership-2' WHERE actor_id='synthetic-engineer'");
+    assert.equal((await f.provider.server.handle(f.request(), "synthetic-site")).status, 403);
+    await f.provider.revoke(viewer);
+    assert.equal((await f.provider.server.handle(f.request("synthetic-site", viewer), "synthetic-site")).status, 401);
+    f.advance(300_000);
+    assert.equal((await f.provider.server.handle(f.request(), "synthetic-site")).status, 401);
+    assert.equal((await f.provider.server.handle(new Request("http://localhost/"), "synthetic-site")).status, 401);
+  } finally { await f.pg.close(); }
+});
+test("resource/realm mismatches, unaudited reads and mismatched state never reach the browser", async () => {
+  const f = await fixture();
+  try {
+    let reads = 0;
+    for (const change of [
+      { resolveResource: async () => ({ realm: { environment: "production", namespaceId: "other" }, siteId: "synthetic-site", accountId: "synthetic-account", resource: { kind: "site", id: "synthetic-site" }, executionMode: "hardware" }) },
+      { resolveResource: async () => ({ realm: f.provider.server.config.identity.realm, siteId: "other-site", accountId: "synthetic-account", resource: { kind: "site", id: "synthetic-site" }, executionMode: "simulation" }) },
+      { auditAuthorization: async () => false },
+    ]) {
+      const server = new DashboardServer({ ...f.provider.server.config, ...change, readState: async (site, signal) => { reads++; return f.provider.server.config.readState(site, signal); } });
+      assert.ok([403, 503].includes((await server.handle(f.request(), "synthetic-site")).status));
+    }
+    assert.equal(reads, 0);
+    for (const poison of [
+      (state: DashboardContext["state"]) => { state.telemetry!.siteId = "other-site"; },
+      (state: DashboardContext["state"]) => { state.telemetry!.source = { ...state.telemetry!.source, bootId: "another-boot" }; },
+      (state: DashboardContext["state"]) => { state.telemetry!.body.capabilitiesRevision = "another-revision"; },
+      (state: DashboardContext["state"]) => { if (state.snapshot!.body.type === "state.snapshot") state.snapshot!.body.configRevision = "another-config"; },
+    ]) {
+      const server = new DashboardServer({ ...f.provider.server.config, readState: async (site, signal) => {
+        const state = await f.provider.server.config.readState(site, signal); poison(state); return state;
+      } });
+      const response = await server.handle(f.request(), "synthetic-site"); assert.equal(response.status, 503); assert.deepEqual(await response.json(), { error: "UNAVAILABLE" });
+    }
+  } finally { await f.pg.close(); }
+});
+test("stale readings retain provenance; no-device and offline status are explicit", async () => {
+  const f = await fixture();
+  try {
+    const stale = await (await f.provider.server.handle(f.request("synthetic-stale"), "synthetic-stale")).json() as DashboardContext;
+    assert.equal(freshness(stale.state, Date.now()), "stale");
+    const sample = stale.state.telemetry!.body.samples.find(s => s.quality === "estimated")!;
+    assert.equal(displayedSample(sample, stale.state, Date.now()).originQuality, "estimated");
+    assert.equal(displayedSample(sample, stale.state, Date.now()).quality, "stale");
+    const empty = await (await f.provider.server.handle(f.request("synthetic-empty"), "synthetic-empty")).json(); assert.equal(empty.state.connection, "no-device"); assert.equal(empty.state.snapshot, null);
+    const offline = await (await f.provider.server.handle(f.request("synthetic-offline"), "synthetic-offline")).json(); assert.equal(offline.state.connection, "offline");
+  } finally { await f.pg.close(); }
+});

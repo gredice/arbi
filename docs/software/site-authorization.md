@@ -6,7 +6,7 @@ Work record: [#17](https://github.com/gredice/arbi/issues/17). Implementation: [
 
 The package verifies dedicated Gredice-compatible signed identity, adapts current account membership, reads active site grants and sessions, resolves resource ownership, applies one server policy across request surfaces, and waits for required authorization audit acceptance before calling the resource handler. An executable isolated provider exercises the Fetch API boundary without external services. These are host source/authorization tests, not deployed Gredice, broker, media, database, device or physical acceptance.
 
-There are no new identity HTTP endpoints, enrolled devices, live credentials or resource implementations in this slice. The selected dashboard/API remains the future consumer. Identity integration deliberately fails closed until server provisioning supplies an approved token issuer, separate trust roots, consistent directory reads, protected resource metadata and durable audit sink.
+There are no new identity HTTP endpoints, enrolled devices, live credentials or resource implementations in this slice. The [authenticated dashboard shell](dashboard-shell.md) consumes this boundary through explicit trusted server composition; its isolated test provider does not establish live Gredice authentication. Identity integration deliberately fails closed until server provisioning supplies an approved token issuer, separate trust roots, consistent directory reads, protected resource metadata and durable audit sink.
 
 ## Gredice source inspection
 
