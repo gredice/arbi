@@ -4,6 +4,7 @@ import { connect, type TLSSocket, type ConnectionOptions } from 'node:tls';
 import { advanceCursor, applyTelemetry, AUDIT_VERSION, configurationCapabilities, configurationDigest, createTelemetryState, parseMessage, PROTOCOL_VERSION, validateAuditEvent, type Actor, type AuditEvent, type Command, type Identity, type TelemetryState } from '@arbi/protocol';
 import { FrameDecoder, frame } from './framing.js';
 import { LINK_TIMEOUT_MS, MAX_FRAMES_PER_SECOND, RECONNECT_MIN_MS, RECONNECT_MAX_MS, TRANSPORT_VERSION, type ModuleEnrollment, type Settings } from './settings.js';
+import type { EdgeTraffic } from './metering.js';
 
 export interface Hello {
   transport: 'arbi.local/1.0'; kind: 'hello'; challenge: string; source: Identity;
@@ -50,7 +51,7 @@ export class ModuleAdapter {
   #enrollment: ModuleEnrollment;
   #edge: Identity;
   #tls: ConnectionOptions;
-  constructor(settings: Settings, enrollment: ModuleEnrollment, edge: Identity, tls: ConnectionOptions) {
+  constructor(settings: Settings, enrollment: ModuleEnrollment, edge: Identity, tls: ConnectionOptions, readonly traffic?: EdgeTraffic) {
     this.#settings = structuredClone(settings); this.#enrollment = structuredClone(enrollment);
     this.#edge = structuredClone(edge); this.#tls = { ...tls };
   }
@@ -97,6 +98,7 @@ export class ModuleAdapter {
     });
     socket.on('data', (chunk: Buffer) => {
       if (generation !== this.#generation || socket.destroyed) return;
+      this.traffic?.observe(this.#enrollment.deviceId, 'download', 'unknown', chunk);
       try {
         decoder.push(chunk, (input) => {
           if (socket.destroyed) throw new Error('CLOSED');
@@ -156,7 +158,10 @@ export class ModuleAdapter {
       this.#disconnect('WRITE_LIMIT'); return false;
     }
     // No retry on ambiguous delivery. A diagnostic grant is consumed before this call.
-    socket.write(bytes); return true;
+    const submit = (done: (error?: Error | null) => void) => { socket.write(bytes, done); };
+    if (this.traffic) this.traffic.submit(this.#enrollment.deviceId, (input as { kind?: string }).kind === 'discover' ? 'reconnect' : 'control', bytes, submit);
+    else submit(() => {});
+    return true;
   }
   /** Deliberate synthetic service authorization; a TLS identity does not grant user authority. */
   authorizeDiagnostics(actor: Actor): DiagnosticGrant | null {

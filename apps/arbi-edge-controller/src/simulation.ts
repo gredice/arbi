@@ -10,6 +10,7 @@ import { admitCommand, configurationCapabilities, configurationDigest, createCom
 import { FrameDecoder, frame } from './framing.js';
 import { TRANSPORT_VERSION, type Settings, type ModuleEnrollment } from './settings.js';
 import type { Hello } from './adapter.js';
+import { ApplicationMeter, TrafficSpool, stamp } from '@arbi/traffic';
 
 export interface SyntheticCredentials { directory: string; caFile: string; edgeCertFile: string; edgeKeyFile: string; edgePin: string; modules: Record<'pico' | 'pod', { certFile: string; keyFile: string; pin: string }> }
 /** Ephemeral keys stay in a private temporary directory and never enter source, logs or fixtures. */
@@ -46,6 +47,7 @@ export function syntheticAppliedConfiguration(): AppliedConfiguration {
 
 /** Test-only module. No hardware endpoint, motor pulses, capture or update implementation. */
 export class SimulatedModule {
+  traffic?: ApplicationMeter;
   readonly role: 'pico' | 'pod';
   bootId: string = randomUUID();
   helloPatch: Partial<Hello> = {};
@@ -77,6 +79,16 @@ export class SimulatedModule {
     this.#connections.add(socket);
     const source: Identity = { deviceId: this.role, bootId: this.bootId, sessionId: randomUUID() };
     const decoder = new FrameDecoder(); const config = this.#applied.request.configuration;
+    // Concrete pod consumer of the same instrumentation; separate LAN observation, never added to the edge view.
+    const observe = (direction: 'upload' | 'download', category: 'reconnect' | 'telemetry' | 'unknown', bytes: Buffer) => this.traffic?.observe({
+      scope: { realm: config.realm, siteId: config.siteId, executionMode: 'simulation', source, boundary: 'lan', linkId: 'pod-edge-loopback' },
+      direction, category, includes: ['payload', 'retries'], maxAgeMs: 60000, retryOf: null, media: null }, bytes);
+    const send = (input: unknown, category: 'reconnect' | 'telemetry') => {
+      const bytes = frame(input);
+      if (this.traffic) this.traffic.submit({ scope: { realm: config.realm, siteId: config.siteId, executionMode: 'simulation', source, boundary: 'lan', linkId: 'pod-edge-loopback' },
+        direction: 'upload', category, includes: ['payload', 'retries'], maxAgeMs: 60000, retryOf: null, media: null }, bytes, (done) => { socket.write(bytes, done); });
+      else socket.write(bytes);
+    };
     const ledger = createCommandLedger(128); let discovered = false; let edge: Identity; let sequence = 0n;
     let interval: NodeJS.Timeout | undefined;
     const snapshot = (): void => {
@@ -87,9 +99,10 @@ export class SimulatedModule {
         body: { type: 'state.snapshot', configRevision: config.revision, capabilitiesRevision: config.revision, capabilities: configurationCapabilities(config, this.role), state: 'Ready',
           eventCursor: { source, sequence: next, stream: 'event' }, telemetryCursor: null, committedCursor: null, supportedCommands: ['state.resync'], supportedProtocols: [PROTOCOL_VERSION] } };
       if (socket.writableLength > 32768) { socket.destroy(); return; }
-      socket.write(frame(event));
+      send(event, 'telemetry');
     };
     socket.on('data', (chunk: Buffer) => {
+      observe('download', 'unknown', chunk);
       try {
         decoder.push(chunk, (input) => {
           if (!discovered) {
@@ -101,7 +114,7 @@ export class SimulatedModule {
             if (!edge || edge.deviceId !== 'edge' || typeof edge.bootId !== 'string' || typeof edge.sessionId !== 'string') throw new Error('INVALID_SOURCE');
             const hello: Hello = { transport: TRANSPORT_VERSION, kind: 'hello', challenge: d.challenge, source, role: this.role, realm: config.realm,
               siteId: config.siteId, executionMode: 'simulation', configurationDigest: this.#applied.configurationDigest, protocols: [PROTOCOL_VERSION], ...this.helloPatch };
-            socket.write(frame(hello)); discovered = true; this.#snapshots.set(socket, snapshot); snapshot(); interval = setInterval(snapshot, 250);
+            send(hello, 'reconnect'); discovered = true; this.#snapshots.set(socket, snapshot); snapshot(); interval = setInterval(snapshot, 250);
           } else {
             const parsed = parseMessage(JSON.stringify(input));
             if (!parsed.ok || parsed.value.kind !== 'command') throw new Error('INVALID_COMMAND');
@@ -130,13 +143,19 @@ export class SimulatedModule {
 export async function createSimulation() {
   const credentials = createSyntheticCredentials(); const applied = syntheticAppliedConfiguration();
   const peers = [new SimulatedModule('pico', credentials, applied), new SimulatedModule('pod', credentials, applied)];
+  const config = applied.request.configuration;
+  const podSpool = new TrafficSpool({ path: join(credentials.directory, 'pod-usage.sqlite'),
+    binding: { realm: config.realm, siteId: config.siteId, executionMode: 'simulation', deviceId: 'pod' },
+    maxRecords: 2048, maxBytes: 16777216, maxPages: 1024, maxCounters: 1 });
+  peers[1].traffic = new ApplicationMeter(podSpool, () => stamp(peers[1].bootId));
   try {
     const modules = await Promise.all(peers.map((peer) => peer.start()));
     const settings: Settings = { schemaVersion: 'arbi.edge/1.0', serviceId: 'edge', executionMode: 'simulation', healthPort: 0,
       acceptedConfigurationDigest: applied.configurationDigest, applied,
-      tls: { caFile: credentials.caFile, certFile: credentials.edgeCertFile, keyFile: credentials.edgeKeyFile }, modules };
+      tls: { caFile: credentials.caFile, certFile: credentials.edgeCertFile, keyFile: credentials.edgeKeyFile }, modules,
+      metering: { spoolFile: join(credentials.directory, 'edge-usage.sqlite'), maxRecords: 2048, maxBytes: 16777216, maxPages: 1024, linuxLoopback: true } };
     const configFile = join(credentials.directory, 'simulation.json');
     writeFileSync(configFile, JSON.stringify(settings), { mode: 0o600 });
-    return { credentials, peers, settings, configFile, async close() { await Promise.all(peers.map((peer) => peer.stop())); rmSync(credentials.directory, { recursive: true, force: true }); } };
-  } catch (error) { await Promise.all(peers.map((peer) => peer.stop())); rmSync(credentials.directory, { recursive: true, force: true }); throw error; }
+    return { credentials, peers, settings, configFile, async close() { await Promise.all(peers.map((peer) => peer.stop())); podSpool.close(); rmSync(credentials.directory, { recursive: true, force: true }); } };
+  } catch (error) { await Promise.all(peers.map((peer) => peer.stop())); podSpool.close(); rmSync(credentials.directory, { recursive: true, force: true }); throw error; }
 }

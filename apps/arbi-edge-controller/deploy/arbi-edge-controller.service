@@ -32,6 +32,7 @@ RestrictAddressFamilies=AF_INET AF_UNIX
 IPAddressDeny=any
 IPAddressAllow=localhost
 UMask=0077
+StateDirectory=arbi-edge
 MemoryHigh=384M
 MemoryMax=512M
 CPUQuota=100%

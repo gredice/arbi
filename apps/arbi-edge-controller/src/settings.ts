@@ -16,6 +16,7 @@ export interface Settings {
   healthPort: number; acceptedConfigurationDigest: string; applied: AppliedConfiguration;
   tls: { caFile: string; certFile: string; keyFile: string };
   modules: ModuleEnrollment[];
+  metering?: { spoolFile: string; maxRecords: number; maxBytes: number; maxPages: number; linuxLoopback: boolean };
 }
 const digest = { type: 'string', pattern: '^[a-f0-9]{64}$' };
 const path = { type: 'string', minLength: 1, maxLength: 1024 };
@@ -26,6 +27,10 @@ const schema = {
     schemaVersion: { const: 'arbi.edge/1.0' }, serviceId: { const: 'edge' }, executionMode: { const: 'simulation' },
     healthPort: { type: 'integer', minimum: 0, maximum: 65535 }, acceptedConfigurationDigest: digest,
     applied: { type: 'object' }, tls: { type: 'object', additionalProperties: false, required: ['caFile', 'certFile', 'keyFile'], properties: { caFile: path, certFile: path, keyFile: path } },
+    metering: { type: 'object', additionalProperties: false, required: ['spoolFile', 'maxRecords', 'maxBytes', 'maxPages', 'linuxLoopback'], properties: {
+      spoolFile: path, maxRecords: { type: 'integer', minimum: 1, maximum: 100000 }, maxBytes: { type: 'integer', minimum: 8192, maximum: 134217728 },
+      maxPages: { type: 'integer', minimum: 32, maximum: 32768 }, linuxLoopback: { type: 'boolean' }
+    } },
     modules: { type: 'array', minItems: 2, maxItems: 2, items: {
       type: 'object', additionalProperties: false, required: ['deviceId', 'role', 'host', 'port', 'serverName', 'certificateSha256'],
       properties: { deviceId: { enum: ['pico', 'pod'] }, role: { enum: ['pico', 'pod'] }, host: { const: '127.0.0.1' }, port: { type: 'integer', minimum: 1024, maximum: 65535 }, serverName: { type: 'string', pattern: '^(pico|pod)\\.sim\\.arbi\\.test$' }, certificateSha256: digest }
