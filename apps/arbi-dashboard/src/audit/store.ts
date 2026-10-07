@@ -76,20 +76,24 @@ export class PostgresAuditStore {
   }
   /** Intent, allow decision and outbox are admitted atomically; no external delivery runs here. */
   async admit(intentInput: unknown, authorizationInput: unknown, intentBinding: TrustedBinding, authorizationBinding: TrustedBinding): Promise<DurableReceipt> {
+    let domainError: AuditError | undefined;
+    try { const staged = await this.db.transaction(async (sql) => {
+      try { return await this.stageAdmission(sql,intentInput,authorizationInput,intentBinding,authorizationBinding); }
+      catch (e) { if (e instanceof AuditError) domainError = e; throw e; }
+    }); return { ...staged,durable: true }; } catch { throw domainError ?? new AuditError("UNAVAILABLE"); }
+  }
+  /** Reusable transaction-local hook for domain intent + authorization + the existing audit outbox. */
+  async stageAdmission(sql: SqlSession, intentInput: unknown, authorizationInput: unknown,
+    intentBinding: TrustedBinding, authorizationBinding: TrustedBinding): Promise<StagedReceipt> {
     const intent = checked(intentInput), authorization = checked(authorizationInput);
     if (intent.evidence !== "intent" || intent.source.module !== "cloud" || authorization.source.module !== "cloud" ||
       authorization.evidence !== "authorization" || authorization.outcome !== "allow" || !correlateAuditEvent(intent, authorization).ok) throw new AuditError("DENIED");
-    let domainError: AuditError | undefined;
-    try { const staged = await this.db.transaction(async (sql) => {
-      try {
-        const result = await this.stage(sql, intent, intentBinding);
-        await this.stage(sql, authorization, authorizationBinding);
-        const prior = (await sql.query<{ authorization_id: string }>("SELECT authorization_id FROM arbi_audit_outbox WHERE id=$1", [intent.eventId])).rows[0];
-        if (prior && prior.authorization_id !== authorization.eventId) throw new AuditError("CONFLICT");
-        await sql.query("INSERT INTO arbi_audit_outbox(id,authorization_id) VALUES($1,$2) ON CONFLICT DO NOTHING", [intent.eventId, authorization.eventId]);
-        return result;
-      } catch (e) { if (e instanceof AuditError) domainError = e; throw e; }
-    }); return { ...staged,durable: true }; } catch { throw domainError ?? new AuditError("UNAVAILABLE"); }
+    const result = await this.stage(sql,intent,intentBinding);
+    await this.stage(sql,authorization,authorizationBinding);
+    const prior = (await sql.query<{ authorization_id: string }>("SELECT authorization_id FROM arbi_audit_outbox WHERE id=$1",[intent.eventId])).rows[0];
+    if (prior && prior.authorization_id !== authorization.eventId) throw new AuditError("CONFLICT");
+    await sql.query("INSERT INTO arbi_audit_outbox(id,authorization_id) VALUES($1,$2) ON CONFLICT DO NOTHING",[intent.eventId,authorization.eventId]);
+    return result;
   }
   /** At-least-once notification delivery. Receiver must deduplicate id; this grants no actuation. */
   async deliver(realm: Realm, siteId: string, send: (id: string, intent: AuditEvent) => Promise<void>, limit = 32): Promise<number> {
