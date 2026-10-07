@@ -1,0 +1,281 @@
+{
+  "fixtureVersion": "arbi.reference/1.0",
+  "identity": {
+    "protocol": {
+      "version": "arbi/1.0",
+      "id": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json",
+      "sha256": "d112dce01300c08dc0a299ab7737c8e1913798cd9b5fb5024de163b91eb81776"
+    },
+    "configurationSchema": {
+      "version": "arbi.configuration/1.0",
+      "id": "https://arbi.gredice.com/schemas/configuration/1.0/configuration.schema.json",
+      "sha256": "c9a3c0e4bed075714d5e9db0661f12d83f5a8e99bba25d06ec5ffca99a8091ad"
+    },
+    "configurationRevision": "config-1",
+    "configurationDigest": "15f54c85545697d1da5736ef52c0188a0cb8f9dd0916b90c915cba1e6d2ec153",
+    "geometryRevision": "geometry-1",
+    "calibrationRevision": "calibration-1",
+    "siteFrame": {
+      "name": "site",
+      "revision": "frame-1"
+    },
+    "gimbalFrame": {
+      "name": "pod-gimbal",
+      "revision": "gimbal-1"
+    }
+  },
+  "units": {
+    "position": "mm",
+    "angle": "deg",
+    "speed": "mm/s",
+    "acceleration": "mm/s^2",
+    "force": "N",
+    "time": "ms"
+  },
+  "counters": [
+    {
+      "value": "0",
+      "successor": "1"
+    },
+    {
+      "value": "9007199254740991",
+      "successor": "9007199254740992"
+    },
+    {
+      "value": "9007199254740993",
+      "successor": "9007199254740994"
+    },
+    {
+      "value": "18446744073709551614",
+      "successor": "18446744073709551615"
+    },
+    {
+      "value": "18446744073709551615",
+      "successor": null
+    }
+  ],
+  "conversions": [
+    {
+      "from": "m",
+      "to": "mm",
+      "value": 1.25,
+      "expected": 1250
+    },
+    {
+      "from": "mm",
+      "to": "m",
+      "value": -2500,
+      "expected": -2.5
+    },
+    {
+      "from": "rad",
+      "to": "deg",
+      "value": 1.5707963267948966,
+      "expected": 90
+    },
+    {
+      "from": "deg",
+      "to": "rad",
+      "value": -30,
+      "expected": -0.5235987755982988
+    },
+    {
+      "from": "s",
+      "to": "ms",
+      "value": 0.125,
+      "expected": 125
+    },
+    {
+      "from": "m/s",
+      "to": "mm/s",
+      "value": 0.05,
+      "expected": 50
+    },
+    {
+      "from": "m/s^2",
+      "to": "mm/s^2",
+      "value": 0.1,
+      "expected": 100
+    }
+  ],
+  "transforms": [
+    {
+      "id": "translation",
+      "siteFrame": {
+        "name": "site",
+        "revision": "frame-1"
+      },
+      "translationMm": {
+        "x": 800,
+        "y": 1000,
+        "z": 100
+      },
+      "yawDeg": 0,
+      "localMm": {
+        "x": 200,
+        "y": -300,
+        "z": 50
+      },
+      "expectedSiteMm": {
+        "x": 1000,
+        "y": 700,
+        "z": 150
+      }
+    },
+    {
+      "id": "positive-z-quarter-turn",
+      "siteFrame": {
+        "name": "site",
+        "revision": "frame-1"
+      },
+      "translationMm": {
+        "x": 1000,
+        "y": 1500,
+        "z": 200
+      },
+      "yawDeg": 90,
+      "localMm": {
+        "x": 300,
+        "y": -400,
+        "z": 50
+      },
+      "expectedSiteMm": {
+        "x": 1400,
+        "y": 1800,
+        "z": 250
+      }
+    },
+    {
+      "id": "negative-z-quarter-turn",
+      "siteFrame": {
+        "name": "site",
+        "revision": "frame-1"
+      },
+      "translationMm": {
+        "x": -100,
+        "y": 200,
+        "z": -50
+      },
+      "yawDeg": -90,
+      "localMm": {
+        "x": 300,
+        "y": 400,
+        "z": -25
+      },
+      "expectedSiteMm": {
+        "x": 300,
+        "y": -100,
+        "z": -75
+      }
+    },
+    {
+      "id": "oblique",
+      "siteFrame": {
+        "name": "site",
+        "revision": "frame-1"
+      },
+      "translationMm": {
+        "x": 1000,
+        "y": 1500,
+        "z": 200
+      },
+      "yawDeg": 30,
+      "localMm": {
+        "x": 200,
+        "y": -100,
+        "z": 50
+      },
+      "expectedSiteMm": {
+        "x": 1223.2050807568878,
+        "y": 1513.397459621556,
+        "z": 250
+      }
+    }
+  ],
+  "geometry": [
+    {
+      "id": "motion-message",
+      "siteFrame": {
+        "name": "site",
+        "revision": "frame-1"
+      },
+      "positionMm": {
+        "x": 1000,
+        "y": 2000,
+        "z": 2500
+      },
+      "expectedSquaredMm2": {
+        "a": 7250000,
+        "b": 15250000,
+        "c": 20250000,
+        "d": 12250000
+      },
+      "expectedLengthMm": {
+        "a": 2692.582403567252,
+        "b": 3905.124837953327,
+        "c": 4500,
+        "d": 3500
+      }
+    },
+    {
+      "id": "symmetric",
+      "siteFrame": {
+        "name": "site",
+        "revision": "frame-1"
+      },
+      "positionMm": {
+        "x": 2000,
+        "y": 2500,
+        "z": 2000
+      },
+      "expectedSquaredMm2": {
+        "a": 14250000,
+        "b": 14250000,
+        "c": 14250000,
+        "d": 14250000
+      },
+      "expectedLengthMm": {
+        "a": 3774.917217635375,
+        "b": 3774.917217635375,
+        "c": 3774.917217635375,
+        "d": 3774.917217635375
+      }
+    },
+    {
+      "id": "near-a",
+      "siteFrame": {
+        "name": "site",
+        "revision": "frame-1"
+      },
+      "positionMm": {
+        "x": 300,
+        "y": 400,
+        "z": 2900
+      },
+      "expectedSquaredMm2": {
+        "a": 1460000,
+        "b": 15060000,
+        "c": 36060000,
+        "d": 22460000
+      },
+      "expectedLengthMm": {
+        "a": 1208.304597359457,
+        "b": 3880.721582386451,
+        "c": 6004.997918400971,
+        "d": 4739.198244429114
+      }
+    }
+  ],
+  "offsets": [
+    {
+      "geometricMm": 1000,
+      "offsetMm": -25,
+      "expectedPayoutMm": 975
+    },
+    {
+      "geometricMm": 1000,
+      "offsetMm": 12.5,
+      "expectedPayoutMm": 1012.5
+    }
+  ]
+}

@@ -12,7 +12,8 @@
         "test": "turbo test",
         "cad:check": "node ./scripts/check-cad.mjs",
         "bom:generate": "pnpm --filter @arbi/bom generate",
-        "bom:check": "pnpm --filter @arbi/bom check"
+        "bom:check": "pnpm --filter @arbi/bom check",
+        "protocol:check": "pnpm --filter @arbi/protocol conformance"
     },
     "devDependencies": {
         "@types/node": "24.12.4",

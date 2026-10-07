@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://arbi.gredice.com/schemas/reference/1.0/vectors.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["fixtureVersion", "identity", "units", "counters", "conversions", "transforms", "geometry", "offsets"],
+  "properties": {
+    "fixtureVersion": { "const": "arbi.reference/1.0" },
+    "identity": {
+      "type": "object", "additionalProperties": false,
+      "required": ["protocol", "configurationSchema", "configurationRevision", "configurationDigest", "geometryRevision", "calibrationRevision", "siteFrame", "gimbalFrame"],
+      "properties": {
+        "protocol": { "$ref": "#/$defs/schemaIdentity" },
+        "configurationSchema": { "$ref": "#/$defs/schemaIdentity" },
+        "configurationRevision": { "type": "string" },
+        "configurationDigest": { "$ref": "#/$defs/digest" },
+        "geometryRevision": { "type": "string" },
+        "calibrationRevision": { "type": "string" },
+        "siteFrame": { "$ref": "#/$defs/frame" },
+        "gimbalFrame": { "$ref": "#/$defs/frame" }
+      }
+    },
+    "units": {
+      "type": "object", "additionalProperties": false,
+      "required": ["position", "angle", "speed", "acceleration", "force", "time"],
+      "properties": {
+        "position": { "const": "mm" }, "angle": { "const": "deg" },
+        "speed": { "const": "mm/s" }, "acceleration": { "const": "mm/s^2" },
+        "force": { "const": "N" }, "time": { "const": "ms" }
+      }
+    },
+    "counters": {
+      "type": "array", "minItems": 1, "items": {
+        "type": "object", "additionalProperties": false, "required": ["value", "successor"],
+        "properties": { "value": { "type": "string" }, "successor": { "type": ["string", "null"] } }
+      }
+    },
+    "conversions": {
+      "type": "array", "minItems": 1, "items": {
+        "type": "object", "additionalProperties": false, "required": ["from", "to", "value", "expected"],
+        "properties": {
+          "from": { "type": "string" }, "to": { "type": "string" },
+          "value": { "type": "number" }, "expected": { "type": "number" }
+        }
+      }
+    },
+    "transforms": {
+      "type": "array", "minItems": 1, "items": {
+        "type": "object", "additionalProperties": false, "required": ["id", "siteFrame", "translationMm", "yawDeg", "localMm", "expectedSiteMm"],
+        "properties": {
+          "id": { "type": "string" }, "siteFrame": { "$ref": "#/$defs/frame" },
+          "translationMm": { "$ref": "#/$defs/vector" }, "yawDeg": { "type": "number" },
+          "localMm": { "$ref": "#/$defs/vector" }, "expectedSiteMm": { "$ref": "#/$defs/vector" }
+        }
+      }
+    },
+    "geometry": {
+      "type": "array", "minItems": 1, "items": {
+        "type": "object", "additionalProperties": false, "required": ["id", "siteFrame", "positionMm", "expectedSquaredMm2", "expectedLengthMm"],
+        "properties": {
+          "id": { "type": "string" }, "siteFrame": { "$ref": "#/$defs/frame" }, "positionMm": { "$ref": "#/$defs/vector" },
+          "expectedSquaredMm2": { "$ref": "#/$defs/lines" }, "expectedLengthMm": { "$ref": "#/$defs/lines" }
+        }
+      }
+    },
+    "offsets": {
+      "type": "array", "minItems": 1, "items": {
+        "type": "object", "additionalProperties": false, "required": ["geometricMm", "offsetMm", "expectedPayoutMm"],
+        "properties": {
+          "geometricMm": { "type": "number", "exclusiveMinimum": 0 }, "offsetMm": { "type": "number" },
+          "expectedPayoutMm": { "type": "number", "exclusiveMinimum": 0 }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "digest": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "schemaIdentity": {
+      "type": "object", "additionalProperties": false, "required": ["version", "id", "sha256"],
+      "properties": { "version": { "type": "string" }, "id": { "type": "string" }, "sha256": { "$ref": "#/$defs/digest" } }
+    },
+    "frame": {
+      "type": "object", "additionalProperties": false, "required": ["name", "revision"],
+      "properties": { "name": { "type": "string" }, "revision": { "type": "string" } }
+    },
+    "vector": {
+      "type": "object", "additionalProperties": false, "required": ["x", "y", "z"],
+      "properties": { "x": { "type": "number" }, "y": { "type": "number" }, "z": { "type": "number" } }
+    },
+    "lines": {
+      "type": "object", "additionalProperties": false, "required": ["a", "b", "c", "d"],
+      "properties": {
+        "a": { "type": "number", "exclusiveMinimum": 0 }, "b": { "type": "number", "exclusiveMinimum": 0 },
+        "c": { "type": "number", "exclusiveMinimum": 0 }, "d": { "type": "number", "exclusiveMinimum": 0 }
+      }
+    }
+  }
+}
