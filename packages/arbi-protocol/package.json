@@ -6,12 +6,13 @@
   "exports": {
     ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" },
     "./schema": "./schema/message.schema.json",
-    "./configuration-schema": "./schema/configuration.schema.json"
+    "./configuration-schema": "./schema/configuration.schema.json",
+    "./accounting-schema": "./schema/accounting.schema.json"
   },
   "scripts": {
-    "generate": "node scripts/generate-types.mjs",
-    "build": "node scripts/generate-types.mjs --check && tsc -p tsconfig.build.json",
-    "lint": "node scripts/generate-types.mjs --check && tsc -p tsconfig.json --noEmit",
+    "generate": "node scripts/generate-types.mjs && node scripts/generate-accounting-types.mjs",
+    "build": "node scripts/generate-types.mjs --check && node scripts/generate-accounting-types.mjs --check && tsc -p tsconfig.build.json",
+    "lint": "node scripts/generate-types.mjs --check && node scripts/generate-accounting-types.mjs --check && tsc -p tsconfig.json --noEmit",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "pnpm build && node --test dist/*.test.js"
   },
