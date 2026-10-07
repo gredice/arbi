@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto';
 import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { PROTOCOL_VERSION } from '@arbi/protocol';
 const hash = createHash('sha256');
-for (const file of readdirSync('src').filter((f) => f.endsWith('.ts')).sort()) {
+for (const file of readdirSync('src', { recursive: true }).filter((f) => f.endsWith('.ts')).sort()) {
   hash.update(file).update(readFileSync(`src/${file}`));
 }
 for (const file of ['package.json', 'tsconfig.json', 'tsconfig.build.json', 'scripts/build-identity.mjs', 'deploy/arbi-edge-controller.service']) {
