@@ -18,7 +18,7 @@ permissions:
 
 jobs:
   changes:
-    name: Detect CAD changes
+    name: Detect CAD and booklet changes
     runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:
@@ -26,6 +26,7 @@ jobs:
       pull-requests: read
     outputs:
       cad: ${{ github.event_name == 'workflow_dispatch' || steps.filter.outputs.cad == 'true' }}
+      booklets: ${{ github.event_name == 'workflow_dispatch' || steps.filter.outputs.booklets == 'true' }}
     steps:
       # PR files come from the read-only API; pushes compare the full pushed range.
       - uses: actions/checkout@v6.0.3
@@ -53,6 +54,17 @@ jobs:
               - 'pnpm-lock.yaml'
               - 'pnpm-workspace.yaml'
               - '.npmrc'
+            booklets:
+              - 'hardware/**/*.scad'
+              - 'hardware/models.json'
+              - 'scripts/winch-booklet/**'
+              - 'scripts/payload-booklet/**'
+              - 'scripts/check-booklet.py'
+              - 'scripts/check-winch-cover-meshes.py'
+              - 'docs/project/industrial-design.md'
+              - '.github/workflows/booklets.yml'
+              - '.github/workflows/ci.yml'
+              - '.github/workflows/cad-release.yml'
 
   workspace:
     name: Validate workspace
@@ -166,6 +178,12 @@ jobs:
       - name: Validate and compile registered models
         run: pnpm cad:check -- --require-openscad
 
+  booklets:
+    name: Validate assembly booklets
+    needs: changes
+    if: needs.changes.outputs.booklets == 'true'
+    uses: ./.github/workflows/booklets.yml
+
   ci_ok:
     name: "[CI] OK"
     if: ${{ always() }}
@@ -174,6 +192,7 @@ jobs:
       - workspace
       - bom
       - cad
+      - booklets
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -183,7 +202,9 @@ jobs:
               needs.workspace.result != 'success' ||
               needs.bom.result != 'success' ||
               !(needs.cad.result == 'success' ||
-                (needs.changes.outputs.cad == 'false' && needs.cad.result == 'skipped')) }}
+                (needs.changes.outputs.cad == 'false' && needs.cad.result == 'skipped')) ||
+              !(needs.booklets.result == 'success' ||
+                (needs.changes.outputs.booklets == 'false' && needs.booklets.result == 'skipped')) }}
         run: exit 1
 
       - name: Confirm required jobs passed

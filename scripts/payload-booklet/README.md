@@ -20,4 +20,27 @@ Servo and power-module geometry remain provisional. The full-solid printed mass 
 
 Each build records its variant in `configuration.json`, resolves STL revision filenames from the registry, and includes source/STL hashes, mesh/assembly/figure manifests and geometry/service results. Enclosure artifacts use the `ARBI-payload-enclosure` prefix; `--publish` stores separate enclosure snapshots and `payload-enclosure-check.json` alongside the refreshed bench publication. Earlier r0.1.0 bench evidence is retained in dated files and its revision 2 pack remains in Git history. The current palette is documented in [industrial design conventions](../../docs/project/industrial-design.md).
 
+## CI and drawing style
+
+Bench revision 4 and enclosure revision 2 use the shared white-face line-art
+renderer. Visible silhouettes and feature edges make dark cores, small brackets
+and hardware readable; the GLB and manifests keep the product palette. Each
+configuration has its own header and page total (14 bench, 16 enclosure).
+
+[Booklet CI](../../.github/workflows/booklets.yml) builds and checks both payload
+variants and the winch from fresh CAD exports on relevant pull requests, `main`
+and manual dispatches. PR PDFs/ZIPs are downloadable for 14 days. The
+[CAD release workflow](../../.github/workflows/cad-release.yml) publishes the
+three PDF/ZIP pairs with the same commit's STLs and checksums on `main`. CI does
+not use `--publish` or rewrite checked-in snapshots/evidence.
+
+```sh
+python3 scripts/check-booklet.py hardware/generated/payload-booklet --variant bench
+python3 scripts/check-booklet.py hardware/generated/payload-enclosure --variant enclosure
+```
+
+These checks verify pagination, configuration/revision labels, registry filenames,
+hashes, non-empty figures and paired PDF/ZIP contents. Visually inspect every PDF
+page before updating repository snapshots with `--publish`.
+
 See [mount interfaces and quantities](../../hardware/assemblies/camera-pod/payload-mounts.md) and [geometry evidence](../../hardware/assemblies/camera-pod/payload-geometry-check.md).

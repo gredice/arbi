@@ -76,6 +76,21 @@ CI runs the OpenSCAD validation job when a pull request or push changes model so
 - Generated STL, 3MF, CSG, and bulk render output goes to temporary or ignored output directories. CI artifacts and GitHub releases distribute derived geometry.
 - A successful render proves source consistency only. It does not prove tolerances, material choice, strength, weathering, print quality, or safe installation.
 
+## Assembly booklet builds
+
+The Python generators in [scripts/winch-booklet](scripts/winch-booklet/README.md)
+and [scripts/payload-booklet](scripts/payload-booklet/README.md) export current
+registered CAD, check meshes and nominal assembly geometry, render white-face
+line illustrations and package A4 PDFs with portable STL/source ZIPs. The three
+configurations are the winch, dry payload bench and payload rain enclosure.
+
+[Booklet CI](.github/workflows/booklets.yml) builds all three on relevant PRs and
+manual dispatches. [CAD release CI](.github/workflows/cad-release.yml) includes
+their PDFs/ZIPs and checksums in the same `cad-<commit>` release as the geometry.
+CI keeps generated outputs as artifacts and never commits snapshots back to Git.
+Use `scripts/check-booklet.py` for the owning PDF/pack checks; local `--publish`
+is reserved for intentionally refreshing checked-in publication snapshots.
+
 ## BOM source and generated output
 
 Canonical data separates part identity, assembly quantity, supplier identity, commercial offers, destinations, and build configurations. Shipping is aggregated by supplier basket and destination rather than copied onto every part line. Calculations use committed assumptions and dated exchange rates; normal CI does not fetch mutable live pricing.
