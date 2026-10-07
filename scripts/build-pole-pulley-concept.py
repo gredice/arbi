@@ -24,6 +24,7 @@ parser.add_argument('--output', type=Path, default=ROOT / 'hardware/generated/po
 args = parser.parse_args()
 OUT = args.output.resolve()
 OUT.mkdir(parents=True, exist_ok=True)
+generated_outputs = []
 version = subprocess.run(['openscad', '--version'], capture_output=True, text=True, check=True)
 assert (version.stdout + version.stderr).strip() == 'OpenSCAD version 2021.01'
 
@@ -36,6 +37,7 @@ def export(source, target, defines=()):
     diagnostics = run.stdout + run.stderr
     assert run.returncode == 0 and 'ERROR:' not in diagnostics and 'WARNING:' not in diagnostics, diagnostics
     assert target.exists() and target.stat().st_size > 0, target
+    generated_outputs.append(target)
 
 
 def overlap(a, b):
@@ -118,7 +120,9 @@ for name, mesh in meshes.items():
     scene.add_geometry(mesh, node_name=name, geom_name=name)
 scene.apply_scale(0.001)  # glTF uses metres; CAD/STL sources remain millimetres.
 scene.metadata = {'units': 'm', 'status': 'concept-unvalidated', 'revision': '0.1.0'}
-(OUT / 'pole-pulley-mount-assembly-r0.1.0.glb').write_bytes(scene.export(file_type='glb'))
+glb_path = OUT / 'pole-pulley-mount-assembly-r0.1.0.glb'
+glb_path.write_bytes(scene.export(file_type='glb'))
+generated_outputs.append(glb_path)
 
 
 def text_actor(renderer, text, x, y, size, color=(.12, .14, .15)):
@@ -174,6 +178,7 @@ def render(name, exploded=False):
     writer.SetFileName(str(OUT / name))
     writer.SetInputConnection(capture.GetOutputPort())
     writer.Write()
+    generated_outputs.append(OUT / name)
     window.Finalize()
 
 
@@ -181,7 +186,9 @@ render('assembled.png')
 render('exploded.png', True)
 report['sources_sha256'] = {str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest()
                             for path in [LIBRARY, ROOT / 'hardware/lib/arbi.scad', *sorted(ASSEMBLY.glob('pole-pulley-mount-*.scad'))]}
-(OUT / 'geometry-report.json').write_text(json.dumps(report, indent=2) + '\n')
+report_path = OUT / 'geometry-report.json'
+report_path.write_text(json.dumps(report, indent=2) + '\n')
+generated_outputs.append(report_path)
 with zipfile.ZipFile(OUT / 'pole-pulley-mount-concept-r0.1.0.zip', 'w', zipfile.ZIP_DEFLATED) as pack:
     pack.writestr('README.txt', 'ARBI round-pole pulley mount r0.1.0 — concept-unvalidated.\n'
                   'Unloaded fit/appearance concept; no material, load rating or overhead-use approval.\n'
@@ -191,9 +198,9 @@ with zipfile.ZipFile(OUT / 'pole-pulley-mount-concept-r0.1.0.zip', 'w', zipfile.
                   'Open source/hardware/assemblies/corner-station/pole-pulley-mount-assembly.scad\n'
                   'in OpenSCAD 2021.01. Edit shared parameters in source/hardware/lib/pole-pulley-mount.scad.\n'
                   'Exact pole and purchased pulley dimensions remain to be confirmed.\n')
-    for path in sorted(OUT.iterdir()):
-        if path.suffix in ['.stl', '.csg', '.glb', '.png', '.json']:
-            pack.write(path, f'outputs/{path.name}')
+    # Reusing an output directory must not publish stale or unrelated artifacts.
+    for path in sorted(generated_outputs):
+        pack.write(path, f'outputs/{path.name}')
     for path in [LIBRARY, ROOT / 'hardware/lib/arbi.scad', *sorted(ASSEMBLY.glob('pole-pulley-mount*.scad')),
                  ASSEMBLY / 'pole-pulley-mount.md', ASSEMBLY / 'pole-pulley-mount-check.md',
                  Path(__file__).resolve(), ROOT / 'LICENSE']:

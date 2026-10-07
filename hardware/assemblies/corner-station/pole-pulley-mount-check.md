@@ -47,6 +47,7 @@ SHA-256 hashes with its geometry report in the ignored output folder.
 | `git diff --check` | Passed |
 | Invalid assembly overrides | Ø80 pole, zero split gap and 10 mm clevis gap rejected by assertions |
 | Portable source pack | ZIP integrity passed; extracted assembly compiled independently to CSG |
+| Reused output directory | Fresh build excluded a deliberately pre-existing obsolete STL; ZIP contained only the 16 current generated artifacts |
 | GLB scale and provenance | Z envelope 0.310 m; all recorded CAD source hashes matched |
 
 These are local checks. No CI run, fabricated prototype or physical inspection
