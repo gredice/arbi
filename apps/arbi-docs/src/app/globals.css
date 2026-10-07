@@ -1,13 +1,17 @@
 @import "tailwindcss";
 
 @theme {
-    --color-paper: #e8e7e3;
-    --color-tile: #f3f2ef;
-    --color-well: #dcdbd6;
-    --color-ink: #121212;
-    --color-mute: #7d7c78;
-    --font-sans: "Inter", system-ui, sans-serif;
-    --font-mono: "JetBrains Mono", ui-monospace, monospace;
+    --color-paper: #ffffff;
+    --color-sheet: #f4f4f4;
+    --color-ink: #0b0b0b;
+    --color-grey: #6b6b6b;
+    --color-hair: #d9d9d9;
+}
+
+/* Fonts come from next/font in layout.tsx. */
+@theme inline {
+    --font-sans: var(--font-archivo), system-ui, sans-serif;
+    --font-mono: var(--font-plex-mono), ui-monospace, monospace;
 }
 
 @layer base {
@@ -15,10 +19,101 @@
         -webkit-font-smoothing: antialiased;
     }
     body {
-        @apply bg-paper text-ink font-sans;
+        @apply bg-paper text-ink font-sans text-[14px];
+        font-stretch: 100%;
     }
 }
 
-@utility label {
-    @apply font-mono text-[11px] uppercase tracking-[0.1em] text-mute;
+@utility cond {
+    font-stretch: 72%;
+    @apply uppercase font-bold tracking-[-0.01em];
+}
+@utility tag {
+    @apply font-mono text-[11px] uppercase tracking-[0.04em];
+}
+@utility mono {
+    @apply font-mono tabular-nums;
+}
+@utility rule {
+    @apply border-t-2 border-ink;
+}
+@utility key {
+    @apply inline-flex items-center gap-3 bg-ink text-paper px-4 py-2.5 tag border border-ink hover:bg-paper hover:text-ink;
+}
+@utility key-line {
+    @apply inline-flex items-center gap-3 px-4 py-2.5 tag border border-ink hover:bg-ink hover:text-paper;
+}
+
+/* Exploded-diagram number bubbles on white (paper) and black (inked) sections. */
+.bubble {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    border: 1.5px solid currentColor;
+    display: grid;
+    place-items: center;
+    font: 600 11px var(--font-mono);
+    cursor: pointer;
+    pointer-events: auto;
+}
+.inked .bubble {
+    background: var(--color-ink);
+    color: var(--color-paper);
+}
+.inked .bubble.on,
+.inked .bubble:hover {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    border-color: var(--color-paper);
+}
+
+/* Rendered repository Markdown. */
+.prose-doc {
+    @apply max-w-[72ch] text-[15px] leading-[1.6];
+}
+.prose-doc h1 {
+    @apply cond text-[64px] leading-[0.9] mb-10;
+}
+.prose-doc h2 {
+    @apply cond text-[26px] mt-14 mb-4 pt-3 rule;
+}
+.prose-doc h3 {
+    @apply font-semibold mt-8 mb-2;
+}
+.prose-doc p,
+.prose-doc ul,
+.prose-doc ol {
+    @apply mb-4;
+}
+.prose-doc ul {
+    @apply list-[square] pl-5;
+}
+.prose-doc ol {
+    @apply list-decimal pl-5;
+}
+.prose-doc a {
+    @apply underline underline-offset-2 decoration-1;
+}
+.prose-doc table {
+    @apply w-full my-6 text-[12.5px] border-b-2 border-ink;
+}
+.prose-doc th {
+    @apply tag text-left border-y-2 border-ink py-2 pr-3;
+}
+.prose-doc td {
+    @apply border-b border-hair py-2 pr-3 align-top;
+}
+.prose-doc code {
+    @apply font-mono text-[12.5px] bg-sheet px-1;
+}
+.prose-doc pre {
+    @apply bg-sheet p-4 my-4 overflow-x-auto font-mono text-[12.5px] border-l-2 border-ink;
+}
+.prose-doc pre code {
+    @apply bg-transparent p-0;
+}
+.prose-doc img {
+    @apply my-8 border border-hair;
 }
