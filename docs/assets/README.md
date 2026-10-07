@@ -1,4 +1,18 @@
-# Concept imagery
+# Project imagery
+
+## Official brand assets
+
+The owner selected **Garden Focus** as ARBI's official logo on 7 October 2026.
+The [brand guide](../project/brand-identity.md) defines the identity, available
+files and usage rules. The assets live in [brand](brand):
+
+- [Primary logo](brand/arbi-logo.png): horizontal logo on warm white, used by the repository and documentation headers.
+- [Transparent logo](brand/arbi-logo-transparent.png): horizontal logo for light backgrounds.
+- [Transparent emblem](brand/arbi-mark-transparent.png): standalone leaf/lens and viewfinder mark.
+- [Selected artwork](brand/garden-focus-selection.png): unchanged owner-selected concept reference.
+- [Generation record](brand/generation.json): built-in image tool, date, input relationships and exact prompts for the selection and derived PNG assets.
+
+## Concept imagery
 
 - `payload-concept.png`: owner-supplied integrated payload concept, selected on 7 October 2026. The appearance is recorded in the [design conventions](../project/industrial-design.md).
 - `arbi-cover.png`: scenic concept imagery updated with the built-in image-generation tool on 7 October 2026, using the preceding repository cover as the edit target and the selected payload as the appearance reference. It is not CAD, an installation photo or dimensional engineering evidence.

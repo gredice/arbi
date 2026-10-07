@@ -1,3 +1,5 @@
+<p><img src="assets/brand/arbi-logo.png" alt="ARBI Garden Focus logo: a leaf and lens inside a viewfinder" width="360"></p>
+
 # ARBI engineering documentation
 
 ARBI is an outdoor four-cable camera robot for repeatable images of raised beds. This documentation is organized by physical assembly so that each assembly owns its mechanics, electronics, cabling, fasteners, printed parts, software, tests, and maintenance information.
@@ -9,6 +11,7 @@ The committed material is a **design baseline**, not proof of a built or safe in
 - [Goals and V1 scope](project/goals-and-v1-scope.md)
 - [Current design status](project/design-status.md)
 - [Industrial design conventions](project/industrial-design.md)
+- [Official logo and brand guide](project/brand-identity.md)
 - [System architecture](system/architecture.md)
 - [Site geometry](system/site-geometry.md)
 - [Interfaces and operating states](system/interfaces-and-operating-states.md)

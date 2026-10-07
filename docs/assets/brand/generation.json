@@ -1,0 +1,33 @@
+{
+  "identity": "ARBI Garden Focus",
+  "selectedOn": "2026-10-07",
+  "selectedBy": "Project owner",
+  "generationMode": "Built-in image_gen",
+  "format": "PNG",
+  "assets": [
+    {
+      "file": "garden-focus-selection.png",
+      "input": null,
+      "role": "Unmodified owner-selected artwork",
+      "prompt": "Use case: logo-brand.\nAsset type: original ARBI project logo concept, a polished flat logo presentation for comparison.\nProject context: ARBI means Automatic Raised Bed Imaging system. It is an open engineering project for a camera robot that takes repeatable images of raised garden beds. Its product language is rounded warm-white shells over charcoal structures.\nPrimary request: Design an elegant logo called Garden Focus that combines precision imaging and living plants in one simple symbol. Build four substantial, softly rounded L-shaped viewfinder corners framing one bold single leaf tilted diagonally upward. Within the leaf, a small circular warm-white negative-space aperture subtly suggests a camera lens; keep the rest of the leaf beautifully simple with no tiny veins. The corner brackets and leaf should feel like one optically balanced, compact emblem. Avoid generic sustainability swooshes and overly complex aperture blades.\nComposition: a single large horizontal logo lockup centered on a plain warm-white canvas, emblem on left and the word ARBI on right. Generous clear margins. Icon height approximately cap height plus 25 percent. Use a refined, approachable uppercase sans-serif wordmark with slightly rounded corners, sturdy strokes and careful letter spacing. Spell exactly \"ARBI\".\nStyle: premium minimal flat vector-like brand identity. One flat charcoal ink #1f2426 on warm white #f0f0eb. The nature cue should come from the silhouette, not color. Clear silhouette and readable on hardware and at favicon sizes.\nConstraints: exactly one symbol and one wordmark; no other text, no subtitles, no concept name, no numbering, no slogans. No gradient, shadow, texture, mockup, photographic object, scenery, border, 3D, drone, propellers or existing brand marks. Landscape canvas approximately 3:2. Original logo design."
+    },
+    {
+      "file": "arbi-logo-transparent.png",
+      "input": "garden-focus-selection.png",
+      "transparentBackground": true,
+      "prompt": "Use case: background-extraction. Image 1 is the approved ARBI Garden Focus logo and is the edit target. Prepare a production PNG of this EXACT selected logo. Preserve all the existing logo shapes, the four rounded viewfinder brackets, the diagonal single leaf with its circular hole, and the uppercase ARBI letterforms, spacing, relative size and arrangement. Do not reinterpret or redesign. Remove the warm-white canvas to genuine alpha transparency, including every internal hole and counter, and make all foreground pixels flat charcoal #1f2426 with clean antialiased edges. Remove any photographic texture or shading. Crop the canvas closely around the complete horizontal logo while retaining a consistent modest transparent margin around every side, about 6 percent of the logo height. Output a wide horizontal transparent PNG; the aspect ratio should follow the full mark-and-wordmark lockup, roughly 3:1. No added text, no shadows, no background color."
+    },
+    {
+      "file": "arbi-mark-transparent.png",
+      "input": "garden-focus-selection.png",
+      "transparentBackground": true,
+      "prompt": "Use case: background-extraction. Image 1 is the approved ARBI Garden Focus logo and is the edit target. Extract only the EXACT existing emblem on the LEFT: four rounded viewfinder corner brackets around a diagonal single leaf with a circular hole. Preserve the emblem's shapes and relative proportions precisely; do not redesign. Remove all ARBI text to the right. Remove all warm-white background to genuine alpha transparency, also inside the leaf hole and between elements. Set the emblem to flat charcoal #1f2426 with clean antialiased edges and no texture or shading. Center the existing emblem in a square transparent canvas, with the four outside bracket edges defining a square and equal margins around it of about 8 percent of the canvas width. No other content, no wordmark, no text, no shadow, no background color."
+    },
+    {
+      "file": "arbi-logo.png",
+      "input": "arbi-logo-transparent.png",
+      "transparentBackground": false,
+      "prompt": "Use case: precise-object-edit. Image 1 is the edit target, the official ARBI Garden Focus horizontal transparent logo. Change ONLY the background: composite this exact existing image on a perfectly flat solid warm-white background #f0f0eb. Preserve the EXACT existing charcoal logo pixels, four bracket and leaf emblem, letterforms, proportions, positions, spacing, and wide horizontal canvas. Do not regenerate or redesign any foreground element. Keep the current wide aspect ratio (approximately 3:1) and canvas framing. One single horizontal logo. No added elements, gradients, shadows, textures or text. Output opaque PNG."
+    }
+  ]
+}
