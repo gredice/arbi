@@ -14,10 +14,10 @@ try {
   execFileSync(join(bin, "pg_ctl"), ["-D", data, "-l", join(root, "postgres.log"), "-o", `-k ${root} -p 54321 -c listen_addresses=''`, "-w", "start"],
     { stdio: "ignore", timeout: 30_000 });
   started = true;
-  execFileSync(process.execPath, ["--import", "tsx", "--test", "src/enrollment/postgres.test.ts"],
+  execFileSync(process.execPath, ["--import", "tsx", "--test", "--test-concurrency=1", "src/enrollment/postgres.test.ts", "src/media/postgres.test.ts"],
     { stdio: "inherit", timeout: 30_000, env: { ...process.env, ARBI_ENROLLMENT_TEST_SOCKET: root } });
 } catch {
-  process.stderr.write("Isolated PostgreSQL enrollment checks failed; pg_config/initdb/pg_ctl and local socket access are required.\n");
+  process.stderr.write("Isolated PostgreSQL enrollment/media checks failed; pg_config/initdb/pg_ctl and local socket access are required.\n");
   process.exitCode = 1;
 } finally {
   if (started) execFileSync(join(bin, "pg_ctl"), ["-D", data, "-w", "-m", "immediate", "stop"], { stdio: "ignore", timeout: 15_000 });

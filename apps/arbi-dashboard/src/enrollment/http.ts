@@ -5,6 +5,8 @@ import { EnrollmentError } from "./contracts";
 import type { EnrollmentService } from "./service";
 
 const MAX_BODY_BYTES = 16_384;
+// Reused by app-owned metadata endpoints; this reads only bounded JSON, never media bytes.
+export { body as readJsonBody };
 async function body(request: Request): Promise<unknown> {
   if (request.headers.get("content-type")?.split(";")[0] !== "application/json" ||
     (request.headers.has("content-length") && Number(request.headers.get("content-length")) > MAX_BODY_BYTES) || !request.body) {
