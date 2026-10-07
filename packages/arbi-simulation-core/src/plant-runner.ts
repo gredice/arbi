@@ -6,6 +6,7 @@ import type { Configuration } from "@arbi/protocol";
 import { checkPlantExpected, runPlant } from "./plant.js";
 import { validatePlant } from "./plant-validation.js";
 
+/** Load a bounded synthetic fixture and bind it to committed configuration/reference content. */
 export function loadPlant(file: string, root: string) {
   if (statSync(file).size > 262144) throw new Error("INVALID_PLANT");
   const config = JSON.parse(readFileSync(resolve(root, "fixtures/configuration.json"), "utf8")).valid.configuration as Configuration;

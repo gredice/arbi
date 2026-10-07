@@ -2,6 +2,7 @@ import { scenarioPositionInside, type Configuration, type Sample, type VectorMm 
 import { referenceTrajectory, seededRandom } from "./adapters.js";
 import { LINES, type DrumParameters, type InputReading, type Line, type LocalInput, type PlantScenario, type SimulatedPlantModules } from "./plant-types.js";
 
+/** Euclidean payout in mm for each configured anchor, including accepted calibration offsets. */
 export function cableLengths(position: VectorMm, config: Configuration): Record<Line, number> {
   if (!config.calibration || Object.values(position).some((v) => !Number.isFinite(v))) throw new Error("INVALID_GEOMETRY");
   return Object.fromEntries(config.geometry.anchors.map((a) => [a.line,
@@ -30,6 +31,7 @@ export function checkPlantMove(start: VectorMm, target: VectorMm, speed: number,
     if (speed * d.stepsPerRevolution / (2 * Math.PI * d.radiusMm) > d.maxStepRatePerS) throw new Error("OUTSIDE_LIMITS");
   }
 }
+/** Construct synthetic modules from a validated plant/1.0 input; no physical adapters or authority. */
 export function boundedPlantAdapters(p: PlantScenario, config: Configuration): SimulatedPlantModules {
   const a = p.parameters, step = p.context.clock.stepMs;
   let position = structuredClone(p.context.initial.positionMm), randomState = p.context.seed;

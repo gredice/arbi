@@ -1,3 +1,4 @@
+/** Represent a finite unit value as safe integer millionths, rounding half toward positive infinity. */
 export function q6(value: number): number {
   const result = Math.floor(value * 1_000_000 + 0.5);
   if (!Number.isSafeInteger(result)) throw new Error("NUMERIC_LIMIT");

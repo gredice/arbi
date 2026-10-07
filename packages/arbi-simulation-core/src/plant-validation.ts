@@ -6,6 +6,7 @@ const fail = (): never => { throw new Error("INVALID_PLANT"); };
 function copyJson(input: unknown): any {
   let nodes = 0, bytes = 0;
   const active = new Set<object>();
+  /** Copy one JSON subtree while enforcing resource limits and rejecting accessors/cycles. */
   function copy(v: any, depth: number): any {
     if (++nodes > 20000 || depth > 32) fail();
     if (v === null || typeof v === "boolean") return v;
@@ -28,12 +29,15 @@ function copyJson(input: unknown): any {
   if (Buffer.byteLength(JSON.stringify(result)) > 262144) fail();
   return result;
 }
+/** Require exactly the closed JSON object fields owned by this boundary. */
 function keys(v: any, fields: string[]): void {
   if (!v || typeof v !== "object" || Array.isArray(v) || Object.keys(v).length !== fields.length || fields.some((k) => !Object.hasOwn(v, k))) fail();
 }
+/** Reject nonfinite, out-of-range or noninteger parameter values with a bounded code. */
 function range(n: any, min: number, max: number, integer = false): void {
   if (typeof n !== "number" || !Number.isFinite(n) || n < min || n > max || integer && !Number.isSafeInteger(n)) fail();
 }
+/** Validate the additive model shape and delegate protocol/scenario context to its owning validator. */
 function validatePlantRecord(input: unknown, config: Configuration, referenceDigest: string): PlantScenario {
   const p = copyJson(input) as PlantScenario;
   keys(p, ["schemaVersion", "context", "parameters", "inputs", "returnCommandIds", "expected"]);

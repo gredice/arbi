@@ -123,11 +123,15 @@ export function runPlant(input: unknown, config: Configuration, referenceDigest:
   const report: Omit<PlantRun, "traceDigest"> = { schemaVersion: PLANT_VERSION, fidelity: PLANT_FIDELITY, evidence: "synthetic-host-reference" as const, identity: c.identity, parameters: p.parameters, assumptions: [...PLANT_ASSUMPTIONS], trace, invariants };
   return { ...report, traceDigest: configurationDigest({ ...report, parameters: numericTreeQ6(p.parameters), seed: c.seed, clock: c.clock, returnCommandIds: p.returnCommandIds }) };
 }
+/** Round an operation interval up to the declared virtual step, optionally requiring one step. */
 function grid(ms: number, p: PlantScenario, minimum = false): number { return Math.max(minimum ? p.context.clock.stepMs : 0, Math.ceil(ms / p.context.clock.stepMs) * p.context.clock.stepMs); }
+/** Normalize an estimated Cartesian vector without implying physical precision. */
 function vectorQ6(v: { x: number; y: number; z: number }) { return { x: q6(v.x), y: q6(v.y), z: q6(v.z) }; }
+/** Test synthetic coordinate plausibility only; independent contact remains required. */
 function nearDock(v: { x: number; y: number; z: number }, p: PlantScenario): boolean {
   const d = p.parameters.dock; return Math.sqrt((v.x - d.positionMm.x) ** 2 + (v.y - d.positionMm.y) ** 2 + (v.z - d.positionMm.z) ** 2) <= d.toleranceMm;
 }
+/** Verify committed arithmetic checkpoints, exact digest and derived model invariants. */
 export function checkPlantExpected(p: PlantScenario, run: PlantRun): void {
   if (p.expected.traceDigest !== run.traceDigest || Object.values(run.invariants).some((v) => !v)) throw new Error("RESULT_MISMATCH");
   for (const e of p.expected.states) { const row = run.trace.find((r) => r.atMs === e.atMs); if (!row || row.state !== e.state || row.captures !== e.captures) throw new Error("RESULT_MISMATCH"); }

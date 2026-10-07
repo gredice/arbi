@@ -12,20 +12,24 @@ ASSUMPTIONS = ['synthetic-unsurveyed-geometry', 'constant-single-layer-drum-radi
 
 
 def fail(code='INVALID_PLANT'):
+    """Raise a bounded named failure without echoing source content."""
     raise ValueError(code)
 
 
 def shape(v, names):
+    """Check the closed object field set for a model-owned record."""
     if not isinstance(v, dict) or set(v) != set(names.split()):
         fail()
 
 
 def number(v, low, high, integer=False):
+    """Enforce finite parameter ranges and optional integral values."""
     if isinstance(v, bool) or not isinstance(v, (int, float)) or not math.isfinite(v) or not low <= v <= high or integer and int(v) != v:
         fail()
 
 
 def validate(p, c, reference, root, s):
+    """Independently validate plant parameters and the accepted scenario/message subset."""
     shape(p, 'schemaVersion context parameters inputs returnCommandIds expected')
     if p['schemaVersion'] != 'arbi.plant/1.0':
         fail('UNSUPPORTED_PLANT')
@@ -110,10 +114,12 @@ def validate(p, c, reference, root, s):
 
 
 def lengths(pos, c):
+    """Calculate calibrated Euclidean cable payout in millimetres."""
     return {a['line']: math.sqrt((a['positionMm']['x']-pos['x'])**2 + (a['positionMm']['y']-pos['y'])**2 + (a['positionMm']['z']-pos['z'])**2) + c['calibration']['lineLengthOffsetsMm'][a['line']] for a in c['geometry']['anchors']}
 
 
 def drum(value, d):
+    """Derive signed reference pulses and reverse payout; no encoder observation."""
     if not d['minPayoutMm'] <= value <= d['maxPayoutMm']:
         fail('OUTSIDE_LIMITS')
     unit = 2 * math.pi * d['radiusMm'] / d['stepsPerRevolution']
@@ -122,6 +128,7 @@ def drum(value, d):
 
 
 def check_move(start, target, speed, p, c, s):
+    """Check workspace, complete segment payout and conservative driver pulse rates."""
     if not s.inside(start, c) or not s.inside(target, c) or not 0 < speed <= c['limits']['maxSpeedMmPerS']:
         fail('OUTSIDE_LIMITS')
     delta = {k: target[k]-start[k] for k in 'xyz'}
@@ -137,6 +144,7 @@ def check_move(start, target, speed, p, c, s):
 
 
 def run(p, c, s):
+    """Derive virtual module state, sampled telemetry and invariants from raw input."""
     ctx, a = p['context'], p['parameters']
     clock, init = ctx['clock'], ctx['initial']
     step = clock['stepMs']
@@ -147,6 +155,7 @@ def run(p, c, s):
     available, voltage, boot_at = init['powerAvailable'], init['voltageV'], clock['startMs'] + grid(a['power']['bootMs'])
     random_state = ctx['seed']
     def draw():
+        """Advance the uint32 LCG once and return its normalized sample."""
         nonlocal random_state
         random_state = (1664525*random_state + 1013904223) % 4294967296
         return random_state/4294967296
@@ -156,6 +165,7 @@ def run(p, c, s):
     near = lambda v: math.sqrt(sum((v[k]-a['dock']['positionMm'][k])**2 for k in 'xyz')) <= a['dock']['toleranceMm']
     inputs = {k: dict(value=None, at=None) for k in ['home', 'limit', 'dock']}
     def sensors():
+        """Expose independent virtual input provenance or explicit unavailability."""
         return {k: dict(quality='estimated', origin='virtual-input', value=v['value'], sampleMonotonicMs=v['at']) if a['sensors'][k] == 'virtual-input' and v['value'] is not None else dict(quality='unavailable', origin='unavailable', value=None, sampleMonotonicMs=None) for k, v in inputs.items()}
     for line in LINES:
         drum(lengths(pos, c)[line], a['drums'][line])
@@ -167,12 +177,14 @@ def run(p, c, s):
     for now in range(clock['startMs'], clock['startMs']+clock['durationMs']+1, step):
         outcomes, dispatches = [], []
         def outcome(i, nxt, error=None):
+            """Apply the accepted outcome graph and append this tick lifecycle observation."""
             h = history.setdefault(i, [])
             if not ((not h and nxt == 'requested') or (h and nxt in s.TRANSITIONS[h[-1]])):
                 fail('INVALID_TRANSITION')
             h.append(nxt)
             outcomes.append(dict(commandId=i, outcome=nxt, error=error))
         def stop(error, latched):
+            """Cancel pending local modules and optionally retain a latched fault."""
             nonlocal active, movement, operation, state
             movement = operation = None
             if active:
@@ -345,6 +357,7 @@ def run(p, c, s):
     invariants['boundedTrace'] = len(trace) <= 512
     report = dict(schemaVersion='arbi.plant/1.0', fidelity='bounded-affine-modules-no-dynamics', evidence='synthetic-host-reference', identity=ctx['identity'], parameters=a, assumptions=ASSUMPTIONS, trace=trace, invariants=invariants)
     def numeric_tree(v):
+        """Quantize numeric digest parameters without changing report input units."""
         if isinstance(v, (int, float)) and not isinstance(v, bool):
             return s.q6(v)
         if isinstance(v, dict):
@@ -357,6 +370,7 @@ def run(p, c, s):
 
 
 def consume(file, root, check=True):
+    """Load committed synthetic input and independently check its expected results."""
     spec = importlib.util.spec_from_file_location('scenario_reference', root / 'conformance/scenario.py')
     s = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(s)
