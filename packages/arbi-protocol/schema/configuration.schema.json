@@ -1,0 +1,918 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://arbi.gredice.com/schemas/configuration/1.0/configuration.schema.json",
+  "title": "ARBI configuration 1.0",
+  "description": "Secret-free strict configuration and transactional reference records. Apply schema plus docs/software/configuration.md semantic and local evidence rules. No actuator authority.",
+  "$defs": {
+    "ConfigurationEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "recordRevision": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "stage": {
+          "enum": [
+            "design",
+            "simulation",
+            "bench",
+            "secured-frame",
+            "installed",
+            "qualified-review"
+          ]
+        },
+        "result": {
+          "enum": [
+            "passed",
+            "failed",
+            "unverified"
+          ]
+        },
+        "reviewerId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        }
+      },
+      "required": [
+        "id",
+        "recordRevision",
+        "stage",
+        "result",
+        "reviewerId"
+      ]
+    },
+    "ConfigurationUpdate": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "unsupported"
+            },
+            "reason": {
+              "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+            }
+          },
+          "required": [
+            "kind",
+            "reason"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "supported"
+            },
+            "interfaceId": {
+              "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+            },
+            "targets": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "firmware",
+                  "application",
+                  "os"
+                ]
+              },
+              "minItems": 1,
+              "maxItems": 3
+            },
+            "evidence": {
+              "$ref": "#/$defs/ConfigurationEvidence"
+            }
+          },
+          "required": [
+            "kind",
+            "interfaceId",
+            "targets",
+            "evidence"
+          ]
+        }
+      ]
+    },
+    "ConfigurationComponent": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+            },
+            "hardwareId": {
+              "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+            },
+            "hardwareRevision": {
+              "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+            },
+            "assemblyId": {
+              "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+            },
+            "assemblyRevision": {
+              "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+            },
+            "kind": {
+              "const": "passive"
+            }
+          },
+          "required": [
+            "id",
+            "hardwareId",
+            "hardwareRevision",
+            "assemblyId",
+            "assemblyRevision",
+            "kind"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+            },
+            "hardwareId": {
+              "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+            },
+            "hardwareRevision": {
+              "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+            },
+            "assemblyId": {
+              "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+            },
+            "assemblyRevision": {
+              "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+            },
+            "kind": {
+              "const": "module"
+            },
+            "role": {
+              "enum": [
+                "edge",
+                "pico",
+                "pod",
+                "driver",
+                "peripheral"
+              ]
+            },
+            "firmwareVersion": {
+              "anyOf": [
+                {
+                  "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "update": {
+              "$ref": "#/$defs/ConfigurationUpdate"
+            }
+          },
+          "required": [
+            "id",
+            "hardwareId",
+            "hardwareRevision",
+            "assemblyId",
+            "assemblyRevision",
+            "kind",
+            "role",
+            "firmwareVersion",
+            "update"
+          ]
+        }
+      ]
+    },
+    "ConfigurationSignal": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "physicalComponentId": {
+          "anyOf": [
+            {
+              "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ownerComponentId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "interfaceId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "metric": {
+          "anyOf": [
+            {
+              "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Capability/properties/metric"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "frame": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Sample/properties/frame"
+        },
+        "reading": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "kind": {
+                  "const": "unavailable"
+                },
+                "reason": {
+                  "enum": [
+                    "sensor-not-installed",
+                    "not-reported",
+                    "sensor-fault"
+                  ]
+                }
+              },
+              "required": [
+                "kind",
+                "reason"
+              ]
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "kind": {
+                  "const": "reported"
+                },
+                "qualities": {
+                  "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Capability/properties/qualities"
+                },
+                "evidence": {
+                  "$ref": "#/$defs/ConfigurationEvidence"
+                }
+              },
+              "required": [
+                "kind",
+                "qualities",
+                "evidence"
+              ]
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "physicalComponentId",
+        "ownerComponentId",
+        "interfaceId",
+        "metric",
+        "frame",
+        "reading"
+      ]
+    },
+    "ConfigurationAnchor": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "line": {
+          "enum": [
+            "a",
+            "b",
+            "c",
+            "d"
+          ]
+        },
+        "componentId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "positionMm": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/VectorMm"
+        }
+      },
+      "required": [
+        "line",
+        "componentId",
+        "positionMm"
+      ]
+    },
+    "ConfigurationBox": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "minMm": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/VectorMm"
+        },
+        "maxMm": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/VectorMm"
+        }
+      },
+      "required": [
+        "minMm",
+        "maxMm"
+      ]
+    },
+    "ConfigurationBed": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "bedId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "mappingRevision": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "bounds": {
+          "$ref": "#/$defs/ConfigurationBox"
+        }
+      },
+      "required": [
+        "bedId",
+        "mappingRevision",
+        "bounds"
+      ]
+    },
+    "ConfigurationPlant": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "plantId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "bedId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "mappingRevision": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "positionMm": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/VectorMm"
+        }
+      },
+      "required": [
+        "plantId",
+        "bedId",
+        "mappingRevision",
+        "positionMm"
+      ]
+    },
+    "ConfigurationGeometry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "revision": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "siteFrame": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/SiteFrame"
+        },
+        "gimbalFrame": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/GimbalFrame"
+        },
+        "convention": {
+          "const": "right-handed-x-y-z-mm-deg"
+        },
+        "anchors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ConfigurationAnchor"
+          },
+          "minItems": 4,
+          "maxItems": 4
+        },
+        "beds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ConfigurationBed"
+          },
+          "minItems": 0,
+          "maxItems": 256
+        },
+        "plants": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ConfigurationPlant"
+          },
+          "minItems": 0,
+          "maxItems": 4096
+        }
+      },
+      "required": [
+        "revision",
+        "siteFrame",
+        "gimbalFrame",
+        "convention",
+        "anchors",
+        "beds",
+        "plants"
+      ]
+    },
+    "ConfigurationRange": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "min": {
+          "type": "number",
+          "minimum": -1000000,
+          "maximum": 1000000
+        },
+        "max": {
+          "type": "number",
+          "minimum": -1000000,
+          "maximum": 1000000
+        }
+      },
+      "required": [
+        "min",
+        "max"
+      ]
+    },
+    "ConfigurationLimits": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "revision": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "workspace": {
+          "$ref": "#/$defs/ConfigurationBox"
+        },
+        "maxSpeedMmPerS": {
+          "type": "number",
+          "minimum": 0.001,
+          "maximum": 5000
+        },
+        "maxAccelerationMmPerS2": {
+          "type": "number",
+          "minimum": 0.001,
+          "maximum": 10000
+        },
+        "tensionN": {
+          "$ref": "#/$defs/ConfigurationRange"
+        },
+        "panDeg": {
+          "$ref": "#/$defs/ConfigurationRange"
+        },
+        "tiltDeg": {
+          "$ref": "#/$defs/ConfigurationRange"
+        }
+      },
+      "required": [
+        "revision",
+        "workspace",
+        "maxSpeedMmPerS",
+        "maxAccelerationMmPerS2",
+        "tensionN",
+        "panDeg",
+        "tiltDeg"
+      ]
+    },
+    "ConfigurationCalibration": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "revision": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "previousRevision": {
+          "anyOf": [
+            {
+              "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "hardwareDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "geometryDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "limitsDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "scope": {
+          "enum": [
+            "simulation",
+            "bench",
+            "installed"
+          ]
+        },
+        "lineLengthOffsetsMm": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "a": {
+              "type": "number",
+              "minimum": -1000,
+              "maximum": 1000
+            },
+            "b": {
+              "type": "number",
+              "minimum": -1000,
+              "maximum": 1000
+            },
+            "c": {
+              "type": "number",
+              "minimum": -1000,
+              "maximum": 1000
+            },
+            "d": {
+              "type": "number",
+              "minimum": -1000,
+              "maximum": 1000
+            }
+          },
+          "required": [
+            "a",
+            "b",
+            "c",
+            "d"
+          ]
+        },
+        "gimbalZeroDeg": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "pan": {
+              "type": "number",
+              "minimum": -180,
+              "maximum": 180
+            },
+            "tilt": {
+              "type": "number",
+              "minimum": -180,
+              "maximum": 180
+            }
+          },
+          "required": [
+            "pan",
+            "tilt"
+          ]
+        },
+        "uncertaintyMm": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1000
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ConfigurationEvidence"
+          },
+          "minItems": 1,
+          "maxItems": 32
+        }
+      },
+      "required": [
+        "revision",
+        "previousRevision",
+        "hardwareDigest",
+        "geometryDigest",
+        "limitsDigest",
+        "scope",
+        "lineLengthOffsetsMm",
+        "gimbalZeroDeg",
+        "uncertaintyMm",
+        "evidence"
+      ]
+    },
+    "Configuration": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "const": "arbi.configuration/1.0"
+        },
+        "revision": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "previousRevision": {
+          "anyOf": [
+            {
+              "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "realm": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Realm"
+        },
+        "executionMode": {
+          "enum": [
+            "simulation",
+            "hardware"
+          ]
+        },
+        "siteId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "components": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ConfigurationComponent"
+          },
+          "minItems": 1,
+          "maxItems": 128
+        },
+        "signals": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ConfigurationSignal"
+          },
+          "minItems": 0,
+          "maxItems": 128
+        },
+        "geometry": {
+          "$ref": "#/$defs/ConfigurationGeometry"
+        },
+        "limits": {
+          "$ref": "#/$defs/ConfigurationLimits"
+        },
+        "calibration": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ConfigurationCalibration"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "revision",
+        "previousRevision",
+        "realm",
+        "executionMode",
+        "siteId",
+        "components",
+        "signals",
+        "geometry",
+        "limits",
+        "calibration"
+      ]
+    },
+    "ConfigurationEditContext": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "actor": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Actor"
+        },
+        "authorizationId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "correlationId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "reasonCode": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "previousConfigRevision": {
+          "anyOf": [
+            {
+              "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "previousCalibrationRevision": {
+          "anyOf": [
+            {
+              "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "actor",
+        "authorizationId",
+        "correlationId",
+        "reasonCode",
+        "previousConfigRevision",
+        "previousCalibrationRevision"
+      ]
+    },
+    "ConfigurationTransition": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "apply"
+            }
+          },
+          "required": [
+            "kind"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "rollback"
+            },
+            "targetRevision": {
+              "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+            }
+          },
+          "required": [
+            "kind",
+            "targetRevision"
+          ]
+        }
+      ]
+    },
+    "ConfigurationRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "const": "arbi.configuration/1.0"
+        },
+        "transactionId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "expectedAppliedRevision": {
+          "anyOf": [
+            {
+              "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "target": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Identity"
+        },
+        "transition": {
+          "$ref": "#/$defs/ConfigurationTransition"
+        },
+        "configuration": {
+          "$ref": "#/$defs/Configuration"
+        },
+        "auditContext": {
+          "$ref": "#/$defs/ConfigurationEditContext"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "transactionId",
+        "expectedAppliedRevision",
+        "target",
+        "transition",
+        "configuration",
+        "auditContext"
+      ]
+    },
+    "AppliedConfiguration": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "const": "arbi.configuration/1.0"
+        },
+        "request": {
+          "$ref": "#/$defs/ConfigurationRequest"
+        },
+        "appliedBy": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Identity"
+        },
+        "configurationDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "request",
+        "appliedBy",
+        "configurationDigest"
+      ]
+    },
+    "ConfigurationReport": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "const": "arbi.configuration/1.0"
+        },
+        "type": {
+          "enum": [
+            "configuration.applied",
+            "configuration.boot"
+          ]
+        },
+        "source": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Identity"
+        },
+        "transactionId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "appliedRevision": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "configurationDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "calibrationRevision": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "hardwareDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "inhibited": {
+          "const": true
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "type",
+        "source",
+        "transactionId",
+        "appliedRevision",
+        "configurationDigest",
+        "calibrationRevision",
+        "hardwareDigest",
+        "inhibited"
+      ]
+    },
+    "ConfigurationJournal": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "const": "arbi.configuration/1.0"
+        },
+        "appliedTransactionId": {
+          "anyOf": [
+            {
+              "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "commits": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 128,
+          "items": {
+            "$ref": "#/$defs/AppliedConfiguration"
+          }
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "appliedTransactionId",
+        "commits"
+      ]
+    }
+  },
+  "oneOf": [
+    {
+      "$ref": "#/$defs/Configuration"
+    },
+    {
+      "$ref": "#/$defs/ConfigurationRequest"
+    },
+    {
+      "$ref": "#/$defs/AppliedConfiguration"
+    },
+    {
+      "$ref": "#/$defs/ConfigurationReport"
+    },
+    {
+      "$ref": "#/$defs/ConfigurationJournal"
+    }
+  ]
+}

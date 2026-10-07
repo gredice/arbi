@@ -1,0 +1,1958 @@
+{
+  "description": "Synthetic isolated configuration only; coordinates and evidence IDs are fictional. No physical validation or supported deployed update interface is claimed.",
+  "context": {
+    "receiver": {
+      "deviceId": "edge",
+      "bootId": "edge-boot-1",
+      "sessionId": "edge-session-1"
+    },
+    "realm": {
+      "environment": "test",
+      "namespaceId": "fixture-run"
+    },
+    "siteId": "synthetic-site",
+    "executionMode": "simulation",
+    "installedHardwareDigest": "b4383110a9256da0751bbc1670a27604e106e8000ac7482e6009e2e0bd7fb4ff",
+    "localLimits": {
+      "revision": "limits-1",
+      "workspace": {
+        "minMm": {
+          "x": 200,
+          "y": 200,
+          "z": 500
+        },
+        "maxMm": {
+          "x": 3800,
+          "y": 4800,
+          "z": 3000
+        }
+      },
+      "maxSpeedMmPerS": 50,
+      "maxAccelerationMmPerS2": 100,
+      "tensionN": {
+        "min": 1,
+        "max": 10
+      },
+      "panDeg": {
+        "min": -90,
+        "max": 90
+      },
+      "tiltDeg": {
+        "min": -60,
+        "max": 60
+      }
+    },
+    "approvedCalibrationDigests": [
+      "49c632869d8d101a51c9c07f04d168c44770c6067a8297c9f39979c42e390db8",
+      "4f52136b4a8c0c75240113abaa0b71cf1a6eb2bc57ab03cc7d879665420e8a9d"
+    ],
+    "readableSchemaVersions": [
+      "arbi.configuration/1.0"
+    ],
+    "rollbackReadableSchemaVersions": [
+      "arbi.configuration/1.0"
+    ],
+    "authorizedActor": {
+      "kind": "human",
+      "id": "operator-1"
+    },
+    "authorizationId": "local-config-grant-1",
+    "inhibited": true,
+    "calibrationScope": "simulation"
+  },
+  "valid": {
+    "configuration": {
+      "schemaVersion": "arbi.configuration/1.0",
+      "revision": "config-1",
+      "previousRevision": null,
+      "realm": {
+        "environment": "test",
+        "namespaceId": "fixture-run"
+      },
+      "executionMode": "simulation",
+      "siteId": "synthetic-site",
+      "components": [
+        {
+          "id": "edge",
+          "kind": "module",
+          "hardwareId": "edge-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "control-cabinet",
+          "assemblyRevision": "1.0.0",
+          "role": "edge",
+          "firmwareVersion": "fixture-1.0.0",
+          "update": {
+            "kind": "unsupported",
+            "reason": "no-reviewed-update-interface"
+          }
+        },
+        {
+          "id": "pico",
+          "kind": "module",
+          "hardwareId": "pico-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "control-cabinet",
+          "assemblyRevision": "1.0.0",
+          "role": "pico",
+          "firmwareVersion": "fixture-1.0.0",
+          "update": {
+            "kind": "unsupported",
+            "reason": "no-reviewed-update-interface"
+          }
+        },
+        {
+          "id": "pod",
+          "kind": "module",
+          "hardwareId": "pod-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "control-cabinet",
+          "assemblyRevision": "1.0.0",
+          "role": "pod",
+          "firmwareVersion": "fixture-1.0.0",
+          "update": {
+            "kind": "unsupported",
+            "reason": "no-reviewed-update-interface"
+          }
+        },
+        {
+          "id": "driver-a",
+          "kind": "module",
+          "hardwareId": "driver-a-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "control-cabinet",
+          "assemblyRevision": "1.0.0",
+          "role": "driver",
+          "firmwareVersion": null,
+          "update": {
+            "kind": "unsupported",
+            "reason": "no-reviewed-update-interface"
+          }
+        },
+        {
+          "id": "driver-b",
+          "kind": "module",
+          "hardwareId": "driver-b-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "control-cabinet",
+          "assemblyRevision": "1.0.0",
+          "role": "driver",
+          "firmwareVersion": null,
+          "update": {
+            "kind": "unsupported",
+            "reason": "no-reviewed-update-interface"
+          }
+        },
+        {
+          "id": "driver-c",
+          "kind": "module",
+          "hardwareId": "driver-c-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "control-cabinet",
+          "assemblyRevision": "1.0.0",
+          "role": "driver",
+          "firmwareVersion": null,
+          "update": {
+            "kind": "unsupported",
+            "reason": "no-reviewed-update-interface"
+          }
+        },
+        {
+          "id": "driver-d",
+          "kind": "module",
+          "hardwareId": "driver-d-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "control-cabinet",
+          "assemblyRevision": "1.0.0",
+          "role": "driver",
+          "firmwareVersion": null,
+          "update": {
+            "kind": "unsupported",
+            "reason": "no-reviewed-update-interface"
+          }
+        },
+        {
+          "id": "anchor-a",
+          "kind": "passive",
+          "hardwareId": "anchor-a-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "corner-station",
+          "assemblyRevision": "1.0.0"
+        },
+        {
+          "id": "anchor-b",
+          "kind": "passive",
+          "hardwareId": "anchor-b-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "corner-station",
+          "assemblyRevision": "1.0.0"
+        },
+        {
+          "id": "anchor-c",
+          "kind": "passive",
+          "hardwareId": "anchor-c-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "corner-station",
+          "assemblyRevision": "1.0.0"
+        },
+        {
+          "id": "anchor-d",
+          "kind": "passive",
+          "hardwareId": "anchor-d-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "corner-station",
+          "assemblyRevision": "1.0.0"
+        },
+        {
+          "id": "drum-a",
+          "kind": "passive",
+          "hardwareId": "drum-a-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "winch",
+          "assemblyRevision": "1.0.0"
+        },
+        {
+          "id": "drum-b",
+          "kind": "passive",
+          "hardwareId": "drum-b-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "winch",
+          "assemblyRevision": "1.0.0"
+        },
+        {
+          "id": "drum-c",
+          "kind": "passive",
+          "hardwareId": "drum-c-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "winch",
+          "assemblyRevision": "1.0.0"
+        },
+        {
+          "id": "drum-d",
+          "kind": "passive",
+          "hardwareId": "drum-d-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "winch",
+          "assemblyRevision": "1.0.0"
+        },
+        {
+          "id": "powered-line",
+          "kind": "passive",
+          "hardwareId": "powered-line-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "positioning-lines",
+          "assemblyRevision": "1.0.0"
+        },
+        {
+          "id": "servo-pan",
+          "kind": "passive",
+          "hardwareId": "servo-pan-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "camera-pod",
+          "assemblyRevision": "1.0.0"
+        },
+        {
+          "id": "servo-tilt",
+          "kind": "passive",
+          "hardwareId": "servo-tilt-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "camera-pod",
+          "assemblyRevision": "1.0.0"
+        }
+      ],
+      "signals": [
+        {
+          "id": "position-x",
+          "physicalComponentId": null,
+          "ownerComponentId": "edge",
+          "interfaceId": "synthetic-position-x",
+          "metric": "position.x",
+          "frame": {
+            "name": "site",
+            "revision": "frame-1"
+          },
+          "reading": {
+            "kind": "reported",
+            "qualities": [
+              "commanded",
+              "estimated"
+            ],
+            "evidence": {
+              "id": "synthetic-review",
+              "recordRevision": "record-1",
+              "stage": "simulation",
+              "result": "passed",
+              "reviewerId": "fixture-reviewer"
+            }
+          }
+        },
+        {
+          "id": "position-y",
+          "physicalComponentId": null,
+          "ownerComponentId": "edge",
+          "interfaceId": "synthetic-position-y",
+          "metric": "position.y",
+          "frame": {
+            "name": "site",
+            "revision": "frame-1"
+          },
+          "reading": {
+            "kind": "reported",
+            "qualities": [
+              "commanded",
+              "estimated"
+            ],
+            "evidence": {
+              "id": "synthetic-review",
+              "recordRevision": "record-1",
+              "stage": "simulation",
+              "result": "passed",
+              "reviewerId": "fixture-reviewer"
+            }
+          }
+        },
+        {
+          "id": "position-z",
+          "physicalComponentId": null,
+          "ownerComponentId": "edge",
+          "interfaceId": "synthetic-position-z",
+          "metric": "position.z",
+          "frame": {
+            "name": "site",
+            "revision": "frame-1"
+          },
+          "reading": {
+            "kind": "reported",
+            "qualities": [
+              "commanded",
+              "estimated"
+            ],
+            "evidence": {
+              "id": "synthetic-review",
+              "recordRevision": "record-1",
+              "stage": "simulation",
+              "result": "passed",
+              "reviewerId": "fixture-reviewer"
+            }
+          }
+        },
+        {
+          "id": "length-a",
+          "physicalComponentId": null,
+          "ownerComponentId": "pico",
+          "interfaceId": "synthetic-length-a",
+          "metric": "line.length.a",
+          "frame": {
+            "name": "site",
+            "revision": "frame-1"
+          },
+          "reading": {
+            "kind": "reported",
+            "qualities": [
+              "commanded",
+              "estimated"
+            ],
+            "evidence": {
+              "id": "synthetic-review",
+              "recordRevision": "record-1",
+              "stage": "simulation",
+              "result": "passed",
+              "reviewerId": "fixture-reviewer"
+            }
+          }
+        },
+        {
+          "id": "length-b",
+          "physicalComponentId": null,
+          "ownerComponentId": "pico",
+          "interfaceId": "synthetic-length-b",
+          "metric": "line.length.b",
+          "frame": {
+            "name": "site",
+            "revision": "frame-1"
+          },
+          "reading": {
+            "kind": "reported",
+            "qualities": [
+              "commanded",
+              "estimated"
+            ],
+            "evidence": {
+              "id": "synthetic-review",
+              "recordRevision": "record-1",
+              "stage": "simulation",
+              "result": "passed",
+              "reviewerId": "fixture-reviewer"
+            }
+          }
+        },
+        {
+          "id": "length-c",
+          "physicalComponentId": null,
+          "ownerComponentId": "pico",
+          "interfaceId": "synthetic-length-c",
+          "metric": "line.length.c",
+          "frame": {
+            "name": "site",
+            "revision": "frame-1"
+          },
+          "reading": {
+            "kind": "reported",
+            "qualities": [
+              "commanded",
+              "estimated"
+            ],
+            "evidence": {
+              "id": "synthetic-review",
+              "recordRevision": "record-1",
+              "stage": "simulation",
+              "result": "passed",
+              "reviewerId": "fixture-reviewer"
+            }
+          }
+        },
+        {
+          "id": "length-d",
+          "physicalComponentId": null,
+          "ownerComponentId": "pico",
+          "interfaceId": "synthetic-length-d",
+          "metric": "line.length.d",
+          "frame": {
+            "name": "site",
+            "revision": "frame-1"
+          },
+          "reading": {
+            "kind": "reported",
+            "qualities": [
+              "commanded",
+              "estimated"
+            ],
+            "evidence": {
+              "id": "synthetic-review",
+              "recordRevision": "record-1",
+              "stage": "simulation",
+              "result": "passed",
+              "reviewerId": "fixture-reviewer"
+            }
+          }
+        },
+        {
+          "id": "tension-a",
+          "physicalComponentId": null,
+          "ownerComponentId": "pico",
+          "interfaceId": "synthetic-tension-a",
+          "metric": "line.tension.a",
+          "frame": {
+            "name": "site",
+            "revision": "frame-1"
+          },
+          "reading": {
+            "kind": "unavailable",
+            "reason": "sensor-not-installed"
+          }
+        },
+        {
+          "id": "tension-b",
+          "physicalComponentId": null,
+          "ownerComponentId": "pico",
+          "interfaceId": "synthetic-tension-b",
+          "metric": "line.tension.b",
+          "frame": {
+            "name": "site",
+            "revision": "frame-1"
+          },
+          "reading": {
+            "kind": "unavailable",
+            "reason": "sensor-not-installed"
+          }
+        },
+        {
+          "id": "tension-c",
+          "physicalComponentId": null,
+          "ownerComponentId": "pico",
+          "interfaceId": "synthetic-tension-c",
+          "metric": "line.tension.c",
+          "frame": {
+            "name": "site",
+            "revision": "frame-1"
+          },
+          "reading": {
+            "kind": "unavailable",
+            "reason": "sensor-not-installed"
+          }
+        },
+        {
+          "id": "tension-d",
+          "physicalComponentId": null,
+          "ownerComponentId": "pico",
+          "interfaceId": "synthetic-tension-d",
+          "metric": "line.tension.d",
+          "frame": {
+            "name": "site",
+            "revision": "frame-1"
+          },
+          "reading": {
+            "kind": "unavailable",
+            "reason": "sensor-not-installed"
+          }
+        },
+        {
+          "id": "gimbal-pan",
+          "physicalComponentId": "servo-pan",
+          "ownerComponentId": "pod",
+          "interfaceId": "synthetic-gimbal-pan",
+          "metric": "gimbal.pan",
+          "frame": {
+            "name": "pod-gimbal",
+            "revision": "gimbal-1"
+          },
+          "reading": {
+            "kind": "reported",
+            "qualities": [
+              "commanded"
+            ],
+            "evidence": {
+              "id": "synthetic-review",
+              "recordRevision": "record-1",
+              "stage": "simulation",
+              "result": "passed",
+              "reviewerId": "fixture-reviewer"
+            }
+          }
+        },
+        {
+          "id": "gimbal-tilt",
+          "physicalComponentId": "servo-tilt",
+          "ownerComponentId": "pod",
+          "interfaceId": "synthetic-gimbal-tilt",
+          "metric": "gimbal.tilt",
+          "frame": {
+            "name": "pod-gimbal",
+            "revision": "gimbal-1"
+          },
+          "reading": {
+            "kind": "reported",
+            "qualities": [
+              "commanded"
+            ],
+            "evidence": {
+              "id": "synthetic-review",
+              "recordRevision": "record-1",
+              "stage": "simulation",
+              "result": "passed",
+              "reviewerId": "fixture-reviewer"
+            }
+          }
+        },
+        {
+          "id": "pod-rail",
+          "physicalComponentId": null,
+          "ownerComponentId": "pod",
+          "interfaceId": "synthetic-pod-rail",
+          "metric": "power.voltage",
+          "frame": {
+            "name": "none",
+            "revision": null
+          },
+          "reading": {
+            "kind": "unavailable",
+            "reason": "sensor-not-installed"
+          }
+        },
+        {
+          "id": "pico-encoder-a",
+          "physicalComponentId": "driver-a",
+          "ownerComponentId": "pico",
+          "interfaceId": "synthetic-pico-encoder-a",
+          "metric": null,
+          "frame": {
+            "name": "none",
+            "revision": null
+          },
+          "reading": {
+            "kind": "unavailable",
+            "reason": "not-reported"
+          }
+        },
+        {
+          "id": "pico-encoder-b",
+          "physicalComponentId": "driver-b",
+          "ownerComponentId": "pico",
+          "interfaceId": "synthetic-pico-encoder-b",
+          "metric": null,
+          "frame": {
+            "name": "none",
+            "revision": null
+          },
+          "reading": {
+            "kind": "unavailable",
+            "reason": "not-reported"
+          }
+        },
+        {
+          "id": "pico-encoder-c",
+          "physicalComponentId": "driver-c",
+          "ownerComponentId": "pico",
+          "interfaceId": "synthetic-pico-encoder-c",
+          "metric": null,
+          "frame": {
+            "name": "none",
+            "revision": null
+          },
+          "reading": {
+            "kind": "unavailable",
+            "reason": "not-reported"
+          }
+        },
+        {
+          "id": "pico-encoder-d",
+          "physicalComponentId": "driver-d",
+          "ownerComponentId": "pico",
+          "interfaceId": "synthetic-pico-encoder-d",
+          "metric": null,
+          "frame": {
+            "name": "none",
+            "revision": null
+          },
+          "reading": {
+            "kind": "unavailable",
+            "reason": "not-reported"
+          }
+        }
+      ],
+      "geometry": {
+        "revision": "geometry-1",
+        "siteFrame": {
+          "name": "site",
+          "revision": "frame-1"
+        },
+        "gimbalFrame": {
+          "name": "pod-gimbal",
+          "revision": "gimbal-1"
+        },
+        "convention": "right-handed-x-y-z-mm-deg",
+        "anchors": [
+          {
+            "line": "a",
+            "componentId": "anchor-a",
+            "positionMm": {
+              "x": 0,
+              "y": 0,
+              "z": 4000
+            }
+          },
+          {
+            "line": "b",
+            "componentId": "anchor-b",
+            "positionMm": {
+              "x": 4000,
+              "y": 0,
+              "z": 4000
+            }
+          },
+          {
+            "line": "c",
+            "componentId": "anchor-c",
+            "positionMm": {
+              "x": 4000,
+              "y": 5000,
+              "z": 4000
+            }
+          },
+          {
+            "line": "d",
+            "componentId": "anchor-d",
+            "positionMm": {
+              "x": 0,
+              "y": 5000,
+              "z": 4000
+            }
+          }
+        ],
+        "beds": [
+          {
+            "bedId": "synthetic-bed",
+            "mappingRevision": "bed-map-1",
+            "bounds": {
+              "minMm": {
+                "x": 800,
+                "y": 1000,
+                "z": 0
+              },
+              "maxMm": {
+                "x": 1600,
+                "y": 2500,
+                "z": 300
+              }
+            }
+          }
+        ],
+        "plants": [
+          {
+            "plantId": "synthetic-plant",
+            "bedId": "synthetic-bed",
+            "mappingRevision": "plant-map-1",
+            "positionMm": {
+              "x": 1000,
+              "y": 1500,
+              "z": 200
+            }
+          }
+        ]
+      },
+      "limits": {
+        "revision": "limits-1",
+        "workspace": {
+          "minMm": {
+            "x": 200,
+            "y": 200,
+            "z": 500
+          },
+          "maxMm": {
+            "x": 3800,
+            "y": 4800,
+            "z": 3000
+          }
+        },
+        "maxSpeedMmPerS": 50,
+        "maxAccelerationMmPerS2": 100,
+        "tensionN": {
+          "min": 1,
+          "max": 10
+        },
+        "panDeg": {
+          "min": -90,
+          "max": 90
+        },
+        "tiltDeg": {
+          "min": -60,
+          "max": 60
+        }
+      },
+      "calibration": {
+        "revision": "calibration-1",
+        "previousRevision": null,
+        "hardwareDigest": "b4383110a9256da0751bbc1670a27604e106e8000ac7482e6009e2e0bd7fb4ff",
+        "geometryDigest": "740db7a0f65b2b45564fd07aaca75ca2f611499aad906e2e8017aef23dd7b645",
+        "limitsDigest": "6643f3b0f1ffcaf9eae6e7bf84d08f2af05db2d99ce271300b1c0ccf5007532a",
+        "scope": "simulation",
+        "lineLengthOffsetsMm": {
+          "a": 0,
+          "b": 0,
+          "c": 0,
+          "d": 0
+        },
+        "gimbalZeroDeg": {
+          "pan": 0,
+          "tilt": 0
+        },
+        "uncertaintyMm": 2,
+        "evidence": [
+          {
+            "id": "synthetic-review",
+            "recordRevision": "record-1",
+            "stage": "simulation",
+            "result": "passed",
+            "reviewerId": "fixture-reviewer"
+          }
+        ]
+      }
+    },
+    "narrower": {
+      "schemaVersion": "arbi.configuration/1.0",
+      "revision": "config-2",
+      "previousRevision": "config-1",
+      "realm": {
+        "environment": "test",
+        "namespaceId": "fixture-run"
+      },
+      "executionMode": "simulation",
+      "siteId": "synthetic-site",
+      "components": [
+        {
+          "id": "edge",
+          "kind": "module",
+          "hardwareId": "edge-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "control-cabinet",
+          "assemblyRevision": "1.0.0",
+          "role": "edge",
+          "firmwareVersion": "fixture-1.0.0",
+          "update": {
+            "kind": "unsupported",
+            "reason": "no-reviewed-update-interface"
+          }
+        },
+        {
+          "id": "pico",
+          "kind": "module",
+          "hardwareId": "pico-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "control-cabinet",
+          "assemblyRevision": "1.0.0",
+          "role": "pico",
+          "firmwareVersion": "fixture-1.0.0",
+          "update": {
+            "kind": "unsupported",
+            "reason": "no-reviewed-update-interface"
+          }
+        },
+        {
+          "id": "pod",
+          "kind": "module",
+          "hardwareId": "pod-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "control-cabinet",
+          "assemblyRevision": "1.0.0",
+          "role": "pod",
+          "firmwareVersion": "fixture-1.0.0",
+          "update": {
+            "kind": "unsupported",
+            "reason": "no-reviewed-update-interface"
+          }
+        },
+        {
+          "id": "driver-a",
+          "kind": "module",
+          "hardwareId": "driver-a-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "control-cabinet",
+          "assemblyRevision": "1.0.0",
+          "role": "driver",
+          "firmwareVersion": null,
+          "update": {
+            "kind": "unsupported",
+            "reason": "no-reviewed-update-interface"
+          }
+        },
+        {
+          "id": "driver-b",
+          "kind": "module",
+          "hardwareId": "driver-b-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "control-cabinet",
+          "assemblyRevision": "1.0.0",
+          "role": "driver",
+          "firmwareVersion": null,
+          "update": {
+            "kind": "unsupported",
+            "reason": "no-reviewed-update-interface"
+          }
+        },
+        {
+          "id": "driver-c",
+          "kind": "module",
+          "hardwareId": "driver-c-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "control-cabinet",
+          "assemblyRevision": "1.0.0",
+          "role": "driver",
+          "firmwareVersion": null,
+          "update": {
+            "kind": "unsupported",
+            "reason": "no-reviewed-update-interface"
+          }
+        },
+        {
+          "id": "driver-d",
+          "kind": "module",
+          "hardwareId": "driver-d-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "control-cabinet",
+          "assemblyRevision": "1.0.0",
+          "role": "driver",
+          "firmwareVersion": null,
+          "update": {
+            "kind": "unsupported",
+            "reason": "no-reviewed-update-interface"
+          }
+        },
+        {
+          "id": "anchor-a",
+          "kind": "passive",
+          "hardwareId": "anchor-a-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "corner-station",
+          "assemblyRevision": "1.0.0"
+        },
+        {
+          "id": "anchor-b",
+          "kind": "passive",
+          "hardwareId": "anchor-b-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "corner-station",
+          "assemblyRevision": "1.0.0"
+        },
+        {
+          "id": "anchor-c",
+          "kind": "passive",
+          "hardwareId": "anchor-c-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "corner-station",
+          "assemblyRevision": "1.0.0"
+        },
+        {
+          "id": "anchor-d",
+          "kind": "passive",
+          "hardwareId": "anchor-d-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "corner-station",
+          "assemblyRevision": "1.0.0"
+        },
+        {
+          "id": "drum-a",
+          "kind": "passive",
+          "hardwareId": "drum-a-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "winch",
+          "assemblyRevision": "1.0.0"
+        },
+        {
+          "id": "drum-b",
+          "kind": "passive",
+          "hardwareId": "drum-b-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "winch",
+          "assemblyRevision": "1.0.0"
+        },
+        {
+          "id": "drum-c",
+          "kind": "passive",
+          "hardwareId": "drum-c-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "winch",
+          "assemblyRevision": "1.0.0"
+        },
+        {
+          "id": "drum-d",
+          "kind": "passive",
+          "hardwareId": "drum-d-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "winch",
+          "assemblyRevision": "1.0.0"
+        },
+        {
+          "id": "powered-line",
+          "kind": "passive",
+          "hardwareId": "powered-line-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "positioning-lines",
+          "assemblyRevision": "1.0.0"
+        },
+        {
+          "id": "servo-pan",
+          "kind": "passive",
+          "hardwareId": "servo-pan-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "camera-pod",
+          "assemblyRevision": "1.0.0"
+        },
+        {
+          "id": "servo-tilt",
+          "kind": "passive",
+          "hardwareId": "servo-tilt-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "camera-pod",
+          "assemblyRevision": "1.0.0"
+        }
+      ],
+      "signals": [
+        {
+          "id": "position-x",
+          "physicalComponentId": null,
+          "ownerComponentId": "edge",
+          "interfaceId": "synthetic-position-x",
+          "metric": "position.x",
+          "frame": {
+            "name": "site",
+            "revision": "frame-1"
+          },
+          "reading": {
+            "kind": "reported",
+            "qualities": [
+              "commanded",
+              "estimated"
+            ],
+            "evidence": {
+              "id": "synthetic-review",
+              "recordRevision": "record-1",
+              "stage": "simulation",
+              "result": "passed",
+              "reviewerId": "fixture-reviewer"
+            }
+          }
+        },
+        {
+          "id": "position-y",
+          "physicalComponentId": null,
+          "ownerComponentId": "edge",
+          "interfaceId": "synthetic-position-y",
+          "metric": "position.y",
+          "frame": {
+            "name": "site",
+            "revision": "frame-1"
+          },
+          "reading": {
+            "kind": "reported",
+            "qualities": [
+              "commanded",
+              "estimated"
+            ],
+            "evidence": {
+              "id": "synthetic-review",
+              "recordRevision": "record-1",
+              "stage": "simulation",
+              "result": "passed",
+              "reviewerId": "fixture-reviewer"
+            }
+          }
+        },
+        {
+          "id": "position-z",
+          "physicalComponentId": null,
+          "ownerComponentId": "edge",
+          "interfaceId": "synthetic-position-z",
+          "metric": "position.z",
+          "frame": {
+            "name": "site",
+            "revision": "frame-1"
+          },
+          "reading": {
+            "kind": "reported",
+            "qualities": [
+              "commanded",
+              "estimated"
+            ],
+            "evidence": {
+              "id": "synthetic-review",
+              "recordRevision": "record-1",
+              "stage": "simulation",
+              "result": "passed",
+              "reviewerId": "fixture-reviewer"
+            }
+          }
+        },
+        {
+          "id": "length-a",
+          "physicalComponentId": null,
+          "ownerComponentId": "pico",
+          "interfaceId": "synthetic-length-a",
+          "metric": "line.length.a",
+          "frame": {
+            "name": "site",
+            "revision": "frame-1"
+          },
+          "reading": {
+            "kind": "reported",
+            "qualities": [
+              "commanded",
+              "estimated"
+            ],
+            "evidence": {
+              "id": "synthetic-review",
+              "recordRevision": "record-1",
+              "stage": "simulation",
+              "result": "passed",
+              "reviewerId": "fixture-reviewer"
+            }
+          }
+        },
+        {
+          "id": "length-b",
+          "physicalComponentId": null,
+          "ownerComponentId": "pico",
+          "interfaceId": "synthetic-length-b",
+          "metric": "line.length.b",
+          "frame": {
+            "name": "site",
+            "revision": "frame-1"
+          },
+          "reading": {
+            "kind": "reported",
+            "qualities": [
+              "commanded",
+              "estimated"
+            ],
+            "evidence": {
+              "id": "synthetic-review",
+              "recordRevision": "record-1",
+              "stage": "simulation",
+              "result": "passed",
+              "reviewerId": "fixture-reviewer"
+            }
+          }
+        },
+        {
+          "id": "length-c",
+          "physicalComponentId": null,
+          "ownerComponentId": "pico",
+          "interfaceId": "synthetic-length-c",
+          "metric": "line.length.c",
+          "frame": {
+            "name": "site",
+            "revision": "frame-1"
+          },
+          "reading": {
+            "kind": "reported",
+            "qualities": [
+              "commanded",
+              "estimated"
+            ],
+            "evidence": {
+              "id": "synthetic-review",
+              "recordRevision": "record-1",
+              "stage": "simulation",
+              "result": "passed",
+              "reviewerId": "fixture-reviewer"
+            }
+          }
+        },
+        {
+          "id": "length-d",
+          "physicalComponentId": null,
+          "ownerComponentId": "pico",
+          "interfaceId": "synthetic-length-d",
+          "metric": "line.length.d",
+          "frame": {
+            "name": "site",
+            "revision": "frame-1"
+          },
+          "reading": {
+            "kind": "reported",
+            "qualities": [
+              "commanded",
+              "estimated"
+            ],
+            "evidence": {
+              "id": "synthetic-review",
+              "recordRevision": "record-1",
+              "stage": "simulation",
+              "result": "passed",
+              "reviewerId": "fixture-reviewer"
+            }
+          }
+        },
+        {
+          "id": "tension-a",
+          "physicalComponentId": null,
+          "ownerComponentId": "pico",
+          "interfaceId": "synthetic-tension-a",
+          "metric": "line.tension.a",
+          "frame": {
+            "name": "site",
+            "revision": "frame-1"
+          },
+          "reading": {
+            "kind": "unavailable",
+            "reason": "sensor-not-installed"
+          }
+        },
+        {
+          "id": "tension-b",
+          "physicalComponentId": null,
+          "ownerComponentId": "pico",
+          "interfaceId": "synthetic-tension-b",
+          "metric": "line.tension.b",
+          "frame": {
+            "name": "site",
+            "revision": "frame-1"
+          },
+          "reading": {
+            "kind": "unavailable",
+            "reason": "sensor-not-installed"
+          }
+        },
+        {
+          "id": "tension-c",
+          "physicalComponentId": null,
+          "ownerComponentId": "pico",
+          "interfaceId": "synthetic-tension-c",
+          "metric": "line.tension.c",
+          "frame": {
+            "name": "site",
+            "revision": "frame-1"
+          },
+          "reading": {
+            "kind": "unavailable",
+            "reason": "sensor-not-installed"
+          }
+        },
+        {
+          "id": "tension-d",
+          "physicalComponentId": null,
+          "ownerComponentId": "pico",
+          "interfaceId": "synthetic-tension-d",
+          "metric": "line.tension.d",
+          "frame": {
+            "name": "site",
+            "revision": "frame-1"
+          },
+          "reading": {
+            "kind": "unavailable",
+            "reason": "sensor-not-installed"
+          }
+        },
+        {
+          "id": "gimbal-pan",
+          "physicalComponentId": "servo-pan",
+          "ownerComponentId": "pod",
+          "interfaceId": "synthetic-gimbal-pan",
+          "metric": "gimbal.pan",
+          "frame": {
+            "name": "pod-gimbal",
+            "revision": "gimbal-1"
+          },
+          "reading": {
+            "kind": "reported",
+            "qualities": [
+              "commanded"
+            ],
+            "evidence": {
+              "id": "synthetic-review",
+              "recordRevision": "record-1",
+              "stage": "simulation",
+              "result": "passed",
+              "reviewerId": "fixture-reviewer"
+            }
+          }
+        },
+        {
+          "id": "gimbal-tilt",
+          "physicalComponentId": "servo-tilt",
+          "ownerComponentId": "pod",
+          "interfaceId": "synthetic-gimbal-tilt",
+          "metric": "gimbal.tilt",
+          "frame": {
+            "name": "pod-gimbal",
+            "revision": "gimbal-1"
+          },
+          "reading": {
+            "kind": "reported",
+            "qualities": [
+              "commanded"
+            ],
+            "evidence": {
+              "id": "synthetic-review",
+              "recordRevision": "record-1",
+              "stage": "simulation",
+              "result": "passed",
+              "reviewerId": "fixture-reviewer"
+            }
+          }
+        },
+        {
+          "id": "pod-rail",
+          "physicalComponentId": null,
+          "ownerComponentId": "pod",
+          "interfaceId": "synthetic-pod-rail",
+          "metric": "power.voltage",
+          "frame": {
+            "name": "none",
+            "revision": null
+          },
+          "reading": {
+            "kind": "unavailable",
+            "reason": "sensor-not-installed"
+          }
+        },
+        {
+          "id": "pico-encoder-a",
+          "physicalComponentId": "driver-a",
+          "ownerComponentId": "pico",
+          "interfaceId": "synthetic-pico-encoder-a",
+          "metric": null,
+          "frame": {
+            "name": "none",
+            "revision": null
+          },
+          "reading": {
+            "kind": "unavailable",
+            "reason": "not-reported"
+          }
+        },
+        {
+          "id": "pico-encoder-b",
+          "physicalComponentId": "driver-b",
+          "ownerComponentId": "pico",
+          "interfaceId": "synthetic-pico-encoder-b",
+          "metric": null,
+          "frame": {
+            "name": "none",
+            "revision": null
+          },
+          "reading": {
+            "kind": "unavailable",
+            "reason": "not-reported"
+          }
+        },
+        {
+          "id": "pico-encoder-c",
+          "physicalComponentId": "driver-c",
+          "ownerComponentId": "pico",
+          "interfaceId": "synthetic-pico-encoder-c",
+          "metric": null,
+          "frame": {
+            "name": "none",
+            "revision": null
+          },
+          "reading": {
+            "kind": "unavailable",
+            "reason": "not-reported"
+          }
+        },
+        {
+          "id": "pico-encoder-d",
+          "physicalComponentId": "driver-d",
+          "ownerComponentId": "pico",
+          "interfaceId": "synthetic-pico-encoder-d",
+          "metric": null,
+          "frame": {
+            "name": "none",
+            "revision": null
+          },
+          "reading": {
+            "kind": "unavailable",
+            "reason": "not-reported"
+          }
+        }
+      ],
+      "geometry": {
+        "revision": "geometry-1",
+        "siteFrame": {
+          "name": "site",
+          "revision": "frame-1"
+        },
+        "gimbalFrame": {
+          "name": "pod-gimbal",
+          "revision": "gimbal-1"
+        },
+        "convention": "right-handed-x-y-z-mm-deg",
+        "anchors": [
+          {
+            "line": "a",
+            "componentId": "anchor-a",
+            "positionMm": {
+              "x": 0,
+              "y": 0,
+              "z": 4000
+            }
+          },
+          {
+            "line": "b",
+            "componentId": "anchor-b",
+            "positionMm": {
+              "x": 4000,
+              "y": 0,
+              "z": 4000
+            }
+          },
+          {
+            "line": "c",
+            "componentId": "anchor-c",
+            "positionMm": {
+              "x": 4000,
+              "y": 5000,
+              "z": 4000
+            }
+          },
+          {
+            "line": "d",
+            "componentId": "anchor-d",
+            "positionMm": {
+              "x": 0,
+              "y": 5000,
+              "z": 4000
+            }
+          }
+        ],
+        "beds": [
+          {
+            "bedId": "synthetic-bed",
+            "mappingRevision": "bed-map-1",
+            "bounds": {
+              "minMm": {
+                "x": 800,
+                "y": 1000,
+                "z": 0
+              },
+              "maxMm": {
+                "x": 1600,
+                "y": 2500,
+                "z": 300
+              }
+            }
+          }
+        ],
+        "plants": [
+          {
+            "plantId": "synthetic-plant",
+            "bedId": "synthetic-bed",
+            "mappingRevision": "plant-map-1",
+            "positionMm": {
+              "x": 1000,
+              "y": 1500,
+              "z": 200
+            }
+          }
+        ]
+      },
+      "limits": {
+        "revision": "limits-2",
+        "workspace": {
+          "minMm": {
+            "x": 200,
+            "y": 200,
+            "z": 500
+          },
+          "maxMm": {
+            "x": 3800,
+            "y": 4800,
+            "z": 3000
+          }
+        },
+        "maxSpeedMmPerS": 40,
+        "maxAccelerationMmPerS2": 100,
+        "tensionN": {
+          "min": 1,
+          "max": 10
+        },
+        "panDeg": {
+          "min": -90,
+          "max": 90
+        },
+        "tiltDeg": {
+          "min": -60,
+          "max": 60
+        }
+      },
+      "calibration": {
+        "revision": "calibration-2",
+        "previousRevision": "calibration-1",
+        "hardwareDigest": "b4383110a9256da0751bbc1670a27604e106e8000ac7482e6009e2e0bd7fb4ff",
+        "geometryDigest": "740db7a0f65b2b45564fd07aaca75ca2f611499aad906e2e8017aef23dd7b645",
+        "limitsDigest": "11a873c6fb847794243c7d6645666329802561e33091f2a1402ef48b0764ff91",
+        "scope": "simulation",
+        "lineLengthOffsetsMm": {
+          "a": 0,
+          "b": 0,
+          "c": 0,
+          "d": 0
+        },
+        "gimbalZeroDeg": {
+          "pan": 0,
+          "tilt": 0
+        },
+        "uncertaintyMm": 2,
+        "evidence": [
+          {
+            "id": "synthetic-review",
+            "recordRevision": "record-1",
+            "stage": "simulation",
+            "result": "passed",
+            "reviewerId": "fixture-reviewer"
+          }
+        ]
+      }
+    },
+    "report": {
+      "schemaVersion": "arbi.configuration/1.0",
+      "type": "configuration.applied",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "edge-boot-1",
+        "sessionId": "edge-session-1"
+      },
+      "transactionId": "apply-1",
+      "appliedRevision": "config-1",
+      "configurationDigest": "15f54c85545697d1da5736ef52c0188a0cb8f9dd0916b90c915cba1e6d2ec153",
+      "calibrationRevision": "calibration-1",
+      "hardwareDigest": "b4383110a9256da0751bbc1670a27604e106e8000ac7482e6009e2e0bd7fb4ff",
+      "inhibited": true
+    }
+  },
+  "invalid": [
+    {
+      "name": "unknown schema migration",
+      "base": "configuration",
+      "changes": [
+        {
+          "path": [
+            "schemaVersion"
+          ],
+          "value": "arbi.configuration/2.0"
+        }
+      ],
+      "error": "UNSUPPORTED_SCHEMA"
+    },
+    {
+      "name": "credential export",
+      "base": "configuration",
+      "changes": [
+        {
+          "path": [
+            "credential"
+          ],
+          "value": "redacted-fixture"
+        }
+      ],
+      "error": "UNKNOWN_FIELD"
+    },
+    {
+      "name": "credential nested in module",
+      "base": "configuration",
+      "changes": [
+        {
+          "path": [
+            "components",
+            0,
+            "apiKey"
+          ],
+          "value": "redacted-fixture"
+        }
+      ],
+      "error": "UNKNOWN_FIELD"
+    },
+    {
+      "name": "passive component pretending to run firmware",
+      "base": "configuration",
+      "changes": [
+        {
+          "path": [
+            "components",
+            7,
+            "firmwareVersion"
+          ],
+          "value": "1.0.0"
+        }
+      ],
+      "error": "UNKNOWN_FIELD"
+    },
+    {
+      "name": "duplicate hardware identity",
+      "base": "configuration",
+      "changes": [
+        {
+          "path": [
+            "components",
+            1,
+            "id"
+          ],
+          "value": "edge"
+        }
+      ],
+      "error": "INVALID_REGISTRY"
+    },
+    {
+      "name": "sensor owner is passive",
+      "base": "configuration",
+      "changes": [
+        {
+          "path": [
+            "signals",
+            0,
+            "ownerComponentId"
+          ],
+          "value": "anchor-a"
+        }
+      ],
+      "error": "INVALID_REGISTRY"
+    },
+    {
+      "name": "measured without installed sensor",
+      "base": "configuration",
+      "changes": [
+        {
+          "path": [
+            "signals",
+            0,
+            "reading",
+            "qualities"
+          ],
+          "value": [
+            "measured"
+          ]
+        }
+      ],
+      "error": "INVALID_REGISTRY"
+    },
+    {
+      "name": "unavailable has numeric placeholder",
+      "base": "configuration",
+      "changes": [
+        {
+          "path": [
+            "signals",
+            7,
+            "reading",
+            "value"
+          ],
+          "value": 0
+        }
+      ],
+      "error": "UNKNOWN_FIELD"
+    },
+    {
+      "name": "unknown observation field",
+      "base": "configuration",
+      "changes": [
+        {
+          "path": [
+            "signals",
+            0,
+            "reading",
+            "secret"
+          ],
+          "value": "redacted-fixture"
+        }
+      ],
+      "error": "UNKNOWN_FIELD"
+    },
+    {
+      "name": "wrong signal frame",
+      "base": "configuration",
+      "changes": [
+        {
+          "path": [
+            "signals",
+            0,
+            "frame"
+          ],
+          "value": {
+            "name": "none",
+            "revision": null
+          }
+        }
+      ],
+      "error": "INVALID_REGISTRY"
+    },
+    {
+      "name": "duplicate anchor",
+      "base": "configuration",
+      "changes": [
+        {
+          "path": [
+            "geometry",
+            "anchors",
+            1,
+            "line"
+          ],
+          "value": "a"
+        }
+      ],
+      "error": "INVALID_GEOMETRY"
+    },
+    {
+      "name": "zero rectangle width",
+      "base": "configuration",
+      "changes": [
+        {
+          "path": [
+            "geometry",
+            "anchors",
+            1,
+            "positionMm",
+            "x"
+          ],
+          "value": 0
+        }
+      ],
+      "error": "INVALID_GEOMETRY"
+    },
+    {
+      "name": "non-horizontal anchor",
+      "base": "configuration",
+      "changes": [
+        {
+          "path": [
+            "geometry",
+            "anchors",
+            1,
+            "positionMm",
+            "z"
+          ],
+          "value": 3900
+        }
+      ],
+      "error": "INVALID_GEOMETRY"
+    },
+    {
+      "name": "unregistered physical anchor",
+      "base": "configuration",
+      "changes": [
+        {
+          "path": [
+            "geometry",
+            "anchors",
+            0,
+            "componentId"
+          ],
+          "value": "missing"
+        }
+      ],
+      "error": "INVALID_GEOMETRY"
+    },
+    {
+      "name": "inverted bed",
+      "base": "configuration",
+      "changes": [
+        {
+          "path": [
+            "geometry",
+            "beds",
+            0,
+            "bounds",
+            "maxMm",
+            "x"
+          ],
+          "value": 700
+        }
+      ],
+      "error": "INVALID_GEOMETRY"
+    },
+    {
+      "name": "cross-bed plant",
+      "base": "configuration",
+      "changes": [
+        {
+          "path": [
+            "geometry",
+            "plants",
+            0,
+            "bedId"
+          ],
+          "value": "unknown-bed"
+        }
+      ],
+      "error": "INVALID_GEOMETRY"
+    },
+    {
+      "name": "plant outside mapped bed",
+      "base": "configuration",
+      "changes": [
+        {
+          "path": [
+            "geometry",
+            "plants",
+            0,
+            "positionMm",
+            "x"
+          ],
+          "value": 3999
+        }
+      ],
+      "error": "INVALID_GEOMETRY"
+    },
+    {
+      "name": "workspace touches anchor plane",
+      "base": "configuration",
+      "changes": [
+        {
+          "path": [
+            "limits",
+            "workspace",
+            "maxMm",
+            "z"
+          ],
+          "value": 4000
+        }
+      ],
+      "error": "INVALID_GEOMETRY"
+    },
+    {
+      "name": "geometry changed under calibration",
+      "base": "configuration",
+      "changes": [
+        {
+          "path": [
+            "geometry",
+            "siteFrame",
+            "revision"
+          ],
+          "value": "frame-2"
+        }
+      ],
+      "error": "INVALID_REGISTRY"
+    },
+    {
+      "name": "calibration hardware mismatch",
+      "base": "configuration",
+      "changes": [
+        {
+          "path": [
+            "calibration",
+            "hardwareDigest"
+          ],
+          "value": "0000000000000000000000000000000000000000000000000000000000000000"
+        }
+      ],
+      "error": "CALIBRATION_MISMATCH"
+    },
+    {
+      "name": "calibration missing accepted evidence",
+      "base": "configuration",
+      "changes": [
+        {
+          "path": [
+            "calibration",
+            "evidence",
+            0,
+            "result"
+          ],
+          "value": "unverified"
+        }
+      ],
+      "error": "CALIBRATION_MISMATCH"
+    },
+    {
+      "name": "installed evidence claimed by simulation",
+      "base": "configuration",
+      "changes": [
+        {
+          "path": [
+            "calibration",
+            "scope"
+          ],
+          "value": "installed"
+        }
+      ],
+      "error": "CALIBRATION_MISMATCH"
+    },
+    {
+      "name": "negative calibration uncertainty",
+      "base": "configuration",
+      "changes": [
+        {
+          "path": [
+            "calibration",
+            "uncertaintyMm"
+          ],
+          "value": -1
+        }
+      ],
+      "error": "INVALID_CONFIGURATION"
+    },
+    {
+      "name": "no torque-positive range",
+      "base": "configuration",
+      "changes": [
+        {
+          "path": [
+            "limits",
+            "tensionN",
+            "min"
+          ],
+          "value": 0
+        }
+      ],
+      "error": "INVALID_GEOMETRY"
+    },
+    {
+      "name": "tampered applied digest",
+      "base": "applied",
+      "changes": [
+        {
+          "path": [
+            "configurationDigest"
+          ],
+          "value": "0000000000000000000000000000000000000000000000000000000000000000"
+        }
+      ],
+      "error": "REVISION_CONFLICT"
+    },
+    {
+      "name": "wrong journal current pointer",
+      "base": "journal",
+      "changes": [
+        {
+          "path": [
+            "appliedTransactionId"
+          ],
+          "value": "apply-1"
+        }
+      ],
+      "error": "REVISION_CONFLICT"
+    }
+  ],
+  "requests": {
+    "request": {
+      "schemaVersion": "arbi.configuration/1.0",
+      "transactionId": "apply-1",
+      "expectedAppliedRevision": null,
+      "target": {
+        "deviceId": "edge",
+        "bootId": "edge-boot-1",
+        "sessionId": "edge-session-1"
+      },
+      "transition": {
+        "kind": "apply"
+      },
+      "auditContext": {
+        "actor": {
+          "kind": "human",
+          "id": "operator-1"
+        },
+        "authorizationId": "local-config-grant-1",
+        "correlationId": "config-review-1",
+        "reasonCode": "reviewed-calibration",
+        "previousConfigRevision": null,
+        "previousCalibrationRevision": null
+      },
+      "configurationFixture": "configuration"
+    },
+    "narrowerRequest": {
+      "schemaVersion": "arbi.configuration/1.0",
+      "transactionId": "apply-2",
+      "expectedAppliedRevision": "config-1",
+      "target": {
+        "deviceId": "edge",
+        "bootId": "edge-boot-1",
+        "sessionId": "edge-session-1"
+      },
+      "transition": {
+        "kind": "apply"
+      },
+      "auditContext": {
+        "actor": {
+          "kind": "human",
+          "id": "operator-1"
+        },
+        "authorizationId": "local-config-grant-1",
+        "correlationId": "config-review-1",
+        "reasonCode": "reviewed-calibration",
+        "previousConfigRevision": "config-1",
+        "previousCalibrationRevision": "calibration-1"
+      },
+      "configurationFixture": "narrower"
+    },
+    "rollbackRequest": {
+      "schemaVersion": "arbi.configuration/1.0",
+      "transactionId": "rollback-1",
+      "expectedAppliedRevision": "config-2",
+      "target": {
+        "deviceId": "edge",
+        "bootId": "edge-boot-1",
+        "sessionId": "edge-session-1"
+      },
+      "transition": {
+        "kind": "rollback",
+        "targetRevision": "config-1"
+      },
+      "auditContext": {
+        "actor": {
+          "kind": "human",
+          "id": "operator-1"
+        },
+        "authorizationId": "local-config-grant-1",
+        "correlationId": "config-review-1",
+        "reasonCode": "reviewed-calibration",
+        "previousConfigRevision": "config-2",
+        "previousCalibrationRevision": "calibration-2"
+      },
+      "configurationFixture": "configuration"
+    }
+  },
+  "journalTransactions": [
+    "request",
+    "narrowerRequest",
+    "rollbackRequest"
+  ]
+}
