@@ -90,7 +90,8 @@ No print, fit, material, torque, stiffness, rotating-hardware, thermal, outdoor 
 loaded-line acceptance is claimed. Particularly open: received motor/flange and
 lead geometry; actual bearing/post fasteners; print shrink/warpage and clip/cuff
 strength; line traversal, rub and snag under reversals; powered conductor/slip-ring
-support and strain relief; motor temperatures at current/duty; drainage and rain
+support and strain relief; the unrepresented near-motor driver mounting/enclosure;
+motor temperatures at current/duty; drainage and rain
 paths in +Y-up field orientation; UV/creep; and contact/entanglement protection.
 The slot, vents and open skirt admit tools/fingers and water. A CAD pass does not
 close the safety case or qualify the existing powered shaft. Keep powered/load

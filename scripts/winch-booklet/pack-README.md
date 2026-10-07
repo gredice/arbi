@@ -91,3 +91,7 @@ The older passive drilling template omits them. New fabrication IDs: variant
 left/middle/right main panels, variant payout shutter, identical clip and cable
 anchor. Per passive kit: 3 main panels, 2 shutters, 12 clips, 1 anchor. Per powered:
 5 main panels (3 middles), 4 shutters, 20 clips, 1 anchor. All are r0.1.0.
+
+The near-motor CL57Y driver is not represented by the mechanical CAD or contained
+in this shell. Its protected mounting/enclosure remains corner-station electrical
+work; no completed driver enclosure is inferred by this pack.

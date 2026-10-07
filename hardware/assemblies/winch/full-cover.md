@@ -28,9 +28,10 @@ Reuse the drum components r0.1.0, bearing lowers/caps and motor stand r0.1.0,
 coupling guard r0.1.1, shaft, coupling, collars, spacers and existing fasteners.
 No drivetrain reprint or changed shaft/bearing/stand pattern is required. The
 cover installs over the existing coupling guard; remove that guard separately
-for coupling service. The driver remains in its separate protected corner
-enclosure: this shell contains the winch mechanical assembly and motor, not a
-CL57Y driver or a new homing/brake system.
+for coupling service. This shell contains the committed winch mechanical assembly
+and motor. The CL57Y driver is not represented by that CAD; its near-motor
+protected mounting/enclosure remains [corner-station electrical work](../../../docs/assemblies/corner-station/README.md).
+No driver, homing or brake interface is added inside this shell.
 
 Modify the existing aluminium base with the **cover drilling variant r0.1.0**.
 Blank sizes stay 550 × 180 × 8 mm passive / 880 × 180 × 8 mm powered. The nominal
