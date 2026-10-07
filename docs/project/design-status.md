@@ -23,6 +23,8 @@ This is a current evidence inventory, not a purchasing list and not a certificat
 
 ## Baseline choices that must remain traceable
 
+The [durable local job slice](../software/local-jobs.md) adds SQLite job/audit-intent transactions, current local policy and an optional bounded simulator consumer. [Process-crash and policy host evidence](../evidence/local-jobs.md) remains separate from selected-host storage/power loss, real Pico/pod instrumentation, independent stopping, bench/HIL and installed qualification. Physical actuation remains inhibited.
+
 The [device metering slice](../software/device-traffic-metering.md) implements bounded durable application attempts, Linux interface snapshots and an optional router report seam. [Host evidence](../evidence/device-traffic-metering.md) covers precise counters, interruption/retry and crash/capacity handling; native Linux CI, actual SIM/router/provider coverage, storage power loss and installed operation remain separate evidence. No counter enables recording or changes local safety authority.
 
 The [realtime recovery slice](../software/realtime-recovery.md) adds exact scoped Ably SDK subscription tokens, persisted routing/presence/outbox and commit-safe PostgreSQL replay. [Host evidence](../evidence/realtime-recovery.md) covers independent cloud/consumer processes and real SDK transport fixtures. Isolated live Ably/Neon/Vercel provisioning, measured mobile reconnect/revocation/quotas and physical acceptance remain open under #29. Its independent diagnostic consumer cannot dispatch actuators or acknowledge job execution.

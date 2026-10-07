@@ -75,6 +75,16 @@ test('health exposes source/build/applied identity; readiness is diagnostic and 
   await runtime.stop(); assert.equal(runtime.status.ready, false);
   await assert.rejects(fetch(`http://127.0.0.1:${port}/healthz`));
 });
+test('configured job storage failure is visible and inhibits readiness while diagnostic/local stop remains independent', async (t) => {
+  const simulation = await createSimulation();
+  simulation.settings.jobs = { journalFile: join(simulation.credentials.directory, 'missing', 'jobs.sqlite'), auditDirectory: join(simulation.credentials.directory, 'audit'),
+    maxJobs: 64, maxBytes: 8388608, maxPages: 4096, minFreeBytes: 2147483648 };
+  const runtime = new EdgeRuntime(simulation.settings); t.after(async () => { await runtime.stop(); await simulation.close(); });
+  const port = await runtime.start(); await until(() => runtime.adapters.every(a => a.status.ready));
+  assert.equal(runtime.status.ready, false); assert.equal(runtime.status.jobs.enabled, true); assert.equal(runtime.status.jobs.degraded, true);
+  assert.equal(runtime.status.actuationEnabled, false); assert.equal((await fetch(`http://127.0.0.1:${port}/readyz`)).status, 503);
+  await runtime.stop(); for (const peer of simulation.peers) assert.equal(peer.localInhibited, true);
+});
 test('shutdown during pending startup settles the bind and opens no module connection', { timeout: 3000 }, async (t) => {
   const simulation = await createSimulation(); const runtime = new EdgeRuntime(simulation.settings);
   t.after(async () => { await runtime.stop(); await simulation.close(); });

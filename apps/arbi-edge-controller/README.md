@@ -54,3 +54,7 @@ Authenticated module socket frames are tapped through [@arbi/traffic](../../pack
 ## Independent cloud recovery consumer
 
 `pnpm --filter @arbi/edge-controller recover:cloud` runs [the separate diagnostic recovery executable](src/cloud-realtime/cli.ts) after build, with private protected `ARBI_CLOUD_RECOVERY_CONFIG`. [Realtime documentation](../../docs/software/realtime-recovery.md) owns exact fields, current enrollment, scoped short-lived Ably tokens, native PostgreSQL/HTTP recovery, retry/catch-up/traffic limits and the external provider/mobile gate. It does not import the local runtime, supervisor or jobs executor, cannot dispatch actuators and is never started by the existing supervisor. Snapshot/hint/job-poll receipt sends no device acceptance or completion. The [host record](../../docs/evidence/realtime-recovery.md) covers real SDK transport fixtures and a separately spawned consumer/cloud process, not a real provider account or cellular network.
+
+## Durable local job slice
+
+Optional bounded SQLite job storage, transactional audit intent, current local policy and an explicit bounded simulator consumer are documented in [local jobs](../../docs/software/local-jobs.md) with [host evidence](../../docs/evidence/local-jobs.md). Normal TLS enrollment remains diagnostic-only. Run the isolated reference with `pnpm --filter @arbi/edge-controller simulate:jobs --directory /tmp/arbi-isolated-jobs` after building its dependencies. Physical motion, firmware, image bytes and updates remain inhibited/unimplemented.
