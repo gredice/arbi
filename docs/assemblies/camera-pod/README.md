@@ -20,9 +20,9 @@ The [positioning lines](../positioning-lines/README.md) own the lines and their 
 | Printed spider/chassis | Approximately 15–25 g target | Fixed structural chassis |
 | Short CSI ribbon, power wiring, and strain relief | Approximately 5–10 g | Interconnect |
 | Rain cap and optical protection | Approximately 5–10 g target | Splash/direct-rain mitigation |
-| Complete flying pod | **100–120 g target; approximately 170 g hard design ceiling** | Must be measured as assembled |
+| Complete flying pod | **100–120 g target; 170 g hard design ceiling** | Must be measured as assembled |
 
-The 170 g value is a ceiling, not a target. CAD mass estimates do not replace weighing the complete configured assembly.
+The 170 g value is a ceiling, not a target. CAD mass estimates do not replace weighing the complete configured assembly. The owner-reported 103.05 g for earlier sliced printed parts has no independently confirmed installed quantities, print/support settings or actual printed mass; it is not an assembled-pod measurement.
 
 ## Mechanical arrangement
 
@@ -70,7 +70,11 @@ The pod has no battery. It must start, stop, and recover deterministically when 
 
 ## Printed parts and fasteners
 
-The [bench mount set r0.1.0](../../../hardware/assemblies/camera-pod/payload-mounts.md) has canonical CAD and an [illustrated assembly booklet](booklet/README.md). It supplies the fixed electronics deck, servo mounts, supported camera cradle, removable pivot support, horn retainers, cover, hood and tie pads. [Geometry checks](../../../hardware/assemblies/camera-pod/payload-geometry-check.md) use provisional servo/power envelopes; physical fits and the flying mass limit are not demonstrated.
+The [payload mount family](../../../hardware/assemblies/camera-pod/payload-mounts.md) has canonical CAD and a [historical illustrated dry bench booklet](booklet/README.md). It supplies the fixed electronics deck, servo mounts, supported camera cradle, removable pivot support, horn retainers, cover, hood and tie pads. The [28 September geometry checks](../../../hardware/assemblies/camera-pod/payload-geometry-check.md) use provisional servo/power envelopes and apply to the r0.1.0 dry bench snapshot; physical fits and the flying mass limit are not demonstrated.
+
+The [integrated black/white enclosure](../../../hardware/assemblies/camera-pod/payload-enclosure.md) proposes a rounded upper electronics hood, upper rain tray and removable lower pan fairing, moving tilt-servo boot and rear camera cowl for ordinary rain/splash exposure. It reuses the unchanged spider, requires the r0.1.1 deck/yoke, replaces the old electronics cover, and provides downward power/CSI/servo outlets and separate relaxed pan/tilt cable loops. Its configuration document owns the 18 installed print quantities, replacement/reuse list, attachment hardware, connector measurements and separate fit, mass, cable, rain and thermal acceptance gates.
+
+The [7 October CAD record](../../../hardware/assemblies/camera-pod/payload-enclosure-check.md) records passing nominal rigid/service/routing checks and dry bench regression. Its 248.336 g full-solid PETG print calculation does not demonstrate the 170 g complete-pod ceiling; actual sliced/printed and assembled masses remain unverified.
 
 The camera-pod concept family below remains available as a separate arrangement. Both families share the spider and remain **concept-unvalidated**; do not combine their gimbal or electronics mounts into one print kit. The bench set does not resolve the docking or load-rated line interfaces.
 
@@ -90,7 +94,7 @@ ASA is preferred for exposed release parts. PETG is acceptable for prototypes pe
 
 ## Weather and environmental behavior
 
-The micro servos are not waterproof. The cap only reduces direct rain and splash; it does not authorize wet-weather operation. Wiring must not channel water into a servo case, camera connector, or electronics. Drainage, condensation, UV, temperature, insects, fertilizer/chemical exposure, and contamination of the optical opening require evaluation.
+The micro servos are not waterproof. The dry cap and proposed integrated shell target reduced direct rain and splash; neither authorizes wet-weather operation. The shell retains open moving interfaces and downward drainage rather than a sealed servo chamber. Wiring must not channel water into a servo case, camera connector, or electronics. Drainage, condensation, UV, temperature, insects, fertilizer/chemical exposure, and contamination of the optical opening require evaluation.
 
 The pod normally returns to the sheltered high dock after each job. See [weather, parking, and maintenance](../../operations/weather-parking-and-maintenance.md).
 

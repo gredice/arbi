@@ -5,6 +5,9 @@ import json, hashlib, subprocess, tempfile
 import trimesh
 
 ROOT=Path(__file__).resolve().parents[1]
+CONFIG=json.loads((ROOT/'configuration.json').read_text()) if (ROOT/'configuration.json').exists() else {'variant':'bench'}
+ENCLOSURE=CONFIG['variant']=='enclosure'
+ENCLOSURE_MODELS={'payload-rain-hood','payload-enclosure-base','payload-tilt-servo-boot','payload-camera-cowl','payload-pan-fairing'}
 NAMES=['raspberry-pi-3a-plus-reference','camera-module-3-standard-reference',
  'micro-servo-3p7g-UNVERIFIED','servo-horn-UNVERIFIED','buck-converter-UNVERIFIED',
  'capacitor-1000uf-UNVERIFIED','microsd-reference','csi-15pin-flat-reference',
@@ -45,17 +48,20 @@ def export(job):
     print(name,flush=True);return entry
 
 if __name__=='__main__':
+    names=NAMES+(['bolt-M2x18-reference','bolt-M2x8-reference','bolt-M2x25-reference'] if ENCLOSURE else [])
     jobs=[(n,ROOT/'source/reference-parts.scad','reference',[f'part="{n}"'],
-      'unverified placeholder' if 'UNVERIFIED' in n else 'simplified hardware reference',n) for n in NAMES]
+      'unverified placeholder' if 'UNVERIFIED' in n else 'simplified hardware reference',n) for n in names]
     registry=json.loads((ROOT/'source/arbi-hardware/models.json').read_text())
     for model in registry['models']:
         # The camera-pod concept family is an alternative kit, not part of this bench assembly.
         if (model['assembly']=='camera-pod' and model['artifactRole']=='fabrication'
             and (model['id']=='camera-pod-spider' or model['id'].startswith('payload-'))):
+            if model['id'] in ENCLOSURE_MODELS and not ENCLOSURE:continue
+            if model['id']=='payload-electronics-cover' and ENCLOSURE:continue
             source=ROOT/'source/arbi-hardware'/Path(model['entrypoint']).relative_to('hardware')
             jobs.append((Path(model['output']).stem,source,'printable',[],
                          'canonical concept fabrication geometry; bed translation only',model['id']))
-    jobs.append(('camera-pod-keepout-NOT-A-PART',ROOT/'source/arbi-hardware/assemblies/camera-pod/camera-pod-envelope.scad',
+    if not ENCLOSURE:jobs.append(('camera-pod-keepout-NOT-A-PART',ROOT/'source/arbi-hardware/assemblies/camera-pod/camera-pod-envelope.scad',
        'context',[],'legacy non-manufacturing keep-out; not an enclosure','camera-pod-envelope'))
     with ThreadPoolExecutor(max_workers=3) as pool:result=list(pool.map(export,jobs))
     (ROOT/'mesh-manifest.json').write_text(json.dumps(result,indent=2)+'\n')

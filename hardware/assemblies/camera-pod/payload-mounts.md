@@ -1,8 +1,8 @@
-# Payload bench mount set r0.1.0
+# Payload bench mount family
 
-This is a proposed, unbuilt mount set for the existing r0.1.0 spider. The stock Pi 3A+, Camera Module 3 Standard, and two 3.7 g servo architecture is unchanged. All models remain `concept-unvalidated`. The model coordinates and hardware are assembled by `scripts/payload-booklet/integration.py`; the booklet uses exactly those transforms.
+This is a proposed, unbuilt mount set for the existing r0.1.0 spider. The stock Pi 3A+, Camera Module 3 Standard, and two 3.7 g servo architecture is unchanged. All models remain `concept-unvalidated`. The current deck and pan yoke are r0.1.1; the other fabrication models retain r0.1.0. The [integrated rain enclosure](payload-enclosure.md) is an optional configuration of this family with its own print list, cable routing, fastener changes and evidence boundary.
 
-The set adds a Pi/power deck, four removable spider spacers, a pan servo mount, pan yoke, supported camera cradle, two stock-horn retainers, camera hood, and removable electronics cover. A separate servo fit coupon checks the assumed 20 x 8.5 mm body and 24 mm lug-hole pitch before the full print. It does not test output-axis position or horn geometry; those must also be measured.
+The dry bench set adds a Pi/power deck, four removable spider spacers, a pan servo mount, pan yoke, supported camera cradle, two stock-horn retainers, camera hood, and removable electronics cover. The enclosure replaces that cover and requires the revised deck's CSI passage and yoke's servo-boot attachment ears. A separate servo fit coupon checks the assumed 20 x 8.5 mm body and 24 mm lug-hole pitch before the full print. It does not test output-axis position or horn geometry; those must also be measured.
 
 ## Interfaces
 
@@ -14,23 +14,26 @@ The set adds a Pi/power deck, four removable spider spacers, a pan servo mount, 
 - Tilt pivot: M3 through bolt, 0.7 mm shim in the 0.7 mm side gap, plain nut in an open-top capture slot. The opposite support is removable so the cradle can slide onto the stock horn. Adjust for free rotation and retain the nut with suitable thread locking; clamp-up/creep and wear require physical testing.
 - Converter: provisional 45 x 25 mm PCB, 2 mm support pads; two insulated ties across clear PCB strips, not solder joints. Capacitor: provisional 10 mm can, loose 10.6 mm cup with a lead opening. Add an insulating sleeve and secondary tie to the can.
 - Incoming wire: two tie slots on the deck secure an insulating sleeve. This does not replace an independent line tensile termination.
+- CSI: the r0.1.1 deck has an 18.8 × 4.8 mm passage at [0, -27] and separate soft-wrap tie anchors; compare the actual ribbon end and minimum bend radius before assembly.
 - Nominal software travel: pan -90..90 degrees, tilt 0..70 degrees. Printed stops are designed for pan +/-95 and tilt -5..75. Do not drive powered servos against the stops.
 
-## Print quantities
+## Dry bench print quantities
 
 | Model | Quantity |
 | --- | ---: |
 | Existing camera-pod-spider r0.1.0 | 1 |
-| payload-electronics-deck | 1 |
+| payload-electronics-deck r0.1.1 | 1 |
 | payload-spider-spacer | 4 |
 | payload-pan-servo-mount | 1 |
-| payload-pan-yoke | 1 |
+| payload-pan-yoke r0.1.1 | 1 |
 | payload-camera-cradle | 1 |
 | payload-tilt-pivot-support | 1 |
 | payload-horn-retainer | 2 |
 | payload-camera-hood | 1 |
 | payload-electronics-cover | 1 |
 | payload-servo-fit-coupon | 1 test piece, not installed |
+
+These quantities describe the dry bench variant. For the rain enclosure, use [its configuration table](payload-enclosure.md#configuration-and-print-quantities) and omit `payload-electronics-cover`.
 
 PETG is a starting material for a dry bench prototype. Use 0.2 mm layers and at least 3 walls; solid small spacers/retainers and mount bosses. Deck and spacer exports sit flat. Complex servo/yoke/cradle parts need removable supports; keep support scars out of the horn pockets and pivot bores. Ream only clearance holes to the documented size. Weigh all sliced/printed parts before considering suspension; the existing spider and this complete mount set may exceed the original flying mass budget.
 
@@ -50,4 +53,4 @@ A 15 mm long, 2 mm diameter straight driver-tip envelope reaches the retainer sc
 
 ## CAD evidence
 
-See [geometry check](payload-geometry-check.md), [machine-readable results](payload-geometry-check.json), and the [assembly booklet](../../../docs/assemblies/camera-pod/booklet/README.md). Sampled rigid motion, intentional spline engagement, service paths, optical volume and the mass limitation are recorded separately. This record does not change the concept-unvalidated status.
+The [28 September 2026 geometry check](payload-geometry-check.md), [machine-readable results](payload-geometry-check.json), and [assembly booklet revision 2](../../../docs/assemblies/camera-pod/booklet/README.md) are historical r0.1.0 dry bench snapshots. Their transforms, sampled rigid motion, intentional spline engagement, service paths, optical volume and mass limitation apply to those snapshots. They do not validate the revised r0.1.1 deck/yoke or the new enclosure. The [7 October record](payload-enclosure-check.md#revised-dry-bench-regression) adds nominal dry bench regression for the revised deck/yoke alongside separate enclosure results; every model remains concept-unvalidated.

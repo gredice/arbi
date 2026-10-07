@@ -1,4 +1,4 @@
-// ARBI payload mount set 0.1.0 — concept-unvalidated, millimetres.
+// ARBI payload mount set — concept-unvalidated, millimetres.
 // Assembly frame: spider mid-plane Z=0; camera looks -Z at pan=tilt=0.
 // Servo nominal dimensions are provisional; measure before a full print.
 include <arbi.scad>
@@ -61,7 +61,8 @@ module payload_electronics_deck() {
             }
             // Dedicated tie-down pad for the sleeved incoming wire, not a tensile termination.
             pm_link([14,16],[14,31],9,3,17.5);
-            pm_link([0,0],[0,-31],22,3,17.5);
+            // CSI routing pad: separate ribbon passage and soft-wrap tie anchors.
+            pm_box([22,36,3],[0,-18],17.5);
         }
         for(x=[-pm_mount_xy,pm_mount_xy],y=[-pm_mount_xy,pm_mount_xy])pm_hole(4.5,4,[x,y,17.49]);
         for(x=[-66,-8],y=[-24.5,24.5])pm_hole(2.9,15,[x,y,17.49]);
@@ -71,7 +72,8 @@ module payload_electronics_deck() {
         pm_cyl(10.6,7,[48,26,23.5]);
         pm_cyl(6.2,7,[48,26,17.49]);
         for(x=[39,57])pm_box([1.8,3.2,4],[x,26],17.49);
-        for(x=[-9,9])pm_box([1.8,3.2,4],[x,-31],17.49);
+        pm_box([18.8,4.8,4],[0,-27],17.49);
+        for(x=[-9,9])pm_box([1.8,3.2,4],[x,-33.5],17.49);
         for(y=[23,29])pm_box([3.2,1.8,4],[14,y],17.49);
     }
 }
@@ -138,7 +140,9 @@ module payload_pan_yoke() {
             // Pan hard-stop tab remains above the crossbeam and outside servo body.
             pm_link([0,8],[0,30],4,4.5,-31.7);
             pm_cyl(3,10.2,[0,30,-31.7]);
-
+            // M2 attachment ears for the removable moving tilt-servo boot.
+            for(y=[-10,10]) hull() for(yy=[y,y<0?-5:5])
+                pm_xcyl(6,2.5,[-26.5,yy,-35]);
         }
         translate([0,0,-27.2])pm_horn_pocket();
         for(y=[-10,10])pm_cyl(2.3,6,[0,y,-32]);
@@ -150,6 +154,7 @@ module payload_pan_yoke() {
             translate([-23.99,0,z])rotate([0,-90,0])cylinder(d1=3.5,d2=1.9,h=1.11,$fn=PM_FN);
         }
         for(y=[-7,7])pm_cyl(2.3,6,[23,y,-32]);
+        for(y=[-10,10])pm_xcyl(2.3,4,[-27,y,-35]);
     }
 }
 
