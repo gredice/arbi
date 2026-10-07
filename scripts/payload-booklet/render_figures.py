@@ -30,6 +30,25 @@ def shift(parts,fn):
  for p in out:p['matrix']=(fn(p)@np.array(p['matrix'])).tolist()
  return out
 
+# Whole-assembly teardown along the spider axis, in assembly order. Published as the
+# overview-exploded figure; the public site reads its transforms from figure-manifest.json.
+OVERVIEW_LAYERS=[(('rain-hood','electronics-cover'),('cover-nut-','cover-top-washer-'),215),(('pi','converter','capacitor'),('pi-','converter-','capacitor-'),140),
+ (('deck',),('frame-upper-washer-','frame-nut-'),95),(('enclosure-base',),('cover-bolt-','cover-bottom-washer-'),52),((),('spider-spacer-',),22),
+ (('pan-mount','pan-servo'),('pan-servo-','frame-bolt-','frame-lower-washer-'),-44),(('pan-fairing',),('fairing-',),-92)]
+OVERVIEW_GROUP={'fixed':0,'pan':-150,'tilt':-196}
+# Moving-part details repeat the boot, pivot, horn and camera figures at a larger spacing.
+OVERVIEW_DETAIL=[('tilt-servo-boot','boot-',(-66,0,0)),('tilt-pivot-support','pivot-support-',(42,0,-16)),('camera-cowl','camera-cowl-nut-',(0,0,35)),
+ ('camera-hood',None,(0,0,-42)),('camera',None,(0,0,-19)),('pan-horn-retainer',None,(0,0,24)),('pan-horn',None,(0,0,11))]
+
+def overview_ex(p):
+ n=p['name']
+ for names,prefixes,z in OVERVIEW_LAYERS:
+  if n in names or n.startswith(prefixes):return T(0,0,z)
+ x,y,z=0,0,OVERVIEW_GROUP[p['group']]
+ for name,prefix,(dx,dy,dz) in OVERVIEW_DETAIL:
+  if n==name or (prefix and n.startswith(prefix)):x,y,z=x+dx,y+dy,z+dz;break
+ return T(x,y,z)
+
 def main():
  for name,kind in [('raspberry-pi-3a-plus-reference','pi'),('camera-module-3-standard-reference','camera'),('buck-converter-UNVERIFIED','buck')]:tint(name,kind)
  allparts=assembly();openparts=assembly(cover=False)
@@ -110,6 +129,7 @@ def main():
   render('boot-exploded',shift(boot,lambda p:T(-22,0,0) if p['name']=='tilt-servo-boot' or p['name'].startswith('boot-') else T()),direction=(-1,-.6,.25),size=(1500,1050))
   cowl=[p for p in allparts if p['group']=='tilt' and (p['name'] in ['camera-cradle','camera','camera-hood','camera-cowl'] or p['name'].startswith('camera-'))]
   render('cowl-exploded',shift(cowl,lambda p:T(0,0,22) if p['name']=='camera-cowl' or p['name'].startswith('camera-cowl-nut') else T()),direction=(.8,-1,.5),size=(1400,1050))
+ render('overview-exploded',shift(allparts,overview_ex),direction=(.6,-1,.28),size=(1400,1800))
  (ROOT/'figure-manifest.json').write_text(json.dumps(v.manifest,indent=2)+'\n')
  (ROOT/'assembly-manifest.json').write_text(json.dumps({'configuration':CONFIG,'pose':{'pan_deg':0,'tilt_deg':0,'cover':True},'parts':allparts},indent=2)+'\n')
  # Portable colored scene for inspecting the actual checked mesh assembly.
