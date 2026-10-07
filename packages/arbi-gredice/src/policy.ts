@@ -1,11 +1,12 @@
-export const capabilities = [
+export const AUTHORIZATION_VERSION = "arbi-authorization/1.0" as const;
+export const capabilities = Object.freeze([
   "state.read", "live.view", "still.read", "history.read", "capture.request",
   "manipulation.request", "diagnostics.read", "configuration.read", "configuration.write",
   "update.request", "artifact.read", "audit.read", "audit.export",
   "recording.create", "recording.read", "recording.export", "recording.delete",
-] as const;
+] as const);
 export type Capability = typeof capabilities[number];
-export const roles = ["viewer", "operator", "engineer", "update-admin"] as const;
+export const roles = Object.freeze(["viewer", "operator", "engineer", "update-admin"] as const);
 export type Role = typeof roles[number];
 
 const viewing: readonly Capability[] = ["state.read", "live.view", "still.read", "history.read"];

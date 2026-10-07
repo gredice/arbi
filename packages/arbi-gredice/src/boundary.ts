@@ -145,6 +145,11 @@ export class SiteRequestBoundary {
   }
   async #subscribe(request: Request, policy: RequestPolicy,
     handler: (grant: SubscriptionGrant) => Promise<Response>, previous?: SubscriptionGrant): Promise<Response> {
+    if (request.method !== "POST") {
+      const correlationId = randomUUID();
+      try { await this.#audit(correlationId, policy, null, "INVALID_REQUEST"); } catch { /* best effort denial evidence */ }
+      return failure("INVALID_REQUEST", correlationId);
+    }
     return this.#run(request, policy, async (context) => {
       const grant = Object.freeze({ realm: context.realm, siteId: context.siteId, actor: context.actor,
         sessionId: context.sessionId, membershipRevision: context.membershipRevision,

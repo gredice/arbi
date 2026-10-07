@@ -99,12 +99,17 @@ test("cross-site resource IDs, moved resources, missing resources and realm mism
   const invalidRealm = new SiteRequestBoundary({ identity: s.fixture.adapter, browserOrigins: [origin],
     auditAuthorization: async () => true, resolveResource: async () => ({ ...scope, realm: { ...realm, namespaceId: "foreign" } }) });
   assert.equal((await invalidRealm.run(request(token), policies[0], handler)).status, 403);
+  s.fixture.putSite("site-c", "account-a"); s.fixture.putResource("still", "image-c", "site-c");
+  s.fixture.putPrincipal({ ...s.principal, sites: { ...s.principal.sites,
+    "site-c": { roles: ["viewer"], serviceScopes: [], active: true, revision: "1" } } });
+  assert.equal((await s.boundary.run(request(token), { ...policies[8], resource: { kind: "still", id: "image-c" } }, handler)).status, 403);
 });
 test("realtime attach/resubscribe rechecks token, membership revision, roles and revocation", async () => {
   const s = setup(); const { token, sessionId } = await s.fixture.issue(s.actor);
   let grant: SubscriptionGrant | undefined;
   let calls = 0;
   const attach = async (value: SubscriptionGrant) => { calls++; grant = value; return Response.json(value); };
+  assert.equal((await s.boundary.subscribe(request(token), "site-a", attach)).status, 403);
   assert.equal((await s.boundary.subscribe(request(token, "POST"), "site-a", attach)).status, 200);
   assert.equal(grant!.capability, "subscribe"); assert.equal(grant!.expiresAtMs, 2_005_000);
   assert.equal(grant!.channel, "arbi:test:fixture-suite:site-a:state");
