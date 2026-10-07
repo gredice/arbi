@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS arbi_device_registry (
   environment text NOT NULL CHECK (environment IN ('test', 'preview')),
   namespace_id text NOT NULL,
   site_id text NOT NULL,
-  state jsonb NOT NULL CHECK (state->>'version' = 'arbi.enrollment/1.0'),
+  state jsonb NOT NULL CHECK ((state->>'version') IS NOT DISTINCT FROM 'arbi.enrollment/1.0'),
   PRIMARY KEY (environment, namespace_id, site_id)
 );
 CREATE TABLE IF NOT EXISTS arbi_device_audit (
@@ -12,7 +12,13 @@ CREATE TABLE IF NOT EXISTS arbi_device_audit (
   environment text NOT NULL CHECK (environment IN ('test', 'preview')),
   namespace_id text NOT NULL,
   site_id text NOT NULL,
-  record jsonb NOT NULL,
+  record jsonb NOT NULL CHECK ((record->>'auditVersion') IS NOT DISTINCT FROM 'arbi.audit/1.0'),
   FOREIGN KEY (environment, namespace_id, site_id)
     REFERENCES arbi_device_registry (environment, namespace_id, site_id)
+);
+-- App-owned lifecycle detail is kept out of the closed protocol audit metadata.
+-- Its ID joins to the accepted audit event, never to a raw request/key/proof.
+CREATE TABLE IF NOT EXISTS arbi_device_lifecycle (
+  id uuid PRIMARY KEY REFERENCES arbi_device_audit (id),
+  record jsonb NOT NULL
 );

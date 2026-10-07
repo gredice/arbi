@@ -42,6 +42,18 @@ test("independent PostgreSQL connections serialize authority and roll back audit
   const completions = await Promise.allSettled([serviceA.human(context, "complete", complete), serviceB.human(context, "complete", complete)]);
   assert.equal(completions.filter((r) => r.status === "fulfilled").length, 1);
   assert.equal((await pool.query("SELECT state FROM arbi_device_registry")).rows[0].state.devices.length, 1);
+  const issued = completions.find((result) => result.status === "fulfilled") as PromiseFulfilledResult<{ deviceId: string }>;
+  await serviceB.human(context, "revoke", { deviceId: issued.value.deviceId });
+  const streams = new Map<string, bigint[]>();
+  for (const { record } of (await pool.query("SELECT record FROM arbi_device_audit")).rows) {
+    const stream = record.source.identity.bootId;
+    streams.set(stream, [...(streams.get(stream) ?? []), BigInt(record.sequence)]);
+  }
+  assert.equal(streams.size, 2);
+  for (const sequences of streams.values()) {
+    sequences.sort((a, b) => a < b ? -1 : 1);
+    assert.deepEqual(sequences, sequences.map((_, index) => BigInt(index + 1)));
+  }
   const results = await Promise.allSettled([storeA, storeB].map((store) => store.transact(config.realm, config.siteId, ({ state }) => {
     if (state.configRevision !== config.revision) throw new EnrollmentError("CONFLICT");
     state.configRevision = "config-2";

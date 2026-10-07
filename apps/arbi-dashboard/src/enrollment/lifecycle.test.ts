@@ -7,12 +7,13 @@ import test from "node:test";
 import { PGlite } from "@electric-sql/pglite";
 import { SiteRequestBoundary } from "@arbi/gredice";
 import { createIsolatedIdentityProvider } from "@arbi/gredice/testing";
-import { configurationCapabilities } from "@arbi/protocol";
-import type { Configuration, Identity } from "@arbi/protocol";
+import { configurationCapabilities, correlateAuditEvent, parseAuditEvent } from "@arbi/protocol";
+import type { AuditEvent, Configuration, Identity } from "@arbi/protocol";
 import { MAX_ROTATION_OVERLAP_MS, VERSION } from "./contracts";
 import type { Challenge, DeviceRequest, Registry } from "./contracts";
 import { proofBytes } from "./crypto";
 import { EnrollmentHttp } from "./http";
+import { createEnrollmentServer } from "./server";
 import { EnrollmentService, delegationProof, rotationProof, simulationRegistry } from "./service";
 import { PostgresRegistryStore } from "./store";
 import type { SqlDatabase } from "./store";
@@ -55,7 +56,8 @@ async function setup(t: { after: (work: () => Promise<void>) => void }, path?: s
   const service = new EnrollmentService(store, config.realm, () => now);
   const boundary = new SiteRequestBoundary({ identity: provider.adapter, resolveResource: provider.resolveResource,
     browserOrigins: ["https://fixture.invalid"], auditAuthorization: (record, signal) => store.authorization(record, signal) });
-  const http = new EnrollmentHttp(service, boundary);
+  const http = createEnrollmentServer({ realm: config.realm, identity: provider.adapter, resolveResource: provider.resolveResource,
+    browserOrigins: ["https://fixture.invalid"], db: database(db), now: () => now });
   const tokens = { engineer: await provider.issue({ kind: "human", id: "engineer" }),
     viewer: await provider.issue({ kind: "human", id: "viewer" }) };
   const humanRequest = (action: string, value: unknown, token = tokens.engineer.token) => new Request("https://fixture.invalid/api", {
@@ -231,6 +233,8 @@ test("replacement and factory/service recovery preserve history without credenti
   const current = await h.connect(replaced.issuance, replaced.key);
   assert.equal((await h.sendDevice(h.wire(initial.issuance, initial.key, "commands", { identity: first.identity, configRevision: config.revision }, 1))).response.status, 403);
   await h.human("revoke", { deviceId: replaced.issuance.deviceId });
+  const revokedAt = (await h.registry()).devices[1].revokedAtMs;
+  h.advance(1_000);
   assert.equal((await h.sendDevice(h.wire(replaced.issuance, replaced.key, "connect", { ...current.request.payload, previousIdentity: null }, 1))).response.status, 403);
   const recovered = await h.enroll(keys(), replaced.issuance.deviceId, "service-recovery");
   assert.notEqual(recovered.issuance.deviceId, replaced.issuance.deviceId);
@@ -238,14 +242,34 @@ test("replacement and factory/service recovery preserve history without credenti
   assert.equal(state.devices.length, 3);
   assert.deepEqual(state.devices.map((d) => d.componentId), ["edge", "edge", "edge"]);
   assert.equal(state.devices[2].replacesDeviceId, state.devices[1].id);
+  assert.equal(state.devices[1].revokedAtMs, revokedAt);
   assert.deepEqual(state.devices[0].retiredIdentities[0], first.identity);
+});
+
+test("revocation during overlap denies both credentials and reconnect, including current signed identity", async (t) => {
+  const h = await setup(t); const enrolled = await h.enroll(); const next = keys();
+  const { identity } = await h.connect(enrolled.issuance, enrolled.key);
+  const request = h.wire(enrolled.issuance, enrolled.key, "rotate", { identity, publicKey: next.publicKey,
+    overlapMs: MAX_ROTATION_OVERLAP_MS, newKeyProof: "" }, 1);
+  request.payload.newKeyProof = next.sign(rotationProof(request));
+  const { signature: _, ...unsigned } = request;
+  const rotated = await h.sendDevice({ ...unsigned, signature: enrolled.key.sign(unsigned) });
+  assert.equal(rotated.response.status, 200);
+  const issued = rotated.value as Issuance;
+  assert.equal((await h.human("revoke", { deviceId: issued.deviceId })).response.status, 200);
+  for (const [credential, key, sequence] of [[enrolled.issuance, enrolled.key, 2], [issued, next, 0]] as const) {
+    assert.equal((await h.sendDevice(h.wire(credential, key, "commands", { identity, configRevision: config.revision }, sequence))).response.status, 403);
+    assert.equal((await h.sendDevice(h.wire(credential, key, "connect", { identity: { ...identity, bootId: randomUUID() }, previousIdentity: null,
+      configRevision: config.revision, softwareRevision: "test-1", capabilities: configurationCapabilities(config, "edge") }, sequence))).response.status, 403);
+  }
 });
 
 test("ordinary diagnostics and audit contain no keys, proofs, credential identifiers or request dumps", async (t) => {
   const h = await setup(t); const enrolled = await h.enroll(); await h.connect(enrolled.issuance, enrolled.key);
   const inventory = await h.human("inventory", null);
-  const audit = await h.db.query("SELECT record FROM arbi_device_audit");
-  const serialized = JSON.stringify({ diagnostics: inventory.value, audit: audit.rows });
+  const audit = await h.db.query<{ record: AuditEvent }>("SELECT record FROM arbi_device_audit");
+  const lifecycle = await h.db.query<{ record: { id: string } }>("SELECT record FROM arbi_device_lifecycle");
+  const serialized = JSON.stringify({ diagnostics: inventory.value, audit: audit.rows, lifecycle: lifecycle.rows });
   assert.equal(serialized.includes(enrolled.key.publicKey), false);
   assert.equal(serialized.includes(enrolled.issuance.credentialId), false);
   assert.equal(/publicKey|privateKey|signature|newKeyProof|authorization.*Bearer/.test(serialized), false);
@@ -253,6 +277,18 @@ test("ordinary diagnostics and audit contain no keys, proofs, credential identif
   assert.equal(passive.kind, "passive"); assert.equal(Object.hasOwn(passive, "firmwareVersion"), false);
   const noSignal = inventory.value.signals.find((s: { id: string }) => s.id === "tension-a");
   assert.deepEqual(noSignal.reading, { kind: "unavailable", reason: "sensor-not-installed" });
+  const events = audit.rows.map((row) => row.record as AuditEvent);
+  for (const event of events) {
+    assert.equal(parseAuditEvent(JSON.stringify(event)).ok, true);
+    assert.equal(event.effect, "none");
+    assert.equal(event.source.module, "cloud");
+    assert.equal(event.sourceTime.utc, null);
+    if (event.evidence === "service-outcome") {
+      const intent = events.find((candidate) => candidate.eventId === event.links.intentEventId);
+      assert.equal(correlateAuditEvent(intent, event).ok, true);
+    }
+  }
+  assert.ok(lifecycle.rows.every((row) => events.some((event) => event.eventId === (row.record as { id: string }).id)));
 });
 
 test("membership removal, browser/service misuse, private fields and production/hardware bootstrap deny", async (t) => {

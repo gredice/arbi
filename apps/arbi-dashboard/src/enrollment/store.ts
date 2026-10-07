@@ -1,10 +1,12 @@
 import { randomUUID } from "node:crypto";
 import { isId, isRealm, sameRealm } from "@arbi/gredice";
 import type { AuthorizationObservation } from "@arbi/gredice";
-import type { Realm } from "@arbi/protocol";
+import type { AuditEvent, AuditSource, Realm } from "@arbi/protocol";
+import { MAX_COUNTER } from "@arbi/protocol";
 import type { Pool } from "pg";
 import { EnrollmentError, VERSION } from "./contracts";
 import type { Registry, RegistryStore, Transaction } from "./contracts";
+import { authorizationAudit, lifecycleAudit } from "./audit";
 
 export interface SqlSession {
   query<T extends Record<string, unknown>>(sql: string, parameters?: unknown[]): Promise<{ rows: T[] }>;
@@ -35,6 +37,9 @@ function scope(realm: Realm, siteId: string) {
   return [realm.environment, realm.namespaceId, siteId];
 }
 export class PostgresRegistryStore implements RegistryStore {
+  readonly #source: AuditSource = { module: "cloud", identity: { deviceId: "enrollment-service", bootId: randomUUID(), sessionId: randomUUID() } };
+  readonly #startedAt = performance.now();
+  readonly #sequences = new Map<string, bigint>();
   constructor(readonly db: SqlDatabase) {}
   async provision(state: Registry): Promise<void> {
     const key = scope(state.realm, state.siteId);
@@ -54,14 +59,27 @@ export class PostgresRegistryStore implements RegistryStore {
         if (!state || state.version !== VERSION || !sameRealm(state.realm, realm) || state.siteId !== siteId) {
           throw new EnrollmentError("DENIED");
         }
-        const tx: Transaction = { state: structuredClone(state), observations: [] };
+        const tx: Transaction = { state: structuredClone(state), observations: [], authorizations: [] };
         let response: T;
         try { response = work(tx); }
         catch (error) { if (error instanceof EnrollmentError) domainError = error; throw error; }
+        const monotonicMs = Math.floor(performance.now() - this.#startedAt);
+        const nextSequence = () => {
+          const sequenceKey = JSON.stringify(key);
+          const current = this.#sequences.get(sequenceKey) ?? 0n;
+          if (current >= MAX_COUNTER) throw new EnrollmentError("CAPACITY");
+          this.#sequences.set(sequenceKey, current + 1n);
+          return String(current + 1n);
+        };
+        const events: AuditEvent[] = tx.authorizations.map((record) => authorizationAudit(tx.state, this.#source, monotonicMs, record, nextSequence));
+        events.push(...tx.observations.flatMap((record) => lifecycleAudit(tx.state, this.#source, monotonicMs, record, nextSequence)));
         if (Buffer.byteLength(JSON.stringify(tx.state)) > 2_097_152) throw new EnrollmentError("CAPACITY");
-        for (const record of tx.observations) {
+        for (const record of events) {
           await sql.query("INSERT INTO arbi_device_audit (id, environment, namespace_id, site_id, record) VALUES ($1,$2,$3,$4,$5::jsonb)",
-            [record.id, ...key, JSON.stringify(record)]);
+            [record.eventId, ...key, JSON.stringify(record)]);
+        }
+        for (const record of tx.observations) {
+          await sql.query("INSERT INTO arbi_device_lifecycle (id, record) VALUES ($1,$2::jsonb)", [record.id, JSON.stringify(record)]);
         }
         await sql.query("UPDATE arbi_device_registry SET state=$4::jsonb WHERE environment=$1 AND namespace_id=$2 AND site_id=$3",
           [...key, JSON.stringify(tx.state)]);
@@ -72,11 +90,9 @@ export class PostgresRegistryStore implements RegistryStore {
   /** Separate durable authorization observation; it does not assert a completed enrollment or device effect. */
   async authorization(record: AuthorizationObservation, signal: AbortSignal): Promise<boolean> {
     if (record.siteId === null || signal.aborted) return false;
-    const key = scope(record.realm, record.siteId);
-    await this.db.transaction(async (sql) => {
+    await this.transact(record.realm, record.siteId, (tx) => {
       if (signal.aborted) throw new EnrollmentError("UNAVAILABLE");
-      await sql.query("INSERT INTO arbi_device_audit (id, environment, namespace_id, site_id, record) VALUES ($1,$2,$3,$4,$5::jsonb)",
-        [randomUUID(), ...key, JSON.stringify({ kind: "authorization", ...record })]);
+      tx.authorizations.push(record);
     });
     return !signal.aborted;
   }

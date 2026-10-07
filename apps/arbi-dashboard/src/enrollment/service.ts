@@ -39,7 +39,7 @@ function observation(tx: Transaction, now: number, kind: TransitionObservation["
 /** Recursive identity invalidation never removes historical components, devices or boots. */
 function revokeTree(state: Registry, device: Device, now: number, replaced = false): void {
   device.status = replaced ? "replaced" : "revoked";
-  device.revokedAtMs = now;
+  device.revokedAtMs ??= now;
   for (const c of device.credentials) c.revokedAtMs ??= now;
   if (device.current) device.retiredIdentities.push(device.current);
   device.current = null;
@@ -52,6 +52,7 @@ function newDevice(state: Registry, componentId: string, key: string, now: numbe
     (component.role === "edge") !== (parentDeviceId === null)) fail("DENIED");
   const previous = lastDevice(state, componentId);
   if ((previous?.id ?? null) !== expectedDeviceId || usedKey(state, key)) fail("CONFLICT");
+  if (previous?.status === "active" && previous.parentDeviceId !== parentDeviceId) fail("DENIED");
   if (state.devices.length >= 512) fail("CAPACITY");
   if (previous) revokeTree(state, previous, now, true);
   const device: Device = { id: randomUUID(), componentId, role: component.role as Device["role"], status: "active",
@@ -68,7 +69,8 @@ export function simulationRegistry(input: unknown, accountId: string): Registry 
     !isId(accountId) || result.value.components.length > 64) fail("DENIED");
   const config = result.value;
   return { version: VERSION, realm: config.realm, siteId: config.siteId, accountId, configRevision: config.revision,
-    hardwareDigest: configurationHardwareDigest(config), components: config.components, signals: config.signals, devices: [], challenges: [] };
+    hardwareDigest: configurationHardwareDigest(config), components: config.components, signals: config.signals,
+    devices: [], challenges: [] };
 }
 /** Only metric/quality declarations are needed to bound reported capability inventory. */
 function allowedCapabilities(state: Registry, componentId: string): Capability[] {

@@ -11,6 +11,7 @@
     "typecheck": "tsc --noEmit",
     "test": "node --import tsx --test src/enrollment/*.test.ts",
     "test:postgres": "node scripts/test-postgres.mjs",
+    "test:http": "node scripts/test-http.mjs",
     "db:migrate": "node --import tsx scripts/migrate.ts"
   },
   "dependencies": {

@@ -1,4 +1,5 @@
 import type { Capability, ConfigurationComponent, ConfigurationSignal, Identity, Realm } from "@arbi/protocol";
+import type { AuthorizationObservation } from "@arbi/gredice";
 
 export const VERSION = "arbi.enrollment/1.0";
 export const CHALLENGE_TTL_MS = 120_000;
@@ -84,6 +85,7 @@ export interface TransitionObservation {
 export interface Transaction {
   state: Registry;
   observations: TransitionObservation[];
+  authorizations: AuthorizationObservation[];
 }
 export interface RegistryStore {
   transact<T>(realm: Realm, siteId: string, work: (transaction: Transaction) => T): Promise<T>;

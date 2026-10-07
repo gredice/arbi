@@ -15,8 +15,9 @@ pnpm --filter @arbi/dashboard typecheck
 pnpm --filter @arbi/dashboard test
 pnpm --filter @arbi/dashboard test:postgres
 pnpm --filter @arbi/dashboard build
+pnpm --filter @arbi/dashboard test:http
 ```
 
-The ordinary suite uses embedded PostgreSQL (PGlite) and temporary synthetic configuration, with ephemeral device keys generated at test time. The separate `test:postgres` requires `pg_config`, `initdb`, `pg_ctl` and permission to listen on a local filesystem socket. It creates/removes its own temporary PostgreSQL cluster, disables TCP listening, and tests independent connections and transaction rollback. CI invokes both. The ordinary suite marks the host-specific test skipped unless the dedicated launcher supplies its isolated socket; this is not a substitute for running `test:postgres`.
+The ordinary suite uses embedded PostgreSQL (PGlite) and temporary synthetic configuration, with ephemeral device keys generated at test time. The separate `test:postgres` requires `pg_config`, `initdb`, `pg_ctl` and permission to listen on a local filesystem socket. It creates/removes its own temporary PostgreSQL cluster, disables TCP listening, and tests independent connections and transaction rollback. After build, `test:http` starts/stops its own loopback Next.js server and verifies unprovisioned read/commissioning responses stay redacted and fail closed. CI invokes all three. The ordinary suite marks the host-specific test skipped unless the dedicated launcher supplies its isolated socket; this is not a substitute for running `test:postgres`.
 
 `pnpm --filter @arbi/dashboard start` serves a built, fail-closed app. Source tests and local database checks do not establish live Gredice/Neon provisioning, Vercel team deployment, power-loss durability, installed commissioning, safe actuation or physical acceptance. Those gates remain unverified.

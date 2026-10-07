@@ -101,6 +101,9 @@ jobs:
       - name: Build
         run: pnpm build
 
+      - name: Check built enrollment HTTP boundary
+        run: pnpm --filter @arbi/dashboard test:http
+
   bom:
     name: Validate generated BOM
     runs-on: ubuntu-latest
