@@ -17,6 +17,7 @@ export interface Settings {
   tls: { caFile: string; certFile: string; keyFile: string };
   modules: ModuleEnrollment[];
   metering?: { spoolFile: string; maxRecords: number; maxBytes: number; maxPages: number; linuxLoopback: boolean };
+  jobs?: { journalFile: string; auditDirectory: string; maxJobs: number; maxBytes: number; maxPages: number; minFreeBytes: number };
 }
 const digest = { type: 'string', pattern: '^[a-f0-9]{64}$' };
 const path = { type: 'string', minLength: 1, maxLength: 1024 };
@@ -27,6 +28,11 @@ const schema = {
     schemaVersion: { const: 'arbi.edge/1.0' }, serviceId: { const: 'edge' }, executionMode: { const: 'simulation' },
     healthPort: { type: 'integer', minimum: 0, maximum: 65535 }, acceptedConfigurationDigest: digest,
     applied: { type: 'object' }, tls: { type: 'object', additionalProperties: false, required: ['caFile', 'certFile', 'keyFile'], properties: { caFile: path, certFile: path, keyFile: path } },
+    jobs: { type: 'object', additionalProperties: false, required: ['journalFile', 'auditDirectory', 'maxJobs', 'maxBytes', 'maxPages', 'minFreeBytes'], properties: {
+      journalFile: path, auditDirectory: path, maxJobs: { type: 'integer', minimum: 1, maximum: 4096 },
+      maxBytes: { type: 'integer', minimum: 8192, maximum: 134217728 }, maxPages: { type: 'integer', minimum: 32, maximum: 32768 },
+      minFreeBytes: { type: 'integer', minimum: 2147483648, maximum: 1099511627776 }
+    } },
     metering: { type: 'object', additionalProperties: false, required: ['spoolFile', 'maxRecords', 'maxBytes', 'maxPages', 'linuxLoopback'], properties: {
       spoolFile: path, maxRecords: { type: 'integer', minimum: 1, maximum: 100000 }, maxBytes: { type: 'integer', minimum: 8192, maximum: 134217728 },
       maxPages: { type: 'integer', minimum: 32, maximum: 32768 }, linuxLoopback: { type: 'boolean' }

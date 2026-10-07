@@ -7,17 +7,20 @@
     "build": "tsc -p tsconfig.build.json && node scripts/build-identity.mjs",
     "lint": "tsc -p tsconfig.json --noEmit",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "test": "pnpm build && node --test dist/*.test.js dist/cloud-realtime/*.test.js",
+    "test": "pnpm build && node --test --test-concurrency=1 dist/*.test.js dist/cloud-realtime/*.test.js dist/jobs/*.test.js",
     "start": "node dist/cli.js",
     "simulate": "node dist/cli.js --simulate",
     "supervise": "node dist/supervisor.js",
-    "recover:cloud": "node dist/cloud-realtime/cli.js"
+    "recover:cloud": "node dist/cloud-realtime/cli.js",
+    "simulate:jobs": "node dist/jobs/reference.js"
   },
   "dependencies": {
     "@arbi/protocol": "workspace:*",
     "@arbi/traffic": "workspace:*",
     "ably": "2.29.0",
-    "ajv": "8.17.1"
+    "ajv": "8.17.1",
+    "@arbi/audit": "workspace:*",
+    "@arbi/simulation-core": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "24.12.4",
