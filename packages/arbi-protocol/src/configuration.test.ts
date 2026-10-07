@@ -104,6 +104,17 @@ test("failed persistence and thrown persistence preserve prior config and permit
   value(reference.apply(request("narrowerRequest"), context(), () => true));
   assert.equal(reference.applied!.request.configuration.revision, "config-2");
 });
+test("persistence cannot reenter apply/reboot or change the acknowledged applying identity", () => {
+  const reference = new ConfigurationReference(); const local = context();
+  const ack = value(reference.apply(request(), local, () => {
+    error(reference.apply(request("narrowerRequest"), context(), () => true), "APPLY_IN_PROGRESS");
+    error(reference.reboot(journal(), local.receiver), "APPLY_IN_PROGRESS");
+    local.receiver.bootId = "mutated-during-persist";
+    return true;
+  }));
+  assert.deepEqual(ack, fixtures.valid.report);
+  assert.equal(reference.exportJournal().commits.length, 1);
+});
 test("duplicates return the original receipt without applying again; changed intent conflicts", () => {
   const reference = initial(); let writes = 0;
   const r = request();

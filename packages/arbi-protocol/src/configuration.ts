@@ -7,7 +7,7 @@ import { validateMessage } from "./validate.js";
 
 export const CONFIGURATION_VERSION = "arbi.configuration/1.0";
 export const MAX_CONFIGURATION_BYTES = 1_048_576;
-export type ConfigurationErrorCode = "INVALID_JSON" | "CONFIGURATION_TOO_LARGE" | "UNSUPPORTED_SCHEMA" | "INVALID_CONFIGURATION" | "UNKNOWN_FIELD" | "INVALID_GEOMETRY" | "INVALID_REGISTRY" | "HARDWARE_MISMATCH" | "MISSING_CALIBRATION" | "CALIBRATION_MISMATCH" | "CALIBRATION_NOT_APPROVED" | "LIMIT_EXPANSION" | "STALE_CONFIGURATION" | "REVISION_CONFLICT" | "TARGET_MISMATCH" | "NOT_AUTHORIZED" | "LOCAL_INHIBIT_REQUIRED" | "ROLLBACK_INCOMPATIBLE" | "PERSISTENCE_FAILED" | "INVALID_COMMAND" | "FRAME_MISMATCH" | "OUTSIDE_LIMITS";
+export type ConfigurationErrorCode = "INVALID_JSON" | "CONFIGURATION_TOO_LARGE" | "UNSUPPORTED_SCHEMA" | "INVALID_CONFIGURATION" | "UNKNOWN_FIELD" | "INVALID_GEOMETRY" | "INVALID_REGISTRY" | "HARDWARE_MISMATCH" | "MISSING_CALIBRATION" | "CALIBRATION_MISMATCH" | "CALIBRATION_NOT_APPROVED" | "LIMIT_EXPANSION" | "STALE_CONFIGURATION" | "REVISION_CONFLICT" | "TARGET_MISMATCH" | "NOT_AUTHORIZED" | "LOCAL_INHIBIT_REQUIRED" | "ROLLBACK_INCOMPATIBLE" | "PERSISTENCE_FAILED" | "APPLY_IN_PROGRESS" | "INVALID_COMMAND" | "FRAME_MISMATCH" | "OUTSIDE_LIMITS";
 export type ConfigurationResult<T> = { ok: true; value: T } | { ok: false; error: { code: ConfigurationErrorCode; path: string } };
 const failure = (code: ConfigurationErrorCode, path = "/"): ConfigurationResult<never> => ({ ok: false, error: { code, path } });
 const success = <T>(value: T): ConfigurationResult<T> => ({ ok: true, value });
@@ -28,8 +28,8 @@ export const configurationHardwareDigest = (config: Configuration): string => co
 const messageSchema = JSON.parse(readFileSync(new URL("../schema/message.schema.json", import.meta.url), "utf8"));
 const schema = JSON.parse(readFileSync(new URL("../schema/configuration.schema.json", import.meta.url), "utf8"));
 const ajv = new Ajv2020({ strict: true, strictTypes: false, allErrors: true });
-// Shared definitions are registered without recompiling message date-time formats.
-ajv.addSchema({ ...messageSchema, oneOf: undefined });
+// Register the canonical shared definitions only. validateMessage owns full message validation.
+ajv.addSchema({ $schema: messageSchema.$schema, $id: messageSchema.$id, $defs: messageSchema.$defs });
 ajv.addSchema(schema);
 interface ConfigurationRecords {
   configuration: Configuration;
@@ -201,9 +201,11 @@ function report(applied: AppliedConfiguration, source: Identity, type: Configura
 /** Synchronous host reference. A successful durable commit must precede acknowledgement. */
 export class ConfigurationReference {
   #journal: ConfigurationJournal = { schemaVersion: CONFIGURATION_VERSION, appliedTransactionId: null, commits: [] };
+  #committing = false;
   get applied(): AppliedConfiguration | null { return structuredClone(this.#journal.commits.at(-1) ?? null); }
   exportJournal(): ConfigurationJournal { return structuredClone(this.#journal); }
   apply(input: unknown, context: ConfigurationApplyBoundary, persist: (journal: ConfigurationJournal) => boolean): ConfigurationResult<ConfigurationReport> {
+    if (this.#committing) return failure("APPLY_IN_PROGRESS");
     const parsed = validateConfigurationRecord(input, "request");
     if (!parsed.ok) return parsed;
     const request = parsed.value;
@@ -224,12 +226,15 @@ export class ConfigurationReference {
     const next: ConfigurationJournal = { schemaVersion: CONFIGURATION_VERSION, appliedTransactionId: request.transactionId, commits: [...this.#journal.commits, applied] };
     const candidate = validateConfigurationRecord(next, "journal");
     if (!candidate.ok) return candidate;
+    this.#committing = true;
     try { if (!persist(structuredClone(candidate.value))) return failure("PERSISTENCE_FAILED"); } catch { return failure("PERSISTENCE_FAILED"); }
+    finally { this.#committing = false; }
     this.#journal = candidate.value;
-    return success(report(applied, context.receiver, "configuration.applied"));
+    return success(report(applied, applied.appliedBy, "configuration.applied"));
   }
   /** Restore exact persisted identity. Restart remains inhibited; command compatibility is rechecked. */
   reboot(input: unknown, receiver: Identity): ConfigurationResult<ConfigurationReport | null> {
+    if (this.#committing) return failure("APPLY_IN_PROGRESS");
     const parsed = validateConfigurationRecord(input, "journal");
     if (!parsed.ok) return parsed;
     const applied = parsed.value.commits.at(-1);
