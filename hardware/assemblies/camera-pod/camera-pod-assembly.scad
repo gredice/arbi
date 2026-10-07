@@ -1,8 +1,11 @@
-// ARBI camera-pod-assembly 0.1.0 — concept-unvalidated reference geometry.
-// NON-MANUFACTURING LAYOUT MODEL. Canonical units are millimetres.
-
+// ARBI camera-pod-assembly 0.2.0 — preferred integrated rain-payload reference.
+// NON-MANUFACTURING LAYOUT MODEL; concept-unvalidated. Canonical units are millimetres.
 include <../../lib/camera-pod.scad>
-
+use <payload-rain-assembly.scad>
+show_legacy = false;
 show_context = false;
-
-camera_pod_assembly(show_context);
+pan = 0;
+tilt = 0;
+show_hood = true;
+if(show_legacy)camera_pod_assembly(show_context);
+else payload_rain_assembly(pan,tilt,show_hood);

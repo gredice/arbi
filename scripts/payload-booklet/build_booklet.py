@@ -12,7 +12,7 @@ models=json.loads((ROOT/'mesh-manifest.json').read_text())
 def table(rows,y,widths,small=8.5):
  data=[[p.Paragraph(str(s),p.SMALL) for s in row] for row in rows]
  t=Table(data,colWidths=[w*mm for w in widths]);t.setStyle(TableStyle([
- ('BACKGROUND',(0,0),(-1,0),HexColor('#dceffa')),('ROWBACKGROUNDS',(0,1),(-1,-1),[white,HexColor('#f5f8fa')]),
+ ('BACKGROUND',(0,0),(-1,0),HexColor('#e8e8e5')),('ROWBACKGROUNDS',(0,1),(-1,-1),[white,HexColor('#f6f6f4')]),
  ('VALIGN',(0,0),(-1,-1),'TOP'),('TOPPADDING',(0,0),(-1,-1),5),('BOTTOMPADDING',(0,0),(-1,-1),5),('LINEBELOW',(0,0),(-1,0),.7,BLUE)]))
  _,h=t.wrap(178*mm,1000);assert y+h/mm<281,(y,h/mm)
  t.drawOn(C,16*mm,(297-y)*mm-h);return y+h/mm
@@ -128,7 +128,7 @@ if ENCLOSURE:
  enclosure_booklet()
  raise SystemExit(0)
 
-begin('Build the payload','Pi 3A+ / Camera Module 3 Standard / two micro servos. Mount set r0.1.0, dry bench prototype.')
+begin('Build the payload','Pi 3A+ / Camera Module 3 Standard / two micro servos. Dry bench alternative; deck/yoke r0.1.1, other prints as registered.')
 fig('assembled-open',10,52,190,140)
 text(16,199,'THE MISSING PRINTED STRUCTURE IS NOW INCLUDED',10.5,True,BLUE)
 para(16,206,178,'A fixed electronics deck, both servo mounts, stock-horn retainers, supported camera cradle, removable pivot support, optical hood and electronics cover. Every illustration uses the supplied STL files.',max_h=23)
@@ -136,7 +136,7 @@ box(16,235,178,28)
 para(21,240,168,'<b>Fit before the full print</b><br/>Servo and power-module dimensions remain provisional. Start with the servo coupon and compare the dimension table on page 3 with your received parts. These models are not physically tested.',small=True,max_h=21)
 para(16,269,178,'CAD checks cover rigid geometry, fasteners and motion. Suspended operation still needs mass, strength, balance, cable-flex and electrical checks.',small=True,max_h=12)
 
-begin('01  Printed parts','Print the listed quantity. Blue parts are fabrication meshes; electronic and metal reference meshes are not functional prints.')
+begin('01  Printed parts','Print the listed quantity. Dark cores and white shells are fabrication meshes; electronic and metal reference meshes are not functional prints.')
 items=[('camera-pod-spider','P01  Existing spider','1 x / r0.1.0'),('payload-electronics-deck','P02  Electronics deck','1 x'),('payload-spider-spacer','P03  Spider spacer','4 x / 14 mm'),('payload-pan-servo-mount','P04  Pan servo mount','1 x'),('payload-pan-yoke','P05  Pan yoke','1 x'),('payload-tilt-pivot-support','P06  Pivot support','1 x / removable'),('payload-camera-cradle','P07  Camera cradle','1 x'),('payload-horn-retainer','P08  Horn retainer','2 x / identical'),('payload-camera-hood','P09  Camera hood','1 x'),('payload-electronics-cover','P10  Electronics cover','1 x / removable'),('payload-servo-fit-coupon','T01  Servo fit coupon','1 test print / not installed')]
 for i,(name,title,count) in enumerate(items):
  x=16+(i%3)*61;y=55+(i//3)*50

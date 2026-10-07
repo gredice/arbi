@@ -1,15 +1,16 @@
-# Payload assembly booklet — historical dry bench snapshot
+# Payload assembly booklets
 
-- [Assembly booklet, revision 2](ARBI-payload-assembly-STL.pdf): 14 A4 pages.
-- [STL/source pack](ARBI-payload-STL-pack.zip): 11 fabrication STLs, 29 hardware references, one legacy keep-out, assembled GLB, source snapshots and check reports.
-- [Mount dimensions and quantities](../../../../hardware/assemblies/camera-pod/payload-mounts.md).
-- [CAD integration evidence](../../../../hardware/assemblies/camera-pod/payload-geometry-check.md).
-- [Rebuild instructions](../../../../scripts/payload-booklet/README.md).
+The preferred integrated appearance follows the [industrial design conventions](../../../project/industrial-design.md). Choose one configuration and use its own print list and hardware stacks.
 
-This 28 September 2026 r0.1.0 revision adds the missing printed mounting structure. It uses provisional servo, horn, converter and capacitor dimensions and remains a dry bench prototype. Rigid motion and selected assembly/service checks pass for those nominal references. Actual fit, cable behaviour, electrical function, strength and flying mass are not validated.
+| Configuration | Assembly guide | Source / mesh pack |
+| --- | --- | --- |
+| Integrated rain/splash enclosure | [Revision 1, 16 A4 pages](ARBI-payload-enclosure-assembly-STL.pdf) | [48-STL pack](ARBI-payload-enclosure-STL-pack.zip) |
+| Dry bench alternative | [Revision 3, 14 A4 pages](ARBI-payload-assembly-STL.pdf) | [41-STL pack](ARBI-payload-STL-pack.zip) |
 
-The [integrated rain enclosure](../../../../hardware/assemblies/camera-pod/payload-enclosure.md) is a later configuration with revised r0.1.1 deck/yoke, five new shields and different cover/camera hardware. This PDF, ZIP and their source/check snapshots remain historical evidence and are not the current enclosure print pack. Do not use their earlier deck/yoke STLs for the enclosure.
+Both 7 October 2026 publications use the revised r0.1.1 deck/yoke, current CAD and nominal hardware meshes, source hashes, assembly transforms, geometry/service reports and an assembled GLB. They replace the earlier published dry bench revision 2; that r0.1.0 snapshot remains in Git history. The dry cover is white, and is omitted from the rain kit.
 
-The 6 October 2026 text correction clarifies servo-ear screw orientation in the mount documentation and its ZIP source snapshot. The existing CAD, meshes, PDF and geometry/service results are unchanged.
+The [enclosure configuration](../../../../hardware/assemblies/camera-pod/payload-enclosure.md) owns its 18 installed prints, replacement list, hood/fairing/boot/cowl hardware and harness/service steps. The [dry mount document](../../../../hardware/assemblies/camera-pod/payload-mounts.md) owns the alternative quantities. Packs include nominal references and a test coupon; do not print every STL as an installed part.
 
-The owner requested the completed payload work and booklet be pushed to the repository on 28 September 2026. The PDF and ZIP are reviewable artifact snapshots, matching the existing winch-booklet publication convention. Canonical CAD remains `hardware/**/*.scad`; individual generated meshes and bulk renders remain outside the tracked tree. Generate a separately labelled enclosure deliverable when that configuration is published rather than silently overwriting this evidence snapshot.
+[Enclosure evidence](../../../../hardware/assemblies/camera-pod/payload-enclosure-check.md) and [dry bench evidence](../../../../hardware/assemblies/camera-pod/payload-geometry-check.md) distinguish sampled rigid CAD checks from physical validation. Received-part fit, flexible cable behaviour, electrical function, strength, rain, heat and flying mass remain unverified. The enclosure's 248.336 g full-solid print estimate does not demonstrate the 170 g complete-pod ceiling.
+
+The owner requested the updated publications on 7 October 2026. PDFs and ZIPs are reviewable snapshots; canonical geometry remains `hardware/**/*.scad`, and loose meshes/bulk renders remain untracked. Follow the [rebuild instructions](../../../../scripts/payload-booklet/README.md) and regenerate each PDF and pack together with `--publish` after changes.

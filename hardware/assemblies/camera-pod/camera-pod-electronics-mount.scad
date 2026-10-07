@@ -3,4 +3,4 @@
 
 include <../../lib/camera-pod.scad>
 
-camera_pod_electronics_mount();
+color(ARBI_CORE)camera_pod_electronics_mount();

@@ -1,18 +1,165 @@
 {
-  "date": "2026-09-28",
+  "date": "2026-10-07",
+  "configuration": {
+    "variant": "bench",
+    "units": "mm",
+    "pan_deg": [
+      -90,
+      90,
+      5
+    ],
+    "tilt_deg": [
+      0,
+      70,
+      5
+    ],
+    "hardware_basis": "declared nominal references; supplier dimensions unverified",
+    "evidence_date": "2026-10-07",
+    "fabrication_models": [
+      {
+        "id": "camera-pod-spider",
+        "revision": "0.1.0",
+        "output": "camera-pod-spider-r0.1.0.stl"
+      },
+      {
+        "id": "payload-electronics-deck",
+        "revision": "0.1.1",
+        "output": "payload-electronics-deck-r0.1.1.stl"
+      },
+      {
+        "id": "payload-pan-servo-mount",
+        "revision": "0.1.0",
+        "output": "payload-pan-servo-mount-r0.1.0.stl"
+      },
+      {
+        "id": "payload-pan-yoke",
+        "revision": "0.1.1",
+        "output": "payload-pan-yoke-r0.1.1.stl"
+      },
+      {
+        "id": "payload-camera-cradle",
+        "revision": "0.1.0",
+        "output": "payload-camera-cradle-r0.1.0.stl"
+      },
+      {
+        "id": "payload-horn-retainer",
+        "revision": "0.1.0",
+        "output": "payload-horn-retainer-r0.1.0.stl"
+      },
+      {
+        "id": "payload-camera-hood",
+        "revision": "0.1.0",
+        "output": "payload-camera-hood-r0.1.0.stl"
+      },
+      {
+        "id": "payload-electronics-cover",
+        "revision": "0.1.0",
+        "output": "payload-electronics-cover-r0.1.0.stl"
+      },
+      {
+        "id": "payload-servo-fit-coupon",
+        "revision": "0.1.0",
+        "output": "payload-servo-fit-coupon-r0.1.0.stl"
+      },
+      {
+        "id": "payload-spider-spacer",
+        "revision": "0.1.0",
+        "output": "payload-spider-spacer-r0.1.0.stl"
+      },
+      {
+        "id": "payload-tilt-pivot-support",
+        "revision": "0.1.0",
+        "output": "payload-tilt-pivot-support-r0.1.0.stl"
+      }
+    ]
+  },
   "status": "CAD-only; concept-unvalidated",
   "integration": {
-    "configuration": "payload mount set r0.1.0; declared nominal hardware only",
+    "configuration": {
+      "variant": "bench",
+      "units": "mm",
+      "pan_deg": [
+        -90,
+        90,
+        5
+      ],
+      "tilt_deg": [
+        0,
+        70,
+        5
+      ],
+      "hardware_basis": "declared nominal references; supplier dimensions unverified",
+      "evidence_date": "2026-10-07",
+      "fabrication_models": [
+        {
+          "id": "camera-pod-spider",
+          "revision": "0.1.0",
+          "output": "camera-pod-spider-r0.1.0.stl"
+        },
+        {
+          "id": "payload-electronics-deck",
+          "revision": "0.1.1",
+          "output": "payload-electronics-deck-r0.1.1.stl"
+        },
+        {
+          "id": "payload-pan-servo-mount",
+          "revision": "0.1.0",
+          "output": "payload-pan-servo-mount-r0.1.0.stl"
+        },
+        {
+          "id": "payload-pan-yoke",
+          "revision": "0.1.1",
+          "output": "payload-pan-yoke-r0.1.1.stl"
+        },
+        {
+          "id": "payload-camera-cradle",
+          "revision": "0.1.0",
+          "output": "payload-camera-cradle-r0.1.0.stl"
+        },
+        {
+          "id": "payload-horn-retainer",
+          "revision": "0.1.0",
+          "output": "payload-horn-retainer-r0.1.0.stl"
+        },
+        {
+          "id": "payload-camera-hood",
+          "revision": "0.1.0",
+          "output": "payload-camera-hood-r0.1.0.stl"
+        },
+        {
+          "id": "payload-electronics-cover",
+          "revision": "0.1.0",
+          "output": "payload-electronics-cover-r0.1.0.stl"
+        },
+        {
+          "id": "payload-servo-fit-coupon",
+          "revision": "0.1.0",
+          "output": "payload-servo-fit-coupon-r0.1.0.stl"
+        },
+        {
+          "id": "payload-spider-spacer",
+          "revision": "0.1.0",
+          "output": "payload-spider-spacer-r0.1.0.stl"
+        },
+        {
+          "id": "payload-tilt-pivot-support",
+          "revision": "0.1.0",
+          "output": "payload-tilt-pivot-support-r0.1.0.stl"
+        }
+      ]
+    },
+    "variant": "bench",
     "units": "mm",
     "neutral_collisions": [],
     "intersection_tolerance_mm3": 0.005,
     "intended_exclusions": [
-      "servo-shaft / stock-horn spline engagement"
+      "servo-shaft / stock-horn spline engagement",
+      "OEM servo-centre screw / servo threaded engagement"
     ],
     "source_hashes": {
-      "source/integration.py": "9fa4b8dbbf87688837da17f3be5676316cba48dd3450f01dc08c3a0980acf3f9",
-      "source/check_integration.py": "181ea64d74f073e67403e7afb98641679f2ba00a25da4855d9378639b0746b6b",
-      "source/arbi-hardware/lib/payload-mounts.scad": "10c898dd35461898737e12886f3918b93dcdf866ab1cf1cf3d044efc1b11bd68"
+      "source/integration.py": "6ac209ef141615a0c5fe3735eee3a112600f31c6d00afab9aa3c16f969ea7aa9",
+      "source/check_integration.py": "a479f2757c7a7e9df097641bb0f0abfb6426eeb1f81fbe954b1c5cd9d3e3acb0",
+      "source/arbi-hardware/lib/payload-mounts.scad": "489db6bba746e741d4db140c9d9fe4dc92bec7eca1a35b7b1e2ef19439f96039"
     },
     "motion_grid": {
       "poses": 555,
@@ -86,8 +233,8 @@
       },
       {
         "name": "deck",
-        "solid_volume_cm3": 17.132786421471234,
-        "solid_PETG_estimate_g_at_1p27": 21.758638755268468
+        "solid_volume_cm3": 16.421925541529326,
+        "solid_PETG_estimate_g_at_1p27": 20.855845437742243
       },
       {
         "name": "spider-spacer-0",
@@ -116,8 +263,8 @@
       },
       {
         "name": "pan-yoke",
-        "solid_volume_cm3": 7.333249845778828,
-        "solid_PETG_estimate_g_at_1p27": 9.313227304139112
+        "solid_volume_cm3": 7.473081417483391,
+        "solid_PETG_estimate_g_at_1p27": 9.490813400203907
       },
       {
         "name": "tilt-pivot-support",
@@ -131,8 +278,8 @@
       },
       {
         "name": "camera-hood",
-        "solid_volume_cm3": 1.4797345647369096,
-        "solid_PETG_estimate_g_at_1p27": 1.8792628972158751
+        "solid_volume_cm3": 1.4797345647369093,
+        "solid_PETG_estimate_g_at_1p27": 1.879262897215875
       },
       {
         "name": "pan-horn-retainer",
@@ -150,7 +297,7 @@
         "solid_PETG_estimate_g_at_1p27": 24.157080513683155
       }
     ],
-    "solid_total_PETG_g": 164.033701848002,
+    "solid_total_PETG_g": 163.30849462654058,
     "neutral_assembly_bounds_mm": [
       [
         -84.53910064697266,
@@ -165,6 +312,81 @@
     ]
   },
   "service": {
+    "configuration": {
+      "variant": "bench",
+      "units": "mm",
+      "pan_deg": [
+        -90,
+        90,
+        5
+      ],
+      "tilt_deg": [
+        0,
+        70,
+        5
+      ],
+      "hardware_basis": "declared nominal references; supplier dimensions unverified",
+      "evidence_date": "2026-10-07",
+      "fabrication_models": [
+        {
+          "id": "camera-pod-spider",
+          "revision": "0.1.0",
+          "output": "camera-pod-spider-r0.1.0.stl"
+        },
+        {
+          "id": "payload-electronics-deck",
+          "revision": "0.1.1",
+          "output": "payload-electronics-deck-r0.1.1.stl"
+        },
+        {
+          "id": "payload-pan-servo-mount",
+          "revision": "0.1.0",
+          "output": "payload-pan-servo-mount-r0.1.0.stl"
+        },
+        {
+          "id": "payload-pan-yoke",
+          "revision": "0.1.1",
+          "output": "payload-pan-yoke-r0.1.1.stl"
+        },
+        {
+          "id": "payload-camera-cradle",
+          "revision": "0.1.0",
+          "output": "payload-camera-cradle-r0.1.0.stl"
+        },
+        {
+          "id": "payload-horn-retainer",
+          "revision": "0.1.0",
+          "output": "payload-horn-retainer-r0.1.0.stl"
+        },
+        {
+          "id": "payload-camera-hood",
+          "revision": "0.1.0",
+          "output": "payload-camera-hood-r0.1.0.stl"
+        },
+        {
+          "id": "payload-electronics-cover",
+          "revision": "0.1.0",
+          "output": "payload-electronics-cover-r0.1.0.stl"
+        },
+        {
+          "id": "payload-servo-fit-coupon",
+          "revision": "0.1.0",
+          "output": "payload-servo-fit-coupon-r0.1.0.stl"
+        },
+        {
+          "id": "payload-spider-spacer",
+          "revision": "0.1.0",
+          "output": "payload-spider-spacer-r0.1.0.stl"
+        },
+        {
+          "id": "payload-tilt-pivot-support",
+          "revision": "0.1.0",
+          "output": "payload-tilt-pivot-support-r0.1.0.stl"
+        }
+      ]
+    },
+    "fixed_power_route": null,
+    "cowl_clamp_seating": [],
     "assembly_paths": [
       {
         "name": "pan servo inserted downward through the upper opening",
@@ -207,27 +429,28 @@
         "failures": []
       }
     ],
+    "wiring_ports": [],
     "tool_access": [
       {
-        "name": "pan retainer short driver",
+        "name": "pan retainer short driver before fairing installation",
         "diameter_mm": 2,
         "straight_tip_length_mm": 15,
         "hits": []
       },
       {
-        "name": "tilt retainer short driver",
+        "name": "tilt retainer short driver before moving covers and fairing",
         "diameter_mm": 2,
         "straight_tip_length_mm": 15,
         "hits": []
       },
       {
-        "name": "pan retainer short driver",
+        "name": "pan retainer short driver before fairing installation",
         "diameter_mm": 2,
         "straight_tip_length_mm": 15,
         "hits": []
       },
       {
-        "name": "tilt retainer short driver",
+        "name": "tilt retainer short driver before moving covers and fairing",
         "diameter_mm": 2,
         "straight_tip_length_mm": 15,
         "hits": []
@@ -331,58 +554,59 @@
       ]
     },
     "limits": [
+      "Port checks cover only local openings; a straight downward power/CSI/servo route may hit the spider or gimbal. Route outboard before the sweep and inspect actual flex.",
       "Rigid nominal envelopes only; flexible leads, connectors and ribbon routing need a bench check.",
       "Short straight tool tips represent local access, not every handle, wrench or insertion trajectory.",
       "The servo spline and OEM threaded centre screw are intended engagement exclusions."
     ]
   },
   "mesh_hashes": {
-    "raspberry-pi-3a-plus-reference": "43fe1e824e8b7b37735fb33ebb90aab1a8a1dcc49c12098a8ab6309d5817f6ee",
-    "camera-module-3-standard-reference": "222975362c4ddf9d225f69b833387dd255005cab5b349fea20c67b65481fb2b9",
-    "micro-servo-3p7g-UNVERIFIED": "21287196d7f7975974acb7be6711aac062fa5639d96b17fe7120e101e77c131b",
-    "servo-horn-UNVERIFIED": "c88422654788631bdf622cc7d5ff944ca12450d65ee651437058c62d7f4ba4ad",
-    "buck-converter-UNVERIFIED": "9b0a3889e44e240b4bd7fdf4d6f00f92957eb992f9e56eb06f9a3e1405021196",
+    "raspberry-pi-3a-plus-reference": "6e450fef00397e9f093f40e04e4e7bfb9f88bad6cb76994a01e966ebde7145b1",
+    "camera-module-3-standard-reference": "99c806bc9467081ca17a01920746fcdb0a1ea662641754342b07ba325ba7e132",
+    "micro-servo-3p7g-UNVERIFIED": "48699842388bdeef831db8dbb27fb4358f2955216dc9bfa886f3c6ad2d6da7b3",
+    "servo-horn-UNVERIFIED": "79f77ced7d6e6f5e350366318b914422453da4b3c6bd2f7bb65a6626d09e4d34",
+    "buck-converter-UNVERIFIED": "dc01737ae1debd8394cd4afa9668002afe678572b1caaf690beb8b60351e7c98",
     "capacitor-1000uf-UNVERIFIED": "d8d99675b0a3bd8385443f1f263c1584a18ceabd95554f51fd8092148c1788da",
     "microsd-reference": "f2c07472383626694fa8f2a3428a6a45be6b602a14fc838458e10a40ade18ac0",
     "csi-15pin-flat-reference": "3e62a5870e394e21035180878391079bee325c3a849bbb8a376000b56a8c30a0",
-    "nut-M2-reference": "8e29a75607214fb1d633a02e90bc65c5f4b947d7ea790fbdcf50634304f8cf5f",
-    "nut-M2p5-reference": "026b1de5351e8f56c45a032fec9526d84b3d134a11b393a3eaff156f9210ea6a",
-    "nut-M4-reference": "6c2b27fccfca06d503a9a1cf69b9c6a2189f60543de5ee450c406b09202d7a18",
+    "nut-M2-reference": "4094e9283640b62fc43257ccec1625f4f125059dd2010da30a8e28d836501e45",
+    "nut-M2p5-reference": "06b11cf8217fdedd4606b9203a799a3f83aed862d8f6603d8266663cdbf587be",
+    "nut-M4-reference": "c46c0fe2be72e0129e63a3d46039b25447eb26ab519d170bb1d4c8a09ae68b23",
     "washer-M2-reference": "f98c2c20ad1b7d4f3eaee79aa18b929fe42353dc1c90baad5512c2066c3d95cc",
-    "washer-M2p5-reference": "2bf35c3cfe8b8e0bb8354b0079f9a495040f52905bb5e464894cbafa4035bc64",
-    "washer-M4-reference": "d6a8dd1eafd13933dcb1e055f9a74d9a370d1f75679942479eeab3f64c7c2d37",
-    "bolt-M4x35-reference": "53a49be4c2b62ab4c6d4b4d0d02303c053d50cb87402a9b446086bbbdcb91423",
-    "bolt-M2p5x20-reference": "4a23831ec02719b503d90714bac79fce45f74bd38aee81a75e5bfe9085ce3c88",
-    "bolt-M2x12-reference": "99378432f8621e42e5487d9afa6b2924d80b2f7f3d97ff6dff13834436028ebd",
-    "bolt-M3x12-reference": "2fa2373ca3763f0e48880410157622d8646fa001cd5a7891bab20f57ba5ae53a",
-    "bolt-M3x35-reference": "fc512cf969b935e1597fbdd86afe77b625f4b2943ad3bb796d19fd8ef452b13a",
-    "nut-M1p6-reference": "208b0a8097348267143fcc288e1e04c5f17ad81d2f3d3535264e06e764506d3d",
+    "washer-M2p5-reference": "2cc648b43ae301445db22a56860b1aa09d49fe5a0542dabd2e80ddb7240e835b",
+    "washer-M4-reference": "53ca04cc0f0d5f8411e143cb7d998d3e7a61df44e53b224dc4c9718e29134876",
+    "bolt-M4x35-reference": "59aedf1d56f938b3de52ed821af1466664ca68dd86a0cdb13e75d787c1974c05",
+    "bolt-M2p5x20-reference": "0e4a02e1b57e6f9670fb91a139d2ba70ca9543478386b9ea3d9e3f536fd275cf",
+    "bolt-M2x12-reference": "104b036d6c24b07401878e90d263c08e9b206ade6b65054063a11a0cb698523c",
+    "bolt-M3x12-reference": "baa8798abff9eff15bbdecf6ecbf2f49b8d4fe088d8ad4c258e9cab31ceaba14",
+    "bolt-M3x35-reference": "7885dc1b1e358ba8320df2fe461ee77964fdcd76265d907b0919b1e656e4b690",
+    "nut-M1p6-reference": "68b7ce62c958c4bcce510bc1b277f7def2080ed257e87f370d82b886d48ab488",
     "nut-M3-reference": "23ce82d009e43321da313531babfda3cf9e4ef16b2a184397f019c67550337e6",
-    "washer-M3-reference": "14c7707b848ffe6943158176d09d00fad6a34d30a177172dc28251e81621b48d",
-    "washer-M3x0p7-reference": "3bce4339023a3b52655f1e55f7976a8e2c020b83f4220e2a424d0a31ec6adcfb",
-    "bolt-OEM-horn-UNVERIFIED": "09956135745b3d1f4cf34fc9b52c99956674c5ef33a8d3df269a3d1f3baef221",
+    "washer-M3-reference": "2246faff195c0759feeef2f223608a0085aab3df2bb20274a538870673bf3771",
+    "washer-M3x0p7-reference": "7097d7096edffe72779292fd393f9074aedcdaca16a55f7c120ad98cc1a8e2b5",
+    "bolt-OEM-horn-UNVERIFIED": "2df2abe310fa82cdbdd6b2680d1ea45d08e303cc951110fb44d99c32c9b337c9",
     "converter-tie-reference": "a92d362e39dc39cf8f8c963b45a4f97b200ac8710a626c5618b3284fb1c7dee7",
     "capacitor-tie-reference": "22e411439b72115e23873c4b7de4338dc732223a45b086edf78f033c505a245a",
-    "csk-M1p6x6-reference": "2c5e1eb4a1b60c449a3ea2b490c1ff9bd19ab8e6f618447065e1bba7b942b427",
-    "csk-M2x8-reference": "fe3f6f8b02a0052d71eb038576f390fea9e7cedb6a96308e406da504c2b1a881",
-    "csk-M2x10-reference": "d05665848301292a6efe2f8b9b126a66fa6dc45d49bdf4560066f29c41599729",
-    "camera-pod-spider": "19e1f1dee97e8bd799905219cc7f2cdff68485bd6a464404868b65cc70b18e9a",
-    "payload-electronics-deck": "310f821de587f0175d62ad192a83abb69473a1648cc43075f2d61c6ceeb0b02c",
-    "payload-pan-servo-mount": "387f1135fc3e9d58dec4c72a77e40ec418bd6837c56252c0afd5ff0b103aafef",
-    "payload-pan-yoke": "f6399c18b8c1c3facb4b884ccfd54193814594426ef580c94f5f8cff162d2b15",
-    "payload-camera-cradle": "64e0733ebbf8750e901b9a09d493ef24fd68c9082fe580e6b780003b5a73cb8e",
-    "payload-horn-retainer": "57fe22d4e44287dda47eba15654e17664db31a41b4b05b7f7589421cd3a5d69d",
-    "payload-camera-hood": "624eba17978dea99774d12da60e614b58cf0176cc9cf4df39225a30c942a54f9",
-    "payload-electronics-cover": "d2cf497c43fe30144ea9a009b3ede0c1a077cee26d8623642bf5327c79bc0478",
-    "payload-servo-fit-coupon": "793e224a4156f07115476cafd40552dd79348e88ff7ecdb216f6696a9c667208",
-    "payload-spider-spacer": "990c1662aa4bdeab555986a092fa3e8a211b22eab8073141e246b1e25f5d7b16",
-    "payload-tilt-pivot-support": "41f1323911a9774f75dee84a8bcce23c3b7bc3771c5c2d5a4758cc627ce0e1e4",
-    "camera-pod-envelope": "a9a437099e59b31500de9840b22388453ddd3ee4531a540279e7e975297206eb"
+    "csk-M1p6x6-reference": "b9fafe67502ee1cc93d9cd3ffd2e31ad7f5c0f23f587c5afef57bf09b6748718",
+    "csk-M2x8-reference": "26d782024f11e52a2724e9fbf4fdc0c9e58ce39d0bf2da5ed1ba0674251e9d58",
+    "csk-M2x10-reference": "43cdfca793c2111972655d6f20475fab2323653a6532436b375815cb58d3db5e",
+    "camera-pod-spider": "a49cd3ccda52b03af2b616924728eb6433cf043a39e2ae6eac070c1d4b72118e",
+    "payload-electronics-deck": "bf5fca0872add2edcd497903519474b9d2cb144caea6087be720c2bb52b250e9",
+    "payload-pan-servo-mount": "3fa29077f5c53f30483d05dfd91cbaff481a272cf79b949023b5405a1dd3580a",
+    "payload-pan-yoke": "98c24d2c70623b8330a1170532c315eb20bb46c423d4724b61f0014722a0749b",
+    "payload-camera-cradle": "932eb7afd612383e7ac221584f114b23793cd9cf739b7d9b349c0f26de888469",
+    "payload-horn-retainer": "542bac9a813c1d7446fd43174e8780ec080a079fc57fd2266f9eabe09bdcdf79",
+    "payload-camera-hood": "cb992216e6f4cdf469d84292c1fee354906babcb3b614712a929696cfc5c43cb",
+    "payload-electronics-cover": "be8a0f6bb186aedef44d6e01a2bf9608b504d6e57472d42121d9210bfa645eb3",
+    "payload-servo-fit-coupon": "cf1869987019c40e13d65a17a6573160b73121ec4c79c65a42d42cb01e0d193e",
+    "payload-spider-spacer": "6e8c07ad194a4dd98b2829c59323c13e0f1901e3f3cf560a0aa6446efd9df20e",
+    "payload-tilt-pivot-support": "65cddc1b00245e8de76a25c77e995f6ed8114fd8fbbdc5e4b6237c674be2f332",
+    "camera-pod-envelope": "89c0838620d2dfe11e8b2fbda100c08c023eabce39cea82e3d0ce2aef182772f"
   },
   "checker_sources": {
-    "integration.py": "9fa4b8dbbf87688837da17f3be5676316cba48dd3450f01dc08c3a0980acf3f9",
-    "check_integration.py": "181ea64d74f073e67403e7afb98641679f2ba00a25da4855d9378639b0746b6b",
-    "check_service.py": "78be904ba76093bc3d5e92b494ec6dc4c99b2bdcd76e5e79353cad02a2dd4f39",
-    "reference-parts.scad": "ea322ecfe42c032563814b931208b2328eaf74b8ab040c520a93a0f1798a88b4"
+    "integration.py": "6ac209ef141615a0c5fe3735eee3a112600f31c6d00afab9aa3c16f969ea7aa9",
+    "check_integration.py": "a479f2757c7a7e9df097641bb0f0abfb6426eeb1f81fbe954b1c5cd9d3e3acb0",
+    "check_service.py": "23fd31c0ef77ae46db5b9fd954096dfe85d34783765eec4249ea95f8e9e19b5e",
+    "reference-parts.scad": "ee5e874c8549bd9cfe1a63f9a7f43e24769086855f7884d0c2bad390e1fab96c"
   }
 }

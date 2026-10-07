@@ -554,7 +554,7 @@ module camera_pod_assembly(show_context = false) {
             translate([0, 0, cp_gimbal_flange_thickness + 50])
                 color(ARBI_CORE)camera_gimbal_camera_plate();
             translate([0, 0, cp_gimbal_flange_thickness + 53])
-                color(ARBI_SHELL)camera_gimbal_optical_hood();
+                color(ARBI_CORE)camera_gimbal_optical_hood();
         }
 
     if (show_context) {

@@ -1,3 +1,3 @@
 // ARBI payload-electronics-cover 0.1.0 — concept-unvalidated.
 include <../../lib/payload-mounts.scad>
-payload_electronics_cover();
+color(ARBI_SHELL)payload_electronics_cover();

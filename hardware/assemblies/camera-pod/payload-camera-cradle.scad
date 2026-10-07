@@ -1,3 +1,3 @@
 // ARBI payload-camera-cradle 0.1.0 — concept-unvalidated.
 include <../../lib/payload-mounts.scad>
-payload_camera_cradle();
+color(ARBI_CORE)payload_camera_cradle();

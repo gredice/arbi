@@ -1,6 +1,6 @@
 """Build and check the payload bench assembly booklet and STL pack from current CAD."""
 from pathlib import Path
-import argparse,ast,hashlib,json,shutil,subprocess,sys,zipfile
+import argparse,ast,re,hashlib,json,shutil,subprocess,sys,zipfile
 from datetime import date
 from collections import Counter
 
@@ -105,12 +105,12 @@ def main():
     assert 'def begin(' in style and 'C.save()' not in style,'Review upstream page-style extraction'
     style=style.replace('ARBI-winch-assembly-STL.pdf',artifact+'-assembly-STL.pdf').replace('ARBI winch and drum - STL-based assembly booklet','ARBI payload - printed mount assembly booklet')
     style=style.replace('WINCH & DRUM','PAYLOAD').replace("text(153,15,'PASSIVE / STL EDITION'","text(141,15,'MOUNT SET / BENCH EDITION'")
-    style=style.replace('Mechanical bench assembly | Revision 3 | 27 Sep 2026','Payload bench assembly | Revision 2 | 28 Sep 2026')
+    style=re.sub(r'Mechanical bench assembly \| Revision [^\']+',('Payload rain enclosure | Revision 1 | ' if args.enclosure else 'Payload bench assembly | Revision 3 | ')+date.today().strftime('%d %b %Y'),style)
     if args.enclosure:
         style=style.replace('/ 14','/ 16').replace('MOUNT SET / BENCH EDITION','RAIN / SPLASH EDITION').replace('Payload bench assembly | Revision 2 | 28 Sep 2026','Payload rain enclosure | Revision 1 | '+date.today().strftime('%d %b %Y'))
     (root/'source/page_style.py').write_text(style)
     provenance={'repository':'https://github.com/gredice/arbi','base_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=REPO,text=True).strip(),
-      'booklet_revision':1 if args.enclosure else 2,'configuration':config,'scope':'Nominal rain/splash enclosure assembly; ingress, servo/power dimensions and physical fits unverified.' if args.enclosure else 'Complete nominal bench mount assembly; servo/power dimensions and physical fits unverified.',
+      'booklet_revision':1 if args.enclosure else 3,'configuration':config,'scope':'Nominal rain/splash enclosure assembly; ingress, servo/power dimensions and physical fits unverified.' if args.enclosure else 'Complete nominal bench mount assembly; servo/power dimensions and physical fits unverified.',
       'source_hashes':{str(p.relative_to(root)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted((root/'source').rglob('*')) if p.is_file() and '__pycache__' not in p.parts}}
     (root/'source-provenance.json').write_text(json.dumps(provenance,indent=2)+'\n')
     if not args.reuse_models:

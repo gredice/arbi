@@ -3,4 +3,4 @@
 
 include <../../lib/camera-pod.scad>
 
-camera_gimbal_optical_hood();
+color(ARBI_CORE)camera_gimbal_optical_hood();
