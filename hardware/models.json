@@ -209,6 +209,46 @@
             "description": "Two-cheek upper line-retention keeper concept for a corner pulley."
         },
         {
+            "id": "pole-pulley-mount-front",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "pole-pulley-mount-concept"
+            ],
+            "assembly": "corner-station",
+            "entrypoint": "hardware/assemblies/corner-station/pole-pulley-mount-front.scad",
+            "output": "pole-pulley-mount-front-r0.1.0.stl",
+            "documentation": "hardware/assemblies/corner-station/README.md",
+            "description": "Round-pole split collar with twin gusseted clevis arms; fit/mock-up concept only, structural process unselected."
+        },
+        {
+            "id": "pole-pulley-mount-rear",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "pole-pulley-mount-concept"
+            ],
+            "assembly": "corner-station",
+            "entrypoint": "hardware/assemblies/corner-station/pole-pulley-mount-rear.scad",
+            "output": "pole-pulley-mount-rear-r0.1.0.stl",
+            "documentation": "hardware/assemblies/corner-station/README.md",
+            "description": "Removable rear half of round-pole pulley clamp; fit/mock-up concept only."
+        },
+        {
+            "id": "pole-pulley-mount-assembly",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "reference",
+            "bomPartIds": [],
+            "assembly": "corner-station",
+            "entrypoint": "hardware/assemblies/corner-station/pole-pulley-mount-assembly.scad",
+            "output": "pole-pulley-mount-assembly-r0.1.0.csg",
+            "documentation": "hardware/assemblies/corner-station/README.md",
+            "description": "Round-pole split-clamp alternative with nominal M8 hardware and generic marine-block envelope; not the through-bolt baseline."
+        },
+        {
             "id": "winch-drum-alignment-pin",
             "revision": "0.1.0",
             "status": "concept-unvalidated",

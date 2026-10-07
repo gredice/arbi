@@ -800,6 +800,42 @@
       ]
     },
     {
+      "id": "pole-pulley-mount-concept",
+      "name": "Round-pole split-clamp pulley mount concept pair",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "planned",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "fabricated"
+      ],
+      "requirements": [
+        "Alternative concept for a measured 100–140 mm round pole. One front collar/clevis plus one rear collar, with four nominal M8 clamp bolts and a separate M8 pulley pin.",
+        "STLs support fit and appearance mock-ups only. Structural material, manufacturing process, friction/slip resistance, timber movement and allowable loads are unverified."
+      ],
+      "notes": "Not included in any build or purchasing quantity; does not replace the through-bolted top-pulley-bracket baseline. Nominal hardware and generic pulley envelopes are not supplied fabrication parts.",
+      "fabrication": {
+        "process": "openscad",
+        "modelStatus": "concept-unvalidated",
+        "sources": [
+          {
+            "path": "hardware/assemblies/corner-station/pole-pulley-mount-front.scad",
+            "module": "pole_pulley_mount_front",
+            "modelId": "pole-pulley-mount-front",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/corner-station/pole-pulley-mount-rear.scad",
+            "module": "pole_pulley_mount_rear",
+            "modelId": "pole-pulley-mount-rear",
+            "revision": "0.1.0"
+          }
+        ]
+      }
+    },
+    {
       "id": "pulley-bracket-backing-plate",
       "name": "Rear backing plate for top-pulley bracket — stacked BAUHAUS plates",
       "baseUnit": "each",
