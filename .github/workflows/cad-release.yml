@@ -105,9 +105,16 @@ jobs:
             printf 'Model revisions and evidence status are recorded in `hardware/models.json`. These CAD exports do not by themselves establish printability, fit, strength, or installation safety.\n'
           } > "$notes"
 
-          latest=false
-          if [[ "$(git ls-remote origin refs/heads/main | cut -f1)" == "$GITHUB_SHA" ]]; then
-            latest=true
+          # Mark this release Latest unless the current Latest belongs to a newer commit.
+          # Runs are serialized, but merges land faster than booklet builds, so requiring
+          # this commit to still be main's head left Latest on an old snapshot.
+          latest=true
+          current="$(gh release view --json tagName --jq .tagName 2>/dev/null || true)"
+          if [[ "$current" == cad-* ]]; then
+            relation="$(gh api "repos/${GITHUB_REPOSITORY}/compare/${current#cad-}...${GITHUB_SHA}" --jq .status)"
+            if [[ "$relation" != "ahead" && "$relation" != "identical" ]]; then
+              latest=false
+            fi
           fi
 
           gh release create "$tag" "$CAD_OUTPUT"/* \
