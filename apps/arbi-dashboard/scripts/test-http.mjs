@@ -20,7 +20,7 @@ try {
   });
   clearTimeout(timer);
   for (const [method, path] of [["GET", "enrollment/inventory"], ["POST", "enrollment/challenge"],
-    ["POST", "media/upload"], ["POST", "media/complete"], ["POST", "images/synthetic-image/access"], ["GET", "images/synthetic-image/metadata"]]) {
+    ["POST", "media/upload"], ["POST", "media/complete"], ["POST", "images/synthetic-image/access"], ["GET", "images/synthetic-image/metadata"], ["POST", "audit/ingest"]]) {
     const response = await fetch(`http://127.0.0.1:${port}/api/sites/synthetic-site/${path}`, {
       method, signal: AbortSignal.timeout(5_000), ...(method === "POST" ? { headers: { "content-type": "application/json" }, body: "{}" } : {}),
     });
@@ -30,7 +30,7 @@ try {
     assert.equal(body.error, "UNAVAILABLE");
     assert.deepEqual(Object.keys(body).sort(), ["correlationId", "error"]);
   }
-  process.stdout.write("Built Next.js enrollment/media routes deny unprovisioned reads, commissioning and object access.\n");
+  process.stdout.write("Built Next.js enrollment/media/audit routes deny unprovisioned reads, commissioning, object access and ingestion.\n");
 } catch { process.stderr.write("Built enrollment/media HTTP checks failed.\n"); process.exitCode = 1; }
 finally {
   clearTimeout(timer);

@@ -1,0 +1,14 @@
+{
+  "name": "@arbi/audit", "version": "0.0.0", "private": true, "type": "module",
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" },
+    "./errors": { "types": "./dist/errors.d.ts", "import": "./dist/errors.js" }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json", "lint": "tsc --noEmit", "typecheck": "tsc --noEmit",
+    "test": "pnpm build && node --test dist/*.test.js"
+  },
+  "dependencies": { "@arbi/protocol": "workspace:*" },
+  "devDependencies": { "@types/node": "24.12.4", "typescript": "7.0.2" },
+  "engines": { "node": ">=24" }
+}
