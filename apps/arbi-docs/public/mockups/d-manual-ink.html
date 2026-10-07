@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ARBI · D · Manual + Ink</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<style type="text/tailwindcss">
+@theme {
+  --color-paper: #ffffff;
+  --color-sheet: #f4f4f2;
+  --color-ink: #0b0b0b;
+  --color-grey: #6d6d6a;
+  --color-ash: #8c8c88;
+  --color-hair: #d9d9d5;
+  --font-sans: "Archivo", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+@layer base {
+  html { -webkit-font-smoothing: antialiased; }
+  body { @apply bg-paper text-ink font-sans text-[14px]; font-stretch: 100%; }
+}
+@utility cond { font-stretch: 72%; @apply uppercase font-bold tracking-[-0.01em]; }
+@utility tag { @apply font-mono text-[11px] uppercase tracking-[0.04em]; }
+@utility mono { @apply font-mono tabular-nums; }
+@utility rule { @apply border-t-2 border-ink; }
+@utility key { @apply inline-flex items-center gap-3 bg-ink text-paper px-4 py-2.5 tag hover:bg-paper hover:text-ink border border-ink; }
+@utility key-line { @apply inline-flex items-center gap-3 px-4 py-2.5 tag border border-ink hover:bg-ink hover:text-paper; }
+@utility key-inv { @apply inline-flex items-center gap-3 px-4 py-2.5 tag border border-paper text-paper hover:bg-paper hover:text-ink; }
+.bubble { position:absolute; transform:translate(-50%,-50%); width:28px; height:28px; border-radius:999px; border:1.5px solid currentColor; display:grid; place-items:center; font:600 11px var(--font-mono); cursor:pointer; pointer-events:auto; }
+.paper .bubble { background:#fff; color:#0b0b0b; } .paper .bubble.on, .paper .bubble:hover { background:#0b0b0b; color:#fff; }
+.inked .bubble { background:#0b0b0b; color:#f2f2ee; } .inked .bubble.on, .inked .bubble:hover { background:#f2f2ee; color:#0b0b0b; border-color:#f2f2ee; }
+.prose-doc { @apply max-w-[72ch] text-[15px] leading-[1.6]; }
+.prose-doc h1 { @apply cond text-[64px] leading-[0.9] mb-10; }
+.prose-doc h2 { @apply cond text-[26px] mt-14 mb-4 pt-3 rule; }
+.prose-doc h3 { @apply font-semibold mt-8 mb-2; }
+.prose-doc p, .prose-doc ul, .prose-doc ol { @apply mb-4; }
+.prose-doc ul { @apply list-[square] pl-5; } .prose-doc ol { @apply list-decimal pl-5; }
+.prose-doc a { @apply underline underline-offset-2 decoration-1; }
+.prose-doc table { @apply w-full my-6 text-[12.5px] border-b-2 border-ink; } .prose-doc th { @apply tag text-left border-y-2 border-ink py-2 pr-3; }
+.prose-doc td { @apply border-b border-hair py-2 pr-3 align-top; }
+.prose-doc code { @apply font-mono text-[12.5px] bg-sheet px-1; }
+.prose-doc pre { @apply bg-sheet p-4 my-4 overflow-x-auto font-mono text-[12.5px] border-l-2 border-ink; }
+.prose-doc img { @apply my-8 border border-hair; }
+</style>
+</head>
+<body>
+<header class="sticky top-0 z-40 bg-ink text-paper border-b border-white/15">
+  <div class="px-4 sm:px-6 h-11 flex items-center gap-6">
+    <a href="#/" class="cond text-[20px] leading-none">ARBI</a>
+    <span class="tag text-paper/50 hidden md:inline">Automatic Raised Bed Imaging · open engineering manual</span>
+    <nav class="ml-auto flex gap-5 tag overflow-x-auto" id="nav"><a href="#/systems/camera-pod">Systems</a><a href="#/parts">Parts</a><a href="#/bom">BOM</a><a href="#/docs">Docs</a><a href="#/downloads">Downloads</a></nav>
+  </div>
+</header>
+<div class="border-b border-ink px-4 sm:px-6 h-8 flex items-center justify-between tag" id="crumb"></div>
+<main id="app"></main>
+<footer class="bg-ink text-paper px-4 sm:px-6 py-6 flex flex-wrap gap-x-8 gap-y-2 tag">
+  <span id="commit"></span><span>AGPL-3.0-only</span><span>Compiled from the repository · no website-only content</span><span class="ml-auto">mockup d · manual + ink</span>
+</footer>
+
+<script type="module">
+import { loadSite, Viewer, router, renderDoc, fmt, links, DATA, layoutCallouts } from './shared/arbi.js';
+
+const S = await loadSite();
+const $app = document.getElementById('app');
+const $crumb = document.getElementById('crumb');
+let viewers = [];
+let cleanup = [];
+document.getElementById('commit').innerHTML = `Source <a class="underline" href="${links.commit(S.site.commit)}" target="_blank">${S.site.commit.slice(0, 12)}</a> · ${S.site.commitDate}`;
+
+const img = (p, cls = '') => `<img src="${DATA + p}" class="${cls}" loading="lazy" alt="">`;
+const mount = (el, o) => { const v = new Viewer(el, { style: 'line', ...o }); viewers.push(v); return v; };
+const sceneModels = (key) => [...new Map(S.scenes[key].parts.filter((p) => p.registered).map((p) => [p.model, p])).keys()];
+const pad = 'px-4 sm:px-6';
+const sysNo = (slug) => fmt.pad(S.systems.findIndex((s) => s.slug === slug) + 1);
+function crumb(left, right = '', dark = false) {
+  $crumb.innerHTML = `<span>${left}</span><span>${right}</span>`;
+  $crumb.className = `border-b px-4 sm:px-6 h-8 flex items-center justify-between tag ${dark ? 'bg-ink text-paper/70 border-white/15' : 'border-ink'}`;
+}
+
+function bubbles(v, layer, ids, stroke) {
+  const n = Object.fromEntries(ids.map((m, i) => [m, i + 1]));
+  layer.innerHTML = `<svg class="absolute inset-0 w-full h-full">${ids.map((m) => `<line data-l="${m}" stroke="${stroke}" stroke-width="1"/>`).join('')}</svg>` + ids.map((m) => `<div class="bubble" data-m="${m}">${n[m]}</div>`).join('');
+  const els = Object.fromEntries(ids.map((m) => [m, [layer.querySelector(`[data-l="${m}"]`), layer.querySelector(`[data-m="${m}"]`)]]));
+  v.on('frame', () => {
+    const active = v.hovered?.part.model ?? v.focus;
+    for (const x of layoutCallouts(v.anchors().filter((a) => n[a.part.model]), layer.clientWidth, { gap: 34, margin: 40, spread: 0.12 })) {
+      const [l, b] = els[x.part.model];
+      l.setAttribute('x1', x.x); l.setAttribute('y1', x.y); l.setAttribute('x2', x.lx); l.setAttribute('y2', x.ly);
+      l.style.opacity = !active || active === x.part.model ? 1 : 0.15;
+      b.style.left = x.lx + 'px'; b.style.top = x.ly + 'px';
+      b.classList.toggle('on', active === x.part.model);
+    }
+  });
+  layer.addEventListener('click', (e) => { const m = e.target.closest('[data-m]')?.dataset.m; if (m) location.hash = `#/parts/${m}`; });
+  layer.addEventListener('mouseover', (e) => v.setFocus(e.target.closest('[data-m]')?.dataset.m ?? null));
+  layer.addEventListener('mouseout', () => v.setFocus(null));
+}
+
+function inventory(ids, numbered = true) {
+  return `<div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 border-l border-t border-ink">${ids.map((id, i) => {
+    const fig = S.figureFor(id);
+    const q = S.instances[id]?.count;
+    return `<a href="#/parts/${id}" data-m="${id}" class="border-r border-b border-ink p-3 flex flex-col min-h-[170px] hover:bg-sheet">
+      <div class="flex justify-between">${numbered ? `<span class="grid place-items-center size-6 rounded-full border-[1.5px] border-ink mono text-[10px] font-semibold">${i + 1}</span>` : '<span></span>'}<span class="cond text-[22px] leading-none">${q ? q + '×' : ''}</span></div>
+      <div class="flex-1 grid place-items-center py-2">${fig ? img(fig, 'max-h-[86px]') : '<span class="tag text-grey">no figure</span>'}</div>
+      <div class="tag leading-tight break-words">${id}</div></a>`;
+  }).join('')}</div>`;
+}
+
+const STEPS = [
+  ['payload-rain-hood', 'White shell', 'A broad rounded crown over the fixed electronics. Four bolts from underneath; lift for service.'],
+  ['payload-electronics-deck', 'Fixed electronics', 'Pi 3A+, converter and capacitor stay on the spider. Only the camera moves.'],
+  ['payload-enclosure-base', 'Rain tray', 'Raised lip, downward harness ports and drain slots. A splash shield, not a seal.'],
+  ['camera-pod-spider', 'Four-line spider', 'The cable spider is the primary chassis and the only tensile load path.'],
+  ['payload-pan-fairing', 'Pan fairing', 'Removable lower shield; park pan at 45° before it comes off.'],
+  ['payload-pan-yoke', 'Two-axis gimbal', 'Pan ±90° and tilt 0–70° are targets, bounded by software limits and hard stops.'],
+];
+
+const views = {
+  async ''() {
+    crumb('Cover', `Rev ${S.site.commit.slice(0, 7)}`, true);
+    const sum = S.site.bom.summary;
+    $app.innerHTML = `
+      <section id="cover" class="relative bg-ink text-paper h-[360vh]">
+        <div class="sticky top-0 h-screen overflow-hidden inked">
+          <div id="hero" class="absolute inset-0"></div>
+          <div id="lead" class="absolute inset-0 pointer-events-none"></div>
+          <div class="absolute ${pad} left-0 top-6 pointer-events-none">
+            <div class="tag text-paper/60">Open hardware · design baseline · ${S.site.commitDate}</div>
+            <h1 class="cond mt-4 text-[clamp(52px,7.4vw,132px)] leading-[0.82]">Automatic<br>raised bed<br>imaging</h1>
+          </div>
+          <div class="absolute ${pad} left-0 bottom-8 max-w-[44ch] pointer-events-none">
+            <p class="text-[15px] leading-snug text-paper/80">A four-cable outdoor camera robot for repeatable images of raised beds. Every drawing, part and number here is compiled from the repository.</p>
+          </div>
+          <div class="absolute right-4 sm:right-6 bottom-8 w-[300px] h-[150px] hidden md:block">
+            ${STEPS.map(([id, t, d], i) => `<div data-step="${i}" class="absolute inset-x-0 bottom-0 transition-all duration-500 opacity-0 translate-y-3">
+              <div class="flex items-center gap-3"><span class="grid place-items-center size-7 rounded-full border-[1.5px] border-paper mono text-[11px] font-semibold">${i + 1}</span><span class="tag text-paper/60">${fmt.pad(i + 1)} / ${fmt.pad(STEPS.length)}</span></div>
+              <div class="cond text-[30px] leading-none mt-3">${t}</div><p class="text-paper/70 mt-2 text-[13px]">${d}</p>
+              <a href="#/parts/${id}" class="tag underline mt-3 inline-block pointer-events-auto">${id} →</a></div>`).join('')}
+          </div>
+          <div class="absolute left-1/2 -translate-x-1/2 bottom-8 tag text-paper/60 text-center" id="hint">Scroll to disassemble<br>↓</div>
+          <div class="absolute inset-x-0 bottom-0 h-[3px] bg-white/10"><div id="progress" class="h-full bg-paper w-0"></div></div>
+        </div>
+      </section>
+      <section class="${pad} grid grid-cols-2 md:grid-cols-4 border-b-2 border-ink">
+        ${[[S.models.length, 'CAD models'], [S.site.bom.parts.length, 'BOM items'], [S.site.docs.length, 'Documents'], [fmt.eur(sum.knownSubtotal), 'Known partial cost']].map(([n, l], i) => `<div class="py-6 ${i ? 'md:border-l border-ink md:pl-6' : ''}"><div class="cond text-[48px] leading-none">${n}</div><div class="tag mt-1">${l}</div></div>`).join('')}
+      </section>
+      <section class="${pad} mt-12">
+        <div class="flex justify-between items-end"><h2 class="cond text-[40px] leading-none">Contents</h2><span class="tag">${S.systems.length} physical assemblies</span></div>
+        <div class="mt-4 rule">${S.systems.map((s, i) => `
+          <a href="#/systems/${s.slug}" class="grid grid-cols-[64px_1fr_auto] md:grid-cols-[96px_1fr_160px_220px] items-center gap-4 py-4 border-b border-ink group hover:bg-sheet">
+            <span class="cond text-[48px] leading-none">${fmt.pad(i + 1)}</span>
+            <div><div class="cond text-[26px] leading-none">${s.name}</div><div class="text-grey mt-1 text-[13px] max-w-[60ch]">${s.description}</div></div>
+            <div class="tag hidden md:block">${s.models.length} models<br>${s.usages.length} BOM lines</div>
+            <div class="h-[96px] hidden md:grid place-items-center">${s.hero ? img(s.hero, 'max-h-[96px]') : '<span class="tag text-grey">drawing pending</span>'}</div></a>`).join('')}</div>
+      </section>
+      <section class="${pad} mt-16 mb-20"><div class="grid lg:grid-cols-12 border-2 border-ink">
+        <figure class="lg:col-span-8 border-b-2 lg:border-b-0 lg:border-r-2 border-ink">${img('docs/assets/arbi-cover.png', 'w-full aspect-[2.4/1] object-cover grayscale')}<figcaption class="tag p-3 border-t border-ink">Concept imagery. Not a built installation.</figcaption></figure>
+        <div class="lg:col-span-4 p-6 flex flex-col"><div class="tag">Bill of materials · ${sum.destinationName}</div><div class="cond text-[64px] leading-none mt-auto">${fmt.eur(sum.knownSubtotal)}</div><div class="tag mt-2">Known partial subtotal · not the project cost</div><a href="#/bom" class="key mt-6 justify-between">Open BOM <span>→</span></a></div>
+      </div></section>`;
+    const v = mount(document.getElementById('hero'), { style: 'ink', autoRotate: true, fov: 24 });
+    v.controls.enableZoom = false;
+    await v.loadScene('pod', S.scenes.pod);
+    v.setExplode(1); v.frame({ distance: 0.66, elevation: 0.22 }); v.setExplode(0); v.explode = 0;
+    v.on('pick', (p) => p.registered && (location.hash = `#/parts/${p.model}`));
+    const lead = document.getElementById('lead');
+    lead.innerHTML = `<svg class="absolute inset-0 w-full h-full"><line id="ll" stroke="#f2f2ee" stroke-width="1"/><circle id="lc" r="3" fill="#f2f2ee"/></svg>`;
+    const cover = document.getElementById('cover');
+    let step = -1;
+    v.on('frame', () => {
+      const ll = lead.querySelector('#ll'), lc = lead.querySelector('#lc');
+      const a = step >= 0 && v.anchors().find((x) => x.part.model === STEPS[step][0]);
+      const cap = lead.parentElement.querySelector(`[data-step="${step}"]`);
+      if (!a || !cap || innerWidth < 768) { ll.style.opacity = 0; lc.style.opacity = 0; return; }
+      const b = cap.getBoundingClientRect(), r = lead.getBoundingClientRect();
+      ll.setAttribute('x1', a.x); ll.setAttribute('y1', a.y); ll.setAttribute('x2', b.left - r.left - 10); ll.setAttribute('y2', b.top - r.top + 14);
+      lc.setAttribute('cx', a.x); lc.setAttribute('cy', a.y);
+      ll.style.opacity = 0.9; lc.style.opacity = 1;
+    });
+    const onScroll = () => {
+      const t = Math.min(1, Math.max(0, -cover.getBoundingClientRect().top / (cover.offsetHeight - innerHeight)));
+      v.setExplode(Math.min(1, t * 1.2));
+      step = t > 0.04 ? Math.min(STEPS.length - 1, Math.floor(((t - 0.04) / 0.96) * STEPS.length)) : -1;
+      document.querySelectorAll('[data-step]').forEach((s) => { const on = +s.dataset.step === step; s.style.opacity = on ? 1 : 0; s.style.transform = on ? 'none' : 'translateY(12px)'; });
+      v.setFocus(step >= 0 ? STEPS[step][0] : null);
+      document.getElementById('hint').style.opacity = t > 0.02 ? 0 : 1;
+      document.getElementById('progress').style.width = `${t * 100}%`;
+    };
+    addEventListener('scroll', onScroll, { passive: true });
+    cleanup.push(() => removeEventListener('scroll', onScroll));
+    onScroll();
+  },
+
+  async systems([slug]) {
+    const sys = S.systemBySlug[slug] ?? S.systems[0];
+    const ids = sys.scene ? sceneModels(sys.scene) : [];
+    crumb(`${sysNo(sys.slug)} · ${sys.name}`, sys.scene ? 'Exploded view · click a number' : '', true);
+    $app.innerHTML = `
+      <section class="relative bg-ink text-paper h-[calc(100vh-76px)] min-h-[560px] inked" id="stage">
+        ${sys.scene ? `<div id="calls" class="absolute inset-0 pointer-events-none z-10"></div>` : `<div class="absolute inset-0 grid place-items-center"><div class="text-center"><div class="cond text-[28px]">Drawing pending</div><p class="text-paper/60 mt-2 max-w-[42ch]">Line art appears here when the booklet pipeline exports meshes for this assembly.</p></div></div>`}
+        <div class="absolute ${pad} left-0 top-6 z-20 pointer-events-none">
+          <div class="cond text-[96px] leading-[0.8]">${sysNo(sys.slug)}</div>
+          <h1 class="cond text-[48px] leading-[0.9] mt-3">${sys.name}</h1>
+        </div>
+        <div class="absolute ${pad} left-0 bottom-6 z-20 flex flex-wrap gap-2 items-center">
+          ${sys.scene ? `<div class="flex items-center gap-3 border border-paper px-3 py-2"><span class="tag">Assembled</span><input id="ex" type="range" min="0" max="1" step="0.01" value="1" class="w-40 accent-white"><span class="tag">Exploded</span></div>` : ''}
+        </div>
+        <div class="absolute right-4 sm:right-6 bottom-6 z-20 hidden md:flex gap-1">${S.systems.map((s) => `<a href="#/systems/${s.slug}" class="${s === sys ? 'bg-paper text-ink' : 'text-paper/70 hover:text-paper'} border border-paper/40 tag px-2.5 py-1.5" title="${s.name}">${sysNo(s.slug)}</a>`).join('')}</div>
+      </section>
+      <section class="${pad} grid lg:grid-cols-12 gap-8 py-8 border-b-2 border-ink">
+        <p class="lg:col-span-5 text-[17px] leading-snug">${sys.description}</p>
+        <div class="lg:col-span-4 border-t-2 border-ink">${[['Registered models', sys.models.length], ['BOM lines', sys.usages.length], ['Known goods', sys.goods ? fmt.eur(sys.goods) : '—'], ['Status', 'Concept · unvalidated']].map(([k, v]) => `<div class="flex justify-between py-2 border-b border-ink"><span class="tag">${k}</span><span class="mono">${v}</span></div>`).join('')}</div>
+        <div class="lg:col-span-3"><a href="#/docs/${sys.documentation}" class="key justify-between w-full">Assembly document <span>→</span></a></div>
+      </section>
+      ${ids.length ? `<section class="${pad} mt-10"><div class="flex justify-between items-end"><h2 class="cond text-[34px] leading-none">Parts inventory</h2><span class="tag">Quantities per configured ${sys.scene === 'pod' ? 'pod' : 'winch'}</span></div><div class="mt-4" id="inv">${inventory(ids)}</div></section>` : ''}
+      ${sys.models.filter((m) => !ids.includes(m.id)).length ? `<section class="${pad} mt-10 mb-20"><h2 class="cond text-[24px]">Other registered sources</h2><div class="mt-3">${inventory(sys.models.filter((m) => !ids.includes(m.id)).map((m) => m.id), false)}</div></section>` : '<div class="mb-20"></div>'}`;
+    if (!sys.scene) return;
+    const v = mount(document.getElementById('stage'), { style: 'ink' });
+    await v.loadScene(sys.scene, S.scenes[sys.scene]);
+    v.setExplode(1); v.frame({ distance: sys.scene === 'pod' ? 0.58 : 0.7, elevation: sys.scene === 'pod' ? 0.22 : 0.5 });
+    bubbles(v, document.getElementById('calls'), ids, '#f2f2ee');
+    v.on('pick', (p) => p.registered && (location.hash = `#/parts/${p.model}`));
+    const inv = document.getElementById('inv');
+    v.on('hover', (p) => inv.querySelectorAll('[data-m]').forEach((r) => r.classList.toggle('bg-sheet', r.dataset.m === p?.model)));
+    inv.addEventListener('mouseover', (e) => v.setFocus(e.target.closest('[data-m]')?.dataset.m ?? null));
+    inv.addEventListener('mouseleave', () => v.setFocus(null));
+    document.getElementById('ex').oninput = (e) => v.setExplode(+e.target.value);
+  },
+
+  async parts([id]) {
+    if (!id) {
+      crumb('Parts', `${S.models.length} registered models`);
+      const g = Object.groupBy(S.models, (m) => m.assembly);
+      $app.innerHTML = `<div class="${pad} pb-20">` + Object.entries(g).map(([k, list]) => `<section class="mt-10"><div class="flex items-end gap-4"><span class="cond text-[56px] leading-none">${sysNo(k)}</span><h2 class="cond text-[30px] leading-none pb-1">${S.systemBySlug[k]?.name ?? k}</h2></div><div class="mt-4">${inventory(list.map((m) => m.id), false)}</div></section>`).join('') + '</div>';
+      return;
+    }
+    const m = S.modelById[id];
+    if (!m) return (location.hash = '#/parts');
+    const inst = S.instances[id];
+    const bom = S.bomForModel(m);
+    const fig = S.figureFor(id);
+    crumb(`${sysNo(m.assembly)} · ${S.systemBySlug[m.assembly]?.name ?? m.assembly} / ${m.id}`, `Rev ${m.revision}`);
+    $app.innerHTML = `
+      <section class="grid lg:grid-cols-12 border-b-2 border-ink">
+        <div class="lg:col-span-7 relative h-[72vh] min-h-[460px] lg:border-r-2 border-ink" id="stage">
+          <div class="absolute left-4 top-3 tag z-10">Fig. — ${m.output}</div>
+          <div class="absolute left-4 bottom-3 tag z-10" id="dims"></div>
+          <div class="absolute right-4 bottom-3 z-10 flex gap-1" id="mode"><button data-s="line" class="key">Line</button><button data-s="light" class="key-line">Shaded</button></div>
+        </div>
+        <div class="lg:col-span-5 ${pad} py-6 flex flex-col">
+          <div class="flex items-start justify-between gap-4"><h1 class="cond text-[44px] leading-[0.9] break-words">${m.id.replace(/-/g, '‑')}</h1><div class="text-right shrink-0"><div class="cond text-[72px] leading-[0.8]">${inst ? inst.count + '×' : '—'}</div><div class="tag mt-1">installed</div></div></div>
+          <p class="mt-4 text-[15px] leading-snug">${m.description}</p>
+          <table class="mt-6 w-full text-[13px] border-t-2 border-ink">${[
+            ['Status', fmt.status(m.status)], ['Role', m.artifactRole], ['Revision', m.revision], ['Output', `<span class="mono">${m.output}</span>`],
+            ['BOM item', bom.map((b) => `<a class="underline" href="#/bom/${b.id}">${b.name}</a>`).join('<br>') || 'Reference artifact'],
+            ['Source', `<a class="mono underline break-all" target="_blank" href="${links.source(m.entrypoint)}">${m.entrypoint}</a>`],
+            ['Document', `<a class="underline" href="#/docs/${m.documentation}">${m.documentation.split('/').slice(-2).join('/')}</a>`],
+          ].map(([k, v]) => `<tr class="border-b border-ink"><td class="tag py-2 pr-4 w-[110px] align-top">${k}</td><td class="py-2">${v}</td></tr>`).join('')}</table>
+          <div class="mt-6 grid grid-cols-2 gap-2"><a class="key justify-between" href="${links.release(m.output)}">${m.output.split('.').pop()} <span>↓</span></a><a class="key-line justify-between" target="_blank" href="${links.raw(m.entrypoint)}">SCAD <span>↓</span></a></div>
+          ${fig ? `<figure class="mt-6 border border-ink p-4 grid place-items-center">${img(fig, 'max-h-[180px]')}<figcaption class="tag self-start w-full mt-2">Booklet drawing</figcaption></figure>` : ''}
+        </div>
+      </section>
+      <section class="${pad} mt-10 mb-20"><a href="#/systems/${m.assembly}" class="key-line justify-between">← Back to ${S.systemBySlug[m.assembly]?.name ?? m.assembly} exploded view</a></section>`;
+    const show = async (style) => {
+      viewers.forEach((x) => x.dispose()); viewers = [];
+      const v = mount(document.getElementById('stage'), { autoRotate: true, style });
+      const size = await v.loadModel(S, id);
+      document.getElementById('dims').textContent = size ? `Envelope ${size.x.toFixed(1)} × ${size.y.toFixed(1)} × ${size.z.toFixed(1)} mm` : 'No compiled mesh in current packs';
+    };
+    await show('line');
+    document.getElementById('mode').onclick = (e) => {
+      const b = e.target.closest('[data-s]'); if (!b) return;
+      document.querySelectorAll('#mode button').forEach((x) => (x.className = x === b ? 'key' : 'key-line'));
+      show(b.dataset.s);
+    };
+  },
+
+  bom([id]) {
+    if (id) return bomItem(S.bomById[id]);
+    const sum = S.site.bom.summary;
+    crumb('Bill of materials', sum.scenarioId);
+    const groups = Object.groupBy(S.site.bom.parts, (p) => p.usedIn[0]?.assemblyId ?? 'not in v1 build');
+    $app.innerHTML = `<div class="${pad} pb-20">
+      <section class="grid lg:grid-cols-12 py-8 border-b-2 border-ink gap-6">
+        <h1 class="lg:col-span-6 cond text-[88px] leading-[0.85]">Bill of<br>materials</h1>
+        <div class="lg:col-span-6 grid grid-cols-2 border-t-2 border-ink self-end">${[[fmt.eur(sum.knownSubtotal), 'Known partial subtotal'], ['Unavailable', 'Complete landed total'], [fmt.eur(sum.knownGoodsSubtotal), 'Known goods'], [sum.warningCount, 'Open warnings']].map(([n, l], i) => `<div class="py-3 border-b border-ink ${i % 2 ? 'pl-4 border-l' : ''}"><div class="cond text-[34px] leading-none">${n}</div><div class="tag mt-1">${l}</div></div>`).join('')}</div>
+      </section>
+      <p class="tag py-3 border-b border-ink">Status: incomplete · ${sum.destinationName} · quote ${sum.quoteSnapshotId} · null values are never treated as zero</p>
+      ${Object.entries(groups).map(([g, list]) => `<section class="mt-10"><div class="flex justify-between items-end"><h2 class="cond text-[30px] leading-none">${S.site.bom.assemblies.find((a) => a.id === g)?.name ?? g}</h2><span class="tag">${list.length} items · ${fmt.eur(sum.assemblyKnownGoods.find((x) => x.assemblyId === g)?.amount)}</span></div>
+        <table class="mt-3 w-full text-[13px] border-t-2 border-ink"><thead><tr class="tag text-left border-b border-ink"><th class="py-2 w-10">#</th><th>Item</th><th class="text-right">Qty</th><th class="hidden md:table-cell pl-6">Supplier</th><th class="hidden md:table-cell">Qualification</th><th class="text-right">Known</th></tr></thead>
+        <tbody>${list.map((p, i) => `<tr class="border-b border-hair hover:bg-sheet cursor-pointer" onclick="location.hash='#/bom/${p.id}'"><td class="mono py-2">${fmt.pad(i + 1)}</td><td>${p.name}</td><td class="mono text-right">${p.required ?? '—'}${p.unit === 'each' ? '' : ' ' + p.unit}</td><td class="tag hidden md:table-cell pl-6">${p.supplierId ?? '—'}</td><td class="tag hidden md:table-cell">${fmt.status(p.qualification ?? 'no offer')}</td><td class="mono text-right">${p.bundle ? 'bundle' : p.knownGoods ? fmt.eur(p.knownGoods) : '—'}</td></tr>`).join('')}</tbody></table></section>`).join('')}</div>`;
+  },
+
+  async docs(path) {
+    const p = path.join('/');
+    if (!p) {
+      crumb('Documents', `${S.site.docs.length} files`);
+      const g = Object.groupBy(S.site.docs, (d) => d.section);
+      $app.innerHTML = `<div class="${pad} pb-20"><h1 class="cond text-[88px] leading-[0.85] py-8 border-b-2 border-ink">Documents</h1>` + Object.entries(g).map(([k, docs]) => `<section class="grid md:grid-cols-12 border-b border-ink py-6 gap-4"><h2 class="md:col-span-3 cond text-[28px] leading-none">${k}</h2><div class="md:col-span-9 grid md:grid-cols-2 gap-x-8">${docs.map((d) => `<a href="#/docs/${d.path}" class="block py-2 border-b border-hair hover:bg-sheet"><div class="font-semibold">${d.title}</div><div class="text-grey text-[12.5px] line-clamp-2">${d.summary}</div></a>`).join('')}</div></section>`).join('') + '</div>';
+      return;
+    }
+    crumb(`Documents / ${p}`, '');
+    $app.innerHTML = `<div class="${pad} pb-20 grid lg:grid-cols-12 gap-8 pt-8"><aside class="lg:col-span-3 lg:sticky lg:top-24 self-start grid gap-2"><a class="key-line justify-between" href="#/docs">All documents <span>←</span></a><a class="key-line justify-between" target="_blank" href="${links.source(p)}">GitHub <span>↗</span></a><a class="key justify-between" href="${links.raw(p)}">Markdown <span>↓</span></a></aside><article class="lg:col-span-9 prose-doc" id="doc">Loading…</article></div>`;
+    document.getElementById('doc').innerHTML = await renderDoc(p);
+  },
+
+  downloads() {
+    crumb('Downloads', 'Booklets · packs · CAD release');
+    const d = S.site.downloads;
+    $app.innerHTML = `<div class="${pad} pb-20">
+      <h1 class="cond text-[88px] leading-[0.85] py-8 border-b-2 border-ink">Downloads</h1>
+      <div class="grid md:grid-cols-2 xl:grid-cols-3 border-l border-ink">${d.map((f) => `<a href="${f.url}" class="border-r border-b border-ink p-5 flex gap-5 hover:bg-sheet">
+        <div class="cond text-[40px] leading-none w-[78px] shrink-0">${f.name.split('.').pop()}</div>
+        <div class="min-w-0"><div class="font-semibold break-words">${f.name}</div><div class="tag text-grey mt-1">${f.kind} · ${fmt.bytes(f.bytes)}</div><div class="tag text-grey truncate">${f.path.split('/').slice(0, -1).join('/')}</div></div></a>`).join('')}
+        <a href="${links.releases}" target="_blank" class="border-r border-b border-ink p-5 flex gap-5 bg-ink text-paper"><div class="cond text-[40px] leading-none w-[78px]">CAD</div><div><div class="font-semibold">Commit-versioned CAD release</div><div class="tag text-paper/60 mt-1">All ${S.models.length} STL/CSG outputs · SHA-256 sums · source ZIP</div></div></a></div>
+      <h2 class="cond text-[34px] mt-14">Model files</h2>
+      <table class="mt-3 w-full text-[13px] border-t-2 border-ink"><thead><tr class="tag text-left border-b border-ink"><th class="py-2">Model</th><th class="hidden md:table-cell">Assembly</th><th>Rev</th><th class="hidden md:table-cell">Role</th><th class="text-right">Files</th></tr></thead>
+      <tbody>${S.models.map((m) => `<tr class="border-b border-hair"><td class="py-1.5"><a href="#/parts/${m.id}" class="hover:underline">${m.id}</a></td><td class="tag hidden md:table-cell">${m.assembly}</td><td class="mono">${m.revision}</td><td class="tag hidden md:table-cell">${m.artifactRole}</td><td class="text-right whitespace-nowrap"><a class="tag underline" href="${links.release(m.output)}">${m.output.split('.').pop()}</a> · <a class="tag underline" target="_blank" href="${links.raw(m.entrypoint)}">scad</a></td></tr>`).join('')}</tbody></table></div>`;
+  },
+};
+
+function bomItem(p) {
+  if (!p) return (location.hash = '#/bom');
+  crumb(`Bill of materials / ${p.id}`, p.lifecycle);
+  const fab = S.modelsForBomPart(p.id);
+  $app.innerHTML = `<div class="${pad} pb-20">
+    <section class="grid lg:grid-cols-12 py-8 border-b-2 border-ink gap-8">
+      <div class="lg:col-span-7"><div class="tag">${[p.kind, ...p.disciplines, ...p.traits].join(' · ')}</div><h1 class="cond text-[60px] leading-[0.88] mt-3">${p.name}</h1>
+        <ol class="mt-8 border-t-2 border-ink">${p.requirements.map((r, i) => `<li class="grid grid-cols-[40px_1fr] py-3 border-b border-ink"><span class="mono">${fmt.pad(i + 1)}</span><span>${r}</span></li>`).join('')}</ol></div>
+      <div class="lg:col-span-5"><div class="flex items-end gap-3 border-b-2 border-ink pb-3"><span class="cond text-[110px] leading-[0.8]">${p.required ?? '—'}</span><span class="tag pb-2">${p.unit} required</span></div>
+        <table class="w-full text-[13px]">${[['Used in', p.usedIn.map((u) => `${u.assemblyId} × ${u.quantity}`).join('<br>')], ['Offer', p.offerId], ['Supplier', p.supplierId], ['Qualification', fmt.status(p.qualification)], ['Purchase units', p.purchaseUnits], ['Known goods', p.bundle ? 'Shared bundle' : fmt.eur(p.knownGoods)], ['Listing', p.offerUrl ? `<a class="underline" target="_blank" href="${p.offerUrl}">Supplier page ↗</a>` : null]]
+          .map(([k, v]) => `<tr class="border-b border-ink"><td class="tag py-2 pr-4 w-[120px] align-top">${k}</td><td class="py-2 break-words">${v ?? '—'}</td></tr>`).join('')}</table>
+        ${p.warnings.length ? `<div class="mt-6 border-2 border-ink p-4"><div class="cond text-[18px]">Evidence gaps</div><ul class="mt-2 list-[square] pl-5 text-[12.5px] grid gap-1">${p.warnings.map((w) => `<li>${w}</li>`).join('')}</ul></div>` : ''}</div>
+    </section>
+    ${fab.length ? `<section class="mt-10"><h2 class="cond text-[30px]">Fabrication sources</h2><div class="mt-3">${inventory(fab.map((m) => m.id), false)}</div></section>` : ''}</div>`;
+}
+
+router(views, async (view, args) => {
+  cleanup.forEach((f) => f()); cleanup = [];
+  viewers.forEach((v) => v.dispose()); viewers = [];
+  await (view ?? views[''])(args);
+});
+</script>
+</body>
+</html>

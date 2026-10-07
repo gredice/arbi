@@ -179,14 +179,17 @@ function winchExplode(part, center, assemblyCenter) {
   return new THREE.Vector3();
 }
 
+// line: booklet line art (white faces, dark edges). ink: the same drawing inverted for black sections.
 const STYLES = {
-  light: { bg: null, edges: false, env: 0.9, faceFromPart: true },
-  dark: { bg: null, edges: false, env: 1.15, faceFromPart: true, rim: true },
-  line: { bg: null, edges: true, env: 0, faceFromPart: false },
+  light: { env: 0.9 },
+  dark: { env: 1.15, rim: true },
+  line: { env: 0, edges: true, face: 0xffffff, edge: 0x111111, hoverFace: 0x161616, hoverEdge: 0xffffff },
+  ink: { env: 0, edges: true, face: 0x0b0b0b, edge: 0xe8e8e4, hoverFace: 0xffffff, hoverEdge: 0x0b0b0b },
 };
 
 function partMaterial(color, style) {
-  if (style === 'line') return new THREE.MeshBasicMaterial({ color: 0xffffff, polygonOffset: true, polygonOffsetFactor: 1, polygonOffsetUnits: 1, transparent: true });
+  const st = STYLES[style];
+  if (st.edges) return new THREE.MeshBasicMaterial({ color: st.face, polygonOffset: true, polygonOffsetFactor: 1, polygonOffsetUnits: 1, transparent: true });
   const c = new THREE.Color().setRGB(...color, THREE.SRGBColorSpace);
   const metal = color[0] > 0.6 && color[0] < 0.75;
   return new THREE.MeshStandardMaterial({ color: c, roughness: metal ? 0.35 : 0.62, metalness: metal ? 0.7 : 0.0, transparent: true });
@@ -311,7 +314,7 @@ export class Viewer {
       m.material = partMaterial(part.color, this.style);
       m.userData.entry = null;
       if (STYLES[this.style].edges) {
-        const edges = new THREE.LineSegments(edgesOf(m.geometry), new THREE.LineBasicMaterial({ color: 0x111111, transparent: true }));
+        const edges = new THREE.LineSegments(edgesOf(m.geometry), new THREE.LineBasicMaterial({ color: STYLES[this.style].edge, transparent: true }));
         edges.raycast = () => {};
         m.add(edges);
       }
@@ -445,12 +448,14 @@ export class Viewer {
         const mat = m.material;
         mat.opacity += ((on ? 1 : 0.16) - mat.opacity) * 0.2;
         mat.depthWrite = mat.opacity > 0.9;
-        if (this.style === 'line') mat.color.setHex(this.hovered && e === this.hovered ? 0x161616 : 0xffffff);
+        const st = STYLES[this.style];
+        const hot = this.hovered && e === this.hovered;
+        if (st.edges) mat.color.setHex(hot ? st.hoverFace : st.face);
         else if (mat.emissive) mat.emissive.setHex(this.hovered && e.part.model === this.hovered.part.model ? (this.style === 'dark' ? 0x222222 : 0x111111) : 0x000000);
         const line = m.children[0];
         if (line) {
           line.material.opacity = mat.opacity;
-          line.material.color.setHex(this.hovered && e === this.hovered ? 0xffffff : 0x111111);
+          line.material.color.setHex(hot ? st.hoverEdge : st.edge);
         }
       }
     }

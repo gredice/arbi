@@ -16,6 +16,14 @@ function loadSite(): Site {
 
 const directions = [
     {
+        key: "D · proposed",
+        name: "Manual + Ink",
+        href: "/mockups/d-manual-ink.html",
+        text: "C's white manual system for most pages. Exploded views get full-black inverted sections, and the cover is B's scroll teardown drawn as inverted line art.",
+        card: "bg-ink text-white border-2 border-ink md:col-span-3 min-h-[220px]! hover:bg-black",
+        mute: "text-white/70",
+    },
+    {
         key: "A",
         name: "Index",
         href: "/mockups/a-index.html",
