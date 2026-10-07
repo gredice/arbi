@@ -47,6 +47,7 @@ export interface CounterRecord {
 export interface TransferSpec {
   scope: Scope; direction: UsageObservation['direction']; category: TrafficCategory;
   includes: UsageObservation['evidence']['includes'];
+  maxAgeMs: number;
   retryOf: string | null; media: UsageObservation['media'];
 }
 export interface TransferRecord {

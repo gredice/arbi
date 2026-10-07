@@ -29,11 +29,11 @@ export class EdgeTraffic {
   }
   observe(module: 'pico' | 'pod', direction: UsageDirection, category: TrafficCategory, bytes: Uint8Array): void {
     if (this.#stopped) return;
-    this.#meter?.observe({ scope: { ...this.#scope, linkId: `edge-${module}-loopback` }, direction, category, includes: ['payload', 'retries'], retryOf: null, media: null }, bytes);
+    this.#meter?.observe({ scope: { ...this.#scope, linkId: `edge-${module}-loopback` }, direction, category, includes: ['payload', 'retries'], maxAgeMs: 60000, retryOf: null, media: null }, bytes);
   }
   submit(module: 'pico' | 'pod', category: TrafficCategory, bytes: Uint8Array, write: (done: (error?: Error | null) => void) => void): void {
     if (!this.#meter || this.#stopped) { write(() => {}); return; }
-    this.#meter.submit({ scope: { ...this.#scope, linkId: `edge-${module}-loopback` }, direction: 'upload', category, includes: ['payload', 'retries'], retryOf: null, media: null }, bytes, write);
+    this.#meter.submit({ scope: { ...this.#scope, linkId: `edge-${module}-loopback` }, direction: 'upload', category, includes: ['payload', 'retries'], maxAgeMs: 60000, retryOf: null, media: null }, bytes, write);
   }
   get pending() { return this.#spool?.pending(64) ?? []; }
   get status() {

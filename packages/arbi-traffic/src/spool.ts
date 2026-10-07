@@ -80,7 +80,7 @@ export class TrafficSpool {
     // Validate all contract fields even when source-clock uncertainty prevents UTC emission.
     observation(spec.scope, 'validation', 'application-payload', spec.direction,
       { start: '2026-01-01T00:00:00.000Z', end: '2026-01-01T00:00:01.000Z' }, '0',
-      { coverage: 'partial', includes: spec.includes, maxAgeMs: 60_000, reason: 'unattributed' }, spec.category, spec.media);
+      { coverage: 'partial', includes: spec.includes, maxAgeMs: spec.maxAgeMs, reason: 'unattributed' }, spec.category, spec.media);
     const r: TransferRecord = { kind: 'transfer', id: randomUUID(), spec: structuredClone(spec), start: structuredClone(time), end: structuredClone(time),
       bytes: '0', outcome: 'open', gap: null, observations: [] };
     this.#run(() => this.#put(r, true)); return r.id;
@@ -106,7 +106,7 @@ export class TrafficSpool {
     const window = interval(r.start, r.end);
     if (!window) { r.gap ??= 'clock-uncertain'; r.observations = []; return; }
     r.observations = [observation(r.spec.scope, r.id, 'application-payload', r.spec.direction, window, r.bytes,
-      { coverage: 'partial', includes: r.spec.includes, maxAgeMs: 60_000,
+      { coverage: 'partial', includes: r.spec.includes, maxAgeMs: r.spec.maxAgeMs,
         reason: r.gap === 'collection-gap' ? 'collection-gap' : 'unattributed' }, r.spec.category, r.spec.media)];
   }
   finish(key: string, outcome: Exclude<TransferRecord['outcome'], 'open' | 'crashed'>, time: Stamp): void {

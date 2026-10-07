@@ -15,7 +15,7 @@ const sample = (n: number, upload: string, download = '0', change: Partial<Count
   bootId: 'kernel-boot', interfaceId: 'interface-1', counterId: 'register-1', time: time(n), upload, download, wraps: null, ...change });
 const config = (change: Partial<CounterConfig> = {}): CounterConfig => ({ key: 'lan-interface', scope, layer: 'interface-wan', collectionPoint: 'host-lan-point',
   coverage: 'partial', includes: ['payload', 'retries', 'non-arbi'], width: 64, maxDeltaBytes: '1048576', maxIntervalMs: 10_000, maxAgeMs: 60_000, ...change });
-const spec = (change: Partial<TransferSpec> = {}): TransferSpec => ({ scope, direction: 'upload', category: 'still', includes: ['payload','retries'], retryOf: null, media: null, ...change });
+const spec = (change: Partial<TransferSpec> = {}): TransferSpec => ({ scope, direction: 'upload', category: 'still', includes: ['payload','retries'], maxAgeMs: 60000, retryOf: null, media: null, ...change });
 function rig(t: TestContext, change: Partial<SpoolOptions> = {}) {
   const dir = mkdtempSync(join(tmpdir(), 'arbi-meter-test-'));
   const options: SpoolOptions = { path: join(dir,'usage.sqlite'), binding: { realm: scope.realm, siteId: scope.siteId, executionMode: scope.executionMode, deviceId: 'pod' },
@@ -162,4 +162,10 @@ test('socket attempts record real submission callbacks; missing callback survive
   meter.submit(spec(),Buffer.alloc(23),()=>{});assert.equal(spool.status().active,1);spool.close();
   const reopened=new TrafficSpool(options);t.after(()=>reopened.close());const r=transfers(reopened)[1];
   assert.equal(r.bytes,'0');assert.equal(r.outcome,'crashed');assert.equal(r.gap,'collection-gap');
+});
+
+test('application freshness is explicit caller policy and rejects invalid ranges',(t)=>{
+  const {spool}=rig(t);let n=0;new ApplicationMeter(spool,()=>time(++n)).observe(spec({maxAgeMs:1234}),Buffer.alloc(8));
+  assert.equal(transfers(spool)[0].observations[0].evidence.maxAgeMs,1234);
+  assert.throws(()=>spool.begin(spec({maxAgeMs:-1}),time(++n)));
 });

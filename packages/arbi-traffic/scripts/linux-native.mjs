@@ -28,7 +28,7 @@ test('native Linux loopback counters include known TCP attempts, interruption/re
   server.listen(0,'127.0.0.1');await once(server,'listening');
   t.after(async()=>{for(const s of sockets)s.destroy();await new Promise((resolve)=>server.close(resolve));});
   const meter=new ApplicationMeter(spool,()=>stamp('test-clock',20));
-  const makeSpec=(direction,retryOf=null)=>({scope,direction,category:direction==='upload'?'still':'ota',includes:['payload','retries'],retryOf,media:null});
+  const makeSpec=(direction,retryOf=null)=>({scope,direction,category:direction==='upload'?'still':'ota',includes:['payload','retries'],maxAgeMs:10000,retryOf,media:null});
   async function* chunks(n){for(let used=0;used<n;used+=65536)yield Buffer.alloc(Math.min(65536,n-used),3);}
   const first=connect(server.address().port,'127.0.0.1');await once(first,'connect');first.on('error',()=>{});
   // Submit and receive one real prefix; interrupt the application before its next chunk. No extra bytes are invented.

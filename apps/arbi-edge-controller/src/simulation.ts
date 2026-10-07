@@ -82,11 +82,11 @@ export class SimulatedModule {
     // Concrete pod consumer of the same instrumentation; separate LAN observation, never added to the edge view.
     const observe = (direction: 'upload' | 'download', category: 'reconnect' | 'telemetry' | 'unknown', bytes: Buffer) => this.traffic?.observe({
       scope: { realm: config.realm, siteId: config.siteId, executionMode: 'simulation', source, boundary: 'lan', linkId: 'pod-edge-loopback' },
-      direction, category, includes: ['payload', 'retries'], retryOf: null, media: null }, bytes);
+      direction, category, includes: ['payload', 'retries'], maxAgeMs: 60000, retryOf: null, media: null }, bytes);
     const send = (input: unknown, category: 'reconnect' | 'telemetry') => {
       const bytes = frame(input);
       if (this.traffic) this.traffic.submit({ scope: { realm: config.realm, siteId: config.siteId, executionMode: 'simulation', source, boundary: 'lan', linkId: 'pod-edge-loopback' },
-        direction: 'upload', category, includes: ['payload', 'retries'], retryOf: null, media: null }, bytes, (done) => { socket.write(bytes, done); });
+        direction: 'upload', category, includes: ['payload', 'retries'], maxAgeMs: 60000, retryOf: null, media: null }, bytes, (done) => { socket.write(bytes, done); });
       else socket.write(bytes);
     };
     const ledger = createCommandLedger(128); let discovered = false; let edge: Identity; let sequence = 0n;
