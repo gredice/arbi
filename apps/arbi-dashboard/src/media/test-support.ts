@@ -95,11 +95,14 @@ export async function blobFixture(t: { after: (work: () => Promise<void>) => voi
   return { adapter, objects, controls, issued };
 }
 export async function setup(t: { after: (work: () => Promise<void>) => void }) {
-  let now = Date.now();
+  // The real Blob SDK validates expiry against wall time. Keep the fixture clock
+  // advancing through cold database startup, with an offset for expiry tests.
+  let clockOffsetMs = 0;
+  const now = () => Date.now() + clockOffsetMs;
   const db = new PGlite(); t.after(() => db.close()); await db.exec(migration);
   const sql = database(db); const store = new PostgresMediaStore(sql); await store.provision(site);
   await store.provision({ ...site, siteId: "site-b", accountId: "account-b" });
-  const provider = createIsolatedIdentityProvider(realm, () => now);
+  const provider = createIsolatedIdentityProvider(realm, now);
   provider.putSite("site-a", "account-a"); provider.putSite("site-b", "account-b");
   for (const [id, roles] of [["operator", ["operator"]], ["viewer", ["viewer"]], ["engineer", ["engineer"]]] as const) {
     provider.putPrincipal({ actor: { kind: "human", id }, accountId: "account-a", member: true,
@@ -110,10 +113,10 @@ export async function setup(t: { after: (work: () => Promise<void>) => void }) {
   const tokens = { operator: await provider.issue({ kind: "human", id: "operator" }, 900),
     viewer: await provider.issue({ kind: "human", id: "viewer" }, 900), engineer: await provider.issue({ kind: "human", id: "engineer" }, 900),
     uploader: await provider.issue({ kind: "service", id: "uploader" }, 900) };
-  const blob = await blobFixture(t, () => now);
+  const blob = await blobFixture(t, now);
   const compose = (db = sql, resolveCapture?: Parameters<typeof createMediaServer>[0]["resolveCapture"]) => createMediaServer({ realm,
     identity: provider.adapter, resolveSite: provider.resolveResource, browserOrigins: ["https://fixture.invalid"], db, objects: blob.adapter,
-    now: () => now, ...(resolveCapture ? { resolveCapture } : {}) });
+    now, ...(resolveCapture ? { resolveCapture } : {}) });
   const http = compose();
   const bytes = await sharp({ create: { width: 32, height: 24, channels: 3, background: "#808080" } }).png().toBuffer();
   const upload = (requestId: string, variant: "full" | "thumbnail" = "full", imageId: string | null = null): UploadInput => ({
@@ -141,5 +144,5 @@ export async function setup(t: { after: (work: () => Promise<void>) => void }) {
   };
   const image = (id: string): Promise<MediaImage> => store.read(realm, "site-a", id);
   return { db, store, sql, provider, tokens, blob, bytes, upload, request, call, put, prepare, complete, ready, image, compose,
-    now: () => now, advance: (ms: number) => { now += ms; } };
+    now, advance: (ms: number) => { clockOffsetMs += ms; } };
 }

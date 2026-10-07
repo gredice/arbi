@@ -18,6 +18,13 @@ These are presentation colors, not a filament, coating, UV rating or material ap
 
 Use rounded rectangles, capsule-ended arms and broad shoulders. Avoid a stack of unrelated visible electronics boxes. A compact shell covers the fixed electronics; a continuous dark perimeter links the shell visually to the spider. Preserve removable panels, fastener access, drainage, ventilation and harness exits. Keep an open underside around the complete gimbal sweep. Do not close an aperture just to improve the silhouette.
 
+Assembly booklet illustrations use opaque white faces with dark silhouettes and
+visible feature edges, in the style of furniture assembly instructions. Hidden
+edges stay hidden; STL triangulation is omitted. This drawing convention applies
+to printed parts, boards and purchased hardware regardless of their product
+color. Part IDs and quantities identify components; assembly manifests and GLB
+inspection scenes retain the product-role palette above.
+
 ## Engineering application
 
 The [payload enclosure configuration](../../hardware/assemblies/camera-pod/payload-enclosure.md) owns the dimensions, 18 installed print quantities, replacement list, harness passages and fasteners. Its [CAD evidence](../../hardware/assemblies/camera-pod/payload-enclosure-check.md) uses nominal hardware. Reprint the deck and pan yoke at r0.1.1; add the r0.1.0 rain hood, base tray, pan fairing, servo boot and camera cowl. Reuse the unchanged spider and remaining mounts as listed. The accepted art supplies appearance only. The 248.336 g full-solid PETG print estimate leaves flying mass acceptance open.

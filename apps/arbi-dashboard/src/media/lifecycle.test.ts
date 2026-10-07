@@ -11,7 +11,12 @@ import { setup, realm, site } from "./test-support";
 
 test("unconfigured routes fail closed; explicit composition handles bounded JSON and rejects authority claims", async (t) => {
   assert.equal((await mediaRoute(new Request("https://fixture.invalid/api"), { siteId: "site-a", action: "upload" })).status, 503);
-  const h = await setup(t); configureMedia(h.compose());
+  const h = await setup(t);
+  // A cold CI database can consume the five-second directory grant before the
+  // first request. The fixture and real SDK must still agree on current time.
+  const wallNow = Date.now;
+  t.mock.method(Date, "now", () => wallNow() + 6_000);
+  configureMedia(h.compose());
   const response = await POST(h.request("upload", h.upload("route")), { params: Promise.resolve({ siteId: "site-a", action: "upload" }) });
   if (response.status !== 200) {
     const failure = await response.clone().json() as { error?: unknown };

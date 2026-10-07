@@ -28,7 +28,7 @@ def enclosure_booklet():
  note(240,'Measure the received servo, horn, converter and connectors first. These are nominal references, with no physical fit or rain test and no claimed ingress rating.')
  para(16,266,178,'Build unpowered on a supported bench fixture. Complete mass, cable movement, heat, electrical performance and suspended operation require separate checks.',small=True,max_h=15)
 
- begin('01  Chassis and gimbal prints','Print quantities below. Dark meshes are printed parts; boards and metal references are illustration and fit envelopes.')
+ begin('01  Chassis and gimbal prints','Print quantities below. White-face line drawings show every part; IDs identify prints. Boards and metal are nominal references.')
  items=[('camera-pod-spider','P01 Spider',1),('payload-electronics-deck','P02 Electronics deck',1),('payload-spider-spacer','P03 14 mm spacer',4),('payload-pan-servo-mount','P04 Pan mount',1),('payload-pan-yoke','P05 Pan yoke',1),('payload-tilt-pivot-support','P06 Pivot support',1),('payload-camera-cradle','P07 Camera cradle',1),('payload-horn-retainer','P08 Horn retainer',2),('payload-camera-hood','P09 Optical hood',1),('payload-servo-fit-coupon','T01 Fit coupon',1)]
  for i,(name,title,count) in enumerate(items):
   x=16+i%3*61;y=54+i//3*49
@@ -97,7 +97,7 @@ def enclosure_booklet():
  begin('11  Route the downward outlets','Tray underside at left; tray and fairing omitted at right to expose the nominal power route. Actual connectors, cable bends and weather seals require fitting.')
  fig('wiring-bottom',16,52,88,111);fig('power-route',109,52,85,111)
  table([['<b>Outlet axis</b>','<b>Reference and route</b>'],['Power X=-8, Y=31','6 mm nominal lead: descend to Z=-14, across to X16/Y37, down to Z=-42, then out to Y60'],['CSI X=0, Y=-27','16 x 0.3 mm ribbon; centre it at Y=-28 within the slot, then bend away from the spider hub before descending'],['Servo X=-22, Y=-32','4 x 2 mm lead reference; bend away from spider arm before descending'],['Moving covers','Boot lower exit and cowl rear CSI relief; leave a separate pan-to-camera loop']],172,[55,123])
- note(258,'Gold geometry is a rigid power-route proxy, checked at 111 poses. Use soft sleeves, ties and a drip loop; actual bend radius and flexible CSI/servo loops still require bench inspection.')
+ note(258,'The shown lead is a rigid power-route proxy, checked at 111 poses. Use soft sleeves, ties and a drip loop; actual bend radius and flexible CSI/servo loops still require bench inspection.')
 
  begin('12  Close the continuous roof','The roof has no fastener penetrations. Four plain M3 nuts load sideways into blind columns; bolts enter from underneath.')
  fig('hood-nut-seats',16,52,87,116);fig('cover-fit',108,52,86,116)
@@ -136,7 +136,7 @@ box(16,235,178,28)
 para(21,240,168,'<b>Fit before the full print</b><br/>Servo and power-module dimensions remain provisional. Start with the servo coupon and compare the dimension table on page 3 with your received parts. These models are not physically tested.',small=True,max_h=21)
 para(16,269,178,'CAD checks cover rigid geometry, fasteners and motion. Suspended operation still needs mass, strength, balance, cable-flex and electrical checks.',small=True,max_h=12)
 
-begin('01  Printed parts','Print the listed quantity. Dark cores and white shells are fabrication meshes; electronic and metal reference meshes are not functional prints.')
+begin('01  Printed parts','Print the listed quantity. Line drawings use white faces for clarity; part IDs identify prints. Electronic and metal references are not functional prints.')
 items=[('camera-pod-spider','P01  Existing spider','1 x / r0.1.0'),('payload-electronics-deck','P02  Electronics deck','1 x'),('payload-spider-spacer','P03  Spider spacer','4 x / 14 mm'),('payload-pan-servo-mount','P04  Pan servo mount','1 x'),('payload-pan-yoke','P05  Pan yoke','1 x'),('payload-tilt-pivot-support','P06  Pivot support','1 x / removable'),('payload-camera-cradle','P07  Camera cradle','1 x'),('payload-horn-retainer','P08  Horn retainer','2 x / identical'),('payload-camera-hood','P09  Camera hood','1 x'),('payload-electronics-cover','P10  Electronics cover','1 x / removable'),('payload-servo-fit-coupon','T01  Servo fit coupon','1 test print / not installed')]
 for i,(name,title,count) in enumerate(items):
  x=16+(i%3)*61;y=55+(i//3)*50

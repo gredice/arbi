@@ -304,23 +304,23 @@
       },
       {
         "name": "pan-yoke",
-        "solid_volume_cm3": 7.473081417483391,
+        "solid_volume_cm3": 7.4730814174833915,
         "solid_PETG_estimate_g_at_1p27": 9.490813400203907
       },
       {
         "name": "tilt-pivot-support",
-        "solid_volume_cm3": 1.4067570091034434,
-        "solid_PETG_estimate_g_at_1p27": 1.786581401561373
+        "solid_volume_cm3": 1.4067570091034443,
+        "solid_PETG_estimate_g_at_1p27": 1.7865814015613741
       },
       {
         "name": "camera-cradle",
-        "solid_volume_cm3": 3.6621490319831795,
-        "solid_PETG_estimate_g_at_1p27": 4.650929270618638
+        "solid_volume_cm3": 3.6621490319831804,
+        "solid_PETG_estimate_g_at_1p27": 4.650929270618639
       },
       {
         "name": "camera-hood",
-        "solid_volume_cm3": 1.4797345647369102,
-        "solid_PETG_estimate_g_at_1p27": 1.879262897215876
+        "solid_volume_cm3": 1.4797345647369096,
+        "solid_PETG_estimate_g_at_1p27": 1.8792628972158751
       },
       {
         "name": "pan-horn-retainer",
@@ -334,31 +334,31 @@
       },
       {
         "name": "enclosure-base",
-        "solid_volume_cm3": 24.32105867031269,
-        "solid_PETG_estimate_g_at_1p27": 30.887744511297118
+        "solid_volume_cm3": 24.321058670312613,
+        "solid_PETG_estimate_g_at_1p27": 30.88774451129702
       },
       {
         "name": "pan-fairing",
-        "solid_volume_cm3": 17.001369365631003,
-        "solid_PETG_estimate_g_at_1p27": 21.591739094351375
+        "solid_volume_cm3": 17.00136936563108,
+        "solid_PETG_estimate_g_at_1p27": 21.591739094351475
       },
       {
         "name": "tilt-servo-boot",
-        "solid_volume_cm3": 2.5655144897468105,
-        "solid_PETG_estimate_g_at_1p27": 3.2582034019784496
+        "solid_volume_cm3": 2.5655144897468065,
+        "solid_PETG_estimate_g_at_1p27": 3.2582034019784443
       },
       {
         "name": "camera-cowl",
-        "solid_volume_cm3": 2.527910983018668,
-        "solid_PETG_estimate_g_at_1p27": 3.2104469484337086
+        "solid_volume_cm3": 2.5279109830186686,
+        "solid_PETG_estimate_g_at_1p27": 3.210446948433709
       },
       {
         "name": "rain-hood",
-        "solid_volume_cm3": 39.556562684721506,
-        "solid_PETG_estimate_g_at_1p27": 50.236834609596315
+        "solid_volume_cm3": 39.55656268472128,
+        "solid_PETG_estimate_g_at_1p27": 50.23683460959602
       }
     ],
-    "solid_total_PETG_g": 248.33638267851438,
+    "solid_total_PETG_g": 248.3363826785141,
     "neutral_assembly_bounds_mm": [
       [
         -84.53910064697266,
@@ -1033,53 +1033,53 @@
     ]
   },
   "mesh_hashes": {
-    "raspberry-pi-3a-plus-reference": "5352eaa4e57a1d0328e17cf49b0236d3c22a372263ba9a4bb5ade24facf822db",
-    "camera-module-3-standard-reference": "cf64c9fb3c67577097e65bade19e62d0c948d7072eade020b9eafb0e63cc00f8",
-    "micro-servo-3p7g-UNVERIFIED": "c3978617e8e26cb846cb0c606093efbc7988f281d522de68bfa344febb53876d",
-    "servo-horn-UNVERIFIED": "6f6addc0c80d3a56b1d1fa92951051c5a6c76144834cb6cc22391578b2fa3b5d",
-    "buck-converter-UNVERIFIED": "74c23c6410f2b3760240527125d90652eb85d133a2c51c1d841faf4c58483e97",
-    "capacitor-1000uf-UNVERIFIED": "035655787d64010a64421119f1cb63a382616acd085cee0e6e0b308534ecc1ef",
+    "raspberry-pi-3a-plus-reference": "c59abce61fab64b84b44d071788d2dba4e18a1dbe2f8670932b29cc7bcd37291",
+    "camera-module-3-standard-reference": "44558d7de7e5015249e1d8dc00548809f38fa58f519f1e9c792503119f2255e1",
+    "micro-servo-3p7g-UNVERIFIED": "9e06eabbb408603c3332cabbe34e24acf7095ac4bcdc59d74bffcae79fb1a1e6",
+    "servo-horn-UNVERIFIED": "1de77ae7fb707859cd9b435f5391cf497ee2c7a9ba804766be93400b9ff95886",
+    "buck-converter-UNVERIFIED": "7d3d9f69fde63686350f00974d74d8a9def2392cf5961799fecd254616fa8773",
+    "capacitor-1000uf-UNVERIFIED": "afe8ed5e322b43e8c73aa16f7064c6eb7b987455fad98cf91ef7d1ba1fcf0674",
     "microsd-reference": "f2c07472383626694fa8f2a3428a6a45be6b602a14fc838458e10a40ade18ac0",
     "csi-15pin-flat-reference": "3e62a5870e394e21035180878391079bee325c3a849bbb8a376000b56a8c30a0",
-    "nut-M2-reference": "82a632946b0b1171efa00beb36213c553ef0fadf6a8bcdd3c1e61911084fd648",
+    "nut-M2-reference": "d308a30730cc85654136c8f6947efd4879eceee73ebf2c1a2580f024d96362e1",
     "nut-M2p5-reference": "026b1de5351e8f56c45a032fec9526d84b3d134a11b393a3eaff156f9210ea6a",
-    "nut-M4-reference": "6c2b27fccfca06d503a9a1cf69b9c6a2189f60543de5ee450c406b09202d7a18",
-    "washer-M2-reference": "b1bdcf70f10dc7865cfc988038a38091271c17e4dc1011d1b309c647927c56b4",
-    "washer-M2p5-reference": "4dad6ea849ba74a3dee87be135803dec1b1c4aef2b031b3a908a31135f5fa9d4",
-    "washer-M4-reference": "60476a36865e8362939fdb3ae8003b578ff9fa2324841bf9d9d0052953ea31b2",
-    "bolt-M4x35-reference": "261a02ff71fb0c3480a8ee4adc0d8c6a8657b8f49d97ff0efdc2cfa611197c95",
-    "bolt-M2p5x20-reference": "6f76f11bcb1b4f9c2685d86eb4f28cf20e50a5e7ca72ba2755c70a654588936f",
-    "bolt-M2x12-reference": "46ea11c3b18e462eda6913ff9663f68ed9d8b34478dc018ffbd8b5cf2f54c30b",
-    "bolt-M3x12-reference": "3c2e5117e800136c245512071b9d882442a53d1b8353c1e9b6cc5d9b96910b6e",
-    "bolt-M3x35-reference": "efd92c16050c9003bfe63c485680d0c7c74305b94cdbab651b5b00e2c869848c",
-    "nut-M1p6-reference": "bc2070f5eba9b3f933a13fb8c3abb9f040347f3ca4a8f9a453bd723ce0bf3b57",
+    "nut-M4-reference": "93ebca886a78cfe420735f5f93afd6597449256bb4767a68436fd52cc69a17cb",
+    "washer-M2-reference": "52c04b7ceba514bca3e9a01cb583a8de986ce8d4dcb4dc8de01c76a5b53ddb45",
+    "washer-M2p5-reference": "0d0920c92d8e38eac694d9f1c7ad093fb6a08cd0ad4ae971705dd5f6c52e852d",
+    "washer-M4-reference": "8afa9a684aa32bdc0cfee51f1511bafe342b505bdddd310cd0f69928cd86fb2e",
+    "bolt-M4x35-reference": "c35ef8876ddbc7d4be6d700a10b24694e015cc90cf244bda6009098bc14c1f7f",
+    "bolt-M2p5x20-reference": "c38755f4fa7192137e2a021bbba10bd7aab935d65e3f0391d0681c41afacb7f4",
+    "bolt-M2x12-reference": "001a6f3f4d8d9e5262574a14f25556b60c9697a5b1612296c6eda1d1831ff296",
+    "bolt-M3x12-reference": "178c85e4fcdf5dbdcc9a64722451dae9f0af50c940795d34ec0d9d06c729024b",
+    "bolt-M3x35-reference": "c367896f480e5cf567c55fe520cb03cf762c1f35be8111991a31280c38f3ba25",
+    "nut-M1p6-reference": "208b0a8097348267143fcc288e1e04c5f17ad81d2f3d3535264e06e764506d3d",
     "nut-M3-reference": "21bc6be807f801f8b93513fc78e4dd2da5659f4c30f5e7639e8b8855adfda907",
-    "washer-M3-reference": "e7e4b9bbcd992821e0faf42664514725f66bf839c576320512e16e40ab9c0073",
-    "washer-M3x0p7-reference": "33d323dd8f90a331c5ac0b73b076e8baab6e0ed5a39e4c28cc9c828ad33b670f",
-    "bolt-OEM-horn-UNVERIFIED": "00a23b048ff7f33636d3a2f60ab8064e4c20c4ee46551581f436c0c86b1e46af",
+    "washer-M3-reference": "e5b9e9b5c8c829fe8f50e6758bc78f24498c944d55bdee5068d08138e4b549ea",
+    "washer-M3x0p7-reference": "628e21c22379ef6fb58bbe5f5a149bb099106a702bddd0fd68b30978b0961bb2",
+    "bolt-OEM-horn-UNVERIFIED": "5be7f221aae588bc29434b4f621642f43f07416930e1feb0b853df7909f569fe",
     "converter-tie-reference": "a92d362e39dc39cf8f8c963b45a4f97b200ac8710a626c5618b3284fb1c7dee7",
     "capacitor-tie-reference": "22e411439b72115e23873c4b7de4338dc732223a45b086edf78f033c505a245a",
-    "csk-M1p6x6-reference": "a4cf5a595a759cf50836114faaf34ffb3eccf3d37d579b70fa0e3d0fdba30e27",
-    "csk-M2x8-reference": "ac3049afb237b2bdf7ea7bf4883aa5b63426056b2290c3ef148f117dfd592fcc",
-    "csk-M2x10-reference": "43b90655ea1e4b266e98f11487e8de009ee49c45b59efbd29dd61335fc08168f",
-    "bolt-M2x18-reference": "427eebc90267cb5e6bc438cfa20845219b0c5db4ca43d98e3eb9f9e64f284cb7",
-    "bolt-M2x8-reference": "8fa17aaff3852a1c6ea7516750b603741d4764e8fa0ff539571c460a5c46dbca",
-    "bolt-M2x25-reference": "04498435d8bc3725afd5f2e672aeee769ecada0f572c4c207535630309f3cc08",
-    "camera-pod-spider": "55dd4a897a2230c84fb9d785e65fe9b68625090b0a017e3283bc2c54129aff61",
-    "payload-electronics-deck": "83abf715796d2f61b12f0b20174e851af6d91a369e679b25fb75b23dc139c30b",
-    "payload-pan-servo-mount": "65100c5cde70028ae405a049853b71be80c976663f8bc1762c79fbc279fef7c8",
-    "payload-pan-yoke": "7ffe6d4d93099bdd97c30a2a84340bc7454cdff10acc0f2820e2e8a0efc887ce",
-    "payload-camera-cradle": "8d6b2d0aa5767fb606875d549b8bbc4c1dc17424e09f2e448eec871769e45832",
-    "payload-horn-retainer": "b4ad72dc9ed27cc96752342cd224e04cd065414d46eae311575c9a30035e2e47",
-    "payload-camera-hood": "4e31c8a82708f45959388f464950644b8bebb0687758bfa71cb10272bb5b9be6",
-    "payload-servo-fit-coupon": "060d5f28e154dae2a24e969abcefe818b00a372a4608a3dde267c84c4ca08a07",
-    "payload-spider-spacer": "5e679e1b8d9a120b81f540707ecf21e01f657b83f81affb802da5d927b4dc6c4",
-    "payload-tilt-pivot-support": "a6bd6a012cd5dd41bb53b7e0fb90103ccad4c3fbbed50a5e3d352f642ea6258e",
-    "payload-rain-hood": "6979ad2ccbc54e3068880b9774a0ea9fcd28edb75c0f702dd9e3f154e34eb062",
-    "payload-enclosure-base": "dcd981d92701a4361b55a4286f7d7f8ead1b63ce303e83fe733d7687cdecd145",
-    "payload-pan-fairing": "41dd6c2bbe86c4bcb8e0b06226a7773a7465faa5eefdb2c3c6d4efc28cb5e40b",
-    "payload-tilt-servo-boot": "7ee4e782938f13f8fd332dc271df1644c41265daaefb0883ca5a3879dda29d3f",
-    "payload-camera-cowl": "e480eb16aab59df12f1bde99cf067b9ae611475b4ed2ec45def2ac738ada954d",
+    "csk-M1p6x6-reference": "1af63e21479c08b9d53daf41e882a729ce0beffc09a9e80a415d82cda0e0ba1b",
+    "csk-M2x8-reference": "fa4dcc4f2225a9260249b349a635e81c1c194c7cfad1a580c331cb1af07f0f57",
+    "csk-M2x10-reference": "cc57396991041b267e0602f6c0e9b94943e33ff18e61d7da74c8bee2dfa98376",
+    "bolt-M2x18-reference": "88725875393057129ed1ce4a4209d378c3248e6ebc9b3d3e4972f450c52ae2be",
+    "bolt-M2x8-reference": "ae3c9caecde7fbf27aecdf54fb6cb4389f469ae1c7231dab32a5ddbee80158f6",
+    "bolt-M2x25-reference": "0bb79f3fc220c2843dc043f2f401e087f38bb8775454798c27aa06f97621d81f",
+    "camera-pod-spider": "e72d4b92fa303e7c77a35e78e39c1cd4cd560c43448bdc12903431cfbf170504",
+    "payload-electronics-deck": "19fa36a1b7f0baba523b27b21c03a15fc701cf6f836928575cea243b06f323a9",
+    "payload-pan-servo-mount": "6afa9d96979c1135c8a67495416261cc79fe899ede0bb87cb17f8b42077d8c98",
+    "payload-pan-yoke": "26e8e4c3c202bf9714abcdcf2b9622f1efc98bfc061a41c9798adf8d696bcb81",
+    "payload-camera-cradle": "0fddcce98985cf889582f0de419951febc5be89e27c6e3de6d205c74b66df876",
+    "payload-horn-retainer": "9ca2db6e813ff6df442d3d02420a6491f64ebdb0ccb2043c27e3be4873ed748e",
+    "payload-camera-hood": "4e8ecf21df916c5cabe2e51ae54d66709b8eca1dbd0402bac063d3a8a58881d6",
+    "payload-servo-fit-coupon": "6ab76b7fb270ea23c36ea092d10c3850597eb14d24081bc5d1abf47775d098fb",
+    "payload-spider-spacer": "990c1662aa4bdeab555986a092fa3e8a211b22eab8073141e246b1e25f5d7b16",
+    "payload-tilt-pivot-support": "32e1fa848f82be6073284dfb28ca32e14590c120d621ad2fc67f5ba0c486ab4f",
+    "payload-rain-hood": "74624b6f02e703de1362a123a97a35a8f6133c25c65cd14c008005198c527a06",
+    "payload-enclosure-base": "675446a993f18527e7e76ba392d7aba25f41038ade065df823651c3b0d39ae92",
+    "payload-pan-fairing": "d28297b17495fbe4f94f296eb550c5c1b575725f7fe1c24a113f65a7e7b42e18",
+    "payload-tilt-servo-boot": "ad0082e2ef97919a25c8bb43babacb3279a7a315ce3ebd0e07729cc0ae2619c2",
+    "payload-camera-cowl": "8d9be36c6f6d50e8131b4de9efdf807cf40e21dcdd1c7b72ccd0227fb2e83ed0",
     "fixed-power-route-6mm-NOMINAL": "ecb6a0ff8e457ee542951dddf0600d06fa1a50f030176b6a730b273011b2b32f"
   },
   "checker_sources": {

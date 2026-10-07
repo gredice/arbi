@@ -104,13 +104,12 @@ def main():
     style=(REPO/'scripts/winch-booklet/build_booklet.py').read_text().split("begin('Build the actual parts'")[0]
     assert 'def begin(' in style and 'C.save()' not in style,'Review upstream page-style extraction'
     style=style.replace('ARBI-winch-assembly-STL.pdf',artifact+'-assembly-STL.pdf').replace('ARBI winch and drum - STL-based assembly booklet','ARBI payload - printed mount assembly booklet')
-    style=style.replace('WINCH & DRUM','PAYLOAD').replace("text(153,15,'PASSIVE / STL EDITION'","text(141,15,'MOUNT SET / BENCH EDITION'")
-    style=re.sub(r'Mechanical bench assembly \| Revision [^\']+',('Payload rain enclosure | Revision 1 | ' if args.enclosure else 'Payload bench assembly | Revision 3 | ')+date.today().strftime('%d %b %Y'),style)
-    if args.enclosure:
-        style=style.replace('/ 14','/ 16').replace('MOUNT SET / BENCH EDITION','RAIN / SPLASH EDITION').replace('Payload bench assembly | Revision 2 | 28 Sep 2026','Payload rain enclosure | Revision 1 | '+date.today().strftime('%d %b %Y'))
+    style=style.replace('WINCH & DRUM','PAYLOAD').replace("text(153,15,'PASSIVE / COVER KIT'", "text(141,15,'"+('RAIN / SPLASH EDITION' if args.enclosure else 'MOUNT SET / BENCH EDITION')+"'")
+    style=re.sub(r'Mechanical bench assembly \| Revision [^\']+',('Payload rain enclosure | Revision 2 | ' if args.enclosure else 'Payload bench assembly | Revision 4 | ')+date.today().strftime('%d %b %Y'),style)
+    style=re.sub(r'\{PAGE:02d\} / \d+', '{PAGE:02d} / '+('16' if args.enclosure else '14'),style)
     (root/'source/page_style.py').write_text(style)
     provenance={'repository':'https://github.com/gredice/arbi','base_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=REPO,text=True).strip(),
-      'booklet_revision':1 if args.enclosure else 3,'configuration':config,'scope':'Nominal rain/splash enclosure assembly; ingress, servo/power dimensions and physical fits unverified.' if args.enclosure else 'Complete nominal bench mount assembly; servo/power dimensions and physical fits unverified.',
+      'booklet_revision':2 if args.enclosure else 4,'render_style':'assembly-line-art-v1','configuration':config,'scope':'Nominal rain/splash enclosure assembly; ingress, servo/power dimensions and physical fits unverified.' if args.enclosure else 'Complete nominal bench mount assembly; servo/power dimensions and physical fits unverified.',
       'source_hashes':{str(p.relative_to(root)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted((root/'source').rglob('*')) if p.is_file() and '__pycache__' not in p.parts}}
     (root/'source-provenance.json').write_text(json.dumps(provenance,indent=2)+'\n')
     if not args.reuse_models:

@@ -180,7 +180,9 @@ def covered(explode=0,shutter_out=0,main=True,shutters=True):
 
 def polydata(file):
     if file not in cache:
+        assert (ROOT/file).is_file(), 'Missing figure mesh: '+file
         read=vtk.vtkSTLReader();read.SetFileName(str(ROOT/file));read.Update()
+        assert read.GetOutput().GetNumberOfCells()>0, 'Empty figure mesh: '+file
         cache[file]=read.GetOutput()
     return cache[file]
 
@@ -193,14 +195,20 @@ def render(name,parts,direction=(.55,-1,.65),up=(0,0,1),size=(1500,950),anchors=
         mm=np.array(part['matrix'])
         for i in range(4):
             for j in range(4):matrix.SetElement(i,j,mm[i,j])
-        mapper=vtk.vtkPolyDataMapper();mapper.SetInputData(pd)
+        mapper=vtk.vtkPolyDataMapper();mapper.SetInputData(pd);mapper.ScalarVisibilityOff()
         mapper.SetResolveCoincidentTopologyToPolygonOffset()
         actor=vtk.vtkActor();actor.SetMapper(mapper);actor.SetUserMatrix(matrix)
-        prop=actor.GetProperty();prop.SetColor(*part['color']);prop.SetAmbient(.35);prop.SetDiffuse(.65);prop.SetSpecular(.08);prop.SetSpecularPower(18)
-        prop.SetInterpolationToFlat();ren.AddActor(actor)
-        edges=vtk.vtkFeatureEdges();edges.SetInputData(pd);edges.BoundaryEdgesOn();edges.FeatureEdgesOn();edges.SetFeatureAngle(34);edges.NonManifoldEdgesOff();edges.ManifoldEdgesOff();edges.Update()
+        # Opaque white faces occlude hidden edges. Product/PCB colors stay in
+        # assembly manifests and the GLB, but never obscure booklet detail.
+        prop=actor.GetProperty();prop.SetColor(1,1,1);prop.LightingOff();ren.AddActor(actor)
+        # Include camera-dependent curved outlines, not every STL triangle.
+        # Prop3D applies the same assembly rotation/reflection to the view.
+        edges=vtk.vtkPolyDataSilhouette();edges.SetInputData(pd)
+        edges.SetCamera(ren.GetActiveCamera());edges.SetDirectionToCameraVector();edges.SetProp3D(actor)
+        edges.SetEnableFeatureAngle(1);edges.SetFeatureAngle(34);edges.BorderEdgesOn()
         em=vtk.vtkPolyDataMapper();em.SetInputConnection(edges.GetOutputPort());em.ScalarVisibilityOff()
-        ea=vtk.vtkActor();ea.SetMapper(em);ea.SetUserMatrix(matrix);ea.GetProperty().SetColor(.17,.21,.24);ea.GetProperty().SetLineWidth(1.1);ren.AddActor(ea)
+        ea=vtk.vtkActor();ea.SetMapper(em);ea.SetUserMatrix(matrix)
+        ea.GetProperty().SetColor(.12,.12,.12);ea.GetProperty().SetLineWidth(1.5);ea.GetProperty().LightingOff();ren.AddActor(ea)
         b=pd.GetBounds()
         pts=np.array([[x,y,z,1] for x in b[:2] for y in b[2:4] for z in b[4:6]])
         if part.get('fit',True):bounds.extend((mm@pts.T).T[:,:3])
@@ -216,7 +224,7 @@ def render(name,parts,direction=(.55,-1,.65),up=(0,0,1),size=(1500,950),anchors=
         ren.SetWorldPoint(*xyz,1);ren.WorldToDisplay();p=ren.GetDisplayPoint();projection[label]=[p[0]/size[0],p[1]/size[1]]
     capture=vtk.vtkWindowToImageFilter();capture.SetInput(win);capture.ReadFrontBufferOff();capture.Update()
     writer=vtk.vtkPNGWriter();writer.SetFileName(str(FIGS/(name+'.png')));writer.SetInputConnection(capture.GetOutputPort());writer.Write()
-    manifest[name]={'parts':parts,'anchors':projection,'size':list(size)}
+    manifest[name]={'parts':parts,'anchors':projection,'size':list(size),'render_style':'assembly-line-art-v1'}
     win.Finalize()
     print('Rendered '+name,flush=True)
 

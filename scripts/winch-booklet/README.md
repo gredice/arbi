@@ -27,6 +27,34 @@ full export. The snapshot is identified by content hashes; its recorded Git base
 commit can precede edits in the working tree. This avoids falsely claiming that
 a PDF generated before its own commit came from an unchanged earlier revision.
 
+## CI and drawing style
+
+The shared renderer makes white-face line drawings with dark silhouettes and
+visible feature edges. Opaque faces hide rear edges and omit the STL triangle
+grid. Product colors remain in the figure/assembly manifests and payload GLB.
+
+[Booklet CI](../../.github/workflows/booklets.yml) builds the winch, dry payload
+and enclosed payload in separate jobs with Python 3.12, OpenSCAD 2021.01 and VTK
+9.5.2 on software EGL. Relevant pull requests get downloadable PDF/ZIP artifacts
+for 14 days. The required CI result includes booklet checks. A manual workflow
+dispatch rebuilds all three variants from the selected branch.
+
+On `main`, [CAD release CI](../../.github/workflows/cad-release.yml) builds the
+same three booklets and adds them to the `cad-<commit>` release alongside the
+registered STL/CSG files and checksums. CI uses fresh exports, with neither
+`--reuse-models` nor `--publish`; it does not commit generated files back to Git.
+Checked-in PDFs/ZIPs are dated snapshots; releases contain commit-matched builds.
+
+Validate a local build with:
+
+```sh
+python3 scripts/check-booklet.py hardware/generated/booklet --variant winch
+```
+
+The check verifies A4 page totals, headers, revisions, source/STL hashes,
+registry filenames, non-empty line-art figures and matching PDF/ZIP contents.
+Render every PDF page for visual review before updating a checked-in snapshot.
+
 ## Editing
 
 | File | Responsibility |
@@ -58,7 +86,7 @@ records the owner's request to commit the downloadable artifact snapshot. Other
 working STL exports and individual render PNGs remain ignored. The reusable
 skill is maintained under `.agents/skills/create-assembly-booklets/`.
 
-Revision 6 adds the distinct powered index-3 transition panel to the full-cover
+Revision 7 retains the distinct powered index-3 transition panel from revision 6 and adds line-art illustrations. The full-cover kit includes
 main panels, payout shutters, clips, fixed-loom anchor,
 covered-base drilling references and nominal line/loom references. The PDF has
 18 pages; the pack contains 27 fabrication and 35 reference meshes. Run

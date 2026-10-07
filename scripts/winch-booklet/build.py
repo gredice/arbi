@@ -59,12 +59,15 @@ def build():
         'repository': 'https://github.com/gredice/arbi',
         'base_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=REPO, text=True).strip(),
         'note': 'Source hashes identify the exact build inputs; base commit may precede uncommitted revisions.',
-        'coupling_guard_revision': '0.1.1', 'full_cover_revision': '0.1.0', 'booklet_revision': 6,
+        'coupling_guard_revision': '0.1.1', 'full_cover_revision': '0.1.0', 'booklet_revision': 7,
+        'render_style': 'assembly-line-art-v1',
         'source_hashes': {str(p.relative_to(root)): hashlib.sha256(p.read_bytes()).hexdigest()
             for p in sorted((root / 'source').rglob('*'))
             if p.is_file() and '__pycache__' not in p.parts},
     }
     (root / 'source-provenance.json').write_text(json.dumps(provenance, indent=2)+'\n')
+    if (root / 'figures').exists():
+        shutil.rmtree(root / 'figures')
     for name in ['render_figures.py', 'build_booklet.py']:
         subprocess.run([sys.executable, str(root / 'source' / name)], check=True)
     archive = root / 'ARBI-winch-STL-pack.zip'
