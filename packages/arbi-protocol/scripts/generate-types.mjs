@@ -1,12 +1,14 @@
 import { readFileSync, writeFileSync } from "node:fs";
 
-const schema = JSON.parse(readFileSync(new URL("../schema/message.schema.json", import.meta.url), "utf8"));
 const literal = (value) => JSON.stringify(value);
 
 // This intentionally supports only the structural subset used by this schema.
 // Range, format and conditional constraints remain runtime checks, never casts.
 function type(node) {
-  if (node.$ref) return node.$ref.split("/").at(-1);
+  if (node.$ref) {
+    const path = node.$ref.split("#/$defs/")[1].split("/properties/");
+    return path[0] + path.slice(1).map((key) => `[${literal(key)}]`).join("");
+  }
   if (Object.hasOwn(node, "const")) return literal(node.const);
   if (node.enum) return node.enum.map(literal).join(" | ");
   if (node.oneOf || node.anyOf) return (node.oneOf ?? node.anyOf).map(type).map((t) => `(${t})`).join(" | ");
@@ -19,11 +21,19 @@ function type(node) {
   }
 }
 
-const result = "// Generated from schema/message.schema.json. Run pnpm --filter @arbi/protocol generate.\n"
-  + "// Refinements (ranges, formats, conditionals) require validateMessage at runtime.\n\n"
-  + Object.entries(schema.$defs).map(([name, node]) => `export type ${name} = ${type(node)};`).join("\n\n")
-  + "\n\nexport type Message = Command | Event | Telemetry;\n";
-const output = new URL("../src/messages.ts", import.meta.url);
-if (process.argv.includes("--check")) {
-  if (readFileSync(output, "utf8") !== result) throw new Error("Protocol types are stale: run pnpm --filter @arbi/protocol generate");
-} else writeFileSync(output, result);
+const bindings = [
+  { schema: "message", output: "messages", refinement: "validateMessage", imports: "", suffix: "\n\nexport type Message = Command | Event | Telemetry;\n" },
+  { schema: "configuration", output: "configuration-types", refinement: "validateConfigurationRecord", imports: 'import type { Id, Realm, Identity, Actor, VectorMm, SiteFrame, GimbalFrame, Capability, Sample } from "./messages.js";\n\n', suffix: "\n" },
+];
+for (const binding of bindings) {
+  const schema = JSON.parse(readFileSync(new URL(`../schema/${binding.schema}.schema.json`, import.meta.url), "utf8"));
+  const result = `// Generated from schema/${binding.schema}.schema.json. Run pnpm --filter @arbi/protocol generate.\n`
+    + `// Refinements (ranges, formats, conditionals) require ${binding.refinement} at runtime.\n\n`
+    + binding.imports
+    + Object.entries(schema.$defs).map(([name, node]) => `export type ${name} = ${type(node)};`).join("\n\n")
+    + binding.suffix;
+  const output = new URL(`../src/${binding.output}.ts`, import.meta.url);
+  if (process.argv.includes("--check")) {
+    if (readFileSync(output, "utf8") !== result) throw new Error("Protocol types are stale: run pnpm --filter @arbi/protocol generate");
+  } else writeFileSync(output, result);
+}

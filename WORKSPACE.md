@@ -8,7 +8,7 @@ Use this guide for repository layout, toolchains, commands, package boundaries, 
 - `hardware`: OpenSCAD sources, shared modules, model registry metadata, and model documentation.
 - `bom`: canonical procurement and assembly inputs plus deterministic generated reports.
 - `packages/arbi-bom`: implemented BOM schemas, calculations, generators, and tests.
-- `packages/arbi-protocol`: [implemented versioned message contracts](packages/arbi-protocol/README.md), runtime validation, consumed TypeScript bindings and reference fixtures; configuration/calibration remains follow-up work.
+- `packages/arbi-protocol`: [implemented versioned message and configuration/calibration contracts](packages/arbi-protocol/README.md), runtime validation, consumed TypeScript bindings and reference fixtures; device adapters and physical calibration remain follow-up work.
 - `scripts/check-cad.mjs`: registry, source, include, and optional OpenSCAD compilation validation.
 - `.github`: issue forms, pull request guidance, and fork-safe CI.
 
