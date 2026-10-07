@@ -1,5 +1,5 @@
-import { randomUUID } from "node:crypto";
-import { isId, isRealm, sameRealm } from "@arbi/gredice";
+import { createHash, randomUUID } from "node:crypto";
+import { isId, isObject, isRealm, sameRealm } from "@arbi/gredice";
 import type { AuthorizationObservation } from "@arbi/gredice";
 import type { AuditEvent, AuditSource, Realm } from "@arbi/protocol";
 import { MAX_COUNTER } from "@arbi/protocol";
@@ -43,6 +43,7 @@ export class PostgresRegistryStore implements RegistryStore {
   constructor(readonly db: SqlDatabase) {}
   async provision(state: Registry): Promise<void> {
     const key = scope(state.realm, state.siteId);
+    if (state.devices.length || state.challenges.length) throw new EnrollmentError("DENIED");
     await this.db.transaction(async (sql) => {
       await sql.query("INSERT INTO arbi_device_registry (environment, namespace_id, site_id, state) VALUES ($1,$2,$3,$4::jsonb)",
         [...key, JSON.stringify(state)]);
@@ -63,6 +64,18 @@ export class PostgresRegistryStore implements RegistryStore {
         let response: T;
         try { response = work(tx); }
         catch (error) { if (error instanceof EnrollmentError) domainError = error; throw error; }
+        const priorCredentials = new Set(state.devices.flatMap((device) => device.credentials.map((c) => c.id)));
+        for (const device of tx.state.devices) for (const credential of device.credentials) {
+          if (priorCredentials.has(credential.id)) continue;
+          const fingerprint = createHash("sha256").update(Buffer.from(credential.publicKey, "base64url")).digest("hex");
+          try {
+            await sql.query("INSERT INTO arbi_device_key_bindings (fingerprint, environment, namespace_id, site_id, device_id, credential_id) VALUES ($1,$2,$3,$4,$5,$6)",
+              [fingerprint, ...key, device.id, credential.id]);
+          } catch (error) {
+            if (isObject(error) && error.code === "23505") domainError = new EnrollmentError("CONFLICT");
+            throw error;
+          }
+        }
         const monotonicMs = Math.floor(performance.now() - this.#startedAt);
         const nextSequence = () => {
           const sequenceKey = JSON.stringify(key);

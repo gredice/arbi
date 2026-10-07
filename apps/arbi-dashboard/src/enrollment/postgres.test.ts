@@ -54,6 +54,17 @@ test("independent PostgreSQL connections serialize authority and roll back audit
     sequences.sort((a, b) => a < b ? -1 : 1);
     assert.deepEqual(sequences, sequences.map((_, index) => BigInt(index + 1)));
   }
+  const otherConfig = structuredClone(config); otherConfig.siteId = "other-site";
+  await storeB.provision(simulationRegistry(otherConfig, "other-account"));
+  const otherContext = { ...context, siteId: otherConfig.siteId, accountId: "other-account",
+    resource: { kind: "site" as const, id: otherConfig.siteId } };
+  const otherChallenge = await serviceB.human(otherContext, "challenge", { componentId: "edge",
+    publicKey: key.publicKey.export({ type: "spki", format: "der" }).toString("base64url"), expectedDeviceId: null, purpose: "enroll" }) as {
+      proof: { challenge: { id: string } };
+    };
+  await assert.rejects(serviceB.human(otherContext, "complete", { challengeId: otherChallenge.proof.challenge.id,
+    signature: sign(null, proofBytes(otherChallenge.proof), key.privateKey).toString("base64url") }), { code: "CONFLICT" });
+  assert.equal((await pool.query("SELECT state FROM arbi_device_registry WHERE site_id=$1", [otherConfig.siteId])).rows[0].state.devices.length, 0);
   const results = await Promise.allSettled([storeA, storeB].map((store) => store.transact(config.realm, config.siteId, ({ state }) => {
     if (state.configRevision !== config.revision) throw new EnrollmentError("CONFLICT");
     state.configRevision = "config-2";
@@ -69,7 +80,7 @@ test("independent PostgreSQL connections serialize authority and roll back audit
     observations.push({ id: "00000000-0000-4000-8000-000000000001", atMs: 1, kind: "revoked",
       actor: { kind: "human", id: "engineer" }, componentId: "edge", deviceId: null });
   }), { code: "UNAVAILABLE" });
-  const persisted = await pool.query("SELECT state FROM arbi_device_registry");
+  const persisted = await pool.query("SELECT state FROM arbi_device_registry WHERE site_id=$1", [config.siteId]);
   assert.equal(persisted.rows[0].state.configRevision, "config-2");
   assert.equal((await pool.query("SELECT count(*) FROM arbi_device_audit")).rows[0].count, auditCount);
 });

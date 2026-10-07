@@ -145,6 +145,22 @@ test("challenge expiry, changed membership and changed configuration invalidate 
   assert.equal((await h.human("challenge", input)).response.status, 401);
 });
 
+test("a key cannot be reused in another site even with a separate valid commissioning grant", async (t) => {
+  const h = await setup(t); const enrolled = await h.enroll();
+  h.provider.putPrincipal({ actor: { kind: "human", id: "other-engineer" }, accountId: "other-account", member: true,
+    sites: { "other-site": { roles: ["engineer"], serviceScopes: [], active: true, revision: "membership-1" } } });
+  const other = await h.provider.issue({ kind: "human", id: "other-engineer" });
+  const challenge = await h.human("challenge", { componentId: "edge", publicKey: enrolled.key.publicKey,
+    expectedDeviceId: null, purpose: "enroll" }, other.token, "other-site");
+  assert.equal(challenge.response.status, 200);
+  const { proof } = challenge.value as { proof: { challenge: Challenge } };
+  const response = await h.human("complete", { challengeId: proof.challenge.id, signature: enrolled.key.sign(proof) }, other.token, "other-site");
+  assert.equal(response.response.status, 409);
+  const rows = await h.db.query<{ state: Registry }>("SELECT state FROM arbi_device_registry WHERE site_id=$1", ["other-site"]);
+  assert.equal(rows.rows[0].state.devices.length, 0);
+  assert.equal((await h.registry()).devices.length, 1);
+});
+
 test("unenrolled, cross-realm/site, tampered and replayed requests cannot admit trusted state or commands", async (t) => {
   const h = await setup(t); const enrolled = await h.enroll();
   const connected = await h.connect(enrolled.issuance, enrolled.key);

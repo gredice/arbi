@@ -22,3 +22,14 @@ CREATE TABLE IF NOT EXISTS arbi_device_lifecycle (
   id uuid PRIMARY KEY REFERENCES arbi_device_audit (id),
   record jsonb NOT NULL
 );
+-- Retained after rotation/revocation/replacement. A key must never serve two identities.
+CREATE TABLE IF NOT EXISTS arbi_device_key_bindings (
+  fingerprint text PRIMARY KEY CHECK (fingerprint ~ '^[0-9a-f]{64}$'),
+  environment text NOT NULL,
+  namespace_id text NOT NULL,
+  site_id text NOT NULL,
+  device_id text NOT NULL,
+  credential_id text NOT NULL,
+  FOREIGN KEY (environment, namespace_id, site_id)
+    REFERENCES arbi_device_registry (environment, namespace_id, site_id)
+);
