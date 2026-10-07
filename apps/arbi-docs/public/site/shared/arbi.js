@@ -16,7 +16,11 @@ let sitePromise;
 export function loadSite() {
   sitePromise ??= (async () => {
     const site = await json('site.json');
-    const entries = await Promise.all(Object.entries(site.scenes).map(async ([slug, meta]) => [slug, { ...(await json(meta.file)), ...meta }]));
+    // site.json carries image paths and a part count; the scene file carries the parts themselves.
+    const entries = await Promise.all(Object.entries(site.scenes).map(async ([slug, meta]) => {
+      const scene = await json(meta.file);
+      return [slug, { ...scene, ...meta, parts: scene.parts }];
+    }));
     const scenes = Object.fromEntries(entries);
     scenes.pod = scenes['camera-pod']; // short alias used by the home-page heroes
     const models = site.registry.models;
@@ -152,17 +156,18 @@ export function layoutCallouts(anchors, width, { gap = 26, margin = 56, spread =
 
 // light: shaded product palette. line: booklet line art (white faces, dark edges).
 // ink: line art for black sections, keeping each part's product role readable:
-// charcoal core as a lighter gray, white shells off-white, bought metal mid gray.
+// charcoal core as a lighter gray, white shells pure white, bought metal mid gray.
+// Line art shows exact flat colors, so its materials skip tone mapping.
 const STYLES = {
   light: { env: 0.9 },
   line: { env: 0, edges: true },
   ink: { env: 0, edges: true },
 };
-const DARK_PART = { face: 0x55595c, edge: 0xdedcd6, hoverFace: 0xffffff, hoverEdge: 0x0b0b0b };
+// Neutral (untinted) grays and pure white so the roles read as product colors, not tints.
 const INK = {
-  white: { face: 0xe8e7e1, edge: 0x1c1c1c, hoverFace: 0x1c1c1c, hoverEdge: 0xf2f2ee },
-  metal: { face: 0x9ea3a6, edge: 0x1c1c1c, hoverFace: 0xffffff, hoverEdge: 0x0b0b0b },
-  dark: DARK_PART,
+  white: { face: 0xffffff, edge: 0x111111, hoverFace: 0x1a1a1a, hoverEdge: 0xffffff },
+  metal: { face: 0x9a9a9a, edge: 0x111111, hoverFace: 0xffffff, hoverEdge: 0x0b0b0b },
+  dark: { face: 0x5a5a5a, edge: 0xe0e0e0, hoverFace: 0xffffff, hoverEdge: 0x0b0b0b },
 };
 const LINE = { face: 0xffffff, edge: 0x111111, hoverFace: 0x161616, hoverEdge: 0xffffff };
 
@@ -175,7 +180,7 @@ function drawing(color, style) {
 }
 
 function partMaterial(color, style) {
-  if (STYLES[style].edges) return new THREE.MeshBasicMaterial({ color: drawing(color, style).face, polygonOffset: true, polygonOffsetFactor: 1, polygonOffsetUnits: 1, transparent: true });
+  if (STYLES[style].edges) return new THREE.MeshBasicMaterial({ color: drawing(color, style).face, toneMapped: false, polygonOffset: true, polygonOffsetFactor: 1, polygonOffsetUnits: 1, transparent: true });
   const c = new THREE.Color().setRGB(...color, THREE.SRGBColorSpace);
   const metal = color[0] > 0.6 && color[0] < 0.75;
   return new THREE.MeshStandardMaterial({ color: c, roughness: metal ? 0.35 : 0.62, metalness: metal ? 0.7 : 0.0, transparent: true });
@@ -294,7 +299,7 @@ export class Viewer {
       m.userData.draw = STYLES[this.style].edges ? drawing(part.color, this.style) : null;
       m.userData.entry = null;
       if (STYLES[this.style].edges) {
-        const edges = new THREE.LineSegments(edgesOf(m.geometry), new THREE.LineBasicMaterial({ color: m.userData.draw.edge, transparent: true }));
+        const edges = new THREE.LineSegments(edgesOf(m.geometry), new THREE.LineBasicMaterial({ color: m.userData.draw.edge, toneMapped: false, transparent: true }));
         edges.raycast = () => {};
         m.add(edges);
       }

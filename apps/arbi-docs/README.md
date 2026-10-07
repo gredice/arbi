@@ -2,7 +2,7 @@
 
 Next.js and Tailwind CSS site for [arbi.gredice.com](https://arbi.gredice.com). Its content is compiled from this repository at build time; the app holds no copies of documentation, models or BOM data.
 
-The site is a single static page, `public/site/index.html`, served at `/` with hash routes for the home page, systems, parts, the BOM, documents and downloads. Its shared data and three.js layer is `public/site/shared/arbi.js`. The design is the selected "Manual + Ink" direction. White manual pages use heavy rules, condensed type and booklet-style line art. Exploded views sit in full-black sections that draw the same line art inverted, with each part's role readable: charcoal core in lighter gray, white shells in off-white, bought metal in mid gray. The cover is a scroll-driven teardown.
+The site is a single static page, `public/site/index.html`, served at `/` with hash routes for the home page, systems, parts, the BOM, documents and downloads. Its shared data and three.js layer is `public/site/shared/arbi.js`. The design is the selected "Manual + Ink" direction. White manual pages use heavy rules, condensed type and booklet-style line art. Exploded views sit in full-black sections that draw the same line art inverted, with each part's role readable: charcoal core in neutral lighter gray, white shells in pure white, bought metal in mid gray. The cover is a scroll-driven teardown.
 
 ## Commands
 
