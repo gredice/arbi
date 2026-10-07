@@ -141,6 +141,8 @@ else if(part=="bolt-M2p5x20-reference") bolt(2.5,20);
 else if(part=="bolt-M1p6x6-reference") bolt(1.6,6);
 else if(part=="bolt-M2x10-reference") bolt(2,10);
 else if(part=="bolt-M2x12-reference") bolt(2,12);
+else if(part=="bolt-M2x18-reference") bolt(2,18);
+else if(part=="bolt-M2x25-reference") bolt(2,25);
 else if(part=="bolt-M3x12-reference") bolt(3,12);
 else if(part=="bolt-M3x35-reference") bolt(3,35);
 else if(part=="nut-M1p6-reference") nut(1.6);

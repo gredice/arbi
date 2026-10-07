@@ -6,6 +6,8 @@ CAD-only inspection of the **r0.1.0 payload bench mount set** with the unchanged
 
 [Machine-readable results](payload-geometry-check.json) record intersections, source hashes, service paths, tool envelopes, optical checks and calculated solid volume. [Mount interfaces](payload-mounts.md) record the provisional dimensions and required quantities. The downloadable pack contains the full mesh and figure manifests.
 
+This is a preserved historical record. Current canonical deck/yoke and integration scripts have advanced for the [enclosure proposal](payload-enclosure.md); those later sources are not the revisions inspected here. Use the r0.1.0 source snapshots in the [28 September pack](../../../docs/assemblies/camera-pod/booklet/README.md) when comparing or reproducing this record. Current enclosure evidence is recorded separately.
+
 ## Results
 
 | Check | Result |
@@ -45,6 +47,8 @@ The complete printed assembly, including the original spider and removable cover
 The neutral assembled bounds including nominal hardware are approximately **169.08 × 169.08 × 126.02 mm**. The old `camera-pod-envelope` is a legacy reservation in a different layout convention; it is not treated as proof that this new bench assembly fits the former reserved zones. Dock and line integration remain open.
 
 ## Repeat
+
+The following commands describe the original dry bench pipeline invocation. Run it against the historical source snapshot to reproduce the recorded configuration; running current sources instead evaluates later revisions and must produce a separately identified record.
 
 ```bash
 python3 scripts/payload-booklet/build.py --output hardware/generated/payload-booklet

@@ -6,6 +6,10 @@ import json,math
 import numpy as np
 ROOT=Path(__file__).resolve().parents[1]
 BLUE=(.26,.60,.80);GRAY=(.72,.76,.80);GREEN=(.19,.48,.33);DARK=(.22,.26,.31);GOLD=(.78,.65,.30)
+WHITE=(.92,.93,.94);BLACK=(.10,.11,.13)
+CONFIG=json.loads((ROOT/'configuration.json').read_text()) if (ROOT/'configuration.json').exists() else {'variant':'bench'}
+ENCLOSURE=CONFIG['variant']=='enclosure'
+ARTIFACT='ARBI-payload-enclosure' if ENCLOSURE else 'ARBI-payload'
 
 def T(x=0,y=0,z=0):
  m=np.eye(4);m[:3,3]=[x,y,z];return m
@@ -17,7 +21,8 @@ def R(axis,deg):
  if axis=='z':m[:3,:3]=[[c,-s,0],[s,c,0],[0,0,1]]
  return m
 
-def assembly(pan=0,tilt=0,cover=True,hardware=True):
+def assembly(pan=0,tilt=0,cover=True,hardware=True,enclosure=None):
+ if enclosure is None:enclosure=ENCLOSURE
  manifest=json.loads((ROOT/'mesh-manifest.json').read_text());byid={e['model_id'] if 'model_id' in e else e['id']:e for e in manifest}
  parts=[]
  P=R('z',pan);Q=P@T(0,0,-59)@R('x',tilt)@T(0,0,59)
@@ -26,8 +31,8 @@ def assembly(pan=0,tilt=0,cover=True,hardware=True):
   # Exporter stores its rigid source->STL transform; undo it before assembly.
   back=np.linalg.inv(np.array(e.get('export_matrix',T(*e.get('export_translation_mm',[0,0,0])))))
   parent={'fixed':np.eye(4),'pan':P,'tilt':Q}[group]
-  parts.append({'name':name,'model':model,'file':e['file'],'matrix':(parent@mat@back).tolist(),'group':group,'color':color})
- add('spider','camera-pod-spider')
+  parts.append({'name':name,'model':model,'file':e['file'],'matrix':(parent@mat@back).tolist(),'group':group,'color':BLACK if enclosure and model.startswith('payload-') else color})
+ add('spider','camera-pod-spider',color=BLACK if enclosure else BLUE)
  add('deck','payload-electronics-deck')
  u=22/math.sqrt(2)
  for i,(x,y) in enumerate([(x,y) for x in [-u,u] for y in [-u,u]]):add(f'spider-spacer-{i}','payload-spider-spacer',T(x,y,3.5))
@@ -39,7 +44,16 @@ def assembly(pan=0,tilt=0,cover=True,hardware=True):
  add('pan-horn-retainer','payload-horn-retainer',T(0,0,-27.2),group='pan')
  H=T(-21.8,0,-59)@R('y',-90)
  add('tilt-horn-retainer','payload-horn-retainer',H,group='tilt')
- if cover:add('electronics-cover','payload-electronics-cover',T(0,0,46)@R('x',180))
+ if enclosure:
+  add('enclosure-base','payload-enclosure-base')
+  add('pan-fairing','payload-pan-fairing')
+  add('tilt-servo-boot','payload-tilt-servo-boot',group='pan')
+  add('camera-cowl','payload-camera-cowl',group='tilt',color=WHITE)
+  parts[-1]['color']=WHITE
+  if cover:
+   add('rain-hood','payload-rain-hood',color=WHITE)
+   parts[-1]['color']=WHITE
+ elif cover:add('electronics-cover','payload-electronics-cover',T(0,0,46)@R('x',180))
  add('pi','raspberry-pi-3a-plus-reference',T(-37,0,30.5),color=GREEN)
  add('converter','buck-converter-UNVERIFIED',T(40,0,22.5),color=GREEN)
  add('capacitor','capacitor-1000uf-UNVERIFIED',T(48,26,23.5),color=DARK)
@@ -81,10 +95,11 @@ def assembly(pan=0,tilt=0,cover=True,hardware=True):
   hw(f'tilt-retainer-bottom-washer-{i}','washer-M2-reference',H@T(0,y,-4.3),'tilt')
   hw(f'tilt-retainer-nut-{i}','nut-M2-reference',H@T(0,y,-5.9),'tilt')
  for i,(x,y) in enumerate([(x,y) for x in [-10.5,10.5] for y in [4.931,-7.569]]):
-  hw(f'camera-bolt-{i}','bolt-M2x12-reference',T(x,y,-66.82), 'tilt')
+  hw(f'camera-bolt-{i}','bolt-M2x18-reference' if enclosure else 'bolt-M2x12-reference',T(x,y,-66.82), 'tilt')
   hw(f'camera-front-washer-{i}','washer-M2-reference',T(x,y,-66.82),'tilt')
   hw(f'camera-back-washer-{i}','washer-M2-reference',T(x,y,-57.5),'tilt')
   hw(f'camera-nut-{i}','nut-M2-reference',T(x,y,-57.2),'tilt')
+  if enclosure:hw(f'camera-cowl-nut-{i}','nut-M2-reference',T(x,y,-52.2),'tilt')
  for i,y in enumerate([-7,7]):
   hw(f'pivot-support-bolt-{i}','bolt-M2x12-reference',T(23,y,-26.9)@R('x',180),'pan')
   hw(f'pivot-support-top-washer-{i}','washer-M2-reference',T(23,y,-27.2),'pan')
@@ -94,10 +109,25 @@ def assembly(pan=0,tilt=0,cover=True,hardware=True):
  hw('pivot-outer-washer','washer-M3-reference',T(25,0,-59)@R('y',90),'pan')
  hw('pivot-gap-shim','washer-M3x0p7-reference',T(21.3,0,-59)@R('y',90),'pan')
  hw('pivot-nut','nut-M3-reference',T(15.6,0,-59)@R('y',90),'tilt')
+ if enclosure:
+  for i,y in enumerate([-10,10]):
+   hw(f'boot-bolt-{i}','bolt-M2x8-reference',T(-29.3,y,-35)@R('y',90),'pan')
+   hw(f'boot-washer-{i}','washer-M2-reference',T(-29.3,y,-35)@R('y',90),'pan')
+   hw(f'boot-nut-{i}','nut-M2-reference',T(-24,y,-35)@R('y',90),'pan')
+ if enclosure:
+  for i,(x,y) in enumerate([(-40,0),(40,0),(0,-36),(0,36)]):
+   hw(f'fairing-bolt-{i}','bolt-M2x25-reference',T(x,y,-7.8))
+   hw(f'fairing-washer-{i}','washer-M2-reference',T(x,y,-7.8))
+   hw(f'fairing-nut-{i}','nut-M2-reference',T(x,y,14.4))
  if cover:
   for i,(x,y) in enumerate([(x,y) for x in [-72,65] for y in [-32,32]]):
-   hw(f'cover-bolt-{i}','bolt-M3x35-reference',T(x,y,46.5)@R('x',180))
-   hw(f'cover-top-washer-{i}','washer-M3-reference',T(x,y,46))
-   hw(f'cover-bottom-washer-{i}','washer-M3-reference',T(x,y,17))
-   hw(f'cover-nut-{i}','nut-M3-reference',T(x,y,14.6))
+   if enclosure:
+    hw(f'cover-bolt-{i}','bolt-M3x35-reference',T(x,y,12.7))
+    hw(f'cover-bottom-washer-{i}','washer-M3-reference',T(x,y,12.7))
+    hw(f'cover-nut-{i}','nut-M3-reference',T(x,y,44))
+   else:
+    hw(f'cover-bolt-{i}','bolt-M3x35-reference',T(x,y,46.5)@R('x',180))
+    hw(f'cover-top-washer-{i}','washer-M3-reference',T(x,y,46))
+    hw(f'cover-bottom-washer-{i}','washer-M3-reference',T(x,y,17))
+    hw(f'cover-nut-{i}','nut-M3-reference',T(x,y,14.6))
  return parts

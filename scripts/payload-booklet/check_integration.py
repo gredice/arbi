@@ -4,7 +4,7 @@ import argparse,json,hashlib,itertools,time
 import numpy as np
 import trimesh
 import manifold3d as mf
-from integration import assembly,ROOT
+from integration import assembly,ROOT,CONFIG,ENCLOSURE
 
 EPS_VOLUME=.005 # mm^3; numeric contact tolerance, not a design clearance
 cache={}
@@ -36,9 +36,9 @@ def main():
     zero=assembly();bad=paircheck(zero)
     print('Neutral pose collisions:',len(bad),flush=True)
     for b in bad:print(b,flush=True)
-    report={'configuration':'payload mount set r0.1.0; declared nominal hardware only','units':'mm','neutral_collisions':bad,
-      'intersection_tolerance_mm3':EPS_VOLUME,'intended_exclusions':['servo-shaft / stock-horn spline engagement'],
-      'source_hashes':{str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in [ROOT/'source/integration.py',ROOT/'source/check_integration.py',ROOT/'source/arbi-hardware/lib/payload-mounts.scad']}}
+    report={'configuration':CONFIG,'variant':'enclosure' if ENCLOSURE else 'bench','units':'mm','neutral_collisions':bad,
+      'intersection_tolerance_mm3':EPS_VOLUME,'intended_exclusions':['servo-shaft / stock-horn spline engagement','OEM servo-centre screw / servo threaded engagement'],
+      'source_hashes':{str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in [ROOT/'source/integration.py',ROOT/'source/check_integration.py',ROOT/'source/arbi-hardware/lib/payload-mounts.scad']+([ROOT/'source/arbi-hardware/lib/payload-enclosure.scad'] if ENCLOSURE else [])}}
     if not args.quick and not bad:
         fails=[];poses=0
         for pan in range(-90,91,5):
