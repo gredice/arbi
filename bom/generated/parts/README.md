@@ -69,6 +69,9 @@ One stable page per catalog part, including optional and deferred items. Usage q
 | [Four-winch full-cover fastening and loom allowance](winch-full-cover-hardware.md) | winch-full-cover-hardware |
 | [Winch bearing/motor mount and guard](winch-mount-and-guard.md) | winch-mount-and-guard |
 | [Rigid bases, bearing spacers and fasteners for four winch mounts](winch-mount-hardware.md) | winch-mount-hardware |
+| [Round timber-pole machined metal saddle kit](winch-round-pole-adapter.md) | winch-round-pole-adapter |
+| [Round-pole nut covers and cable guide kit](winch-round-pole-covers.md) | winch-round-pole-covers |
+| [One-winch round-pole fastening allowance](winch-round-pole-hardware.md) | winch-round-pole-hardware |
 | [3.3 V RS485 transceiver module for wind sensor](wind-sensor-rs485-transceiver.md) | wind-sensor-rs485-transceiver |
 | [RS485/Modbus wind-speed sensor](wind-speed-sensor.md) | wind-speed-sensor |
 | [3 mm wire-rope clamp](wire-rope-clamp-3mm.md) | wire-rope-clamp-3mm |

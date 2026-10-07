@@ -61,6 +61,7 @@ jobs:
               - 'scripts/payload-booklet/**'
               - 'scripts/check-booklet.py'
               - 'scripts/check-winch-cover-meshes.py'
+              - 'scripts/check-winch-pole-meshes.py'
               - 'docs/project/industrial-design.md'
               - '.github/workflows/booklets.yml'
               - '.github/workflows/ci.yml'

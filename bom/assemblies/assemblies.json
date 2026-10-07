@@ -199,6 +199,24 @@
           "partId": "winch-full-cover-hardware",
           "quantity": "1",
           "inclusion": "base"
+        },
+        {
+          "partId": "winch-round-pole-adapter",
+          "quantity": "4",
+          "inclusion": "optional",
+          "note": "Round timber alternative for four winches; replaces flat-post spacer/backing/bolt allowances, not an additional structural stack."
+        },
+        {
+          "partId": "winch-round-pole-covers",
+          "quantity": "4",
+          "inclusion": "optional",
+          "note": "Round timber alternative for four winches; replaces flat-post spacer/backing/bolt allowances, not an additional structural stack."
+        },
+        {
+          "partId": "winch-round-pole-hardware",
+          "quantity": "4",
+          "inclusion": "optional",
+          "note": "Round timber alternative for four winches; replaces flat-post spacer/backing/bolt allowances, not an additional structural stack."
         }
       ],
       "documentation": "docs/assemblies/winch/README.md"

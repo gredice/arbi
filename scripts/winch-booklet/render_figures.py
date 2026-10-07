@@ -27,7 +27,7 @@ DR=T(z=80)@R('y',90)@R('z',180)
 
 def A(name,m=None):
     # Role color is stable in installed, exploded and inventory views.
-    c=WHITE if name=='coupling-guard' or (name.startswith('cover-') and name not in ['cover-clip','cover-cable-anchor']) else CORE
+    c=WHITE if name in ['coupling-guard','pole-nut-cover','pole-nut-cover-bottom'] or (name.startswith('cover-') and name not in ['cover-clip','cover-cable-anchor']) else CORE
     return {'file':'models/arbi/'+outputs['winch-'+name],'matrix':(np.eye(4) if m is None else m).tolist(),'color':c}
 def H(name,m=None,c=STEEL):return {'file':f'models/reference/{name}.stl','matrix':(np.eye(4) if m is None else m).tolist(),'color':c}
 def transform(items,m):
@@ -81,6 +81,11 @@ def supports(caps=True,cap_lift=0,motor=True,bolts=False):
         for x in [-5.5,W+37.5]:out.append(A('bearing-cap',T(x,0,80.2+cap_lift)))
     if motor:out.append(A('motor-stand',T(W+93)))
     if bolts:
+        if caps:
+            for x in [-5.5,W+37.5]:
+                for y in [-18,18]:
+                    out.extend([H('bolt-M5x35',T(x,y,97)@R('x',180)),
+                        H('washer-M5',T(x,y,96)),H('nut-M5',T(x,y,67.25))])
         for x,ys in [(-21.5,[-40,40]),(W+53.5,[-40,40]),(W+113,[-44,44]),(W+155,[-44,44])]:
             for y in ys:
                 out.extend([H('bolt-M6x30',T(x,y,9.6)@R('x',180)),H('washer-M6',T(x,y,8)),
@@ -144,7 +149,8 @@ def cover_parts(explode=0,shutter_out=0,hardware=True,main=True,shutters=True,co
     for i in range(count):
         x=-46+i*pitch
         name=('left' if i==0 else 'right' if i==count-1 else
-              'transition' if POWERED and i==3 else 'middle')
+              'transition' if POWERED and i==3 else
+              'pole-middle' if POWERED and i==1 else 'middle')
         # Inverse of canonical print transform; reused meshes, no proxy shells.
         b=np.array([[0,0,1,x-(8 if i==0 else 0)],[1,0,0,-100],[0,1,0,-32+explode+i*(12 if explode else 0)],[0,0,0,1]])
         if main:out.append(A(f'cover-{variant}-{name}',b))
@@ -164,7 +170,8 @@ def cover_parts(explode=0,shutter_out=0,hardware=True,main=True,shutters=True,co
         if conceal and main:
             for sy in [-1,1]:
                 b=np.array([[1,0,0,x],[0,0,-1,98],[0,1,0,-32],[0,0,0,1]])
-                out.append(A(f'cover-{variant}-fascia',T(0,sy*(55 if explode else 0),2 if explode else 0)@np.diag([1,sy,1,1])@b))
+                name=f'cover-{variant}-'+('pole-fascia' if sy==-1 and i==(1 if POWERED else 0) else 'fascia')
+                out.append(A(name,T(0,sy*(55 if explode else 0),2 if explode else 0)@np.diag([1,sy,1,1])@b))
     if conceal and main:
         for left,number in [(True,2 if POWERED else 1),(False,3 if POWERED else 2)]:
             start=-50 if left else W/2+51
@@ -173,10 +180,10 @@ def cover_parts(explode=0,shutter_out=0,hardware=True,main=True,shutters=True,co
             for i in range(number):
                 out.append(A(f'cover-{variant}-rear-{"left" if left else "right"}',T(start+i*length,-93.2,-27.6-(50 if explode else 0))))
         out.append(A('cover-rear-blank',T(W/2-50.5,-93.2,-27.6-(50 if explode else 0))))
-    out.append(A('cover-cable-anchor',T(end-40,-60)))
+    out.append(A('cover-cable-anchor',T(W/2+42,-72)))
     if hardware:
-        for cx in [end-32,end-12]:
-            out.extend([H('bolt-M4x25',T(cx,-48,6.8)@R('x',180)),H('washer-M4',T(cx,-48,6)),H('washer-M4',T(cx,-48,-8.8)),H('nyloc-M4',T(cx,-48,-13.8))])
+        for cx in [W/2+50,W/2+70]:
+            out.extend([H('bolt-M4x25',T(cx,-60,6.8)@R('x',180)),H('washer-M4',T(cx,-60,6)),H('washer-M4',T(cx,-60,-8.8)),H('nyloc-M4',T(cx,-60,-13.8))])
     return out
 
 def covered(explode=0,shutter_out=0,main=True,shutters=True,conceal=True):
@@ -186,7 +193,26 @@ def covered(explode=0,shutter_out=0,main=True,shutters=True,conceal=True):
     out+=cover_parts(explode,shutter_out,main=main,shutters=shutters,conceal=conceal)
     out.append(H('line-'+variant+'-reference',T(6+W/2,50,130.9 if POWERED else 130.3)@R('x',-90),CORE))
     end=826 if POWERED else 496
-    for z in [50,75]:out.append(H('loom-10mm-reference',T(end-8,-48,z)@R('y',90),CORE))
+    for i in [0,1]:out.append(H('loom-'+variant+'-bottom-'+str(i),c=CORE))
+    return out
+
+
+def pole_mounted(caps=True):
+    out=[p for p in covered() if 'cover-rear-blank' not in p['file']]
+    out.append(H('pole-timber-120',T(W/2),(.48,.32,.16)))
+    out[-1]['fit']=False  # Continuing contextual pole must not shrink the winch view.
+    for y in [-60,60]:
+        out += [A('pole-front-saddle',T(W/2,y),), A('pole-rear-saddle',T(W/2,y))]
+        # Saddles are metal fabrication references; never printable substitutes.
+        out[-1]['color']=STEEL;out[-2]['color']=STEEL
+        if caps:
+            out.append(A('pole-nut-cover',T(W/2-48,y-18,-195)))
+            out.append(A('pole-nut-cover-bottom',T(W/2-44,y-20,-193)))
+        for x in [W/2-25,W/2+25]:
+            out += [H('bolt-M8x180',T(x,y,1.6)@R('x',180)),H('washer-M8',T(x,y,0)),
+                    H('washer-M8',T(x,y,-162.6)),H('nyloc-M8',T(x,y,-162.6)@R('x',180))]
+    out.append(A('pole-cable-guide',T(W/2-25,-238,-34)))
+    for y in [-233,-227]:out.append(H('pole-guide-tie-120',T(W/2,y),CORE))
     return out
 
 
@@ -304,6 +330,8 @@ def main():
     render('cover-base-drilling',[H('base-plate-passive-covered')],direction=(0,0,1),up=(0,1,0),size=(1800,750))
     render('cover-concealment-rear',covered(),direction=(.25,-.6,-1),up=(0,1,0),size=(1500,900))
     render('cover-rear-ports',covered(),direction=(1,-.3,.35),up=(0,1,0),size=(1300,900))
+    render('round-pole-installed',pole_mounted(),direction=(.45,-.25,1),up=(0,1,0),size=(1800,1300))
+    render('round-pole-rear-open',pole_mounted(caps=False),direction=(.6,.25,-1),up=(0,1,0),size=(1800,1300))
     POWERED=True;W=570.3
     render('cover-powered-installed',covered(),direction=(.25,1,.65),up=(0,1,0),size=(2000,900))
     render('cover-powered-exploded',covered(explode=190,shutter_out=90),direction=(.3,1,.7),up=(0,1,0),size=(2000,1100))

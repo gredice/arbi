@@ -720,7 +720,7 @@
         },
         {
             "id": "winch-cover-passive-left",
-            "revision": "0.2.0",
+            "revision": "0.3.0",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
             "bomPartIds": [
@@ -728,7 +728,7 @@
             ],
             "assembly": "winch",
             "entrypoint": "hardware/assemblies/winch/winch-cover-passive-left.scad",
-            "output": "winch-cover-passive-left-r0.2.0.stl",
+            "output": "winch-cover-passive-left-r0.3.0.stl",
             "documentation": "hardware/assemblies/winch/README.md",
             "description": "Passive full-winch shell left panel; axial seam on print bed."
         },
@@ -748,7 +748,7 @@
         },
         {
             "id": "winch-cover-passive-right",
-            "revision": "0.2.0",
+            "revision": "0.3.0",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
             "bomPartIds": [
@@ -756,7 +756,7 @@
             ],
             "assembly": "winch",
             "entrypoint": "hardware/assemblies/winch/winch-cover-passive-right.scad",
-            "output": "winch-cover-passive-right-r0.2.0.stl",
+            "output": "winch-cover-passive-right-r0.3.0.stl",
             "documentation": "hardware/assemblies/winch/README.md",
             "description": "Passive full-winch shell right panel; axial seam on print bed."
         },
@@ -804,7 +804,7 @@
         },
         {
             "id": "winch-cover-powered-right",
-            "revision": "0.2.0",
+            "revision": "0.3.0",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
             "bomPartIds": [
@@ -812,7 +812,7 @@
             ],
             "assembly": "winch",
             "entrypoint": "hardware/assemblies/winch/winch-cover-powered-right.scad",
-            "output": "winch-cover-powered-right-r0.2.0.stl",
+            "output": "winch-cover-powered-right-r0.3.0.stl",
             "documentation": "hardware/assemblies/winch/README.md",
             "description": "Powered full-winch shell right panel; axial seam on print bed."
         },
@@ -846,13 +846,13 @@
         },
         {
             "id": "winch-cover-assembly",
-            "revision": "0.2.0",
+            "revision": "0.3.0",
             "status": "concept-unvalidated",
             "artifactRole": "reference",
             "bomPartIds": [],
             "assembly": "winch",
             "entrypoint": "hardware/assemblies/winch/winch-cover-assembly.scad",
-            "output": "winch-cover-assembly-r0.2.0.csg",
+            "output": "winch-cover-assembly-r0.3.0.csg",
             "documentation": "hardware/assemblies/winch/README.md",
             "description": "Modular passive/powered assembly cover reference; existing drivetrain retained, added base holes."
         },
@@ -981,6 +981,130 @@
             "output": "winch-cover-rear-blank-r0.1.0.stl",
             "documentation": "hardware/assemblies/winch/README.md",
             "description": "Removable rear hardware shield; remove after fascia. The common blank is for bench use and must be omitted for post mounting."
+        },
+        {
+            "id": "winch-pole-front-saddle",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "winch-round-pole-adapter"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-pole-front-saddle.scad",
+            "output": "winch-pole-front-saddle-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Machined metal front saddle for a nominal 120 mm round timber pole; two per winch, not printable hardware."
+        },
+        {
+            "id": "winch-pole-rear-saddle",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "winch-round-pole-adapter"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-pole-rear-saddle.scad",
+            "output": "winch-pole-rear-saddle-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Machined metal rear saddle with nut-cover rails; two per winch, not printable hardware."
+        },
+        {
+            "id": "winch-pole-nut-cover",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "winch-round-pole-covers"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-pole-nut-cover.scad",
+            "output": "winch-pole-nut-cover-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Removable white cover over one round-pole rear saddle and its two M8 nuts; two per winch."
+        },
+        {
+            "id": "winch-pole-nut-cover-bottom",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "winch-round-pole-covers"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-pole-nut-cover-bottom.scad",
+            "output": "winch-pole-nut-cover-bottom-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Snug removable underside closure for one round-pole nut cover; two per winch, retention requires physical tests."
+        },
+        {
+            "id": "winch-pole-cable-guide",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "winch-round-pole-covers"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-pole-cable-guide.scad",
+            "output": "winch-pole-cable-guide-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Non-structural two-loom guide tied to a round pole below the winch."
+        },
+        {
+            "id": "winch-cover-powered-pole-middle",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "winch-full-cover"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-cover-powered-pole-middle.scad",
+            "output": "winch-cover-powered-pole-middle-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Powered index-1 main panel with bottom stationary-loom exits; index 2 uses the unchanged plain middle."
+        },
+        {
+            "id": "winch-cover-passive-pole-fascia",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "winch-full-cover"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-cover-passive-pole-fascia.scad",
+            "output": "winch-cover-passive-pole-fascia-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Passive lower fascia at index 0 with two bottom loom apertures; replace one plain fascia."
+        },
+        {
+            "id": "winch-cover-powered-pole-fascia",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "winch-full-cover"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-cover-powered-pole-fascia.scad",
+            "output": "winch-cover-powered-pole-fascia-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Powered lower fascia at index 1 with two bottom loom apertures; replace one plain fascia."
+        },
+        {
+            "id": "winch-pole-assembly",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "reference",
+            "bomPartIds": [],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-pole-assembly.scad",
+            "output": "winch-pole-assembly-r0.1.0.csg",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Covered winch on round timber with metal saddles, rear nut covers and bottom cable guide; nominal reference only."
         }
     ]
 }
