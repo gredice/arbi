@@ -1,0 +1,9 @@
+{
+  "version": "arbi-authorization/1.0",
+  "viewer": ["state.read", "live.view", "still.read", "history.read"],
+  "operator": ["state.read", "live.view", "still.read", "history.read", "capture.request", "manipulation.request"],
+  "engineer": ["state.read", "live.view", "still.read", "history.read", "diagnostics.read", "configuration.read", "configuration.write", "audit.read", "audit.export"],
+  "update-admin": ["state.read", "live.view", "still.read", "history.read", "configuration.read", "update.request", "artifact.read", "audit.read", "audit.export"],
+  "service": ["state.read", "capture.request", "artifact.read"],
+  "disabled": ["recording.create", "recording.read", "recording.export", "recording.delete"]
+}
