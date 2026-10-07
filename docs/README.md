@@ -60,6 +60,7 @@ The committed material is a **design baseline**, not proof of a built or safe in
 - [Audit 1.0 vocabulary, privacy and evidence semantics](software/audit-events.md)
 - [Release/update 1.0 manifests, mixed-version paths and pure recovery reference](software/release-updates.md)
 - [Device enrollment, inventory and credential lifecycle with isolated PostgreSQL evidence](software/device-enrollment.md)
+- [Image metadata, private Blob direct grants, lifecycle cleanup and isolated PostgreSQL/HTTP evidence](software/image-storage.md)
 
 ## Evidence language
 
