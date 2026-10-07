@@ -48,7 +48,10 @@ def build():
         'repository': 'https://github.com/gredice/arbi',
         'base_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=REPO, text=True).strip(),
         'note': 'Source hashes identify the exact build inputs; base commit may precede uncommitted revisions.',
-        'cover_revision': '0.1.1', 'booklet_revision': 3,
+        'cover_revision': '0.1.1', 'booklet_revision': 4,
+        'source_hashes': {str(p.relative_to(root)): hashlib.sha256(p.read_bytes()).hexdigest()
+            for p in sorted((root / 'source').rglob('*'))
+            if p.is_file() and '__pycache__' not in p.parts},
     }
     (root / 'source-provenance.json').write_text(json.dumps(provenance, indent=2)+'\n')
     if not args.reuse_models:

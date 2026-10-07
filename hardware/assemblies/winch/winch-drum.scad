@@ -1,4 +1,4 @@
-// ARBI winch-drum 2.1.0 — concept-unvalidated assembly reference.
+// ARBI winch-drum 0.1.1 — concept-unvalidated assembly reference.
 // Hardware shown here is context; use individual fabrication entrypoints for STL.
 include <../../lib/winch-drum.scad>
 powered = false;

@@ -1,6 +1,6 @@
 # ARBI winch — STL assembly booklet and model pack
 
-Revision 3, 27 September 2026. All dimensions are millimetres. Import the STL files into your slicer or CAD tool in **mm**; STL does not encode units.
+Revision 4, 7 October 2026. All dimensions are millimetres. Import the STL files into your slicer or CAD tool in **mm**; STL does not encode units.
 
 Open `ARBI-winch-assembly-STL.pdf` for the 14-page assembly booklet. It covers the passive-line winch, which still uses a motor: two drum sections, a nominal 340 mm shaft and a 550 × 180 × 8 mm aluminium base. The illustrations are rendered from the included STL meshes. Small fasteners are omitted from some overview views for clarity; page 14 gives the fastener quantities.
 
@@ -82,3 +82,5 @@ python3 source/build_booklet.py
 Export scripts check closed surfaces, consistent triangle winding, positive volume and one connected mesh body. All 45 supplied STL files passed those checks, and their file hashes were checked against the manifests. All PDF pages were rendered and visually reviewed. A physical assembly or load test has not been performed.
 
 To change text or layout while keeping the supplied figures, run only the final command. To revise a purchased-part approximation, edit `source/reference-parts.scad`, export the reference meshes, then rerender and rebuild. Update the illustrations and manifests together when changing model geometry or placement.
+
+Appearance: white coupling guard over a charcoal mechanical core. Fabrication geometry is unchanged in this edition. The full winch cover is separate follow-up work.

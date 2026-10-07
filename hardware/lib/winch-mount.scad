@@ -159,13 +159,13 @@ module wm_assembly(powered=false,show_drum=true,show_guard=true) {
     wm_checks() {
         w=wd_width(powered); m=wm_motor_face(powered);
         color("lightgray") wm_base(powered);
-        color("steelblue") {
+        color(ARBI_CORE) {
             translate([-5.5,0,0]) wm_bearing_assembly(false);
             translate([w+37.5,0,0]) wm_bearing_assembly(true);
             translate([m,0,0]) wm_motor_stand();
         }
         if(show_drum) translate([0,0,mount_axis_height]) rotate([0,90,0]) rotate([0,0,180]) wd_assembly(powered);
-        if(show_guard) color("teal",0.7) translate([m,0,0]) wm_guard_installed();
+        if(show_guard) color(ARBI_SHELL) translate([m,0,0]) wm_guard_installed();
         color("dimgray") translate([m,-28.5,mount_axis_height-28.5]) cube([motor_body_length,57,57]);
         color("silver") translate([m-motor_shaft_length/2,0,mount_axis_height]) wm_xhole(8,motor_shaft_length);
         echo(bearing_centers=[-5.5,w+37.5],motor_face=m,base_length=wm_base_length(powered),shaft_axis_height=mount_axis_height);

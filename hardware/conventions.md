@@ -8,6 +8,10 @@
 - Exported meshes are derived artifacts. Publish them from tagged source through CI or a GitHub release.
 - A BOM or assembly revision that depends on fit must name the compatible model revision.
 
+## Appearance
+
+Follow the [industrial design conventions](../docs/project/industrial-design.md) for shells, cores, optical surrounds and previews. Colors communicate part roles; they do not establish material or validation status.
+
 ## Units and coordinates
 
 - All dimensions are millimetres.

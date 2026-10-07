@@ -18,7 +18,7 @@ Wire evidence: [AWG26 table](../../../bom/sourcing/pod-wire-dimensions-2026-09-0
 ## Drum family
 
 The drum family now contains individual **concept-unvalidated fabrication models**
-for an X1C PLA bench prototype. [winch-drum.scad](winch-drum.scad), revision `2.1.0`,
+for an X1C PLA bench prototype. [winch-drum.scad](winch-drum.scad), revision `2.1.1`,
 is the assembly reference; all new component entrypoints are revision `0.1.0`.
 No component has been physically printed or inspected in this work. Later ASA
 parts require separate print settings, fit inspection and load/cycle evidence.
@@ -164,3 +164,7 @@ openscad -D powered=true -o /tmp/winch-drum-powered.csg hardware/assemblies/winc
 Use OpenSCAD 2021.01. Generated geometry belongs in temporary/ignored output,
 not Git. Compile and mesh checks do not establish structural capacity, termination
 retention, electrical reliability, weather life or safe operation.
+
+## Appearance previews
+
+Follow the [industrial design conventions](../../../docs/project/industrial-design.md): charcoal mechanical core and a white coupling guard. Drum reference r2.1.1 and mount reference r0.1.2 change presentation only; all fabrication dimensions remain compatible. The [booklet](../../../docs/assemblies/winch/booklet/README.md) uses the same palette. A full winch cover is subsequent design work.

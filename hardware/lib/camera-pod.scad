@@ -531,30 +531,30 @@ module camera_gimbal_optical_hood() {
 }
 
 module camera_pod_assembly(show_context = false) {
-    camera_pod_spider();
+    color(ARBI_CORE)camera_pod_spider();
 
     translate([0, 0, cp_plate_thickness / 2])
-        camera_pod_electronics_mount();
+        color(ARBI_CORE)camera_pod_electronics_mount();
 
     translate([0, 0, cp_plate_thickness / 2 + cp_electronics_size[2]])
-        camera_pod_docking_stud();
+        color(ARBI_CORE)camera_pod_docking_stud();
 
     for (angle = [45, 135, 225, 315])
         rotate([0, 0, angle])
             translate([cp_line_hole_radius(), 0, -cp_relief_outer_height / 2])
-                camera_pod_line_strain_relief();
+                color(ARBI_CORE)camera_pod_line_strain_relief();
 
     translate([0, 0, -cp_plate_thickness / 2])
         rotate([180, 0, 0]) {
-            camera_gimbal_base();
+            color(ARBI_CORE)camera_gimbal_base();
             translate([0, 0, cp_gimbal_flange_thickness + 1])
-                camera_gimbal_rain_cap();
+                color(ARBI_SHELL)camera_gimbal_rain_cap();
             translate([0, 0, cp_gimbal_flange_thickness + 22])
-                camera_gimbal_yoke();
+                color(ARBI_CORE)camera_gimbal_yoke();
             translate([0, 0, cp_gimbal_flange_thickness + 50])
-                camera_gimbal_camera_plate();
+                color(ARBI_CORE)camera_gimbal_camera_plate();
             translate([0, 0, cp_gimbal_flange_thickness + 53])
-                camera_gimbal_optical_hood();
+                color(ARBI_SHELL)camera_gimbal_optical_hood();
         }
 
     if (show_context) {

@@ -75,7 +75,7 @@ module dock_nest(
     }
 }
 
-dock_nest(
+color(ARBI_CORE)dock_nest(
     base_size,
     base_corner_radius,
     pod_envelope,

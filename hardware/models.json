@@ -6,13 +6,13 @@
     "models": [
         {
             "id": "winch-drum",
-            "revision": "2.1.0",
+            "revision": "2.1.1",
             "status": "concept-unvalidated",
             "artifactRole": "reference",
             "bomPartIds": [],
             "assembly": "winch",
             "entrypoint": "hardware/assemblies/winch/winch-drum.scad",
-            "output": "winch-drum-r2.1.0.csg",
+            "output": "winch-drum-r2.1.1.csg",
             "documentation": "hardware/assemblies/winch/README.md",
             "description": "Segmented passive/powered drum assembly reference with contextual steel hardware."
         },
@@ -406,13 +406,13 @@
         },
         {
             "id": "winch-mount",
-            "revision": "0.1.1",
+            "revision": "0.1.2",
             "status": "concept-unvalidated",
             "artifactRole": "reference",
             "bomPartIds": [],
             "assembly": "winch",
             "entrypoint": "hardware/assemblies/winch/winch-mount.scad",
-            "output": "winch-mount-r0.1.1.csg",
+            "output": "winch-mount-r0.1.2.csg",
             "documentation": "hardware/assemblies/winch/README.md",
             "description": "Passive/powered winch bearing, drum, motor and rigid base assembly reference."
         },

@@ -7,7 +7,7 @@ import vtk
 ROOT=Path(__file__).resolve().parents[1]
 FIGS=ROOT/'figures'
 FIGS.mkdir(exist_ok=True)
-WHITE=(.88,.91,.93); BLUE=(.29,.66,.87); STEEL=(.66,.70,.73); DARK=(.24,.29,.33)
+WHITE=(.94,.94,.92); CORE=(.12,.14,.15); STEEL=(.66,.70,.73); DARK=CORE
 W=246.9
 cache={}
 manifest={}
@@ -24,7 +24,10 @@ def R(axis,angle):
     return m
 DR=T(z=80)@R('y',90)@R('z',180)
 
-def A(name,m=None,c=WHITE):return {'file':'models/arbi/'+outputs['winch-'+name],'matrix':(np.eye(4) if m is None else m).tolist(),'color':c}
+def A(name,m=None):
+    # Role color is stable in installed, exploded and inventory views.
+    c=WHITE if name=='coupling-guard' else CORE
+    return {'file':'models/arbi/'+outputs['winch-'+name],'matrix':(np.eye(4) if m is None else m).tolist(),'color':c}
 def H(name,m=None,c=STEEL):return {'file':f'models/reference/{name}.stl','matrix':(np.eye(4) if m is None else m).tolist(),'color':c}
 def transform(items,m):
     return [{**p,'matrix':(m@np.array(p['matrix'])).tolist()} for p in items]
@@ -32,12 +35,12 @@ def transform(items,m):
 def drum_parts(explode=0,clamp=True,tail=True,hardware=True,shaft=False):
     parts=[A('drum-flange',T(z=-explode)),
       A('drum-passive-1',T(z=6)),
-      A('drum-passive-2',T(z=6+W/2+explode),BLUE),
+      A('drum-passive-2',T(z=6+W/2+explode)),
       A('drum-flange-right',T(z=W+12+2*explode)@R('x',180))]
-    for i in range(3):parts.append(A('drum-alignment-pin',T(26,0,6+i*W/2-4+i*explode),BLUE))
+    for i in range(3):parts.append(A('drum-alignment-pin',T(26,0,6+i*W/2-4+i*explode)))
     if clamp:
-        for a in [0,180]:parts.append(A('drum-clamp-half',T(z=W+12+2*explode)@R('z',a),BLUE))
-    if tail:parts.append(A('drum-tail-clamp',T(-14,49,W+12+2*explode),BLUE))
+        for a in [0,180]:parts.append(A('drum-clamp-half',T(z=W+12+2*explode)@R('z',a)))
+    if tail:parts.append(A('drum-tail-clamp',T(-14,49,W+12+2*explode)))
     if hardware:
         for angle in [0,115,240]:
             x,y=39*math.cos(math.radians(angle)),39*math.sin(math.radians(angle))
@@ -73,7 +76,7 @@ def supports(caps=True,cap_lift=0,motor=True,bolts=False):
     out=[H('base-plate-passive',c=(.85,.87,.89)),A('bearing-lower',T(-5.5)),
       A('bearing-lower',T(W+37.5)@R('z',180))]
     if caps:
-        for x in [-5.5,W+37.5]:out.append(A('bearing-cap',T(x,0,80.2+cap_lift),BLUE if cap_lift else WHITE))
+        for x in [-5.5,W+37.5]:out.append(A('bearing-cap',T(x,0,80.2+cap_lift)))
     if motor:out.append(A('motor-stand',T(W+93)))
     if bolts:
         for x,ys in [(-21.5,[-40,40]),(W+53.5,[-40,40]),(W+113,[-44,44]),(W+155,[-44,44])]:
@@ -84,7 +87,7 @@ def supports(caps=True,cap_lift=0,motor=True,bolts=False):
 
 def coupling(explode=0,c=STEEL):
     m=T(W+56,0,80)@R('y',90)
-    return [H('coupling-hub',m@T(z=-explode),c),H('coupling-spider',m@T(z=8.1),BLUE),
+    return [H('coupling-hub',m@T(z=-explode),c),H('coupling-spider',m@T(z=8.1),CORE),
       H('coupling-hub',m@T(z=25+explode)@R('x',180)@R('z',60),c)]
 
 def motor_hardware():
@@ -115,7 +118,7 @@ def full(guard=False,feet=False):
     out=supports(bolts=True)+motor_hardware()+transform(drum_parts(shaft=True)+clamp_hardware(),DR)+rings()+coupling()
     out.append(H('motor-23HS40-reference',T(W+93,0,80)@R('y',90),DARK))
     if guard:
-        out.append(A('coupling-guard',T(W+85,0,80)@R('y',-90),BLUE))
+        out.append(A('coupling-guard',T(W+85,0,80)@R('y',-90)))
         out+=cover_hardware()
     if feet:
         out+=desk_feet()
@@ -126,8 +129,8 @@ def full(guard=False,feet=False):
 def desk_feet(drop=0):
     out=[]
     for y in [-60,60]:
-        out.append(A('desk-foot-short',T(98.45,y,-43-drop)@R('z',180)@T(-22,-30),BLUE))
-        out.append(A('desk-foot-long',T(148.45,y,-43-drop)@T(-22,-30),BLUE))
+        out.append(A('desk-foot-short',T(98.45,y,-43-drop)@R('z',180)@T(-22,-30)))
+        out.append(A('desk-foot-long',T(148.45,y,-43-drop)@T(-22,-30)))
     return out
 
 def polydata(file):
@@ -192,14 +195,14 @@ def main():
     render('tie-rods',transform(drum_parts(clamp=False,tail=False),R('y',90)),direction=(-.4,-1,.75),size=(1500,700))
     render('rod-hardware',[H('tie-rod-M5x280',R('y',90)),H('washer-M5',T(-12)@R('y',90)),H('nyloc-M5',T(-24)@R('y',90)),H('washer-M5',T(291)@R('y',90)),H('nyloc-M5',T(303)@R('y',90))],direction=(.15,-1,.55),size=(1600,330))
     rc=[A('drum-flange-right',R('x',180)),{**H('shaft-8x340',T(z=-310)),'fit':False}]
-    halves=[A('drum-clamp-half',T(y=15,z=18),BLUE),A('drum-clamp-half',T(y=-15,z=18)@R('z',180),BLUE)]
+    halves=[A('drum-clamp-half',T(y=15,z=18)),A('drum-clamp-half',T(y=-15,z=18)@R('z',180))]
     render('clamp-exploded',rc+halves,direction=(1,-1,.85),size=(1300,900))
     clamp=[A('drum-flange-right',R('x',180)),A('drum-clamp-half'),A('drum-clamp-half',R('z',180)),{**H('shaft-8x340',T(z=-310)),'fit':False}]
     clamp+=transform(clamp_hardware(),T(z=-W-12))
     render('clamp-complete',clamp,direction=(.9,-1,1.4),size=(1300,900))
     render('base-supports',supports(caps=False,bolts=True),direction=(.55,-1,.9),size=(1700,850))
-    p=[A('bearing-lower'),A('bearing-cap',T(z=113),BLUE),H('bearing-608',T(-3.5,0,80)@R('y',90))]
-    for y in [-18,18]:p.extend([H('nut-M5',T(-16,y,67.25),BLUE),H('bolt-M5x35',T(0,y,155)@R('x',180)),H('washer-M5',T(0,y,134))])
+    p=[A('bearing-lower'),A('bearing-cap',T(z=113)),H('bearing-608',T(-3.5,0,80)@R('y',90))]
+    for y in [-18,18]:p.extend([H('nut-M5',T(-16,y,67.25)),H('bolt-M5x35',T(0,y,155)@R('x',180)),H('washer-M5',T(0,y,134))])
     render('bearing-exploded',p,direction=(-1,-1,.7),size=(1100,900))
     moving=transform(drum_parts(shaft=True)+clamp_hardware(),DR)+rings()
     render('shaft-drop',supports(caps=False,motor=False)+transform(moving,T(z=65)),direction=(.25,-1,.55),size=(1750,900))
@@ -215,16 +218,16 @@ def main():
     render('coupling-close',close,direction=(-.3,-1,.65),size=(1400,850))
     gap_parts=[H('shaft-8x340',T(-27.1,0,80)@R('y',90)),H('motor-23HS40-reference',T(W+93,0,80)@R('y',90))]
     render('shaft-tip-gap',gap_parts,direction=(0,-1,0),size=(1200,450),fit_bounds=[[300,-8,69],[331,8,91]],anchors={'left':[312.9,0,80],'right':[317.9,0,80]})
-    tail=[A('drum-flange-right',R('x',180)),A('drum-clamp-half'),A('drum-clamp-half',R('z',180)),A('drum-tail-clamp',T(-14,49,18),BLUE)]
+    tail=[A('drum-flange-right',R('x',180)),A('drum-clamp-half'),A('drum-clamp-half',R('z',180)),A('drum-tail-clamp',T(-14,49,18))]
     for x in [-9,9]:tail.append(H('bolt-M4x25',T(x,55,41)@R('x',180)))
     render('tail-location',tail,direction=(.4,-1,1.7),size=(1100,1000))
-    render('tail-underside',[A('drum-tail-clamp',R('x',180),BLUE)],direction=(.65,-1,.9),size=(900,550))
-    route=[A('drum-flange-right',R('x',180)),A('drum-clamp-half'),A('drum-clamp-half',R('z',180)),A('drum-tail-clamp',T(86,55,6)@R('x',180),BLUE)]
+    render('tail-underside',[A('drum-tail-clamp',R('x',180))],direction=(.65,-1,.9),size=(900,550))
+    route=[A('drum-flange-right',R('x',180)),A('drum-clamp-half'),A('drum-clamp-half',R('z',180)),A('drum-tail-clamp',T(86,55,6)@R('x',180))]
     render('tail-routing',route,direction=(0,0,1),up=(0,1,0),size=(1500,950),anchors={str(i):p for i,p in enumerate([(0,72,1),(0,63,1),(22,63,1),(22,58,1),(-20,58,1),(-24,55,1),(-20,52,1),(22,52,1),(-14,49,1),(14,61,1)])})
-    guard=[A('coupling-guard',T(W+85,0,135)@R('y',-90),BLUE)]+close
+    guard=[A('coupling-guard',T(W+85,0,135)@R('y',-90))]+close
     render('guard-fit',guard,direction=(-.7,-1,.5),size=(1500,1000))
-    render('guard-underside',[A('coupling-guard',R('x',180),BLUE)],direction=(-.8,-1,.65),size=(900,650))
-    render('guard-installed',[A('coupling-guard',T(W+85,0,80)@R('y',-90),BLUE)]+close+cover_hardware(),direction=(-.65,-1,.4),size=(1350,800))
+    render('guard-underside',[A('coupling-guard',R('x',180))],direction=(-.8,-1,.65),size=(900,650))
+    render('guard-installed',[A('coupling-guard',T(W+85,0,80)@R('y',-90))]+close+cover_hardware(),direction=(-.65,-1,.4),size=(1350,800))
     render('feet-install',[H('base-plate-passive')]+desk_feet(drop=22),direction=(.4,-1,.55),size=(1800,800))
     render('feet-final',full(guard=True,feet=True),direction=(-.25,-1,.7),size=(1800,1000))
     (ROOT/'figure-manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')

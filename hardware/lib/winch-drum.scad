@@ -184,19 +184,19 @@ module wd_assembly(powered=false) {
              capacity_mm=wd_working_turns(powered)*wd_length_per_turn(powered),body_width_mm=w,
              section_height_mm=wd_section_height(powered),shaft_cut_allowance_mm=wd_shaft_length(powered),
              tie_rod_cut_allowance_mm=wd_tie_length(powered));
-        color("orange") wd_flange();
-        for(i=[0:wd_sections(powered)-1]) color(i%2==0?"gold":"orange")
+        color(ARBI_CORE) wd_flange();
+        for(i=[0:wd_sections(powered)-1]) color(ARBI_CORE)
             translate([0,0,flange_thickness+i*wd_section_height(powered)]) wd_body_section(powered,i);
-        color("orange") translate([0,0,w+2*flange_thickness]) rotate([180,0,0]) wd_flange_right();
-        for(a=[0,180]) color("slategray") translate([0,0,w+2*flange_thickness]) rotate([0,0,a]) wd_clamp_half();
-        color("slategray") translate([-14,49,w+2*flange_thickness]) wd_tail_clamp();
+        color(ARBI_CORE) translate([0,0,w+2*flange_thickness]) rotate([180,0,0]) wd_flange_right();
+        for(a=[0,180]) color(ARBI_CORE) translate([0,0,w+2*flange_thickness]) rotate([0,0,a]) wd_clamp_half();
+        color(ARBI_CORE) translate([-14,49,w+2*flange_thickness]) wd_tail_clamp();
         // Hardware is context only, not exported in fabrication entrypoints.
         color("silver",0.5) translate([0,0,-22]) cylinder(d=shaft_nominal_diameter,h=w+88,$fn=32);
         for(z=[-9,w+34]) color("dimgray") translate([0,0,z]) arbi_tube(22,8,7,facets=48);
         for(z=[-11,w+41]) color("silver") translate([0,0,z]) arbi_tube(11,8.2,2,facets=48);
         for(z=[-21,w+43]) color("silver") translate([0,0,z]) arbi_tube(20,8,10,facets=48);
         color("silver",0.5) translate([0,0,w+56]) arbi_tube(20,8,25,facets=48);
-        for(i=[0:wd_sections(powered)]) color("slategray")
+        for(i=[0:wd_sections(powered)]) color(ARBI_CORE)
             translate([26,0,flange_thickness+i*wd_section_height(powered)-alignment_pin_length/2]) wd_alignment_pin();
         for(a=tie_angles) color("silver") rotate([0,0,a]) translate([tie_radius,0,-9])
             cylinder(d=5,h=wd_tie_length(powered),$fn=16);
