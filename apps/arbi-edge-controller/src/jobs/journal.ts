@@ -102,7 +102,15 @@ export class JobJournal {
     return r;
   }
   records(id: string): JobRecord[] { return this.#db.prepare('SELECT body FROM records WHERE job_id=? ORDER BY ordinal').all(id).map(r => JSON.parse(String(r.body)) as JobRecord); }
-  active(): JobRecord[] { return this.#db.prepare('SELECT id FROM jobs').all().map(r => this.get(String(r.id))!).filter(r => !terminal(r.outcome)); }
+  active(): JobRecord[] {
+    // Select only the latest nonterminal projections; health never materializes all retained payloads.
+    return this.#db.prepare(`SELECT r.body,r.hash FROM records r
+      JOIN (SELECT job_id,max(ordinal) AS ordinal FROM records GROUP BY job_id) latest ON r.ordinal=latest.ordinal
+      WHERE json_extract(r.body,'$.outcome') IN ('requested','accepted','running')`).all().map(row => {
+      const record = JSON.parse(String(row.body)) as JobRecord;
+      if (digest(record) !== row.hash) throw new JobError('STORAGE_UNAVAILABLE'); return record;
+    });
+  }
   duplicate(c: Command): JobRecord | null {
     const id = c.command.commandId;
     const row = this.#db.prepare('SELECT id,fingerprint FROM jobs WHERE id=? OR (source=? AND key=?)').get(id, canonical(c.source), c.command.idempotencyKey);
@@ -123,8 +131,9 @@ export class JobJournal {
       const prior = this.duplicate(c); if (prior) return prior;
       if (!error) this.clock(a);
       const fp = fingerprint(c), body = canonical(c);
-      const previous = this.#db.prepare('SELECT body FROM jobs WHERE source=?').all(canonical(c.source));
-      if (!error && previous.some(row => BigInt((JSON.parse(String(row.body)) as Command).sequence) >= BigInt(c.sequence))) error = 'SEQUENCE_REPLAY';
+      const previous = this.#db.prepare(`SELECT json_extract(body,'$.sequence') AS sequence FROM jobs WHERE source=?
+        ORDER BY length(json_extract(body,'$.sequence')) DESC,json_extract(body,'$.sequence') DESC LIMIT 1`).get(canonical(c.source));
+      if (!error && previous && BigInt(String(previous.sequence)) >= BigInt(c.sequence)) error = 'SEQUENCE_REPLAY';
       if (!error && c.body.type !== 'control.stop' && (this.recoveryRequired || this.active().length > 0)) error = 'FAULT_INHIBITED';
       this.#db.prepare('INSERT INTO jobs VALUES(?,?,?,?,?,?)').run(c.command.commandId, canonical(c.source), c.command.idempotencyKey, fp, body, digest(c));
       const r: JobRecord = { command: c, fingerprint: fp, outcome: 'requested', error: null, phase: 'admitted', state: a.state, steps,
