@@ -11,7 +11,7 @@ from pypdf import PdfReader
 
 def check(root, variant):
     artifact, pages, revision, label = {
-        'winch': ('ARBI-winch', 18, 7, 'PASSIVE / COVER KIT'),
+        'winch': ('ARBI-winch', 19, 8, 'PASSIVE / COVER KIT'),
         'bench': ('ARBI-payload', 14, 4, 'MOUNT SET / BENCH EDITION'),
         'enclosure': ('ARBI-payload-enclosure', 16, 2, 'RAIN / SPLASH EDITION'),
     }[variant]

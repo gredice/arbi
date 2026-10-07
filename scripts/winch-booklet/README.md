@@ -15,7 +15,7 @@ python3 scripts/winch-booklet/build.py
 ```
 
 Outputs go to ignored `hardware/generated/booklet/`. The build copies the current
-winch CAD, scripts and fonts into a portable source snapshot, validates 62 STLs,
+winch CAD, scripts and fonts into a portable source snapshot, validates 69 STLs,
 writes hashes and part transforms, renders the figures and generates the PDF/ZIP.
 Use `--output PATH` for another build location. `--publish` updates the checked-in
 PDF and ZIP under `docs/assemblies/winch/booklet/`.
@@ -92,3 +92,5 @@ covered-base drilling references and nominal line/loom references. The PDF has
 18 pages; the pack contains 27 fabrication and 35 reference meshes. Run
 `python scripts/check-winch-cover-meshes.py hardware/generated/booklet/models/arbi`
 for the full-cover nominal checks, as well as the existing mount checker.
+
+Revision 8 adds concealed fasteners: 34 fabrication + 35 reference meshes, 19 pages. Main panels/clips r0.2.0; fascia, rear shields and optional bench blank r0.1.0. Check nominal geometry with the full-cover checker; inspect key fit physically before service.

@@ -11,7 +11,7 @@
 - Build: arbi-v1
 - Destination: hr-zagreb
 - Quote snapshot: hr-zagreb-2026-09-08-bauhaus-shaft
-- Input digest: sha256:0f5146ef8ae467101355cfd6cfaa43cef95e2e6859b2307baf3853be5b581532
+- Input digest: sha256:ec297304a795a7492f5a5aa92285480c5f0dd2170f789e521f5d87fa94631c58
 - Complete landed total: **unavailable**
 - Known quoted goods subtotal: **EUR 874.68**
 - Known checkout-group shipping subtotal: **EUR 93.72**

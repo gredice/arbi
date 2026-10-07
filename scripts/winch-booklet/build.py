@@ -37,6 +37,11 @@ def build():
             shutil.rmtree(target)
         shutil.copytree(REPO / 'hardware' / name, target)
     shutil.copy2(REPO / 'hardware/models.json', snapshot / 'models.json')
+    # Keep the installation/evidence guides beside their canonical CAD in the
+    # portable pack, including the preserved prior-revision records.
+    for pattern in ['*.md', '*.json', '*.pdf']:
+        for source in (REPO / 'hardware/assemblies/winch').glob(pattern):
+            shutil.copy2(source, snapshot / 'assemblies/winch' / source.name)
     shutil.copy2(REPO / 'LICENSE', root / 'source/LICENSE-ARBI')
     for name in ['export_arbi.py', 'export_reference.py', 'render_figures.py', 'build_booklet.py', 'reference-parts.scad', 'requirements.txt']:
         shutil.copy2(HERE / name, root / 'source' / name)
@@ -59,7 +64,7 @@ def build():
         'repository': 'https://github.com/gredice/arbi',
         'base_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=REPO, text=True).strip(),
         'note': 'Source hashes identify the exact build inputs; base commit may precede uncommitted revisions.',
-        'coupling_guard_revision': '0.1.1', 'full_cover_revision': '0.1.0', 'booklet_revision': 7,
+        'coupling_guard_revision': '0.1.1', 'full_cover_revision': '0.2.0', 'booklet_revision': 8,
         'render_style': 'assembly-line-art-v1',
         'source_hashes': {str(p.relative_to(root)): hashlib.sha256(p.read_bytes()).hexdigest()
             for p in sorted((root / 'source').rglob('*'))

@@ -1,14 +1,14 @@
 # ARBI winch — STL assembly booklet and model pack
 
-Revision 6, 7 October 2026. All dimensions are millimetres. Import the STL files into your slicer or CAD tool in **mm**; STL does not encode units.
+Revision 8, 7 October 2026. All dimensions are millimetres. Import the STL files into your slicer or CAD tool in **mm**; STL does not encode units.
 
-Open `ARBI-winch-assembly-STL.pdf` for the 18-page assembly booklet. It covers the passive-line winch, which still uses a motor: two drum sections, a nominal 340 mm shaft and a 550 × 180 × 8 mm aluminium base. The illustrations are rendered from the included STL meshes. Small fasteners are omitted from some overview views for clarity; page 14 gives the fastener quantities.
+Open `ARBI-winch-assembly-STL.pdf` for the 19-page assembly booklet. It covers the passive-line winch, which still uses a motor: two drum sections, a nominal 340 mm shaft and a 550 × 180 × 8 mm aluminium base. The illustrations are rendered from the included STL meshes. Small fasteners are omitted from some overview views for clarity; page 14 gives the fastener quantities.
 
 ## Contents
 
 | Path | Contents |
 | --- | --- |
-| `models/arbi/` | 27 fabrication STLs exported from canonical ARBI OpenSCAD sources |
+| `models/arbi/` | 34 fabrication STLs exported from canonical ARBI OpenSCAD sources |
 | `models/reference/` | 35 nominal hardware, base-plate and routing reference STLs for assembly illustrations |
 | `source/arbi-hardware/` | ARBI winch CAD snapshot, model registry and existing assembly documentation |
 | `source/reference-parts.scad` | Editable reference geometry for purchased parts |
@@ -18,11 +18,11 @@ Open `ARBI-winch-assembly-STL.pdf` for the 18-page assembly booklet. It covers t
 | `figure-manifest.json` | Source STL and placement matrix for every illustrated component |
 | `source-snapshot-hashes.json` | Hashes of the bundled ARBI SCAD source files |
 
-The source snapshot is from [gredice/arbi](https://github.com/gredice/arbi). See `source-provenance.json` for the base commit and `source-snapshot-hashes.json` for exact CAD inputs. The source remains canonical. Cover revision 0.1.1 fixes the motor fastener interference; other fabrication models remain 0.1.0. ARBI source licensing is in `source/LICENSE-ARBI`; the bundled font licence is in `source/fonts/LICENSE.txt`.
+The source snapshot is from [gredice/arbi](https://github.com/gredice/arbi). See `source-provenance.json` for the base commit and `source-snapshot-hashes.json` for exact CAD inputs. The source remains canonical. Cover revision 0.1.1 fixes the motor fastener interference; main full-cover panels, shutters and clips are r0.2.0; other fabrication models remain 0.1.0. ARBI source licensing is in `source/LICENSE-ARBI`; the bundled font licence is in `source/fonts/LICENSE.txt`.
 
 ## Printable ARBI parts
 
-Every filename below is in `models/arbi/` and ends with `-r0.1.0.stl`, except the revised coupling cover, which ends with `-r0.1.1.stl`.
+Resolve current filenames from `source/arbi-hardware/models.json`: main cover panels, shutters and clips use r0.2.0, the coupling guard r0.1.1, and other prints r0.1.0.
 
 | Booklet ID | Filename stem | Quantity for one passive winch |
 | --- | --- | ---: |
@@ -80,11 +80,11 @@ python3 source/render_figures.py
 python3 source/build_booklet.py
 ```
 
-Export scripts check closed surfaces, consistent triangle winding, positive volume and one connected mesh body. All 62 supplied STL files passed those checks, and their file hashes were checked against the manifests. All PDF pages were rendered and visually reviewed. A physical assembly or load test has not been performed.
+Export scripts check closed surfaces, consistent triangle winding, positive volume and one connected mesh body. All 69 supplied STL files passed those checks, and their file hashes were checked against the manifests. All PDF pages were rendered and visually reviewed. A physical assembly or load test has not been performed.
 
 To change text or layout while keeping the supplied figures, run only the final command. To revise a purchased-part approximation, edit `source/reference-parts.scad`, export the reference meshes, then rerender and rebuild. Update the illustrations and manifests together when changing model geometry or placement.
 
-Appearance: rounded white full-cover panels and removable payout shutters over the charcoal core. Full-cover r0.1.0 requires extra base holes but no drivetrain reprints. See pages 15-18 and source/arbi-hardware/assemblies/winch/full-cover.md for passive/powered counts, fasteners, post orientation and service. Remove +Y shutters first, then lift main panels +Z from left to right; refit main panels right to left and shutters last. Physical fit, heat, weather, safe guarding and powered slip-ring/harness integration remain unverified.
+Appearance: rounded white full-cover panels and removable payout shutters over the charcoal core. Full-cover r0.2.0 requires extra base holes but no drivetrain reprints. See pages 15-19 and source/arbi-hardware/assemblies/winch/full-cover.md for passive/powered counts, fasteners, post orientation and service. Remove +Y shutters first, then lift main panels +Z from left to right; refit main panels right to left and shutters last. Physical fit, heat, weather, safe guarding and powered slip-ring/harness integration remain unverified.
 
 The base-plate-*-covered references include the additional shell/anchor holes.
 The older passive drilling template omits them. New fabrication IDs: variant
@@ -93,7 +93,7 @@ anchor. Per passive kit: 3 main panels, 2 shutters, 12 clips, 1 anchor. Per powe
 5 main panels (left, two identical middles, distinct index-3 transition, right),
 4 shutters, 20 clips, 1 anchor. The transition's payout aperture stops at X=580.3
 mm; substituting a third middle would leave the bearing/coupling wall open.
-All are r0.1.0.
+Main panels, shutters and clips are r0.2.0; cable anchor remains r0.1.0. New fascia strips, rear-left/right shields and the common bench blank are r0.1.0. Remove fascia and rear shields before any shell screw. See booklet page 19 for quantities, post opening and release sequence. Key retention requires physical testing.
 
 The near-motor CL57Y driver is not represented by the mechanical CAD or contained
 in this shell. Its protected mounting/enclosure remains corner-station electrical

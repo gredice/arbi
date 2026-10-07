@@ -6,7 +6,7 @@ Wire evidence: [AWG26 table](../../../bom/sourcing/pod-wire-dimensions-2026-09-0
 
 ## Passive-base bench aids
 
-- [Modular full assembly cover r0.1.0](full-cover.md): three main white panels
+- [Modular full assembly cover r0.2.0](full-cover.md): three main white panels
   and two payout shutters on a passive winch / five panels and four shutters on
   the powered variant. Reuse the drivetrain; drill extra base holes for clips
   and the fixed-loom anchor. See the [geometry record](full-cover-check.md).
