@@ -104,7 +104,7 @@ module top_pulley_keeper(
     }
 }
 
-top_pulley_keeper(
+color(ARBI_CORE)top_pulley_keeper(
     pulley_diameter,
     pulley_width,
     radial_clearance,

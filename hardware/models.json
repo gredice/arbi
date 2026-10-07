@@ -6,25 +6,25 @@
     "models": [
         {
             "id": "winch-drum",
-            "revision": "2.1.0",
+            "revision": "2.1.1",
             "status": "concept-unvalidated",
             "artifactRole": "reference",
             "bomPartIds": [],
             "assembly": "winch",
             "entrypoint": "hardware/assemblies/winch/winch-drum.scad",
-            "output": "winch-drum-r2.1.0.csg",
+            "output": "winch-drum-r2.1.1.csg",
             "documentation": "hardware/assemblies/winch/README.md",
             "description": "Segmented passive/powered drum assembly reference with contextual steel hardware."
         },
         {
             "id": "camera-pod-envelope",
-            "revision": "0.1.0",
+            "revision": "0.1.1",
             "status": "concept-unvalidated",
             "artifactRole": "reference",
             "bomPartIds": [],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/camera-pod-envelope.scad",
-            "output": "camera-pod-envelope-r0.1.0.csg",
+            "output": "camera-pod-envelope-r0.1.1.csg",
             "documentation": "hardware/assemblies/camera-pod/README.md",
             "description": "Non-manufacturing pod, gimbal-sweep, and docking-interface keep-out reference."
         },
@@ -156,15 +156,15 @@
         },
         {
             "id": "camera-pod-assembly",
-            "revision": "0.1.0",
+            "revision": "0.2.0",
             "status": "concept-unvalidated",
             "artifactRole": "reference",
             "bomPartIds": [],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/camera-pod-assembly.scad",
-            "output": "camera-pod-assembly-r0.1.0.csg",
+            "output": "camera-pod-assembly-r0.2.0.csg",
             "documentation": "hardware/assemblies/camera-pod/README.md",
-            "description": "Non-manufacturing stacked payload layout of chassis and gimbal printed parts."
+            "description": "Integrated rain-payload reference by default; show_legacy=true retains the historical separate concept layout."
         },
         {
             "id": "dock-funnel",
@@ -406,13 +406,13 @@
         },
         {
             "id": "winch-mount",
-            "revision": "0.1.1",
+            "revision": "0.1.2",
             "status": "concept-unvalidated",
             "artifactRole": "reference",
             "bomPartIds": [],
             "assembly": "winch",
             "entrypoint": "hardware/assemblies/winch/winch-mount.scad",
-            "output": "winch-mount-r0.1.1.csg",
+            "output": "winch-mount-r0.1.2.csg",
             "documentation": "hardware/assemblies/winch/README.md",
             "description": "Passive/powered winch bearing, drum, motor and rigid base assembly reference."
         },
@@ -572,15 +572,15 @@
         },
         {
             "id": "payload-assembly",
-            "revision": "0.1.1",
+            "revision": "0.2.0",
             "status": "concept-unvalidated",
             "artifactRole": "reference",
             "bomPartIds": [],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/payload-assembly.scad",
-            "output": "payload-assembly-r0.1.1.csg",
+            "output": "payload-assembly-r0.2.0.csg",
             "documentation": "hardware/assemblies/camera-pod/README.md",
-            "description": "Assembled printed payload mount reference with articulated pan and tilt. Not a fabrication STL."
+            "description": "Integrated rain-payload reference by default; show_enclosure=false selects the separate dry bench kit. Not a fabrication STL."
         },
         {
             "id": "payload-tilt-pivot-support",
@@ -668,13 +668,13 @@
         },
         {
             "id": "payload-rain-assembly",
-            "revision": "0.1.0",
+            "revision": "0.1.1",
             "status": "concept-unvalidated",
             "artifactRole": "reference",
             "bomPartIds": [],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/payload-rain-assembly.scad",
-            "output": "payload-rain-assembly-r0.1.0.csg",
+            "output": "payload-rain-assembly-r0.1.1.csg",
             "documentation": "hardware/assemblies/camera-pod/README.md",
             "description": "Non-manufacturing black/white enclosure assembly reference using revised deck/yoke; no physical rain, fit or mass validation."
         }

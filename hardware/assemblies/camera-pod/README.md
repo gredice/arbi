@@ -5,11 +5,11 @@ Shared parameters live in [the camera-pod library](../../lib/camera-pod.scad).
 
 The camera-pod and payload families contain individual **concept-unvalidated fabrication models** and non-manufacturing CSG references. No committed record demonstrates printed mass or fit to the purchased Pi, camera, servos, converter, or line hardware. ASA remains the preferred exposed-release material; PETG is acceptable only for prototypes pending creep and weather evidence.
 
-## Print list
+## Historical camera-pod print list
 
 One BOM `camera-pod-chassis` plus one `camera-gimbal` means one flying-pod printed kit.
 
-The print list below describes the camera-pod concept family. The alternative [payload bench mount set](payload-mounts.md) shares the spider but uses its own electronics and gimbal mounts; follow that set's quantities when building the bench arrangement. The BOM source lists retain both families for traceability and do not require printing both. Neither arrangement has demonstrated the complete flying mass limit.
+The preferred public appearance is the [integrated payload enclosure](payload-enclosure.md), following the [design conventions](../../../docs/project/industrial-design.md). Use its configuration table for the current enclosed print kit. The print list below describes the historical camera-pod concept family. The alternative [payload bench mount set](payload-mounts.md) shares the spider but uses its own electronics and gimbal mounts; follow that set's quantities when building the bench arrangement. The BOM source lists retain both families for traceability and do not require printing both. Neither arrangement has demonstrated the complete flying mass limit.
 
 | Source | Per pod | Role |
 | --- | ---: | --- |
@@ -29,7 +29,7 @@ The print list below describes the camera-pod concept family. The alternative [p
 
 Z points toward the dock. The spider is centred on the line plane at Z=0. The electronics mount and docking stud stack on +Z of the hub; the gimbal hangs on -Z. The shared M4 clearance bolt circle is 22 mm radius at 45°, matching spider 0.1.0. Sandwich thickness through electronics (3 mm), spider (7 mm) and gimbal flange (3 mm) is 13 mm, or 17 mm with the 4 mm stud flange; M4 through-screws and metal nuts are the starting fastener assumption. No threads rely on plastic.
 
-Printable parts use Z=0 as the bed plane except the spider, which remains centred as in revision 0.1.0. The assembly reference rotates the gimbal group 180° about X so the pan servo hangs downward. Set `show_context=true` in [camera-pod-assembly.scad](camera-pod-assembly.scad) to ghost a Pi board outline; that box is not a measured keep-out.
+Printable parts use Z=0 as the bed plane except the spider, which remains centred as in revision 0.1.0. The assembly reference rotates the gimbal group 180° about X so the pan servo hangs downward. Set `show_legacy=true` and `show_context=true` in [camera-pod-assembly.scad](camera-pod-assembly.scad) to ghost a Pi board outline; that box is not a measured keep-out.
 
 ## Starting COTS envelopes
 
@@ -53,13 +53,13 @@ Horn screw span is an 8 mm starting pattern. Servo spline index, pan/tilt hard-s
 
 [camera-pod-envelope.scad](camera-pod-envelope.scad) is a keep-out for the fixed component volume, gimbal sweep, docking interface, rear service space, and four line-termination zones. It has no BOM part ID and must not be interpreted as a pod enclosure. The cable spider remains the primary chassis. The [integrated shell proposal](payload-enclosure.md) is a bounded ordinary-rain/splash configuration whose complete mass must still satisfy the V1 target and ceiling; it does not redefine the operating weather policy.
 
-Registry ID and design revision: `camera-pod-envelope` `0.1.0`, role `reference`, status `concept-unvalidated`.
+Registry ID and design revision: `camera-pod-envelope` `0.1.1`, role `reference`, status `concept-unvalidated`.
 
 ## `camera-pod-assembly`
 
-[camera-pod-assembly.scad](camera-pod-assembly.scad) stacks the printed kit in a concept layout. It does not prove clearances, mass properties, centre of gravity, or dock capture.
+[camera-pod-assembly.scad](camera-pod-assembly.scad) defaults to the integrated enclosure. Set `show_legacy=true` to show the separate historical printed kit; `show_context` applies only to that layout. Set `show_hood=false` to expose the integrated core. Both views use the shared white-shell/black-core palette. It does not prove clearances, mass properties, centre of gravity, or dock capture.
 
-Registry ID and design revision: `camera-pod-assembly` `0.1.0`, role `reference`, status `concept-unvalidated`.
+Registry ID and design revision: `camera-pod-assembly` `0.2.0`, role `reference`, status `concept-unvalidated`.
 
 ## `camera-pod-spider`
 
@@ -71,12 +71,12 @@ Before prototype use, measure the real camera, compute, converter, gimbal, line 
 
 ## Bench mounting parts
 
-The [payload mount family](payload-mounts.md) supplies the fixed deck, spider spacers, pan mount, pan yoke, detachable tilt-pivot support, camera cradle, stock-horn retainers, optical hood and electronics cover. The deck and yoke are now r0.1.1; other dry bench parts remain r0.1.0. The [assembled reference](payload-assembly.scad) shows the current dry bench arrangement. The [booklet](../../../docs/assemblies/camera-pod/booklet/README.md) is a historical 28 September 2026 dry bench snapshot using its actual fabrication and nominal hardware meshes.
+The [payload mount family](payload-mounts.md) supplies the fixed deck, spider spacers, pan mount, pan yoke, detachable tilt-pivot support, camera cradle, stock-horn retainers, optical hood and electronics cover. The deck and yoke are now r0.1.1; other dry bench parts remain r0.1.0. The [assembled reference](payload-assembly.scad) defaults to the integrated enclosure; select `show_enclosure=false` for the current dry bench arrangement and `show_cover=false` to remove its cover. The [booklets](../../../docs/assemblies/camera-pod/booklet/README.md) publish both configurations using actual fabrication and nominal hardware meshes.
 
-All remain concept-unvalidated. The [28 September CAD checks](payload-geometry-check.md) apply to the earlier r0.1.0 dry configuration only; the actual servo and power-module dimensions, ribbon, mass and physical performance remain open. The original envelope is a legacy space reservation and is not the bounds of this bench assembly.
+All remain concept-unvalidated. The [7 October CAD checks](payload-geometry-check.md) apply to the current dry configuration with r0.1.1 deck/yoke; the actual servo and power-module dimensions, ribbon, mass and physical performance remain open. The original envelope is a legacy space reservation and is not the bounds of this bench assembly.
 
 ## Integrated rain enclosure
 
-The [enclosure configuration](payload-enclosure.md) adds `payload-rain-hood`, `payload-enclosure-base`, `payload-pan-fairing`, `payload-tilt-servo-boot` and `payload-camera-cowl`, all r0.1.0. It uses the revised deck/yoke and **replaces** `payload-electronics-cover`. The spider is unchanged. White upper/rear shells and a black tray/removable lower fairing form the selected rounded appearance. [payload-rain-assembly.scad](payload-rain-assembly.scad) is its reference CSG and must not be printed.
+The [enclosure configuration](payload-enclosure.md) adds `payload-rain-hood`, `payload-enclosure-base`, `payload-pan-fairing`, `payload-tilt-servo-boot` and `payload-camera-cowl`, all r0.1.0. It uses the revised deck/yoke and **replaces** `payload-electronics-cover`. The spider is unchanged. White upper/rear shells and a black tray/removable lower fairing form the selected rounded appearance. [payload-rain-assembly.scad](payload-rain-assembly.scad) r0.1.1 is its reference CSG and must not be printed.
 
 The enclosure document owns print counts, colour suggestions, clamp hardware, service steps, downward power/CSI/servo passages, relaxed moving cable loops and unresolved fit/rain/thermal/mass acceptance. The [7 October CAD record](payload-enclosure-check.md) and [machine-readable results](payload-enclosure-check.json) cover nominal rigid checks and the revised dry bench regression. The shell has no ingress rating; its 248.336 g full-solid PETG print calculation does not establish the 170 g complete-pod ceiling, ordinary-rain protection or flying operation.

@@ -40,7 +40,7 @@ def main():
  manifest=json.loads((ROOT/'mesh-manifest.json').read_text())
  for e in manifest:
   if e['file'].startswith('models/printable/'):
-   render('part-'+e['model_id'],[{'file':e['file'],'matrix':np.eye(4).tolist(),'color':WHITE if ENCLOSURE and e['model_id'] in ['payload-rain-hood','payload-camera-cowl'] else BLACK if ENCLOSURE else BLUE}],direction=(.45,-1,.85),size=(800,580))
+   render('part-'+e['model_id'],[{'file':e['file'],'matrix':np.eye(4).tolist(),'color':WHITE if e['model_id'] in ['payload-rain-hood','payload-camera-cowl','payload-electronics-cover'] else BLACK}],direction=(.45,-1,.85),size=(800,580))
  # Exact retained groups, with displacements only for exploded illustrations.
  fixed=[p for p in openparts if p['group']=='fixed' and p['name'] not in ['pan-servo','pi','converter','capacitor'] and not any(p['name'].startswith(q) for q in ['pi-','pan-servo-','converter-','capacitor-'])]
  def frame_ex(p):

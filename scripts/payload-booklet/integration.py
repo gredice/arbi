@@ -5,8 +5,8 @@ from pathlib import Path
 import json,math
 import numpy as np
 ROOT=Path(__file__).resolve().parents[1]
-BLUE=(.26,.60,.80);GRAY=(.72,.76,.80);GREEN=(.19,.48,.33);DARK=(.22,.26,.31);GOLD=(.78,.65,.30)
-WHITE=(.92,.93,.94);BLACK=(.10,.11,.13)
+BLUE=(.12,.14,.15);GRAY=(.66,.70,.73);GREEN=(.19,.48,.33);DARK=(.12,.14,.15);GOLD=(.78,.65,.30)
+WHITE=(.94,.94,.92);BLACK=(.12,.14,.15)
 CONFIG=json.loads((ROOT/'configuration.json').read_text()) if (ROOT/'configuration.json').exists() else {'variant':'bench'}
 ENCLOSURE=CONFIG['variant']=='enclosure'
 ARTIFACT='ARBI-payload-enclosure' if ENCLOSURE else 'ARBI-payload'
@@ -53,7 +53,7 @@ def assembly(pan=0,tilt=0,cover=True,hardware=True,enclosure=None):
   if cover:
    add('rain-hood','payload-rain-hood',color=WHITE)
    parts[-1]['color']=WHITE
- elif cover:add('electronics-cover','payload-electronics-cover',T(0,0,46)@R('x',180))
+ elif cover:add('electronics-cover','payload-electronics-cover',T(0,0,46)@R('x',180),color=(.94,.94,.92))
  add('pi','raspberry-pi-3a-plus-reference',T(-37,0,30.5),color=GREEN)
  add('converter','buck-converter-UNVERIFIED',T(40,0,22.5),color=GREEN)
  add('capacitor','capacitor-1000uf-UNVERIFIED',T(48,26,23.5),color=DARK)

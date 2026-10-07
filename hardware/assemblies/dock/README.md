@@ -15,3 +15,7 @@ Registry ID and design revision: `dock-funnel` `0.1.0`, status `concept-unvalida
 Registry ID and design revision: `dock-nest` `0.1.0`, status `concept-unvalidated`.
 
 Before prototype use, derive both models from the released pod envelope and docking-stud interfaces. Validate misalignment capture, contact forces, bounce, jam/release cases, drainage, ice/debris tolerance, latch confirmation, retention loads, and repeated approach cycles as one dock assembly.
+
+## Appearance
+
+The structural capture/retention parts preview in charcoal following the [industrial design conventions](../../../docs/project/industrial-design.md). Their dimensions and physical design revisions are unchanged. Future protective housings use the rounded white-shell convention while keeping these interfaces visible and accessible.

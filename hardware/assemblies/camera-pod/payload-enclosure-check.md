@@ -50,7 +50,7 @@ Exported solid volumes are multiplied by **1.27 g/cm³ PETG density**. This is n
 | White rear camera cowl | 1 | 2.528 | 3.210 |
 | **Complete printed configuration** | **18** | **195.540** | **248.336** |
 
-The five new shell parts total **109.185 g** and replace the unchanged dry cover's **24.157 g**, a **85.028 g increase** over the same revised core with that cover. The current dry variant calculates to **163.308 g**; the preserved [28 September record](payload-geometry-check.md) calculates approximately 164.0 g for its earlier revisions. Values above are independently rounded.
+The five new shell parts total **109.185 g** and replace the unchanged dry cover's **24.157 g**, a **85.028 g increase** over the same revised core with that cover. The current dry variant calculates to **163.308 g**; the preserved [28 September record](payload-geometry-check-2026-09-28.md) calculates approximately 164.0 g for its earlier revisions. Values above are independently rounded.
 
 **The full-solid prints alone exceed the 170 g complete-pod ceiling. This revision does not demonstrate flight-mass compliance.** The complete pod still targets 100–120 g and must be weighed with electronics, horns, fasteners, wiring, insulation and retention. The owner's earlier 103.05 g sliced result has unspecified installed quantities/support settings and is not extrapolated to the enclosure. Re-slice the chosen 18-piece kit and weigh the completed assembly.
 
@@ -64,12 +64,12 @@ The shared mounts source matches the current SHA256 below. The inspected bench e
 
 ```text
 payload-electronics-deck r0.1.1
-  42e8b8be16ed7850a83b3c55e93f7c8d66b954f3849cf6df53be45ddb32ce3e0
+  bf5fca0872add2edcd497903519474b9d2cb144caea6087be720c2bb52b250e9
 payload-pan-yoke r0.1.1
-  65f2ad78a5032aa3a263f6d9efb5d247c4698187fc697df37b9e87522845bd36
+  98c24d2c70623b8330a1170532c315eb20bb46c423d4724b61f0014722a0749b
 ```
 
-The bench checker snapshot SHA256 is `1d117ed075cf2316509f983d04eee4917bd4e1df94d6599ed41c998d0904fe03`. The later source change only expanded metadata to name the already-excluded OEM screw engagement; collision behavior is unchanged. This regression supplements the historical r0.1.0 [geometry record](payload-geometry-check.md) and [booklet](../../../docs/assemblies/camera-pod/booklet/README.md), which remain preserved.
+The current bench checker SHA256 is `a479f2757c7a7e9df097641bb0f0abfb6426eeb1f81fbe954b1c5cd9d3e3acb0`. Current source/STL hashes and results are in the [dry bench JSON](payload-geometry-check.json). The [dated historical record](payload-geometry-check-2026-09-28.md) retains the earlier r0.1.0 evidence; the [published booklets](../../../docs/assemblies/camera-pod/booklet/README.md) now use the revised kit.
 
 ## Source and mesh audit
 
@@ -81,7 +81,7 @@ hardware/lib/payload-mounts.scad
 hardware/lib/payload-enclosure.scad
   b19d4257581e7e5a7d3d42bc5129a5da677406febba4ad74acbf300bb37534ed
 scripts/payload-booklet/integration.py
-  79bfbc00c9bbdbe0f8a74fa59d5eb74476c207af0f3036678b9a16832971fa1f
+  6ac209ef141615a0c5fe3735eee3a112600f31c6d00afab9aa3c16f969ea7aa9
 scripts/payload-booklet/check_integration.py
   a479f2757c7a7e9df097641bb0f0abfb6426eeb1f81fbe954b1c5cd9d3e3acb0
 scripts/payload-booklet/check_service.py
@@ -90,7 +90,7 @@ scripts/payload-booklet/reference-parts.scad
   ee5e874c8549bd9cfe1a63f9a7f43e24769086855f7884d0c2bad390e1fab96c
 ```
 
-Full fabrication/reference STL digests are retained in [payload-enclosure-check.json](payload-enclosure-check.json). The ignored review pack contains mesh/assembly manifests and source provenance. The new PDF/ZIP, individual meshes and bulk renders remain generated outputs; the earlier dated booklet/pack remains a historical snapshot.
+Full fabrication/reference STL digests are retained in [payload-enclosure-check.json](payload-enclosure-check.json). The [published enclosure pack](../../../docs/assemblies/camera-pod/booklet/README.md) contains mesh/assembly/figure manifests and source provenance. The current PDF/ZIP are authorized reviewable snapshots. Loose meshes and bulk renders remain ignored; dated earlier evidence is retained separately.
 
 ## Repeat and remaining evidence
 

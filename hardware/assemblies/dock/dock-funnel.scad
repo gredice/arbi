@@ -79,7 +79,7 @@ module dock_funnel(
     }
 }
 
-dock_funnel(
+color(ARBI_CORE)dock_funnel(
     mouth_inner_diameter,
     throat_inner_diameter,
     wall_thickness,

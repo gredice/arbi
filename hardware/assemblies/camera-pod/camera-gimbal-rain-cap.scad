@@ -3,4 +3,4 @@
 
 include <../../lib/camera-pod.scad>
 
-camera_gimbal_rain_cap();
+color(ARBI_SHELL)camera_gimbal_rain_cap();

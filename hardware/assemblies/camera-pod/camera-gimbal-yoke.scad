@@ -3,4 +3,4 @@
 
 include <../../lib/camera-pod.scad>
 
-camera_gimbal_yoke();
+color(ARBI_CORE)camera_gimbal_yoke();

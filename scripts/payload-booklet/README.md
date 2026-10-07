@@ -18,6 +18,6 @@ The assembly definition is `integration.py`. `check_integration.py` checks nomin
 
 Servo and power-module geometry remain provisional. The full-solid printed mass is too high to demonstrate the original flying mass ceiling. The booklet is a supported bench assembly guide. Ingress, temperature, flexible-cable movement and suspended operation remain unverified.
 
-Each build records its variant in `configuration.json`, resolves STL revision filenames from the registry, and includes source/STL hashes, mesh/assembly/figure manifests and geometry/service results. Enclosure artifacts use the `ARBI-payload-enclosure` prefix; `--publish` stores separate enclosure snapshots and `payload-enclosure-check.json` without replacing the original dated bench evidence.
+Each build records its variant in `configuration.json`, resolves STL revision filenames from the registry, and includes source/STL hashes, mesh/assembly/figure manifests and geometry/service results. Enclosure artifacts use the `ARBI-payload-enclosure` prefix; `--publish` stores separate enclosure snapshots and `payload-enclosure-check.json` alongside the refreshed bench publication. Earlier r0.1.0 bench evidence is retained in dated files and its revision 2 pack remains in Git history. The current palette is documented in [industrial design conventions](../../docs/project/industrial-design.md).
 
 See [mount interfaces and quantities](../../hardware/assemblies/camera-pod/payload-mounts.md) and [geometry evidence](../../hardware/assemblies/camera-pod/payload-geometry-check.md).

@@ -83,3 +83,8 @@ module arbi_bolt_circle(
             translate([radius, 0, 0])
                 cylinder(d = hole_diameter, h = height, center = true, $fn = facets);
 }
+
+// Product appearance only; colors do not specify material or validation status.
+ARBI_SHELL = [0.94, 0.94, 0.92];
+ARBI_CORE = [0.12, 0.14, 0.15];
+ARBI_METAL = [0.66, 0.70, 0.73];

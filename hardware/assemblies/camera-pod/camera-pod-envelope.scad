@@ -1,4 +1,4 @@
-// ARBI camera pod envelope 0.1.0 — concept-unvalidated reference geometry.
+// ARBI camera pod envelope 0.1.1 — concept-unvalidated reference geometry.
 // NON-MANUFACTURING KEEP-OUT MODEL. Canonical units are millimetres.
 
 include <../../lib/arbi.scad>
@@ -34,7 +34,7 @@ module camera_pod_envelope(
     assert(line_termination_radius > fixed_component_keepout[0] / 2, "Line terminations must remain outside fixed components.");
 
     // The union intentionally represents reserved volume, not walls or printable structure.
-    color([0.2, 0.55, 0.9, 0.35])
+    color(concat(ARBI_CORE,[0.35]))
         union() {
             arbi_rounded_box(
                 fixed_component_keepout,

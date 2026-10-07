@@ -18,7 +18,7 @@ pdfmetrics.registerFontFamily('ARBI',normal='ARBI',bold='ARBI-Bold',italic='ARBI
 C=canvas.Canvas(str(OUT),pagesize=(210*mm,297*mm))
 C.setTitle('ARBI winch and drum - STL-based assembly booklet')
 C.setAuthor('ARBI / Gredice')
-BLUE=HexColor('#158dcc');INK=HexColor('#15232d');GRAY=HexColor('#53616a');LINE=HexColor('#d3dfe6')
+ROUTE=HexColor('#a8b3ba');BLUE=HexColor('#20282d');INK=HexColor('#15232d');GRAY=HexColor('#53616a');LINE=HexColor('#d3dfe6')
 STYLE=ParagraphStyle('body',fontName='ARBI',fontSize=10,leading=13,textColor=INK,spaceAfter=0)
 SMALL=ParagraphStyle('small',parent=STYLE,fontSize=8.5,leading=11)
 PAGE=0
@@ -31,7 +31,7 @@ def para(x,y,w,s,small=False,max_h=None):
     p.drawOn(C,x*mm,(297-y)*mm-h);return h/mm
 def line(x,y,x2,y2,color=LINE,width=.5):
     C.setStrokeColor(color);C.setLineWidth(width);C.line(x*mm,(297-y)*mm,x2*mm,(297-y2)*mm)
-def box(x,y,w,h,fill='#f1f8fc'):
+def box(x,y,w,h,fill='#f3f3f0'):
     C.setFillColor(HexColor(fill));C.setStrokeColor(LINE);C.setLineWidth(.5);C.roundRect(x*mm,(297-y-h)*mm,w*mm,h*mm,2*mm,fill=1,stroke=1)
 def fig(name,x,y,w,h):
     from PIL import Image
@@ -39,9 +39,9 @@ def fig(name,x,y,w,h):
     scale=min(w/iw,h/ih);ww,hh=iw*scale,ih*scale;xx=x+(w-ww)/2;yy=y+(h-hh)/2
     C.drawImage(str(path),xx*mm,(297-yy-hh)*mm,ww*mm,hh*mm)
     return xx,yy,ww,hh
-def arrow(x,y,x2,y2):
-    line(x,y,x2,y2,BLUE,1.4);a=math.atan2(y2-y,x2-x)
-    for off in [-.55,.55]:line(x2,y2,x2-3*math.cos(a+off),y2-3*math.sin(a+off),BLUE,1.4)
+def arrow(x,y,x2,y2,color=BLUE):
+    line(x,y,x2,y2,color,1.4);a=math.atan2(y2-y,x2-x)
+    for off in [-.55,.55]:line(x2,y2,x2-3*math.cos(a+off),y2-3*math.sin(a+off),color,1.4)
 def step(n,x,y,title,body,w=178):
     C.setFillColor(BLUE);C.circle((x+3.5)*mm,(297-y-3.5)*mm,3.5*mm,fill=1,stroke=0)
     text(x+2.35,y+4.65,str(n),10,True,white)
@@ -59,7 +59,7 @@ def begin(title,subtitle=''):
     text(16,35,title,20,True)
     if subtitle:para(16,39,178,subtitle,small=True,max_h=12)
     line(16,284,194,284,BLUE,.7)
-    text(16,290,'ARBI | Mechanical bench assembly | Revision 3 | 27 Sep 2026',7,color=GRAY)
+    text(16,290,'ARBI | Mechanical bench assembly | Revision 4 | 07 Oct 2026',7,color=GRAY)
     text(176,290,f'{PAGE:02d} / 14',8,True,GRAY)
 
 begin('Build the actual parts','Passive-line winch: two drum sections, 340 mm shaft, 550 x 180 mm base. The passive-line winch still has a motor.')
@@ -156,11 +156,11 @@ rect=fig('tail-routing',10,51,190,106)
 a=json.loads((ROOT/'tail-routing-anchors.json').read_text());x,y,w,h=rect
 pts=[(x+a[str(i)][0]*w,y+h-a[str(i)][1]*h) for i in range(8)]
 C.setLineJoin(1)
-for p,q in zip(pts,pts[1:]):line(*p,*q,BLUE,1.8)
-arrow(*pts[-2],*pts[-1])
+for p,q in zip(pts,pts[1:]):line(*p,*q,ROUTE,1.8)
+arrow(*pts[-2],*pts[-1],color=ROUTE)
 tl=(x+a['8'][0]*w,y+h-a['8'][1]*h);br=(x+a['9'][0]*w,y+h-a['9'][1]*h)
-C.setDash(2,2);line(tl[0],tl[1],br[0],tl[1],BLUE,.8);line(br[0],tl[1],br[0],br[1],BLUE,.8);line(br[0],br[1],tl[0],br[1],BLUE,.8);line(tl[0],br[1],tl[0],tl[1],BLUE,.8);C.setDash()
-para(16,162,178,'Route over the end margin and through the rim notch, then double back through both clamp channels. The blue overlay shows the two legs and return loop; the clamp is moved aside to show its underside.',small=True,max_h=19)
+C.setDash(2,2);line(tl[0],tl[1],br[0],tl[1],ROUTE,.8);line(br[0],tl[1],br[0],br[1],ROUTE,.8);line(br[0],br[1],tl[0],br[1],ROUTE,.8);line(tl[0],br[1],tl[0],tl[1],ROUTE,.8);C.setDash()
+para(16,162,178,'Route over the end margin and through the rim notch, then double back through both clamp channels. The silver overlay shows the two legs and return loop; the clamp is moved aside to show its underside.',small=True,max_h=19)
 para(16,184,178,'Use two M4 x 25 screws, four washers and two locknuts. Smooth the notch and channels. Keep at least <b>three reserve wraps</b> on the drum at maximum payout.',small=True,max_h=18)
 fig('tail-underside',18,207,77,53)
 para(108,218,84,'The two shallow channels on the clamp underside carry the outgoing and returning bare line. Keep the line clear of screw holes.',small=True,max_h=35)
@@ -199,7 +199,7 @@ rows=[['Location','Bolts / rods','Washers','Nuts'],
  ['Motor to stand','4, match actual motor','As required','As required'],
  ['Optional desk feet','4 x M8 x 35','8 x M8','4 x M8 lock']]
 t=Table(rows,colWidths=[56*mm,53*mm,31*mm,38*mm],rowHeights=[9*mm]+[8.5*mm]*9)
-t.setStyle(TableStyle([('FONTNAME',(0,0),(-1,0),'ARBI-Bold'),('FONTNAME',(0,1),(-1,-1),'ARBI'),('FONTSIZE',(0,0),(-1,-1),8.5),('TEXTCOLOR',(0,0),(-1,-1),INK),('BACKGROUND',(0,0),(-1,0),HexColor('#dceffa')),('ROWBACKGROUNDS',(0,1),(-1,-1),[white,HexColor('#f5f8fa')]),('VALIGN',(0,0),(-1,-1),'MIDDLE'),('LEFTPADDING',(0,0),(-1,-1),5),('LINEBELOW',(0,0),(-1,0),.7,BLUE)]))
+t.setStyle(TableStyle([('FONTNAME',(0,0),(-1,0),'ARBI-Bold'),('FONTNAME',(0,1),(-1,-1),'ARBI'),('FONTSIZE',(0,0),(-1,-1),8.5),('TEXTCOLOR',(0,0),(-1,-1),INK),('BACKGROUND',(0,0),(-1,0),HexColor('#e8e8e5')),('ROWBACKGROUNDS',(0,1),(-1,-1),[white,HexColor('#f6f6f4')]),('VALIGN',(0,0),(-1,-1),'MIDDLE'),('LEFTPADDING',(0,0),(-1,-1),5),('LINEBELOW',(0,0),(-1,0),.7,BLUE)]))
 _,h=t.wrap(178*mm,1000);t.drawOn(C,16*mm,(297-55)*mm-h)
 text(16,154,'MODEL PACK: 45 STL FILES',12,True,BLUE)
 para(16,162,178,'<b>16 ARBI fabrication meshes</b> are exported from the bundled source CAD. The coupling cover is <b>revision 0.1.1</b>; the other fabrication models remain 0.1.0. Includes both passive sections, all three powered sections, flanges, clamp parts, mounts, cover and desk feet.',small=True,max_h=19)

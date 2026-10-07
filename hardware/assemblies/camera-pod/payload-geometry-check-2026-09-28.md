@@ -1,12 +1,12 @@
-# Payload mount geometry check — 7 October 2026
+# Payload mount geometry check — 28 September 2026
 
 ## Scope and status
 
-CAD-only inspection of the **dry bench mount set with r0.1.1 deck/yoke and remaining prints r0.1.0** with the unchanged **camera-pod-spider r0.1.0**. The source is `hardware/lib/payload-mounts.scad`; the exact assembly transforms and nominal hardware are in `scripts/payload-booklet/integration.py` and `reference-parts.scad`. All fabrication models remain **concept-unvalidated**. No physical fit, powered test or suspended test is claimed.
+CAD-only inspection of the **r0.1.0 payload bench mount set** with the unchanged **camera-pod-spider r0.1.0**. The source is `hardware/lib/payload-mounts.scad`; the exact assembly transforms and nominal hardware are in `scripts/payload-booklet/integration.py` and `reference-parts.scad`. All fabrication models remain **concept-unvalidated**. No physical fit, powered test or suspended test is claimed.
 
-[Machine-readable results](payload-geometry-check.json) record intersections, source hashes, service paths, tool envelopes, optical checks and calculated solid volume. [Mount interfaces](payload-mounts.md) record the provisional dimensions and required quantities. The downloadable pack contains the full mesh and figure manifests.
+[Machine-readable results](payload-geometry-check-2026-09-28.json) record intersections, source hashes, service paths, tool envelopes, optical checks and calculated solid volume. [Mount interfaces](payload-mounts.md) record the provisional dimensions and required quantities. The downloadable pack contains the full mesh and figure manifests.
 
-This current record supersedes the [28 September r0.1.0 record](payload-geometry-check-2026-09-28.md). That dated record and its separate JSON are retained; the earlier revision 2 pack remains in Git history. The integrated enclosure has [separate evidence](payload-enclosure-check.md) and its own print list.
+This is a preserved historical record. Current canonical deck/yoke and integration scripts have advanced for the [enclosure proposal](payload-enclosure.md); those later sources are not the revisions inspected here. Use the r0.1.0 source snapshots in the [28 September pack](https://github.com/gredice/arbi/blob/3f947d7e3e4d2717fcdde587aed86e6a054650f2/docs/assemblies/camera-pod/booklet/ARBI-payload-STL-pack.zip) when comparing or reproducing this record. Current enclosure evidence is recorded separately.
 
 ## Results
 
@@ -42,13 +42,15 @@ The spline/stock-horn and OEM centre-screw/servo engagement pairs are intentiona
 
 ## Mass and envelope limitation
 
-The complete printed assembly, including the original spider and removable cover, has a calculated **163.308 g full-solid PETG mass at an assumed 1.27 g/cm³**. This excludes electronics, ties and steel hardware. It therefore **does not demonstrate the 170 g complete flying limit**. Infill changes the result, but many thin parts remain effectively solid; weigh the sliced and built configuration. Use this revision for bench fit/assembly work. A lighter chassis/cover and a complete mass/balance check are needed before suspension.
+The complete printed assembly, including the original spider and removable cover, has a calculated **164.0 g full-solid PETG mass at an assumed 1.27 g/cm³**. This excludes electronics, ties and steel hardware. It therefore **does not demonstrate the 170 g complete flying limit**. Infill changes the result, but many thin parts remain effectively solid; weigh the sliced and built configuration. Use this revision for bench fit/assembly work. A lighter chassis/cover and a complete mass/balance check are needed before suspension.
 
 The neutral assembled bounds including nominal hardware are approximately **169.08 × 169.08 × 126.02 mm**. The old `camera-pod-envelope` is a legacy reservation in a different layout convention; it is not treated as proof that this new bench assembly fits the former reserved zones. Dock and line integration remain open.
 
-## Repeat
+## Historical reproduction
 
-Run the following commands against current canonical CAD to reproduce this revised dry bench configuration. Use the separately dated source/evidence record when reproducing the earlier r0.1.0 kit.
+Use the [earlier committed tree](https://github.com/gredice/arbi/tree/3f947d7) for these commands. Running them against current main exports the revised kit instead.
+
+The following commands describe the original dry bench pipeline invocation. Run it against the historical source snapshot to reproduce the recorded configuration; running current sources instead evaluates later revisions and must produce a separately identified record.
 
 ```bash
 python3 scripts/payload-booklet/build.py --output hardware/generated/payload-booklet

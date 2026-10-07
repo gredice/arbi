@@ -3,4 +3,4 @@
 
 include <../../lib/camera-pod.scad>
 
-camera_pod_spider();
+color(ARBI_CORE)camera_pod_spider();

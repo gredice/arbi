@@ -1,5 +1,7 @@
 ![ARBI Automatic Raised Bed Imaging system over raised garden beds](docs/assets/arbi-cover.png)
 
+*Scenic concept imagery using the [selected payload design language](docs/project/industrial-design.md); not a built installation.*
+
 # ARBI
 
 The Automatic Raised Bed Imaging system, is an open engineering project for a four-cable outdoor camera robot. This GitHub repository is the sole source of truth for the project. Its committed files and Git history define the documentation, parametric OpenSCAD models, bill of materials, software, tests, and design decisions; GitHub issues and pull requests hold the corresponding work and review history.
@@ -12,6 +14,7 @@ The current material is a **concept and design baseline**. It is not evidence of
 - [Goals and V1 scope](docs/project/goals-and-v1-scope.md)
 - [System architecture](docs/system/architecture.md)
 - [Current design status](docs/project/design-status.md)
+- [Industrial design conventions](docs/project/industrial-design.md)
 - [Repository source-of-truth policy](docs/project/repository-source-of-truth.md)
 - [Hardware and OpenSCAD sources](hardware/README.md)
 - [BOM data and generated reports](bom/README.md)

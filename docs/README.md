@@ -8,6 +8,7 @@ The committed material is a **design baseline**, not proof of a built or safe in
 
 - [Goals and V1 scope](project/goals-and-v1-scope.md)
 - [Current design status](project/design-status.md)
+- [Industrial design conventions](project/industrial-design.md)
 - [System architecture](system/architecture.md)
 - [Site geometry](system/site-geometry.md)
 - [Interfaces and operating states](system/interfaces-and-operating-states.md)
@@ -45,6 +46,7 @@ The committed material is a **design baseline**, not proof of a built or safe in
 - [ADR-0004: Share contracts between hardware control and simulation](decisions/0004-simulator-boundary.md)
 - [ADR-0005: Software architecture and deployment boundaries](decisions/0005-software-architecture-and-deployment.md)
 - [ADR-0006: Local safety authority and instrumentation](decisions/0006-local-safety-authority-and-instrumentation.md)
+- [ADR-0007: Integrated product design](decisions/0007-integrated-product-design.md)
 
 ## Software evidence
 
