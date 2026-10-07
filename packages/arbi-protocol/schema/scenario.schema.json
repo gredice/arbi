@@ -1,0 +1,748 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://arbi.gredice.com/schemas/scenario/1.0/scenario.schema.json",
+  "$ref": "#/$defs/Scenario",
+  "$defs": {
+    "ScenarioUnits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "position",
+        "angle",
+        "speed",
+        "acceleration",
+        "force",
+        "time",
+        "voltage"
+      ],
+      "properties": {
+        "position": {
+          "const": "mm"
+        },
+        "angle": {
+          "const": "deg"
+        },
+        "speed": {
+          "const": "mm/s"
+        },
+        "acceleration": {
+          "const": "mm/s^2"
+        },
+        "force": {
+          "const": "N"
+        },
+        "time": {
+          "const": "ms"
+        },
+        "voltage": {
+          "const": "V"
+        }
+      }
+    },
+    "ScenarioIdentity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "protocol",
+        "configurationSchema",
+        "configurationRevision",
+        "configurationDigest",
+        "geometryRevision",
+        "calibrationRevision",
+        "siteFrame",
+        "gimbalFrame",
+        "referenceDigest"
+      ],
+      "properties": {
+        "protocol": {
+          "const": "arbi/1.0"
+        },
+        "configurationSchema": {
+          "const": "arbi.configuration/1.0"
+        },
+        "configurationRevision": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "configurationDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "geometryRevision": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "calibrationRevision": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "siteFrame": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/SiteFrame"
+        },
+        "gimbalFrame": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/GimbalFrame"
+        },
+        "referenceDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "ScenarioComponentRevision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "revision",
+        "buildId"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "revision": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "buildId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        }
+      }
+    },
+    "ScenarioProvenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "model",
+        "controller",
+        "runner",
+        "evidence",
+        "fidelity"
+      ],
+      "properties": {
+        "model": {
+          "$ref": "#/$defs/ScenarioComponentRevision"
+        },
+        "controller": {
+          "$ref": "#/$defs/ScenarioComponentRevision"
+        },
+        "runner": {
+          "$ref": "#/$defs/ScenarioComponentRevision"
+        },
+        "evidence": {
+          "const": "synthetic-host-reference"
+        },
+        "fidelity": {
+          "const": "affine-kinematic-no-dynamics"
+        }
+      }
+    },
+    "ScenarioClock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "startMs",
+        "durationMs",
+        "stepMs",
+        "ordering",
+        "sampling",
+        "normalization"
+      ],
+      "properties": {
+        "startMs": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "durationMs": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 60000
+        },
+        "stepMs": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000
+        },
+        "ordering": {
+          "const": "time-then-explicit-order"
+        },
+        "sampling": {
+          "const": "advance-events-sample"
+        },
+        "normalization": {
+          "const": "q6-floor-half-up"
+        }
+      }
+    },
+    "ScenarioInitial": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state",
+        "positionMm",
+        "panDeg",
+        "tiltDeg",
+        "cloudConnected",
+        "driverFault",
+        "powerAvailable",
+        "voltageV"
+      ],
+      "properties": {
+        "state": {
+          "enum": [
+            "Ready",
+            "Parked",
+            "Fault"
+          ]
+        },
+        "positionMm": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/VectorMm"
+        },
+        "panDeg": {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180
+        },
+        "tiltDeg": {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180
+        },
+        "cloudConnected": {
+          "type": "boolean"
+        },
+        "driverFault": {
+          "type": "boolean"
+        },
+        "powerAvailable": {
+          "type": "boolean"
+        },
+        "voltageV": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      }
+    },
+    "ScenarioGate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "receiver",
+        "actor",
+        "lease",
+        "maxDeadlineAheadMs"
+      ],
+      "properties": {
+        "source": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Identity"
+        },
+        "receiver": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Identity"
+        },
+        "actor": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Actor"
+        },
+        "lease": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "holderId",
+            "fence",
+            "expiresMonotonicMs"
+          ],
+          "properties": {
+            "id": {
+              "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+            },
+            "holderId": {
+              "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+            },
+            "fence": {
+              "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Counter"
+            },
+            "expiresMonotonicMs": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1060000
+            }
+          }
+        },
+        "maxDeadlineAheadMs": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 30000
+        }
+      }
+    },
+    "ScenarioInput": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "atMs",
+            "order",
+            "kind",
+            "message"
+          ],
+          "properties": {
+            "atMs": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1060000
+            },
+            "order": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535
+            },
+            "kind": {
+              "const": "command"
+            },
+            "message": {
+              "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Command"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "atMs",
+            "order",
+            "kind",
+            "connected"
+          ],
+          "properties": {
+            "atMs": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1060000
+            },
+            "order": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535
+            },
+            "kind": {
+              "const": "cloud"
+            },
+            "connected": {
+              "type": "boolean"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "atMs",
+            "order",
+            "kind",
+            "active"
+          ],
+          "properties": {
+            "atMs": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1060000
+            },
+            "order": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535
+            },
+            "kind": {
+              "const": "driver-fault"
+            },
+            "active": {
+              "type": "boolean"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "atMs",
+            "order",
+            "kind",
+            "available",
+            "voltageV"
+          ],
+          "properties": {
+            "atMs": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1060000
+            },
+            "order": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535
+            },
+            "kind": {
+              "const": "power"
+            },
+            "available": {
+              "type": "boolean"
+            },
+            "voltageV": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "atMs",
+            "order",
+            "kind",
+            "amplitudeV"
+          ],
+          "properties": {
+            "atMs": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1060000
+            },
+            "order": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535
+            },
+            "kind": {
+              "const": "voltage-noise"
+            },
+            "amplitudeV": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 5
+            }
+          }
+        }
+      ]
+    },
+    "ScenarioLines": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "properties": {
+        "a": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000000000000
+        },
+        "b": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000000000000
+        },
+        "c": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000000000000
+        },
+        "d": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000000000000
+        }
+      }
+    },
+    "ScenarioPositionQ6": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "x",
+        "y",
+        "z"
+      ],
+      "properties": {
+        "x": {
+          "type": "integer",
+          "minimum": -1000000000000,
+          "maximum": 1000000000000
+        },
+        "y": {
+          "type": "integer",
+          "minimum": -1000000000000,
+          "maximum": 1000000000000
+        },
+        "z": {
+          "type": "integer",
+          "minimum": -1000000000000,
+          "maximum": 1000000000000
+        }
+      }
+    },
+    "ScenarioCheckpoint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "atMs",
+        "state",
+        "positionQ6",
+        "lengthQ6"
+      ],
+      "properties": {
+        "atMs": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1060000
+        },
+        "state": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/EventBody/oneOf/2/properties/state"
+        },
+        "positionQ6": {
+          "$ref": "#/$defs/ScenarioPositionQ6"
+        },
+        "lengthQ6": {
+          "$ref": "#/$defs/ScenarioLines"
+        }
+      }
+    },
+    "ScenarioInvariantId": {
+      "enum": [
+        "within-workspace",
+        "truthful-feedback",
+        "rejected-no-dispatch",
+        "local-progress-offline",
+        "bounded-trace"
+      ]
+    },
+    "ScenarioInvariant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "passed"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/ScenarioInvariantId"
+        },
+        "passed": {
+          "type": "boolean"
+        }
+      }
+    },
+    "ScenarioExpected": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "traceDigest",
+        "invariants",
+        "checkpoints",
+        "outcomes"
+      ],
+      "properties": {
+        "traceDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "invariants": {
+          "type": "array",
+          "minItems": 5,
+          "maxItems": 5,
+          "items": {
+            "$ref": "#/$defs/ScenarioInvariant"
+          }
+        },
+        "checkpoints": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 512,
+          "items": {
+            "$ref": "#/$defs/ScenarioCheckpoint"
+          }
+        },
+        "outcomes": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 256,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "commandId",
+              "outcomes"
+            ],
+            "properties": {
+              "commandId": {
+                "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+              },
+              "outcomes": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 6,
+                "items": {
+                  "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/EventBody/oneOf/0/properties/outcome"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "ScenarioTrajectoryVector": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "startMm",
+        "targetMm",
+        "durationMs",
+        "elapsedMs",
+        "expectedPositionMm"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "startMm": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/VectorMm"
+        },
+        "targetMm": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/VectorMm"
+        },
+        "durationMs": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 60000
+        },
+        "elapsedMs": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 60000
+        },
+        "expectedPositionMm": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/VectorMm"
+        }
+      }
+    },
+    "ScenarioTransitionVector": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "current",
+        "next",
+        "expected"
+      ],
+      "properties": {
+        "current": {
+          "anyOf": [
+            {
+              "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/EventBody/oneOf/0/properties/outcome"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "next": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/EventBody/oneOf/0/properties/outcome"
+        },
+        "expected": {
+          "anyOf": [
+            {
+              "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/EventBody/oneOf/0/properties/outcome"
+            },
+            {
+              "const": "INVALID_TRANSITION"
+            }
+          ]
+        }
+      }
+    },
+    "Scenario": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "id",
+        "executionMode",
+        "identity",
+        "units",
+        "provenance",
+        "clock",
+        "seed",
+        "gate",
+        "initial",
+        "inputs",
+        "trajectories",
+        "transitions",
+        "expected"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "arbi.scenario/1.0"
+        },
+        "id": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "executionMode": {
+          "const": "simulation"
+        },
+        "identity": {
+          "$ref": "#/$defs/ScenarioIdentity"
+        },
+        "units": {
+          "$ref": "#/$defs/ScenarioUnits"
+        },
+        "provenance": {
+          "$ref": "#/$defs/ScenarioProvenance"
+        },
+        "clock": {
+          "$ref": "#/$defs/ScenarioClock"
+        },
+        "seed": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4294967295
+        },
+        "gate": {
+          "$ref": "#/$defs/ScenarioGate"
+        },
+        "initial": {
+          "$ref": "#/$defs/ScenarioInitial"
+        },
+        "inputs": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 256,
+          "items": {
+            "$ref": "#/$defs/ScenarioInput"
+          }
+        },
+        "trajectories": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 64,
+          "items": {
+            "$ref": "#/$defs/ScenarioTrajectoryVector"
+          }
+        },
+        "transitions": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 64,
+          "items": {
+            "$ref": "#/$defs/ScenarioTransitionVector"
+          }
+        },
+        "expected": {
+          "$ref": "#/$defs/ScenarioExpected"
+        }
+      }
+    }
+  }
+}

@@ -6,7 +6,15 @@ const literal = (value) => JSON.stringify(value);
 // Range, format and conditional constraints remain runtime checks, never casts.
 function type(node) {
   if (node.$ref) {
-    const path = node.$ref.split("#/$defs/")[1].split("/properties/");
+    const fragment = node.$ref.split("#/$defs/")[1];
+    // Preserve the canonical message discriminants instead of copying state/outcome enums.
+    if (fragment.includes("/oneOf/")) {
+      const [name, , index, , property] = fragment.split("/");
+      const message = JSON.parse(readFileSync(new URL("../schema/message.schema.json", import.meta.url), "utf8"));
+      const tag = message.$defs[name].oneOf[Number(index)].properties.type.const;
+      return `Extract<${name}, { type: ${literal(tag)} }>[${literal(property)}]`;
+    }
+    const path = fragment.split("/properties/");
     return path[0] + path.slice(1).map((key) => `[${literal(key)}]`).join("");
   }
   if (Object.hasOwn(node, "const")) return literal(node.const);
@@ -27,6 +35,7 @@ const bindings = [
   { schema: "audit-event", output: "audit-types", refinement: "validateAuditEvent", imports: 'import type { Actor, Counter, ErrorCode, Id, Identity, IngestTime, Realm, SourceTime } from "./messages.js";\n\n', suffix: "\n" },
   { schema: "release", output: "release-types", refinement: "validateReleaseRecord", imports: 'import type { Id, Identity, Realm } from "./messages.js";\nimport type { ConfigurationComponent, ConfigurationEvidence } from "./configuration-types.js";\n\n', suffix: "\n" },
   { schema: "update", output: "update-types", refinement: "validateUpdateRecord", imports: 'import type { Id, Identity, Realm, Actor, Counter } from "./messages.js";\nimport type { ReleaseManifest, ReleaseBuild, ReleaseDigest, ReleaseVersion } from "./release-types.js";\n\n', suffix: "\n" },
+  { schema: "scenario", output: "scenario-types", refinement: "validateScenario", imports: 'import type { Id, Identity, Actor, Counter, SiteFrame, GimbalFrame, VectorMm, Command, EventBody } from "./messages.js";\n\n', suffix: "\n" },
 ];
 for (const binding of bindings) {
   const schema = JSON.parse(readFileSync(new URL(`../schema/${binding.schema}.schema.json`, import.meta.url), "utf8"));

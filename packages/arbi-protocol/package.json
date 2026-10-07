@@ -10,7 +10,8 @@
     "./audit-schema": "./schema/audit-event.schema.json",
     "./accounting-schema": "./schema/accounting.schema.json",
     "./release-schema": "./schema/release.schema.json",
-    "./update-schema": "./schema/update.schema.json"
+    "./update-schema": "./schema/update.schema.json",
+    "./scenario-schema": "./schema/scenario.schema.json"
   },
   "scripts": {
     "generate": "node scripts/generate-types.mjs && node scripts/generate-accounting-types.mjs",

@@ -9,6 +9,7 @@ Use this guide for repository layout, toolchains, commands, package boundaries, 
 - `bom`: canonical procurement and assembly inputs plus deterministic generated reports.
 - `packages/arbi-bom`: implemented BOM schemas, calculations, generators, and tests.
 - `packages/arbi-protocol`: [implemented versioned message and configuration/calibration contracts](packages/arbi-protocol/README.md), runtime validation, consumed TypeScript bindings and reference fixtures; device adapters and physical calibration remain follow-up work.
+- `packages/arbi-simulation-core`: [implemented offline scenario runner and adapter seams](packages/arbi-simulation-core/README.md), bounded virtual time, seeded disturbances and analytical references; physical models and runtime integration remain follow-up work.
 - `packages/arbi-gredice`: [implemented signed identity, current account/site permissions and server request boundary](packages/arbi-gredice/README.md), with an isolated simulation identity provider; live Gredice provisioning and resource implementations remain separate work.
 - `apps/arbi-dashboard`: [implemented Next.js enrollment HTTP boundary](apps/arbi-dashboard/README.md), simulation-only device identity/inventory lifecycle and transactional PostgreSQL adapter; live provider setup, dashboard UI and jobs remain separate work.
 - `scripts/check-cad.mjs`: registry, source, include, and optional OpenSCAD compilation validation.
@@ -49,6 +50,7 @@ pnpm bom:check
 pnpm bom:generate
 
 pnpm protocol:check
+pnpm scenario:check
 
 pnpm cad:check
 pnpm cad:check -- --require-openscad
@@ -57,6 +59,8 @@ pnpm cad:check -- --require-openscad
 The standard Turbo commands cover implemented workspaces only. `docs:check` validates committed local Markdown link targets without network access. `bom:check` validates canonical inputs and fails if tracked reports are missing or stale without modifying them. `bom:generate` writes those deterministic reports.
 
 `protocol:check` builds the protocol package, then runs its [cross-runtime reference suite](docs/software/reference-fixtures.md) directly, including independent TypeScript, Python 3 and host C11 consumers and deliberate mismatch tests. It requires `python3` and `cc` (C11, standard math library); missing tools fail the check. After installing pinned workspace dependencies, the suite is offline and uses only committed synthetic data and temporary host binaries. `pnpm test` includes this suite too; the explicit CI command bypasses Turbo's test cache for the host toolchain checks.
+
+`scenario:check` builds protocol and simulation-core, then runs the [scenario 1.0 conformance suite](docs/software/scenarios.md) directly. Independent TypeScript and Python 3 consumers derive their own traces from identical committed fixtures, repeat each run and reject deliberate discrepancies. Python 3 is required; no provider/device credentials or network are used after dependencies are installed. `pnpm test` also includes these tests.
 
 `cad:check` always validates `hardware/models.json` against its JSON Schema, required files, relative includes, revisions, statuses, output names, and both directions of the model-to-BOM fabrication-source mapping. When OpenSCAD is installed it must match the registry's exact version, then the command compiles every registered entrypoint into a temporary directory. `--require-openscad` makes a missing CLI an error and is used in CI.
 
@@ -91,7 +95,7 @@ The following paths are reserved but should not exist until implementation begin
 - `apps/arbi-control-cabinet-firmware`: motion/safety controller target if it remains separate;
 - `packages/arbi-gredice`: implemented identity/site authorization; bed/plant target integration remains future work in this adapter;
 - `packages/arbi-control`: pure control and geometry logic when shared;
-- `packages/arbi-simulation-core`: deterministic simulated time, plant/sensor/actuator models, scenarios, and traces.
+- `packages/arbi-simulation-core`: implemented deterministic scenario slice described above; richer plant/sensor/actuator models remain separate work.
 
 The simulator and real adapters must consume the same versioned contracts and units. Simulator success cannot be used as installed-system proof.
 

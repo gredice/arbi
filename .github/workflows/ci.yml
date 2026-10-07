@@ -98,6 +98,9 @@ jobs:
       - name: Check cross-runtime reference fixtures
         run: pnpm protocol:check
 
+      - name: Check independent offline scenario consumers
+        run: pnpm scenario:check
+
       - name: Build
         run: pnpm build
 
