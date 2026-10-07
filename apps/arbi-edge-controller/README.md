@@ -44,3 +44,9 @@ git diff --check
 ```
 
 Tests require loopback listening, child processes and OpenSSL. Linux additionally requires `systemd-analyze` and the same Node version staged at the unit's declared `/usr/bin/node` path; CI provisions that path explicitly before verifying the unmodified unit. They use disposable synthetic credentials, the current configuration fixture and protocol message vectors. The [committed evidence record](../../docs/evidence/edge-runtime-prototype.md) identifies what was run and which Linux, hardware and physical gates remain unverified.
+
+## Traffic metering
+
+Optional private `metering` settings contain `spoolFile`, `maxRecords`, `maxBytes`, `maxPages` and `linuxLoopback`. Omission is explicitly `not-configured`; there is no implicit production path. Place the file in the service's private `StateDirectory=arbi-edge` when configured. The synthetic `--simulate` consumer uses temporary edge and pod SQLite files, 2,048 records/16 MiB reserved bytes/1,024 pages each, and deletes them only on fixture disposal. These starting budgets are not qualified selected-host capacity.
+
+Authenticated module socket frames are tapped through [@arbi/traffic](../../packages/arbi-traffic/README.md); the simulated pod exercises the same library. Current endpoints and optional five-second Linux `lo` counter collection remain LAN-only. Health exposes partial application coverage, unknown UTC uncertainty, unavailable garden WAN/provider counters, and durable/volatile spool degradation. Counter/payload/provider layers remain separate. Physical actuation, readiness authorization and local stops do not depend on metering health. See [semantics](../../docs/software/device-traffic-metering.md) and [host evidence](../../docs/evidence/device-traffic-metering.md).

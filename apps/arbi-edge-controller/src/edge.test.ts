@@ -14,6 +14,7 @@ import { EdgeRuntime } from './runtime.js';
 import { LINK_TIMEOUT_MS, validateSettings } from './settings.js';
 import { DevelopmentSupervisor } from './supervisor.js';
 import type { Hello } from './adapter.js';
+import type { TransferRecord } from '@arbi/traffic';
 
 async function until(predicate: () => boolean, timeoutMs = 8000): Promise<void> {
   const deadline = Date.now() + timeoutMs;
@@ -196,4 +197,32 @@ test('supervisor does not loop on invalid startup configuration', async (t) => {
   const blocked = once(supervisor, 'blocked'); supervisor.start();
   assert.deepEqual(await blocked, ['INVALID_CONFIGURATION']);
   await delay(400); assert.equal(supervisor.child, undefined);
+});
+
+test('edge and pod taps count actual local TLS frames, reconnects and diagnostics as separate LAN observations', async(t)=>{
+  const {runtime,peers}=await rig(t);
+  const pod=runtime.adapters.find((a)=>a.status.deviceId==='pod')!;
+  assert.equal(pod.resync(pod.authorizeDiagnostics(actor)!),true);
+  await until(()=>peers[1].diagnosticRequests===1);await delay(30);
+  await Promise.all(peers.map((p)=>p.stop()));await delay(30);
+  const edgeRecords=runtime.traffic.pending.map((e)=>e.record).filter((r): r is TransferRecord=>r.kind==='transfer'&&r.spec.scope.linkId==='edge-pod-loopback');
+  const podRecords=peers[1].traffic!.spool.pending(64).map((e)=>e.record).filter((r): r is TransferRecord=>r.kind==='transfer');
+  const total=(records:typeof edgeRecords,direction:'upload'|'download')=>records.filter((r)=>r.spec.direction===direction).reduce((n,r)=>n+BigInt(r.bytes),0n);
+  assert.ok(total(edgeRecords,'upload')>0n);assert.ok(total(edgeRecords,'download')>0n);
+  assert.equal(total(edgeRecords,'upload'),total(podRecords,'download'));
+  assert.equal(total(edgeRecords,'download'),total(podRecords,'upload'));
+  assert.ok(edgeRecords.some((r)=>r.spec.category==='reconnect'));assert.ok(edgeRecords.some((r)=>r.spec.category==='control'));
+  for(const r of [...edgeRecords,...podRecords]){assert.equal(r.spec.scope.boundary,'lan');assert.equal(r.gap,'clock-uncertain');assert.equal(r.observations.length,0);}
+  assert.equal(runtime.status.metering.gardenWan.bytes,null);assert.equal(runtime.status.metering.provider.bytes,null);
+});
+test('unavailable or exhausted metering remains explicit and does not gate module diagnostics or local stopping',async(t)=>{
+  const simulation=await createSimulation();simulation.settings.metering!.maxRecords=1;simulation.settings.metering!.maxBytes=8192;
+  const runtime=new EdgeRuntime(simulation.settings);t.after(async()=>{await runtime.stop();await simulation.close();});
+  await runtime.start();await until(()=>runtime.status.ready);assert.equal(runtime.status.metering.spool.degraded,true);
+  simulation.peers[1].localStop();assert.equal(simulation.peers[1].localInhibited,true);
+  assert.equal(runtime.adapters[1].resync(runtime.adapters[1].authorizeDiagnostics(actor)!),true);
+  await until(()=>simulation.peers[1].diagnosticRequests===1);
+  await runtime.stop();assert.equal(runtime.status.ready,false);
+  const noMetering=structuredClone(simulation.settings);delete noMetering.metering;
+  const other=new EdgeRuntime(noMetering);t.after(()=>other.stop());assert.equal(other.status.metering.application,'not-configured');assert.equal(other.status.metering.gardenWan.bytes,null);
 });

@@ -115,6 +115,9 @@ jobs:
         # Avoid competing package suites starving bounded loopback requests.
         run: pnpm test --concurrency=1
 
+      - name: Compare native Linux interface counters with interrupted and repeated TCP transfers
+        run: pnpm --filter @arbi/traffic test:linux
+
       - name: Check enrollment transactions on isolated PostgreSQL
         run: pnpm --filter @arbi/dashboard test:postgres
 

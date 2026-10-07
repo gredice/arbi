@@ -79,6 +79,9 @@ importers:
       '@arbi/protocol':
         specifier: workspace:*
         version: link:../../packages/arbi-protocol
+      '@arbi/traffic':
+        specifier: workspace:*
+        version: link:../../packages/arbi-traffic
       ajv:
         specifier: 8.17.1
         version: 8.17.1
@@ -145,6 +148,19 @@ importers:
         version: 7.0.2
 
   packages/arbi-simulation-core:
+    dependencies:
+      '@arbi/protocol':
+        specifier: workspace:*
+        version: link:../arbi-protocol
+    devDependencies:
+      '@types/node':
+        specifier: 24.12.4
+        version: 24.12.4
+      typescript:
+        specifier: 7.0.2
+        version: 7.0.2
+
+  packages/arbi-traffic:
     dependencies:
       '@arbi/protocol':
         specifier: workspace:*

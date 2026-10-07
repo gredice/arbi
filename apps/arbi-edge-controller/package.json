@@ -12,7 +12,7 @@
     "simulate": "node dist/cli.js --simulate",
     "supervise": "node dist/supervisor.js"
   },
-  "dependencies": { "@arbi/protocol": "workspace:*", "ajv": "8.17.1" },
+  "dependencies": { "@arbi/protocol": "workspace:*", "@arbi/traffic": "workspace:*", "ajv": "8.17.1" },
   "devDependencies": { "@types/node": "24.12.4", "typescript": "7.0.2" },
   "engines": { "node": ">=24" }
 }
