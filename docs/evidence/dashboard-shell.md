@@ -8,7 +8,11 @@ The dashboard integration tests prove signed/current authorization, membership r
 
 Six browser tests run the built app against an explicitly provisioned local PostgreSQL synthetic directory. They cover all shell routes, site/realm/mode/connection banners, mobile width and keyboard navigation, no video or command controls, stale/original sample quality, offline/no-device/loading/failure displays, expired sessions and direct cross-site/role-spoofed API denial. Credentials and runtime state are ephemeral; no authenticated trace or storage snapshot is committed.
 
-The check results and exact reviewed revision will be recorded with the PR. Local source/host checks are not CI or hosted acceptance.
+Application source revision: `f66985f1b8c9562408825a12ccaa72f275e1d07e`, reviewed in [PR #112](https://github.com/gredice/arbi/pull/112). `pnpm install --frozen-lockfile`, `pnpm docs:check`, `pnpm lint`, `pnpm typecheck`, `pnpm test --concurrency=1`, `pnpm build`, `pnpm bom:check`, `pnpm protocol:check`, `pnpm scenario:check` and `git diff --check` passed locally. The six browser checks, all 11 native PostgreSQL tests (including realtime subtests) and built fail-closed HTTP checks passed separately.
+
+[GitHub CI run 37684674706](https://github.com/gredice/arbi/actions/runs/37684674706) passed on that revision: workspace/source checks, Linux transport evidence, native PostgreSQL, cross-runtime fixtures, secret-free build, six browser checks, built HTTP checks, BOM, CAD and all three booklet builds; `[CI] OK` passed. CodeRabbit reported a review rate limit, so its green status is not independent review evidence. The implementation received source self-review and the committed authorization tests.
+
+Local `pnpm cad:check -- --require-openscad` could not compile because the `openscad` executable was absent; its static registry check passed for 71 models. The named Linux CI run performed the owning pinned OpenSCAD compilation and booklet checks. These facts do not establish physical acceptance.
 
 ## Hosted test evidence
 
