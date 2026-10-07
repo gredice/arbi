@@ -10,6 +10,7 @@ Use this guide for repository layout, toolchains, commands, package boundaries, 
 - `packages/arbi-bom`: implemented BOM schemas, calculations, generators, and tests.
 - `packages/arbi-protocol`: [implemented versioned message and configuration/calibration contracts](packages/arbi-protocol/README.md), runtime validation, consumed TypeScript bindings and reference fixtures; device adapters and physical calibration remain follow-up work.
 - `packages/arbi-gredice`: [implemented signed identity, current account/site permissions and server request boundary](packages/arbi-gredice/README.md), with an isolated simulation identity provider; live Gredice provisioning and resource implementations remain separate work.
+- `apps/arbi-dashboard`: [implemented Next.js enrollment HTTP boundary](apps/arbi-dashboard/README.md), simulation-only device identity/inventory lifecycle and transactional PostgreSQL adapter; live provider setup, dashboard UI and jobs remain separate work.
 - `scripts/check-cad.mjs`: registry, source, include, and optional OpenSCAD compilation validation.
 - `.github`: issue forms, pull request guidance, and fork-safe CI.
 
@@ -79,9 +80,9 @@ Generated BOM Markdown and JSON are intentionally tracked because they are direc
 
 ## Planned software destinations
 
-The following paths are reserved but should not exist until implementation begins:
+The following paths are reserved but should not exist until implementation begins; implemented destinations above retain these ownership boundaries:
 
-- `apps/arbi-dashboard`: authenticated user/engineering dashboard and HTTP API in Gredice's Vercel team;
+- `apps/arbi-dashboard`: implemented enrollment HTTP slice; authenticated user/engineering dashboard and remaining HTTP API in Gredice's Vercel team are follow-up work;
 - `apps/arbi-docs`: Next.js/Vercel public documentation and interactive BOM;
 - `apps/arbi-simulator`: executable simulator or simulator UI;
 - `apps/arbi-edge-controller`: local job, state, and hardware-adapter ownership;
