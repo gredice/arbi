@@ -17,6 +17,43 @@ permissions:
   contents: read
 
 jobs:
+  changes:
+    name: Detect CAD changes
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      cad: ${{ github.event_name == 'workflow_dispatch' || steps.filter.outputs.cad == 'true' }}
+    steps:
+      # PR files come from the read-only API; pushes compare the full pushed range.
+      - uses: actions/checkout@v6.0.3
+        if: github.event_name == 'push'
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: dorny/paths-filter@ceb8a2b8f2d89434be7ff52d3de7ec3738c5cc9d # v4.0.3
+        id: filter
+        if: github.event_name != 'workflow_dispatch'
+        with:
+          base: ${{ github.event_name == 'push' && github.ref || '' }}
+          filters: |
+            cad:
+              - 'hardware/**/*.scad'
+              - 'hardware/models.json'
+              - 'hardware/models.schema.json'
+              - deleted: 'hardware/assemblies/**/README.md'
+              - 'bom/catalog/parts.json'
+              - 'scripts/check-cad.mjs'
+              - '.github/workflows/ci.yml'
+              - '.github/workflows/cad-release.yml'
+              - 'package.json'
+              - 'pnpm-lock.yaml'
+              - 'pnpm-workspace.yaml'
+              - '.npmrc'
+
   workspace:
     name: Validate workspace
     runs-on: ubuntu-latest
@@ -89,6 +126,8 @@ jobs:
 
   cad:
     name: Validate OpenSCAD models
+    needs: changes
+    if: needs.changes.outputs.cad == 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
@@ -119,6 +158,7 @@ jobs:
     name: "[CI] OK"
     if: ${{ always() }}
     needs:
+      - changes
       - workspace
       - bom
       - cad
@@ -126,9 +166,13 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Fail unless every required job succeeded
-        if: ${{ needs.workspace.result != 'success' || needs.bom.result != 'success' || needs.cad.result != 'success' }}
+        if: >-
+          ${{ needs.changes.result != 'success' ||
+              needs.workspace.result != 'success' ||
+              needs.bom.result != 'success' ||
+              !(needs.cad.result == 'success' ||
+                (needs.changes.outputs.cad == 'false' && needs.cad.result == 'skipped')) }}
         run: exit 1
 
       - name: Confirm required jobs passed
-        if: ${{ needs.workspace.result == 'success' && needs.bom.result == 'success' && needs.cad.result == 'success' }}
         run: echo "All required CI jobs passed."
