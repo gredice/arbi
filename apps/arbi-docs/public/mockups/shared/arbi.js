@@ -8,7 +8,6 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { toCreasedNormals } from 'three/addons/utils/BufferGeometryUtils.js';
 
 export const DATA = new URL('../data/', import.meta.url).href;
-export const SCENES = { 'camera-pod': 'pod', winch: 'winch' };
 const json = (path) => fetch(DATA + path).then((r) => r.json());
 
 // ---------------------------------------------------------------- data
@@ -16,8 +15,10 @@ const json = (path) => fetch(DATA + path).then((r) => r.json());
 let sitePromise;
 export function loadSite() {
   sitePromise ??= (async () => {
-    const [site, pod, winch] = await Promise.all([json('site.json'), json('pod/parts.json'), json('winch/parts.json')]);
-    const scenes = { pod, winch };
+    const site = await json('site.json');
+    const entries = await Promise.all(Object.entries(site.scenes).map(async ([slug, meta]) => [slug, { ...(await json(meta.file)), ...meta }]));
+    const scenes = Object.fromEntries(entries);
+    scenes.pod = scenes['camera-pod']; // short alias used by the home-page heroes
     const models = site.registry.models;
     const modelById = Object.fromEntries(models.map((m) => [m.id, m]));
     const bomById = Object.fromEntries(site.bom.parts.map((p) => [p.id, p]));
@@ -27,39 +28,41 @@ export function loadSite() {
       .filter((a) => a.kind === 'physical')
       .map((a) => {
         const slug = slugOf(a.documentation);
-        const scene = SCENES[slug];
+        const meta = site.scenes[slug];
         return {
-          ...a, slug, scene,
+          ...a, slug, scene: meta ? slug : null, layout: meta?.layout ?? null, pose: meta?.pose ?? null,
           models: models.filter((m) => m.assembly === slug),
           goods: goods[a.id] ?? null,
           doc: site.docs.find((d) => d.path === a.documentation),
-          hero: scene === 'pod' ? 'pod/figures/assembled-covered.png' : scene === 'winch' ? 'winch/figures/cover-passive-installed.png' : null,
-          exploded: scene === 'pod' ? 'pod/figures/enclosure-exploded.png' : scene === 'winch' ? 'winch/figures/cover-passive-exploded.png' : null,
+          hero: meta?.hero ?? null,
+          exploded: meta?.exploded ?? null,
         };
       });
     const systemBySlug = Object.fromEntries(systems.map((s) => [s.slug, s]));
-    // Instances of each model inside the compiled scenes.
+    // Installed quantities come only from assembly scenes, never from part lineups.
     const instances = {};
-    for (const [key, sc] of Object.entries(scenes))
-      for (const p of sc.parts) (instances[p.model] ??= { scene: key, count: 0, parts: [] }), instances[p.model].count++, instances[p.model].parts.push(p);
+    for (const [slug, sc] of entries) {
+      if (sc.layout !== 'assembly') continue;
+      for (const p of sc.parts) (instances[p.model] ??= { scene: slug, count: 0, parts: [] }), instances[p.model].count++, instances[p.model].parts.push(p);
+    }
     const figureFor = (id) => {
-      for (const [key, sc] of Object.entries(scenes)) {
+      for (const [, sc] of entries) {
         for (const name of [`part-${id}`, `part-${id.replace(/^winch-/, '')}`])
-          if (sc.figures.includes(name)) return `${key}/figures/${name}.png`;
+          if (sc.figures?.includes(name)) return `${sc.figureDir}/figures/${name}.png`;
       }
       return null;
     };
-    const meshFor = (id) => {
-      const m = modelById[id];
-      const inst = instances[id];
-      if (inst?.scene === 'pod') return { kind: 'glb', node: inst.parts[0].node };
-      if (m && m.output.endsWith('.stl') && (m.assembly === 'winch')) return { kind: 'stl', url: `winch/models/arbi/${m.output}` };
-      if (inst?.scene === 'winch') return { kind: 'stl', url: `winch/${inst.parts[0].file}` };
-      return null;
+    const meshFor = (id) => site.meshes[id] ?? null;
+    // Best verified download: the CAD release asset, else a committed pack containing the mesh.
+    const download = (id) => {
+      const d = site.downloads[id];
+      if (d?.release) return { url: d.release.url, label: 'CAD release', sha256: d.release.sha256, verified: true };
+      if (d?.packs.length) return { url: d.packs[0].url, label: `In ${d.packs[0].name}`, sha256: null, verified: true };
+      return { url: links.releases, label: 'Not published', sha256: null, verified: false };
     };
     const bomForModel = (m) => (m?.bomPartIds ?? []).map((id) => bomById[id]).filter(Boolean);
     const modelsForBomPart = (id) => models.filter((m) => m.bomPartIds.includes(id));
-    return { site, scenes, models, modelById, bomById, systems, systemBySlug, instances, figureFor, meshFor, bomForModel, modelsForBomPart };
+    return { site, scenes, models, modelById, bomById, systems, systemBySlug, instances, figureFor, meshFor, download, bomForModel, modelsForBomPart };
   })();
   return sitePromise;
 }
@@ -147,38 +150,6 @@ export function layoutCallouts(anchors, width, { gap = 26, margin = 56, spread =
 
 // ---------------------------------------------------------------- 3D
 
-// Mockup-only exploded pose for the payload. Production should take this pose from
-// the booklet renderer (integration.py / render_figures.py) so the site never authors geometry.
-const POD_LAYERS = [
-  [/^(rain-hood|cover-nut-)/, 215],
-  [/^(pi|converter|capacitor)(-|$)|^pi-|-tie(-|$)/, 140],
-  [/^(deck|frame-upper-washer-|frame-nut-)/, 95],
-  [/^(enclosure-base|cover-bolt-|cover-bottom-washer-)/, 52],
-  [/^spider-spacer-/, 22],
-  [/^spider$/, 0],
-  [/^(pan-mount|pan-servo|frame-bolt-|frame-lower-washer-)/, -44],
-  [/^fairing-|^pan-fairing$/, -92],
-];
-const GROUP_DROP = { fixed: 0, pan: -150, tilt: -196 };
-
-function podExplode(part) {
-  const layer = POD_LAYERS.find(([re]) => re.test(part.node));
-  const z = layer ? layer[1] : GROUP_DROP[part.group] ?? 0;
-  const a = part.authoredExplode ?? [0, 0, 0];
-  return new THREE.Vector3(a[0] * 3, a[1] * 3, z + (layer ? 0 : a[2] * 1.6));
-}
-
-function winchExplode(part, center, assemblyCenter) {
-  const id = part.model;
-  if (/winch-cover-(passive|powered)-(left|middle|right|transition)/.test(id)) return new THREE.Vector3(0, 0, 260);
-  if (/winch-cover-.*shutter/.test(id)) return new THREE.Vector3(0, 220, 120);
-  if (/fascia/.test(id)) return new THREE.Vector3(0, center.y > assemblyCenter.y ? 260 : -260, 140);
-  if (/rear|blank/.test(id)) return new THREE.Vector3(0, -260, 100);
-  if (/winch-cover-clip|cable-anchor/.test(id)) return new THREE.Vector3(0, 0, 120);
-  if (/base-plate/.test(id)) return new THREE.Vector3(0, 0, -110);
-  return new THREE.Vector3();
-}
-
 // line: booklet line art (white faces, dark edges). ink: the same drawing inverted for black sections.
 const STYLES = {
   light: { env: 0.9 },
@@ -210,8 +181,8 @@ function loadSTL(url) {
   if (!stlCache.has(url)) stlCache.set(url, new STLLoader().loadAsync(DATA + url));
   return stlCache.get(url);
 }
-let glbPromise;
-const loadPodGLB = () => (glbPromise ??= new GLTFLoader().loadAsync(DATA + 'pod/assembled.glb'));
+const glbCache = new Map();
+const loadGLB = (url) => (glbCache.has(url) || glbCache.set(url, new GLTFLoader().loadAsync(DATA + url)), glbCache.get(url));
 
 export class Viewer {
   constructor(el, { style = 'light', autoRotate = false, fov = 28, interactive = true } = {}) {
@@ -325,51 +296,43 @@ export class Viewer {
     this.root.add(object);
   }
 
-  async loadScene(key, data) {
-    if (key === 'pod') {
-      const gltf = await loadPodGLB();
+  // Exploded offsets come from the booklet renderer's exploded figures (compile-data.mjs).
+  async loadScene(_key, data) {
+    const vec = (p) => new THREE.Vector3(...(p.explode ?? [0, 0, 0]));
+    if (data.kind === 'glb') {
+      const gltf = await loadGLB(data.glb);
       const scene = gltf.scene.clone(true);
-      scene.scale.setScalar(1000); // GLB nodes carry metres; manifests use mm.
       const byNode = Object.fromEntries(data.parts.map((p) => [p.node, p]));
-      const holder = new THREE.Group();
-      holder.add(scene);
-      this.root.add(holder);
       for (const node of [...scene.children]) {
         const part = byNode[node.name];
         if (!part) continue;
-        node.parent.remove(node);
+        node.removeFromParent();
         const wrap = new THREE.Group();
-        wrap.scale.setScalar(1000);
+        wrap.scale.setScalar(1000); // GLB nodes carry metres; manifests use mm.
         wrap.add(node);
-        this.#addPart(wrap, part, podExplode(part), 1);
+        this.#addPart(wrap, part, vec(part), 1);
       }
-      holder.removeFromParent();
     } else {
-      const geoms = await Promise.all(data.parts.map((p) => loadSTL(`winch/${p.file}`)));
-      const box = new THREE.Box3();
-      const items = data.parts.map((p, i) => {
+      const geoms = await Promise.all(data.parts.map((p) => loadSTL(p.url)));
+      data.parts.forEach((p, i) => {
         const mesh = new THREE.Mesh(geoms[i]);
-        const m = new THREE.Matrix4().set(...p.matrix.flat());
-        mesh.applyMatrix4(m);
-        mesh.updateMatrixWorld();
-        const c = new THREE.Box3().setFromObject(mesh);
-        box.union(c);
-        return { mesh, p, center: c.getCenter(new THREE.Vector3()) };
+        mesh.applyMatrix4(new THREE.Matrix4().set(...p.matrix.flat()));
+        this.#addPart(mesh, p, vec(p), 1);
       });
-      const C = box.getCenter(new THREE.Vector3());
-      for (const { mesh, p, center } of items) this.#addPart(mesh, p, winchExplode(p, center, C), 1);
     }
     this.frame();
     return this;
   }
 
+  get canExplode() { return this.parts.some((e) => e.object.userData.offset.lengthSq() > 0); }
+
   async loadModel(site, id) {
     const mesh = site.meshFor(id);
     if (!mesh) return null;
-    const color = site.instances[id]?.parts[0]?.color ?? [0.94, 0.94, 0.92];
+    const color = site.instances[id]?.parts[0]?.color ?? [0.12, 0.14, 0.15];
     let obj;
     if (mesh.kind === 'glb') {
-      const gltf = await loadPodGLB();
+      const gltf = await loadGLB(site.scenes.pod.glb);
       const node = gltf.scene.getObjectByName(mesh.node).clone(true);
       node.position.set(0, 0, 0);
       obj = new THREE.Group();

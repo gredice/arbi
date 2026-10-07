@@ -99,7 +99,7 @@ function bindHud(v) {
 const views = {
   async ''() {
     const sum = S.site.bom.summary;
-    const podIds = sceneModels('pod');
+    const podIds = sceneModels('camera-pod');
     const steps = [
       ['payload-rain-hood', 'White shell', 'A broad rounded crown over the fixed electronics. Removable for service.'],
       ['payload-electronics-deck', 'Fixed electronics', 'Pi 3A+, converter and capacitor stay on the spider. Only the camera moves.'],
@@ -196,7 +196,7 @@ const views = {
     if (!sys.scene) return;
     const v = mount(document.getElementById('stage'), { style: 'dark' });
     await v.loadScene(sys.scene, S.scenes[sys.scene]);
-    v.setExplode(1); v.frame({ distance: sys.scene === 'pod' ? 0.6 : 0.72, elevation: sys.scene === 'pod' ? 0.26 : 0.5 });
+    v.setExplode(1); v.frame({ distance: sys.scene === 'camera-pod' ? 0.6 : 0.72, elevation: sys.scene === 'camera-pod' ? 0.26 : 0.5 });
     bindHud(v);
     const list = document.getElementById('list');
     v.on('hover', (p) => list.querySelectorAll('[data-m]').forEach((r) => r.classList.toggle('bg-raise', r.dataset.m === p?.model)));
@@ -231,7 +231,7 @@ const views = {
             ['Source', `<a class="mono text-[12px] break-all hover:underline" target="_blank" href="${links.source(m.entrypoint)}">${m.entrypoint}</a>`],
             ['Docs', `<a class="hover:underline" href="#/docs/${m.documentation}">${m.documentation}</a>`],
           ].map(([k, v]) => `<div class="grid grid-cols-[96px_1fr] gap-4 py-3 border-t border-line"><dt class="eyebrow pt-0.5">${k}</dt><dd>${v}</dd></div>`).join('')}</dl>
-          <div class="mt-8 grid gap-2"><a class="cta justify-between" href="${links.release(m.output)}">Download ${m.output.split('.').pop().toUpperCase()} <span>↓</span></a>
+          <div class="mt-8 grid gap-2"><a class="cta justify-between" href="${S.download(m.id).url}">Download ${m.output.split('.').pop().toUpperCase()} <span>↓</span></a>
             <a class="cta-line justify-between" target="_blank" href="${links.raw(m.entrypoint)}">OpenSCAD source <span>↓</span></a></div>
           ${fig ? `<figure class="mt-10 panel p-6">${img(fig, 'invert-art w-full max-h-[220px] object-contain opacity-85')}<figcaption class="eyebrow mt-3">Booklet line art</figcaption></figure>` : ''}
         </aside>
@@ -283,7 +283,7 @@ const views = {
   },
 
   downloads() {
-    const d = S.site.downloads;
+    const d = S.site.snapshots;
     $app.innerHTML = `<div class="pt-28 px-4 sm:px-8">
       <h1 class="text-[64px] font-light tracking-[-0.03em]">Downloads</h1>
       <p class="text-mute mt-4 max-w-[64ch]">Assembly booklets and STL/source packs are committed snapshots. Individual STL/CSG files resolve to the latest commit-versioned CAD release.</p>
@@ -297,7 +297,7 @@ const views = {
       <h2 class="mt-20 text-[28px] font-light">Every model</h2>
       <div class="mt-6 border-t border-line">${S.models.map((m) => `<div class="grid grid-cols-[1fr_auto] md:grid-cols-[1fr_140px_90px_200px] gap-4 items-center py-3 border-b border-line">
         <a href="#/parts/${m.id}" class="truncate hover:underline">${m.id}</a><span class="eyebrow hidden md:block">${m.assembly}</span><span class="mono text-[12px] text-mute hidden md:block">r${m.revision}</span>
-        <div class="flex gap-2 justify-end"><a class="pill hover:text-chalk" href="${links.release(m.output)}">${m.output.split('.').pop()}</a><a class="pill hover:text-chalk" target="_blank" href="${links.raw(m.entrypoint)}">scad</a></div></div>`).join('')}</div></div>`;
+        <div class="flex gap-2 justify-end"><a class="pill hover:text-chalk" href="${S.download(m.id).url}">${m.output.split('.').pop()}</a><a class="pill hover:text-chalk" target="_blank" href="${links.raw(m.entrypoint)}">scad</a></div></div>`).join('')}</div></div>`;
   },
 };
 

@@ -200,16 +200,22 @@ const views = {
   async systems([slug]) {
     const sys = S.systemBySlug[slug] ?? S.systems[0];
     const ids = sys.scene ? sceneModels(sys.scene) : [];
-    crumb(`${sysNo(sys.slug)} · ${sys.name}`, sys.scene ? 'Exploded view · click a number' : '', true);
+    const meta = S.site.scenes[sys.slug];
+    const lineup = sys.layout === 'lineup';
+    const from = meta ? (meta.source.kind === 'release' ? `CAD release ${meta.source.tag?.slice(4, 11) ?? ''}`.trim() : 'committed booklet snapshot') : '';
+    const caption = !meta ? '' : lineup ? `Parts laid out side by side · no assembly pose is registered · meshes from ${from}`
+      : `${meta.pose ? `Exploded pose: booklet figure “${meta.pose}”` : 'Assembled only: no exploded figure in this pack'} · meshes from ${from}`;
+    crumb(`${sysNo(sys.slug)} · ${sys.name}`, sys.scene ? (lineup ? 'Parts layout · click a number' : 'Exploded view · click a number') : '', true);
     $app.innerHTML = `
       <section class="relative bg-ink text-paper h-[calc(100vh-90px)] min-h-[560px] inked" id="stage">
-        ${sys.scene ? `<div id="calls" class="absolute inset-0 pointer-events-none z-10"></div>` : `<div class="absolute inset-0 grid place-items-center"><div class="text-center"><div class="cond text-[28px]">Drawing pending</div><p class="text-paper/60 mt-2 max-w-[42ch]">Line art appears here when the booklet pipeline exports meshes for this assembly.</p></div></div>`}
+        ${sys.scene ? `<div id="calls" class="absolute inset-0 pointer-events-none z-10"></div>` : `<div class="absolute inset-0 grid place-items-center"><div class="text-center"><div class="cond text-[28px]">No registered CAD</div><p class="text-paper/60 mt-2 max-w-[42ch]">This assembly has no OpenSCAD models in hardware/models.json yet. Its documentation and BOM lines are below.</p></div></div>`}
         <div class="absolute ${pad} left-0 top-6 z-20 pointer-events-none">
           <div class="cond text-[96px] leading-[0.8]">${sysNo(sys.slug)}</div>
           <h1 class="cond text-[48px] leading-[0.9] mt-3">${sys.name}</h1>
         </div>
         <div class="absolute ${pad} left-0 bottom-6 z-20 flex flex-wrap gap-2 items-center">
-          ${sys.scene ? `<div class="flex items-center gap-3 border border-paper px-3 py-2"><span class="tag">Assembled</span><input id="ex" type="range" min="0" max="1" step="0.01" value="1" class="w-40 accent-white"><span class="tag">Exploded</span></div>` : ''}
+          <div id="exwrap" class="hidden items-center gap-3 border border-paper px-3 py-2"><span class="tag">Assembled</span><input id="ex" type="range" min="0" max="1" step="0.01" value="1" class="w-40 accent-white"><span class="tag">Exploded</span></div>
+          ${caption ? `<span class="tag text-paper/60 max-w-[60ch]">${caption}</span>` : ''}
         </div>
         <div class="absolute right-4 sm:right-6 bottom-6 z-20 hidden md:flex gap-1">${S.systems.map((s) => `<a href="#/systems/${s.slug}" class="${s === sys ? 'bg-paper text-ink' : 'text-paper/70 hover:text-paper'} border border-paper/40 tag px-2.5 py-1.5" title="${s.name}">${sysNo(s.slug)}</a>`).join('')}</div>
       </section>
@@ -218,12 +224,13 @@ const views = {
         <div class="lg:col-span-4 border-t-2 border-ink">${[['Registered models', sys.models.length], ['BOM lines', sys.usages.length], ['Known goods', sys.goods ? fmt.eur(sys.goods) : '—'], ['Status', 'Concept · unvalidated']].map(([k, v]) => `<div class="flex justify-between py-2 border-b border-ink"><span class="tag">${k}</span><span class="mono">${v}</span></div>`).join('')}</div>
         <div class="lg:col-span-3"><a href="#/docs/${sys.documentation}" class="key justify-between w-full">Assembly document <span>→</span></a></div>
       </section>
-      ${ids.length ? `<section class="${pad} mt-10"><div class="flex justify-between items-end"><h2 class="cond text-[34px] leading-none">Parts inventory</h2><span class="tag">Quantities per configured ${sys.scene === 'pod' ? 'pod' : 'winch'}</span></div><div class="mt-4" id="inv">${inventory(ids)}</div></section>` : ''}
+      ${ids.length ? `<section class="${pad} mt-10"><div class="flex justify-between items-end"><h2 class="cond text-[34px] leading-none">Parts inventory</h2><span class="tag">${lineup ? 'Registered fabrication parts · quantities in the BOM' : `Quantities per configured ${sys.scene === 'camera-pod' ? 'pod' : 'passive winch'}`}</span></div><div class="mt-4" id="inv">${inventory(ids)}</div></section>` : ''}
       ${sys.models.filter((m) => !ids.includes(m.id)).length ? `<section class="${pad} mt-10 mb-20"><h2 class="cond text-[24px]">Other registered sources</h2><div class="mt-3">${inventory(sys.models.filter((m) => !ids.includes(m.id)).map((m) => m.id), false)}</div></section>` : '<div class="mb-20"></div>'}`;
     if (!sys.scene) return;
     const v = mount(document.getElementById('stage'), { style: 'ink' });
     await v.loadScene(sys.scene, S.scenes[sys.scene]);
-    v.setExplode(1); v.frame({ distance: sys.scene === 'pod' ? 0.58 : 0.7, elevation: sys.scene === 'pod' ? 0.22 : 0.5 });
+    v.setExplode(1); v.frame({ distance: lineup ? 0.62 : sys.scene === 'camera-pod' ? 0.58 : 0.7, elevation: lineup ? 0.35 : sys.scene === 'camera-pod' ? 0.22 : 0.5 });
+    if (v.canExplode) document.getElementById('exwrap').classList.replace('hidden', 'flex');
     bubbles(v, document.getElementById('calls'), ids, '#f2f2ee');
     v.on('pick', (p) => p.registered && (location.hash = `#/parts/${p.model}`));
     const inv = document.getElementById('inv');
@@ -245,6 +252,7 @@ const views = {
     const inst = S.instances[id];
     const bom = S.bomForModel(m);
     const fig = S.figureFor(id);
+    const dl = S.download(id);
     crumb(`${sysNo(m.assembly)} · ${S.systemBySlug[m.assembly]?.name ?? m.assembly} / ${m.id}`, `Rev ${m.revision}`);
     $app.innerHTML = `
       <section class="grid lg:grid-cols-12 border-b-2 border-ink">
@@ -262,7 +270,8 @@ const views = {
             ['Source', `<a class="mono underline break-all" target="_blank" href="${links.source(m.entrypoint)}">${m.entrypoint}</a>`],
             ['Document', `<a class="underline" href="#/docs/${m.documentation}">${m.documentation.split('/').slice(-2).join('/')}</a>`],
           ].map(([k, v]) => `<tr class="border-b border-ink"><td class="tag py-2 pr-4 w-[110px] align-top">${k}</td><td class="py-2">${v}</td></tr>`).join('')}</table>
-          <div class="mt-6 grid grid-cols-2 gap-2"><a class="key justify-between" href="${links.release(m.output)}">${m.output.split('.').pop()} <span>↓</span></a><a class="key-line justify-between" target="_blank" href="${links.raw(m.entrypoint)}">SCAD <span>↓</span></a></div>
+          <div class="mt-6 grid grid-cols-2 gap-2"><a class="${dl.verified ? 'key' : 'key-line opacity-50 pointer-events-none'} justify-between" href="${dl.url}">${m.output.split('.').pop()} <span>↓</span></a><a class="key-line justify-between" target="_blank" href="${links.raw(m.entrypoint)}">SCAD <span>↓</span></a></div>
+          <p class="tag text-grey mt-2 break-all">${dl.sha256 ? `${dl.label} · SHA-256 ${dl.sha256.slice(0, 16)}…` : dl.label}</p>
           ${fig ? `<figure class="mt-6 border border-ink p-4 grid place-items-center">${img(fig, 'max-h-[180px]')}<figcaption class="tag self-start w-full mt-2">Booklet drawing</figcaption></figure>` : ''}
         </div>
       </section>
@@ -271,7 +280,7 @@ const views = {
       viewers.forEach((x) => x.dispose()); viewers = [];
       const v = mount(document.getElementById('stage'), { autoRotate: true, style });
       const size = await v.loadModel(S, id);
-      document.getElementById('dims').textContent = size ? `Envelope ${size.x.toFixed(1)} × ${size.y.toFixed(1)} × ${size.z.toFixed(1)} mm` : 'No compiled mesh in current packs';
+      document.getElementById('dims').textContent = size ? `Envelope ${size.x.toFixed(1)} × ${size.y.toFixed(1)} × ${size.z.toFixed(1)} mm` : (m.output.endsWith('.csg') ? 'CSG reference assembly · open the system view for its meshes' : 'No mesh in the CAD release or booklet packs');
     };
     await show('line');
     document.getElementById('mode').onclick = (e) => {
@@ -311,17 +320,25 @@ const views = {
   },
 
   downloads() {
-    crumb('Downloads', 'Booklets · packs · CAD release');
-    const d = S.site.downloads;
+    const r = S.site.release;
+    crumb('Downloads', r ? `CAD release ${r.tag.slice(4, 16)}` : 'CAD release unavailable at build');
+    const books = r?.booklets ?? [];
     $app.innerHTML = `<div class="${pad} pb-20">
       <h1 class="cond text-[88px] leading-[0.85] py-8 border-b-2 border-ink">Downloads</h1>
-      <div class="grid md:grid-cols-2 xl:grid-cols-3 border-l border-ink">${d.map((f) => `<a href="${f.url}" class="border-r border-b border-ink p-5 flex gap-5 hover:bg-sheet">
+      ${r ? `<section class="grid lg:grid-cols-12 gap-6 py-6 border-b-2 border-ink">
+        <div class="lg:col-span-5"><div class="tag">Latest CAD release · built by CI from OpenSCAD sources</div><a class="cond text-[34px] leading-none mt-2 block underline decoration-2 underline-offset-4" target="_blank" href="${r.url}">${r.tag.slice(0, 16)}</a>
+          <p class="mt-3 text-[13px] leading-snug max-w-[52ch]">Every link below was checked against the release's SHA256SUMS.txt when this site was built. ${r.missingOutputs.length ? `<b>${r.missingOutputs.length} registered outputs are not in this release</b>; they link to the committed booklet pack that contains them.` : 'All registered outputs are in this release.'}</p></div>
+        <div class="lg:col-span-7 grid sm:grid-cols-2 border-l border-t border-ink self-start">${books.map((b) => `<a href="${b.url}" class="border-r border-b border-ink p-4 hover:bg-sheet"><div class="font-semibold break-words">${b.name}</div><div class="tag text-grey mt-1">SHA-256 ${b.sha256.slice(0, 16)}…</div></a>`).join('')}</div>
+      </section>` : `<p class="tag py-4 border-b-2 border-ink">The CAD release could not be reached when this site was built; links fall back to committed snapshots.</p>`}
+      <h2 class="cond text-[34px] mt-10">Committed snapshots</h2>
+      <div class="mt-3 grid md:grid-cols-2 xl:grid-cols-3 border-l border-t border-ink">${S.site.snapshots.map((f) => `<a href="${f.url}" class="border-r border-b border-ink p-5 flex gap-5 hover:bg-sheet">
         <div class="cond text-[40px] leading-none w-[78px] shrink-0">${f.name.split('.').pop()}</div>
-        <div class="min-w-0"><div class="font-semibold break-words">${f.name}</div><div class="tag text-grey mt-1">${f.kind} · ${fmt.bytes(f.bytes)}</div><div class="tag text-grey truncate">${f.path.split('/').slice(0, -1).join('/')}</div></div></a>`).join('')}
-        <a href="${links.releases}" target="_blank" class="border-r border-b border-ink p-5 flex gap-5 bg-ink text-paper"><div class="cond text-[40px] leading-none w-[78px]">CAD</div><div><div class="font-semibold">Commit-versioned CAD release</div><div class="tag text-paper/60 mt-1">All ${S.models.length} STL/CSG outputs · SHA-256 sums · source ZIP</div></div></a></div>
+        <div class="min-w-0"><div class="font-semibold break-words">${f.name}</div><div class="tag text-grey mt-1">${f.kind} · ${fmt.bytes(f.bytes)}</div><div class="tag text-grey truncate">${f.path.split('/').slice(0, -1).join('/')}</div></div></a>`).join('')}</div>
       <h2 class="cond text-[34px] mt-14">Model files</h2>
-      <table class="mt-3 w-full text-[13px] border-t-2 border-ink"><thead><tr class="tag text-left border-b border-ink"><th class="py-2">Model</th><th class="hidden md:table-cell">Assembly</th><th>Rev</th><th class="hidden md:table-cell">Role</th><th class="text-right">Files</th></tr></thead>
-      <tbody>${S.models.map((m) => `<tr class="border-b border-hair"><td class="py-1.5"><a href="#/parts/${m.id}" class="hover:underline">${m.id}</a></td><td class="tag hidden md:table-cell">${m.assembly}</td><td class="mono">${m.revision}</td><td class="tag hidden md:table-cell">${m.artifactRole}</td><td class="text-right whitespace-nowrap"><a class="tag underline" href="${links.release(m.output)}">${m.output.split('.').pop()}</a> · <a class="tag underline" target="_blank" href="${links.raw(m.entrypoint)}">scad</a></td></tr>`).join('')}</tbody></table></div>`;
+      <table class="mt-3 w-full text-[13px] border-t-2 border-ink"><thead><tr class="tag text-left border-b border-ink"><th class="py-2">Model</th><th class="hidden md:table-cell">Assembly</th><th>Rev</th><th class="hidden lg:table-cell">SHA-256</th><th class="text-right">Files</th></tr></thead>
+      <tbody>${S.models.map((m) => { const dl = S.download(m.id); return `<tr class="border-b border-hair"><td class="py-1.5"><a href="#/parts/${m.id}" class="hover:underline">${m.id}</a></td><td class="tag hidden md:table-cell">${m.assembly}</td><td class="mono">${m.revision}</td>
+        <td class="mono text-[11px] text-grey hidden lg:table-cell">${dl.sha256 ? dl.sha256.slice(0, 12) + '…' : dl.label}</td>
+        <td class="text-right whitespace-nowrap">${dl.verified ? `<a class="tag underline" href="${dl.url}">${dl.sha256 ? m.output.split('.').pop() : 'pack'}</a>` : '<span class="tag text-grey">—</span>'} · <a class="tag underline" target="_blank" href="${links.raw(m.entrypoint)}">scad</a></td></tr>`; }).join('')}</tbody></table></div>`;
   },
 };
 

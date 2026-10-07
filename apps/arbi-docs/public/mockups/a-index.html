@@ -193,7 +193,7 @@ const views = {
       <section class="grid lg:grid-cols-12 gap-3">
         <div class="tile lg:col-span-8 relative h-[72vh] min-h-[480px] overflow-hidden" id="stage">
           ${sceneKey ? `<div id="calls" class="absolute inset-0 pointer-events-none z-10"></div>
-          <div class="absolute left-5 top-4 z-20 label">${sceneKey === 'pod' ? 'payload rain enclosure · booklet rev 2 meshes' : 'passive winch + full cover · booklet rev 8 meshes'}</div>
+          <div class="absolute left-5 top-4 z-20 label">${S.site.scenes[sceneKey].layout === 'lineup' ? 'parts layout · release meshes · no assembly pose registered' : sceneKey === 'camera-pod' ? `payload rain enclosure · pose ${S.site.scenes[sceneKey].pose ?? 'none'}` : `passive winch + full cover · pose ${S.site.scenes[sceneKey].pose ?? 'none'}`}</div>
           <div class="absolute left-1/2 -translate-x-1/2 bottom-4 z-20 flex items-center gap-3 bg-tile/90 rounded-full px-4 py-2">
             <span class="label">assembled</span><input id="ex" type="range" min="0" max="1" step="0.01" value="1" class="w-40 accent-ink"><span class="label">exploded</span></div>`
             : `<div class="absolute inset-0 grid place-items-center text-center p-10"><div><div class="label">no compiled scene yet</div><p class="mt-2 max-w-[40ch] text-mute">This system has ${sys.models.length} registered model(s) but no booklet pipeline exports meshes for it. The site shows renders as soon as CI produces them.</p></div></div>`}
@@ -213,7 +213,7 @@ const views = {
     if (!sceneKey) return;
     const v = mountViewer(document.getElementById('stage'), { style: 'light' });
     await v.loadScene(sceneKey, S.scenes[sceneKey]);
-    v.setExplode(1); v.frame({ distance: sceneKey === 'pod' ? 0.6 : 0.72, elevation: sceneKey === 'pod' ? 0.22 : 0.5 });
+    v.setExplode(1); v.frame({ distance: sceneKey === 'camera-pod' ? 0.6 : 0.72, elevation: sceneKey === 'camera-pod' ? 0.22 : 0.5 });
     hoverTip(v);
     const go = (m) => (location.hash = `#/parts/${m}`);
     callouts(v, document.getElementById('calls'), ids, go);
@@ -247,13 +247,13 @@ const views = {
             <h1 class="mt-6 text-[36px] leading-[1] font-light tracking-tight break-words">${m.id}</h1>
             <p class="mt-4 text-[14px] max-w-[52ch]">${m.description}</p>
             <div class="mt-6">${rows([
-              ['installed qty', inst ? `<span class="num">${inst.count}</span> <span class="text-mute">in ${inst.scene === 'pod' ? 'enclosed pod' : 'passive winch'} scene</span>` : '—'],
+              ['installed qty', inst ? `<span class="num">${inst.count}</span> <span class="text-mute">in ${inst.scene === 'camera-pod' ? 'enclosed pod' : 'passive winch'} scene</span>` : '—'],
               ['bom item', bom.map((b) => `<a class="underline decoration-rule" href="#/bom/${b.id}">${b.name}</a>`).join('<br>') || '<span class="text-mute">reference artifact · no bom part</span>'],
               ['source', `<a class="font-mono text-[12px] underline decoration-rule" target="_blank" href="${links.source(m.entrypoint)}">${m.entrypoint}</a>`],
               ['documentation', `<a class="underline decoration-rule" href="#/docs/${m.documentation}">${m.documentation}</a>`],
             ])}</div>
             <div class="mt-6 grid gap-2">
-              <a class="btn" href="${links.release(m.output)}">download ${m.output.split('.').pop()} <span class="num opacity-60">${m.output}</span></a>
+              <a class="btn" href="${S.download(m.id).url}">download ${m.output.split('.').pop()} <span class="num opacity-60">${m.output}</span></a>
               <a class="btn-ghost" target="_blank" href="${links.raw(m.entrypoint)}">openscad source <span>↓</span></a>
             </div>
           </div>
@@ -311,7 +311,7 @@ const views = {
   },
 
   downloads() {
-    const d = S.site.downloads;
+    const d = S.site.snapshots;
     const fab = S.models.filter((m) => m.artifactRole === 'fabrication');
     const ref = S.models.filter((m) => m.artifactRole === 'reference');
     $app.innerHTML = `
@@ -329,7 +329,7 @@ const views = {
       <div class="mt-12 flex justify-between label border-b border-ink pb-2"><span class="text-ink">${t}</span><span>${list.length}</span></div>
       <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-x-6">${list.map((m) => `<div class="flex items-center gap-3 py-2 border-b border-rule">
         <a href="#/parts/${m.id}" class="flex-1 min-w-0 truncate">${m.id}</a><span class="label">r${m.revision}</span>
-        <a class="chip hover:bg-ink hover:text-tile" href="${links.release(m.output)}">${m.output.split('.').pop()}</a><a class="chip hover:bg-ink hover:text-tile" target="_blank" href="${links.raw(m.entrypoint)}">scad</a></div>`).join('')}</div>`).join('')}`;
+        <a class="chip hover:bg-ink hover:text-tile" href="${S.download(m.id).url}">${m.output.split('.').pop()}</a><a class="chip hover:bg-ink hover:text-tile" target="_blank" href="${links.raw(m.entrypoint)}">scad</a></div>`).join('')}</div>`).join('')}`;
   },
 };
 

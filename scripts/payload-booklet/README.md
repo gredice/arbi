@@ -27,6 +27,8 @@ renderer. Visible silhouettes and feature edges make dark cores, small brackets
 and hardware readable; the GLB and manifests keep the product palette. Each
 configuration has its own header and page total (14 bench, 16 enclosure).
 
+The `overview-exploded` figure separates the whole assembly layer by layer along the spider axis. It is not placed in the PDF. Its transforms in `figure-manifest.json` are the exploded pose used by the public site (`apps/arbi-docs`).
+
 [Booklet CI](../../.github/workflows/booklets.yml) builds and checks both payload
 variants and the winch from fresh CAD exports on relevant pull requests, `main`
 and manual dispatches. PR PDFs/ZIPs are downloadable for 14 days. The

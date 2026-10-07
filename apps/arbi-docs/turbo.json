@@ -3,7 +3,8 @@
     "extends": ["//"],
     "tasks": {
         "build": {
-            "env": ["ARBI_SOURCE_COMMIT", "ARBI_SOURCE_DATE", "VERCEL_GIT_COMMIT_SHA"],
+            "env": ["ARBI_SOURCE_COMMIT", "ARBI_SOURCE_DATE", "ARBI_CAD_RELEASE", "ARBI_OFFLINE", "VERCEL_GIT_COMMIT_SHA"],
+            "cache": false,
             "inputs": [
                 "$TURBO_DEFAULT$",
                 "$TURBO_ROOT$/README.md",
