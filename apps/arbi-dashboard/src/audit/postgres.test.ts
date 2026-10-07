@@ -62,6 +62,14 @@ test("isolated native PostgreSQL: transactional admission, crash/restart, real S
   assert.deepEqual(await a.verify(cloud.realm,cloud.siteId),head);
   assert.equal((await pool.query("SELECT count(*) FROM arbi_audit_events WHERE id LIKE 'rollback%' ")).rows[0].count,"0");
   await pool.query("ALTER TABLE arbi_audit_outbox DROP CONSTRAINT inject_failure");
+  // Staging overrides an asynchronous-commit preference but stays provisional until COMMIT.
+  await assert.rejects(a.db.transaction(async (sql) => {
+    await sql.query("SET LOCAL synchronous_commit = off");
+    const staged = await a.stage(sql,next,binding(next));assert.equal("durable" in staged,false);
+    assert.equal((await sql.query<{ synchronous_commit: string }>("SHOW synchronous_commit")).rows[0].synchronous_commit,"on");
+    throw new Error("abort before COMMIT");
+  }));
+  assert.deepEqual(await a.verify(cloud.realm,cloud.siteId),head);
   const inv = inventory();await pool.query("INSERT INTO arbi_device_registry(environment,namespace_id,site_id,state) VALUES($1,$2,$3,$4)",
     [cloud.realm.environment,cloud.realm.namespaceId,cloud.siteId,inv.registry]);
   const approved = new Map<string,AuditEvent>();

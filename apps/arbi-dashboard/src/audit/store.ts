@@ -19,6 +19,10 @@ export class PostgresAuditStore {
   constructor(readonly db: SqlDatabase, readonly receiverId = "audit-ingest", readonly now = Date.now, readonly uncertaintyMs = 1000) {}
   /** Transaction-local staging never advertises durable receipt before the enclosing COMMIT. */
   async stage(sql: SqlSession, input: unknown, binding: TrustedBinding): Promise<StagedReceipt> {
+    // A pool/session preference must not downgrade the receipt's WAL durability.
+    await sql.query("SET LOCAL synchronous_commit = on");
+    const durability = (await sql.query<{ fsync: string }>("SHOW fsync")).rows[0];
+    if (durability?.fsync !== "on") throw new AuditError("UNAVAILABLE");
     const event = checked(input);
     const admitted = admitAuditEvent(event, { ...binding, ingestTime: {
       utc: new Date(this.now()).toISOString(), uncertaintyMs: this.uncertaintyMs, deviceId: this.receiverId,
