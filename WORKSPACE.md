@@ -54,6 +54,8 @@ The standard Turbo commands cover implemented workspaces only. `docs:check` vali
 
 `cad:check` always validates `hardware/models.json` against its JSON Schema, required files, relative includes, revisions, statuses, output names, and both directions of the model-to-BOM fabrication-source mapping. When OpenSCAD is installed it must match the registry's exact version, then the command compiles every registered entrypoint into a temporary directory. `--require-openscad` makes a missing CLI an error and is used in CI.
 
+CI runs the OpenSCAD validation job when a pull request or push changes model sources (including shared geometry), registry metadata or schema, BOM part mappings, CAD validation tooling, or its workflow and dependency inputs. Deleting a model's assembly README also triggers validation. Other documentation and software changes skip that job; workspace and BOM checks still run, and `[CI] OK` accepts CAD being skipped only after successful change detection confirms it is unnecessary. A manual CI dispatch always validates all models.
+
 ## OpenSCAD source and releases
 
 - One registered entrypoint produces one declared release artifact.
