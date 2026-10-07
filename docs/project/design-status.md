@@ -23,6 +23,8 @@ This is a current evidence inventory, not a purchasing list and not a certificat
 
 ## Baseline choices that must remain traceable
 
+The [ADR-0008 edge prototype](../decisions/0008-edge-host-and-local-transport.md) adds executable diagnostic health/readiness, bounded mutually authenticated simulated local adapters and a Linux service definition. [Development-host tests](../evidence/edge-runtime-prototype.md) establish source and portable supervision behavior only; exact cabinet host, real transports, Linux confinement, power-loss durability and physical activation remain unverified.
+
 - Four-cable architecture and local ownership of motion and safety.
 - No battery or propulsion on the pod.
 - High dock as the normal automatic parking location.

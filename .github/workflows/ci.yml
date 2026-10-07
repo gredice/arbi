@@ -89,8 +89,19 @@ jobs:
       - name: Typecheck
         run: pnpm typecheck
 
+      # setup-node installs outside /usr/bin. The declared Linux unit requires
+      # an explicitly staged pinned runtime at this path before verification.
+      - name: Stage Node for Linux service verification
+        run: |
+          ARBI_TEST_NODE="$(command -v node)"
+          if [ "$ARBI_TEST_NODE" != /usr/bin/node ]; then
+            sudo ln -sf "$ARBI_TEST_NODE" /usr/bin/node
+          fi
+
       - name: Test
-        run: pnpm test
+        # Each suite already launches host consumers, databases or TLS peers.
+        # Avoid competing package suites starving bounded loopback requests.
+        run: pnpm test --concurrency=1
 
       - name: Check enrollment transactions on isolated PostgreSQL
         run: pnpm --filter @arbi/dashboard test:postgres

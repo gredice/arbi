@@ -13,6 +13,10 @@ test("unconfigured routes fail closed; explicit composition handles bounded JSON
   assert.equal((await mediaRoute(new Request("https://fixture.invalid/api"), { siteId: "site-a", action: "upload" })).status, 503);
   const h = await setup(t); configureMedia(h.compose());
   const response = await POST(h.request("upload", h.upload("route")), { params: Promise.resolve({ siteId: "site-a", action: "upload" }) });
+  if (response.status !== 200) {
+    const failure = await response.clone().json() as { error?: unknown };
+    assert.fail(`expected upload admission 200; received ${response.status} (${typeof failure.error === "string" ? failure.error : "redacted"})`);
+  }
   assert.equal(response.status, 200); assert.equal(response.headers.get("cache-control"), "private, no-store");
   for (const extra of ["siteId", "accountId", "jobId", "calibration", "metadata", "actor", "path", "url", "engineeringMode"]) {
     assert.equal((await h.call("upload", { ...h.upload(`bad-${extra}`), [extra]: "synthetic-private-marker" })).status, 400);

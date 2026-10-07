@@ -47,6 +47,7 @@ The committed material is a **design baseline**, not proof of a built or safe in
 - [ADR-0005: Software architecture and deployment boundaries](decisions/0005-software-architecture-and-deployment.md)
 - [ADR-0006: Local safety authority and instrumentation](decisions/0006-local-safety-authority-and-instrumentation.md)
 - [ADR-0007: Integrated product design](decisions/0007-integrated-product-design.md)
+- [ADR-0008: Edge host and bounded local transport](decisions/0008-edge-host-and-local-transport.md)
 
 ## Software evidence
 
@@ -62,6 +63,7 @@ The committed material is a **design baseline**, not proof of a built or safe in
 - [Release/update 1.0 manifests, mixed-version paths and pure recovery reference](software/release-updates.md)
 - [Device enrollment, inventory and credential lifecycle with isolated PostgreSQL evidence](software/device-enrollment.md)
 - [Image metadata, private Blob direct grants, lifecycle cleanup and isolated PostgreSQL/HTTP evidence](software/image-storage.md)
+- [Supervised edge runtime, local framing and diagnostic authority](software/edge-runtime.md), with [development-host evidence](evidence/edge-runtime-prototype.md)
 
 ## Evidence language
 

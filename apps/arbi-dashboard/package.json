@@ -9,7 +9,7 @@
     "build": "next build --webpack",
     "lint": "tsc --noEmit",
     "typecheck": "tsc --noEmit",
-    "test": "node --import tsx --test --test-concurrency=1 src/enrollment/*.test.ts src/media/*.test.ts src/audit/*.test.ts",
+    "test": "node --no-wasm-code-gc --import tsx --test --test-concurrency=1 src/enrollment/*.test.ts src/media/*.test.ts src/audit/*.test.ts",
     "test:postgres": "node scripts/test-postgres.mjs",
     "test:http": "node scripts/test-http.mjs",
     "db:migrate": "node --import tsx scripts/migrate.ts",
