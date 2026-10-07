@@ -64,6 +64,7 @@ The committed material is a **design baseline**, not proof of a built or safe in
 - [Release/update 1.0 manifests, mixed-version paths and pure recovery reference](software/release-updates.md)
 - [Device enrollment, inventory and credential lifecycle with isolated PostgreSQL evidence](software/device-enrollment.md)
 - [Image metadata, private Blob direct grants, lifecycle cleanup and isolated PostgreSQL/HTTP evidence](software/image-storage.md)
+- [Durable cloud command jobs, exclusive manual leases and isolated PostgreSQL/HTTP evidence](software/command-jobs.md)
 - [Supervised edge runtime, local framing and diagnostic authority](software/edge-runtime.md), with [development-host evidence](evidence/edge-runtime-prototype.md)
 
 ## Evidence language
