@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { isDeepStrictEqual } from "node:util";
 import { Ajv2020 } from "ajv/dist/2020.js";
-import type { Actor, Counter, Id, Identity, IngestTime, Realm } from "./messages.js";
+import type { Actor, Command, Counter, Id, Identity, IngestTime, Realm } from "./messages.js";
 import type { AuditAction, AuditEvidence, AuditEvent, AuditLinks, AuditMetadata, AuditResource, AuditSource } from "./audit-types.js";
 import { fail, MAX_COUNTER, validateMessage, type Result } from "./validate.js";
 
@@ -133,6 +133,10 @@ export function correlateAuditEvent(intentInput: unknown, eventInput: unknown): 
 }
 
 export interface AuditOutcomeBinding {
+  realm: Realm;
+  executionMode: AuditEvent["executionMode"];
+  siteId: Id;
+  command: Command;
   eventId: Id;
   sequence: Counter;
   action: AuditAction;
@@ -144,20 +148,50 @@ export interface AuditOutcomeBinding {
   ingestTime: IngestTime;
 }
 
+function validateAuditProtocol(input: unknown) {
+  const parsed = validateMessage(input);
+  // Protocol errors can contain an untrusted property name; audit must not echo it.
+  return !parsed.ok && parsed.error.code === "UNKNOWN_FIELD" ? fail("UNKNOWN_FIELD", "/[unknown]") : parsed;
+}
+
 /** Project a terminal, authenticated protocol record; never turn an acknowledgement into completion. */
 export function auditFromProtocolOutcome(intentInput: unknown, outcomeInput: unknown, binding: AuditOutcomeBinding): Result<AuditEvent> {
   const root = validateAuditEvent(intentInput);
   if (!root.ok) return root;
-  const parsed = validateMessage(outcomeInput);
+  const parsed = validateAuditProtocol(outcomeInput);
   if (!parsed.ok) return parsed;
   const record = parsed.value;
   if (record.kind !== "event" || record.body.type !== "command.outcome") return fail("INVALID_MESSAGE", "/body/type");
   const body = record.body;
   if (!["completed", "rejected", "failed", "cancelled"].includes(body.outcome)) return fail("INVALID_TRANSITION", "/body/outcome");
+  const submitted = validateAuditProtocol(binding.command);
+  if (!submitted.ok) return submitted;
+  if (submitted.value.kind !== "command") return fail("UNKNOWN_KIND", "/kind");
+  const command = submitted.value;
+  for (const message of [root.value, record, command]) {
+    if (!isDeepStrictEqual(message.realm, binding.realm)) return fail("REALM_MISMATCH", "/realm");
+    if (message.executionMode !== binding.executionMode) return fail("REALM_MISMATCH", "/executionMode");
+    if (message.siteId !== binding.siteId) return fail("SITE_MISMATCH", "/siteId");
+  }
+  if (!isDeepStrictEqual(command.command.actor, root.value.actor)) return fail("NOT_AUTHORIZED", "/actor");
+  if (!isDeepStrictEqual(command.source, binding.requestSource)) return fail("SOURCE_MISMATCH", "/source");
+  if (!isDeepStrictEqual(command.command.target, binding.target)) return fail("TARGET_MISMATCH", "/command/target");
+  if (command.command.commandId !== binding.commandId || command.command.correlationId !== root.value.links.correlationId) return fail("INVALID_MESSAGE", "/command");
+  const actions: Partial<Record<Command["body"]["type"], AuditAction>> = {
+    "motion.move": "motion.move", "control.stop": "control.stop", "camera.gimbal": "gimbal.move", "camera.capture": "capture.request",
+  };
+  const action = actions[command.body.type];
+  if (action === undefined) return fail("UNSUPPORTED_CAPABILITY", "/command/body/type");
+  if (binding.action !== action) return fail("INVALID_MESSAGE", "/action");
   if (body.commandId !== binding.commandId || body.correlationId !== root.value.links.correlationId
     || !isDeepStrictEqual(body.requestSource, binding.requestSource)) return fail("INVALID_MESSAGE", "/body");
   if (!isDeepStrictEqual(record.source, binding.target)) return fail("TARGET_MISMATCH", "/source");
-  if (body.resourceId !== null && body.resourceId !== binding.resource.id) return fail("TARGET_MISMATCH", "/body/resourceId");
+  if (command.body.type === "camera.capture") {
+    if (binding.resource.kind !== "capture" || command.body.resourceId !== binding.resource.id) return fail("TARGET_MISMATCH", "/resource");
+    if ((body.outcome === "completed" || body.resourceId !== null) && body.resourceId !== command.body.resourceId) return fail("TARGET_MISMATCH", "/body/resourceId");
+  } else if (binding.resource.kind !== "device" || binding.resource.id !== binding.target.deviceId || body.resourceId !== null) {
+    return fail("TARGET_MISMATCH", "/body/resourceId");
+  }
   const interrupted = body.outcome === "cancelled" || (body.outcome === "failed" && body.error?.code === "INTERRUPTED");
   const event: AuditEvent = {
     auditVersion: AUDIT_VERSION, eventId: binding.eventId, realm: record.realm, executionMode: record.executionMode,

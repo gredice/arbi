@@ -4,7 +4,7 @@ import { test } from "node:test";
 import { Ajv2020 } from "ajv/dist/2020.js";
 import {
   admitAuditEvent, auditFromProtocolOutcome, correlateAuditEvent, parseAuditEvent, validateAuditEvent,
-  MAX_AUDIT_EVENT_BYTES, validateMessage, type AuditBoundary, type AuditEvent, type AuditOutcomeBinding, type Event, type Result,
+  MAX_AUDIT_EVENT_BYTES, validateMessage, type AuditBoundary, type AuditEvent, type AuditOutcomeBinding, type Command, type Event, type Result,
 } from "./index.js";
 
 interface Fixtures {
@@ -13,6 +13,7 @@ interface Fixtures {
   trace: { intent: string; modules: string[] };
 }
 const fixtures = JSON.parse(readFileSync(new URL("../fixtures/audit-events.json", import.meta.url), "utf8")) as Fixtures;
+const protocolFixtures = JSON.parse(readFileSync(new URL("../fixtures/contracts.json", import.meta.url), "utf8")) as { valid: { move: Command } };
 const schema = JSON.parse(readFileSync(new URL("../schema/audit-event.schema.json", import.meta.url), "utf8")) as { $defs: { AuditAction: { enum: string[] } } };
 const fixture = (name: string): AuditEvent => structuredClone(fixtures.valid[name]);
 function error(result: Result<unknown>, code: string): void {
@@ -172,12 +173,71 @@ function protocolRecord(name: string, outcome: "completed" | "rejected" | "faile
 }
 const outcomeBinding = (name: string): AuditOutcomeBinding => {
   const event = fixture(name);
+  const command = structuredClone(protocolFixtures.valid.move);
+  command.realm = structuredClone(event.realm); command.executionMode = event.executionMode; command.siteId = event.siteId;
+  command.source = structuredClone(event.links.requestSource!);
+  command.command.commandId = event.links.commandId!; command.command.correlationId = event.links.correlationId;
+  command.command.actor = structuredClone(event.actor); command.command.lease!.holderId = event.actor.id;
+  command.command.target = structuredClone(event.links.target!);
+  command.command.deadline = { bootId: event.links.target!.bootId, sessionId: event.links.target!.sessionId, expiresMonotonicMs: 1500 };
+  if (event.action === "capture.request") command.body = { type: "camera.capture", resourceId: event.resource.id, maxDurationMs: 500 };
+  if (event.action === "gimbal.move") command.body = { type: "camera.gimbal", panDeg: 0, tiltDeg: 0, frame: { name: "pod-gimbal", revision: "gimbal-1" }, maxDurationMs: 500 };
   return {
+    realm: structuredClone(event.realm), executionMode: event.executionMode, siteId: event.siteId, command,
     eventId: event.eventId, sequence: event.sequence, action: event.action,
     sourceModule: event.source.module as AuditOutcomeBinding["sourceModule"], resource: event.resource,
     commandId: event.links.commandId!, requestSource: event.links.requestSource!, target: event.links.target!, ingestTime: null,
   };
 };
+test("projection binds even consistently forged intent and outcome context to trusted enrollment", () => {
+  for (const [field, value, code] of [
+    ["siteId", "other-site", "SITE_MISMATCH"],
+    ["executionMode", "hardware", "REALM_MISMATCH"],
+    ["realm", { environment: "test", namespaceId: "other-installation" }, "REALM_MISMATCH"],
+  ] as const) {
+    const intent = fixture("capture-intent"), record = protocolRecord("motion"), binding = outcomeBinding("motion");
+    Object.assign(intent, { [field]: value }); Object.assign(record, { [field]: value });
+    error(auditFromProtocolOutcome(intent, record, binding), code);
+  }
+});
+test("projection checks the submitted command, action, actor and nullable resource semantics", () => {
+  const intent = fixture("capture-intent");
+  const wrongAction = outcomeBinding("motion"); wrongAction.action = "gimbal.move";
+  error(auditFromProtocolOutcome(intent, protocolRecord("motion"), wrongAction), "INVALID_MESSAGE");
+  const wrongActor = outcomeBinding("motion"); wrongActor.command.command.actor.id = "another-human";
+  error(auditFromProtocolOutcome(intent, protocolRecord("motion"), wrongActor), "NOT_AUTHORIZED");
+  const wrongCommand = outcomeBinding("motion"); wrongCommand.command.command.commandId = "another-command";
+  error(auditFromProtocolOutcome(intent, protocolRecord("motion"), wrongCommand), "INVALID_MESSAGE");
+  const wrongSource = outcomeBinding("motion"); wrongSource.command.source.sessionId = "other-source-session";
+  error(auditFromProtocolOutcome(intent, protocolRecord("motion"), wrongSource), "SOURCE_MISMATCH");
+  const wrongTarget = outcomeBinding("motion");
+  wrongTarget.command.command.target.bootId = "another-target-boot"; wrongTarget.command.command.deadline.bootId = "another-target-boot";
+  error(auditFromProtocolOutcome(intent, protocolRecord("motion"), wrongTarget), "TARGET_MISMATCH");
+  const wrongType = outcomeBinding("motion");
+  wrongType.command.body = { type: "camera.capture", resourceId: "capture-1", maxDurationMs: 500 };
+  error(auditFromProtocolOutcome(intent, protocolRecord("motion"), wrongType), "INVALID_MESSAGE");
+  const unsupported = outcomeBinding("motion"); unsupported.command.body = { type: "state.resync", cursor: null, committedCursor: null };
+  error(auditFromProtocolOutcome(intent, protocolRecord("motion"), unsupported), "UNSUPPORTED_CAPABILITY");
+  const wrongResource = outcomeBinding("capture");
+  if (wrongResource.command.body.type === "camera.capture") wrongResource.command.body.resourceId = "another-capture";
+  error(auditFromProtocolOutcome(intent, protocolRecord("capture"), wrongResource), "TARGET_MISMATCH");
+  const missingResource = protocolRecord("capture");
+  if (missingResource.body.type === "command.outcome") missingResource.body.resourceId = null;
+  error(auditFromProtocolOutcome(intent, missingResource, outcomeBinding("capture")), "TARGET_MISMATCH");
+  const unexpectedResource = protocolRecord("motion");
+  if (unexpectedResource.body.type === "command.outcome") unexpectedResource.body.resourceId = "unexpected-resource";
+  error(auditFromProtocolOutcome(intent, unexpectedResource, outcomeBinding("motion")), "TARGET_MISMATCH");
+  assert.equal(auditFromProtocolOutcome(intent, protocolRecord("capture", "failed"), outcomeBinding("capture")).ok, true);
+});
+test("projection errors never echo unknown protocol or command property names", () => {
+  const intent = fixture("capture-intent"), record = protocolRecord("motion"), binding = outcomeBinding("motion");
+  Object.assign(record, { "synthetic-secret-key": "synthetic-secret-value" });
+  const outcomeResult = auditFromProtocolOutcome(intent, record, binding);
+  error(outcomeResult, "UNKNOWN_FIELD"); assert.equal(JSON.stringify(outcomeResult).includes("synthetic-secret"), false);
+  Object.assign(binding.command, { "synthetic-secret-key": "synthetic-secret-value" });
+  const commandResult = auditFromProtocolOutcome(intent, protocolRecord("motion"), binding);
+  error(commandResult, "UNKNOWN_FIELD"); assert.equal(JSON.stringify(commandResult).includes("synthetic-secret"), false);
+});
 test("each module's protocol 1.0 terminal record projects to the same human intent with safe references", () => {
   for (const name of fixtures.trace.modules) {
     const record = protocolRecord(name);
