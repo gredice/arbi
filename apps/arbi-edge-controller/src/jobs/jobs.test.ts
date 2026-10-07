@@ -108,6 +108,8 @@ test('fault/weather or configuration/calibration/boot/session/generation replace
     (r: ReturnType<typeof rig>) => { r.authority.modules.pod.source.sessionId = 'reconnect'; },
     (r: ReturnType<typeof rig>) => { r.authority.modules.motion.generation++; },
     (r: ReturnType<typeof rig>) => { r.authority.applied.configurationDigest = '0'.repeat(64); },
+    (r: ReturnType<typeof rig>) => { r.authority.applied.request.transactionId = 'replacement-apply'; },
+    (r: ReturnType<typeof rig>) => { r.authority.applied.appliedBy.bootId = 'replacement-applying-boot'; r.authority.applied.request.target.bootId = 'replacement-applying-boot'; },
     (r: ReturnType<typeof rig>) => { r.authority.applied.request.configuration.calibration!.revision = 'new-calibration'; },
     (r: ReturnType<typeof rig>) => { r.adapter.modules.disturb({ kind: 'driver-fault', active: true, atMs: 1050, order: 0 }); }
   ]) await t.test('interrupt', sub => { const r = rig(sub); r.consumer.receive(r.command); r.advance(1000); change(r); const result = r.advance(1050)!;

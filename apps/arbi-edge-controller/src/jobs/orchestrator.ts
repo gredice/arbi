@@ -69,6 +69,7 @@ export class LocalJobConsumer {
   #current(r: JobRecord, a: LocalAuthority): ErrorCode | null {
     if (!same(r.command.command.target, a.gate.receiver)) return 'TARGET_RESTARTED';
     if (!same(r.modules, a.modules)) return 'RESYNC_REQUIRED';
+    if (!same(r.appliedIdentity, { transactionId: a.applied.request.transactionId, appliedBy: a.applied.appliedBy })) return 'CONFIG_MISMATCH';
     if (r.configurationDigest !== a.applied.configurationDigest || r.calibrationRevision !== a.applied.request.configuration.calibration?.revision) return 'CONFIG_MISMATCH';
     // Admission is repeated with current lease/actor/capability/deadline, with no cached grant.
     const result = admitCommand(r.command, a.gate, createCommandLedger(1));

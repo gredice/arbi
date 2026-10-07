@@ -138,6 +138,7 @@ export class JobJournal {
       this.#db.prepare('INSERT INTO jobs VALUES(?,?,?,?,?,?)').run(c.command.commandId, canonical(c.source), c.command.idempotencyKey, fp, body, digest(c));
       const r: JobRecord = { command: c, fingerprint: fp, outcome: 'requested', error: null, phase: 'admitted', state: a.state, steps,
         stepIndex: 0, operation: null, sent: false, modules: structuredClone(a.modules), configurationDigest: a.applied.configurationDigest,
+        appliedIdentity: { transactionId: a.applied.request.transactionId, appliedBy: structuredClone(a.applied.appliedBy) },
         calibrationRevision: a.applied.request.configuration.calibration?.revision ?? 'unavailable',
         lastAtMs: Number.isSafeInteger(a.gate.nowMonotonicMs) && a.gate.nowMonotonicMs >= 0 ? a.gate.nowMonotonicMs : 0,
         expiresAtMs: Math.min(c.command.deadline.expiresMonotonicMs, a.gate.nowMonotonicMs + ('maxDurationMs' in c.body ? c.body.maxDurationMs : 500)), event: {} as Event };

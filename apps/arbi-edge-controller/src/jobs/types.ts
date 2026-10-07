@@ -46,6 +46,7 @@ export interface JobRecord {
   phase: Phase | 'admitted' | 'complete' | 'operator-required'; state: State;
   steps: Step[]; stepIndex: number; operation: Operation | null; sent: boolean;
   modules: LocalAuthority['modules']; configurationDigest: string; calibrationRevision: string;
+  appliedIdentity: { transactionId: string; appliedBy: Identity };
   lastAtMs: number; expiresAtMs: number; event: Event;
 }
 export class JobError extends Error { constructor(readonly code: ErrorCode | 'STORAGE_UNAVAILABLE') { super(code); } }
