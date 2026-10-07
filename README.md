@@ -29,6 +29,7 @@ The current material is a **concept and design baseline**. It is not evidence of
 - `hardware`: canonical OpenSCAD sources, shared modeling helpers, model metadata, and hardware-specific notes.
 - `bom`: canonical part, assembly, supplier, offer, destination, and build data plus generated reports.
 - `packages/arbi-bom`: BOM schemas, deterministic landed-cost calculation, generation, and validation.
+- `apps/arbi-docs`: public site at [arbi.gredice.com](https://arbi.gredice.com), compiled from the files above at build time.
 - `scripts`: repository-level validation that does not belong to one package.
 - `.github`: public contribution templates and secret-free continuous integration.
 
@@ -64,7 +65,6 @@ See [WORKSPACE.md](WORKSPACE.md) for boundaries, commands, generated artifacts, 
 
 Deployable software will be added only with an implemented, testable slice. Expected destinations are:
 
-- `apps/arbi-docs`: future Next.js documentation and interactive BOM site on Vercel;
 - `apps/arbi-simulator`: simulator executable or interface;
 - `apps/arbi-edge-controller`: local orchestration and control adapter;
 - `apps/arbi-cloud`: remote request, telemetry, and image integration if required;

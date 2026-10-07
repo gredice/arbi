@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ARBI · B · Studio</title>
+<link rel="icon" type="image/png" href="data/docs/assets/brand/arbi-mark-transparent.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<style type="text/tailwindcss">
+@theme {
+  --color-void: #09090a;
+  --color-panel: #121213;
+  --color-raise: #1a1a1c;
+  --color-line: #27272a;
+  --color-chalk: #efeee9;
+  --color-mute: #85858a;
+  --font-sans: "Geist", system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, monospace;
+}
+@layer base {
+  html { -webkit-font-smoothing: antialiased; color-scheme: dark; }
+  body { @apply bg-void text-chalk font-sans text-[14px]; }
+  ::selection { @apply bg-chalk text-void; }
+}
+@utility eyebrow { @apply font-mono text-[11px] uppercase tracking-[0.14em] text-mute; }
+@utility mono { @apply font-mono tabular-nums; }
+@utility panel { @apply bg-panel border border-line rounded-2xl; }
+@utility pill { @apply inline-flex items-center gap-2 rounded-full border border-line px-3 py-1 font-mono text-[11px] uppercase tracking-[0.1em] text-mute; }
+@utility cta { @apply inline-flex items-center gap-3 rounded-full bg-chalk text-void px-5 py-2.5 text-[13px] font-medium hover:bg-white; }
+@utility cta-line { @apply inline-flex items-center gap-3 rounded-full border border-line px-5 py-2.5 text-[13px] hover:border-chalk; }
+.invert-art { filter: invert(1); mix-blend-mode: screen; }
+.prose-doc { @apply max-w-[70ch] text-[15px] leading-[1.7] text-chalk/85; }
+.prose-doc h1 { @apply text-[52px] font-light tracking-[-0.03em] leading-none mb-10 text-chalk; }
+.prose-doc h2 { @apply mt-14 mb-4 text-[22px] font-normal tracking-tight text-chalk; }
+.prose-doc h3 { @apply mt-8 mb-2 font-medium text-chalk; }
+.prose-doc p, .prose-doc ul, .prose-doc ol { @apply mb-4; }
+.prose-doc ul { @apply list-disc pl-5 marker:text-mute; } .prose-doc ol { @apply list-decimal pl-5; }
+.prose-doc a { @apply text-chalk underline decoration-line underline-offset-4 hover:decoration-chalk; }
+.prose-doc table { @apply w-full my-8 text-[13px]; } .prose-doc th { @apply eyebrow text-left border-b border-line py-2 pr-3 font-normal; }
+.prose-doc td { @apply border-b border-line py-2 pr-3 align-top; }
+.prose-doc code { @apply font-mono text-[12.5px] bg-raise px-1.5 py-0.5 rounded; }
+.prose-doc pre { @apply panel p-5 my-6 overflow-x-auto font-mono text-[12.5px]; }
+.prose-doc img { @apply rounded-xl my-8; }
+.hud { position:fixed; z-index:50; pointer-events:none; }
+</style>
+</head>
+<body>
+<header class="fixed top-0 inset-x-0 z-40 bg-gradient-to-b from-void/90 to-transparent">
+  <div class="px-4 sm:px-8 h-16 flex items-center gap-10 text-white">
+    <a href="#/" class="shrink-0"><img src="data/docs/assets/brand/arbi-logo.png" alt="ARBI" class="h-9 w-auto rounded-[4px]"></a>
+    <nav class="ml-auto flex gap-6 text-[13px] overflow-x-auto" id="nav">
+      <a href="#/systems">Systems</a><a href="#/bom">BOM</a><a href="#/docs">Docs</a><a href="#/downloads">Downloads</a>
+    </nav>
+  </div>
+</header>
+<main id="app"></main>
+<footer class="border-t border-line mt-24">
+  <div class="px-4 sm:px-8 py-10 flex flex-wrap gap-x-10 gap-y-3 eyebrow">
+    <span>ARBI · open engineering</span><span id="commit"></span><span>AGPL-3.0-only</span><span class="ml-auto">mockup b · studio</span>
+  </div>
+</footer>
+<div id="hud" class="hud hidden">
+  <div class="rounded-xl bg-raise/95 border border-line px-3 py-2 backdrop-blur min-w-[200px]">
+    <div class="eyebrow" id="hud-k"></div><div class="text-[14px] mt-0.5" id="hud-t"></div><div class="mono text-[11px] text-mute mt-1" id="hud-m"></div>
+  </div>
+</div>
+
+<script type="module">
+import { loadSite, Viewer, router, renderDoc, fmt, links, DATA } from './shared/arbi.js';
+
+const S = await loadSite();
+const $app = document.getElementById('app');
+const hud = document.getElementById('hud');
+let viewers = [];
+let cleanup = [];
+document.getElementById('commit').innerHTML = `<a href="${links.commit(S.site.commit)}" target="_blank">${S.site.commit.slice(0, 7)}</a> · ${S.site.commitDate}`;
+
+const img = (path, cls = '') => `<img src="${DATA + path}" class="${cls}" loading="lazy" alt="">`;
+const mount = (el, o) => { const v = new Viewer(el, o); viewers.push(v); return v; };
+const sceneModels = (key) => [...new Map(S.scenes[key].parts.filter((p) => p.registered).map((p) => [p.model, p])).keys()];
+
+function bindHud(v) {
+  v.on('hover', (p, at) => {
+    hud.classList.toggle('hidden', !p);
+    if (!p) return;
+    const m = S.modelById[p.model];
+    hud.querySelector('#hud-k').textContent = p.registered ? `${m.artifactRole} · r${m.revision}` : 'reference hardware';
+    hud.querySelector('#hud-t').textContent = p.model.replace(/-reference|-UNVERIFIED/, '');
+    hud.querySelector('#hud-m').textContent = p.registered ? `×${S.instances[p.model].count} installed · click to open` : 'nominal geometry, not a fabrication part';
+  });
+  const move = (e) => { hud.style.left = e.clientX + 18 + 'px'; hud.style.top = e.clientY + 18 + 'px'; };
+  v.renderer.domElement.addEventListener('pointermove', move);
+  v.on('pick', (p) => p.registered && (location.hash = `#/parts/${p.model}`));
+}
+
+const views = {
+  async ''() {
+    const sum = S.site.bom.summary;
+    const podIds = sceneModels('pod');
+    const steps = [
+      ['payload-rain-hood', 'White shell', 'A broad rounded crown over the fixed electronics. Removable for service.'],
+      ['payload-electronics-deck', 'Fixed electronics', 'Pi 3A+, converter and capacitor stay on the spider. Only the camera moves.'],
+      ['camera-pod-spider', 'Four-line spider', 'The cable spider is the primary chassis and the only load path.'],
+      ['payload-pan-yoke', 'Two-axis gimbal', 'Pan ±90°, tilt 0–70° targets. Software and hard stops bound the sweep.'],
+    ];
+    $app.innerHTML = `
+      <section id="scrolly" class="relative h-[320vh]">
+        <div class="sticky top-0 h-screen overflow-hidden">
+          <div class="absolute inset-0 grid place-items-center select-none pointer-events-none">
+            <div class="text-[28vw] leading-none font-semibold tracking-[-0.06em] text-raise">ARBI</div>
+          </div>
+          <div id="hero" class="absolute inset-0"></div>
+          <div class="absolute left-4 sm:left-8 bottom-10 max-w-[420px] pointer-events-none">
+            <div class="eyebrow">Automatic Raised Bed Imaging</div>
+            <h1 class="mt-3 text-[38px] sm:text-[52px] leading-[1] font-light tracking-[-0.03em]">A camera that flies on four lines.</h1>
+          </div>
+          <div class="absolute right-4 sm:right-8 bottom-10 w-[300px] hidden md:block">
+            ${steps.map(([id, t, d], i) => `<div data-step="${i}" class="absolute bottom-0 inset-x-0 transition-all duration-500 opacity-0 translate-y-3">
+              <div class="eyebrow">${fmt.pad(i + 1)} / ${fmt.pad(steps.length)}</div><div class="text-[22px] mt-2">${t}</div><p class="text-mute mt-2">${d}</p>
+              <a href="#/parts/${id}" class="pill mt-4 pointer-events-auto hover:text-chalk">${id} →</a></div>`).join('')}
+          </div>
+          <div class="absolute left-1/2 -translate-x-1/2 top-20 eyebrow" id="scrollhint">scroll to take it apart</div>
+        </div>
+      </section>
+      <section class="px-4 sm:px-8 grid grid-cols-2 md:grid-cols-4 border-y border-line">
+        ${[[S.models.length, 'CAD models from OpenSCAD'], [S.site.bom.parts.length, 'BOM line items'], [fmt.eur(sum.knownSubtotal), 'Known partial cost'], [S.site.docs.length, 'Engineering documents']].map(([n, l], i) =>
+          `<div class="py-10 ${i ? 'md:border-l border-line md:pl-8' : ''}"><div class="mono text-[40px] font-light leading-none">${n}</div><div class="eyebrow mt-3">${l}</div></div>`).join('')}
+      </section>
+      <section class="mt-24 px-4 sm:px-8">
+        <div class="flex items-end justify-between"><h2 class="text-[40px] font-light tracking-tight">Systems</h2><a href="#/systems" class="eyebrow hover:text-chalk">All systems →</a></div>
+        <div class="mt-8 flex gap-4 overflow-x-auto snap-x pb-4 -mx-4 px-4 sm:-mx-8 sm:px-8">${S.systems.map((s, i) => `
+          <a href="#/systems/${s.slug}" class="snap-start shrink-0 w-[300px] sm:w-[360px] panel p-5 flex flex-col h-[420px] hover:border-mute group">
+            <div class="flex justify-between eyebrow"><span>${fmt.pad(i + 1)}</span><span>${s.models.length ? s.models.length + ' models' : 'docs only'}</span></div>
+            <div class="flex-1 grid place-items-center">${s.hero ? img(s.hero, 'invert-art max-h-[220px] opacity-80 group-hover:opacity-100 transition') : '<div class="eyebrow">no compiled scene</div>'}</div>
+            <div class="text-[22px]">${s.name}</div><div class="text-mute mt-1 line-clamp-2">${s.description}</div></a>`).join('')}</div>
+      </section>
+      <section class="mt-24 px-4 sm:px-8 grid lg:grid-cols-2 gap-4">
+        <div class="panel overflow-hidden relative min-h-[360px]">${img('docs/assets/arbi-cover.png', 'absolute inset-0 w-full h-full object-cover opacity-70')}
+          <div class="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-void"><div class="eyebrow">Concept imagery · not a built installation</div></div></div>
+        <div class="panel p-8 flex flex-col">
+          <div class="eyebrow">Evidence first</div>
+          <p class="mt-4 text-[22px] leading-snug font-light">Every model on this site is <span class="text-mute">concept · unvalidated</span> until a committed test, calculation or inspection says otherwise.</p>
+          <div class="mt-auto pt-8 flex flex-wrap gap-3"><a class="cta" href="#/docs/docs/project/design-status.md">Design status →</a><a class="cta-line" href="#/downloads">Downloads ↓</a></div>
+        </div>
+      </section>`;
+    const v = mount(document.getElementById('hero'), { style: 'dark', autoRotate: true, fov: 24 });
+    v.controls.enableZoom = false;
+    await v.loadScene('pod', S.scenes.pod);
+    v.setExplode(1); v.frame({ distance: 0.68, elevation: 0.26 }); v.setExplode(0); v.explode = 0;
+    bindHud(v);
+    const el = document.getElementById('scrolly');
+    const onScroll = () => {
+      const t = Math.min(1, Math.max(0, -el.getBoundingClientRect().top / (el.offsetHeight - innerHeight)));
+      v.setExplode(Math.min(1, t * 1.25));
+      const step = Math.min(steps.length - 1, Math.floor(t * steps.length));
+      document.querySelectorAll('[data-step]').forEach((s) => { const on = +s.dataset.step === step && t > 0.04; s.style.opacity = on ? 1 : 0; s.style.transform = on ? 'none' : 'translateY(12px)'; });
+      v.setFocus(t > 0.04 ? steps[step][0] : null);
+      document.getElementById('scrollhint').style.opacity = t > 0.02 ? 0 : 1;
+    };
+    addEventListener('scroll', onScroll, { passive: true });
+    cleanup.push(() => removeEventListener('scroll', onScroll));
+  },
+
+  async systems([slug]) {
+    if (!slug) {
+      $app.innerHTML = `<div class="pt-28 px-4 sm:px-8"><h1 class="text-[64px] font-light tracking-[-0.03em]">Systems</h1>
+        <div class="mt-10 grid md:grid-cols-2 xl:grid-cols-3 gap-4">${S.systems.map((s, i) => `<a href="#/systems/${s.slug}" class="panel p-6 h-[380px] flex flex-col hover:border-mute">
+          <div class="flex justify-between eyebrow"><span>${fmt.pad(i + 1)}</span><span>${s.goods ? fmt.eur(s.goods) : ''}</span></div>
+          <div class="flex-1 grid place-items-center">${s.hero ? img(s.hero, 'invert-art max-h-[200px] opacity-80') : '<div class="eyebrow">no compiled scene</div>'}</div>
+          <div class="text-[24px]">${s.name}</div><div class="text-mute mt-1">${s.models.length} models · ${s.usages.length} BOM lines</div></a>`).join('')}</div></div>`;
+      return;
+    }
+    const sys = S.systemBySlug[slug];
+    const ids = sys.scene ? sceneModels(sys.scene) : [];
+    $app.innerHTML = `
+      <section class="relative h-screen">
+        <div id="stage" class="absolute inset-0"></div>
+        <div class="absolute left-4 sm:left-8 top-24 max-w-[460px] pointer-events-none">
+          <a href="#/systems" class="eyebrow pointer-events-auto hover:text-chalk">← Systems</a>
+          <h1 class="mt-4 text-[56px] leading-[0.95] font-light tracking-[-0.03em]">${sys.name}</h1>
+          <p class="mt-4 text-mute">${sys.description}</p>
+          <div class="mt-6 flex flex-wrap gap-2 pointer-events-auto"><a class="pill hover:text-chalk" href="#/docs/${sys.documentation}">Read documentation →</a>${sys.goods ? `<span class="pill">${fmt.eur(sys.goods)} known goods</span>` : ''}</div>
+        </div>
+        ${sys.scene ? `<div class="absolute right-4 sm:right-8 top-24 w-[280px] panel p-2 max-h-[60vh] overflow-auto hidden lg:block" id="list">
+          ${ids.map((id) => `<a data-m="${id}" href="#/parts/${id}" class="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-raise"><span class="truncate text-[13px]">${id.replace(/^(payload|camera-pod|winch)-/, '')}</span><span class="mono text-[11px] text-mute">×${S.instances[id].count}</span></a>`).join('')}</div>
+        <div class="absolute inset-x-0 bottom-8 flex justify-center">
+          <div class="panel px-5 py-3 flex items-center gap-4"><span class="eyebrow">Assembled</span><input id="ex" type="range" min="0" max="1" step="0.01" value="1" class="w-56 accent-white"><span class="eyebrow">Exploded</span></div></div>`
+        : `<div class="absolute inset-0 grid place-items-center text-center"><div><div class="eyebrow">No compiled scene yet</div><p class="text-mute mt-3 max-w-[44ch]">${sys.models.length} registered model(s). Renders appear here once the CAD pipeline exports meshes for this system.</p></div></div>`}
+      </section>
+      ${sys.exploded ? `<section class="px-4 sm:px-8 mt-8 grid md:grid-cols-2 gap-4">${[sys.hero, sys.exploded].map((f, i) => `<figure class="panel p-6">${img(f, 'invert-art w-full aspect-[4/3] object-contain opacity-85')}<figcaption class="eyebrow mt-3">Booklet figure · ${i ? 'exploded' : 'assembled'}</figcaption></figure>`).join('')}</section>` : ''}
+      <section class="px-4 sm:px-8 mt-16"><h2 class="text-[28px] font-light">All registered models</h2>
+        <div class="mt-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-3">${sys.models.map(modelCard).join('')}</div></section>`;
+    if (!sys.scene) return;
+    const v = mount(document.getElementById('stage'), { style: 'dark' });
+    await v.loadScene(sys.scene, S.scenes[sys.scene]);
+    v.setExplode(1); v.frame({ distance: sys.scene === 'pod' ? 0.6 : 0.72, elevation: sys.scene === 'pod' ? 0.26 : 0.5 });
+    bindHud(v);
+    const list = document.getElementById('list');
+    v.on('hover', (p) => list.querySelectorAll('[data-m]').forEach((r) => r.classList.toggle('bg-raise', r.dataset.m === p?.model)));
+    list.addEventListener('mouseover', (e) => v.setFocus(e.target.closest('[data-m]')?.dataset.m ?? null));
+    list.addEventListener('mouseleave', () => v.setFocus(null));
+    document.getElementById('ex').oninput = (e) => v.setExplode(+e.target.value);
+  },
+
+  async parts([id]) {
+    const m = S.modelById[id];
+    if (!m) return (location.hash = '#/systems');
+    const inst = S.instances[id];
+    const bom = S.bomForModel(m);
+    const fig = S.figureFor(id);
+    const sys = S.systemBySlug[m.assembly];
+    $app.innerHTML = `
+      <section class="grid lg:grid-cols-[1fr_440px] min-h-screen">
+        <div class="relative h-[70vh] lg:h-screen lg:sticky lg:top-0">
+          <div id="stage" class="absolute inset-0"></div>
+          <div class="absolute left-4 sm:left-8 top-24 eyebrow"><a href="#/systems/${m.assembly}" class="hover:text-chalk">← ${sys?.name ?? m.assembly}</a></div>
+          <div class="absolute left-4 sm:left-8 bottom-8 mono text-[12px] text-mute" id="dims"></div>
+        </div>
+        <aside class="border-l border-line px-6 sm:px-8 pt-24 pb-12 bg-panel/60">
+          <div class="flex flex-wrap gap-2"><span class="pill"><span class="size-1.5 rounded-full border border-mute"></span>${fmt.status(m.status)}</span><span class="pill">${m.artifactRole}</span></div>
+          <h1 class="mt-6 text-[34px] leading-[1.05] font-light tracking-[-0.02em] break-words">${m.id}</h1>
+          <p class="mt-4 text-chalk/80 leading-relaxed">${m.description}</p>
+          <div class="mt-8 grid grid-cols-3 gap-px bg-line rounded-xl overflow-hidden">
+            ${[['Revision', m.revision], ['Installed', inst ? '×' + inst.count : '—'], ['Format', m.output.split('.').pop().toUpperCase()]].map(([k, v]) => `<div class="bg-panel p-4"><div class="eyebrow">${k}</div><div class="mono text-[22px] mt-2">${v}</div></div>`).join('')}
+          </div>
+          <dl class="mt-8 text-[13px]">${[
+            ['BOM item', bom.map((b) => `<a class="underline decoration-line underline-offset-4 hover:decoration-chalk" href="#/bom/${b.id}">${b.name}</a>`).join('<br>') || '<span class="text-mute">Reference artifact</span>'],
+            ['Source', `<a class="mono text-[12px] break-all hover:underline" target="_blank" href="${links.source(m.entrypoint)}">${m.entrypoint}</a>`],
+            ['Docs', `<a class="hover:underline" href="#/docs/${m.documentation}">${m.documentation}</a>`],
+          ].map(([k, v]) => `<div class="grid grid-cols-[96px_1fr] gap-4 py-3 border-t border-line"><dt class="eyebrow pt-0.5">${k}</dt><dd>${v}</dd></div>`).join('')}</dl>
+          <div class="mt-8 grid gap-2"><a class="cta justify-between" href="${links.release(m.output)}">Download ${m.output.split('.').pop().toUpperCase()} <span>↓</span></a>
+            <a class="cta-line justify-between" target="_blank" href="${links.raw(m.entrypoint)}">OpenSCAD source <span>↓</span></a></div>
+          ${fig ? `<figure class="mt-10 panel p-6">${img(fig, 'invert-art w-full max-h-[220px] object-contain opacity-85')}<figcaption class="eyebrow mt-3">Booklet line art</figcaption></figure>` : ''}
+        </aside>
+      </section>`;
+    const v = mount(document.getElementById('stage'), { style: 'dark', autoRotate: true, fov: 24 });
+    const size = await v.loadModel(S, id);
+    document.getElementById('dims').innerHTML = size ? `<span class="eyebrow mr-3">Envelope</span>${size.x.toFixed(1)} × ${size.y.toFixed(1)} × ${size.z.toFixed(1)} mm` : 'No compiled mesh in current packs';
+  },
+
+  bom([id]) {
+    if (id) return bomItem(S.bomById[id]);
+    const sum = S.site.bom.summary;
+    const groups = Object.groupBy(S.site.bom.parts, (p) => p.usedIn[0]?.assemblyId ?? 'optional / deferred');
+    const items = [...sum.assemblyKnownGoods.map((g) => [g.assemblyId, +g.amount]), ['shared bundles', +sum.sharedBundleGoods], ['shipping', +sum.knownShippingSubtotal]].sort((a, b) => b[1] - a[1]);
+    const max = Math.max(...items.map(([, v]) => v));
+    $app.innerHTML = `<div class="pt-28 px-4 sm:px-8">
+      <div class="eyebrow">${sum.scenarioName}</div>
+      <div class="mt-4 flex flex-wrap items-end gap-x-16 gap-y-6">
+        <h1 class="text-[64px] leading-none font-light tracking-[-0.03em]">Bill of materials</h1>
+        <div><div class="mono text-[44px] font-light leading-none">${fmt.eur(sum.knownSubtotal)}</div><div class="eyebrow mt-2">Known partial · complete total unavailable</div></div>
+      </div>
+      <div class="mt-12 grid lg:grid-cols-[1fr_1.2fr] gap-4">
+        <div class="panel p-6"><div class="eyebrow mb-5">Known goods by owner</div>${items.map(([k, v]) => `<div class="grid grid-cols-[150px_1fr_80px] items-center gap-4 py-1.5"><span class="text-[13px] truncate">${k}</span><div class="h-1.5 rounded-full bg-raise"><div class="h-full rounded-full bg-chalk" style="width:${(v / max) * 100}%"></div></div><span class="mono text-right text-[12px]">${fmt.eur(v)}</span></div>`).join('')}</div>
+        <div class="panel p-6 grid grid-cols-2 gap-6 content-start">${[['Status', sum.complete ? 'Complete' : 'Incomplete'], ['Destination', sum.destinationName], ['Quote snapshot', sum.quoteSnapshotId], ['Open warnings', sum.warningCount], ['Known goods', fmt.eur(sum.knownGoodsSubtotal)], ['Known shipping', fmt.eur(sum.knownShippingSubtotal)]].map(([k, v]) => `<div><div class="eyebrow">${k}</div><div class="mt-1 text-[15px] break-words">${v}</div></div>`).join('')}</div>
+      </div>
+      ${Object.entries(groups).map(([g, list]) => `<div class="mt-14"><div class="flex justify-between border-b border-line pb-3"><h2 class="text-[22px] font-light">${S.site.bom.assemblies.find((a) => a.id === g)?.name ?? g}</h2><span class="eyebrow">${list.length} items</span></div>
+        ${list.map((p) => `<a href="#/bom/${p.id}" class="grid grid-cols-[1fr_auto] md:grid-cols-[1fr_120px_160px_110px] gap-4 items-center py-3 border-b border-line hover:bg-panel px-2 -mx-2 rounded-lg">
+          <div><div>${p.name}</div><div class="mono text-[11px] text-mute">${p.id}</div></div>
+          <div class="mono text-[13px] text-right">${p.required ?? '—'} ${p.unit === 'each' ? '' : p.unit}</div>
+          <div class="hidden md:block"><span class="pill">${fmt.status(p.qualification ?? 'no offer')}</span></div>
+          <div class="hidden md:block mono text-right">${p.bundle ? '<span class="text-mute">bundle</span>' : p.knownGoods ? fmt.eur(p.knownGoods) : '<span class="text-mute">unknown</span>'}</div></a>`).join('')}</div>`).join('')}
+    </div>`;
+  },
+
+  async docs(path) {
+    const p = path.join('/');
+    if (!p) {
+      const groups = Object.groupBy(S.site.docs, (d) => d.section);
+      $app.innerHTML = `<div class="pt-28 px-4 sm:px-8"><h1 class="text-[64px] font-light tracking-[-0.03em]">Documentation</h1>
+        ${Object.entries(groups).map(([g, docs]) => `<div class="mt-12 grid lg:grid-cols-[240px_1fr] gap-6"><h2 class="eyebrow pt-2">${g} · ${docs.length}</h2>
+          <div class="grid md:grid-cols-2 gap-3">${docs.map((d) => `<a href="#/docs/${d.path}" class="panel p-5 hover:border-mute"><div class="text-[16px]">${d.title}</div><div class="text-mute mt-2 line-clamp-2 text-[13px]">${d.summary}</div></a>`).join('')}</div></div>`).join('')}</div>`;
+      return;
+    }
+    $app.innerHTML = `<div class="pt-28 px-4 sm:px-8 grid lg:grid-cols-[240px_1fr] gap-10">
+      <aside class="lg:sticky lg:top-24 self-start grid gap-2"><a href="#/docs" class="eyebrow hover:text-chalk">← Documentation</a>
+        <a class="cta-line justify-between mt-4" target="_blank" href="${links.source(p)}">GitHub <span>↗</span></a><a class="cta-line justify-between" href="${links.raw(p)}">Markdown <span>↓</span></a></aside>
+      <article class="prose-doc" id="doc"><span class="eyebrow">Loading…</span></article></div>`;
+    document.getElementById('doc').innerHTML = await renderDoc(p);
+  },
+
+  downloads() {
+    const d = S.site.downloads;
+    $app.innerHTML = `<div class="pt-28 px-4 sm:px-8">
+      <h1 class="text-[64px] font-light tracking-[-0.03em]">Downloads</h1>
+      <p class="text-mute mt-4 max-w-[64ch]">Assembly booklets and STL/source packs are committed snapshots. Individual STL/CSG files resolve to the latest commit-versioned CAD release.</p>
+      <div class="mt-12 grid md:grid-cols-2 xl:grid-cols-3 gap-4">
+        ${d.map((f) => `<a href="${f.url}" class="panel p-6 flex flex-col gap-10 hover:border-mute group">
+          <div class="flex justify-between"><span class="pill">${f.kind}</span><span class="mono text-[12px] text-mute">${fmt.bytes(f.bytes)}</span></div>
+          <div><div class="text-[20px] leading-tight break-words">${f.name.replace(/\.(pdf|zip)$/, '')}</div><div class="eyebrow mt-2">.${f.name.split('.').pop()} · ${f.path.split('/').slice(1, 3).join(' / ')}</div></div>
+          <div class="mt-auto text-[13px] text-mute group-hover:text-chalk">Download ↓</div></a>`).join('')}
+        <a href="${links.releases}" target="_blank" class="rounded-2xl bg-chalk text-void p-6 flex flex-col gap-10"><span class="eyebrow text-void/60">GitHub release</span><div class="text-[20px]">All ${S.models.length} CAD outputs + checksums</div><div class="mt-auto text-[13px]">Open releases ↗</div></a>
+      </div>
+      <h2 class="mt-20 text-[28px] font-light">Every model</h2>
+      <div class="mt-6 border-t border-line">${S.models.map((m) => `<div class="grid grid-cols-[1fr_auto] md:grid-cols-[1fr_140px_90px_200px] gap-4 items-center py-3 border-b border-line">
+        <a href="#/parts/${m.id}" class="truncate hover:underline">${m.id}</a><span class="eyebrow hidden md:block">${m.assembly}</span><span class="mono text-[12px] text-mute hidden md:block">r${m.revision}</span>
+        <div class="flex gap-2 justify-end"><a class="pill hover:text-chalk" href="${links.release(m.output)}">${m.output.split('.').pop()}</a><a class="pill hover:text-chalk" target="_blank" href="${links.raw(m.entrypoint)}">scad</a></div></div>`).join('')}</div></div>`;
+  },
+};
+
+function modelCard(m) {
+  const fig = S.figureFor(m.id);
+  return `<a href="#/parts/${m.id}" class="panel p-4 h-[200px] flex flex-col hover:border-mute">
+    <div class="flex justify-between eyebrow"><span>r${m.revision}</span><span>${m.artifactRole}</span></div>
+    <div class="flex-1 grid place-items-center">${fig ? img(fig, 'invert-art max-h-[100px] opacity-80') : ''}</div><div class="text-[13px] truncate">${m.id}</div></a>`;
+}
+
+function bomItem(p) {
+  if (!p) return (location.hash = '#/bom');
+  const fab = S.modelsForBomPart(p.id);
+  $app.innerHTML = `<div class="pt-28 px-4 sm:px-8">
+    <a href="#/bom" class="eyebrow hover:text-chalk">← Bill of materials</a>
+    <div class="mt-6 grid lg:grid-cols-[1fr_420px] gap-10">
+      <div><div class="flex flex-wrap gap-2">${[p.kind, p.lifecycle, ...p.traits].map((t) => `<span class="pill">${t}</span>`).join('')}</div>
+        <h1 class="mt-6 text-[48px] leading-[1.02] font-light tracking-[-0.03em]">${p.name}</h1>
+        <div class="mt-10 grid gap-4">${p.requirements.map((r, i) => `<div class="grid grid-cols-[40px_1fr] gap-4 border-t border-line pt-4"><span class="mono text-mute">${fmt.pad(i + 1)}</span><p class="text-chalk/85 leading-relaxed">${r}</p></div>`).join('')}</div></div>
+      <aside class="panel p-6 self-start">
+        <div class="mono text-[56px] font-light leading-none">${p.required ?? '—'}</div><div class="eyebrow mt-2">${p.unit} required</div>
+        <dl class="mt-8 text-[13px]">${[['Used in', p.usedIn.map((u) => `${u.assemblyId} ×${u.quantity}`).join('<br>')], ['Supplier', p.supplierId], ['Offer', p.offerId], ['Qualification', fmt.status(p.qualification)], ['Known goods', p.bundle ? 'Shared bundle' : fmt.eur(p.knownGoods)], ['Listing', p.offerUrl ? `<a target="_blank" class="underline" href="${p.offerUrl}">Supplier page ↗</a>` : null]]
+          .map(([k, v]) => `<div class="grid grid-cols-[110px_1fr] gap-3 py-2.5 border-t border-line"><dt class="eyebrow pt-0.5">${k}</dt><dd class="break-words">${v ?? '—'}</dd></div>`).join('')}</dl>
+        ${p.warnings.length ? `<div class="mt-6 eyebrow">Evidence gaps</div><ul class="mt-3 grid gap-2 text-[12.5px] text-mute">${p.warnings.map((w) => `<li>— ${w}</li>`).join('')}</ul>` : ''}
+      </aside>
+    </div>
+    ${fab.length ? `<h2 class="mt-16 text-[28px] font-light">Fabrication sources</h2><div class="mt-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-3">${fab.map(modelCard).join('')}</div>` : ''}</div>`;
+}
+
+router(views, async (view, args) => {
+  cleanup.forEach((f) => f()); cleanup = [];
+  viewers.forEach((v) => v.dispose()); viewers = [];
+  hud.classList.add('hidden');
+  await (view ?? views[''])(args);
+});
+</script>
+</body>
+</html>

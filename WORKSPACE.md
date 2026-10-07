@@ -14,6 +14,7 @@ Use this guide for repository layout, toolchains, commands, package boundaries, 
 - `packages/arbi-traffic`: [implemented application taps, bounded SQLite traffic spool, Linux interface collector and optional router snapshot adapter](packages/arbi-traffic/README.md), consumed by edge/pod diagnostics; actual cellular/router/provider coverage remains separate.
 - `packages/arbi-audit`: [implemented bounded SQLite admission and replay spool](packages/arbi-audit/README.md) for edge/pod Node runtimes and cloud receipt/integrity primitives; storage hardware power-loss evidence remains separate.
 - `apps/arbi-dashboard`: [implemented Next.js enrollment, image-storage, command-job and realtime HTTP boundaries](apps/arbi-dashboard/README.md), simulation-only device identity/inventory lifecycle, private Blob/Ably SDK adapters and transactional PostgreSQL state/audit/recovery; live provider setup and dashboard UI remain separate work.
+- `apps/arbi-docs`: [public Next.js site](apps/arbi-docs/README.md) deployed to `arbi.gredice.com` from the Gredice Vercel team. Its first slice hosts three design-direction mockups. They read data compiled at build time from the CAD registry, BOM reports, documents and booklet packs.
 - `apps/arbi-edge-controller`: [executable supervised edge prototype](apps/arbi-edge-controller/README.md), bounded authenticated loopback module transport, diagnostic health/readiness and Linux service definition; physical host/transport activation remains gated by ADR-0008.
 - `scripts/check-cad.mjs`: registry, source, include, and optional OpenSCAD compilation validation.
 - `.github`: issue forms, pull request guidance, and fork-safe CI.
@@ -105,7 +106,6 @@ Generated BOM Markdown and JSON are intentionally tracked because they are direc
 The following paths are reserved but should not exist until implementation begins; implemented destinations above retain these ownership boundaries:
 
 - `apps/arbi-dashboard`: implemented enrollment and [image-storage HTTP slices](docs/software/image-storage.md); authenticated user/engineering dashboard and remaining HTTP API in Gredice's Vercel team are follow-up work;
-- `apps/arbi-docs`: Next.js/Vercel public documentation and interactive BOM;
 - `apps/arbi-simulator`: executable simulator or simulator UI;
 - `apps/arbi-cloud`: reserved only if a later reviewed decision requires an independent backend; the initial API belongs to `apps/arbi-dashboard`;
 - `apps/arbi-pod-firmware`: pod camera, gimbal, power-health, and local service target;
@@ -118,8 +118,8 @@ The simulator and real adapters must consume the same versioned contracts and un
 
 [ADR-0005](docs/decisions/0005-software-architecture-and-deployment.md) owns software deployment, transport/storage selection, environment isolation and release boundaries. Its [bounded feasibility experiment](docs/evidence/software-transport-feasibility.md) runs with `node --test scripts/spikes/software-recovery.test.mjs`; it needs loopback listening and uses only temporary synthetic data. It is not an implemented app or provider integration.
 
-## Future Vercel site
+## Public Vercel site
 
-Create `apps/arbi-docs` only with a working page slice. It should consume repository documentation and `@arbi/bom` outputs rather than duplicate them. Vercel preview and environment integration belong to that app and are added only when a secret-free build works for pull requests from forks.
+`apps/arbi-docs` consumes repository documentation, CAD registry metadata, `bom/generated` reports and committed booklet packs; it never duplicates them. `scripts/compile-data.mjs` writes the ignored `public/mockups/data` during `dev` and `build`, so the build is secret-free and works for pull requests from forks. The Vercel project `arbi` in the Gredice team uses root directory `apps/arbi-docs`; Git-triggered previews require the Vercel GitHub app to have access to this repository.
 
 When ARBI V1 is merged into the Gredice monorepo, align tool versions with the destination at merge time, preserve prefixed package names, and add any Vercel app to the destination's application registry. Do not copy environment pull or deployment scripts before they are needed.
