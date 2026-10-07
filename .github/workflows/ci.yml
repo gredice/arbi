@@ -92,6 +92,9 @@ jobs:
       - name: Test
         run: pnpm test
 
+      - name: Check cross-runtime reference fixtures
+        run: pnpm protocol:check
+
       - name: Build
         run: pnpm build
 
