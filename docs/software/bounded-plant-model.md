@@ -76,7 +76,7 @@ pnpm docs:check
 git diff --check
 ```
 
-`scenario:check` includes the new plant tests without Turbo caching. The package's `plant` CLI emits a bounded JSON report, with `--trace` for normalized rows, and verifies fixture expectations before success output.
+`scenario:check` includes the new plant tests without Turbo caching. The scenario and plant test files run serially to bound host resource competition; their assertions, consumer subprocess deadlines and provider timeouts are unchanged. The package's `plant` CLI emits a bounded JSON report, with `--trace` for normalized rows, and verifies fixture expectations before success output.
 
 ## Limits and external gates
 
