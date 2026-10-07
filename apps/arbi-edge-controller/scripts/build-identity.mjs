@@ -13,4 +13,8 @@ for (const file of ['message', 'configuration', 'audit-event']) hash.update(read
 for (const file of readdirSync('../../packages/arbi-protocol/dist').filter((f) => f.endsWith('.js')).sort()) {
   hash.update(`protocol/${file}`).update(readFileSync(`../../packages/arbi-protocol/dist/${file}`));
 }
+hash.update(readFileSync('../../packages/arbi-traffic/package.json'));
+for (const file of readdirSync('../../packages/arbi-traffic/dist').filter((f) => f.endsWith('.js')).sort()) {
+  hash.update(`traffic/${file}`).update(readFileSync(`../../packages/arbi-traffic/dist/${file}`));
+}
 writeFileSync('dist/build-identity.json', JSON.stringify({ version: '0.1.0', protocol: PROTOCOL_VERSION, sourceDigest: hash.digest('hex') }) + '\n');
