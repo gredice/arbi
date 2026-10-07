@@ -9,6 +9,7 @@ export class EdgeRuntime {
   readonly identity: Identity;
   #adapters: ModuleAdapter[];
   #server?: Server;
+  #starting?: Promise<void>;
   #settings: Settings;
   #stopping = false;
   #build: unknown;
@@ -37,13 +38,17 @@ export class EdgeRuntime {
     });
     server.maxConnections = 8; server.keepAliveTimeout = 1000;
     this.#server = server;
-    await new Promise<void>((resolve, reject) => { server.once('error', reject); server.listen(this.#settings.healthPort, '127.0.0.1', () => { server.off('error', reject); resolve(); }); });
+    this.#starting = new Promise<void>((resolve, reject) => { server.once('error', reject); server.listen(this.#settings.healthPort, '127.0.0.1', () => { server.off('error', reject); resolve(); }); });
+    try { await this.#starting; } finally { this.#starting = undefined; }
     if (this.#stopping) { await this.stop(); throw new Error('RUNTIME_STOPPING'); }
     for (const adapter of this.adapters) adapter.start();
     return (server.address() as { port: number }).port;
   }
   async stop(): Promise<void> {
     this.#stopping = true; for (const adapter of this.adapters) adapter.stop();
+    // A signal may arrive before the pending bind completes. Closing first can
+    // cancel its callback and leave start() unresolved, so settle the bind first.
+    await this.#starting?.catch(() => {});
     if (this.#server) {
       const server = this.#server; this.#server = undefined;
       await new Promise<void>((resolve) => { server.close(() => resolve()); server.closeAllConnections(); });

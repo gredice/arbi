@@ -74,6 +74,15 @@ test('health exposes source/build/applied identity; readiness is diagnostic and 
   await runtime.stop(); assert.equal(runtime.status.ready, false);
   await assert.rejects(fetch(`http://127.0.0.1:${port}/healthz`));
 });
+test('shutdown during pending startup settles the bind and opens no module connection', { timeout: 3000 }, async (t) => {
+  const simulation = await createSimulation(); const runtime = new EdgeRuntime(simulation.settings);
+  t.after(async () => { await runtime.stop(); await simulation.close(); });
+  const starting = runtime.start(); const stopping = runtime.stop();
+  await assert.rejects(starting, /RUNTIME_STOPPING/); await stopping;
+  assert.equal(runtime.status.healthy, false); assert.equal(runtime.status.ready, false);
+  for (const adapter of runtime.adapters) assert.equal(adapter.status.reason, 'SHUTDOWN');
+  for (const peer of simulation.peers) assert.equal(peer.diagnosticRequests, 0);
+});
 test('disconnect/restart renegotiates identity and rejects grants from old connection, boot and edge', async (t) => {
   const { runtime, peers, settings } = await rig(t); const adapter = runtime.adapters[0];
   const old = adapter.status.source!; const grant = adapter.authorizeDiagnostics(actor)!;

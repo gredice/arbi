@@ -9,12 +9,13 @@
 
 ## Executed source and development-host checks
 
-`pnpm --filter @arbi/edge-controller test` registers [15 checks](../../apps/arbi-edge-controller/src/edge.test.ts). The macOS run passed 14; Linux-only `systemd-analyze verify` was skipped because this host has no Linux systemd. `pnpm lint`, `pnpm typecheck`, `pnpm build`, `pnpm test`, `pnpm protocol:check`, `pnpm docs:check` and `git diff --check` passed. Aggregate CI and Linux-only unit syntax results must be recorded in the PR before merge; they remain distinct from physical evidence.
+`pnpm --filter @arbi/edge-controller test` registers [16 checks](../../apps/arbi-edge-controller/src/edge.test.ts). The macOS run passed 15; Linux-only `systemd-analyze verify` was skipped because this host has no Linux systemd. `pnpm lint`, `pnpm typecheck`, `pnpm build`, `pnpm test`, `pnpm protocol:check`, `pnpm docs:check` and `git diff --check` passed. Aggregate CI and Linux-only unit syntax results must be recorded in the PR before merge; they remain distinct from physical evidence.
 
 | Scenario | Observation / limit |
 | --- | --- |
 | Framing / reference compatibility | Current protocol fixtures survive fragmented and coalesced framing; zero/oversized lengths, malformed JSON and invalid UTF-8 reject. Configuration fixture is consumed through its owning validator. |
 | Invalid startup | Unknown schema, hardware mode, wrong accepted/applied digest, bad enrollment, remote endpoint and unknown fields reject before sockets. Executable exits 78; supervisor does not restart it. |
+| Stop during startup | Shutdown while the health bind is pending settles both operations, opens no module connection and leaves no running health server. A reproduced unresolved-start race was repaired before delivery. |
 | Diagnostic health | GET health/readiness exposes current build/protocol/boot and exact applied identity; mutation request receives 404. Unavailable Pico tension retains empty qualities. Actuation, recording and update flags stay false. |
 | Disconnect / reboot | Readiness drops, old grant fails, new module boot/session must negotiate and snapshot. Fresh service diagnostic succeeds once; duplicate/tampered grant fails. |
 | Silent / partial stream | Partial frame cannot extend readiness; receiver timeout removes readiness and old grant. This establishes diagnostic expiry, not physical stopping time. |
