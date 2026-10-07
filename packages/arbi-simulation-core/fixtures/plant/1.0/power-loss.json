@@ -1,0 +1,515 @@
+{
+  "schemaVersion": "arbi.plant/1.0",
+  "context": {
+    "id": "plant-power-loss",
+    "executionMode": "simulation",
+    "identity": {
+      "protocol": "arbi/1.0",
+      "configurationSchema": "arbi.configuration/1.0",
+      "configurationRevision": "config-1",
+      "configurationDigest": "15f54c85545697d1da5736ef52c0188a0cb8f9dd0916b90c915cba1e6d2ec153",
+      "geometryRevision": "geometry-1",
+      "calibrationRevision": "calibration-1",
+      "siteFrame": {
+        "name": "site",
+        "revision": "frame-1"
+      },
+      "gimbalFrame": {
+        "name": "pod-gimbal",
+        "revision": "gimbal-1"
+      },
+      "referenceDigest": "e31d9fcf7ba58872ea4954d140944c0c72354524582f1d82c735e1a8343a3f6f"
+    },
+    "units": {
+      "position": "mm",
+      "angle": "deg",
+      "speed": "mm/s",
+      "acceleration": "mm/s^2",
+      "force": "N",
+      "time": "ms",
+      "voltage": "V"
+    },
+    "clock": {
+      "startMs": 1000,
+      "durationMs": 2000,
+      "stepMs": 50,
+      "ordering": "time-then-explicit-order",
+      "sampling": "advance-events-sample",
+      "normalization": "q6-floor-half-up"
+    },
+    "seed": 42,
+    "gate": {
+      "source": {
+        "deviceId": "cloud",
+        "bootId": "cloud-boot-1",
+        "sessionId": "cloud-session-1"
+      },
+      "receiver": {
+        "deviceId": "edge",
+        "bootId": "edge-boot-1",
+        "sessionId": "edge-session-1"
+      },
+      "actor": {
+        "kind": "human",
+        "id": "operator-1"
+      },
+      "lease": {
+        "id": "lease-1",
+        "holderId": "operator-1",
+        "fence": "9007199254740993",
+        "expiresMonotonicMs": 5000
+      },
+      "maxDeadlineAheadMs": 2000
+    },
+    "initial": {
+      "state": "Ready",
+      "positionMm": {
+        "x": 1000,
+        "y": 2000,
+        "z": 2490
+      },
+      "panDeg": 0,
+      "tiltDeg": 0,
+      "cloudConnected": true,
+      "driverFault": false,
+      "powerAvailable": true,
+      "voltageV": 48
+    }
+  },
+  "parameters": {
+    "drums": {
+      "a": {
+        "radiusMm": 30,
+        "stepsPerRevolution": 3200,
+        "direction": 1,
+        "zeroPayoutMm": 3000,
+        "minPayoutMm": 100,
+        "maxPayoutMm": 10000,
+        "maxStepRatePerS": 10000
+      },
+      "b": {
+        "radiusMm": 30,
+        "stepsPerRevolution": 3200,
+        "direction": -1,
+        "zeroPayoutMm": 3000,
+        "minPayoutMm": 100,
+        "maxPayoutMm": 10000,
+        "maxStepRatePerS": 10000
+      },
+      "c": {
+        "radiusMm": 30,
+        "stepsPerRevolution": 3200,
+        "direction": 1,
+        "zeroPayoutMm": 3000,
+        "minPayoutMm": 100,
+        "maxPayoutMm": 10000,
+        "maxStepRatePerS": 10000
+      },
+      "d": {
+        "radiusMm": 30,
+        "stepsPerRevolution": 3200,
+        "direction": -1,
+        "zeroPayoutMm": 3000,
+        "minPayoutMm": 100,
+        "maxPayoutMm": 10000,
+        "maxStepRatePerS": 10000
+      }
+    },
+    "motor": {
+      "enabled": true,
+      "delayMs": 50,
+      "jitterMs": 0
+    },
+    "sensors": {
+      "home": "unavailable",
+      "limit": "virtual-input",
+      "dock": "virtual-input"
+    },
+    "dock": {
+      "positionMm": {
+        "x": 1000,
+        "y": 2000,
+        "z": 2490
+      },
+      "toleranceMm": 1,
+      "debounceMs": 100,
+      "timeoutMs": 500
+    },
+    "power": {
+      "minVoltageV": 40,
+      "maxVoltageV": 55,
+      "bootMs": 0
+    },
+    "gimbal": {
+      "rateDegPerS": 100,
+      "delayMs": 0,
+      "jitterMs": 0,
+      "settleMs": 100
+    },
+    "camera": {
+      "delayMs": 100,
+      "jitterMs": 0
+    },
+    "noise": {
+      "positionAmplitudeMm": 0
+    }
+  },
+  "inputs": [
+    {
+      "atMs": 1000,
+      "order": 1,
+      "kind": "command",
+      "message": {
+        "protocol": "arbi/1.0",
+        "messageId": "plant-message-10",
+        "realm": {
+          "environment": "test",
+          "namespaceId": "fixture-run"
+        },
+        "siteId": "synthetic-site",
+        "source": {
+          "deviceId": "cloud",
+          "bootId": "cloud-boot-1",
+          "sessionId": "cloud-session-1"
+        },
+        "sequence": "10",
+        "sourceTime": {
+          "utc": "2026-10-07T12:00:00.000Z",
+          "monotonicMs": 1000,
+          "uncertaintyMs": 500
+        },
+        "ingestTime": null,
+        "kind": "command",
+        "command": {
+          "commandId": "plant-command-10",
+          "correlationId": "job-1",
+          "idempotencyKey": "plant-key-10",
+          "actor": {
+            "kind": "human",
+            "id": "operator-1"
+          },
+          "target": {
+            "deviceId": "edge",
+            "bootId": "edge-boot-1",
+            "sessionId": "edge-session-1"
+          },
+          "deadline": {
+            "bootId": "edge-boot-1",
+            "sessionId": "edge-session-1",
+            "expiresMonotonicMs": 2500
+          },
+          "lease": {
+            "id": "lease-1",
+            "holderId": "operator-1",
+            "fence": "9007199254740993"
+          },
+          "configRevision": "config-1"
+        },
+        "body": {
+          "type": "motion.move",
+          "positionMm": {
+            "x": 1000,
+            "y": 2000,
+            "z": 2500
+          },
+          "frame": {
+            "name": "site",
+            "revision": "frame-1"
+          },
+          "maxSpeedMmPerS": 50,
+          "maxDurationMs": 1100
+        },
+        "executionMode": "simulation"
+      }
+    },
+    {
+      "atMs": 1300,
+      "order": 1,
+      "kind": "command",
+      "message": {
+        "protocol": "arbi/1.0",
+        "messageId": "plant-message-11",
+        "realm": {
+          "environment": "test",
+          "namespaceId": "fixture-run"
+        },
+        "siteId": "synthetic-site",
+        "source": {
+          "deviceId": "cloud",
+          "bootId": "cloud-boot-1",
+          "sessionId": "cloud-session-1"
+        },
+        "sequence": "11",
+        "sourceTime": {
+          "utc": "2026-10-07T12:00:00.000Z",
+          "monotonicMs": 1300,
+          "uncertaintyMs": 500
+        },
+        "ingestTime": null,
+        "kind": "command",
+        "command": {
+          "commandId": "plant-command-11",
+          "correlationId": "job-1",
+          "idempotencyKey": "plant-key-11",
+          "actor": {
+            "kind": "human",
+            "id": "operator-1"
+          },
+          "target": {
+            "deviceId": "edge",
+            "bootId": "edge-boot-1",
+            "sessionId": "edge-session-1"
+          },
+          "deadline": {
+            "bootId": "edge-boot-1",
+            "sessionId": "edge-session-1",
+            "expiresMonotonicMs": 2800
+          },
+          "lease": {
+            "id": "lease-1",
+            "holderId": "operator-1",
+            "fence": "9007199254740993"
+          },
+          "configRevision": "config-1"
+        },
+        "body": {
+          "type": "control.stop",
+          "reason": "operator"
+        },
+        "executionMode": "simulation"
+      }
+    },
+    {
+      "atMs": 1350,
+      "order": 1,
+      "kind": "command",
+      "message": {
+        "protocol": "arbi/1.0",
+        "messageId": "plant-message-12",
+        "realm": {
+          "environment": "test",
+          "namespaceId": "fixture-run"
+        },
+        "siteId": "synthetic-site",
+        "source": {
+          "deviceId": "cloud",
+          "bootId": "cloud-boot-1",
+          "sessionId": "cloud-session-1"
+        },
+        "sequence": "12",
+        "sourceTime": {
+          "utc": "2026-10-07T12:00:00.000Z",
+          "monotonicMs": 1350,
+          "uncertaintyMs": 500
+        },
+        "ingestTime": null,
+        "kind": "command",
+        "command": {
+          "commandId": "plant-command-12",
+          "correlationId": "job-1",
+          "idempotencyKey": "plant-key-12",
+          "actor": {
+            "kind": "human",
+            "id": "operator-1"
+          },
+          "target": {
+            "deviceId": "edge",
+            "bootId": "edge-boot-1",
+            "sessionId": "edge-session-1"
+          },
+          "deadline": {
+            "bootId": "edge-boot-1",
+            "sessionId": "edge-session-1",
+            "expiresMonotonicMs": 2850
+          },
+          "lease": {
+            "id": "lease-1",
+            "holderId": "operator-1",
+            "fence": "9007199254740993"
+          },
+          "configRevision": "config-1"
+        },
+        "body": {
+          "type": "camera.gimbal",
+          "panDeg": 10,
+          "tiltDeg": -5,
+          "frame": {
+            "name": "pod-gimbal",
+            "revision": "gimbal-1"
+          },
+          "maxDurationMs": 500
+        },
+        "executionMode": "simulation"
+      }
+    },
+    {
+      "atMs": 1600,
+      "order": 1,
+      "kind": "command",
+      "message": {
+        "protocol": "arbi/1.0",
+        "messageId": "plant-message-13",
+        "realm": {
+          "environment": "test",
+          "namespaceId": "fixture-run"
+        },
+        "siteId": "synthetic-site",
+        "source": {
+          "deviceId": "cloud",
+          "bootId": "cloud-boot-1",
+          "sessionId": "cloud-session-1"
+        },
+        "sequence": "13",
+        "sourceTime": {
+          "utc": "2026-10-07T12:00:00.000Z",
+          "monotonicMs": 1600,
+          "uncertaintyMs": 500
+        },
+        "ingestTime": null,
+        "kind": "command",
+        "command": {
+          "commandId": "plant-command-13",
+          "correlationId": "job-1",
+          "idempotencyKey": "plant-key-13",
+          "actor": {
+            "kind": "human",
+            "id": "operator-1"
+          },
+          "target": {
+            "deviceId": "edge",
+            "bootId": "edge-boot-1",
+            "sessionId": "edge-session-1"
+          },
+          "deadline": {
+            "bootId": "edge-boot-1",
+            "sessionId": "edge-session-1",
+            "expiresMonotonicMs": 3100
+          },
+          "lease": {
+            "id": "lease-1",
+            "holderId": "operator-1",
+            "fence": "9007199254740993"
+          },
+          "configRevision": "config-1"
+        },
+        "body": {
+          "type": "camera.capture",
+          "resourceId": "synthetic-still",
+          "maxDurationMs": 500
+        },
+        "executionMode": "simulation"
+      }
+    },
+    {
+      "atMs": 1750,
+      "order": 1,
+      "kind": "command",
+      "message": {
+        "protocol": "arbi/1.0",
+        "messageId": "plant-message-14",
+        "realm": {
+          "environment": "test",
+          "namespaceId": "fixture-run"
+        },
+        "siteId": "synthetic-site",
+        "source": {
+          "deviceId": "cloud",
+          "bootId": "cloud-boot-1",
+          "sessionId": "cloud-session-1"
+        },
+        "sequence": "14",
+        "sourceTime": {
+          "utc": "2026-10-07T12:00:00.000Z",
+          "monotonicMs": 1750,
+          "uncertaintyMs": 500
+        },
+        "ingestTime": null,
+        "kind": "command",
+        "command": {
+          "commandId": "plant-command-14",
+          "correlationId": "job-1",
+          "idempotencyKey": "plant-key-14",
+          "actor": {
+            "kind": "human",
+            "id": "operator-1"
+          },
+          "target": {
+            "deviceId": "edge",
+            "bootId": "edge-boot-1",
+            "sessionId": "edge-session-1"
+          },
+          "deadline": {
+            "bootId": "edge-boot-1",
+            "sessionId": "edge-session-1",
+            "expiresMonotonicMs": 3250
+          },
+          "lease": {
+            "id": "lease-1",
+            "holderId": "operator-1",
+            "fence": "9007199254740993"
+          },
+          "configRevision": "config-1"
+        },
+        "body": {
+          "type": "motion.move",
+          "positionMm": {
+            "x": 1000,
+            "y": 2000,
+            "z": 2490
+          },
+          "frame": {
+            "name": "site",
+            "revision": "frame-1"
+          },
+          "maxSpeedMmPerS": 50,
+          "maxDurationMs": 1100
+        },
+        "executionMode": "simulation"
+      }
+    },
+    {
+      "atMs": 1800,
+      "order": 0,
+      "kind": "sensor",
+      "sensor": "dock",
+      "value": false
+    },
+    {
+      "atMs": 2050,
+      "order": 0,
+      "kind": "sensor",
+      "sensor": "dock",
+      "value": true
+    },
+    {
+      "atMs": 1650,
+      "order": 0,
+      "kind": "power",
+      "available": false,
+      "voltageV": 0
+    }
+  ],
+  "returnCommandIds": [
+    "plant-command-14"
+  ],
+  "expected": {
+    "states": [
+      {
+        "atMs": 1600,
+        "state": "Capturing",
+        "captures": 0
+      },
+      {
+        "atMs": 1650,
+        "state": "Fault",
+        "captures": 0
+      },
+      {
+        "atMs": 3000,
+        "state": "Fault",
+        "captures": 0
+      }
+    ],
+    "traceDigest": "0aa32e005f7103bcfb938cb734642567e484a22e146a828c0b3ebb9743b8e691"
+  }
+}

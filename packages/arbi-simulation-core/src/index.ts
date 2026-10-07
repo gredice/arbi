@@ -1,19 +1,17 @@
 import {
-  admitCommand, advanceOutcome, checkConfiguredCommand, configurationDigest, configurationHardwareDigest,
+  admitCommand, advanceOutcome, checkConfiguredCommand, configurationDigest,
   createCommandLedger, MAX_SCENARIO_TICKS, SCENARIO_INVARIANTS, scenarioPositionInside, validateScenario,
-  type AppliedConfiguration, type CommandGate, type Configuration, type ConfigurationBoundary, type EventBody,
+  type CommandGate, type Configuration, type EventBody,
   type Scenario, type ScenarioCheckpoint, type ScenarioInvariant, type ScenarioResult,
 } from "@arbi/protocol";
 import { referenceTrajectory, seededRandom, simulatedAdapters, type SimulationAdapters } from "./adapters.js";
+import { q6 } from "./numeric.js";
+import { configuredBoundary } from "./scenario-boundary.js";
 export * from "./adapters.js";
+export { q6 } from "./numeric.js";
 
 type State = Extract<EventBody, { type: "state.snapshot" }>["state"];
 type Outcome = Extract<EventBody, { type: "command.outcome" }>["outcome"];
-export function q6(value: number): number {
-  const result = Math.floor(value * 1_000_000 + 0.5);
-  if (!Number.isSafeInteger(result)) throw new Error("NUMERIC_LIMIT");
-  return result === 0 ? 0 : result;
-}
 export interface TraceRow extends ScenarioCheckpoint {
   cloudConnected: boolean; driverFault: boolean; powerAvailable: boolean;
   voltageQ6: number | null; panQ6: number; tiltQ6: number; captures: number; randomState: number;
@@ -25,14 +23,6 @@ export interface ScenarioRun {
   schemaVersion: Scenario["schemaVersion"]; id: string; identity: Scenario["identity"]; provenance: Scenario["provenance"];
   trace: TraceRow[]; traceDigest: string; invariants: ScenarioInvariant[];
   outcomes: Scenario["expected"]["outcomes"];
-}
-function configuredBoundary(s: Scenario, config: Configuration): { applied: AppliedConfiguration; boundary: ConfigurationBoundary } {
-  return {
-    applied: { schemaVersion: config.schemaVersion, configurationDigest: configurationDigest(config), appliedBy: s.gate.receiver,
-      request: { schemaVersion: config.schemaVersion, transactionId: "offline-reference", expectedAppliedRevision: null, target: s.gate.receiver, transition: { kind: "apply" }, configuration: config,
-        auditContext: { actor: s.gate.actor, authorizationId: "synthetic-offline", correlationId: s.id, reasonCode: "reference-only", previousConfigRevision: null, previousCalibrationRevision: null } } },
-    boundary: { receiver: s.gate.receiver, realm: config.realm, siteId: config.siteId, executionMode: "simulation", calibrationScope: "simulation", installedHardwareDigest: configurationHardwareDigest(config), localLimits: config.limits, approvedCalibrationDigests: [configurationDigest(config.calibration)], readableSchemaVersions: [config.schemaVersion], rollbackReadableSchemaVersions: [config.schemaVersion] },
-  };
 }
 /** Pure host orchestration with no wall clock, network, device, provider or environment access. */
 export function runScenario(input: unknown, configuration: Configuration, referenceDigest: string, adapters?: SimulationAdapters): ScenarioResult<ScenarioRun> {
@@ -141,3 +131,8 @@ export function checkScenarioExpected(s: Scenario, run: ScenarioRun): void {
     same(checkpoint, row && { atMs: row.atMs, state: row.state, positionQ6: row.positionQ6, lengthQ6: row.lengthQ6 });
   }
 }
+
+export * from "./plant-types.js";
+export * from "./plant-validation.js";
+export * from "./plant-adapters.js";
+export * from "./plant.js";

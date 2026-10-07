@@ -8,9 +8,10 @@
     "build": "tsc -p tsconfig.build.json",
     "lint": "tsc -p tsconfig.json --noEmit",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "test": "pnpm build && node --test dist/*.test.js",
+    "test": "pnpm build && node --test --test-concurrency=1 dist/*.test.js",
     "scenario": "node dist/runner.js",
-    "conformance": "pnpm --filter @arbi/protocol build && pnpm build && node --test dist/conformance.test.js"
+    "plant": "node dist/plant-runner.js",
+    "conformance": "pnpm --filter @arbi/protocol build && pnpm build && node --test --test-concurrency=1 dist/conformance.test.js dist/plant.test.js"
   },
   "dependencies": { "@arbi/protocol": "workspace:*" },
   "devDependencies": { "@types/node": "24.12.4", "typescript": "7.0.2" },

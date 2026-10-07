@@ -57,6 +57,7 @@ The committed material is a **design baseline**, not proof of a built or safe in
 - [Mobile data accounting 1.0 contracts, boundary rules and executable worked fixtures](software/mobile-data-accounting.md)
 - [Cross-runtime reference vectors, independent host consumers and offline workspace checks](software/reference-fixtures.md)
 - [Scenario 1.0 contracts, deterministic offline runner and independent host evidence](software/scenarios.md)
+- [Bounded plant/module model 1.0, virtual sensors and independent host evidence](software/bounded-plant-model.md)
 - [Gredice identity, site permissions and executable request authorization boundary](software/site-authorization.md)
 - [Audit 1.0 vocabulary, privacy and evidence semantics](software/audit-events.md)
 - [Transactional audit admission, SQLite spool and deduplicated ingestion](software/audit-durability.md)
