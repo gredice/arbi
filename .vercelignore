@@ -1,9 +1,3 @@
-hardware/
-bom/
-docs/**
-!docs/assets/
-!docs/assets/brand/
-!docs/assets/brand/arbi-logo-transparent.png
 .agents/
 .codex/
 .github/
@@ -14,5 +8,3 @@ docs/**
 **/.next/
 **/dist/
 **/node_modules/
-scripts/winch-booklet/
-scripts/payload-booklet/
