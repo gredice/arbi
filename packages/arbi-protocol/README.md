@@ -10,6 +10,7 @@ Implemented, transport-neutral ARBI 1.0 JSON contracts, runtime validation, gene
 - [Configuration schema](schema/configuration.schema.json) and [synthetic fixtures](fixtures/configuration.json)
 - [Mobile data accounting 1.0 specification](../../docs/software/mobile-data-accounting.md), [schema](schema/accounting.schema.json), [fixtures](fixtures/accounting.json) and [reference calculations](src/accounting.ts)
 - [Cross-runtime reference specification](../../docs/software/reference-fixtures.md) and [versioned vectors](fixtures/reference/1.0/vectors.json)
+- [Audit 1.0 vocabulary and evidence rules](../../docs/software/audit-events.md), [schema](schema/audit-event.schema.json), [fixtures](fixtures/audit-events.json) and [runtime](src/audit.ts)
 
 From the repository root, using Node.js >=24 and pinned pnpm:
 
@@ -23,6 +24,8 @@ pnpm protocol:check
 `build` and `lint` reject stale generated bindings. `test` needs `python3` and a C11 compiler named `cc`; missing tools fail explicitly. Ubuntu CI and the documented macOS toolchain provide them. Existing Python/C JSON round-trips remain intact. The additional `conformance` package command (root `protocol:check`) independently verifies units, transforms, cable geometry, compatibility and exact schema/configuration identity in TypeScript, Python and C, including deliberate discrepancies. These are host reference consumers, not complete firmware validators or physical-device evidence. Future runtime adapters must apply the full schema **and** semantic rules and retain these fixtures.
 
 Consumers declare `"@arbi/protocol": "workspace:*"`. Use `parseMessage` on bounded JSON wire text or `validateMessage` on decoded values; inspect its discriminated `Result` before consuming data. Types alone do not enforce numeric ranges or authorization. Schema consumers can import `@arbi/protocol/schema` without the Node runtime validator.
+
+Audit records use a separate exact version `arbi.audit/1.0`: `parseAuditEvent` / `validateAuditEvent` enforce the closed vocabulary and evidence semantics, `admitAuditEvent` binds trusted source/actor/context and stamps receipt time, and `auditFromProtocolOutcome` joins terminal protocol reports to their original intent. Schema consumers import `@arbi/protocol/audit-schema` alongside the referenced message schema. Audit vocabulary enables no operation and implements no persistence. Recording/playback remain disabled.
 
 `admitCommand` returns `accepted` or `duplicate`, or a stable error. A duplicate means return the persisted prior outcome; never dispatch it again. Its in-memory bounded ledger is a reference for tests, not durable or exactly-once execution. Production must transactionally persist admission/dispatch intent, restore it after restart, and enforce independent local limits and stopping.
 

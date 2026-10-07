@@ -24,6 +24,7 @@ function type(node) {
 const bindings = [
   { schema: "message", output: "messages", refinement: "validateMessage", imports: "", suffix: "\n\nexport type Message = Command | Event | Telemetry;\n" },
   { schema: "configuration", output: "configuration-types", refinement: "validateConfigurationRecord", imports: 'import type { Id, Realm, Identity, Actor, VectorMm, SiteFrame, GimbalFrame, Capability, Sample } from "./messages.js";\n\n', suffix: "\n" },
+  { schema: "audit-event", output: "audit-types", refinement: "validateAuditEvent", imports: 'import type { Actor, Counter, ErrorCode, Id, Identity, IngestTime, Realm, SourceTime } from "./messages.js";\n\n', suffix: "\n" },
 ];
 for (const binding of bindings) {
   const schema = JSON.parse(readFileSync(new URL(`../schema/${binding.schema}.schema.json`, import.meta.url), "utf8"));

@@ -1,0 +1,685 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://arbi.gredice.com/schemas/audit/1.0/event.schema.json",
+  "title": "ARBI audit 1.0 event",
+  "description": "Canonical closed audit vocabulary. Apply binding, clock and uint64 semantic rules from docs/software/audit-events.md. An audit record grants no actuator authority.",
+  "$ref": "#/$defs/AuditEvent",
+  "$defs": {
+    "AuditAction": {
+      "enum": [
+        "identity.login",
+        "authorization.check",
+        "control.session.start",
+        "control.session.end",
+        "control.session.revoke",
+        "control.session.timeout",
+        "motion.move",
+        "gimbal.move",
+        "control.stop",
+        "motion.home",
+        "calibration.change",
+        "configuration.change",
+        "schedule.create",
+        "schedule.update",
+        "schedule.delete",
+        "capture.request",
+        "release.publish",
+        "update.request",
+        "update.install",
+        "update.rollback",
+        "live.grant",
+        "live.start",
+        "live.end",
+        "live.revoke",
+        "live.timeout",
+        "live.heartbeat",
+        "still.view",
+        "history.view",
+        "playback.view",
+        "playback.heartbeat",
+        "media.download",
+        "media.export",
+        "recording.start",
+        "recording.stop",
+        "recording.fail",
+        "recording.delete"
+      ]
+    },
+    "AuditEvidence": {
+      "enum": [
+        "intent",
+        "authorization",
+        "access-grant",
+        "device-outcome",
+        "service-outcome",
+        "media-observation",
+        "access-observation",
+        "browser-observation",
+        "connection-loss"
+      ]
+    },
+    "AuditOutcome": {"enum":["requested","allow","deny","succeeded","fail","unknown","interrupted","observed"]},
+    "AuditReason": {
+      "enum": [
+        "requested",
+        "authorized",
+        "not-authorized",
+        "invalid-request",
+        "unsupported",
+        "disabled",
+        "local-inhibit",
+        "completed",
+        "execution-failed",
+        "cancelled",
+        "connection-lost",
+        "response-lost",
+        "source-restarted",
+        "timeout",
+        "revoked",
+        "observed",
+        "heartbeat",
+        "storage-failed",
+        "delivery-failed",
+        "ended"
+      ]
+    },
+    "AuditSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "module": {"enum":["cloud","edge","motion","pod","browser","media"]},
+        "identity": {"$ref":"https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Identity"}
+      },
+      "required": ["module","identity"]
+    },
+    "AuditResource": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "site",
+            "device",
+            "control-session",
+            "calibration",
+            "configuration",
+            "schedule",
+            "capture",
+            "release",
+            "update",
+            "live-session",
+            "still",
+            "history",
+            "recording",
+            "audit"
+          ]
+        },
+        "id": {"$ref":"https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"},
+        "deviceId": {"anyOf":[{"$ref":"https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"},{"type":"null"}]}
+      },
+      "required": ["kind","id","deviceId"]
+    },
+    "AuditLinks": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "correlationId": {"$ref":"https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"},
+        "intentEventId": {"anyOf":[{"$ref":"https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"},{"type":"null"}]},
+        "causationEventId": {"anyOf":[{"$ref":"https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"},{"type":"null"}]},
+        "jobId": {"anyOf":[{"$ref":"https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"},{"type":"null"}]},
+        "sessionId": {"anyOf":[{"$ref":"https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"},{"type":"null"}]},
+        "commandId": {"anyOf":[{"$ref":"https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"},{"type":"null"}]},
+        "requestSource": {"anyOf":[{"$ref":"https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Identity"},{"type":"null"}]},
+        "target": {"anyOf":[{"$ref":"https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Identity"},{"type":"null"}]}
+      },
+      "required": ["correlationId","intentEventId","causationEventId","jobId","sessionId","commandId","requestSource","target"]
+    },
+    "AuditRecordReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {"enum":["protocol-event","local-record"]},
+        "id": {"$ref":"https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"}
+      },
+      "required": ["kind","id"]
+    },
+    "AuditInterval": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "startMonotonicMs": {"type":"integer","minimum":0,"maximum":9007199254740991},
+        "endMonotonicMs": {"type":"integer","minimum":0,"maximum":9007199254740991}
+      },
+      "required": ["startMonotonicMs","endMonotonicMs"]
+    },
+    "AuditMetadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "permission": {"enum":["login","view","control","capture","calibrate","configure","schedule","release","update","export","recording"]},
+        "observation": {
+          "enum": ["connection-established","bytes-delivered","connection-ended","delivery-started","delivery-ended","browser-heartbeat"]
+        },
+        "byteCount": {"type":"integer","minimum":0,"maximum":9007199254740991},
+        "observedInterval": {"$ref":"#/$defs/AuditInterval"},
+        "grantId": {"$ref":"https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"},
+        "configRevision": {"$ref":"https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"},
+        "calibrationRevision": {"$ref":"https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"},
+        "scheduleRevision": {"$ref":"https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"},
+        "releaseId": {"$ref":"https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"}
+      },
+      "required": []
+    },
+    "AuditChangeSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "revisionId": {"anyOf":[{"$ref":"https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"},{"type":"null"}]},
+        "state": {"enum":["absent","draft","active","retired","enabled","disabled","staged","installed","failed","rolled-back"]}
+      },
+      "required": ["revisionId","state"]
+    },
+    "AuditChange": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "fields": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 10,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "motion-envelope",
+              "gimbal-limits",
+              "target-mapping",
+              "references",
+              "capture-settings",
+              "schedule-timing",
+              "release-selection",
+              "access-policy",
+              "privacy-policy"
+            ]
+          }
+        },
+        "before": {"$ref":"#/$defs/AuditChangeSummary"},
+        "after": {"$ref":"#/$defs/AuditChangeSummary"}
+      },
+      "required": ["fields","before","after"]
+    },
+    "AuditEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "auditVersion": {"const":"arbi.audit/1.0"},
+        "eventId": {"$ref":"https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"},
+        "realm": {"$ref":"https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Realm"},
+        "executionMode": {"enum":["simulation","hardware"]},
+        "siteId": {"$ref":"https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"},
+        "actor": {"$ref":"https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Actor"},
+        "source": {"$ref":"#/$defs/AuditSource"},
+        "sequence": {"$ref":"https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Counter"},
+        "sourceTime": {"$ref":"https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/SourceTime"},
+        "ingestTime": {"$ref":"https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/IngestTime"},
+        "resource": {"$ref":"#/$defs/AuditResource"},
+        "action": {"$ref":"#/$defs/AuditAction"},
+        "evidence": {"$ref":"#/$defs/AuditEvidence"},
+        "outcome": {"$ref":"#/$defs/AuditOutcome"},
+        "effect": {"enum":["none","unknown","device-reported"]},
+        "reason": {"$ref":"#/$defs/AuditReason"},
+        "links": {"$ref":"#/$defs/AuditLinks"},
+        "record": {"anyOf":[{"$ref":"#/$defs/AuditRecordReference"},{"type":"null"}]},
+        "metadata": {"$ref":"#/$defs/AuditMetadata"},
+        "change": {"anyOf":[{"$ref":"#/$defs/AuditChange"},{"type":"null"}]}
+      },
+      "required": [
+        "auditVersion",
+        "eventId",
+        "realm",
+        "executionMode",
+        "siteId",
+        "actor",
+        "source",
+        "sequence",
+        "sourceTime",
+        "ingestTime",
+        "resource",
+        "action",
+        "evidence",
+        "outcome",
+        "effect",
+        "reason",
+        "links",
+        "record",
+        "metadata",
+        "change"
+      ],
+      "allOf": [
+        {
+          "if": {"properties":{"evidence":{"const":"intent"}},"required":["evidence"]},
+          "then": {
+            "properties": {
+              "outcome": {"enum":["requested"]},
+              "effect": {"enum":["none"]},
+              "reason": {"enum":["requested"]},
+              "source": {"properties":{"module":{"enum":["cloud","edge"]}}}
+            }
+          }
+        },
+        {
+          "if": {"properties":{"evidence":{"const":"authorization"}},"required":["evidence"]},
+          "then": {
+            "properties": {
+              "outcome": {"enum":["allow","deny","fail"]},
+              "effect": {"enum":["none"]},
+              "reason": {"enum":["authorized","not-authorized","invalid-request","unsupported","disabled","local-inhibit","storage-failed"]},
+              "source": {"properties":{"module":{"enum":["cloud","edge"]}}}
+            }
+          }
+        },
+        {
+          "if": {"properties":{"evidence":{"const":"access-grant"}},"required":["evidence"]},
+          "then": {
+            "properties": {
+              "outcome": {"enum":["allow","deny","fail"]},
+              "effect": {"enum":["none"]},
+              "reason": {"enum":["authorized","not-authorized","disabled","revoked","timeout","storage-failed"]},
+              "source": {"properties":{"module":{"enum":["cloud","edge"]}}}
+            }
+          }
+        },
+        {
+          "if": {"properties":{"evidence":{"const":"device-outcome"}},"required":["evidence"]},
+          "then": {
+            "properties": {
+              "outcome": {"enum":["succeeded","fail","interrupted"]},
+              "effect": {"enum":["device-reported"]},
+              "reason": {"enum":["completed","execution-failed","cancelled","local-inhibit","source-restarted","timeout"]},
+              "source": {"properties":{"module":{"enum":["edge","motion","pod"]}}}
+            }
+          }
+        },
+        {
+          "if": {"properties":{"evidence":{"const":"service-outcome"}},"required":["evidence"]},
+          "then": {
+            "properties": {
+              "outcome": {"enum":["succeeded","fail"]},
+              "effect": {"enum":["none"]},
+              "reason": {"enum":["completed","execution-failed","storage-failed","revoked","timeout","ended"]},
+              "source": {"properties":{"module":{"enum":["cloud","edge"]}}}
+            }
+          }
+        },
+        {
+          "if": {"properties":{"evidence":{"const":"media-observation"}},"required":["evidence"]},
+          "then": {
+            "properties": {
+              "outcome": {"enum":["observed","fail","interrupted"]},
+              "effect": {"enum":["none"]},
+              "reason": {"enum":["observed","delivery-failed","connection-lost","timeout","revoked","ended"]},
+              "source": {"properties":{"module":{"enum":["edge","pod","media"]}}}
+            }
+          }
+        },
+        {
+          "if": {"properties":{"evidence":{"const":"access-observation"}},"required":["evidence"]},
+          "then": {
+            "properties": {
+              "outcome": {"enum":["observed","fail","interrupted"]},
+              "effect": {"enum":["none"]},
+              "reason": {"enum":["observed","delivery-failed","connection-lost","storage-failed","ended"]},
+              "source": {"properties":{"module":{"enum":["cloud","edge","media"]}}}
+            }
+          }
+        },
+        {
+          "if": {"properties":{"evidence":{"const":"browser-observation"}},"required":["evidence"]},
+          "then": {
+            "properties": {
+              "outcome": {"enum":["observed"]},
+              "effect": {"enum":["none"]},
+              "reason": {"enum":["heartbeat"]},
+              "source": {"properties":{"module":{"enum":["browser"]}}}
+            }
+          }
+        },
+        {
+          "if": {"properties":{"evidence":{"const":"connection-loss"}},"required":["evidence"]},
+          "then": {
+            "properties": {
+              "outcome": {"enum":["unknown","interrupted"]},
+              "effect": {"enum":["unknown"]},
+              "reason": {"enum":["connection-lost","response-lost","source-restarted","timeout"]},
+              "source": {"properties":{"module":{"enum":["cloud","edge"]}}}
+            }
+          }
+        },
+        {
+          "if": {"properties":{"evidence":{"const":"device-outcome"}},"required":["evidence"]},
+          "then": {
+            "properties": {
+              "links": {
+                "properties": {
+                  "commandId": {"$ref":"https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"},
+                  "requestSource": {"$ref":"https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Identity"},
+                  "target": {"$ref":"https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Identity"}
+                }
+              },
+              "record": {"$ref":"#/$defs/AuditRecordReference"}
+            }
+          }
+        },
+        {
+          "if": {"properties":{"evidence":{"not":{"const":"device-outcome"}}},"required":["evidence"]},
+          "then": {"properties":{"record":{"type":"null"}}}
+        },
+        {
+          "if": {
+            "properties": {"evidence":{"enum":["authorization","access-grant"]},"outcome":{"const":"allow"}},
+            "required": ["evidence","outcome"]
+          },
+          "then": {"properties":{"reason":{"const":"authorized"}}}
+        },
+        {
+          "if": {
+            "properties": {"evidence":{"enum":["authorization","access-grant"]},"outcome":{"const":"deny"}},
+            "required": ["evidence","outcome"]
+          },
+          "then": {
+            "properties": {"reason":{"enum":["not-authorized","invalid-request","unsupported","disabled","local-inhibit","revoked","timeout"]}}
+          }
+        },
+        {
+          "if": {
+            "properties": {"evidence":{"enum":["authorization","access-grant"]},"outcome":{"const":"fail"}},
+            "required": ["evidence","outcome"]
+          },
+          "then": {"properties":{"reason":{"const":"storage-failed"}}}
+        },
+        {
+          "if": {"properties":{"outcome":{"const":"succeeded"}},"required":["outcome"]},
+          "then": {"properties":{"reason":{"enum":["completed","revoked","timeout","ended"]}}}
+        },
+        {
+          "if": {"properties":{"outcome":{"const":"fail"}},"required":["outcome"]},
+          "then": {"properties":{"reason":{"enum":["execution-failed","storage-failed","delivery-failed","local-inhibit"]}}}
+        },
+        {
+          "if": {"properties":{"evidence":{"const":"media-observation"}},"required":["evidence"]},
+          "then": {
+            "properties": {
+              "action": {"enum":["live.start","live.end","live.revoke","live.timeout"]},
+              "metadata": {
+                "required": ["observation"],
+                "properties": {"observation":{"enum":["connection-established","bytes-delivered","connection-ended"]}}
+              }
+            }
+          }
+        },
+        {
+          "if": {"properties":{"evidence":{"const":"access-observation"}},"required":["evidence"]},
+          "then": {
+            "properties": {
+              "action": {"enum":["still.view","history.view","media.download","media.export"]},
+              "metadata": {
+                "required": ["observation"],
+                "properties": {"observation":{"enum":["delivery-started","bytes-delivered","delivery-ended"]}}
+              }
+            }
+          }
+        },
+        {
+          "if": {"properties":{"evidence":{"const":"browser-observation"}},"required":["evidence"]},
+          "then": {
+            "properties": {
+              "action": {"const":"live.heartbeat"},
+              "metadata": {"required":["observation"],"properties":{"observation":{"const":"browser-heartbeat"}}}
+            }
+          }
+        },
+        {
+          "if": {"properties":{"action":{"const":"live.heartbeat"}},"required":["action"]},
+          "then": {"properties":{"evidence":{"const":"browser-observation"}}}
+        },
+        {
+          "if": {"properties":{"evidence":{"const":"access-grant"}},"required":["evidence"]},
+          "then": {
+            "properties": {
+              "action": {"enum":["live.grant","still.view","history.view","media.download","media.export","recording.start","playback.view"]}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "action": {"enum":["playback.view","playback.heartbeat","recording.start","recording.stop","recording.fail","recording.delete"]}
+            },
+            "required": ["action"]
+          },
+          "then": {
+            "properties": {
+              "evidence": {"const":"authorization"},
+              "outcome": {"const":"deny"},
+              "effect": {"const":"none"},
+              "reason": {"const":"disabled"}
+            }
+          }
+        },
+        {
+          "if": {"properties":{"evidence":{"const":"connection-loss"}},"required":["evidence"]},
+          "then": {
+            "properties": {
+              "action": {
+                "enum": [
+                  "motion.move",
+                  "gimbal.move",
+                  "control.stop",
+                  "motion.home",
+                  "calibration.change",
+                  "configuration.change",
+                  "schedule.create",
+                  "schedule.update",
+                  "schedule.delete",
+                  "capture.request",
+                  "update.request",
+                  "update.install",
+                  "update.rollback"
+                ]
+              },
+              "links": {
+                "properties": {
+                  "commandId": {"$ref":"https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"},
+                  "requestSource": {"$ref":"https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Identity"},
+                  "target": {"$ref":"https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Identity"}
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {"properties":{"evidence":{"const":"device-outcome"}},"required":["evidence"]},
+          "then": {
+            "properties": {
+              "action": {
+                "enum": [
+                  "motion.move",
+                  "gimbal.move",
+                  "control.stop",
+                  "motion.home",
+                  "calibration.change",
+                  "configuration.change",
+                  "schedule.create",
+                  "schedule.update",
+                  "schedule.delete",
+                  "capture.request",
+                  "update.request",
+                  "update.install",
+                  "update.rollback"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "evidence": {"enum":["service-outcome"]},
+              "action": {
+                "enum": [
+                  "motion.move",
+                  "gimbal.move",
+                  "control.stop",
+                  "motion.home",
+                  "calibration.change",
+                  "configuration.change",
+                  "schedule.create",
+                  "schedule.update",
+                  "schedule.delete",
+                  "capture.request",
+                  "update.request",
+                  "update.install",
+                  "update.rollback"
+                ]
+              }
+            },
+            "required": ["evidence","action"]
+          },
+          "then": {"properties":{"outcome":{"const":"fail"}}}
+        },
+        {
+          "if": {"properties":{"action":{"enum":["identity.login","authorization.check"]}},"required":["action"]},
+          "then": {"properties":{"resource":{"properties":{"kind":{"enum":["site"]}}}}}
+        },
+        {
+          "if": {
+            "properties": {"action":{"enum":["control.session.start","control.session.end","control.session.revoke","control.session.timeout"]}},
+            "required": ["action"]
+          },
+          "then": {"properties":{"resource":{"properties":{"kind":{"enum":["control-session"]}}}}}
+        },
+        {
+          "if": {"properties":{"action":{"enum":["motion.move","gimbal.move","control.stop","motion.home"]}},"required":["action"]},
+          "then": {"properties":{"resource":{"properties":{"kind":{"enum":["device"]}}}}}
+        },
+        {
+          "if": {"properties":{"action":{"enum":["calibration.change"]}},"required":["action"]},
+          "then": {"properties":{"resource":{"properties":{"kind":{"enum":["calibration"]}}}}}
+        },
+        {
+          "if": {"properties":{"action":{"enum":["configuration.change"]}},"required":["action"]},
+          "then": {"properties":{"resource":{"properties":{"kind":{"enum":["configuration"]}}}}}
+        },
+        {
+          "if": {"properties":{"action":{"enum":["schedule.create","schedule.update","schedule.delete"]}},"required":["action"]},
+          "then": {"properties":{"resource":{"properties":{"kind":{"enum":["schedule"]}}}}}
+        },
+        {
+          "if": {"properties":{"action":{"enum":["capture.request"]}},"required":["action"]},
+          "then": {"properties":{"resource":{"properties":{"kind":{"enum":["capture"]}}}}}
+        },
+        {
+          "if": {"properties":{"action":{"enum":["release.publish"]}},"required":["action"]},
+          "then": {"properties":{"resource":{"properties":{"kind":{"enum":["release"]}}}}}
+        },
+        {
+          "if": {"properties":{"action":{"enum":["update.request","update.install","update.rollback"]}},"required":["action"]},
+          "then": {"properties":{"resource":{"properties":{"kind":{"enum":["update"]}}}}}
+        },
+        {
+          "if": {
+            "properties": {"action":{"enum":["live.grant","live.start","live.end","live.revoke","live.timeout","live.heartbeat"]}},
+            "required": ["action"]
+          },
+          "then": {"properties":{"resource":{"properties":{"kind":{"enum":["live-session"]}}}}}
+        },
+        {
+          "if": {"properties":{"action":{"enum":["still.view"]}},"required":["action"]},
+          "then": {"properties":{"resource":{"properties":{"kind":{"enum":["still"]}}}}}
+        },
+        {
+          "if": {"properties":{"action":{"enum":["history.view"]}},"required":["action"]},
+          "then": {"properties":{"resource":{"properties":{"kind":{"enum":["history"]}}}}}
+        },
+        {
+          "if": {"properties":{"action":{"enum":["playback.view","playback.heartbeat"]}},"required":["action"]},
+          "then": {"properties":{"resource":{"properties":{"kind":{"enum":["recording"]}}}}}
+        },
+        {
+          "if": {"properties":{"action":{"enum":["media.download","media.export"]}},"required":["action"]},
+          "then": {"properties":{"resource":{"properties":{"kind":{"enum":["still","history","recording","audit"]}}}}}
+        },
+        {
+          "if": {
+            "properties": {"action":{"enum":["recording.start","recording.stop","recording.fail","recording.delete"]}},
+            "required": ["action"]
+          },
+          "then": {"properties":{"resource":{"properties":{"kind":{"enum":["recording"]}}}}}
+        },
+        {
+          "if": {
+            "properties": {
+              "action": {
+                "enum": [
+                  "control.session.start",
+                  "control.session.end",
+                  "control.session.revoke",
+                  "control.session.timeout",
+                  "live.grant",
+                  "live.start",
+                  "live.end",
+                  "live.revoke",
+                  "live.timeout",
+                  "live.heartbeat",
+                  "playback.view",
+                  "playback.heartbeat"
+                ]
+              }
+            },
+            "required": ["action"]
+          },
+          "then": {
+            "properties": {
+              "links": {"properties":{"sessionId":{"$ref":"https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"}}}
+            }
+          }
+        },
+        {
+          "if": {"properties":{"resource":{"properties":{"kind":{"const":"recording"}},"required":["kind"]}},"required":["resource"]},
+          "then": {
+            "properties": {
+              "evidence": {"const":"authorization"},
+              "outcome": {"const":"deny"},
+              "effect": {"const":"none"},
+              "reason": {"const":"disabled"}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {"evidence":{"const":"service-outcome"},"outcome":{"const":"succeeded"}},
+            "required": ["evidence","outcome"]
+          },
+          "then": {
+            "properties": {
+              "action": {
+                "enum": [
+                  "identity.login",
+                  "authorization.check",
+                  "control.session.start",
+                  "control.session.end",
+                  "control.session.revoke",
+                  "control.session.timeout",
+                  "release.publish",
+                  "live.end",
+                  "live.revoke",
+                  "live.timeout",
+                  "media.export"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
