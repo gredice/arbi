@@ -43,4 +43,4 @@ pnpm docs:check
 git diff --check
 ```
 
-Tests require loopback listening, child processes and OpenSSL. They use disposable synthetic credentials, the current configuration fixture and protocol message vectors. The [committed evidence record](../../docs/evidence/edge-runtime-prototype.md) identifies what was run and which Linux, hardware and physical gates remain unverified.
+Tests require loopback listening, child processes and OpenSSL. Linux additionally requires `systemd-analyze` and the same Node version staged at the unit's declared `/usr/bin/node` path; CI provisions that path explicitly before verifying the unmodified unit. They use disposable synthetic credentials, the current configuration fixture and protocol message vectors. The [committed evidence record](../../docs/evidence/edge-runtime-prototype.md) identifies what was run and which Linux, hardware and physical gates remain unverified.

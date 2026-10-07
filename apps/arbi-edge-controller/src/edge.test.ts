@@ -160,6 +160,7 @@ test('accepted audit vocabulary records authorization only, without persistence 
   audit.records[0].effect = 'device-reported'; assert.equal(adapter.diagnosticAudit.records[0].effect, 'none');
 });
 test('Linux service definition verifies with systemd-analyze on Linux', { skip: process.platform !== 'linux' }, () => {
+  assert.equal(execFileSync('/usr/bin/node', ['--version'], { encoding: 'utf8', timeout: 10000 }).trim(), process.version);
   execFileSync('systemd-analyze', ['verify', fileURLToPath(new URL('../deploy/arbi-edge-controller.service', import.meta.url))], { stdio: 'pipe', timeout: 10000 });
 });
 test('stale source/session and sequence replay cannot replace the negotiated state', async (t) => {
