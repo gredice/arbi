@@ -1,0 +1,131 @@
+import assert from 'node:assert/strict';
+import { spawn } from 'node:child_process';
+import { once } from 'node:events';
+import { realpathSync } from 'node:fs';
+import { readFile, mkdtemp, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import test from 'node:test';
+import pg from 'pg';
+import { postgresDatabase } from '../enrollment/store';
+import { RealtimeStore } from './store';
+import { createRealtimeServer } from './server';
+import { fixture,realm } from './test-support';
+import type { Grant } from './contracts';
+
+const socket=process.env.ARBI_ENROLLMENT_TEST_SOCKET;
+const pause=(ms:number) => new Promise((r) => setTimeout(r,ms));
+test('native PostgreSQL realtime: commit-safe replay, external routing/presence, revocation, churn and isolated recovery processes',{skip:!socket,timeout:45000},async (t) => {
+  const root=realpathSync(socket!);assert.ok(root.startsWith(`${realpathSync(process.platform==='darwin'?'/private/tmp':tmpdir())}/arbi-enrollment-pg-`));
+  const admin=new pg.Pool({host:root,user:'arbi_test',port:54321,database:'postgres',max:1});
+  await admin.query('CREATE DATABASE arbi_realtime_test');await admin.end();
+  const config={host:root,user:'arbi_test',port:54321,database:'arbi_realtime_test',max:4};
+  const pool=new pg.Pool(config),independent=new pg.Pool({...config,max:1});
+  t.after(async () => {await independent.end();await pool.end();});
+  t.diagnostic(`Native PostgreSQL ${(await pool.query('SHOW server_version')).rows[0].server_version}`);
+  for(const file of ['0001-enrollment','0002-media','0003-audit','0004-jobs','0005-realtime','0005-realtime']) await pool.query(await readFile(new URL(`../../migrations/${file}.sql`,import.meta.url),'utf8'));
+  async function setup() {
+    const f=await fixture();await pool.query('INSERT INTO arbi_device_registry VALUES($1,$2,$3,$4::jsonb)',[realm.environment,realm.namespaceId,f.registry.siteId,JSON.stringify(f.registry)]);
+    const a=new RealtimeStore(postgresDatabase(pool),realm,f.currentAuthority,f.broker,f.identity.resolveResource),b=new RealtimeStore(postgresDatabase(independent),realm,f.currentAuthority,f.broker,f.identity.resolveResource);
+    const sync=() => pool.query('UPDATE arbi_device_registry SET state=$1::jsonb WHERE environment=$2 AND namespace_id=$3 AND site_id=$4',[JSON.stringify(f.registry),realm.environment,realm.namespaceId,f.registry.siteId]);
+    const attach=async (store=a) => (await store.device(f.registry.siteId,f.signed('attach',{grantId:null}))) as {grant:Grant;token:any};
+    const recovery=async (grant:Grant,epoch:string|null=null,cursor:string|null=null,store=a):Promise<any> => {
+      await pool.query('UPDATE arbi_realtime_grants SET heartbeat_at_ms=0 WHERE id=$1',[grant.id]);
+      return store.device(f.registry.siteId,f.signed('recover',{grantId:grant.id,epoch,cursor}));
+    };
+    return {f,a,b,sync,attach,recovery};
+  }
+  await t.test('late commit blocks recovery until visibility, abort never advances cursor, replay tail resets and no command payload is replayed',async () => {
+    const {f,a,b,attach,recovery}=await setup();const {grant}=await attach();const initial=await recovery(grant);
+    assert.equal(initial.reset,true);assert.equal(initial.snapshot.configRevision,'config-1');assert.equal(initial.cursor,'1');
+    const writer=await pool.connect();await writer.query('BEGIN');
+    await writer.query('UPDATE arbi_device_registry SET state=jsonb_set(state,\'{hardwareDigest}\',\'"late-commit"\') WHERE site_id=$1',[f.registry.siteId]);
+    assert.equal((await writer.query('SELECT cursor::text FROM arbi_realtime_sites WHERE site_id=$1',[f.registry.siteId])).rows[0].cursor,'2');
+    let visible=false;const reading=recovery(grant,initial.epoch,initial.cursor,b).then((r) => {visible=true;return r;});
+    await pause(100);assert.equal(visible,false);await writer.query('COMMIT');
+    const replay=await reading;assert.deepEqual(replay.notifications,[{cursor:'2',kind:'inventory'}]);assert.equal(replay.cursor,'2');assert.equal(replay.reset,false);
+    await writer.query('BEGIN');await writer.query('UPDATE arbi_device_registry SET state=jsonb_set(state,\'{hardwareDigest}\',\'"aborted"\') WHERE site_id=$1',[f.registry.siteId]);await writer.query('ROLLBACK');writer.release();
+    const after=await recovery(grant,replay.epoch,replay.cursor,b);assert.equal(after.cursor,'2');assert.equal(after.notifications.length,0);
+    await pool.query(`DO $$ BEGIN FOR i IN 1..270 LOOP UPDATE arbi_device_registry SET state=jsonb_set(state,'{hardwareDigest}',to_jsonb(i::text)) WHERE site_id='${f.registry.siteId}'; END LOOP; END $$`);
+    const gap=await recovery(grant,replay.epoch,replay.cursor,b);assert.equal(gap.reset,true);assert.equal(gap.cursor,'272');
+    assert.equal((await pool.query('SELECT count(*) FROM arbi_realtime_events WHERE site_id=$1',[f.registry.siteId])).rows[0].count,'256');
+    const churn=await recovery(grant,'old-epoch','272',a);assert.equal(churn.reset,true);
+    const ahead=await recovery(grant,churn.epoch,'273');assert.equal(ahead.reset,true);
+    assert.equal(JSON.stringify(churn).includes('privateKey'),false);assert.equal('commands' in churn,false);
+    const presence=(await pool.query('SELECT acknowledged_cursor::text,heartbeat_at_ms FROM arbi_realtime_grants WHERE id=$1',[grant.id])).rows[0];assert.ok(Number(presence.heartbeat_at_ms)>0);
+  });
+  await t.test('shared per-client routing, exact site/realm, retryable outbox publication and current device boot/config/credential reauthorization',async () => {
+    const {f,a,b,attach,recovery,sync}=await setup();const one=await attach(a),two=await attach(b);await recovery(one.grant);await recovery(two.grant);
+    await b.maintain(f.registry.siteId);assert.deepEqual(new Set(f.published.map((p) => p.channel)),new Set([one.grant.channel,two.grant.channel]));
+    for(const p of f.published) {assert.equal(p.notification.siteId,f.registry.siteId);assert.deepEqual(p.notification.realm,realm);assert.deepEqual(Object.keys(p.notification).sort(),['cursor','epoch','realm','siteId','version']);}
+    await assert.rejects(a.device('other-site',f.signed('attach',{grantId:null})),{code:'INVALID_REQUEST'});
+    await assert.rejects(a.device(f.registry.siteId,{...f.signed('attach',{grantId:null}),realm:{...realm,namespaceId:'other'}}),{code:'INVALID_REQUEST'});
+    await assert.rejects(a.device(f.registry.siteId,{...f.signed('attach',{grantId:null}),signature:'a'.repeat(86)}),{code:'DENIED'});
+    f.controls.failPublish=true;f.registry.hardwareDigest='changed';await sync();await a.maintain(f.registry.siteId);
+    let outbox=(await pool.query('SELECT pending,attempts FROM arbi_realtime_outbox WHERE site_id=$1',[f.registry.siteId])).rows[0];assert.equal(outbox.pending,true);assert.equal(outbox.attempts,1);
+    const before=f.published.length;f.controls.failPublish=false;await pool.query('UPDATE arbi_realtime_outbox SET next_at_ms=0 WHERE site_id=$1',[f.registry.siteId]);await b.maintain(f.registry.siteId);
+    outbox=(await pool.query('SELECT pending FROM arbi_realtime_outbox WHERE site_id=$1',[f.registry.siteId])).rows[0];assert.equal(outbox.pending,false);assert.equal(f.published.length,before+2);
+    f.registry.devices[0].credentials[0].revokedAtMs=Date.now();await sync();await b.maintain(f.registry.siteId);
+    assert.deepEqual(new Set(f.revoked),new Set([one.grant.clientId,two.grant.clientId]));
+    await assert.rejects(recovery(one.grant),{code:'DENIED'});await assert.rejects(attach(),{code:'DENIED'});
+    const boot=await setup(),admission=await boot.attach();boot.f.registry.devices[0].current!.bootId='new-boot';await boot.sync();await boot.a.maintain(boot.f.registry.siteId);
+    assert.deepEqual(boot.f.revoked,[admission.grant.clientId]);await assert.rejects(boot.recovery(admission.grant),{code:'DENIED'});
+    const changed=await setup(),old=await changed.attach();changed.f.registry.configRevision='config-2';await changed.sync();await changed.a.maintain(changed.f.registry.siteId);
+    assert.deepEqual(changed.f.revoked,[old.grant.clientId]);
+    const moved=await setup(),scoped=await moved.attach();moved.f.identity.putSite(moved.f.registry.siteId,'another-account');await moved.b.maintain(moved.f.registry.siteId);
+    assert.deepEqual(moved.f.revoked,[scoped.grant.clientId]);await assert.rejects(moved.recovery(scoped.grant),{code:'DENIED'});
+    const expiring=await setup();expiring.f.registry.devices[0].credentials[0].expiresAtMs=Date.now()+5000;await expiring.sync();const limited=await expiring.attach();
+    assert.ok(limited.grant.expiresAtMs<=expiring.f.registry.devices[0].credentials[0].expiresAtMs);
+    expiring.f.registry.devices[0].credentials[0].expiresAtMs=Date.now()-1;await expiring.sync();await expiring.b.maintain(expiring.f.registry.siteId);
+    assert.deepEqual(expiring.f.revoked,[limited.grant.clientId]);await assert.rejects(expiring.recovery(limited.grant),{code:'DENIED'});
+  });
+  await t.test('human current membership/session, original expiry and audit admission survive restart; origin/body claims and provider failures deny',async () => {
+    const {f,a,b}=await setup();const human=await f.human('viewer','state.read');
+    const admission=await a.human(human.context,'attach',{grantId:null}) as {grant:Grant};
+    assert.equal(admission.grant.principal.kind,'human');assert.ok(admission.grant.expiresAtMs<=human.context.expiresAtMs);
+    const refreshed=await f.identity.adapter.authorize(human.token,'state.read',{realm,siteId:f.registry.siteId,accountId:f.registry.accountId,resource:{kind:'site',id:f.registry.siteId},executionMode:'simulation'});
+    const replacement=await b.human(refreshed,'attach',{grantId:admission.grant.id}) as {grant:Grant};
+    assert.ok(replacement.grant.expiresAtMs<=admission.grant.expiresAtMs);
+    const audit=(await pool.query("SELECT record FROM arbi_audit_events WHERE site_id=$1 AND record->>'action'='authorization.check'",[f.registry.siteId])).rows;assert.ok(audit.length>=2);
+    f.identity.revoke(human.sessionId);await b.maintain(f.registry.siteId);assert.ok(f.revoked.includes(replacement.grant.clientId));
+    await assert.rejects(a.human(human.context,'attach',{grantId:null}),{code:'DENIED'});
+    const membership=await setup(),member=await membership.f.human('operator','state.read');const attached=await membership.a.human(member.context,'attach',{grantId:null}) as {grant:Grant};
+    membership.f.identity.putPrincipal({actor:{kind:'human',id:'operator'},accountId:'account-1',member:true,sites:{[membership.f.registry.siteId]:{roles:['viewer'],serviceScopes:[],active:true,revision:'membership-2'}}});
+    await membership.b.maintain(membership.f.registry.siteId);assert.ok(membership.f.revoked.includes(attached.grant.clientId));
+    const failed=await setup();failed.f.controls.failIssue=true;await assert.rejects(failed.attach());
+    assert.equal((await pool.query('SELECT count(*) FROM arbi_realtime_grants WHERE site_id=$1',[failed.f.registry.siteId])).rows[0].count,'0');
+    assert.equal((await pool.query('SELECT count(*) FROM arbi_audit_events WHERE site_id=$1',[failed.f.registry.siteId])).rows[0].count,'0');
+    const runtime=createRealtimeServer({db:postgresDatabase(pool),realm,identity:membership.f.identity.adapter,resolveSite:membership.f.identity.resolveResource,currentAuthority:membership.f.currentAuthority,browserOrigins:['https://fixture.invalid'],broker:membership.f.broker});
+    const request=(body:unknown,origin='https://fixture.invalid') => new Request('https://fixture.invalid',{method:'POST',headers:{authorization:`Bearer ${member.token}`,origin,'x-arbi-request':'1','content-type':'application/json'},body:JSON.stringify(body)});
+    assert.equal((await runtime.handle(request({grantId:null,actor:{kind:'human',id:'forged'}}),{siteId:membership.f.registry.siteId,action:'attach'})).status,400);
+    assert.equal((await runtime.handle(request({grantId:null},'https://evil.invalid'),{siteId:membership.f.registry.siteId,action:'attach'})).status,403);
+  });
+  await t.test('reconnect, slow polling, admission/catch-up/expiry/revocation budgets are persisted and bounded',async () => {
+    const {f,a,b,attach,recovery}=await setup();const {grant}=await attach();await recovery(grant);
+    await assert.rejects(b.device(f.registry.siteId,f.signed('recover',{grantId:grant.id,epoch:null,cursor:null})),{code:'CAPACITY'});
+    for(let i=0;i<7;i++) await attach(i%2 ? a:b);
+    await assert.rejects(attach(),{code:'CAPACITY'});assert.equal((await pool.query('SELECT count(*) FROM arbi_realtime_grants WHERE site_id=$1',[f.registry.siteId])).rows[0].count,'8');
+    await pool.query('UPDATE arbi_realtime_grants SET heartbeat_at_ms=0 WHERE site_id=$1',[f.registry.siteId]);f.controls.failRevoke=true;await b.maintain(f.registry.siteId);
+    const attempts=(await pool.query('SELECT revoke_attempts FROM arbi_realtime_grants WHERE id=$1',[grant.id])).rows[0].revoke_attempts;assert.equal(attempts,1);
+    f.controls.failRevoke=false;await pool.query('UPDATE arbi_realtime_grants SET next_revoke_ms=0 WHERE site_id=$1',[f.registry.siteId]);await a.maintain(f.registry.siteId);assert.ok(f.revoked.includes(grant.clientId));
+    await assert.rejects(recovery(grant),{code:'DENIED'});
+  });
+  await t.test('separately spawned cloud and recovery consumer coordinate through native Postgres and actual HTTP; no acceptance/dispatch',async () => {
+    const {f,a}=await setup();
+    await a.jobs.device(f.registry.siteId,f.signed('snapshot',f.snapshot(),'arbi.jobs-device/1.0'));
+    const cloud=spawn(process.execPath,['--import','tsx','src/realtime/process-fixture.ts'],{env:{...process.env,ARBI_ENROLLMENT_TEST_SOCKET:root},stdio:['ignore','pipe','pipe','ipc']});
+    const working=await mkdtemp(join(process.platform==='darwin'?'/private/tmp':tmpdir(),'arbi-recovery-'));
+    t.after(async () => {if(cloud.exitCode===null) {cloud.kill('SIGTERM');await once(cloud,'exit');}await rm(working,{recursive:true,force:true});});
+    const ready=once(cloud,'message');cloud.send({siteId:f.registry.siteId});const [message]=await ready as [{origin:string}];
+    const consumer=spawn(process.execPath,['scripts/realtime-fixture-consumer.mjs'],{cwd:new URL('../../../arbi-edge-controller/',import.meta.url),stdio:['ignore','pipe','pipe','ipc']});
+    let stderr='';consumer.stderr!.on('data',(b) => {stderr+=b;});
+    const done=once(consumer,'message');consumer.send({realm,siteId:f.registry.siteId,identity:f.registry.devices[0].current,credentialId:'credential-1',origin:message.origin,
+      key:f.keys.privateKey.export({format:'pem',type:'pkcs8'}).toString(),spoolPath:join(working,'traffic.sqlite')});
+    const [result]=await done as [any];await once(consumer,'exit');assert.equal(result.status,'current',stderr);assert.equal(result.jobs,0);
+    assert.equal(result.snapshot.states.length,1);assert.equal(result.snapshot.configRevision,'config-1');
+    assert.equal(result.records.length,6);assert.ok(result.records.every((r:any) => r.record.spec.scope.boundary==='lan' && BigInt(r.record.bytes)>0n));
+    const admission=(await pool.query('SELECT record FROM arbi_realtime_grants WHERE site_id=$1',[f.registry.siteId])).rows[0].record;
+    await a.maintain(f.registry.siteId);assert.ok(f.published.some((p) => p.channel===admission.channel));
+    assert.equal((await pool.query('SELECT count(*) FROM arbi_command_jobs WHERE site_id=$1',[f.registry.siteId])).rows[0].count,'0');
+  });
+});

@@ -20,7 +20,7 @@ try {
   });
   clearTimeout(timer);
   for (const [method, path] of [["GET", "enrollment/inventory"], ["POST", "enrollment/challenge"],
-    ["POST", "media/upload"], ["POST", "media/complete"], ["POST", "images/synthetic-image/access"], ["GET", "images/synthetic-image/metadata"], ["POST", "audit/ingest"], ["POST", "jobs/acquire"], ["POST", "jobs/renew"], ["POST", "jobs/release"], ["POST", "jobs/revoke"], ["POST", "jobs/submit"], ["POST", "jobs/cancel"], ["GET", "jobs/status?jobId=synthetic-job"], ["POST", "jobs/device"]]) {
+    ["POST", "media/upload"], ["POST", "media/complete"], ["POST", "images/synthetic-image/access"], ["GET", "images/synthetic-image/metadata"], ["POST", "audit/ingest"], ["POST", "jobs/acquire"], ["POST", "jobs/renew"], ["POST", "jobs/release"], ["POST", "jobs/revoke"], ["POST", "jobs/submit"], ["POST", "jobs/cancel"], ["GET", "jobs/status?jobId=synthetic-job"], ["POST", "jobs/device"], ["POST", "realtime/attach"], ["POST", "realtime/recover"], ["POST", "realtime/device"]]) {
     const response = await fetch(`http://127.0.0.1:${port}/api/sites/synthetic-site/${path}`, {
       method, signal: AbortSignal.timeout(5_000), ...(method === "POST" ? { headers: { "content-type": "application/json" }, body: "{}" } : {}),
     });
@@ -30,7 +30,7 @@ try {
     assert.equal(body.error, "UNAVAILABLE");
     assert.deepEqual(Object.keys(body).sort(), ["correlationId", "error"]);
   }
-  process.stdout.write("Built Next.js enrollment/media/audit/jobs routes deny unprovisioned reads, commissioning, object access, ingestion and command/lease actions.\n");
+  process.stdout.write("Built Next.js enrollment/media/audit/jobs/realtime routes deny unprovisioned reads, commissioning, object access, ingestion, command/lease and subscription/recovery actions.\n");
 } catch { process.stderr.write("Built enrollment/media HTTP checks failed.\n"); process.exitCode = 1; }
 finally {
   clearTimeout(timer);

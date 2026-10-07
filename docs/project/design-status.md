@@ -25,6 +25,8 @@ This is a current evidence inventory, not a purchasing list and not a certificat
 
 The [device metering slice](../software/device-traffic-metering.md) implements bounded durable application attempts, Linux interface snapshots and an optional router report seam. [Host evidence](../evidence/device-traffic-metering.md) covers precise counters, interruption/retry and crash/capacity handling; native Linux CI, actual SIM/router/provider coverage, storage power loss and installed operation remain separate evidence. No counter enables recording or changes local safety authority.
 
+The [realtime recovery slice](../software/realtime-recovery.md) adds exact scoped Ably SDK subscription tokens, persisted routing/presence/outbox and commit-safe PostgreSQL replay. [Host evidence](../evidence/realtime-recovery.md) covers independent cloud/consumer processes and real SDK transport fixtures. Isolated live Ably/Neon/Vercel provisioning, measured mobile reconnect/revocation/quotas and physical acceptance remain open under #29. Its independent diagnostic consumer cannot dispatch actuators or acknowledge job execution.
+
 The [ADR-0008 edge prototype](../decisions/0008-edge-host-and-local-transport.md) adds executable diagnostic health/readiness, bounded mutually authenticated simulated local adapters and a Linux service definition. [Development-host tests](../evidence/edge-runtime-prototype.md) establish source and portable supervision behavior only; exact cabinet host, real transports, Linux confinement, power-loss durability and physical activation remain unverified.
 
 - Four-cable architecture and local ownership of motion and safety.
