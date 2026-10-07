@@ -15,7 +15,7 @@ Use this guide for repository layout, toolchains, commands, package boundaries, 
 - `packages/arbi-audit`: [implemented bounded SQLite admission and replay spool](packages/arbi-audit/README.md) for edge/pod Node runtimes and cloud receipt/integrity primitives; storage hardware power-loss evidence remains separate.
 - `apps/arbi-dashboard`: [implemented Next.js enrollment, image-storage, command-job and realtime HTTP boundaries](apps/arbi-dashboard/README.md), simulation-only device identity/inventory lifecycle, private Blob/Ably SDK adapters and transactional PostgreSQL state/audit/recovery; live provider setup and dashboard UI remain separate work.
 - `apps/arbi-docs`: [public statically generated Next.js site](apps/arbi-docs/README.md) deployed to `arbi.gredice.com` from the Gredice Vercel team. It reads data compiled at build time from the CAD registry, BOM reports, documents, booklet packs and the latest CAD release.
-- `apps/arbi-edge-controller`: [executable supervised edge prototype](apps/arbi-edge-controller/README.md), bounded authenticated loopback module transport, diagnostic health/readiness and Linux service definition; physical host/transport activation remains gated by ADR-0008.
+- `apps/arbi-edge-controller`: [executable supervised edge prototype](apps/arbi-edge-controller/README.md), bounded authenticated loopback diagnostic transport, optional [durable local job/policy consumer](docs/software/local-jobs.md), health/readiness and Linux service definition; physical host/transport activation remains gated by ADR-0008.
 - `scripts/check-cad.mjs`: registry, source, include, and optional OpenSCAD compilation validation.
 - `.github`: issue forms, pull request guidance, and fork-safe CI.
 

@@ -168,7 +168,7 @@ bearing seats, screw/nut access, rod fit/straightness, flange clearance, motor
 alignment and free rotation. Inspect motor temperature and printed-part creep
 before any endurance test. ASA must repeat fit and load/cycle checks.
 
-The [full assembly cover r0.2.0](full-cover.md) adds removable rounded panels
+The [full assembly cover r0.3.0](full-cover.md) adds removable rounded panels
 and payout shutters over this unchanged mount/guard using extra base holes.
 CAD checks do not close physical fit, heat, weather or safe-guarding acceptance.
 Full-travel line guidance, homing, slip-ring support/strain relief and field

@@ -1455,9 +1455,10 @@
         "printed"
       ],
       "requirements": [
-        "One kit per winch: passive 3 main panels, 2 payout shutters, 6 fascia strips, 3 rear shield segments and one removable bench blank; powered 5 main panels, 4 shutters, 10 fascia strips, 5 rear shield segments and one blank. Four r0.2.0 base clips per main-panel position and one fixed-loom anchor.",
+        "One kit per winch: passive 3 main panels, 2 shutters, 6 fascia strips (one lower pole-port variant), 3 rear shield segments and one optional bench blank; powered 5 main panels including one index-1 pole middle, one plain index-2 middle and index-3 transition, 4 shutters, 10 fascia strips (one lower pole-port variant), 5 rear shields and one blank. Four r0.2.0 clips per panel and one independent loom anchor.",
         "Warm-white rounded removable shell over existing dark core. Full-width 24 mm payout slot for 1.5 mm passive or nominal 4.5 mm hybrid line; no fixed fairlead or completed slip-ring support.",
-        "Concept-unvalidated: drilling, fit, full-travel abrasion, ventilation, heat, rain, strength and safe guarding require physical acceptance."
+        "Concept-unvalidated: drilling, fit, full-travel abrasion, ventilation, heat, rain, strength and safe guarding require physical acceptance.",
+        "r0.3.0 bottom-loom layout: two 14 mm apertures near the pole; right-end ports closed. Provisional motor/encoder looms <=10 mm OD, routed under the drum. Independent anchor moves to X=W/2+60, Y=-60; add its revised base holes."
       ],
       "fabrication": {
         "process": "openscad",
@@ -1467,7 +1468,7 @@
             "path": "hardware/assemblies/winch/winch-cover-passive-left.scad",
             "module": "wc_print_panel",
             "modelId": "winch-cover-passive-left",
-            "revision": "0.2.0"
+            "revision": "0.3.0"
           },
           {
             "path": "hardware/assemblies/winch/winch-cover-passive-middle.scad",
@@ -1479,7 +1480,7 @@
             "path": "hardware/assemblies/winch/winch-cover-passive-right.scad",
             "module": "wc_print_panel",
             "modelId": "winch-cover-passive-right",
-            "revision": "0.2.0"
+            "revision": "0.3.0"
           },
           {
             "path": "hardware/assemblies/winch/winch-cover-powered-left.scad",
@@ -1503,7 +1504,7 @@
             "path": "hardware/assemblies/winch/winch-cover-powered-right.scad",
             "module": "wc_print_panel",
             "modelId": "winch-cover-powered-right",
-            "revision": "0.2.0"
+            "revision": "0.3.0"
           },
           {
             "path": "hardware/assemblies/winch/winch-cover-clip.scad",
@@ -1570,10 +1571,28 @@
             "module": "wc_print_rear_blank",
             "modelId": "winch-cover-rear-blank",
             "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/winch/winch-cover-powered-pole-middle.scad",
+            "module": "wc_print_panel",
+            "modelId": "winch-cover-powered-pole-middle",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/winch/winch-cover-passive-pole-fascia.scad",
+            "module": "wc_print_fascia",
+            "modelId": "winch-cover-passive-pole-fascia",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/winch/winch-cover-powered-pole-fascia.scad",
+            "module": "wc_print_fascia",
+            "modelId": "winch-cover-powered-pole-fascia",
+            "revision": "0.1.0"
           }
         ]
       },
-      "notes": "Three passive plus one powered kit: 14 main panels, 10 payout shutters, 56 clips, four cable anchors, 28 fascia strips, 14 rear shield segments and four optional bench blanks (130 prints including blanks). Reprint main panels, shutters and clips at r0.2.0; reuse drivetrain and anchors. Fascia and rear shields conceal all represented enclosure fasteners. Remove the bench blank for the 100 mm nominal post interface. Physical snap retention, received hardware and support fit remain unverified. See hardware/assemblies/winch/full-cover.md."
+      "notes": "Three passive plus one powered kit retains 14 hoods, 10 shutters, 56 clips, four anchors, 28 fascia strips and 14 rear shields. Replace passive left/right and powered right at r0.3.0; add the powered pole middle and one pole fascia per winch. Reuse unchanged drivetrain, clips, shutters and common fascia. Round-pole saddles/caps are separate alternative kits. Physical fit, cable bend/strain relief and support acceptance remain open. See hardware/assemblies/winch/full-cover.md."
     },
     {
       "id": "winch-full-cover-hardware",
@@ -1592,11 +1611,111 @@
       "requirements": [
         "One unquoted set for 3 passive + 1 powered cover: 56 M4x16 shell screws, 56 plain M4 captive nuts and 56 M4 washers (9 mm OD). Use a reviewed removable screw-locking method.",
         "56 M4x25 clip-to-base screws plus 8 M4x25 cable-anchor screws; 64 M4 locknuts and 128 M4 washers. Stack: 6 mm print, 8 mm base, two 0.8 mm washers, 5 mm locknut, 4.4 mm nominal tip projection.",
-        "Eight soft hook-and-loop loom wraps (two per base anchor), at most 5.5 mm wide and 2.5 mm thick for 6x3 mm slots; eight soft-edged nominal 14 mm fixed-loom exits. Exact edging, cable ODs and received lead bend radii require selection.",
-        "Additional base holes: 14 per passive base / 22 per powered base, diameter 4.5 mm. Existing load-bearing interface holes and blank dimensions retained.",
+        "Eight soft hook-and-loop loom wraps, <=5.5 mm wide and <=2.5 mm thick through the 6x3 mm base-anchor slots; eight soft-edged 14 mm bottom loom exits. Cable OD, connector size, bend radius, drip loop and strain relief require received-unit confirmation.",
+        "14 / 22 cover holes per passive / powered aluminium base, diameter 4.5 mm. Anchor holes now X=W/2+50 and W/2+70, Y=-60; reuse clip holes and add the relocated anchor pair to an old plate. Existing drivetrain/post holes retained.",
         "16 steel M8 standoffs, 25 mm long, nominal 16 mm OD / 9 mm bore (four per winch), between the aluminium base and 100 mm timber post. Existing M8x160 length gives 11.8 mm nominal projection after 8 mm base, 25 mm spacer, 100 mm timber, 4 mm backing, two 1.6 mm washers and 8 mm locknut. Structural capacity, received stack and installation remain unverified; no printed structural spacers."
       ],
       "notes": "No supplier offers or prices asserted. Do not assume assortment coverage. Motor/encoder looms <=10 mm OD each are envelope assumptions. Separate rotating-conductor/slip-ring support remains unresolved."
+    },
+    {
+      "id": "winch-round-pole-adapter",
+      "name": "Round timber-pole machined metal saddle kit",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "fabricated"
+      ],
+      "requirements": [
+        "Two front and two rear machined metal saddles per winch. Nominal pole diameter 120 mm, parameter study 100–140 mm. Existing four-hole 50x120 mm M8 pattern and 25 mm front offset retained. DO NOT print these load-bearing parts.",
+        "Material grade, stock, machining, corrosion treatment, contact fit, pole capacity and proof load require qualified review."
+      ],
+      "fabrication": {
+        "process": "openscad",
+        "modelStatus": "concept-unvalidated",
+        "sources": [
+          {
+            "path": "hardware/assemblies/winch/winch-pole-front-saddle.scad",
+            "module": "wp_front_saddle",
+            "modelId": "winch-pole-front-saddle",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/winch/winch-pole-rear-saddle.scad",
+            "module": "wp_rear_saddle",
+            "modelId": "winch-pole-rear-saddle",
+            "revision": "0.1.0"
+          }
+        ]
+      },
+      "notes": "Optional round-timber interface; replace the flat-post standoffs/backing plate, do not combine both mounting stacks. No supplier quote or qualified material assertion. See hardware/assemblies/winch/round-pole.md."
+    },
+    {
+      "id": "winch-round-pole-covers",
+      "name": "Round-pole nut covers and cable guide kit",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "fabricated",
+        "printed"
+      ],
+      "requirements": [
+        "Two white sliding rear nut covers, two snug underside closures and one dark two-loom cable guide per winch. Covers use metal saddle rails; remove underside closures before lifting caps. Guide tied to the pole independently of winch load.",
+        "Concept-unvalidated: print fit, underside closure/gravity-stop retention, vibration, UV and cable-clipping force require physical acceptance."
+      ],
+      "fabrication": {
+        "process": "openscad",
+        "modelStatus": "concept-unvalidated",
+        "sources": [
+          {
+            "path": "hardware/assemblies/winch/winch-pole-nut-cover.scad",
+            "module": "wp_print_nut_cover",
+            "modelId": "winch-pole-nut-cover",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/winch/winch-pole-nut-cover-bottom.scad",
+            "module": "wp_print_nut_cover_bottom",
+            "modelId": "winch-pole-nut-cover-bottom",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/winch/winch-pole-cable-guide.scad",
+            "module": "wp_print_cable_guide",
+            "modelId": "winch-pole-cable-guide",
+            "revision": "0.1.0"
+          }
+        ]
+      },
+      "notes": "Optional round-timber interface; replace the flat-post standoffs/backing plate, do not combine both mounting stacks. No supplier quote or qualified material assertion. See hardware/assemblies/winch/round-pole.md."
+    },
+    {
+      "id": "winch-round-pole-hardware",
+      "name": "One-winch round-pole fastening allowance",
+      "baseUnit": "each",
+      "kind": "consumable",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical",
+        "cabling"
+      ],
+      "traits": [
+        "fastener",
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "Four M8 through-bolts, eight <=24 mm OD x 1.6 mm washers, four 8 mm high locking nuts. Nominal lengths 160 / 180 / 200 mm for 100 / 120 / 140 mm timber; confirm received stack and engagement.",
+        "Two non-structural outdoor soft ties through the guide paired 3x9 mm full-depth slots, <=2.5 mm wide and <=1 mm thick. Wrap the pole circumferentially and bridge the guide face at local Y=±3 mm; protect timber and loom jackets.",
+        "Replace the flat-post through-bolts/backing stack when selecting this round-pole alternative; structural/bolt-bending qualification remains open."
+      ],
+      "notes": "No prices or supplier offers asserted. See hardware/assemblies/winch/round-pole.md."
     }
   ]
 }

@@ -1,0 +1,168 @@
+{
+  "cover_revision": "0.2.0",
+  "status": "concept-unvalidated",
+  "openScadVersion": "2021.01",
+  "checks": 186301,
+  "variants": {
+    "passive": {
+      "checks": 57978,
+      "main_panels": 3,
+      "shutters": 2,
+      "clips": 12,
+      "panel_pitch_mm": 180.66666666666666,
+      "removal_step_mm": 2,
+      "line_corridor_mm": [
+        [
+          6,
+          50,
+          124
+        ],
+        [
+          252.9,
+          115,
+          140
+        ]
+      ],
+      "fascia_strips": 6,
+      "rear_shields": 3,
+      "bench_blanks": 1,
+      "concealment_rays": 3220,
+      "post_concealment_rays": 3220,
+      "post_standoff_mm": 25,
+      "control_exposed_rays_without_concealment": 2164,
+      "key_unlock_lift_mm": 2,
+      "straight_pull_control": "Captured by key lugs",
+      "physical_retention": "Unverified fit, vibration, creep and service life; rigid CAD paths are nominal only."
+    },
+    "powered": {
+      "checks": 128323,
+      "main_panels": 5,
+      "shutters": 4,
+      "clips": 20,
+      "panel_pitch_mm": 174.4,
+      "removal_step_mm": 2,
+      "line_corridor_mm": [
+        [
+          6,
+          50,
+          124
+        ],
+        [
+          576.3,
+          115,
+          140
+        ]
+      ],
+      "fascia_strips": 10,
+      "rear_shields": 5,
+      "bench_blanks": 1,
+      "concealment_rays": 4900,
+      "post_concealment_rays": 4900,
+      "post_standoff_mm": 25,
+      "control_exposed_rays_without_concealment": 3297,
+      "key_unlock_lift_mm": 2,
+      "straight_pull_control": "Captured by key lugs",
+      "physical_retention": "Unverified fit, vibration, creep and service life; rigid CAD paths are nominal only.",
+      "transition_wall": {
+        "witness_bounds_mm": [
+          [
+            600.0,
+            76.5,
+            124.0
+          ],
+          [
+            620.0,
+            79.5,
+            140.0
+          ]
+        ],
+        "required_volume_mm3": 960.0,
+        "retained_volume_mm3": 960.0,
+        "incorrect_middle_reuse_volume_mm3": 0.0
+      }
+    }
+  },
+  "stl_sha256": {
+    "winch-drum-alignment-pin": "9c514b349bd5d9a649619b1f227b8959dff9a5189607a0edce0efb3722be095d",
+    "winch-drum-clamp-half": "f6e47087ad3a5ea44b312f1603203f336beead6e671ff292090d48ab753a71bc",
+    "winch-drum-flange": "6e0327a2dbb94d6ef751e88664df4500538fe6b6ccc1479a5593255b4ed3d62c",
+    "winch-drum-passive-1": "8e6e48cfdc4c0814fc04cbcf08bd2f1f14faf15f3a94e45ffd304f77d65bce98",
+    "winch-drum-passive-2": "16a8dd3843713868d8fa11ff5783e87f287f81a8258e25eb1a23f1689b3ae539",
+    "winch-drum-powered-1": "5726d3779501860207f67036514578aa86b9559fb4e3e0568caaaf4bd7df2848",
+    "winch-drum-powered-2": "32f6085aab571a39782eedcff466781f0079deaf6d6a44ac92a2a950501dcc63",
+    "winch-drum-powered-3": "81554f2ca38f5e6d5fecd4456f13d4976e372f762971fa8670a07ab00767d853",
+    "winch-drum-tail-clamp": "0645fe9a42f437dab6bd080fe1dd23b4c06662671f6b98c50ffc00f9f108aca3",
+    "winch-drum-flange-right": "f7683e770d327b0d76a611b074abfa7b536b3dc86b91f351485522ee7074bc52",
+    "winch-bearing-lower": "fdd557031435a3067a78bc095b727372965f61f450690ca6b712dd8a32f4e2a0",
+    "winch-bearing-cap": "fbd633fe97c6ec06ee0a2f8af39fac543e4c39d62fb3472433a1f4d0f2b94240",
+    "winch-motor-stand": "e35efb67e808d10b85aa6b736d849350aca11ea8b000927996a3d3abb852204c",
+    "winch-coupling-guard": "7b7549500d8117b04b9be5c38e2f2685d0965bd8aa2267294bf55253b694ecfb",
+    "winch-desk-foot-short": "534b49a32bc520bf106165d50483018ca4745154a54cac62375e4095ee36a7ec",
+    "winch-desk-foot-long": "496d729490f37e0dd623f55265ffcab3526ad75371b7d334a21d294a146c1394",
+    "winch-cover-passive-left": "013b01838f0abd714e865e667ea0ae60eec284fcea815c48571abb6b91153c85",
+    "winch-cover-passive-middle": "5ed2e96b23ae1fb6ead5fd1f6f3b7fe5d92c6bb0da399d35863084d780393310",
+    "winch-cover-passive-right": "3adca16d444ad3621e7dd389010edd9e7afeb2d45269cbd62103d15b7bb198b2",
+    "winch-cover-powered-left": "aedbc0f20323bee45f9874a0bea4c396b9b432f6c63effbe37915272b8699b0f",
+    "winch-cover-powered-middle": "7b0ea66d5c56a59e3928c5eb13c4067021bfbeb39daf9d4c5c5ffe65b25215cb",
+    "winch-cover-powered-transition": "639a7cac845b13f2d09186a7341f7ff173618fedb512d2563ceed4ea4b7d4224",
+    "winch-cover-powered-right": "9a8277bc295ee735a3ab39589be6004a519b6b3934a08d7476d9c371c5e59df1",
+    "winch-cover-clip": "c190e64a9e2b12e105064447ecd8ccdf412ec2b9013223f731dd1c2381d4afe0",
+    "winch-cover-cable-anchor": "e032d7a848cbe7e8ed3d8632c5ce85d92e24484dc6f8246e1fb202a18fdc5182",
+    "winch-cover-passive-shutter": "e41293d57547396ed61a2b255d1368ec6a39aa80ee46e3c2ccdee0fdc6332f90",
+    "winch-cover-powered-shutter": "d047e1affcb851c223c8f7af007e42855be14bd082bdf227af161298e68a818e",
+    "winch-cover-passive-fascia": "e8a3319b5d4a21c64a33159a8c22c541a0e220bf0c11de71dbeff671c9d1bfe7",
+    "winch-cover-passive-rear-left": "b8cd0e351d5aca669e9509fa563018a68269ddf9da6bdb9671e519a5bf11900b",
+    "winch-cover-passive-rear-right": "29f97a924ccf03c42c193d2753dfa844fb2627ddec2bcd3c75bff0d2ef2671c8",
+    "winch-cover-powered-fascia": "bbe482f9f5236975a3f9694b269cff06da8a65d815135d1d3746f1591207efd9",
+    "winch-cover-powered-rear-left": "3e04e5356e84428d1fcf1167b13e3bf1c9c8f952249e55ffabeb34f54e86d50e",
+    "winch-cover-powered-rear-right": "eb9c10c4e2788969f25f5dd56a352dd33149be1fc6678daed0905532704ecf64",
+    "winch-cover-rear-blank": "2eedba43d30723abc1356ed0c9715e08959525405415cf65dfb25252ee40810d"
+  },
+  "source_sha256": {
+    "hardware/assemblies/winch/winch-bearing-cap.scad": "ee3968b765fddeb281b84baf13cce71eb241592a3c1ac3f787438b023dbe0060",
+    "hardware/assemblies/winch/winch-bearing-lower.scad": "3da56cced498b8644e6bc6c44501f8bef00eb525e48104c6504f72eb50071ce2",
+    "hardware/assemblies/winch/winch-coupling-guard.scad": "980836d50357f93b6b916062df4b72a98f777b3bb8b16060eab7b69508451eb5",
+    "hardware/assemblies/winch/winch-cover-assembly.scad": "22df504c6d1e82c4c526617d21513920661e5f272392efac6ef53df1c82a910b",
+    "hardware/assemblies/winch/winch-cover-cable-anchor.scad": "ec8c7197e193fd9923197fe1d5c9fc0ce38f3001d95459529fddd2db8b1fbcfe",
+    "hardware/assemblies/winch/winch-cover-clip.scad": "dac86a1f503d42185ff02a31056b9fd1f8c50573f039ee9483cef44682588c7c",
+    "hardware/assemblies/winch/winch-cover-passive-fascia.scad": "b532979b5ce0ce0712022c98b04b7c0d9a397e11273d4159691f59cbaa043403",
+    "hardware/assemblies/winch/winch-cover-passive-left.scad": "3c35717d00a8c044ca968c1dcc2d46f4b1fd6dfabd179863fd7b51bd0fc83a4b",
+    "hardware/assemblies/winch/winch-cover-passive-middle.scad": "5b55cea379bad6f996511f5fdf3e1205f971f009afc15585e2bd11b6c6a11425",
+    "hardware/assemblies/winch/winch-cover-passive-rear-left.scad": "d2365b81ededd86168335ab6f57742aaeac039dab8b04653e50cf5b81b3b40e4",
+    "hardware/assemblies/winch/winch-cover-passive-rear-right.scad": "0cf012eff1990cffa90516c64294fc408793996104d5d21feff3b91b79a2be66",
+    "hardware/assemblies/winch/winch-cover-passive-right.scad": "f0e9e345d9ad81af95cdfbb86400a0c2062711017faaa62cc60de0bd44ee004d",
+    "hardware/assemblies/winch/winch-cover-passive-shutter.scad": "56d89f0b50affa32caaf1bfa0fa35f20be25d3d616881f7aa2e0098b31a8788a",
+    "hardware/assemblies/winch/winch-cover-powered-fascia.scad": "adc0a6e4c34831101e5a93bf556d82869154b06abe147b413345057aa9848a0c",
+    "hardware/assemblies/winch/winch-cover-powered-left.scad": "f9ef14c4cb50877b5cffaad8454343f73bc2ff5e9a2e9eeb7cba822cca70dbd8",
+    "hardware/assemblies/winch/winch-cover-powered-middle.scad": "5ffe7a0013dbec61cef28bec381673edad9ad2a32e57fae6074c712eae385f9d",
+    "hardware/assemblies/winch/winch-cover-powered-rear-left.scad": "20217afc1aa75de55d286163085d875be303191b7b4506ed12bbd41665f42e77",
+    "hardware/assemblies/winch/winch-cover-powered-rear-right.scad": "819e26f0c30534567249624d63547b1e7923de4d26d9cd7d0df552a704f614ca",
+    "hardware/assemblies/winch/winch-cover-powered-right.scad": "1bb28422a021fceb333abefd62bdf78f588ec1086995936d371bf72c7a85b001",
+    "hardware/assemblies/winch/winch-cover-powered-shutter.scad": "d949bc9b25354d4cfdfe42ba8e5c41ca0e66e22cde16bb47ccbf57d02e6411d0",
+    "hardware/assemblies/winch/winch-cover-powered-transition.scad": "60bbcea2fcff11d94c48c4e59b8bdf10bf0b8634e0fb48a8b48a33d0ea817023",
+    "hardware/assemblies/winch/winch-cover-rear-blank.scad": "23de96625279b40af279d74a2586a0def89311f4f403821821a39e2b3356045c",
+    "hardware/assemblies/winch/winch-desk-foot-long.scad": "24c643f4a4bbc355b54fe7eebb6f8a1e335bcdb34881ffb8badaffea8e4768e7",
+    "hardware/assemblies/winch/winch-desk-foot-short.scad": "ec4c98ca963e42956e29a1e7d4d03cbac65dcc8bca7a718a9611a8fb0e68f138",
+    "hardware/assemblies/winch/winch-drum-alignment-pin.scad": "adf83c9c9686ef667b3090cef8018defe53637419fd0379bd3db7dc47101b2b8",
+    "hardware/assemblies/winch/winch-drum-clamp-half.scad": "a97b451ae1861d0b1f798387e5d17c5b8738883defd8a0376c0638596f350dd7",
+    "hardware/assemblies/winch/winch-drum-flange-right.scad": "f8963600231a63cde299fd541038590cbe929ddbb6e9ca07ef1f84da500bf1b4",
+    "hardware/assemblies/winch/winch-drum-flange.scad": "f75ffdd009ea4f7f3c2081509167f0f793fa518a3174c57e5f1a3b4f8183c83d",
+    "hardware/assemblies/winch/winch-drum-passive-1.scad": "05f4da0c306b7f28b6cbb0892aa6077492a718a1dd92e73f6147ec2a67e69d48",
+    "hardware/assemblies/winch/winch-drum-passive-2.scad": "2ddcff6c8e33cf4a49ee9eb5f9c16464e80282699c32c6d9898cb217ee0be2ae",
+    "hardware/assemblies/winch/winch-drum-powered-1.scad": "2740e6fe707fdf99709c3cb5f0d191cdbba3f99037fedce6ee8fae4c5a5b06c2",
+    "hardware/assemblies/winch/winch-drum-powered-2.scad": "0c6621de35d65fb0e791547773ee819dafc3b49f9c1083625590ad2d7232ebce",
+    "hardware/assemblies/winch/winch-drum-powered-3.scad": "e31351649898a9afaac8c3b2c2f6af3f3686c4a6ee985ff5b790f9139ff0a247",
+    "hardware/assemblies/winch/winch-drum-tail-clamp.scad": "eb4c30af128974a8402d64319d3ff320b0d70dd7c1f35ec461bfd604c698e027",
+    "hardware/assemblies/winch/winch-drum.scad": "4cefc906adb1085f83af59e883cc6ab4dcaf125e77e6ad579e05a8b7d42b3b9e",
+    "hardware/assemblies/winch/winch-motor-stand.scad": "49d830ffab4c3aa590bca08d56d7934cec78ab1f19e641316d7268feb54fb020",
+    "hardware/assemblies/winch/winch-mount.scad": "8ef15e702a72672b354c5325876f007a78e65a6c0a54b8ae9c5e487859027843",
+    "hardware/lib/arbi.scad": "39939675020b805ced0e8a05cd41b40037ae627f602e08f7bf638c7ba9d9d9c7",
+    "hardware/lib/winch-cover.scad": "56e7bd6f7e8c6cb1a0ea30972e2e51c9ae432c3c81848086e2112b84fa64b5f3",
+    "hardware/lib/winch-desk-feet.scad": "06a551dbe77420599590dc3f8a3bd9b66cd5d647d94bd75fa9e852dcdd4dd719",
+    "hardware/lib/winch-drum.scad": "0684c28615d398d1b7a2beb7d15a4fa4e27d62382b8a8bde1470367f5de1e837",
+    "hardware/lib/winch-mount.scad": "05bb92d3955500a3a52914c01f7f530bf3a243f60bef69f7d4a7af7a461e231e",
+    "hardware/models.json": "0ed8366446352bc580bfaaea939a3ceb7cc4a614fa9c9eb1d5924761723508fb"
+  },
+  "checker_sha256": "f6108bd111d6bcd3de63a0eb642718afd883c0b605e93ba590cc053669e40b18",
+  "limitations": "Nominal rigid geometry; no physical fit, flexible-cable bend, thermal, weather, load or contact-protection acceptance."
+}

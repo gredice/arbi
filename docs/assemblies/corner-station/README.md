@@ -93,6 +93,8 @@ ASA is preferred for outdoor use. PETG is prototype-only pending creep, temperat
 
 The winch mounts on the same pole face directly below the top pulley, approximately 0.5–1.0 m above ground. Align the incoming drum tangent with the pulley groove so the line runs nearly vertically, without fleet angle or timber contact. The pulley turns the line approximately 90 degrees from the garden span toward the drum.
 
+The [round-timber saddle concept](../../../hardware/assemblies/winch/round-pole.md) supplies a nominal 120 mm interface (100–140 mm study), metal through-bolt load path and rear nut covers. Its bottom loom guide routes stationary leads down the pole. Structural, material and physical acceptance remain open.
+
 The station drawing must define the winch mounting interface, guard envelope, service access, cable route, driver enclosure mount, and drainage without owning the winch internals.
 
 ## Electronics, cabling, and retention

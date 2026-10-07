@@ -119,9 +119,15 @@ importers:
 
   apps/arbi-edge-controller:
     dependencies:
+      '@arbi/audit':
+        specifier: workspace:*
+        version: link:../../packages/arbi-audit
       '@arbi/protocol':
         specifier: workspace:*
         version: link:../../packages/arbi-protocol
+      '@arbi/simulation-core':
+        specifier: workspace:*
+        version: link:../../packages/arbi-simulation-core
       '@arbi/traffic':
         specifier: workspace:*
         version: link:../../packages/arbi-traffic

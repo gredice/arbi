@@ -5,6 +5,7 @@ import { PROTOCOL_VERSION, type Identity } from '@arbi/protocol';
 import { ModuleAdapter } from './adapter.js';
 import { readBoundedFile, validateSettings, type Settings } from './settings.js';
 import { EdgeTraffic } from './metering.js';
+import { EdgeJobs } from './jobs/runtime.js';
 
 export class EdgeRuntime {
   readonly identity: Identity;
@@ -15,20 +16,23 @@ export class EdgeRuntime {
   #stopping = false;
   #build: unknown;
   readonly traffic: EdgeTraffic;
+  readonly jobs: EdgeJobs;
   constructor(input: Settings) {
     this.#settings = validateSettings(input);
     this.identity = Object.freeze({ deviceId: this.#settings.serviceId, bootId: randomUUID(), sessionId: randomUUID() });
     this.#build = JSON.parse(readFileSync(new URL('./build-identity.json', import.meta.url), 'utf8'));
     const tls = { ca: readBoundedFile(this.#settings.tls.caFile, 16384), cert: readBoundedFile(this.#settings.tls.certFile, 16384), key: readBoundedFile(this.#settings.tls.keyFile, 16384) };
     this.traffic = new EdgeTraffic(this.#settings, this.identity);
+    this.jobs = new EdgeJobs(this.#settings, this.identity);
     this.#adapters = this.#settings.modules.map((m) => new ModuleAdapter(this.#settings, m, this.identity, tls, this.traffic));
   }
   get adapters(): readonly ModuleAdapter[] { return this.#adapters.slice(); }
   get status() {
     const modules = this.adapters.map((adapter) => adapter.status);
-    return { healthy: !this.#stopping, ready: !this.#stopping && modules.every((m) => m.ready), build: structuredClone(this.#build),
+    return { healthy: !this.#stopping, ready: !this.#stopping && modules.every((m) => m.ready) && !this.jobs.status.degraded && !this.jobs.status.recoveryRequired, build: structuredClone(this.#build),
       protocol: PROTOCOL_VERSION, source: this.identity, executionMode: 'simulation', actuationEnabled: false, updateEnabled: false, recordingEnabled: false,
       metering: this.traffic.status,
+      jobs: this.jobs.status,
       appliedConfiguration: { revision: this.#settings.applied.request.configuration.revision, digest: this.#settings.applied.configurationDigest,
         calibrationRevision: this.#settings.applied.request.configuration.calibration!.revision, appliedBy: this.#settings.applied.appliedBy }, modules };
   }
@@ -51,6 +55,7 @@ export class EdgeRuntime {
   }
   async stop(): Promise<void> {
     this.#stopping = true; for (const adapter of this.adapters) adapter.stop();
+    this.jobs.stop();
     // Local socket inhibition happens before accounting cleanup, even on failed storage.
     this.traffic.stop();
     // A signal may arrive before the pending bind completes. Closing first can

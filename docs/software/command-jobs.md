@@ -1,5 +1,7 @@
 # Durable cloud command jobs and manual sessions
 
+The local receiver is documented separately in [durable local jobs](local-jobs.md). Cloud acceptance, TLS identity and an active lease do not supply its local operating permission or physical evidence.
+
 This is the implemented simulation-only cloud boundary for [#28](https://github.com/gredice/arbi/issues/28), under [ADR-0005](../decisions/0005-software-architecture-and-deployment.md). [Job handlers](../../apps/arbi-dashboard/src/jobs/http.ts) are mounted in the selected Next.js app. PostgreSQL persists manual leases, immutable command intent, protocol receipts, terminal results and existing audit/outbox admission. No transport receipt, browser request or cloud lifecycle result establishes a physical effect.
 
 ## Authority and composition
