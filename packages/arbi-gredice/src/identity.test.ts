@@ -152,3 +152,10 @@ test("Gredice service registry membership and identity objects cannot impersonat
   await assert.rejects(p.adapter.authorizeIdentity({ ...authenticated }, "state.read", scope), denial("INVALID_CREDENTIAL"));
   await assert.rejects(adapter.authorizeIdentity(authenticated, "state.read", scope), denial("INVALID_CREDENTIAL"));
 });
+test("authorized identity IDs obey the consumed arbi/1.0 ID bounds", async () => {
+  const p = profile();
+  const longest = "a".repeat(64); p.snapshot().session.actor.id = longest;
+  assert.equal((await p.adapter.authorize(await p.token({ sub: longest }), "state.read", scope)).actor.id, longest);
+  const oversized = "a".repeat(65); p.snapshot().session.actor.id = oversized;
+  await assert.rejects(p.adapter.authorize(await p.token({ sub: oversized }), "state.read", scope), denial("INVALID_CREDENTIAL"));
+});

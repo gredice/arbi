@@ -41,6 +41,8 @@ The server configures the issuer, distinct human/service ARBI audiences and a de
 
 The existing Gredice `createJwtWithClaims` primitive can express the dedicated claims/audience when configured with the dedicated key factory. This package does not mint production tokens, discover a provider, refresh general web sessions or infer an environment from a browser label. Provisioning must tie `jti` to a revocable server registry and link changes/logout to that registry. The key configuration is a trusted server dependency, never client input.
 
+Identity, account, site, namespace, resource and membership-revision IDs consume the canonical `Id` pattern from the [message schema](../../packages/arbi-protocol/schema/message.schema.json), including its current 64-character bound. No separate authorization regex can drift from the protocol actor/context contract.
+
 `authenticate` produces a frozen object branded to its adapter instance. `authorizeIdentity` rejects copied, serialized, forged or other-instance principals. External callers can use `authorize(token, capability, scope)` directly; the request middleware performs signature validation before metadata lookup to prevent unauthenticated resource-existence probes.
 
 JWT verification uses pinned `jose` 6.2.12 and its [primary verification API](https://github.com/panva/jose/blob/v6.2.12/docs/jwt/verify/functions/jwtVerify.md). Fixed algorithm, purpose/audience separation and claim validation follow [RFC 8725](https://www.rfc-editor.org/rfc/rfc8725.html). Node 24 provides the [runtime cryptography](https://nodejs.org/download/release/v24.15.0/docs/api/crypto.html).

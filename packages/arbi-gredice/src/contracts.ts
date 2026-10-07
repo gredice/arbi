@@ -1,4 +1,5 @@
 import type { Actor, CommandContext, Realm } from "@arbi/protocol";
+import protocolSchema from "@arbi/protocol/schema" with { type: "json" };
 import type { Capability, Role, Surface } from "./policy.js";
 
 export type PrincipalActor = Actor & { kind: "human" | "service" };
@@ -85,8 +86,9 @@ export function isObject(value: unknown): value is Record<string, unknown> {
   return value !== null && typeof value === "object" && !Array.isArray(value);
 }
 export function isId(value: unknown): value is string {
-  return typeof value === "string" && /^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$/.test(value);
+  return typeof value === "string" && protocolId.test(value);
 }
+const protocolId = new RegExp(protocolSchema.$defs.Id.pattern);
 export function sameRealm(a: Realm, b: Realm): boolean {
   return a.environment === b.environment && a.namespaceId === b.namespaceId;
 }
