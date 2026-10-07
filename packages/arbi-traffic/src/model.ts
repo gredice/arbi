@@ -61,11 +61,11 @@ export const hash = (body: string): string => createHash('sha256').update(body).
 export function interval(start: Stamp, end: Stamp): UsageObservation['interval'] | null {
   checkStamp(start); checkStamp(end);
   if (!start.utc || !end.utc || start.uncertaintyMs === null || end.uncertaintyMs === null
-    || start.clockId !== end.clockId || uint(end.monotonicNs) < uint(start.monotonicNs) || end.utc < start.utc) return null;
+    || start.clockId !== end.clockId || uint(end.monotonicNs) < uint(start.monotonicNs) || end.utc <= start.utc) return null;
   const elapsedMs = Number(uint(end.monotonicNs) - uint(start.monotonicNs)) / 1e6;
   if (Math.abs(Date.parse(end.utc) - Date.parse(start.utc) - elapsedMs) > start.uncertaintyMs + end.uncertaintyMs + 2) return null;
-  // Millisecond clock quantization brackets a sub-millisecond transfer. Raw times remain available.
-  return { start: start.utc, end: new Date(Date.parse(end.utc) + 1).toISOString() };
+  // Sub-millisecond/same-UTC windows remain raw evidence, never fabricated future observations.
+  return { start: start.utc, end: end.utc };
 }
 export function observation(scope: Scope, epoch: string, layer: UsageObservation['layer'], direction: UsageObservation['direction'],
   window: UsageObservation['interval'], bytes: string | null, evidence: Omit<UsageObservation['evidence'], 'quality' | 'observedAt'>,

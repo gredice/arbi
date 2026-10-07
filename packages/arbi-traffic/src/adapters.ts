@@ -1,7 +1,7 @@
 import { openSync, readSync, closeSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { createHash } from 'node:crypto';
-import { MeterError, id, integer, uint, checkConfig, checkSample, stamp, type CounterConfig, type CounterSample, type Stamp, type TransferSpec } from './model.js';
+import { MeterError, id, integer, checkConfig, checkSample, stamp, type CounterConfig, type CounterSample, type Stamp, type TransferSpec } from './model.js';
 import { TrafficSpool } from './spool.js';
 
 /** Reusable pod/edge application byte boundary. Every retry is a new attempt, never object-size deduplication. */
@@ -12,7 +12,13 @@ export class ApplicationMeter {
     if (spec.direction !== 'upload') throw new MeterError('INVALID');
     const key = this.spool.begin(spec, this.clock());
     try {
-      for await (const chunk of chunks) { this.spool.progress(key, chunk.byteLength.toString(), this.clock()); await submit(chunk); }
+      for await (const chunk of chunks) {
+        // Count after the submission was invoked, even when it fails. A crash
+        // before this durable write is an explicit in-flight collection gap.
+        try { await submit(chunk); }
+        catch (error) { this.spool.progress(key, chunk.byteLength.toString(), this.clock()); throw error; }
+        this.spool.progress(key, chunk.byteLength.toString(), this.clock());
+      }
       this.spool.finish(key, 'completed', this.clock()); return key;
     } catch (error) { try { this.spool.finish(key, 'failed', this.clock()); } catch { /* gap already exposed by spool */ } throw error; }
   }
@@ -40,12 +46,15 @@ export class ApplicationMeter {
   /** Complete only on the transport's submission callback; a crash leaves the committed attempt open. */
   submit(spec: TransferSpec, chunk: Uint8Array, write: (done: (error?: Error | null) => void) => void): void {
     let key: string | undefined;
-    try { key = this.spool.begin(spec, this.clock()); this.spool.progress(key, chunk.byteLength.toString(), this.clock()); }
+    try { key = this.spool.begin(spec, this.clock()); }
     catch { /* Accounting cannot prevent transport or local fault handling. */ }
     let settled = false;
     const done = (error?: Error | null) => {
       if (settled) return; settled = true;
-      if (key) try { this.spool.finish(key, error ? 'failed' : 'completed', this.clock()); } catch { /* visible spool loss */ }
+      if (key) try {
+        this.spool.progress(key, chunk.byteLength.toString(), this.clock());
+        this.spool.finish(key, error ? 'failed' : 'completed', this.clock());
+      } catch { /* visible spool loss */ }
     };
     try { write(done); } catch (error) { done(error instanceof Error ? error : new Error('SUBMIT_FAILED')); throw error; }
   }

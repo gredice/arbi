@@ -154,3 +154,12 @@ test('verified 64-bit rollover retains exact small deltas above Number precision
   const {spool}=rig(t);const c=config();spool.collect(c,sample(0,(MAX_U64-3n).toString(),'0',{wraps:{upload:'0',download:'0'}}));
   const r=spool.collect(c,sample(1000,'5','0',{wraps:{upload:'1',download:'0'}}));assert.equal(r.deltas!.upload,'9');assert.equal(r.rollover,true);
 });
+
+test('socket attempts record real submission callbacks; missing callback survives as a crash gap', (t)=>{
+  const {spool,options}=rig(t);let n=0;const meter=new ApplicationMeter(spool,()=>time(++n));
+  meter.submit(spec(),Buffer.alloc(19),(done)=>done(new Error('submit failed')));
+  assert.equal(transfers(spool)[0].bytes,'19');assert.equal(transfers(spool)[0].outcome,'failed');
+  meter.submit(spec(),Buffer.alloc(23),()=>{});assert.equal(spool.status().active,1);spool.close();
+  const reopened=new TrafficSpool(options);t.after(()=>reopened.close());const r=transfers(reopened)[1];
+  assert.equal(r.bytes,'0');assert.equal(r.outcome,'crashed');assert.equal(r.gap,'collection-gap');
+});
