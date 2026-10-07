@@ -5,6 +5,8 @@ import "./globals.css";
 export const metadata: Metadata = {
     title: "ARBI — Automatic Raised Bed Imaging",
     description: "Open engineering site for ARBI, a four-cable outdoor camera robot. All content is compiled from the gredice/arbi repository.",
+    // Brand assets are compiled from docs/assets/brand by scripts/compile-data.mjs.
+    icons: { icon: "/mockups/data/docs/assets/brand/arbi-mark-transparent.png" },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

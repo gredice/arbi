@@ -53,7 +53,10 @@ export default function Home() {
     const site = loadSite();
     return (
         <main className="mx-auto max-w-[1400px] p-4 sm:p-8">
-            <div className="label">ARBI · website direction mockups</div>
+            {/* Transparent logo on a light background, per docs/project/brand-identity.md. */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/mockups/data/docs/assets/brand/arbi-logo-transparent.png" alt="ARBI" width={240} height={80} />
+            <div className="label mt-8">Website direction mockups</div>
             <h1 className="mt-3 text-[48px] font-light leading-none tracking-tight">Pick a direction</h1>
             <p className="mt-4 max-w-[70ch] text-[15px] text-[#4a4a48]">
                 All three share one data layer compiled from the repository at build time: the CAD registry, BOM report, documents and booklet meshes. Each has a home page, system exploded views, part pages with a 3D viewer, the BOM, documents and downloads.

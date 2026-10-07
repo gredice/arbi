@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ARBI · D · Manual + Ink</title>
+<link rel="icon" type="image/png" href="data/docs/assets/brand/arbi-mark-transparent.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
@@ -48,16 +49,17 @@
 </style>
 </head>
 <body>
-<header class="sticky top-0 z-40 bg-ink text-paper border-b border-white/15">
-  <div class="px-4 sm:px-6 h-11 flex items-center gap-6">
-    <a href="#/" class="cond text-[20px] leading-none">ARBI</a>
-    <span class="tag text-paper/50 hidden md:inline">Automatic Raised Bed Imaging · open engineering manual</span>
+<header class="sticky top-0 z-40 bg-paper text-ink border-b-2 border-ink">
+  <div class="px-4 sm:px-6 h-14 flex items-center gap-6">
+    <a href="#/" class="shrink-0"><img src="data/docs/assets/brand/arbi-logo-transparent.png" alt="ARBI" class="h-10 w-auto"></a>
+    <span class="tag text-grey hidden lg:inline">Automatic Raised Bed Imaging · open engineering manual</span>
     <nav class="ml-auto flex gap-5 tag overflow-x-auto" id="nav"><a href="#/systems/camera-pod">Systems</a><a href="#/parts">Parts</a><a href="#/bom">BOM</a><a href="#/docs">Docs</a><a href="#/downloads">Downloads</a></nav>
   </div>
 </header>
 <div class="border-b border-ink px-4 sm:px-6 h-8 flex items-center justify-between tag" id="crumb"></div>
 <main id="app"></main>
-<footer class="bg-ink text-paper px-4 sm:px-6 py-6 flex flex-wrap gap-x-8 gap-y-2 tag">
+<footer class="bg-ink text-paper px-4 sm:px-6 py-6 flex flex-wrap items-center gap-x-8 gap-y-3 tag">
+  <img src="data/docs/assets/brand/arbi-logo.png" alt="ARBI" class="h-12 w-auto">
   <span id="commit"></span><span>AGPL-3.0-only</span><span>Compiled from the repository · no website-only content</span><span class="ml-auto">mockup d · manual + ink</span>
 </footer>
 
@@ -200,7 +202,7 @@ const views = {
     const ids = sys.scene ? sceneModels(sys.scene) : [];
     crumb(`${sysNo(sys.slug)} · ${sys.name}`, sys.scene ? 'Exploded view · click a number' : '', true);
     $app.innerHTML = `
-      <section class="relative bg-ink text-paper h-[calc(100vh-76px)] min-h-[560px] inked" id="stage">
+      <section class="relative bg-ink text-paper h-[calc(100vh-90px)] min-h-[560px] inked" id="stage">
         ${sys.scene ? `<div id="calls" class="absolute inset-0 pointer-events-none z-10"></div>` : `<div class="absolute inset-0 grid place-items-center"><div class="text-center"><div class="cond text-[28px]">Drawing pending</div><p class="text-paper/60 mt-2 max-w-[42ch]">Line art appears here when the booklet pipeline exports meshes for this assembly.</p></div></div>`}
         <div class="absolute ${pad} left-0 top-6 z-20 pointer-events-none">
           <div class="cond text-[96px] leading-[0.8]">${sysNo(sys.slug)}</div>
