@@ -110,4 +110,7 @@ else if(part=="bolt-M4x45")bolt(4,45);
 else if(part=="bolt-M5x35")bolt(5,35);
 else if(part=="bolt-M6x30")bolt(6,30);
 else if(part=="bolt-M8x35")bolt(8,35);
+else if(part=="bolt-M8x160")bolt(8,160);
+else if(part=="bolt-M8x180")bolt(8,180);
+else if(part=="bolt-M8x200")bolt(8,200);
 else assert(false,"Unknown reference part");

@@ -1,6 +1,6 @@
-// Full assembly shell 0.2.0 — concept-unvalidated. Units mm.
+// Full assembly shell 0.3.0 — concept-unvalidated. Units mm.
 // Same shaft/base frame as winch-mount.scad. +Y is up on a flat post.
-include <winch-mount.scad>
+include <winch-pole.scad>
 
 wc_wall = 4;
 wc_side = 80;
@@ -14,6 +14,20 @@ wc_lap = 7;
 wc_fascia_outer = 98;
 wc_rear_z = -27.6;
 wc_post_half_width = 51; // 100 mm nominal post + 1 mm side clearance.
+// Bottom loom ports, adjacent to the post, clear the existing lower clips.
+function wc_loom_x(powered,i) = wd_width(powered)/2-(i==0 ? 55 : 35);
+function wc_loom_z(i) = i==0 ? 13 : 25;
+function wc_pole_panel(powered) = powered ? 1 : 0;
+function wc_anchor_x(powered) = wd_width(powered)/2+60;
+module wc_loom_void(powered) {
+    for(i=[0,1]) {
+        translate([wc_loom_x(powered,i),-90,wc_loom_z(i)])
+            rotate([90,0,0]) cylinder(d=14,h=36,center=true,$fn=64);
+        // Widen only the inner bend corridor. The external 14 mm tunnel
+        // remains round and baffled against oblique views of opposite clips.
+        translate([wc_loom_x(powered,i)-7,-80.3,wc_loom_z(i)-7]) cube([27,8.3,14]);
+    }
+}
 function wc_start() = -46;
 function wc_end(powered) = wm_base_length(powered)-54;
 function wc_count(powered) = powered ? 5 : 3;
@@ -90,6 +104,7 @@ module wc_panel_installed(powered=false,index=0) {
             // It provides the overlap here; do not collide with it using a visor.
             if(index>0) translate([x-1,-83.1,48.9]) cube([8,3.09,4.2]);
             wc_line_void(powered);
+            wc_loom_void(powered);
             // The next panel's projecting payout brow must not meet this cuff.
             if(index<n-1)
                 translate([x+len,70,119]) cube([wc_lap+1,40,40]);
@@ -101,8 +116,6 @@ module wc_panel_installed(powered=false,index=0) {
             for(cx=[wc_clip_x(powered,index,0),wc_clip_x(powered,index,1)],sy=[-1,1])
                 translate([cx,sy*78,24]) rotate([90,0,0]) cylinder(d=4.5,h=16,center=true,$fn=32);
             if(index==n-1) {
-                // Two fixed loom exits, nominal <=10 mm OD each; add soft edging.
-                for(z=[50,75]) translate([x+len-2,-48,z]) wm_xhole(14,12);
                 // Lower (-Y) motor vents on post, offset from payout side.
                 for(cx=[wm_motor_face(powered)+20:20:wm_motor_face(powered)+100])
                     translate([cx,-84,58]) cube([10,12,5]);
@@ -189,7 +202,7 @@ module wc_cable_anchor() {
     }
 }
 module wc_print_cable_anchor() { translate([18,12,0]) wc_cable_anchor(); }
-module wc_fascia_installed(powered=false,index=0) {
+module wc_fascia_installed(powered=false,index=0,pole_side=false) {
     x=wc_x(powered,index); l=wc_length(powered)-wc_seam;
     difference() {
         union() {
@@ -200,7 +213,11 @@ module wc_fascia_installed(powered=false,index=0) {
             for(ex=[x,x+l-3]) translate([ex,83,14]) cube([3,15,31]);
             for(cx=[wc_clip_x(powered,index,0),wc_clip_x(powered,index,1)],dx=[-8,8])
                 translate([cx+dx-2.5,90,4]) cube([5,8,11]);
+            if(pole_side) for(i=[0,1])
+                translate([wc_loom_x(powered,i),89.15,wc_loom_z(i)])
+                    rotate([90,0,0]) cylinder(d=20,h=17.7,center=true,$fn=64);
         }
+        if(pole_side) mirror([0,1,0]) wc_loom_void(powered);
         // Clear the preceding main hood's shingle cuff at an axial seam.
         translate([x-1,79,37]) cube([8,4.1,9]);
         // Clear the final cuff/end return over the last 4 mm.
@@ -216,11 +233,12 @@ module wc_fascia_installed(powered=false,index=0) {
             translate([cx-12,89,-33]) cube([24,7,6]);
     }
 }
-module wc_print_fascia(powered=false) {
+module wc_print_fascia(powered=false,pole_side=false) {
+    index=pole_side ? wc_pole_panel(powered) : 0;
     // Outer face on bed, same mapping as a payout shutter.
-    translate([-wc_start(),32,98])
+    translate([-wc_x(powered,index),32,98])
         multmatrix([[1,0,0,0],[0,0,1,0],[0,-1,0,0],[0,0,0,1]])
-            wc_fascia_installed(powered,0);
+            wc_fascia_installed(powered,index,pole_side);
 }
 module wc_rear_piece(x,length) {
     union() {
@@ -252,7 +270,7 @@ module wc_base(powered=false) {
         wm_base(powered);
         for(i=[0:wc_count(powered)-1],side=[0,1],sy=[-1,1])
             translate([wc_clip_x(powered,i,side),sy*82,-9]) cylinder(d=4.5,h=10,$fn=32);
-        for(dx=[-10,10]) translate([wc_end(powered)-22+dx,-48,-9]) cylinder(d=4.5,h=10,$fn=32);
+        for(dx=[-10,10]) translate([wc_anchor_x(powered)+dx,-60,-9]) cylinder(d=4.5,h=10,$fn=32);
     }
 }
 module wc_assembly(powered=false,exploded=false,show_core=true,show_fascia=true,post_mounted=false) {
@@ -266,7 +284,7 @@ module wc_assembly(powered=false,exploded=false,show_core=true,show_fascia=true,
             if(wc_payout_panel(powered,i)) color(ARBI_SHELL)
                 translate([0,exploded ? 90 : 0,0]) wc_shutter_installed(powered,i);
             if(show_fascia) for(sy=[-1,1]) color(ARBI_SHELL)
-                translate([0,sy*(exploded ? 50 : 0),0]) scale([1,sy,1]) wc_fascia_installed(powered,i);
+                translate([0,sy*(exploded ? 50 : 0),0]) scale([1,sy,1]) wc_fascia_installed(powered,i,sy==-1 && i==wc_pole_panel(powered));
         }
         if(show_fascia) {
             for(left=[true,false],i=[0:wc_rear_count(powered,left)-1]) color(ARBI_SHELL)
@@ -274,6 +292,30 @@ module wc_assembly(powered=false,exploded=false,show_core=true,show_fascia=true,
             if(!post_mounted) color(ARBI_SHELL)
                 translate([0,0,exploded ? -50 : 0]) wc_rear_blank_installed(powered);
         }
-        color(ARBI_CORE) translate([wc_end(powered)-22,-48,0]) wc_cable_anchor();
+        color(ARBI_CORE) translate([wc_anchor_x(powered),-60,0]) wc_cable_anchor();
     }
+}
+
+// Nominal stationary looms for context/clearance illustrations, not fabrication.
+function wc_bezier(a,b,c,d,t) = a*pow(1-t,3)+b*3*pow(1-t,2)*t+c*3*(1-t)*t*t+d*t*t*t;
+function wc_unit(v) = v/norm(v);
+function wc_loom_tangent(points,j) = wc_unit(points[min(j+1,len(points)-1)]-points[max(j-1,0)]);
+function wc_loom_ring(points,j,k,n) =
+    let(t=wc_loom_tangent(points,j),u=wc_unit(cross(t,[0,0,1])),v=cross(t,u))
+    points[j]+5*(u*cos(k*360/n)+v*sin(k*360/n));
+module wc_loom_run(powered=false,i=0) {
+    px=wc_loom_x(powered,i); z=wc_loom_z(i);
+    target=wd_width(powered)/2+(i==0 ? -8 : 8);
+    a=[px,-105,z]; b=[px,-145,z]; c=[target,-175,-24]; d=[target,-215,-24];
+    points=concat([[wm_motor_face(powered)+75,-60,z]],
+        [for(angle=[0:3:90]) [px+30-30*sin(angle),-90+30*cos(angle),z]],
+        [for(t=[0:0.025:1]) wc_bezier(a,b,c,d,t)], [[target,-310,-24]]);
+    // One closed sweep keeps this nominal cable reference quick to export.
+    // It is context geometry, not a manufactured cable or bend qualification.
+    n=24; last=len(points)-1;
+    polyhedron(points=[for(j=[0:last],k=[0:n-1]) wc_loom_ring(points,j,k,n)],
+        faces=concat([[for(k=[0:n-1]) k]],
+            [for(j=[0:last-1],k=[0:n-1])
+                [j*n+k,(j+1)*n+k,(j+1)*n+(k+1)%n,j*n+(k+1)%n]],
+            [[for(k=[n-1:-1:0]) last*n+k]]),convexity=10);
 }

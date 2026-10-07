@@ -106,7 +106,8 @@ for variant, width, count, base_length in [('passive', 246.9, 3, 550), ('powered
     for i in range(count):
         x = -46 + i * pitch
         name = ('left' if i == 0 else 'right' if i == count - 1 else
-                'transition' if variant == 'powered' and i == 3 else 'middle')
+                'transition' if variant == 'powered' and i == 3 else
+                'pole-middle' if variant == 'powered' and i == 1 else 'middle')
         matrix = np.array([[0, 0, 1, x-(8 if i == 0 else 0)], [1, 0, 0, -100], [0, 1, 0, -32], [0, 0, 0, 1]])
         panels.append(move(meshes[f'winch-cover-{variant}-{name}'], matrix=matrix))
         if i < count - 1:
@@ -116,7 +117,7 @@ for variant, width, count, base_length in [('passive', 246.9, 3, 550), ('powered
             for sy in [-1, 1]:
                 clip = move(meshes['winch-cover-clip'], [-10, 68, 0])
                 clips.append(move(clip, [cx, 0, 0], np.diag([1, sy, 1, 1])))
-    anchor = move(meshes['winch-cover-cable-anchor'], [end - 40, -60, 0])
+    anchor = move(meshes['winch-cover-cable-anchor'], [width / 2 + 42, -72, 0])
     base = box([base_length, 180, 8], [-50 + base_length / 2, 0, -4])
     fixed = [base, anchor] + clips
     core = [
@@ -206,7 +207,7 @@ for variant, width, count, base_length in [('passive', 246.9, 3, 550), ('powered
     # Original M6 mounting nuts/tips and anchor bought_hardware behind the base.
     for bx, bys in [(-21.5, [-40, 40]), (width + 53.5, [-40, 40]),
                    (face + 20, [-44, 44]), (face + 62, [-44, 44]),
-                   (end - 32, [-48]), (end - 12, [-48])]:
+                   (width / 2 + 50, [-60]), (width / 2 + 70, [-60])]:
         for by in bys:
             bought_hardware.append(cylinder(7, 12, [bx, by, -14.4]))
             witnesses.append(np.array([bx, by, -20.4]))
@@ -215,7 +216,10 @@ for variant, width, count, base_length in [('passive', 246.9, 3, 550), ('powered
         x = -46 + i * pitch
         matrix = np.array([[1, 0, 0, x], [0, 0, -1, 98], [0, 1, 0, -32], [0, 0, 0, 1]])
         fascia = move(meshes[f'winch-cover-{variant}-fascia'], matrix=matrix)
-        fascias += [fascia, move(fascia, matrix=np.diag([1, -1, 1, 1]))]
+        lower = fascia
+        if i == (1 if variant == 'powered' else 0):
+            lower = move(meshes[f'winch-cover-{variant}-pole-fascia'], matrix=matrix)
+        fascias += [fascia, move(lower, matrix=np.diag([1, -1, 1, 1]))]
     for left, number in [(True, 2 if variant == 'powered' else 1),
                          (False, 3 if variant == 'powered' else 2)]:
         start = -50 if left else width / 2 + 51
@@ -291,11 +295,33 @@ for variant, width, count, base_length in [('passive', 246.9, 3, 550), ('powered
         for dz in range(0, 41, 2):
             for other in fixed + core + panels + shutters:
                 clear(move(part, [0, 0, -dz]), other, (variant, 'rear shield removal', dz))
-    # Fixed loom ports: two <=10 mm OD cables; 2 mm radial nominal hole margin.
-    for z in [50, 75]:
-        loom = cylinder(5, 20, [end - 2, -48, z], 'x')
-        for other in panels:
-            clear(loom, other, (variant, 'loom exit'))
+    # Bottom stationary loom ports, one low corridor per cable under the drum.
+    # The 30 mm internal bend is nominal; received cable minima remain open.
+    loom_paths = []
+    for offset, z in [(55, 13), (35, 25)]:
+        px = width / 2 - offset
+        loom = cylinder(5, 56, [px, -88, z], 'y')
+        long_run = cylinder(5, face + 75 - (px + 30), [(face + 75 + px + 30) / 2, -60, z], 'x')
+        for other in panels + fascias + fixed + core:
+            clear(loom, other, (variant, 'bottom loom port'))
+            clear(long_run, other, (variant, 'under-drum loom run'))
+        curve = []
+        for a in np.linspace(0, np.pi / 2, 31):
+            # Bend centre (px+30,-90): leftward run turns down toward -Y.
+            point = [px+30-30*np.sin(a), -90+30*np.cos(a), z]
+            curve.append(move(trimesh.creation.icosphere(subdivisions=2, radius=5), point))
+        for a, b in zip(curve, curve[1:]):
+            tube = trimesh.convex.convex_hull(np.vstack([a.vertices,b.vertices]))
+            for other in panels + fascias + fixed + core:
+                clear(tube, other, (variant, '30 mm loom bend'))
+        loom_paths.append(trimesh.util.concatenate([loom,long_run]+curve))
+    clear(loom_paths[0], loom_paths[1], (variant, 'separate stationary looms'))
+    # Former right-end openings MUST now contain wall material.
+    for z in [50,75]:
+        right_wall = box([3.5,8,8], [end-2.6,-48,z])
+        retained = overlap(panels[-1],right_wall)
+        assert abs(retained-right_wall.volume)<0.001, (variant,'old right port remains open',z,retained)
+        checks += 1
     # Once shells are off, clips/anchor do not obstruct existing cap drivers
     # or the 70 mm-radius rigid drum/shaft assembly lifting out of the seats.
     for bx in [-5.5, width + 37.5]:
@@ -344,12 +370,15 @@ for variant, width, count, base_length in [('passive', 246.9, 3, 550), ('powered
                         'post_concealment_rays': visibility_checks, 'post_standoff_mm': 25,
                         'control_exposed_rays_without_concealment': int(old_exposed),
                         'key_unlock_lift_mm': 2, 'straight_pull_control': 'Captured by key lugs',
+                        'bottom_loom_ports_mm': [[width/2-55,-98,13],[width/2-35,-98,25]],
+                        'nominal_internal_loom_bend_radius_mm': 30,
+                        'anchor_center_mm': [width/2+60,-60,0],
                         'physical_retention': 'Unverified fit, vibration, creep and service life; rigid CAD paths are nominal only.'}
     if variant == 'powered':
         results[variant]['transition_wall'] = transition_wall
     print(variant, results[variant], flush=True)
 
-record = {'cover_revision': '0.2.0', 'status': 'concept-unvalidated',
+record = {'cover_revision': '0.3.0', 'status': 'concept-unvalidated',
           'openScadVersion': registry['openScadVersion'], 'checks': checks,
           'variants': results, 'stl_sha256': hashes,
           'source_sha256': {'hardware/' + str(p.relative_to(hardware)): hashlib.sha256(p.read_bytes()).hexdigest()

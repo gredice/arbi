@@ -15,7 +15,7 @@ python3 scripts/winch-booklet/build.py
 ```
 
 Outputs go to ignored `hardware/generated/booklet/`. The build copies the current
-winch CAD, scripts and fonts into a portable source snapshot, validates 69 STLs,
+winch CAD, scripts and fonts into a portable source snapshot, validates 86 STLs,
 writes hashes and part transforms, renders the figures and generates the PDF/ZIP.
 Use `--output PATH` for another build location. `--publish` updates the checked-in
 PDF and ZIP under `docs/assemblies/winch/booklet/`.
@@ -94,3 +94,9 @@ covered-base drilling references and nominal line/loom references. The PDF has
 for the full-cover nominal checks, as well as the existing mount checker.
 
 Revision 8 adds concealed fasteners: 34 fabrication + 35 reference meshes, 19 pages. Main panels/clips r0.2.0; fascia, rear shields and optional bench blank r0.1.0. Check nominal geometry with the full-cover checker; inspect key fit physically before service.
+
+Revision 9 adds bottom stationary-loom ports, round-timber saddles and concealed
+rear nuts: 42 fabrication + 44 reference meshes, 20 pages. Metal saddle STLs are
+machining references and must not be printed. The build runs both the full-cover
+and round-pole nominal mesh checks; 100/120/140 mm pole cases retain unvalidated
+physical fit, structural capacity and cap/guide retention.

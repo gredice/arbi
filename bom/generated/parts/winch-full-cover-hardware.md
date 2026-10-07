@@ -15,8 +15,8 @@
 
 - One unquoted set for 3 passive + 1 powered cover: 56 M4x16 shell screws, 56 plain M4 captive nuts and 56 M4 washers (9 mm OD). Use a reviewed removable screw-locking method.
 - 56 M4x25 clip-to-base screws plus 8 M4x25 cable-anchor screws; 64 M4 locknuts and 128 M4 washers. Stack: 6 mm print, 8 mm base, two 0.8 mm washers, 5 mm locknut, 4.4 mm nominal tip projection.
-- Eight soft hook-and-loop loom wraps (two per base anchor), at most 5.5 mm wide and 2.5 mm thick for 6x3 mm slots; eight soft-edged nominal 14 mm fixed-loom exits. Exact edging, cable ODs and received lead bend radii require selection.
-- Additional base holes: 14 per passive base / 22 per powered base, diameter 4.5 mm. Existing load-bearing interface holes and blank dimensions retained.
+- Eight soft hook-and-loop loom wraps, <=5.5 mm wide and <=2.5 mm thick through the 6x3 mm base-anchor slots; eight soft-edged 14 mm bottom loom exits. Cable OD, connector size, bend radius, drip loop and strain relief require received-unit confirmation.
+- 14 / 22 cover holes per passive / powered aluminium base, diameter 4.5 mm. Anchor holes now X=W/2+50 and W/2+70, Y=-60; reuse clip holes and add the relocated anchor pair to an old plate. Existing drivetrain/post holes retained.
 - 16 steel M8 standoffs, 25 mm long, nominal 16 mm OD / 9 mm bore (four per winch), between the aluminium base and 100 mm timber post. Existing M8x160 length gives 11.8 mm nominal projection after 8 mm base, 25 mm spacer, 100 mm timber, 4 mm backing, two 1.6 mm washers and 8 mm locknut. Structural capacity, received stack and installation remain unverified; no printed structural spacers.
 
 ## Notes

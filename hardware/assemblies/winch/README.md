@@ -6,7 +6,7 @@ Wire evidence: [AWG26 table](../../../bom/sourcing/pod-wire-dimensions-2026-09-0
 
 ## Passive-base bench aids
 
-- [Modular full assembly cover r0.2.0](full-cover.md): three main white panels
+- [Modular full assembly cover r0.3.0](full-cover.md): three main white panels
   and two payout shutters on a passive winch / five panels and four shutters on
   the powered variant. Reuse the drivetrain; drill extra base holes for clips
   and the fixed-loom anchor. See the [geometry record](full-cover-check.md).
@@ -173,3 +173,7 @@ retention, electrical reliability, weather life or safe operation.
 ## Appearance previews
 
 Follow the [industrial design conventions](../../../docs/project/industrial-design.md): charcoal mechanical core and white protective surfaces. Drum reference r2.1.1 and mount reference r0.1.2 change presentation only; all fabrication dimensions remain compatible. The [full-cover kit](full-cover.md) adds removable shells over those parts; the [booklet](../../../docs/assemblies/winch/booklet/README.md) uses the same palette.
+
+## Round timber interface and bottom cables
+
+The [round-pole kit](round-pole.md) adds matching machined-metal saddles, removable white rear nut covers and a non-structural cable guide. Default diameter is 120 mm; nominal 100–140 mm parameter studies do not replace measured fit or structural review. [Development proposal](round-pole-development.md), [assembly reference](winch-pole-assembly.scad), and [nominal record](round-pole-check.md). The [full-cover r0.3.0](full-cover.md) moves stationary looms to the lower pole side while preserving upward positioning-line payout.
