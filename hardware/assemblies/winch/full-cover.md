@@ -48,7 +48,8 @@ strength, corrosion treatment and access behind the installed plate physically.
 | [Passive middle](winch-cover-passive-middle.scad) | 1 | 0 | 3 |
 | [Passive right](winch-cover-passive-right.scad) | 1 | 0 | 3 |
 | [Powered left](winch-cover-powered-left.scad) | 0 | 1 | 1 |
-| [Powered middle](winch-cover-powered-middle.scad) | 0 | 3 | 3 |
+| [Powered middle, indices 1–2](winch-cover-powered-middle.scad) | 0 | 2 | 2 |
+| [Powered transition, index 3](winch-cover-powered-transition.scad) | 0 | 1 | 1 |
 | [Powered right](winch-cover-powered-right.scad) | 0 | 1 | 1 |
 | [Identical dark base clip](winch-cover-clip.scad) | 12 | 20 | 56 |
 | [Fixed-loom anchor](winch-cover-cable-anchor.scad) | 1 | 1 | 4 |
@@ -57,6 +58,9 @@ strength, corrosion treatment and access behind the installed plate physically.
 | Added prints total | 18 | 30 | 84 |
 
 All release entrypoints are registered in [models.json](../../models.json).
+The powered transition is a distinct print: the payout opening ends at X=580.3
+mm within this panel, and its upper side wall resumes over the bearing/coupling.
+Do not substitute a third powered middle panel, whose opening spans its full length.
 [winch-cover-assembly.scad](winch-cover-assembly.scad) is a contextual reference,
 not a printable combined object. Set `powered=true` for the powered variant and
 `exploded=true` for the outward panel-removal illustration. The canonical library

@@ -1419,7 +1419,7 @@
         "printed"
       ],
       "requirements": [
-        "One kit per winch: passive left/middle/right main panels (3) plus two identical payout shutters; powered left/three middle/right main panels (5) plus four identical payout shutters. Four base clips per main-panel position and one fixed-loom anchor.",
+        "One kit per winch: passive left/middle/right main panels (3) plus two identical payout shutters; powered left/two middle/transition/right main panels (5) plus four identical payout shutters. Four base clips per main-panel position and one fixed-loom anchor.",
         "Warm-white rounded removable shell over existing dark core. Full-width 24 mm payout slot for 1.5 mm passive or nominal 4.5 mm hybrid line; no fixed fairlead or completed slip-ring support.",
         "Concept-unvalidated: drilling, fit, full-travel abrasion, ventilation, heat, rain, strength and safe guarding require physical acceptance."
       ],
@@ -1455,6 +1455,12 @@
             "path": "hardware/assemblies/winch/winch-cover-powered-middle.scad",
             "module": "wc_print_panel",
             "modelId": "winch-cover-powered-middle",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/winch/winch-cover-powered-transition.scad",
+            "module": "wc_print_panel",
+            "modelId": "winch-cover-powered-transition",
             "revision": "0.1.0"
           },
           {

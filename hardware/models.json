@@ -746,7 +746,21 @@
             "entrypoint": "hardware/assemblies/winch/winch-cover-powered-middle.scad",
             "output": "winch-cover-powered-middle-r0.1.0.stl",
             "documentation": "hardware/assemblies/winch/README.md",
-            "description": "Powered full-winch shell middle panel; axial seam on print bed."
+            "description": "Powered full-winch shell middle panel for indices 1 and 2; axial seam on print bed."
+        },
+        {
+            "id": "winch-cover-powered-transition",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "winch-full-cover"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-cover-powered-transition.scad",
+            "output": "winch-cover-powered-transition-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Powered full-winch shell index-3 payout-to-bearing transition panel; axial seam on print bed."
         },
         {
             "id": "winch-cover-powered-right",

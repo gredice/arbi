@@ -1,7 +1,7 @@
 # STL-based winch assembly booklet
 
-- [Assembly booklet, revision 5](ARBI-winch-assembly-STL.pdf) — 18 A4 pages.
-- [STL and source pack](ARBI-winch-STL-pack.zip) — 26 ARBI fabrication meshes,
+- [Assembly booklet, revision 6](ARBI-winch-assembly-STL.pdf) — 18 A4 pages.
+- [STL and source pack](ARBI-winch-STL-pack.zip) — 27 ARBI fabrication meshes,
   35 nominal hardware/base/routing references, source snapshots and illustration manifests.
 - [Generator and rebuild instructions](../../../../scripts/winch-booklet/README.md).
 - [Cover clearance evidence](../../../../hardware/assemblies/winch/coupling-cover-geometry-check.md).
@@ -20,7 +20,7 @@ The purchased-part models are simplified reference geometry, not supplier-certif
 manufacturing models or printed substitutes. All model dimensions are in mm.
 The booklet distinguishes mesh/clearance checks from unperformed physical tests.
 
-The 7 October 2026 revision 5 regenerates the figures, PDF and ZIP from the new shell/shutter geometry, retains the original drivetrain and M8 locknut correction, and adds passive/powered installed and exploded previews. The [full-cover record](../../../../hardware/assemblies/winch/full-cover-check.md) reports nominal mesh checks separately from unperformed physical tests.
+The 7 October 2026 revision 6 regenerates the figures, PDF and ZIP with a distinct powered index-3 transition panel, whose payout aperture stops before the bearing/coupling. Print two powered middles and one transition; a third middle is incompatible. It retains the original drivetrain and M8 locknut correction and the passive/powered installed and exploded previews. The [full-cover record](../../../../hardware/assemblies/winch/full-cover-check.md) reports nominal mesh checks separately from unperformed physical tests.
 
 The owner explicitly requested this PDF and downloadable STL/source bundle be
 committed on 27 September 2026. They are published artifact snapshots; canonical

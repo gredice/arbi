@@ -26,7 +26,7 @@ The [machine-readable record](full-cover-check.json) contains the tested source
 and STL SHA-256 hashes and per-variant counts. The booklet pack additionally
 records source snapshots, all exported mesh bounds, triangle counts and the
 exact STL/transform list of every illustration. Registry model IDs, not hardcoded
-revision filenames, resolve the tested meshes. All ten new fabrication IDs are
+revision filenames, resolve the tested meshes. All eleven new fabrication IDs are
 r0.1.0; the original coupling guard stays r0.1.1 and other drivetrain fabrication
 models r0.1.0. This is an automated engineering inspection, awaiting human review.
 
@@ -59,14 +59,15 @@ models r0.1.0. This is an automated engineering inspection, awaiting human revie
 
 | Check | Result |
 | --- | --- |
-| Ten added fabrication meshes | One connected watertight solid each, consistent winding, positive volume, print Z minimum 0 |
+| Eleven added fabrication meshes | One connected watertight solid each, consistent winding, positive volume, print Z minimum 0 |
 | Largest main-panel print bounds | 182.5 × 152.5 × 187.067 mm; all parts below 240 mm per axis |
 | Passive nominal checks | 15,950 passed |
-| Powered nominal checks | 32,860 passed |
-| Total new checks | **48,810 passed**, intersection volume <0.001 mm³ |
+| Powered nominal checks | 32,862 passed |
+| Total new checks | **48,812 passed**, clearance intersection volume <0.001 mm³ |
 | Existing mount/drum regression | Passive 665 + powered 684 pair checks, plus 284 cover insertion samples per variant, passed |
 | Original closed-slot removal control | Intentionally intersects the threaded line after a 20 mm lift; the checker must detect it |
-| Publication | 18-page PDF and 61-mesh source/STL pack regenerated; actual installed/exploded views of both variants |
+| Powered transition wall / wrong-middle control | 960 mm³ retained at X=600..620, Y=76.5..79.5, Z=124..140; reusing the index-1 middle at index 3 retains 0 mm³ and must fail |
+| Publication | 18-page PDF and 62-mesh source/STL pack regenerated; actual installed/exploded views of both variants |
 
 The new checker tests installed shell/shutter pairs, core/hardware, line corridor,
 clip/anchor clearances, captive nuts, complete shell screw stacks and driver
@@ -83,6 +84,12 @@ seam cuff touching the next payout brow, and a clip stem touching a represented
 large post washer. It also provides removable lower payout shutters so hood
 removal does not drag a closed slot across the threaded line. Current record
 hashes identify the corrected meshes; early development exports are not releases.
+Review also exposed an incorrect index-1 powered-middle export reused at index 3.
+That position crosses the global payout end and now uses its own registered
+transition mesh. The checker requires solid upper side wall beyond X=580.3 mm,
+and reproduces the missing wall with the earlier middle-reuse control. Clearance
+checks alone cannot detect material omitted from a hood. The renderer and kit
+quantities use two middles and one transition to match canonical assembly CAD.
 
 ## Limits and required acceptance
 

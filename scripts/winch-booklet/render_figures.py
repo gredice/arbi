@@ -143,7 +143,8 @@ def cover_parts(explode=0,shutter_out=0,hardware=True,main=True,shutters=True):
     out=[]
     for i in range(count):
         x=-46+i*pitch
-        name='left' if i==0 else 'right' if i==count-1 else 'middle'
+        name=('left' if i==0 else 'right' if i==count-1 else
+              'transition' if POWERED and i==3 else 'middle')
         # Inverse of canonical print transform; reused meshes, no proxy shells.
         b=np.array([[0,0,1,x],[1,0,0,-100],[0,1,0,explode+i*(12 if explode else 0)],[0,0,0,1]])
         if main:out.append(A(f'cover-{variant}-{name}',b))

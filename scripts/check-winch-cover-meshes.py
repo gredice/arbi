@@ -87,7 +87,8 @@ for variant, width, count, base_length in [('passive', 246.9, 3, 550), ('powered
     panels, shutters, clips = [], [], []
     for i in range(count):
         x = -46 + i * pitch
-        name = 'left' if i == 0 else 'right' if i == count - 1 else 'middle'
+        name = ('left' if i == 0 else 'right' if i == count - 1 else
+                'transition' if variant == 'powered' and i == 3 else 'middle')
         matrix = np.array([[0, 0, 1, x], [1, 0, 0, -100], [0, 1, 0, 0], [0, 0, 0, 1]])
         panels.append(move(meshes[f'winch-cover-{variant}-{name}'], matrix=matrix))
         if i < count - 1:
@@ -199,6 +200,23 @@ for variant, width, count, base_length in [('passive', 246.9, 3, 550), ('powered
         for other in clips + [anchor]:
             clear(lifted, other, (variant, 'drum lift with original caps/coupling released'))
     if variant == 'powered':
+        # Index 3 crosses the payout end: its +Y wall must resume over the
+        # bearing/coupling. Clearance-only checks cannot detect a missing wall.
+        witness = box([20, 3, 16], [610, 78, 132])
+        retained_volume = overlap(panels[3], witness)
+        matrix = np.array([[0, 0, 1, -46 + 3 * pitch], [1, 0, 0, -100],
+                           [0, 1, 0, 0], [0, 0, 0, 1]])
+        reused_middle = move(meshes['winch-cover-powered-middle'], matrix=matrix)
+        incorrect_volume = overlap(reused_middle, witness)
+        checks += 2
+        assert abs(retained_volume - witness.volume) < 0.001, ('powered transition wall missing', retained_volume)
+        assert incorrect_volume < 0.001, ('old middle-reuse control must lack wall', incorrect_volume)
+        transition_wall = {
+            'witness_bounds_mm': witness.bounds.tolist(),
+            'required_volume_mm3': witness.volume,
+            'retained_volume_mm3': retained_volume,
+            'incorrect_middle_reuse_volume_mm3': incorrect_volume}
+        print('powered transition wall retained / old reuse control:', retained_volume, incorrect_volume, flush=True)
         bay = box([30, 18, 18], [width + 69, -62, 80])
         for other in panels + shutters + fixed + core:
             clear(bay, other, 'nominal slip-ring reserved space ONLY')
@@ -206,6 +224,8 @@ for variant, width, count, base_length in [('passive', 246.9, 3, 550), ('powered
                         'shutters': count - 1, 'clips': 4 * count,
                         'panel_pitch_mm': pitch, 'removal_step_mm': 2,
                         'line_corridor_mm': [[6, 50, 124], [6 + width, 115, 140]]}
+    if variant == 'powered':
+        results[variant]['transition_wall'] = transition_wall
     print(variant, results[variant], flush=True)
 
 record = {'cover_revision': '0.1.0', 'status': 'concept-unvalidated',

@@ -13,7 +13,7 @@
 
 ## Requirements
 
-- One kit per winch: passive left/middle/right main panels (3) plus two identical payout shutters; powered left/three middle/right main panels (5) plus four identical payout shutters. Four base clips per main-panel position and one fixed-loom anchor.
+- One kit per winch: passive left/middle/right main panels (3) plus two identical payout shutters; powered left/two middle/transition/right main panels (5) plus four identical payout shutters. Four base clips per main-panel position and one fixed-loom anchor.
 - Warm-white rounded removable shell over existing dark core. Full-width 24 mm payout slot for 1.5 mm passive or nominal 4.5 mm hybrid line; no fixed fairlead or completed slip-ring support.
 - Concept-unvalidated: drilling, fit, full-travel abrasion, ventilation, heat, rain, strength and safe guarding require physical acceptance.
 
@@ -44,6 +44,7 @@ Quantities are per assembly definition, before build multipliers. Optional and d
 - [hardware/assemblies/winch/winch-cover-passive-right.scad](../../../hardware/assemblies/winch/winch-cover-passive-right.scad) — module `wc_print_panel`; revision 0.1.0.
 - [hardware/assemblies/winch/winch-cover-powered-left.scad](../../../hardware/assemblies/winch/winch-cover-powered-left.scad) — module `wc_print_panel`; revision 0.1.0.
 - [hardware/assemblies/winch/winch-cover-powered-middle.scad](../../../hardware/assemblies/winch/winch-cover-powered-middle.scad) — module `wc_print_panel`; revision 0.1.0.
+- [hardware/assemblies/winch/winch-cover-powered-transition.scad](../../../hardware/assemblies/winch/winch-cover-powered-transition.scad) — module `wc_print_panel`; revision 0.1.0.
 - [hardware/assemblies/winch/winch-cover-powered-right.scad](../../../hardware/assemblies/winch/winch-cover-powered-right.scad) — module `wc_print_panel`; revision 0.1.0.
 - [hardware/assemblies/winch/winch-cover-clip.scad](../../../hardware/assemblies/winch/winch-cover-clip.scad) — module `wc_print_clip`; revision 0.1.0.
 - [hardware/assemblies/winch/winch-cover-cable-anchor.scad](../../../hardware/assemblies/winch/winch-cover-cable-anchor.scad) — module `wc_print_cable_anchor`; revision 0.1.0.

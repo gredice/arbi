@@ -15,7 +15,7 @@ python3 scripts/winch-booklet/build.py
 ```
 
 Outputs go to ignored `hardware/generated/booklet/`. The build copies the current
-winch CAD, scripts and fonts into a portable source snapshot, validates 61 STLs,
+winch CAD, scripts and fonts into a portable source snapshot, validates 62 STLs,
 writes hashes and part transforms, renders the figures and generates the PDF/ZIP.
 Use `--output PATH` for another build location. `--publish` updates the checked-in
 PDF and ZIP under `docs/assemblies/winch/booklet/`.
@@ -58,8 +58,9 @@ records the owner's request to commit the downloadable artifact snapshot. Other
 working STL exports and individual render PNGs remain ignored. The reusable
 skill is maintained under `.agents/skills/create-assembly-booklets/`.
 
-Revision 5 adds full-cover main panels, payout shutters, clips, fixed-loom anchor,
+Revision 6 adds the distinct powered index-3 transition panel to the full-cover
+main panels, payout shutters, clips, fixed-loom anchor,
 covered-base drilling references and nominal line/loom references. The PDF has
-18 pages; the pack contains 26 fabrication and 35 reference meshes. Run
+18 pages; the pack contains 27 fabrication and 35 reference meshes. Run
 `python scripts/check-winch-cover-meshes.py hardware/generated/booklet/models/arbi`
 for the full-cover nominal checks, as well as the existing mount checker.

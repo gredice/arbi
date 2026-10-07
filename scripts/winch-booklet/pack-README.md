@@ -1,6 +1,6 @@
 # ARBI winch — STL assembly booklet and model pack
 
-Revision 5, 7 October 2026. All dimensions are millimetres. Import the STL files into your slicer or CAD tool in **mm**; STL does not encode units.
+Revision 6, 7 October 2026. All dimensions are millimetres. Import the STL files into your slicer or CAD tool in **mm**; STL does not encode units.
 
 Open `ARBI-winch-assembly-STL.pdf` for the 18-page assembly booklet. It covers the passive-line winch, which still uses a motor: two drum sections, a nominal 340 mm shaft and a 550 × 180 × 8 mm aluminium base. The illustrations are rendered from the included STL meshes. Small fasteners are omitted from some overview views for clarity; page 14 gives the fastener quantities.
 
@@ -8,7 +8,7 @@ Open `ARBI-winch-assembly-STL.pdf` for the 18-page assembly booklet. It covers t
 
 | Path | Contents |
 | --- | --- |
-| `models/arbi/` | 26 fabrication STLs exported from canonical ARBI OpenSCAD sources |
+| `models/arbi/` | 27 fabrication STLs exported from canonical ARBI OpenSCAD sources |
 | `models/reference/` | 35 nominal hardware, base-plate and routing reference STLs for assembly illustrations |
 | `source/arbi-hardware/` | ARBI winch CAD snapshot, model registry and existing assembly documentation |
 | `source/reference-parts.scad` | Editable reference geometry for purchased parts |
@@ -80,7 +80,7 @@ python3 source/render_figures.py
 python3 source/build_booklet.py
 ```
 
-Export scripts check closed surfaces, consistent triangle winding, positive volume and one connected mesh body. All 61 supplied STL files passed those checks, and their file hashes were checked against the manifests. All PDF pages were rendered and visually reviewed. A physical assembly or load test has not been performed.
+Export scripts check closed surfaces, consistent triangle winding, positive volume and one connected mesh body. All 62 supplied STL files passed those checks, and their file hashes were checked against the manifests. All PDF pages were rendered and visually reviewed. A physical assembly or load test has not been performed.
 
 To change text or layout while keeping the supplied figures, run only the final command. To revise a purchased-part approximation, edit `source/reference-parts.scad`, export the reference meshes, then rerender and rebuild. Update the illustrations and manifests together when changing model geometry or placement.
 
@@ -88,9 +88,12 @@ Appearance: rounded white full-cover panels and removable payout shutters over t
 
 The base-plate-*-covered references include the additional shell/anchor holes.
 The older passive drilling template omits them. New fabrication IDs: variant
-left/middle/right main panels, variant payout shutter, identical clip and cable
+left/middle/right main panels, powered transition panel, variant payout shutter, identical clip and cable
 anchor. Per passive kit: 3 main panels, 2 shutters, 12 clips, 1 anchor. Per powered:
-5 main panels (3 middles), 4 shutters, 20 clips, 1 anchor. All are r0.1.0.
+5 main panels (left, two identical middles, distinct index-3 transition, right),
+4 shutters, 20 clips, 1 anchor. The transition's payout aperture stops at X=580.3
+mm; substituting a third middle would leave the bearing/coupling wall open.
+All are r0.1.0.
 
 The near-motor CL57Y driver is not represented by the mechanical CAD or contained
 in this shell. Its protected mounting/enclosure remains corner-station electrical
