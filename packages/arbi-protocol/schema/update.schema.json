@@ -1,0 +1,379 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://arbi.gredice.com/schemas/update/1.0/update.schema.json",
+  "title": "ARBI update 1.0",
+  "description": "Strict synthetic reference contracts; validation is not authenticity, physical capability, permission or recovery proof. See docs/software/release-updates.md.",
+  "$defs": {
+    "UpdateScope": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "realm": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Realm"
+        },
+        "executionMode": {
+          "enum": [
+            "simulation",
+            "hardware"
+          ]
+        },
+        "siteId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        }
+      },
+      "required": [
+        "realm",
+        "executionMode",
+        "siteId"
+      ]
+    },
+    "UpdateAuditContext": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "actor": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Actor"
+        },
+        "authorizationId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "correlationId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "intentEventId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        }
+      },
+      "required": [
+        "actor",
+        "authorizationId",
+        "correlationId",
+        "intentEventId"
+      ]
+    },
+    "UpdateRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "const": "arbi.update/1.0"
+        },
+        "scope": {
+          "$ref": "#/$defs/UpdateScope"
+        },
+        "operationId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "coordinatorId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "source": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Identity"
+        },
+        "manifest": {
+          "$ref": "https://arbi.gredice.com/schemas/release/1.0/release.schema.json#/$defs/ReleaseManifest"
+        },
+        "expectedInstalledReleaseId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "issuedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "startDeadline": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "confirmationDeadline": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "auditContext": {
+          "$ref": "#/$defs/UpdateAuditContext"
+        },
+        "budget": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "reservationId": {
+              "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+            },
+            "payloadBytes": {
+              "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Counter"
+            },
+            "maximumWanBytes": {
+              "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Counter"
+            },
+            "category": {
+              "enum": [
+                "ota",
+                "os-update"
+              ]
+            }
+          },
+          "required": [
+            "reservationId",
+            "payloadBytes",
+            "maximumWanBytes",
+            "category"
+          ]
+        },
+        "configurationDataVersion": {
+          "$ref": "https://arbi.gredice.com/schemas/release/1.0/release.schema.json#/$defs/ReleaseVersion"
+        },
+        "direction": {
+          "enum": [
+            "install",
+            "rollback"
+          ]
+        },
+        "releaseSetId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "scope",
+        "operationId",
+        "coordinatorId",
+        "source",
+        "manifest",
+        "expectedInstalledReleaseId",
+        "issuedAt",
+        "startDeadline",
+        "confirmationDeadline",
+        "auditContext",
+        "budget",
+        "configurationDataVersion",
+        "direction",
+        "releaseSetId"
+      ]
+    },
+    "UpdateBootObservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "source": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Identity"
+        },
+        "observedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "provenance": {
+          "const": "local-boot-observation"
+        },
+        "releaseId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "build": {
+          "$ref": "https://arbi.gredice.com/schemas/release/1.0/release.schema.json#/$defs/ReleaseBuild"
+        },
+        "artifactDigest": {
+          "$ref": "https://arbi.gredice.com/schemas/release/1.0/release.schema.json#/$defs/ReleaseDigest"
+        },
+        "configurationDataVersion": {
+          "$ref": "https://arbi.gredice.com/schemas/release/1.0/release.schema.json#/$defs/ReleaseVersion"
+        },
+        "health": {
+          "enum": [
+            "passed",
+            "failed",
+            "unknown"
+          ]
+        },
+        "recordId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "schemaVersion": {
+          "const": "arbi.update/1.0"
+        }
+      },
+      "required": [
+        "source",
+        "observedAt",
+        "provenance",
+        "releaseId",
+        "build",
+        "artifactDigest",
+        "configurationDataVersion",
+        "health",
+        "recordId",
+        "schemaVersion"
+      ]
+    },
+    "UpdateEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "const": "arbi.update/1.0"
+        },
+        "operationId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "eventId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "kind": {
+          "enum": [
+            "staged",
+            "installation-reserved",
+            "trial",
+            "confirmed",
+            "failed",
+            "rolled-back",
+            "recovery-required"
+          ]
+        },
+        "source": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Identity"
+        },
+        "observedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "artifactDigest": {
+          "$ref": "https://arbi.gredice.com/schemas/release/1.0/release.schema.json#/$defs/ReleaseDigest"
+        },
+        "boot": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/UpdateBootObservation"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reasonCode": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "verification": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/UpdateArtifactVerification"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "preflight": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/UpdatePreflight"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "operationId",
+        "eventId",
+        "kind",
+        "source",
+        "observedAt",
+        "artifactDigest",
+        "boot",
+        "reasonCode",
+        "verification",
+        "preflight"
+      ]
+    },
+    "UpdateJournal": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "const": "arbi.update/1.0"
+        },
+        "request": {
+          "$ref": "#/$defs/UpdateRequest"
+        },
+        "baseline": {
+          "$ref": "#/$defs/UpdateBootObservation"
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/UpdateEvent"
+          },
+          "minItems": 0,
+          "maxItems": 256
+        },
+        "baselineManifest": {
+          "$ref": "https://arbi.gredice.com/schemas/release/1.0/release.schema.json#/$defs/ReleaseManifest"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "request",
+        "baseline",
+        "events",
+        "baselineManifest"
+      ]
+    },
+    "UpdateArtifactVerification": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "manifestDigest": {
+          "$ref": "https://arbi.gredice.com/schemas/release/1.0/release.schema.json#/$defs/ReleaseDigest"
+        },
+        "keyId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "artifactDigest": {
+          "$ref": "https://arbi.gredice.com/schemas/release/1.0/release.schema.json#/$defs/ReleaseDigest"
+        },
+        "recordId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        }
+      },
+      "required": [
+        "manifestDigest",
+        "keyId",
+        "artifactDigest",
+        "recordId"
+      ]
+    },
+    "UpdatePreflight": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "recordId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "independentProtectionOwnerId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "updateSafe": {
+          "const": true
+        }
+      },
+      "required": [
+        "recordId",
+        "independentProtectionOwnerId",
+        "updateSafe"
+      ]
+    }
+  },
+  "oneOf": [
+    {
+      "$ref": "#/$defs/UpdateRequest"
+    },
+    {
+      "$ref": "#/$defs/UpdateBootObservation"
+    },
+    {
+      "$ref": "#/$defs/UpdateEvent"
+    },
+    {
+      "$ref": "#/$defs/UpdateJournal"
+    }
+  ]
+}

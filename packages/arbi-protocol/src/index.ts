@@ -7,3 +7,7 @@ export type * from "./accounting-types.js";
 export * from "./accounting.js";
 export type * from "./audit-types.js";
 export * from "./audit.js";
+export type * from "./release-types.js";
+export * from "./release.js";
+export type * from "./update-types.js";
+export * from "./update.js";
