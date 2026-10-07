@@ -8,7 +8,9 @@
     "./schema": "./schema/message.schema.json",
     "./configuration-schema": "./schema/configuration.schema.json",
     "./audit-schema": "./schema/audit-event.schema.json",
-    "./accounting-schema": "./schema/accounting.schema.json"
+    "./accounting-schema": "./schema/accounting.schema.json",
+    "./release-schema": "./schema/release.schema.json",
+    "./update-schema": "./schema/update.schema.json"
   },
   "scripts": {
     "generate": "node scripts/generate-types.mjs && node scripts/generate-accounting-types.mjs",

@@ -1,0 +1,1096 @@
+{
+  "inventory": {
+    "schemaVersion": "arbi.release/1.0",
+    "realm": {
+      "environment": "test",
+      "namespaceId": "fixture-run"
+    },
+    "executionMode": "simulation",
+    "siteId": "synthetic-site",
+    "configurationRevision": "config-1",
+    "modules": [
+      {
+        "component": {
+          "id": "edge",
+          "kind": "module",
+          "hardwareId": "edge-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "control-cabinet",
+          "assemblyRevision": "1.0.0",
+          "role": "edge",
+          "firmwareVersion": "fixture-1.0.0",
+          "update": {
+            "kind": "unsupported",
+            "reason": "no-reviewed-update-interface"
+          }
+        },
+        "boardId": "synthetic-linux-edge",
+        "targetClass": "linux-edge",
+        "updaterVersion": "1.0.0",
+        "bootloaderVersion": null,
+        "capability": {
+          "kind": "reference-only",
+          "targets": [
+            "application",
+            "os"
+          ],
+          "method": "simulated-trial-boot",
+          "evidence": {
+            "id": "synthetic-update-review",
+            "recordRevision": "fixture-1",
+            "stage": "simulation",
+            "result": "passed",
+            "reviewerId": "fixture-reviewer"
+          }
+        }
+      },
+      {
+        "component": {
+          "id": "pico",
+          "kind": "module",
+          "hardwareId": "pico-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "control-cabinet",
+          "assemblyRevision": "1.0.0",
+          "role": "pico",
+          "firmwareVersion": "fixture-1.0.0",
+          "update": {
+            "kind": "unsupported",
+            "reason": "no-reviewed-update-interface"
+          }
+        },
+        "boardId": "raspberry-pi-pico-2-w",
+        "targetClass": "pico-motion",
+        "updaterVersion": "1.0.0",
+        "bootloaderVersion": "1.0.0",
+        "capability": {
+          "kind": "reference-only",
+          "targets": [
+            "firmware"
+          ],
+          "method": "simulated-trial-boot",
+          "evidence": {
+            "id": "synthetic-update-review",
+            "recordRevision": "fixture-1",
+            "stage": "simulation",
+            "result": "passed",
+            "reviewerId": "fixture-reviewer"
+          }
+        }
+      },
+      {
+        "component": {
+          "id": "pod",
+          "kind": "module",
+          "hardwareId": "pod-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "control-cabinet",
+          "assemblyRevision": "1.0.0",
+          "role": "pod",
+          "firmwareVersion": "fixture-1.0.0",
+          "update": {
+            "kind": "unsupported",
+            "reason": "no-reviewed-update-interface"
+          }
+        },
+        "boardId": "raspberry-pi-3a-plus",
+        "targetClass": "pi-pod",
+        "updaterVersion": "1.0.0",
+        "bootloaderVersion": null,
+        "capability": {
+          "kind": "reference-only",
+          "targets": [
+            "application",
+            "os"
+          ],
+          "method": "simulated-trial-boot",
+          "evidence": {
+            "id": "synthetic-update-review",
+            "recordRevision": "fixture-1",
+            "stage": "simulation",
+            "result": "passed",
+            "reviewerId": "fixture-reviewer"
+          }
+        }
+      },
+      {
+        "component": {
+          "id": "driver-a",
+          "kind": "module",
+          "hardwareId": "driver-a-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "control-cabinet",
+          "assemblyRevision": "1.0.0",
+          "role": "driver",
+          "firmwareVersion": null,
+          "update": {
+            "kind": "unsupported",
+            "reason": "no-reviewed-update-interface"
+          }
+        },
+        "boardId": "driver-a-model",
+        "targetClass": "driver",
+        "updaterVersion": null,
+        "bootloaderVersion": null,
+        "capability": {
+          "kind": "unavailable",
+          "reason": "no-reviewed-update-interface"
+        }
+      },
+      {
+        "component": {
+          "id": "driver-b",
+          "kind": "module",
+          "hardwareId": "driver-b-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "control-cabinet",
+          "assemblyRevision": "1.0.0",
+          "role": "driver",
+          "firmwareVersion": null,
+          "update": {
+            "kind": "unsupported",
+            "reason": "no-reviewed-update-interface"
+          }
+        },
+        "boardId": "driver-b-model",
+        "targetClass": "driver",
+        "updaterVersion": null,
+        "bootloaderVersion": null,
+        "capability": {
+          "kind": "unavailable",
+          "reason": "no-reviewed-update-interface"
+        }
+      },
+      {
+        "component": {
+          "id": "driver-c",
+          "kind": "module",
+          "hardwareId": "driver-c-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "control-cabinet",
+          "assemblyRevision": "1.0.0",
+          "role": "driver",
+          "firmwareVersion": null,
+          "update": {
+            "kind": "unsupported",
+            "reason": "no-reviewed-update-interface"
+          }
+        },
+        "boardId": "driver-c-model",
+        "targetClass": "driver",
+        "updaterVersion": null,
+        "bootloaderVersion": null,
+        "capability": {
+          "kind": "unavailable",
+          "reason": "no-reviewed-update-interface"
+        }
+      },
+      {
+        "component": {
+          "id": "driver-d",
+          "kind": "module",
+          "hardwareId": "driver-d-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "control-cabinet",
+          "assemblyRevision": "1.0.0",
+          "role": "driver",
+          "firmwareVersion": null,
+          "update": {
+            "kind": "unsupported",
+            "reason": "no-reviewed-update-interface"
+          }
+        },
+        "boardId": "driver-d-model",
+        "targetClass": "driver",
+        "updaterVersion": null,
+        "bootloaderVersion": null,
+        "capability": {
+          "kind": "unavailable",
+          "reason": "no-reviewed-update-interface"
+        }
+      },
+      {
+        "component": {
+          "id": "anchor-a",
+          "kind": "passive",
+          "hardwareId": "anchor-a-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "corner-station",
+          "assemblyRevision": "1.0.0"
+        },
+        "boardId": "anchor-a-model",
+        "targetClass": "passive",
+        "updaterVersion": null,
+        "bootloaderVersion": null,
+        "capability": {
+          "kind": "unavailable",
+          "reason": "no-reviewed-update-interface"
+        }
+      },
+      {
+        "component": {
+          "id": "anchor-b",
+          "kind": "passive",
+          "hardwareId": "anchor-b-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "corner-station",
+          "assemblyRevision": "1.0.0"
+        },
+        "boardId": "anchor-b-model",
+        "targetClass": "passive",
+        "updaterVersion": null,
+        "bootloaderVersion": null,
+        "capability": {
+          "kind": "unavailable",
+          "reason": "no-reviewed-update-interface"
+        }
+      },
+      {
+        "component": {
+          "id": "anchor-c",
+          "kind": "passive",
+          "hardwareId": "anchor-c-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "corner-station",
+          "assemblyRevision": "1.0.0"
+        },
+        "boardId": "anchor-c-model",
+        "targetClass": "passive",
+        "updaterVersion": null,
+        "bootloaderVersion": null,
+        "capability": {
+          "kind": "unavailable",
+          "reason": "no-reviewed-update-interface"
+        }
+      },
+      {
+        "component": {
+          "id": "anchor-d",
+          "kind": "passive",
+          "hardwareId": "anchor-d-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "corner-station",
+          "assemblyRevision": "1.0.0"
+        },
+        "boardId": "anchor-d-model",
+        "targetClass": "passive",
+        "updaterVersion": null,
+        "bootloaderVersion": null,
+        "capability": {
+          "kind": "unavailable",
+          "reason": "no-reviewed-update-interface"
+        }
+      },
+      {
+        "component": {
+          "id": "drum-a",
+          "kind": "passive",
+          "hardwareId": "drum-a-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "winch",
+          "assemblyRevision": "1.0.0"
+        },
+        "boardId": "drum-a-model",
+        "targetClass": "passive",
+        "updaterVersion": null,
+        "bootloaderVersion": null,
+        "capability": {
+          "kind": "unavailable",
+          "reason": "no-reviewed-update-interface"
+        }
+      },
+      {
+        "component": {
+          "id": "drum-b",
+          "kind": "passive",
+          "hardwareId": "drum-b-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "winch",
+          "assemblyRevision": "1.0.0"
+        },
+        "boardId": "drum-b-model",
+        "targetClass": "passive",
+        "updaterVersion": null,
+        "bootloaderVersion": null,
+        "capability": {
+          "kind": "unavailable",
+          "reason": "no-reviewed-update-interface"
+        }
+      },
+      {
+        "component": {
+          "id": "drum-c",
+          "kind": "passive",
+          "hardwareId": "drum-c-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "winch",
+          "assemblyRevision": "1.0.0"
+        },
+        "boardId": "drum-c-model",
+        "targetClass": "passive",
+        "updaterVersion": null,
+        "bootloaderVersion": null,
+        "capability": {
+          "kind": "unavailable",
+          "reason": "no-reviewed-update-interface"
+        }
+      },
+      {
+        "component": {
+          "id": "drum-d",
+          "kind": "passive",
+          "hardwareId": "drum-d-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "winch",
+          "assemblyRevision": "1.0.0"
+        },
+        "boardId": "drum-d-model",
+        "targetClass": "passive",
+        "updaterVersion": null,
+        "bootloaderVersion": null,
+        "capability": {
+          "kind": "unavailable",
+          "reason": "no-reviewed-update-interface"
+        }
+      },
+      {
+        "component": {
+          "id": "powered-line",
+          "kind": "passive",
+          "hardwareId": "powered-line-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "positioning-lines",
+          "assemblyRevision": "1.0.0"
+        },
+        "boardId": "powered-line-model",
+        "targetClass": "passive",
+        "updaterVersion": null,
+        "bootloaderVersion": null,
+        "capability": {
+          "kind": "unavailable",
+          "reason": "no-reviewed-update-interface"
+        }
+      },
+      {
+        "component": {
+          "id": "servo-pan",
+          "kind": "passive",
+          "hardwareId": "servo-pan-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "camera-pod",
+          "assemblyRevision": "1.0.0"
+        },
+        "boardId": "servo-pan-model",
+        "targetClass": "passive",
+        "updaterVersion": null,
+        "bootloaderVersion": null,
+        "capability": {
+          "kind": "unavailable",
+          "reason": "no-reviewed-update-interface"
+        }
+      },
+      {
+        "component": {
+          "id": "servo-tilt",
+          "kind": "passive",
+          "hardwareId": "servo-tilt-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "camera-pod",
+          "assemblyRevision": "1.0.0"
+        },
+        "boardId": "servo-tilt-model",
+        "targetClass": "passive",
+        "updaterVersion": null,
+        "bootloaderVersion": null,
+        "capability": {
+          "kind": "unavailable",
+          "reason": "no-reviewed-update-interface"
+        }
+      }
+    ]
+  },
+  "releaseSet": {
+    "schemaVersion": "arbi.release/1.0",
+    "releaseSetId": "synthetic-mixed-release",
+    "manifests": [
+      {
+        "schemaVersion": "arbi.release/1.0",
+        "releaseId": "edge-1.0.0",
+        "target": {
+          "moduleId": "edge",
+          "targetClass": "linux-edge",
+          "boardId": "synthetic-linux-edge",
+          "hardwareId": "edge-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "control-cabinet",
+          "assemblyRevision": "1.0.0"
+        },
+        "build": {
+          "version": "1.0.0",
+          "buildId": "fixture-1.0.0",
+          "commit": "9b55e4d88c47fbba6fc9eb7d7a1798bc19c4c30f"
+        },
+        "artifact": {
+          "artifactId": "edge-1.0.0-artifact",
+          "kind": "application",
+          "sha256": "1f0d1ef159f22ea9569660a19b46b25a4f73c6dc392f1f9e5243f20e25e6bfa5",
+          "sizeBytes": 26,
+          "signature": {
+            "algorithm": "ed25519",
+            "keyId": "synthetic-test-key",
+            "value": "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+          }
+        },
+        "channel": "development",
+        "protocolRange": {
+          "min": "1.0",
+          "max": "1.0"
+        },
+        "configuration": {
+          "schemaRange": {
+            "min": "1.0",
+            "max": "1.0"
+          },
+          "dataRange": {
+            "min": "1.0.0",
+            "max": "1.0.0"
+          },
+          "migration": null
+        },
+        "minimumUpdater": "1.0.0",
+        "minimumBootloader": null,
+        "dependencies": []
+      },
+      {
+        "schemaVersion": "arbi.release/1.0",
+        "releaseId": "pico-1.0.0",
+        "target": {
+          "moduleId": "pico",
+          "targetClass": "pico-motion",
+          "boardId": "raspberry-pi-pico-2-w",
+          "hardwareId": "pico-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "control-cabinet",
+          "assemblyRevision": "1.0.0"
+        },
+        "build": {
+          "version": "1.0.0",
+          "buildId": "fixture-1.0.0",
+          "commit": "280c1d49c67a6c58c8a467166ae5bacbfc70092d"
+        },
+        "artifact": {
+          "artifactId": "pico-1.0.0-artifact",
+          "kind": "firmware",
+          "sha256": "3e0cb5bdbcb853f7bc1531bf69d339e63e187d11ec3d64bfc796a3a11d6b24c6",
+          "sizeBytes": 26,
+          "signature": {
+            "algorithm": "ed25519",
+            "keyId": "synthetic-test-key",
+            "value": "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+          }
+        },
+        "channel": "development",
+        "protocolRange": {
+          "min": "1.0",
+          "max": "1.0"
+        },
+        "configuration": {
+          "schemaRange": {
+            "min": "1.0",
+            "max": "1.0"
+          },
+          "dataRange": {
+            "min": "1.0.0",
+            "max": "1.0.0"
+          },
+          "migration": null
+        },
+        "minimumUpdater": "1.0.0",
+        "minimumBootloader": "1.0.0",
+        "dependencies": [
+          {
+            "moduleId": "edge",
+            "versions": {
+              "min": "1.0.0",
+              "max": "1.1.0"
+            }
+          }
+        ]
+      },
+      {
+        "schemaVersion": "arbi.release/1.0",
+        "releaseId": "pod-1.0.0",
+        "target": {
+          "moduleId": "pod",
+          "targetClass": "pi-pod",
+          "boardId": "raspberry-pi-3a-plus",
+          "hardwareId": "pod-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "control-cabinet",
+          "assemblyRevision": "1.0.0"
+        },
+        "build": {
+          "version": "1.0.0",
+          "buildId": "fixture-1.0.0",
+          "commit": "9c1787c7d1fcef80b8d76f374e100e3b5caab660"
+        },
+        "artifact": {
+          "artifactId": "pod-1.0.0-artifact",
+          "kind": "application",
+          "sha256": "0633f97119ad0861cdbe465d7846b6918859878f2787f1d881786830f93ad340",
+          "sizeBytes": 25,
+          "signature": {
+            "algorithm": "ed25519",
+            "keyId": "synthetic-test-key",
+            "value": "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+          }
+        },
+        "channel": "development",
+        "protocolRange": {
+          "min": "1.0",
+          "max": "1.0"
+        },
+        "configuration": {
+          "schemaRange": {
+            "min": "1.0",
+            "max": "1.0"
+          },
+          "dataRange": {
+            "min": "1.0.0",
+            "max": "1.0.0"
+          },
+          "migration": null
+        },
+        "minimumUpdater": "1.0.0",
+        "minimumBootloader": null,
+        "dependencies": [
+          {
+            "moduleId": "edge",
+            "versions": {
+              "min": "1.0.0",
+              "max": "1.1.0"
+            }
+          },
+          {
+            "moduleId": "pico",
+            "versions": {
+              "min": "1.0.0",
+              "max": "1.1.0"
+            }
+          }
+        ]
+      },
+      {
+        "schemaVersion": "arbi.release/1.0",
+        "releaseId": "edge-1.1.0",
+        "target": {
+          "moduleId": "edge",
+          "targetClass": "linux-edge",
+          "boardId": "synthetic-linux-edge",
+          "hardwareId": "edge-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "control-cabinet",
+          "assemblyRevision": "1.0.0"
+        },
+        "build": {
+          "version": "1.1.0",
+          "buildId": "fixture-1.1.0",
+          "commit": "1896faef23c38a440f7bcb6a097acaec8a3b3d75"
+        },
+        "artifact": {
+          "artifactId": "edge-1.1.0-artifact",
+          "kind": "application",
+          "sha256": "a677daabfcdbbd6f9978bbcc34b982c3111b24cf0a66fa54ca5d30e527b5604e",
+          "sizeBytes": 26,
+          "signature": {
+            "algorithm": "ed25519",
+            "keyId": "synthetic-test-key",
+            "value": "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+          }
+        },
+        "channel": "development",
+        "protocolRange": {
+          "min": "1.0",
+          "max": "1.0"
+        },
+        "configuration": {
+          "schemaRange": {
+            "min": "1.0",
+            "max": "1.0"
+          },
+          "dataRange": {
+            "min": "1.0.0",
+            "max": "1.1.0"
+          },
+          "migration": {
+            "from": "1.0.0",
+            "to": "1.1.0",
+            "rollbackTo": "1.0.0",
+            "recordId": "synthetic-reversible-migration"
+          }
+        },
+        "minimumUpdater": "1.0.0",
+        "minimumBootloader": null,
+        "dependencies": []
+      },
+      {
+        "schemaVersion": "arbi.release/1.0",
+        "releaseId": "pico-1.1.0",
+        "target": {
+          "moduleId": "pico",
+          "targetClass": "pico-motion",
+          "boardId": "raspberry-pi-pico-2-w",
+          "hardwareId": "pico-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "control-cabinet",
+          "assemblyRevision": "1.0.0"
+        },
+        "build": {
+          "version": "1.1.0",
+          "buildId": "fixture-1.1.0",
+          "commit": "617163c8a3d247477fdec73cd38fdead88cff057"
+        },
+        "artifact": {
+          "artifactId": "pico-1.1.0-artifact",
+          "kind": "firmware",
+          "sha256": "fba2430585a31b71dd4aa15fb032989bf802f84b65977e01004674425be14f9f",
+          "sizeBytes": 26,
+          "signature": {
+            "algorithm": "ed25519",
+            "keyId": "synthetic-test-key",
+            "value": "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+          }
+        },
+        "channel": "development",
+        "protocolRange": {
+          "min": "1.0",
+          "max": "1.0"
+        },
+        "configuration": {
+          "schemaRange": {
+            "min": "1.0",
+            "max": "1.0"
+          },
+          "dataRange": {
+            "min": "1.0.0",
+            "max": "1.0.0"
+          },
+          "migration": null
+        },
+        "minimumUpdater": "1.0.0",
+        "minimumBootloader": "1.0.0",
+        "dependencies": [
+          {
+            "moduleId": "edge",
+            "versions": {
+              "min": "1.1.0",
+              "max": "1.1.0"
+            }
+          }
+        ]
+      },
+      {
+        "schemaVersion": "arbi.release/1.0",
+        "releaseId": "pod-1.1.0",
+        "target": {
+          "moduleId": "pod",
+          "targetClass": "pi-pod",
+          "boardId": "raspberry-pi-3a-plus",
+          "hardwareId": "pod-model",
+          "hardwareRevision": "1.0.0",
+          "assemblyId": "control-cabinet",
+          "assemblyRevision": "1.0.0"
+        },
+        "build": {
+          "version": "1.1.0",
+          "buildId": "fixture-1.1.0",
+          "commit": "ad3cc4e82dde613a423ac02a613382b28b956384"
+        },
+        "artifact": {
+          "artifactId": "pod-1.1.0-artifact",
+          "kind": "application",
+          "sha256": "ef3331fdae3f50fc188c6243480b5f998811a2329d2c6101a3e65cf4bd1821b1",
+          "sizeBytes": 25,
+          "signature": {
+            "algorithm": "ed25519",
+            "keyId": "synthetic-test-key",
+            "value": "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+          }
+        },
+        "channel": "development",
+        "protocolRange": {
+          "min": "1.0",
+          "max": "1.0"
+        },
+        "configuration": {
+          "schemaRange": {
+            "min": "1.0",
+            "max": "1.0"
+          },
+          "dataRange": {
+            "min": "1.0.0",
+            "max": "1.0.0"
+          },
+          "migration": null
+        },
+        "minimumUpdater": "1.0.0",
+        "minimumBootloader": null,
+        "dependencies": [
+          {
+            "moduleId": "edge",
+            "versions": {
+              "min": "1.1.0",
+              "max": "1.1.0"
+            }
+          },
+          {
+            "moduleId": "pico",
+            "versions": {
+              "min": "1.1.0",
+              "max": "1.1.0"
+            }
+          }
+        ]
+      }
+    ],
+    "initial": [
+      {
+        "moduleId": "edge",
+        "releaseId": "edge-1.0.0",
+        "configurationDataVersion": "1.0.0"
+      },
+      {
+        "moduleId": "pico",
+        "releaseId": "pico-1.0.0",
+        "configurationDataVersion": "1.0.0"
+      },
+      {
+        "moduleId": "pod",
+        "releaseId": "pod-1.0.0",
+        "configurationDataVersion": "1.0.0"
+      }
+    ],
+    "desired": [
+      {
+        "moduleId": "edge",
+        "releaseId": "edge-1.1.0",
+        "configurationDataVersion": "1.1.0"
+      },
+      {
+        "moduleId": "pico",
+        "releaseId": "pico-1.1.0",
+        "configurationDataVersion": "1.0.0"
+      },
+      {
+        "moduleId": "pod",
+        "releaseId": "pod-1.1.0",
+        "configurationDataVersion": "1.0.0"
+      }
+    ],
+    "order": [
+      {
+        "moduleId": "edge",
+        "after": []
+      },
+      {
+        "moduleId": "pico",
+        "after": [
+          "edge"
+        ]
+      },
+      {
+        "moduleId": "pod",
+        "after": [
+          "edge",
+          "pico"
+        ]
+      }
+    ],
+    "steps": [
+      {
+        "moduleId": "edge",
+        "releaseId": "edge-1.1.0",
+        "configurationDataVersion": "1.1.0"
+      },
+      {
+        "moduleId": "pico",
+        "releaseId": "pico-1.1.0",
+        "configurationDataVersion": "1.0.0"
+      },
+      {
+        "moduleId": "pod",
+        "releaseId": "pod-1.1.0",
+        "configurationDataVersion": "1.0.0"
+      }
+    ],
+    "rollbackPaths": [
+      {
+        "afterStep": 1,
+        "steps": [
+          {
+            "moduleId": "edge",
+            "releaseId": "edge-1.0.0",
+            "configurationDataVersion": "1.0.0"
+          }
+        ]
+      },
+      {
+        "afterStep": 2,
+        "steps": [
+          {
+            "moduleId": "pico",
+            "releaseId": "pico-1.0.0",
+            "configurationDataVersion": "1.0.0"
+          },
+          {
+            "moduleId": "edge",
+            "releaseId": "edge-1.0.0",
+            "configurationDataVersion": "1.0.0"
+          }
+        ]
+      },
+      {
+        "afterStep": 3,
+        "steps": [
+          {
+            "moduleId": "pod",
+            "releaseId": "pod-1.0.0",
+            "configurationDataVersion": "1.0.0"
+          },
+          {
+            "moduleId": "pico",
+            "releaseId": "pico-1.0.0",
+            "configurationDataVersion": "1.0.0"
+          },
+          {
+            "moduleId": "edge",
+            "releaseId": "edge-1.0.0",
+            "configurationDataVersion": "1.0.0"
+          }
+        ]
+      }
+    ]
+  },
+  "payloads": {
+    "edge-1.0.0": "ARBI synthetic edge-1.0.0\n",
+    "pico-1.0.0": "ARBI synthetic pico-1.0.0\n",
+    "pod-1.0.0": "ARBI synthetic pod-1.0.0\n",
+    "edge-1.1.0": "ARBI synthetic edge-1.1.0\n",
+    "pico-1.1.0": "ARBI synthetic pico-1.1.0\n",
+    "pod-1.1.0": "ARBI synthetic pod-1.1.0\n"
+  },
+  "invalid": [
+    {
+      "name": "missing module identity",
+      "kind": "manifest",
+      "base": "pico-1.1.0",
+      "path": [
+        "target",
+        "moduleId"
+      ],
+      "remove": true
+    },
+    {
+      "name": "wrong board",
+      "kind": "compatibility",
+      "base": "pico-1.1.0",
+      "path": [
+        "target",
+        "boardId"
+      ],
+      "value": "raspberry-pi-3a-plus"
+    },
+    {
+      "name": "wrong hardware",
+      "kind": "compatibility",
+      "base": "pico-1.1.0",
+      "path": [
+        "target",
+        "hardwareRevision"
+      ],
+      "value": "unreviewed-revision"
+    },
+    {
+      "name": "malformed digest",
+      "kind": "manifest",
+      "base": "pod-1.1.0",
+      "path": [
+        "artifact",
+        "sha256"
+      ],
+      "value": "not-a-digest"
+    },
+    {
+      "name": "unsupported release schema",
+      "kind": "manifest",
+      "base": "edge-1.1.0",
+      "path": [
+        "schemaVersion"
+      ],
+      "value": "arbi.release/2.0"
+    },
+    {
+      "name": "inverted range",
+      "kind": "manifest",
+      "base": "pico-1.1.0",
+      "path": [
+        "protocolRange"
+      ],
+      "value": {
+        "min": "1.1",
+        "max": "1.0"
+      }
+    },
+    {
+      "name": "incompatible protocol",
+      "kind": "manifest",
+      "base": "pico-1.1.0",
+      "path": [
+        "protocolRange"
+      ],
+      "value": {
+        "min": "2.0",
+        "max": "2.0"
+      }
+    },
+    {
+      "name": "incompatible configuration schema",
+      "kind": "manifest",
+      "base": "pod-1.1.0",
+      "path": [
+        "configuration",
+        "schemaRange"
+      ],
+      "value": {
+        "min": "2.0",
+        "max": "2.0"
+      }
+    },
+    {
+      "name": "too new updater",
+      "kind": "compatibility",
+      "base": "edge-1.1.0",
+      "path": [
+        "minimumUpdater"
+      ],
+      "value": "2.0.0"
+    },
+    {
+      "name": "too new bootloader",
+      "kind": "compatibility",
+      "base": "pico-1.1.0",
+      "path": [
+        "minimumBootloader"
+      ],
+      "value": "2.0.0"
+    },
+    {
+      "name": "cyclic order",
+      "kind": "set",
+      "path": [
+        "order",
+        0,
+        "after"
+      ],
+      "value": [
+        "pod"
+      ]
+    },
+    {
+      "name": "incompatible intermediate update",
+      "kind": "set",
+      "path": [
+        "steps"
+      ],
+      "value": [
+        {
+          "moduleId": "pico",
+          "releaseId": "pico-1.1.0",
+          "configurationDataVersion": "1.0.0"
+        },
+        {
+          "moduleId": "edge",
+          "releaseId": "edge-1.1.0",
+          "configurationDataVersion": "1.1.0"
+        },
+        {
+          "moduleId": "pod",
+          "releaseId": "pod-1.1.0",
+          "configurationDataVersion": "1.0.0"
+        }
+      ]
+    },
+    {
+      "name": "incompatible rollback",
+      "kind": "set",
+      "path": [
+        "rollbackPaths",
+        2,
+        "steps"
+      ],
+      "value": [
+        {
+          "moduleId": "edge",
+          "releaseId": "edge-1.0.0",
+          "configurationDataVersion": "1.0.0"
+        },
+        {
+          "moduleId": "pico",
+          "releaseId": "pico-1.0.0",
+          "configurationDataVersion": "1.0.0"
+        },
+        {
+          "moduleId": "pod",
+          "releaseId": "pod-1.0.0",
+          "configurationDataVersion": "1.0.0"
+        }
+      ]
+    },
+    {
+      "name": "irreversible configuration rollback",
+      "kind": "set",
+      "path": [
+        "manifests",
+        3,
+        "configuration",
+        "migration",
+        "rollbackTo"
+      ],
+      "value": null
+    },
+    {
+      "name": "missing recovery prefix",
+      "kind": "set",
+      "path": [
+        "rollbackPaths"
+      ],
+      "value": [
+        {
+          "afterStep": 1,
+          "steps": [
+            {
+              "moduleId": "edge",
+              "releaseId": "edge-1.0.0",
+              "configurationDataVersion": "1.0.0"
+            }
+          ]
+        },
+        {
+          "afterStep": 2,
+          "steps": [
+            {
+              "moduleId": "pico",
+              "releaseId": "pico-1.0.0",
+              "configurationDataVersion": "1.0.0"
+            },
+            {
+              "moduleId": "edge",
+              "releaseId": "edge-1.0.0",
+              "configurationDataVersion": "1.0.0"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

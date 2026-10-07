@@ -1,0 +1,598 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://arbi.gredice.com/schemas/release/1.0/release.schema.json",
+  "title": "ARBI release 1.0",
+  "description": "Strict synthetic reference contracts; validation is not authenticity, physical capability, permission or recovery proof. See docs/software/release-updates.md.",
+  "$defs": {
+    "ReleaseVersion": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]{0,4})\\.(0|[1-9][0-9]{0,4})\\.(0|[1-9][0-9]{0,4})$"
+    },
+    "ReleaseDigest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "ReleaseVersionRange": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "min": {
+          "$ref": "#/$defs/ReleaseVersion"
+        },
+        "max": {
+          "$ref": "#/$defs/ReleaseVersion"
+        }
+      },
+      "required": [
+        "min",
+        "max"
+      ]
+    },
+    "ReleaseContractRange": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "min": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]{0,4})\\.(0|[1-9][0-9]{0,4})$"
+        },
+        "max": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]{0,4})\\.(0|[1-9][0-9]{0,4})$"
+        }
+      },
+      "required": [
+        "min",
+        "max"
+      ]
+    },
+    "ReleaseTarget": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "moduleId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "targetClass": {
+          "enum": [
+            "pico-motion",
+            "pi-pod",
+            "linux-edge"
+          ]
+        },
+        "boardId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "hardwareId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "hardwareRevision": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "assemblyId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "assemblyRevision": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        }
+      },
+      "required": [
+        "moduleId",
+        "targetClass",
+        "boardId",
+        "hardwareId",
+        "hardwareRevision",
+        "assemblyId",
+        "assemblyRevision"
+      ]
+    },
+    "ReleaseCapability": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "unavailable"
+            },
+            "reason": {
+              "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+            }
+          },
+          "required": [
+            "kind",
+            "reason"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "reference-only"
+            },
+            "targets": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "firmware",
+                  "application",
+                  "os"
+                ]
+              },
+              "minItems": 1,
+              "maxItems": 3
+            },
+            "method": {
+              "const": "simulated-trial-boot"
+            },
+            "evidence": {
+              "$ref": "https://arbi.gredice.com/schemas/configuration/1.0/configuration.schema.json#/$defs/ConfigurationEvidence"
+            }
+          },
+          "required": [
+            "kind",
+            "targets",
+            "method",
+            "evidence"
+          ]
+        }
+      ]
+    },
+    "ReleaseModule": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "component": {
+          "$ref": "https://arbi.gredice.com/schemas/configuration/1.0/configuration.schema.json#/$defs/ConfigurationComponent"
+        },
+        "boardId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "targetClass": {
+          "enum": [
+            "pico-motion",
+            "pi-pod",
+            "linux-edge",
+            "driver",
+            "passive"
+          ]
+        },
+        "updaterVersion": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ReleaseVersion"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "bootloaderVersion": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ReleaseVersion"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "capability": {
+          "$ref": "#/$defs/ReleaseCapability"
+        }
+      },
+      "required": [
+        "component",
+        "boardId",
+        "targetClass",
+        "updaterVersion",
+        "bootloaderVersion",
+        "capability"
+      ]
+    },
+    "ReleaseInventory": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "const": "arbi.release/1.0"
+        },
+        "realm": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Realm"
+        },
+        "executionMode": {
+          "enum": [
+            "simulation",
+            "hardware"
+          ]
+        },
+        "siteId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "configurationRevision": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "modules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ReleaseModule"
+          },
+          "minItems": 1,
+          "maxItems": 128
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "realm",
+        "executionMode",
+        "siteId",
+        "configurationRevision",
+        "modules"
+      ]
+    },
+    "ReleaseBuild": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "version": {
+          "$ref": "#/$defs/ReleaseVersion"
+        },
+        "buildId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "commit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        }
+      },
+      "required": [
+        "version",
+        "buildId",
+        "commit"
+      ]
+    },
+    "ReleaseSignature": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "algorithm": {
+          "const": "ed25519"
+        },
+        "keyId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "value": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{128}$"
+        }
+      },
+      "required": [
+        "algorithm",
+        "keyId",
+        "value"
+      ]
+    },
+    "ReleaseArtifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "artifactId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "kind": {
+          "enum": [
+            "firmware",
+            "application",
+            "os"
+          ]
+        },
+        "sha256": {
+          "$ref": "#/$defs/ReleaseDigest"
+        },
+        "sizeBytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "signature": {
+          "$ref": "#/$defs/ReleaseSignature"
+        }
+      },
+      "required": [
+        "artifactId",
+        "kind",
+        "sha256",
+        "sizeBytes",
+        "signature"
+      ]
+    },
+    "ReleaseDependency": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "moduleId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "versions": {
+          "$ref": "#/$defs/ReleaseVersionRange"
+        }
+      },
+      "required": [
+        "moduleId",
+        "versions"
+      ]
+    },
+    "ReleaseMigration": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "from": {
+          "$ref": "#/$defs/ReleaseVersion"
+        },
+        "to": {
+          "$ref": "#/$defs/ReleaseVersion"
+        },
+        "rollbackTo": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ReleaseVersion"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "recordId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        }
+      },
+      "required": [
+        "from",
+        "to",
+        "rollbackTo",
+        "recordId"
+      ]
+    },
+    "ReleaseConfiguration": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaRange": {
+          "$ref": "#/$defs/ReleaseContractRange"
+        },
+        "dataRange": {
+          "$ref": "#/$defs/ReleaseVersionRange"
+        },
+        "migration": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ReleaseMigration"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "schemaRange",
+        "dataRange",
+        "migration"
+      ]
+    },
+    "ReleaseManifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "const": "arbi.release/1.0"
+        },
+        "releaseId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "target": {
+          "$ref": "#/$defs/ReleaseTarget"
+        },
+        "build": {
+          "$ref": "#/$defs/ReleaseBuild"
+        },
+        "artifact": {
+          "$ref": "#/$defs/ReleaseArtifact"
+        },
+        "channel": {
+          "enum": [
+            "development",
+            "candidate",
+            "stable"
+          ]
+        },
+        "protocolRange": {
+          "$ref": "#/$defs/ReleaseContractRange"
+        },
+        "configuration": {
+          "$ref": "#/$defs/ReleaseConfiguration"
+        },
+        "minimumUpdater": {
+          "$ref": "#/$defs/ReleaseVersion"
+        },
+        "minimumBootloader": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ReleaseVersion"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ReleaseDependency"
+          },
+          "minItems": 0,
+          "maxItems": 128
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "releaseId",
+        "target",
+        "build",
+        "artifact",
+        "channel",
+        "protocolRange",
+        "configuration",
+        "minimumUpdater",
+        "minimumBootloader",
+        "dependencies"
+      ]
+    },
+    "ReleaseSelection": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "moduleId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "releaseId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "configurationDataVersion": {
+          "$ref": "#/$defs/ReleaseVersion"
+        }
+      },
+      "required": [
+        "moduleId",
+        "releaseId",
+        "configurationDataVersion"
+      ]
+    },
+    "ReleaseOrder": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "moduleId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "after": {
+          "type": "array",
+          "items": {
+            "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+          },
+          "minItems": 0,
+          "maxItems": 128
+        }
+      },
+      "required": [
+        "moduleId",
+        "after"
+      ]
+    },
+    "ReleaseRollbackPath": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "afterStep": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 128
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ReleaseSelection"
+          },
+          "minItems": 1,
+          "maxItems": 128
+        }
+      },
+      "required": [
+        "afterStep",
+        "steps"
+      ]
+    },
+    "ReleaseSet": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "const": "arbi.release/1.0"
+        },
+        "releaseSetId": {
+          "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"
+        },
+        "manifests": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ReleaseManifest"
+          },
+          "minItems": 1,
+          "maxItems": 256
+        },
+        "initial": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ReleaseSelection"
+          },
+          "minItems": 1,
+          "maxItems": 128
+        },
+        "desired": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ReleaseSelection"
+          },
+          "minItems": 1,
+          "maxItems": 128
+        },
+        "order": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ReleaseOrder"
+          },
+          "minItems": 1,
+          "maxItems": 128
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ReleaseSelection"
+          },
+          "minItems": 1,
+          "maxItems": 128
+        },
+        "rollbackPaths": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ReleaseRollbackPath"
+          },
+          "minItems": 1,
+          "maxItems": 128
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "releaseSetId",
+        "manifests",
+        "initial",
+        "desired",
+        "order",
+        "steps",
+        "rollbackPaths"
+      ]
+    }
+  },
+  "oneOf": [
+    {
+      "$ref": "#/$defs/ReleaseInventory"
+    },
+    {
+      "$ref": "#/$defs/ReleaseManifest"
+    },
+    {
+      "$ref": "#/$defs/ReleaseSet"
+    }
+  ]
+}

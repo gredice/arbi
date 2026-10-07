@@ -11,6 +11,7 @@ Implemented, transport-neutral ARBI 1.0 JSON contracts, runtime validation, gene
 - [Mobile data accounting 1.0 specification](../../docs/software/mobile-data-accounting.md), [schema](schema/accounting.schema.json), [fixtures](fixtures/accounting.json) and [reference calculations](src/accounting.ts)
 - [Cross-runtime reference specification](../../docs/software/reference-fixtures.md) and [versioned vectors](fixtures/reference/1.0/vectors.json)
 - [Audit 1.0 vocabulary and evidence rules](../../docs/software/audit-events.md), [schema](schema/audit-event.schema.json), [fixtures](fixtures/audit-events.json) and [runtime](src/audit.ts)
+- [Release/update 1.0 contracts and recovery rules](../../docs/software/release-updates.md), [release schema](schema/release.schema.json), [update schema](schema/update.schema.json), [release fixtures](fixtures/releases.json) and [update fixtures](fixtures/updates.json); executable offline producer and updater/status consumers use these same fixtures.
 
 From the repository root, using Node.js >=24 and pinned pnpm:
 

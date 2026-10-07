@@ -1,0 +1,327 @@
+{
+  "request": {
+    "schemaVersion": "arbi.update/1.0",
+    "scope": {
+      "realm": {
+        "environment": "test",
+        "namespaceId": "fixture-run"
+      },
+      "executionMode": "simulation",
+      "siteId": "synthetic-site"
+    },
+    "operationId": "synthetic-update-1",
+    "coordinatorId": "edge",
+    "source": {
+      "deviceId": "edge",
+      "bootId": "edge-boot-1",
+      "sessionId": "edge-boot-1-session"
+    },
+    "manifest": {
+      "schemaVersion": "arbi.release/1.0",
+      "releaseId": "pico-1.1.0",
+      "target": {
+        "moduleId": "pico",
+        "targetClass": "pico-motion",
+        "boardId": "raspberry-pi-pico-2-w",
+        "hardwareId": "pico-model",
+        "hardwareRevision": "1.0.0",
+        "assemblyId": "control-cabinet",
+        "assemblyRevision": "1.0.0"
+      },
+      "build": {
+        "version": "1.1.0",
+        "buildId": "fixture-1.1.0",
+        "commit": "617163c8a3d247477fdec73cd38fdead88cff057"
+      },
+      "artifact": {
+        "artifactId": "pico-1.1.0-artifact",
+        "kind": "firmware",
+        "sha256": "fba2430585a31b71dd4aa15fb032989bf802f84b65977e01004674425be14f9f",
+        "sizeBytes": 26,
+        "signature": {
+          "algorithm": "ed25519",
+          "keyId": "synthetic-test-key",
+          "value": "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        }
+      },
+      "channel": "development",
+      "protocolRange": {
+        "min": "1.0",
+        "max": "1.0"
+      },
+      "configuration": {
+        "schemaRange": {
+          "min": "1.0",
+          "max": "1.0"
+        },
+        "dataRange": {
+          "min": "1.0.0",
+          "max": "1.0.0"
+        },
+        "migration": null
+      },
+      "minimumUpdater": "1.0.0",
+      "minimumBootloader": "1.0.0",
+      "dependencies": [
+        {
+          "moduleId": "edge",
+          "versions": {
+            "min": "1.1.0",
+            "max": "1.1.0"
+          }
+        }
+      ]
+    },
+    "expectedInstalledReleaseId": "pico-1.0.0",
+    "issuedAt": "2026-10-07T12:00:01.000Z",
+    "startDeadline": "2026-10-07T12:00:30.000Z",
+    "confirmationDeadline": "2026-10-07T12:00:50.000Z",
+    "configurationDataVersion": "1.0.0",
+    "auditContext": {
+      "actor": {
+        "kind": "human",
+        "id": "fixture-operator"
+      },
+      "authorizationId": "synthetic-update-grant",
+      "correlationId": "synthetic-update-correlation",
+      "intentEventId": "synthetic-update-intent"
+    },
+    "budget": {
+      "reservationId": "synthetic-ota-budget",
+      "payloadBytes": "26",
+      "maximumWanBytes": "1000",
+      "category": "ota"
+    },
+    "direction": "install",
+    "releaseSetId": "synthetic-mixed-release"
+  },
+  "baseline": {
+    "source": {
+      "deviceId": "pico",
+      "bootId": "pico-old-boot",
+      "sessionId": "pico-old-boot-session"
+    },
+    "observedAt": "2026-10-07T12:00:00.000Z",
+    "provenance": "local-boot-observation",
+    "releaseId": "pico-1.0.0",
+    "build": {
+      "version": "1.0.0",
+      "buildId": "fixture-1.0.0",
+      "commit": "280c1d49c67a6c58c8a467166ae5bacbfc70092d"
+    },
+    "artifactDigest": "3e0cb5bdbcb853f7bc1531bf69d339e63e187d11ec3d64bfc796a3a11d6b24c6",
+    "configurationDataVersion": "1.0.0",
+    "health": "passed",
+    "recordId": "synthetic-boot-0",
+    "schemaVersion": "arbi.update/1.0"
+  },
+  "baselineManifest": {
+    "schemaVersion": "arbi.release/1.0",
+    "releaseId": "pico-1.0.0",
+    "target": {
+      "moduleId": "pico",
+      "targetClass": "pico-motion",
+      "boardId": "raspberry-pi-pico-2-w",
+      "hardwareId": "pico-model",
+      "hardwareRevision": "1.0.0",
+      "assemblyId": "control-cabinet",
+      "assemblyRevision": "1.0.0"
+    },
+    "build": {
+      "version": "1.0.0",
+      "buildId": "fixture-1.0.0",
+      "commit": "280c1d49c67a6c58c8a467166ae5bacbfc70092d"
+    },
+    "artifact": {
+      "artifactId": "pico-1.0.0-artifact",
+      "kind": "firmware",
+      "sha256": "3e0cb5bdbcb853f7bc1531bf69d339e63e187d11ec3d64bfc796a3a11d6b24c6",
+      "sizeBytes": 26,
+      "signature": {
+        "algorithm": "ed25519",
+        "keyId": "synthetic-test-key",
+        "value": "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+      }
+    },
+    "channel": "development",
+    "protocolRange": {
+      "min": "1.0",
+      "max": "1.0"
+    },
+    "configuration": {
+      "schemaRange": {
+        "min": "1.0",
+        "max": "1.0"
+      },
+      "dataRange": {
+        "min": "1.0.0",
+        "max": "1.0.0"
+      },
+      "migration": null
+    },
+    "minimumUpdater": "1.0.0",
+    "minimumBootloader": "1.0.0",
+    "dependencies": [
+      {
+        "moduleId": "edge",
+        "versions": {
+          "min": "1.0.0",
+          "max": "1.1.0"
+        }
+      }
+    ]
+  },
+  "events": [
+    {
+      "schemaVersion": "arbi.update/1.0",
+      "operationId": "synthetic-update-1",
+      "eventId": "synthetic-staged",
+      "kind": "staged",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "edge-boot-1",
+        "sessionId": "edge-boot-1-session"
+      },
+      "observedAt": "2026-10-07T12:00:02.000Z",
+      "artifactDigest": "fba2430585a31b71dd4aa15fb032989bf802f84b65977e01004674425be14f9f",
+      "boot": null,
+      "reasonCode": "synthetic-local-observation",
+      "verification": {
+        "manifestDigest": "a33465f0f7df67b8ea2c73f150f0bdc8aac85a04acb9048400f7abe6f1eabc20",
+        "keyId": "synthetic-test-key",
+        "artifactDigest": "fba2430585a31b71dd4aa15fb032989bf802f84b65977e01004674425be14f9f",
+        "recordId": "synthetic-verified-artifact"
+      },
+      "preflight": null
+    },
+    {
+      "schemaVersion": "arbi.update/1.0",
+      "operationId": "synthetic-update-1",
+      "eventId": "synthetic-installation-reserved",
+      "kind": "installation-reserved",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "edge-boot-1",
+        "sessionId": "edge-boot-1-session"
+      },
+      "observedAt": "2026-10-07T12:00:03.000Z",
+      "artifactDigest": "fba2430585a31b71dd4aa15fb032989bf802f84b65977e01004674425be14f9f",
+      "boot": null,
+      "reasonCode": "synthetic-local-observation",
+      "verification": null,
+      "preflight": {
+        "recordId": "synthetic-restraint-record",
+        "independentProtectionOwnerId": "independent-simulation-protection",
+        "updateSafe": true
+      }
+    },
+    {
+      "schemaVersion": "arbi.update/1.0",
+      "operationId": "synthetic-update-1",
+      "eventId": "synthetic-trial",
+      "kind": "trial",
+      "source": {
+        "deviceId": "pico",
+        "bootId": "pico-trial-boot",
+        "sessionId": "pico-trial-boot-session"
+      },
+      "observedAt": "2026-10-07T12:00:04.000Z",
+      "artifactDigest": "fba2430585a31b71dd4aa15fb032989bf802f84b65977e01004674425be14f9f",
+      "boot": {
+        "source": {
+          "deviceId": "pico",
+          "bootId": "pico-trial-boot",
+          "sessionId": "pico-trial-boot-session"
+        },
+        "observedAt": "2026-10-07T12:00:04.000Z",
+        "provenance": "local-boot-observation",
+        "releaseId": "pico-1.1.0",
+        "build": {
+          "version": "1.1.0",
+          "buildId": "fixture-1.1.0",
+          "commit": "617163c8a3d247477fdec73cd38fdead88cff057"
+        },
+        "artifactDigest": "fba2430585a31b71dd4aa15fb032989bf802f84b65977e01004674425be14f9f",
+        "configurationDataVersion": "1.0.0",
+        "health": "unknown",
+        "recordId": "synthetic-boot-4",
+        "schemaVersion": "arbi.update/1.0"
+      },
+      "reasonCode": "synthetic-local-observation",
+      "verification": null,
+      "preflight": null
+    },
+    {
+      "schemaVersion": "arbi.update/1.0",
+      "operationId": "synthetic-update-1",
+      "eventId": "synthetic-confirmed",
+      "kind": "confirmed",
+      "source": {
+        "deviceId": "pico",
+        "bootId": "pico-trial-boot",
+        "sessionId": "pico-trial-boot-session"
+      },
+      "observedAt": "2026-10-07T12:00:05.000Z",
+      "artifactDigest": "fba2430585a31b71dd4aa15fb032989bf802f84b65977e01004674425be14f9f",
+      "boot": {
+        "source": {
+          "deviceId": "pico",
+          "bootId": "pico-trial-boot",
+          "sessionId": "pico-trial-boot-session"
+        },
+        "observedAt": "2026-10-07T12:00:05.000Z",
+        "provenance": "local-boot-observation",
+        "releaseId": "pico-1.1.0",
+        "build": {
+          "version": "1.1.0",
+          "buildId": "fixture-1.1.0",
+          "commit": "617163c8a3d247477fdec73cd38fdead88cff057"
+        },
+        "artifactDigest": "fba2430585a31b71dd4aa15fb032989bf802f84b65977e01004674425be14f9f",
+        "configurationDataVersion": "1.0.0",
+        "health": "passed",
+        "recordId": "synthetic-boot-5",
+        "schemaVersion": "arbi.update/1.0"
+      },
+      "reasonCode": "synthetic-local-observation",
+      "verification": null,
+      "preflight": null
+    }
+  ],
+  "rollback": {
+    "schemaVersion": "arbi.update/1.0",
+    "operationId": "synthetic-update-1",
+    "eventId": "synthetic-rollback",
+    "kind": "rolled-back",
+    "source": {
+      "deviceId": "pico",
+      "bootId": "pico-rollback-boot",
+      "sessionId": "pico-rollback-boot-session"
+    },
+    "observedAt": "2026-10-07T12:00:06.000Z",
+    "artifactDigest": "fba2430585a31b71dd4aa15fb032989bf802f84b65977e01004674425be14f9f",
+    "boot": {
+      "source": {
+        "deviceId": "pico",
+        "bootId": "pico-rollback-boot",
+        "sessionId": "pico-rollback-boot-session"
+      },
+      "observedAt": "2026-10-07T12:00:06.000Z",
+      "provenance": "local-boot-observation",
+      "releaseId": "pico-1.0.0",
+      "build": {
+        "version": "1.0.0",
+        "buildId": "fixture-1.0.0",
+        "commit": "280c1d49c67a6c58c8a467166ae5bacbfc70092d"
+      },
+      "artifactDigest": "3e0cb5bdbcb853f7bc1531bf69d339e63e187d11ec3d64bfc796a3a11d6b24c6",
+      "configurationDataVersion": "1.0.0",
+      "health": "passed",
+      "recordId": "synthetic-boot-6",
+      "schemaVersion": "arbi.update/1.0"
+    },
+    "reasonCode": "synthetic-local-rollback",
+    "verification": null,
+    "preflight": null
+  }
+}

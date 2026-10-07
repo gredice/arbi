@@ -57,6 +57,7 @@ The committed material is a **design baseline**, not proof of a built or safe in
 - [Cross-runtime reference vectors, independent host consumers and offline workspace checks](software/reference-fixtures.md)
 - [Gredice identity, site permissions and executable request authorization boundary](software/site-authorization.md)
 - [Audit 1.0 vocabulary, privacy and evidence semantics](software/audit-events.md)
+- [Release/update 1.0 manifests, mixed-version paths and pure recovery reference](software/release-updates.md)
 
 ## Evidence language
 
