@@ -59,6 +59,7 @@ The committed material is a **design baseline**, not proof of a built or safe in
 - [Scenario 1.0 contracts, deterministic offline runner and independent host evidence](software/scenarios.md)
 - [Gredice identity, site permissions and executable request authorization boundary](software/site-authorization.md)
 - [Audit 1.0 vocabulary, privacy and evidence semantics](software/audit-events.md)
+- [Transactional audit admission, SQLite spool and deduplicated ingestion](software/audit-durability.md)
 - [Release/update 1.0 manifests, mixed-version paths and pure recovery reference](software/release-updates.md)
 - [Device enrollment, inventory and credential lifecycle with isolated PostgreSQL evidence](software/device-enrollment.md)
 - [Image metadata, private Blob direct grants, lifecycle cleanup and isolated PostgreSQL/HTTP evidence](software/image-storage.md)
