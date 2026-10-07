@@ -2053,6 +2053,37 @@
       "record": {"kind":"local-record","id":"local-schedule-updated"},
       "metadata": {"scheduleRevision":"schedule-2"},
       "change": null
+    },
+    "device-rejected": {
+      "auditVersion": "arbi.audit/1.0",
+      "eventId": "event-device-rejected",
+      "realm": {"environment":"test","namespaceId":"synthetic-audit"},
+      "executionMode": "simulation",
+      "siteId": "synthetic-site",
+      "actor": {"kind":"human","id":"operator-1"},
+      "source": {"module":"motion","identity":{"deviceId":"motion-1","bootId":"motion-boot-1","sessionId":"motion-link-1"}},
+      "sequence": "9007199254740993",
+      "sourceTime": {"utc":"2026-10-07T00:00:00.000Z","monotonicMs":1000,"uncertaintyMs":25},
+      "ingestTime": null,
+      "resource": {"kind":"device","id":"motion-1","deviceId":"motion-1"},
+      "action": "motion.move",
+      "evidence": "device-outcome",
+      "outcome": "deny",
+      "effect": "device-reported",
+      "reason": "rejected",
+      "links": {
+        "correlationId": "capture-chain",
+        "intentEventId": "intent-capture",
+        "causationEventId": "intent-capture",
+        "jobId": "job-1",
+        "sessionId": null,
+        "commandId": "command-device-rejected",
+        "requestSource": {"deviceId":"edge-1","bootId":"edge-boot-1","sessionId":"edge-link-1"},
+        "target": {"deviceId":"motion-1","bootId":"motion-boot-1","sessionId":"motion-link-1"}
+      },
+      "record": {"kind":"protocol-event","id":"protocol-device-rejected"},
+      "metadata": {"protocolErrorCode":"FAULT_INHIBITED"},
+      "change": null
     }
   },
   "invalid": [
@@ -2434,6 +2465,12 @@
       "base": "schedule-updated",
       "changes": [{"path":["source","module"],"value":"motion"}],
       "error": "SOURCE_MISMATCH"
+    },
+    {
+      "name": "unsafe arbitrary protocol error",
+      "base": "device-rejected",
+      "changes": [{"path":["metadata","protocolErrorCode"],"value":"synthetic-password"}],
+      "error": "INVALID_MESSAGE"
     }
   ],
   "trace": {"intent":"capture-intent","modules":["edge","motion","pod","capture"]}

@@ -1,7 +1,7 @@
 // Generated from schema/audit-event.schema.json. Run pnpm --filter @arbi/protocol generate.
 // Refinements (ranges, formats, conditionals) require validateAuditEvent at runtime.
 
-import type { Actor, Counter, Id, Identity, IngestTime, Realm, SourceTime } from "./messages.js";
+import type { Actor, Counter, ErrorCode, Id, Identity, IngestTime, Realm, SourceTime } from "./messages.js";
 
 export type AuditAction = "identity.login" | "authorization.check" | "control.session.start" | "control.session.end" | "control.session.revoke" | "control.session.timeout" | "motion.move" | "gimbal.move" | "control.stop" | "motion.home" | "calibration.change" | "configuration.change" | "schedule.create" | "schedule.update" | "schedule.delete" | "capture.request" | "release.publish" | "update.request" | "update.install" | "update.rollback" | "live.grant" | "live.start" | "live.end" | "live.revoke" | "live.timeout" | "live.heartbeat" | "still.view" | "history.view" | "playback.view" | "playback.heartbeat" | "media.download" | "media.export" | "recording.start" | "recording.stop" | "recording.fail" | "recording.delete";
 
@@ -9,7 +9,7 @@ export type AuditEvidence = "intent" | "authorization" | "access-grant" | "devic
 
 export type AuditOutcome = "requested" | "allow" | "deny" | "succeeded" | "fail" | "unknown" | "interrupted" | "observed";
 
-export type AuditReason = "requested" | "authorized" | "not-authorized" | "invalid-request" | "unsupported" | "disabled" | "local-inhibit" | "completed" | "execution-failed" | "cancelled" | "interrupted" | "connection-lost" | "response-lost" | "source-restarted" | "timeout" | "revoked" | "observed" | "heartbeat" | "storage-failed" | "delivery-failed" | "ended";
+export type AuditReason = "requested" | "authorized" | "not-authorized" | "invalid-request" | "unsupported" | "disabled" | "local-inhibit" | "completed" | "execution-failed" | "cancelled" | "interrupted" | "rejected" | "connection-lost" | "response-lost" | "source-restarted" | "timeout" | "revoked" | "observed" | "heartbeat" | "storage-failed" | "delivery-failed" | "ended";
 
 export type AuditSource = { "module": "cloud" | "edge" | "motion" | "pod" | "browser" | "media"; "identity": Identity; };
 
@@ -21,7 +21,7 @@ export type AuditRecordReference = { "kind": "protocol-event" | "local-record"; 
 
 export type AuditInterval = { "startMonotonicMs": number; "endMonotonicMs": number; };
 
-export type AuditMetadata = { "permission"?: "login" | "view" | "control" | "capture" | "calibrate" | "configure" | "schedule" | "release" | "update" | "export" | "recording"; "observation"?: "connection-established" | "bytes-delivered" | "connection-ended" | "delivery-started" | "delivery-ended" | "browser-heartbeat"; "byteCount"?: number; "observedInterval"?: AuditInterval; "grantId"?: Id; "configRevision"?: Id; "calibrationRevision"?: Id; "scheduleRevision"?: Id; "releaseId"?: Id; };
+export type AuditMetadata = { "permission"?: "login" | "view" | "control" | "capture" | "calibrate" | "configure" | "schedule" | "release" | "update" | "export" | "recording"; "protocolErrorCode"?: ErrorCode; "observation"?: "connection-established" | "bytes-delivered" | "connection-ended" | "delivery-started" | "delivery-ended" | "browser-heartbeat"; "byteCount"?: number; "observedInterval"?: AuditInterval; "grantId"?: Id; "configRevision"?: Id; "calibrationRevision"?: Id; "scheduleRevision"?: Id; "releaseId"?: Id; };
 
 export type AuditChangeSummary = { "revisionId": (Id) | (null); "state": "absent" | "draft" | "active" | "retired" | "enabled" | "disabled" | "staged" | "installed" | "failed" | "rolled-back"; };
 

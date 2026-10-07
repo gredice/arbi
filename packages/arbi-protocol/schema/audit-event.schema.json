@@ -72,6 +72,7 @@
         "execution-failed",
         "cancelled",
         "interrupted",
+        "rejected",
         "connection-lost",
         "response-lost",
         "source-restarted",
@@ -158,6 +159,7 @@
       "additionalProperties": false,
       "properties": {
         "permission": {"enum":["login","view","control","capture","calibrate","configure","schedule","release","update","export","recording"]},
+        "protocolErrorCode": {"$ref":"https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/ErrorCode"},
         "observation": {
           "enum": ["connection-established","bytes-delivered","connection-ended","delivery-started","delivery-ended","browser-heartbeat"]
         },
@@ -293,9 +295,9 @@
           "if": {"properties":{"evidence":{"const":"device-outcome"}},"required":["evidence"]},
           "then": {
             "properties": {
-              "outcome": {"enum":["succeeded","fail","interrupted"]},
+              "outcome": {"enum":["succeeded","deny","fail","interrupted"]},
               "effect": {"enum":["device-reported"]},
-              "reason": {"enum":["completed","execution-failed","cancelled","interrupted","local-inhibit","source-restarted","timeout"]},
+              "reason": {"enum":["completed","rejected","execution-failed","cancelled","interrupted","local-inhibit","source-restarted","timeout"]},
               "source": {"properties":{"module":{"enum":["edge","motion","pod"]}}}
             }
           }

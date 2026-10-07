@@ -159,7 +159,7 @@ test("correlation cannot silently rebind the initiator, operation, job, session,
   for (const [change, code] of changes) { const event = fixture("capture"); change(event); error(correlateAuditEvent(intent, event), code); }
 });
 
-function protocolRecord(name: string, outcome: "completed" | "failed" | "cancelled" | "accepted" = "completed"): Event {
+function protocolRecord(name: string, outcome: "completed" | "rejected" | "failed" | "cancelled" | "accepted" = "completed"): Event {
   const event = fixture(name);
   return {
     protocol: "arbi/1.0", messageId: event.record!.id, realm: event.realm, siteId: event.siteId,
@@ -167,7 +167,7 @@ function protocolRecord(name: string, outcome: "completed" | "failed" | "cancell
     sourceTime: event.sourceTime, ingestTime: null, kind: "event",
     body: { type: "command.outcome", commandId: event.links.commandId!, correlationId: event.links.correlationId,
       requestSource: event.links.requestSource!, outcome, resourceId: outcome === "completed" && event.action === "capture.request" ? event.resource.id : null,
-      error: outcome === "failed" ? { code: "EXECUTION_FAILED", retryable: false } : outcome === "cancelled" ? { code: "CANCELLED", retryable: false } : null },
+      error: outcome === "rejected" ? { code: "FAULT_INHIBITED", retryable: false } : outcome === "failed" ? { code: "EXECUTION_FAILED", retryable: false } : outcome === "cancelled" ? { code: "CANCELLED", retryable: false } : null },
   };
 }
 const outcomeBinding = (name: string): AuditOutcomeBinding => {
@@ -215,10 +215,22 @@ test("failed and interrupted reports remain distinct; a later report supplements
   const sourceInterrupted = auditFromProtocolOutcome(intent, interruptionReport, outcomeBinding("motion"));
   assert.equal(sourceInterrupted.ok && sourceInterrupted.value.outcome, "interrupted");
   assert.equal(sourceInterrupted.ok && sourceInterrupted.value.reason, "interrupted");
+  assert.equal(sourceInterrupted.ok && sourceInterrupted.value.metadata.protocolErrorCode, "INTERRUPTED");
   const unknown = fixture("unknown"), copy = structuredClone(unknown);
   assert.equal(unknown.effect, "unknown");
   assert.equal(auditFromProtocolOutcome(intent, protocolRecord("motion"), outcomeBinding("motion")).ok, true);
   assert.deepEqual(unknown, copy);
+});
+test("server allow and a device-local rejection remain separately attributable in the same trace", () => {
+  const intent = fixture("capture-intent");
+  const allow = fixture("append-fail");
+  allow.links = { ...structuredClone(intent.links), causationEventId: intent.eventId };
+  allow.outcome = "allow"; allow.reason = "authorized";
+  assert.equal(correlateAuditEvent(intent, allow).ok, true);
+  const denied = auditFromProtocolOutcome(intent, protocolRecord("device-rejected", "rejected"), outcomeBinding("device-rejected"));
+  assert.equal(denied.ok, true, JSON.stringify(denied));
+  if (denied.ok) assert.deepEqual(denied.value, fixture("device-rejected"));
+  assert.equal(allow.effect, "none");
 });
 test("viewer grant, establishment, delivery, heartbeat and revocation share context while preserving evidence kinds", () => {
   const intent = fixture("grant");

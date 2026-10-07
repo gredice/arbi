@@ -51,6 +51,7 @@ export function validateAuditEvent(input: unknown): Result<AuditEvent> {
     const allowed = deviceActions[event.action];
     if (allowed && !allowed.includes(event.source.module)) return fail("SOURCE_MISMATCH", "/source/module");
     if (event.outcome === "succeeded" && event.reason !== "completed") return fail("INVALID_MESSAGE", "/reason");
+    if (event.outcome === "deny" && event.reason !== "rejected") return fail("INVALID_MESSAGE", "/reason");
   }
   if (event.resource.kind === "device" && event.resource.id !== event.resource.deviceId) return fail("TARGET_MISMATCH", "/resource");
   if (event.change !== null && !["calibration.change", "configuration.change", "schedule.create", "schedule.update", "schedule.delete", "update.request", "update.install", "update.rollback"].includes(event.action)) return fail("INVALID_MESSAGE", "/change");
@@ -152,7 +153,7 @@ export function auditFromProtocolOutcome(intentInput: unknown, outcomeInput: unk
   const record = parsed.value;
   if (record.kind !== "event" || record.body.type !== "command.outcome") return fail("INVALID_MESSAGE", "/body/type");
   const body = record.body;
-  if (!["completed", "failed", "cancelled"].includes(body.outcome)) return fail("INVALID_TRANSITION", "/body/outcome");
+  if (!["completed", "rejected", "failed", "cancelled"].includes(body.outcome)) return fail("INVALID_TRANSITION", "/body/outcome");
   if (body.commandId !== binding.commandId || body.correlationId !== root.value.links.correlationId
     || !isDeepStrictEqual(body.requestSource, binding.requestSource)) return fail("INVALID_MESSAGE", "/body");
   if (!isDeepStrictEqual(record.source, binding.target)) return fail("TARGET_MISMATCH", "/source");
@@ -163,11 +164,11 @@ export function auditFromProtocolOutcome(intentInput: unknown, outcomeInput: unk
     siteId: record.siteId, actor: structuredClone(root.value.actor), source: { module: binding.sourceModule, identity: structuredClone(record.source) },
     sequence: binding.sequence, sourceTime: structuredClone(record.sourceTime), ingestTime: structuredClone(binding.ingestTime),
     resource: structuredClone(binding.resource), action: binding.action, evidence: "device-outcome",
-    outcome: interrupted ? "interrupted" : body.outcome === "completed" ? "succeeded" : "fail",
-    effect: "device-reported", reason: interrupted ? (body.outcome === "cancelled" ? "cancelled" : "interrupted") : body.outcome === "completed" ? "completed" : "execution-failed",
+    outcome: body.outcome === "rejected" ? "deny" : interrupted ? "interrupted" : body.outcome === "completed" ? "succeeded" : "fail",
+    effect: "device-reported", reason: body.outcome === "rejected" ? "rejected" : interrupted ? (body.outcome === "cancelled" ? "cancelled" : "interrupted") : body.outcome === "completed" ? "completed" : "execution-failed",
     links: { ...structuredClone(root.value.links), intentEventId: root.value.eventId, causationEventId: root.value.eventId,
       commandId: binding.commandId, requestSource: structuredClone(binding.requestSource), target: structuredClone(binding.target) },
-    record: { kind: "protocol-event", id: record.messageId }, metadata: {}, change: null,
+    record: { kind: "protocol-event", id: record.messageId }, metadata: body.error ? { protocolErrorCode: body.error.code } : {}, change: null,
   };
   return correlateAuditEvent(root.value, event);
 }
