@@ -25,7 +25,10 @@ args = parser.parse_args()
 OUT = args.output.resolve()
 OUT.mkdir(parents=True, exist_ok=True)
 generated_outputs = []
-version = subprocess.run(['openscad', '--version'], capture_output=True, text=True, check=True)
+try:
+    version = subprocess.run(['openscad', '--version'], capture_output=True, text=True, check=True, timeout=10)
+except subprocess.TimeoutExpired as error:
+    raise SystemExit('OpenSCAD version check timed out after 10 seconds.') from error
 assert (version.stdout + version.stderr).strip() == 'OpenSCAD version 2021.01'
 
 
