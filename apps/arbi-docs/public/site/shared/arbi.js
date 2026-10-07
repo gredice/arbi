@@ -1,4 +1,4 @@
-// Shared data + 3D layer for the ARBI website mockups.
+// Shared data + 3D layer for the ARBI site.
 // Reads only ./data (compiled by prepare.py from committed repository sources).
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
@@ -150,17 +150,32 @@ export function layoutCallouts(anchors, width, { gap = 26, margin = 56, spread =
 
 // ---------------------------------------------------------------- 3D
 
-// line: booklet line art (white faces, dark edges). ink: the same drawing inverted for black sections.
+// light: shaded product palette. line: booklet line art (white faces, dark edges).
+// ink: line art for black sections, keeping each part's product role readable:
+// charcoal core as a lighter gray, white shells off-white, bought metal mid gray.
 const STYLES = {
   light: { env: 0.9 },
-  dark: { env: 1.15, rim: true },
-  line: { env: 0, edges: true, face: 0xffffff, edge: 0x111111, hoverFace: 0x161616, hoverEdge: 0xffffff },
-  ink: { env: 0, edges: true, face: 0x0b0b0b, edge: 0xe8e8e4, hoverFace: 0xffffff, hoverEdge: 0x0b0b0b },
+  line: { env: 0, edges: true },
+  ink: { env: 0, edges: true },
 };
+const DARK_PART = { face: 0x55595c, edge: 0xdedcd6, hoverFace: 0xffffff, hoverEdge: 0x0b0b0b };
+const INK = {
+  white: { face: 0xe8e7e1, edge: 0x1c1c1c, hoverFace: 0x1c1c1c, hoverEdge: 0xf2f2ee },
+  metal: { face: 0x9ea3a6, edge: 0x1c1c1c, hoverFace: 0xffffff, hoverEdge: 0x0b0b0b },
+  dark: DARK_PART,
+};
+const LINE = { face: 0xffffff, edge: 0x111111, hoverFace: 0x161616, hoverEdge: 0xffffff };
+
+// Face/edge colors of an edged drawing, from the manifest's role color.
+function drawing(color, style) {
+  if (style === 'line') return LINE;
+  const [r, g, b] = color ?? [0.12, 0.14, 0.15];
+  const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  return luminance >= 0.8 ? INK.white : luminance >= 0.5 ? INK.metal : INK.dark;
+}
 
 function partMaterial(color, style) {
-  const st = STYLES[style];
-  if (st.edges) return new THREE.MeshBasicMaterial({ color: st.face, polygonOffset: true, polygonOffsetFactor: 1, polygonOffsetUnits: 1, transparent: true });
+  if (STYLES[style].edges) return new THREE.MeshBasicMaterial({ color: drawing(color, style).face, polygonOffset: true, polygonOffsetFactor: 1, polygonOffsetUnits: 1, transparent: true });
   const c = new THREE.Color().setRGB(...color, THREE.SRGBColorSpace);
   const metal = color[0] > 0.6 && color[0] < 0.75;
   return new THREE.MeshStandardMaterial({ color: c, roughness: metal ? 0.35 : 0.62, metalness: metal ? 0.7 : 0.0, transparent: true });
@@ -206,16 +221,9 @@ export class Viewer {
       this.scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
       this.scene.environmentIntensity = STYLES[style].env;
     }
-    const key = new THREE.DirectionalLight(0xffffff, style === 'dark' ? 1.6 : 1.1);
+    const key = new THREE.DirectionalLight(0xffffff, 1.1);
     key.position.set(1, -1.4, 2.2);
-    this.scene.add(key, new THREE.AmbientLight(0xffffff, style === 'dark' ? 0.15 : 0.35));
-    if (STYLES[style].rim) {
-      const rim = new THREE.DirectionalLight(0xffffff, 3.2);
-      rim.position.set(-2, 2, 0.6);
-      const fill = new THREE.HemisphereLight(0xffffff, 0x222222, 1.2);
-      fill.position.set(0, 0, 1);
-      this.scene.add(rim, fill);
-    }
+    this.scene.add(key, new THREE.AmbientLight(0xffffff, 0.35));
     this.camera = new THREE.PerspectiveCamera(fov, 1, 1, 20000);
     this.camera.up.set(0, 0, 1);
     this.controls = new OrbitControls(this.camera, r.domElement);
@@ -283,9 +291,10 @@ export class Viewer {
     for (const m of meshes) {
       m.geometry = withNormals(m.geometry);
       m.material = partMaterial(part.color, this.style);
+      m.userData.draw = STYLES[this.style].edges ? drawing(part.color, this.style) : null;
       m.userData.entry = null;
       if (STYLES[this.style].edges) {
-        const edges = new THREE.LineSegments(edgesOf(m.geometry), new THREE.LineBasicMaterial({ color: STYLES[this.style].edge, transparent: true }));
+        const edges = new THREE.LineSegments(edgesOf(m.geometry), new THREE.LineBasicMaterial({ color: m.userData.draw.edge, transparent: true }));
         edges.raycast = () => {};
         m.add(edges);
       }
@@ -411,14 +420,14 @@ export class Viewer {
         const mat = m.material;
         mat.opacity += ((on ? 1 : 0.16) - mat.opacity) * 0.2;
         mat.depthWrite = mat.opacity > 0.9;
-        const st = STYLES[this.style];
+        const d = m.userData.draw;
         const hot = this.hovered && e === this.hovered;
-        if (st.edges) mat.color.setHex(hot ? st.hoverFace : st.face);
-        else if (mat.emissive) mat.emissive.setHex(this.hovered && e.part.model === this.hovered.part.model ? (this.style === 'dark' ? 0x222222 : 0x111111) : 0x000000);
+        if (d) mat.color.setHex(hot ? d.hoverFace : d.face);
+        else if (mat.emissive) mat.emissive.setHex(this.hovered && e.part.model === this.hovered.part.model ? 0x111111 : 0x000000);
         const line = m.children[0];
         if (line) {
           line.material.opacity = mat.opacity;
-          line.material.color.setHex(hot ? st.hoverEdge : st.edge);
+          line.material.color.setHex(hot ? d.hoverEdge : d.edge);
         }
       }
     }

@@ -11,9 +11,9 @@
                 "$TURBO_ROOT$/docs/**",
                 "$TURBO_ROOT$/hardware/**",
                 "$TURBO_ROOT$/bom/**",
-                "!public/mockups/data/**"
+                "!public/site/data/**"
             ],
-            "outputs": [".next/**", "!.next/cache/**", "public/mockups/data/**"]
+            "outputs": [".next/**", "!.next/cache/**", "public/site/data/**"]
         }
     }
 }

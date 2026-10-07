@@ -2,13 +2,13 @@ import type { NextConfig } from "next";
 
 const config: NextConfig = {
     poweredByHeader: false,
+    async rewrites() {
+        // The site is a static, client-routed page; its data is compiled into public/site/data at build time.
+        return { beforeFiles: [{ source: "/", destination: "/site/index.html" }], afterFiles: [], fallback: [] };
+    },
     async redirects() {
-        return [
-            { source: "/a", destination: "/mockups/a-index.html", permanent: false },
-            { source: "/b", destination: "/mockups/b-studio.html", permanent: false },
-            { source: "/c", destination: "/mockups/c-manual.html", permanent: false },
-            { source: "/d", destination: "/mockups/d-manual-ink.html", permanent: false },
-        ];
+        // Retired direction-mockup URLs.
+        return ["/a", "/b", "/c", "/d", "/mockups/:path*"].map((source) => ({ source, destination: "/", permanent: false }));
     },
 };
 

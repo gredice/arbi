@@ -2,14 +2,7 @@
 
 Next.js and Tailwind CSS site for [arbi.gredice.com](https://arbi.gredice.com). Its content is compiled from this repository at build time; the app holds no copies of documentation, models or BOM data.
 
-The first slice hosts three design-direction mockups for choosing the visual direction. Each one covers the home page, system exploded views, part pages with a 3D viewer, the BOM, documents and downloads.
-
-| Path | Direction |
-| --- | --- |
-| `/` | Direction chooser (`src/app/page.tsx`) |
-| `/a` → `public/mockups/a-index.html` | Warm off-white catalogue with rounded tiles, mono labels, numbered callouts and shaded renders |
-| `/b` → `public/mockups/b-studio.html` | Near-black full-bleed pages, a scroll-driven teardown on the home page and a hover HUD |
-| `/c` → `public/mockups/c-manual.html` | White pages with heavy rules, live line-art 3D in the booklet style and IKEA-style bubbles |
+The site is a single static page, `public/site/index.html`, served at `/` with hash routes for the home page, systems, parts, the BOM, documents and downloads. Its shared data and three.js layer is `public/site/shared/arbi.js`. The design is the selected "Manual + Ink" direction. White manual pages use heavy rules, condensed type and booklet-style line art. Exploded views sit in full-black sections that draw the same line art inverted, with each part's role readable: charcoal core in lighter gray, white shells in off-white, bought metal in mid gray. The cover is a scroll-driven teardown.
 
 ## Commands
 
@@ -19,7 +12,7 @@ pnpm --filter @arbi/docs build
 pnpm --filter @arbi/docs typecheck
 ```
 
-`dev` and `build` first run `scripts/compile-data.mjs`. It writes the ignored `public/mockups/data` from committed sources and CI-built CAD releases only:
+`dev` and `build` first run `scripts/compile-data.mjs`. It writes the ignored `public/site/data` from committed sources and CI-built CAD releases only:
 
 - `hardware/models.json` supplies models, revisions, statuses, sources and release output names.
 - `bom/catalog`, `bom/assemblies` and `bom/generated/arbi-v1-hr-zagreb.json` supply systems, items, quantities, offers and the incomplete-cost summary.
@@ -29,7 +22,7 @@ pnpm --filter @arbi/docs typecheck
 - Registered fabrication meshes missing from the packs, such as the dock and corner-station parts, are downloaded from the release and checked against its `SHA256SUMS.txt`. Assemblies without assembly transforms show those meshes side by side and are labelled as a parts layout, not an assembly.
 - Each model's download link is resolved at build time. A release asset is linked with its SHA-256. If the release lacks it, the link goes to the committed booklet pack that contains the mesh, pinned to the source commit.
 
-The build needs no secrets. It reads the public GitHub release; set `ARBI_OFFLINE=1` to use committed snapshots only, or `ARBI_CAD_RELEASE=cad-<sha>` to pin a release. Turbo caching is disabled for this build because its output depends on the latest release. The mockup pages load Tailwind, three.js, marked and fonts from CDNs in the browser.
+The build needs no secrets. It reads the public GitHub release; set `ARBI_OFFLINE=1` to use committed snapshots only, or `ARBI_CAD_RELEASE=cad-<sha>` to pin a release. Turbo caching is disabled for this build because its output depends on the latest release. The page loads Tailwind, three.js, marked and fonts from CDNs in the browser.
 
 ## Deployment
 

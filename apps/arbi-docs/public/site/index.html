@@ -3,8 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ARBI · D · Manual + Ink</title>
-<link rel="icon" type="image/png" href="data/docs/assets/brand/arbi-mark-transparent.png">
+<title>ARBI — Automatic Raised Bed Imaging</title>
+<meta name="description" content="Open engineering site for ARBI, a four-cable outdoor camera robot. Every drawing, part, number and document is compiled from the gredice/arbi repository.">
+<link rel="icon" type="image/png" href="/site/data/docs/assets/brand/arbi-mark-transparent.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
@@ -51,7 +52,7 @@
 <body>
 <header class="sticky top-0 z-40 bg-paper text-ink border-b-2 border-ink">
   <div class="px-4 sm:px-6 h-14 flex items-center gap-6">
-    <a href="#/" class="shrink-0"><img src="data/docs/assets/brand/arbi-logo-transparent.png" alt="ARBI" class="h-10 w-auto"></a>
+    <a href="#/" class="shrink-0"><img src="/site/data/docs/assets/brand/arbi-logo-transparent.png" alt="ARBI" class="h-10 w-auto"></a>
     <span class="tag text-grey hidden lg:inline">Automatic Raised Bed Imaging · open engineering manual</span>
     <nav class="ml-auto flex gap-5 tag overflow-x-auto" id="nav"><a href="#/systems/camera-pod">Systems</a><a href="#/parts">Parts</a><a href="#/bom">BOM</a><a href="#/docs">Docs</a><a href="#/downloads">Downloads</a></nav>
   </div>
@@ -59,12 +60,12 @@
 <div class="border-b border-ink px-4 sm:px-6 h-8 flex items-center justify-between tag" id="crumb"></div>
 <main id="app"></main>
 <footer class="bg-ink text-paper px-4 sm:px-6 py-6 flex flex-wrap items-center gap-x-8 gap-y-3 tag">
-  <img src="data/docs/assets/brand/arbi-logo.png" alt="ARBI" class="h-12 w-auto">
-  <span id="commit"></span><span>AGPL-3.0-only</span><span>Compiled from the repository · no website-only content</span><span class="ml-auto">mockup d · manual + ink</span>
+  <img src="/site/data/docs/assets/brand/arbi-logo.png" alt="ARBI" class="h-12 w-auto">
+  <span id="commit"></span><span>AGPL-3.0-only</span><span>Compiled from the repository · no website-only content</span><a class="ml-auto underline" href="https://github.com/gredice/arbi" target="_blank">github.com/gredice/arbi</a>
 </footer>
 
 <script type="module">
-import { loadSite, Viewer, router, renderDoc, fmt, links, DATA, layoutCallouts } from './shared/arbi.js';
+import { loadSite, Viewer, router, renderDoc, fmt, links, DATA, layoutCallouts } from '/site/shared/arbi.js';
 
 const S = await loadSite();
 const $app = document.getElementById('app');

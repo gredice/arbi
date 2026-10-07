@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Compile site data from committed repository sources and CI-built CAD releases into
-// public/mockups/data (ignored). Nothing here is authored for the website:
+// public/site/data (ignored). Nothing here is authored for the website:
 // - hardware/models.json (CAD registry)
 // - bom/catalog/*.json, bom/assemblies/assemblies.json, bom/generated/*.json (BOM)
 // - docs/**/*.md, hardware/**/*.md, bom/README.md and committed docs images
@@ -20,7 +20,7 @@ import { unzipSync } from 'fflate';
 
 const APP = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const REPO = resolve(APP, '../..');
-const OUT = join(APP, 'public/mockups/data');
+const OUT = join(APP, 'public/site/data');
 const GITHUB = 'https://github.com/gredice/arbi';
 const CORE = [0.12, 0.14, 0.15];
 // Booklet packs: committed snapshot path, release asset name, installed/exploded figures.
