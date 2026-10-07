@@ -1,0 +1,2829 @@
+{
+  "baseObservation": {
+    "version": "arbi-accounting/1.0",
+    "kind": "usage",
+    "observationId": "usage-total",
+    "realm": {
+      "environment": "test",
+      "namespaceId": "accounting-fixtures"
+    },
+    "executionMode": "simulation",
+    "siteId": "synthetic-site",
+    "source": {
+      "deviceId": "edge-fixture",
+      "bootId": "boot-1",
+      "sessionId": "session-1"
+    },
+    "counterEpoch": "epoch-1",
+    "boundary": "garden-sim",
+    "layer": "interface-wan",
+    "direction": "upload",
+    "linkId": "synthetic-sim",
+    "scope": "boundary-total",
+    "attributionRevision": "partition-1",
+    "deviceId": null,
+    "category": null,
+    "interval": {
+      "start": "2026-10-07T10:00:00.000Z",
+      "end": "2026-10-07T10:01:00.000Z"
+    },
+    "bytes": "0",
+    "evidence": {
+      "quality": "measured",
+      "coverage": "complete",
+      "includes": [
+        "payload",
+        "retries",
+        "transport-overhead",
+        "non-arbi"
+      ],
+      "observedAt": "2026-10-07T10:01:00.000Z",
+      "maxAgeMs": 60000,
+      "reason": null
+    },
+    "media": null
+  },
+  "plan": {
+    "version": "arbi-accounting/1.0",
+    "kind": "mobile-plan",
+    "planId": "user-plan",
+    "realm": {
+      "environment": "test",
+      "namespaceId": "accounting-fixtures"
+    },
+    "siteId": "synthetic-site",
+    "linkId": "synthetic-sim",
+    "allowance": {
+      "value": "20",
+      "unit": "GB"
+    },
+    "cycle": {
+      "frequency": "monthly",
+      "timezone": "Europe/Zagreb",
+      "anchorDay": 7,
+      "anchorHour": 0,
+      "anchorMinute": 0,
+      "shortMonth": "clamp-last-day",
+      "dstFold": "reject",
+      "dstGap": "reject"
+    },
+    "chargedDirections": "both",
+    "reset": "each-cycle",
+    "rollover": {
+      "policy": "none",
+      "cap": null
+    },
+    "tariff": null
+  },
+  "scenarios": [
+    {
+      "name": "direct-video",
+      "nowUtc": "2026-10-07T10:01:30.000Z",
+      "total": {
+        "version": "arbi-accounting/1.0",
+        "kind": "usage",
+        "observationId": "direct-video-total",
+        "realm": {
+          "environment": "test",
+          "namespaceId": "accounting-fixtures"
+        },
+        "executionMode": "simulation",
+        "siteId": "synthetic-site",
+        "source": {
+          "deviceId": "edge-fixture",
+          "bootId": "boot-1",
+          "sessionId": "session-1"
+        },
+        "counterEpoch": "epoch-1",
+        "boundary": "garden-sim",
+        "layer": "interface-wan",
+        "direction": "upload",
+        "linkId": "synthetic-sim",
+        "scope": "boundary-total",
+        "attributionRevision": "partition-1",
+        "deviceId": null,
+        "category": null,
+        "interval": {
+          "start": "2026-10-07T10:00:00.000Z",
+          "end": "2026-10-07T10:01:00.000Z"
+        },
+        "bytes": "11000000",
+        "evidence": {
+          "quality": "measured",
+          "coverage": "complete",
+          "includes": [
+            "payload",
+            "retries",
+            "transport-overhead",
+            "non-arbi"
+          ],
+          "observedAt": "2026-10-07T10:01:00.000Z",
+          "maxAgeMs": 60000,
+          "reason": null
+        },
+        "media": null
+      },
+      "attributions": [
+        {
+          "version": "arbi-accounting/1.0",
+          "kind": "usage",
+          "observationId": "direct-video-0",
+          "realm": {
+            "environment": "test",
+            "namespaceId": "accounting-fixtures"
+          },
+          "executionMode": "simulation",
+          "siteId": "synthetic-site",
+          "source": {
+            "deviceId": "edge-fixture",
+            "bootId": "boot-1",
+            "sessionId": "session-1"
+          },
+          "counterEpoch": "epoch-1",
+          "boundary": "garden-sim",
+          "layer": "interface-wan",
+          "direction": "upload",
+          "linkId": "synthetic-sim",
+          "scope": "attributed",
+          "attributionRevision": "partition-1",
+          "deviceId": "pod-fixture",
+          "category": "live-video",
+          "interval": {
+            "start": "2026-10-07T10:00:00.000Z",
+            "end": "2026-10-07T10:01:00.000Z"
+          },
+          "bytes": "10000000",
+          "evidence": {
+            "quality": "measured",
+            "coverage": "complete",
+            "includes": [
+              "payload",
+              "retries",
+              "transport-overhead",
+              "non-arbi"
+            ],
+            "observedAt": "2026-10-07T10:01:00.000Z",
+            "maxAgeMs": 60000,
+            "reason": null
+          },
+          "media": {
+            "topology": "direct",
+            "sessionId": "stream-1",
+            "viewerId": null,
+            "viewerCount": 1
+          }
+        },
+        {
+          "version": "arbi-accounting/1.0",
+          "kind": "usage",
+          "observationId": "direct-video-1",
+          "realm": {
+            "environment": "test",
+            "namespaceId": "accounting-fixtures"
+          },
+          "executionMode": "simulation",
+          "siteId": "synthetic-site",
+          "source": {
+            "deviceId": "edge-fixture",
+            "bootId": "boot-1",
+            "sessionId": "session-1"
+          },
+          "counterEpoch": "epoch-1",
+          "boundary": "garden-sim",
+          "layer": "interface-wan",
+          "direction": "upload",
+          "linkId": "synthetic-sim",
+          "scope": "attributed",
+          "attributionRevision": "partition-1",
+          "deviceId": "edge-fixture",
+          "category": "transport-overhead",
+          "interval": {
+            "start": "2026-10-07T10:00:00.000Z",
+            "end": "2026-10-07T10:01:00.000Z"
+          },
+          "bytes": "1000000",
+          "evidence": {
+            "quality": "measured",
+            "coverage": "complete",
+            "includes": [
+              "payload",
+              "retries",
+              "transport-overhead",
+              "non-arbi"
+            ],
+            "observedAt": "2026-10-07T10:01:00.000Z",
+            "maxAgeMs": 60000,
+            "reason": null
+          },
+          "media": null
+        }
+      ],
+      "expected": {
+        "totalBytes": "11000000",
+        "attributedBytes": "11000000",
+        "explicitlyUnknownBytes": "0",
+        "unattributedBytes": "0",
+        "status": "complete",
+        "quality": "measured",
+        "layer": "interface-wan",
+        "freshness": "fresh"
+      }
+    },
+    {
+      "name": "relayed-video",
+      "nowUtc": "2026-10-07T10:01:30.000Z",
+      "total": {
+        "version": "arbi-accounting/1.0",
+        "kind": "usage",
+        "observationId": "relayed-video-total",
+        "realm": {
+          "environment": "test",
+          "namespaceId": "accounting-fixtures"
+        },
+        "executionMode": "simulation",
+        "siteId": "synthetic-site",
+        "source": {
+          "deviceId": "edge-fixture",
+          "bootId": "boot-1",
+          "sessionId": "session-1"
+        },
+        "counterEpoch": "epoch-1",
+        "boundary": "garden-sim",
+        "layer": "interface-wan",
+        "direction": "upload",
+        "linkId": "synthetic-sim",
+        "scope": "boundary-total",
+        "attributionRevision": "partition-1",
+        "deviceId": null,
+        "category": null,
+        "interval": {
+          "start": "2026-10-07T10:00:00.000Z",
+          "end": "2026-10-07T10:01:00.000Z"
+        },
+        "bytes": "11200000",
+        "evidence": {
+          "quality": "measured",
+          "coverage": "complete",
+          "includes": [
+            "payload",
+            "retries",
+            "transport-overhead",
+            "non-arbi"
+          ],
+          "observedAt": "2026-10-07T10:01:00.000Z",
+          "maxAgeMs": 60000,
+          "reason": null
+        },
+        "media": null
+      },
+      "attributions": [
+        {
+          "version": "arbi-accounting/1.0",
+          "kind": "usage",
+          "observationId": "relayed-video-0",
+          "realm": {
+            "environment": "test",
+            "namespaceId": "accounting-fixtures"
+          },
+          "executionMode": "simulation",
+          "siteId": "synthetic-site",
+          "source": {
+            "deviceId": "edge-fixture",
+            "bootId": "boot-1",
+            "sessionId": "session-1"
+          },
+          "counterEpoch": "epoch-1",
+          "boundary": "garden-sim",
+          "layer": "interface-wan",
+          "direction": "upload",
+          "linkId": "synthetic-sim",
+          "scope": "attributed",
+          "attributionRevision": "partition-1",
+          "deviceId": "pod-fixture",
+          "category": "live-video",
+          "interval": {
+            "start": "2026-10-07T10:00:00.000Z",
+            "end": "2026-10-07T10:01:00.000Z"
+          },
+          "bytes": "10000000",
+          "evidence": {
+            "quality": "measured",
+            "coverage": "complete",
+            "includes": [
+              "payload",
+              "retries",
+              "transport-overhead",
+              "non-arbi"
+            ],
+            "observedAt": "2026-10-07T10:01:00.000Z",
+            "maxAgeMs": 60000,
+            "reason": null
+          },
+          "media": {
+            "topology": "relayed",
+            "sessionId": "stream-1",
+            "viewerId": null,
+            "viewerCount": 1
+          }
+        },
+        {
+          "version": "arbi-accounting/1.0",
+          "kind": "usage",
+          "observationId": "relayed-video-1",
+          "realm": {
+            "environment": "test",
+            "namespaceId": "accounting-fixtures"
+          },
+          "executionMode": "simulation",
+          "siteId": "synthetic-site",
+          "source": {
+            "deviceId": "edge-fixture",
+            "bootId": "boot-1",
+            "sessionId": "session-1"
+          },
+          "counterEpoch": "epoch-1",
+          "boundary": "garden-sim",
+          "layer": "interface-wan",
+          "direction": "upload",
+          "linkId": "synthetic-sim",
+          "scope": "attributed",
+          "attributionRevision": "partition-1",
+          "deviceId": "pod-fixture",
+          "category": "turn",
+          "interval": {
+            "start": "2026-10-07T10:00:00.000Z",
+            "end": "2026-10-07T10:01:00.000Z"
+          },
+          "bytes": "200000",
+          "evidence": {
+            "quality": "measured",
+            "coverage": "complete",
+            "includes": [
+              "payload",
+              "retries",
+              "transport-overhead",
+              "non-arbi"
+            ],
+            "observedAt": "2026-10-07T10:01:00.000Z",
+            "maxAgeMs": 60000,
+            "reason": null
+          },
+          "media": null
+        },
+        {
+          "version": "arbi-accounting/1.0",
+          "kind": "usage",
+          "observationId": "relayed-video-2",
+          "realm": {
+            "environment": "test",
+            "namespaceId": "accounting-fixtures"
+          },
+          "executionMode": "simulation",
+          "siteId": "synthetic-site",
+          "source": {
+            "deviceId": "edge-fixture",
+            "bootId": "boot-1",
+            "sessionId": "session-1"
+          },
+          "counterEpoch": "epoch-1",
+          "boundary": "garden-sim",
+          "layer": "interface-wan",
+          "direction": "upload",
+          "linkId": "synthetic-sim",
+          "scope": "attributed",
+          "attributionRevision": "partition-1",
+          "deviceId": "edge-fixture",
+          "category": "transport-overhead",
+          "interval": {
+            "start": "2026-10-07T10:00:00.000Z",
+            "end": "2026-10-07T10:01:00.000Z"
+          },
+          "bytes": "1000000",
+          "evidence": {
+            "quality": "measured",
+            "coverage": "complete",
+            "includes": [
+              "payload",
+              "retries",
+              "transport-overhead",
+              "non-arbi"
+            ],
+            "observedAt": "2026-10-07T10:01:00.000Z",
+            "maxAgeMs": 60000,
+            "reason": null
+          },
+          "media": null
+        }
+      ],
+      "expected": {
+        "totalBytes": "11200000",
+        "attributedBytes": "11200000",
+        "explicitlyUnknownBytes": "0",
+        "unattributedBytes": "0",
+        "status": "complete",
+        "quality": "measured",
+        "layer": "interface-wan",
+        "freshness": "fresh"
+      }
+    },
+    {
+      "name": "shared-five-viewers",
+      "nowUtc": "2026-10-07T10:01:30.000Z",
+      "total": {
+        "version": "arbi-accounting/1.0",
+        "kind": "usage",
+        "observationId": "shared-five-viewers-total",
+        "realm": {
+          "environment": "test",
+          "namespaceId": "accounting-fixtures"
+        },
+        "executionMode": "simulation",
+        "siteId": "synthetic-site",
+        "source": {
+          "deviceId": "edge-fixture",
+          "bootId": "boot-1",
+          "sessionId": "session-1"
+        },
+        "counterEpoch": "epoch-1",
+        "boundary": "garden-sim",
+        "layer": "interface-wan",
+        "direction": "upload",
+        "linkId": "synthetic-sim",
+        "scope": "boundary-total",
+        "attributionRevision": "partition-1",
+        "deviceId": null,
+        "category": null,
+        "interval": {
+          "start": "2026-10-07T10:00:00.000Z",
+          "end": "2026-10-07T10:01:00.000Z"
+        },
+        "bytes": "11200000",
+        "evidence": {
+          "quality": "measured",
+          "coverage": "complete",
+          "includes": [
+            "payload",
+            "retries",
+            "transport-overhead",
+            "non-arbi"
+          ],
+          "observedAt": "2026-10-07T10:01:00.000Z",
+          "maxAgeMs": 60000,
+          "reason": null
+        },
+        "media": null
+      },
+      "attributions": [
+        {
+          "version": "arbi-accounting/1.0",
+          "kind": "usage",
+          "observationId": "shared-five-viewers-0",
+          "realm": {
+            "environment": "test",
+            "namespaceId": "accounting-fixtures"
+          },
+          "executionMode": "simulation",
+          "siteId": "synthetic-site",
+          "source": {
+            "deviceId": "edge-fixture",
+            "bootId": "boot-1",
+            "sessionId": "session-1"
+          },
+          "counterEpoch": "epoch-1",
+          "boundary": "garden-sim",
+          "layer": "interface-wan",
+          "direction": "upload",
+          "linkId": "synthetic-sim",
+          "scope": "attributed",
+          "attributionRevision": "partition-1",
+          "deviceId": "pod-fixture",
+          "category": "live-video",
+          "interval": {
+            "start": "2026-10-07T10:00:00.000Z",
+            "end": "2026-10-07T10:01:00.000Z"
+          },
+          "bytes": "10000000",
+          "evidence": {
+            "quality": "measured",
+            "coverage": "complete",
+            "includes": [
+              "payload",
+              "retries",
+              "transport-overhead",
+              "non-arbi"
+            ],
+            "observedAt": "2026-10-07T10:01:00.000Z",
+            "maxAgeMs": 60000,
+            "reason": null
+          },
+          "media": {
+            "topology": "shared",
+            "sessionId": "stream-1",
+            "viewerId": null,
+            "viewerCount": 5
+          }
+        },
+        {
+          "version": "arbi-accounting/1.0",
+          "kind": "usage",
+          "observationId": "shared-five-viewers-1",
+          "realm": {
+            "environment": "test",
+            "namespaceId": "accounting-fixtures"
+          },
+          "executionMode": "simulation",
+          "siteId": "synthetic-site",
+          "source": {
+            "deviceId": "edge-fixture",
+            "bootId": "boot-1",
+            "sessionId": "session-1"
+          },
+          "counterEpoch": "epoch-1",
+          "boundary": "garden-sim",
+          "layer": "interface-wan",
+          "direction": "upload",
+          "linkId": "synthetic-sim",
+          "scope": "attributed",
+          "attributionRevision": "partition-1",
+          "deviceId": "pod-fixture",
+          "category": "turn",
+          "interval": {
+            "start": "2026-10-07T10:00:00.000Z",
+            "end": "2026-10-07T10:01:00.000Z"
+          },
+          "bytes": "200000",
+          "evidence": {
+            "quality": "measured",
+            "coverage": "complete",
+            "includes": [
+              "payload",
+              "retries",
+              "transport-overhead",
+              "non-arbi"
+            ],
+            "observedAt": "2026-10-07T10:01:00.000Z",
+            "maxAgeMs": 60000,
+            "reason": null
+          },
+          "media": null
+        },
+        {
+          "version": "arbi-accounting/1.0",
+          "kind": "usage",
+          "observationId": "shared-five-viewers-2",
+          "realm": {
+            "environment": "test",
+            "namespaceId": "accounting-fixtures"
+          },
+          "executionMode": "simulation",
+          "siteId": "synthetic-site",
+          "source": {
+            "deviceId": "edge-fixture",
+            "bootId": "boot-1",
+            "sessionId": "session-1"
+          },
+          "counterEpoch": "epoch-1",
+          "boundary": "garden-sim",
+          "layer": "interface-wan",
+          "direction": "upload",
+          "linkId": "synthetic-sim",
+          "scope": "attributed",
+          "attributionRevision": "partition-1",
+          "deviceId": "edge-fixture",
+          "category": "transport-overhead",
+          "interval": {
+            "start": "2026-10-07T10:00:00.000Z",
+            "end": "2026-10-07T10:01:00.000Z"
+          },
+          "bytes": "1000000",
+          "evidence": {
+            "quality": "measured",
+            "coverage": "complete",
+            "includes": [
+              "payload",
+              "retries",
+              "transport-overhead",
+              "non-arbi"
+            ],
+            "observedAt": "2026-10-07T10:01:00.000Z",
+            "maxAgeMs": 60000,
+            "reason": null
+          },
+          "media": null
+        }
+      ],
+      "expected": {
+        "totalBytes": "11200000",
+        "attributedBytes": "11200000",
+        "explicitlyUnknownBytes": "0",
+        "unattributedBytes": "0",
+        "status": "complete",
+        "quality": "measured",
+        "layer": "interface-wan",
+        "freshness": "fresh"
+      }
+    },
+    {
+      "name": "cloud-five-viewers",
+      "nowUtc": "2026-10-07T10:01:30.000Z",
+      "total": {
+        "version": "arbi-accounting/1.0",
+        "kind": "usage",
+        "observationId": "cloud-five-viewers-total",
+        "realm": {
+          "environment": "test",
+          "namespaceId": "accounting-fixtures"
+        },
+        "executionMode": "simulation",
+        "siteId": "synthetic-site",
+        "source": {
+          "deviceId": "relay-fixture",
+          "bootId": "relay-boot",
+          "sessionId": "relay-session"
+        },
+        "counterEpoch": "epoch-1",
+        "boundary": "cloud-viewer",
+        "layer": "interface-wan",
+        "direction": "upload",
+        "linkId": "relay-viewer-link",
+        "scope": "boundary-total",
+        "attributionRevision": "partition-1",
+        "deviceId": null,
+        "category": null,
+        "interval": {
+          "start": "2026-10-07T10:00:00.000Z",
+          "end": "2026-10-07T10:01:00.000Z"
+        },
+        "bytes": "50000000",
+        "evidence": {
+          "quality": "measured",
+          "coverage": "complete",
+          "includes": [
+            "payload",
+            "retries",
+            "transport-overhead",
+            "non-arbi"
+          ],
+          "observedAt": "2026-10-07T10:01:00.000Z",
+          "maxAgeMs": 60000,
+          "reason": null
+        },
+        "media": null
+      },
+      "attributions": [
+        {
+          "version": "arbi-accounting/1.0",
+          "kind": "usage",
+          "observationId": "cloud-five-viewers-0",
+          "realm": {
+            "environment": "test",
+            "namespaceId": "accounting-fixtures"
+          },
+          "executionMode": "simulation",
+          "siteId": "synthetic-site",
+          "source": {
+            "deviceId": "relay-fixture",
+            "bootId": "relay-boot",
+            "sessionId": "relay-session"
+          },
+          "counterEpoch": "epoch-1",
+          "boundary": "cloud-viewer",
+          "layer": "interface-wan",
+          "direction": "upload",
+          "linkId": "relay-viewer-link",
+          "scope": "attributed",
+          "attributionRevision": "partition-1",
+          "deviceId": null,
+          "category": "live-video",
+          "interval": {
+            "start": "2026-10-07T10:00:00.000Z",
+            "end": "2026-10-07T10:01:00.000Z"
+          },
+          "bytes": "50000000",
+          "evidence": {
+            "quality": "measured",
+            "coverage": "complete",
+            "includes": [
+              "payload",
+              "retries",
+              "transport-overhead",
+              "non-arbi"
+            ],
+            "observedAt": "2026-10-07T10:01:00.000Z",
+            "maxAgeMs": 60000,
+            "reason": null
+          },
+          "media": {
+            "topology": "shared",
+            "sessionId": "stream-1",
+            "viewerId": null,
+            "viewerCount": 5
+          }
+        }
+      ],
+      "expected": {
+        "totalBytes": "50000000",
+        "attributedBytes": "50000000",
+        "explicitlyUnknownBytes": "0",
+        "unattributedBytes": "0",
+        "status": "complete",
+        "quality": "measured",
+        "layer": "interface-wan",
+        "freshness": "fresh"
+      }
+    },
+    {
+      "name": "cloud-relay-ingress",
+      "nowUtc": "2026-10-07T10:01:30.000Z",
+      "total": {
+        "version": "arbi-accounting/1.0",
+        "kind": "usage",
+        "observationId": "cloud-relay-ingress-total",
+        "realm": {
+          "environment": "test",
+          "namespaceId": "accounting-fixtures"
+        },
+        "executionMode": "simulation",
+        "siteId": "synthetic-site",
+        "source": {
+          "deviceId": "relay-fixture",
+          "bootId": "relay-boot",
+          "sessionId": "relay-session"
+        },
+        "counterEpoch": "epoch-1",
+        "boundary": "cloud-relay",
+        "layer": "interface-wan",
+        "direction": "download",
+        "linkId": "relay-ingress",
+        "scope": "boundary-total",
+        "attributionRevision": "partition-1",
+        "deviceId": null,
+        "category": null,
+        "interval": {
+          "start": "2026-10-07T10:00:00.000Z",
+          "end": "2026-10-07T10:01:00.000Z"
+        },
+        "bytes": "10000000",
+        "evidence": {
+          "quality": "measured",
+          "coverage": "complete",
+          "includes": [
+            "payload",
+            "retries",
+            "transport-overhead",
+            "non-arbi"
+          ],
+          "observedAt": "2026-10-07T10:01:00.000Z",
+          "maxAgeMs": 60000,
+          "reason": null
+        },
+        "media": null
+      },
+      "attributions": [
+        {
+          "version": "arbi-accounting/1.0",
+          "kind": "usage",
+          "observationId": "cloud-relay-ingress-0",
+          "realm": {
+            "environment": "test",
+            "namespaceId": "accounting-fixtures"
+          },
+          "executionMode": "simulation",
+          "siteId": "synthetic-site",
+          "source": {
+            "deviceId": "relay-fixture",
+            "bootId": "relay-boot",
+            "sessionId": "relay-session"
+          },
+          "counterEpoch": "epoch-1",
+          "boundary": "cloud-relay",
+          "layer": "interface-wan",
+          "direction": "download",
+          "linkId": "relay-ingress",
+          "scope": "attributed",
+          "attributionRevision": "partition-1",
+          "deviceId": null,
+          "category": "live-video",
+          "interval": {
+            "start": "2026-10-07T10:00:00.000Z",
+            "end": "2026-10-07T10:01:00.000Z"
+          },
+          "bytes": "10000000",
+          "evidence": {
+            "quality": "measured",
+            "coverage": "complete",
+            "includes": [
+              "payload",
+              "retries",
+              "transport-overhead",
+              "non-arbi"
+            ],
+            "observedAt": "2026-10-07T10:01:00.000Z",
+            "maxAgeMs": 60000,
+            "reason": null
+          },
+          "media": {
+            "topology": "shared",
+            "sessionId": "stream-1",
+            "viewerId": null,
+            "viewerCount": 5
+          }
+        }
+      ],
+      "expected": {
+        "totalBytes": "10000000",
+        "attributedBytes": "10000000",
+        "explicitlyUnknownBytes": "0",
+        "unattributedBytes": "0",
+        "status": "complete",
+        "quality": "measured",
+        "layer": "interface-wan",
+        "freshness": "fresh"
+      }
+    },
+    {
+      "name": "capture-retry-upload",
+      "nowUtc": "2026-10-07T10:01:30.000Z",
+      "total": {
+        "version": "arbi-accounting/1.0",
+        "kind": "usage",
+        "observationId": "capture-retry-upload-total",
+        "realm": {
+          "environment": "test",
+          "namespaceId": "accounting-fixtures"
+        },
+        "executionMode": "simulation",
+        "siteId": "synthetic-site",
+        "source": {
+          "deviceId": "edge-fixture",
+          "bootId": "boot-1",
+          "sessionId": "session-1"
+        },
+        "counterEpoch": "epoch-1",
+        "boundary": "garden-sim",
+        "layer": "interface-wan",
+        "direction": "upload",
+        "linkId": "synthetic-sim",
+        "scope": "boundary-total",
+        "attributionRevision": "partition-1",
+        "deviceId": null,
+        "category": null,
+        "interval": {
+          "start": "2026-10-07T10:00:00.000Z",
+          "end": "2026-10-07T10:01:00.000Z"
+        },
+        "bytes": "8500000",
+        "evidence": {
+          "quality": "measured",
+          "coverage": "complete",
+          "includes": [
+            "payload",
+            "retries",
+            "transport-overhead",
+            "non-arbi"
+          ],
+          "observedAt": "2026-10-07T10:01:00.000Z",
+          "maxAgeMs": 60000,
+          "reason": null
+        },
+        "media": null
+      },
+      "attributions": [
+        {
+          "version": "arbi-accounting/1.0",
+          "kind": "usage",
+          "observationId": "capture-retry-upload-0",
+          "realm": {
+            "environment": "test",
+            "namespaceId": "accounting-fixtures"
+          },
+          "executionMode": "simulation",
+          "siteId": "synthetic-site",
+          "source": {
+            "deviceId": "edge-fixture",
+            "bootId": "boot-1",
+            "sessionId": "session-1"
+          },
+          "counterEpoch": "epoch-1",
+          "boundary": "garden-sim",
+          "layer": "interface-wan",
+          "direction": "upload",
+          "linkId": "synthetic-sim",
+          "scope": "attributed",
+          "attributionRevision": "partition-1",
+          "deviceId": "pod-fixture",
+          "category": "still",
+          "interval": {
+            "start": "2026-10-07T10:00:00.000Z",
+            "end": "2026-10-07T10:01:00.000Z"
+          },
+          "bytes": "6000000",
+          "evidence": {
+            "quality": "measured",
+            "coverage": "complete",
+            "includes": [
+              "payload",
+              "retries",
+              "transport-overhead",
+              "non-arbi"
+            ],
+            "observedAt": "2026-10-07T10:01:00.000Z",
+            "maxAgeMs": 60000,
+            "reason": null
+          },
+          "media": null
+        },
+        {
+          "version": "arbi-accounting/1.0",
+          "kind": "usage",
+          "observationId": "capture-retry-upload-1",
+          "realm": {
+            "environment": "test",
+            "namespaceId": "accounting-fixtures"
+          },
+          "executionMode": "simulation",
+          "siteId": "synthetic-site",
+          "source": {
+            "deviceId": "edge-fixture",
+            "bootId": "boot-1",
+            "sessionId": "session-1"
+          },
+          "counterEpoch": "epoch-1",
+          "boundary": "garden-sim",
+          "layer": "interface-wan",
+          "direction": "upload",
+          "linkId": "synthetic-sim",
+          "scope": "attributed",
+          "attributionRevision": "partition-1",
+          "deviceId": "pod-fixture",
+          "category": "thumbnail",
+          "interval": {
+            "start": "2026-10-07T10:00:00.000Z",
+            "end": "2026-10-07T10:01:00.000Z"
+          },
+          "bytes": "200000",
+          "evidence": {
+            "quality": "measured",
+            "coverage": "complete",
+            "includes": [
+              "payload",
+              "retries",
+              "transport-overhead",
+              "non-arbi"
+            ],
+            "observedAt": "2026-10-07T10:01:00.000Z",
+            "maxAgeMs": 60000,
+            "reason": null
+          },
+          "media": null
+        },
+        {
+          "version": "arbi-accounting/1.0",
+          "kind": "usage",
+          "observationId": "capture-retry-upload-2",
+          "realm": {
+            "environment": "test",
+            "namespaceId": "accounting-fixtures"
+          },
+          "executionMode": "simulation",
+          "siteId": "synthetic-site",
+          "source": {
+            "deviceId": "edge-fixture",
+            "bootId": "boot-1",
+            "sessionId": "session-1"
+          },
+          "counterEpoch": "epoch-1",
+          "boundary": "garden-sim",
+          "layer": "interface-wan",
+          "direction": "upload",
+          "linkId": "synthetic-sim",
+          "scope": "attributed",
+          "attributionRevision": "partition-1",
+          "deviceId": "pod-fixture",
+          "category": "retry",
+          "interval": {
+            "start": "2026-10-07T10:00:00.000Z",
+            "end": "2026-10-07T10:01:00.000Z"
+          },
+          "bytes": "2000000",
+          "evidence": {
+            "quality": "measured",
+            "coverage": "complete",
+            "includes": [
+              "payload",
+              "retries",
+              "transport-overhead",
+              "non-arbi"
+            ],
+            "observedAt": "2026-10-07T10:01:00.000Z",
+            "maxAgeMs": 60000,
+            "reason": null
+          },
+          "media": null
+        },
+        {
+          "version": "arbi-accounting/1.0",
+          "kind": "usage",
+          "observationId": "capture-retry-upload-3",
+          "realm": {
+            "environment": "test",
+            "namespaceId": "accounting-fixtures"
+          },
+          "executionMode": "simulation",
+          "siteId": "synthetic-site",
+          "source": {
+            "deviceId": "edge-fixture",
+            "bootId": "boot-1",
+            "sessionId": "session-1"
+          },
+          "counterEpoch": "epoch-1",
+          "boundary": "garden-sim",
+          "layer": "interface-wan",
+          "direction": "upload",
+          "linkId": "synthetic-sim",
+          "scope": "attributed",
+          "attributionRevision": "partition-1",
+          "deviceId": "edge-fixture",
+          "category": "transport-overhead",
+          "interval": {
+            "start": "2026-10-07T10:00:00.000Z",
+            "end": "2026-10-07T10:01:00.000Z"
+          },
+          "bytes": "300000",
+          "evidence": {
+            "quality": "measured",
+            "coverage": "complete",
+            "includes": [
+              "payload",
+              "retries",
+              "transport-overhead",
+              "non-arbi"
+            ],
+            "observedAt": "2026-10-07T10:01:00.000Z",
+            "maxAgeMs": 60000,
+            "reason": null
+          },
+          "media": null
+        }
+      ],
+      "expected": {
+        "totalBytes": "8500000",
+        "attributedBytes": "8500000",
+        "explicitlyUnknownBytes": "0",
+        "unattributedBytes": "0",
+        "status": "complete",
+        "quality": "measured",
+        "layer": "interface-wan",
+        "freshness": "fresh"
+      }
+    },
+    {
+      "name": "ota-os-download",
+      "nowUtc": "2026-10-07T10:01:30.000Z",
+      "total": {
+        "version": "arbi-accounting/1.0",
+        "kind": "usage",
+        "observationId": "ota-os-download-total",
+        "realm": {
+          "environment": "test",
+          "namespaceId": "accounting-fixtures"
+        },
+        "executionMode": "simulation",
+        "siteId": "synthetic-site",
+        "source": {
+          "deviceId": "edge-fixture",
+          "bootId": "boot-1",
+          "sessionId": "session-1"
+        },
+        "counterEpoch": "epoch-1",
+        "boundary": "garden-sim",
+        "layer": "interface-wan",
+        "direction": "download",
+        "linkId": "synthetic-sim",
+        "scope": "boundary-total",
+        "attributionRevision": "partition-1",
+        "deviceId": null,
+        "category": null,
+        "interval": {
+          "start": "2026-10-07T10:00:00.000Z",
+          "end": "2026-10-07T10:01:00.000Z"
+        },
+        "bytes": "162000000",
+        "evidence": {
+          "quality": "measured",
+          "coverage": "complete",
+          "includes": [
+            "payload",
+            "retries",
+            "transport-overhead",
+            "non-arbi"
+          ],
+          "observedAt": "2026-10-07T10:01:00.000Z",
+          "maxAgeMs": 60000,
+          "reason": null
+        },
+        "media": null
+      },
+      "attributions": [
+        {
+          "version": "arbi-accounting/1.0",
+          "kind": "usage",
+          "observationId": "ota-os-download-0",
+          "realm": {
+            "environment": "test",
+            "namespaceId": "accounting-fixtures"
+          },
+          "executionMode": "simulation",
+          "siteId": "synthetic-site",
+          "source": {
+            "deviceId": "edge-fixture",
+            "bootId": "boot-1",
+            "sessionId": "session-1"
+          },
+          "counterEpoch": "epoch-1",
+          "boundary": "garden-sim",
+          "layer": "interface-wan",
+          "direction": "download",
+          "linkId": "synthetic-sim",
+          "scope": "attributed",
+          "attributionRevision": "partition-1",
+          "deviceId": "edge-fixture",
+          "category": "ota",
+          "interval": {
+            "start": "2026-10-07T10:00:00.000Z",
+            "end": "2026-10-07T10:01:00.000Z"
+          },
+          "bytes": "100000000",
+          "evidence": {
+            "quality": "measured",
+            "coverage": "complete",
+            "includes": [
+              "payload",
+              "retries",
+              "transport-overhead",
+              "non-arbi"
+            ],
+            "observedAt": "2026-10-07T10:01:00.000Z",
+            "maxAgeMs": 60000,
+            "reason": null
+          },
+          "media": null
+        },
+        {
+          "version": "arbi-accounting/1.0",
+          "kind": "usage",
+          "observationId": "ota-os-download-1",
+          "realm": {
+            "environment": "test",
+            "namespaceId": "accounting-fixtures"
+          },
+          "executionMode": "simulation",
+          "siteId": "synthetic-site",
+          "source": {
+            "deviceId": "edge-fixture",
+            "bootId": "boot-1",
+            "sessionId": "session-1"
+          },
+          "counterEpoch": "epoch-1",
+          "boundary": "garden-sim",
+          "layer": "interface-wan",
+          "direction": "download",
+          "linkId": "synthetic-sim",
+          "scope": "attributed",
+          "attributionRevision": "partition-1",
+          "deviceId": "edge-fixture",
+          "category": "os-update",
+          "interval": {
+            "start": "2026-10-07T10:00:00.000Z",
+            "end": "2026-10-07T10:01:00.000Z"
+          },
+          "bytes": "50000000",
+          "evidence": {
+            "quality": "measured",
+            "coverage": "complete",
+            "includes": [
+              "payload",
+              "retries",
+              "transport-overhead",
+              "non-arbi"
+            ],
+            "observedAt": "2026-10-07T10:01:00.000Z",
+            "maxAgeMs": 60000,
+            "reason": null
+          },
+          "media": null
+        },
+        {
+          "version": "arbi-accounting/1.0",
+          "kind": "usage",
+          "observationId": "ota-os-download-2",
+          "realm": {
+            "environment": "test",
+            "namespaceId": "accounting-fixtures"
+          },
+          "executionMode": "simulation",
+          "siteId": "synthetic-site",
+          "source": {
+            "deviceId": "edge-fixture",
+            "bootId": "boot-1",
+            "sessionId": "session-1"
+          },
+          "counterEpoch": "epoch-1",
+          "boundary": "garden-sim",
+          "layer": "interface-wan",
+          "direction": "download",
+          "linkId": "synthetic-sim",
+          "scope": "attributed",
+          "attributionRevision": "partition-1",
+          "deviceId": "edge-fixture",
+          "category": "retry",
+          "interval": {
+            "start": "2026-10-07T10:00:00.000Z",
+            "end": "2026-10-07T10:01:00.000Z"
+          },
+          "bytes": "10000000",
+          "evidence": {
+            "quality": "measured",
+            "coverage": "complete",
+            "includes": [
+              "payload",
+              "retries",
+              "transport-overhead",
+              "non-arbi"
+            ],
+            "observedAt": "2026-10-07T10:01:00.000Z",
+            "maxAgeMs": 60000,
+            "reason": null
+          },
+          "media": null
+        },
+        {
+          "version": "arbi-accounting/1.0",
+          "kind": "usage",
+          "observationId": "ota-os-download-3",
+          "realm": {
+            "environment": "test",
+            "namespaceId": "accounting-fixtures"
+          },
+          "executionMode": "simulation",
+          "siteId": "synthetic-site",
+          "source": {
+            "deviceId": "edge-fixture",
+            "bootId": "boot-1",
+            "sessionId": "session-1"
+          },
+          "counterEpoch": "epoch-1",
+          "boundary": "garden-sim",
+          "layer": "interface-wan",
+          "direction": "download",
+          "linkId": "synthetic-sim",
+          "scope": "attributed",
+          "attributionRevision": "partition-1",
+          "deviceId": "edge-fixture",
+          "category": "transport-overhead",
+          "interval": {
+            "start": "2026-10-07T10:00:00.000Z",
+            "end": "2026-10-07T10:01:00.000Z"
+          },
+          "bytes": "2000000",
+          "evidence": {
+            "quality": "measured",
+            "coverage": "complete",
+            "includes": [
+              "payload",
+              "retries",
+              "transport-overhead",
+              "non-arbi"
+            ],
+            "observedAt": "2026-10-07T10:01:00.000Z",
+            "maxAgeMs": 60000,
+            "reason": null
+          },
+          "media": null
+        }
+      ],
+      "expected": {
+        "totalBytes": "162000000",
+        "attributedBytes": "162000000",
+        "explicitlyUnknownBytes": "0",
+        "unattributedBytes": "0",
+        "status": "complete",
+        "quality": "measured",
+        "layer": "interface-wan",
+        "freshness": "fresh"
+      }
+    },
+    {
+      "name": "lan-only-capture",
+      "nowUtc": "2026-10-07T10:01:30.000Z",
+      "total": {
+        "version": "arbi-accounting/1.0",
+        "kind": "usage",
+        "observationId": "lan-only-capture-total",
+        "realm": {
+          "environment": "test",
+          "namespaceId": "accounting-fixtures"
+        },
+        "executionMode": "simulation",
+        "siteId": "synthetic-site",
+        "source": {
+          "deviceId": "edge-fixture",
+          "bootId": "boot-1",
+          "sessionId": "session-1"
+        },
+        "counterEpoch": "epoch-1",
+        "boundary": "lan",
+        "layer": "interface-wan",
+        "direction": "upload",
+        "linkId": "pod-edge-wifi",
+        "scope": "boundary-total",
+        "attributionRevision": "partition-1",
+        "deviceId": null,
+        "category": null,
+        "interval": {
+          "start": "2026-10-07T10:00:00.000Z",
+          "end": "2026-10-07T10:01:00.000Z"
+        },
+        "bytes": "6000000",
+        "evidence": {
+          "quality": "measured",
+          "coverage": "complete",
+          "includes": [
+            "payload",
+            "retries",
+            "transport-overhead",
+            "non-arbi"
+          ],
+          "observedAt": "2026-10-07T10:01:00.000Z",
+          "maxAgeMs": 60000,
+          "reason": null
+        },
+        "media": null
+      },
+      "attributions": [
+        {
+          "version": "arbi-accounting/1.0",
+          "kind": "usage",
+          "observationId": "lan-only-capture-0",
+          "realm": {
+            "environment": "test",
+            "namespaceId": "accounting-fixtures"
+          },
+          "executionMode": "simulation",
+          "siteId": "synthetic-site",
+          "source": {
+            "deviceId": "edge-fixture",
+            "bootId": "boot-1",
+            "sessionId": "session-1"
+          },
+          "counterEpoch": "epoch-1",
+          "boundary": "lan",
+          "layer": "interface-wan",
+          "direction": "upload",
+          "linkId": "pod-edge-wifi",
+          "scope": "attributed",
+          "attributionRevision": "partition-1",
+          "deviceId": "pod-fixture",
+          "category": "still",
+          "interval": {
+            "start": "2026-10-07T10:00:00.000Z",
+            "end": "2026-10-07T10:01:00.000Z"
+          },
+          "bytes": "6000000",
+          "evidence": {
+            "quality": "measured",
+            "coverage": "complete",
+            "includes": [
+              "payload",
+              "retries",
+              "transport-overhead",
+              "non-arbi"
+            ],
+            "observedAt": "2026-10-07T10:01:00.000Z",
+            "maxAgeMs": 60000,
+            "reason": null
+          },
+          "media": null
+        }
+      ],
+      "expected": {
+        "totalBytes": "6000000",
+        "attributedBytes": "6000000",
+        "explicitlyUnknownBytes": "0",
+        "unattributedBytes": "0",
+        "status": "complete",
+        "quality": "measured",
+        "layer": "interface-wan",
+        "freshness": "fresh"
+      }
+    },
+    {
+      "name": "lan-only-sim-zero",
+      "nowUtc": "2026-10-07T10:01:30.000Z",
+      "total": {
+        "version": "arbi-accounting/1.0",
+        "kind": "usage",
+        "observationId": "lan-only-sim-zero-total",
+        "realm": {
+          "environment": "test",
+          "namespaceId": "accounting-fixtures"
+        },
+        "executionMode": "simulation",
+        "siteId": "synthetic-site",
+        "source": {
+          "deviceId": "edge-fixture",
+          "bootId": "boot-1",
+          "sessionId": "session-1"
+        },
+        "counterEpoch": "epoch-1",
+        "boundary": "garden-sim",
+        "layer": "interface-wan",
+        "direction": "upload",
+        "linkId": "synthetic-sim",
+        "scope": "boundary-total",
+        "attributionRevision": "partition-1",
+        "deviceId": null,
+        "category": null,
+        "interval": {
+          "start": "2026-10-07T10:00:00.000Z",
+          "end": "2026-10-07T10:01:00.000Z"
+        },
+        "bytes": "0",
+        "evidence": {
+          "quality": "measured",
+          "coverage": "complete",
+          "includes": [
+            "payload",
+            "retries",
+            "transport-overhead",
+            "non-arbi"
+          ],
+          "observedAt": "2026-10-07T10:01:00.000Z",
+          "maxAgeMs": 60000,
+          "reason": null
+        },
+        "media": null
+      },
+      "attributions": [],
+      "expected": {
+        "totalBytes": "0",
+        "attributedBytes": "0",
+        "explicitlyUnknownBytes": "0",
+        "unattributedBytes": "0",
+        "status": "complete",
+        "quality": "measured",
+        "layer": "interface-wan",
+        "freshness": "fresh"
+      }
+    },
+    {
+      "name": "unknown-and-residual",
+      "nowUtc": "2026-10-07T10:01:30.000Z",
+      "total": {
+        "version": "arbi-accounting/1.0",
+        "kind": "usage",
+        "observationId": "unknown-and-residual-total",
+        "realm": {
+          "environment": "test",
+          "namespaceId": "accounting-fixtures"
+        },
+        "executionMode": "simulation",
+        "siteId": "synthetic-site",
+        "source": {
+          "deviceId": "edge-fixture",
+          "bootId": "boot-1",
+          "sessionId": "session-1"
+        },
+        "counterEpoch": "epoch-1",
+        "boundary": "garden-sim",
+        "layer": "interface-wan",
+        "direction": "upload",
+        "linkId": "synthetic-sim",
+        "scope": "boundary-total",
+        "attributionRevision": "partition-1",
+        "deviceId": null,
+        "category": null,
+        "interval": {
+          "start": "2026-10-07T10:00:00.000Z",
+          "end": "2026-10-07T10:01:00.000Z"
+        },
+        "bytes": "1000",
+        "evidence": {
+          "quality": "measured",
+          "coverage": "complete",
+          "includes": [
+            "payload",
+            "retries",
+            "transport-overhead",
+            "non-arbi"
+          ],
+          "observedAt": "2026-10-07T10:01:00.000Z",
+          "maxAgeMs": 60000,
+          "reason": null
+        },
+        "media": null
+      },
+      "attributions": [
+        {
+          "version": "arbi-accounting/1.0",
+          "kind": "usage",
+          "observationId": "unknown-and-residual-0",
+          "realm": {
+            "environment": "test",
+            "namespaceId": "accounting-fixtures"
+          },
+          "executionMode": "simulation",
+          "siteId": "synthetic-site",
+          "source": {
+            "deviceId": "edge-fixture",
+            "bootId": "boot-1",
+            "sessionId": "session-1"
+          },
+          "counterEpoch": "epoch-1",
+          "boundary": "garden-sim",
+          "layer": "interface-wan",
+          "direction": "upload",
+          "linkId": "synthetic-sim",
+          "scope": "attributed",
+          "attributionRevision": "partition-1",
+          "deviceId": "pod-fixture",
+          "category": "telemetry",
+          "interval": {
+            "start": "2026-10-07T10:00:00.000Z",
+            "end": "2026-10-07T10:01:00.000Z"
+          },
+          "bytes": "600",
+          "evidence": {
+            "quality": "measured",
+            "coverage": "complete",
+            "includes": [
+              "payload",
+              "retries",
+              "transport-overhead",
+              "non-arbi"
+            ],
+            "observedAt": "2026-10-07T10:01:00.000Z",
+            "maxAgeMs": 60000,
+            "reason": null
+          },
+          "media": null
+        },
+        {
+          "version": "arbi-accounting/1.0",
+          "kind": "usage",
+          "observationId": "unknown-and-residual-1",
+          "realm": {
+            "environment": "test",
+            "namespaceId": "accounting-fixtures"
+          },
+          "executionMode": "simulation",
+          "siteId": "synthetic-site",
+          "source": {
+            "deviceId": "edge-fixture",
+            "bootId": "boot-1",
+            "sessionId": "session-1"
+          },
+          "counterEpoch": "epoch-1",
+          "boundary": "garden-sim",
+          "layer": "interface-wan",
+          "direction": "upload",
+          "linkId": "synthetic-sim",
+          "scope": "attributed",
+          "attributionRevision": "partition-1",
+          "deviceId": null,
+          "category": "unknown",
+          "interval": {
+            "start": "2026-10-07T10:00:00.000Z",
+            "end": "2026-10-07T10:01:00.000Z"
+          },
+          "bytes": "100",
+          "evidence": {
+            "quality": "measured",
+            "coverage": "complete",
+            "includes": [
+              "payload",
+              "retries",
+              "transport-overhead",
+              "non-arbi"
+            ],
+            "observedAt": "2026-10-07T10:01:00.000Z",
+            "maxAgeMs": 60000,
+            "reason": null
+          },
+          "media": null
+        }
+      ],
+      "expected": {
+        "totalBytes": "1000",
+        "attributedBytes": "700",
+        "explicitlyUnknownBytes": "100",
+        "unattributedBytes": "300",
+        "status": "partial",
+        "quality": "measured",
+        "layer": "interface-wan",
+        "freshness": "fresh"
+      }
+    },
+    {
+      "name": "unsupported-router",
+      "nowUtc": "2026-10-07T10:01:30.000Z",
+      "total": {
+        "version": "arbi-accounting/1.0",
+        "kind": "usage",
+        "observationId": "unsupported-router-total",
+        "realm": {
+          "environment": "test",
+          "namespaceId": "accounting-fixtures"
+        },
+        "executionMode": "simulation",
+        "siteId": "synthetic-site",
+        "source": {
+          "deviceId": "edge-fixture",
+          "bootId": "boot-1",
+          "sessionId": "session-1"
+        },
+        "counterEpoch": "epoch-1",
+        "boundary": "garden-sim",
+        "layer": "interface-wan",
+        "direction": "upload",
+        "linkId": "synthetic-sim",
+        "scope": "boundary-total",
+        "attributionRevision": "partition-1",
+        "deviceId": null,
+        "category": null,
+        "interval": {
+          "start": "2026-10-07T10:00:00.000Z",
+          "end": "2026-10-07T10:01:00.000Z"
+        },
+        "bytes": null,
+        "evidence": {
+          "quality": "unavailable",
+          "coverage": "unknown",
+          "includes": [],
+          "observedAt": null,
+          "maxAgeMs": 60000,
+          "reason": "unsupported-counter"
+        },
+        "media": null
+      },
+      "attributions": [],
+      "expected": {
+        "totalBytes": null,
+        "attributedBytes": "0",
+        "explicitlyUnknownBytes": "0",
+        "unattributedBytes": null,
+        "status": "unavailable",
+        "quality": "unavailable",
+        "layer": "interface-wan",
+        "freshness": "unavailable"
+      }
+    },
+    {
+      "name": "provider-unavailable",
+      "nowUtc": "2026-10-07T10:01:30.000Z",
+      "total": {
+        "version": "arbi-accounting/1.0",
+        "kind": "usage",
+        "observationId": "provider-unavailable-total",
+        "realm": {
+          "environment": "test",
+          "namespaceId": "accounting-fixtures"
+        },
+        "executionMode": "simulation",
+        "siteId": "synthetic-site",
+        "source": {
+          "deviceId": "edge-fixture",
+          "bootId": "boot-1",
+          "sessionId": "session-1"
+        },
+        "counterEpoch": "epoch-1",
+        "boundary": "garden-sim",
+        "layer": "provider",
+        "direction": "upload",
+        "linkId": "synthetic-sim",
+        "scope": "boundary-total",
+        "attributionRevision": "partition-1",
+        "deviceId": null,
+        "category": null,
+        "interval": {
+          "start": "2026-10-07T10:00:00.000Z",
+          "end": "2026-10-07T10:01:00.000Z"
+        },
+        "bytes": null,
+        "evidence": {
+          "quality": "unavailable",
+          "coverage": "unknown",
+          "includes": [],
+          "observedAt": null,
+          "maxAgeMs": 60000,
+          "reason": "not-configured"
+        },
+        "media": null
+      },
+      "attributions": [],
+      "expected": {
+        "totalBytes": null,
+        "attributedBytes": "0",
+        "explicitlyUnknownBytes": "0",
+        "unattributedBytes": null,
+        "status": "unavailable",
+        "quality": "unavailable",
+        "layer": "provider",
+        "freshness": "unavailable"
+      }
+    },
+    {
+      "name": "payload-estimate",
+      "nowUtc": "2026-10-07T10:01:30.000Z",
+      "total": {
+        "version": "arbi-accounting/1.0",
+        "kind": "usage",
+        "observationId": "payload-estimate-total",
+        "realm": {
+          "environment": "test",
+          "namespaceId": "accounting-fixtures"
+        },
+        "executionMode": "simulation",
+        "siteId": "synthetic-site",
+        "source": {
+          "deviceId": "edge-fixture",
+          "bootId": "boot-1",
+          "sessionId": "session-1"
+        },
+        "counterEpoch": "epoch-1",
+        "boundary": "garden-sim",
+        "layer": "application-payload",
+        "direction": "upload",
+        "linkId": "synthetic-sim",
+        "scope": "boundary-total",
+        "attributionRevision": "partition-1",
+        "deviceId": null,
+        "category": null,
+        "interval": {
+          "start": "2026-10-07T10:00:00.000Z",
+          "end": "2026-10-07T10:01:00.000Z"
+        },
+        "bytes": "1000",
+        "evidence": {
+          "quality": "estimated",
+          "coverage": "complete",
+          "includes": [
+            "payload"
+          ],
+          "observedAt": "2026-10-07T10:01:00.000Z",
+          "maxAgeMs": 60000,
+          "reason": "not-reported"
+        },
+        "media": null
+      },
+      "attributions": [
+        {
+          "version": "arbi-accounting/1.0",
+          "kind": "usage",
+          "observationId": "payload-estimate-0",
+          "realm": {
+            "environment": "test",
+            "namespaceId": "accounting-fixtures"
+          },
+          "executionMode": "simulation",
+          "siteId": "synthetic-site",
+          "source": {
+            "deviceId": "edge-fixture",
+            "bootId": "boot-1",
+            "sessionId": "session-1"
+          },
+          "counterEpoch": "epoch-1",
+          "boundary": "garden-sim",
+          "layer": "application-payload",
+          "direction": "upload",
+          "linkId": "synthetic-sim",
+          "scope": "attributed",
+          "attributionRevision": "partition-1",
+          "deviceId": "pod-fixture",
+          "category": "telemetry",
+          "interval": {
+            "start": "2026-10-07T10:00:00.000Z",
+            "end": "2026-10-07T10:01:00.000Z"
+          },
+          "bytes": "1000",
+          "evidence": {
+            "quality": "estimated",
+            "coverage": "complete",
+            "includes": [
+              "payload"
+            ],
+            "observedAt": "2026-10-07T10:01:00.000Z",
+            "maxAgeMs": 60000,
+            "reason": "not-reported"
+          },
+          "media": null
+        }
+      ],
+      "expected": {
+        "totalBytes": "1000",
+        "attributedBytes": "1000",
+        "explicitlyUnknownBytes": "0",
+        "unattributedBytes": "0",
+        "status": "complete",
+        "quality": "estimated",
+        "layer": "application-payload",
+        "freshness": "fresh"
+      }
+    },
+    {
+      "name": "provider-partial-zero",
+      "nowUtc": "2026-10-07T10:01:30.000Z",
+      "total": {
+        "version": "arbi-accounting/1.0",
+        "kind": "usage",
+        "observationId": "provider-partial-zero-total",
+        "realm": {
+          "environment": "test",
+          "namespaceId": "accounting-fixtures"
+        },
+        "executionMode": "simulation",
+        "siteId": "synthetic-site",
+        "source": {
+          "deviceId": "edge-fixture",
+          "bootId": "boot-1",
+          "sessionId": "session-1"
+        },
+        "counterEpoch": "epoch-1",
+        "boundary": "garden-sim",
+        "layer": "provider",
+        "direction": "upload",
+        "linkId": "synthetic-sim",
+        "scope": "boundary-total",
+        "attributionRevision": "partition-1",
+        "deviceId": null,
+        "category": null,
+        "interval": {
+          "start": "2026-10-07T10:00:00.000Z",
+          "end": "2026-10-07T10:01:00.000Z"
+        },
+        "bytes": "0",
+        "evidence": {
+          "quality": "measured",
+          "coverage": "partial",
+          "includes": [
+            "payload",
+            "retries",
+            "transport-overhead",
+            "non-arbi"
+          ],
+          "observedAt": "2026-10-07T10:01:00.000Z",
+          "maxAgeMs": 60000,
+          "reason": "collection-gap"
+        },
+        "media": null
+      },
+      "attributions": [],
+      "expected": {
+        "totalBytes": "0",
+        "attributedBytes": "0",
+        "explicitlyUnknownBytes": "0",
+        "unattributedBytes": "0",
+        "status": "partial",
+        "quality": "measured",
+        "layer": "provider",
+        "freshness": "fresh"
+      }
+    },
+    {
+      "name": "stale-router",
+      "nowUtc": "2026-10-07T10:01:30.000Z",
+      "total": {
+        "version": "arbi-accounting/1.0",
+        "kind": "usage",
+        "observationId": "stale-router-total",
+        "realm": {
+          "environment": "test",
+          "namespaceId": "accounting-fixtures"
+        },
+        "executionMode": "simulation",
+        "siteId": "synthetic-site",
+        "source": {
+          "deviceId": "edge-fixture",
+          "bootId": "boot-1",
+          "sessionId": "session-1"
+        },
+        "counterEpoch": "epoch-1",
+        "boundary": "garden-sim",
+        "layer": "interface-wan",
+        "direction": "upload",
+        "linkId": "synthetic-sim",
+        "scope": "boundary-total",
+        "attributionRevision": "partition-1",
+        "deviceId": null,
+        "category": null,
+        "interval": {
+          "start": "2026-10-07T10:00:00.000Z",
+          "end": "2026-10-07T10:01:00.000Z"
+        },
+        "bytes": "1000",
+        "evidence": {
+          "quality": "measured",
+          "coverage": "complete",
+          "includes": [
+            "payload",
+            "retries",
+            "transport-overhead",
+            "non-arbi"
+          ],
+          "observedAt": "2026-10-07T10:01:00.000Z",
+          "maxAgeMs": 10000,
+          "reason": null
+        },
+        "media": null
+      },
+      "attributions": [
+        {
+          "version": "arbi-accounting/1.0",
+          "kind": "usage",
+          "observationId": "stale-router-0",
+          "realm": {
+            "environment": "test",
+            "namespaceId": "accounting-fixtures"
+          },
+          "executionMode": "simulation",
+          "siteId": "synthetic-site",
+          "source": {
+            "deviceId": "edge-fixture",
+            "bootId": "boot-1",
+            "sessionId": "session-1"
+          },
+          "counterEpoch": "epoch-1",
+          "boundary": "garden-sim",
+          "layer": "interface-wan",
+          "direction": "upload",
+          "linkId": "synthetic-sim",
+          "scope": "attributed",
+          "attributionRevision": "partition-1",
+          "deviceId": "pod-fixture",
+          "category": "telemetry",
+          "interval": {
+            "start": "2026-10-07T10:00:00.000Z",
+            "end": "2026-10-07T10:01:00.000Z"
+          },
+          "bytes": "1000",
+          "evidence": {
+            "quality": "measured",
+            "coverage": "complete",
+            "includes": [
+              "payload",
+              "retries",
+              "transport-overhead",
+              "non-arbi"
+            ],
+            "observedAt": "2026-10-07T10:01:00.000Z",
+            "maxAgeMs": 10000,
+            "reason": null
+          },
+          "media": null
+        }
+      ],
+      "expected": {
+        "totalBytes": "1000",
+        "attributedBytes": "1000",
+        "explicitlyUnknownBytes": "0",
+        "unattributedBytes": null,
+        "status": "stale",
+        "quality": "measured",
+        "layer": "interface-wan",
+        "freshness": "stale"
+      }
+    },
+    {
+      "name": "inconsistent-partition",
+      "nowUtc": "2026-10-07T10:01:30.000Z",
+      "total": {
+        "version": "arbi-accounting/1.0",
+        "kind": "usage",
+        "observationId": "inconsistent-partition-total",
+        "realm": {
+          "environment": "test",
+          "namespaceId": "accounting-fixtures"
+        },
+        "executionMode": "simulation",
+        "siteId": "synthetic-site",
+        "source": {
+          "deviceId": "edge-fixture",
+          "bootId": "boot-1",
+          "sessionId": "session-1"
+        },
+        "counterEpoch": "epoch-1",
+        "boundary": "garden-sim",
+        "layer": "interface-wan",
+        "direction": "upload",
+        "linkId": "synthetic-sim",
+        "scope": "boundary-total",
+        "attributionRevision": "partition-1",
+        "deviceId": null,
+        "category": null,
+        "interval": {
+          "start": "2026-10-07T10:00:00.000Z",
+          "end": "2026-10-07T10:01:00.000Z"
+        },
+        "bytes": "1000",
+        "evidence": {
+          "quality": "measured",
+          "coverage": "complete",
+          "includes": [
+            "payload",
+            "retries",
+            "transport-overhead",
+            "non-arbi"
+          ],
+          "observedAt": "2026-10-07T10:01:00.000Z",
+          "maxAgeMs": 60000,
+          "reason": null
+        },
+        "media": null
+      },
+      "attributions": [
+        {
+          "version": "arbi-accounting/1.0",
+          "kind": "usage",
+          "observationId": "inconsistent-partition-0",
+          "realm": {
+            "environment": "test",
+            "namespaceId": "accounting-fixtures"
+          },
+          "executionMode": "simulation",
+          "siteId": "synthetic-site",
+          "source": {
+            "deviceId": "edge-fixture",
+            "bootId": "boot-1",
+            "sessionId": "session-1"
+          },
+          "counterEpoch": "epoch-1",
+          "boundary": "garden-sim",
+          "layer": "interface-wan",
+          "direction": "upload",
+          "linkId": "synthetic-sim",
+          "scope": "attributed",
+          "attributionRevision": "partition-1",
+          "deviceId": "pod-fixture",
+          "category": "telemetry",
+          "interval": {
+            "start": "2026-10-07T10:00:00.000Z",
+            "end": "2026-10-07T10:01:00.000Z"
+          },
+          "bytes": "1100",
+          "evidence": {
+            "quality": "measured",
+            "coverage": "complete",
+            "includes": [
+              "payload",
+              "retries",
+              "transport-overhead",
+              "non-arbi"
+            ],
+            "observedAt": "2026-10-07T10:01:00.000Z",
+            "maxAgeMs": 60000,
+            "reason": null
+          },
+          "media": null
+        }
+      ],
+      "expected": {
+        "totalBytes": "1000",
+        "attributedBytes": "1100",
+        "explicitlyUnknownBytes": "0",
+        "unattributedBytes": null,
+        "status": "inconsistent",
+        "quality": "measured",
+        "layer": "interface-wan",
+        "freshness": "fresh"
+      }
+    },
+    {
+      "name": "control-and-overhead",
+      "nowUtc": "2026-10-07T10:01:30.000Z",
+      "total": {
+        "version": "arbi-accounting/1.0",
+        "kind": "usage",
+        "observationId": "control-and-overhead-total",
+        "realm": {
+          "environment": "test",
+          "namespaceId": "accounting-fixtures"
+        },
+        "executionMode": "simulation",
+        "siteId": "synthetic-site",
+        "source": {
+          "deviceId": "edge-fixture",
+          "bootId": "boot-1",
+          "sessionId": "session-1"
+        },
+        "counterEpoch": "epoch-1",
+        "boundary": "garden-sim",
+        "layer": "interface-wan",
+        "direction": "upload",
+        "linkId": "synthetic-sim",
+        "scope": "boundary-total",
+        "attributionRevision": "partition-1",
+        "deviceId": null,
+        "category": null,
+        "interval": {
+          "start": "2026-10-07T10:00:00.000Z",
+          "end": "2026-10-07T10:01:00.000Z"
+        },
+        "bytes": "800",
+        "evidence": {
+          "quality": "measured",
+          "coverage": "complete",
+          "includes": [
+            "payload",
+            "retries",
+            "transport-overhead",
+            "non-arbi"
+          ],
+          "observedAt": "2026-10-07T10:01:00.000Z",
+          "maxAgeMs": 60000,
+          "reason": null
+        },
+        "media": null
+      },
+      "attributions": [
+        {
+          "version": "arbi-accounting/1.0",
+          "kind": "usage",
+          "observationId": "control-and-overhead-0",
+          "realm": {
+            "environment": "test",
+            "namespaceId": "accounting-fixtures"
+          },
+          "executionMode": "simulation",
+          "siteId": "synthetic-site",
+          "source": {
+            "deviceId": "edge-fixture",
+            "bootId": "boot-1",
+            "sessionId": "session-1"
+          },
+          "counterEpoch": "epoch-1",
+          "boundary": "garden-sim",
+          "layer": "interface-wan",
+          "direction": "upload",
+          "linkId": "synthetic-sim",
+          "scope": "attributed",
+          "attributionRevision": "partition-1",
+          "deviceId": "edge-fixture",
+          "category": "control",
+          "interval": {
+            "start": "2026-10-07T10:00:00.000Z",
+            "end": "2026-10-07T10:01:00.000Z"
+          },
+          "bytes": "100",
+          "evidence": {
+            "quality": "measured",
+            "coverage": "complete",
+            "includes": [
+              "payload",
+              "retries",
+              "transport-overhead",
+              "non-arbi"
+            ],
+            "observedAt": "2026-10-07T10:01:00.000Z",
+            "maxAgeMs": 60000,
+            "reason": null
+          },
+          "media": null
+        },
+        {
+          "version": "arbi-accounting/1.0",
+          "kind": "usage",
+          "observationId": "control-and-overhead-1",
+          "realm": {
+            "environment": "test",
+            "namespaceId": "accounting-fixtures"
+          },
+          "executionMode": "simulation",
+          "siteId": "synthetic-site",
+          "source": {
+            "deviceId": "edge-fixture",
+            "bootId": "boot-1",
+            "sessionId": "session-1"
+          },
+          "counterEpoch": "epoch-1",
+          "boundary": "garden-sim",
+          "layer": "interface-wan",
+          "direction": "upload",
+          "linkId": "synthetic-sim",
+          "scope": "attributed",
+          "attributionRevision": "partition-1",
+          "deviceId": "edge-fixture",
+          "category": "heartbeat",
+          "interval": {
+            "start": "2026-10-07T10:00:00.000Z",
+            "end": "2026-10-07T10:01:00.000Z"
+          },
+          "bytes": "100",
+          "evidence": {
+            "quality": "measured",
+            "coverage": "complete",
+            "includes": [
+              "payload",
+              "retries",
+              "transport-overhead",
+              "non-arbi"
+            ],
+            "observedAt": "2026-10-07T10:01:00.000Z",
+            "maxAgeMs": 60000,
+            "reason": null
+          },
+          "media": null
+        },
+        {
+          "version": "arbi-accounting/1.0",
+          "kind": "usage",
+          "observationId": "control-and-overhead-2",
+          "realm": {
+            "environment": "test",
+            "namespaceId": "accounting-fixtures"
+          },
+          "executionMode": "simulation",
+          "siteId": "synthetic-site",
+          "source": {
+            "deviceId": "edge-fixture",
+            "bootId": "boot-1",
+            "sessionId": "session-1"
+          },
+          "counterEpoch": "epoch-1",
+          "boundary": "garden-sim",
+          "layer": "interface-wan",
+          "direction": "upload",
+          "linkId": "synthetic-sim",
+          "scope": "attributed",
+          "attributionRevision": "partition-1",
+          "deviceId": "edge-fixture",
+          "category": "reconnect",
+          "interval": {
+            "start": "2026-10-07T10:00:00.000Z",
+            "end": "2026-10-07T10:01:00.000Z"
+          },
+          "bytes": "100",
+          "evidence": {
+            "quality": "measured",
+            "coverage": "complete",
+            "includes": [
+              "payload",
+              "retries",
+              "transport-overhead",
+              "non-arbi"
+            ],
+            "observedAt": "2026-10-07T10:01:00.000Z",
+            "maxAgeMs": 60000,
+            "reason": null
+          },
+          "media": null
+        },
+        {
+          "version": "arbi-accounting/1.0",
+          "kind": "usage",
+          "observationId": "control-and-overhead-3",
+          "realm": {
+            "environment": "test",
+            "namespaceId": "accounting-fixtures"
+          },
+          "executionMode": "simulation",
+          "siteId": "synthetic-site",
+          "source": {
+            "deviceId": "edge-fixture",
+            "bootId": "boot-1",
+            "sessionId": "session-1"
+          },
+          "counterEpoch": "epoch-1",
+          "boundary": "garden-sim",
+          "layer": "interface-wan",
+          "direction": "upload",
+          "linkId": "synthetic-sim",
+          "scope": "attributed",
+          "attributionRevision": "partition-1",
+          "deviceId": "edge-fixture",
+          "category": "auth",
+          "interval": {
+            "start": "2026-10-07T10:00:00.000Z",
+            "end": "2026-10-07T10:01:00.000Z"
+          },
+          "bytes": "100",
+          "evidence": {
+            "quality": "measured",
+            "coverage": "complete",
+            "includes": [
+              "payload",
+              "retries",
+              "transport-overhead",
+              "non-arbi"
+            ],
+            "observedAt": "2026-10-07T10:01:00.000Z",
+            "maxAgeMs": 60000,
+            "reason": null
+          },
+          "media": null
+        },
+        {
+          "version": "arbi-accounting/1.0",
+          "kind": "usage",
+          "observationId": "control-and-overhead-4",
+          "realm": {
+            "environment": "test",
+            "namespaceId": "accounting-fixtures"
+          },
+          "executionMode": "simulation",
+          "siteId": "synthetic-site",
+          "source": {
+            "deviceId": "edge-fixture",
+            "bootId": "boot-1",
+            "sessionId": "session-1"
+          },
+          "counterEpoch": "epoch-1",
+          "boundary": "garden-sim",
+          "layer": "interface-wan",
+          "direction": "upload",
+          "linkId": "synthetic-sim",
+          "scope": "attributed",
+          "attributionRevision": "partition-1",
+          "deviceId": "edge-fixture",
+          "category": "dns",
+          "interval": {
+            "start": "2026-10-07T10:00:00.000Z",
+            "end": "2026-10-07T10:01:00.000Z"
+          },
+          "bytes": "100",
+          "evidence": {
+            "quality": "measured",
+            "coverage": "complete",
+            "includes": [
+              "payload",
+              "retries",
+              "transport-overhead",
+              "non-arbi"
+            ],
+            "observedAt": "2026-10-07T10:01:00.000Z",
+            "maxAgeMs": 60000,
+            "reason": null
+          },
+          "media": null
+        },
+        {
+          "version": "arbi-accounting/1.0",
+          "kind": "usage",
+          "observationId": "control-and-overhead-5",
+          "realm": {
+            "environment": "test",
+            "namespaceId": "accounting-fixtures"
+          },
+          "executionMode": "simulation",
+          "siteId": "synthetic-site",
+          "source": {
+            "deviceId": "edge-fixture",
+            "bootId": "boot-1",
+            "sessionId": "session-1"
+          },
+          "counterEpoch": "epoch-1",
+          "boundary": "garden-sim",
+          "layer": "interface-wan",
+          "direction": "upload",
+          "linkId": "synthetic-sim",
+          "scope": "attributed",
+          "attributionRevision": "partition-1",
+          "deviceId": "edge-fixture",
+          "category": "tls",
+          "interval": {
+            "start": "2026-10-07T10:00:00.000Z",
+            "end": "2026-10-07T10:01:00.000Z"
+          },
+          "bytes": "100",
+          "evidence": {
+            "quality": "measured",
+            "coverage": "complete",
+            "includes": [
+              "payload",
+              "retries",
+              "transport-overhead",
+              "non-arbi"
+            ],
+            "observedAt": "2026-10-07T10:01:00.000Z",
+            "maxAgeMs": 60000,
+            "reason": null
+          },
+          "media": null
+        },
+        {
+          "version": "arbi-accounting/1.0",
+          "kind": "usage",
+          "observationId": "control-and-overhead-6",
+          "realm": {
+            "environment": "test",
+            "namespaceId": "accounting-fixtures"
+          },
+          "executionMode": "simulation",
+          "siteId": "synthetic-site",
+          "source": {
+            "deviceId": "edge-fixture",
+            "bootId": "boot-1",
+            "sessionId": "session-1"
+          },
+          "counterEpoch": "epoch-1",
+          "boundary": "garden-sim",
+          "layer": "interface-wan",
+          "direction": "upload",
+          "linkId": "synthetic-sim",
+          "scope": "attributed",
+          "attributionRevision": "partition-1",
+          "deviceId": "edge-fixture",
+          "category": "telemetry",
+          "interval": {
+            "start": "2026-10-07T10:00:00.000Z",
+            "end": "2026-10-07T10:01:00.000Z"
+          },
+          "bytes": "100",
+          "evidence": {
+            "quality": "measured",
+            "coverage": "complete",
+            "includes": [
+              "payload",
+              "retries",
+              "transport-overhead",
+              "non-arbi"
+            ],
+            "observedAt": "2026-10-07T10:01:00.000Z",
+            "maxAgeMs": 60000,
+            "reason": null
+          },
+          "media": null
+        },
+        {
+          "version": "arbi-accounting/1.0",
+          "kind": "usage",
+          "observationId": "control-and-overhead-7",
+          "realm": {
+            "environment": "test",
+            "namespaceId": "accounting-fixtures"
+          },
+          "executionMode": "simulation",
+          "siteId": "synthetic-site",
+          "source": {
+            "deviceId": "edge-fixture",
+            "bootId": "boot-1",
+            "sessionId": "session-1"
+          },
+          "counterEpoch": "epoch-1",
+          "boundary": "garden-sim",
+          "layer": "interface-wan",
+          "direction": "upload",
+          "linkId": "synthetic-sim",
+          "scope": "attributed",
+          "attributionRevision": "partition-1",
+          "deviceId": "edge-fixture",
+          "category": "logs-audit",
+          "interval": {
+            "start": "2026-10-07T10:00:00.000Z",
+            "end": "2026-10-07T10:01:00.000Z"
+          },
+          "bytes": "100",
+          "evidence": {
+            "quality": "measured",
+            "coverage": "complete",
+            "includes": [
+              "payload",
+              "retries",
+              "transport-overhead",
+              "non-arbi"
+            ],
+            "observedAt": "2026-10-07T10:01:00.000Z",
+            "maxAgeMs": 60000,
+            "reason": null
+          },
+          "media": null
+        }
+      ],
+      "expected": {
+        "totalBytes": "800",
+        "attributedBytes": "800",
+        "explicitlyUnknownBytes": "0",
+        "unattributedBytes": "0",
+        "status": "complete",
+        "quality": "measured",
+        "layer": "interface-wan",
+        "freshness": "fresh"
+      }
+    },
+    {
+      "name": "provider-components-unknown",
+      "nowUtc": "2026-10-07T10:01:30.000Z",
+      "total": {
+        "version": "arbi-accounting/1.0",
+        "kind": "usage",
+        "observationId": "provider-scope-unknown",
+        "realm": {
+          "environment": "test",
+          "namespaceId": "accounting-fixtures"
+        },
+        "executionMode": "simulation",
+        "siteId": "synthetic-site",
+        "source": {
+          "deviceId": "edge-fixture",
+          "bootId": "boot-1",
+          "sessionId": "session-1"
+        },
+        "counterEpoch": "epoch-1",
+        "boundary": "garden-sim",
+        "layer": "provider",
+        "direction": "upload",
+        "linkId": "synthetic-sim",
+        "scope": "boundary-total",
+        "attributionRevision": "partition-1",
+        "deviceId": null,
+        "category": null,
+        "interval": {
+          "start": "2026-10-07T10:00:00.000Z",
+          "end": "2026-10-07T10:01:00.000Z"
+        },
+        "bytes": "1200",
+        "evidence": {
+          "quality": "measured",
+          "coverage": "unknown",
+          "includes": [],
+          "observedAt": "2026-10-07T10:01:00.000Z",
+          "maxAgeMs": 60000,
+          "reason": "not-reported"
+        },
+        "media": null
+      },
+      "attributions": [],
+      "expected": {
+        "totalBytes": "1200",
+        "attributedBytes": "0",
+        "explicitlyUnknownBytes": "0",
+        "unattributedBytes": "1200",
+        "status": "partial",
+        "quality": "measured",
+        "layer": "provider",
+        "freshness": "fresh"
+      }
+    },
+    {
+      "name": "stale-inconsistent-partition",
+      "nowUtc": "2026-10-07T10:01:30.000Z",
+      "total": {
+        "version": "arbi-accounting/1.0",
+        "kind": "usage",
+        "observationId": "stale-inconsistent-total",
+        "realm": {
+          "environment": "test",
+          "namespaceId": "accounting-fixtures"
+        },
+        "executionMode": "simulation",
+        "siteId": "synthetic-site",
+        "source": {
+          "deviceId": "edge-fixture",
+          "bootId": "boot-1",
+          "sessionId": "session-1"
+        },
+        "counterEpoch": "epoch-1",
+        "boundary": "garden-sim",
+        "layer": "interface-wan",
+        "direction": "upload",
+        "linkId": "synthetic-sim",
+        "scope": "boundary-total",
+        "attributionRevision": "partition-1",
+        "deviceId": null,
+        "category": null,
+        "interval": {
+          "start": "2026-10-07T10:00:00.000Z",
+          "end": "2026-10-07T10:01:00.000Z"
+        },
+        "bytes": "1000",
+        "evidence": {
+          "quality": "measured",
+          "coverage": "complete",
+          "includes": [
+            "payload",
+            "retries",
+            "transport-overhead",
+            "non-arbi"
+          ],
+          "observedAt": "2026-10-07T10:01:00.000Z",
+          "maxAgeMs": 10000,
+          "reason": null
+        },
+        "media": null
+      },
+      "attributions": [
+        {
+          "version": "arbi-accounting/1.0",
+          "kind": "usage",
+          "observationId": "stale-inconsistent-telemetry",
+          "realm": {
+            "environment": "test",
+            "namespaceId": "accounting-fixtures"
+          },
+          "executionMode": "simulation",
+          "siteId": "synthetic-site",
+          "source": {
+            "deviceId": "edge-fixture",
+            "bootId": "boot-1",
+            "sessionId": "session-1"
+          },
+          "counterEpoch": "epoch-1",
+          "boundary": "garden-sim",
+          "layer": "interface-wan",
+          "direction": "upload",
+          "linkId": "synthetic-sim",
+          "scope": "attributed",
+          "attributionRevision": "partition-1",
+          "deviceId": "pod-fixture",
+          "category": "telemetry",
+          "interval": {
+            "start": "2026-10-07T10:00:00.000Z",
+            "end": "2026-10-07T10:01:00.000Z"
+          },
+          "bytes": "1100",
+          "evidence": {
+            "quality": "measured",
+            "coverage": "complete",
+            "includes": [
+              "payload",
+              "retries",
+              "transport-overhead",
+              "non-arbi"
+            ],
+            "observedAt": "2026-10-07T10:01:00.000Z",
+            "maxAgeMs": 10000,
+            "reason": null
+          },
+          "media": null
+        }
+      ],
+      "expected": {
+        "totalBytes": "1000",
+        "attributedBytes": "1100",
+        "explicitlyUnknownBytes": "0",
+        "unattributedBytes": null,
+        "status": "inconsistent",
+        "quality": "measured",
+        "layer": "interface-wan",
+        "freshness": "stale"
+      }
+    }
+  ],
+  "cycles": [
+    {
+      "name": "before-zagreb-midnight",
+      "cycle": {
+        "frequency": "monthly",
+        "timezone": "Europe/Zagreb",
+        "anchorDay": 7,
+        "anchorHour": 0,
+        "anchorMinute": 0,
+        "shortMonth": "clamp-last-day",
+        "dstFold": "reject",
+        "dstGap": "reject"
+      },
+      "atUtc": "2026-10-06T21:59:59.999Z",
+      "expected": {
+        "start": "2026-09-06T22:00:00.000Z",
+        "end": "2026-10-06T22:00:00.000Z"
+      }
+    },
+    {
+      "name": "at-zagreb-midnight-and-dst",
+      "cycle": {
+        "frequency": "monthly",
+        "timezone": "Europe/Zagreb",
+        "anchorDay": 7,
+        "anchorHour": 0,
+        "anchorMinute": 0,
+        "shortMonth": "clamp-last-day",
+        "dstFold": "reject",
+        "dstGap": "reject"
+      },
+      "atUtc": "2026-10-06T22:00:00.000Z",
+      "expected": {
+        "start": "2026-10-06T22:00:00.000Z",
+        "end": "2026-11-06T23:00:00.000Z"
+      }
+    },
+    {
+      "name": "leap-short-month",
+      "cycle": {
+        "frequency": "monthly",
+        "timezone": "UTC",
+        "anchorDay": 31,
+        "anchorHour": 0,
+        "anchorMinute": 0,
+        "shortMonth": "clamp-last-day",
+        "dstFold": "reject",
+        "dstGap": "reject"
+      },
+      "atUtc": "2024-02-29T00:00:00.000Z",
+      "expected": {
+        "start": "2024-02-29T00:00:00.000Z",
+        "end": "2024-03-31T00:00:00.000Z"
+      }
+    },
+    {
+      "name": "non-leap-short-month",
+      "cycle": {
+        "frequency": "monthly",
+        "timezone": "UTC",
+        "anchorDay": 31,
+        "anchorHour": 0,
+        "anchorMinute": 0,
+        "shortMonth": "clamp-last-day",
+        "dstFold": "reject",
+        "dstGap": "reject"
+      },
+      "atUtc": "2026-02-28T00:00:00.000Z",
+      "expected": {
+        "start": "2026-02-28T00:00:00.000Z",
+        "end": "2026-03-31T00:00:00.000Z"
+      }
+    },
+    {
+      "name": "year-boundary-utc-plus-14",
+      "cycle": {
+        "frequency": "monthly",
+        "timezone": "Pacific/Kiritimati",
+        "anchorDay": 1,
+        "anchorHour": 0,
+        "anchorMinute": 0,
+        "shortMonth": "clamp-last-day",
+        "dstFold": "reject",
+        "dstGap": "reject"
+      },
+      "atUtc": "2026-12-31T10:00:00.000Z",
+      "expected": {
+        "start": "2026-12-31T10:00:00.000Z",
+        "end": "2027-01-31T10:00:00.000Z"
+      }
+    },
+    {
+      "name": "dst-gap-rejected",
+      "cycle": {
+        "frequency": "monthly",
+        "timezone": "America/New_York",
+        "anchorDay": 8,
+        "anchorHour": 2,
+        "anchorMinute": 30,
+        "shortMonth": "clamp-last-day",
+        "dstFold": "reject",
+        "dstGap": "reject"
+      },
+      "atUtc": "2026-03-08T12:00:00.000Z",
+      "error": "INVALID_TIME"
+    },
+    {
+      "name": "dst-fold-rejected",
+      "cycle": {
+        "frequency": "monthly",
+        "timezone": "America/New_York",
+        "anchorDay": 1,
+        "anchorHour": 1,
+        "anchorMinute": 30,
+        "shortMonth": "clamp-last-day",
+        "dstFold": "reject",
+        "dstGap": "reject"
+      },
+      "atUtc": "2026-11-01T12:00:00.000Z",
+      "error": "INVALID_TIME"
+    },
+    {
+      "name": "dst-fold-earlier",
+      "cycle": {
+        "frequency": "monthly",
+        "timezone": "America/New_York",
+        "anchorDay": 1,
+        "anchorHour": 1,
+        "anchorMinute": 30,
+        "shortMonth": "clamp-last-day",
+        "dstFold": "earlier",
+        "dstGap": "reject"
+      },
+      "atUtc": "2026-11-01T12:00:00.000Z",
+      "expected": {
+        "start": "2026-11-01T05:30:00.000Z",
+        "end": "2026-12-01T06:30:00.000Z"
+      }
+    },
+    {
+      "name": "dst-fold-later",
+      "cycle": {
+        "frequency": "monthly",
+        "timezone": "America/New_York",
+        "anchorDay": 1,
+        "anchorHour": 1,
+        "anchorMinute": 30,
+        "shortMonth": "clamp-last-day",
+        "dstFold": "later",
+        "dstGap": "reject"
+      },
+      "atUtc": "2026-11-01T12:00:00.000Z",
+      "expected": {
+        "start": "2026-11-01T06:30:00.000Z",
+        "end": "2026-12-01T06:30:00.000Z"
+      }
+    }
+  ]
+}

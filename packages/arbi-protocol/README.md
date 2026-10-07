@@ -8,6 +8,7 @@ Implemented, transport-neutral ARBI 1.0 JSON contracts, runtime validation, gene
 - [Reference implementation](src/reference.ts)
 - [Configuration/calibration contract and apply/rollback boundary](../../docs/software/configuration.md)
 - [Configuration schema](schema/configuration.schema.json) and [synthetic fixtures](fixtures/configuration.json)
+- [Mobile data accounting 1.0 specification](../../docs/software/mobile-data-accounting.md), [schema](schema/accounting.schema.json), [fixtures](fixtures/accounting.json) and [reference calculations](src/accounting.ts)
 
 From the repository root, using Node.js >=24 and pinned pnpm:
 
@@ -24,3 +25,5 @@ Consumers declare `"@arbi/protocol": "workspace:*"`. Use `parseMessage` on bound
 `admitCommand` returns `accepted` or `duplicate`, or a stable error. A duplicate means return the persisted prior outcome; never dispatch it again. Its in-memory bounded ledger is a reference for tests, not durable or exactly-once execution. Production must transactionally persist admission/dispatch intent, restore it after restart, and enforce independent local limits and stopping.
 
 Configuration consumers use `parseConfigurationRecord` or `validateConfigurationRecord` with the record kind, and can import `@arbi/protocol/configuration-schema`. `ConfigurationReference` demonstrates durable-commit-before-acknowledgement, exact rebooted identity and archived rollback. `checkConfiguredCommand` adds calibration/hardware/frame/limit compatibility to existing protocol admission; it grants no actuator authority. Local bounds and independently approved calibration digests must come from trusted local evidence. Configuration 1.0 is independent of message protocol 1.0, which remains unchanged.
+
+Accounting version `arbi-accounting/1.0` is additive and leaves message protocol 1.0 unchanged. Use `parseAccounting`/`validateAccounting` at its external boundary; `@arbi/protocol/accounting-schema` exports the standalone schema, which references the message schema. Generated types and pure reconciliation, unit, cycle and allowance calculations require these runtime refinements. Accounting does not implement device/router metering, ingestion, budgets or tariff billing.

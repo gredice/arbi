@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://arbi.gredice.com/schemas/accounting/1.0/accounting.schema.json",
+  "title": "ARBI accounting 1.0",
+  "description": "Independent additive contracts; apply runtime semantic rules from mobile-data-accounting.md. Counter deltas are evidence, never carrier-invoice or motion authority.",
+  "oneOf": [{ "$ref": "#/$defs/UsageObservation" }, { "$ref": "#/$defs/MobilePlan" }],
+  "$defs": {
+    "TrafficCategory": { "enum": ["control", "heartbeat", "reconnect", "auth", "dns", "tls", "telemetry", "logs-audit", "thumbnail", "still", "live-video", "turn", "recording", "ota", "os-update", "retry", "transport-overhead", "unknown"] },
+    "UsageBoundary": { "enum": ["lan", "garden-sim", "cloud-relay", "cloud-viewer"] },
+    "UsageLayer": { "enum": ["application-payload", "interface-wan", "provider"] },
+    "UsageDirection": { "enum": ["upload", "download"] },
+    "UsageInterval": {
+      "type": "object", "additionalProperties": false,
+      "properties": { "start": { "type": "string", "format": "date-time" }, "end": { "type": "string", "format": "date-time" } },
+      "required": ["start", "end"]
+    },
+    "UsageEvidence": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "quality": { "enum": ["measured", "estimated", "unavailable"] },
+        "coverage": { "enum": ["complete", "partial", "unknown"] },
+        "includes": { "type": "array", "uniqueItems": true, "maxItems": 4, "items": { "enum": ["payload", "retries", "transport-overhead", "non-arbi"] } },
+        "observedAt": { "anyOf": [{ "type": "string", "format": "date-time" }, { "type": "null" }] },
+        "maxAgeMs": { "type": "integer", "minimum": 0, "maximum": 9007199254740991 },
+        "reason": { "anyOf": [{ "enum": ["unsupported-counter", "not-configured", "counter-reset", "collection-gap", "unattributed", "estimated-overhead", "disabled", "not-reported"] }, { "type": "null" }] }
+      },
+      "required": ["quality", "coverage", "includes", "observedAt", "maxAgeMs", "reason"],
+      "allOf": [
+        { "if": { "properties": { "quality": { "const": "unavailable" } }, "required": ["quality"] }, "then": { "properties": { "observedAt": { "type": "null" }, "coverage": { "const": "unknown" }, "includes": { "maxItems": 0 }, "reason": { "type": "string" } } }, "else": { "properties": { "observedAt": { "type": "string" } } } },
+        { "if": { "properties": { "coverage": { "enum": ["partial", "unknown"] } }, "required": ["coverage"] }, "then": { "properties": { "reason": { "type": "string" } } } },
+        { "if": { "properties": { "includes": { "maxItems": 0 } }, "required": ["includes"] }, "then": { "properties": { "coverage": { "const": "unknown" } } } }
+      ]
+    },
+    "UsageMedia": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "topology": { "enum": ["direct", "relayed", "shared"] },
+        "sessionId": { "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id" },
+        "viewerId": { "anyOf": [{ "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id" }, { "type": "null" }] },
+        "viewerCount": { "type": "integer", "minimum": 1, "maximum": 1000000 }
+      },
+      "required": ["topology", "sessionId", "viewerId", "viewerCount"]
+    },
+    "UsageObservation": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "version": { "const": "arbi-accounting/1.0" }, "kind": { "const": "usage" },
+        "observationId": { "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id" },
+        "realm": { "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Realm" },
+        "executionMode": { "enum": ["live", "simulation"] },
+        "siteId": { "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id" },
+        "source": { "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Identity" },
+        "counterEpoch": { "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id" },
+        "boundary": { "$ref": "#/$defs/UsageBoundary" }, "layer": { "$ref": "#/$defs/UsageLayer" }, "direction": { "$ref": "#/$defs/UsageDirection" },
+        "linkId": { "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id" },
+        "scope": { "enum": ["boundary-total", "attributed"] },
+        "attributionRevision": { "anyOf": [{ "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id" }, { "type": "null" }] },
+        "deviceId": { "anyOf": [{ "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id" }, { "type": "null" }] },
+        "category": { "anyOf": [{ "$ref": "#/$defs/TrafficCategory" }, { "type": "null" }] },
+        "interval": { "$ref": "#/$defs/UsageInterval" },
+        "bytes": { "anyOf": [{ "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Counter" }, { "type": "null" }] },
+        "evidence": { "$ref": "#/$defs/UsageEvidence" },
+        "media": { "anyOf": [{ "$ref": "#/$defs/UsageMedia" }, { "type": "null" }] }
+      },
+      "required": ["version", "kind", "observationId", "realm", "executionMode", "siteId", "source", "counterEpoch", "boundary", "layer", "direction", "linkId", "scope", "attributionRevision", "deviceId", "category", "interval", "bytes", "evidence", "media"],
+      "allOf": [
+        { "if": { "properties": { "scope": { "const": "boundary-total" } }, "required": ["scope"] }, "then": { "properties": { "deviceId": { "type": "null" }, "category": { "type": "null" }, "media": { "type": "null" } } }, "else": { "properties": { "category": { "type": "string" }, "attributionRevision": { "type": "string" } } } },
+        { "if": { "properties": { "evidence": { "properties": { "quality": { "const": "unavailable" } }, "required": ["quality"] } }, "required": ["evidence"] }, "then": { "properties": { "bytes": { "type": "null" } } }, "else": { "properties": { "bytes": { "type": "string" } } } },
+        { "if": { "properties": { "category": { "const": "recording" } }, "required": ["category"] }, "then": { "properties": { "bytes": { "type": "null" }, "evidence": { "properties": { "quality": { "const": "unavailable" }, "reason": { "const": "disabled" } } } } } }
+      ]
+    },
+    "DataQuantity": {
+      "type": "object", "additionalProperties": false,
+      "properties": { "value": { "type": "string", "pattern": "^(0|[1-9][0-9]{0,19})(\\.[0-9]{1,6})?$" }, "unit": { "enum": ["bytes", "GB", "GiB"] } },
+      "required": ["value", "unit"]
+    },
+    "BillingCycle": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "frequency": { "const": "monthly" }, "timezone": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "anchorDay": { "type": "integer", "minimum": 1, "maximum": 31 },
+        "anchorHour": { "type": "integer", "minimum": 0, "maximum": 23 }, "anchorMinute": { "type": "integer", "minimum": 0, "maximum": 59 },
+        "shortMonth": { "const": "clamp-last-day" }, "dstFold": { "enum": ["earlier", "later", "reject"] }, "dstGap": { "const": "reject" }
+      },
+      "required": ["frequency", "timezone", "anchorDay", "anchorHour", "anchorMinute", "shortMonth", "dstFold", "dstGap"]
+    },
+    "PlanRollover": {
+      "type": "object", "additionalProperties": false,
+      "properties": { "policy": { "enum": ["none", "capped-one-cycle"] }, "cap": { "anyOf": [{ "$ref": "#/$defs/DataQuantity" }, { "type": "null" }] } },
+      "required": ["policy", "cap"],
+      "allOf": [{ "if": { "properties": { "policy": { "const": "none" } }, "required": ["policy"] }, "then": { "properties": { "cap": { "type": "null" } } }, "else": { "properties": { "cap": { "type": "object" } } } }]
+    },
+    "UserTariff": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "source": { "const": "user-supplied" }, "currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+        "overageUnit": { "enum": ["GB", "GiB"] }, "overagePricePerUnit": { "type": "string", "pattern": "^(0|[1-9][0-9]{0,11})(\\.[0-9]{1,6})?$" },
+        "rounding": { "enum": ["proportional", "ceil-unit"] }, "observedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["source", "currency", "overageUnit", "overagePricePerUnit", "rounding", "observedAt"]
+    },
+    "MobilePlan": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "version": { "const": "arbi-accounting/1.0" }, "kind": { "const": "mobile-plan" },
+        "planId": { "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id" },
+        "realm": { "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Realm" },
+        "siteId": { "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id" },
+        "linkId": { "$ref": "https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id" },
+        "allowance": { "$ref": "#/$defs/DataQuantity" }, "cycle": { "$ref": "#/$defs/BillingCycle" },
+        "chargedDirections": { "enum": ["both", "upload", "download"] }, "reset": { "const": "each-cycle" },
+        "rollover": { "$ref": "#/$defs/PlanRollover" }, "tariff": { "anyOf": [{ "$ref": "#/$defs/UserTariff" }, { "type": "null" }] }
+      },
+      "required": ["version", "kind", "planId", "realm", "siteId", "linkId", "allowance", "cycle", "chargedDirections", "reset", "rollover", "tariff"]
+    }
+  }
+}
