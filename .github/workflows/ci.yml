@@ -99,7 +99,9 @@ jobs:
           fi
 
       - name: Test
-        run: pnpm test
+        # Each suite already launches host consumers, databases or TLS peers.
+        # Avoid competing package suites starving bounded loopback requests.
+        run: pnpm test --concurrency=1
 
       - name: Check enrollment transactions on isolated PostgreSQL
         run: pnpm --filter @arbi/dashboard test:postgres
