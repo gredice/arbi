@@ -40,20 +40,11 @@ def build():
     shutil.copy2(REPO / 'LICENSE', root / 'source/LICENSE-ARBI')
     for name in ['export_arbi.py', 'export_reference.py', 'render_figures.py', 'build_booklet.py', 'reference-parts.scad', 'requirements.txt']:
         shutil.copy2(HERE / name, root / 'source' / name)
+    shutil.copy2(REPO / 'scripts/check-winch-cover-meshes.py', root / 'source/check-winch-cover-meshes.py')
     shutil.copytree(HERE / 'fonts', root / 'source/fonts', dirs_exist_ok=True)
     shutil.copy2(HERE / 'pack-README.md', root / 'README.md')
     hashes = {str(p.relative_to(root)): hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(snapshot.rglob('*.scad'))}
     (root / 'source-snapshot-hashes.json').write_text(json.dumps(hashes, indent=2)+'\n')
-    provenance = {
-        'repository': 'https://github.com/gredice/arbi',
-        'base_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=REPO, text=True).strip(),
-        'note': 'Source hashes identify the exact build inputs; base commit may precede uncommitted revisions.',
-        'cover_revision': '0.1.1', 'booklet_revision': 4,
-        'source_hashes': {str(p.relative_to(root)): hashlib.sha256(p.read_bytes()).hexdigest()
-            for p in sorted((root / 'source').rglob('*'))
-            if p.is_file() and '__pycache__' not in p.parts},
-    }
-    (root / 'source-provenance.json').write_text(json.dumps(provenance, indent=2)+'\n')
     if not args.reuse_models:
         # Remove stale revision outputs before exporting, never mix two revisions.
         if (root / 'models').exists():
@@ -61,6 +52,19 @@ def build():
         for name in ['export_arbi.py', 'export_reference.py']:
             subprocess.run([sys.executable, str(root / 'source' / name)], check=True)
         (root / 'build-input-hashes.json').write_text(json.dumps(current_hashes, indent=2)+'\n')
+    subprocess.run([sys.executable, str(root / 'source/check-winch-cover-meshes.py'),
+                    str(root / 'models/arbi'), '--record', str(root / 'full-cover-check.json')], check=True)
+    shutil.copy2(root / 'full-cover-check.json', snapshot / 'assemblies/winch/full-cover-check.json')
+    provenance = {
+        'repository': 'https://github.com/gredice/arbi',
+        'base_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=REPO, text=True).strip(),
+        'note': 'Source hashes identify the exact build inputs; base commit may precede uncommitted revisions.',
+        'coupling_guard_revision': '0.1.1', 'full_cover_revision': '0.1.0', 'booklet_revision': 5,
+        'source_hashes': {str(p.relative_to(root)): hashlib.sha256(p.read_bytes()).hexdigest()
+            for p in sorted((root / 'source').rglob('*'))
+            if p.is_file() and '__pycache__' not in p.parts},
+    }
+    (root / 'source-provenance.json').write_text(json.dumps(provenance, indent=2)+'\n')
     for name in ['render_figures.py', 'build_booklet.py']:
         subprocess.run([sys.executable, str(root / 'source' / name)], check=True)
     archive = root / 'ARBI-winch-STL-pack.zip'
@@ -74,13 +78,16 @@ def build():
             z.write(path, Path('ARBI-winch-STL-pack') / path.relative_to(root))
     with zipfile.ZipFile(archive) as z:
         assert z.testzip() is None
-        assert sum(n.endswith('.stl') for n in z.namelist()) == 45
+        expected = sum(len(json.loads((root / name).read_text())) for name in ['arbi-mesh-manifest.json','reference-mesh-manifest.json'])
+        assert sum(n.endswith('.stl') for n in z.namelist()) == expected
     if args.publish:
         destination = REPO / 'docs/assemblies/winch/booklet'
         destination.mkdir(parents=True, exist_ok=True)
         for name in ['ARBI-winch-assembly-STL.pdf', 'ARBI-winch-STL-pack.zip']:
             shutil.copy2(root / name, destination / name)
-    print(f'Booklet and 45-STL bundle: {root}', flush=True)
+        for name in ['cover-passive-installed', 'cover-passive-exploded', 'cover-powered-installed', 'cover-powered-exploded']:
+            shutil.copy2(root / 'figures' / (name + '.png'), destination / (name + '.png'))
+    print(f'Booklet and {expected}-STL bundle: {root}', flush=True)
 
 
 if __name__ == '__main__':

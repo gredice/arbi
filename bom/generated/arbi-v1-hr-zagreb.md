@@ -11,7 +11,7 @@
 - Build: arbi-v1
 - Destination: hr-zagreb
 - Quote snapshot: hr-zagreb-2026-09-08-bauhaus-shaft
-- Input digest: sha256:d1e337da73b6ab72b87667abd7c769e9ab02f05d6fbe24440350c7dd29749bce
+- Input digest: sha256:6623f758117e76bec6b392fe965ccff002f3ea02c7922399a6f530cb3b37ea12
 - Complete landed total: **unavailable**
 - Known quoted goods subtotal: **EUR 874.68**
 - Known checkout-group shipping subtotal: **EUR 93.72**
@@ -176,6 +176,8 @@ aliexpress-hr: 15 distinct selected offers; fixed charge per offer, independent 
 | [winch-drum](parts/winch-drum.md) | 4 each | winch-set (4 each) | in-house-fabrication-winch-drum |
 | [winch-drum-joining-hardware](parts/winch-drum-joining-hardware.md) | 1 each | winch-set (1 each) | unresolved-winch-drum-joining-hardware |
 | [winch-drum-shaft-8mm](parts/winch-drum-shaft-8mm.md) | 4 each | winch-set (4 each) | bauhaus-winch-drum-shaft-8mm |
+| [winch-full-cover](parts/winch-full-cover.md) | 4 each | winch-set (4 each) | unresolved |
+| [winch-full-cover-hardware](parts/winch-full-cover-hardware.md) | 1 each | winch-set (1 each) | unresolved |
 | [winch-mount-and-guard](parts/winch-mount-and-guard.md) | 4 each | winch-set (4 each) | in-house-fabrication-winch-mount-and-guard |
 | [winch-mount-hardware](parts/winch-mount-hardware.md) | 1 each | winch-set (1 each) | unresolved-winch-mount-hardware |
 | [wire-rope-clamp-3mm](parts/wire-rope-clamp-3mm.md) | 16 each | corner-support-set (16 each) | bauhaus-wire-rope-clamp-3mm |
@@ -184,6 +186,8 @@ aliexpress-hr: 15 distinct selected offers; fixed charge per offer, independent 
 
 ## Incompleteness warnings
 
+- Required part winch-full-cover has no pinned offer.
+- Required part winch-full-cover-hardware has no pinned offer.
 - aliexpress-bearing-608-2rs: Availability is unknown.
 - aliexpress-bearing-608-2rs: Price and availability observation date is unknown; quote capture time is not verification time.
 - aliexpress-bearing-608-2rs: Qualification is baseline-selected; the recorded selection is not engineering approval.

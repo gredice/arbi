@@ -24,7 +24,13 @@ The [payload enclosure configuration](../../hardware/assemblies/camera-pod/paylo
 
 The integrated rain kit is the preferred public pod preview. `camera-pod-assembly` r0.2.0 and `payload-assembly` r0.2.0 default to it. Select `show_legacy=true` for the historical camera-pod layout or `show_enclosure=false` for the dry bench kit. `show_hood=false` opens the integrated reference for service; `show_cover=false` opens the dry bench variant. Keep open, exploded and alternative views labelled by configuration. Retain historical fabrication sources for traceability; they are alternatives rather than a combined print list. Do not silently add the old electronics cover under the rain hood.
 
-Apply the role palette to winch drum/mount previews and all published booklets. The existing coupling guard is white, while drum, bearing supports and motor stand are dark. Its dimensions are unchanged. Dock protection, corner-station housings and the control-cabinet outer enclosure should use white rounded protective surfaces over dark fixtures when their housing geometry is designed. Existing dock/funnel load and capture surfaces retain their committed dimensions. The full winch cover is subsequent work after this convention is merged; this change does not invent its clearances or obscure rotating hardware in assembly instructions.
+Apply the role palette to winch drum/mount previews and all published booklets. The existing coupling guard is white, while drum, bearing supports and motor stand are dark. Its dimensions are unchanged. Dock protection, corner-station housings and the control-cabinet outer enclosure should use white rounded protective surfaces over dark fixtures when their housing geometry is designed. Existing dock/funnel load and capture surfaces retain their committed dimensions.
+
+The [full winch cover r0.1.0](../../hardware/assemblies/winch/full-cover.md) adds
+three/five removable white panels over the existing dark drivetrain, with
+explicit nominal clearances, base drilling and service sequence. Its
+[geometry record](../../hardware/assemblies/winch/full-cover-check.md) and
+open-core assembly views distinguish CAD checks from physical acceptance.
 
 ## Preview and publication rules
 

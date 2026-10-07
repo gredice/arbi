@@ -45,8 +45,10 @@ OpenSCAD source must parameterize the line diameter, groove pitch, usable turns,
 
 The current [segmented drum prototype](../../../hardware/assemblies/winch/README.md)
 and [bearing/motor mount prototype](../../../hardware/assemblies/winch/mount.md)
-now provide fabrication geometry. Both remain concept-unvalidated; line guidance,
-complete guarding and the powered shaft stiffness case remain unresolved.
+now provide fabrication geometry. The [modular full-cover kit](../../../hardware/assemblies/winch/full-cover.md)
+adds removable panels and payout shutters over the unchanged drivetrain.
+All remain concept-unvalidated; line guidance, accepted contact protection,
+powered slip-ring integration and powered shaft stiffness remain unresolved.
 
 ## Shaft, bearings, coupling, and fasteners
 

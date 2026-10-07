@@ -17,7 +17,7 @@
 
 ## Notes
 
-Partial mount kit: per winch print two bearing lowers, two caps, one motor stand and one coupling cover. Requires separately budgeted rigid base, spacers and fasteners. Full drum/weather guard, line guide, homing and powered slip-ring mount remain unfinished; see hardware/assemblies/winch/mount.md.
+Mount kit: per winch print two bearing lowers, two caps, one motor stand and one coupling guard. Requires separately budgeted rigid base, spacers and fasteners. The full shell is the separate winch-full-cover kit; line guidance, homing and powered slip-ring support remain unfinished. See hardware/assemblies/winch/mount.md and full-cover.md.
 
 ## Used in
 

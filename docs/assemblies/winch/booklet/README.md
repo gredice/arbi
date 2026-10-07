@@ -1,12 +1,12 @@
 # STL-based winch assembly booklet
 
-- [Assembly booklet, revision 4](ARBI-winch-assembly-STL.pdf) — 14 A4 pages.
-- [STL and source pack](ARBI-winch-STL-pack.zip) — 16 ARBI fabrication meshes,
-  29 nominal hardware/base references, source snapshots and illustration manifests.
+- [Assembly booklet, revision 5](ARBI-winch-assembly-STL.pdf) — 18 A4 pages.
+- [STL and source pack](ARBI-winch-STL-pack.zip) — 26 ARBI fabrication meshes,
+  35 nominal hardware/base/routing references, source snapshots and illustration manifests.
 - [Generator and rebuild instructions](../../../../scripts/winch-booklet/README.md).
 - [Cover clearance evidence](../../../../hardware/assemblies/winch/coupling-cover-geometry-check.md).
 
-This edition applies the [white-shell / black-core conventions](../../../project/industrial-design.md) to all actual-mesh illustrations. The coupling guard is white and the mechanical core is charcoal. It adds no full winch cover; that is separate follow-up work.
+This edition applies the [white-shell / black-core conventions](../../../project/industrial-design.md) to all actual-mesh illustrations. The coupling guard is white and the mechanical core is charcoal. It includes the [full cover r0.1.0](../../../../hardware/assemblies/winch/full-cover.md): three main panels and two payout shutters for passive, five main panels and four shutters for powered. Pages 15-18 give clips, added base holes, routing and the ordered service procedure.
 It covers the passive-line winch and desk feet; powered drum STLs are included
 for completeness. The passive-line winch still has a motor.
 
@@ -20,7 +20,7 @@ The purchased-part models are simplified reference geometry, not supplier-certif
 manufacturing models or printed substitutes. All model dimensions are in mm.
 The booklet distinguishes mesh/clearance checks from unperformed physical tests.
 
-The 7 October 2026 edition regenerates figures, PDF and ZIP with the neutral palette, retaining the M8 locknut correction and all fabrication dimensions.
+The 7 October 2026 revision 5 regenerates the figures, PDF and ZIP from the new shell/shutter geometry, retains the original drivetrain and M8 locknut correction, and adds passive/powered installed and exploded previews. The [full-cover record](../../../../hardware/assemblies/winch/full-cover-check.md) reports nominal mesh checks separately from unperformed physical tests.
 
 The owner explicitly requested this PDF and downloadable STL/source bundle be
 committed on 27 September 2026. They are published artifact snapshots; canonical

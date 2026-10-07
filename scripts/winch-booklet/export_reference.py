@@ -11,7 +11,8 @@ NAMES=['bearing-608','inner-ring-spacer','shaft-collar-8','coupling-hub','coupli
  'motor-23HS40-reference','shaft-8x340','shaft-8x660','tie-rod-M5x280','tie-rod-M5x610',
  'washer-M4','washer-M5','washer-M6','washer-M8','nut-M4','nut-M5','nut-M8',
  'nyloc-M4','nyloc-M5','nyloc-M6','nyloc-M8','bolt-M4x20','bolt-M4x25','bolt-M4x45',
- 'bolt-M5x35','bolt-M6x30','bolt-M8x35']
+ 'bolt-M5x35','bolt-M6x30','bolt-M8x35','bolt-M4x16',
+ 'line-passive-reference','line-powered-reference','loom-10mm-reference']
 
 def finish(name,target,result):
     if result.returncode or 'ERROR:' in result.stderr or 'WARNING:' in result.stderr:
@@ -39,12 +40,12 @@ if __name__=='__main__':
     DEST.mkdir(parents=True,exist_ok=True)
     with ThreadPoolExecutor(max_workers=3) as pool:
         result=list(pool.map(export,NAMES))
-    for powered in [False,True]:
-        name='base-plate-'+('powered' if powered else 'passive')
+    for powered,covered in [(False,False),(True,False),(False,True),(True,True)]:
+        name='base-plate-'+('powered' if powered else 'passive')+('-covered' if covered else '')
         target=DEST/(name+'.stl')
         with tempfile.TemporaryDirectory() as temp:
             src=Path(temp)/'plate.scad'
-            src.write_text(f'include <{ROOT}/source/arbi-hardware/lib/winch-mount.scad>\nwm_base({str(powered).lower()});\n')
+            src.write_text(f'include <{ROOT}/source/arbi-hardware/lib/winch-cover.scad>\n{"wc_base" if covered else "wm_base"}({str(powered).lower()});\n')
             r=subprocess.run(['openscad','-o',str(target),str(src)],capture_output=True,text=True,timeout=120)
         result.append(finish(name,target,r))
     (ROOT/'reference-mesh-manifest.json').write_text(json.dumps(result,indent=2)+'\n')

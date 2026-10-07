@@ -189,6 +189,16 @@
           "partId": "winch-mount-hardware",
           "quantity": "1",
           "inclusion": "base"
+        },
+        {
+          "partId": "winch-full-cover",
+          "quantity": "4",
+          "inclusion": "base"
+        },
+        {
+          "partId": "winch-full-cover-hardware",
+          "quantity": "1",
+          "inclusion": "base"
         }
       ],
       "documentation": "docs/assemblies/winch/README.md"

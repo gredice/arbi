@@ -6,6 +6,11 @@ Wire evidence: [AWG26 table](../../../bom/sourcing/pod-wire-dimensions-2026-09-0
 
 ## Passive-base bench aids
 
+- [Modular full assembly cover r0.1.0](full-cover.md): three main white panels
+  and two payout shutters on a passive winch / five panels and four shutters on
+  the powered variant. Reuse the drivetrain; drill extra base holes for clips
+  and the fixed-loom anchor. See the [geometry record](full-cover-check.md).
+
 - [STL-based assembly booklet and model pack](../../../docs/assemblies/winch/booklet/README.md),
   including the revised motor-fastener-clearance coupling cover **0.1.1**.
 - [Printable drilling template](passive-base-drilling-A4.pdf) and
@@ -167,4 +172,4 @@ retention, electrical reliability, weather life or safe operation.
 
 ## Appearance previews
 
-Follow the [industrial design conventions](../../../docs/project/industrial-design.md): charcoal mechanical core and a white coupling guard. Drum reference r2.1.1 and mount reference r0.1.2 change presentation only; all fabrication dimensions remain compatible. The [booklet](../../../docs/assemblies/winch/booklet/README.md) uses the same palette. A full winch cover is subsequent design work.
+Follow the [industrial design conventions](../../../docs/project/industrial-design.md): charcoal mechanical core and white protective surfaces. Drum reference r2.1.1 and mount reference r0.1.2 change presentation only; all fabrication dimensions remain compatible. The [full-cover kit](full-cover.md) adds removable shells over those parts; the [booklet](../../../docs/assemblies/winch/booklet/README.md) uses the same palette.
