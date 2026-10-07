@@ -42,6 +42,7 @@ One stable page per catalog part, including optional and deferred items. Usage q
 | [48 V → 5 V pod buck converter](pod-buck-converter-48v-5v.md) | pod-buck-converter-48v-5v |
 | [AWG26 flexible silicone wire — black](pod-power-wire-black-awg26.md) | pod-power-wire-black-awg26 |
 | [AWG26 flexible silicone wire — red](pod-power-wire-red-awg26.md) | pod-power-wire-red-awg26 |
+| [Round-pole split-clamp pulley mount concept pair](pole-pulley-mount-concept.md) | pole-pulley-mount-concept |
 | [IP65/IP67 ABS post electronics box](post-electronics-enclosure.md) | post-electronics-enclosure |
 | [48 V / 350 W power supply](power-supply-48v-350w.md) | power-supply-48v-350w |
 | [Rear backing plate for top-pulley bracket — stacked BAUHAUS plates](pulley-bracket-backing-plate.md) | pulley-bracket-backing-plate |
