@@ -30,7 +30,14 @@ export class ApplicationMeter {
       for await (const chunk of chunks) { this.spool.progress(key, chunk.byteLength.toString(), this.clock()); yield chunk; }
       completed = true;
     } catch (error) { failed = true; throw error; }
-    finally { this.spool.finish(key, failed ? 'failed' : completed ? 'completed' : 'aborted', this.clock()); }
+    finally {
+      try { this.spool.finish(key, failed ? 'failed' : completed ? 'completed' : 'aborted', this.clock()); }
+      catch (error) {
+        // Preserve a receive failure or intentional consumer break. A successful
+        // transfer still surfaces failed accounting; spool status retains gaps.
+        if (completed) throw error;
+      }
+    }
   }
   /** Diagnostic socket tap: accounting failure is visible, and never throws into control/fault transport. */
   observe(spec: TransferSpec, chunk: Uint8Array): void {

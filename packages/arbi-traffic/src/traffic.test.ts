@@ -169,3 +169,15 @@ test('application freshness is explicit caller policy and rejects invalid ranges
   assert.equal(transfers(spool)[0].observations[0].evidence.maxAgeMs,1234);
   assert.throws(()=>spool.begin(spec({maxAgeMs:-1}),time(++n)));
 });
+
+test('download cleanup preserves receive errors and consumer breaks, but surfaces failure after success',async(t)=>{
+  for(const mode of ['receive-error','consumer-break','completed'] as const){
+    const {spool}=rig(t);let n=0;const meter=new ApplicationMeter(spool,()=>time(++n));const original=new Error('original receive failure');
+    async function* input(){yield Buffer.alloc(12);spool.close();if(mode==='receive-error')throw original;}
+    const consume=async()=>{for await(const _ of meter.download(spec({direction:'download'}),input())){if(mode==='consumer-break'){spool.close();break;}}};
+    if(mode==='receive-error')await assert.rejects(consume,(error:unknown)=>error===original);
+    else if(mode==='completed')await assert.rejects(consume,/METER_UNAVAILABLE/);
+    else await consume();
+    assert.equal(spool.status().degraded,true);
+  }
+});
