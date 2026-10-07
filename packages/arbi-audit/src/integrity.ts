@@ -18,7 +18,7 @@ export function checked(input: unknown, received = false): AuditEvent {
   let json: string;
   try { json = JSON.stringify(input); } catch { throw new AuditError("INVALID_REQUEST"); }
   const parsed = typeof json === "string" ? parseAuditEvent(json) : null;
-  if (!parsed?.ok || parsed.value.sequence === "0" || (!received && parsed.value.ingestTime !== null)) throw new AuditError("INVALID_REQUEST");
+  if (!parsed?.ok || (!received && parsed.value.ingestTime !== null)) throw new AuditError("INVALID_REQUEST");
   return structuredClone(parsed.value);
 }
 export function contentHash(event: AuditEvent): string { return digest({ ...event, ingestTime: null }); }

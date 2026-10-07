@@ -8,7 +8,7 @@ import test from "node:test";
 import type { AuditEvent } from "@arbi/protocol";
 import { SqliteAuditSpool } from "./spool.js";
 import type { SpoolOptions } from "./spool.js";
-import { contentHash, missingRanges } from "./integrity.js";
+import { checked, contentHash, missingRanges } from "./integrity.js";
 
 const fixtures = JSON.parse(readFileSync(new URL("../../arbi-protocol/fixtures/audit-events.json",import.meta.url),"utf8"));
 function event(id = "local-intent", sequence = "1"): AuditEvent {
@@ -80,6 +80,8 @@ test("SQLite page limit produces real SQLITE_FULL; records survive and local sto
   // close is intentionally called twice by cleanup only if still open.
 });
 test("uint64 gaps preserve decimal precision and tolerate reordering",() => {
+  assert.equal(checked(event("zero-sequence","0")).sequence,"0");
+  assert.deepEqual(missingRanges(["0","2"]),[{ from: "1",to: "1" }]);
   assert.deepEqual(missingRanges(["3","1","3"]),[{ from: "2",to: "2" }]);
   assert.deepEqual(missingRanges(["1","2","3"]),[]);
   assert.deepEqual(missingRanges(["18446744073709551615"]),[{ from: "1",to: "18446744073709551614" }]);

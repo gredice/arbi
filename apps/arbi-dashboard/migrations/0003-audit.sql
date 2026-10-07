@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS arbi_audit_heads (
 );
 CREATE TABLE IF NOT EXISTS arbi_audit_events (
   id text PRIMARY KEY, environment text NOT NULL, namespace_id text NOT NULL, site_id text NOT NULL,
-  ordinal bigint NOT NULL, stream text NOT NULL, sequence numeric(20,0) NOT NULL CHECK(sequence BETWEEN 1 AND 18446744073709551615),
+  ordinal bigint NOT NULL, stream text NOT NULL, sequence numeric(20,0) NOT NULL CHECK(sequence BETWEEN 0 AND 18446744073709551615),
   content_hash text NOT NULL, previous_hash text NOT NULL, hash text NOT NULL,
   record jsonb NOT NULL CHECK ((record->>'auditVersion') IS NOT DISTINCT FROM 'arbi.audit/1.0' AND record->'ingestTime' <> 'null'::jsonb),
   UNIQUE(environment,namespace_id,site_id,ordinal), UNIQUE(stream,sequence)
