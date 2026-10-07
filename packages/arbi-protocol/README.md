@@ -9,6 +9,7 @@ Implemented, transport-neutral ARBI 1.0 JSON contracts, runtime validation, gene
 - [Configuration/calibration contract and apply/rollback boundary](../../docs/software/configuration.md)
 - [Configuration schema](schema/configuration.schema.json) and [synthetic fixtures](fixtures/configuration.json)
 - [Mobile data accounting 1.0 specification](../../docs/software/mobile-data-accounting.md), [schema](schema/accounting.schema.json), [fixtures](fixtures/accounting.json) and [reference calculations](src/accounting.ts)
+- [Cross-runtime reference specification](../../docs/software/reference-fixtures.md) and [versioned vectors](fixtures/reference/1.0/vectors.json)
 
 From the repository root, using Node.js >=24 and pinned pnpm:
 
@@ -16,9 +17,10 @@ From the repository root, using Node.js >=24 and pinned pnpm:
 pnpm --filter @arbi/protocol generate
 pnpm --filter @arbi/protocol build
 pnpm --filter @arbi/protocol test
+pnpm protocol:check
 ```
 
-`build` and `lint` reject stale generated bindings. `test` needs `python3` and a C11 compiler named `cc`; missing tools fail explicitly. Ubuntu CI and the documented macOS toolchain provide them. The Python/C harnesses prove representative host JSON round-trips and exact decimal-string counters; they are not firmware validators or physical-device evidence. Future runtime adapters must apply the schema **and** semantic rules and retain these fixtures (#20).
+`build` and `lint` reject stale generated bindings. `test` needs `python3` and a C11 compiler named `cc`; missing tools fail explicitly. Ubuntu CI and the documented macOS toolchain provide them. Existing Python/C JSON round-trips remain intact. The additional `conformance` package command (root `protocol:check`) independently verifies units, transforms, cable geometry, compatibility and exact schema/configuration identity in TypeScript, Python and C, including deliberate discrepancies. These are host reference consumers, not complete firmware validators or physical-device evidence. Future runtime adapters must apply the full schema **and** semantic rules and retain these fixtures.
 
 Consumers declare `"@arbi/protocol": "workspace:*"`. Use `parseMessage` on bounded JSON wire text or `validateMessage` on decoded values; inspect its discriminated `Result` before consuming data. Types alone do not enforce numeric ranges or authorization. Schema consumers can import `@arbi/protocol/schema` without the Node runtime validator.
 

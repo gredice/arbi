@@ -46,11 +46,15 @@ pnpm build
 pnpm bom:check
 pnpm bom:generate
 
+pnpm protocol:check
+
 pnpm cad:check
 pnpm cad:check -- --require-openscad
 ```
 
 The standard Turbo commands cover implemented workspaces only. `docs:check` validates committed local Markdown link targets without network access. `bom:check` validates canonical inputs and fails if tracked reports are missing or stale without modifying them. `bom:generate` writes those deterministic reports.
+
+`protocol:check` builds the protocol package, then runs its [cross-runtime reference suite](docs/software/reference-fixtures.md) directly, including independent TypeScript, Python 3 and host C11 consumers and deliberate mismatch tests. It requires `python3` and `cc` (C11, standard math library); missing tools fail the check. After installing pinned workspace dependencies, the suite is offline and uses only committed synthetic data and temporary host binaries. `pnpm test` includes this suite too; the explicit CI command bypasses Turbo's test cache for the host toolchain checks.
 
 `cad:check` always validates `hardware/models.json` against its JSON Schema, required files, relative includes, revisions, statuses, output names, and both directions of the model-to-BOM fabrication-source mapping. When OpenSCAD is installed it must match the registry's exact version, then the command compiles every registered entrypoint into a temporary directory. `--require-openscad` makes a missing CLI an error and is used in CI.
 
