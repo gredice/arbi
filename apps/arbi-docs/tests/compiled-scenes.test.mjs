@@ -20,6 +20,21 @@ test("passive and powered inventories and poses match their own canonical bookle
         const files = unzipSync(readFileSync(join(app, "../../docs/assemblies/winch/booklet/ARBI-winch-STL-pack.zip")));
         const manifest = JSON.parse(new TextDecoder().decode(files[Object.keys(files).find((n) => n.endsWith("/figure-manifest.json"))]));
         const read = (slug) => JSON.parse(readFileSync(join(output, `scenes/${slug}.json`), "utf8"));
+        const podFiles = unzipSync(readFileSync(join(app, "../../docs/assemblies/camera-pod/booklet/ARBI-payload-enclosure-STL-pack.zip")));
+        const podManifest = JSON.parse(new TextDecoder().decode(podFiles[Object.keys(podFiles).find((n) => n.endsWith("/assembly-manifest.json"))]));
+        const pod = read("camera-pod");
+        assert.equal(pod.kind, "stl", "pod parts must be independently downloadable");
+        assert.equal(pod.glb, undefined);
+        assert.equal(pod.parts.length, podManifest.parts.length);
+        for (const [index, part] of pod.parts.entries()) {
+            const source = podManifest.parts[index];
+            assert.deepEqual(part.matrix, source.matrix, "streaming must preserve the booklet's assembly pose");
+            assert.deepEqual(part.color, source.color);
+            const original = podFiles[Object.keys(podFiles).find((n) => n.endsWith(`/${source.file}`))];
+            assert.deepEqual(readFileSync(join(output, part.url)), Buffer.from(original));
+        }
+        assert.ok(pod.bounds.min.every(Number.isFinite));
+        assert.ok(pod.bounds.max.every((value, axis) => value > pod.bounds.min[axis]));
         const passive = read("winch");
         const powered = read("winch-powered");
         for (const [variant, scene] of [["passive", passive], ["powered", powered]]) {

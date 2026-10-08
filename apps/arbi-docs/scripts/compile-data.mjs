@@ -171,7 +171,8 @@ function poseFigure(figures, names) {
 }
 
 function podScene({ files, source }, modelsByOutput) {
-  write(join(OUT, 'pod/assembled.glb'), files[Object.keys(files).find((n) => n.endsWith('-assembled.glb'))]);
+  for (const [name, bytes] of Object.entries(files))
+    if (name.startsWith('models/') && name.endsWith('.stl')) write(join(OUT, 'pod', name), bytes);
   const figures = parse(files['figure-manifest.json']);
   for (const [name, data] of Object.entries(files)) if (name.startsWith('figures/') && name.endsWith('.png')) write(join(OUT, 'pod', name), data);
   const assembly = parse(files['assembly-manifest.json']);
@@ -181,9 +182,10 @@ function podScene({ files, source }, modelsByOutput) {
   const parts = assembly.parts.map((p, i) => ({
     node: p.name, model: p.model, registered: Boolean(modelsByOutput[basename(p.file)]),
     href: sceneHref(p.model, Boolean(modelsByOutput[basename(p.file)]), p.bomPartId, catalogIds), group: p.group, color: p.color,
+    url: `pod/${p.file}`, matrix: p.matrix,
     explode: offsetOf(p.matrix, exploded[i]), kind: meshes[p.model]?.kind ?? null,
   }));
-  return { kind: 'glb', glb: 'pod/assembled.glb', layout: 'assembly', figureDir: 'pod', hero: 'assembled-covered', source, pose: pose?.name ?? null,
+  return { kind: 'stl', layout: 'assembly', figureDir: 'pod', hero: 'assembled-covered', source, pose: pose?.name ?? null,
     configuration: assembly.configuration, figures: Object.keys(figures).sort(), parts };
 }
 
@@ -331,9 +333,9 @@ try {
 }
 if (PRODUCTION && Object.keys(figures).length !== registry.models.length) throw new Error('Production requires current figures for every registered model');
 
-// Per-model mesh for 3D: pod GLB node, booklet-pack STL, else verified release STL.
+// Per-model mesh for 3D: individual booklet-pack STL, else verified release STL.
 const meshes = {};
-for (const p of pod?.parts ?? []) if (p.registered && pod.source.current) meshes[p.model] ??= { kind: 'glb', node: p.node };
+for (const p of pod?.parts ?? []) if (p.registered && pod.source.current) meshes[p.model] ??= { kind: 'stl', url: p.url, bounds: stlBounds(readFileSync(join(OUT, p.url))) };
 for (const m of registry.models) {
   if (meshes[m.id] || !m.output.endsWith('.stl')) continue;
   const packed = join(OUT, 'winch/models/arbi', m.output);
@@ -354,7 +356,24 @@ for (const slug of [...new Set(registry.models.map((m) => m.assembly))]) {
   const lineup = lineupScene(slug, registry.models.filter((m) => m.assembly === slug && m.artifactRole === 'fabrication'), meshes, release);
   if (lineup) scenes[slug] = lineup;
 }
-for (const [slug, scene] of Object.entries(scenes)) write(join(OUT, `scenes/${slug}.json`), scene);
+// Full placed envelope is available before downloads, keeping the camera stable as parts arrive.
+for (const [slug, scene] of Object.entries(scenes)) {
+  const min = [Infinity, Infinity, Infinity], max = [-Infinity, -Infinity, -Infinity];
+  for (const part of scene.parts) {
+    const bounds = stlBounds(readFileSync(join(OUT, part.url)));
+    for (const x of [bounds.min[0], bounds.max[0]])
+      for (const y of [bounds.min[1], bounds.max[1]])
+        for (const z of [bounds.min[2], bounds.max[2]])
+          for (let a = 0; a < 3; a++) {
+            const row = part.matrix[a];
+            const value = row[0] * x + row[1] * y + row[2] * z + row[3];
+            min[a] = Math.min(min[a], value);
+            max[a] = Math.max(max[a], value);
+          }
+  }
+  scene.bounds = { min, max };
+  write(join(OUT, `scenes/${slug}.json`), scene);
+}
 
 // Verified downloads: release asset with SHA-256, plus committed packs containing the file.
 const downloads = Object.fromEntries(registry.models.map((m) => [m.id, {

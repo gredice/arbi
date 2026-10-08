@@ -36,6 +36,7 @@ export type Scene = {
     kind: "glb" | "stl";
     /** GLB path under /data (GLB scenes). */
     glb?: string;
+    bounds?: { min: Vec3; max: Vec3 };
     layout: "assembly" | "lineup";
     figureDir?: string;
     figures: string[];
