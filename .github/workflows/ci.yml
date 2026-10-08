@@ -48,6 +48,7 @@ jobs:
               - deleted: 'hardware/assemblies/**/README.md'
               - 'bom/catalog/parts.json'
               - 'scripts/check-cad.mjs'
+              - 'scripts/cad-previews/**'
               - '.github/workflows/ci.yml'
               - '.github/workflows/cad-release.yml'
               - 'package.json'
@@ -174,7 +175,10 @@ jobs:
     needs: changes
     if: needs.changes.outputs.cad == 'true'
     runs-on: ubuntu-24.04
-    timeout-minutes: 10
+    timeout-minutes: 20
+    env:
+      VTK_DEFAULT_OPENGL_WINDOW: vtkEGLRenderWindow
+      LIBGL_ALWAYS_SOFTWARE: '1'
     steps:
       - uses: actions/checkout@v6.0.3
         with:
@@ -194,10 +198,51 @@ jobs:
       - name: Install OpenSCAD
         run: |
           sudo apt-get update
-          sudo apt-get install --yes openscad=2021.01-6build4
+          sudo apt-get install --yes openscad=2021.01-6build4 libegl1 libgl1-mesa-dri xvfb xauth
+
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: scripts/cad-previews/requirements.txt
+
+      - name: Install CAD preview renderer
+        run: python -m pip install -r scripts/cad-previews/requirements.txt
 
       - name: Validate and compile registered models
-        run: pnpm cad:check -- --require-openscad
+        env:
+          CAD_OUTPUT: ${{ runner.temp }}/cad-models
+        run: pnpm cad:check -- --require-openscad --output-dir "$CAD_OUTPUT"
+
+      - name: Generate and verify every registered model figure
+        env:
+          CAD_OUTPUT: ${{ runner.temp }}/cad-models
+          PREVIEW_OUTPUT: ${{ runner.temp }}/cad-previews
+        run: python scripts/cad-previews/build.py --cad-dir "$CAD_OUTPUT" --output "$PREVIEW_OUTPUT"
+
+      - name: Verify complete figure coverage through the site compiler
+        env:
+          ARBI_OFFLINE: '1'
+          ARBI_CAD_PREVIEW_PACK: ${{ runner.temp }}/cad-previews/ARBI-CAD-previews.zip
+          ARBI_DATA_DIR: ${{ runner.temp }}/preview-site-data
+        run: |
+          pnpm --filter @arbi/docs data
+          # JavaScript template interpolation is intentionally literal to the shell.
+          # shellcheck disable=SC2016
+          node --input-type=module -e '
+            import assert from "node:assert/strict";
+            import { readFileSync } from "node:fs";
+            const site = JSON.parse(readFileSync(`${process.env.ARBI_DATA_DIR}/site.json`));
+            assert.deepEqual(Object.keys(site.figures).sort(), site.registry.models.map(m => m.id).sort());
+          '
+
+      - name: Upload CAD figures for review
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: cad-previews-${{ github.sha }}
+          path: ${{ runner.temp }}/cad-previews/ARBI-CAD-previews.zip
+          if-no-files-found: error
+          retention-days: 14
 
   booklets:
     name: Validate assembly booklets

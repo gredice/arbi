@@ -95,6 +95,11 @@ CI keeps generated outputs as artifacts and never commits snapshots back to Git.
 Use `scripts/check-booklet.py` for the owning PDF/pack checks; local `--publish`
 is reserved for intentionally refreshing checked-in publication snapshots.
 
+[Registered CAD previews](scripts/cad-previews/README.md) supply a fitted CAD
+figure for every registry entry, including reference assemblies. CAD CI validates
+the complete preview pack, and releases publish it with checksums for the public
+parts inventory. Generated figures remain outside Git.
+
 ## BOM source and generated output
 
 Canonical data separates part identity, assembly quantity, supplier identity, commercial offers, destinations, and build configurations. Shipping is aggregated by supplier basket and destination rather than copied onto every part line. Calculations use committed assumptions and dated exchange rates; normal CI does not fetch mutable live pricing.

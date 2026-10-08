@@ -11,6 +11,7 @@ on:
       - 'hardware/models.json'
       - 'hardware/models.schema.json'
       - 'scripts/check-cad.mjs'
+      - 'scripts/cad-previews/**'
       - 'scripts/winch-booklet/**'
       - 'scripts/payload-booklet/**'
       - 'scripts/check-booklet.py'
@@ -38,7 +39,10 @@ jobs:
     needs: booklets
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    timeout-minutes: 30
+    env:
+      VTK_DEFAULT_OPENGL_WINDOW: vtkEGLRenderWindow
+      LIBGL_ALWAYS_SOFTWARE: '1'
     steps:
       - uses: actions/checkout@v6.0.3
         with:
@@ -58,12 +62,26 @@ jobs:
       - name: Install pinned OpenSCAD
         run: |
           sudo apt-get update
-          sudo apt-get install --yes openscad=2021.01-6build4
+          sudo apt-get install --yes openscad=2021.01-6build4 libegl1 libgl1-mesa-dri xvfb xauth
+
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: scripts/cad-previews/requirements.txt
+
+      - name: Install CAD preview renderer
+        run: python -m pip install -r scripts/cad-previews/requirements.txt
 
       - name: Validate and export every registered model
         env:
           CAD_OUTPUT: ${{ runner.temp }}/cad-release
         run: pnpm cad:check -- --require-openscad --output-dir "$CAD_OUTPUT"
+
+      - name: Generate every registered model figure
+        env:
+          CAD_OUTPUT: ${{ runner.temp }}/cad-release
+        run: python scripts/cad-previews/build.py --cad-dir "$CAD_OUTPUT" --output "$CAD_OUTPUT"
 
       - name: Download the booklets built from this commit
         uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
@@ -103,6 +121,7 @@ jobs:
             printf 'CAD snapshot for commit [`%s`](https://github.com/%s/commit/%s).\n\n' "${GITHUB_SHA:0:12}" "$GITHUB_REPOSITORY" "$GITHUB_SHA"
             printf 'All %s registered models were built with OpenSCAD %s. Download individual STL fabrication parts, CSG assembly references, or the ZIP of all tracked hardware sources. `SHA256SUMS.txt` verifies the assets.\n\n' "$(jq '.models | length' hardware/models.json)" "$(jq -r '.openScadVersion' hardware/models.json)"
             printf 'Includes current winch, dry payload bench and integrated payload enclosure assembly PDFs and STL/source packs. Booklet illustrations use white faces with dark visible outlines and feature edges. Each pack includes source hashes, current mesh revisions, assembly transforms and nominal geometry checks.\n\n'
+            printf 'The `ARBI-CAD-previews.zip` pack contains one PNG per registered model: line-art fabrication figures and shaded CSG reference previews, with model revisions, transitive source hashes and image checksums.\n\n'
             printf 'Model revisions and evidence status are recorded in `hardware/models.json`. These CAD exports do not by themselves establish printability, fit, strength, or installation safety.\n'
           } > "$notes"
 
