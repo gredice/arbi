@@ -11,14 +11,23 @@ on:
       - 'hardware/models.json'
       - 'hardware/models.schema.json'
       - 'scripts/check-cad.mjs'
+      - 'scripts/cad-release-data.mjs'
+      - 'scripts/publish-cad-release.mjs'
+      - 'scripts/check-site-release.mjs'
       - 'scripts/winch-booklet/**'
       - 'scripts/payload-booklet/**'
       - 'scripts/check-booklet.py'
       - 'scripts/check-winch-cover-meshes.py'
+      - 'scripts/check-winch-pole-meshes.py'
       - 'docs/project/industrial-design.md'
       - '.github/workflows/booklets.yml'
       - '.github/workflows/cad-release.yml'
   workflow_dispatch:
+    inputs:
+      version:
+        description: 'Optional MAJOR.MINOR.PATCH bump (otherwise increment the latest patch)'
+        type: string
+        required: false
 
 # Serialize releases so a slower build cannot replace a newer "Latest" release.
 concurrency:
@@ -81,81 +90,32 @@ jobs:
             test -s "$CAD_OUTPUT/$artifact-STL-pack.zip"
           done
           git archive --format=zip --output="$CAD_OUTPUT/cad-sources-${GITHUB_SHA}.zip" HEAD hardware
-          cd "$CAD_OUTPUT"
-          sha256sum -- *.stl *.csg *.pdf *.zip > SHA256SUMS.txt
 
-      - name: Publish commit-versioned release
+      - name: Publish versioned release with source provenance
         id: publish
         env:
           GH_TOKEN: ${{ github.token }}
           CAD_OUTPUT: ${{ runner.temp }}/cad-release
-        run: |
-          tag="cad-${GITHUB_SHA}"
-          if gh release view "$tag" >/dev/null 2>&1; then
-            echo "Release $tag already exists."
-            exit 0
-          fi
+          CAD_VERSION: ${{ inputs.version }}
+        run: node scripts/publish-cad-release.mjs
 
-          notes="${RUNNER_TEMP}/cad-release-notes.md"
-          # Markdown code spans are literal; shell variables use printf arguments.
-          # shellcheck disable=SC2016
-          {
-            printf 'CAD snapshot for commit [`%s`](https://github.com/%s/commit/%s).\n\n' "${GITHUB_SHA:0:12}" "$GITHUB_REPOSITORY" "$GITHUB_SHA"
-            printf 'All %s registered models were built with OpenSCAD %s. Download individual STL fabrication parts, CSG assembly references, or the ZIP of all tracked hardware sources. `SHA256SUMS.txt` verifies the assets.\n\n' "$(jq '.models | length' hardware/models.json)" "$(jq -r '.openScadVersion' hardware/models.json)"
-            printf 'Includes current winch, dry payload bench and integrated payload enclosure assembly PDFs and STL/source packs. Booklet illustrations use white faces with dark visible outlines and feature edges. Each pack includes source hashes, current mesh revisions, assembly transforms and nominal geometry checks.\n\n'
-            printf 'Model revisions and evidence status are recorded in `hardware/models.json`. These CAD exports do not by themselves establish printability, fit, strength, or installation safety.\n'
-          } > "$notes"
-
-          # Mark this release Latest unless the current Latest belongs to a newer commit.
-          # Runs are serialized, but merges land faster than booklet builds, so requiring
-          # this commit to still be main's head left Latest on an old snapshot.
-          # Only a 404 means there is no Latest release yet; any other lookup error fails
-          # the step rather than risk an older build replacing a newer Latest.
-          latest=true
-          lookup_error="${RUNNER_TEMP}/latest-release.err"
-          if current="$(gh api "repos/${GITHUB_REPOSITORY}/releases/latest" --jq .tag_name 2>"$lookup_error")"; then
-            if [[ "$current" == cad-* ]]; then
-              compare_error="${RUNNER_TEMP}/latest-compare.err"
-              if relation="$(gh api "repos/${GITHUB_REPOSITORY}/compare/${current#cad-}...${GITHUB_SHA}" --jq .status 2>"$compare_error")"; then
-                if [[ "$relation" != "ahead" && "$relation" != "identical" ]]; then
-                  latest=false
-                fi
-              elif grep -q 'HTTP 404' "$compare_error"; then
-                # The Latest commit is no longer reachable (for example after a force-push);
-                # this run's main commit takes over rather than blocking every later release.
-                echo "Current Latest ${current} is not comparable; marking this release Latest."
-              else
-                cat "$compare_error" >&2
-                echo "Could not compare with the current Latest release." >&2
-                exit 1
-              fi
-            fi
-          elif grep -q 'HTTP 404' "$lookup_error"; then
-            echo "No Latest release yet."
-          else
-            cat "$lookup_error" >&2
-            echo "Could not read the current Latest release." >&2
-            exit 1
-          fi
-
-          gh release create "$tag" "$CAD_OUTPUT"/* \
-            --target "$GITHUB_SHA" \
-            --title "CAD models ${GITHUB_SHA:0:12}" \
-            --notes-file "$notes" \
-            --latest="$latest"
-          echo "latest=$latest" >> "$GITHUB_OUTPUT"
-
-      # The public site reads the Latest release at build time; rebuild it when that changes.
-      # The release is already published, so a failed refresh is reported without failing the run.
+      # A rerun repairs a failed refresh even when the immutable release exists.
       - name: Refresh the public site
         if: steps.publish.outputs.latest == 'true'
-        continue-on-error: true
         env:
           DEPLOY_HOOK: ${{ secrets.ARBI_SITE_DEPLOY_HOOK }}
         run: |
           if [[ -z "$DEPLOY_HOOK" ]]; then
-            echo "::notice::ARBI_SITE_DEPLOY_HOOK is not set; the site picks up this release on its next deployment."
-            exit 0
+            echo "::error::ARBI_SITE_DEPLOY_HOOK is required to refresh the production CAD data."
+            exit 1
           fi
           curl --fail --silent --show-error --retry 3 --request POST "$DEPLOY_HOOK" > /dev/null
           echo "Requested a production rebuild of arbi.gredice.com."
+
+      - name: Verify the public site picked up this release
+        if: steps.publish.outputs.latest == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CAD_RELEASE_TAG: ${{ steps.publish.outputs.tag }}
+          CAD_RELEASE_COMMIT: ${{ steps.publish.outputs.commit }}
+        run: node scripts/check-site-release.mjs

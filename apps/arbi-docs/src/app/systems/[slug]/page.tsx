@@ -23,7 +23,7 @@ export default async function SystemPage({ params }: { params: Promise<{ slug: s
     const lineup = sys.scene?.layout === "lineup";
     const ids = sceneModels(sys.slug);
     const others = sys.models.filter((m) => !ids.includes(m.id));
-    const from = sys.scene ? (sys.scene.source.kind === "release" ? `CAD release ${sys.scene.source.tag?.slice(4, 11) ?? ""}`.trim() : "committed booklet snapshot") : "";
+    const from = sys.scene ? (sys.scene.source.kind === "release" ? sys.scene.source.tag ?? "CAD release" : sys.scene.source.current ? "current committed booklet snapshot" : "archived booklet snapshot · earlier design") : "";
     const caption = !sys.scene
         ? ""
         : lineup

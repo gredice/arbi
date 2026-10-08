@@ -11,7 +11,7 @@ export default function Downloads() {
     const r = site.release;
     return (
         <>
-            <Crumb left="Downloads" right={r ? `CAD release ${r.tag.slice(4, 16)}` : "CAD release unavailable at build"} />
+            <Crumb left="Downloads" right={r ? r.tag : "CAD release pending"} />
             <div className="px-4 pb-20 sm:px-6">
                 <h1 className="cond border-b-2 border-ink py-8 text-[88px] leading-[0.85]">Downloads</h1>
                 {r ? (
@@ -19,7 +19,7 @@ export default function Downloads() {
                         <div className="lg:col-span-5">
                             <div className="tag">Latest CAD release · built by CI from OpenSCAD sources</div>
                             <a className="cond mt-2 block text-[34px] leading-none underline decoration-2 underline-offset-4" target="_blank" rel="noreferrer" href={r.url}>
-                                {r.tag.slice(0, 16)}
+                                {r.tag}
                             </a>
                             <p className="mt-3 max-w-[52ch] text-[13px] leading-snug">
                                 Every link below was checked against the release&apos;s SHA256SUMS.txt when this site was built.{" "}
@@ -42,9 +42,10 @@ export default function Downloads() {
                         </div>
                     </section>
                 ) : (
-                    <p className="tag border-b-2 border-ink py-4">The CAD release could not be reached when this site was built; links fall back to committed snapshots.</p>
+                    <p className="tag border-b-2 border-ink py-4">A CAD release matching these sources is pending. Only current source-checked packs are offered as model downloads.</p>
                 )}
-                <h2 className="cond mt-10 text-[34px]">Committed snapshots</h2>
+                <h2 className="cond mt-10 text-[34px]">Archived committed snapshots</h2>
+                <p className="mt-2 text-[13px]">Historical PDFs and packs may contain earlier designs. Use the current CAD release above for assembly and fabrication.</p>
                 <div className="mt-3 grid border-t border-l border-ink md:grid-cols-2 xl:grid-cols-3">
                     {site.snapshots.map((f) => (
                         <a key={f.path} href={f.url} className="flex gap-5 border-r border-b border-ink p-5 hover:bg-sheet">

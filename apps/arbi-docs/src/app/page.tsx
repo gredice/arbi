@@ -8,11 +8,11 @@ import { data } from "@/lib/site";
 // Captions for the teardown; the parts and their poses come from the booklet scene.
 const STEPS: Step[] = [
     { model: "payload-rain-hood", title: "White shell", text: "A broad rounded crown over the fixed electronics. Four bolts from underneath; lift for service." },
-    { model: "payload-electronics-deck", title: "Fixed electronics", text: "Pi 3A+, converter and capacitor stay on the spider. Only the camera moves." },
+    { model: "payload-integrated-deck", title: "Fixed electronics", text: "Pi 3A+, converter and capacitor stay on the spider. Only the camera moves." },
     { model: "payload-enclosure-base", title: "Rain tray", text: "Raised lip, downward harness ports and drain slots. A splash shield, not a seal." },
     { model: "camera-pod-spider", title: "Four-line spider", text: "The cable spider is the primary chassis and the only tensile load path." },
-    { model: "payload-pan-fairing", title: "Pan fairing", text: "Removable lower shield; park pan at 45° before it comes off." },
-    { model: "payload-pan-yoke", title: "Two-axis gimbal", text: "Pan ±90° and tilt 0–70° are targets, bounded by software limits and hard stops." },
+    { model: "payload-integrated-gimbal-head", title: "Moving head", text: "One-piece outer head surrounds the compact internal gimbal, with a continuous underside seam." },
+    { model: "payload-integrated-gimbal-carrier", title: "Two-axis gimbal", text: "Pan ±90° and tilt 0–70° are targets, bounded by software limits and hard stops." },
 ];
 
 export default function Home() {
@@ -27,7 +27,14 @@ export default function Home() {
     return (
         <>
             <Crumb left="Cover" right={`Rev ${site.commit.slice(0, 7)}`} dark />
-            <CoverTeardown scene={scenes["camera-pod"]} steps={STEPS.filter((s) => models.some((m) => m.id === s.model))} date={site.commitDate} />
+            {scenes["camera-pod"] ? (
+                <CoverTeardown scene={scenes["camera-pod"]} steps={STEPS.filter((s) => scenes["camera-pod"].parts.some((p) => p.model === s.model))} date={site.commitDate} />
+            ) : (
+                <section className="bg-ink px-4 py-20 text-paper sm:px-6">
+                    <h1 className="cond text-[64px] leading-none">Automatic raised bed imaging</h1>
+                    <p className="mt-6">The current camera pod preview is being prepared. Explore the latest design documentation below.</p>
+                </section>
+            )}
             <section className="grid grid-cols-2 border-b-2 border-ink px-4 sm:px-6 md:grid-cols-4">
                 {stats.map(([n, l], i) => (
                     <div key={l} className={`py-6 ${i ? "border-ink md:border-l md:pl-6" : ""}`}>

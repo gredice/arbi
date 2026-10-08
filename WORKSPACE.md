@@ -90,7 +90,7 @@ configurations are the winch, dry payload bench and payload rain enclosure.
 
 [Booklet CI](.github/workflows/booklets.yml) builds all three on relevant PRs and
 manual dispatches. [CAD release CI](.github/workflows/cad-release.yml) includes
-their PDFs/ZIPs and checksums in the same `cad-<commit>` release as the geometry.
+their PDFs/ZIPs and checksums in the same `cad-v<MAJOR.MINOR.PATCH>` release as the geometry.
 CI keeps generated outputs as artifacts and never commits snapshots back to Git.
 Use `scripts/check-booklet.py` for the owning PDF/pack checks; local `--publish`
 is reserved for intentionally refreshing checked-in publication snapshots.
@@ -120,6 +120,6 @@ The simulator and real adapters must consume the same versioned contracts and un
 
 ## Public Vercel site
 
-`apps/arbi-docs` consumes repository documentation, CAD registry metadata, `bom/generated` reports, booklet packs and the latest CI-built `cad-<commit>` release; it never duplicates them. `scripts/compile-data.mjs` writes the ignored `public/data` during `dev` and `build`. It checks release assets against `SHA256SUMS.txt`, falls back to committed snapshots when the release is stale or unreachable, and reads exploded poses from the booklet renderer's figure manifests. The build is secret-free and works for pull requests from forks. The Vercel project `arbi` in the Gredice team uses root directory `apps/arbi-docs` and is connected to this repository: `main` deploys production at `arbi.gredice.com`, and pull requests get previews.
+`apps/arbi-docs` consumes repository documentation, CAD registry metadata, `bom/generated` reports, booklet packs and the latest CI-built `cad-v<MAJOR.MINOR.PATCH>` release; it never duplicates them. `scripts/compile-data.mjs` writes the ignored `public/data` during `dev` and `build`. It checks release assets against `SHA256SUMS.txt`, rejects production builds when the release is stale, incomplete or unreachable; local previews only use source-checked snapshots unless archival offline mode is explicitly selected, and reads exploded poses from the booklet renderer's figure manifests. The build is secret-free and works for pull requests from forks. The Vercel project `arbi` in the Gredice team uses root directory `apps/arbi-docs` and is connected to this repository: `main` deploys production at `arbi.gredice.com`, and pull requests get previews.
 
 When ARBI V1 is merged into the Gredice monorepo, align tool versions with the destination at merge time, preserve prefixed package names, and add any Vercel app to the destination's application registry. Do not copy environment pull or deployment scripts before they are needed.
