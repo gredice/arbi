@@ -4,7 +4,30 @@ import { existsSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSy
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { test } from 'node:test';
-import { compileModels, parseArguments } from './check-cad.mjs';
+import { compileModels, parseArguments, validateRegistry } from './check-cad.mjs';
+
+test('archived sources remain traceable but cannot return to BOM mappings or current exports', () => {
+    const current = validateRegistry();
+    const archived = current.archivedModels.find(m => m.id === 'payload-electronics-deck');
+    assert.ok(current.models.some(m => m.id === 'payload-integrated-deck'));
+    assert.ok(!current.models.some(m => m.id === archived.id));
+    const parts = JSON.parse(readFileSync('bom/catalog/parts.json', 'utf8'));
+    parts.parts.find(p => p.id === 'camera-pod-chassis').fabrication.sources.push({
+        modelId: archived.id, path: archived.entrypoint, revision: archived.revision, module: 'payload_electronics_deck',
+    });
+    assert.throws(() => validateRegistry(current, parts), /references archived CAD model/);
+    const broken = structuredClone(current);
+    broken.archivedModels[0].supersededBy = ['missing-replacement'];
+    assert.throws(() => validateRegistry(broken), /replacement must be an active model/);
+    const remapped = structuredClone(current);
+    remapped.archivedModels[0].bomPartIds = ['camera-pod-chassis'];
+    assert.throws(() => validateRegistry(remapped), /does not match/);
+});
+
+test('booklet selection preserves the current enclosure and explicit bench alternative', () => {
+    const result = spawnSync('python3', ['scripts/payload-booklet/test_model_selection.py'], { encoding: 'utf8' });
+    assert.equal(result.status, 0, result.stderr || result.error?.message);
+});
 
 function fixture(t, mode = 'ok') {
     const root = mkdtempSync(join(tmpdir(), 'arbi-cad-test-'));

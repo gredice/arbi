@@ -9,7 +9,7 @@ import { bomForModel, data, docHref, download, figureFor, installedCount, meshFo
 import type { Vec3 } from "@/lib/types";
 
 export const dynamicParams = false;
-export const generateStaticParams = () => data().models.map((m) => ({ id: m.id }));
+export const generateStaticParams = () => [...data().models, ...data().archivedModels].map((m) => ({ id: m.id }));
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
     const m = data().modelById.get((await params).id);
@@ -19,6 +19,25 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 export default async function PartPage({ params }: { params: Promise<{ id: string }> }) {
     const m = data().modelById.get((await params).id);
     if (!m) notFound();
+    if (m.archiveReason) return (
+        <>
+            <Crumb left={`Archived parts / ${m.id}`} right="Archived · do not print for current assembly" />
+            <section className="px-4 py-8 sm:px-6">
+                <h1 className="cond text-[44px] leading-none">{m.id}</h1>
+                <p className="mt-4 max-w-[70ch]">{m.archiveReason}</p>
+                <p className="mt-3">Revision {m.revision} · {fmt.status(m.status)}. Excluded from the current BOM, installed quantities and model downloads.</p>
+                <div className="mt-6">
+                    <div className="tag">Current replacements</div>
+                    {m.supersededBy?.length ? m.supersededBy.map((id) => (
+                        <Link key={id} href={`/parts/${id}`} className="mt-2 block underline">{id} →</Link>
+                    )) : <p className="mt-2">No qualified replacement is recorded; see the assembly documentation for unresolved interfaces.</p>}
+                </div>
+                {m.alternativeConfiguration && <p className="mt-6">Retained in the explicit dry bench alternative booklet. Use the integrated enclosure kit for the current pod.</p>}
+                <a href={links.source(m.entrypoint)} target="_blank" rel="noreferrer" className="mt-6 block underline">Historical SCAD source</a>
+                <Link href="/parts/archive" className="mt-6 block underline">← Archived models</Link>
+            </section>
+        </>
+    );
     const sys = systemBySlug(data().instances.get(m.id)?.scene ?? m.assembly);
     const count = installedCount(m.id);
     const bom = bomForModel(m);

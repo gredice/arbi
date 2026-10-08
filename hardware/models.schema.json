@@ -4,7 +4,13 @@
     "title": "ARBI OpenSCAD model registry",
     "type": "object",
     "additionalProperties": false,
-    "required": ["$schema", "schemaVersion", "units", "openScadVersion", "models"],
+    "required": [
+        "$schema",
+        "schemaVersion",
+        "units",
+        "openScadVersion",
+        "models"
+    ],
     "properties": {
         "$schema": {
             "type": "string"
@@ -23,6 +29,31 @@
             "minItems": 1,
             "items": {
                 "$ref": "#/$defs/model"
+            }
+        },
+        "archivedModels": {
+            "type": "array",
+            "items": {
+                "allOf": [
+                    {
+                        "$ref": "#/$defs/model"
+                    },
+                    {
+                        "required": [
+                            "archiveReason",
+                            "supersededBy"
+                        ],
+                        "properties": {
+                            "bomPartIds": {
+                                "maxItems": 0,
+                                "type": "array"
+                            },
+                            "archiveReason": {},
+                            "supersededBy": {}
+                        },
+                        "type": "object"
+                    }
+                ]
             }
         }
     },
@@ -61,7 +92,10 @@
                     ]
                 },
                 "artifactRole": {
-                    "enum": ["fabrication", "reference"]
+                    "enum": [
+                        "fabrication",
+                        "reference"
+                    ]
                 },
                 "bomPartIds": {
                     "type": "array",
@@ -90,6 +124,21 @@
                 "description": {
                     "type": "string",
                     "minLength": 1
+                },
+                "archiveReason": {
+                    "type": "string",
+                    "minLength": 1
+                },
+                "supersededBy": {
+                    "type": "array",
+                    "uniqueItems": true,
+                    "items": {
+                        "type": "string",
+                        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                    }
+                },
+                "alternativeConfiguration": {
+                    "const": "payload-bench"
                 }
             },
             "allOf": [
@@ -98,6 +147,14 @@
                         "properties": {
                             "artifactRole": {
                                 "const": "fabrication"
+                            }
+                        },
+                        "not": {
+                            "required": [
+                                "archiveReason"
+                            ],
+                            "properties": {
+                                "archiveReason": {}
                             }
                         }
                     },

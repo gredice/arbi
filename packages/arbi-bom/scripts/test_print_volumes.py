@@ -20,6 +20,18 @@ def ascii_stl(faces):
 
 
 class VolumeTests(unittest.TestCase):
+    def test_registry_archival_requires_unchanged_costed_model_identity(self):
+        model = dict(id='current', revision='1.0.0', entrypoint='hardware/current.scad',
+                     output='current-r1.0.0.stl', artifactRole='fabrication')
+        original = {'models': [model, {**model, 'id': 'historical'}]}
+        current = {'models': [model], 'archivedModels': [{**model, 'id': 'historical'}]}
+        capture.verify_registry_metadata(original, current, {'current'})
+        for key in ['revision', 'entrypoint', 'output', 'artifactRole']:
+            with self.assertRaises(ValueError):
+                capture.verify_registry_metadata(original, {'models': [{**model, key: 'changed'}]}, {'current'})
+        with self.assertRaises(ValueError):
+            capture.verify_registry_metadata(original, current, {'historical'})
+
     def test_ascii_and_binary_volume_units(self):
         self.assertEqual(capture.volume_cm3(ascii_stl(triangles)), '1.000000')
         raw = b'test'.ljust(80, b'\0') + struct.pack('<I', len(triangles))

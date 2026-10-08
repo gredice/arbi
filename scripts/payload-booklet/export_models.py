@@ -3,11 +3,11 @@ from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor
 import json, hashlib, subprocess, tempfile
 import trimesh
+from model_selection import selected_models
 
 ROOT=Path(__file__).resolve().parents[1]
 CONFIG=json.loads((ROOT/'configuration.json').read_text()) if (ROOT/'configuration.json').exists() else {'variant':'bench'}
 ENCLOSURE=CONFIG['variant']=='enclosure'
-ENCLOSURE_MODELS={'payload-integrated-deck','payload-integrated-camera-hood','payload-integrated-gimbal-head','payload-integrated-gimbal-carrier','payload-integrated-camera-cradle','payload-integrated-tilt-pivot-support','payload-rain-hood','payload-enclosure-base','payload-tilt-servo-boot','payload-camera-cowl','payload-pan-fairing'}
 NAMES=['raspberry-pi-3a-plus-reference','camera-module-3-standard-reference',
  'micro-servo-3p7g-UNVERIFIED','servo-horn-UNVERIFIED','buck-converter-UNVERIFIED',
  'capacitor-1000uf-UNVERIFIED','microsd-reference','csi-15pin-flat-reference',
@@ -52,15 +52,10 @@ if __name__=='__main__':
     jobs=[(n,ROOT/'source/reference-parts.scad','reference',[f'part="{n}"'],
       'unverified placeholder' if 'UNVERIFIED' in n else 'simplified hardware reference',n) for n in names]
     registry=json.loads((ROOT/'source/arbi-hardware/models.json').read_text())
-    for model in registry['models']:
-        # The camera-pod concept family is an alternative kit, not part of this bench assembly.
-        if (model['assembly']=='camera-pod' and model['artifactRole']=='fabrication'
-            and (model['id']=='camera-pod-spider' or model['id'].startswith('payload-'))):
-            if model['id'] in ENCLOSURE_MODELS and not ENCLOSURE:continue
-            if model['id'] in {'payload-electronics-cover','payload-electronics-deck','payload-camera-hood','payload-pan-yoke','payload-camera-cradle','payload-tilt-pivot-support','payload-camera-cowl','payload-pan-fairing','payload-tilt-servo-boot'} and ENCLOSURE:continue
-            source=ROOT/'source/arbi-hardware'/Path(model['entrypoint']).relative_to('hardware')
-            jobs.append((Path(model['output']).stem,source,'printable',[],
-                         'canonical concept fabrication geometry; bed translation only',model['id']))
+    for model in selected_models(registry,ENCLOSURE):
+        source=ROOT/'source/arbi-hardware'/Path(model['entrypoint']).relative_to('hardware')
+        jobs.append((Path(model['output']).stem,source,'printable',[],
+                     'canonical concept fabrication geometry; bed translation only',model['id']))
     if not ENCLOSURE:jobs.append(('camera-pod-keepout-NOT-A-PART',ROOT/'source/arbi-hardware/assemblies/camera-pod/camera-pod-envelope.scad',
        'context',[],'legacy non-manufacturing keep-out; not an enclosure','camera-pod-envelope'))
     with ThreadPoolExecutor(max_workers=3) as pool:result=list(pool.map(export,jobs))
