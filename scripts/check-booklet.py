@@ -50,6 +50,9 @@ def check(root, variant):
             installed = figures[f'cover-{cable_variant}-installed']['parts']
             exploded = figures[f'cover-{cable_variant}-exploded']['parts']
             fascia = next(p for p in installed if f'cover-{cable_variant}-pole-fascia-' in p['file'])
+            motor = next(p for p in installed if 'motor-23HS40-reference' in p['file'])
+            motor_mesh = trimesh.load_mesh(root / motor['file'])
+            motor_mesh.apply_transform(np.asarray(motor['matrix']))
             looms = [p for p in installed if f'loom-{cable_variant}-bottom-' in p['file']]
             assert len(looms) == 2, cable_variant
             for loom in looms:
@@ -65,6 +68,12 @@ def check(root, variant):
                     intersection = trimesh.boolean.intersection(placed, engine='manifold')
                     overlap = 0 if intersection.is_empty else intersection.volume
                     assert overlap < .001, (cable_variant, loom['file'], fraction, 'cable intersects fascia', overlap)
+                    # The old open-ended run was entirely below/away from the
+                    # motor. Both routing references must terminate under its
+                    # rear body, including during the fascia disassembly travel.
+                    contact = trimesh.boolean.intersection([placed[1], motor_mesh], engine='manifold')
+                    assert not contact.is_empty and contact.volume > 1, (
+                        cable_variant, loom['file'], fraction, 'loom starts in empty space below motor')
     for name, figure in figures.items():
         assert figure['render_style'] == 'assembly-line-art-v1', name
         with Image.open(root / 'figures' / (name + '.png')) as image:

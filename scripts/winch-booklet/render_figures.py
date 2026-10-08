@@ -29,7 +29,24 @@ def A(name,m=None):
     # Role color is stable in installed, exploded and inventory views.
     c=WHITE if name in ['coupling-guard','pole-nut-cover','pole-nut-cover-bottom'] or (name.startswith('cover-') and name not in ['cover-clip','cover-cable-anchor']) else CORE
     return {'file':'models/arbi/'+outputs['winch-'+name],'matrix':(np.eye(4) if m is None else m).tolist(),'color':c}
-def H(name,m=None,c=STEEL):return {'file':f'models/reference/{name}.stl','matrix':(np.eye(4) if m is None else m).tolist(),'color':c}
+def H(name,m=None,c=STEEL):
+    bom={'motor-23HS40-reference':'nema23-closed-loop-motor',
+         'bearing-608':'bearing-608-2rs','shaft-collar-8':'shaft-collar-8mm',
+         'inner-ring-spacer':'winch-mount-hardware',
+         'coupling-hub':'flexible-jaw-coupling-8mm','coupling-spider':'flexible-jaw-coupling-8mm'}
+    part=bom.get(name)
+    if name.startswith(('bolt-','washer-','nut-','nyloc-','base-plate-')):part='winch-mount-hardware'
+    if name.startswith('shaft-8x'):part='winch-drum-shaft-8mm'
+    if name.startswith('tie-rod-'):part='winch-drum-joining-hardware'
+    if name.startswith('loom-'):part='matched-motor-cable'
+    return {'file':f'models/reference/{name}.stl','matrix':(np.eye(4) if m is None else m).tolist(),'color':c,
+            **({'bomPartId':part} if part else {})}
+
+def hardware_owner(items,part):
+    for item in items:
+        if item.get('bomPartId') in ['winch-mount-hardware','winch-drum-joining-hardware']:
+            item['bomPartId']=part
+    return items
 def transform(items,m):
     return [{**p,'matrix':(m@np.array(p['matrix'])).tolist()} for p in items]
 
@@ -51,7 +68,7 @@ def drum_parts(explode=0,clamp=True,tail=True,hardware=True,shaft=False):
             parts.append(H('nyloc-M5',T(x,y,-6)))
             parts.append(H('nyloc-M5',T(x,y,W+13)))
     if shaft:parts.append(H('shaft-8x660' if POWERED else 'shaft-8x340',T(z=W+66-(660 if POWERED else 340))))
-    return parts
+    return hardware_owner(parts,'winch-drum-joining-hardware')
 
 def clamp_hardware():
     out=[]
@@ -64,7 +81,7 @@ def clamp_hardware():
           H('washer-M4',T(x,16.8,W+25)@R('x',90)),
           H('washer-M4',T(x,-16,W+25)@R('x',90)),
           H('nyloc-M4',T(x,-16.8,W+25)@R('x',90))])
-    return out
+    return hardware_owner(out,'winch-drum-joining-hardware')
 
 def rings(c=STEEL,explode=0):
     out=[]
@@ -187,7 +204,7 @@ def cover_parts(explode=0,shutter_out=0,hardware=True,main=True,shutters=True,co
     if hardware:
         for cx in [W/2+50,W/2+70]:
             out.extend([H('bolt-M4x25',T(cx,-60,6.8)@R('x',180)),H('washer-M4',T(cx,-60,6)),H('washer-M4',T(cx,-60,-8.8)),H('nyloc-M4',T(cx,-60,-13.8))])
-    return out
+    return hardware_owner(out,'winch-full-cover-hardware')
 
 def covered(explode=0,shutter_out=0,main=True,shutters=True,conceal=True):
     variant='powered' if POWERED else 'passive'

@@ -58,7 +58,7 @@ export function SystemExplorer({ number, name, scene, cadPending, caption, nav, 
             }
         });
         viewer.on("hover", (p) => setActive(p?.registered ? p.model : null));
-        viewer.on("pick", (p) => p.registered && router.push(`/parts/${p.model}`));
+        viewer.on("pick", (p) => p.href && router.push(p.href));
         viewer.loadScene(scene).then(() => {
             if (!alive) return;
             const lineup = scene.layout === "lineup";

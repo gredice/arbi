@@ -19,6 +19,8 @@ export type ScenePart = {
     node: string;
     model: string;
     registered: boolean;
+    /** Existing CAD or BOM page for this mesh; absent for unmapped context. */
+    href?: string;
     group: string;
     color: Vec3;
     explode: Vec3;

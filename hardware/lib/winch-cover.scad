@@ -307,7 +307,12 @@ module wc_loom_run(powered=false,i=0) {
     px=wc_loom_x(powered,i); z=wc_loom_z(i);
     target=wd_width(powered)/2+(i==0 ? -8 : 8);
     a=[px,-105,z]; b=[px,-145,z]; c=[target,-175,-24]; d=[target,-215,-24];
-    points=concat([[wm_motor_face(powered)+75,-60,z]],
+    // Start beneath the rear of the nominal 122 mm motor body. The lower
+    // fascia's disassembly travel keeps these ends under the motor envelope.
+    // These are routing references; received connectors/bend limits still govern.
+    rear=wm_motor_face(powered)+99+14*i;
+    lead=[rear,27,57]; run=[wm_motor_face(powered)+75,-60,z];
+    points=concat([for(t=[0:0.025:0.975]) wc_bezier(lead,[rear,-8,57],[run[0],-60,z+30],run,t)], [run],
         [for(angle=[0:3:90]) [px+30-30*sin(angle),-90+30*cos(angle),z]],
         [for(t=[0:0.025:1]) wc_bezier(a,b,c,d,t)], [[target,-310,-24]]);
     // One closed sweep keeps this nominal cable reference quick to export.

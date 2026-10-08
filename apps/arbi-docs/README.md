@@ -35,6 +35,9 @@ explosion follows page scrolling; assembly pages also have an explosion slider.
 Four schematic suspension lines on the cover start at the spider's line holes
 and extend upward out of view. They follow its exploded offset, use scene depth
 for occlusion, and are excluded from CAD bounds and camera fitting.
+Clicking a registered mesh opens its CAD page. The winch motor and bought
+hardware open their owning BOM pages, recorded by the booklet figure manifest;
+unmapped context has no navigation target.
 Contents previews render their CAD scenes once at display resolution, with a
 fitted camera and full-pixel outlines instead of downscaled booklet PNGs.
 The scenic concept image retains its full aspect ratio, color and frame spacing.

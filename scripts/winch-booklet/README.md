@@ -35,8 +35,13 @@ grid. Product colors remain in the figure/assembly manifests and payload GLB.
 
 In exploded cover views, the disconnected stationary loom references move with
 the lower fascia that carries their exit holes. This preserves cable-to-port
-alignment throughout the website's exploded-view animation; it illustrates
+alignment throughout the website's exploded-view animation. Their inner ends
+extend under the rear of the nominal motor body in both poses; it illustrates
 disassembly, not a flexible-cable deformation or service procedure.
+
+Bought meshes record their owning `bomPartId` in the figure manifest. Motor,
+drum joining/clamp, mount and cover hardware open their existing BOM pages in
+the website; repeated fastener meshes retain the owner of each installed stack.
 
 [Booklet jobs in CI](../../.github/workflows/ci.yml) build affected winch, dry payload
 and enclosed payload variants in separate jobs with Python 3.12, OpenSCAD 2021.01 and VTK
@@ -58,7 +63,7 @@ python3 scripts/check-booklet.py hardware/generated/booklet --variant winch
 
 The check verifies A4 page totals, headers, revisions, source/STL hashes,
 registry filenames, non-empty line-art figures and matching PDF/ZIP contents.
-It also checks both variants' cable meshes against the port-bearing fascia at
+It also checks both variants' cable meshes against the motor and port-bearing fascia at
 the installed, exploded and three intermediate animation poses.
 Render every PDF page for visual review before updating a checked-in snapshot.
 
