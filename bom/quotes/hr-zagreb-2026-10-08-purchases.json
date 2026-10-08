@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "id": "hr-zagreb-2026-10-08-wasi-pulley",
+  "id": "hr-zagreb-2026-10-08-purchases",
   "destinationId": "hr-zagreb",
-  "capturedAt": "2026-10-08T06:20:51.469Z",
+  "capturedAt": "2026-10-08T06:27:08.177Z",
   "exchangeRates": {
     "reportCurrency": "EUR",
     "rates": {
@@ -387,12 +387,13 @@
     {
       "offerId": "dive-store-dyneema-positioning-line",
       "availability": "unknown",
-      "observedAt": null,
+      "observedAt": "2026-10-08T06:27:08.177Z",
       "taxTreatment": "unknown",
       "price": {
-        "basis": "base-unit",
-        "amount": "0.3676",
-        "currency": "EUR"
+        "basis": "purchase-unit",
+        "amount": "18.38",
+        "currency": "EUR",
+        "normalizationNote": "Owner confirmed EUR 80.43 including EUR 6.91 delivery for four 50 m spools on 2026-10-08: EUR 73.52 goods / 4 = EUR 18.38 per spool. This equals the prior EUR 0.3676/m goods price. Current stock, original purchase date and VAT breakdown were not supplied. Evidence: bom/sourcing/dive-store-line-2026-10-08.md."
       }
     },
     {
@@ -663,11 +664,11 @@
       "checkoutGroupId": "dive-store-hr",
       "supplierId": "dive-store",
       "status": "known",
-      "observedAt": null,
-      "amount": "6.25",
+      "observedAt": "2026-10-08T06:27:08.177Z",
+      "amount": "6.91",
       "currency": "EUR",
       "taxTreatment": "unknown",
-      "note": "Captured once on the Dyneema order."
+      "note": "Owner confirmed EUR 6.91 actual delivery to Zagreb on 2026-10-08, included in the EUR 80.43 total for four 50 m Dyneema spools (EUR 73.52 goods). Charged once for this supplier basket; original delivery date and VAT breakdown were not supplied. Evidence: bom/sourcing/dive-store-line-2026-10-08.md."
     },
     {
       "checkoutGroupId": "harken-hr",

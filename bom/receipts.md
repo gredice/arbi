@@ -54,4 +54,19 @@ combined offer mapping above is retained as receipt history. See
 [purchase and shipping evidence](sourcing/wasi-pulley-2026-10-08.md). No invoice VAT
 breakdown or inspection, testing or installation evidence was supplied.
 
+## Dive Store purchase details confirmed on 2026-10-08
+
+Evidence: Aleks confirmed that the four previously received 50 m spools cost
+**EUR 80.43 including EUR 6.91 delivery** to Zagreb. This clarifies the 2026-09-08
+receipt above; it is the same four spools, not an additional order. Exact order
+and delivery dates were not supplied.
+
+| Supplier | Offer ID / BOM mapping | Item | Quantity | Goods total | Delivery | Total |
+| --- | --- | --- | --- | ---: | ---: | ---: |
+| Dive Store | `dive-store-dyneema-positioning-line` / `dyneema-positioning-line` | Dyneema positioning line | 4 × 50 m spools (200 m total) | EUR 73.52 (EUR 18.38 per spool) | EUR 6.91 — Zagreb | EUR 80.43 |
+
+See [purchase evidence](sourcing/dive-store-line-2026-10-08.md). No VAT breakdown,
+current stock observation or inspection, testing or installation evidence was
+supplied.
+
 Append future orders and deliveries with their confirmation date, evidence, stable offer ID, and actual quantity when known. When incoming items arrive, record receipt separately so the order history remains traceable. Do not infer receipt for unlisted items. This manual log is not included in generated cost reports.

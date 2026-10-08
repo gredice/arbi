@@ -827,7 +827,8 @@
             "quantity": "50"
           }
         ]
-      }
+      },
+      "note": "Owner confirmed the four previously received 50 m spools for EUR 80.43 including EUR 6.91 Zagreb delivery on 2026-10-08; goods total EUR 73.52 (EUR 18.38 per spool). See bom/sourcing/dive-store-line-2026-10-08.md. Purchase and receipt do not establish engineering approval."
     },
     {
       "id": "harken-348",

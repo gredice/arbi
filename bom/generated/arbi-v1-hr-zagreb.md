@@ -10,12 +10,12 @@
 - Scenario: arbi-v1-hr-zagreb
 - Build: arbi-v1
 - Destination: hr-zagreb
-- Quote snapshot: hr-zagreb-2026-10-08-wasi-pulley
-- Input digest: sha256:6b90be9ce23115e9b5a4237f3673b75290914970ed3e0205169a391c3c4d8735
+- Quote snapshot: hr-zagreb-2026-10-08-purchases
+- Input digest: sha256:4cbc489fc6624e996a7a23e541fd669b12cd47aaea604ae20445334723ef5f0e
 - Complete landed total: **unavailable**
 - Known quoted goods subtotal: **EUR 931.48**
-- Known checkout-group shipping subtotal: **EUR 87.72**
-- Known partial subtotal: **EUR 1019.20**
+- Known checkout-group shipping subtotal: **EUR 88.38**
+- Known partial subtotal: **EUR 1019.86**
 
 The known partial subtotal is evidence about recorded values only. It excludes every unresolved amount and must not be presented as the project cost.
 
@@ -31,7 +31,7 @@ The known partial subtotal is evidence about recorded values only. It excludes e
 | site-installation | EUR 141.00 |
 | winch-set | EUR 55.15 |
 | Shared multi-part purchase bundles | EUR 256.68 |
-| Shared checkout-group shipping | EUR 87.72 |
+| Shared checkout-group shipping | EUR 88.38 |
 
 Bundle and shipping costs stay in explicit shared buckets when the committed record does not provide defensible physical-assembly allocation weights.
 
@@ -50,7 +50,7 @@ This bucket is not a subsystem or physical owner. It holds assortment purchases 
 | aliexpress-hr | aliexpress | known | EUR 45.00 |
 | bauhaus-hr | bauhaus | unknown | unknown |
 | cotra-zagreb-hr | cotra-zagreb | unknown | unknown |
-| dive-store-hr | dive-store | known | EUR 6.25 |
+| dive-store-hr | dive-store | known | EUR 6.91 |
 | in-house-fabrication-hr | in-house-fabrication | not-applicable | not applicable |
 | kabel24-hr | kabel24 | unknown | unknown |
 | njuskalo-hr | njuskalo | unknown | unknown |
@@ -324,10 +324,8 @@ aliexpress-hr: 15 distinct selected offers; fixed charge per offer, independent 
 - cotra-zagreb-hr: Shipping is unknown; null is not treated as free.
 - cotra-zagreb-hr: Shipping observation date is unknown; quote capture time is not verification time.
 - dive-store-dyneema-positioning-line: Availability is unknown.
-- dive-store-dyneema-positioning-line: Price and availability observation date is unknown; quote capture time is not verification time.
 - dive-store-dyneema-positioning-line: Qualification is baseline-selected; the recorded selection is not engineering approval.
 - dive-store-dyneema-positioning-line: Tax/VAT treatment is unknown.
-- dive-store-hr: Shipping observation date is unknown; quote capture time is not verification time.
 - dive-store-hr: Shipping tax/VAT treatment is unknown.
 - hr-zagreb: Destination tax/VAT status is unknown and blocks a complete landed total.
 - in-house-fabrication-camera-gimbal: Price and availability observation date is unknown; quote capture time is not verification time.

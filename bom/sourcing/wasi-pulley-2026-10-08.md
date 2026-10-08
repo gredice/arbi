@@ -43,9 +43,10 @@ now selected with one pulley per purchase unit and SKU BA01090. The
 [scenario](../scenarios/scenarios.json) selects that WASI offer instead of the
 unresolved `baseline-combined-top-pulley-offer`.
 
-The [new quote snapshot](../quotes/hr-zagreb-2026-10-08-wasi-pulley.json) records
-EUR 14.20 per purchase unit and zero shipping for store pickup. It copies every
-other observation unchanged from the
+The [new quote snapshot](../quotes/hr-zagreb-2026-10-08-purchases.json) records
+EUR 14.20 per purchase unit and zero shipping for store pickup. It also records
+the [owner-confirmed Dive Store purchase](dive-store-line-2026-10-08.md), and copies
+all observations unrelated to these two purchases unchanged from the
 [previous quote](../quotes/hr-zagreb-2026-09-08-bauhaus-shaft.json); its capture date
 does not refresh those prices. Earlier snapshots and the legacy combined offer
 remain available as history. The order remains `baseline-selected`, without

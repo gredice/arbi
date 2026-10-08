@@ -5,14 +5,14 @@
   "buildId": "arbi-v1",
   "destinationId": "hr-zagreb",
   "destinationName": "Zagreb, Croatia",
-  "quoteSnapshotId": "hr-zagreb-2026-10-08-wasi-pulley",
-  "inputDigest": "sha256:6b90be9ce23115e9b5a4237f3673b75290914970ed3e0205169a391c3c4d8735",
+  "quoteSnapshotId": "hr-zagreb-2026-10-08-purchases",
+  "inputDigest": "sha256:4cbc489fc6624e996a7a23e541fd669b12cd47aaea604ae20445334723ef5f0e",
   "reportCurrency": "EUR",
   "complete": false,
   "completeLandedTotal": null,
   "knownGoodsSubtotal": "931.48",
-  "knownShippingSubtotal": "87.72",
-  "knownSubtotal": "1019.2",
+  "knownShippingSubtotal": "88.38",
+  "knownSubtotal": "1019.86",
   "requirements": [
     {
       "partId": "bearing-608-2rs",
@@ -1544,7 +1544,6 @@
       ],
       "warnings": [
         "Availability is unknown.",
-        "Price and availability observation date is unknown; quote capture time is not verification time.",
         "Qualification is baseline-selected; the recorded selection is not engineering approval.",
         "Tax/VAT treatment is unknown."
       ]
@@ -2098,15 +2097,14 @@
     {
       "basis": "checkout-group",
       "chargeCount": 1,
-      "note": "Captured once on the Dyneema order.",
+      "note": "Owner confirmed EUR 6.91 actual delivery to Zagreb on 2026-10-08, included in the EUR 80.43 total for four 50 m Dyneema spools (EUR 73.52 goods). Charged once for this supplier basket; original delivery date and VAT breakdown were not supplied. Evidence: bom/sourcing/dive-store-line-2026-10-08.md.",
       "checkoutGroupId": "dive-store-hr",
       "supplierId": "dive-store",
       "chargedOnce": true,
       "status": "known",
-      "knownAmount": "6.25",
+      "knownAmount": "6.91",
       "currency": "EUR",
       "warnings": [
-        "Shipping observation date is unknown; quote capture time is not verification time.",
         "Shipping tax/VAT treatment is unknown."
       ]
     },
@@ -2259,7 +2257,7 @@
   ],
   "sharedProcurementStockKnownGoods": "43.19",
   "sharedBundleGoods": "256.68",
-  "sharedShipping": "87.72",
+  "sharedShipping": "88.38",
   "warnings": [
     "Required part winch-full-cover has no pinned offer.",
     "Required part winch-full-cover-hardware has no pinned offer.",
@@ -2399,10 +2397,8 @@
     "cotra-zagreb-hr: Shipping is unknown; null is not treated as free.",
     "cotra-zagreb-hr: Shipping observation date is unknown; quote capture time is not verification time.",
     "dive-store-dyneema-positioning-line: Availability is unknown.",
-    "dive-store-dyneema-positioning-line: Price and availability observation date is unknown; quote capture time is not verification time.",
     "dive-store-dyneema-positioning-line: Qualification is baseline-selected; the recorded selection is not engineering approval.",
     "dive-store-dyneema-positioning-line: Tax/VAT treatment is unknown.",
-    "dive-store-hr: Shipping observation date is unknown; quote capture time is not verification time.",
     "dive-store-hr: Shipping tax/VAT treatment is unknown.",
     "hr-zagreb: Destination tax/VAT status is unknown and blocks a complete landed total.",
     "in-house-fabrication-camera-gimbal: Price and availability observation date is unknown; quote capture time is not verification time.",
