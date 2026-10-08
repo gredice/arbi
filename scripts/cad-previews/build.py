@@ -11,6 +11,7 @@ from pathlib import Path
 import numpy as np
 from PIL import Image, ImageChops
 import vtk
+from csg import components
 
 REPO = Path(__file__).resolve().parents[2]
 SIZE = (480, 360)
@@ -39,12 +40,20 @@ def source_hashes(entrypoint):
 
 
 def render(mesh, output):
-    reader = vtk.vtkSTLReader()
-    reader.SetFileName(str(mesh))
-    reader.Update()
-    data = reader.GetOutput()
+    meshes = [mesh] if isinstance(mesh, Path) else mesh
+    combined = vtk.vtkAppendPolyData()
+    for path in meshes:
+        reader = vtk.vtkSTLReader()
+        reader.SetFileName(str(path))
+        reader.Update()
+        data = reader.GetOutput()
+        if data.GetNumberOfCells() == 0:
+            raise ValueError(f"Empty preview mesh: {path}")
+        combined.AddInputData(data)
+    combined.Update()
+    data = combined.GetOutput()
     if data.GetNumberOfCells() == 0:
-        raise ValueError(f"Empty preview mesh: {mesh}")
+        raise ValueError("Reference has no visible geometry")
 
     renderer = vtk.vtkRenderer()
     renderer.SetBackground(1, 1, 1)
@@ -121,16 +130,24 @@ def check_image(output):
             raise ValueError(f"Empty or incorrectly sized figure: {output}")
 
 
-def render_reference(csg, output):
+def render_reference(csg, output, work):
     # Use the same opaque white faces and visible outlines as fabrication parts.
     # This inspection mesh is temporary: the registered/released artifact stays CSG.
-    with tempfile.TemporaryDirectory(prefix="arbi-reference-preview-") as temporary:
-        mesh = Path(temporary) / "reference.stl"
-        result = subprocess.run(["openscad", "-o", str(mesh), str(csg)],
-                                capture_output=True, text=True, timeout=600, check=True)
-        if "ERROR:" in result.stderr:
-            raise ValueError(result.stderr)
-        render(mesh, output)
+    # Avoid a costly boolean union of an entire assembly. VTK draws its component
+    # meshes together with normal depth occlusion, retaining the assembly seams.
+    meshes = []
+    for geometry in components(csg.read_text()):
+        key = hashlib.sha256(geometry.encode()).hexdigest()
+        mesh = work / f"{key}.stl"
+        if not mesh.exists():
+            source = work / f"{key}.scad"
+            source.write_text(geometry + "\n")
+            result = subprocess.run(["openscad", "-o", str(mesh), str(source)],
+                                    capture_output=True, text=True, timeout=120, check=True)
+            if "ERROR:" in result.stderr:
+                raise ValueError(result.stderr)
+        meshes.append(mesh)
+    render(meshes, output)
 
 
 def build(cad, output):
@@ -151,7 +168,7 @@ def build(cad, output):
             image = work / figure
             image.parent.mkdir(exist_ok=True)
             if mesh.suffix == ".csg":
-                render_reference(mesh, image)
+                render_reference(mesh, image, work)
             else:
                 render(mesh, image)
             manifest["models"][model["id"]] = {

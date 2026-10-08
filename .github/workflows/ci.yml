@@ -222,7 +222,9 @@ jobs:
         env:
           CAD_OUTPUT: ${{ runner.temp }}/cad-models
           PREVIEW_OUTPUT: ${{ runner.temp }}/cad-previews
-        run: python scripts/cad-previews/build.py --cad-dir "$CAD_OUTPUT" --output "$PREVIEW_OUTPUT"
+        run: |
+          python scripts/cad-previews/test_csg.py
+          python scripts/cad-previews/build.py --cad-dir "$CAD_OUTPUT" --output "$PREVIEW_OUTPUT"
 
       - name: Verify complete figure coverage through the site compiler
         env:
