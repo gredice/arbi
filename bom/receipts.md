@@ -38,4 +38,35 @@ The catalog lists four motors, four CL57Y-V20 drivers, four matched motor cables
 
 Exact delivered camera and terminal-board variants have not been inspected against the BOM requirements. Receipt does not resolve existing catalog qualification or model discrepancies, or establish functional testing or installation.
 
+## WASI purchase details confirmed on 2026-10-08
+
+Evidence: Aleks identified the four previously received WASI pulleys as **BA01090**
+and confirmed **EUR 56.80 total**, collected in store with **no delivery charge**.
+This clarifies the 2026-09-08 receipt above; it is the same four units, not an
+additional order. Exact order and collection dates were not supplied.
+
+| Supplier | Current offer ID / BOM mapping | Item | Quantity | Goods total | Delivery | Status |
+| --- | --- | --- | ---: | ---: | ---: | --- |
+| WASI Zagreb | `wasi-barton-30mm` / `top-positioning-line-pulley` | Barton BA01090 30 mm STANDARD pulley | 4 | EUR 56.80 (EUR 14.20 each) | EUR 0 — store pickup | Received; owner-confirmed SKU |
+
+The current scenario selects the existing WASI offer `wasi-barton-30mm`; the older
+combined offer mapping above is retained as receipt history. See
+[purchase and shipping evidence](sourcing/wasi-pulley-2026-10-08.md). No invoice VAT
+breakdown or inspection, testing or installation evidence was supplied.
+
+## Dive Store purchase details confirmed on 2026-10-08
+
+Evidence: Aleks confirmed that the four previously received 50 m spools cost
+**EUR 80.43 including EUR 6.91 delivery** to Zagreb. This clarifies the 2026-09-08
+receipt above; it is the same four spools, not an additional order. Exact order
+and delivery dates were not supplied.
+
+| Supplier | Offer ID / BOM mapping | Item | Quantity | Goods total | Delivery | Total |
+| --- | --- | --- | --- | ---: | ---: | ---: |
+| Dive Store | `dive-store-dyneema-positioning-line` / `dyneema-positioning-line` | Dyneema positioning line | 4 × 50 m spools (200 m total) | EUR 73.52 (EUR 18.38 per spool) | EUR 6.91 — Zagreb | EUR 80.43 |
+
+See [purchase evidence](sourcing/dive-store-line-2026-10-08.md). No VAT breakdown,
+current stock observation or inspection, testing or installation evidence was
+supplied.
+
 Append future orders and deliveries with their confirmation date, evidence, stable offer ID, and actual quantity when known. When incoming items arrive, record receipt separately so the order history remains traceable. Do not infer receipt for unlisted items. This manual log is not included in generated cost reports.

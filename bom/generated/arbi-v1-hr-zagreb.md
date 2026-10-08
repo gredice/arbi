@@ -10,12 +10,12 @@
 - Scenario: arbi-v1-hr-zagreb
 - Build: arbi-v1
 - Destination: hr-zagreb
-- Quote snapshot: hr-zagreb-2026-09-08-bauhaus-shaft
-- Input digest: sha256:f05fd83bfeca9af2ca200607e899d2d69eceeb64dcd8cbedd9f0cb50799ede22
+- Quote snapshot: hr-zagreb-2026-10-08-purchases
+- Input digest: sha256:4cbc489fc6624e996a7a23e541fd669b12cd47aaea604ae20445334723ef5f0e
 - Complete landed total: **unavailable**
-- Known quoted goods subtotal: **EUR 874.68**
-- Known checkout-group shipping subtotal: **EUR 93.72**
-- Known partial subtotal: **EUR 968.40**
+- Known quoted goods subtotal: **EUR 931.48**
+- Known checkout-group shipping subtotal: **EUR 88.38**
+- Known partial subtotal: **EUR 1019.86**
 
 The known partial subtotal is evidence about recorded values only. It excludes every unresolved amount and must not be presented as the project cost.
 
@@ -25,13 +25,13 @@ The known partial subtotal is evidence about recorded values only. It excludes e
 | --- | ---: |
 | camera-pod | EUR 115.07 |
 | control-cabinet | EUR 29.49 |
-| corner-support-set | EUR 129.17 |
+| corner-support-set | EUR 185.97 |
 | dock | EUR 0.96 |
 | positioning-line-set | EUR 103.97 |
 | site-installation | EUR 141.00 |
 | winch-set | EUR 55.15 |
 | Shared multi-part purchase bundles | EUR 256.68 |
-| Shared checkout-group shipping | EUR 93.72 |
+| Shared checkout-group shipping | EUR 88.38 |
 
 Bundle and shipping costs stay in explicit shared buckets when the committed record does not provide defensible physical-assembly allocation weights.
 
@@ -48,10 +48,9 @@ This bucket is not a subsystem or physical owner. It holds assortment purchases 
 | Checkout group | Supplier | Shipping evidence | Charged |
 | --- | --- | --- | ---: |
 | aliexpress-hr | aliexpress | known | EUR 45.00 |
-| baseline-top-pulley-combined-hr | baseline-top-pulley-combined | known | EUR 6.00 |
 | bauhaus-hr | bauhaus | unknown | unknown |
 | cotra-zagreb-hr | cotra-zagreb | unknown | unknown |
-| dive-store-hr | dive-store | known | EUR 6.25 |
+| dive-store-hr | dive-store | known | EUR 6.91 |
 | in-house-fabrication-hr | in-house-fabrication | not-applicable | not applicable |
 | kabel24-hr | kabel24 | unknown | unknown |
 | njuskalo-hr | njuskalo | unknown | unknown |
@@ -59,6 +58,7 @@ This bucket is not a subsystem or physical owner. It holds assortment purchases 
 | ronis-hr | ronis | unknown | unknown |
 | stepperonline-hr | stepperonline | known | EUR 34.01 |
 | tme-hr | tme | known | EUR 2.46 |
+| wasi-hr | wasi | not-applicable | not applicable |
 
 Shipping is evaluated once per checkout group. The recorded TME EUR 2.46 charge is represented once.
 
@@ -83,7 +83,6 @@ aliexpress-hr: 15 distinct selected offers; fixed charge per offer, independent 
 | aliexpress-roller-lever-microswitch | baseline-selected | 1 | [roller-lever-microswitch](parts/roller-lever-microswitch.md): 5 each required, 10 each purchased; 5 surplus | EUR 4.79 |
 | aliexpress-shaft-collar-8mm | baseline-selected | 4 | [shaft-collar-8mm](parts/shaft-collar-8mm.md): 8 each required, 8 each purchased; 0 surplus | EUR 40.40 |
 | aliexpress-stainless-fastener-assortment | baseline-selected | 1 | [stainless-fastener-assortment](parts/stainless-fastener-assortment.md): 1 each required, 1 each purchased; 0 surplus | EUR 16.00 |
-| baseline-combined-top-pulley-offer | unresolved | unknown | [top-positioning-line-pulley](parts/top-positioning-line-pulley.md): 4 each required, unknown purchase quantity | unknown |
 | bauhaus-din-rail-ground-distribution-block | baseline-selected | 1 | [din-rail-ground-distribution-block](parts/din-rail-ground-distribution-block.md): 1 each required, 1 each purchased; 0 surplus | EUR 5.95 |
 | bauhaus-guy-turnbuckle-m12 | baseline-selected | unknown | [guy-turnbuckle-m12](parts/guy-turnbuckle-m12.md): 4 each required, unknown purchase quantity | unknown |
 | bauhaus-guy-wire-3mm | baseline-selected | unknown | [guy-wire-3mm](parts/guy-wire-3mm.md): 16 m required, unknown purchase quantity | unknown |
@@ -120,6 +119,7 @@ aliexpress-hr: 15 distinct selected offers; fixed charge per offer, independent 
 | tme-raspberry-pi-pico-2-w | baseline-selected | 1 | [raspberry-pi-pico-2-w](parts/raspberry-pi-pico-2-w.md): 1 each required, 1 each purchased; 0 surplus | EUR 8.59 |
 | unresolved-winch-drum-joining-hardware | unresolved | unknown | [winch-drum-joining-hardware](parts/winch-drum-joining-hardware.md): 1 each required, unknown purchase quantity | unknown |
 | unresolved-winch-mount-hardware | unresolved | unknown | [winch-mount-hardware](parts/winch-mount-hardware.md): 1 each required, unknown purchase quantity | unknown |
+| wasi-barton-30mm | baseline-selected | 4 | [top-positioning-line-pulley](parts/top-positioning-line-pulley.md): 4 each required, 4 each purchased; 0 surplus | EUR 56.80 |
 
 ## Required parts by physical owner or procurement bucket
 
@@ -170,7 +170,7 @@ aliexpress-hr: 15 distinct selected offers; fixed charge per offer, independent 
 | [roller-lever-microswitch](parts/roller-lever-microswitch.md) | 5 each | dock (1 each), winch-set (4 each) | aliexpress-roller-lever-microswitch |
 | [shaft-collar-8mm](parts/shaft-collar-8mm.md) | 8 each | winch-set (8 each) | aliexpress-shaft-collar-8mm |
 | [stainless-fastener-assortment](parts/stainless-fastener-assortment.md) | 1 each | shared-procurement-stock [non-physical] (1 each) | aliexpress-stainless-fastener-assortment |
-| [top-positioning-line-pulley](parts/top-positioning-line-pulley.md) | 4 each | corner-support-set (4 each) | baseline-combined-top-pulley-offer |
+| [top-positioning-line-pulley](parts/top-positioning-line-pulley.md) | 4 each | corner-support-set (4 each) | wasi-barton-30mm |
 | [top-pulley-bracket](parts/top-pulley-bracket.md) | 4 each | corner-support-set (4 each) | bauhaus-top-pulley-bracket |
 | [top-pulley-keeper](parts/top-pulley-keeper.md) | 4 each | corner-support-set (4 each) | in-house-fabrication-top-pulley-keeper |
 | [winch-drum](parts/winch-drum.md) | 4 each | winch-set (4 each) | in-house-fabrication-winch-drum |
@@ -251,13 +251,6 @@ aliexpress-hr: 15 distinct selected offers; fixed charge per offer, independent 
 - aliexpress-stainless-fastener-assortment: Price and availability observation date is unknown; quote capture time is not verification time.
 - aliexpress-stainless-fastener-assortment: Qualification is baseline-selected; the recorded selection is not engineering approval.
 - aliexpress-stainless-fastener-assortment: Tax/VAT treatment is unknown.
-- baseline-combined-top-pulley-offer: A quoted price cannot be extended without package data.
-- baseline-combined-top-pulley-offer: Availability is unknown.
-- baseline-combined-top-pulley-offer: Package size/MOQ is unknown.
-- baseline-combined-top-pulley-offer: Price and availability observation date is unknown; quote capture time is not verification time.
-- baseline-combined-top-pulley-offer: Qualification is unresolved; the recorded selection is not engineering approval.
-- baseline-top-pulley-combined-hr: Shipping observation date is unknown; quote capture time is not verification time.
-- baseline-top-pulley-combined-hr: Shipping tax/VAT treatment is unknown.
 - bauhaus-din-rail-ground-distribution-block: Availability is unknown.
 - bauhaus-din-rail-ground-distribution-block: Price and availability observation date is unknown; quote capture time is not verification time.
 - bauhaus-din-rail-ground-distribution-block: Qualification is baseline-selected; the recorded selection is not engineering approval.
@@ -331,10 +324,8 @@ aliexpress-hr: 15 distinct selected offers; fixed charge per offer, independent 
 - cotra-zagreb-hr: Shipping is unknown; null is not treated as free.
 - cotra-zagreb-hr: Shipping observation date is unknown; quote capture time is not verification time.
 - dive-store-dyneema-positioning-line: Availability is unknown.
-- dive-store-dyneema-positioning-line: Price and availability observation date is unknown; quote capture time is not verification time.
 - dive-store-dyneema-positioning-line: Qualification is baseline-selected; the recorded selection is not engineering approval.
 - dive-store-dyneema-positioning-line: Tax/VAT treatment is unknown.
-- dive-store-hr: Shipping observation date is unknown; quote capture time is not verification time.
 - dive-store-hr: Shipping tax/VAT treatment is unknown.
 - hr-zagreb: Destination tax/VAT status is unknown and blocks a complete landed total.
 - in-house-fabrication-camera-gimbal: Price and availability observation date is unknown; quote capture time is not verification time.
@@ -420,6 +411,8 @@ aliexpress-hr: 15 distinct selected offers; fixed charge per offer, independent 
 - unresolved-winch-mount-hardware: Package size/MOQ is unknown.
 - unresolved-winch-mount-hardware: Price is unknown.
 - unresolved-winch-mount-hardware: Qualification is unresolved; the recorded selection is not engineering approval.
+- wasi-barton-30mm: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- wasi-barton-30mm: Tax/VAT treatment is unknown.
 
 ## Evidence boundary
 

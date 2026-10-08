@@ -5,14 +5,14 @@
   "buildId": "arbi-v1",
   "destinationId": "hr-zagreb",
   "destinationName": "Zagreb, Croatia",
-  "quoteSnapshotId": "hr-zagreb-2026-09-08-bauhaus-shaft",
-  "inputDigest": "sha256:f05fd83bfeca9af2ca200607e899d2d69eceeb64dcd8cbedd9f0cb50799ede22",
+  "quoteSnapshotId": "hr-zagreb-2026-10-08-purchases",
+  "inputDigest": "sha256:4cbc489fc6624e996a7a23e541fd669b12cd47aaea604ae20445334723ef5f0e",
   "reportCurrency": "EUR",
   "complete": false,
   "completeLandedTotal": null,
-  "knownGoodsSubtotal": "874.68",
-  "knownShippingSubtotal": "93.72",
-  "knownSubtotal": "968.4",
+  "knownGoodsSubtotal": "931.48",
+  "knownShippingSubtotal": "88.38",
+  "knownSubtotal": "1019.86",
   "requirements": [
     {
       "partId": "bearing-608-2rs",
@@ -615,7 +615,7 @@
           "quantity": "4"
         }
       ],
-      "selectedOfferId": "baseline-combined-top-pulley-offer"
+      "selectedOfferId": "wasi-barton-30mm"
     },
     {
       "partId": "top-pulley-bracket",
@@ -1138,31 +1138,6 @@
       ]
     },
     {
-      "offerId": "baseline-combined-top-pulley-offer",
-      "supplierId": "baseline-top-pulley-combined",
-      "checkoutGroupId": "baseline-top-pulley-combined-hr",
-      "qualification": "unresolved",
-      "purchaseUnits": null,
-      "knownGoodsAmount": null,
-      "currency": null,
-      "coverage": [
-        {
-          "partId": "top-positioning-line-pulley",
-          "required": "4",
-          "purchased": null,
-          "surplus": null,
-          "unit": "each"
-        }
-      ],
-      "warnings": [
-        "A quoted price cannot be extended without package data.",
-        "Availability is unknown.",
-        "Package size/MOQ is unknown.",
-        "Price and availability observation date is unknown; quote capture time is not verification time.",
-        "Qualification is unresolved; the recorded selection is not engineering approval."
-      ]
-    },
-    {
       "offerId": "bauhaus-din-rail-ground-distribution-block",
       "supplierId": "bauhaus",
       "checkoutGroupId": "bauhaus-hr",
@@ -1569,7 +1544,6 @@
       ],
       "warnings": [
         "Availability is unknown.",
-        "Price and availability observation date is unknown; quote capture time is not verification time.",
         "Qualification is baseline-selected; the recorded selection is not engineering approval.",
         "Tax/VAT treatment is unknown."
       ]
@@ -2051,6 +2025,28 @@
         "Price is unknown.",
         "Qualification is unresolved; the recorded selection is not engineering approval."
       ]
+    },
+    {
+      "offerId": "wasi-barton-30mm",
+      "supplierId": "wasi",
+      "checkoutGroupId": "wasi-hr",
+      "qualification": "baseline-selected",
+      "purchaseUnits": "4",
+      "knownGoodsAmount": "56.8",
+      "currency": "EUR",
+      "coverage": [
+        {
+          "partId": "top-positioning-line-pulley",
+          "required": "4",
+          "purchased": "4",
+          "surplus": "0",
+          "unit": "each"
+        }
+      ],
+      "warnings": [
+        "Qualification is baseline-selected; the recorded selection is not engineering approval.",
+        "Tax/VAT treatment is unknown."
+      ]
     }
   ],
   "shipping": [
@@ -2065,21 +2061,6 @@
       "knownAmount": "45",
       "currency": "EUR",
       "warnings": [
-        "Shipping tax/VAT treatment is unknown."
-      ]
-    },
-    {
-      "basis": "checkout-group",
-      "chargeCount": 1,
-      "note": "Captured on the unresolved combined Ziegelmayer/WASI row.",
-      "checkoutGroupId": "baseline-top-pulley-combined-hr",
-      "supplierId": "baseline-top-pulley-combined",
-      "chargedOnce": true,
-      "status": "known",
-      "knownAmount": "6",
-      "currency": "EUR",
-      "warnings": [
-        "Shipping observation date is unknown; quote capture time is not verification time.",
         "Shipping tax/VAT treatment is unknown."
       ]
     },
@@ -2116,15 +2097,14 @@
     {
       "basis": "checkout-group",
       "chargeCount": 1,
-      "note": "Captured once on the Dyneema order.",
+      "note": "Owner confirmed EUR 6.91 actual delivery to Zagreb on 2026-10-08, included in the EUR 80.43 total for four 50 m Dyneema spools (EUR 73.52 goods). Charged once for this supplier basket; original delivery date and VAT breakdown were not supplied. Evidence: bom/sourcing/dive-store-line-2026-10-08.md.",
       "checkoutGroupId": "dive-store-hr",
       "supplierId": "dive-store",
       "chargedOnce": true,
       "status": "known",
-      "knownAmount": "6.25",
+      "knownAmount": "6.91",
       "currency": "EUR",
       "warnings": [
-        "Shipping observation date is unknown; quote capture time is not verification time.",
         "Shipping tax/VAT treatment is unknown."
       ]
     },
@@ -2231,6 +2211,18 @@
         "Shipping observation date is unknown; quote capture time is not verification time.",
         "Shipping tax/VAT treatment is unknown."
       ]
+    },
+    {
+      "basis": "checkout-group",
+      "chargeCount": 1,
+      "note": "Owner-confirmed store pickup: no delivery charge for the four BA01090 pulleys (EUR 56.80 goods). WASI confirms free pickup at https://wasi.hr/shipping-returns, observed 2026-10-08. Its separate domestic delivery tariff is EUR 6 up to EUR 60, EUR 4 from EUR 60 to EUR 120, and free above EUR 120, VAT included; bulky/heavy shipments may differ. These delivery rates are not charged to this collected order. Evidence: bom/sourcing/wasi-pulley-2026-10-08.md.",
+      "checkoutGroupId": "wasi-hr",
+      "supplierId": "wasi",
+      "chargedOnce": true,
+      "status": "not-applicable",
+      "knownAmount": "0",
+      "currency": "EUR",
+      "warnings": []
     }
   ],
   "assemblyKnownGoods": [
@@ -2244,7 +2236,7 @@
     },
     {
       "assemblyId": "corner-support-set",
-      "amount": "129.17"
+      "amount": "185.97"
     },
     {
       "assemblyId": "dock",
@@ -2265,7 +2257,7 @@
   ],
   "sharedProcurementStockKnownGoods": "43.19",
   "sharedBundleGoods": "256.68",
-  "sharedShipping": "93.72",
+  "sharedShipping": "88.38",
   "warnings": [
     "Required part winch-full-cover has no pinned offer.",
     "Required part winch-full-cover-hardware has no pinned offer.",
@@ -2332,13 +2324,6 @@
     "aliexpress-stainless-fastener-assortment: Price and availability observation date is unknown; quote capture time is not verification time.",
     "aliexpress-stainless-fastener-assortment: Qualification is baseline-selected; the recorded selection is not engineering approval.",
     "aliexpress-stainless-fastener-assortment: Tax/VAT treatment is unknown.",
-    "baseline-combined-top-pulley-offer: A quoted price cannot be extended without package data.",
-    "baseline-combined-top-pulley-offer: Availability is unknown.",
-    "baseline-combined-top-pulley-offer: Package size/MOQ is unknown.",
-    "baseline-combined-top-pulley-offer: Price and availability observation date is unknown; quote capture time is not verification time.",
-    "baseline-combined-top-pulley-offer: Qualification is unresolved; the recorded selection is not engineering approval.",
-    "baseline-top-pulley-combined-hr: Shipping observation date is unknown; quote capture time is not verification time.",
-    "baseline-top-pulley-combined-hr: Shipping tax/VAT treatment is unknown.",
     "bauhaus-din-rail-ground-distribution-block: Availability is unknown.",
     "bauhaus-din-rail-ground-distribution-block: Price and availability observation date is unknown; quote capture time is not verification time.",
     "bauhaus-din-rail-ground-distribution-block: Qualification is baseline-selected; the recorded selection is not engineering approval.",
@@ -2412,10 +2397,8 @@
     "cotra-zagreb-hr: Shipping is unknown; null is not treated as free.",
     "cotra-zagreb-hr: Shipping observation date is unknown; quote capture time is not verification time.",
     "dive-store-dyneema-positioning-line: Availability is unknown.",
-    "dive-store-dyneema-positioning-line: Price and availability observation date is unknown; quote capture time is not verification time.",
     "dive-store-dyneema-positioning-line: Qualification is baseline-selected; the recorded selection is not engineering approval.",
     "dive-store-dyneema-positioning-line: Tax/VAT treatment is unknown.",
-    "dive-store-hr: Shipping observation date is unknown; quote capture time is not verification time.",
     "dive-store-hr: Shipping tax/VAT treatment is unknown.",
     "hr-zagreb: Destination tax/VAT status is unknown and blocks a complete landed total.",
     "in-house-fabrication-camera-gimbal: Price and availability observation date is unknown; quote capture time is not verification time.",
@@ -2500,6 +2483,8 @@
     "unresolved-winch-mount-hardware: Destination quote row is missing.",
     "unresolved-winch-mount-hardware: Package size/MOQ is unknown.",
     "unresolved-winch-mount-hardware: Price is unknown.",
-    "unresolved-winch-mount-hardware: Qualification is unresolved; the recorded selection is not engineering approval."
+    "unresolved-winch-mount-hardware: Qualification is unresolved; the recorded selection is not engineering approval.",
+    "wasi-barton-30mm: Qualification is baseline-selected; the recorded selection is not engineering approval.",
+    "wasi-barton-30mm: Tax/VAT treatment is unknown."
   ]
 }
