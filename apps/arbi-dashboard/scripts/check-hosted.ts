@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import { chromium } from "@playwright/test";
+import { chromium, expect } from "@playwright/test";
 import { protectHostedPage } from "./hosted-protection";
 const target = new URL(process.env.ARBI_HOSTED_URL ?? "");
 assert.equal(target.protocol, "https:"); assert.ok(target.hostname.endsWith(".vercel.app"));
@@ -30,17 +30,20 @@ try {
   await page.getByRole("link", { name: "Diagnostics", exact: true }).click();
   await page.getByRole("row", { name: /line.tension.a/ }).waitFor();
   assert.match(await page.getByRole("row", { name: /line.tension.a/ }).innerText(), /Unavailable/);
-  stage = "mobile and alternate sites";
+  stage = "mobile images";
   await page.setViewportSize({ width: 390, height: 844 });
   await page.getByRole("button", { name: "Menu", exact: true }).click();
   await page.getByRole("link", { name: "Images", exact: true }).focus(); await page.keyboard.press("Enter");
   await page.getByRole("heading", { name: "Camera and images unavailable" }).waitFor();
+  stage = "offline site";
   await page.getByLabel("Site", { exact: true }).selectOption("synthetic-offline");
   await page.waitForURL("**/synthetic-offline/**");
-  assert.match(await page.getByRole("status").innerText(), /offline · stale/);
+  await expect(page.getByRole("status")).toContainText(/offline · stale/);
+  stage = "no-device site";
   await page.getByLabel("Site", { exact: true }).selectOption("synthetic-empty");
   await page.getByRole("heading", { name: "No device is enrolled" }).waitFor();
-  assert.equal(await page.locator("video").count(), 0); assert.deepEqual(errors, []);
+  assert.equal(await page.locator("video").count(), 0);
+  stage = "browser error check"; assert.deepEqual(errors, []);
   stage = "direct scope denial";
   const read = await page.evaluate(async () => {
     const denied = await fetch("/api/sites/other-site/dashboard/context", { cache: "no-store" });
