@@ -33,6 +33,11 @@ The shared renderer makes white-face line drawings with dark silhouettes and
 visible feature edges. Opaque faces hide rear edges and omit the STL triangle
 grid. Product colors remain in the figure/assembly manifests and payload GLB.
 
+In exploded cover views, the disconnected stationary loom references move with
+the lower fascia that carries their exit holes. This preserves cable-to-port
+alignment throughout the website's exploded-view animation; it illustrates
+disassembly, not a flexible-cable deformation or service procedure.
+
 [Booklet jobs in CI](../../.github/workflows/ci.yml) build affected winch, dry payload
 and enclosed payload variants in separate jobs with Python 3.12, OpenSCAD 2021.01 and VTK
 9.5.2 on software EGL. Relevant pull requests get downloadable PDF/ZIP artifacts
@@ -53,6 +58,8 @@ python3 scripts/check-booklet.py hardware/generated/booklet --variant winch
 
 The check verifies A4 page totals, headers, revisions, source/STL hashes,
 registry filenames, non-empty line-art figures and matching PDF/ZIP contents.
+It also checks both variants' cable meshes against the port-bearing fascia at
+the installed, exploded and three intermediate animation poses.
 Render every PDF page for visual review before updating a checked-in snapshot.
 
 ## Editing

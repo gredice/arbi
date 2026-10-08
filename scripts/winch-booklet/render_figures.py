@@ -140,6 +140,9 @@ def desk_feet(drop=0):
         out.append(A('desk-foot-long',T(148.45,y,-43-drop)@T(-22,-30)))
     return out
 
+def fascia_offset(explode,side):
+    return T(0,side*(55 if explode else 0),2 if explode else 0)
+
 def cover_parts(explode=0,shutter_out=0,hardware=True,main=True,shutters=True,conceal=True):
     variant='powered' if POWERED else 'passive'
     count=5 if POWERED else 3
@@ -171,7 +174,7 @@ def cover_parts(explode=0,shutter_out=0,hardware=True,main=True,shutters=True,co
             for sy in [-1,1]:
                 b=np.array([[1,0,0,x],[0,0,-1,98],[0,1,0,-32],[0,0,0,1]])
                 name=f'cover-{variant}-'+('pole-fascia' if sy==-1 and i==(1 if POWERED else 0) else 'fascia')
-                out.append(A(name,T(0,sy*(55 if explode else 0),2 if explode else 0)@np.diag([1,sy,1,1])@b))
+                out.append(A(name,fascia_offset(explode,sy)@np.diag([1,sy,1,1])@b))
     if conceal and main:
         for left,number in [(True,2 if POWERED else 1),(False,3 if POWERED else 2)]:
             start=-50 if left else W/2+51
@@ -193,7 +196,10 @@ def covered(explode=0,shutter_out=0,main=True,shutters=True,conceal=True):
     out+=cover_parts(explode,shutter_out,main=main,shutters=shutters,conceal=conceal)
     out.append(H('line-'+variant+'-reference',T(6+W/2,50,130.9 if POWERED else 130.3)@R('x',-90),CORE))
     end=826 if POWERED else 496
-    for i in [0,1]:out.append(H('loom-'+variant+'-bottom-'+str(i),c=CORE))
+    # Disconnected stationary looms follow the port-bearing lower fascia in
+    # exploded illustrations, keeping their straight runs inside its holes.
+    loom_pose=fascia_offset(explode,-1) if main and conceal else None
+    for i in [0,1]:out.append(H('loom-'+variant+'-bottom-'+str(i),loom_pose,c=CORE))
     return out
 
 
