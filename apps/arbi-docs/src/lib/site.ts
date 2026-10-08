@@ -23,7 +23,7 @@ type RawSite = {
     repository: string;
     commit: string;
     commitDate: string;
-    registry: { models: Model[] };
+    registry: { models: Model[]; archivedModels?: Model[] };
     bom: {
         summary: {
             scenarioId: string;
@@ -32,9 +32,14 @@ type RawSite = {
             quoteSnapshotId: string;
             complete: boolean;
             knownGoodsSubtotal: string;
-            knownShippingSubtotal: string;
+            knownShippingSubtotal: string; knownCustomsSubtotal: string;
             knownSubtotal: string;
+            estimatedMaterialSubtotal: string;
+            estimatedPartialSubtotal: string;
+            assemblyPartialGoods: { assemblyId: string; amount: string }[];
+            assemblyEstimatedMaterials: { assemblyId: string; amount: string }[];
             assemblyKnownGoods: { assemblyId: string; amount: string }[];
+            sharedProcurementStockKnownGoods: string;
             warningCount: number;
         };
         parts: BomPart[];
@@ -64,7 +69,8 @@ function load() {
     for (const [slug, meta] of Object.entries(site.scenes)) scenes[slug] = readJson<Scene>(meta.file);
     const docTexts = readJson<Record<string, string>>("docs.json");
     const models = site.registry.models;
-    const modelById = new Map(models.map((m) => [m.id, m]));
+    const archivedModels = site.registry.archivedModels ?? [];
+    const modelById = new Map([...models, ...archivedModels].map((m) => [m.id, m]));
     const bomById = new Map(site.bom.parts.map((p) => [p.id, p]));
     const goods = new Map(site.bom.summary.assemblyKnownGoods.map((g) => [g.assemblyId, g.amount]));
     const slugOf = (path: string) => path.match(/assemblies\/([^/]+)\//)?.[1] ?? path;
@@ -94,7 +100,7 @@ function load() {
             instances.get(p.model)!.parts.push(p);
         }
     }
-    return { site, scenes, docTexts, models, modelById, bomById, systems, instances };
+    return { site, scenes, docTexts, models, archivedModels, modelById, bomById, systems, instances };
 }
 
 let cache: ReturnType<typeof load> | undefined;
@@ -113,7 +119,7 @@ export const systemBySlug = (slug: string): System | undefined => {
     }
     return data().systems.find((s) => s.slug === slug);
 };
-export const installedCount = (id: string, slug?: string) => slug
+export const installedCount = (id: string, slug?: string) => data().modelById.get(id)?.archiveReason ? null : slug
     ? data().scenes[slug]?.parts.filter((p) => p.model === id).length ?? null
     : data().instances.get(id)?.parts.length ?? null;
 
@@ -138,6 +144,8 @@ export const partColor = (id: string) => data().instances.get(id)?.parts[0]?.col
 
 /** Best verified download: the CAD release asset, else a committed pack containing the mesh. */
 export function download(id: string): Download {
+    if (data().modelById.get(id)?.archiveReason)
+        return { url: links.releases, label: "Archived · excluded from current fabrication", sha256: null, verified: false };
     const d = data().site.downloads[id];
     if (d?.release) return { url: d.release.url, label: "CAD release", sha256: d.release.sha256, verified: true };
     if (d?.packs.length) return { url: d.packs[0].url, label: `In ${d.packs[0].name}`, sha256: null, verified: true };

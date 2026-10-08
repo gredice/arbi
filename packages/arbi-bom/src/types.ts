@@ -130,7 +130,36 @@ export interface LocationCatalog {
   locations: Location[];
 }
 
+export interface CustomsPolicy {
+  id: string;
+  destinationId: string;
+  startsOn: string;
+  endsOn: string | null;
+  amount: string;
+  currency: string;
+  orderValueBelow: string;
+  basis: "item-type";
+  sourceUrl: string;
+  note: string;
+}
+
+export interface CustomsCatalog {
+  schemaVersion: 1;
+  policies: CustomsPolicy[];
+}
+
+export interface CustomsResult {
+  checkoutGroupId: string;
+  policy: CustomsPolicy;
+  chargeCount: number;
+  orderGoodsAmount: string | null;
+  knownAmount: string | null;
+  warnings: string[];
+}
+
 export interface OfferPrice {
+  actualDelivered?: { importCharges?: string; amount: string; currency: string; quantity: string; confirmedAt: string; note: string };
+  delivery?: { amount: string; currency: string; note: string };
   offerId: string;
   availability: "available" | "in-stock" | "out-of-stock" | "unknown";
   observedAt: string | null;
@@ -144,6 +173,7 @@ export interface OfferPrice {
 }
 
 export interface CheckoutGroupQuote {
+  customsPolicyId?: string;
   basis?: "checkout-group" | "selected-offer";
   checkoutGroupId: string;
   supplierId: string;
@@ -191,6 +221,7 @@ export interface ScenarioCatalog {
 }
 
 export interface BomRepository {
+  customs: CustomsCatalog;
   inputDigest: string;
   loadedScenarioId: string;
   parts: PartCatalog;
@@ -201,6 +232,74 @@ export interface BomRepository {
   locations: LocationCatalog;
   quote: QuoteSnapshot;
   scenarios: ScenarioCatalog;
+  fabrication: FabricationCatalog;
+}
+
+export interface FilamentMaterial {
+  id: string;
+  name: string;
+  densityGramsPerCm3: string;
+  densitySourceUrl: string;
+  spoolWeightGrams: string;
+  spoolPrice: string | null;
+  currency: string;
+  priceSourceUrl: string;
+  observedAt: string;
+  priceBasis: "single-spool" | "bulk-spool";
+  bulkPricing?: { minimumRolls: number; group: string; sourceUrl: string };
+  colors?: Array<{ id: string; name: string; priceSourceUrl: string }>;
+  taxTreatment: "unknown" | "included";
+}
+
+export interface PrintRecipe {
+  partId: string;
+  buildId: string;
+  representedQuantity: string;
+  materialId: string;
+  components: Array<{ modelId: string; quantity: string; materialId?: string; color?: string }>;
+  note: string;
+}
+
+export interface FabricationCatalog {
+  schemaVersion: 1;
+  destinationId: string;
+  note: string;
+  geometry: {
+    releaseTag: string | null;
+    sourceCommit: string;
+    sourceHashes: Record<string, string>;
+    models: Array<{ modelId: string; revision: string; volumeCm3: string; stlSha256: string }>;
+  };
+  materials: FilamentMaterial[];
+  recipes: PrintRecipe[];
+}
+
+export interface FabricationEstimate {
+  partId: string;
+  required: string;
+  basis: "solid-volume-estimate";
+  materialId: string;
+  materialName: string;
+  materialUsages: Array<FilamentCost & { color: string | null }>;
+  weightGrams: string;
+  materialCost: string | null;
+  currency: string;
+  note: string;
+  alternatives: FilamentCost[];
+}
+
+export interface FilamentCost {
+    materialId: string;
+    name: string;
+    weightGrams: string;
+    materialCost: string | null;
+    spoolPrice: string | null;
+    spoolWeightGrams: string;
+    priceSourceUrl: string;
+    observedAt: string;
+    priceBasis: FilamentMaterial["priceBasis"];
+    minimumBulkRolls: number | null;
+    bulkSourceUrl: string | null;
 }
 
 export interface ValidationResult {
@@ -216,6 +315,7 @@ export interface RequirementResult {
     assemblyId: string;
     kind: Assembly["kind"];
     quantity: string;
+    knownGoodsAmount: string | null;
   }>;
   selectedOfferId: string | null;
 }
@@ -226,6 +326,7 @@ export interface CoverageResult {
   purchased: string | null;
   surplus: string | null;
   unit: BaseUnit;
+  knownGoodsAmount: string | null;
 }
 
 export interface SelectionResult {
@@ -236,6 +337,7 @@ export interface SelectionResult {
   purchaseUnits: string | null;
   knownGoodsAmount: string | null;
   currency: string | null;
+  goodsAllocationBasis: "single-part" | "part-count" | null;
   coverage: CoverageResult[];
   warnings: string[];
 }
@@ -266,8 +368,16 @@ export interface CalculationResult {
   complete: boolean;
   completeLandedTotal: string | null;
   knownGoodsSubtotal: string;
+  knownCustomsSubtotal: string;
+  customs: CustomsResult[];
   knownShippingSubtotal: string;
   knownSubtotal: string;
+  estimatedMaterialSubtotal: string;
+  estimatedPartialSubtotal: string;
+  fabrication: FabricationEstimate[];
+  printReferences: FabricationEstimate[];
+  assemblyEstimatedMaterials: Array<{ assemblyId: string; amount: string }>;
+  assemblyPartialGoods: Array<{ assemblyId: string; amount: string }>;
   requirements: RequirementResult[];
   selections: SelectionResult[];
   shipping: ShippingResult[];

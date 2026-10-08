@@ -114,13 +114,13 @@ function validateDependencies(entrypointPath, checkedDependencies) {
     }
 }
 
-function validateRegistry() {
+export function validateRegistry(registryOverride, bomPartsOverride) {
     assert(existsSync(registryPath), 'Missing hardware/models.json.');
     assert(existsSync(schemaPath), 'Missing hardware/models.schema.json.');
 
-    const registry = readJson(registryPath, 'hardware/models.json');
+    const registry = registryOverride ?? readJson(registryPath, 'hardware/models.json');
     const registrySchema = readJson(schemaPath, 'hardware/models.schema.json');
-    const bomParts = readJson(bomPartsPath, 'bom/catalog/parts.json');
+    const bomParts = bomPartsOverride ?? readJson(bomPartsPath, 'bom/catalog/parts.json');
 
     const ajv = new Ajv2020({ allErrors: true, strict: true });
     const validateRegistrySchema = ajv.compile(registrySchema);
@@ -152,7 +152,20 @@ function validateRegistry() {
     const registeredEntrypoints = new Set();
     const checkedDependencies = new Set();
 
-    for (const [index, model] of registry.models.entries()) {
+    const archivedModels = registry.archivedModels ?? [];
+    const activeIds = new Set(registry.models.map((model) => model.id));
+    const archivedIds = new Set(archivedModels.map((model) => model.id));
+    for (const model of registry.models) {
+        assert(!model.archiveReason && !model.supersededBy && !model.alternativeConfiguration,
+            `${model.id} archive metadata belongs in archivedModels.`);
+    }
+    for (const model of archivedModels) {
+        assert(model.bomPartIds.length === 0, `${model.id} archived model must not claim a BOM part ID.`);
+        for (const replacement of model.supersededBy) {
+            assert(activeIds.has(replacement), `${model.id} replacement must be an active model: ${replacement}`);
+        }
+    }
+    for (const [index, model] of [...registry.models, ...archivedModels].entries()) {
         const label = `models[${index}]`;
         assert(model && typeof model === 'object' && !Array.isArray(model), `${label} must be an object.`);
         assert(idPattern.test(model.id), `${label}.id is invalid: ${model.id}`);
@@ -210,7 +223,7 @@ function validateRegistry() {
         );
         if (model.artifactRole === 'fabrication') {
             assert(outputExtension === '.stl', `${model.id} fabrication output must be STL.`);
-            assert(model.bomPartIds.length > 0, `${model.id} fabrication model needs a BOM part ID.`);
+            assert(archivedIds.has(model.id) || model.bomPartIds.length > 0, `${model.id} fabrication model needs a BOM part ID.`);
         } else {
             assert(outputExtension === '.csg', `${model.id} reference output must be CSG, not a printable mesh.`);
             assert(model.bomPartIds.length === 0, `${model.id} reference model must not claim a BOM part ID.`);
@@ -258,6 +271,7 @@ function validateRegistry() {
             const model = modelsById.get(source.modelId);
 
             assert(model, `${label} references an unknown CAD model: ${source.modelId}`);
+            assert(!archivedIds.has(model.id), `${label} references archived CAD model: ${model.id}`);
             assert(
                 model.artifactRole === 'fabrication',
                 `${label} references ${model.id}, which is not a fabrication model.`,

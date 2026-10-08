@@ -3,6 +3,9 @@
 export type Vec3 = [number, number, number];
 
 export type Model = {
+    archiveReason?: string;
+    supersededBy?: string[];
+    alternativeConfiguration?: "payload-bench";
     id: string;
     revision: string;
     status: string;
@@ -60,6 +63,24 @@ export type SceneMeta = {
 /** A mesh for one model: a node of the pod GLB or an STL path, both under /data. */
 export type MeshRef = { kind: "glb"; node: string; glb: string } | { kind: "stl"; url: string };
 
+export type PrintEstimate = {
+    basis: string;
+    required: string;
+    materialId: string;
+    materialName: string;
+    materialUsages: (PrintMaterialCost & { color: string | null })[];
+    weightGrams: string;
+    materialCost: string | null;
+    note: string;
+    alternatives: PrintMaterialCost[];
+};
+
+export type PrintMaterialCost = {
+    materialId: string; name: string; weightGrams: string; materialCost: string | null;
+    spoolPrice: string | null; spoolWeightGrams: string; priceSourceUrl: string; observedAt: string;
+    priceBasis: "single-spool" | "bulk-spool"; minimumBulkRolls: number | null; bulkSourceUrl: string | null;
+};
+
 export type BomPart = {
     id: string;
     name: string;
@@ -71,13 +92,21 @@ export type BomPart = {
     requirements: string[];
     required: string | null;
     unit: string;
-    usedIn: { assemblyId: string; kind: string; quantity: string }[];
+    usedIn: { assemblyId: string; kind: string; quantity: string; knownGoodsAmount: string | null }[];
     offerId: string | null;
     supplierId: string | null;
     qualification: string | null;
     purchaseUnits: string | null;
     bundle: boolean;
+    goodsAllocationBasis: "single-part" | "part-count" | null;
     knownGoods: string | null;
+    actualDelivered: { importCharges?: string; amount: string; currency: string; quantity: string; confirmedAt: string; note: string } | null;
+    quotedPrice: { amount: string; currency: string; basis: string } | null;
+    delivery: { amount: string; currency: string; note: string } | null;
+    observedAt: string | null;
+    customsPolicy: { amount: string; currency: string; startsOn: string; endsOn: string | null; orderValueBelow: string } | null;
+    printEstimate: PrintEstimate | null;
+    printReference: PrintEstimate | null;
     offerUrl: string | null;
     warnings: string[];
 };

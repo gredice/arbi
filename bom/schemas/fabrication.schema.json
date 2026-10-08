@@ -1,0 +1,328 @@
+{
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "destinationId",
+    "note",
+    "geometry",
+    "materials",
+    "recipes"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "destinationId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+    },
+    "note": {
+      "type": "string",
+      "minLength": 1
+    },
+    "geometry": {
+      "type": "object",
+      "required": [
+        "releaseTag",
+        "sourceCommit",
+        "sourceHashes",
+        "models"
+      ],
+      "properties": {
+        "releaseTag": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sourceCommit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "sourceHashes": {
+          "type": "object",
+          "minProperties": 1,
+          "propertyNames": {
+            "pattern": "^hardware/(?!.*\\.\\.).+\\.(scad|json)$"
+          },
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        },
+        "models": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "modelId",
+              "revision",
+              "volumeCm3",
+              "stlSha256"
+            ],
+            "properties": {
+              "modelId": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+              },
+              "revision": {
+                "type": "string",
+                "minLength": 1
+              },
+              "volumeCm3": {
+                "type": "string",
+                "pattern": "^(?:0|[1-9]\\d*)(?:\\.\\d+)?$"
+              },
+              "stlSha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "materials": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "densityGramsPerCm3",
+          "densitySourceUrl",
+          "spoolWeightGrams",
+          "spoolPrice",
+          "currency",
+          "priceSourceUrl",
+          "observedAt",
+          "priceBasis",
+          "taxTreatment"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "densityGramsPerCm3": {
+            "type": "string",
+            "pattern": "^(?:0|[1-9]\\d*)(?:\\.\\d+)?$"
+          },
+          "densitySourceUrl": {
+            "type": "string",
+            "format": "uri"
+          },
+          "spoolWeightGrams": {
+            "type": "string",
+            "pattern": "^(?:0|[1-9]\\d*)(?:\\.\\d+)?$"
+          },
+          "spoolPrice": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^(?:0|[1-9]\\d*)(?:\\.\\d+)?$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "currency": {
+            "type": "string",
+            "pattern": "^[A-Z]{3}$"
+          },
+          "priceSourceUrl": {
+            "type": "string",
+            "format": "uri"
+          },
+          "observedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "priceBasis": {
+            "enum": [
+              "single-spool",
+              "bulk-spool"
+            ]
+          },
+          "taxTreatment": {
+            "enum": [
+              "unknown",
+              "included"
+            ]
+          },
+          "bulkPricing": {
+            "type": "object",
+            "required": [
+              "minimumRolls",
+              "group",
+              "sourceUrl"
+            ],
+            "properties": {
+              "minimumRolls": {
+                "type": "integer",
+                "minimum": 2
+              },
+              "group": {
+                "type": "string",
+                "minLength": 1
+              },
+              "sourceUrl": {
+                "type": "string",
+                "format": "uri",
+                "pattern": "^https://"
+              }
+            },
+            "additionalProperties": false
+          },
+          "colors": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "name",
+                "priceSourceUrl"
+              ],
+              "properties": {
+                "id": {
+                  "enum": [
+                    "white",
+                    "black"
+                  ]
+                },
+                "name": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "priceSourceUrl": {
+                  "type": "string",
+                  "format": "uri",
+                  "pattern": "^https://"
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "priceBasis": {
+                  "const": "bulk-spool"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "bulkPricing"
+              ],
+              "properties": {
+                "bulkPricing": {}
+              }
+            },
+            "else": {
+              "not": {
+                "required": [
+                  "bulkPricing"
+                ],
+                "properties": {
+                  "bulkPricing": {}
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "recipes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "partId",
+          "buildId",
+          "representedQuantity",
+          "materialId",
+          "components",
+          "note"
+        ],
+        "properties": {
+          "partId": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+          },
+          "buildId": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+          },
+          "representedQuantity": {
+            "type": "string",
+            "pattern": "^(?:0|[1-9]\\d*)(?:\\.\\d+)?$"
+          },
+          "materialId": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+          },
+          "components": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": [
+                "modelId",
+                "quantity"
+              ],
+              "properties": {
+                "modelId": {
+                  "type": "string",
+                  "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+                },
+                "quantity": {
+                  "type": "string",
+                  "pattern": "^(?:0|[1-9]\\d*)(?:\\.\\d+)?$"
+                },
+                "materialId": {
+                  "type": "string",
+                  "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+                },
+                "color": {
+                  "enum": [
+                    "white",
+                    "black"
+                  ]
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "note": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ARBI print material cost evidence"
+}

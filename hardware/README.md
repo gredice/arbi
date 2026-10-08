@@ -60,3 +60,11 @@ The system requirements and evidence status live in the matching documents under
 The [winch mount family](assemblies/winch/mount.md) adds a bearing lower, bearing
 cap, motor stand and coupling cover (0.1.0), with a passive/powered assembly
 reference. Metal base stock is a drilling proposal, not a printed release part.
+
+## Archived models
+
+`models.json` separates active `models` from `archivedModels`. Archived entries retain stable IDs, revisions, evidence status, source paths, an archive reason and current replacement IDs. They have no BOM ownership, active inventory count, individual release mesh, preview or fabrication download. CAD validation still checks their source/includes so historical references cannot silently break.
+
+The camera-pod archive covers the original concept kit and keep-out, six dry bench-only alternatives, and the retired fixed fairing, tilt-servo boot and rear camera cowl. The compact `payload-integrated-deck` is current; `payload-electronics-deck` is the dry bench alternative. The shared spider, spacers, pan mount and horn retainers remain active. Docking-stud and line-termination concepts have no selected replacement; archiving them does not resolve those interfaces.
+
+The explicit dry bench booklet opts into only the archived entries marked `alternativeConfiguration: payload-bench`; it is labeled as an alternative and does not add parts to the current compact enclosure BOM or assembly. The enclosure exports 13 fabrication models (12 installed types plus the optional servo fit coupon) and installs 16 printed pieces. Other committed model families retain their documented optional configurations and variants; an unmerged replacement proposal does not supersede them.

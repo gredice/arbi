@@ -45,6 +45,48 @@ function requireId(
 export function validateRepository(repository: BomRepository): ValidationResult {
   const result: ValidationResult = { errors: [], warnings: [] };
 
+  const fabrication = repository.fabrication;
+  for (const [label, values] of [
+    ["filament material", fabrication.materials.map((item) => item.id)],
+    ["print geometry", fabrication.geometry.models.map((item) => item.modelId)],
+    ["print recipe", fabrication.recipes.map((item) => `${item.buildId}/${item.partId}`)],
+  ] as Array<[string, string[]]>) {
+    for (const id of duplicateIds(values)) result.errors.push(`Duplicate ${label}: ${id}`);
+  }
+  if (!repository.locations.locations.some((item) => item.id === fabrication.destinationId)) {
+    result.errors.push("Unknown filament pricing destination");
+  }
+  for (const material of fabrication.materials) {
+    requireDecimal(result, material.densityGramsPerCm3, `${material.id} density`, false);
+    requireDecimal(result, material.spoolWeightGrams, `${material.id} spool weight`, false);
+    if (material.spoolPrice !== null) requireDecimal(result, material.spoolPrice, `${material.id} spool price`, false);
+    if (material.priceBasis === "bulk-spool" && (!material.bulkPricing || !Number.isInteger(material.bulkPricing.minimumRolls) || material.bulkPricing.minimumRolls < 2)) {
+      result.errors.push(`${material.id}: Bulk pricing needs a minimum eligible roll count`);
+    }
+    if (material.priceBasis === "single-spool" && material.bulkPricing) result.errors.push(`${material.id}: Single-spool price cannot have bulk conditions`);
+    for (const id of duplicateIds(material.colors?.map((color) => color.id) ?? [])) result.errors.push(`Duplicate filament colour: ${material.id}/${id}`);
+  }
+  for (const model of fabrication.geometry.models) {
+    requireDecimal(result, model.volumeCm3, `${model.modelId} volume`, false);
+  }
+  for (const recipe of fabrication.recipes) {
+    const part = repository.parts.parts.find((item) => item.id === recipe.partId);
+    if (!part?.fabrication || part.fabrication.modelStatus === "planned") result.errors.push(`Print recipe ${recipe.partId} needs implemented fabrication sources`);
+    if (!repository.builds.builds.some((item) => item.id === recipe.buildId)) result.errors.push(`Print recipe ${recipe.partId} has an unknown build`);
+    if (!fabrication.materials.some((item) => item.id === recipe.materialId)) result.errors.push(`Print recipe ${recipe.partId} has an unknown material`);
+    requireDecimal(result, recipe.representedQuantity, `${recipe.partId} represented quantity`, false);
+    for (const id of duplicateIds(recipe.components.map((item) => item.modelId))) result.errors.push(`Duplicate component ${id} in ${recipe.partId}`);
+    for (const component of recipe.components) {
+      const material = fabrication.materials.find((item) => item.id === (component.materialId ?? recipe.materialId));
+      if (!material) result.errors.push(`Print recipe ${recipe.partId} has an unknown component material: ${component.materialId}`);
+      if (material?.colors && !material.colors.some((color) => color.id === component.color)) result.errors.push(`Print recipe ${recipe.partId} needs an evidenced colour for ${component.modelId}`);
+      requireDecimal(result, component.quantity, `${recipe.partId}/${component.modelId} quantity`, false);
+      const model = fabrication.geometry.models.find((item) => item.modelId === component.modelId);
+      const source = part?.fabrication?.sources.find((item) => item.modelId === component.modelId);
+      if (!model || !source || source.revision !== model.revision) result.errors.push(`Print recipe ${recipe.partId} has missing or mismatched geometry: ${component.modelId}`);
+    }
+  }
+
   const partIds = repository.parts.parts.map((part) => part.id);
   const assemblyIds = repository.assemblies.assemblies.map(
     (assembly) => assembly.id,
@@ -193,6 +235,11 @@ export function validateRepository(repository: BomRepository): ValidationResult 
     if (offer.purchaseUnit.contents.length === 0) {
       result.errors.push(`Offer ${offer.id} has no package contents`);
     }
+    for (const duplicate of duplicateIds(
+      offer.purchaseUnit.contents.map((content) => content.partId),
+    )) {
+      result.errors.push(`Offer ${offer.id} contains duplicate part ${duplicate}`);
+    }
     for (const content of offer.purchaseUnit.contents) {
       if (!partSet.has(content.partId)) {
         result.errors.push(
@@ -268,6 +315,16 @@ export function validateRepository(repository: BomRepository): ValidationResult 
         `Quote references unknown offer ${price.offerId}`,
       );
     }
+    if (price.actualDelivered !== undefined) {
+      requireDecimal(result, price.actualDelivered.amount, `offer ${price.offerId} delivered total`, true);
+      requireDecimal(result, price.actualDelivered.quantity, `offer ${price.offerId} actual quantity`, false);
+      if (price.actualDelivered.importCharges !== undefined) {
+        requireDecimal(result, price.actualDelivered.importCharges, `offer ${price.offerId} import charges`, true);
+        if (Decimal.parse(price.actualDelivered.importCharges).compare(Decimal.parse(price.actualDelivered.amount)) > 0) {
+          result.errors.push(`Offer ${price.offerId} import charges exceed delivered total`);
+        }
+      }
+    }
     if (price.price !== null) {
       if (!CURRENCY_PATTERN.test(price.price.currency)) {
         result.errors.push(
@@ -282,7 +339,22 @@ export function validateRepository(repository: BomRepository): ValidationResult 
       );
     }
   }
+  for (const duplicate of duplicateIds(repository.customs.policies.map((policy) => policy.id))) {
+    result.errors.push(`Duplicate customs policy ID: ${duplicate}`);
+  }
+  for (const policy of repository.customs.policies) {
+    requireDecimal(result, policy.amount, `customs ${policy.id} amount`, true);
+    requireDecimal(result, policy.orderValueBelow, `customs ${policy.id} threshold`, false);
+    if (!locationSet.has(policy.destinationId)) result.errors.push(`Customs policy ${policy.id} has unknown destination`);
+    if (policy.endsOn !== null && policy.endsOn <= policy.startsOn) result.errors.push(`Customs policy ${policy.id} end must follow start`);
+  }
   for (const shipping of repository.quote.checkoutGroups) {
+    if (shipping.customsPolicyId !== undefined) {
+      const policy = repository.customs.policies.find((item) => item.id === shipping.customsPolicyId);
+      if (policy === undefined || policy.destinationId !== repository.quote.destinationId) {
+        result.errors.push(`Shipping group ${shipping.checkoutGroupId} has missing or wrong-destination customs policy`);
+      }
+    }
     const supplier = checkoutGroupToSupplier.get(shipping.checkoutGroupId);
     if (supplier !== shipping.supplierId) {
       result.errors.push(

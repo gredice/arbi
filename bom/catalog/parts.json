@@ -90,36 +90,6 @@
         "modelStatus": "concept-unvalidated",
         "sources": [
           {
-            "path": "hardware/assemblies/camera-pod/camera-gimbal-base.scad",
-            "module": "camera_gimbal_base",
-            "modelId": "camera-gimbal-base",
-            "revision": "0.1.0"
-          },
-          {
-            "path": "hardware/assemblies/camera-pod/camera-gimbal-camera-plate.scad",
-            "module": "camera_gimbal_camera_plate",
-            "modelId": "camera-gimbal-camera-plate",
-            "revision": "0.1.0"
-          },
-          {
-            "path": "hardware/assemblies/camera-pod/camera-gimbal-optical-hood.scad",
-            "module": "camera_gimbal_optical_hood",
-            "modelId": "camera-gimbal-optical-hood",
-            "revision": "0.1.0"
-          },
-          {
-            "path": "hardware/assemblies/camera-pod/camera-gimbal-rain-cap.scad",
-            "module": "camera_gimbal_rain_cap",
-            "modelId": "camera-gimbal-rain-cap",
-            "revision": "0.1.0"
-          },
-          {
-            "path": "hardware/assemblies/camera-pod/camera-gimbal-yoke.scad",
-            "module": "camera_gimbal_yoke",
-            "modelId": "camera-gimbal-yoke",
-            "revision": "0.1.0"
-          },
-          {
             "path": "hardware/assemblies/camera-pod/payload-integrated-camera-cradle.scad",
             "module": "payload_integrated_camera_cradle",
             "modelId": "payload-integrated-camera-cradle",
@@ -132,51 +102,15 @@
             "revision": "0.1.0"
           },
           {
-            "path": "hardware/assemblies/camera-pod/payload-camera-cradle.scad",
-            "module": "payload_camera_cradle",
-            "modelId": "payload-camera-cradle",
-            "revision": "0.1.0"
-          },
-          {
-            "path": "hardware/assemblies/camera-pod/payload-camera-hood.scad",
-            "module": "payload_camera_hood",
-            "modelId": "payload-camera-hood",
-            "revision": "0.1.0"
-          },
-          {
             "path": "hardware/assemblies/camera-pod/payload-horn-retainer.scad",
             "module": "payload_horn_retainer",
             "modelId": "payload-horn-retainer",
             "revision": "0.1.0"
           },
           {
-            "path": "hardware/assemblies/camera-pod/payload-pan-yoke.scad",
-            "module": "payload_pan_yoke",
-            "modelId": "payload-pan-yoke",
-            "revision": "0.1.1"
-          },
-          {
             "path": "hardware/assemblies/camera-pod/payload-servo-fit-coupon.scad",
             "module": "payload_servo_fit_coupon",
             "modelId": "payload-servo-fit-coupon",
-            "revision": "0.1.0"
-          },
-          {
-            "path": "hardware/assemblies/camera-pod/payload-tilt-pivot-support.scad",
-            "module": "payload_tilt_pivot_support",
-            "modelId": "payload-tilt-pivot-support",
-            "revision": "0.1.0"
-          },
-          {
-            "path": "hardware/assemblies/camera-pod/payload-tilt-servo-boot.scad",
-            "module": "payload_tilt_servo_boot",
-            "modelId": "payload-tilt-servo-boot",
-            "revision": "0.1.0"
-          },
-          {
-            "path": "hardware/assemblies/camera-pod/payload-camera-cowl.scad",
-            "module": "payload_camera_cowl",
-            "modelId": "payload-camera-cowl",
             "revision": "0.1.0"
           },
           {
@@ -199,7 +133,7 @@
           }
         ]
       },
-      "notes": "Includes the camera-gimbal concept family and the alternative payload mount family, with dry bench and integrated ordinary-rain/splash configurations. Select one arrangement; these sources are not a combined print kit. The current enclosure uses one-piece tapered outer payload-integrated-gimbal-head r0.1.3 with a separate payload-integrated-gimbal-carrier r0.1.1, both moving in pan, in place of the legacy pan yoke, fixed fairing and tilt-servo boot. Four M2 x 10 clamp stacks join the head and carrier. The compact kit uses payload-integrated-camera-cradle and payload-integrated-tilt-pivot-support r0.1.0, omits the rear camera cowl and its four secondary nuts, and uses four M2 x 12 camera screws. The legacy cradle, pivot support, yoke and shields remain alternative sources and are not printed for this configuration. The selected compact kit exports 13 fabrication models including the optional coupon and installs 16 printed pieces. Quantities, hardware and cable routes are in hardware/assemblies/camera-pod/payload-mounts.md and payload-enclosure.md. Servo/connector dimensions are provisional; source checks do not validate physical fit, rain protection or flying mass. The compact integrated variant substitutes payload-integrated-camera-hood r0.1.1 as the rounded white optical surround; the dry bench hood remains an alternative."
+      "notes": "Current compact enclosure uses payload-integrated-gimbal-head r0.1.3, payload-integrated-gimbal-carrier r0.1.1, integrated cradle/pivot support r0.1.0, horn retainers and payload-integrated-camera-hood r0.1.1. Historical concept and dry bench gimbal parts, fixed fairing, tilt-servo boot and rear camera cowl are archived and excluded from this BOM. Four M2 x 10 clamp stacks join head and carrier; four M2 x 12 camera screws retain four primary nuts and eight washers. The selected kit exports 13 fabrication models including the optional coupon and installs 16 printed pieces. See hardware/assemblies/camera-pod/payload-enclosure.md for quantities and service routes. Servo/connector dimensions, physical fit, rain protection and complete flying mass remain unverified."
     },
     {
       "id": "camera-pod-chassis",
@@ -218,29 +152,11 @@
       "requirements": [
         "ASA/PETG lightweight cable spider and electronics chassis sized for Raspberry Pi 3A+, 48 V → 5 V converter and bulk capacitor fixed on the pod. Complete flying pod target ~100–120 g; hard design limit 170 g."
       ],
-      "notes": "Includes the camera-pod concept family and the alternative payload mount family, sharing the unchanged camera-pod-spider. Select one arrangement; these sources are not a combined print kit. The integrated ordinary-rain/splash configuration uses compact payload-integrated-deck r0.1.0 instead of the dry bench deck and replaces payload-electronics-cover with payload-rain-hood r0.2.1 and payload-enclosure-base r0.2.3. Its pan-moving payload-integrated-gimbal-head belongs to the camera-gimbal part; the separate fixed payload-pan-fairing remains a historical alternative and is omitted from the current enclosure kit. Quantities, hardware and cable routes are in hardware/assemblies/camera-pod/payload-mounts.md and payload-enclosure.md. Physical fit, rain/thermal behavior and complete flying mass remain unverified. Updated for Raspberry Pi 3A+ V1 pod architecture; replaces earlier Pi Zero 2 W mass/layout assumptions.",
+      "notes": "Current compact ordinary-rain/splash chassis uses camera-pod-spider, payload-integrated-deck r0.1.0, spacers, pan-servo mount, payload-rain-hood r0.2.1 and payload-enclosure-base r0.2.3. Historical concept parts, the dry bench deck/cover and fixed fairing are archived and excluded from this BOM. Select the current print quantities in hardware/assemblies/camera-pod/payload-enclosure.md; the dry bench configuration remains an explicit alternative in payload-mounts.md. Docking and line-termination interfaces, physical fit, rain/thermal behavior and complete flying mass remain unverified.",
       "fabrication": {
         "process": "openscad",
         "modelStatus": "concept-unvalidated",
         "sources": [
-          {
-            "path": "hardware/assemblies/camera-pod/camera-pod-docking-stud.scad",
-            "module": "camera_pod_docking_stud",
-            "modelId": "camera-pod-docking-stud",
-            "revision": "0.1.0"
-          },
-          {
-            "path": "hardware/assemblies/camera-pod/camera-pod-electronics-mount.scad",
-            "module": "camera_pod_electronics_mount",
-            "modelId": "camera-pod-electronics-mount",
-            "revision": "0.1.0"
-          },
-          {
-            "path": "hardware/assemblies/camera-pod/camera-pod-line-strain-relief.scad",
-            "module": "camera_pod_line_strain_relief",
-            "modelId": "camera-pod-line-strain-relief",
-            "revision": "0.1.0"
-          },
           {
             "path": "hardware/assemblies/camera-pod/camera-pod-spider.scad",
             "module": "camera_pod_spider",
@@ -248,21 +164,9 @@
             "revision": "0.1.0"
           },
           {
-            "path": "hardware/assemblies/camera-pod/payload-electronics-deck.scad",
-            "module": "payload_electronics_deck",
-            "modelId": "payload-electronics-deck",
-            "revision": "0.1.1"
-          },
-          {
             "path": "hardware/assemblies/camera-pod/payload-pan-servo-mount.scad",
             "module": "payload_pan_servo_mount",
             "modelId": "payload-pan-servo-mount",
-            "revision": "0.1.0"
-          },
-          {
-            "path": "hardware/assemblies/camera-pod/payload-electronics-cover.scad",
-            "module": "payload_electronics_cover",
-            "modelId": "payload-electronics-cover",
             "revision": "0.1.0"
           },
           {
@@ -282,12 +186,6 @@
             "module": "payload_enclosure_base",
             "modelId": "payload-enclosure-base",
             "revision": "0.2.3"
-          },
-          {
-            "path": "hardware/assemblies/camera-pod/payload-pan-fairing.scad",
-            "module": "payload_pan_fairing",
-            "modelId": "payload-pan-fairing",
-            "revision": "0.2.1"
           },
           {
             "path": "hardware/assemblies/camera-pod/payload-integrated-deck.scad",

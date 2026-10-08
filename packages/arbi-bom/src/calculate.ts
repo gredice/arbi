@@ -4,10 +4,12 @@ import {
   roundUpToIncrement,
 } from "./decimal.js";
 import { validateRepository } from "./validate.js";
+import { estimatePrintMaterials } from "./fabrication.js";
 import type {
   BomRepository,
   CalculationResult,
   CoverageResult,
+  CustomsResult,
   Offer,
   RequirementResult,
   Scenario,
@@ -238,6 +240,7 @@ export function calculateBom(
             purchased: null,
             surplus: null,
             unit: part.baseUnit,
+            knownGoodsAmount: null,
           });
         }
       }
@@ -273,6 +276,7 @@ export function calculateBom(
             purchased: purchased.toString(),
             surplus: purchased.subtract(requirement.quantity).toString(),
             unit: part.baseUnit,
+            knownGoodsAmount: null,
           });
         }
       }
@@ -340,6 +344,29 @@ export function calculateBom(
     if (knownGoodsAmount !== null) {
       knownGoodsByOffer.set(offer.id, knownGoodsAmount);
     }
+    // Count every purchased component, including surplus and unselected kit
+    // contents. Unlike a supplier price, this is an accounting allocation.
+    const goodsAllocationBasis = knownGoodsAmount === null
+      ? null
+      : offer.purchaseUnit.contents.length === 1
+        ? "single-part"
+        : offer.purchaseUnit.contents.every(
+            (content) => partById.get(content.partId)?.baseUnit === "each",
+          )
+          ? "part-count"
+          : null;
+    if (knownGoodsAmount !== null && goodsAllocationBasis !== null) {
+      const amounts = new Map(allocateByWeight(
+        knownGoodsAmount,
+        offer.purchaseUnit.contents.map((content) => ({
+          id: content.partId,
+          weight: Decimal.parse(content.quantity),
+        })),
+      ).map((item) => [item.id, item.amount.toString()]));
+      for (const item of coverage) {
+        item.knownGoodsAmount = amounts.get(item.partId) ?? null;
+      }
+    }
     warnings.sort();
     for (const warning of warnings) {
       globalWarnings.add(offer.id + ": " + warning);
@@ -355,6 +382,7 @@ export function calculateBom(
         knownGoodsAmount === null ? null : knownGoodsAmount.toString(),
       currency:
         knownGoodsAmount === null ? null : scenario.reportCurrency,
+      goodsAllocationBasis,
       coverage: coverage.sort((left, right) =>
         left.partId.localeCompare(right.partId),
       ),
@@ -367,6 +395,8 @@ export function calculateBom(
   ].sort();
   const shipping: ShippingResult[] = [];
   let knownShipping = Decimal.zero();
+  let knownCustoms = Decimal.zero();
+  const customs: CustomsResult[] = [];
   for (const checkoutGroupId of selectedGroups) {
     const quote = repository.quote.checkoutGroups.find(
       (candidate) => candidate.checkoutGroupId === checkoutGroupId,
@@ -376,12 +406,39 @@ export function calculateBom(
       globalWarnings.add(checkoutGroupId + ": Shipping policy is missing.");
       continue;
     }
+    if (quote.customsPolicyId !== undefined) {
+      const policy = repository.customs.policies.find((item) => item.id === quote.customsPolicyId)!;
+      const groupSelections = selections.filter((item) => item.checkoutGroupId === checkoutGroupId);
+      const customsWarnings: string[] = [];
+      const allGoodsKnown = groupSelections.every((item) => item.knownGoodsAmount !== null);
+      const orderGoods = allGoodsKnown ? groupSelections.reduce((total, item) => total.add(Decimal.parse(item.knownGoodsAmount!)), Decimal.zero()) : null;
+      const threshold = convertMoney(repository, Decimal.parse(policy.orderValueBelow), policy.currency, scenario.reportCurrency);
+      const date = repository.quote.capturedAt.slice(0, 10);
+      const active = date >= policy.startsOn && (policy.endsOn === null || date < policy.endsOn);
+      let customsAmount: Decimal | null = null;
+      if (!active) customsWarnings.push("Quote date is outside the customs policy interval; actual duty is unknown.");
+      else if (orderGoods === null || threshold === null) customsWarnings.push("Customs is conditional: total order goods value is unknown; split orders are not assumed.");
+      else if (orderGoods.compare(threshold) >= 0) customsWarnings.push("Order is outside the low-value customs policy; actual duty is unknown.");
+      else customsAmount = convertMoney(repository, Decimal.parse(policy.amount).multiplyInteger(BigInt(groupSelections.length)), policy.currency, scenario.reportCurrency);
+      if (customsAmount !== null) knownCustoms = knownCustoms.add(customsAmount);
+      if (active) customsWarnings.push("One selected offer approximates one declared item type; actual customs grouping is unconfirmed.");
+      for (const warning of customsWarnings) globalWarnings.add(checkoutGroupId + ": " + warning);
+      customs.push({ checkoutGroupId, policy, chargeCount: active ? groupSelections.length : 0, orderGoodsAmount: orderGoods?.toString() ?? null, knownAmount: customsAmount?.toString() ?? null, warnings: customsWarnings });
+    }
     const basis = quote.basis ?? "checkout-group";
     const chargeCount = basis === "selected-offer"
       ? new Set(selections.filter((item) => item.checkoutGroupId === checkoutGroupId).map((item) => item.offerId)).size
       : 1;
     let knownAmount: Decimal | null = null;
-    if (quote.status === "unknown" || quote.amount === null) {
+    const groupDelivery = selections.filter((item) => item.checkoutGroupId === checkoutGroupId)
+      .map((item) => priceByOffer.get(item.offerId)?.delivery);
+    const deliveryAmounts = groupDelivery.map((item) => item === undefined ? null :
+      convertMoney(repository, Decimal.parse(item.amount), item.currency, scenario.reportCurrency));
+    const deliveryKnown = deliveryAmounts.length > 0 && deliveryAmounts.every((item) => item !== null);
+    if ((quote.status === "unknown" || quote.amount === null) && deliveryKnown) {
+      knownAmount = deliveryAmounts.reduce<Decimal>((total, item) => total.add(item!), Decimal.zero());
+      knownShipping = knownShipping.add(knownAmount);
+    } else if (quote.status === "unknown" || quote.amount === null) {
       warnings.push("Shipping is unknown; null is not treated as free.");
     } else {
       knownAmount = convertMoney(
@@ -423,7 +480,7 @@ export function calculateBom(
       checkoutGroupId,
       supplierId: quote.supplierId,
       chargedOnce: true,
-      status: quote.status,
+      status: deliveryKnown && quote.status === "unknown" ? "known" : quote.status,
       knownAmount: knownAmount === null ? null : knownAmount.toString(),
       currency: scenario.reportCurrency,
       warnings,
@@ -435,36 +492,40 @@ export function calculateBom(
     knownGoods = knownGoods.add(amount);
   }
   const assemblyAmounts = new Map<string, Decimal>();
+  const partAssemblyAmounts = new Map<string, Map<string, Decimal>>();
   let sharedBundleGoods = Decimal.zero();
   for (const selection of selections) {
     const amount = knownGoodsByOffer.get(selection.offerId);
-    const offer = offerById.get(selection.offerId);
-    if (amount === undefined || offer === undefined) {
+    if (amount === undefined) {
       continue;
     }
-    const covered = selectedContents(offer, requirements, scenario);
-    if (covered.length !== 1) {
-      sharedBundleGoods = sharedBundleGoods.add(amount);
-      continue;
-    }
-    const requirement = requirements.get(covered[0]!.partId);
-    if (requirement === undefined) {
-      continue;
-    }
-    const allocations = allocateByWeight(
-      amount,
-      [...requirement.assemblies.entries()].map(
-        ([assemblyId, weight]) => ({ id: assemblyId, weight }),
-      ),
-    );
-    for (const allocation of allocations) {
-      assemblyAmounts.set(
-        allocation.id,
-        (assemblyAmounts.get(allocation.id) ?? Decimal.zero()).add(
-          allocation.amount,
+    let allocated = Decimal.zero();
+    for (const covered of selection.coverage) {
+      const requirement = requirements.get(covered.partId);
+      if (covered.knownGoodsAmount === null || requirement === undefined) {
+        continue;
+      }
+      const partAmount = Decimal.parse(covered.knownGoodsAmount);
+      allocated = allocated.add(partAmount);
+      const allocations = allocateByWeight(
+        partAmount,
+        [...requirement.assemblies.entries()].map(
+          ([assemblyId, weight]) => ({ id: assemblyId, weight }),
         ),
       );
+      partAssemblyAmounts.set(covered.partId, new Map(
+        allocations.map((item) => [item.id, item.amount]),
+      ));
+      for (const allocation of allocations) {
+        assemblyAmounts.set(
+          allocation.id,
+          (assemblyAmounts.get(allocation.id) ?? Decimal.zero()).add(
+            allocation.amount,
+          ),
+        );
+      }
     }
+    sharedBundleGoods = sharedBundleGoods.add(amount.subtract(allocated));
   }
 
   const requirementResults: RequirementResult[] = [...requirements.entries()]
@@ -484,14 +545,42 @@ export function calculateBom(
             assemblyId,
             kind: assemblyById.get(assemblyId)?.kind ?? "physical",
             quantity: quantity.toString(),
+            knownGoodsAmount: partAssemblyAmounts.get(partId)?.get(assemblyId)?.toString() ?? null,
           })),
         selectedOfferId: scenario.selection.pins[partId] ?? null,
       };
     });
 
+  const fabrication = [];
+  const assemblyMaterials = new Map<string, Decimal>();
+  let estimatedMaterials = Decimal.zero();
+  for (const recipe of repository.fabrication.recipes) {
+    const requirement = requirements.get(recipe.partId);
+    if (!requirement || recipe.buildId !== build.id) continue;
+    const offerId = scenario.selection.pins[recipe.partId];
+    // Bought parts use their quoted price. A complete fabrication quote also
+    // supersedes the consumption estimate, so the same part is never charged twice.
+    if (offerId && (offerById.get(offerId)?.supplierId !== "in-house-fabrication" || knownGoodsByOffer.has(offerId))) continue;
+    if (repository.fabrication.destinationId !== scenario.destinationId) {
+      globalWarnings.add(`${recipe.partId}: No filament price evidence for this destination.`);
+      continue;
+    }
+    const estimate = estimatePrintMaterials(repository, recipe, requirement.quantity.toString(), scenario.reportCurrency);
+    fabrication.push(estimate);
+    globalWarnings.add(`${recipe.partId}: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.`);
+    if (estimate.materialCost === null) {
+      globalWarnings.add(`${recipe.partId}: Filament price or currency conversion is unknown.`);
+      continue;
+    }
+    const amount = Decimal.parse(estimate.materialCost);
+    estimatedMaterials = estimatedMaterials.add(amount);
+    for (const allocation of allocateByWeight(amount, [...requirement.assemblies.entries()].map(([id, weight]) => ({ id, weight })))) {
+      assemblyMaterials.set(allocation.id, (assemblyMaterials.get(allocation.id) ?? Decimal.zero()).add(allocation.amount));
+    }
+  }
   const warnings = [...globalWarnings].sort();
   const complete = warnings.length === 0;
-  const knownSubtotal = knownGoods.add(knownShipping);
+  const knownSubtotal = knownGoods.add(knownShipping).add(knownCustoms);
   return {
     schemaVersion: 1,
     scenarioId: scenario.id,
@@ -505,8 +594,20 @@ export function calculateBom(
     complete,
     completeLandedTotal: complete ? knownSubtotal.toString() : null,
     knownGoodsSubtotal: knownGoods.toString(),
+    knownCustomsSubtotal: knownCustoms.toString(),
+    customs,
     knownShippingSubtotal: knownShipping.toString(),
     knownSubtotal: knownSubtotal.toString(),
+    estimatedMaterialSubtotal: estimatedMaterials.toString(),
+    estimatedPartialSubtotal: knownSubtotal.add(estimatedMaterials).toString(),
+    fabrication: fabrication.sort((a, b) => a.partId.localeCompare(b.partId)),
+    printReferences: repository.fabrication.recipes.filter((recipe) => recipe.buildId === build.id)
+      .map((recipe) => estimatePrintMaterials(repository, recipe, "1", scenario.reportCurrency))
+      .sort((a, b) => a.partId.localeCompare(b.partId)),
+    assemblyEstimatedMaterials: [...assemblyMaterials.entries()].sort(([a], [b]) => a.localeCompare(b))
+      .map(([assemblyId, amount]) => ({ assemblyId, amount: amount.toString() })),
+    assemblyPartialGoods: [...new Set([...assemblyAmounts.keys(), ...assemblyMaterials.keys()])].sort()
+      .map((assemblyId) => ({ assemblyId, amount: (assemblyAmounts.get(assemblyId) ?? Decimal.zero()).add(assemblyMaterials.get(assemblyId) ?? Decimal.zero()).toString() })),
     requirements: requirementResults,
     selections,
     shipping,

@@ -31,6 +31,9 @@ function coverageSummary(
         coverage.unit +
         " required, " +
         purchase
+        + "; goods " + (coverage.knownGoodsAmount === null
+          ? "unknown"
+          : money(coverage.knownGoodsAmount, selection.currency!))
       );
     })
     .join("; ");
@@ -74,6 +77,8 @@ export function renderMarkdown(result: CalculationResult): string {
     "- Known partial subtotal: **" +
       money(result.knownSubtotal, result.reportCurrency) +
       "**",
+    "- Estimated print materials: **" + money(result.estimatedMaterialSubtotal, result.reportCurrency) + "**",
+    "- Estimated partial subtotal (known amounts + print materials): **" + money(result.estimatedPartialSubtotal, result.reportCurrency) + "**",
     "",
     result.complete
       ? "The committed evidence is sufficient for this pinned calculation. Changing destination, supplier selection, availability, or quote date requires a new scenario or quote snapshot."
@@ -81,7 +86,7 @@ export function renderMarkdown(result: CalculationResult): string {
     "",
     "## Physical assembly goods",
     "",
-    "| Physical assembly | Known directly attributable goods |",
+    "| Physical assembly | Known allocated goods |",
     "| --- | ---: |",
   ];
   for (const assembly of result.assemblyKnownGoods) {
@@ -97,11 +102,20 @@ export function renderMarkdown(result: CalculationResult): string {
     "| Shared multi-part purchase bundles | " +
       money(result.sharedBundleGoods, result.reportCurrency) +
       " |",
+    "| Shared customs | " + money(result.knownCustomsSubtotal, result.reportCurrency) + " |",
     "| Shared checkout-group shipping | " +
       money(result.sharedShipping, result.reportCurrency) +
       " |",
     "",
-    "Bundle and shipping costs stay in explicit shared buckets when the committed record does not provide defensible physical-assembly allocation weights.",
+    "Multi-part bundles of countable components are allocated by purchased part count, including surplus, with cents distributed deterministically. These shares are accounting allocations, not individual supplier prices. Unselected contents or bundles without comparable part counts remain in the shared bundle bucket; shipping remains separate.",
+  );
+  lines.push("", "## Estimated print material costs", "",
+    "Solid CAD volume × each component's material density × observed roll price / roll grams. Eligible PLA/PETG rates assume 10+ mixed eligible filament-with-spool rolls in one Bambu EU bulk order; ASA retains its evidenced single-spool price. These consumption estimates exclude supports, purge, failures, energy, machine time, labour, filament shipping and destination VAT adjustments. They do not make the landed total complete.", "",
+    "| Part | Required | Material | Estimated weight | Estimated material cost |", "| --- | ---: | --- | ---: | ---: |");
+  for (const estimate of result.fabrication) {
+    lines.push(`| [${estimate.partId}](parts/${estimate.partId}.md) | ${estimate.required} | ${estimate.materialName} | ${estimate.weightGrams} g | ${estimate.materialCost === null ? "unknown" : money(estimate.materialCost, result.reportCurrency)} |`);
+  }
+  lines.push(
     "",
     "## Non-physical procurement bucket",
     "",
@@ -145,10 +159,18 @@ export function renderMarkdown(result: CalculationResult): string {
       cell(item.checkoutGroupId) + ": " + item.chargeCount + " distinct selected offers; fixed charge per offer, independent of quantity. " + cell(item.note),
       "",
     ]),
+    "## Customs",
+    "",
+    "Known customs subtotal: " + money(result.knownCustomsSubtotal, result.reportCurrency) + ". Conditional or unknown duty is excluded from the known subtotal.",
+    "",
+    ...result.customs.flatMap((item) => [
+      `${item.checkoutGroupId}: ${money(item.policy.amount, item.policy.currency)} per item type (not per piece), order goods strictly below ${money(item.policy.orderValueBelow, item.policy.currency)}; effective ${item.policy.startsOn} until ${item.policy.endsOn ?? "no end date set"} (exclusive end). ${item.chargeCount} item types; calculated charge: ${item.knownAmount === null ? "unknown" : money(item.knownAmount, result.reportCurrency)}. ${item.policy.note}`,
+      "",
+    ]),
     "## Selected purchase units",
     "",
-    "| Offer | Qualification | Purchase units | Coverage and surplus | Known goods |",
-    "| --- | --- | ---: | --- | ---: |",
+    "| Offer | Qualification | Purchase units | Coverage and surplus | Known goods | Allocation |",
+    "| --- | --- | ---: | --- | ---: | --- |",
   );
   for (const selection of result.selections) {
     lines.push(
@@ -164,6 +186,7 @@ export function renderMarkdown(result: CalculationResult): string {
         (selection.knownGoodsAmount === null
           ? "unknown"
           : money(selection.knownGoodsAmount, result.reportCurrency)) +
+        " | " + (selection.goodsAllocationBasis ?? "unallocated") +
         " |",
     );
   }

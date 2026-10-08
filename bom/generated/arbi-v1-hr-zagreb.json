@@ -5,14 +5,1818 @@
   "buildId": "arbi-v1",
   "destinationId": "hr-zagreb",
   "destinationName": "Zagreb, Croatia",
-  "quoteSnapshotId": "hr-zagreb-2026-10-08-purchases",
-  "inputDigest": "sha256:c03bb96e2a56f2c92136459346f41921cf93a079d2c5add8538cbcdb2c3fa3ba",
+  "quoteSnapshotId": "hr-zagreb-2026-10-08-coupling",
+  "inputDigest": "sha256:b1f8f91f66f8c928fca36877b211a6f234f83e24c4fc67eea4547a83c2783064",
   "reportCurrency": "EUR",
   "complete": false,
   "completeLandedTotal": null,
-  "knownGoodsSubtotal": "931.48",
-  "knownShippingSubtotal": "88.38",
-  "knownSubtotal": "1019.86",
+  "knownGoodsSubtotal": "943.84",
+  "knownCustomsSubtotal": "0",
+  "customs": [
+    {
+      "checkoutGroupId": "aliexpress-hr",
+      "policy": {
+        "id": "hr-low-value-import",
+        "destinationId": "hr-zagreb",
+        "startsOn": "2026-07-01",
+        "endsOn": null,
+        "amount": "3",
+        "currency": "EUR",
+        "orderValueBelow": "150",
+        "basis": "item-type",
+        "sourceUrl": "https://carina.gov.hr/print.aspx?id=2718&url=print",
+        "note": "Owner costing policy: EUR 3 per declared item type, not per piece, for orders strictly below EUR 150. One selected offer approximates one declared item type; actual tariff/description/origin grouping and split shipments require checkout evidence. Customs guidance includes EUR 150; this policy uses the owner-requested strict limit. VAT is separate. No end date currently recorded."
+      },
+      "chargeCount": 15,
+      "orderGoodsAmount": null,
+      "knownAmount": null,
+      "warnings": [
+        "Customs is conditional: total order goods value is unknown; split orders are not assumed.",
+        "One selected offer approximates one declared item type; actual customs grouping is unconfirmed."
+      ]
+    }
+  ],
+  "knownShippingSubtotal": "43.38",
+  "knownSubtotal": "987.22",
+  "estimatedMaterialSubtotal": "259.22",
+  "estimatedPartialSubtotal": "1246.44",
+  "fabrication": [
+    {
+      "partId": "camera-gimbal",
+      "required": "1",
+      "basis": "solid-volume-estimate",
+      "materialId": "petg",
+      "materialName": "PETG Matte + PETG Basic",
+      "materialUsages": [
+        {
+          "materialId": "petg-matte",
+          "name": "Bambu Lab PETG Matte",
+          "weightGrams": "30.259",
+          "materialCost": "0.34",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte?id=775952393450868774",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
+          "color": "black"
+        },
+        {
+          "materialId": "petg-matte",
+          "name": "Bambu Lab PETG Matte",
+          "weightGrams": "6.286",
+          "materialCost": "0.07",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte?id=775952393450868758",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
+          "color": "white"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "17.287",
+          "materialCost": "0.2",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
+          "color": "black"
+        }
+      ],
+      "weightGrams": "53.832",
+      "materialCost": "0.61",
+      "currency": "EUR",
+      "note": "Current compact rain-enclosure gimbal; excludes earlier gimbal and dry-bench alternatives. Cosmetic shell surfaces use PETG Matte White (35100) or Black (35101) as listed per component; functional parts retain their existing material assumptions. Material and colour selections require physical fit, retention, weather and thermal checks. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "alternatives": [
+        {
+          "materialId": "pla",
+          "name": "Bambu Lab PLA Basic",
+          "weightGrams": "50.226",
+          "materialCost": "0.6",
+          "spoolPrice": "11.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "50.631",
+          "materialCost": "0.58",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg-matte",
+          "name": "Bambu Lab PETG Matte",
+          "weightGrams": "55.492",
+          "materialCost": "0.63",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "42.53",
+          "materialCost": "1.06",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z",
+          "priceBasis": "single-spool",
+          "minimumBulkRolls": null,
+          "bulkSourceUrl": null
+        }
+      ]
+    },
+    {
+      "partId": "camera-pod-chassis",
+      "required": "1",
+      "basis": "solid-volume-estimate",
+      "materialId": "petg",
+      "materialName": "PETG Matte + PETG Basic",
+      "materialUsages": [
+        {
+          "materialId": "petg-matte",
+          "name": "Bambu Lab PETG Matte",
+          "weightGrams": "42.992",
+          "materialCost": "0.49",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte?id=775952393450868774",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
+          "color": "black"
+        },
+        {
+          "materialId": "petg-matte",
+          "name": "Bambu Lab PETG Matte",
+          "weightGrams": "49.927",
+          "materialCost": "0.57",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte?id=775952393450868758",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
+          "color": "white"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "114.345",
+          "materialCost": "1.3",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
+          "color": "black"
+        }
+      ],
+      "weightGrams": "207.265",
+      "materialCost": "2.36",
+      "currency": "EUR",
+      "note": "Current rain-enclosure kit from payload-enclosure.md; excludes dry-bench alternatives and test coupons. Cosmetic shell surfaces use PETG Matte White (35100) or Black (35101) as listed per component; functional parts retain their existing material assumptions. Material and colour selections require physical fit, retention, weather and thermal checks. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "alternatives": [
+        {
+          "materialId": "pla",
+          "name": "Bambu Lab PLA Basic",
+          "weightGrams": "197.533",
+          "materialCost": "2.37",
+          "spoolPrice": "11.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "199.126",
+          "materialCost": "2.27",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg-matte",
+          "name": "Bambu Lab PETG Matte",
+          "weightGrams": "218.242",
+          "materialCost": "2.49",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "167.265",
+          "materialCost": "4.18",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z",
+          "priceBasis": "single-spool",
+          "minimumBulkRolls": null,
+          "bulkSourceUrl": null
+        }
+      ]
+    },
+    {
+      "partId": "dock-funnel",
+      "required": "1",
+      "basis": "solid-volume-estimate",
+      "materialId": "petg",
+      "materialName": "PETG Basic",
+      "materialUsages": [
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "376.306",
+          "materialCost": "4.29",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
+          "color": "black"
+        }
+      ],
+      "weightGrams": "376.306",
+      "materialCost": "4.29",
+      "currency": "EUR",
+      "note": "One dock capture funnel. Latch hardware and weather hood remain separate unresolved fabrication costs. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "alternatives": [
+        {
+          "materialId": "pla",
+          "name": "Bambu Lab PLA Basic",
+          "weightGrams": "373.296",
+          "materialCost": "4.48",
+          "spoolPrice": "11.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "376.306",
+          "materialCost": "4.29",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg-matte",
+          "name": "Bambu Lab PETG Matte",
+          "weightGrams": "412.432",
+          "materialCost": "4.7",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "316.097",
+          "materialCost": "7.9",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z",
+          "priceBasis": "single-spool",
+          "minimumBulkRolls": null,
+          "bulkSourceUrl": null
+        }
+      ]
+    },
+    {
+      "partId": "dock-nest",
+      "required": "1",
+      "basis": "solid-volume-estimate",
+      "materialId": "petg",
+      "materialName": "PETG Basic",
+      "materialUsages": [
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "2437.206",
+          "materialCost": "27.76",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
+          "color": "black"
+        }
+      ],
+      "weightGrams": "2437.206",
+      "materialCost": "27.76",
+      "currency": "EUR",
+      "note": "One dock nest, independently costed even though its procurement placeholder shares the capture-set bundle. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "alternatives": [
+        {
+          "materialId": "pla",
+          "name": "Bambu Lab PLA Basic",
+          "weightGrams": "2417.708",
+          "materialCost": "28.99",
+          "spoolPrice": "11.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "2437.206",
+          "materialCost": "27.76",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg-matte",
+          "name": "Bambu Lab PETG Matte",
+          "weightGrams": "2671.178",
+          "materialCost": "30.42",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "2047.253",
+          "materialCost": "51.16",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z",
+          "priceBasis": "single-spool",
+          "minimumBulkRolls": null,
+          "bulkSourceUrl": null
+        }
+      ]
+    },
+    {
+      "partId": "top-pulley-keeper",
+      "required": "4",
+      "basis": "solid-volume-estimate",
+      "materialId": "petg",
+      "materialName": "PETG Basic",
+      "materialUsages": [
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "110.733",
+          "materialCost": "1.26",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
+          "color": "black"
+        }
+      ],
+      "weightGrams": "110.733",
+      "materialCost": "1.26",
+      "currency": "EUR",
+      "note": "One line keeper per corner pulley. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "alternatives": [
+        {
+          "materialId": "pla",
+          "name": "Bambu Lab PLA Basic",
+          "weightGrams": "109.847",
+          "materialCost": "1.32",
+          "spoolPrice": "11.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "110.733",
+          "materialCost": "1.26",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg-matte",
+          "name": "Bambu Lab PETG Matte",
+          "weightGrams": "121.363",
+          "materialCost": "1.38",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "93.016",
+          "materialCost": "2.32",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z",
+          "priceBasis": "single-spool",
+          "minimumBulkRolls": null,
+          "bulkSourceUrl": null
+        }
+      ]
+    },
+    {
+      "partId": "winch-drum",
+      "required": "4",
+      "basis": "solid-volume-estimate",
+      "materialId": "petg",
+      "materialName": "PETG Basic",
+      "materialUsages": [
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "4980.607",
+          "materialCost": "56.73",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
+          "color": "black"
+        }
+      ],
+      "weightGrams": "4980.607",
+      "materialCost": "56.73",
+      "currency": "EUR",
+      "note": "Four-drum batch: three passive kits and one powered kit, including repeated flanges, clamps and pins; per-unit values are batch averages. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "alternatives": [
+        {
+          "materialId": "pla",
+          "name": "Bambu Lab PLA Basic",
+          "weightGrams": "4940.762",
+          "materialCost": "59.24",
+          "spoolPrice": "11.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "4980.607",
+          "materialCost": "56.73",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg-matte",
+          "name": "Bambu Lab PETG Matte",
+          "weightGrams": "5458.745",
+          "materialCost": "62.18",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "4183.71",
+          "materialCost": "104.55",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z",
+          "priceBasis": "single-spool",
+          "minimumBulkRolls": null,
+          "bulkSourceUrl": null
+        }
+      ]
+    },
+    {
+      "partId": "winch-full-cover",
+      "required": "4",
+      "basis": "solid-volume-estimate",
+      "materialId": "asa",
+      "materialName": "ASA + PETG Matte",
+      "materialUsages": [
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "378.718",
+          "materialCost": "9.46",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z",
+          "priceBasis": "single-spool",
+          "minimumBulkRolls": null,
+          "bulkSourceUrl": null,
+          "color": "black"
+        },
+        {
+          "materialId": "petg-matte",
+          "name": "Bambu Lab PETG Matte",
+          "weightGrams": "12148.972",
+          "materialCost": "138.38",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte?id=775952393450868758",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
+          "color": "white"
+        }
+      ],
+      "weightGrams": "12527.69",
+      "materialCost": "147.84",
+      "currency": "EUR",
+      "note": "Four-winch pole-routing cover batch per full-cover.md; 126 installed prints, excluding four optional removable bench blanks. Per-unit values are batch averages. Cosmetic shell surfaces use PETG Matte White (35100) or Black (35101) as listed per component; functional parts retain their existing material assumptions. Material and colour selections require physical fit, retention, weather and thermal checks. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "alternatives": [
+        {
+          "materialId": "pla",
+          "name": "Bambu Lab PLA Basic",
+          "weightGrams": "11443.398",
+          "materialCost": "137.21",
+          "spoolPrice": "11.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "11535.683",
+          "materialCost": "131.39",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg-matte",
+          "name": "Bambu Lab PETG Matte",
+          "weightGrams": "12643.109",
+          "materialCost": "144.01",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "9689.974",
+          "materialCost": "242.15",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z",
+          "priceBasis": "single-spool",
+          "minimumBulkRolls": null,
+          "bulkSourceUrl": null
+        }
+      ]
+    },
+    {
+      "partId": "winch-mount-and-guard",
+      "required": "4",
+      "basis": "solid-volume-estimate",
+      "materialId": "petg",
+      "materialName": "PETG Matte + PETG Basic",
+      "materialUsages": [
+        {
+          "materialId": "petg-matte",
+          "name": "Bambu Lab PETG Matte",
+          "weightGrams": "168.926",
+          "materialCost": "1.92",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte?id=775952393450868758",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
+          "color": "white"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "1444.526",
+          "materialCost": "16.45",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
+          "color": "black"
+        }
+      ],
+      "weightGrams": "1613.452",
+      "materialCost": "18.37",
+      "currency": "EUR",
+      "note": "One mount kit includes two bearing supports/caps, one motor stand and one coupling guard; metal plate, spacers and fasteners belong to winch-mount-hardware. Cosmetic shell surfaces use PETG Matte White (35100) or Black (35101) as listed per component; functional parts retain their existing material assumptions. Material and colour selections require physical fit, retention, weather and thermal checks. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "alternatives": [
+        {
+          "materialId": "pla",
+          "name": "Bambu Lab PLA Basic",
+          "weightGrams": "1585.866",
+          "materialCost": "19.01",
+          "spoolPrice": "11.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "1598.655",
+          "materialCost": "18.21",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg-matte",
+          "name": "Bambu Lab PETG Matte",
+          "weightGrams": "1752.126",
+          "materialCost": "19.96",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "1342.871",
+          "materialCost": "33.56",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z",
+          "priceBasis": "single-spool",
+          "minimumBulkRolls": null,
+          "bulkSourceUrl": null
+        }
+      ]
+    }
+  ],
+  "printReferences": [
+    {
+      "partId": "camera-gimbal",
+      "required": "1",
+      "basis": "solid-volume-estimate",
+      "materialId": "petg",
+      "materialName": "PETG Matte + PETG Basic",
+      "materialUsages": [
+        {
+          "materialId": "petg-matte",
+          "name": "Bambu Lab PETG Matte",
+          "weightGrams": "30.259",
+          "materialCost": "0.34",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte?id=775952393450868774",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
+          "color": "black"
+        },
+        {
+          "materialId": "petg-matte",
+          "name": "Bambu Lab PETG Matte",
+          "weightGrams": "6.286",
+          "materialCost": "0.07",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte?id=775952393450868758",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
+          "color": "white"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "17.287",
+          "materialCost": "0.2",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
+          "color": "black"
+        }
+      ],
+      "weightGrams": "53.832",
+      "materialCost": "0.61",
+      "currency": "EUR",
+      "note": "Current compact rain-enclosure gimbal; excludes earlier gimbal and dry-bench alternatives. Cosmetic shell surfaces use PETG Matte White (35100) or Black (35101) as listed per component; functional parts retain their existing material assumptions. Material and colour selections require physical fit, retention, weather and thermal checks. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "alternatives": [
+        {
+          "materialId": "pla",
+          "name": "Bambu Lab PLA Basic",
+          "weightGrams": "50.226",
+          "materialCost": "0.6",
+          "spoolPrice": "11.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "50.631",
+          "materialCost": "0.58",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg-matte",
+          "name": "Bambu Lab PETG Matte",
+          "weightGrams": "55.492",
+          "materialCost": "0.63",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "42.53",
+          "materialCost": "1.06",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z",
+          "priceBasis": "single-spool",
+          "minimumBulkRolls": null,
+          "bulkSourceUrl": null
+        }
+      ]
+    },
+    {
+      "partId": "camera-pod-chassis",
+      "required": "1",
+      "basis": "solid-volume-estimate",
+      "materialId": "petg",
+      "materialName": "PETG Matte + PETG Basic",
+      "materialUsages": [
+        {
+          "materialId": "petg-matte",
+          "name": "Bambu Lab PETG Matte",
+          "weightGrams": "42.992",
+          "materialCost": "0.49",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte?id=775952393450868774",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
+          "color": "black"
+        },
+        {
+          "materialId": "petg-matte",
+          "name": "Bambu Lab PETG Matte",
+          "weightGrams": "49.927",
+          "materialCost": "0.57",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte?id=775952393450868758",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
+          "color": "white"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "114.345",
+          "materialCost": "1.3",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
+          "color": "black"
+        }
+      ],
+      "weightGrams": "207.265",
+      "materialCost": "2.36",
+      "currency": "EUR",
+      "note": "Current rain-enclosure kit from payload-enclosure.md; excludes dry-bench alternatives and test coupons. Cosmetic shell surfaces use PETG Matte White (35100) or Black (35101) as listed per component; functional parts retain their existing material assumptions. Material and colour selections require physical fit, retention, weather and thermal checks. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "alternatives": [
+        {
+          "materialId": "pla",
+          "name": "Bambu Lab PLA Basic",
+          "weightGrams": "197.533",
+          "materialCost": "2.37",
+          "spoolPrice": "11.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "199.126",
+          "materialCost": "2.27",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg-matte",
+          "name": "Bambu Lab PETG Matte",
+          "weightGrams": "218.242",
+          "materialCost": "2.49",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "167.265",
+          "materialCost": "4.18",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z",
+          "priceBasis": "single-spool",
+          "minimumBulkRolls": null,
+          "bulkSourceUrl": null
+        }
+      ]
+    },
+    {
+      "partId": "dock-funnel",
+      "required": "1",
+      "basis": "solid-volume-estimate",
+      "materialId": "petg",
+      "materialName": "PETG Basic",
+      "materialUsages": [
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "376.306",
+          "materialCost": "4.29",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
+          "color": "black"
+        }
+      ],
+      "weightGrams": "376.306",
+      "materialCost": "4.29",
+      "currency": "EUR",
+      "note": "One dock capture funnel. Latch hardware and weather hood remain separate unresolved fabrication costs. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "alternatives": [
+        {
+          "materialId": "pla",
+          "name": "Bambu Lab PLA Basic",
+          "weightGrams": "373.296",
+          "materialCost": "4.48",
+          "spoolPrice": "11.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "376.306",
+          "materialCost": "4.29",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg-matte",
+          "name": "Bambu Lab PETG Matte",
+          "weightGrams": "412.432",
+          "materialCost": "4.7",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "316.097",
+          "materialCost": "7.9",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z",
+          "priceBasis": "single-spool",
+          "minimumBulkRolls": null,
+          "bulkSourceUrl": null
+        }
+      ]
+    },
+    {
+      "partId": "dock-nest",
+      "required": "1",
+      "basis": "solid-volume-estimate",
+      "materialId": "petg",
+      "materialName": "PETG Basic",
+      "materialUsages": [
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "2437.206",
+          "materialCost": "27.76",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
+          "color": "black"
+        }
+      ],
+      "weightGrams": "2437.206",
+      "materialCost": "27.76",
+      "currency": "EUR",
+      "note": "One dock nest, independently costed even though its procurement placeholder shares the capture-set bundle. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "alternatives": [
+        {
+          "materialId": "pla",
+          "name": "Bambu Lab PLA Basic",
+          "weightGrams": "2417.708",
+          "materialCost": "28.99",
+          "spoolPrice": "11.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "2437.206",
+          "materialCost": "27.76",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg-matte",
+          "name": "Bambu Lab PETG Matte",
+          "weightGrams": "2671.178",
+          "materialCost": "30.42",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "2047.253",
+          "materialCost": "51.16",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z",
+          "priceBasis": "single-spool",
+          "minimumBulkRolls": null,
+          "bulkSourceUrl": null
+        }
+      ]
+    },
+    {
+      "partId": "pole-pulley-mount-concept",
+      "required": "1",
+      "basis": "solid-volume-estimate",
+      "materialId": "petg",
+      "materialName": "PETG Basic",
+      "materialUsages": [
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "777.788",
+          "materialCost": "8.86",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
+          "color": "black"
+        }
+      ],
+      "weightGrams": "777.788",
+      "materialCost": "8.86",
+      "currency": "EUR",
+      "note": "Deferred concept clamp pair; excluded from the base build. Pricing does not qualify its load-bearing use. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "alternatives": [
+        {
+          "materialId": "pla",
+          "name": "Bambu Lab PLA Basic",
+          "weightGrams": "771.566",
+          "materialCost": "9.25",
+          "spoolPrice": "11.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "777.788",
+          "materialCost": "8.86",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg-matte",
+          "name": "Bambu Lab PETG Matte",
+          "weightGrams": "852.456",
+          "materialCost": "9.71",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "653.342",
+          "materialCost": "16.33",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z",
+          "priceBasis": "single-spool",
+          "minimumBulkRolls": null,
+          "bulkSourceUrl": null
+        }
+      ]
+    },
+    {
+      "partId": "top-pulley-keeper",
+      "required": "1",
+      "basis": "solid-volume-estimate",
+      "materialId": "petg",
+      "materialName": "PETG Basic",
+      "materialUsages": [
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "27.683",
+          "materialCost": "0.32",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
+          "color": "black"
+        }
+      ],
+      "weightGrams": "27.683",
+      "materialCost": "0.32",
+      "currency": "EUR",
+      "note": "One line keeper per corner pulley. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "alternatives": [
+        {
+          "materialId": "pla",
+          "name": "Bambu Lab PLA Basic",
+          "weightGrams": "27.462",
+          "materialCost": "0.33",
+          "spoolPrice": "11.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "27.683",
+          "materialCost": "0.32",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg-matte",
+          "name": "Bambu Lab PETG Matte",
+          "weightGrams": "30.341",
+          "materialCost": "0.35",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "23.254",
+          "materialCost": "0.58",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z",
+          "priceBasis": "single-spool",
+          "minimumBulkRolls": null,
+          "bulkSourceUrl": null
+        }
+      ]
+    },
+    {
+      "partId": "winch-desk-feet",
+      "required": "1",
+      "basis": "solid-volume-estimate",
+      "materialId": "petg",
+      "materialName": "PETG Basic",
+      "materialUsages": [
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "450.211",
+          "materialCost": "5.13",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
+          "color": "black"
+        }
+      ],
+      "weightGrams": "450.211",
+      "materialCost": "5.13",
+      "currency": "EUR",
+      "note": "Optional desk-foot kit for one winch; excluded from the base build. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "alternatives": [
+        {
+          "materialId": "pla",
+          "name": "Bambu Lab PLA Basic",
+          "weightGrams": "446.609",
+          "materialCost": "5.35",
+          "spoolPrice": "11.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "450.211",
+          "materialCost": "5.13",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg-matte",
+          "name": "Bambu Lab PETG Matte",
+          "weightGrams": "493.431",
+          "materialCost": "5.62",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "378.177",
+          "materialCost": "9.45",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z",
+          "priceBasis": "single-spool",
+          "minimumBulkRolls": null,
+          "bulkSourceUrl": null
+        }
+      ]
+    },
+    {
+      "partId": "winch-drum",
+      "required": "1",
+      "basis": "solid-volume-estimate",
+      "materialId": "petg",
+      "materialName": "PETG Basic",
+      "materialUsages": [
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "1245.152",
+          "materialCost": "14.18",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
+          "color": "black"
+        }
+      ],
+      "weightGrams": "1245.152",
+      "materialCost": "14.18",
+      "currency": "EUR",
+      "note": "Four-drum batch: three passive kits and one powered kit, including repeated flanges, clamps and pins; per-unit values are batch averages. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "alternatives": [
+        {
+          "materialId": "pla",
+          "name": "Bambu Lab PLA Basic",
+          "weightGrams": "1235.19",
+          "materialCost": "14.81",
+          "spoolPrice": "11.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "1245.152",
+          "materialCost": "14.18",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg-matte",
+          "name": "Bambu Lab PETG Matte",
+          "weightGrams": "1364.686",
+          "materialCost": "15.54",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "1045.927",
+          "materialCost": "26.14",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z",
+          "priceBasis": "single-spool",
+          "minimumBulkRolls": null,
+          "bulkSourceUrl": null
+        }
+      ]
+    },
+    {
+      "partId": "winch-full-cover",
+      "required": "1",
+      "basis": "solid-volume-estimate",
+      "materialId": "asa",
+      "materialName": "ASA + PETG Matte",
+      "materialUsages": [
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "94.679",
+          "materialCost": "2.37",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z",
+          "priceBasis": "single-spool",
+          "minimumBulkRolls": null,
+          "bulkSourceUrl": null,
+          "color": "black"
+        },
+        {
+          "materialId": "petg-matte",
+          "name": "Bambu Lab PETG Matte",
+          "weightGrams": "3037.243",
+          "materialCost": "34.59",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte?id=775952393450868758",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
+          "color": "white"
+        }
+      ],
+      "weightGrams": "3131.923",
+      "materialCost": "36.96",
+      "currency": "EUR",
+      "note": "Four-winch pole-routing cover batch per full-cover.md; 126 installed prints, excluding four optional removable bench blanks. Per-unit values are batch averages. Cosmetic shell surfaces use PETG Matte White (35100) or Black (35101) as listed per component; functional parts retain their existing material assumptions. Material and colour selections require physical fit, retention, weather and thermal checks. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "alternatives": [
+        {
+          "materialId": "pla",
+          "name": "Bambu Lab PLA Basic",
+          "weightGrams": "2860.849",
+          "materialCost": "34.3",
+          "spoolPrice": "11.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "2883.921",
+          "materialCost": "32.85",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg-matte",
+          "name": "Bambu Lab PETG Matte",
+          "weightGrams": "3160.777",
+          "materialCost": "36",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "2422.494",
+          "materialCost": "60.54",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z",
+          "priceBasis": "single-spool",
+          "minimumBulkRolls": null,
+          "bulkSourceUrl": null
+        }
+      ]
+    },
+    {
+      "partId": "winch-mount-and-guard",
+      "required": "1",
+      "basis": "solid-volume-estimate",
+      "materialId": "petg",
+      "materialName": "PETG Matte + PETG Basic",
+      "materialUsages": [
+        {
+          "materialId": "petg-matte",
+          "name": "Bambu Lab PETG Matte",
+          "weightGrams": "42.231",
+          "materialCost": "0.48",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte?id=775952393450868758",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
+          "color": "white"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "361.132",
+          "materialCost": "4.11",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
+          "color": "black"
+        }
+      ],
+      "weightGrams": "403.363",
+      "materialCost": "4.59",
+      "currency": "EUR",
+      "note": "One mount kit includes two bearing supports/caps, one motor stand and one coupling guard; metal plate, spacers and fasteners belong to winch-mount-hardware. Cosmetic shell surfaces use PETG Matte White (35100) or Black (35101) as listed per component; functional parts retain their existing material assumptions. Material and colour selections require physical fit, retention, weather and thermal checks. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "alternatives": [
+        {
+          "materialId": "pla",
+          "name": "Bambu Lab PLA Basic",
+          "weightGrams": "396.467",
+          "materialCost": "4.75",
+          "spoolPrice": "11.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "399.664",
+          "materialCost": "4.55",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg-matte",
+          "name": "Bambu Lab PETG Matte",
+          "weightGrams": "438.032",
+          "materialCost": "4.99",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "335.718",
+          "materialCost": "8.39",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z",
+          "priceBasis": "single-spool",
+          "minimumBulkRolls": null,
+          "bulkSourceUrl": null
+        }
+      ]
+    },
+    {
+      "partId": "winch-round-pole-covers",
+      "required": "1",
+      "basis": "solid-volume-estimate",
+      "materialId": "asa",
+      "materialName": "ASA + PETG Matte",
+      "materialUsages": [
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "10.376",
+          "materialCost": "0.26",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z",
+          "priceBasis": "single-spool",
+          "minimumBulkRolls": null,
+          "bulkSourceUrl": null,
+          "color": "black"
+        },
+        {
+          "materialId": "petg-matte",
+          "name": "Bambu Lab PETG Matte",
+          "weightGrams": "169",
+          "materialCost": "1.92",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte?id=775952393450868758",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
+          "color": "white"
+        }
+      ],
+      "weightGrams": "179.376",
+      "materialCost": "2.18",
+      "currency": "EUR",
+      "note": "Optional covers for one round-pole mount. The machined metal saddles are not prints. Cosmetic shell surfaces use PETG Matte White (35100) or Black (35101) as listed per component; functional parts retain their existing material assumptions. Material and colour selections require physical fit, retention, weather and thermal checks. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "alternatives": [
+        {
+          "materialId": "pla",
+          "name": "Bambu Lab PLA Basic",
+          "weightGrams": "165.217",
+          "materialCost": "1.98",
+          "spoolPrice": "11.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "166.549",
+          "materialCost": "1.9",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg-matte",
+          "name": "Bambu Lab PETG Matte",
+          "weightGrams": "182.538",
+          "materialCost": "2.08",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "139.901",
+          "materialCost": "3.5",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z",
+          "priceBasis": "single-spool",
+          "minimumBulkRolls": null,
+          "bulkSourceUrl": null
+        }
+      ]
+    }
+  ],
+  "assemblyEstimatedMaterials": [
+    {
+      "assemblyId": "camera-pod",
+      "amount": "2.97"
+    },
+    {
+      "assemblyId": "corner-support-set",
+      "amount": "1.26"
+    },
+    {
+      "assemblyId": "dock",
+      "amount": "32.05"
+    },
+    {
+      "assemblyId": "winch-set",
+      "amount": "222.94"
+    }
+  ],
+  "assemblyPartialGoods": [
+    {
+      "assemblyId": "camera-pod",
+      "amount": "118.04"
+    },
+    {
+      "assemblyId": "control-cabinet",
+      "amount": "66.16"
+    },
+    {
+      "assemblyId": "corner-support-set",
+      "amount": "187.23"
+    },
+    {
+      "assemblyId": "dock",
+      "amount": "33.01"
+    },
+    {
+      "assemblyId": "positioning-line-set",
+      "amount": "103.97"
+    },
+    {
+      "assemblyId": "shared-procurement-stock",
+      "amount": "43.19"
+    },
+    {
+      "assemblyId": "site-installation",
+      "amount": "141"
+    },
+    {
+      "assemblyId": "winch-set",
+      "amount": "510.46"
+    }
+  ],
   "requirements": [
     {
       "partId": "bearing-608-2rs",
@@ -22,7 +1826,8 @@
         {
           "assemblyId": "winch-set",
           "kind": "physical",
-          "quantity": "10"
+          "quantity": "10",
+          "knownGoodsAmount": "3.97"
         }
       ],
       "selectedOfferId": "aliexpress-bearing-608-2rs"
@@ -35,7 +1840,8 @@
         {
           "assemblyId": "camera-pod",
           "kind": "physical",
-          "quantity": "2"
+          "quantity": "2",
+          "knownGoodsAmount": "3.29"
         }
       ],
       "selectedOfferId": "aliexpress-bulk-capacitor-1000uf"
@@ -48,7 +1854,8 @@
         {
           "assemblyId": "shared-procurement-stock",
           "kind": "shared-procurement-stock",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": "11.19"
         }
       ],
       "selectedOfferId": "aliexpress-cable-gland-assortment"
@@ -61,7 +1868,8 @@
         {
           "assemblyId": "camera-pod",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": "in-house-fabrication-camera-gimbal"
@@ -74,7 +1882,8 @@
         {
           "assemblyId": "camera-pod",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": "in-house-fabrication-camera-pod-chassis"
@@ -87,7 +1896,8 @@
         {
           "assemblyId": "positioning-line-set",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": "9.69"
         }
       ],
       "selectedOfferId": "aliexpress-capsule-slip-ring-6x2a"
@@ -100,7 +1910,8 @@
         {
           "assemblyId": "winch-set",
           "kind": "physical",
-          "quantity": "4"
+          "quantity": "4",
+          "knownGoodsAmount": "73.34"
         }
       ],
       "selectedOfferId": "stepperonline-4-axis-v2-kit"
@@ -113,7 +1924,8 @@
         {
           "assemblyId": "control-cabinet",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": "kabel24-control-panel-enclosure"
@@ -126,7 +1938,8 @@
         {
           "assemblyId": "control-cabinet",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": "5.55"
         }
       ],
       "selectedOfferId": "aliexpress-controller-buck-converter-48v-5v"
@@ -139,7 +1952,8 @@
         {
           "assemblyId": "corner-support-set",
           "kind": "physical",
-          "quantity": "4"
+          "quantity": "4",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": "cotra-zagreb-corner-post-treated-timber"
@@ -152,7 +1966,8 @@
         {
           "assemblyId": "control-cabinet",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": "5.95"
         }
       ],
       "selectedOfferId": "bauhaus-din-rail-ground-distribution-block"
@@ -165,7 +1980,8 @@
         {
           "assemblyId": "dock",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": "in-house-fabrication-dock-capture-set"
@@ -178,7 +1994,8 @@
         {
           "assemblyId": "dock",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": "in-house-fabrication-dock-latch-hardware"
@@ -191,7 +2008,8 @@
         {
           "assemblyId": "dock",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": "in-house-fabrication-dock-capture-set"
@@ -204,7 +2022,8 @@
         {
           "assemblyId": "dock",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": "in-house-fabrication-dock-weather-hood"
@@ -217,7 +2036,8 @@
         {
           "assemblyId": "positioning-line-set",
           "kind": "physical",
-          "quantity": "180"
+          "quantity": "180",
+          "knownGoodsAmount": "73.52"
         }
       ],
       "selectedOfferId": "dive-store-dyneema-positioning-line"
@@ -230,7 +2050,8 @@
         {
           "assemblyId": "control-cabinet",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": "aliexpress-emergency-stop-switch"
@@ -243,7 +2064,8 @@
         {
           "assemblyId": "winch-set",
           "kind": "physical",
-          "quantity": "4"
+          "quantity": "4",
+          "knownGoodsAmount": "12.36"
         }
       ],
       "selectedOfferId": "aliexpress-flexible-jaw-coupling-8mm"
@@ -256,7 +2078,8 @@
         {
           "assemblyId": "corner-support-set",
           "kind": "physical",
-          "quantity": "4"
+          "quantity": "4",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": "njuskalo-guy-ground-anchor"
@@ -269,7 +2092,8 @@
         {
           "assemblyId": "corner-support-set",
           "kind": "physical",
-          "quantity": "4"
+          "quantity": "4",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": "bauhaus-guy-turnbuckle-m12"
@@ -282,7 +2106,8 @@
         {
           "assemblyId": "corner-support-set",
           "kind": "physical",
-          "quantity": "16"
+          "quantity": "16",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": "bauhaus-guy-wire-3mm"
@@ -295,7 +2120,8 @@
         {
           "assemblyId": "shared-procurement-stock",
           "kind": "shared-procurement-stock",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": "16"
         }
       ],
       "selectedOfferId": "aliexpress-heat-set-insert-assortment"
@@ -308,7 +2134,8 @@
         {
           "assemblyId": "winch-set",
           "kind": "physical",
-          "quantity": "4"
+          "quantity": "4",
+          "knownGoodsAmount": "73.34"
         }
       ],
       "selectedOfferId": "stepperonline-4-axis-v2-kit"
@@ -321,7 +2148,8 @@
         {
           "assemblyId": "camera-pod",
           "kind": "physical",
-          "quantity": "2"
+          "quantity": "2",
+          "knownGoodsAmount": "16.72"
         }
       ],
       "selectedOfferId": "aliexpress-micro-pan-tilt-servo"
@@ -334,7 +2162,8 @@
         {
           "assemblyId": "camera-pod",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": "24"
         }
       ],
       "selectedOfferId": "tme-microsd-card-32gb"
@@ -347,7 +2176,8 @@
         {
           "assemblyId": "site-installation",
           "kind": "physical",
-          "quantity": "50"
+          "quantity": "50",
+          "knownGoodsAmount": "89"
         }
       ],
       "selectedOfferId": "bauhaus-motor-power-branch-cable"
@@ -360,7 +2190,8 @@
         {
           "assemblyId": "winch-set",
           "kind": "physical",
-          "quantity": "4"
+          "quantity": "4",
+          "knownGoodsAmount": "73.33"
         }
       ],
       "selectedOfferId": "stepperonline-4-axis-v2-kit"
@@ -373,7 +2204,8 @@
         {
           "assemblyId": "site-installation",
           "kind": "physical",
-          "quantity": "85"
+          "quantity": "85",
+          "knownGoodsAmount": "52"
         }
       ],
       "selectedOfferId": "ronis-outdoor-cat5e-signal-cable"
@@ -386,7 +2218,8 @@
         {
           "assemblyId": "control-cabinet",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": "9.4"
         }
       ],
       "selectedOfferId": "tme-pico-terminal-expansion-board"
@@ -399,7 +2232,8 @@
         {
           "assemblyId": "camera-pod",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": "5.55"
         }
       ],
       "selectedOfferId": "aliexpress-pod-buck-converter-48v-5v"
@@ -412,7 +2246,8 @@
         {
           "assemblyId": "positioning-line-set",
           "kind": "physical",
-          "quantity": "50"
+          "quantity": "50",
+          "knownGoodsAmount": "10.38"
         }
       ],
       "selectedOfferId": "aliexpress-pod-power-wire-black-awg26"
@@ -425,7 +2260,8 @@
         {
           "assemblyId": "positioning-line-set",
           "kind": "physical",
-          "quantity": "50"
+          "quantity": "50",
+          "knownGoodsAmount": "10.38"
         }
       ],
       "selectedOfferId": "aliexpress-pod-power-wire-red-awg26"
@@ -438,7 +2274,8 @@
         {
           "assemblyId": "winch-set",
           "kind": "physical",
-          "quantity": "4"
+          "quantity": "4",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": "bauhaus-post-electronics-enclosure"
@@ -451,7 +2288,8 @@
         {
           "assemblyId": "control-cabinet",
           "kind": "physical",
-          "quantity": "2"
+          "quantity": "2",
+          "knownGoodsAmount": "36.67"
         }
       ],
       "selectedOfferId": "stepperonline-4-axis-v2-kit"
@@ -464,7 +2302,8 @@
         {
           "assemblyId": "corner-support-set",
           "kind": "physical",
-          "quantity": "8"
+          "quantity": "8",
+          "knownGoodsAmount": "28.4"
         }
       ],
       "selectedOfferId": "bauhaus-pulley-bracket-backing-plate"
@@ -477,7 +2316,8 @@
         {
           "assemblyId": "corner-support-set",
           "kind": "physical",
-          "quantity": "8"
+          "quantity": "8",
+          "knownGoodsAmount": "9"
         }
       ],
       "selectedOfferId": "bauhaus-pulley-bracket-locknut-m12"
@@ -490,7 +2330,8 @@
         {
           "assemblyId": "corner-support-set",
           "kind": "physical",
-          "quantity": "4"
+          "quantity": "4",
+          "knownGoodsAmount": "14.28"
         }
       ],
       "selectedOfferId": "bauhaus-pulley-bracket-shackle-m8"
@@ -503,7 +2344,8 @@
         {
           "assemblyId": "corner-support-set",
           "kind": "physical",
-          "quantity": "8"
+          "quantity": "8",
+          "knownGoodsAmount": "33.2"
         }
       ],
       "selectedOfferId": "bauhaus-pulley-bracket-through-bolt-m12x160"
@@ -516,7 +2358,8 @@
         {
           "assemblyId": "corner-support-set",
           "kind": "physical",
-          "quantity": "16"
+          "quantity": "16",
+          "knownGoodsAmount": "16"
         }
       ],
       "selectedOfferId": "bauhaus-pulley-bracket-washer-m12"
@@ -529,7 +2372,8 @@
         {
           "assemblyId": "camera-pod",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": "28"
         }
       ],
       "selectedOfferId": "pimoroni-raspberry-pi-3a-plus"
@@ -542,7 +2386,8 @@
         {
           "assemblyId": "camera-pod",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": "37.51"
         }
       ],
       "selectedOfferId": "tme-raspberry-pi-camera-module-3"
@@ -555,7 +2400,8 @@
         {
           "assemblyId": "control-cabinet",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": "8.59"
         }
       ],
       "selectedOfferId": "tme-raspberry-pi-pico-2-w"
@@ -568,12 +2414,14 @@
         {
           "assemblyId": "dock",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": "0.96"
         },
         {
           "assemblyId": "winch-set",
           "kind": "physical",
-          "quantity": "4"
+          "quantity": "4",
+          "knownGoodsAmount": "3.83"
         }
       ],
       "selectedOfferId": "aliexpress-roller-lever-microswitch"
@@ -586,7 +2434,8 @@
         {
           "assemblyId": "winch-set",
           "kind": "physical",
-          "quantity": "8"
+          "quantity": "8",
+          "knownGoodsAmount": "40.4"
         }
       ],
       "selectedOfferId": "aliexpress-shaft-collar-8mm"
@@ -599,7 +2448,8 @@
         {
           "assemblyId": "shared-procurement-stock",
           "kind": "shared-procurement-stock",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": "16"
         }
       ],
       "selectedOfferId": "aliexpress-stainless-fastener-assortment"
@@ -612,7 +2462,8 @@
         {
           "assemblyId": "corner-support-set",
           "kind": "physical",
-          "quantity": "4"
+          "quantity": "4",
+          "knownGoodsAmount": "56.8"
         }
       ],
       "selectedOfferId": "wasi-barton-30mm"
@@ -625,7 +2476,8 @@
         {
           "assemblyId": "corner-support-set",
           "kind": "physical",
-          "quantity": "4"
+          "quantity": "4",
+          "knownGoodsAmount": "16.6"
         }
       ],
       "selectedOfferId": "bauhaus-top-pulley-bracket"
@@ -638,7 +2490,8 @@
         {
           "assemblyId": "corner-support-set",
           "kind": "physical",
-          "quantity": "4"
+          "quantity": "4",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": "in-house-fabrication-top-pulley-keeper"
@@ -651,7 +2504,8 @@
         {
           "assemblyId": "winch-set",
           "kind": "physical",
-          "quantity": "4"
+          "quantity": "4",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": "in-house-fabrication-winch-drum"
@@ -664,7 +2518,8 @@
         {
           "assemblyId": "winch-set",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": "unresolved-winch-drum-joining-hardware"
@@ -677,7 +2532,8 @@
         {
           "assemblyId": "winch-set",
           "kind": "physical",
-          "quantity": "4"
+          "quantity": "4",
+          "knownGoodsAmount": "6.95"
         }
       ],
       "selectedOfferId": "bauhaus-winch-drum-shaft-8mm"
@@ -690,7 +2546,8 @@
         {
           "assemblyId": "winch-set",
           "kind": "physical",
-          "quantity": "4"
+          "quantity": "4",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": null
@@ -703,7 +2560,8 @@
         {
           "assemblyId": "winch-set",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": null
@@ -716,7 +2574,8 @@
         {
           "assemblyId": "winch-set",
           "kind": "physical",
-          "quantity": "4"
+          "quantity": "4",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": "in-house-fabrication-winch-mount-and-guard"
@@ -729,7 +2588,8 @@
         {
           "assemblyId": "winch-set",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": "unresolved-winch-mount-hardware"
@@ -742,7 +2602,8 @@
         {
           "assemblyId": "corner-support-set",
           "kind": "physical",
-          "quantity": "16"
+          "quantity": "16",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": "bauhaus-wire-rope-clamp-3mm"
@@ -755,7 +2616,8 @@
         {
           "assemblyId": "corner-support-set",
           "kind": "physical",
-          "quantity": "8"
+          "quantity": "8",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": "bauhaus-wire-rope-thimble-3mm"
@@ -768,7 +2630,8 @@
         {
           "assemblyId": "corner-support-set",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": "11.69"
         }
       ],
       "selectedOfferId": "bauhaus-zinc-spray"
@@ -783,13 +2646,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "3.97",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "bearing-608-2rs",
           "required": "10",
           "purchased": "10",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "3.97"
         }
       ],
       "warnings": [
@@ -807,13 +2672,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "3.29",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "bulk-capacitor-1000uf",
           "required": "2",
           "purchased": "20",
           "surplus": "18",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "3.29"
         }
       ],
       "warnings": [
@@ -831,13 +2698,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "11.19",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "cable-gland-assortment",
           "required": "1",
           "purchased": "1",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "11.19"
         }
       ],
       "warnings": [
@@ -855,13 +2724,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "9.69",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "capsule-slip-ring-6x2a",
           "required": "1",
           "purchased": "1",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "9.69"
         }
       ],
       "warnings": [
@@ -879,13 +2750,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "5.55",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "controller-buck-converter-48v-5v",
           "required": "1",
           "purchased": "1",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "5.55"
         }
       ],
       "warnings": [
@@ -903,13 +2776,15 @@
       "purchaseUnits": null,
       "knownGoodsAmount": null,
       "currency": null,
+      "goodsAllocationBasis": null,
       "coverage": [
         {
           "partId": "emergency-stop-switch",
           "required": "1",
           "purchased": null,
           "surplus": null,
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": null
         }
       ],
       "warnings": [
@@ -925,23 +2800,22 @@
       "supplierId": "aliexpress",
       "checkoutGroupId": "aliexpress-hr",
       "qualification": "baseline-selected",
-      "purchaseUnits": null,
-      "knownGoodsAmount": null,
-      "currency": null,
+      "purchaseUnits": "4",
+      "knownGoodsAmount": "12.36",
+      "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "flexible-jaw-coupling-8mm",
           "required": "4",
-          "purchased": null,
-          "surplus": null,
-          "unit": "each"
+          "purchased": "4",
+          "surplus": "0",
+          "unit": "each",
+          "knownGoodsAmount": "12.36"
         }
       ],
       "warnings": [
-        "A quoted price cannot be extended without package data.",
         "Availability is unknown.",
-        "Package size/MOQ is unknown.",
-        "Price and availability observation date is unknown; quote capture time is not verification time.",
         "Qualification is baseline-selected; the recorded selection is not engineering approval."
       ]
     },
@@ -953,13 +2827,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "16",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "heat-set-insert-assortment",
           "required": "1",
           "purchased": "1",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "16"
         }
       ],
       "warnings": [
@@ -977,13 +2853,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "16.72",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "micro-pan-tilt-servo",
           "required": "2",
           "purchased": "3",
           "surplus": "1",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "16.72"
         }
       ],
       "warnings": [
@@ -1001,13 +2879,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "5.55",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "pod-buck-converter-48v-5v",
           "required": "1",
           "purchased": "1",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "5.55"
         }
       ],
       "warnings": [
@@ -1025,13 +2905,15 @@
       "purchaseUnits": "10",
       "knownGoodsAmount": "10.38",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "pod-power-wire-black-awg26",
           "required": "50",
           "purchased": "50",
           "surplus": "0",
-          "unit": "m"
+          "unit": "m",
+          "knownGoodsAmount": "10.38"
         }
       ],
       "warnings": [
@@ -1049,13 +2931,15 @@
       "purchaseUnits": "10",
       "knownGoodsAmount": "10.38",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "pod-power-wire-red-awg26",
           "required": "50",
           "purchased": "50",
           "surplus": "0",
-          "unit": "m"
+          "unit": "m",
+          "knownGoodsAmount": "10.38"
         }
       ],
       "warnings": [
@@ -1073,13 +2957,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "4.79",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "roller-lever-microswitch",
           "required": "5",
           "purchased": "10",
           "surplus": "5",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "4.79"
         }
       ],
       "warnings": [
@@ -1097,13 +2983,15 @@
       "purchaseUnits": "4",
       "knownGoodsAmount": "40.4",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "shaft-collar-8mm",
           "required": "8",
           "purchased": "8",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "40.4"
         }
       ],
       "warnings": [
@@ -1121,13 +3009,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "16",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "stainless-fastener-assortment",
           "required": "1",
           "purchased": "1",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "16"
         }
       ],
       "warnings": [
@@ -1145,13 +3035,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "5.95",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "din-rail-ground-distribution-block",
           "required": "1",
           "purchased": "1",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "5.95"
         }
       ],
       "warnings": [
@@ -1169,13 +3061,15 @@
       "purchaseUnits": null,
       "knownGoodsAmount": null,
       "currency": null,
+      "goodsAllocationBasis": null,
       "coverage": [
         {
           "partId": "guy-turnbuckle-m12",
           "required": "4",
           "purchased": null,
           "surplus": null,
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": null
         }
       ],
       "warnings": [
@@ -1194,13 +3088,15 @@
       "purchaseUnits": null,
       "knownGoodsAmount": null,
       "currency": null,
+      "goodsAllocationBasis": null,
       "coverage": [
         {
           "partId": "guy-wire-3mm",
           "required": "16",
           "purchased": null,
           "surplus": null,
-          "unit": "m"
+          "unit": "m",
+          "knownGoodsAmount": null
         }
       ],
       "warnings": [
@@ -1219,13 +3115,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "89",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "motor-power-branch-cable",
           "required": "50",
           "purchased": "50",
           "surplus": "0",
-          "unit": "m"
+          "unit": "m",
+          "knownGoodsAmount": "89"
         }
       ],
       "warnings": [
@@ -1243,13 +3141,15 @@
       "purchaseUnits": null,
       "knownGoodsAmount": null,
       "currency": null,
+      "goodsAllocationBasis": null,
       "coverage": [
         {
           "partId": "post-electronics-enclosure",
           "required": "4",
           "purchased": null,
           "surplus": null,
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": null
         }
       ],
       "warnings": [
@@ -1268,13 +3168,15 @@
       "purchaseUnits": "8",
       "knownGoodsAmount": "28.4",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "pulley-bracket-backing-plate",
           "required": "8",
           "purchased": "8",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "28.4"
         }
       ],
       "warnings": [
@@ -1292,13 +3194,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "9",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "pulley-bracket-locknut-m12",
           "required": "8",
           "purchased": "50",
           "surplus": "42",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "9"
         }
       ],
       "warnings": [
@@ -1316,13 +3220,15 @@
       "purchaseUnits": "4",
       "knownGoodsAmount": "14.28",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "pulley-bracket-shackle-m8",
           "required": "4",
           "purchased": "4",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "14.28"
         }
       ],
       "warnings": [
@@ -1340,13 +3246,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "33.2",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "pulley-bracket-through-bolt-m12x160",
           "required": "8",
           "purchased": "40",
           "surplus": "32",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "33.2"
         }
       ],
       "warnings": [
@@ -1364,13 +3272,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "16",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "pulley-bracket-washer-m12",
           "required": "16",
           "purchased": "100",
           "surplus": "84",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "16"
         }
       ],
       "warnings": [
@@ -1388,13 +3298,15 @@
       "purchaseUnits": "4",
       "knownGoodsAmount": "16.6",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "top-pulley-bracket",
           "required": "4",
           "purchased": "4",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "16.6"
         }
       ],
       "warnings": [
@@ -1412,13 +3324,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "6.95",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "winch-drum-shaft-8mm",
           "required": "4",
           "purchased": "4",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "6.95"
         }
       ],
       "warnings": [
@@ -1434,13 +3348,15 @@
       "purchaseUnits": null,
       "knownGoodsAmount": null,
       "currency": null,
+      "goodsAllocationBasis": null,
       "coverage": [
         {
           "partId": "wire-rope-clamp-3mm",
           "required": "16",
           "purchased": null,
           "surplus": null,
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": null
         }
       ],
       "warnings": [
@@ -1459,13 +3375,15 @@
       "purchaseUnits": null,
       "knownGoodsAmount": null,
       "currency": null,
+      "goodsAllocationBasis": null,
       "coverage": [
         {
           "partId": "wire-rope-thimble-3mm",
           "required": "8",
           "purchased": null,
           "surplus": null,
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": null
         }
       ],
       "warnings": [
@@ -1484,13 +3402,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "11.69",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "zinc-spray",
           "required": "1",
           "purchased": "1",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "11.69"
         }
       ],
       "warnings": [
@@ -1508,13 +3428,15 @@
       "purchaseUnits": null,
       "knownGoodsAmount": null,
       "currency": null,
+      "goodsAllocationBasis": null,
       "coverage": [
         {
           "partId": "corner-post-treated-timber",
           "required": "4",
           "purchased": null,
           "surplus": null,
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": null
         }
       ],
       "warnings": [
@@ -1533,13 +3455,15 @@
       "purchaseUnits": "4",
       "knownGoodsAmount": "73.52",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "dyneema-positioning-line",
           "required": "180",
           "purchased": "200",
           "surplus": "20",
-          "unit": "m"
+          "unit": "m",
+          "knownGoodsAmount": "73.52"
         }
       ],
       "warnings": [
@@ -1556,13 +3480,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": null,
       "currency": null,
+      "goodsAllocationBasis": null,
       "coverage": [
         {
           "partId": "camera-gimbal",
           "required": "1",
           "purchased": "1",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": null
         }
       ],
       "warnings": [
@@ -1579,13 +3505,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": null,
       "currency": null,
+      "goodsAllocationBasis": null,
       "coverage": [
         {
           "partId": "camera-pod-chassis",
           "required": "1",
           "purchased": "1",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": null
         }
       ],
       "warnings": [
@@ -1602,20 +3530,23 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": null,
       "currency": null,
+      "goodsAllocationBasis": null,
       "coverage": [
         {
           "partId": "dock-funnel",
           "required": "1",
           "purchased": "1",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": null
         },
         {
           "partId": "dock-nest",
           "required": "1",
           "purchased": "1",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": null
         }
       ],
       "warnings": [
@@ -1632,13 +3563,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": null,
       "currency": null,
+      "goodsAllocationBasis": null,
       "coverage": [
         {
           "partId": "dock-latch-hardware",
           "required": "1",
           "purchased": "1",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": null
         }
       ],
       "warnings": [
@@ -1655,13 +3588,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": null,
       "currency": null,
+      "goodsAllocationBasis": null,
       "coverage": [
         {
           "partId": "dock-weather-hood",
           "required": "1",
           "purchased": "1",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": null
         }
       ],
       "warnings": [
@@ -1678,13 +3613,15 @@
       "purchaseUnits": "4",
       "knownGoodsAmount": null,
       "currency": null,
+      "goodsAllocationBasis": null,
       "coverage": [
         {
           "partId": "top-pulley-keeper",
           "required": "4",
           "purchased": "4",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": null
         }
       ],
       "warnings": [
@@ -1701,13 +3638,15 @@
       "purchaseUnits": "4",
       "knownGoodsAmount": null,
       "currency": null,
+      "goodsAllocationBasis": null,
       "coverage": [
         {
           "partId": "winch-drum",
           "required": "4",
           "purchased": "4",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": null
         }
       ],
       "warnings": [
@@ -1724,13 +3663,15 @@
       "purchaseUnits": "4",
       "knownGoodsAmount": null,
       "currency": null,
+      "goodsAllocationBasis": null,
       "coverage": [
         {
           "partId": "winch-mount-and-guard",
           "required": "4",
           "purchased": "4",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": null
         }
       ],
       "warnings": [
@@ -1747,13 +3688,15 @@
       "purchaseUnits": null,
       "knownGoodsAmount": null,
       "currency": null,
+      "goodsAllocationBasis": null,
       "coverage": [
         {
           "partId": "control-panel-enclosure",
           "required": "1",
           "purchased": null,
           "surplus": null,
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": null
         }
       ],
       "warnings": [
@@ -1772,13 +3715,15 @@
       "purchaseUnits": null,
       "knownGoodsAmount": null,
       "currency": null,
+      "goodsAllocationBasis": null,
       "coverage": [
         {
           "partId": "guy-ground-anchor",
           "required": "4",
           "purchased": null,
           "surplus": null,
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": null
         }
       ],
       "warnings": [
@@ -1797,13 +3742,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "28",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "raspberry-pi-3a-plus",
           "required": "1",
           "purchased": "1",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "28"
         }
       ],
       "warnings": [
@@ -1821,13 +3768,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "52",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "outdoor-cat5e-signal-cable",
           "required": "85",
           "purchased": "100",
           "surplus": "15",
-          "unit": "m"
+          "unit": "m",
+          "knownGoodsAmount": "52"
         }
       ],
       "warnings": [
@@ -1845,34 +3794,39 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "256.68",
       "currency": "EUR",
+      "goodsAllocationBasis": "part-count",
       "coverage": [
         {
           "partId": "cl57y-v20-driver",
           "required": "4",
           "purchased": "4",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "73.34"
         },
         {
           "partId": "matched-motor-cable",
           "required": "4",
           "purchased": "4",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "73.34"
         },
         {
           "partId": "nema23-closed-loop-motor",
           "required": "4",
           "purchased": "4",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "73.33"
         },
         {
           "partId": "power-supply-48v-350w",
           "required": "2",
           "purchased": "2",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "36.67"
         }
       ],
       "warnings": [
@@ -1890,13 +3844,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "24",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "microsd-card-32gb",
           "required": "1",
           "purchased": "1",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "24"
         }
       ],
       "warnings": [
@@ -1914,13 +3870,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "9.4",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "pico-terminal-expansion-board",
           "required": "1",
           "purchased": "1",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "9.4"
         }
       ],
       "warnings": [
@@ -1938,13 +3896,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "37.51",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "raspberry-pi-camera-module-3",
           "required": "1",
           "purchased": "1",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "37.51"
         }
       ],
       "warnings": [
@@ -1962,13 +3922,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "8.59",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "raspberry-pi-pico-2-w",
           "required": "1",
           "purchased": "1",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "8.59"
         }
       ],
       "warnings": [
@@ -1986,13 +3948,15 @@
       "purchaseUnits": null,
       "knownGoodsAmount": null,
       "currency": null,
+      "goodsAllocationBasis": null,
       "coverage": [
         {
           "partId": "winch-drum-joining-hardware",
           "required": "1",
           "purchased": null,
           "surplus": null,
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": null
         }
       ],
       "warnings": [
@@ -2010,13 +3974,15 @@
       "purchaseUnits": null,
       "knownGoodsAmount": null,
       "currency": null,
+      "goodsAllocationBasis": null,
       "coverage": [
         {
           "partId": "winch-mount-hardware",
           "required": "1",
           "purchased": null,
           "surplus": null,
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": null
         }
       ],
       "warnings": [
@@ -2034,13 +4000,15 @@
       "purchaseUnits": "4",
       "knownGoodsAmount": "56.8",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "top-positioning-line-pulley",
           "required": "4",
           "purchased": "4",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "56.8"
         }
       ],
       "warnings": [
@@ -2051,17 +4019,17 @@
   ],
   "shipping": [
     {
-      "basis": "selected-offer",
-      "chargeCount": 15,
-      "note": "Owner-confirmed Croatian delivery/customs costing assumption on 2026-09-08: EUR 3 per distinct selected AliExpress offer, regardless of unit or pack quantity, for orders below EUR 150. This replaces the unknown delivery allowance. One BOM offer is treated as one declared item; actual declaration grouping and split shipments are not modeled. Legal context: https://carina.gov.hr/print.aspx?id=2718&url=print . Other prices and observations are carried forward from hr-zagreb-2026-08-30 without re-verification. Date-only confirmation is normalized to midnight UTC.",
+      "basis": "checkout-group",
+      "chargeCount": 1,
+      "note": "Delivery is unknown for the combined basket; the coupling offer separately records free delivery. Customs uses the shared dated Croatian policy and is calculated separately. No actual basket value, declaration grouping or split shipments confirmed.",
       "checkoutGroupId": "aliexpress-hr",
       "supplierId": "aliexpress",
       "chargedOnce": true,
-      "status": "known",
-      "knownAmount": "45",
+      "status": "unknown",
+      "knownAmount": null,
       "currency": "EUR",
       "warnings": [
-        "Shipping tax/VAT treatment is unknown."
+        "Shipping is unknown; null is not treated as free."
       ]
     },
     {
@@ -2232,7 +4200,7 @@
     },
     {
       "assemblyId": "control-cabinet",
-      "amount": "29.49"
+      "amount": "66.16"
     },
     {
       "assemblyId": "corner-support-set",
@@ -2252,12 +4220,12 @@
     },
     {
       "assemblyId": "winch-set",
-      "amount": "55.15"
+      "amount": "287.52"
     }
   ],
   "sharedProcurementStockKnownGoods": "43.19",
-  "sharedBundleGoods": "256.68",
-  "sharedShipping": "88.38",
+  "sharedBundleGoods": "0",
+  "sharedShipping": "43.38",
   "warnings": [
     "Required part winch-full-cover has no pinned offer.",
     "Required part winch-full-cover-hardware has no pinned offer.",
@@ -2286,16 +4254,15 @@
     "aliexpress-emergency-stop-switch: Package size/MOQ is unknown.",
     "aliexpress-emergency-stop-switch: Price and availability observation date is unknown; quote capture time is not verification time.",
     "aliexpress-emergency-stop-switch: Qualification is baseline-selected; the recorded selection is not engineering approval.",
-    "aliexpress-flexible-jaw-coupling-8mm: A quoted price cannot be extended without package data.",
     "aliexpress-flexible-jaw-coupling-8mm: Availability is unknown.",
-    "aliexpress-flexible-jaw-coupling-8mm: Package size/MOQ is unknown.",
-    "aliexpress-flexible-jaw-coupling-8mm: Price and availability observation date is unknown; quote capture time is not verification time.",
     "aliexpress-flexible-jaw-coupling-8mm: Qualification is baseline-selected; the recorded selection is not engineering approval.",
     "aliexpress-heat-set-insert-assortment: Availability is unknown.",
     "aliexpress-heat-set-insert-assortment: Price and availability observation date is unknown; quote capture time is not verification time.",
     "aliexpress-heat-set-insert-assortment: Qualification is baseline-selected; the recorded selection is not engineering approval.",
     "aliexpress-heat-set-insert-assortment: Tax/VAT treatment is unknown.",
-    "aliexpress-hr: Shipping tax/VAT treatment is unknown.",
+    "aliexpress-hr: Customs is conditional: total order goods value is unknown; split orders are not assumed.",
+    "aliexpress-hr: One selected offer approximates one declared item type; actual customs grouping is unconfirmed.",
+    "aliexpress-hr: Shipping is unknown; null is not treated as free.",
     "aliexpress-micro-pan-tilt-servo: Availability is unknown.",
     "aliexpress-micro-pan-tilt-servo: Price and availability observation date is unknown; quote capture time is not verification time.",
     "aliexpress-micro-pan-tilt-servo: Qualification is baseline-selected; the recorded selection is not engineering approval.",
@@ -2389,6 +4356,8 @@
     "bauhaus-zinc-spray: Price and availability observation date is unknown; quote capture time is not verification time.",
     "bauhaus-zinc-spray: Qualification is baseline-selected; the recorded selection is not engineering approval.",
     "bauhaus-zinc-spray: Tax/VAT treatment is unknown.",
+    "camera-gimbal: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.",
+    "camera-pod-chassis: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.",
     "cotra-zagreb-corner-post-treated-timber: Availability is unknown.",
     "cotra-zagreb-corner-post-treated-timber: Package size/MOQ is unknown.",
     "cotra-zagreb-corner-post-treated-timber: Price and availability observation date is unknown; quote capture time is not verification time.",
@@ -2400,6 +4369,8 @@
     "dive-store-dyneema-positioning-line: Qualification is baseline-selected; the recorded selection is not engineering approval.",
     "dive-store-dyneema-positioning-line: Tax/VAT treatment is unknown.",
     "dive-store-hr: Shipping tax/VAT treatment is unknown.",
+    "dock-funnel: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.",
+    "dock-nest: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.",
     "hr-zagreb: Destination tax/VAT status is unknown and blocks a complete landed total.",
     "in-house-fabrication-camera-gimbal: Price and availability observation date is unknown; quote capture time is not verification time.",
     "in-house-fabrication-camera-gimbal: Price is unknown.",
@@ -2476,6 +4447,7 @@
     "tme-raspberry-pi-pico-2-w: Price and availability observation date is unknown; quote capture time is not verification time.",
     "tme-raspberry-pi-pico-2-w: Qualification is baseline-selected; the recorded selection is not engineering approval.",
     "tme-raspberry-pi-pico-2-w: Tax/VAT treatment is unknown.",
+    "top-pulley-keeper: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.",
     "unresolved-winch-drum-joining-hardware: Destination quote row is missing.",
     "unresolved-winch-drum-joining-hardware: Package size/MOQ is unknown.",
     "unresolved-winch-drum-joining-hardware: Price is unknown.",
@@ -2485,6 +4457,9 @@
     "unresolved-winch-mount-hardware: Price is unknown.",
     "unresolved-winch-mount-hardware: Qualification is unresolved; the recorded selection is not engineering approval.",
     "wasi-barton-30mm: Qualification is baseline-selected; the recorded selection is not engineering approval.",
-    "wasi-barton-30mm: Tax/VAT treatment is unknown."
+    "wasi-barton-30mm: Tax/VAT treatment is unknown.",
+    "winch-drum: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.",
+    "winch-full-cover: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.",
+    "winch-mount-and-guard: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved."
   ]
 }

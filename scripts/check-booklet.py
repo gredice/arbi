@@ -36,7 +36,10 @@ def check(root, variant):
     assert provenance['booklet_revision'] == revision
     assert provenance['render_style'] == 'assembly-line-art-v1'
     registry = json.loads((root / 'source/arbi-hardware/models.json').read_text())
-    outputs = {m['id']: m['output'] for m in registry['models']}
+    models = registry['models'] + ([m for m in registry.get('archivedModels', [])
+                                   if m.get('alternativeConfiguration') == 'payload-bench']
+                                  if variant == 'bench' else [])
+    outputs = {m['id']: m['output'] for m in models}
     manifests = ['arbi-mesh-manifest.json', 'reference-mesh-manifest.json'] if variant == 'winch' else ['mesh-manifest.json']
     meshes = [entry for name in manifests for entry in json.loads((root / name).read_text())]
     for entry in meshes:

@@ -67,6 +67,15 @@ export class Decimal {
     return new Decimal(this.coefficient * value, this.scale);
   }
 
+  divide(other: Decimal, scale: number): Decimal {
+    if (other.coefficient === 0n) throw new Error("Cannot divide by zero");
+    const numerator = this.coefficient * powerOfTen(other.scale + scale);
+    const denominator = other.coefficient * powerOfTen(this.scale);
+    const quotient = numerator / denominator;
+    const remainder = numerator % denominator;
+    return new Decimal(quotient + (remainder * 2n >= denominator ? 1n : 0n), scale);
+  }
+
   compare(other: Decimal): number {
     const scale = Math.max(this.scale, other.scale);
     const left = this.coefficient * powerOfTen(scale - this.scale);

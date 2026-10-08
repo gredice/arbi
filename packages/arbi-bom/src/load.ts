@@ -8,6 +8,8 @@ import type {
   AssemblyCatalog,
   BomRepository,
   BuildCatalog,
+  CustomsCatalog,
+  FabricationCatalog,
   LocationCatalog,
   OfferCatalog,
   PartCatalog,
@@ -32,6 +34,7 @@ export async function loadBomRepository(
   repositoryRoot: string,
   scenarioId = "arbi-v1-hr-zagreb",
 ): Promise<BomRepository> {
+  let customs: CustomsCatalog | undefined;
   let parts: PartCatalog | undefined;
   let assemblies: AssemblyCatalog | undefined;
   let builds: BuildCatalog | undefined;
@@ -39,8 +42,21 @@ export async function loadBomRepository(
   let offers: OfferCatalog | undefined;
   let locations: LocationCatalog | undefined;
   let scenarios: ScenarioCatalog | undefined;
+  let fabrication: FabricationCatalog | undefined;
 
   const definitions: Array<InputDefinition<unknown>> = [
+    {
+      key: "customs",
+      path: "bom/catalog/customs.json",
+      schemaPath: "bom/schemas/customs.schema.json",
+      assign: (value) => { customs = value as CustomsCatalog; },
+    },
+    {
+      key: "fabrication",
+      path: "bom/catalog/fabrication.json",
+      schemaPath: "bom/schemas/fabrication.schema.json",
+      assign: (value) => { fabrication = value as FabricationCatalog; },
+    },
     {
       key: "assemblies",
       path: "bom/assemblies/assemblies.json",
@@ -116,15 +132,24 @@ export async function loadBomRepository(
   }
 
   if (
+    customs === undefined ||
     parts === undefined ||
     assemblies === undefined ||
     builds === undefined ||
     suppliers === undefined ||
     offers === undefined ||
     locations === undefined ||
-    scenarios === undefined
+    scenarios === undefined || fabrication === undefined
   ) {
     throw new Error("Failed to load the canonical BOM inputs");
+  }
+
+  // Cost evidence must be refreshed when any source used to build the meshes changes.
+  for (const [path, expected] of Object.entries(fabrication.geometry.sourceHashes)) {
+    const raw = await readFile(resolve(repositoryRoot, path));
+    const actual = createHash("sha256").update(raw).digest("hex");
+    if (actual !== expected) throw new Error(`Stale fabrication geometry: ${path}; recapture mesh volumes.`);
+    hash.update(path); hash.update("\0"); hash.update(raw); hash.update("\0");
   }
 
   const scenario = scenarios.scenarios.find((item) => item.id === scenarioId);
@@ -147,6 +172,7 @@ export async function loadBomRepository(
   return {
     inputDigest: `sha256:${hash.digest("hex")}`,
     loadedScenarioId: scenarioId,
+    customs,
     parts,
     assemblies,
     builds,
@@ -155,5 +181,6 @@ export async function loadBomRepository(
     locations,
     quote: quoteLoaded.value,
     scenarios,
+    fabrication,
   };
 }

@@ -1,4 +1,5 @@
 import type { BomRepository } from "./types.js";
+import { estimatePrintMaterials } from "./fabrication.js";
 
 function text(value: string): string {
   return value.replaceAll("\\", "\\\\").replaceAll("|", "\\|")
@@ -51,6 +52,30 @@ export function renderPartPages(repository: BomRepository): Map<string, string> 
         lines.push(`- [${text(source.path)}](../../../${source.path}) — module \`${source.module}\`${source.revision ? `; revision ${source.revision}` : ""}.`);
       }
       if (!part.fabrication.sources.length) lines.push("- No manufacturing source claimed yet.");
+      for (const recipe of repository.fabrication.recipes.filter((item) => item.partId === part.id)) {
+        const estimate = estimatePrintMaterials(repository, recipe, recipe.representedQuantity, repository.quote.exchangeRates.reportCurrency);
+        lines.push("", "### Print material estimate", "",
+          `Build ${recipe.buildId}; batch represents ${recipe.representedQuantity} BOM unit(s). ${text(recipe.note)}`, "",
+          "| Model | Copies in batch | Material / colour | Solid volume per copy |", "| --- | ---: | --- | ---: |");
+        for (const component of recipe.components) {
+          const model = repository.fabrication.geometry.models.find((item) => item.modelId === component.modelId)!;
+          const material = repository.fabrication.materials.find((item) => item.id === (component.materialId ?? recipe.materialId))!;
+          lines.push(`| ${component.modelId} r${model.revision} | ${component.quantity} | ${material.name} / ${component.color ?? "unspecified"} | ${model.volumeCm3} cm³ |`);
+        }
+        lines.push("", "Selected recipe consumption:", "", "| Material / colour | Roll price basis | Estimated batch weight | Estimated batch cost |", "| --- | --- | ---: | ---: |");
+        for (const usage of estimate.materialUsages) {
+          lines.push(`| [${usage.name}](${usage.priceSourceUrl}) / ${usage.color ?? "unspecified"} | ${usage.spoolPrice ?? "unknown"} ${estimate.currency} / ${usage.spoolWeightGrams} g; ${usage.minimumBulkRolls ? `${usage.minimumBulkRolls}+ eligible mixed rolls` : "single spool"} | ${usage.weightGrams} g | ${usage.materialCost ?? "unknown"} ${estimate.currency} |`);
+        }
+        lines.push(`| **Selected recipe total** | | **${estimate.weightGrams} g** | **${estimate.materialCost ?? "unknown"} ${estimate.currency}** |`);
+        lines.push("", "Comparisons below assume every component uses the same material; the selected mixed recipe above is costed separately.", "",
+          "| Material | Density | Roll price | Estimated batch weight | Estimated batch cost |", "| --- | ---: | ---: | ---: | ---: |");
+        for (const alternative of estimate.alternatives) {
+          const material = repository.fabrication.materials.find((item) => item.id === alternative.materialId)!;
+          lines.push(`| [${material.name}](${material.priceSourceUrl}) | [${material.densityGramsPerCm3} g/cm³](${material.densitySourceUrl}) | ${material.spoolPrice ?? "unknown"} ${material.currency} / ${material.spoolWeightGrams} g; ${alternative.minimumBulkRolls ? `${alternative.minimumBulkRolls}+ eligible mixed rolls` : "single spool"} | ${alternative.weightGrams} g | ${alternative.materialCost ?? "unknown"} ${estimate.currency} |`);
+        }
+        const tag = repository.fabrication.geometry.releaseTag;
+        lines.push("", `Volume evidence: ${tag ? `[${tag}](https://github.com/gredice/arbi/releases/tag/${tag})` : "current local OpenSCAD exports"}; [canonical recipes, mesh checksums and source hashes](../../catalog/fabrication.json).`, "", text(repository.fabrication.note));
+      }
     }
     lines.push("", "Catalog lifecycle, procurement, and generated documentation do not establish physical validation. See the owning assembly for evidence and acceptance requirements.", "");
     pages.set(part.id + ".md", lines.join("\n"));
