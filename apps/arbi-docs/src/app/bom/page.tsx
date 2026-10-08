@@ -43,7 +43,7 @@ export default function Bom() {
                 </p>
                 <p className="border-b border-hair py-3 text-[13px]">
                     Includes {fmt.eur(sum.knownGoodsSubtotal)} known goods, {fmt.eur(sum.knownShippingSubtotal)} known shipping, {fmt.eur(sum.knownCustomsSubtotal)} known customs and {fmt.eur(sum.estimatedMaterialSubtotal)} estimated print materials.
-                    Printed weights use solid CAD volume and material density. Costs use Bambu Lab single-spool prices, with no bulk discount.
+                    Printed weights use solid CAD volume and each component's material density. Eligible PLA/PETG prices assume a Bambu Lab bulk order of 10+ mixed eligible rolls with spools; ASA uses its evidenced single-spool price.
                     Supports, purge, failed prints, energy, machine time, labour, filament shipping and destination VAT adjustments remain unresolved.
                     Bundle goods are allocated by purchased part count, including surplus. Allocated shares are not individual supplier prices; shipping stays separate.
                 </p>
@@ -77,7 +77,7 @@ export default function Bom() {
                                             </Link>
                                             {p.printEstimate && (
                                                 <div className="tag mt-1 mb-2 text-[10px]">
-                                                    {p.printEstimate.materialId.toUpperCase()} · {p.printEstimate.weightGrams} g total · solid-volume estimate
+                                                    {p.printEstimate.materialName} · {p.printEstimate.weightGrams} g total · solid-volume estimate
                                                 </div>
                                             )}
                                         </td>

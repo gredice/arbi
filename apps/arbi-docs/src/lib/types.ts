@@ -66,10 +66,18 @@ export type PrintEstimate = {
     basis: string;
     required: string;
     materialId: string;
+    materialName: string;
+    materialUsages: (PrintMaterialCost & { color: string | null })[];
     weightGrams: string;
     materialCost: string | null;
     note: string;
-    alternatives: { materialId: string; name: string; weightGrams: string; materialCost: string | null; spoolPrice: string | null; spoolWeightGrams: string; priceSourceUrl: string; observedAt: string }[];
+    alternatives: PrintMaterialCost[];
+};
+
+export type PrintMaterialCost = {
+    materialId: string; name: string; weightGrams: string; materialCost: string | null;
+    spoolPrice: string | null; spoolWeightGrams: string; priceSourceUrl: string; observedAt: string;
+    priceBasis: "single-spool" | "bulk-spool"; minimumBulkRolls: number | null; bulkSourceUrl: string | null;
 };
 
 export type BomPart = {

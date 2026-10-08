@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "destinationId": "hr-zagreb",
-  "note": "Material consumption only at single 1 kg filament-with-spool MSRP; bulk discounts excluded. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. PETG is a prototype costing assumption; ASA is used for exposed cover recipes. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+  "note": "Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
   "geometry": {
     "releaseTag": "cad-v0.1.4",
     "sourceCommit": "4e0eb44fd8df41174272569e910db93b835e51b2",
@@ -453,12 +453,17 @@
       "densityGramsPerCm3": "1.24",
       "densitySourceUrl": "https://store.bblcdn.com/s1/default/58b85d0f3db94878854a28fdb8a0006e/Bambu_PLA_Basic_Technical_Data_Sheet.pdf",
       "spoolWeightGrams": "1000",
-      "spoolPrice": "19.99",
+      "spoolPrice": "11.99",
       "currency": "EUR",
       "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
-      "observedAt": "2026-10-08T18:06:00Z",
-      "priceBasis": "single-spool",
-      "taxTreatment": "unknown"
+      "observedAt": "2026-10-08T19:56:19Z",
+      "priceBasis": "bulk-spool",
+      "taxTreatment": "unknown",
+      "bulkPricing": {
+        "minimumRolls": 10,
+        "group": "bambu-eu-mix-match",
+        "sourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+      }
     },
     {
       "id": "petg",
@@ -466,12 +471,47 @@
       "densityGramsPerCm3": "1.25",
       "densitySourceUrl": "https://store.bblcdn.com/s1/default/cb94589bf7994fdcbfa833badefae9cd/Bambu_PETG_Basic_Technical_Data_Sheet.pdf",
       "spoolWeightGrams": "1000",
-      "spoolPrice": "18.99",
+      "spoolPrice": "11.39",
       "currency": "EUR",
       "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
-      "observedAt": "2026-10-08T18:06:00Z",
-      "priceBasis": "single-spool",
-      "taxTreatment": "unknown"
+      "observedAt": "2026-10-08T19:56:19Z",
+      "priceBasis": "bulk-spool",
+      "taxTreatment": "unknown",
+      "bulkPricing": {
+        "minimumRolls": 10,
+        "group": "bambu-eu-mix-match",
+        "sourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+      }
+    },
+    {
+      "id": "petg-matte",
+      "name": "Bambu Lab PETG Matte",
+      "densityGramsPerCm3": "1.37",
+      "densitySourceUrl": "https://store.bblcdn.eu/s8/default/240fb0c791fb4903a9d72934895e9a16/PETG_Matte.pdf",
+      "spoolWeightGrams": "1000",
+      "spoolPrice": "11.39",
+      "currency": "EUR",
+      "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte",
+      "observedAt": "2026-10-08T19:56:19Z",
+      "priceBasis": "bulk-spool",
+      "taxTreatment": "unknown",
+      "bulkPricing": {
+        "minimumRolls": 10,
+        "group": "bambu-eu-mix-match",
+        "sourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+      },
+      "colors": [
+        {
+          "id": "white",
+          "name": "White (35100)",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte?id=775952393450868758"
+        },
+        {
+          "id": "black",
+          "name": "Black (35101)",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte?id=775952393450868774"
+        }
+      ]
     },
     {
       "id": "asa",
@@ -496,30 +536,38 @@
       "components": [
         {
           "modelId": "camera-pod-spider",
-          "quantity": "1"
+          "quantity": "1",
+          "color": "black"
         },
         {
           "modelId": "payload-integrated-deck",
-          "quantity": "1"
+          "quantity": "1",
+          "color": "black"
         },
         {
           "modelId": "payload-spider-spacer",
-          "quantity": "4"
+          "quantity": "4",
+          "color": "black"
         },
         {
           "modelId": "payload-pan-servo-mount",
-          "quantity": "1"
+          "quantity": "1",
+          "color": "black"
         },
         {
           "modelId": "payload-rain-hood",
-          "quantity": "1"
+          "quantity": "1",
+          "color": "white",
+          "materialId": "petg-matte"
         },
         {
           "modelId": "payload-enclosure-base",
-          "quantity": "1"
+          "quantity": "1",
+          "color": "black",
+          "materialId": "petg-matte"
         }
       ],
-      "note": "Current rain-enclosure kit from payload-enclosure.md; excludes dry-bench alternatives and test coupons."
+      "note": "Current rain-enclosure kit from payload-enclosure.md; excludes dry-bench alternatives and test coupons. Cosmetic shell surfaces use PETG Matte White (35100) or Black (35101) as listed per component; functional parts retain their existing material assumptions. Material and colour selections require physical fit, retention, weather and thermal checks."
     },
     {
       "partId": "camera-gimbal",
@@ -529,30 +577,38 @@
       "components": [
         {
           "modelId": "payload-integrated-gimbal-carrier",
-          "quantity": "1"
+          "quantity": "1",
+          "color": "black"
         },
         {
           "modelId": "payload-integrated-gimbal-head",
-          "quantity": "1"
+          "quantity": "1",
+          "color": "black",
+          "materialId": "petg-matte"
         },
         {
           "modelId": "payload-integrated-camera-cradle",
-          "quantity": "1"
+          "quantity": "1",
+          "color": "black"
         },
         {
           "modelId": "payload-integrated-tilt-pivot-support",
-          "quantity": "1"
+          "quantity": "1",
+          "color": "black"
         },
         {
           "modelId": "payload-horn-retainer",
-          "quantity": "2"
+          "quantity": "2",
+          "color": "black"
         },
         {
           "modelId": "payload-integrated-camera-hood",
-          "quantity": "1"
+          "quantity": "1",
+          "color": "white",
+          "materialId": "petg-matte"
         }
       ],
-      "note": "Current compact rain-enclosure gimbal; excludes earlier gimbal and dry-bench alternatives."
+      "note": "Current compact rain-enclosure gimbal; excludes earlier gimbal and dry-bench alternatives. Cosmetic shell surfaces use PETG Matte White (35100) or Black (35101) as listed per component; functional parts retain their existing material assumptions. Material and colour selections require physical fit, retention, weather and thermal checks."
     },
     {
       "partId": "winch-drum",
@@ -562,43 +618,53 @@
       "components": [
         {
           "modelId": "winch-drum-passive-1",
-          "quantity": "3"
+          "quantity": "3",
+          "color": "black"
         },
         {
           "modelId": "winch-drum-passive-2",
-          "quantity": "3"
+          "quantity": "3",
+          "color": "black"
         },
         {
           "modelId": "winch-drum-powered-1",
-          "quantity": "1"
+          "quantity": "1",
+          "color": "black"
         },
         {
           "modelId": "winch-drum-powered-2",
-          "quantity": "1"
+          "quantity": "1",
+          "color": "black"
         },
         {
           "modelId": "winch-drum-powered-3",
-          "quantity": "1"
+          "quantity": "1",
+          "color": "black"
         },
         {
           "modelId": "winch-drum-flange",
-          "quantity": "4"
+          "quantity": "4",
+          "color": "black"
         },
         {
           "modelId": "winch-drum-flange-right",
-          "quantity": "4"
+          "quantity": "4",
+          "color": "black"
         },
         {
           "modelId": "winch-drum-clamp-half",
-          "quantity": "8"
+          "quantity": "8",
+          "color": "black"
         },
         {
           "modelId": "winch-drum-tail-clamp",
-          "quantity": "4"
+          "quantity": "4",
+          "color": "black"
         },
         {
           "modelId": "winch-drum-alignment-pin",
-          "quantity": "13"
+          "quantity": "13",
+          "color": "black"
         }
       ],
       "note": "Four-drum batch: three passive kits and one powered kit, including repeated flanges, clamps and pins; per-unit values are batch averages."
@@ -611,22 +677,27 @@
       "components": [
         {
           "modelId": "winch-bearing-lower",
-          "quantity": "2"
+          "quantity": "2",
+          "color": "black"
         },
         {
           "modelId": "winch-bearing-cap",
-          "quantity": "2"
+          "quantity": "2",
+          "color": "black"
         },
         {
           "modelId": "winch-motor-stand",
-          "quantity": "1"
+          "quantity": "1",
+          "color": "black"
         },
         {
           "modelId": "winch-coupling-guard",
-          "quantity": "1"
+          "quantity": "1",
+          "color": "white",
+          "materialId": "petg-matte"
         }
       ],
-      "note": "One mount kit includes two bearing supports/caps, one motor stand and one coupling guard; metal plate, spacers and fasteners belong to winch-mount-hardware."
+      "note": "One mount kit includes two bearing supports/caps, one motor stand and one coupling guard; metal plate, spacers and fasteners belong to winch-mount-hardware. Cosmetic shell surfaces use PETG Matte White (35100) or Black (35101) as listed per component; functional parts retain their existing material assumptions. Material and colour selections require physical fit, retention, weather and thermal checks."
     },
     {
       "partId": "dock-funnel",
@@ -636,7 +707,8 @@
       "components": [
         {
           "modelId": "dock-funnel",
-          "quantity": "1"
+          "quantity": "1",
+          "color": "black"
         }
       ],
       "note": "One dock capture funnel. Latch hardware and weather hood remain separate unresolved fabrication costs."
@@ -649,7 +721,8 @@
       "components": [
         {
           "modelId": "dock-nest",
-          "quantity": "1"
+          "quantity": "1",
+          "color": "black"
         }
       ],
       "note": "One dock nest, independently costed even though its procurement placeholder shares the capture-set bundle."
@@ -662,7 +735,8 @@
       "components": [
         {
           "modelId": "top-pulley-keeper",
-          "quantity": "1"
+          "quantity": "1",
+          "color": "black"
         }
       ],
       "note": "One line keeper per corner pulley."
@@ -675,86 +749,124 @@
       "components": [
         {
           "modelId": "winch-cover-passive-left",
-          "quantity": "3"
+          "quantity": "3",
+          "color": "white",
+          "materialId": "petg-matte"
         },
         {
           "modelId": "winch-cover-passive-middle",
-          "quantity": "3"
+          "quantity": "3",
+          "color": "white",
+          "materialId": "petg-matte"
         },
         {
           "modelId": "winch-cover-passive-right",
-          "quantity": "3"
+          "quantity": "3",
+          "color": "white",
+          "materialId": "petg-matte"
         },
         {
           "modelId": "winch-cover-powered-left",
-          "quantity": "1"
+          "quantity": "1",
+          "color": "white",
+          "materialId": "petg-matte"
         },
         {
           "modelId": "winch-cover-powered-middle",
-          "quantity": "1"
+          "quantity": "1",
+          "color": "white",
+          "materialId": "petg-matte"
         },
         {
           "modelId": "winch-cover-powered-pole-middle",
-          "quantity": "1"
+          "quantity": "1",
+          "color": "white",
+          "materialId": "petg-matte"
         },
         {
           "modelId": "winch-cover-powered-transition",
-          "quantity": "1"
+          "quantity": "1",
+          "color": "white",
+          "materialId": "petg-matte"
         },
         {
           "modelId": "winch-cover-powered-right",
-          "quantity": "1"
+          "quantity": "1",
+          "color": "white",
+          "materialId": "petg-matte"
         },
         {
           "modelId": "winch-cover-clip",
-          "quantity": "56"
+          "quantity": "56",
+          "color": "black"
         },
         {
           "modelId": "winch-cover-cable-anchor",
-          "quantity": "4"
+          "quantity": "4",
+          "color": "black"
         },
         {
           "modelId": "winch-cover-passive-shutter",
-          "quantity": "6"
+          "quantity": "6",
+          "color": "white",
+          "materialId": "petg-matte"
         },
         {
           "modelId": "winch-cover-powered-shutter",
-          "quantity": "4"
+          "quantity": "4",
+          "color": "white",
+          "materialId": "petg-matte"
         },
         {
           "modelId": "winch-cover-passive-fascia",
-          "quantity": "15"
+          "quantity": "15",
+          "color": "white",
+          "materialId": "petg-matte"
         },
         {
           "modelId": "winch-cover-powered-fascia",
-          "quantity": "9"
+          "quantity": "9",
+          "color": "white",
+          "materialId": "petg-matte"
         },
         {
           "modelId": "winch-cover-passive-pole-fascia",
-          "quantity": "3"
+          "quantity": "3",
+          "color": "white",
+          "materialId": "petg-matte"
         },
         {
           "modelId": "winch-cover-powered-pole-fascia",
-          "quantity": "1"
+          "quantity": "1",
+          "color": "white",
+          "materialId": "petg-matte"
         },
         {
           "modelId": "winch-cover-passive-rear-left",
-          "quantity": "3"
+          "quantity": "3",
+          "color": "white",
+          "materialId": "petg-matte"
         },
         {
           "modelId": "winch-cover-powered-rear-left",
-          "quantity": "2"
+          "quantity": "2",
+          "color": "white",
+          "materialId": "petg-matte"
         },
         {
           "modelId": "winch-cover-passive-rear-right",
-          "quantity": "6"
+          "quantity": "6",
+          "color": "white",
+          "materialId": "petg-matte"
         },
         {
           "modelId": "winch-cover-powered-rear-right",
-          "quantity": "3"
+          "quantity": "3",
+          "color": "white",
+          "materialId": "petg-matte"
         }
       ],
-      "note": "Four-winch pole-routing cover batch per full-cover.md; 126 installed prints, excluding four optional removable bench blanks. Per-unit values are batch averages."
+      "note": "Four-winch pole-routing cover batch per full-cover.md; 126 installed prints, excluding four optional removable bench blanks. Per-unit values are batch averages. Cosmetic shell surfaces use PETG Matte White (35100) or Black (35101) as listed per component; functional parts retain their existing material assumptions. Material and colour selections require physical fit, retention, weather and thermal checks."
     },
     {
       "partId": "winch-desk-feet",
@@ -764,11 +876,13 @@
       "components": [
         {
           "modelId": "winch-desk-foot-short",
-          "quantity": "2"
+          "quantity": "2",
+          "color": "black"
         },
         {
           "modelId": "winch-desk-foot-long",
-          "quantity": "2"
+          "quantity": "2",
+          "color": "black"
         }
       ],
       "note": "Optional desk-foot kit for one winch; excluded from the base build."
@@ -781,18 +895,23 @@
       "components": [
         {
           "modelId": "winch-pole-nut-cover",
-          "quantity": "2"
+          "quantity": "2",
+          "color": "white",
+          "materialId": "petg-matte"
         },
         {
           "modelId": "winch-pole-nut-cover-bottom",
-          "quantity": "2"
+          "quantity": "2",
+          "color": "white",
+          "materialId": "petg-matte"
         },
         {
           "modelId": "winch-pole-cable-guide",
-          "quantity": "1"
+          "quantity": "1",
+          "color": "black"
         }
       ],
-      "note": "Optional covers for one round-pole mount. The machined metal saddles are not prints."
+      "note": "Optional covers for one round-pole mount. The machined metal saddles are not prints. Cosmetic shell surfaces use PETG Matte White (35100) or Black (35101) as listed per component; functional parts retain their existing material assumptions. Material and colour selections require physical fit, retention, weather and thermal checks."
     },
     {
       "partId": "pole-pulley-mount-concept",
@@ -802,11 +921,13 @@
       "components": [
         {
           "modelId": "pole-pulley-mount-front",
-          "quantity": "1"
+          "quantity": "1",
+          "color": "black"
         },
         {
           "modelId": "pole-pulley-mount-rear",
-          "quantity": "1"
+          "quantity": "1",
+          "color": "black"
         }
       ],
       "note": "Deferred concept clamp pair; excluded from the base build. Pricing does not qualify its load-bearing use."

@@ -12,13 +12,14 @@ import { validateRepository } from "./validate.js";
 
 const root = fileURLToPath(new URL("../../../", import.meta.url));
 
-test("weight costing uses density and a single spool, without rounding to whole rolls", async () => {
+test("weight costing uses density and the conditional bulk rate, without rounding to whole rolls", async () => {
   const repository = await loadBomRepository(root);
   const recipe = repository.fabrication.recipes.find((item) => item.partId === "dock-funnel")!;
   repository.fabrication.geometry.models.find((item) => item.modelId === "dock-funnel")!.volumeCm3 = "100";
   const estimate = estimatePrintMaterials(repository, recipe, "3", "EUR");
   assert.equal(estimate.weightGrams, "375");
-  assert.equal(estimate.materialCost, "7.12");
+  assert.equal(estimate.materialCost, "4.27");
+  assert.equal(estimate.materialUsages[0]!.minimumBulkRolls, 10);
   assert.equal(estimate.alternatives.find((item) => item.materialId === "pla")!.weightGrams, "372");
   assert.equal(estimate.alternatives.find((item) => item.materialId === "asa")!.materialCost, "7.87");
   assert.equal(Decimal.parse("1").divide(Decimal.parse("3"), 3).toString(), "0.333");
@@ -46,8 +47,8 @@ test("dock bundle costs are attributed once and print estimates do not turn unkn
   const repository = await loadBomRepository(root);
   const base = calculateBom(repository);
   assert.equal(base.knownSubtotal, "987.22");
-  assert.equal(base.estimatedMaterialSubtotal, "427.36");
-  assert.equal(base.estimatedPartialSubtotal, "1414.58");
+  assert.equal(base.estimatedMaterialSubtotal, "259.22");
+  assert.equal(base.estimatedPartialSubtotal, "1246.44");
   assert.equal(base.completeLandedTotal, null);
   const allocated = base.assemblyEstimatedMaterials.reduce((sum, row) => sum.add(Decimal.parse(row.amount)), Decimal.zero());
   assert.equal(allocated.toString(), base.estimatedMaterialSubtotal);
@@ -56,6 +57,44 @@ test("dock bundle costs are attributed once and print estimates do not turn unkn
   assert.ok(!base.fabrication.some((item) => item.partId === "dock-latch-hardware"));
   repository.fabrication.materials.find((item) => item.id === "petg")!.spoolPrice = null;
   assert.equal(calculateBom(repository).fabrication.find((item) => item.partId === "dock-nest")!.materialCost, null);
+});
+
+test("mixed recipes use component density, colour evidence and independently priced consumption", async () => {
+  const repository = await loadBomRepository(root);
+  const recipe = repository.fabrication.recipes.find((item) => item.partId === "camera-pod-chassis")!;
+  const selected = recipe.components.filter((item) => ["payload-rain-hood", "payload-enclosure-base", "camera-pod-spider"].includes(item.modelId));
+  recipe.components = selected;
+  for (const component of selected) {
+    component.quantity = "1";
+    repository.fabrication.geometry.models.find((item) => item.modelId === component.modelId)!.volumeCm3 = "100";
+  }
+  const estimate = estimatePrintMaterials(repository, recipe, "2", "EUR");
+  assert.equal(estimate.weightGrams, "798"); // 2 × (137 white + 137 black + 125 functional)
+  assert.equal(estimate.materialCost, "9.09"); // 3.12 + 3.12 + 2.85
+  assert.equal(estimate.materialUsages.length, 3);
+  const white = estimate.materialUsages.find((usage) => usage.color === "white")!;
+  assert.equal(white.materialId, "petg-matte");
+  assert.match(white.priceSourceUrl, /775952393450868758/);
+  assert.equal(estimate.alternatives.find((item) => item.materialId === "petg")!.weightGrams, "750");
+  repository.fabrication.materials.find((item) => item.id === "petg-matte")!.spoolPrice = null;
+  assert.equal(estimatePrintMaterials(repository, recipe, "2", "EUR").materialCost, null);
+});
+
+test("cosmetic shell substitutions preserve functional cover components", async () => {
+  const repository = await loadBomRepository(root);
+  const cover = repository.fabrication.recipes.find((item) => item.partId === "winch-full-cover")!;
+  assert.equal(cover.materialId, "asa");
+  for (const component of cover.components) {
+    if (/clip|cable-anchor/.test(component.modelId)) assert.equal(component.materialId, undefined);
+    else assert.equal(component.materialId, "petg-matte");
+  }
+  const matte = repository.fabrication.materials.find((item) => item.id === "petg-matte")!;
+  matte.bulkPricing = undefined;
+  const chassis = repository.fabrication.recipes.find((item) => item.partId === "camera-pod-chassis")!;
+  chassis.components.find((item) => item.materialId === "petg-matte")!.color = undefined;
+  const errors = validateRepository(repository).errors.join("\n");
+  assert.match(errors, /minimum eligible roll count/);
+  assert.match(errors, /needs an evidenced colour/);
 });
 
 test("a full fabrication quote supersedes the material allowance", async () => {

@@ -11,13 +11,13 @@
 - Build: arbi-v1
 - Destination: hr-zagreb
 - Quote snapshot: hr-zagreb-2026-10-08-coupling
-- Input digest: sha256:a16530ed495841c1afeed8909698447b4bff174b42d1f4fdec5d198b70f20bb8
+- Input digest: sha256:343f973f5967a9f548f996eb469b25f50bb8f41138e843834a87338ba9d6c453
 - Complete landed total: **unavailable**
 - Known quoted goods subtotal: **EUR 943.84**
 - Known checkout-group shipping subtotal: **EUR 43.38**
 - Known partial subtotal: **EUR 987.22**
-- Estimated print materials: **EUR 427.36**
-- Estimated partial subtotal (known amounts + print materials): **EUR 1414.58**
+- Estimated print materials: **EUR 259.22**
+- Estimated partial subtotal (known amounts + print materials): **EUR 1246.44**
 
 The known partial subtotal is evidence about recorded values only. It excludes every unresolved amount and must not be presented as the project cost.
 
@@ -40,18 +40,18 @@ Multi-part bundles of countable components are allocated by purchased part count
 
 ## Estimated print material costs
 
-Solid CAD volume × material density × single-spool price / spool grams. These consumption estimates exclude supports, purge, failures, energy, machine time, labour, filament shipping and destination VAT adjustments. They do not make the landed total complete.
+Solid CAD volume × each component's material density × observed roll price / roll grams. Eligible PLA/PETG rates assume 10+ mixed eligible filament-with-spool rolls in one Bambu EU bulk order; ASA retains its evidenced single-spool price. These consumption estimates exclude supports, purge, failures, energy, machine time, labour, filament shipping and destination VAT adjustments. They do not make the landed total complete.
 
 | Part | Required | Material | Estimated weight | Estimated material cost |
 | --- | ---: | --- | ---: | ---: |
-| [camera-gimbal](parts/camera-gimbal.md) | 1 | PETG | 50.631 g | EUR 0.96 |
-| [camera-pod-chassis](parts/camera-pod-chassis.md) | 1 | PETG | 199.126 g | EUR 3.78 |
-| [dock-funnel](parts/dock-funnel.md) | 1 | PETG | 376.306 g | EUR 7.15 |
-| [dock-nest](parts/dock-nest.md) | 1 | PETG | 2437.206 g | EUR 46.28 |
-| [top-pulley-keeper](parts/top-pulley-keeper.md) | 4 | PETG | 110.733 g | EUR 2.10 |
-| [winch-drum](parts/winch-drum.md) | 4 | PETG | 4980.607 g | EUR 94.58 |
-| [winch-full-cover](parts/winch-full-cover.md) | 4 | ASA | 9689.974 g | EUR 242.15 |
-| [winch-mount-and-guard](parts/winch-mount-and-guard.md) | 4 | PETG | 1598.655 g | EUR 30.36 |
+| [camera-gimbal](parts/camera-gimbal.md) | 1 | PETG Matte + PETG Basic | 53.832 g | EUR 0.61 |
+| [camera-pod-chassis](parts/camera-pod-chassis.md) | 1 | PETG Matte + PETG Basic | 207.265 g | EUR 2.36 |
+| [dock-funnel](parts/dock-funnel.md) | 1 | PETG Basic | 376.306 g | EUR 4.29 |
+| [dock-nest](parts/dock-nest.md) | 1 | PETG Basic | 2437.206 g | EUR 27.76 |
+| [top-pulley-keeper](parts/top-pulley-keeper.md) | 4 | PETG Basic | 110.733 g | EUR 1.26 |
+| [winch-drum](parts/winch-drum.md) | 4 | PETG Basic | 4980.607 g | EUR 56.73 |
+| [winch-full-cover](parts/winch-full-cover.md) | 4 | ASA + PETG Matte | 12527.69 g | EUR 147.84 |
+| [winch-mount-and-guard](parts/winch-mount-and-guard.md) | 4 | PETG Matte + PETG Basic | 1613.452 g | EUR 18.37 |
 
 ## Non-physical procurement bucket
 
