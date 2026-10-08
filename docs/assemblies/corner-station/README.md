@@ -2,9 +2,20 @@
 
 ## Responsibility and boundary
 
-Each of four corner stations reacts positioning-line load and routes one line between the garden span and a separately documented [winch](../winch/README.md). The assembly owns its post, soil/foundation interface, outward guy, guy anchor interface, top bracket, pulley attachment, non-structural line keeper/weather cover, winch mounting envelope, and installed inspection points.
+Each of four corner stations reacts positioning-line load and routes one line between the garden span and a separately documented [winch](../winch/README.md). The assembly owns its post, soil/foundation interface, outward guy, guy anchor interface, top head, pulley attachment, non-structural line keeper/weather cover, winch mounting envelope, and installed inspection points.
 
 One corner station also supports the [dock](../dock/README.md). Dock loads and clearances must be included in that station's variant.
+
+The owner selected a [mostly printed head proposal](design-proposal.md) for
+design development. The [design package](design-package.md) supplies ribbed
+carrier halves with integrated post adapters, two rear pads, removable cosmetic
+covers, a shared marking tool and ordinary bought fasteners. Its line position
+matches the committed round-pole winch nominally. It requires no custom metal
+angle, machined saddles or backing plates. The new load-bearing prints remain
+`concept-unvalidated`; print-process, creep, load and site acceptance are recorded
+in the [acceptance form](acceptance-record.md) and
+[load-study note](printed-load-study.md). Historical 150/200 mm steel arrangements
+remain separate alternatives and preserve their purchasing records.
 
 ## V1 starting geometry
 
@@ -24,15 +35,24 @@ The final section, embedment, guy, and anchor depend on measured line loads, rea
 
 ## Load path and guying
 
-The intended primary load path is:
+The proposed printed-head load path is:
 
 ```text
-positioning line → pulley → shackle/pin → steel angle
-→ two M12 through-bolts → timber and backing plates
+positioning line → pulley → compatible bought metal pin
+→ printed carrier lug, webs and integrated post adapters
+→ two M12 through-bolts / printed rear pads / large washers → timber
 → embedded post and outward guy → soil and guy anchor
 ```
 
-The pod is light, but the horizontal component of configured line tension can dominate post loading. The outward guy opposes the inward Skycam pull so the post is not treated as an unsupported tall cantilever.
+The printed head uses two M8 cross-bolts to join its carrier halves; no steel
+angle, metal saddle or rear plate is part of that variant. Both halves and all
+fasteners must be present. Cosmetic covers and straps carry no positioning-line
+or guy load.
+
+The pod is light, but configured line tension can dominate post loading. The
+outward guy opposes one inward load direction; transverse and eccentric loads
+remain in the post/soil system. The guy attachment is independently reviewed
+bought hardware, with no product/rating yet selected.
 
 Direct embedment without concrete is a conditional concept, not a universal construction rule. Do not install it without site-specific evidence.
 
@@ -47,11 +67,14 @@ The repository baseline calls for one weather-resistant marine single block per 
 - known load rating and suitable groove geometry;
 - removable printed keeper that does not carry structural load.
 
-Specific supplier offers belong in the BOM. Two differently described preferred pulley choices currently use the same product URL; verify manufacturer and SKU before selection.
+The [purchase record](../../../bom/sourcing/wasi-pulley-2026-10-08.md) identifies
+four received WASI Barton BA01090 30 mm plain-bearing double-tang blocks.
+Inspect their tang/pin geometry and thin-line retention before selection for
+loaded operation. Supplier offers and receipt do not prove engineering fit.
 
 ## Drill-only bracket baseline
 
-The current, unvalidated per-post assembly uses:
+The historical, unvalidated per-post metal assembly uses:
 
 - 1 × galvanized solid steel angle, 150 × 40 × 150 mm, 5 mm thick;
 - 2 × galvanized perforated backing plates, 100 × 200 × 2 mm, stacked to approximately 4 mm;
@@ -78,7 +101,21 @@ Do not substitute wood screws, coach screws, or a screw-in eye. Tightening must 
 
 Material compatibility, galvanic exposure, locking method, actual edge distances, timber splitting, plate-hole geometry, and bolt preload still need engineering review.
 
-## Printed keeper and weather cover
+## Load-bearing printed head, keeper and covers
+
+The new printed carrier halves and rear pads are primary structural concepts.
+PAHT-CF or tested ASA are candidates pending a recorded print process, received
+fit, anisotropic strength, fastener-seat pressure, sustained-load creep, cyclic
+reversal and outdoor conditioning tests. Carrier print poses place the main
+web plane in deposited layers; slicer/support review and physical tests still
+apply. The [package](design-package.md#prototype-printing-and-qualification)
+defines process records and [acceptance](acceptance-record.md) keeps loads,
+limits and authorized stages open. No torque or load rating is assigned.
+
+The removable front/rear cosmetic covers are separate from the load-bearing
+carrier. Two bought straps retain them; the structural top chord is an integral
+roof and must not be removed for service. The following keeper requirements
+apply to a separate fitted keeper, not to the carrier or cosmetic covers.
 
 The removable keeper should:
 
@@ -87,7 +124,12 @@ The removable keeper should:
 - shield direct rain and UV while staying open below for drainage;
 - permit inspection and removal without unloading the structural bracket.
 
-ASA is preferred for outdoor use. PETG is prototype-only pending creep, temperature, and weather evidence. The print is expressly non-structural.
+ASA is a candidate for the non-structural keeper and cosmetic covers. Its
+weather suitability does not qualify the printed carrier. PETG has no recorded
+load-bearing qualification here. The keeper is expressly non-structural.
+The legacy keeper defaults to 58 mm and is not fitted to the received 30 mm
+block. The proposed white weather shields leave the pulley exposed and do not
+close hazardous side gaps; keeper acceptance remains open.
 
 ## Winch and line alignment
 
@@ -131,13 +173,17 @@ No cable or enclosure may compromise the structural load path, inspection access
 - Inspection schedule and discard criteria for timber, anchors, guys, metalwork, fasteners, keeper, and corrosion.
 - Docked-corner variant tested with all dock and parking loads.
 
-The repository baseline suggests at least the maximum configured line tension, preferably twice it, as a proof-load starting point. The final procedure must be derived from the approved structural design.
+A qualified reviewer defines proof loads, directions, durations, sustained-creep
+and cycle conditions, measurement accuracy and movement/discard limits from the
+approved structural design. No numerical proof factor or operating tension is
+assigned by this package.
 
 ## Open questions
 
 - Final post section, treatment, embedment, guy, and anchor for the actual site.
-- Maximum configured line tension and proof-load factor.
-- Final pulley manufacturer/SKU, groove, attachment, bearing, and fatigue life.
+- Maximum configured line tension and reviewed proof/creep/cycle procedure.
+- Printed material, print orientation/process, conditioning and validated replacement criteria.
+- Received BA01090 groove, compatible pin/tang fit, keeper, articulation and fatigue life.
 - Corrosion compatibility between galvanized and stainless components.
 - Required guard and enclosure mounting without trapping water or hiding damage.
 - Whether seasonal timber movement requires scheduled resurvey or automatic calibration checks.

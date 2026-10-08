@@ -45,10 +45,10 @@ direction and part transforms separately from the booklet's grayscale
 `figure-manifest.json`.
 
 [Booklet jobs in CI](../../.github/workflows/ci.yml) build and check affected camera pod
-variants and the winch from fresh CAD exports on relevant pull requests, and all
-three on release runs or manual dispatches. PR PDFs/ZIPs are downloadable for 14 days. The
+variants the winch and corner support from fresh CAD exports on relevant pull requests, and all
+four on release runs or manual dispatches. PR PDFs/ZIPs are downloadable for 14 days. The
 [CAD release workflow](../../.github/workflows/ci.yml) publishes the
-three PDF/ZIP pairs with the same commit's STLs and checksums on `main`. CI does
+four PDF/ZIP pairs with the same commit's STLs and checksums on `main`. CI does
 not use `--publish` or rewrite checked-in snapshots/evidence.
 
 ```sh

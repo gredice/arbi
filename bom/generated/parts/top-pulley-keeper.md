@@ -17,7 +17,7 @@
 
 ## Notes
 
-Non-structural only; must not carry pulley or cable load and should not rub the line during normal running.
+Non-structural only; must not carry pulley or cable load and should not rub the line during normal running. The legacy default is a 58 mm keeper, not fitted to the purchased BA01090 30 mm block; it is not a completed guard for the corner-head package.
 
 ## Used in
 

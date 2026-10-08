@@ -17,7 +17,7 @@
 
 ## Notes
 
-Project uses 8; linked BAUHAUS product is sold as a 40-piece box. Do not use DIN 571 wood/coach screws.
+Historical metal baseline uses eight; linked BAUHAUS product is sold as a 40-piece box. Do not use DIN 571 wood/coach screws. M12 x 160 does not cover the round metal-saddle alternative or any proposed printed-head stack; select the distinct replacement hardware set and verify the received stack.
 
 ## Used in
 

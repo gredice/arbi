@@ -33,7 +33,7 @@ export type ScenePart = {
     matrix?: number[][];
 };
 
-export type SceneSource = { kind: "release" | "snapshot"; tag?: string; asset?: string; path?: string; current?: boolean };
+export type SceneSource = { kind: "release" | "snapshot" | "local"; tag?: string; asset?: string; path?: string; current?: boolean };
 
 export type Scene = {
     kind: "glb" | "stl";
@@ -44,6 +44,7 @@ export type Scene = {
     figureDir?: string;
     figures: string[];
     pose: string | null;
+    configuration?: string;
     source: SceneSource;
     parts: ScenePart[];
 };

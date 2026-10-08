@@ -8,6 +8,7 @@ const variants = [
     { variant: 'winch', script: 'scripts/winch-booklet/build.py', artifact: 'ARBI-winch' },
     { variant: 'bench', script: 'scripts/camera-pod-booklet/build.py', artifact: 'ARBI-camera-pod-bench' },
     { variant: 'enclosure', script: 'scripts/camera-pod-booklet/build.py', artifact: 'ARBI-camera-pod-enclosure' },
+    { variant: 'corner', script: 'scripts/corner-support/build.py', artifact: 'ARBI-corner-support' },
 ];
 // The native dashboard realtime test starts a separately built edge consumer.
 // This test-only dependency is deliberately absent from the deployed app graph.
@@ -64,7 +65,7 @@ export function plan(changes, { workspaces = readWorkspaces(), eventName = 'pull
     const releaseTooling = has('scripts/cad-release-data.mjs', 'scripts/publish-cad-release.mjs', 'scripts/check-site-release.mjs');
     const ownedScripts = ['scripts/check-docs.mjs', 'scripts/check-cad.mjs', 'scripts/check-cad.test.mjs', 'scripts/check-booklet.py', 'scripts/check-winch-cover-meshes.py', 'scripts/check-winch-pole-meshes.py', 'scripts/cad-release-data.mjs', 'scripts/publish-cad-release.mjs', 'scripts/check-site-release.mjs'];
     const unknownWorkspace = paths.some((path) => /^(apps|packages)\//u.test(path) && !workspaces.some((workspace) => path.startsWith(`${workspace.path}/`)));
-    const unknownScript = paths.some((path) => path.startsWith('scripts/') && !ownedScripts.includes(path) && !/^scripts\/(ci|spikes|cad-previews|winch-booklet|camera-pod-booklet)\//u.test(path));
+    const unknownScript = paths.some((path) => path.startsWith('scripts/') && !ownedScripts.includes(path) && !/^scripts\/(ci|spikes|cad-previews|winch-booklet|camera-pod-booklet|corner-support)\//u.test(path));
     const full = changes === null || unknownWorkspace || unknownScript || under('.github/workflows/') || under('.github/actions/') || under('scripts/ci/');
     const softwareFull = full || has('package.json', 'pnpm-lock.yaml', 'pnpm-workspace.yaml', 'turbo.json', 'tsconfig.base.json', '.npmrc', '.nvmrc');
     const cadToolchain = full || has('package.json', 'pnpm-lock.yaml', 'pnpm-workspace.yaml', '.npmrc', '.nvmrc');
@@ -91,12 +92,13 @@ export function plan(changes, { workspaces = readWorkspaces(), eventName = 'pull
     const sharedBooklets = full || releaseTooling || under('hardware/lib/') || has('hardware/models.json', 'hardware/models.schema.json', 'hardware/model-aliases.json', 'scripts/check-booklet.py', 'docs/project/industrial-design.md', 'LICENSE') || under('scripts/winch-booklet/');
     const winch = sharedBooklets || under('hardware/assemblies/winch/') || has('scripts/check-winch-cover-meshes.py', 'scripts/check-winch-pole-meshes.py');
     const pod = sharedBooklets || under('hardware/assemblies/camera-pod/') || under('scripts/camera-pod-booklet/');
-    // Every main release contains all three packs from this commit. PRs can build
+    const corner = sharedBooklets || under('hardware/assemblies/corner-station/') || under('docs/assemblies/corner-station/') || under('scripts/corner-support/');
+    // Every main release contains all four packs from this commit. PRs can build
     // only the affected assembly; release runs need the entire snapshot.
-    const releaseInputs = previews || winch || pod;
+    const releaseInputs = previews || winch || pod || corner;
     const release = ref === 'refs/heads/main' && eventName !== 'pull_request' && releaseInputs;
     if (release) { cad = true; previews = true; }
-    const booklets = variants.filter(({ variant }) => release || (variant === 'winch' ? winch : pod));
+    const booklets = variants.filter(({ variant }) => release || (variant === 'winch' ? winch : variant === 'corner' ? corner : pod));
     const matrix = workspaces.filter((workspace) => selected.has(workspace.name)).map(({ name, path }) => ({ name, path }));
     return {
         workspace: matrix.length > 0,
