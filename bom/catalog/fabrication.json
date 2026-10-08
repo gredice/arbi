@@ -105,7 +105,7 @@
       "hardware/lib/winch-drum.scad": "0684c28615d398d1b7a2beb7d15a4fa4e27d62382b8a8bde1470367f5de1e837",
       "hardware/lib/winch-mount.scad": "05bb92d3955500a3a52914c01f7f530bf3a243f60bef69f7d4a7af7a461e231e",
       "hardware/lib/winch-pole.scad": "58e2f446a74cb8d38e31c332727ae31ab6e10ec49ce38ba16dcd88a20ba8fc85",
-      "hardware/models.json": "c486409fce4c577dcab5ef08c57399b762b1fde8035360246a0a88932a8e155e"
+      "hardware/models.json": "8f4d4497618c09ec2bfadec197836343f94fcc682b93cae6a8a8282b92b4705c"
     },
     "models": [
       {

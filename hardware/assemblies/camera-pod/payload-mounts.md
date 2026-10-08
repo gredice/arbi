@@ -1,5 +1,7 @@
 # Payload bench mount family
 
+This is an explicit dry bench alternative. Its six exclusive models (electronics deck/cover, pan yoke, camera cradle/hood and tilt-pivot support) are archived from the current compact enclosure inventory and BOM. They remain available through this configuration's source and bench booklet; use the [integrated enclosure](payload-enclosure.md) for the current pod print kit. Shared spider, spacers, pan mount and horn retainers remain active.
+
 This is a proposed, unbuilt mount set for the existing r0.1.0 spider. The stock Pi 3A+, Camera Module 3 Standard, and two 3.7 g servo architecture is unchanged. All models remain `concept-unvalidated`. The current deck and pan yoke are r0.1.1; the other fabrication models retain r0.1.0. The [integrated rain enclosure](payload-enclosure.md) is an optional configuration of this family with its own print list, cable routing, fastener changes and evidence boundary.
 
 The dry bench set adds a Pi/power deck, four removable spider spacers, a pan servo mount, pan yoke, supported camera cradle, two stock-horn retainers, camera hood, and removable electronics cover. The enclosure replaces that cover and requires the revised deck's CSI passage and yoke's servo-boot attachment ears. A separate servo fit coupon checks the assumed 20 x 8.5 mm body and 24 mm lug-hole pitch before the full print. It does not test output-axis position or horn geometry; those must also be measured.

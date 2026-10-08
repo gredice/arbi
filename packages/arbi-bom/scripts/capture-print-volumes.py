@@ -11,11 +11,22 @@ import math
 import struct
 import subprocess
 import tempfile
+import zipfile
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
+
+
+def verify_registry_metadata(previous, current, ids):
+    """Archiving unrelated entries may preserve all costed fabrication identities."""
+    old = {m['id']: m for m in previous['models']}
+    active = {m['id']: m for m in current['models']}
+    keys = ('id', 'revision', 'entrypoint', 'output', 'artifactRole')
+    for id in ids:
+        if id not in old or id not in active or any(old[id][k] != active[id][k] for k in keys):
+            raise ValueError(f'Release fabrication identity changed or archived: {id}')
 
 
 def volume_cm3(raw):
@@ -54,10 +65,26 @@ def capture(directory):
         raise ValueError('Release manifest checksum mismatch')
     sources = {p: h for p, h in release['inputs'].items()
                if p.startswith('hardware/') and (p.endswith('.scad') or p == 'hardware/models.json')}
-    for path, expected in sources.items():
-        if hashlib.sha256((ROOT / path).read_bytes()).hexdigest() != expected:
-            raise ValueError(f'Release does not match current CAD: {path}')
     ids = {component['modelId'] for recipe in catalog['recipes'] for component in recipe['components']}
+    for path, expected in sources.items():
+        actual = hashlib.sha256((ROOT / path).read_bytes()).hexdigest()
+        if path == 'hardware/models.json' and actual != expected:
+            # Compare against the checksum-verified original registry. This permits
+            # metadata/archival changes only; SCAD hashes and costed identities still
+            # have to match the original meshes before volumes can be reused.
+            name = f'cad-sources-{release["commit"]}.zip'
+            archive = directory / name
+            if hashlib.sha256(archive.read_bytes()).hexdigest() != checksums[name]:
+                raise ValueError('Release source archive checksum mismatch')
+            with zipfile.ZipFile(archive) as source:
+                original = source.read(path)
+            if hashlib.sha256(original).hexdigest() != expected:
+                raise ValueError('Release registry source checksum mismatch')
+            verify_registry_metadata(json.loads(original), registry, ids)
+            sources[path] = actual
+            print('Verified unchanged costed fabrication identities against the release registry; recording the current registry metadata hash.')
+        elif actual != expected:
+            raise ValueError(f'Release does not match current CAD: {path}')
     models = []
     for model in registry['models']:
         if model['id'] not in ids:

@@ -5,11 +5,11 @@ Shared parameters live in [the camera-pod library](../../lib/camera-pod.scad).
 
 The camera-pod and payload families contain individual **concept-unvalidated fabrication models** and non-manufacturing CSG references. No committed record demonstrates printed mass or fit to the purchased Pi, camera, servos, converter, or line hardware. ASA remains the preferred exposed-release material; PETG is acceptable only for prototypes pending creep and weather evidence.
 
-## Historical camera-pod print list
+## Archived camera-pod concept list
 
-One BOM `camera-pod-chassis` plus one `camera-gimbal` means one flying-pod printed kit.
+One BOM `camera-pod-chassis` plus one `camera-gimbal` means the current integrated flying-pod printed kit. **Do not print the archived concept list below for that kit.**
 
-The preferred public appearance is the [integrated payload enclosure](payload-enclosure.md), following the [design conventions](../../../docs/project/industrial-design.md). Use its configuration table for the current enclosed print kit. The print list below describes the historical camera-pod concept family. The alternative [payload bench mount set](payload-mounts.md) shares the spider but uses its own electronics and gimbal mounts; follow that set's quantities when building the bench arrangement. The BOM source lists retain both families for traceability and do not require printing both. Neither arrangement has demonstrated the complete flying mass limit.
+The preferred public appearance is the [integrated payload enclosure](payload-enclosure.md), following the [design conventions](../../../docs/project/industrial-design.md). Use its configuration table for the current enclosed print kit. The print list below describes the historical camera-pod concept family. The alternative [payload bench mount set](payload-mounts.md) shares the spider but uses its own electronics and gimbal mounts; follow that set's quantities when building the bench arrangement. The current BOM source lists contain only the compact enclosure kit. Historical models are retained in `hardware/models.json` under `archivedModels`, excluded from active inventory and individual CAD releases. Neither arrangement has demonstrated the complete flying mass limit.
 
 | Source | Per pod | Role |
 | --- | ---: | --- |

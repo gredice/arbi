@@ -64,6 +64,7 @@ pnpm --filter @arbi/docs test
 `dev` and `build` first run `scripts/compile-data.mjs`. It writes the ignored `public/data` from committed sources and CI-built CAD releases only:
 
 - `hardware/models.json` supplies models, revisions, statuses, sources and release output names.
+- Its `archivedModels` entries retain historical detail pages under `/parts/archive`, with archive reasons and current replacements. They are excluded from active catalogs, BOM fabrication sources, installed counts, figures and individual downloads. The dry bench booklet is labeled as an explicit alternative configuration.
 - `bom/catalog`, `bom/assemblies` and `bom/generated/arbi-v1-hr-zagreb.json` supply systems, items, quantities, offers and the incomplete-cost summary.
 - `docs/**/*.md`, `hardware/**/*.md` and `bom/README.md` supply the document index and rendered text. The text is bundled as JSON so the repository's Markdown check does not scan relocated copies.
 - The payload-enclosure and winch booklet packs supply the assembly GLB, STL meshes, assembly and figure manifests, and line-art figures. A pack comes from the latest `cad-vMAJOR.MINOR.PATCH` release after its checksums, release input hashes, registered outputs and embedded CAD/booklet sources match the checkout. Production rejects missing or stale releases and packs instead of falling back to old assemblies. Preview builds may use a source-checked committed pack; otherwise the affected scene is omitted until its release is ready.

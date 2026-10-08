@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Crumb } from "@/components/Crumb";
 import { InventoryGrid } from "@/components/InventoryGrid";
 import { data, inventory, systemBySlug } from "@/lib/site";
@@ -28,6 +29,7 @@ export default function Parts() {
                         </section>
                     );
                 })}
+                <Link href="/parts/archive" className="mt-10 block underline">Archived models · excluded from current fabrication</Link>
             </div>
         </>
     );

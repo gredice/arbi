@@ -3,6 +3,7 @@ from pathlib import Path
 import argparse,ast,re,hashlib,json,shutil,subprocess,sys,zipfile
 from datetime import date
 from collections import Counter
+from model_selection import selected_models
 
 HERE=Path(__file__).resolve().parent
 REPO=HERE.parents[1]
@@ -74,11 +75,10 @@ def main():
     config={'variant':'enclosure' if args.enclosure else 'bench','units':'mm','pan_deg':[-90,90,5],'tilt_deg':[0,70,5],
       'hardware_basis':'declared nominal references; supplier dimensions unverified','evidence_date':date.today().isoformat()}
     registry=json.loads((REPO/'hardware/models.json').read_text())
-    enclosure_models={'payload-integrated-deck','payload-integrated-camera-hood','payload-integrated-gimbal-head','payload-integrated-gimbal-carrier','payload-integrated-camera-cradle','payload-integrated-tilt-pivot-support','payload-rain-hood','payload-enclosure-base','payload-pan-fairing','payload-tilt-servo-boot','payload-camera-cowl'}
-    selected=[m for m in registry['models'] if m['assembly']=='camera-pod' and m['artifactRole']=='fabrication' and (m['id']=='camera-pod-spider' or m['id'].startswith('payload-')) and (args.enclosure or m['id'] not in enclosure_models) and (not args.enclosure or m['id'] not in {'payload-electronics-cover','payload-electronics-deck','payload-camera-hood','payload-pan-yoke','payload-camera-cradle','payload-tilt-pivot-support','payload-camera-cowl','payload-pan-fairing','payload-tilt-servo-boot'})]
+    selected=selected_models(registry,args.enclosure)
     config['fabrication_models']=[{'id':m['id'],'revision':m['revision'],'output':m['output']} for m in selected]
     artifact='ARBI-payload-enclosure' if args.enclosure else 'ARBI-payload'
-    inputs=list((REPO/'hardware/assemblies/camera-pod').glob('*.scad'))+[REPO/'hardware/lib/arbi.scad',REPO/'hardware/lib/camera-pod.scad',REPO/'hardware/lib/payload-mounts.scad',REPO/'hardware/lib/payload-enclosure.scad',REPO/'hardware/lib/payload-integrated-deck.scad',REPO/'hardware/lib/payload-integrated-head.scad',REPO/'hardware/lib/payload-integrated-gimbal.scad',REPO/'hardware/models.json',HERE/'reference-parts.scad',HERE/'export_models.py']
+    inputs=list((REPO/'hardware/assemblies/camera-pod').glob('*.scad'))+[REPO/'hardware/lib/arbi.scad',REPO/'hardware/lib/camera-pod.scad',REPO/'hardware/lib/payload-mounts.scad',REPO/'hardware/lib/payload-enclosure.scad',REPO/'hardware/lib/payload-integrated-deck.scad',REPO/'hardware/lib/payload-integrated-head.scad',REPO/'hardware/lib/payload-integrated-gimbal.scad',REPO/'hardware/models.json',HERE/'reference-parts.scad',HERE/'export_models.py',HERE/'model_selection.py']
     hashes={str(p.relative_to(REPO)):hashlib.sha256(p.read_bytes()).hexdigest() for p in inputs}
     if args.reuse_models:
         assert json.loads((root/'configuration.json').read_text())['variant']==config['variant'],'Variant changed; use a full export'
@@ -93,7 +93,7 @@ def main():
     shutil.copytree(REPO/'scripts/winch-booklet/fonts',root/'source/fonts',dirs_exist_ok=True)
     shutil.copy2(REPO/'scripts/winch-booklet/requirements.txt',root/'source/requirements.txt')
     shutil.copy2(REPO/'LICENSE',root/'source/LICENSE-ARBI')
-    for name in ['reference-parts.scad','export_models.py','render_figures.py','render_preview.py','build_booklet.py','integration.py','check_integration.py','check_service.py']:
+    for name in ['reference-parts.scad','export_models.py','model_selection.py','render_figures.py','render_preview.py','build_booklet.py','integration.py','check_integration.py','check_service.py']:
         shutil.copy2(HERE/name,root/'source'/name)
     shutil.copy2(HERE/'pack-README.md',root/'README.md')
     shutil.copy2(HERE/'sources.json',root/'sources.json')
