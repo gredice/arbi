@@ -6,6 +6,7 @@ import { GLTFLoader, type GLTF } from "three/addons/loaders/GLTFLoader.js";
 import { STLLoader } from "three/addons/loaders/STLLoader.js";
 import { toCreasedNormals } from "three/addons/utils/BufferGeometryUtils.js";
 import type { MeshRef, Scene, ScenePart, Vec3 } from "@/lib/types";
+import { OutlineGeometry } from "./outlines";
 
 const DATA = "/data/";
 
@@ -59,11 +60,6 @@ function withNormals(g: THREE.BufferGeometry) {
     if (!normalCache.has(g)) normalCache.set(g, toCreasedNormals(g, Math.PI / 6));
     return normalCache.get(g)!;
 }
-const edgeCache = new WeakMap<THREE.BufferGeometry, THREE.EdgesGeometry>();
-function edgesOf(g: THREE.BufferGeometry) {
-    if (!edgeCache.has(g)) edgeCache.set(g, new THREE.EdgesGeometry(g, 28));
-    return edgeCache.get(g)!;
-}
 const stlCache = new Map<string, Promise<THREE.BufferGeometry>>();
 function loadSTL(url: string) {
     if (!stlCache.has(url)) stlCache.set(url, new STLLoader().loadAsync(DATA + url));
@@ -90,6 +86,8 @@ export class Viewer {
     private root = new THREE.Group();
     private raycaster = new THREE.Raycaster();
     private pointer = new THREE.Vector2(9, 9);
+    private localCamera = new THREE.Vector3();
+    private inverseWorld = new THREE.Matrix4();
     private listeners: { [K in keyof Events]: Events[K][] } = { pick: [], hover: [], frame: [] };
     private resizeObserver: ResizeObserver;
     private visibility: IntersectionObserver;
@@ -147,6 +145,14 @@ export class Viewer {
         this.resizeObserver.disconnect();
         this.visibility.disconnect();
         this.controls.dispose();
+        for (const e of this.parts) for (const m of e.meshes) {
+            (m.material as THREE.Material).dispose();
+            const line = m.children[0] as THREE.LineSegments<OutlineGeometry, THREE.LineBasicMaterial> | undefined;
+            if (line?.geometry instanceof OutlineGeometry) {
+                line.geometry.dispose();
+                line.material.dispose();
+            }
+        }
         this.renderer.dispose();
         this.renderer.domElement.remove();
     }
@@ -188,7 +194,7 @@ export class Viewer {
             if (style !== "light") {
                 const d = drawing(part.color, style);
                 m.userData.draw = d;
-                const edges = new THREE.LineSegments(edgesOf(m.geometry), new THREE.LineBasicMaterial({ color: d.edge, toneMapped: false, transparent: true }));
+                const edges = new THREE.LineSegments(new OutlineGeometry(m.geometry), new THREE.LineBasicMaterial({ color: d.edge, toneMapped: false, transparent: true }));
                 edges.raycast = () => {};
                 m.add(edges);
             }
@@ -310,6 +316,7 @@ export class Viewer {
         this.explode += (this.target - this.explode) * 0.08;
         this.pose(this.explode);
         this.controls.update();
+        this.scene.updateMatrixWorld(true);
         let hit: Entry | null = null;
         if (this.pointer.x < 2 && this.controls.enabled) {
             this.raycaster.setFromCamera(this.pointer, this.camera);
@@ -332,9 +339,11 @@ export class Viewer {
                 const d = m.userData.draw as Drawing | undefined;
                 if (d) mat.color.setHex(hot ? d.hoverFace : d.face);
                 else if ("emissive" in mat) mat.emissive.setHex(this.hovered && e.part.model === this.hovered.part.model ? 0x111111 : 0x000000);
-                const line = m.children[0] as THREE.LineSegments | undefined;
+                const line = m.children[0] as THREE.LineSegments<OutlineGeometry, THREE.LineBasicMaterial> | undefined;
                 if (line && d) {
-                    const lm = line.material as THREE.LineBasicMaterial;
+                    this.localCamera.copy(this.camera.position).applyMatrix4(this.inverseWorld.copy(m.matrixWorld).invert());
+                    line.geometry.update(this.localCamera);
+                    const lm = line.material;
                     lm.opacity = mat.opacity;
                     lm.color.setHex(hot ? d.hoverEdge : d.edge);
                 }
