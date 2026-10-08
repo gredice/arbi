@@ -88,7 +88,7 @@ test('production rejects offline archival fallback; previews omit stale scenes a
   } finally { rmSync(output, { recursive: true, force: true }); }
 });
 
-test('publication handles large release history, refreshes reruns and preserves newer Latest commits', () => {
+test('publication handles large paginated release histories, reruns and Latest ancestry', () => {
   const temp = mkdtempSync(join(tmpdir(), 'arbi-release-publish-'));
   try {
     const bin = join(temp, 'bin'); mkdirSync(bin);
@@ -96,9 +96,12 @@ test('publication handles large release history, refreshes reruns and preserves 
     writeFileSync(gh, `#!${process.execPath}\n`
       + `import {appendFileSync} from 'node:fs';\nconst args=process.argv.slice(2);appendFileSync(process.env.CALLS, JSON.stringify(args)+'\\n');\n`
       + `if(args[0]==='api') { const path=args[1];\n`
-      + `if(path.includes('releases?')) { const releases=process.env.MODE === 'new' ? [] : [{tag_name:'cad-v0.1.0',target_commitish:process.env.GITHUB_SHA,draft:process.env.MODE === 'draft',assets:[{name:'x'.repeat(2*1024*1024)}]}];\n`
-      + `if(args[args.indexOf('--jq')+1] === '.[] | {tag_name, target_commitish, draft} | @json') { for(const {tag_name,target_commitish,draft} of releases) console.log(JSON.stringify({tag_name,target_commitish,draft})); } else console.log(JSON.stringify([releases])); }\n`
-      + `else if(path.endsWith('releases/latest')) console.log(JSON.stringify({tag_name:'cad-v0.1.0'}));\n`
+      + `if(path.includes('releases?')) {\n`
+      + `const releases=Array.from({length:120}, (_,i)=>({tag_name:'cad-'+i.toString(16).padStart(40,'0'),target_commitish:'c'.repeat(40),draft:false}));\n`
+      + `if(process.env.MODE !== 'new') releases.push({tag_name:'cad-v0.1.0',target_commitish:process.env.GITHUB_SHA,draft:process.env.MODE === 'draft'});\n`
+      + `if(args.includes('--jq')) { for(const release of releases) console.log(JSON.stringify(release)); }\n`
+      + `else console.log(JSON.stringify([{...releases[0],assets:[{body:'x'.repeat(2*1024*1024)}]},...releases.slice(1)])); }\n`
+      + `else if(path.endsWith('releases/latest')) console.log(JSON.stringify({tag_name:'cad-v0.1.0',...(args.includes('--jq') ? {} : {assets:[{body:'x'.repeat(2*1024*1024)}]})}));\n`
       + `else if(path.includes('/commits/')) console.log('b'.repeat(40));\n`
       + `else if(path.includes('/compare/')) console.log(process.env.RELATION); else process.exit(2); }\n`, { mode: 0o755 });
     for (const [relation, latest] of [['ahead', true], ['behind', false]]) {
@@ -109,6 +112,11 @@ test('publication handles large release history, refreshes reruns and preserves 
       });
       assert.match(readFileSync(outputs, 'utf8'), new RegExp(`latest=${latest}`));
       const commands = readFileSync(calls, 'utf8').trim().split('\n').map(JSON.parse);
+      const history = commands.find((a) => a[1]?.includes('releases?'));
+      assert.ok(history.includes('--paginate'));
+      assert.deepEqual(history.slice(-2), ['--jq', '.[] | {tag_name,target_commitish,draft}']);
+      assert.ok(!history.includes('--slurp'));
+      assert.deepEqual(commands.find((a) => a[1]?.endsWith('releases/latest')).slice(-2), ['--jq', '{tag_name}']);
       assert.ok(commands.some((a) => a.join(' ') === `release edit cad-v0.1.0 --draft=false --latest=${latest}`));
       assert.ok(!commands.some((a) => a[1] === 'create' || a[1] === 'upload'));
     }

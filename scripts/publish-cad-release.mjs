@@ -11,10 +11,10 @@ if (repo !== 'gredice/arbi' || !/^[0-9a-f]{40}$/.test(commit ?? '') || !output |
   throw new Error('CAD publication requires gredice/arbi main, an exact commit and CAD_OUTPUT');
 }
 const gh = (...args) => execFileSync('gh', args, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim();
-// Release assets make the full history exceed execFileSync's output buffer.
-// Filter each page in gh and emit one compact metadata object per line.
-const history = gh('api', `repos/${repo}/releases?per_page=100`, '--paginate', '--jq', '.[] | {tag_name, target_commitish, draft} | @json');
-const releases = history ? history.split('\n').map((line) => JSON.parse(line)) : [];
+// Asset metadata grows far beyond Node's command-output buffer. Keep only the
+// version/commit fields, with one JSON object per line across every API page.
+const releases = gh('api', `repos/${repo}/releases?per_page=100`, '--paginate', '--jq', '.[] | {tag_name,target_commitish,draft}')
+  .split('\n').filter(Boolean).map((line) => JSON.parse(line));
 const existing = releases.filter((r) => CAD_TAG.test(r.tag_name) && r.target_commitish === commit
   && (!process.env.CAD_VERSION || r.tag_name === `cad-v${process.env.CAD_VERSION}`))
   .sort((a, b) => compareCadTags(b.tag_name, a.tag_name))[0];
@@ -28,7 +28,7 @@ let latest = true;
 // poorly); check that pointer too. Only an actual 404 permits an absent pointer.
 let pointer;
 try {
-  pointer = JSON.parse(gh('api', `repos/${repo}/releases/latest`));
+  pointer = JSON.parse(gh('api', `repos/${repo}/releases/latest`, '--jq', '{tag_name}'));
 } catch (error) {
   if (!String(error.stderr).includes('HTTP 404')) throw error;
 }
