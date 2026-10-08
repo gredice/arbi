@@ -212,6 +212,16 @@ test("bundle part-count shares reconcile to goods and physical assembly totals",
   assert.match(renderMarkdown(calculated), /part-count/);
 });
 
+test("duplicate bundle parts are rejected before cost allocation", async () => {
+  const repository = await loadBomRepository(repositoryRoot);
+  const kit = repository.offers.offers.find((offer) => offer.id === "stepperonline-4-axis-v2-kit")!;
+  kit.purchaseUnit.contents.push({ partId: "nema23-closed-loop-motor", quantity: "1" });
+  kit.purchaseUnit.contents.push({ partId: "nema23-closed-loop-motor", quantity: "4" });
+  const expected = "Offer stepperonline-4-axis-v2-kit contains duplicate part nema23-closed-loop-motor";
+  assert.deepEqual(validateRepository(repository).errors, [expected]);
+  assert.throws(() => calculateBom(repository), /contains duplicate part nema23-closed-loop-motor/);
+});
+
 test("bundle allocations include purchased surplus and multiple kits", async () => {
   const repository = await loadBomRepository(repositoryRoot);
   for (const assembly of repository.assemblies.assemblies) {
