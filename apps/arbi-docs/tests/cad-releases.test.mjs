@@ -127,5 +127,12 @@ test('publication reruns refresh existing releases and old source commits cannot
       assert.ok(upload >= 0 && publish > upload);
       assert.ok(commands[upload].includes(mode === 'draft' ? '--clobber' : '--draft'));
     }
+    const incomplete = join(temp, 'incomplete'); mkdirSync(incomplete);
+    const calls = join(temp, 'calls-incomplete');
+    assert.throws(() => execFileSync(process.execPath, ['scripts/publish-cad-release.mjs'], {
+      cwd: root, env: { ...process.env, PATH: `${bin}:${process.env.PATH}`, GITHUB_SHA: 'a'.repeat(40), GITHUB_REPOSITORY: 'gredice/arbi',
+        GITHUB_REF: 'refs/heads/main', CAD_OUTPUT: incomplete, GITHUB_OUTPUT: join(temp, 'output-incomplete'), CALLS: calls, RELATION: 'ahead', MODE: 'new', CAD_VERSION: '' }, stdio: 'pipe',
+    }), /ENOENT/);
+    assert.ok(!readFileSync(calls, 'utf8').trim().split('\n').map(JSON.parse).some((a) => a[0] === 'release'));
   } finally { rmSync(temp, { recursive: true, force: true }); }
 });
