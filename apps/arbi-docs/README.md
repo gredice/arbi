@@ -17,12 +17,15 @@ The design is the selected "Manual + Ink" direction. White manual pages use heav
 
 Code layout: `src/lib/site.ts` reads the compiled data on the server; `src/lib/markdown.ts` renders documents; `src/components/three/viewer.ts` is the three.js viewer used by the client components `CoverTeardown`, `SystemExplorer` and `PartViewer`. Links from the earlier single-page site (`#/systems/winch`) are forwarded to their routes.
 
+Line art combines sharp feature edges and open boundaries with camera-dependent silhouettes, so rounded surfaces keep a continuous outline while orbiting, zooming or exploding an assembly. Coplanar triangle edges stay hidden. Mesh adjacency is cached; contour buffers belong to each displayed instance and are released with the viewer.
+
 ## Commands
 
 ```bash
 pnpm --filter @arbi/docs dev
 pnpm --filter @arbi/docs build
 pnpm --filter @arbi/docs typecheck
+pnpm --filter @arbi/docs test
 ```
 
 `dev` and `build` first run `scripts/compile-data.mjs`. It writes the ignored `public/data` from committed sources and CI-built CAD releases only:
