@@ -71,6 +71,8 @@ The [BAUHAUS shaft revision of the 2026-09-08 quote](quotes/hr-zagreb-2026-09-08
 
 `capturedAt` records when a quote snapshot was assembled. It does not claim that every price, availability state, or shipping charge was observed at that instant. Individual rows use `observedAt: null` until a defensible observation time is known, and the calculator reports the missing evidence as a completeness warning.
 
+The current [2026-10-08 WASI pulley quote](quotes/hr-zagreb-2026-10-08-wasi-pulley.json) preserves those earlier observations and records the owner's four Barton BA01090 pulleys at EUR 14.20 each, EUR 56.80 total, collected in store with zero delivery charge. The scenario now selects `wasi-barton-30mm` instead of the unresolved combined supplier offer. [Purchase and shipping evidence](sourcing/wasi-pulley-2026-10-08.md) keeps the separate WASI delivery tariff for future orders; it is not charged to this purchase. Goods VAT treatment remains unknown because no breakdown was supplied. The earlier quotes remain preserved.
+
 In-house fabrication offers keep a null goods price until material, energy, machine time, labour, scrap, and safety costs are evidenced. `not-applicable` shipping means only that there is no external shipment; it must never be interpreted as zero fabrication cost.
 
 ## Reports

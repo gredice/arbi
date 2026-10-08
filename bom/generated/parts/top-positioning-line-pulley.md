@@ -17,7 +17,7 @@
 
 ## Notes
 
-Primary: Allen A2030 30 mm Dynamic, 26 g, SWL 140 kg. Zagreb/local alternative: Barton 30 mm Standard, WASI, https://wasi.hr/kolotura-jednostruka-fiksna-za-uze-do-8m. Other suitable options: Harken 348 29 mm fixed Carbo; Lewmar 30 mm Control, https://www.imnasa.com/hr/katroli/control-pulley-simple-30mm-black-lewmar-l29901321bk; Viadana 25 mm fixed stainless, https://www.imnasa.com/hr/katroli/fixed-block-simple-25mm-s-s-viadana-28000013. Check stock and price before ordering.
+Purchased prototype: Barton BA01090 30 mm STANDARD, WASI, https://wasi.hr/kolotura-jednostruka-fiksna-za-uze-do-8m; four units collected in store, confirmed 2026-10-08. Supplier lists a plain bearing; repeated-movement friction and retention remain unverified. Alternative: Allen A2030 30 mm Dynamic, 26 g, SWL 140 kg. Other alternatives: Harken 348 29 mm fixed Carbo; Lewmar 30 mm Control, https://www.imnasa.com/hr/katroli/control-pulley-simple-30mm-black-lewmar-l29901321bk; Viadana 25 mm fixed stainless, https://www.imnasa.com/hr/katroli/fixed-block-simple-25mm-s-s-viadana-28000013. Check stock and price before further orders. Purchase evidence: bom/sourcing/wasi-pulley-2026-10-08.md.
 
 ## Used in
 

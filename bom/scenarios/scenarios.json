@@ -6,7 +6,7 @@
       "name": "ARBI V1 — Zagreb repository baseline",
       "buildId": "arbi-v1",
       "destinationId": "hr-zagreb",
-      "quoteSnapshotId": "hr-zagreb-2026-09-08-bauhaus-shaft",
+      "quoteSnapshotId": "hr-zagreb-2026-10-08-wasi-pulley",
       "reportCurrency": "EUR",
       "include": [
         "base"
@@ -63,7 +63,7 @@
           "roller-lever-microswitch": "aliexpress-roller-lever-microswitch",
           "shaft-collar-8mm": "aliexpress-shaft-collar-8mm",
           "stainless-fastener-assortment": "aliexpress-stainless-fastener-assortment",
-          "top-positioning-line-pulley": "baseline-combined-top-pulley-offer",
+          "top-positioning-line-pulley": "wasi-barton-30mm",
           "top-pulley-bracket": "bauhaus-top-pulley-bracket",
           "top-pulley-keeper": "in-house-fabrication-top-pulley-keeper",
           "winch-drum": "in-house-fabrication-winch-drum",
@@ -80,7 +80,8 @@
       "notes": [
         "Pins record the repository baseline offer selection; they do not imply that price, tax, availability, or packaging has been reverified.",
         "Optional and deferred usages are excluded.",
-        "BAUHAUS 2000 mm rod is allocated to three 340 mm passive and one 660 mm powered prototype shaft allowances; cutting/fit finishing and local stock remain unconfirmed."
+        "BAUHAUS 2000 mm rod is allocated to three 340 mm passive and one 660 mm powered prototype shaft allowances; cutting/fit finishing and local stock remain unconfirmed.",
+        "Four owner-confirmed WASI Barton BA01090 pulleys are selected at EUR 14.20 each with store pickup and EUR 0 delivery. The 2026-10-08 quote preserves earlier observations for every other offer; purchase does not establish engineering approval."
       ]
     }
   ]

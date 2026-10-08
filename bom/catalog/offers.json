@@ -1382,17 +1382,17 @@
       "id": "wasi-barton-30mm",
       "supplierId": "wasi",
       "checkoutGroupId": "wasi-hr",
-      "qualification": "candidate",
+      "qualification": "baseline-selected",
       "listing": {
-        "supplierSku": null,
+        "supplierSku": "BA01090",
         "url": "https://wasi.hr/kolotura-jednostruka-fiksna-za-uze-do-8m",
-        "marketRegion": null
+        "marketRegion": "Croatia"
       },
       "purchaseUnit": {
         "label": "single pulley",
-        "packagingKnown": false,
-        "minimum": null,
-        "increment": null,
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
         "contents": [
           {
             "partId": "top-positioning-line-pulley",
@@ -1400,7 +1400,7 @@
           }
         ]
       },
-      "note": "Local Barton 30 mm alternative; price is not recorded separately."
+      "note": "Owner confirmed four Barton BA01090 30 mm STANDARD pulleys for EUR 56.80 total with store pickup and no delivery charge on 2026-10-08. Listing uses SKU BA 01090 and a plain bearing. See bom/sourcing/wasi-pulley-2026-10-08.md. Purchase and receipt do not establish engineering approval."
     },
     {
       "id": "ziegelmayer-allen-a2030",
