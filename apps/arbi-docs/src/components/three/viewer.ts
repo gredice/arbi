@@ -316,7 +316,7 @@ export class Viewer {
         obj.position.sub(box.getCenter(new THREE.Vector3()));
         const holder = new THREE.Group();
         holder.add(obj);
-        this.addPart(holder, { node: model, model, color, registered: true, group: "fixed", explode: [0, 0, 0] });
+        this.addPart(holder, { node: model, model, color, registered: true, href: `/parts/${model}`, group: "fixed", explode: [0, 0, 0] });
         this.frame({ distance: this.options.style === "light" ? 1.04 : 0.78 });
         return box.getSize(new THREE.Vector3());
     }
@@ -443,7 +443,7 @@ export class Viewer {
         }
         if (hit !== this.hovered) {
             this.hovered = hit;
-            this.renderer.domElement.style.cursor = hit ? "pointer" : "grab";
+            this.renderer.domElement.style.cursor = hit?.part.href ? "pointer" : "grab";
             this.listeners.hover.forEach((f) => f(hit?.part ?? null));
         }
         const active = this.hovered?.part.model ?? this.focus;

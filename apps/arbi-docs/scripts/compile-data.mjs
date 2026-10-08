@@ -20,6 +20,7 @@ import { unzipSync } from 'fflate';
 import { CAD_TAG } from '../../../scripts/cad-release-data.mjs';
 import { packIsCurrent, parseChecksums, validateReleaseManifest } from './cad-data.mjs';
 import { previewFigures } from './cad-previews.mjs';
+import { sceneHref } from './scene-links.mjs';
 
 const APP = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const REPO = resolve(APP, '../..');
@@ -178,7 +179,8 @@ function podScene({ files, source }, modelsByOutput) {
   const pose = poseFigure(figures, PACKS.pod.exploded);
   const exploded = pose ? pairExploded(assembly.parts, pose.parts) : [];
   const parts = assembly.parts.map((p, i) => ({
-    node: p.name, model: p.model, registered: Boolean(modelsByOutput[basename(p.file)]), group: p.group, color: p.color,
+    node: p.name, model: p.model, registered: Boolean(modelsByOutput[basename(p.file)]),
+    href: sceneHref(p.model, Boolean(modelsByOutput[basename(p.file)]), p.bomPartId, catalogIds), group: p.group, color: p.color,
     explode: offsetOf(p.matrix, exploded[i]), kind: meshes[p.model]?.kind ?? null,
   }));
   return { kind: 'glb', glb: 'pod/assembled.glb', layout: 'assembly', figureDir: 'pod', hero: 'assembled-covered', source, pose: pose?.name ?? null,
@@ -198,7 +200,9 @@ function winchScene({ files, source }, modelsByOutput, variant = 'passive') {
   const parts = installed.map((p, i) => {
     const name = basename(p.file);
     const model = modelsByOutput[name];
-    return { node: `${String(i).padStart(3, '0')}-${name.replace(/\.stl$/, '')}`, model: model ? model.id : name.replace(/\.stl$/, ''),
+    const id = model ? model.id : name.replace(/\.stl$/, '');
+    return { node: `${String(i).padStart(3, '0')}-${name.replace(/\.stl$/, '')}`, model: id,
+      href: sceneHref(id, Boolean(model), p.bomPartId, catalogIds),
       registered: Boolean(model), group: 'fixed', color: p.color, url: `winch/${p.file}`, matrix: p.matrix, explode: offsetOf(p.matrix, exploded[i]) };
   });
   return { kind: 'stl', layout: 'assembly', figureDir: 'winch', hero: installedFigure, source, pose: pose?.name ?? null, installedFigure, figures: Object.keys(figures).sort(), parts };
@@ -229,7 +233,7 @@ function lineupScene(slug, models, meshes, release) {
     if (!mesh?.bounds) continue;
     const { min, max } = mesh.bounds;
     const matrix = [[1, 0, 0, x - min[0]], [0, 1, 0, -(min[1] + max[1]) / 2], [0, 0, 1, -min[2]], [0, 0, 0, 1]];
-    parts.push({ node: m.id, model: m.id, registered: true, group: 'fixed', color: CORE, url: mesh.url, matrix, explode: [0, 0, 0] });
+    parts.push({ node: m.id, model: m.id, registered: true, href: `/parts/${m.id}`, group: 'fixed', color: CORE, url: mesh.url, matrix, explode: [0, 0, 0] });
     x += max[0] - min[0] + 40;
   }
   return parts.length ? { kind: 'stl', layout: 'lineup', source: { kind: 'release', tag: release?.tag, current: true }, pose: null, figures: [], parts } : null;
@@ -286,6 +290,7 @@ function bom() {
 rmSync(OUT, { recursive: true, force: true });
 mkdirSync(OUT, { recursive: true });
 const registry = readJson('hardware/models.json');
+const catalogIds = new Set(readJson('bom/catalog/parts.json').parts.map((p) => p.id));
 const modelsByOutput = Object.fromEntries(registry.models.map((m) => [m.output, m]));
 const outputs = new Set(Object.keys(modelsByOutput));
 const commit = process.env.VERCEL_GIT_COMMIT_SHA || process.env.ARBI_SOURCE_COMMIT || git('rev-parse', 'HEAD') || 'unknown';

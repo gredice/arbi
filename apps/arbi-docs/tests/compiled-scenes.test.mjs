@@ -37,6 +37,17 @@ test("passive and powered inventories and poses match their own canonical bookle
                     `${variant} cable must stay aligned with its fascia port throughout explosion`);
             }
             for (const part of scene.parts) assert.ok(existsSync(join(output, part.url)));
+            const catalog = JSON.parse(readFileSync(join(output, 'site.json'), 'utf8')).bom.parts;
+            const bomIds = new Set(catalog.map((p) => p.id));
+            for (const [index, part] of scene.parts.entries()) {
+                if (part.registered) assert.equal(part.href, `/parts/${part.model}`);
+                if (source[index].bomPartId || part.href?.startsWith('/bom/')) {
+                    assert.ok(part.href?.startsWith('/bom/'), `${part.model} must be clickable`);
+                    assert.ok(bomIds.has(part.href.slice(5)), `${part.model} must open an existing page`);
+                }
+            }
+            assert.equal(scene.parts.find((p) => p.model === 'motor-23HS40-reference').href,
+                '/bom/nema23-closed-loop-motor');
         }
         assert.ok(powered.parts.some((p) => p.model === "winch-drum-powered-3"));
         assert.ok(!passive.parts.some((p) => p.model === "winch-drum-powered-3"));
