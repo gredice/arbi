@@ -108,13 +108,23 @@ jobs:
           # Mark this release Latest unless the current Latest belongs to a newer commit.
           # Runs are serialized, but merges land faster than booklet builds, so requiring
           # this commit to still be main's head left Latest on an old snapshot.
+          # Only a 404 means there is no Latest release yet; any other lookup error fails
+          # the step rather than risk an older build replacing a newer Latest.
           latest=true
-          current="$(gh release view --json tagName --jq .tagName 2>/dev/null || true)"
-          if [[ "$current" == cad-* ]]; then
-            relation="$(gh api "repos/${GITHUB_REPOSITORY}/compare/${current#cad-}...${GITHUB_SHA}" --jq .status)"
-            if [[ "$relation" != "ahead" && "$relation" != "identical" ]]; then
-              latest=false
+          lookup_error="${RUNNER_TEMP}/latest-release.err"
+          if current="$(gh api "repos/${GITHUB_REPOSITORY}/releases/latest" --jq .tag_name 2>"$lookup_error")"; then
+            if [[ "$current" == cad-* ]]; then
+              relation="$(gh api "repos/${GITHUB_REPOSITORY}/compare/${current#cad-}...${GITHUB_SHA}" --jq .status)"
+              if [[ "$relation" != "ahead" && "$relation" != "identical" ]]; then
+                latest=false
+              fi
             fi
+          elif grep -q 'HTTP 404' "$lookup_error"; then
+            echo "No Latest release yet."
+          else
+            cat "$lookup_error" >&2
+            echo "Could not read the current Latest release." >&2
+            exit 1
           fi
 
           gh release create "$tag" "$CAD_OUTPUT"/* \
