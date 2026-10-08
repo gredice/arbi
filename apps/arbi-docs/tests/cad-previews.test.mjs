@@ -20,7 +20,7 @@ const sources = {
 // An actual PNG fixture with the renderer's declared dimensions.
 const figure = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAeAAAAFoAQAAAACnTBWNAAABMklEQVR4nO3bIY4CQBAFUaiQENze/5brQIH9iA2pxUGV66SfGTszx/vh//GGPYRlWLCFZViwhWVYsIVlWLCFZViwhWVYsIVlWLCFZViwhWVYsIVlWLCFZViwhWVYsIVlWLCFZViwhWVYsIVlWLCFZViwhWVYsIW/48BOO/z+vNw/X//C59e3A9cPODDCLuT+U2EZFmxhGRZsYRkWbGEZFmxhGRZsYRkWbGEZFmxhGRZsYRkWbGEZFmxhGRZsYRkWbGEZFmxhGRZsYRkWbGEZFmxhGRZsYRkWbGEZFmxhGRZsYRkWbGEZFmxhGRZsYRkWbGEZFmxhGRZsYRkWbGHZaYfbxb0PO/Zh3IXcfyosw4ItLMOCLSzDgi0sw4ItLMOCLSzDgi0sw4ItLMOCLSzDgi0sw4ItLMOCLSzDgi0sw4ItLMOCLSzDgi0sw4ItLMOCLSzDgg/AD/aPCtKS42BuAAAAAElFTkSuQmCC', 'base64');
 
-function pack(overrides = {}, input = sources, image = figure) {
+function pack(overrides = {}, input = sources, image = figure, style = 'cad-line-art-v2') {
   const entry = {
     entrypoint: model.entrypoint, revision: model.revision, output: model.output,
     figure: `figures/${model.id}.png`, sha256: digest(image),
@@ -28,7 +28,7 @@ function pack(overrides = {}, input = sources, image = figure) {
     ...overrides,
   };
   return zipSync({
-    'ARBI-CAD-previews/manifest.json': strToU8(JSON.stringify({ schemaVersion: 1, style: 'cad-preview-v1', models: { [model.id]: entry } })),
+    'ARBI-CAD-previews/manifest.json': strToU8(JSON.stringify({ schemaVersion: 1, style, models: { [model.id]: entry } })),
     [`ARBI-CAD-previews/figures/${model.id}.png`]: image,
   });
 }
@@ -37,6 +37,10 @@ test('a CSG reference receives a figure without needing a booklet drawing or fab
   assert.ok(model.output.endsWith('.csg'));
   const result = previewFigures(pack(), [model], (path) => sources[path]);
   assert.deepEqual(Buffer.from(result[model.id]), figure);
+});
+
+test('legacy packs with shaded reference figures cannot enter the line-art inventory', () => {
+  assert.throws(() => previewFigures(pack({}, sources, figure, 'cad-preview-v1'), [model], (path) => sources[path]), /line-art figures required/);
 });
 
 test('changed revision, entrypoint or shared geometry and omitted includes reject stale previews', () => {
@@ -79,6 +83,8 @@ test('the offline compiler consumes a current preview pack and writes its refere
       stdio: 'pipe',
     });
     const site = JSON.parse(readFileSync(join(data, 'site.json')));
+    assert.ok(site.registry.models.some((m) => m.id === 'camera-pod-assembly'));
+    assert.ok(!site.registry.models.some((m) => m.id === 'payload-assembly'));
     assert.equal(site.figures[model.id], `figures/${model.id}.png`);
     assert.ok(existsSync(join(data, site.figures[model.id])));
     assert.deepEqual(readFileSync(join(data, site.figures[model.id])), figure);

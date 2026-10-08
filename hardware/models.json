@@ -611,18 +611,6 @@
             "description": "Bench prototype spider spacer; nominal servo interfaces require measurement."
         },
         {
-            "id": "payload-assembly",
-            "revision": "0.3.5",
-            "status": "concept-unvalidated",
-            "artifactRole": "reference",
-            "bomPartIds": [],
-            "assembly": "camera-pod",
-            "entrypoint": "hardware/assemblies/camera-pod/payload-assembly.scad",
-            "output": "payload-assembly-r0.3.5.csg",
-            "documentation": "hardware/assemblies/camera-pod/README.md",
-            "description": "Integrated rain-payload reference by default; show_enclosure=false selects the separate dry bench kit. Not a fabrication STL."
-        },
-        {
             "id": "payload-tilt-pivot-support",
             "revision": "0.1.0",
             "status": "concept-unvalidated",

@@ -4,7 +4,6 @@ import hashlib
 import json
 import re
 import subprocess
-import sys
 import tempfile
 import zipfile
 from pathlib import Path
@@ -12,6 +11,7 @@ from pathlib import Path
 import numpy as np
 from PIL import Image, ImageChops
 import vtk
+from csg import components
 
 REPO = Path(__file__).resolve().parents[2]
 SIZE = (480, 360)
@@ -40,12 +40,20 @@ def source_hashes(entrypoint):
 
 
 def render(mesh, output):
-    reader = vtk.vtkSTLReader()
-    reader.SetFileName(str(mesh))
-    reader.Update()
-    data = reader.GetOutput()
+    meshes = [mesh] if isinstance(mesh, Path) else mesh
+    combined = vtk.vtkAppendPolyData()
+    for path in meshes:
+        reader = vtk.vtkSTLReader()
+        reader.SetFileName(str(path))
+        reader.Update()
+        data = reader.GetOutput()
+        if data.GetNumberOfCells() == 0:
+            raise ValueError(f"Empty preview mesh: {path}")
+        combined.AddInputData(data)
+    combined.Update()
+    data = combined.GetOutput()
     if data.GetNumberOfCells() == 0:
-        raise ValueError(f"Empty preview mesh: {mesh}")
+        raise ValueError("Reference has no visible geometry")
 
     renderer = vtk.vtkRenderer()
     renderer.SetBackground(1, 1, 1)
@@ -122,18 +130,24 @@ def check_image(output):
             raise ValueError(f"Empty or incorrectly sized figure: {output}")
 
 
-def render_reference(csg, output):
-    # OpenCSG preserves component surfaces and role colors, without the expensive
-    # boolean union or unintended fabrication STL of a reference assembly.
-    command = ["openscad", "-o", str(output), "--preview", "--colorscheme=Tomorrow",
-               "--imgsize=480,360", "--autocenter", "--viewall",
-               "--camera=0,0,0,55,0,45,1000", str(csg)]
-    if sys.platform.startswith("linux"):
-        command = ["xvfb-run", "-a", *command]
-    result = subprocess.run(command, capture_output=True, text=True, timeout=120, check=True)
-    if "ERROR:" in result.stderr:
-        raise ValueError(result.stderr)
-    check_image(output)
+def render_reference(csg, output, work):
+    # Use the same opaque white faces and visible outlines as fabrication parts.
+    # This inspection mesh is temporary: the registered/released artifact stays CSG.
+    # Avoid a costly boolean union of an entire assembly. VTK draws its component
+    # meshes together with normal depth occlusion, retaining the assembly seams.
+    meshes = []
+    for geometry in components(csg.read_text(encoding="utf-8")):
+        key = hashlib.sha256(geometry.encode()).hexdigest()
+        mesh = work / f"{key}.stl"
+        if not mesh.exists():
+            source = work / f"{key}.scad"
+            source.write_text(geometry + "\n", encoding="utf-8")
+            result = subprocess.run(["openscad", "-o", str(mesh), str(source)],
+                                    capture_output=True, text=True, timeout=120, check=True)
+            if "ERROR:" in result.stderr:
+                raise ValueError(result.stderr)
+        meshes.append(mesh)
+    render(meshes, output)
 
 
 def build(cad, output):
@@ -143,7 +157,7 @@ def build(cad, output):
     if label != f"OpenSCAD version {registry['openScadVersion']}":
         raise ValueError(f"Unexpected OpenSCAD version: {label}")
     output.mkdir(parents=True, exist_ok=True)
-    manifest = {"schemaVersion": 1, "style": "cad-preview-v1", "size": SIZE, "models": {}}
+    manifest = {"schemaVersion": 1, "style": "cad-line-art-v2", "size": SIZE, "models": {}}
     with tempfile.TemporaryDirectory(prefix="arbi-previews-") as temporary:
         work = Path(temporary)
         for model in registry["models"]:
@@ -154,7 +168,7 @@ def build(cad, output):
             image = work / figure
             image.parent.mkdir(exist_ok=True)
             if mesh.suffix == ".csg":
-                render_reference(mesh, image)
+                render_reference(mesh, image, work)
             else:
                 render(mesh, image)
             manifest["models"][model["id"]] = {
