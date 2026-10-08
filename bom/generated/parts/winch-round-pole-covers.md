@@ -44,22 +44,33 @@ Quantities are per assembly definition, before build multipliers. Optional and d
 
 ### Print material estimate
 
-Build arbi-v1; batch represents 1 BOM unit(s). Optional covers for one round-pole mount. The machined metal saddles are not prints.
+Build arbi-v1; batch represents 1 BOM unit(s). Optional covers for one round-pole mount. The machined metal saddles are not prints. Cosmetic shell surfaces use PETG Matte White (35100) or Black (35101) as listed per component; functional parts retain their existing material assumptions. Material and colour selections require physical fit, retention, weather and thermal checks.
 
-| Model | Copies in batch | Solid volume per copy |
-| --- | ---: | ---: |
-| winch-pole-nut-cover r0.1.0 | 2 | 44.800318 cm³ |
-| winch-pole-nut-cover-bottom r0.1.0 | 2 | 16.878400 cm³ |
-| winch-pole-cable-guide r0.1.0 | 1 | 9.881734 cm³ |
+| Model | Copies in batch | Material / colour | Solid volume per copy |
+| --- | ---: | --- | ---: |
+| winch-pole-nut-cover r0.1.0 | 2 | Bambu Lab PETG Matte / white | 44.800318 cm³ |
+| winch-pole-nut-cover-bottom r0.1.0 | 2 | Bambu Lab PETG Matte / white | 16.878400 cm³ |
+| winch-pole-cable-guide r0.1.0 | 1 | Bambu Lab ASA / black | 9.881734 cm³ |
 
-| Material | Density | Single spool | Estimated batch weight | Estimated batch cost |
+Selected recipe consumption:
+
+| Material / colour | Roll price basis | Estimated batch weight | Estimated batch cost |
+| --- | --- | ---: | ---: |
+| [Bambu Lab ASA](https://eu.store.bambulab.com/products/asa-filament) / black | 24.99 EUR / 1000 g; single spool | 10.376 g | 0.26 EUR |
+| [Bambu Lab PETG Matte](https://eu.store.bambulab.com/products/petg-matte?id=775952393450868758) / white | 11.39 EUR / 1000 g; 10+ eligible mixed rolls | 169 g | 1.92 EUR |
+| **Selected recipe total** | | **179.376 g** | **2.18 EUR** |
+
+Comparisons below assume every component uses the same material; the selected mixed recipe above is costed separately.
+
+| Material | Density | Roll price | Estimated batch weight | Estimated batch cost |
 | --- | ---: | ---: | ---: | ---: |
-| [Bambu Lab PLA Basic](https://eu.store.bambulab.com/products/pla-basic-filament) | [1.24 g/cm³](https://store.bblcdn.com/s1/default/58b85d0f3db94878854a28fdb8a0006e/Bambu_PLA_Basic_Technical_Data_Sheet.pdf) | 19.99 EUR / 1000 g | 165.217 g | 3.3 EUR |
-| [Bambu Lab PETG Basic](https://eu.store.bambulab.com/products/petg-basic) | [1.25 g/cm³](https://store.bblcdn.com/s1/default/cb94589bf7994fdcbfa833badefae9cd/Bambu_PETG_Basic_Technical_Data_Sheet.pdf) | 18.99 EUR / 1000 g | 166.549 g | 3.16 EUR |
-| [Bambu Lab ASA](https://eu.store.bambulab.com/products/asa-filament) (costing selection) | [1.05 g/cm³](https://store.bblcdn.com/ad7b08230c164e72856cffbe06bb7dc9.pdf) | 24.99 EUR / 1000 g | 139.901 g | 3.5 EUR |
+| [Bambu Lab PLA Basic](https://eu.store.bambulab.com/products/pla-basic-filament) | [1.24 g/cm³](https://store.bblcdn.com/s1/default/58b85d0f3db94878854a28fdb8a0006e/Bambu_PLA_Basic_Technical_Data_Sheet.pdf) | 11.99 EUR / 1000 g; 10+ eligible mixed rolls | 165.217 g | 1.98 EUR |
+| [Bambu Lab PETG Basic](https://eu.store.bambulab.com/products/petg-basic) | [1.25 g/cm³](https://store.bblcdn.com/s1/default/cb94589bf7994fdcbfa833badefae9cd/Bambu_PETG_Basic_Technical_Data_Sheet.pdf) | 11.39 EUR / 1000 g; 10+ eligible mixed rolls | 166.549 g | 1.9 EUR |
+| [Bambu Lab PETG Matte](https://eu.store.bambulab.com/products/petg-matte) | [1.37 g/cm³](https://store.bblcdn.eu/s8/default/240fb0c791fb4903a9d72934895e9a16/PETG_Matte.pdf) | 11.39 EUR / 1000 g; 10+ eligible mixed rolls | 182.538 g | 2.08 EUR |
+| [Bambu Lab ASA](https://eu.store.bambulab.com/products/asa-filament) | [1.05 g/cm³](https://store.bblcdn.com/ad7b08230c164e72856cffbe06bb7dc9.pdf) | 24.99 EUR / 1000 g; single spool | 139.901 g | 3.5 EUR |
 
 Volume evidence: [cad-v0.1.4](https://github.com/gredice/arbi/releases/tag/cad-v0.1.4); [canonical recipes, mesh checksums and source hashes](../../catalog/fabrication.json).
 
-Material consumption only at single 1 kg filament-with-spool MSRP; bulk discounts excluded. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. PETG is a prototype costing assumption; ASA is used for exposed cover recipes. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.
+Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.
 
 Catalog lifecycle, procurement, and generated documentation do not establish physical validation. See the owning assembly for evidence and acceptance requirements.

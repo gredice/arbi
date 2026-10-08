@@ -60,6 +60,11 @@ export function validateRepository(repository: BomRepository): ValidationResult 
     requireDecimal(result, material.densityGramsPerCm3, `${material.id} density`, false);
     requireDecimal(result, material.spoolWeightGrams, `${material.id} spool weight`, false);
     if (material.spoolPrice !== null) requireDecimal(result, material.spoolPrice, `${material.id} spool price`, false);
+    if (material.priceBasis === "bulk-spool" && (!material.bulkPricing || !Number.isInteger(material.bulkPricing.minimumRolls) || material.bulkPricing.minimumRolls < 2)) {
+      result.errors.push(`${material.id}: Bulk pricing needs a minimum eligible roll count`);
+    }
+    if (material.priceBasis === "single-spool" && material.bulkPricing) result.errors.push(`${material.id}: Single-spool price cannot have bulk conditions`);
+    for (const id of duplicateIds(material.colors?.map((color) => color.id) ?? [])) result.errors.push(`Duplicate filament colour: ${material.id}/${id}`);
   }
   for (const model of fabrication.geometry.models) {
     requireDecimal(result, model.volumeCm3, `${model.modelId} volume`, false);
@@ -72,6 +77,9 @@ export function validateRepository(repository: BomRepository): ValidationResult 
     requireDecimal(result, recipe.representedQuantity, `${recipe.partId} represented quantity`, false);
     for (const id of duplicateIds(recipe.components.map((item) => item.modelId))) result.errors.push(`Duplicate component ${id} in ${recipe.partId}`);
     for (const component of recipe.components) {
+      const material = fabrication.materials.find((item) => item.id === (component.materialId ?? recipe.materialId));
+      if (!material) result.errors.push(`Print recipe ${recipe.partId} has an unknown component material: ${component.materialId}`);
+      if (material?.colors && !material.colors.some((color) => color.id === component.color)) result.errors.push(`Print recipe ${recipe.partId} needs an evidenced colour for ${component.modelId}`);
       requireDecimal(result, component.quantity, `${recipe.partId}/${component.modelId} quantity`, false);
       const model = fabrication.geometry.models.find((item) => item.modelId === component.modelId);
       const source = part?.fabrication?.sources.find((item) => item.modelId === component.modelId);

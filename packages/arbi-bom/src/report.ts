@@ -110,10 +110,10 @@ export function renderMarkdown(result: CalculationResult): string {
     "Multi-part bundles of countable components are allocated by purchased part count, including surplus, with cents distributed deterministically. These shares are accounting allocations, not individual supplier prices. Unselected contents or bundles without comparable part counts remain in the shared bundle bucket; shipping remains separate.",
   );
   lines.push("", "## Estimated print material costs", "",
-    "Solid CAD volume × material density × single-spool price / spool grams. These consumption estimates exclude supports, purge, failures, energy, machine time, labour, filament shipping and destination VAT adjustments. They do not make the landed total complete.", "",
+    "Solid CAD volume × each component's material density × observed roll price / roll grams. Eligible PLA/PETG rates assume 10+ mixed eligible filament-with-spool rolls in one Bambu EU bulk order; ASA retains its evidenced single-spool price. These consumption estimates exclude supports, purge, failures, energy, machine time, labour, filament shipping and destination VAT adjustments. They do not make the landed total complete.", "",
     "| Part | Required | Material | Estimated weight | Estimated material cost |", "| --- | ---: | --- | ---: | ---: |");
   for (const estimate of result.fabrication) {
-    lines.push(`| [${estimate.partId}](parts/${estimate.partId}.md) | ${estimate.required} | ${estimate.materialId.toUpperCase()} | ${estimate.weightGrams} g | ${estimate.materialCost === null ? "unknown" : money(estimate.materialCost, result.reportCurrency)} |`);
+    lines.push(`| [${estimate.partId}](parts/${estimate.partId}.md) | ${estimate.required} | ${estimate.materialName} | ${estimate.weightGrams} g | ${estimate.materialCost === null ? "unknown" : money(estimate.materialCost, result.reportCurrency)} |`);
   }
   lines.push(
     "",

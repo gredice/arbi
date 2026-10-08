@@ -245,7 +245,9 @@ export interface FilamentMaterial {
   currency: string;
   priceSourceUrl: string;
   observedAt: string;
-  priceBasis: "single-spool";
+  priceBasis: "single-spool" | "bulk-spool";
+  bulkPricing?: { minimumRolls: number; group: string; sourceUrl: string };
+  colors?: Array<{ id: string; name: string; priceSourceUrl: string }>;
   taxTreatment: "unknown" | "included";
 }
 
@@ -254,7 +256,7 @@ export interface PrintRecipe {
   buildId: string;
   representedQuantity: string;
   materialId: string;
-  components: Array<{ modelId: string; quantity: string }>;
+  components: Array<{ modelId: string; quantity: string; materialId?: string; color?: string }>;
   note: string;
 }
 
@@ -277,11 +279,16 @@ export interface FabricationEstimate {
   required: string;
   basis: "solid-volume-estimate";
   materialId: string;
+  materialName: string;
+  materialUsages: Array<FilamentCost & { color: string | null }>;
   weightGrams: string;
   materialCost: string | null;
   currency: string;
   note: string;
-  alternatives: Array<{
+  alternatives: FilamentCost[];
+}
+
+export interface FilamentCost {
     materialId: string;
     name: string;
     weightGrams: string;
@@ -290,7 +297,9 @@ export interface FabricationEstimate {
     spoolWeightGrams: string;
     priceSourceUrl: string;
     observedAt: string;
-  }>;
+    priceBasis: FilamentMaterial["priceBasis"];
+    minimumBulkRolls: number | null;
+    bulkSourceUrl: string | null;
 }
 
 export interface ValidationResult {

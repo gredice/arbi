@@ -153,16 +153,102 @@
             "format": "date-time"
           },
           "priceBasis": {
-            "const": "single-spool"
+            "enum": [
+              "single-spool",
+              "bulk-spool"
+            ]
           },
           "taxTreatment": {
             "enum": [
               "unknown",
               "included"
             ]
+          },
+          "bulkPricing": {
+            "type": "object",
+            "required": [
+              "minimumRolls",
+              "group",
+              "sourceUrl"
+            ],
+            "properties": {
+              "minimumRolls": {
+                "type": "integer",
+                "minimum": 2
+              },
+              "group": {
+                "type": "string",
+                "minLength": 1
+              },
+              "sourceUrl": {
+                "type": "string",
+                "format": "uri",
+                "pattern": "^https://"
+              }
+            },
+            "additionalProperties": false
+          },
+          "colors": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "name",
+                "priceSourceUrl"
+              ],
+              "properties": {
+                "id": {
+                  "enum": [
+                    "white",
+                    "black"
+                  ]
+                },
+                "name": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "priceSourceUrl": {
+                  "type": "string",
+                  "format": "uri",
+                  "pattern": "^https://"
+                }
+              },
+              "additionalProperties": false
+            }
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "priceBasis": {
+                  "const": "bulk-spool"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "bulkPricing"
+              ],
+              "properties": {
+                "bulkPricing": {}
+              }
+            },
+            "else": {
+              "not": {
+                "required": [
+                  "bulkPricing"
+                ],
+                "properties": {
+                  "bulkPricing": {}
+                }
+              }
+            }
+          }
+        ]
       }
     },
     "recipes": {
@@ -212,6 +298,16 @@
                 "quantity": {
                   "type": "string",
                   "pattern": "^(?:0|[1-9]\\d*)(?:\\.\\d+)?$"
+                },
+                "materialId": {
+                  "type": "string",
+                  "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+                },
+                "color": {
+                  "enum": [
+                    "white",
+                    "black"
+                  ]
                 }
               },
               "additionalProperties": false

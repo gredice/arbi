@@ -1,5 +1,7 @@
 # Print material cost evidence — 8 October 2026
 
+> Historical single-spool observation. Current prices and applicable shell selections are superseded by the [PETG Matte bulk record](petg-matte-bulk-2026-10-08.md).
+
 The Bambu Lab EU store was inspected live on 8 October 2026 with the **Filament with spool**, **1 kg** option and quantity **1**. PLA and PETG prominently advertise the lowest bulk-sale price even at quantity one; this record uses the displayed single-spool MSRP instead. It excludes bulk, refill, coupon, membership and promotional bundle discounts.
 
 | Material | Single 1 kg spool | Density | Price source | Density source |
