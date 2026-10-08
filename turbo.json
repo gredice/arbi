@@ -1,6 +1,8 @@
 {
     "$schema": "https://v2-9-16.turborepo.dev/schema.json",
     "concurrency": "12",
+    "cacheDir": ".turbo/cache",
+    "globalDependencies": ["tsconfig.base.json", ".nvmrc", ".npmrc"],
     "tasks": {
         "build": {
             "dependsOn": ["^build"],
@@ -17,6 +19,7 @@
             "outputs": []
         },
         "test": {
+            "cache": false,
             "dependsOn": ["^build"],
             "outputs": ["coverage/**", "dist/**"]
         }

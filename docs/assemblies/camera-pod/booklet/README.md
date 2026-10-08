@@ -28,8 +28,8 @@ line art with dark silhouettes and visible feature edges, so black brackets and
 hardware remain readable. Configuration headers and page totals are specific to
 each variant. The GLB and assembly manifests retain the product palette.
 
-[Booklet CI](../../../../.github/workflows/booklets.yml) builds all three booklets
-on relevant PRs and manual dispatches. On `main`,
-[CAD release CI](../../../../.github/workflows/cad-release.yml) adds their PDFs and
+[Booklet CI](../../../../.github/workflows/ci.yml) builds affected booklets
+on relevant PRs and all three on release runs or manual dispatches. On `main`,
+[CAD release CI](../../../../.github/workflows/ci.yml) adds their PDFs and
 STL/source packs to the same commit's geometry release. Checked-in files remain
 dated snapshots; tagged releases contain current commit-matched builds.

@@ -62,13 +62,66 @@ pnpm cad:check -- --require-openscad
 
 The standard Turbo commands cover implemented workspaces only. `docs:check` validates committed local Markdown link targets without network access. `bom:check` validates canonical inputs and fails if tracked reports are missing or stale without modifying them. `bom:generate` writes those deterministic reports.
 
-`protocol:check` builds the protocol package, then runs its [cross-runtime reference suite](docs/software/reference-fixtures.md) directly, including independent TypeScript, Python 3 and host C11 consumers and deliberate mismatch tests. It requires `python3` and `cc` (C11, standard math library); missing tools fail the check. After installing pinned workspace dependencies, the suite is offline and uses only committed synthetic data and temporary host binaries. `pnpm test` includes this suite too; the explicit CI command bypasses Turbo's test cache for the host toolchain checks.
+`protocol:check` builds the protocol package, then runs its [cross-runtime reference suite](docs/software/reference-fixtures.md) directly, including independent TypeScript, Python 3 and host C11 consumers and deliberate mismatch tests. It requires `python3` and `cc` (C11, standard math library); missing tools fail the check. After installing pinned workspace dependencies, the suite is offline and uses only committed synthetic data and temporary host binaries. The protocol package tests include this suite too; CI runs them without a test cache, so a second conformance run is unnecessary.
 
 `scenario:check` builds protocol and simulation-core, then runs the [scenario 1.0 conformance suite](docs/software/scenarios.md) directly. Independent TypeScript and Python 3 consumers derive their own traces from identical committed fixtures, repeat each run and reject deliberate discrepancies. Python 3 is required; no provider/device credentials or network are used after dependencies are installed. `pnpm test` also includes these tests.
 
 `cad:check` always validates `hardware/models.json` against its JSON Schema, required files, relative includes, revisions, statuses, output names, and both directions of the model-to-BOM fabrication-source mapping. When OpenSCAD is installed it must match the registry's exact version, then the command compiles every registered entrypoint into a temporary directory. `--require-openscad` makes a missing CLI an error and is used in CI.
 
-CI runs the OpenSCAD validation job when a pull request or push changes model sources (including shared geometry), registry metadata or schema, BOM part mappings, CAD validation tooling, or its workflow and dependency inputs. Deleting a model's assembly README also triggers validation. Other documentation and software changes skip that job; workspace and BOM checks still run, and `[CI] OK` accepts CAD being skipped only after successful change detection confirms it is unnecessary. A manual CI dispatch always validates all models.
+## Selective CI
+
+[One CI workflow](.github/workflows/ci.yml) owns validation, booklet artifacts and
+CAD releases. Its [planner](scripts/ci/plan.mjs) compares the complete pushed
+range on `main` or the PR merge base and head, treating renames as deletions and
+additions. Manual dispatches and unavailable push baselines validate everything.
+Shared toolchain, lockfile and CI tooling changes also select all checks.
+
+Each affected workspace runs on its own runner. Internal `workspace:*`
+dependencies from package manifests select downstream consumers transitively;
+only their dependency builds run upstream. The selected package owns its lint,
+typecheck, tests and build, plus its existing native/conformance or dashboard
+PostgreSQL/browser/HTTP checks. Suites stay serial within a runner while
+independent workspaces, BOM, CAD and booklets run in parallel.
+
+| Changed inputs | Selected work beyond repository checks |
+| --- | --- |
+| Website source, `docs`, root README | Website only; the industrial-design document also selects booklets |
+| Dashboard source | Dashboard, including its integration checks |
+| Edge source | Edge, including Linux service verification |
+| Shared software package | That package and all downstream consumers |
+| BOM data/reports | BOM package, generated-report verification and website; part mappings also select CAD |
+| Registered/shared geometry, registry/schema, CAD validator, deleted model documentation | CAD; hardware changes also select website |
+| Winch or camera-pod assembly sources/documentation | Owning booklet variants and website; geometry also selects CAD |
+| Booklet generators, shared rendering helpers, fonts, license and mesh validators | Affected booklet variants |
+| Architecture recovery experiment | Recovery experiment only |
+
+Repository links and whitespace run on every change because deleting or moving
+any file can break a Markdown target. `[CI] OK` requires successful change
+detection and repository checks, then accepts only a successful selected job or
+a skipped job explicitly reported unnecessary. Failed, cancelled, unexpected
+skipped and missing selections fail the gate. Planner and gate regression tests
+run before change selection, including multi-commit pushes, PR merge bases,
+renames, deletions and conservative fallback behavior.
+
+The pinned Node/pnpm setup caches the pnpm store and installs only each selected
+workspace's dependency closure. Workspace jobs persist Turbo compilation/static
+check results and Next.js compiler caches, with OS, architecture, runtime and
+workspace cache scopes. Turbo includes the shared TypeScript configuration in
+its task hashes. Tests always run fresh so Linux/toolchain/loopback evidence
+cannot be replaced by cached logs. The website build also runs fresh because it
+embeds Git provenance and can consume a mutable Latest release; CI builds use
+committed offline snapshots, while Next.js keeps its incremental compiler cache.
+Python jobs cache pip downloads, and the dashboard caches its pinned Chromium
+browser while installing system dependencies on every runner.
+
+On relevant `main` pushes and manual dispatches on `main`, the planner expands
+the release to all three commit-matched booklet packs and CAD. Publication waits
+for `[CI] OK`, downloads geometry and packs already built in this run, then
+publishes `cad-<commit>` with source ZIPs/checksums. It performs no second CAD or
+booklet build. Only the publication job has write permission and access to the
+site refresh hook. Main runs are not cancelled by later merges; serialized
+publication retains the ancestry check that prevents an older snapshot from
+replacing a newer Latest release. PRs only upload review artifacts.
 
 ## OpenSCAD source and releases
 
@@ -88,8 +141,8 @@ registered CAD, check meshes and nominal assembly geometry, render white-face
 line illustrations and package A4 PDFs with portable STL/source ZIPs. The three
 configurations are the winch, dry payload bench and payload rain enclosure.
 
-[Booklet CI](.github/workflows/booklets.yml) builds all three on relevant PRs and
-manual dispatches. [CAD release CI](.github/workflows/cad-release.yml) includes
+[Booklet CI](.github/workflows/ci.yml) builds affected variants on PRs and
+all three on release runs or manual dispatches. [CAD release CI](.github/workflows/ci.yml) includes
 their PDFs/ZIPs and checksums in the same `cad-<commit>` release as the geometry.
 CI keeps generated outputs as artifacts and never commits snapshots back to Git.
 Use `scripts/check-booklet.py` for the owning PDF/pack checks; local `--publish`

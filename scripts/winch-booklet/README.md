@@ -33,14 +33,14 @@ The shared renderer makes white-face line drawings with dark silhouettes and
 visible feature edges. Opaque faces hide rear edges and omit the STL triangle
 grid. Product colors remain in the figure/assembly manifests and payload GLB.
 
-[Booklet CI](../../.github/workflows/booklets.yml) builds the winch, dry payload
-and enclosed payload in separate jobs with Python 3.12, OpenSCAD 2021.01 and VTK
+[Booklet jobs in CI](../../.github/workflows/ci.yml) build affected winch, dry payload
+and enclosed payload variants in separate jobs with Python 3.12, OpenSCAD 2021.01 and VTK
 9.5.2 on software EGL. Relevant pull requests get downloadable PDF/ZIP artifacts
 for 14 days. The required CI result includes booklet checks. A manual workflow
 dispatch rebuilds all three variants from the selected branch.
 
-On `main`, [CAD release CI](../../.github/workflows/cad-release.yml) builds the
-same three booklets and adds them to the `cad-<commit>` release alongside the
+On `main`, [the release job in CI](../../.github/workflows/ci.yml) reuses all
+three validated booklets and adds them to the `cad-<commit>` release alongside the
 registered STL/CSG files and checksums. CI uses fresh exports, with neither
 `--reuse-models` nor `--publish`; it does not commit generated files back to Git.
 Checked-in PDFs/ZIPs are dated snapshots; releases contain commit-matched builds.

@@ -41,10 +41,10 @@ PNGs stay in the ignored build directory. Regenerate the PDF and ZIP together
 after changes using the generator's `--publish` option.
 
 Revision 7 refreshes every figure for the current redesigned winch and full-cover
-kit. [Booklet CI](../../../../.github/workflows/booklets.yml) builds the current
-winch and both payload variants on relevant PRs and manual runs. On `main`, their
+kit. [Booklet CI](../../../../.github/workflows/ci.yml) builds affected
+winch and payload variants on relevant PRs, and all three on release or manual runs. On `main`, their
 PDFs and STL/source packs join the same commit's
-[CAD release](../../../../.github/workflows/cad-release.yml). The files above are
+[CAD release](../../../../.github/workflows/ci.yml). The files above are
 the checked-in publication snapshot; release downloads match their tagged commit.
 
 Revision 8 adds actual fascia, rear-shield and bench-blank meshes, keeps the metal fasteners in installed views, and gives reprint quantities, the nominal post opening and release sequence on page 19. The key interfaces still require physical retention/cycle testing.
