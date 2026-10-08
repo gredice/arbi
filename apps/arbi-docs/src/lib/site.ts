@@ -44,6 +44,7 @@ type RawSite = {
     release: ReleaseInfo | null;
     scenes: Record<string, SceneMeta>;
     meshes: Record<string, { kind: "glb" | "stl"; node?: string; url?: string }>;
+    figures: Record<string, string>;
     downloads: Record<string, { release: { url: string; sha256: string; tag: string } | null; packs: { path: string; name: string; url: string }[] }>;
     snapshots: Snapshot[];
 };
@@ -117,6 +118,8 @@ export const installedCount = (id: string, slug?: string) => slug
     : data().instances.get(id)?.parts.length ?? null;
 
 export function figureFor(id: string): string | null {
+    const preview = data().site.figures[id];
+    if (preview) return `/data/${preview}`;
     for (const scene of Object.values(data().scenes)) {
         for (const name of [`part-${id}`, `part-${id.replace(/^winch-/, "")}`])
             if (scene.figures.includes(name)) return `/data/${scene.figureDir}/figures/${name}.png`;
