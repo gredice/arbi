@@ -39,7 +39,8 @@ export function packIsCurrent(files, outputs, root, kind) {
       if (!manifest['figure-manifest.json'] || !manifest['geometry-report.json']) return false;
       const report = parse(files['geometry-report.json']);
       const sourcePaths = Object.keys(report.sources_sha256);
-      if (!sourcePaths.includes('hardware/lib/corner-head.scad') || !sourcePaths.includes('scripts/corner-support/build.py')) return false;
+      if (['hardware/lib/corner-head.scad', 'hardware/lib/corner-head-printed.scad', 'scripts/corner-support/build.py']
+        .some((path) => !sourcePaths.includes(path))) return false;
       for (const path of sourcePaths) {
         const local = join(root, path);
         const packed = files[`source/repository/${path}`];

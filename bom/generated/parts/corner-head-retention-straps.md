@@ -17,7 +17,7 @@
 
 ## Notes
 
-Proposed package; excluded from the baseline scenario. See docs/assemblies/corner-station/design-package.md. No supplier price or engineering qualification asserted.
+Historical metal-head alternative; excluded from baseline and printed-head selection. Do not combine its geometry or hardware stack with the printed carrier. See docs/assemblies/corner-station/design-package.md#historical-metal-alternatives. No price or engineering qualification asserted.
 
 ## Used in
 
@@ -25,7 +25,7 @@ Quantities are per assembly definition, before build multipliers. Optional and d
 
 | Assembly or purchasing bucket | Quantity | Inclusion | Usage note |
 | --- | ---: | --- | --- |
-| [Corner support set](../../../docs/assemblies/corner-station/README.md) | 12 each | optional | Three per shield kit (two stem/rear, one roof); replace when removed. |
+| [Corner support set](../../../docs/assemblies/corner-station/README.md) | 12 each | optional | Historical metal head only: three per shield kit; printed-head hardware set includes two per head instead. |
 
 [Canonical assembly quantities](../../assemblies/assemblies.json)
 

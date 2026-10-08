@@ -93,43 +93,61 @@
           "partId": "corner-head-weather-kit",
           "quantity": "4",
           "inclusion": "optional",
-          "note": "Optional three-piece non-structural shield kit, not a line keeper."
+          "note": "Historical metal head only: four three-piece non-structural shield kits, not printed-carrier covers or line keepers."
         },
         {
           "partId": "corner-head-round-saddles",
           "quantity": "4",
           "inclusion": "optional",
-          "note": "Round poles only: four pairs (eight metal parts)."
+          "note": "Historical round metal head only: four pairs (eight machined metal parts); omit for printed-head selection."
         },
         {
           "partId": "corner-head-marking-template",
           "quantity": "1",
           "inclusion": "optional",
-          "note": "One shared reusable tool, not four installed parts."
+          "note": "One shared historical metal-head marking tool; printed head uses its distinct 205 mm template."
         },
         {
           "partId": "corner-head-retention-straps",
           "quantity": "12",
           "inclusion": "optional",
-          "note": "Three per shield kit (two stem/rear, one roof); replace when removed."
+          "note": "Historical metal head only: three per shield kit; printed-head hardware set includes two per head instead."
         },
         {
           "partId": "corner-head-angle-200",
           "quantity": "4",
           "inclusion": "optional",
-          "note": "Alternative: replace all four baseline 150 mm angles; do not add both."
+          "note": "Historical metal alternative replaces baseline 150 mm angles; omit both for printed-head selection."
         },
         {
           "partId": "corner-head-through-bolts",
           "quantity": "4",
           "inclusion": "optional",
-          "note": "Alternative: four pairs replace eight baseline M12 x 160 bolts; length depends on timber."
+          "note": "Historical round metal alternative: four pairs replace baseline M12 x 160 bolts. Printed head has a distinct stack/hardware set."
         },
         {
           "partId": "corner-guy-post-connection",
           "quantity": "4",
           "inclusion": "deferred",
-          "note": "Required unresolved structural interface; quantity allowance only, no installation approval."
+          "note": "Required unresolved independently reviewed bought attachment; product/rating not selected, no installation approval."
+        },
+        {
+          "partId": "corner-head-printed-kit",
+          "quantity": "4",
+          "inclusion": "optional",
+          "note": "Proposed printed alternative: four kits, each left/right carrier, two rear pads and two covers. Replaces steel angles/backing plates and excludes metal-saddle/collar alternatives."
+        },
+        {
+          "partId": "corner-head-printed-hardware",
+          "quantity": "4",
+          "inclusion": "optional",
+          "note": "Four bought hardware sets for printed variant; replace baseline bolt/washer/nut/shackle counts and reuse measured suitable washers/nuts once. Includes eight cosmetic straps total."
+        },
+        {
+          "partId": "corner-head-printed-marking-template",
+          "quantity": "1",
+          "inclusion": "optional",
+          "note": "One shared 205 mm printed-head marking tool, not four installed components."
         }
       ],
       "documentation": "docs/assemblies/corner-station/README.md"

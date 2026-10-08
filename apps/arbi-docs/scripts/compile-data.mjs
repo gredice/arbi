@@ -234,7 +234,7 @@ function cornerScene({ files, source }, modelsByOutput) {
       url: `corner/${p.file}`, matrix: p.matrix, explode: offsetOf(p.matrix, exploded[i]) };
   });
   return { kind: 'stl', layout: 'assembly', figureDir: 'corner', hero: 'covered', source, pose: 'exploded',
-    configuration: 'Proposed round 120 / angle 200 / passive line; concept-unvalidated', figures: Object.keys(figures).sort(), parts };
+    configuration: parse(files['geometry-report.json']).configuration, figures: Object.keys(figures).sort(), parts };
 }
 
 // Bounds of a binary or ASCII STL (OpenSCAD 2021.01 exports ASCII), for laying parts side by side.

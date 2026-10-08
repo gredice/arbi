@@ -155,9 +155,9 @@ test('publication handles large paginated release histories, reruns and Latest a
 
 
 test('corner source packs reject changed canonical geometry and corrupted fabrication meshes', () => {
-  const paths = ['hardware/lib/corner-head.scad', 'scripts/corner-support/build.py'];
+  const paths = ['hardware/lib/corner-head.scad', 'hardware/lib/corner-head-printed.scad', 'scripts/corner-support/build.py'];
   const sources = Object.fromEntries(paths.map((path) => [path, readFileSync(join(root, path))]));
-  const mesh = 'models/arbi/corner-head-hood-r0.1.0.stl';
+  const mesh = 'models/arbi/corner-head-printed-front-cover-r0.1.0.stl';
   const files = Object.fromEntries(paths.map((path) => [`source/repository/${path}`, sources[path]]));
   files[mesh] = Buffer.from('nominal mesh fixture');
   files['figure-manifest.json'] = Buffer.from('{}');
@@ -166,10 +166,12 @@ test('corner source packs reject changed canonical geometry and corrupted fabric
     mesh_sha256: { [mesh]: sha256(files[mesh]) },
   }));
   files['manifest.json'] = Buffer.from(JSON.stringify({ files_sha256: Object.fromEntries(Object.entries(files).map(([path, bytes]) => [path, sha256(bytes)])) }));
-  const outputs = new Set(['corner-head-hood-r0.1.0.stl']);
+  const outputs = new Set(['corner-head-printed-front-cover-r0.1.0.stl']);
   assert.equal(packIsCurrent(files, outputs, root, 'corner'), true);
   assert.equal(packIsCurrent({ ...files, [mesh]: Buffer.from('corrupt') }, outputs, root, 'corner'), false);
-  assert.equal(packIsCurrent({ ...files, ['source/repository/'+paths[0]]: Buffer.from('old') }, outputs, root, 'corner'), false);
+  for (const path of paths) {
+    assert.equal(packIsCurrent({ ...files, ['source/repository/'+path]: Buffer.from('old') }, outputs, root, 'corner'), false);
+  }
   assert.equal(packIsCurrent({ ...files, 'figure-manifest.json': Buffer.from('{"pose":"wrong"}') }, outputs, root, 'corner'), false);
   assert.equal(packIsCurrent(files, new Set(), root, 'corner'), false);
 });

@@ -17,7 +17,7 @@
 
 ## Notes
 
-Proposed package; excluded from the baseline scenario. See docs/assemblies/corner-station/design-package.md. No supplier price or engineering qualification asserted.
+Historical metal-head alternative; excluded from baseline and printed-head selection. Sources remain metal machining/fit envelopes. See docs/assemblies/corner-station/design-package.md#historical-metal-alternatives. No price or engineering qualification asserted.
 
 ## Used in
 
@@ -25,7 +25,7 @@ Quantities are per assembly definition, before build multipliers. Optional and d
 
 | Assembly or purchasing bucket | Quantity | Inclusion | Usage note |
 | --- | ---: | --- | --- |
-| [Corner support set](../../../docs/assemblies/corner-station/README.md) | 4 each | optional | Round poles only: four pairs (eight metal parts). |
+| [Corner support set](../../../docs/assemblies/corner-station/README.md) | 4 each | optional | Historical round metal head only: four pairs (eight machined metal parts); omit for printed-head selection. |
 
 [Canonical assembly quantities](../../assemblies/assemblies.json)
 

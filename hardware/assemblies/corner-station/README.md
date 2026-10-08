@@ -2,67 +2,116 @@
 
 System context: [Corner station assembly documentation](../../../docs/assemblies/corner-station/README.md).
 
-## Through-bolted corner head package
+## Mostly printed through-bolted corner head
+
+The owner selected the [printed design proposal](../../../docs/assemblies/corner-station/design-proposal.md)
+for development. Two ribbed carrier halves integrate the front round/square
+post adapter and terminal lug. Two rear pads react the M12 washer seats.
+Ordinary bought M12/M8 fasteners and a compatible purchased pulley pin complete
+the head without a custom metal angle, machined saddles or backing plates.
+The front/rear cosmetic covers and two straps are non-structural. The integrated
+top chord is part of the load-bearing carrier, not a removable weather roof.
+The front cover retains a 3 mm fascia, with sidewall strap passages behind it
+and two open-top 18 mm channels for the structural webs. It is an open cosmetic
+shield, with drainage and received-fit review still required.
+
+All seven new registered entrypoints are r0.1.0, `concept-unvalidated`:
+
+| Model | Purpose / installed quantity per head |
+| --- | --- |
+| [corner-head-printed-left](corner-head-printed-left.scad) | Printed left carrier with integrated post seat/web/chord/lug / 1 |
+| [corner-head-printed-right](corner-head-printed-right.scad) | Printed right carrier with matching post seat/web/chord/lug / 1 |
+| [corner-head-printed-rear-pad](corner-head-printed-rear-pad.scad) | Printed rear post pad / 2 copies, at Z=45/155 |
+| [corner-head-printed-front-cover](corner-head-printed-front-cover.scad) | Non-structural front cover with intact fascia and open rib-clearance channels / 1 |
+| [corner-head-printed-rear-cover](corner-head-printed-rear-cover.scad) | Non-structural rear nut cover with drains / 1 |
+| [corner-head-printed-template](corner-head-printed-template.scad) | Shared 205 mm centre marking tool / 1 per four-head set |
+| [corner-head-printed-assembly](corner-head-printed-assembly.scad) | Installed/exploded head with provisional bought-part references |
+
+Parameters live in [corner-head-printed.scad](../../lib/corner-head-printed.scad).
+Match `post_shape`, `post_size_mm` and `line_diameter_mm` across all selected
+exports. Default is round/120/1.5; round/100/140, square/100 and round/120/4.5
+are separately labelled studies. The provisional 45° block pose assumes equal
+leg tensions and a horizontal +X span; pin and sheave coordinates differ.
+Received pin-to-sheave distance and full articulation remain unverified.
+The six fabrication IDs yield six installed
+prints per head from five models, plus the one shared marking tool.
 
 The [design package](../../../docs/assemblies/corner-station/design-package.md)
-adds a proposed 200 mm angle arrangement aligned with the round-pole winch,
-metal saddle fit solids, removable white weather shields, a shared marking aid,
-actual-mesh instructions and explicit acceptance inputs. All seven registered
-entrypoints are r0.1.0, `concept-unvalidated`. The 150 mm square arrangement is
-a separately labelled historical study, not a combined build kit.
+records dimensions, bolt stacks, print process and alternative selection.
+[Build instructions](../../../scripts/corner-support/README.md) produce actual
+meshes, print poses, booklet, GLB, source/STL ZIP and a hash/geometry report.
+Place the carrier's broad web plane in printer XY using its recorded print
+transform; local support around lug/boss transitions may be required. A bed-fit
+mesh is not a sliced or manufactured part. Check support, walls, infill, bonding,
+shrinkage and holes in the slicer and on the prototype.
+
+The carrier and rear-pad STLs are intended printed prototype parts, with
+PAHT-CF or tested ASA as unqualified candidates. Structural, anisotropic,
+fastener-pressure, sustained-creep, cyclic, outdoor and installed qualification
+remain required. The provisional 8 mm lug / 9 mm block tang gap / M8 pin
+must be checked against received parts. Neither cover is a fitted thin-line
+keeper. See the [load-study note](../../../docs/assemblies/corner-station/printed-load-study.md),
+[nominal checks](../../../docs/assemblies/corner-station/geometry-check.md) and
+[physical acceptance](../../../docs/assemblies/corner-station/acceptance-record.md).
+
+## Historical steel-angle head alternatives
+
+The original seven r0.1.0, `concept-unvalidated` entrypoints remain unchanged as
+separate metal-head alternatives. They are not parts of the printed selection:
 
 | Model | Purpose |
 | --- | --- |
-| [corner-head-hood](corner-head-hood.scad) | Non-structural front weather shield, open below |
-| [corner-head-roof](corner-head-roof.scad) | Separate lift-off angle roof with independent retention strap |
-| [corner-head-rear-cover](corner-head-rear-cover.scad) | Non-structural rear nut shield |
+| [corner-head-hood](corner-head-hood.scad) | Non-structural metal-angle front weather shield |
+| [corner-head-roof](corner-head-roof.scad) | Separate lift-off metal-angle roof |
+| [corner-head-rear-cover](corner-head-rear-cover.scad) | Non-structural metal-head rear nut shield |
 | [corner-head-front-saddle](corner-head-front-saddle.scad) | Machined **metal** round-post front seating envelope |
 | [corner-head-rear-saddle](corner-head-rear-saddle.scad) | Machined **metal** full-width rear seating envelope |
-| [corner-head-marking-template](corner-head-marking-template.scad) | Shared centre marking aid; remove before powered drilling |
-| [corner-head-assembly](corner-head-assembly.scad) | Installed/exploded purchased-hardware layout reference |
+| [corner-head-marking-template](corner-head-marking-template.scad) | Historical 200 mm metal-head marking tool |
+| [corner-head-assembly](corner-head-assembly.scad) | Metal-head installed/exploded purchased-hardware reference |
 
-Parameters live in [corner-head.scad](../../lib/corner-head.scad). Match
-`post_shape`, `post_size_mm`, `bracket_leg_mm` and `line_diameter_mm` across all
-exports. Default is round/120/200/1.5; the 4.5 mm powered assumption uses a
-different terminal position. Use `bracket_leg_mm=150`, `post_shape="square"`,
-`post_size_mm=100` only for the historical square study.
+Their parameters live in [corner-head.scad](../../lib/corner-head.scad).
+Round/120/200/1.5 uses a 200 mm steel angle and machined metal saddles; the
+square/100/150 study retains the historical 150 mm angle. Metal-saddle meshes
+are machining/fit envelopes and must not be printed as structural substitutes.
+The new `corner-head-printed-*` sources define their own printed geometry,
+fastener stack, covers and print poses; never substitute the old saddle STLs.
 
-[Build instructions](../../../scripts/corner-support/README.md) produce the PDF,
-GLB, mesh figures, source/STL ZIP and nominal hash report. The bought block and
-connector are explicitly provisional envelopes; received pin/tang dimensions
-must be measured. Neither white shield is a fitted line keeper. Do not print
-the saddles as structural parts. See [nominal checks](../../../docs/assemblies/corner-station/geometry-check.md)
-and [physical acceptance](../../../docs/assemblies/corner-station/acceptance-record.md).
-
-## Round-pole pulley mount concept
+## Round-pole split-collar alternative
 
 The [split-clamp proposal and dimensions](pole-pulley-mount.md) define an adjustable
 round-pole mount with two removable collar halves and a gusseted pulley clevis.
-This is a new alternative concept; the through-bolted steel bracket remains the
-V1 baseline. The three registered models are revision `0.1.0`,
-`concept-unvalidated`:
+This remains separate from both through-bolted head designs. Its three
+registered models are revision `0.1.0`, `concept-unvalidated`:
 
 | Model | Purpose |
 | --- | --- |
-| [pole-pulley-mount-front](pole-pulley-mount-front.scad) | Front half with two integral gusseted arms; fit/mock-up solid |
+| [pole-pulley-mount-front](pole-pulley-mount-front.scad) | Front half with integral gusseted arms; fit/mock-up solid |
 | [pole-pulley-mount-rear](pole-pulley-mount-rear.scad) | Removable rear half; fit/mock-up solid |
-| [pole-pulley-mount-assembly](pole-pulley-mount-assembly.scad) | Assembly with nominal hardware, pole and generic marine-block envelope |
+| [pole-pulley-mount-assembly](pole-pulley-mount-assembly.scad) | Assembly with nominal hardware, pole and generic marine block |
 
-The common [parametric source](../../lib/pole-pulley-mount.scad) starts at a
-120 mm pole and 30 mm sheave. A planned BOM concept pair traces the two custom
-parts without adding them to baseline build quantities. The existing keeper
-below is a separate concept and has not been fitted to this mount.
+The common [source](../../lib/pole-pulley-mount.scad) starts at a 120 mm pole and
+30 mm sheave. Its BOM concept pair is not added to the printed-head quantities.
+Friction, timber seating and structural acceptance remain unverified.
 
-## `top-pulley-keeper`
+## Historical `top-pulley-keeper`
 
-[top-pulley-keeper.scad](top-pulley-keeper.scad) is a two-cheek upper guard concept intended to reduce the chance that an unloaded or transiently moving line leaves the pulley groove. Its default geometry includes two upper semicircular keeper cheeks, mounting legs, fastener holes, and three cross-bridges.
+[top-pulley-keeper.scad](top-pulley-keeper.scad) is a two-cheek upper guard concept
+with nominal semicircular keeper cheeks, mounting legs, fastener holes and
+three bridges. It remains `top-pulley-keeper` r0.1.0, `concept-unvalidated`.
+Its default 58 mm pulley geometry has not been fitted to the received 30 mm
+BA01090 or the printed head.
 
-Registry ID and design revision: `top-pulley-keeper` `0.1.0`, status `concept-unvalidated`.
-
-The model does not define the pulley, groove profile, axle, bearing, bracket, line diameter, actual retention gap, installation sequence, fastener locking, UV/weather material, impact response, or inspection limit. A keeper must not become a rubbing surface in normal operation or conceal a derailed/damaged line.
-
-Before prototype use, derive the parameters from the selected pulley and complete corner-station bracket. Verify all line approach angles and tension states, service access, clearance under deflection, wear visibility, keeper strength, fastener retention, and safe failure behavior.
+The model does not define actual groove/side gaps, pin/bearing, line sweep,
+installation sequence, locking, outdoor material or discard limits. A fitted
+keeper must not rub in normal operation or conceal a derailed/damaged line.
+Derive it from received pulley and line measurements and verify all approach
+angles, slack states, loaded deflection, service access and retention before
+counting it as completed protection.
 
 ## Appearance
 
-The structural capture/retention parts preview in charcoal following the [industrial design conventions](../../../docs/project/industrial-design.md). Their dimensions and physical design revisions are unchanged. Future protective housings use the rounded white-shell convention while keeping these interfaces visible and accessible.
+Structural carrier and rear pads preview in charcoal; removable protective
+covers use rounded warm-white shells following the
+[industrial design conventions](../../../docs/project/industrial-design.md).
+Bought hardware uses neutral metal coloring. Keep loaded interfaces, pulley,
+wear and drainage visible and accessible when covers are removed.

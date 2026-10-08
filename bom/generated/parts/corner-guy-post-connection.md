@@ -1,4 +1,4 @@
-# Reviewed guy-to-post attachment set
+# Reviewed bought guy-to-post attachment set
 
 > Generated from canonical BOM inputs by `pnpm bom:generate`. Do not edit this page by hand.
 
@@ -9,11 +9,11 @@
 - Kind: component
 - Lifecycle: planned
 - Disciplines: mechanical
-- Traits: fabricated
+- Traits: off-the-shelf
 
 ## Requirements
 
-- One independently reviewed metal guy-to-post attachment per station. Must define height, direction, load path, attachment to timber, connection sizes and corrosion compatibility. No design or capacity currently approved; do not substitute a strap, wood screw or weather cover.
+- One independently reviewed bought guy-to-post attachment set per station. Product, availability and capacity remain unselected. Must define height, direction, timber attachment, connection sizes, rating and corrosion compatibility. Independent of printed pulley head; do not substitute cosmetic straps, wood screws or an unqualified printed carrier.
 
 ## Notes
 
@@ -25,7 +25,7 @@ Quantities are per assembly definition, before build multipliers. Optional and d
 
 | Assembly or purchasing bucket | Quantity | Inclusion | Usage note |
 | --- | ---: | --- | --- |
-| [Corner support set](../../../docs/assemblies/corner-station/README.md) | 4 each | deferred | Required unresolved structural interface; quantity allowance only, no installation approval. |
+| [Corner support set](../../../docs/assemblies/corner-station/README.md) | 4 each | deferred | Required unresolved independently reviewed bought attachment; product/rating not selected, no installation approval. |
 
 [Canonical assembly quantities](../../assemblies/assemblies.json)
 
