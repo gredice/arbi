@@ -9,7 +9,10 @@ export const metadata: Metadata = { title: "Bill of materials" };
 export default function Bom() {
     const { site } = data();
     const sum = site.bom.summary;
-    const groups = Map.groupBy(site.bom.parts, (p) => p.usedIn[0]?.assemblyId ?? "not in v1 build");
+    const lines = site.bom.parts.flatMap((p) => p.usedIn.length
+        ? p.usedIn.map((u) => ({ ...p, group: u.assemblyId, required: u.quantity, knownGoods: u.knownGoodsAmount }))
+        : [{ ...p, group: "not in v1 build" }]);
+    const groups = Map.groupBy(lines, (p) => p.group);
     const head: [string, string][] = [
         [fmt.eur(sum.knownSubtotal), "Known partial subtotal"],
         ["Unavailable", "Complete landed total"],
@@ -38,12 +41,17 @@ export default function Bom() {
                 <p className="tag border-b border-ink py-3">
                     Status: {sum.complete ? "complete" : "incomplete"} · {sum.destinationName} · quote {sum.quoteSnapshotId} · null values are never treated as zero
                 </p>
+                <p className="text-[13px] pt-3">
+                    Bundle goods are allocated by purchased part count, including surplus. Allocated shares are not individual supplier prices; shipping stays separate.
+                </p>
                 {[...groups].map(([group, list]) => (
                     <section key={group} className="mt-10">
                         <div className="flex items-end justify-between">
                             <h2 className="cond text-[30px] leading-none">{site.bom.assemblies.find((a) => a.id === group)?.name ?? group}</h2>
                             <span className="tag">
-                                {list.length} items · {fmt.eur(sum.assemblyKnownGoods.find((x) => x.assemblyId === group)?.amount)}
+                                {list.length} items · {fmt.eur(group === "shared-procurement-stock"
+                                    ? sum.sharedProcurementStockKnownGoods
+                                    : sum.assemblyKnownGoods.find((x) => x.assemblyId === group)?.amount)}
                             </span>
                         </div>
                         <table className="mt-3 w-full table-fixed border-t-2 border-ink text-[13px]">
@@ -72,7 +80,10 @@ export default function Bom() {
                                         </td>
                                         <td className="tag hidden pl-6 pr-4 [overflow-wrap:anywhere] md:table-cell">{p.supplierId ?? "—"}</td>
                                         <td className="tag hidden pr-4 [overflow-wrap:anywhere] md:table-cell">{fmt.status(p.qualification ?? "no offer")}</td>
-                                        <td className="mono text-right">{p.bundle ? "bundle" : p.knownGoods ? fmt.eur(p.knownGoods) : "—"}</td>
+                                        <td className="mono text-right">
+                                            {p.knownGoods !== null ? fmt.eur(p.knownGoods) : "—"}
+                                            {p.goodsAllocationBasis === "part-count" && <span className="tag block text-[9px]">Bundle share</span>}
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>

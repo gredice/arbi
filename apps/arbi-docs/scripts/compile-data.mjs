@@ -275,7 +275,7 @@ function bom() {
   const parts = catalog.map((part) => {
     const r = reqs[part.id] ?? {};
     const sel = selections[r.selectedOfferId];
-    const bundle = Boolean(sel && sel.coverage.length > 1);
+    const bundle = (offers[r.selectedOfferId]?.purchaseUnit.contents.length ?? 0) > 1;
     const price = quote.offerPrices.find((item) => item.offerId === r.selectedOfferId);
     const group = quote.checkoutGroups.find((item) => item.checkoutGroupId === sel?.checkoutGroupId);
     const customsPolicy = policies.find((item) => item.id === group?.customsPolicyId) ?? null;
@@ -283,7 +283,8 @@ function bom() {
       supplierId: sel?.supplierId ?? null, qualification: sel?.qualification ?? null, purchaseUnits: sel?.purchaseUnits ?? null, bundle,
       actualDelivered: price?.actualDelivered ?? null,
       quotedPrice: price?.price ?? null, delivery: price?.delivery ?? null, observedAt: price?.observedAt ?? null, customsPolicy,
-      knownGoods: bundle ? null : sel?.knownGoodsAmount ?? null, offerUrl: offers[r.selectedOfferId]?.listing?.url ?? null,
+      knownGoods: sel?.coverage.find((c) => c.partId === part.id)?.knownGoodsAmount ?? null,
+      goodsAllocationBasis: sel?.goodsAllocationBasis ?? null, offerUrl: offers[r.selectedOfferId]?.listing?.url ?? null,
       warnings: sel?.warnings ?? [], page: `bom/generated/parts/${part.id}.md` };
   });
   const keys = ['scenarioId', 'scenarioName', 'buildId', 'destinationName', 'quoteSnapshotId', 'inputDigest', 'reportCurrency', 'complete',

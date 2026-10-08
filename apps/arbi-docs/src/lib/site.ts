@@ -35,6 +35,7 @@ type RawSite = {
             knownShippingSubtotal: string;
             knownSubtotal: string;
             assemblyKnownGoods: { assemblyId: string; amount: string }[];
+            sharedProcurementStockKnownGoods: string;
             warningCount: number;
         };
         parts: BomPart[];

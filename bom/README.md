@@ -92,7 +92,9 @@ The receipt log is maintained manually and is not consumed by the BOM calculator
 
 The current report is intentionally incomplete. It exposes a known partial subtotal but leaves the complete landed total unavailable while package rules, prices, tax treatment, shipping, availability, and qualification remain unresolved. The partial subtotal must not be presented as the project cost.
 
-Shared bundle and checkout shipping values remain separate from physical-assembly goods unless evidence-backed allocation weights exist.
+Bundle goods for countable components (`each`) are allocated in proportion to the quantity of each part in the purchased bundle, including surplus. For example, a kit with four motors, four drivers, four cables and two power supplies assigns 4/14 of its goods cost to each four-piece line and 2/14 to the power supplies. These are accounting shares, not individual supplier prices. Exact cent allocation uses largest remainders with part ID as the tie-breaker, so shares sum to the quoted bundle amount. Each part's share is then allocated across its owners by required quantity. Reports and the website display those shares and include them in assembly goods totals without counting the bundle again.
+
+Unknown bundle prices remain unknown. Costs for unselected bundle contents and bundles whose contents are not all countable components remain in the shared bundle bucket. Checkout shipping stays separate from physical-assembly goods.
 
 The file calculator supports deterministic pinned selection and honest incomplete reporting. Cheapest-compliant selection, quote-staleness optimization, lead-time planning, and interactive destination comparison are future website capabilities, not current CLI claims.
 

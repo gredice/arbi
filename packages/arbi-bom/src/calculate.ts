@@ -239,6 +239,7 @@ export function calculateBom(
             purchased: null,
             surplus: null,
             unit: part.baseUnit,
+            knownGoodsAmount: null,
           });
         }
       }
@@ -274,6 +275,7 @@ export function calculateBom(
             purchased: purchased.toString(),
             surplus: purchased.subtract(requirement.quantity).toString(),
             unit: part.baseUnit,
+            knownGoodsAmount: null,
           });
         }
       }
@@ -341,6 +343,29 @@ export function calculateBom(
     if (knownGoodsAmount !== null) {
       knownGoodsByOffer.set(offer.id, knownGoodsAmount);
     }
+    // Count every purchased component, including surplus and unselected kit
+    // contents. Unlike a supplier price, this is an accounting allocation.
+    const goodsAllocationBasis = knownGoodsAmount === null
+      ? null
+      : offer.purchaseUnit.contents.length === 1
+        ? "single-part"
+        : offer.purchaseUnit.contents.every(
+            (content) => partById.get(content.partId)?.baseUnit === "each",
+          )
+          ? "part-count"
+          : null;
+    if (knownGoodsAmount !== null && goodsAllocationBasis !== null) {
+      const amounts = new Map(allocateByWeight(
+        knownGoodsAmount,
+        offer.purchaseUnit.contents.map((content) => ({
+          id: content.partId,
+          weight: Decimal.parse(content.quantity),
+        })),
+      ).map((item) => [item.id, item.amount.toString()]));
+      for (const item of coverage) {
+        item.knownGoodsAmount = amounts.get(item.partId) ?? null;
+      }
+    }
     warnings.sort();
     for (const warning of warnings) {
       globalWarnings.add(offer.id + ": " + warning);
@@ -356,6 +381,7 @@ export function calculateBom(
         knownGoodsAmount === null ? null : knownGoodsAmount.toString(),
       currency:
         knownGoodsAmount === null ? null : scenario.reportCurrency,
+      goodsAllocationBasis,
       coverage: coverage.sort((left, right) =>
         left.partId.localeCompare(right.partId),
       ),
@@ -465,36 +491,40 @@ export function calculateBom(
     knownGoods = knownGoods.add(amount);
   }
   const assemblyAmounts = new Map<string, Decimal>();
+  const partAssemblyAmounts = new Map<string, Map<string, Decimal>>();
   let sharedBundleGoods = Decimal.zero();
   for (const selection of selections) {
     const amount = knownGoodsByOffer.get(selection.offerId);
-    const offer = offerById.get(selection.offerId);
-    if (amount === undefined || offer === undefined) {
+    if (amount === undefined) {
       continue;
     }
-    const covered = selectedContents(offer, requirements, scenario);
-    if (covered.length !== 1) {
-      sharedBundleGoods = sharedBundleGoods.add(amount);
-      continue;
-    }
-    const requirement = requirements.get(covered[0]!.partId);
-    if (requirement === undefined) {
-      continue;
-    }
-    const allocations = allocateByWeight(
-      amount,
-      [...requirement.assemblies.entries()].map(
-        ([assemblyId, weight]) => ({ id: assemblyId, weight }),
-      ),
-    );
-    for (const allocation of allocations) {
-      assemblyAmounts.set(
-        allocation.id,
-        (assemblyAmounts.get(allocation.id) ?? Decimal.zero()).add(
-          allocation.amount,
+    let allocated = Decimal.zero();
+    for (const covered of selection.coverage) {
+      const requirement = requirements.get(covered.partId);
+      if (covered.knownGoodsAmount === null || requirement === undefined) {
+        continue;
+      }
+      const partAmount = Decimal.parse(covered.knownGoodsAmount);
+      allocated = allocated.add(partAmount);
+      const allocations = allocateByWeight(
+        partAmount,
+        [...requirement.assemblies.entries()].map(
+          ([assemblyId, weight]) => ({ id: assemblyId, weight }),
         ),
       );
+      partAssemblyAmounts.set(covered.partId, new Map(
+        allocations.map((item) => [item.id, item.amount]),
+      ));
+      for (const allocation of allocations) {
+        assemblyAmounts.set(
+          allocation.id,
+          (assemblyAmounts.get(allocation.id) ?? Decimal.zero()).add(
+            allocation.amount,
+          ),
+        );
+      }
     }
+    sharedBundleGoods = sharedBundleGoods.add(amount.subtract(allocated));
   }
 
   const requirementResults: RequirementResult[] = [...requirements.entries()]
@@ -514,6 +544,7 @@ export function calculateBom(
             assemblyId,
             kind: assemblyById.get(assemblyId)?.kind ?? "physical",
             quantity: quantity.toString(),
+            knownGoodsAmount: partAssemblyAmounts.get(partId)?.get(assemblyId)?.toString() ?? null,
           })),
         selectedOfferId: scenario.selection.pins[partId] ?? null,
       };

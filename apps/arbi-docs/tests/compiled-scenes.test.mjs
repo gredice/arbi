@@ -17,6 +17,16 @@ test("passive and powered inventories and poses match their own canonical bookle
             env: { ...process.env, ARBI_OFFLINE: "1", ARBI_DATA_DIR: output },
             stdio: "pipe",
         });
+        const bom = JSON.parse(readFileSync(join(output, "site.json"), "utf8")).bom;
+        const driver = bom.parts.find((part) => part.id === "cl57y-v20-driver");
+        assert.equal(driver.bundle, true);
+        assert.equal(driver.goodsAllocationBasis, "part-count");
+        assert.equal(driver.knownGoods, "73.34");
+        assert.equal(driver.usedIn[0].knownGoodsAmount, "73.34");
+        assert.equal(bom.parts.find((part) => part.id === "power-supply-48v-350w").knownGoods, "36.67");
+        assert.equal(bom.parts.find((part) => part.id === "dock-funnel").knownGoods, null);
+        assert.equal(bom.summary.assemblyKnownGoods.find((item) => item.assemblyId === "winch-set").amount, "287.52");
+        assert.equal(bom.summary.knownSubtotal, "987.22");
         const files = unzipSync(readFileSync(join(app, "../../docs/assemblies/winch/booklet/ARBI-winch-STL-pack.zip")));
         const manifest = JSON.parse(new TextDecoder().decode(files[Object.keys(files).find((n) => n.endsWith("/figure-manifest.json"))]));
         const read = (slug) => JSON.parse(readFileSync(join(output, `scenes/${slug}.json`), "utf8"));

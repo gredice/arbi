@@ -225,6 +225,87 @@ test("dock capture bundle covers one separately modeled funnel and nest", async 
   );
 });
 
+test("bundle part-count shares reconcile to goods and physical assembly totals", async () => {
+  const calculated = await result();
+  const kit = selection(calculated, "stepperonline-4-axis-v2-kit");
+  assert.equal(kit.goodsAllocationBasis, "part-count");
+  assert.deepEqual(kit.coverage.map((item) => [item.partId, item.knownGoodsAmount]), [
+    ["cl57y-v20-driver", "73.34"],
+    ["matched-motor-cable", "73.34"],
+    ["nema23-closed-loop-motor", "73.33"],
+    ["power-supply-48v-350w", "36.67"],
+  ]);
+  assert.equal(calculated.assemblyKnownGoods.find((item) => item.assemblyId === "winch-set")?.amount, "287.52");
+  assert.equal(calculated.assemblyKnownGoods.find((item) => item.assemblyId === "control-cabinet")?.amount, "66.16");
+  const owners = calculated.assemblyKnownGoods.reduce(
+    (total, item) => total.add(Decimal.parse(item.amount)), Decimal.zero(),
+  ).add(Decimal.parse(calculated.sharedProcurementStockKnownGoods))
+    .add(Decimal.parse(calculated.sharedBundleGoods));
+  assert.equal(owners.toString(), calculated.knownGoodsSubtotal);
+  assert.equal(calculated.knownGoodsSubtotal, "943.84");
+  assert.equal(calculated.knownSubtotal, "987.22");
+  assert.match(renderMarkdown(calculated), /73\.34/);
+  assert.match(renderMarkdown(calculated), /part-count/);
+});
+
+test("duplicate bundle parts are rejected before cost allocation", async () => {
+  const repository = await loadBomRepository(repositoryRoot);
+  const kit = repository.offers.offers.find((offer) => offer.id === "stepperonline-4-axis-v2-kit")!;
+  kit.purchaseUnit.contents.push({ partId: "nema23-closed-loop-motor", quantity: "1" });
+  kit.purchaseUnit.contents.push({ partId: "nema23-closed-loop-motor", quantity: "4" });
+  const expected = "Offer stepperonline-4-axis-v2-kit contains duplicate part nema23-closed-loop-motor";
+  assert.deepEqual(validateRepository(repository).errors, [expected]);
+  assert.throws(() => calculateBom(repository), /contains duplicate part nema23-closed-loop-motor/);
+});
+
+test("bundle allocations include purchased surplus and multiple kits", async () => {
+  const repository = await loadBomRepository(repositoryRoot);
+  for (const assembly of repository.assemblies.assemblies) {
+    for (const usage of assembly.usages) {
+      if (usage.partId === "matched-motor-cable") usage.quantity = "1";
+      if (usage.partId === "nema23-closed-loop-motor") usage.quantity = "5";
+    }
+  }
+  const calculated = calculateBom(repository);
+  const kit = selection(calculated, "stepperonline-4-axis-v2-kit");
+  assert.equal(kit.purchaseUnits, "2");
+  const cable = coverage(calculated, kit.offerId, "matched-motor-cable");
+  assert.equal(cable.purchased, "8");
+  assert.equal(cable.surplus, "7");
+  assert.equal(cable.knownGoodsAmount, "146.67");
+  assert.equal(kit.coverage.reduce((total, item) => total.add(
+    Decimal.parse(item.knownGoodsAmount!),
+  ), Decimal.zero()).toString(), kit.knownGoodsAmount);
+  const reordered = structuredClone(repository);
+  reordered.offers.offers.find((offer) => offer.id === kit.offerId)!.purchaseUnit.contents.reverse();
+  assert.equal(renderJson(calculateBom(reordered)), renderJson(calculated));
+});
+
+test("unselected bundle contents keep their share in the shared bucket", async () => {
+  const repository = await loadBomRepository(repositoryRoot);
+  for (const assembly of repository.assemblies.assemblies) {
+    assembly.usages = assembly.usages.filter((usage) => usage.partId !== "power-supply-48v-350w");
+  }
+  const calculated = calculateBom(repository);
+  const kit = selection(calculated, "stepperonline-4-axis-v2-kit");
+  assert.equal(kit.coverage.length, 3);
+  assert.equal(coverage(calculated, kit.offerId, "nema23-closed-loop-motor").knownGoodsAmount, "73.33");
+  assert.equal(calculated.sharedBundleGoods, "36.67");
+});
+
+test("unknown bundle prices and incompatible counts remain unallocated", async () => {
+  const repository = await loadBomRepository(repositoryRoot);
+  const dock = selection(calculateBom(repository), "in-house-fabrication-dock-capture-set");
+  assert.equal(dock.goodsAllocationBasis, null);
+  assert.ok(dock.coverage.every((item) => item.knownGoodsAmount === null));
+  repository.parts.parts.find((part) => part.id === "matched-motor-cable")!.baseUnit = "m";
+  const calculated = calculateBom(repository);
+  const kit = selection(calculated, "stepperonline-4-axis-v2-kit");
+  assert.equal(kit.goodsAllocationBasis, null);
+  assert.ok(kit.coverage.every((item) => item.knownGoodsAmount === null));
+  assert.equal(calculated.sharedBundleGoods, kit.knownGoodsAmount);
+});
+
 test("in-house fabrication costs remain unknown rather than zero", async () => {
   const repository = await loadBomRepository(repositoryRoot);
   const inHouseIds = new Set(
@@ -496,6 +577,7 @@ test("repository-native part, child usage, and offer extend the canonical graph"
         assemblyId: "camera-pod-sensor-head",
         kind: "physical",
         quantity: "1",
+        knownGoodsAmount: null,
       },
     ],
     selectedOfferId: null,

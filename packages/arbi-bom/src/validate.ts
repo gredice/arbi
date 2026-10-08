@@ -193,6 +193,11 @@ export function validateRepository(repository: BomRepository): ValidationResult 
     if (offer.purchaseUnit.contents.length === 0) {
       result.errors.push(`Offer ${offer.id} has no package contents`);
     }
+    for (const duplicate of duplicateIds(
+      offer.purchaseUnit.contents.map((content) => content.partId),
+    )) {
+      result.errors.push(`Offer ${offer.id} contains duplicate part ${duplicate}`);
+    }
     for (const content of offer.purchaseUnit.contents) {
       if (!partSet.has(content.partId)) {
         result.errors.push(

@@ -31,6 +31,9 @@ function coverageSummary(
         coverage.unit +
         " required, " +
         purchase
+        + "; goods " + (coverage.knownGoodsAmount === null
+          ? "unknown"
+          : money(coverage.knownGoodsAmount, selection.currency!))
       );
     })
     .join("; ");
@@ -81,7 +84,7 @@ export function renderMarkdown(result: CalculationResult): string {
     "",
     "## Physical assembly goods",
     "",
-    "| Physical assembly | Known directly attributable goods |",
+    "| Physical assembly | Known allocated goods |",
     "| --- | ---: |",
   ];
   for (const assembly of result.assemblyKnownGoods) {
@@ -102,7 +105,7 @@ export function renderMarkdown(result: CalculationResult): string {
       money(result.sharedShipping, result.reportCurrency) +
       " |",
     "",
-    "Bundle and shipping costs stay in explicit shared buckets when the committed record does not provide defensible physical-assembly allocation weights.",
+    "Multi-part bundles of countable components are allocated by purchased part count, including surplus, with cents distributed deterministically. These shares are accounting allocations, not individual supplier prices. Unselected contents or bundles without comparable part counts remain in the shared bundle bucket; shipping remains separate.",
     "",
     "## Non-physical procurement bucket",
     "",
@@ -156,8 +159,8 @@ export function renderMarkdown(result: CalculationResult): string {
     ]),
     "## Selected purchase units",
     "",
-    "| Offer | Qualification | Purchase units | Coverage and surplus | Known goods |",
-    "| --- | --- | ---: | --- | ---: |",
+    "| Offer | Qualification | Purchase units | Coverage and surplus | Known goods | Allocation |",
+    "| --- | --- | ---: | --- | ---: | --- |",
   );
   for (const selection of result.selections) {
     lines.push(
@@ -173,6 +176,7 @@ export function renderMarkdown(result: CalculationResult): string {
         (selection.knownGoodsAmount === null
           ? "unknown"
           : money(selection.knownGoodsAmount, result.reportCurrency)) +
+        " | " + (selection.goodsAllocationBasis ?? "unallocated") +
         " |",
     );
   }

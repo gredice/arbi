@@ -247,6 +247,7 @@ export interface RequirementResult {
     assemblyId: string;
     kind: Assembly["kind"];
     quantity: string;
+    knownGoodsAmount: string | null;
   }>;
   selectedOfferId: string | null;
 }
@@ -257,6 +258,7 @@ export interface CoverageResult {
   purchased: string | null;
   surplus: string | null;
   unit: BaseUnit;
+  knownGoodsAmount: string | null;
 }
 
 export interface SelectionResult {
@@ -267,6 +269,7 @@ export interface SelectionResult {
   purchaseUnits: string | null;
   knownGoodsAmount: string | null;
   currency: string | null;
+  goodsAllocationBasis: "single-part" | "part-count" | null;
   coverage: CoverageResult[];
   warnings: string[];
 }

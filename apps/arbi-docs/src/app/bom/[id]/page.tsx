@@ -31,7 +31,10 @@ export default async function BomItem({ params }: { params: Promise<{ id: string
         ["Delivery", p.delivery ? (p.delivery.amount === "0" ? "Free" : `${p.delivery.currency} ${p.delivery.amount}`) : "Unknown"],
         ["Customs", p.customsPolicy ? `${p.customsPolicy.currency} ${p.customsPolicy.amount} per item type per order (not per piece), order goods under ${p.customsPolicy.currency} ${p.customsPolicy.orderValueBelow}` : "—"],
         ["Customs dates", p.customsPolicy ? `${p.customsPolicy.startsOn} → ${p.customsPolicy.endsOn ?? "no end date set"}` : "—"],
-        ["Known goods", p.bundle ? "Shared bundle" : fmt.eur(p.knownGoods)],
+        ["Known goods", fmt.eur(p.knownGoods)],
+        ...(p.bundle ? [["Cost allocation", p.goodsAllocationBasis === "part-count"
+            ? "Bundle share by purchased part count (including surplus); not an individual supplier price."
+            : "Bundle share unavailable: price or comparable part counts are unknown."] as [string, ReactNode]] : []),
         [
             "Listing",
             p.offerUrl ? (
