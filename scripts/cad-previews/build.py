@@ -136,12 +136,12 @@ def render_reference(csg, output, work):
     # Avoid a costly boolean union of an entire assembly. VTK draws its component
     # meshes together with normal depth occlusion, retaining the assembly seams.
     meshes = []
-    for geometry in components(csg.read_text()):
+    for geometry in components(csg.read_text(encoding="utf-8")):
         key = hashlib.sha256(geometry.encode()).hexdigest()
         mesh = work / f"{key}.stl"
         if not mesh.exists():
             source = work / f"{key}.scad"
-            source.write_text(geometry + "\n")
+            source.write_text(geometry + "\n", encoding="utf-8")
             result = subprocess.run(["openscad", "-o", str(mesh), str(source)],
                                     capture_output=True, text=True, timeout=120, check=True)
             if "ERROR:" in result.stderr:
