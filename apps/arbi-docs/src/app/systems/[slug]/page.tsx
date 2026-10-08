@@ -38,6 +38,7 @@ export default async function SystemPage({ params }: { params: Promise<{ slug: s
                 number={sys.number}
                 name={sys.name}
                 scene={scene}
+                cadPending={sys.models.length > 0}
                 caption={caption}
                 nav={systems.map((s) => ({ slug: s.slug, number: s.number, name: s.name }))}
                 current={sys.slug}
