@@ -8,6 +8,7 @@ import type {
   BomRepository,
   CalculationResult,
   CoverageResult,
+  CustomsResult,
   Offer,
   RequirementResult,
   Scenario,
@@ -367,6 +368,8 @@ export function calculateBom(
   ].sort();
   const shipping: ShippingResult[] = [];
   let knownShipping = Decimal.zero();
+  let knownCustoms = Decimal.zero();
+  const customs: CustomsResult[] = [];
   for (const checkoutGroupId of selectedGroups) {
     const quote = repository.quote.checkoutGroups.find(
       (candidate) => candidate.checkoutGroupId === checkoutGroupId,
@@ -376,12 +379,39 @@ export function calculateBom(
       globalWarnings.add(checkoutGroupId + ": Shipping policy is missing.");
       continue;
     }
+    if (quote.customsPolicyId !== undefined) {
+      const policy = repository.customs.policies.find((item) => item.id === quote.customsPolicyId)!;
+      const groupSelections = selections.filter((item) => item.checkoutGroupId === checkoutGroupId);
+      const customsWarnings: string[] = [];
+      const allGoodsKnown = groupSelections.every((item) => item.knownGoodsAmount !== null);
+      const orderGoods = allGoodsKnown ? groupSelections.reduce((total, item) => total.add(Decimal.parse(item.knownGoodsAmount!)), Decimal.zero()) : null;
+      const threshold = convertMoney(repository, Decimal.parse(policy.orderValueBelow), policy.currency, scenario.reportCurrency);
+      const date = repository.quote.capturedAt.slice(0, 10);
+      const active = date >= policy.startsOn && (policy.endsOn === null || date < policy.endsOn);
+      let customsAmount: Decimal | null = null;
+      if (!active) customsWarnings.push("Quote date is outside the customs policy interval; actual duty is unknown.");
+      else if (orderGoods === null || threshold === null) customsWarnings.push("Customs is conditional: total order goods value is unknown; split orders are not assumed.");
+      else if (orderGoods.compare(threshold) >= 0) customsWarnings.push("Order is outside the low-value customs policy; actual duty is unknown.");
+      else customsAmount = convertMoney(repository, Decimal.parse(policy.amount).multiplyInteger(BigInt(groupSelections.length)), policy.currency, scenario.reportCurrency);
+      if (customsAmount !== null) knownCustoms = knownCustoms.add(customsAmount);
+      if (active) customsWarnings.push("One selected offer approximates one declared item type; actual customs grouping is unconfirmed.");
+      for (const warning of customsWarnings) globalWarnings.add(checkoutGroupId + ": " + warning);
+      customs.push({ checkoutGroupId, policy, chargeCount: active ? groupSelections.length : 0, orderGoodsAmount: orderGoods?.toString() ?? null, knownAmount: customsAmount?.toString() ?? null, warnings: customsWarnings });
+    }
     const basis = quote.basis ?? "checkout-group";
     const chargeCount = basis === "selected-offer"
       ? new Set(selections.filter((item) => item.checkoutGroupId === checkoutGroupId).map((item) => item.offerId)).size
       : 1;
     let knownAmount: Decimal | null = null;
-    if (quote.status === "unknown" || quote.amount === null) {
+    const groupDelivery = selections.filter((item) => item.checkoutGroupId === checkoutGroupId)
+      .map((item) => priceByOffer.get(item.offerId)?.delivery);
+    const deliveryAmounts = groupDelivery.map((item) => item === undefined ? null :
+      convertMoney(repository, Decimal.parse(item.amount), item.currency, scenario.reportCurrency));
+    const deliveryKnown = deliveryAmounts.length > 0 && deliveryAmounts.every((item) => item !== null);
+    if ((quote.status === "unknown" || quote.amount === null) && deliveryKnown) {
+      knownAmount = deliveryAmounts.reduce<Decimal>((total, item) => total.add(item!), Decimal.zero());
+      knownShipping = knownShipping.add(knownAmount);
+    } else if (quote.status === "unknown" || quote.amount === null) {
       warnings.push("Shipping is unknown; null is not treated as free.");
     } else {
       knownAmount = convertMoney(
@@ -423,7 +453,7 @@ export function calculateBom(
       checkoutGroupId,
       supplierId: quote.supplierId,
       chargedOnce: true,
-      status: quote.status,
+      status: deliveryKnown && quote.status === "unknown" ? "known" : quote.status,
       knownAmount: knownAmount === null ? null : knownAmount.toString(),
       currency: scenario.reportCurrency,
       warnings,
@@ -491,7 +521,7 @@ export function calculateBom(
 
   const warnings = [...globalWarnings].sort();
   const complete = warnings.length === 0;
-  const knownSubtotal = knownGoods.add(knownShipping);
+  const knownSubtotal = knownGoods.add(knownShipping).add(knownCustoms);
   return {
     schemaVersion: 1,
     scenarioId: scenario.id,
@@ -505,6 +535,8 @@ export function calculateBom(
     complete,
     completeLandedTotal: complete ? knownSubtotal.toString() : null,
     knownGoodsSubtotal: knownGoods.toString(),
+    knownCustomsSubtotal: knownCustoms.toString(),
+    customs,
     knownShippingSubtotal: knownShipping.toString(),
     knownSubtotal: knownSubtotal.toString(),
     requirements: requirementResults,

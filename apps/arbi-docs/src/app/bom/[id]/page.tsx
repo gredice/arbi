@@ -24,6 +24,13 @@ export default async function BomItem({ params }: { params: Promise<{ id: string
         ["Supplier", p.supplierId ?? "—"],
         ["Qualification", fmt.status(p.qualification)],
         ["Purchase units", p.purchaseUnits ?? "—"],
+        ...(p.actualDelivered ? [["Actual delivered total", `${p.actualDelivered.currency} ${p.actualDelivered.amount} for ${p.actualDelivered.quantity} pieces — all charges included`]] as [string, ReactNode][] : []),
+        ...(p.actualDelivered?.importCharges ? [["Actual import charges", `${p.actualDelivered.currency} ${p.actualDelivered.importCharges} for the batch — included in delivered total`]] as [string, ReactNode][] : []),
+        ["Unit price", p.quotedPrice ? `${p.quotedPrice.currency} ${p.quotedPrice.amount} / ${p.quotedPrice.basis === "base-unit" ? p.unit : "purchase unit"}` : "—"],
+        ["Price observed", p.observedAt?.slice(0, 10) ?? "—"],
+        ["Delivery", p.delivery ? (p.delivery.amount === "0" ? "Free" : `${p.delivery.currency} ${p.delivery.amount}`) : "Unknown"],
+        ["Customs", p.customsPolicy ? `${p.customsPolicy.currency} ${p.customsPolicy.amount} per item type per order (not per piece), order goods under ${p.customsPolicy.currency} ${p.customsPolicy.orderValueBelow}` : "—"],
+        ["Customs dates", p.customsPolicy ? `${p.customsPolicy.startsOn} → ${p.customsPolicy.endsOn ?? "no end date set"}` : "—"],
         ["Known goods", p.bundle ? "Shared bundle" : fmt.eur(p.knownGoods)],
         [
             "Listing",

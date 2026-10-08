@@ -196,17 +196,18 @@
         "marketRegion": "World"
       },
       "purchaseUnit": {
-        "label": "unit",
-        "packagingKnown": false,
-        "minimum": null,
-        "increment": null,
+        "label": "single coupling",
+        "packagingKnown": true,
+        "minimum": "1",
+        "increment": "1",
         "contents": [
           {
             "partId": "flexible-jaw-coupling-8mm",
             "quantity": "1"
           }
         ]
-      }
+      },
+      "note": "Owner confirmed EUR 3.09 quoted per coupling with free delivery to Croatia, then EUR 3.76 actual import charges and EUR 16.12 actual delivered total for four couplings on 2026-10-08. The actual total includes all charges; do not add VAT or customs again. The shared customs policy remains a separate estimate for future orders. Stock remains unconfirmed. See bom/sourcing/coupling-2026-10-08.md."
     },
     {
       "id": "aliexpress-heat-set-insert-assortment",

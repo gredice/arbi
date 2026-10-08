@@ -69,4 +69,8 @@ See [purchase evidence](sourcing/dive-store-line-2026-10-08.md). No VAT breakdow
 current stock observation or inspection, testing or installation evidence was
 supplied.
 
+## Coupling total confirmed on 2026-10-08
+
+Aleks confirmed **EUR 16.12 actual delivered total for four couplings** linked to `aliexpress-flexible-jaw-coupling-8mm`, including all charges. The quoted price is EUR 3.09 per piece with free delivery. The EUR 15.36 goods-plus-customs estimate is not the actual total; actual import charges were **EUR 3.76**, giving EUR 12.36 goods + EUR 0 delivery + EUR 3.76 import charges = EUR 16.12. Do not add VAT or customs again to EUR 16.12. This clarifies the existing four-coupling order, not an additional order. Receipt status and exact order/delivery dates were not supplied. See [coupling price evidence](sourcing/coupling-2026-10-08.md).
+
 Append future orders and deliveries with their confirmation date, evidence, stable offer ID, and actual quantity when known. When incoming items arrive, record receipt separately so the order history remains traceable. Do not infer receipt for unlisted items. This manual log is not included in generated cost reports.

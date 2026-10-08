@@ -131,26 +131,62 @@ test("TME shipping is applied once per checkout group", async () => {
   assert.equal(tme[0]?.chargedOnce, true);
 });
 
-test("AliExpress delivery is EUR 3 per distinct selected offer regardless of quantity", async () => {
+test("Coupling price and free delivery are recorded with one customs charge per item type", async () => {
   const repository = await loadBomRepository(repositoryRoot);
-  const before = calculateBom(repository);
-  const offers = before.selections.filter((item) => item.checkoutGroupId === "aliexpress-hr");
-  const delivery = before.shipping.find((item) => item.checkoutGroupId === "aliexpress-hr");
-  assert.ok(delivery);
-  assert.equal(delivery.basis, "selected-offer");
-  assert.equal(delivery.chargeCount, offers.length);
-  assert.equal(delivery.knownAmount, String(offers.length * 3));
-  assert.ok(repository.offers.offers.filter((item) => item.supplierId === "aliexpress").length > offers.length);
-
   for (const assembly of repository.assemblies.assemblies) {
-    for (const item of assembly.usages) {
-      if (item.partId === "pod-power-wire-red-awg26") item.quantity = "100";
-    }
+    assembly.usages = assembly.usages.filter((item) => item.partId === "flexible-jaw-coupling-8mm");
   }
-  const after = calculateBom(repository);
-  assert.notEqual(selection(after, "aliexpress-pod-power-wire-red-awg26").purchaseUnits,
-    selection(before, "aliexpress-pod-power-wire-red-awg26").purchaseUnits);
-  assert.equal(after.shipping.find((item) => item.checkoutGroupId === "aliexpress-hr")?.knownAmount, delivery.knownAmount);
+  const before = calculateBom(repository);
+  assert.equal(selection(before, "aliexpress-flexible-jaw-coupling-8mm").purchaseUnits, "4");
+  assert.equal(before.knownGoodsSubtotal, "12.36");
+  assert.equal(before.knownShippingSubtotal, "0");
+  assert.equal(before.knownCustomsSubtotal, "3");
+  assert.equal(before.knownSubtotal, "15.36");
+  assert.equal(before.customs[0]?.chargeCount, 1);
+  const price = repository.quote.offerPrices.find((item) => item.offerId === "aliexpress-flexible-jaw-coupling-8mm")!;
+  assert.equal(price.taxTreatment, "included");
+  assert.equal(price.actualDelivered?.amount, "16.12");
+  assert.equal(price.actualDelivered?.importCharges, "3.76");
+  assert.equal(price.actualDelivered?.quantity, "4");
+  // Actual purchase evidence is separate from the estimate and is never charged twice.
+  assert.equal(before.knownSubtotal, "15.36");
+  price.price!.amount = "10";
+  assert.equal(calculateBom(repository).knownCustomsSubtotal, "3");
+  price.price!.amount = "37.5"; // Four couplings make an order exactly EUR 150.
+  assert.equal(calculateBom(repository).customs[0]?.knownAmount, null);
+  price.price!.amount = "38";
+  assert.equal(calculateBom(repository).customs[0]?.knownAmount, null);
+  price.price!.amount = "3.09";
+  repository.quote.capturedAt = "2026-06-30T00:00:00Z";
+  assert.equal(calculateBom(repository).knownCustomsSubtotal, "0");
+  repository.quote.capturedAt = "2026-07-01T00:00:00Z";
+  assert.equal(calculateBom(repository).knownCustomsSubtotal, "3");
+  repository.customs.policies[0]!.endsOn = "2026-10-09";
+  repository.quote.capturedAt = "2026-10-08T00:00:00Z";
+  assert.equal(calculateBom(repository).knownCustomsSubtotal, "3");
+  repository.quote.capturedAt = "2026-10-09T00:00:00Z";
+  assert.equal(calculateBom(repository).knownCustomsSubtotal, "0");
+});
+
+test("Customs counts distinct selected item types and rejects unknown basket values", async () => {
+  const repository = await loadBomRepository(repositoryRoot);
+  for (const assembly of repository.assemblies.assemblies) {
+    assembly.usages = assembly.usages.filter((item) => ["flexible-jaw-coupling-8mm", "shaft-collar-8mm"].includes(item.partId));
+  }
+  const collar = repository.offers.offers.find((item) => item.id === "aliexpress-shaft-collar-8mm")!;
+  collar.purchaseUnit.packagingKnown = true;
+  collar.purchaseUnit.minimum = "1";
+  collar.purchaseUnit.increment = "1";
+  const price = repository.quote.offerPrices.find((item) => item.offerId === collar.id)!;
+  price.price!.amount = "1";
+  const result = calculateBom(repository);
+  assert.equal(result.customs[0]?.chargeCount, 2);
+  assert.equal(result.knownCustomsSubtotal, "6");
+  price.price = null;
+  assert.equal(calculateBom(repository).customs[0]?.knownAmount, null);
+  assert.equal(calculateBom(repository).knownCustomsSubtotal, "0");
+  repository.quote.checkoutGroups[0]!.customsPolicyId = "missing-policy";
+  assert.ok(validateRepository(repository).errors.some((item) => item.includes("customs policy")));
 });
 
 test("StepperOnline kit covers all physical component requirements once", async () => {
@@ -493,6 +529,7 @@ test("additional repository quote and destination validate without external sour
   });
   repository.quote.id = "hr-split-repository-quote";
   repository.quote.destinationId = "hr-split";
+  repository.customs.policies[0]!.destinationId = "hr-split";
   const baseScenario = repository.scenarios.scenarios[0];
   assert.ok(baseScenario);
   repository.scenarios.scenarios.push({
