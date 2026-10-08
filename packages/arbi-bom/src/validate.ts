@@ -268,6 +268,16 @@ export function validateRepository(repository: BomRepository): ValidationResult 
         `Quote references unknown offer ${price.offerId}`,
       );
     }
+    if (price.actualDelivered !== undefined) {
+      requireDecimal(result, price.actualDelivered.amount, `offer ${price.offerId} delivered total`, true);
+      requireDecimal(result, price.actualDelivered.quantity, `offer ${price.offerId} actual quantity`, false);
+      if (price.actualDelivered.importCharges !== undefined) {
+        requireDecimal(result, price.actualDelivered.importCharges, `offer ${price.offerId} import charges`, true);
+        if (Decimal.parse(price.actualDelivered.importCharges).compare(Decimal.parse(price.actualDelivered.amount)) > 0) {
+          result.errors.push(`Offer ${price.offerId} import charges exceed delivered total`);
+        }
+      }
+    }
     if (price.price !== null) {
       if (!CURRENCY_PATTERN.test(price.price.currency)) {
         result.errors.push(
@@ -282,7 +292,22 @@ export function validateRepository(repository: BomRepository): ValidationResult 
       );
     }
   }
+  for (const duplicate of duplicateIds(repository.customs.policies.map((policy) => policy.id))) {
+    result.errors.push(`Duplicate customs policy ID: ${duplicate}`);
+  }
+  for (const policy of repository.customs.policies) {
+    requireDecimal(result, policy.amount, `customs ${policy.id} amount`, true);
+    requireDecimal(result, policy.orderValueBelow, `customs ${policy.id} threshold`, false);
+    if (!locationSet.has(policy.destinationId)) result.errors.push(`Customs policy ${policy.id} has unknown destination`);
+    if (policy.endsOn !== null && policy.endsOn <= policy.startsOn) result.errors.push(`Customs policy ${policy.id} end must follow start`);
+  }
   for (const shipping of repository.quote.checkoutGroups) {
+    if (shipping.customsPolicyId !== undefined) {
+      const policy = repository.customs.policies.find((item) => item.id === shipping.customsPolicyId);
+      if (policy === undefined || policy.destinationId !== repository.quote.destinationId) {
+        result.errors.push(`Shipping group ${shipping.checkoutGroupId} has missing or wrong-destination customs policy`);
+      }
+    }
     const supplier = checkoutGroupToSupplier.get(shipping.checkoutGroupId);
     if (supplier !== shipping.supplierId) {
       result.errors.push(

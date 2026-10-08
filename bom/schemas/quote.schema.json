@@ -121,6 +121,60 @@
                 "additionalProperties": false
               }
             ]
+          },
+          "delivery": {
+            "type": "object",
+            "required": [
+              "amount",
+              "currency",
+              "note"
+            ],
+            "properties": {
+              "amount": {
+                "$ref": "#/$defs/decimal"
+              },
+              "currency": {
+                "type": "string",
+                "pattern": "^[A-Z]{3}$"
+              },
+              "note": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "actualDelivered": {
+            "type": "object",
+            "required": [
+              "amount",
+              "currency",
+              "quantity",
+              "confirmedAt",
+              "note"
+            ],
+            "properties": {
+              "amount": {
+                "$ref": "#/$defs/decimal"
+              },
+              "quantity": {
+                "$ref": "#/$defs/decimal"
+              },
+              "currency": {
+                "type": "string",
+                "pattern": "^[A-Z]{3}$"
+              },
+              "confirmedAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "note": {
+                "type": "string"
+              },
+              "importCharges": {
+                "$ref": "#/$defs/decimal"
+              }
+            },
+            "additionalProperties": false
           }
         },
         "additionalProperties": false
@@ -195,6 +249,9 @@
               "checkout-group",
               "selected-offer"
             ]
+          },
+          "customsPolicyId": {
+            "$ref": "#/$defs/id"
           }
         },
         "additionalProperties": false
