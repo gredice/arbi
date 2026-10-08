@@ -2,7 +2,7 @@
 import { execFileSync } from 'node:child_process';
 import { appendFileSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { CAD_TAG, LEGACY_CAD_TAG, nextVersion, releaseInputs, sha256 } from './cad-release-data.mjs';
+import { CAD_TAG, LEGACY_CAD_TAG, compareCadTags, nextVersion, releaseInputs, sha256 } from './cad-release-data.mjs';
 
 const repo = process.env.GITHUB_REPOSITORY;
 const commit = process.env.GITHUB_SHA;
@@ -12,7 +12,9 @@ if (repo !== 'gredice/arbi' || !/^[0-9a-f]{40}$/.test(commit ?? '') || !output |
 }
 const gh = (...args) => execFileSync('gh', args, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim();
 const releases = JSON.parse(gh('api', `repos/${repo}/releases?per_page=100`, '--paginate', '--slurp')).flat();
-const existing = releases.find((r) => CAD_TAG.test(r.tag_name) && r.target_commitish === commit);
+const existing = releases.filter((r) => CAD_TAG.test(r.tag_name) && r.target_commitish === commit
+  && (!process.env.CAD_VERSION || r.tag_name === `cad-v${process.env.CAD_VERSION}`))
+  .sort((a, b) => compareCadTags(b.tag_name, a.tag_name))[0];
 const version = existing?.tag_name.slice(5) ?? nextVersion(releases.map((r) => r.tag_name), process.env.CAD_VERSION);
 const tag = `cad-v${version}`;
 
@@ -32,6 +34,7 @@ if (pointer) {
   const pointerCommit = gh('api', `repos/${repo}/commits/${pointer.tag_name}`, '--jq', '.sha');
   const relation = gh('api', `repos/${repo}/compare/${pointerCommit}...${commit}`, '--jq', '.status');
   latest = relation === 'ahead' || relation === 'identical';
+  if (relation === 'identical' && CAD_TAG.test(pointer.tag_name) && compareCadTags(tag, pointer.tag_name) < 0) latest = false;
 }
 
 if (!existing || existing.draft) {

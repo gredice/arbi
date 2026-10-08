@@ -104,7 +104,7 @@ test('publication reruns refresh existing releases and old source commits cannot
       assert.ok(commands.some((a) => a.join(' ') === `release edit cad-v0.1.0 --draft=false --latest=${latest}`));
       assert.ok(!commands.some((a) => a[1] === 'create' || a[1] === 'upload'));
     }
-    for (const mode of ['new', 'draft']) {
+    for (const mode of ['new', 'draft', 'bump']) {
       const assets = join(temp, `assets-${mode}`); mkdirSync(assets);
       const names = [...registry.models.map((m) => m.output), `cad-sources-${'a'.repeat(40)}.zip`,
         ...['ARBI-winch', 'ARBI-payload', 'ARBI-payload-enclosure'].flatMap((n) => [`${n}-assembly-STL.pdf`, `${n}-STL-pack.zip`])];
@@ -112,19 +112,20 @@ test('publication reruns refresh existing releases and old source commits cannot
       const calls = join(temp, `calls-${mode}`);
       execFileSync(process.execPath, ['scripts/publish-cad-release.mjs'], {
         cwd: root, env: { ...process.env, PATH: `${bin}:${process.env.PATH}`, GITHUB_SHA: 'a'.repeat(40), GITHUB_REPOSITORY: 'gredice/arbi',
-          GITHUB_REF: 'refs/heads/main', CAD_OUTPUT: assets, GITHUB_OUTPUT: join(temp, `output-${mode}`), CALLS: calls, RELATION: 'ahead', MODE: mode }, stdio: 'pipe',
+          GITHUB_REF: 'refs/heads/main', CAD_OUTPUT: assets, GITHUB_OUTPUT: join(temp, `output-${mode}`), CALLS: calls, RELATION: 'ahead', MODE: mode,
+          CAD_VERSION: mode === 'bump' ? '0.2.0' : '' }, stdio: 'pipe',
       });
       const manifest = JSON.parse(readFileSync(join(assets, 'cad-release.json')));
       assert.equal(manifest.commit, 'a'.repeat(40));
-      assert.equal(manifest.version, '0.1.0');
+      assert.equal(manifest.version, mode === 'bump' ? '0.2.0' : '0.1.0');
       assert.deepEqual(manifest.inputs, releaseInputs(root));
       const sums = parseChecksums(readFileSync(join(assets, 'SHA256SUMS.txt'), 'utf8'));
       assert.equal(sums['cad-release.json'], sha256(readFileSync(join(assets, 'cad-release.json'))));
       const commands = readFileSync(calls, 'utf8').trim().split('\n').map(JSON.parse);
-      const upload = commands.findIndex((a) => a[0] === 'release' && a[1] === (mode === 'new' ? 'create' : 'upload'));
+      const upload = commands.findIndex((a) => a[0] === 'release' && a[1] === (mode === 'draft' ? 'upload' : 'create'));
       const publish = commands.findIndex((a) => a[0] === 'release' && a[1] === 'edit');
       assert.ok(upload >= 0 && publish > upload);
-      assert.ok(commands[upload].includes(mode === 'new' ? '--draft' : '--clobber'));
+      assert.ok(commands[upload].includes(mode === 'draft' ? '--clobber' : '--draft'));
     }
   } finally { rmSync(temp, { recursive: true, force: true }); }
 });

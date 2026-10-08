@@ -33,13 +33,17 @@ export function inputsMatch(actual, expected) {
     && Object.entries(expected).every(([path, digest]) => actual[path] === digest);
 }
 
+export function compareCadTags(a, b) {
+  const left = CAD_TAG.exec(a)?.slice(1).map(BigInt);
+  const right = CAD_TAG.exec(b)?.slice(1).map(BigInt);
+  if (!left || !right) throw new Error('Expected stable CAD version tags');
+  for (let i = 0; i < 3; i++) if (left[i] !== right[i]) return left[i] > right[i] ? 1 : -1;
+  return 0;
+}
+
 export function nextVersion(tags, requested) {
-  const versions = tags.map((tag) => CAD_TAG.exec(tag)?.slice(1).map(BigInt)).filter(Boolean);
-  versions.sort((a, b) => {
-    for (let i = 0; i < 3; i++) if (a[i] !== b[i]) return a[i] > b[i] ? -1 : 1;
-    return 0;
-  });
-  const newest = versions[0];
+  const versions = tags.filter((tag) => CAD_TAG.test(tag)).sort((a, b) => compareCadTags(b, a));
+  const newest = versions[0] && CAD_TAG.exec(versions[0]).slice(1).map(BigInt);
   const version = requested || (newest ? `${newest[0]}.${newest[1]}.${newest[2] + 1n}` : '0.1.0');
   const parsed = CAD_TAG.exec(`cad-v${version}`)?.slice(1).map(BigInt);
   if (!parsed) throw new Error('CAD version must be a stable MAJOR.MINOR.PATCH version');
