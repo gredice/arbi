@@ -115,9 +115,19 @@ jobs:
           lookup_error="${RUNNER_TEMP}/latest-release.err"
           if current="$(gh api "repos/${GITHUB_REPOSITORY}/releases/latest" --jq .tag_name 2>"$lookup_error")"; then
             if [[ "$current" == cad-* ]]; then
-              relation="$(gh api "repos/${GITHUB_REPOSITORY}/compare/${current#cad-}...${GITHUB_SHA}" --jq .status)"
-              if [[ "$relation" != "ahead" && "$relation" != "identical" ]]; then
-                latest=false
+              compare_error="${RUNNER_TEMP}/latest-compare.err"
+              if relation="$(gh api "repos/${GITHUB_REPOSITORY}/compare/${current#cad-}...${GITHUB_SHA}" --jq .status 2>"$compare_error")"; then
+                if [[ "$relation" != "ahead" && "$relation" != "identical" ]]; then
+                  latest=false
+                fi
+              elif grep -q 'HTTP 404' "$compare_error"; then
+                # The Latest commit is no longer reachable (for example after a force-push);
+                # this run's main commit takes over rather than blocking every later release.
+                echo "Current Latest ${current} is not comparable; marking this release Latest."
+              else
+                cat "$compare_error" >&2
+                echo "Could not compare with the current Latest release." >&2
+                exit 1
               fi
             fi
           elif grep -q 'HTTP 404' "$lookup_error"; then

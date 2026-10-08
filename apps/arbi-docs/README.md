@@ -39,7 +39,7 @@ The build needs no secrets. It reads the public GitHub release; set `ARBI_OFFLIN
 
 ## Deployment
 
-The Vercel project is `arbi` in the Gredice team. It uses root directory `apps/arbi-docs`, Node.js 24, `ENABLE_EXPERIMENTAL_COREPACK=1`, and the custom domain `arbi.gredice.com`. It is connected to `gredice/arbi`: pushes to `main` deploy production and pull requests get previews. When the CAD release workflow publishes a new Latest release, it calls the project's `cad-release` deploy hook (stored as the `ARBI_SITE_DEPLOY_HOOK` repository secret) so production rebuilds with that release.
+The Vercel project is `arbi` in the Gredice team. It uses root directory `apps/arbi-docs`, Node.js 24, `ENABLE_EXPERIMENTAL_COREPACK=1`, and the custom domain `arbi.gredice.com`. It is connected to `gredice/arbi`: pushes to `main` deploy production and pull requests get previews. When the CAD release workflow publishes a new Latest release and the `ARBI_SITE_DEPLOY_HOOK` repository secret is configured, it requests a production rebuild through the project's `cad-release` deploy hook. A failed request does not fail the release run, so check the deployment list if the site still shows an older release.
 
 To deploy a specific commit from the CLI, link a clean export of it to the `arbi` project first (`vercel link --scope gredice --project arbi`), then:
 
