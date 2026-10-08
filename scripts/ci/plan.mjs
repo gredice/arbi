@@ -62,7 +62,7 @@ export function plan(changes, { workspaces = readWorkspaces(), eventName = 'pull
     const under = (prefix) => paths.some((path) => path.startsWith(prefix));
     const has = (...names) => paths.some((path) => names.includes(path));
     const releaseTooling = has('scripts/cad-release-data.mjs', 'scripts/publish-cad-release.mjs', 'scripts/check-site-release.mjs');
-    const ownedScripts = ['scripts/check-docs.mjs', 'scripts/check-cad.mjs', 'scripts/check-booklet.py', 'scripts/check-winch-cover-meshes.py', 'scripts/check-winch-pole-meshes.py', 'scripts/cad-release-data.mjs', 'scripts/publish-cad-release.mjs', 'scripts/check-site-release.mjs'];
+    const ownedScripts = ['scripts/check-docs.mjs', 'scripts/check-cad.mjs', 'scripts/check-cad.test.mjs', 'scripts/check-booklet.py', 'scripts/check-winch-cover-meshes.py', 'scripts/check-winch-pole-meshes.py', 'scripts/cad-release-data.mjs', 'scripts/publish-cad-release.mjs', 'scripts/check-site-release.mjs'];
     const unknownWorkspace = paths.some((path) => /^(apps|packages)\//u.test(path) && !workspaces.some((workspace) => path.startsWith(`${workspace.path}/`)));
     const unknownScript = paths.some((path) => path.startsWith('scripts/') && !ownedScripts.includes(path) && !/^scripts\/(ci|spikes|cad-previews|winch-booklet|payload-booklet)\//u.test(path));
     const full = changes === null || unknownWorkspace || unknownScript || under('.github/workflows/') || under('.github/actions/') || under('scripts/ci/');
@@ -86,7 +86,7 @@ export function plan(changes, { workspaces = readWorkspaces(), eventName = 'pull
         }
     } while (selected.size !== previous);
 
-    let previews = full || releaseTooling || paths.some((path) => /^hardware\/.*\.scad$/u.test(path)) || has('hardware/models.json', 'hardware/models.schema.json', 'scripts/check-cad.mjs') || under('scripts/cad-previews/');
+    let previews = full || releaseTooling || paths.some((path) => /^hardware\/.*\.scad$/u.test(path)) || has('hardware/models.json', 'hardware/models.schema.json', 'scripts/check-cad.mjs', 'scripts/check-cad.test.mjs') || under('scripts/cad-previews/');
     let cad = cadToolchain || previews || has('bom/catalog/parts.json') || deleted.some((path) => path.startsWith('hardware/') || modelDocs.includes(path));
     const sharedBooklets = full || releaseTooling || under('hardware/lib/') || has('hardware/models.json', 'hardware/models.schema.json', 'scripts/check-booklet.py', 'docs/project/industrial-design.md', 'LICENSE') || under('scripts/winch-booklet/');
     const winch = sharedBooklets || under('hardware/assemblies/winch/') || has('scripts/check-winch-cover-meshes.py', 'scripts/check-winch-pole-meshes.py');
