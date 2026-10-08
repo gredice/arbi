@@ -11,7 +11,7 @@ from pathlib import Path
 import numpy as np
 from PIL import Image, ImageChops
 import vtk
-from csg import components
+from reference_meshes import default_jobs, positive_jobs, prepare_references
 
 REPO = Path(__file__).resolve().parents[2]
 SIZE = (480, 360)
@@ -130,27 +130,7 @@ def check_image(output):
             raise ValueError(f"Empty or incorrectly sized figure: {output}")
 
 
-def render_reference(csg, output, work):
-    # Use the same opaque white faces and visible outlines as fabrication parts.
-    # This inspection mesh is temporary: the registered/released artifact stays CSG.
-    # Avoid a costly boolean union of an entire assembly. VTK draws its component
-    # meshes together with normal depth occlusion, retaining the assembly seams.
-    meshes = []
-    for geometry in components(csg.read_text(encoding="utf-8")):
-        key = hashlib.sha256(geometry.encode()).hexdigest()
-        mesh = work / f"{key}.stl"
-        if not mesh.exists():
-            source = work / f"{key}.scad"
-            source.write_text(geometry + "\n", encoding="utf-8")
-            result = subprocess.run(["openscad", "-o", str(mesh), str(source)],
-                                    capture_output=True, text=True, timeout=120, check=True)
-            if "ERROR:" in result.stderr:
-                raise ValueError(result.stderr)
-        meshes.append(mesh)
-    render(meshes, output)
-
-
-def build(cad, output):
+def build(cad, output, jobs):
     registry = json.loads((REPO / "hardware/models.json").read_text())
     version = subprocess.run(["openscad", "--version"], capture_output=True, text=True, check=True)
     label = (version.stdout or version.stderr).strip()
@@ -160,15 +140,20 @@ def build(cad, output):
     manifest = {"schemaVersion": 1, "style": "cad-line-art-v2", "size": SIZE, "models": {}}
     with tempfile.TemporaryDirectory(prefix="arbi-previews-") as temporary:
         work = Path(temporary)
-        for model in registry["models"]:
-            mesh = cad / model["output"]
+        exports = [cad / model["output"] for model in registry["models"]]
+        for mesh in exports:
             if not mesh.is_file() or not mesh.stat().st_size:
                 raise ValueError(f"Missing CAD export: {mesh}")
+        # Only OpenSCAD processes run concurrently. VTK contexts stay on this
+        # thread; component order, transforms and the shared cache are preserved.
+        references = prepare_references([mesh for mesh in exports if mesh.suffix == ".csg"], work, jobs)
+        for model in registry["models"]:
+            mesh = cad / model["output"]
             figure = f"figures/{model['id']}.png"
             image = work / figure
             image.parent.mkdir(exist_ok=True)
             if mesh.suffix == ".csg":
-                render_reference(mesh, image, work)
+                render(references[mesh], image)
             else:
                 render(mesh, image)
             manifest["models"][model["id"]] = {
@@ -187,5 +172,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--cad-dir", type=Path, required=True, help="Output from cad:check --output-dir")
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--jobs", type=positive_jobs, default=default_jobs(), help="Concurrent OpenSCAD exports (default: available CPUs, capped at 4)")
     args = parser.parse_args()
-    build(args.cad_dir.resolve(), args.output.resolve())
+    build(args.cad_dir.resolve(), args.output.resolve(), args.jobs)

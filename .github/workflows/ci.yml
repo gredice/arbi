@@ -215,10 +215,12 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install --yes openscad=2021.01-6build4
+      - name: Test bounded CAD workers and failure handling
+        run: node --test scripts/check-cad.test.mjs
       - name: Validate and compile every registered model once
         env:
           CAD_OUTPUT: ${{ runner.temp }}/cad
-        run: pnpm cad:check -- --require-openscad --output-dir "$CAD_OUTPUT"
+        run: pnpm cad:check -- --require-openscad --jobs 4 --output-dir "$CAD_OUTPUT"
       - name: Upload commit-matched geometry for review and release
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
@@ -258,8 +260,8 @@ jobs:
           sudo apt-get install --yes openscad=2021.01-6build4 libegl1 libgl1-mesa-dri xvfb xauth
       - name: Install CAD preview renderer
         run: python -m pip install -r scripts/cad-previews/requirements.txt
-      - name: Check reference component decomposition
-        run: python scripts/cad-previews/test_csg.py
+      - name: Check reference decomposition and bounded mesh workers
+        run: python -m unittest discover -s scripts/cad-previews -p 'test_*.py'
       - name: Download this run's validated geometry
         uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
@@ -269,7 +271,7 @@ jobs:
         env:
           CAD_OUTPUT: ${{ runner.temp }}/cad-models
           PREVIEW_OUTPUT: ${{ runner.temp }}/cad-previews
-        run: python scripts/cad-previews/build.py --cad-dir "$CAD_OUTPUT" --output "$PREVIEW_OUTPUT"
+        run: python scripts/cad-previews/build.py --jobs 4 --cad-dir "$CAD_OUTPUT" --output "$PREVIEW_OUTPUT"
       - name: Verify complete figure coverage through the site compiler
         env:
           ARBI_OFFLINE: '1'

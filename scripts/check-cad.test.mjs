@@ -1,0 +1,111 @@
+import assert from 'node:assert/strict';
+import { spawnSync } from 'node:child_process';
+import { existsSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { test } from 'node:test';
+import { compileModels, parseArguments } from './check-cad.mjs';
+
+function fixture(t, mode = 'ok') {
+    const root = mkdtempSync(join(tmpdir(), 'arbi-cad-test-'));
+    const events = join(root, 'events.jsonl');
+    const executable = join(root, 'openscad');
+    writeFileSync(executable, `#!${process.execPath}
+import { appendFileSync, writeFileSync } from 'node:fs';
+import { basename } from 'node:path';
+if (process.argv.includes('--version')) {
+    console.error('OpenSCAD version 2021.01');
+} else {
+    const output = process.argv[process.argv.indexOf('-o') + 1];
+    const id = basename(output);
+    const record = (event) => appendFileSync(process.env.CAD_TEST_EVENTS, JSON.stringify({ event, id, output }) + '\\n');
+    record('start');
+    await new Promise(resolve => setTimeout(resolve, id.startsWith('slow') ? 250 : 40));
+    const bad = id.startsWith('bad');
+    const mode = process.env.CAD_TEST_MODE;
+    if (bad && mode === 'exit') {
+        console.error('deliberate compiler failure');
+        record('end');
+        process.exit(2);
+    }
+    if (bad && mode === 'warning') console.error('WARNING: deliberate diagnostic');
+    if (bad && mode === 'error') console.log('ERROR: deliberate diagnostic');
+    if (!(bad && mode === 'missing')) writeFileSync(output, bad && mode === 'empty' ? '' : id);
+    record('end');
+}
+`, { mode: 0o755 });
+    const previous = { PATH: process.env.PATH, CAD_TEST_EVENTS: process.env.CAD_TEST_EVENTS, CAD_TEST_MODE: process.env.CAD_TEST_MODE };
+    process.env.PATH = `${root}:${process.env.PATH}`;
+    process.env.CAD_TEST_EVENTS = events;
+    process.env.CAD_TEST_MODE = mode;
+    t.after(() => {
+        for (const [key, value] of Object.entries(previous)) {
+            if (value === undefined) delete process.env[key];
+            else process.env[key] = value;
+        }
+        rmSync(root, { recursive: true, force: true });
+    });
+    return { root, events: () => readFileSync(events, 'utf8').trim().split('\n').map(JSON.parse) };
+}
+
+const registry = (...ids) => ({ models: ids.map(id => ({ id, revision: '1.0.0', entrypoint: 'hardware/assemblies/winch/winch-drum.scad', output: `${id}.stl` })) });
+
+test('jobs accepts positive integers and rejects malformed or duplicate flags', () => {
+    assert.ok(parseArguments([]).jobs >= 1 && parseArguments([]).jobs <= 4);
+    assert.equal(parseArguments(['--', '--jobs', '1']).jobs, 1);
+    for (const value of [undefined, '0', '-1', '1.5', 'NaN', '1x', '9007199254740992']) {
+        assert.throws(() => parseArguments(['--jobs', value]), /positive integer/);
+    }
+    assert.throws(() => parseArguments(['--jobs', '2', '--jobs', '3']), /only be set once/);
+});
+
+test('parallel compilation covers every output once and respects the worker limit', async t => {
+    const f = fixture(t);
+    const output = join(f.root, 'output');
+    const models = registry('a', 'b', 'c', 'd', 'e', 'f', 'g');
+    await compileModels(models, 'test compiler', output, 3);
+    assert.deepEqual(readdirSync(output).sort(), models.models.map(m => m.output).sort());
+    let active = 0;
+    let peak = 0;
+    for (const event of f.events()) {
+        active += event.event === 'start' ? 1 : -1;
+        peak = Math.max(peak, active);
+        assert.ok(active >= 0 && active <= 3);
+    }
+    assert.equal(peak, 3);
+    assert.equal(active, 0);
+    assert.equal(f.events().filter(e => e.event === 'start').length, models.models.length);
+});
+
+test('serial and parallel workers produce the same artifacts', async t => {
+    const f = fixture(t);
+    const models = registry('a', 'b', 'c');
+    await compileModels(models, 'test compiler', join(f.root, 'serial'), 1);
+    await compileModels(models, 'test compiler', join(f.root, 'parallel'), 3);
+    for (const model of models.models) {
+        assert.deepEqual(readFileSync(join(f.root, 'serial', model.output)), readFileSync(join(f.root, 'parallel', model.output)));
+    }
+});
+
+for (const mode of ['exit', 'warning', 'error', 'missing', 'empty']) {
+    test(`${mode} fails, drains active children, stops queued work and cleans temporary artifacts`, async t => {
+        const f = fixture(t, mode);
+        await assert.rejects(compileModels(registry('bad', 'slow', 'queued'), 'test compiler', null, 2), /bad.*compilation failed/);
+        const events = f.events();
+        assert.deepEqual(events.filter(e => e.event === 'start').map(e => e.id).sort(), ['bad.stl', 'slow.stl']);
+        assert.equal(events.filter(e => e.event === 'end').length, 2);
+        for (const event of events) assert.equal(existsSync(event.output), false);
+    });
+}
+
+test('CLI validates the full current registry before exporting every declared artifact', t => {
+    const f = fixture(t);
+    const output = join(f.root, 'output');
+    const result = spawnSync(process.execPath, ['scripts/check-cad.mjs', '--require-openscad', '--jobs', '4', '--output-dir', output], { encoding: 'utf8' });
+    assert.equal(result.status, 0, result.stderr);
+    const models = JSON.parse(readFileSync('hardware/models.json', 'utf8')).models;
+    assert.deepEqual(readdirSync(output).sort(), models.map(m => m.output).sort());
+    const starts = f.events().filter(e => e.event === 'start');
+    assert.equal(starts.length, models.length);
+    assert.equal(new Set(starts.map(e => e.id)).size, models.length);
+});

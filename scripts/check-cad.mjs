@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import Ajv2020 from 'ajv/dist/2020.js';
-import { spawnSync } from 'node:child_process';
+import { execFile, spawnSync } from 'node:child_process';
 import {
     existsSync,
     mkdtempSync,
@@ -11,9 +11,12 @@ import {
     rmSync,
     statSync,
 } from 'node:fs';
-import { tmpdir } from 'node:os';
+import { availableParallelism, tmpdir } from 'node:os';
 import { dirname, extname, isAbsolute, join, relative, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { promisify } from 'node:util';
+
+const execute = promisify(execFile);
 
 const scriptDirectory = dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = resolve(scriptDirectory, '..');
@@ -329,7 +332,7 @@ function detectOpenScad() {
     };
 }
 
-function compileModels(registry, openScadVersion, requestedOutputDirectory) {
+export async function compileModels(registry, openScadVersion, requestedOutputDirectory, jobs) {
     const outputDirectory = requestedOutputDirectory ?? mkdtempSync(join(tmpdir(), 'arbi-cad-'));
     if (requestedOutputDirectory) {
         mkdirSync(outputDirectory, { recursive: true });
@@ -338,32 +341,41 @@ function compileModels(registry, openScadVersion, requestedOutputDirectory) {
             `CAD output directory must be empty: ${outputDirectory}`,
         );
     }
-    console.log(`Compiling ${registry.models.length} model(s) with ${openScadVersion}.`);
+    console.log(`Compiling ${registry.models.length} model(s) with ${openScadVersion}, ${jobs} worker(s).`);
 
     try {
-        for (const model of registry.models) {
-            const entrypointPath = resolveRepositoryPath(model.entrypoint, `${model.id} entrypoint`);
-            const outputPath = join(outputDirectory, model.output);
-            const result = spawnSync('openscad', ['-o', outputPath, entrypointPath], {
-                cwd: repositoryRoot,
-                encoding: 'utf8',
-                timeout: 120_000,
-            });
-            const diagnostics = [result.stdout, result.stderr].filter(Boolean).join('\n').trim();
+        let next = 0;
+        let failure;
+        async function worker() {
+            while (!failure && next < registry.models.length) {
+                const model = registry.models[next++];
+                try {
+                    const entrypointPath = resolveRepositoryPath(model.entrypoint, `${model.id} entrypoint`);
+                    const outputPath = join(outputDirectory, model.output);
+                    const result = await execute('openscad', ['-o', outputPath, entrypointPath], {
+                        cwd: repositoryRoot,
+                        encoding: 'utf8',
+                        timeout: 120_000,
+                        killSignal: 'SIGKILL',
+                    });
+                    const diagnostics = [result.stdout, result.stderr].filter(Boolean).join('\n').trim();
 
-            if (result.error) {
-                fail(`${model.id} OpenSCAD execution failed: ${result.error.message}`);
+                    if (/\b(?:ERROR|WARNING):/u.test(diagnostics)) {
+                        fail(`${model.id} emitted OpenSCAD diagnostics:\n${diagnostics}`);
+                    }
+                    assert(existsSync(outputPath), `${model.id} did not produce ${model.output}.`);
+                    assert(statSync(outputPath).size > 0, `${model.id} produced an empty CAD artifact.`);
+                    console.log(`  compiled ${model.id} ${model.revision}`);
+                } catch (error) {
+                    const diagnostics = [error.stdout, error.stderr].filter(Boolean).join('\n').trim();
+                    failure ??= new Error(`${model.id} OpenSCAD compilation failed: ${error.message}${diagnostics ? `\n${diagnostics}` : ''}`);
+                }
             }
-            if (result.status !== 0) {
-                fail(`${model.id} failed to compile.${diagnostics ? `\n${diagnostics}` : ''}`);
-            }
-            if (/\b(?:ERROR|WARNING):/u.test(diagnostics)) {
-                fail(`${model.id} emitted OpenSCAD diagnostics:\n${diagnostics}`);
-            }
-            assert(existsSync(outputPath), `${model.id} did not produce ${model.output}.`);
-            assert(statSync(outputPath).size > 0, `${model.id} produced an empty CAD artifact.`);
-            console.log(`  compiled ${model.id} ${model.revision}`);
         }
+        // Drain active children before deleting temporary files or returning a
+        // failure; no new model starts after the first observed failure.
+        await Promise.all(Array.from({ length: Math.min(jobs, registry.models.length) }, worker));
+        if (failure) throw failure;
     } finally {
         if (!requestedOutputDirectory) {
             rmSync(outputDirectory, { recursive: true, force: true });
@@ -371,14 +383,15 @@ function compileModels(registry, openScadVersion, requestedOutputDirectory) {
     }
 }
 
-function parseArguments() {
+export function parseArguments(arguments_ = process.argv.slice(2)) {
     const options = {
         requireOpenScad: false,
         staticOnly: false,
         outputDirectory: null,
+        jobs: Math.min(4, availableParallelism()),
     };
 
-    const arguments_ = process.argv.slice(2);
+    let jobsSpecified = false;
     for (let index = 0; index < arguments_.length; index += 1) {
         const argument = arguments_[index];
         if (argument === '--') {
@@ -387,6 +400,12 @@ function parseArguments() {
             options.requireOpenScad = true;
         } else if (argument === '--static-only') {
             options.staticOnly = true;
+        } else if (argument === '--jobs') {
+            const value = arguments_[++index];
+            assert(!jobsSpecified, '--jobs may only be set once.');
+            assert(/^[1-9]\d*$/u.test(value ?? '') && Number.isSafeInteger(Number(value)), '--jobs requires a positive integer.');
+            options.jobs = Number(value);
+            jobsSpecified = true;
         } else if (argument === '--output-dir') {
             const path = arguments_[++index];
             assert(path && !path.startsWith('--'), '--output-dir requires a directory path.');
@@ -408,28 +427,30 @@ function parseArguments() {
     return options;
 }
 
-try {
-    const options = parseArguments();
-    const registry = validateRegistry();
-    console.log(`Static CAD validation passed for ${registry.models.length} registered model(s).`);
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+    try {
+        const options = parseArguments();
+        const registry = validateRegistry();
+        console.log(`Static CAD validation passed for ${registry.models.length} registered model(s).`);
 
-    if (!options.staticOnly) {
-        const openScad = detectOpenScad();
-        if (openScad) {
-            assert(
-                openScad.version === registry.openScadVersion,
-                `OpenSCAD ${openScad.version} is installed, but the model registry requires exactly ${registry.openScadVersion}.`,
-            );
-            compileModels(registry, openScad.label, options.outputDirectory);
-        } else if (options.requireOpenScad) {
-            fail('OpenSCAD is required but the openscad executable was not found.');
-        } else if (options.outputDirectory) {
-            fail('--output-dir requires OpenSCAD, but the openscad executable was not found.');
-        } else {
-            console.log('OpenSCAD is not installed; compilation skipped.');
+        if (!options.staticOnly) {
+            const openScad = detectOpenScad();
+            if (openScad) {
+                assert(
+                    openScad.version === registry.openScadVersion,
+                    `OpenSCAD ${openScad.version} is installed, but the model registry requires exactly ${registry.openScadVersion}.`,
+                );
+                await compileModels(registry, openScad.label, options.outputDirectory, options.jobs);
+            } else if (options.requireOpenScad) {
+                fail('OpenSCAD is required but the openscad executable was not found.');
+            } else if (options.outputDirectory) {
+                fail('--output-dir requires OpenSCAD, but the openscad executable was not found.');
+            } else {
+                console.log('OpenSCAD is not installed; compilation skipped.');
+            }
         }
+    } catch (error) {
+        console.error(`CAD validation failed: ${error.message}`);
+        process.exitCode = 1;
     }
-} catch (error) {
-    console.error(`CAD validation failed: ${error.message}`);
-    process.exitCode = 1;
 }

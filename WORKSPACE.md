@@ -66,7 +66,7 @@ The standard Turbo commands cover implemented workspaces only. `docs:check` vali
 
 `scenario:check` builds protocol and simulation-core, then runs the [scenario 1.0 conformance suite](docs/software/scenarios.md) directly. Independent TypeScript and Python 3 consumers derive their own traces from identical committed fixtures, repeat each run and reject deliberate discrepancies. Python 3 is required; no provider/device credentials or network are used after dependencies are installed. `pnpm test` also includes these tests.
 
-`cad:check` always validates `hardware/models.json` against its JSON Schema, required files, relative includes, revisions, statuses, output names, and both directions of the model-to-BOM fabrication-source mapping. When OpenSCAD is installed it must match the registry's exact version, then the command compiles every registered entrypoint into a temporary directory. `--require-openscad` makes a missing CLI an error and is used in CI.
+`cad:check` always validates `hardware/models.json` against its JSON Schema, required files, relative includes, revisions, statuses, output names, and both directions of the model-to-BOM fabrication-source mapping. When OpenSCAD is installed it must match the registry's exact version, then the command compiles every registered entrypoint into a temporary directory. Exports use the available CPU count capped at four concurrent OpenSCAD processes; `--jobs N` overrides this and `--jobs 1` runs serially. Each export retains its 120-second timeout, diagnostic and nonempty-artifact checks. On failure the queue stops and active children finish before temporary output is removed. `--require-openscad` makes a missing CLI an error and is used in CI.
 
 ## Selective CI
 
@@ -128,7 +128,10 @@ browser while installing system dependencies on every runner.
 On relevant `main` pushes and manual dispatches on `main`, the planner expands
 the release to all three commit-matched booklet packs, CAD and registered model
 previews. Preview generation downloads this run's validated CAD and checks full
-registry coverage through the site compiler. Publication waits for `[CI] OK`,
+registry coverage through the site compiler. CAD and reference-preview meshing
+each use four OpenSCAD workers in CI. Reference components are deduplicated
+across models before meshing; VTK draws figures serially after exports finish.
+Publication waits for `[CI] OK`,
 downloads geometry, previews and packs already built in this run, then
 publishes `cad-v<MAJOR.MINOR.PATCH>` with source ZIPs/checksums and a source
 provenance manifest. Manual dispatches can request a version; otherwise the

@@ -49,12 +49,14 @@ test('BOM edits run canonical reports and BOM tests, with CAD only for part mapp
 });
 
 test('CAD preview tooling selects geometry and preview validation without unrelated workspaces', () => {
-    const result = select('scripts/cad-previews/build.py');
-    assert.equal(result.cad, true);
-    assert.equal(result.previews, true);
-    assert.equal(result.workspace, false);
-    assert.equal(result.bom, false);
-    assert.equal(result.booklets, false);
+    for (const path of ['scripts/cad-previews/build.py', 'scripts/cad-previews/reference_meshes.py', 'scripts/check-cad.test.mjs']) {
+        const result = select(path);
+        assert.equal(result.cad, true, path);
+        assert.equal(result.previews, true, path);
+        assert.equal(result.workspace, false, path);
+        assert.equal(result.bom, false, path);
+        assert.equal(result.booklets, false, path);
+    }
     const release = plan([{ path: 'scripts/cad-previews/requirements.txt', status: 'M' }], { eventName: 'push' });
     assert.equal(release.release, true);
     assert.equal(release.previews, true);
