@@ -5,9 +5,16 @@ import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { GLTFLoader, type GLTF } from "three/addons/loaders/GLTFLoader.js";
 import { STLLoader } from "three/addons/loaders/STLLoader.js";
 import { toCreasedNormals } from "three/addons/utils/BufferGeometryUtils.js";
+import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
+import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
+import { GTAOPass } from "three/addons/postprocessing/GTAOPass.js";
+import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
+import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
+import { FXAAShader } from "three/addons/shaders/FXAAShader.js";
 import type { MeshRef, Scene, ScenePart, Vec3 } from "@/lib/types";
 import { OutlineGeometry } from "./outlines";
 import { configurePageControls } from "./page-controls";
+import { StudioLighting } from "./studio-lighting";
 
 const DATA = "/data/";
 
@@ -19,7 +26,6 @@ export type Anchor = { part: ScenePart; x: number; y: number };
 // light: shaded product palette. line: booklet line art (white faces, dark edges).
 // ink: line art for black sections that keeps each part's product role readable.
 // Line art shows exact flat colors, so its materials skip tone mapping.
-const ENV: Record<ViewerStyle, number> = { light: 0.9, line: 0, ink: 0 };
 const LINE: Drawing = { face: 0xffffff, edge: 0x111111, hoverFace: 0x161616, hoverEdge: 0xffffff };
 // Neutral (untinted) grays and pure white so roles read as product colors, not tints.
 const INK: Record<"white" | "metal" | "dark", Drawing> = {
@@ -46,10 +52,12 @@ function partMaterial(color: Vec3, style: ViewerStyle): THREE.MeshBasicMaterial 
             transparent: true,
         });
     const metal = color[0] > 0.6 && color[0] < 0.75;
-    return new THREE.MeshStandardMaterial({
+    return new THREE.MeshPhysicalMaterial({
         color: new THREE.Color().setRGB(...color, THREE.SRGBColorSpace),
-        roughness: metal ? 0.35 : 0.62,
-        metalness: metal ? 0.7 : 0,
+        roughness: metal ? 0.28 : 0.48,
+        metalness: metal ? 0.8 : 0,
+        clearcoat: metal ? 0 : 0.16,
+        clearcoatRoughness: 0.4,
         transparent: true,
     });
 }
@@ -85,6 +93,11 @@ export class Viewer {
     private parts: Entry[] = [];
     private scene = new THREE.Scene();
     private root = new THREE.Group();
+    private studio?: StudioLighting;
+    private environment?: THREE.WebGLRenderTarget;
+    private composer?: EffectComposer;
+    private occlusion?: GTAOPass;
+    private antialias?: ShaderPass;
     private raycaster = new THREE.Raycaster();
     private pointer = new THREE.Vector2(9, 9);
     private localCamera = new THREE.Vector3();
@@ -101,20 +114,41 @@ export class Viewer {
     ) {
         const style = (this.options.style ??= "light");
         const r = (this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }));
-        r.setPixelRatio(Math.min(devicePixelRatio, 2));
+        r.setPixelRatio(Math.min(devicePixelRatio, style === "light" ? 1.5 : 2));
         r.outputColorSpace = THREE.SRGBColorSpace;
-        r.toneMapping = THREE.NeutralToneMapping;
+        r.toneMapping = style === "light" ? THREE.ACESFilmicToneMapping : THREE.NeutralToneMapping;
         r.domElement.style.cssText = "width:100%;height:100%;display:block";
         el.appendChild(r.domElement);
-        if (ENV[style]) {
-            this.scene.environment = new THREE.PMREMGenerator(r).fromScene(new RoomEnvironment(), 0.04).texture;
-            this.scene.environmentIntensity = ENV[style];
+        if (style === "light") {
+            const room = new RoomEnvironment();
+            const pmrem = new THREE.PMREMGenerator(r);
+            this.environment = pmrem.fromScene(room, 0.04);
+            room.dispose();
+            pmrem.dispose();
+            this.scene.environment = this.environment.texture;
+            this.scene.environmentIntensity = 0.35;
+            this.scene.environmentRotation.set(Math.PI / 2, 0, 0);
+            r.shadowMap.enabled = true;
+            r.shadowMap.type = THREE.PCFShadowMap;
+            // Orbiting changes the view, not the light or model: reuse its shadow map.
+            r.shadowMap.autoUpdate = false;
+            this.studio = new StudioLighting();
+            this.scene.add(this.studio);
         }
-        const key = new THREE.DirectionalLight(0xffffff, 1.1);
-        key.position.set(1, -1.4, 2.2);
-        this.scene.add(key, new THREE.AmbientLight(0xffffff, 0.35), this.root);
+        this.scene.add(this.root);
         this.camera = new THREE.PerspectiveCamera(options.fov ?? 28, 1, 1, 20000);
         this.camera.up.set(0, 0, 1);
+        if (style === "light") {
+            this.composer = new EffectComposer(r, new THREE.WebGLRenderTarget(1, 1, { type: THREE.HalfFloatType }));
+            this.occlusion = new GTAOPass(this.scene, this.camera);
+            this.occlusion.blendIntensity = 0.85;
+            this.occlusion.updateGtaoMaterial({ samples: 16, distanceExponent: 1, distanceFallOff: 1 });
+            this.antialias = new ShaderPass(FXAAShader);
+            this.composer.addPass(new RenderPass(this.scene, this.camera));
+            this.composer.addPass(this.occlusion);
+            this.composer.addPass(new OutputPass());
+            this.composer.addPass(this.antialias);
+        }
         this.controls = new OrbitControls(this.camera, r.domElement);
         this.controls.enableDamping = true;
         this.controls.autoRotate = options.autoRotate ?? false;
@@ -154,6 +188,15 @@ export class Viewer {
                 line.material.dispose();
             }
         }
+        this.studio?.dispose();
+        this.environment?.dispose();
+        if (this.composer) {
+            for (const pass of this.composer.passes) pass.dispose();
+            // GTAOPass does not release these two shader materials itself.
+            this.occlusion!.gtaoMaterial.dispose();
+            this.occlusion!.blendMaterial.dispose();
+            this.composer.dispose();
+        }
         this.renderer.dispose();
         this.renderer.domElement.remove();
     }
@@ -162,6 +205,14 @@ export class Viewer {
         const { clientWidth: w, clientHeight: h } = this.el;
         if (!w || !h) return;
         this.renderer.setSize(w, h, false);
+        if (this.composer) {
+            this.composer.setSize(w, h);
+            // Bound AO cost independently of screen size and device pixel ratio.
+            const scale = Math.min(this.renderer.getPixelRatio(), 960 / Math.max(w, h));
+            this.occlusion!.setSize(Math.round(w * scale), Math.round(h * scale));
+            const pixels = this.renderer.getDrawingBufferSize(new THREE.Vector2());
+            this.antialias!.uniforms.resolution.value.set(1 / pixels.x, 1 / pixels.y);
+        }
         this.camera.aspect = w / h;
         this.camera.updateProjectionMatrix();
         if (this.options.animate === false && this.parts.length) {
@@ -195,6 +246,7 @@ export class Viewer {
         for (const m of meshes) {
             m.geometry = withNormals(m.geometry);
             m.material = partMaterial(part.color, style);
+            m.castShadow = m.receiveShadow = style === "light";
             if (style !== "light") {
                 const d = drawing(part.color, style);
                 m.userData.draw = d;
@@ -256,7 +308,7 @@ export class Viewer {
         const holder = new THREE.Group();
         holder.add(obj);
         this.addPart(holder, { node: model, model, color, registered: true, group: "fixed", explode: [0, 0, 0] });
-        this.frame({ distance: 0.78 });
+        this.frame({ distance: this.options.style === "light" ? 1.04 : 0.78 });
         return box.getSize(new THREE.Vector3());
     }
 
@@ -272,7 +324,13 @@ export class Viewer {
     frame({ distance = 1, azimuth = -0.62, elevation = 0.42 } = {}) {
         // Fit the pose the explode animation is heading to, not the current frame.
         this.pose(this.target);
-        const sphere = new THREE.Box3().setFromObject(this.root).getBoundingSphere(new THREE.Sphere());
+        const bounds = new THREE.Box3().setFromObject(this.root);
+        const sphere = bounds.getBoundingSphere(new THREE.Sphere());
+        this.studio?.fit(bounds);
+        this.renderer.shadowMap.needsUpdate = true;
+        if (this.occlusion) {
+            this.occlusion.updateGtaoMaterial({ radius: sphere.radius * 0.12, thickness: sphere.radius * 0.04 });
+        }
         this.pose(this.explode);
         const vfov = THREE.MathUtils.degToRad(this.camera.fov);
         const hfov = 2 * Math.atan(Math.tan(vfov / 2) * this.camera.aspect);
@@ -299,6 +357,7 @@ export class Viewer {
     settle() {
         this.explode = this.target;
         this.pose(this.explode);
+        this.renderer.shadowMap.needsUpdate = true;
     }
 
     setFocus(model: string | null) {
@@ -321,7 +380,9 @@ export class Viewer {
     }
 
     private render() {
+        const previousPose = this.explode;
         this.explode += (this.target - this.explode) * 0.08;
+        if (this.explode !== previousPose) this.renderer.shadowMap.needsUpdate = true;
         this.pose(this.explode);
         this.controls.update();
         this.scene.updateMatrixWorld(true);
@@ -357,7 +418,8 @@ export class Viewer {
                 }
             }
         }
-        this.renderer.render(this.scene, this.camera);
+        if (this.composer) this.composer.render();
+        else this.renderer.render(this.scene, this.camera);
         this.listeners.frame.forEach((f) => f());
     }
 }
