@@ -32,6 +32,9 @@ switching views. Line and ink drawings keep their exact flat colors.
 Embedded viewers preserve vertical touch scrolling, browser pinch zoom and
 mouse-wheel page scrolling. Mouse dragging still rotates a model. The cover's
 explosion follows page scrolling; assembly pages also have an explosion slider.
+Four schematic suspension lines on the cover start at the spider's line holes
+and extend upward out of view. They follow its exploded offset, use scene depth
+for occlusion, and are excluded from CAD bounds and camera fitting.
 Contents previews render their CAD scenes once at display resolution, with a
 fitted camera and full-pixel outlines instead of downscaled booklet PNGs.
 The scenic concept image retains its full aspect ratio, color and frame spacing.

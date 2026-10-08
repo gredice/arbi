@@ -21,6 +21,12 @@ const DATA = "/data/";
 export type ViewerStyle = "light" | "line" | "ink";
 type Drawing = { face: number; edge: number; hoverFace: number; hoverEdge: number };
 type Entry = { object: THREE.Object3D; part: ScenePart; meshes: THREE.Mesh[] };
+type Suspension = {
+    entry: Entry;
+    lines: THREE.LineSegments<THREE.BufferGeometry, THREE.LineBasicMaterial>;
+    anchors: THREE.Vector3[];
+    directions: THREE.Vector3[];
+};
 export type Anchor = { part: ScenePart; x: number; y: number };
 
 // light: shaded product palette. line: booklet line art (white faces, dark edges).
@@ -93,6 +99,7 @@ export class Viewer {
     private parts: Entry[] = [];
     private scene = new THREE.Scene();
     private root = new THREE.Group();
+    private suspension?: Suspension;
     private studio?: StudioLighting;
     private environment?: THREE.WebGLRenderTarget;
     private composer?: EffectComposer;
@@ -180,6 +187,8 @@ export class Viewer {
         this.resizeObserver.disconnect();
         this.visibility.disconnect();
         this.controls.dispose();
+        this.suspension?.lines.geometry.dispose();
+        this.suspension?.lines.material.dispose();
         for (const e of this.parts) for (const m of e.meshes) {
             (m.material as THREE.Material).dispose();
             const line = m.children[0] as THREE.LineSegments<OutlineGeometry, THREE.LineBasicMaterial> | undefined;
@@ -316,6 +325,46 @@ export class Viewer {
         return this.parts.some((e) => (e.object.userData.offset as THREE.Vector3).lengthSq() > 0);
     }
 
+    /** Schematic cables from assembled attachment points in mm; excluded from CAD camera fitting. */
+    addSuspensionLines(model: string, points: Vec3[]) {
+        const entry = this.parts.find((e) => e.part.model === model);
+        if (!entry || !this.running) return;
+        if (this.suspension) {
+            this.suspension.lines.removeFromParent();
+            this.suspension.lines.geometry.dispose();
+            this.suspension.lines.material.dispose();
+        }
+        const anchors = points.map((p) => new THREE.Vector3(...p));
+        const directions = anchors.map((p) => new THREE.Vector3(p.x, p.y, 0).normalize().multiplyScalar(0.55).setZ(1));
+        const geometry = new THREE.BufferGeometry();
+        geometry.setAttribute("position", new THREE.Float32BufferAttribute(new Float32Array(points.length * 6), 3));
+        const lines = new THREE.LineSegments(geometry, new THREE.LineBasicMaterial({ color: 0xe0e0e0, toneMapped: false, transparent: true, opacity: 0.8 }));
+        // Endpoints extend beyond the view and update with the camera's far plane.
+        lines.frustumCulled = false;
+        lines.raycast = () => {};
+        this.suspension = { entry, lines, anchors, directions };
+        this.scene.add(lines);
+    }
+
+    private updateSuspension(active: string | null) {
+        if (!this.suspension) return;
+        const { entry, lines, anchors, directions } = this.suspension;
+        const positions = lines.geometry.getAttribute("position");
+        const offset = entry.object.userData.offset as THREE.Vector3;
+        const start = new THREE.Vector3();
+        const end = new THREE.Vector3();
+        const direction = new THREE.Vector3();
+        anchors.forEach((anchor, i) => {
+            start.copy(anchor).addScaledVector(offset, this.explode).applyMatrix4(this.root.matrixWorld);
+            direction.copy(directions[i]).transformDirection(this.root.matrixWorld);
+            end.copy(start).addScaledVector(direction, this.camera.far * 2);
+            positions.setXYZ(i * 2, start.x, start.y, start.z);
+            positions.setXYZ(i * 2 + 1, end.x, end.y, end.z);
+        });
+        positions.needsUpdate = true;
+        lines.material.opacity += ((!active || active === entry.part.model ? 0.8 : 0.16) - lines.material.opacity) * 0.2;
+    }
+
     private pose(t: number) {
         for (const e of this.parts) e.object.position.copy(e.object.userData.base).addScaledVector(e.object.userData.offset, t);
     }
@@ -398,6 +447,7 @@ export class Viewer {
             this.listeners.hover.forEach((f) => f(hit?.part ?? null));
         }
         const active = this.hovered?.part.model ?? this.focus;
+        this.updateSuspension(active);
         for (const e of this.parts) {
             const on = !active || e.part.model === active;
             const hot = this.hovered === e;
