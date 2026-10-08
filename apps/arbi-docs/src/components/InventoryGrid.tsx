@@ -19,7 +19,7 @@ export function InventoryGrid({ items, numbered = false, active = null, onHover 
                     key={item.id}
                     href={`/parts/${item.id}`}
                     onMouseEnter={() => onHover?.(item.id)}
-                    className={`flex min-h-[170px] flex-col border-r border-b border-ink p-3 hover:bg-sheet ${active === item.id ? "bg-sheet" : ""}`}
+                    className="group flex min-h-[170px] flex-col border-r border-b border-ink p-3"
                 >
                     <div className="flex justify-between">
                         {numbered ? (
@@ -32,7 +32,7 @@ export function InventoryGrid({ items, numbered = false, active = null, onHover 
                     <div className="grid flex-1 place-items-center py-2">
                         {item.figure ? <img src={item.figure} alt="" loading="lazy" className="max-h-[86px]" /> : <span className="tag text-grey">no figure</span>}
                     </div>
-                    <div className="tag leading-tight break-words">{item.id}</div>
+                    <div className={`tag leading-tight break-words underline-offset-2 group-hover:underline group-focus-visible:underline ${active === item.id ? "underline" : ""}`}>{item.id}</div>
                 </Link>
             ))}
         </div>
