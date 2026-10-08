@@ -88,7 +88,7 @@ test('production rejects offline archival fallback; previews omit stale scenes a
   } finally { rmSync(output, { recursive: true, force: true }); }
 });
 
-test('publication reruns refresh existing releases and old source commits cannot replace Latest', () => {
+test('publication handles large release history, refreshes reruns and preserves newer Latest commits', () => {
   const temp = mkdtempSync(join(tmpdir(), 'arbi-release-publish-'));
   try {
     const bin = join(temp, 'bin'); mkdirSync(bin);
@@ -96,7 +96,8 @@ test('publication reruns refresh existing releases and old source commits cannot
     writeFileSync(gh, `#!${process.execPath}\n`
       + `import {appendFileSync} from 'node:fs';\nconst args=process.argv.slice(2);appendFileSync(process.env.CALLS, JSON.stringify(args)+'\\n');\n`
       + `if(args[0]==='api') { const path=args[1];\n`
-      + `if(path.includes('releases?')) console.log(JSON.stringify([process.env.MODE === 'new' ? [] : [{tag_name:'cad-v0.1.0',target_commitish:process.env.GITHUB_SHA,draft:process.env.MODE === 'draft'}]]));\n`
+      + `if(path.includes('releases?')) { const releases=process.env.MODE === 'new' ? [] : [{tag_name:'cad-v0.1.0',target_commitish:process.env.GITHUB_SHA,draft:process.env.MODE === 'draft',assets:[{name:'x'.repeat(2*1024*1024)}]}];\n`
+      + `if(args[args.indexOf('--jq')+1] === '.[] | {tag_name, target_commitish, draft} | @json') { for(const {tag_name,target_commitish,draft} of releases) console.log(JSON.stringify({tag_name,target_commitish,draft})); } else console.log(JSON.stringify([releases])); }\n`
       + `else if(path.endsWith('releases/latest')) console.log(JSON.stringify({tag_name:'cad-v0.1.0'}));\n`
       + `else if(path.includes('/commits/')) console.log('b'.repeat(40));\n`
       + `else if(path.includes('/compare/')) console.log(process.env.RELATION); else process.exit(2); }\n`, { mode: 0o755 });

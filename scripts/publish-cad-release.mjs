@@ -11,7 +11,10 @@ if (repo !== 'gredice/arbi' || !/^[0-9a-f]{40}$/.test(commit ?? '') || !output |
   throw new Error('CAD publication requires gredice/arbi main, an exact commit and CAD_OUTPUT');
 }
 const gh = (...args) => execFileSync('gh', args, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim();
-const releases = JSON.parse(gh('api', `repos/${repo}/releases?per_page=100`, '--paginate', '--slurp')).flat();
+// Release assets make the full history exceed execFileSync's output buffer.
+// Filter each page in gh and emit one compact metadata object per line.
+const history = gh('api', `repos/${repo}/releases?per_page=100`, '--paginate', '--jq', '.[] | {tag_name, target_commitish, draft} | @json');
+const releases = history ? history.split('\n').map((line) => JSON.parse(line)) : [];
 const existing = releases.filter((r) => CAD_TAG.test(r.tag_name) && r.target_commitish === commit
   && (!process.env.CAD_VERSION || r.tag_name === `cad-v${process.env.CAD_VERSION}`))
   .sort((a, b) => compareCadTags(b.tag_name, a.tag_name))[0];
