@@ -54,6 +54,13 @@ export function CoverTeardown({ scene, steps, date }: { scene: Scene; steps: Ste
         });
         viewer.loadScene(scene).then(() => {
             if (!alive) return;
+            // camera-pod.scad: line-hole radius = 230 / 2 - 22 / 2,
+            // at 45°, 135°, 225°, 315°; the spider's top face is Z = 7 / 2 mm.
+            const hole = (230 / 2 - 22 / 2) / Math.SQRT2;
+            viewer.addSuspensionLines("camera-pod-spider", [
+                [hole, hole, 3.5], [-hole, hole, 3.5],
+                [-hole, -hole, 3.5], [hole, -hole, 3.5],
+            ]);
             viewer.setExplode(1);
             viewer.frame({ distance: 0.86, elevation: 0.22 });
             viewer.setExplode(0);
