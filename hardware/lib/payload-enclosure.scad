@@ -1,4 +1,4 @@
-// ARBI compact integrated payload rain enclosure r0.2.1, millimetres.
+// ARBI compact integrated payload rain enclosure, millimetres.
 // Ordinary-rain/splash prototype. No ingress rating or physical validation.
 // All modules use the same spider-centred assembly frame as payload-mounts.scad.
 include <payload-mounts.scad>
@@ -17,6 +17,10 @@ pe_hood_roof = 49.5;
 pe_power_port = [10,40];
 pe_ribbon_port = [0,-48];
 pe_servo_port = [-40,-15];
+// The fixed shoulder overlaps the circular moving neck without touching it.
+// Open-bottom arm reliefs retain a straight upward tray-removal path.
+pe_neck_radius = 51.5;
+pe_shoulder_bottom = -6.1;
 
 module pe_round_xy(size,r,z,h,center=pe_body_center) {
     hull() for(x=[-size[0]/2+r,size[0]/2-r],y=[-size[1]/2+r,size[1]/2-r])
@@ -38,6 +42,47 @@ module pe_port_holes(z,h) {
     pm_cyl(8,h,[pe_power_port[0],pe_power_port[1],z]);
     pm_box([24,8,h],pe_ribbon_port,z);
     pm_box([9,6,h],pe_servo_port,z);
+}
+
+module pe_shoulder_volume(inset=0,lift=0) {
+    // A rolled underside changes from the existing rounded tray outline to a
+    // circular throat. Vertical and radial inner offsets keep a real skin at
+    // the turned-under corners rather than a flat plate with exposed holes.
+    profile = [for(a=[0:5:90]) let(t=1-cos(a))
+        [pe_floor_z-(pe_floor_z-pe_shoulder_bottom)*sin(a)+lift,
+         (pe_body_xy-[3.2,3.2])*(1-t)+[105.4,105.4]*t-[2*inset,2*inset],
+         (pe_body_radius-1.6)*(1-t)+52.69*t-inset]];
+    // Corresponding corner samples form one ruled solid. This avoids a large
+    // stack of CGAL hull unions while retaining the rolled quarter-ellipse.
+    corners = [[1,1],[-1,1],[-1,-1],[1,-1]];
+    sides = 68;
+    points = [for(p=profile,k=[0:3],j=[0:16]) let(a=k*90+j*90/16)
+        [corners[k][0]*(p[1][0]/2-p[2])+p[2]*cos(a),
+         corners[k][1]*(p[1][1]/2-p[2])+p[2]*sin(a),p[0]]];
+    faces = concat([[for(j=[sides-1:-1:0])j]],
+        [[for(j=[0:sides-1])(len(profile)-1)*sides+j]],
+        [for(i=[0:len(profile)-2],j=[0:sides-1])
+            [i*sides+j,i*sides+(j+1)%sides,
+             (i+1)*sides+(j+1)%sides,(i+1)*sides+j]]);
+    polyhedron(points=points,faces=faces,convexity=10);
+}
+
+module pe_lower_shoulder() {
+    difference() {
+        pe_shoulder_volume();
+        pe_shoulder_volume(pe_wall,pe_wall);
+        pm_cyl(2*pe_neck_radius,22,[0,0,pe_shoulder_bottom-.02]);
+        // The original 22 mm spider arms remain the only tensile structure.
+        for(a=[45,135,225,315]) rotate([0,0,a])
+            translate([0,-11.6,pe_shoulder_bottom-.02])cube([130,23.2,10.22]);
+        // Concealed rear breakout for the existing outboard power-route proxy.
+        pm_box([9,24,9],[pe_power_port[0],58],-3.5);
+        // Recessed bottom access to the existing cover fasteners and CSI port.
+        for(x=pe_cover_x,y=pe_cover_y)pm_cyl(8,21,[x,y,pe_shoulder_bottom-.02]);
+        pm_box([27,11,21],pe_ribbon_port,pe_shoulder_bottom-.02);
+        // Carry the two original drains through the rolled outer skin.
+        for(x=[-30,20])pm_box([6,2,21],[x,-56],pe_shoulder_bottom-.02);
+    }
 }
 
 module payload_rain_hood() {
@@ -116,9 +161,10 @@ module payload_enclosure_base() {
         union() {
             // Closed lower rain tray, with a raised lip inside the upper shell.
             pe_round_xy(pe_body_xy-[3.2,3.2],pe_body_radius-1.6,pe_floor_z,pe_wall);
+            pe_lower_shoulder();
             difference() {
-                pe_round_xy(pe_body_xy-[3.2,3.2],pe_body_radius-1.6,4.3,16.1);
-                pe_round_xy(pe_body_xy-[5.6,5.6],pe_body_radius-2.8,4.29,16.2);
+                pe_round_xy(pe_body_xy-[3.2,3.2],pe_body_radius-1.6,pe_floor_z,7.2);
+                pe_round_xy(pe_body_xy-[5.6,5.6],pe_body_radius-2.8,pe_floor_z-.01,7.3);
             }
             // Same cover anchors as the existing deck: no holes in the spider.
             for(x=pe_cover_x,y=pe_cover_y)pm_cyl(8,3.1,[x,y,pe_floor_top]);

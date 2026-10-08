@@ -107,6 +107,9 @@ def main():
         ('product-eye-aligned', 0, 70, True,
          (0, np.sin(np.radians(70)), -np.cos(np.radians(70)))),
         ('product-side', 0, 0, True, (1, 0, .12)),
+        ('product-underside', 0, 0, True, (.7, 1, -.9)),
+        ('product-bottom', 0, 0, True, (0, 0, -1)),
+        ('product-underside-pan90', 90, 0, True, (.7, 1, -.9)),
         ('product-electronics', 0, 0, False, (0, 0, 1)),
     ]:
         views[name] = render(name, assembly(pan, tilt, cover), direction)

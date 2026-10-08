@@ -156,13 +156,13 @@
         },
         {
             "id": "camera-pod-assembly",
-            "revision": "0.3.4",
+            "revision": "0.3.5",
             "status": "concept-unvalidated",
             "artifactRole": "reference",
             "bomPartIds": [],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/camera-pod-assembly.scad",
-            "output": "camera-pod-assembly-r0.3.4.csg",
+            "output": "camera-pod-assembly-r0.3.5.csg",
             "documentation": "hardware/assemblies/camera-pod/README.md",
             "description": "Integrated rain-payload reference by default; show_legacy=true retains the historical separate concept layout."
         },
@@ -612,13 +612,13 @@
         },
         {
             "id": "payload-assembly",
-            "revision": "0.3.4",
+            "revision": "0.3.5",
             "status": "concept-unvalidated",
             "artifactRole": "reference",
             "bomPartIds": [],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/payload-assembly.scad",
-            "output": "payload-assembly-r0.3.4.csg",
+            "output": "payload-assembly-r0.3.5.csg",
             "documentation": "hardware/assemblies/camera-pod/README.md",
             "description": "Integrated rain-payload reference by default; show_enclosure=false selects the separate dry bench kit. Not a fabrication STL."
         },
@@ -652,7 +652,7 @@
         },
         {
             "id": "payload-enclosure-base",
-            "revision": "0.2.2",
+            "revision": "0.2.3",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
             "bomPartIds": [
@@ -660,9 +660,9 @@
             ],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/payload-enclosure-base.scad",
-            "output": "payload-enclosure-base-r0.2.2.stl",
+            "output": "payload-enclosure-base-r0.2.3.stl",
             "documentation": "hardware/assemblies/camera-pod/README.md",
-            "description": "Centred black upper rain tray with downward harness ports, raised lip and drainage; obsolete fixed-fairing attachment holes removed for the separate pan-moving integrated head."
+            "description": "Fixed black rain tray with a rolled underside shoulder and circular throat overlapping the moving head; open-bottom spider reliefs, recessed service access, downward harness ports and continuous drainage."
         },
         {
             "id": "payload-pan-fairing",
@@ -708,13 +708,13 @@
         },
         {
             "id": "payload-rain-assembly",
-            "revision": "0.2.4",
+            "revision": "0.2.5",
             "status": "concept-unvalidated",
             "artifactRole": "reference",
             "bomPartIds": [],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/payload-rain-assembly.scad",
-            "output": "payload-rain-assembly-r0.2.4.csg",
+            "output": "payload-rain-assembly-r0.2.5.csg",
             "documentation": "hardware/assemblies/camera-pod/README.md",
             "description": "Compact integrated reference with repackaged electronics, rolled white crown, one-piece pan-moving black gimbal head and white optical surround; concept-unvalidated."
         },
@@ -1108,7 +1108,7 @@
         },
         {
             "id": "payload-integrated-gimbal-head",
-            "revision": "0.1.2",
+            "revision": "0.1.3",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
             "bomPartIds": [
@@ -1116,9 +1116,9 @@
             ],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/payload-integrated-gimbal-head.scad",
-            "output": "payload-integrated-gimbal-head-r0.1.2.stl",
+            "output": "payload-integrated-gimbal-head-r0.1.3.stl",
             "documentation": "hardware/assemblies/camera-pod/README.md",
-            "description": "One-piece pan-moving outer lower head with a continuously tapering protective skin; four M2 clamps attach it to the separate internal gimbal carrier for assembly and service."
+            "description": "One-piece pan-moving outer head with a circular neck blending into the tapered lower skin; a clearance seam visually joins the fixed tray shoulder, and four M2 clamps retain the separate internal carrier."
         },
         {
             "id": "payload-integrated-gimbal-carrier",

@@ -1,4 +1,4 @@
-// ARBI payload-assembly 0.3.4 — preferred integrated enclosure; concept-unvalidated reference, not a print job.
+// ARBI payload-assembly 0.3.5 — preferred integrated enclosure; concept-unvalidated reference, not a print job.
 // Printed parts in their actual assembled frames. Hardware/fastener view is in the STL booklet.
 include <../../lib/payload-mounts.scad>
 use <camera-pod-spider.scad>

@@ -56,6 +56,8 @@ def main():
   outer_removed=[p['name'] for p in parts if p['name']=='gimbal-head' or p['name'].startswith('head-')]
   upper_removed=[p['name'] for p in parts if p['group']=='fixed' and p['name'] not in ['spider','pan-mount','pan-servo'] and not p['name'].startswith('pan-servo-')]
   service_parts=[p for p in parts if p['name'] not in upper_removed]
+  results.append(path('rolled upper rain tray lifts off retained neutral gimbal after upper hardware and harness are removed',
+   [by['enclosure-base']],service_parts,[T(0,0,z) for z in range(61)]))
   for i,(x,y) in enumerate([(x,y) for x in [-8,8] for y in [-30.5,30.5]]):
    loaded=path(f'outer head captive nut and lower washer {i} slide 11 mm from inward side before carrier fitting',
     [by[f'head-nut-{i}'],by[f'head-lower-washer-{i}']],[by['gimbal-head']],
@@ -168,6 +170,10 @@ def main():
    ('moving head upper lead passage',rectangular([6,2,8],T(-36.5,0,-4.1)),[by['gimbal-head']],{'section_mm':[6,2],'axis_mm':[-36.5,0],'z_mm':[-8.1,-.1]})]
   for label,mesh,targets,dimensions in port_defs:
    wiring.append({'name':label,'nominal_envelope':dimensions,'hits':hits(mesh,targets)})
+  for x in [-30,20]:
+   wiring.append({'name':f'tray drain at X={x} remains open through the rolled shoulder',
+    'nominal_envelope':{'section_mm':[5.6,1.6],'axis_mm':[x,-56],'z_mm':[-7,14.4]},
+    'hits':hits(rectangular([5.6,1.6,21.4],T(x,-56,3.7)),[by['enclosure-base']])})
  route_report=None
  if ENCLOSURE:
   points=np.array([[10,40,24],[10,40,1],[10,60,1],[10,60,-61],[10,70,-61]],dtype=float)
