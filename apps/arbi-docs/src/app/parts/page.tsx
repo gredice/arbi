@@ -12,7 +12,9 @@ export default function Parts() {
         <>
             <Crumb left="Parts" right={`${models.length} registered models`} />
             <div className="px-4 pb-20 sm:px-6">
-                {[...groups].map(([slug, list]) => {
+                {[...groups].sort(([a], [b]) =>
+                    (systemBySlug(a)?.number ?? "99").localeCompare(systemBySlug(b)?.number ?? "99") || a.localeCompare(b)
+                ).map(([slug, list]) => {
                     const sys = systemBySlug(slug);
                     return (
                         <section key={slug} className="mt-10">

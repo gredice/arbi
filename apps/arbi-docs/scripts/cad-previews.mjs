@@ -8,7 +8,7 @@ export function previewFigures(bytes, models, readSource) {
   const files = unzipSync(bytes);
   const root = 'ARBI-CAD-previews/';
   const manifest = JSON.parse(new TextDecoder().decode(files[root + 'manifest.json']));
-  if (manifest.schemaVersion !== 1 || manifest.style !== 'cad-preview-v1') throw new Error('Unsupported CAD preview manifest');
+  if (manifest.schemaVersion !== 1 || manifest.style !== 'cad-line-art-v2') throw new Error('Unsupported CAD preview manifest; current line-art figures required');
   const figures = {};
   const sources = new Map();
   for (const model of models) {

@@ -1,13 +1,10 @@
-// ARBI payload-assembly 0.3.5 — preferred integrated enclosure; concept-unvalidated reference, not a print job.
+// ARBI dry bench camera-pod alternative; concept-unvalidated reference, not a print job.
 // Printed parts in their actual assembled frames. Hardware/fastener view is in the STL booklet.
-include <../../lib/payload-mounts.scad>
-use <camera-pod-spider.scad>
+include <payload-mounts.scad>
+use <../assemblies/camera-pod/camera-pod-spider.scad>
 pan = 0;
 tilt = 0;
 show_cover = true;
-show_enclosure = true;
-show_hood = true;
-use <payload-rain-assembly.scad>
 module payload_bench_assembly(pan=0,tilt=0,show_cover=true) {
     assert(pan >= -95 && pan <= 95, "Outside nominal mechanical pan limits");
     assert(tilt >= -5 && tilt <= 75, "Outside nominal mechanical tilt limits");
@@ -27,5 +24,4 @@ module payload_bench_assembly(pan=0,tilt=0,show_cover=true) {
         }
     }
 }
-if(show_enclosure)payload_rain_assembly(pan,tilt,show_hood);
-else payload_bench_assembly(pan,tilt,show_cover);
+payload_bench_assembly(pan,tilt,show_cover);

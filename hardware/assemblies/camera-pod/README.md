@@ -61,6 +61,11 @@ Registry ID and design revision: `camera-pod-envelope` `0.1.1`, role `reference`
 
 Registry ID and design revision: `camera-pod-assembly` `0.3.5`, role `reference`, status `concept-unvalidated`.
 
+This is the canonical public assembled reference. The older `payload-assembly`
+registry entry was redundant because it selected the same enclosed geometry;
+its source remains available for the alternative dry bench layout but is no
+longer registered or released as a second copy of the camera pod.
+
 ## `camera-pod-spider`
 
 [camera-pod-spider.scad](camera-pod-spider.scad) provides an X-shaped four-line load-interface concept with endpoint holes, a central service opening, and a pod mounting bolt circle. The model does not define the actual line termination, thimble or knot radius, swivel behavior, powered-line isolation, load distribution, pod attitude, fastener stack, or print/load orientation.
@@ -71,7 +76,7 @@ Before prototype use, measure the real camera, compute, converter, gimbal, line 
 
 ## Bench mounting parts
 
-The [payload mount family](payload-mounts.md) supplies the fixed deck, spider spacers, pan mount, pan yoke, detachable tilt-pivot support, camera cradle, stock-horn retainers, optical hood and electronics cover. The deck and yoke are now r0.1.1; other dry bench parts remain r0.1.0. The [assembled reference](payload-assembly.scad) defaults to the integrated enclosure; select `show_enclosure=false` for the current dry bench arrangement and `show_cover=false` to remove its cover. The [booklets](../../../docs/assemblies/camera-pod/booklet/README.md) publish both configurations using actual fabrication and nominal hardware meshes.
+The [payload mount family](payload-mounts.md) supplies the fixed deck, spider spacers, pan mount, pan yoke, detachable tilt-pivot support, camera cradle, stock-horn retainers, optical hood and electronics cover. The deck and yoke are now r0.1.1; other dry bench parts remain r0.1.0. The [dry bench source](../../lib/payload-bench-assembly.scad) preserves the alternative arrangement; select `show_cover=false` to remove its cover. The registered [camera-pod assembly](camera-pod-assembly.scad) is the integrated enclosure. The [booklets](../../../docs/assemblies/camera-pod/booklet/README.md) publish both configurations using actual fabrication and nominal hardware meshes.
 
 All remain concept-unvalidated. The [7 October CAD checks](payload-geometry-check.md) apply to the current dry configuration with r0.1.1 deck/yoke; the actual servo and power-module dimensions, ribbon, mass and physical performance remain open. The original envelope is a legacy space reservation and is not the bounds of this bench assembly.
 

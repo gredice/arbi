@@ -4,7 +4,6 @@ import hashlib
 import json
 import re
 import subprocess
-import sys
 import tempfile
 import zipfile
 from pathlib import Path
@@ -123,17 +122,15 @@ def check_image(output):
 
 
 def render_reference(csg, output):
-    # OpenCSG preserves component surfaces and role colors, without the expensive
-    # boolean union or unintended fabrication STL of a reference assembly.
-    command = ["openscad", "-o", str(output), "--preview", "--colorscheme=Tomorrow",
-               "--imgsize=480,360", "--autocenter", "--viewall",
-               "--camera=0,0,0,55,0,45,1000", str(csg)]
-    if sys.platform.startswith("linux"):
-        command = ["xvfb-run", "-a", *command]
-    result = subprocess.run(command, capture_output=True, text=True, timeout=120, check=True)
-    if "ERROR:" in result.stderr:
-        raise ValueError(result.stderr)
-    check_image(output)
+    # Use the same opaque white faces and visible outlines as fabrication parts.
+    # This inspection mesh is temporary: the registered/released artifact stays CSG.
+    with tempfile.TemporaryDirectory(prefix="arbi-reference-preview-") as temporary:
+        mesh = Path(temporary) / "reference.stl"
+        result = subprocess.run(["openscad", "-o", str(mesh), str(csg)],
+                                capture_output=True, text=True, timeout=600, check=True)
+        if "ERROR:" in result.stderr:
+            raise ValueError(result.stderr)
+        render(mesh, output)
 
 
 def build(cad, output):
@@ -143,7 +140,7 @@ def build(cad, output):
     if label != f"OpenSCAD version {registry['openScadVersion']}":
         raise ValueError(f"Unexpected OpenSCAD version: {label}")
     output.mkdir(parents=True, exist_ok=True)
-    manifest = {"schemaVersion": 1, "style": "cad-preview-v1", "size": SIZE, "models": {}}
+    manifest = {"schemaVersion": 1, "style": "cad-line-art-v2", "size": SIZE, "models": {}}
     with tempfile.TemporaryDirectory(prefix="arbi-previews-") as temporary:
         work = Path(temporary)
         for model in registry["models"]:
