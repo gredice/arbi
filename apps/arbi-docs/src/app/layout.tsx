@@ -32,9 +32,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     const { site } = data();
     return (
         <html lang="en" className={`${archivo.variable} ${plexMono.variable}`}>
-            <body>
+            <body className="flex min-h-dvh flex-col">
                 <HashRedirect />
-                <header className="sticky top-0 z-40 border-b-2 border-ink bg-paper text-ink">
+                <header className="sticky top-0 z-40 shrink-0 border-b-2 border-ink bg-paper text-ink">
                     <div className="flex h-14 items-center gap-6 px-4 sm:px-6">
                         <Link href="/" className="shrink-0">
                             <img src={`${BRAND}/arbi-logo.svg`} alt="ARBI" className="h-10 w-auto" />
@@ -49,8 +49,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                         </nav>
                     </div>
                 </header>
-                <main>{children}</main>
-                <footer className="tag flex flex-wrap items-center gap-x-8 gap-y-4 bg-ink px-4 py-6 text-paper sm:px-6">
+                <main className="flex-1">{children}</main>
+                <footer className="tag flex shrink-0 flex-wrap items-center gap-x-8 gap-y-4 bg-ink px-4 py-6 text-paper sm:px-6">
                     <img src={`${BRAND}/arbi-logo.svg`} alt="ARBI" className="h-12 w-auto brightness-0 invert" />
                     <span>
                         Source{" "}
