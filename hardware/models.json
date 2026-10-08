@@ -156,13 +156,13 @@
         },
         {
             "id": "camera-pod-assembly",
-            "revision": "0.2.0",
+            "revision": "0.3.4",
             "status": "concept-unvalidated",
             "artifactRole": "reference",
             "bomPartIds": [],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/camera-pod-assembly.scad",
-            "output": "camera-pod-assembly-r0.2.0.csg",
+            "output": "camera-pod-assembly-r0.3.4.csg",
             "documentation": "hardware/assemblies/camera-pod/README.md",
             "description": "Integrated rain-payload reference by default; show_legacy=true retains the historical separate concept layout."
         },
@@ -612,13 +612,13 @@
         },
         {
             "id": "payload-assembly",
-            "revision": "0.2.0",
+            "revision": "0.3.4",
             "status": "concept-unvalidated",
             "artifactRole": "reference",
             "bomPartIds": [],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/payload-assembly.scad",
-            "output": "payload-assembly-r0.2.0.csg",
+            "output": "payload-assembly-r0.3.4.csg",
             "documentation": "hardware/assemblies/camera-pod/README.md",
             "description": "Integrated rain-payload reference by default; show_enclosure=false selects the separate dry bench kit. Not a fabrication STL."
         },
@@ -638,7 +638,7 @@
         },
         {
             "id": "payload-rain-hood",
-            "revision": "0.1.0",
+            "revision": "0.2.1",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
             "bomPartIds": [
@@ -646,13 +646,13 @@
             ],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/payload-rain-hood.scad",
-            "output": "payload-rain-hood-r0.1.0.stl",
+            "output": "payload-rain-hood-r0.2.1.stl",
             "documentation": "hardware/assemblies/camera-pod/README.md",
-            "description": "White rounded upper electronics rain shield with side-loaded captive nuts and a continuous roof; ordinary-rain/splash protection unverified."
+            "description": "White rounded upper electronics rain shield centred above the gimbal, with side-loaded captive nuts and a continuous roof; ordinary-rain/splash protection unverified."
         },
         {
             "id": "payload-enclosure-base",
-            "revision": "0.1.0",
+            "revision": "0.2.2",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
             "bomPartIds": [
@@ -660,13 +660,13 @@
             ],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/payload-enclosure-base.scad",
-            "output": "payload-enclosure-base-r0.1.0.stl",
+            "output": "payload-enclosure-base-r0.2.2.stl",
             "documentation": "hardware/assemblies/camera-pod/README.md",
-            "description": "Black upper rain tray with downward harness ports, raised lip and drainage; removable lower pan fairing attaches separately."
+            "description": "Centred black upper rain tray with downward harness ports, raised lip and drainage; obsolete fixed-fairing attachment holes removed for the separate pan-moving integrated head."
         },
         {
             "id": "payload-pan-fairing",
-            "revision": "0.1.0",
+            "revision": "0.2.1",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
             "bomPartIds": [
@@ -674,9 +674,9 @@
             ],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/payload-pan-fairing.scad",
-            "output": "payload-pan-fairing-r0.1.0.stl",
+            "output": "payload-pan-fairing-r0.2.1.stl",
             "documentation": "hardware/assemblies/camera-pod/README.md",
-            "description": "Removable black lower pan-servo splash fairing with between-arm towers and M2 attachments to the rain tray; spider unchanged."
+            "description": "Removable black lower head with rounded narrow cheeks, open gimbal aperture, between-arm towers and M2 attachments to the rain tray; spider unchanged."
         },
         {
             "id": "payload-tilt-servo-boot",
@@ -708,15 +708,15 @@
         },
         {
             "id": "payload-rain-assembly",
-            "revision": "0.1.1",
+            "revision": "0.2.4",
             "status": "concept-unvalidated",
             "artifactRole": "reference",
             "bomPartIds": [],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/payload-rain-assembly.scad",
-            "output": "payload-rain-assembly-r0.1.1.csg",
+            "output": "payload-rain-assembly-r0.2.4.csg",
             "documentation": "hardware/assemblies/camera-pod/README.md",
-            "description": "Non-manufacturing black/white enclosure assembly reference using revised deck/yoke; no physical rain, fit or mass validation."
+            "description": "Compact integrated reference with repackaged electronics, rolled white crown, one-piece pan-moving black gimbal head and white optical surround; concept-unvalidated."
         },
         {
             "id": "winch-cover-passive-left",
@@ -1105,6 +1105,90 @@
             "output": "winch-pole-assembly-r0.1.0.csg",
             "documentation": "hardware/assemblies/winch/README.md",
             "description": "Covered winch on round timber with metal saddles, rear nut covers and bottom cable guide; nominal reference only."
+        },
+        {
+            "id": "payload-integrated-gimbal-head",
+            "revision": "0.1.2",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "camera-gimbal"
+            ],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/payload-integrated-gimbal-head.scad",
+            "output": "payload-integrated-gimbal-head-r0.1.2.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "One-piece pan-moving outer lower head with a continuously tapering protective skin; four M2 clamps attach it to the separate internal gimbal carrier for assembly and service."
+        },
+        {
+            "id": "payload-integrated-gimbal-carrier",
+            "revision": "0.1.1",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "camera-gimbal"
+            ],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/payload-integrated-gimbal-carrier.scad",
+            "output": "payload-integrated-gimbal-carrier-r0.1.1.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Separate pan-moving internal carrier for the compact enclosed gimbal, with a relocated horizontal tilt servo and four M2 attachment tabs for the one-piece outer head."
+        },
+        {
+            "id": "payload-integrated-camera-cradle",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "camera-gimbal"
+            ],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/payload-integrated-camera-cradle.scad",
+            "output": "payload-integrated-camera-cradle-r0.1.0.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Compact enclosed camera cradle with the revised tilt-axis and horn interfaces; provisional camera and servo fit."
+        },
+        {
+            "id": "payload-integrated-tilt-pivot-support",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "camera-gimbal"
+            ],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/payload-integrated-tilt-pivot-support.scad",
+            "output": "payload-integrated-tilt-pivot-support-r0.1.0.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Removable opposite-side pivot support for the compact enclosed camera cradle and its revised tilt-axis position; provisional fit."
+        },
+        {
+            "id": "payload-integrated-deck",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "camera-pod-chassis"
+            ],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/payload-integrated-deck.scad",
+            "output": "payload-integrated-deck-r0.1.0.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Compact integrated electronics carrier; dedicated Pi, rotated converter, capacitor and shell mounts. Alternative to the dry bench deck."
+        },
+        {
+            "id": "payload-integrated-camera-hood",
+            "revision": "0.1.1",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "camera-gimbal"
+            ],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/payload-integrated-camera-hood.scad",
+            "output": "payload-integrated-camera-hood-r0.1.1.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Rounded white optical eye surround with a circular front aperture, preserved rear camera cavity and mounting axes, and front fastener-access tunnels; physical and imaging performance unverified."
         }
     ]
 }

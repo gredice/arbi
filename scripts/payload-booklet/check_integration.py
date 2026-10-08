@@ -29,6 +29,47 @@ def paircheck(parts,mode='all'):
             if v>EPS_VOLUME:bad.append({'a':a['name'],'b':b['name'],'intersection_mm3':round(v,5)})
     return bad
 
+def head_taper(part):
+    """Check the real outer silhouette, including openings, in assembly coordinates."""
+    filename=ROOT/part['file'];mesh=trimesh.load_mesh(filename)
+    mesh.apply_transform(np.array(part['matrix']))
+    zmin,zmax=mesh.bounds[:,2];epsilon=1e-4;tolerance=.001
+    # Include either side of every mesh vertex height as well as a dense grid.
+    # Do not derive the expected silhouette from the CAD profile equations.
+    heights=np.unique(np.r_[np.linspace(zmax-epsilon,zmin+epsilon,1000),
+                             mesh.vertices[:,2]-epsilon,mesh.vertices[:,2]+epsilon])
+    heights=heights[(heights>zmin)&(heights<zmax)][::-1]
+    sections=[];failures=[];tightest=None
+    for z in heights:
+        lines=trimesh.intersections.mesh_plane(mesh,[0,0,1],[0,0,z])
+        if not len(lines):
+            failures.append({'z_mm':float(z),'reason':'empty horizontal section'})
+            continue
+        points=lines.reshape(-1,3)[:,:2]
+        bounds=np.array([points.min(0),points.max(0)])
+        section={'z_mm':float(z),'xy_bounds_mm':bounds.tolist(),
+                 'width_x_mm':float(bounds[1,0]-bounds[0,0]),
+                 'depth_y_mm':float(bounds[1,1]-bounds[0,1])}
+        sections.append(section)
+        if tightest is not None:
+            # Compare with the tightest prior bounds, not just the preceding
+            # slice: many tiny outward steps must not accumulate unnoticed.
+            outward=np.maximum(tightest[0]-bounds[0],bounds[1]-tightest[1])
+            if np.any(outward>tolerance):
+                failures.append({'z_mm':float(z),'xy_bounds_mm':bounds.tolist(),
+                                 'prior_inward_bounds_mm':tightest.tolist(),
+                                 'outward_x_y_mm':np.maximum(outward,0).tolist()})
+            tightest=np.array([np.maximum(tightest[0],bounds[0]),
+                               np.minimum(tightest[1],bounds[1])])
+        else:tightest=bounds.copy()
+    if not sections:failures.append({'reason':'no horizontal sections'})
+    indices=np.unique(np.linspace(0,len(sections)-1,8,dtype=int)) if sections else []
+    return {'file':part['file'],'stl_sha256':hashlib.sha256(filename.read_bytes()).hexdigest(),
+            'assembly_bounds_mm':mesh.bounds.tolist(),'sample_count':len(heights),
+            'numerical_tolerance_mm':tolerance,
+            'method':'Horizontal STL sections from top to bottom; all four XY bounds must move inward within numerical tolerance.',
+            'representative_sections':[sections[i] for i in indices],'failures':failures}
+
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('--quick',action='store_true');args=ap.parse_args()
     for e in json.loads((ROOT/'mesh-manifest.json').read_text()):
@@ -38,7 +79,11 @@ def main():
     for b in bad:print(b,flush=True)
     report={'configuration':CONFIG,'variant':'enclosure' if ENCLOSURE else 'bench','units':'mm','neutral_collisions':bad,
       'intersection_tolerance_mm3':EPS_VOLUME,'intended_exclusions':['servo-shaft / stock-horn spline engagement','OEM servo-centre screw / servo threaded engagement'],
-      'source_hashes':{str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in [ROOT/'source/integration.py',ROOT/'source/check_integration.py',ROOT/'source/arbi-hardware/lib/payload-mounts.scad']+([ROOT/'source/arbi-hardware/lib/payload-enclosure.scad'] if ENCLOSURE else [])}}
+      'source_hashes':{str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in [ROOT/'source/integration.py',ROOT/'source/check_integration.py',ROOT/'source/arbi-hardware/lib/payload-mounts.scad']+([ROOT/'source/arbi-hardware/lib/payload-enclosure.scad',ROOT/'source/arbi-hardware/lib/payload-integrated-deck.scad',ROOT/'source/arbi-hardware/lib/payload-integrated-head.scad',ROOT/'source/arbi-hardware/lib/payload-integrated-gimbal.scad'] if ENCLOSURE else [])}}
+    if ENCLOSURE:
+        report['head_taper']=head_taper(next(p for p in zero if p['name']=='gimbal-head'))
+        print('Head taper sections:',report['head_taper']['sample_count'],
+              'failures:',len(report['head_taper']['failures']),flush=True)
     if not args.quick and not bad:
         fails=[];poses=0
         for pan in range(-90,91,5):
@@ -59,6 +104,7 @@ def main():
     report['solid_total_PETG_g']=sum(m['solid_PETG_estimate_g_at_1p27'] for m in masses)
     bounds=np.array([solid(p)[1] for p in zero]);report['neutral_assembly_bounds_mm']=[bounds[:,0].min(0).tolist(),bounds[:,1].max(0).tolist()]
     (ROOT/'integration-check.json').write_text(json.dumps(report,indent=2)+'\n')
+    if ENCLOSURE and report['head_taper']['failures']:raise SystemExit('Outer head widens downward')
     if bad or report.get('motion_grid',{}).get('failures'):raise SystemExit(1)
     if not args.quick and not all(x['stop_detected'] for x in report['hard_stop_overtravel'].values()):raise SystemExit('Missing hard stop')
     print('PASS',flush=True)

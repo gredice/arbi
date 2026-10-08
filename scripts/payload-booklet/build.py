@@ -25,7 +25,7 @@ def write_evidence(root,publish=False):
         assert hashlib.sha256((root/e['file']).read_bytes()).hexdigest()==e['stl_sha256'],e['file']
     assert not any(s['hits'] for s in service.get('wiring_ports',[]))
     if enclosure:
-        assert all(s['passed'] for s in service['cowl_clamp_seating'])
+        assert not integration['head_taper']['failures']
         assert not service['fixed_power_route']['failures']
         assert service['fixed_power_route']['incorrect_straight_route_control']['expected_collision_detected']
     evidence={'date':date.today().isoformat(),'configuration':config,'status':'CAD-only; concept-unvalidated',
@@ -72,11 +72,11 @@ def main():
     config={'variant':'enclosure' if args.enclosure else 'bench','units':'mm','pan_deg':[-90,90,5],'tilt_deg':[0,70,5],
       'hardware_basis':'declared nominal references; supplier dimensions unverified','evidence_date':date.today().isoformat()}
     registry=json.loads((REPO/'hardware/models.json').read_text())
-    enclosure_models={'payload-rain-hood','payload-enclosure-base','payload-pan-fairing','payload-tilt-servo-boot','payload-camera-cowl'}
-    selected=[m for m in registry['models'] if m['assembly']=='camera-pod' and m['artifactRole']=='fabrication' and (m['id']=='camera-pod-spider' or m['id'].startswith('payload-')) and (args.enclosure or m['id'] not in enclosure_models) and (not args.enclosure or m['id']!='payload-electronics-cover')]
+    enclosure_models={'payload-integrated-deck','payload-integrated-camera-hood','payload-integrated-gimbal-head','payload-integrated-gimbal-carrier','payload-integrated-camera-cradle','payload-integrated-tilt-pivot-support','payload-rain-hood','payload-enclosure-base','payload-pan-fairing','payload-tilt-servo-boot','payload-camera-cowl'}
+    selected=[m for m in registry['models'] if m['assembly']=='camera-pod' and m['artifactRole']=='fabrication' and (m['id']=='camera-pod-spider' or m['id'].startswith('payload-')) and (args.enclosure or m['id'] not in enclosure_models) and (not args.enclosure or m['id'] not in {'payload-electronics-cover','payload-electronics-deck','payload-camera-hood','payload-pan-yoke','payload-camera-cradle','payload-tilt-pivot-support','payload-camera-cowl','payload-pan-fairing','payload-tilt-servo-boot'})]
     config['fabrication_models']=[{'id':m['id'],'revision':m['revision'],'output':m['output']} for m in selected]
     artifact='ARBI-payload-enclosure' if args.enclosure else 'ARBI-payload'
-    inputs=list((REPO/'hardware/assemblies/camera-pod').glob('*.scad'))+[REPO/'hardware/lib/arbi.scad',REPO/'hardware/lib/camera-pod.scad',REPO/'hardware/lib/payload-mounts.scad',REPO/'hardware/lib/payload-enclosure.scad',REPO/'hardware/models.json',HERE/'reference-parts.scad',HERE/'export_models.py']
+    inputs=list((REPO/'hardware/assemblies/camera-pod').glob('*.scad'))+[REPO/'hardware/lib/arbi.scad',REPO/'hardware/lib/camera-pod.scad',REPO/'hardware/lib/payload-mounts.scad',REPO/'hardware/lib/payload-enclosure.scad',REPO/'hardware/lib/payload-integrated-deck.scad',REPO/'hardware/lib/payload-integrated-head.scad',REPO/'hardware/lib/payload-integrated-gimbal.scad',REPO/'hardware/models.json',HERE/'reference-parts.scad',HERE/'export_models.py']
     hashes={str(p.relative_to(REPO)):hashlib.sha256(p.read_bytes()).hexdigest() for p in inputs}
     if args.reuse_models:
         assert json.loads((root/'configuration.json').read_text())['variant']==config['variant'],'Variant changed; use a full export'
@@ -91,7 +91,7 @@ def main():
     shutil.copytree(REPO/'scripts/winch-booklet/fonts',root/'source/fonts',dirs_exist_ok=True)
     shutil.copy2(REPO/'scripts/winch-booklet/requirements.txt',root/'source/requirements.txt')
     shutil.copy2(REPO/'LICENSE',root/'source/LICENSE-ARBI')
-    for name in ['reference-parts.scad','export_models.py','render_figures.py','build_booklet.py','integration.py','check_integration.py','check_service.py']:
+    for name in ['reference-parts.scad','export_models.py','render_figures.py','render_preview.py','build_booklet.py','integration.py','check_integration.py','check_service.py']:
         shutil.copy2(HERE/name,root/'source'/name)
     shutil.copy2(HERE/'pack-README.md',root/'README.md')
     shutil.copy2(HERE/'sources.json',root/'sources.json')
@@ -105,11 +105,11 @@ def main():
     assert 'def begin(' in style and 'C.save()' not in style,'Review upstream page-style extraction'
     style=style.replace('ARBI-winch-assembly-STL.pdf',artifact+'-assembly-STL.pdf').replace('ARBI winch and drum - STL-based assembly booklet','ARBI payload - printed mount assembly booklet')
     style=style.replace('WINCH & DRUM','PAYLOAD').replace("text(153,15,'PASSIVE / COVER KIT'", "text(141,15,'"+('RAIN / SPLASH EDITION' if args.enclosure else 'MOUNT SET / BENCH EDITION')+"'")
-    style=re.sub(r'Mechanical bench assembly \| Revision [^\']+',('Payload rain enclosure | Revision 2 | ' if args.enclosure else 'Payload bench assembly | Revision 4 | ')+date.today().strftime('%d %b %Y'),style)
+    style=re.sub(r'Mechanical bench assembly \| Revision [^\']+',('Payload rain enclosure | Revision 5 | ' if args.enclosure else 'Payload bench assembly | Revision 4 | ')+date.today().strftime('%d %b %Y'),style)
     style=re.sub(r'\{PAGE:02d\} / \d+', '{PAGE:02d} / '+('16' if args.enclosure else '14'),style)
     (root/'source/page_style.py').write_text(style)
     provenance={'repository':'https://github.com/gredice/arbi','base_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=REPO,text=True).strip(),
-      'booklet_revision':2 if args.enclosure else 4,'render_style':'assembly-line-art-v1','configuration':config,'scope':'Nominal rain/splash enclosure assembly; ingress, servo/power dimensions and physical fits unverified.' if args.enclosure else 'Complete nominal bench mount assembly; servo/power dimensions and physical fits unverified.',
+      'booklet_revision':5 if args.enclosure else 4,'render_style':'assembly-line-art-v1','configuration':config,'scope':'Nominal rain/splash enclosure assembly; ingress, servo/power dimensions and physical fits unverified.' if args.enclosure else 'Complete nominal bench mount assembly; servo/power dimensions and physical fits unverified.',
       'source_hashes':{str(p.relative_to(root)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted((root/'source').rglob('*')) if p.is_file() and '__pycache__' not in p.parts}}
     (root/'source-provenance.json').write_text(json.dumps(provenance,indent=2)+'\n')
     if not args.reuse_models:
@@ -123,7 +123,7 @@ def main():
     write_evidence(root)
     if args.checks_only:
         print('Checked variant:',root);return
-    for name in ['render_figures.py','build_booklet.py']:
+    for name in (['render_figures.py','render_preview.py','build_booklet.py'] if args.enclosure else ['render_figures.py','build_booklet.py']):
         subprocess.run([sys.executable,str(root/'source'/name)],check=True)
     # Keep the pack inventory synchronized with registered filenames and actual assembly quantities.
     manifest=json.loads((root/'mesh-manifest.json').read_text())
@@ -138,7 +138,7 @@ def main():
     readme+='\n## Check the actual parts first'+(HERE/'pack-README.md').read_text().split('## Check the actual parts first')[1]
     readme=readme.replace('- ARBI-payload-assembled.glb:', '- '+artifact+'-assembled.glb:')
     if args.enclosure:
-        readme+='\n## Enclosure interfaces\n\nWhite rain hood and camera cowl; black base, fairing and servo boot. Bottom-up M3 x 35 screws retain the closed roof using side-loaded plain nuts. The lower outlets use nominal 6 mm power lead, 16 x 0.3 mm CSI ribbon and 4 x 2 mm servo leads. Flexible loops, boots/grommets, received connectors, drip loops, heat and rain performance require bench inspection. This is an ordinary-rain/splash concept, with no IP rating.\n'
+        readme+='\n## Enclosure interfaces\n\nWhite rain hood and optical camera hood; black base, one-piece outer gimbal head, separate compact internal carrier. The head and carrier move together in pan; four M2 x 10 clamps retain the removable outer head. The separate legacy pan yoke, fixed fairing, servo boot and internal camera cowl are omitted from this enclosed kit. The tilt servo lies sideways and 2 mm inboard; the camera axis sits at Y=3, Z=-45. Camera fasteners return to M2 x 12 with four nuts and eight washers. Product previews use pan 0 / tilt 70 degrees, while the line-art covered view uses tilt 55; the inspection GLB and assembled-neutral figure retain pan 0 / tilt 0 with the camera looking down. The compact enclosure has its own electronics deck with the Pi shifted inward, converter rotated 90 degrees and capacitor alongside it. Bottom-up M3 x 35 screws retain the closed roof using side-loaded plain nuts. The lower outlets use nominal 6 mm power lead, 16 x 0.3 mm CSI ribbon and 4 x 2 mm servo leads. Follow the configuration-specific assembly/service sequence in the booklet and service-check.json. Flexible loops, grommets, received connectors, drip loops, heat and rain performance require bench inspection. This is an ordinary-rain/splash concept, with no IP rating.\n'
     (root/'README.md').write_text(readme)
     finalize_package(root,args.publish)
     print('Ready:',root)
