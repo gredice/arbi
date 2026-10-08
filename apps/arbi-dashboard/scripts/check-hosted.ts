@@ -1,21 +1,18 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { chromium } from "@playwright/test";
+import { protectHostedPage } from "./hosted-protection";
 const target = new URL(process.env.ARBI_HOSTED_URL ?? "");
 assert.equal(target.protocol, "https:"); assert.ok(target.hostname.endsWith(".vercel.app"));
 const oidc = process.env.VERCEL_OIDC_TOKEN;
-const code = process.env.ARBI_DASHBOARD_TEST_ACCESS_CODE ?? await readFile(new URL("../../../.vercel/ARBI_DASHBOARD_TEST_ACCESS_CODE.txt", import.meta.url), "utf8");
+// Vercel's pull leaves sensitive preview values empty; use the operator's private file.
+const code = process.env.ARBI_DASHBOARD_TEST_ACCESS_CODE || await readFile(new URL("../../../.vercel/ARBI_DASHBOARD_TEST_ACCESS_CODE.txt", import.meta.url), "utf8");
 const browser = await chromium.launch();
 let stage = "landing", landingStatus: number | undefined;
 try {
   const context = await browser.newContext({ viewport: { width: 1440, height: 960 } });
-  // Protection credentials are scoped to exactly this deployment origin.
-  await context.route("**/*", async route => {
-    const headers = route.request().headers();
-    if (oidc && new URL(route.request().url()).origin === target.origin) headers["x-vercel-trusted-oidc-idp-token"] = oidc;
-    await route.continue({ headers });
-  });
   const page = await context.newPage(); const errors: string[] = [];
+  await protectHostedPage(page, target, oidc);
   page.on("pageerror", error => errors.push(error.name));
   const opened = await page.goto(target.origin); landingStatus = opened?.status(); assert.equal(landingStatus, 200);
   stage = "sign-in";

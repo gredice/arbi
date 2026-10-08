@@ -1,5 +1,8 @@
 import { test, expect } from "@playwright/test";
 import pg from "pg";
+import { createServer } from "node:http";
+import { once } from "node:events";
+import { protectHostedPage } from "../scripts/hosted-protection";
 const origin = process.env.ARBI_DASHBOARD_ORIGIN!;
 async function login(page: import("@playwright/test").Page, viewer = false) {
   await page.goto("/");
@@ -93,4 +96,32 @@ test("direct HTTP rejects site/role spoofing, diagnostics escalation and current
   finally { await db.end(); }
   expect((await page.request.get(`${origin}/api/sites/synthetic-site/dashboard/context`)).status()).toBe(401);
   expect((await page.request.post(`${origin}/api/sites/synthetic-site/jobs/submit`, { data: { actor: { kind: "human", id: "synthetic-engineer" }, mode: "engineering" } })).status()).toBe(503);
+});
+test("hosted protection stays on the selected origin across native redirect hops", async ({ page, context }) => {
+  let received = 0, leaked = false, protectedRequests = 0;
+  const external = createServer((request, response) => {
+    received++; leaked ||= Boolean(request.headers["x-vercel-trusted-oidc-idp-token"]);
+    response.end("External synthetic origin");
+  });
+  external.listen(0, "127.0.0.1"); await once(external, "listening");
+  const other = `http://127.0.0.1:${(external.address() as import("node:net").AddressInfo).port}`;
+  const selected = createServer((request, response) => {
+    if (request.headers["x-vercel-trusted-oidc-idp-token"] === "synthetic-protection-token") protectedRequests++;
+    if (request.url === "/redirect") { response.writeHead(302, { location: "/hop" }); response.end(); }
+    else if (request.url === "/hop") { response.writeHead(302, { location: other }); response.end(); }
+    else response.end("Selected synthetic origin");
+  });
+  selected.listen(0, "127.0.0.1"); await once(selected, "listening");
+  const target = new URL(`http://127.0.0.1:${(selected.address() as import("node:net").AddressInfo).port}`);
+  try {
+    await protectHostedPage(page, target, "synthetic-protection-token");
+    expect((await page.goto(target.origin))?.status()).toBe(200);
+    expect((await page.goto(`${target.origin}/redirect`))?.status()).toBe(200);
+    expect(protectedRequests).toBeGreaterThanOrEqual(3); expect(received).toBeGreaterThan(0); expect(leaked).toBe(false);
+    expect((await page.goto(other))?.status()).toBe(200);
+    expect(received).toBeGreaterThan(0); expect(leaked).toBe(false);
+  } finally {
+    await context.close();
+    await Promise.all([selected, external].map(server => new Promise<void>(resolve => server.close(() => resolve()))));
+  }
 });
