@@ -63,7 +63,7 @@ export function plan(changes, { workspaces = readWorkspaces(), eventName = 'pull
     const has = (...names) => paths.some((path) => names.includes(path));
     const ownedScripts = ['scripts/check-docs.mjs', 'scripts/check-cad.mjs', 'scripts/check-booklet.py', 'scripts/check-winch-cover-meshes.py', 'scripts/check-winch-pole-meshes.py'];
     const unknownWorkspace = paths.some((path) => /^(apps|packages)\//u.test(path) && !workspaces.some((workspace) => path.startsWith(`${workspace.path}/`)));
-    const unknownScript = paths.some((path) => path.startsWith('scripts/') && !ownedScripts.includes(path) && !/^scripts\/(ci|spikes|winch-booklet|payload-booklet)\//u.test(path));
+    const unknownScript = paths.some((path) => path.startsWith('scripts/') && !ownedScripts.includes(path) && !/^scripts\/(ci|spikes|cad-previews|winch-booklet|payload-booklet)\//u.test(path));
     const full = changes === null || unknownWorkspace || unknownScript || has('package.json', 'pnpm-lock.yaml', 'pnpm-workspace.yaml', 'turbo.json', 'tsconfig.base.json', '.npmrc', '.nvmrc') || under('.github/workflows/') || under('.github/actions/') || under('scripts/ci/');
     const selected = new Set();
     const select = (name) => {
@@ -83,15 +83,16 @@ export function plan(changes, { workspaces = readWorkspaces(), eventName = 'pull
         }
     } while (selected.size !== previous);
 
-    let cad = full || paths.some((path) => /^hardware\/.*\.scad$/u.test(path)) || has('hardware/models.json', 'hardware/models.schema.json', 'bom/catalog/parts.json', 'scripts/check-cad.mjs') || deleted.some((path) => path.startsWith('hardware/') || modelDocs.includes(path));
+    let previews = full || paths.some((path) => /^hardware\/.*\.scad$/u.test(path)) || has('hardware/models.json', 'hardware/models.schema.json', 'scripts/check-cad.mjs') || under('scripts/cad-previews/');
+    let cad = previews || has('bom/catalog/parts.json') || deleted.some((path) => path.startsWith('hardware/') || modelDocs.includes(path));
     const sharedBooklets = full || under('hardware/lib/') || has('hardware/models.json', 'hardware/models.schema.json', 'scripts/check-booklet.py', 'docs/project/industrial-design.md', 'LICENSE') || under('scripts/winch-booklet/');
     const winch = sharedBooklets || under('hardware/assemblies/winch/') || has('scripts/check-winch-cover-meshes.py', 'scripts/check-winch-pole-meshes.py');
     const payload = sharedBooklets || under('hardware/assemblies/camera-pod/') || under('scripts/payload-booklet/');
     // Every main release contains all three packs from this commit. PRs can build
     // only the affected assembly; release runs need the entire snapshot.
-    const releaseInputs = full || paths.some((path) => /^hardware\/.*\.scad$/u.test(path)) || has('hardware/models.json', 'hardware/models.schema.json', 'scripts/check-cad.mjs') || winch || payload;
+    const releaseInputs = previews || winch || payload;
     const release = ref === 'refs/heads/main' && eventName !== 'pull_request' && releaseInputs;
-    if (release) cad = true;
+    if (release) { cad = true; previews = true; }
     const booklets = variants.filter(({ variant }) => release || (variant === 'winch' ? winch : payload));
     const matrix = workspaces.filter((workspace) => selected.has(workspace.name)).map(({ name, path }) => ({ name, path }));
     return {
@@ -99,6 +100,7 @@ export function plan(changes, { workspaces = readWorkspaces(), eventName = 'pull
         workspace_matrix: { include: matrix },
         bom: full || under('bom/') || selected.has('@arbi/bom'),
         cad,
+        previews,
         booklets: booklets.length > 0,
         booklet_matrix: { include: booklets },
         recovery: full || under('scripts/spikes/'),

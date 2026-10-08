@@ -93,7 +93,9 @@ independent workspaces, BOM, CAD and booklets run in parallel.
 | Edge source | Edge, including Linux service verification, and dashboard recovery integration |
 | Shared software package | That package and all downstream consumers |
 | BOM data/reports | BOM package, generated-report verification and website; part mappings also select CAD |
-| Registered/shared geometry, registry/schema, CAD validator, deleted model documentation | CAD; hardware changes also select website |
+| Registered/shared geometry, registry/schema, CAD validator | CAD and registered previews; hardware changes also select website |
+| Deleted model documentation | CAD and website |
+| Registered CAD preview tooling | CAD and registered preview validation |
 | Winch or camera-pod assembly sources/documentation | Owning booklet variants and website; geometry also selects CAD |
 | Booklet generators, shared rendering helpers, fonts, license and mesh validators | Affected booklet variants |
 | Architecture recovery experiment | Recovery experiment only |
@@ -118,10 +120,12 @@ Python jobs cache pip downloads, and the dashboard caches its pinned Chromium
 browser while installing system dependencies on every runner.
 
 On relevant `main` pushes and manual dispatches on `main`, the planner expands
-the release to all three commit-matched booklet packs and CAD. Publication waits
-for `[CI] OK`, downloads geometry and packs already built in this run, then
+the release to all three commit-matched booklet packs, CAD and registered model
+previews. Preview generation downloads this run's validated CAD and checks full
+registry coverage through the site compiler. Publication waits for `[CI] OK`,
+downloads geometry, previews and packs already built in this run, then
 publishes `cad-<commit>` with source ZIPs/checksums. It performs no second CAD or
-booklet build. Only the publication job has write permission and access to the
+booklet/preview build. Only the publication job has write permission and access to the
 site refresh hook. Main runs are not cancelled by later merges; serialized
 publication retains the ancestry check that prevents an older snapshot from
 replacing a newer Latest release. PRs only upload review artifacts.
@@ -150,6 +154,11 @@ their PDFs/ZIPs and checksums in the same `cad-<commit>` release as the geometry
 CI keeps generated outputs as artifacts and never commits snapshots back to Git.
 Use `scripts/check-booklet.py` for the owning PDF/pack checks; local `--publish`
 is reserved for intentionally refreshing checked-in publication snapshots.
+
+[Registered CAD previews](scripts/cad-previews/README.md) supply a fitted CAD
+figure for every registry entry, including reference assemblies. CAD CI validates
+the complete preview pack, and releases publish it with checksums for the public
+parts inventory. Generated figures remain outside Git.
 
 ## BOM source and generated output
 

@@ -31,6 +31,7 @@ jobs:
       workspace_matrix: ${{ steps.plan.outputs.workspace_matrix }}
       bom: ${{ steps.plan.outputs.bom }}
       cad: ${{ steps.plan.outputs.cad }}
+      previews: ${{ steps.plan.outputs.previews }}
       booklets: ${{ steps.plan.outputs.booklets }}
       booklet_matrix: ${{ steps.plan.outputs.booklet_matrix }}
       recovery: ${{ steps.plan.outputs.recovery }}
@@ -211,6 +212,66 @@ jobs:
           if-no-files-found: error
           retention-days: 14
 
+  previews:
+    name: Validate registered CAD previews
+    needs: [changes, cad]
+    if: needs.changes.outputs.previews == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      VTK_DEFAULT_OPENGL_WINDOW: vtkEGLRenderWindow
+      LIBGL_ALWAYS_SOFTWARE: '1'
+    steps:
+      - uses: actions/checkout@v6.0.3
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup-workspace
+        with:
+          filter: '@arbi/docs...'
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: scripts/cad-previews/requirements.txt
+      - name: Install pinned OpenSCAD and preview rendering backend
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes openscad=2021.01-6build4 libegl1 libgl1-mesa-dri xvfb xauth
+      - name: Install CAD preview renderer
+        run: python -m pip install -r scripts/cad-previews/requirements.txt
+      - name: Download this run's validated geometry
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: cad-${{ github.sha }}
+          path: ${{ runner.temp }}/cad-models
+      - name: Generate and verify every registered model figure
+        env:
+          CAD_OUTPUT: ${{ runner.temp }}/cad-models
+          PREVIEW_OUTPUT: ${{ runner.temp }}/cad-previews
+        run: python scripts/cad-previews/build.py --cad-dir "$CAD_OUTPUT" --output "$PREVIEW_OUTPUT"
+      - name: Verify complete figure coverage through the site compiler
+        env:
+          ARBI_OFFLINE: '1'
+          ARBI_CAD_PREVIEW_PACK: ${{ runner.temp }}/cad-previews/ARBI-CAD-previews.zip
+          ARBI_DATA_DIR: ${{ runner.temp }}/preview-site-data
+        run: |
+          pnpm --filter @arbi/docs data
+          # JavaScript template interpolation is intentionally literal to the shell.
+          # shellcheck disable=SC2016
+          node --input-type=module -e '
+            import assert from "node:assert/strict";
+            import { readFileSync } from "node:fs";
+            const site = JSON.parse(readFileSync(`${process.env.ARBI_DATA_DIR}/site.json`));
+            assert.deepEqual(Object.keys(site.figures).sort(), site.registry.models.map(m => m.id).sort());
+          '
+      - name: Upload CAD figures for review and release
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: cad-previews-${{ github.sha }}
+          path: ${{ runner.temp }}/cad-previews/ARBI-CAD-previews.zip
+          if-no-files-found: error
+          retention-days: 14
+
   booklets:
     name: Build ${{ matrix.variant }} booklet
     needs: changes
@@ -269,7 +330,7 @@ jobs:
   ci_ok:
     name: "[CI] OK"
     if: ${{ always() }}
-    needs: [changes, repository, workspace, recovery, bom, cad, booklets]
+    needs: [changes, repository, workspace, recovery, bom, cad, previews, booklets]
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
@@ -286,11 +347,12 @@ jobs:
 
   publish:
     name: Publish CAD and booklet snapshot
-    needs: [changes, ci_ok, cad, booklets]
+    needs: [changes, ci_ok, cad, previews, booklets]
     if: >-
       ${{ !cancelled() && github.ref == 'refs/heads/main' &&
           github.event_name != 'pull_request' && needs.ci_ok.result == 'success' &&
-          needs.cad.result == 'success' && needs.booklets.result == 'success' &&
+          needs.cad.result == 'success' && needs.previews.result == 'success' &&
+          needs.booklets.result == 'success' &&
           needs.changes.outputs.release == 'true' }}
     runs-on: ubuntu-24.04
     timeout-minutes: 10
@@ -314,6 +376,11 @@ jobs:
           pattern: booklets-*-${{ github.sha }}
           merge-multiple: true
           path: ${{ runner.temp }}/cad-release
+      - name: Download CAD previews already validated in this run
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: cad-previews-${{ github.sha }}
+          path: ${{ runner.temp }}/cad-release
       - name: Package commit-matched sources and checksums
         env:
           CAD_OUTPUT: ${{ runner.temp }}/cad-release
@@ -322,6 +389,7 @@ jobs:
             test -s "$CAD_OUTPUT/$artifact-assembly-STL.pdf"
             test -s "$CAD_OUTPUT/$artifact-STL-pack.zip"
           done
+          test -s "$CAD_OUTPUT/ARBI-CAD-previews.zip"
           git archive --format=zip --output="$CAD_OUTPUT/cad-sources-${GITHUB_SHA}.zip" HEAD hardware
           cd "$CAD_OUTPUT"
           sha256sum -- *.stl *.csg *.pdf *.zip > SHA256SUMS.txt
@@ -345,6 +413,7 @@ jobs:
             printf 'CAD snapshot for commit [`%s`](https://github.com/%s/commit/%s).\n\n' "${GITHUB_SHA:0:12}" "$GITHUB_REPOSITORY" "$GITHUB_SHA"
             printf 'All %s registered models were built with OpenSCAD %s. Download individual STL fabrication parts, CSG assembly references, or the ZIP of all tracked hardware sources. `SHA256SUMS.txt` verifies the assets.\n\n' "$(jq '.models | length' hardware/models.json)" "$(jq -r '.openScadVersion' hardware/models.json)"
             printf 'Includes current winch, dry payload bench and integrated payload enclosure assembly PDFs and STL/source packs. Booklet illustrations use white faces with dark visible outlines and feature edges. Each pack includes source hashes, current mesh revisions, assembly transforms and nominal geometry checks.\n\n'
+            printf 'The `ARBI-CAD-previews.zip` pack contains one PNG per registered model: line-art fabrication figures and shaded CSG reference previews, with model revisions, transitive source hashes and image checksums.\n\n'
             printf 'Model revisions and evidence status are recorded in `hardware/models.json`. These CAD exports do not by themselves establish printability, fit, strength, or installation safety.\n'
           } > "$notes"
 

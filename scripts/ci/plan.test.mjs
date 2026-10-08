@@ -16,7 +16,7 @@ test('website source and repository content skip all dashboard/edge/package work
     for (const path of ['apps/arbi-docs/src/app/page.tsx', 'docs/project/goals-and-v1-scope.md', 'README.md', 'docs/assets/brand/arbi-logo.svg']) {
         const result = select(path);
         assert.deepEqual(names(result), ['@arbi/docs'], path);
-        for (const job of ['bom', 'cad', 'booklets', 'recovery', 'release']) assert.equal(result[job], false, `${path}: ${job}`);
+        for (const job of ['bom', 'cad', 'previews', 'booklets', 'recovery', 'release']) assert.equal(result[job], false, `${path}: ${job}`);
     }
 });
 
@@ -48,6 +48,19 @@ test('BOM edits run canonical reports and BOM tests, with CAD only for part mapp
     assert.equal(select('packages/arbi-bom/src/cli.ts').bom, true);
 });
 
+test('CAD preview tooling selects geometry and preview validation without unrelated workspaces', () => {
+    const result = select('scripts/cad-previews/build.py');
+    assert.equal(result.cad, true);
+    assert.equal(result.previews, true);
+    assert.equal(result.workspace, false);
+    assert.equal(result.bom, false);
+    assert.equal(result.booklets, false);
+    const release = plan([{ path: 'scripts/cad-previews/requirements.txt', status: 'M' }], { eventName: 'push' });
+    assert.equal(release.release, true);
+    assert.equal(release.previews, true);
+    assert.deepEqual(variants(release), ['winch', 'bench', 'enclosure']);
+});
+
 test('reverse dependency graph includes consumers, never unrelated packages', () => {
     assert.deepEqual(names(select('apps/arbi-dashboard/src/jobs/worker.ts')), ['@arbi/dashboard']);
     assert.deepEqual(names(select('apps/arbi-edge-controller/src/cli.ts')), ['@arbi/dashboard', '@arbi/edge-controller']);
@@ -77,7 +90,7 @@ test('manual and shared tooling changes select all work; missing push baseline i
     for (const path of ['package.json', 'pnpm-lock.yaml', 'pnpm-workspace.yaml', 'tsconfig.base.json', 'turbo.json', '.nvmrc', '.npmrc', '.github/workflows/ci.yml', '.github/actions/setup-workspace/action.yml', 'scripts/ci/plan.mjs']) {
         const result = select(path);
         assert.deepEqual(names(result), workspaces.map((workspace) => workspace.name), path);
-        for (const job of ['bom', 'cad', 'booklets', 'recovery']) assert.equal(result[job], true, `${path}: ${job}`);
+        for (const job of ['bom', 'cad', 'previews', 'booklets', 'recovery']) assert.equal(result[job], true, `${path}: ${job}`);
         assert.equal(result.release, false);
     }
     assert.deepEqual(names(plan(null)), workspaces.map((workspace) => workspace.name));
@@ -108,7 +121,7 @@ test('main release expands to all commit-matched packs and CAD; ordinary content
 
 test('empty changes skip expensive jobs and architecture experiments have their own job', () => {
     const result = plan([]);
-    for (const job of ['workspace', 'bom', 'cad', 'booklets', 'recovery', 'release']) assert.equal(result[job], false);
+    for (const job of ['workspace', 'bom', 'cad', 'previews', 'booklets', 'recovery', 'release']) assert.equal(result[job], false);
     assert.equal(select('scripts/spikes/software-recovery.test.mjs').recovery, true);
     assert.equal(select('scripts/spikes/software-recovery.test.mjs').workspace, false);
 });
@@ -147,13 +160,13 @@ test('Git detection covers full pushes, PR merge bases, deletions, renames and f
 
 test('required gate rejects failed, cancelled, unknown and unexpected skipped work', () => {
     const needs = {
-        changes: { result: 'success', outputs: { workspace: 'true', bom: 'false', cad: 'false', booklets: 'false', recovery: 'false' } },
+        changes: { result: 'success', outputs: { workspace: 'true', bom: 'false', cad: 'false', previews: 'false', booklets: 'false', recovery: 'false' } },
         repository: { result: 'success' },
         workspace: { result: 'success' },
-        bom: { result: 'skipped' }, cad: { result: 'skipped' }, booklets: { result: 'skipped' }, recovery: { result: 'skipped' },
+        bom: { result: 'skipped' }, cad: { result: 'skipped' }, previews: { result: 'skipped' }, booklets: { result: 'skipped' }, recovery: { result: 'skipped' },
     };
     assert.doesNotThrow(() => checkResults(needs));
-    for (const job of ['changes', 'repository', 'workspace', 'bom', 'cad', 'booklets', 'recovery']) {
+    for (const job of ['changes', 'repository', 'workspace', 'bom', 'cad', 'previews', 'booklets', 'recovery']) {
         for (const result of ['failure', 'cancelled', 'unknown']) assert.throws(() => checkResults({ ...needs, [job]: { ...needs[job], result } }));
     }
     assert.throws(() => checkResults({ ...needs, workspace: { result: 'skipped' } }));

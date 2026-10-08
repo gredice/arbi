@@ -101,7 +101,7 @@ export default async function PartPage({ params }: { params: Promise<{ id: strin
                     {fig && (
                         <figure className="mt-6 grid place-items-center border border-ink p-4">
                             <img src={fig} alt="" className="max-h-[180px]" />
-                            <figcaption className="tag mt-2 w-full self-start">Booklet drawing</figcaption>
+                            <figcaption className="tag mt-2 w-full self-start">CAD figure</figcaption>
                         </figure>
                     )}
                 </div>

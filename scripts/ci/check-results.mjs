@@ -5,7 +5,7 @@ export function checkResults(needs) {
     for (const job of ['changes', 'repository']) {
         if (needs[job]?.result !== 'success') throw new Error(`${job} must succeed`);
     }
-    for (const job of ['workspace', 'bom', 'cad', 'booklets', 'recovery']) {
+    for (const job of ['workspace', 'bom', 'cad', 'previews', 'booklets', 'recovery']) {
         const selected = needs.changes.outputs[job];
         if (!['true', 'false'].includes(selected)) throw new Error(`Missing or invalid ${job} selection`);
         const expected = selected === 'true' ? 'success' : 'skipped';
