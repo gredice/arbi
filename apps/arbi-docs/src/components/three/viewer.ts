@@ -15,6 +15,8 @@ import type { MeshRef, Scene, ScenePart, Vec3 } from "@/lib/types";
 import { OutlineGeometry } from "./outlines";
 import { configurePageControls } from "./page-controls";
 import { StudioLighting } from "./studio-lighting";
+import { loadParts } from "./progressive-load";
+import { LoadingStatus } from "./loading-status";
 
 const DATA = "/data/";
 
@@ -77,12 +79,12 @@ function withNormals(g: THREE.BufferGeometry) {
 }
 const stlCache = new Map<string, Promise<THREE.BufferGeometry>>();
 function loadSTL(url: string) {
-    if (!stlCache.has(url)) stlCache.set(url, new STLLoader().loadAsync(DATA + url));
+    if (!stlCache.has(url)) stlCache.set(url, new STLLoader().loadAsync(DATA + url).catch((error) => { stlCache.delete(url); throw error; }));
     return stlCache.get(url)!;
 }
 const glbCache = new Map<string, Promise<GLTF>>();
 function loadGLB(url: string) {
-    if (!glbCache.has(url)) glbCache.set(url, new GLTFLoader().loadAsync(DATA + url));
+    if (!glbCache.has(url)) glbCache.set(url, new GLTFLoader().loadAsync(DATA + url).catch((error) => { glbCache.delete(url); throw error; }));
     return glbCache.get(url)!;
 }
 
@@ -114,6 +116,8 @@ export class Viewer {
     private visibility: IntersectionObserver;
     private visible = true;
     private running = true;
+    private loading: LoadingStatus;
+    private loadingBounds?: THREE.Box3;
 
     constructor(
         private el: HTMLElement,
@@ -126,6 +130,7 @@ export class Viewer {
         r.toneMapping = style === "light" ? THREE.ACESFilmicToneMapping : THREE.NeutralToneMapping;
         r.domElement.style.cssText = "width:100%;height:100%;display:block";
         el.appendChild(r.domElement);
+        this.loading = new LoadingStatus(el, style === "ink");
         if (style === "light") {
             const room = new RoomEnvironment();
             const pmrem = new THREE.PMREMGenerator(r);
@@ -184,6 +189,7 @@ export class Viewer {
 
     dispose() {
         this.running = false;
+        this.loading.dispose();
         this.resizeObserver.disconnect();
         this.visibility.disconnect();
         this.controls.dispose();
@@ -272,53 +278,64 @@ export class Viewer {
 
     /** Load a compiled scene; exploded offsets come from the booklet renderer's exploded figures. */
     async loadScene(scene: Scene) {
-        if (scene.kind === "glb") {
-            const gltf = await loadGLB(scene.glb!);
-            if (!this.running) return;
-            const copy = gltf.scene.clone(true);
-            const byNode = new Map(scene.parts.map((p) => [p.node, p]));
-            for (const node of [...copy.children]) {
-                const part = byNode.get(node.name);
-                if (!part) continue;
-                node.removeFromParent();
+        if (scene.bounds) {
+            this.loadingBounds = new THREE.Box3(new THREE.Vector3(...scene.bounds.min), new THREE.Vector3(...scene.bounds.max));
+            this.frame();
+        }
+        await loadParts(scene.parts, async (part) => {
+            if (scene.kind === "glb") {
+                const gltf = await loadGLB(scene.glb!);
+                const node = gltf.scene.getObjectByName(part.node);
+                if (!node) throw new Error(`Missing GLB node: ${part.node}`);
                 const wrap = new THREE.Group();
                 wrap.scale.setScalar(1000); // GLB nodes carry metres; manifests use mm.
-                wrap.add(node);
-                this.addPart(wrap, part);
+                wrap.add(node.clone(true));
+                return wrap;
             }
-        } else {
-            const geometries = await Promise.all(scene.parts.map((p) => loadSTL(p.url!)));
-            if (!this.running) return;
-            scene.parts.forEach((p, i) => {
-                const mesh = new THREE.Mesh(geometries[i]);
-                mesh.applyMatrix4(new THREE.Matrix4().set(...(p.matrix!.flat() as Parameters<THREE.Matrix4["set"]>)));
-                this.addPart(mesh, p);
-            });
-        }
-        this.frame();
+            const mesh = new THREE.Mesh(await loadSTL(part.url!));
+            mesh.applyMatrix4(new THREE.Matrix4().set(...(part.matrix!.flat() as Parameters<THREE.Matrix4["set"]>)));
+            return mesh;
+        }, (object, part) => {
+            this.addPart(object, part);
+            this.pose(this.explode);
+            this.renderer.shadowMap.needsUpdate = true;
+            if (!this.loadingBounds) this.frame();
+            // Thumbnails do not have an animation loop, but still display every ready part.
+            if (this.options.animate === false) this.render();
+        }, (state) => this.loading.update(state), () => this.running);
+        this.loadingBounds = undefined;
+        if (this.running && this.parts.length) this.frame();
     }
 
     /** Load one part, centred; returns its envelope in mm. */
     async loadModel(mesh: MeshRef, model: string, color: Vec3) {
-        let obj: THREE.Object3D;
-        if (mesh.kind === "glb") {
-            const gltf = await loadGLB(mesh.glb);
-            const node = gltf.scene.getObjectByName(mesh.node)!.clone(true);
-            node.position.set(0, 0, 0);
-            obj = new THREE.Group();
-            obj.scale.setScalar(1000);
-            obj.add(node);
-        } else {
-            obj = new THREE.Mesh(await loadSTL(mesh.url));
+        try {
+            let obj: THREE.Object3D;
+            if (mesh.kind === "glb") {
+                const gltf = await loadGLB(mesh.glb);
+                const source = gltf.scene.getObjectByName(mesh.node);
+                if (!source) throw new Error(`Missing GLB node: ${mesh.node}`);
+                const node = source.clone(true);
+                node.position.set(0, 0, 0);
+                obj = new THREE.Group();
+                obj.scale.setScalar(1000);
+                obj.add(node);
+            } else {
+                obj = new THREE.Mesh(await loadSTL(mesh.url));
+            }
+            const box = new THREE.Box3().setFromObject(obj);
+            if (!this.running) return box.getSize(new THREE.Vector3());
+            obj.position.sub(box.getCenter(new THREE.Vector3()));
+            const holder = new THREE.Group();
+            holder.add(obj);
+            this.addPart(holder, { node: model, model, color, registered: true, href: `/parts/${model}`, group: "fixed", explode: [0, 0, 0] });
+            this.frame({ distance: this.options.style === "light" ? 1.04 : 0.78 });
+            this.loading.update({ loaded: 1, failed: 0, total: 1 });
+            return box.getSize(new THREE.Vector3());
+        } catch (error) {
+            if (this.running) this.loading.unavailable();
+            throw error;
         }
-        const box = new THREE.Box3().setFromObject(obj);
-        if (!this.running) return box.getSize(new THREE.Vector3());
-        obj.position.sub(box.getCenter(new THREE.Vector3()));
-        const holder = new THREE.Group();
-        holder.add(obj);
-        this.addPart(holder, { node: model, model, color, registered: true, href: `/parts/${model}`, group: "fixed", explode: [0, 0, 0] });
-        this.frame({ distance: this.options.style === "light" ? 1.04 : 0.78 });
-        return box.getSize(new THREE.Vector3());
     }
 
     get canExplode() {
@@ -373,7 +390,8 @@ export class Viewer {
     frame({ distance = 1, azimuth = -0.62, elevation = 0.42 } = {}) {
         // Fit the pose the explode animation is heading to, not the current frame.
         this.pose(this.target);
-        const bounds = new THREE.Box3().setFromObject(this.root);
+        const bounds = this.loadingBounds ?? new THREE.Box3().setFromObject(this.root);
+        if (bounds.isEmpty()) return;
         const sphere = bounds.getBoundingSphere(new THREE.Sphere());
         this.studio?.fit(bounds);
         this.renderer.shadowMap.needsUpdate = true;

@@ -63,7 +63,7 @@ export function SystemExplorer({ number, name, scene, cadPending, caption, nav, 
             if (!alive) return;
             const lineup = scene.layout === "lineup";
             viewer.setExplode(1);
-            viewer.frame({ distance: 1.05, elevation: lineup ? 0.35 : scene.kind === "glb" ? 0.22 : 0.5 });
+            viewer.frame({ distance: 1.05, elevation: lineup ? 0.35 : current === "camera-pod" ? 0.22 : 0.5 });
             setCanExplode(viewer.canExplode);
         });
         return () => {

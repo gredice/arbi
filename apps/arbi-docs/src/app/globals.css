@@ -69,6 +69,44 @@
     border-color: var(--color-paper);
 }
 
+/* Nonblocking progress for CAD canvases on paper and ink stages. */
+.viewer-loading {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 30;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    max-width: calc(100% - 24px);
+    padding: 8px 10px;
+    background: var(--color-paper);
+    color: var(--color-ink);
+    border: 1px solid currentColor;
+    pointer-events: none;
+}
+.viewer-loading[hidden] { display: none; }
+.viewer-loading-dark { background: var(--color-ink); color: var(--color-paper); }
+.viewer-loading-spinner {
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
+    border: 1.5px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: viewer-spin 0.8s linear infinite;
+}
+.viewer-loading-error .viewer-loading-spinner { display: none; }
+@keyframes viewer-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+    .viewer-loading-spinner { animation: none; }
+}
+@media (max-width: 767px) {
+    /* Keep loading progress clear of the full-width cover and assembly headings. */
+    .viewer-loading-dark { top: auto; bottom: 140px; }
+}
+.part-viewer .viewer-loading { top: 44px; }
+
 /* Rendered repository Markdown. */
 .prose-doc {
     @apply max-w-[72ch] text-[15px] leading-[1.6];

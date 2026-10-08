@@ -18,6 +18,14 @@ The design is the selected "Manual + Ink" direction. White manual pages use heav
 
 Code layout: `src/lib/site.ts` reads the compiled data on the server; `src/lib/markdown.ts` renders documents; `src/components/three/viewer.ts` is the three.js viewer used by the client components `CoverTeardown`, `SystemExplorer` and `PartViewer`. Links from the earlier single-page site (`#/systems/winch`) are forwarded to their routes.
 
+Viewers show a nonblocking loading indicator while meshes arrive. Assembly parts
+load independently with up to four concurrent requests and appear immediately,
+including static contents previews. The camera starts from the compiled full
+assembly envelope so downloading parts do not recenter the view. The camera pod
+uses the booklet pack’s individual STL meshes and original millimetre transforms;
+a part page downloads only its own mesh. Failed parts leave the loaded geometry
+visible with an unavailable count, and leaving a page stops further queue work.
+
 Line art combines sharp feature edges and open boundaries with camera-dependent silhouettes, so rounded surfaces keep a continuous outline while orbiting, zooming or exploding an assembly. Coplanar triangle edges stay hidden. Mesh adjacency is cached; contour buffers belong to each displayed instance and are released with the viewer.
 
 The shaded part view uses a bounds-fitted Z-up studio with key, fill and rim

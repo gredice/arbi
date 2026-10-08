@@ -16,6 +16,8 @@ export function PartViewer({ mesh, model, color, output, missing }: { mesh: Mesh
         let alive = true;
         viewer.loadModel(mesh, model, color).then((size) => {
             if (alive) setDims(`Envelope ${size.x.toFixed(1)} × ${size.y.toFixed(1)} × ${size.z.toFixed(1)} mm`);
+        }).catch(() => {
+            if (alive) setDims("Model could not be loaded");
         });
         return () => {
             alive = false;
@@ -24,7 +26,7 @@ export function PartViewer({ mesh, model, color, output, missing }: { mesh: Mesh
     }, [mesh, model, color, style]);
 
     return (
-        <div ref={stage} className="relative h-[72vh] min-h-[460px] border-ink lg:border-r-2">
+        <div ref={stage} className="part-viewer relative h-[72vh] min-h-[460px] border-ink lg:border-r-2">
             <div className="tag absolute top-3 left-4 z-10">Fig. — {output}</div>
             <div className="tag absolute bottom-3 left-4 z-10">{dims}</div>
             {mesh && (
