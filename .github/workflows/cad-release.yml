@@ -85,6 +85,7 @@ jobs:
           sha256sum -- *.stl *.csg *.pdf *.zip > SHA256SUMS.txt
 
       - name: Publish commit-versioned release
+        id: publish
         env:
           GH_TOKEN: ${{ github.token }}
           CAD_OUTPUT: ${{ runner.temp }}/cad-release
@@ -132,3 +133,19 @@ jobs:
             --title "CAD models ${GITHUB_SHA:0:12}" \
             --notes-file "$notes" \
             --latest="$latest"
+          echo "latest=$latest" >> "$GITHUB_OUTPUT"
+
+      # The public site reads the Latest release at build time; rebuild it when that changes.
+      # The release is already published, so a failed refresh is reported without failing the run.
+      - name: Refresh the public site
+        if: steps.publish.outputs.latest == 'true'
+        continue-on-error: true
+        env:
+          DEPLOY_HOOK: ${{ secrets.ARBI_SITE_DEPLOY_HOOK }}
+        run: |
+          if [[ -z "$DEPLOY_HOOK" ]]; then
+            echo "::notice::ARBI_SITE_DEPLOY_HOOK is not set; the site picks up this release on its next deployment."
+            exit 0
+          fi
+          curl --fail --silent --show-error --retry 3 --request POST "$DEPLOY_HOOK" > /dev/null
+          echo "Requested a production rebuild of arbi.gredice.com."
