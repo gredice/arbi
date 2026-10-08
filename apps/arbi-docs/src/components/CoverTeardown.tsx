@@ -4,9 +4,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import type { Scene } from "@/lib/types";
+import type { Step } from "@/lib/cover-steps";
 import { Viewer } from "./three/viewer";
-
-export type Step = { model: string; title: string; text: string };
 
 /** Full-black cover: scrolling takes the pod apart along the booklet renderer's exploded pose. */
 export function CoverTeardown({ scene, steps, date }: { scene: Scene; steps: Step[]; date: string }) {

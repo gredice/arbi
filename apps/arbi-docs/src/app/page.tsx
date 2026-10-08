@@ -1,19 +1,10 @@
 import Link from "next/link";
 import { ContentsList } from "@/components/ContentsList";
-import { CoverTeardown, type Step } from "@/components/CoverTeardown";
+import { CoverTeardown } from "@/components/CoverTeardown";
 import { Crumb } from "@/components/Crumb";
+import { coverSteps } from "@/lib/cover-steps";
 import { fmt } from "@/lib/format";
 import { data } from "@/lib/site";
-
-// Captions for the teardown; the parts and their poses come from the booklet scene.
-const STEPS: Step[] = [
-    { model: "payload-rain-hood", title: "White shell", text: "A broad rounded crown over the fixed electronics. Four bolts from underneath; lift for service." },
-    { model: "payload-integrated-deck", title: "Fixed electronics", text: "Pi 3A+, converter and capacitor stay on the spider. Only the camera moves." },
-    { model: "payload-enclosure-base", title: "Rain tray", text: "Raised lip, downward harness ports and drain slots. A splash shield, not a seal." },
-    { model: "camera-pod-spider", title: "Four-line spider", text: "The cable spider is the primary chassis and the only tensile load path." },
-    { model: "payload-integrated-gimbal-head", title: "Moving head", text: "One-piece outer head surrounds the compact internal gimbal, with a continuous underside seam." },
-    { model: "payload-integrated-gimbal-carrier", title: "Two-axis gimbal", text: "Pan ±90° and tilt 0–70° are targets, bounded by software limits and hard stops." },
-];
 
 export default function Home() {
     const { site, scenes, systems, models } = data();
@@ -28,7 +19,7 @@ export default function Home() {
         <>
             <Crumb left="Cover" right={`Rev ${site.commit.slice(0, 7)}`} dark />
             {scenes["camera-pod"] ? (
-                <CoverTeardown scene={scenes["camera-pod"]} steps={STEPS.filter((s) => scenes["camera-pod"].parts.some((p) => p.model === s.model))} date={site.commitDate} />
+                <CoverTeardown scene={scenes["camera-pod"]} steps={coverSteps(scenes["camera-pod"])} date={site.commitDate} />
             ) : (
                 <section className="bg-ink px-4 py-20 text-paper sm:px-6">
                     <h1 className="cond text-[64px] leading-none">Automatic raised bed imaging</h1>
