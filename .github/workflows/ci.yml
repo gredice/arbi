@@ -84,6 +84,12 @@ jobs:
         with:
           filter: ${{ matrix.name }}...
           extra-filter: ${{ matrix.name == '@arbi/dashboard' && '@arbi/edge-controller...' || '' }}
+          # Separate stores prevent a fast library job from saving only its
+          # small closure under the same key needed by either Next.js app.
+          cache-dependency-path: |
+            pnpm-lock.yaml
+            package.json
+            ${{ matrix.path }}/package.json
       - name: Restore compilation and Next.js caches
         uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
         with:
@@ -176,6 +182,10 @@ jobs:
       - uses: ./.github/actions/setup-workspace
         with:
           filter: '@arbi/bom...'
+          cache-dependency-path: |
+            pnpm-lock.yaml
+            package.json
+            packages/arbi-bom/package.json
       - name: Validate BOM inputs and tracked reports
         run: pnpm bom:check
       - name: Regenerate BOM reports
@@ -228,6 +238,10 @@ jobs:
       - uses: ./.github/actions/setup-workspace
         with:
           filter: '@arbi/docs...'
+          cache-dependency-path: |
+            pnpm-lock.yaml
+            package.json
+            apps/arbi-docs/package.json
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: '3.12'

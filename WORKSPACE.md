@@ -109,7 +109,9 @@ run before change selection, including multi-commit pushes, PR merge bases,
 renames, deletions and conservative fallback behavior.
 
 The pinned Node/pnpm setup caches the pnpm store and installs only each selected
-workspace's dependency closure. Workspace jobs persist Turbo compilation/static
+workspace's dependency closure. The pnpm cache keys include the owning manifest
+so parallel jobs installing small library closures cannot occupy the cache key
+needed by either Next.js app. Workspace jobs persist Turbo compilation/static
 check results and Next.js compiler caches, with OS, architecture, runtime and
 workspace cache scopes. Turbo includes the shared TypeScript configuration in
 its task hashes. Tests always run fresh so Linux/toolchain/loopback evidence

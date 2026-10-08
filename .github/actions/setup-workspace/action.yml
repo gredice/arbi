@@ -7,6 +7,11 @@ inputs:
   extra-filter:
     description: Optional independent integration-test workspace and its dependencies
     default: ''
+  cache-dependency-path:
+    description: Lockfile and manifests that identify this installed dependency closure
+    default: |
+      pnpm-lock.yaml
+      package.json
 runs:
   using: composite
   steps:
@@ -15,6 +20,7 @@ runs:
       with:
         node-version: 24.15.0
         cache: pnpm
+        cache-dependency-path: ${{ inputs.cache-dependency-path }}
     - name: Install selected dependencies
       shell: bash
       env:
