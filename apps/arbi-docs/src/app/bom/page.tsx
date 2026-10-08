@@ -46,22 +46,22 @@ export default function Bom() {
                                 {list.length} items · {fmt.eur(sum.assemblyKnownGoods.find((x) => x.assemblyId === group)?.amount)}
                             </span>
                         </div>
-                        <table className="mt-3 w-full border-t-2 border-ink text-[13px]">
+                        <table className="mt-3 w-full table-fixed border-t-2 border-ink text-[13px]">
                             <thead>
                                 <tr className="tag border-b border-ink text-left">
                                     <th className="w-10 py-2">#</th>
                                     <th>Item</th>
-                                    <th className="text-right">Qty</th>
-                                    <th className="hidden pl-6 md:table-cell">Supplier</th>
-                                    <th className="hidden md:table-cell">Qualification</th>
-                                    <th className="text-right">Known</th>
+                                    <th className="w-14 text-right">Qty</th>
+                                    <th className="hidden pl-6 md:table-cell md:w-[18%]">Supplier</th>
+                                    <th className="hidden md:table-cell md:w-[20%]">Qualification</th>
+                                    <th className="w-22 text-right">Known</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {list.map((p, i) => (
                                     <tr key={p.id} className="border-b border-hair hover:bg-sheet">
                                         <td className="mono py-2">{fmt.pad(i + 1)}</td>
-                                        <td>
+                                        <td className="pr-4 [overflow-wrap:anywhere]">
                                             <Link href={`/bom/${p.id}`} className="hover:underline">
                                                 {p.name}
                                             </Link>
@@ -70,8 +70,8 @@ export default function Bom() {
                                             {p.required ?? "—"}
                                             {p.unit === "each" ? "" : ` ${p.unit}`}
                                         </td>
-                                        <td className="tag hidden pl-6 md:table-cell">{p.supplierId ?? "—"}</td>
-                                        <td className="tag hidden md:table-cell">{fmt.status(p.qualification ?? "no offer")}</td>
+                                        <td className="tag hidden pl-6 pr-4 [overflow-wrap:anywhere] md:table-cell">{p.supplierId ?? "—"}</td>
+                                        <td className="tag hidden pr-4 [overflow-wrap:anywhere] md:table-cell">{fmt.status(p.qualification ?? "no offer")}</td>
                                         <td className="mono text-right">{p.bundle ? "bundle" : p.knownGoods ? fmt.eur(p.knownGoods) : "—"}</td>
                                     </tr>
                                 ))}
