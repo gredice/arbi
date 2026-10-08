@@ -24,7 +24,7 @@ export default async function Doc({ params }: { params: Promise<{ slug: string[]
     if (!path) notFound();
     const booklet = path.match(/^docs\/assemblies\/(camera-pod|winch)\/booklet\//)?.[1];
     const release = data().site.release;
-    const currentBooklets = booklet ? release?.booklets.filter((b) => b.name.startsWith(booklet === "winch" ? "ARBI-winch-" : "ARBI-payload-")) ?? [] : [];
+    const currentBooklets = booklet ? release?.booklets.filter((b) => b.name.startsWith(booklet === "winch" ? "ARBI-winch-" : "ARBI-camera-pod-")) ?? [] : [];
     return (
         <>
             <Crumb left={`Documents / ${path}`} />

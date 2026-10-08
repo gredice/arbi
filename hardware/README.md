@@ -14,7 +14,7 @@ The machine-readable registry is [models.json](models.json). It declares stable 
 | `winch-mount` | [Winch mount](assemblies/winch/mount.md) | `0.1.0` | Passive/powered mount assembly and base drilling reference |
 | `winch-bearing-lower`, `winch-bearing-cap`, `winch-motor-stand`, `winch-coupling-guard` | [Winch mount](assemblies/winch/mount.md) | `0.1.0` | Bearing supports, adjustable motor stand and coupling cover |
 | `camera-pod-envelope` | [Camera pod](assemblies/camera-pod/README.md) | `0.1.0` | Non-manufacturing pod and motion keep-out reference |
-| `camera-pod-assembly` | [Camera pod](assemblies/camera-pod/README.md) | `0.1.0` | Non-manufacturing stacked payload layout |
+| `camera-pod-assembly` | [Camera pod](assemblies/camera-pod/README.md) | `0.3.5` | Canonical non-manufacturing enclosed camera-pod reference |
 | `camera-pod-spider` | [Camera pod](assemblies/camera-pod/README.md) | `0.1.0` | Four-line load-interface spider concept |
 | `camera-pod-electronics-mount`, `camera-pod-docking-stud`, `camera-pod-line-strain-relief` | [Camera pod](assemblies/camera-pod/README.md) | `0.1.0` | Fixed electronics plate, mushroom stud and line fairleads |
 | `camera-gimbal-base`, `camera-gimbal-yoke`, `camera-gimbal-camera-plate`, `camera-gimbal-rain-cap`, `camera-gimbal-optical-hood` | [Camera pod](assemblies/camera-pod/README.md) | `0.1.0` | Two-axis gimbal fabrication set |
@@ -65,6 +65,12 @@ reference. Metal base stock is a drilling proposal, not a printed release part.
 
 `models.json` separates active `models` from `archivedModels`. Archived entries retain stable IDs, revisions, evidence status, source paths, an archive reason and current replacement IDs. They have no BOM ownership, active inventory count, individual release mesh, preview or fabrication download. CAD validation still checks their source/includes so historical references cannot silently break.
 
-The camera-pod archive covers the original concept kit and keep-out, six dry bench-only alternatives, and the retired fixed fairing, tilt-servo boot and rear camera cowl. The compact `payload-integrated-deck` is current; `payload-electronics-deck` is the dry bench alternative. The shared spider, spacers, pan mount and horn retainers remain active. Docking-stud and line-termination concepts have no selected replacement; archiving them does not resolve those interfaces.
+The camera-pod archive covers the original concept kit and keep-out, six dry bench-only alternatives, and the retired fixed fairing, tilt-servo boot and rear camera cowl. The compact `camera-pod-integrated-deck` is current; `camera-pod-electronics-deck` is the dry bench alternative. The shared spider, spacers, pan mount and horn retainers remain active. Docking-stud and line-termination concepts have no selected replacement; archiving them does not resolve those interfaces.
 
-The explicit dry bench booklet opts into only the archived entries marked `alternativeConfiguration: payload-bench`; it is labeled as an alternative and does not add parts to the current compact enclosure BOM or assembly. The enclosure exports 13 fabrication models (12 installed types plus the optional servo fit coupon) and installs 16 printed pieces. Other committed model families retain their documented optional configurations and variants; an unmerged replacement proposal does not supersede them.
+The explicit dry bench booklet opts into only the archived entries marked `alternativeConfiguration: camera-pod-bench`; it is labeled as an alternative and does not add parts to the current compact enclosure BOM or assembly. The enclosure exports 13 fabrication models (12 installed types plus the optional servo fit coupon) and installs 16 printed pieces. Other committed model families retain their documented optional configurations and variants; an unmerged replacement proposal does not supersede them.
+
+## Camera-pod naming compatibility
+
+All current camera-pod CAD IDs, source/module names and new booklet artifacts use `camera-pod`. The [alias map](model-aliases.json) records the former `payload-*` public IDs, including both retired assembly aliases for the single `camera-pod-assembly` reference. Old website part links redirect permanently to their current active or archived detail page. Fabrication revisions and installed quantities do not change with this rename; BOM part IDs remain stable.
+
+Dated inspection JSON and committed PDF/ZIP snapshots retain the observed model names, filenames and hashes. Their names identify historical evidence, and do not register duplicate current models. New CAD releases and enclosure/bench booklets are regenerated from the canonical sources. Generic software message payloads retain their protocol meaning.

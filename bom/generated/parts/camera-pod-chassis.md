@@ -17,7 +17,7 @@
 
 ## Notes
 
-Current compact ordinary-rain/splash chassis uses camera-pod-spider, payload-integrated-deck r0.1.0, spacers, pan-servo mount, payload-rain-hood r0.2.1 and payload-enclosure-base r0.2.3. Historical concept parts, the dry bench deck/cover and fixed fairing are archived and excluded from this BOM. Select the current print quantities in hardware/assemblies/camera-pod/payload-enclosure.md; the dry bench configuration remains an explicit alternative in payload-mounts.md. Docking and line-termination interfaces, physical fit, rain/thermal behavior and complete flying mass remain unverified.
+Current compact ordinary-rain/splash chassis uses camera-pod-spider, camera-pod-integrated-deck r0.1.0, spacers, pan-servo mount, camera-pod-rain-hood r0.2.1 and camera-pod-enclosure-base r0.2.3. Historical concept parts, the dry bench deck/cover and fixed fairing are archived and excluded from this BOM. Select the current print quantities in hardware/assemblies/camera-pod/camera-pod-enclosure.md; the dry bench configuration remains an explicit alternative in camera-pod-mounts.md. Docking and line-termination interfaces, physical fit, rain/thermal behavior and complete flying mass remain unverified.
 
 ## Used in
 
@@ -38,24 +38,24 @@ Quantities are per assembly definition, before build multipliers. Optional and d
 - Process: openscad
 - Model status: concept-unvalidated
 - [hardware/assemblies/camera-pod/camera-pod-spider.scad](../../../hardware/assemblies/camera-pod/camera-pod-spider.scad) — module `camera_pod_spider`; revision 0.1.0.
-- [hardware/assemblies/camera-pod/payload-pan-servo-mount.scad](../../../hardware/assemblies/camera-pod/payload-pan-servo-mount.scad) — module `payload_pan_servo_mount`; revision 0.1.0.
-- [hardware/assemblies/camera-pod/payload-spider-spacer.scad](../../../hardware/assemblies/camera-pod/payload-spider-spacer.scad) — module `payload_spider_spacer`; revision 0.1.0.
-- [hardware/assemblies/camera-pod/payload-rain-hood.scad](../../../hardware/assemblies/camera-pod/payload-rain-hood.scad) — module `payload_rain_hood`; revision 0.2.1.
-- [hardware/assemblies/camera-pod/payload-enclosure-base.scad](../../../hardware/assemblies/camera-pod/payload-enclosure-base.scad) — module `payload_enclosure_base`; revision 0.2.3.
-- [hardware/assemblies/camera-pod/payload-integrated-deck.scad](../../../hardware/assemblies/camera-pod/payload-integrated-deck.scad) — module `payload_integrated_deck`; revision 0.1.0.
+- [hardware/assemblies/camera-pod/camera-pod-pan-servo-mount.scad](../../../hardware/assemblies/camera-pod/camera-pod-pan-servo-mount.scad) — module `camera_pod_pan_servo_mount`; revision 0.1.0.
+- [hardware/assemblies/camera-pod/camera-pod-spider-spacer.scad](../../../hardware/assemblies/camera-pod/camera-pod-spider-spacer.scad) — module `camera_pod_spider_spacer`; revision 0.1.0.
+- [hardware/assemblies/camera-pod/camera-pod-rain-hood.scad](../../../hardware/assemblies/camera-pod/camera-pod-rain-hood.scad) — module `camera_pod_rain_hood`; revision 0.2.1.
+- [hardware/assemblies/camera-pod/camera-pod-enclosure-base.scad](../../../hardware/assemblies/camera-pod/camera-pod-enclosure-base.scad) — module `camera_pod_enclosure_base`; revision 0.2.3.
+- [hardware/assemblies/camera-pod/camera-pod-integrated-deck.scad](../../../hardware/assemblies/camera-pod/camera-pod-integrated-deck.scad) — module `camera_pod_integrated_deck`; revision 0.1.0.
 
 ### Print material estimate
 
-Build arbi-v1; batch represents 1 BOM unit(s). Current rain-enclosure kit from payload-enclosure.md; excludes dry-bench alternatives and test coupons. Cosmetic shell surfaces use PETG Matte White (35100) or Black (35101) as listed per component; functional parts retain their existing material assumptions. Material and colour selections require physical fit, retention, weather and thermal checks.
+Build arbi-v1; batch represents 1 BOM unit(s). Current rain-enclosure kit from camera-pod-enclosure.md; excludes dry-bench alternatives and test coupons. Cosmetic shell surfaces use PETG Matte White (35100) or Black (35101) as listed per component; functional parts retain their existing material assumptions. Material and colour selections require physical fit, retention, weather and thermal checks.
 
 | Model | Copies in batch | Material / colour | Solid volume per copy |
 | --- | ---: | --- | ---: |
 | camera-pod-spider r0.1.0 | 1 | Bambu Lab PETG Basic / black | 66.232475 cm³ |
-| payload-integrated-deck r0.1.0 | 1 | Bambu Lab PETG Basic / black | 13.441886 cm³ |
-| payload-spider-spacer r0.1.0 | 4 | Bambu Lab PETG Basic / black | 0.875489 cm³ |
-| payload-pan-servo-mount r0.1.0 | 1 | Bambu Lab PETG Basic / black | 8.299465 cm³ |
-| payload-rain-hood r0.2.1 | 1 | Bambu Lab PETG Matte / white | 36.443415 cm³ |
-| payload-enclosure-base r0.2.3 | 1 | Bambu Lab PETG Matte / black | 31.381263 cm³ |
+| camera-pod-integrated-deck r0.1.0 | 1 | Bambu Lab PETG Basic / black | 13.441886 cm³ |
+| camera-pod-spider-spacer r0.1.0 | 4 | Bambu Lab PETG Basic / black | 0.875489 cm³ |
+| camera-pod-pan-servo-mount r0.1.0 | 1 | Bambu Lab PETG Basic / black | 8.299465 cm³ |
+| camera-pod-rain-hood r0.2.1 | 1 | Bambu Lab PETG Matte / white | 36.443415 cm³ |
+| camera-pod-enclosure-base r0.2.3 | 1 | Bambu Lab PETG Matte / black | 31.381263 cm³ |
 
 Selected recipe consumption:
 
@@ -75,7 +75,7 @@ Comparisons below assume every component uses the same material; the selected mi
 | [Bambu Lab PETG Matte](https://eu.store.bambulab.com/products/petg-matte) | [1.37 g/cm³](https://store.bblcdn.eu/s8/default/240fb0c791fb4903a9d72934895e9a16/PETG_Matte.pdf) | 11.39 EUR / 1000 g; 10+ eligible mixed rolls | 218.242 g | 2.49 EUR |
 | [Bambu Lab ASA](https://eu.store.bambulab.com/products/asa-filament) | [1.05 g/cm³](https://store.bblcdn.com/ad7b08230c164e72856cffbe06bb7dc9.pdf) | 24.99 EUR / 1000 g; single spool | 167.265 g | 4.18 EUR |
 
-Volume evidence: [cad-v0.1.4](https://github.com/gredice/arbi/releases/tag/cad-v0.1.4); [canonical recipes, mesh checksums and source hashes](../../catalog/fabrication.json).
+Volume evidence: current local OpenSCAD exports; [canonical recipes, mesh checksums and source hashes](../../catalog/fabrication.json).
 
 Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.
 

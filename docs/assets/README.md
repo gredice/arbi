@@ -14,8 +14,8 @@ files and usage rules. The assets live in [brand](brand):
 
 ## Concept imagery
 
-- `payload-concept.png`: owner-supplied integrated payload concept, selected on 7 October 2026. The appearance is recorded in the [design conventions](../project/industrial-design.md).
-- `arbi-cover.png`: scenic concept imagery updated with the built-in image-generation tool on 7 October 2026, using the preceding repository cover as the edit target and the selected payload as the appearance reference. It is not CAD, an installation photo or dimensional engineering evidence.
+- `camera-pod-concept.png`: owner-supplied integrated camera-pod concept, selected on 7 October 2026. The appearance is recorded in the [design conventions](../project/industrial-design.md).
+- `arbi-cover.png`: scenic concept imagery updated with the built-in image-generation tool on 7 October 2026, using the preceding repository cover as the edit target and the selected camera pod as the appearance reference. It is not CAD, an installation photo or dimensional engineering evidence.
 
 ## Scenic-cover edit prompt
 

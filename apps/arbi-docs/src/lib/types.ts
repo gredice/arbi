@@ -5,7 +5,7 @@ export type Vec3 = [number, number, number];
 export type Model = {
     archiveReason?: string;
     supersededBy?: string[];
-    alternativeConfiguration?: "payload-bench";
+    alternativeConfiguration?: "camera-pod-bench";
     id: string;
     revision: string;
     status: string;

@@ -84,10 +84,11 @@ test('the offline compiler consumes a current preview pack and writes its refere
     });
     const site = JSON.parse(readFileSync(join(data, 'site.json')));
     assert.ok(site.registry.models.some((m) => m.id === 'camera-pod-assembly'));
-    assert.ok(!site.registry.models.some((m) => m.id === 'payload-assembly'));
-    assert.ok(site.registry.models.some((m) => m.id === 'payload-integrated-deck'));
-    assert.ok(!site.registry.models.some((m) => m.id === 'payload-electronics-deck'));
-    assert.ok(site.registry.archivedModels.some((m) => m.id === 'payload-electronics-deck'));
+    assert.ok(!site.registry.models.some((m) => m.id.startsWith('payload-')));
+    assert.equal(site.registry.models.filter((m) => m.id === 'camera-pod-assembly').length, 1);
+    assert.ok(site.registry.models.some((m) => m.id === 'camera-pod-integrated-deck'));
+    assert.ok(!site.registry.models.some((m) => m.id === 'camera-pod-electronics-deck'));
+    assert.ok(site.registry.archivedModels.some((m) => m.id === 'camera-pod-electronics-deck'));
     const archivedIds = new Set(site.registry.archivedModels.map((m) => m.id));
     for (const m of site.registry.models) assert.ok(!archivedIds.has(m.id));
     for (const id of archivedIds) {

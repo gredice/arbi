@@ -31,7 +31,7 @@ a PDF generated before its own commit came from an unchanged earlier revision.
 
 The shared renderer makes white-face line drawings with dark silhouettes and
 visible feature edges. Opaque faces hide rear edges and omit the STL triangle
-grid. Product colors remain in the figure/assembly manifests and payload GLB.
+grid. Product colors remain in the figure/assembly manifests and camera pod GLB.
 
 In exploded cover views, the disconnected stationary loom references move with
 the lower fascia that carries their exit holes. This preserves cable-to-port
@@ -43,8 +43,8 @@ Bought meshes record their owning `bomPartId` in the figure manifest. Motor,
 drum joining/clamp, mount and cover hardware open their existing BOM pages in
 the website; repeated fastener meshes retain the owner of each installed stack.
 
-[Booklet jobs in CI](../../.github/workflows/ci.yml) build affected winch, dry payload
-and enclosed payload variants in separate jobs with Python 3.12, OpenSCAD 2021.01 and VTK
+[Booklet jobs in CI](../../.github/workflows/ci.yml) build affected winch, dry camera pod
+and enclosed camera pod variants in separate jobs with Python 3.12, OpenSCAD 2021.01 and VTK
 9.5.2 on software EGL. Relevant pull requests get downloadable PDF/ZIP artifacts
 for 14 days. The required CI result includes booklet checks. A manual workflow
 dispatch rebuilds all three variants from the selected branch.

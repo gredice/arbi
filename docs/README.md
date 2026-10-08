@@ -49,7 +49,7 @@ The committed material is a **design baseline**, not proof of a built or safe in
 - [ADR-0006: Local safety authority and instrumentation](decisions/0006-local-safety-authority-and-instrumentation.md)
 - [ADR-0007: Integrated product design](decisions/0007-integrated-product-design.md)
 - [ADR-0008: Edge host and bounded local transport](decisions/0008-edge-host-and-local-transport.md)
-- [ADR-0009: Compact integrated payload packaging](decisions/0009-compact-integrated-payload.md)
+- [ADR-0009: Compact integrated camera pod packaging](decisions/0009-compact-integrated-camera-pod.md)
 
 ## Software evidence
 

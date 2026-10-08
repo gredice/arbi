@@ -3,42 +3,42 @@
   "destinationId": "hr-zagreb",
   "note": "Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
   "geometry": {
-    "releaseTag": "cad-v0.1.4",
-    "sourceCommit": "4e0eb44fd8df41174272569e910db93b835e51b2",
+    "releaseTag": null,
+    "sourceCommit": "53fc4939c84e35471d7b3b1e693d29c3ceb84ad0",
     "sourceHashes": {
+      "hardware/models.json": "7ec65522e1b79b5e6f973e5ce3a95e000452e08d2aa7d63e00d4d75676d1df18",
       "hardware/assemblies/camera-pod/camera-gimbal-base.scad": "aaa44f020ea99055c07d5aeb165f76da34c90562f1bccd29fe6ab8a746ccde2f",
       "hardware/assemblies/camera-pod/camera-gimbal-camera-plate.scad": "ee46401f166414b9c65f8b361e84a9694128b8a04de4aab8f35e343f69d9c535",
       "hardware/assemblies/camera-pod/camera-gimbal-optical-hood.scad": "b812f413d9efba9c156083b4508f15647e3fc5cfa1589a2950fd3d8d9b34df3d",
       "hardware/assemblies/camera-pod/camera-gimbal-rain-cap.scad": "c3ef78aa8d602f0fb6621b47292bf39f197de453b9877a244dce3897605343fd",
       "hardware/assemblies/camera-pod/camera-gimbal-yoke.scad": "bf82f067e8ebdcda99cdda1c68a08512a23c3c7d34670df5974624140d5a0177",
-      "hardware/assemblies/camera-pod/camera-pod-assembly.scad": "bad60f7414e90d7adfd96bec2128e7d83b277d4be8c99a15438e3bb52d8485d3",
+      "hardware/assemblies/camera-pod/camera-pod-assembly.scad": "6a02811b713ec5de8c0ca522a7badf5490f9dca07d58d3f703ee88df9b897448",
+      "hardware/assemblies/camera-pod/camera-pod-camera-cowl.scad": "3161c4e209eb3db5769ca5a9f6be6ddac760159e0b1d2a78c7e4634acf79fcc3",
+      "hardware/assemblies/camera-pod/camera-pod-camera-cradle.scad": "0b8757bfd228a84930b1da61a0571e73984065b31bd1de5f8249f7bdfcb91c5f",
+      "hardware/assemblies/camera-pod/camera-pod-camera-hood.scad": "9916f9a8709aaff701d527a095bbbb684e2213fcdaee68222ebdf0cd1c23b2f3",
       "hardware/assemblies/camera-pod/camera-pod-docking-stud.scad": "b4d26a0e2d8914c77383e1556db1f9e86b6c2dc92ff6a8e3d9744c9ee59bfc1f",
+      "hardware/assemblies/camera-pod/camera-pod-electronics-cover.scad": "1b1168c3b693086d83cb622eb85428d0e3800d1cb8897c5eee868ffd487337e5",
+      "hardware/assemblies/camera-pod/camera-pod-electronics-deck.scad": "a92bb883b75dd4f25a6b4855bbea3715877abcf5b7372a9d1966eda33ea64b94",
       "hardware/assemblies/camera-pod/camera-pod-electronics-mount.scad": "20c726ac047aaa26ad2e81d58ec9e2f9cf82692490e8a06135bc9595639e779b",
+      "hardware/assemblies/camera-pod/camera-pod-enclosure-base.scad": "e2453cdb1790a8fef1d0f97e9e1372d8e694c31d5a8c04f0a4601e9f152da3d9",
       "hardware/assemblies/camera-pod/camera-pod-envelope.scad": "8e4502a70290ffdaf4e82f8bb886ab6d259d8060fd502076da6d6da8c1ac7d08",
+      "hardware/assemblies/camera-pod/camera-pod-horn-retainer.scad": "0c6a9971cd3cdda6a8ba103afcc75b506a2b9cb995b842ef74621f68ae912132",
+      "hardware/assemblies/camera-pod/camera-pod-integrated-camera-cradle.scad": "cdb546f0d8988125d331d56266b9a1d8aa01c436326ef2153b0906b06b976ca5",
+      "hardware/assemblies/camera-pod/camera-pod-integrated-camera-hood.scad": "ee340666bd4d288d3f2393da573885cfd46735d94adf600fe872a6679f9f2eb0",
+      "hardware/assemblies/camera-pod/camera-pod-integrated-deck.scad": "98a42c37c5eb695e8a6b9ece9d3e78ac5584864f7f6aa9fb9e2a9c7d79dccbec",
+      "hardware/assemblies/camera-pod/camera-pod-integrated-gimbal-carrier.scad": "16356cc0b48ae58708b77b3a2054a7395d273652cd6aa82f0dae9bf249fb3d74",
+      "hardware/assemblies/camera-pod/camera-pod-integrated-gimbal-head.scad": "e371057df9b491e4cd0ddbb0da6dd0aadf49b6bbfa4e835e6bbe9b5dc4a09dff",
+      "hardware/assemblies/camera-pod/camera-pod-integrated-tilt-pivot-support.scad": "ef760c8d21cacfa7398126a6f07e812eb312535e7ddee2f1b8b9e7cfc0a38b75",
       "hardware/assemblies/camera-pod/camera-pod-line-strain-relief.scad": "55ebe149da5f2025f8a46e056c47cb866a63d8f9016b7bd20ef45ae3e1aa1fba",
+      "hardware/assemblies/camera-pod/camera-pod-pan-fairing.scad": "98237953189f5ef08e620b7dec1d0798d685b9cc8e831a0d5ad609e206024f2e",
+      "hardware/assemblies/camera-pod/camera-pod-pan-servo-mount.scad": "91260d01aa01c176ff664b13bbd85d993fbd08cd183d03b1f5a0d2d33c2e93b8",
+      "hardware/assemblies/camera-pod/camera-pod-pan-yoke.scad": "1a2a3f08dd079b6e11b057fdcc7732884215c7438172f95a12076443fac84f75",
+      "hardware/assemblies/camera-pod/camera-pod-rain-hood.scad": "9bee57ae2bd54765c16a36887d4cccd7ea4fdf098e5d6248bd44b4d35d93e6cc",
+      "hardware/assemblies/camera-pod/camera-pod-servo-fit-coupon.scad": "f9aa507dda7c4a32897902eeea7ea9743ce901a58a2299f27b4a395d1bb0db50",
+      "hardware/assemblies/camera-pod/camera-pod-spider-spacer.scad": "beb0f81506bc5462ed1eb4d540316b0dfb06c532dadbaee40ff6624175c3c52d",
       "hardware/assemblies/camera-pod/camera-pod-spider.scad": "6e914f806f9acdd605b2ff17b37b572d2591a1aa0b5d5d7044c818b7bcde7a29",
-      "hardware/assemblies/camera-pod/payload-camera-cowl.scad": "820e430cbab03a554a501d9dbb6249f8a98641cb7ce73ffc3614e97df3b01ed2",
-      "hardware/assemblies/camera-pod/payload-camera-cradle.scad": "9c691442df4b78756045cc42cca0bcc26bbcbab1fa3b12fe09b6387e6005bba0",
-      "hardware/assemblies/camera-pod/payload-camera-hood.scad": "440dfc70e6be114f7d62f6f25876b2392809316711822b776bdd8a082fd45c32",
-      "hardware/assemblies/camera-pod/payload-electronics-cover.scad": "b8c8d85b0d79f09c1a9c6f494db88363e45380e1b1c54a545b09f87ac20f5212",
-      "hardware/assemblies/camera-pod/payload-electronics-deck.scad": "6735f5d043c43e8198963f9b439f045982e092a7ab6889de8e6bef1f359390b3",
-      "hardware/assemblies/camera-pod/payload-enclosure-base.scad": "01aae0668a1d6391afa56521df72a0cdd111f7e89830fec4308dec8a3795837c",
-      "hardware/assemblies/camera-pod/payload-horn-retainer.scad": "287d05e7612b5817fa2bfc9cabf3104a71609527bd1a994b993e4cebb3d12b28",
-      "hardware/assemblies/camera-pod/payload-integrated-camera-cradle.scad": "26f5f9e4b31a03d49b3086ac0612e76d850b371f71e3fd8bfa0c2e01b763998a",
-      "hardware/assemblies/camera-pod/payload-integrated-camera-hood.scad": "30ea719d1a8d31199d0ffbaa33aa26023dcfb0cefbc383417a3e0ce64716a1b9",
-      "hardware/assemblies/camera-pod/payload-integrated-deck.scad": "aba8ab432856d68cd28230eece2bbe6008d57fee1d2b35a36996c00b1618d2b1",
-      "hardware/assemblies/camera-pod/payload-integrated-gimbal-carrier.scad": "eb77939cd0116bc7e2b0e2a7da0cd39b8361b1cd6354124f7d5967422294b52d",
-      "hardware/assemblies/camera-pod/payload-integrated-gimbal-head.scad": "c83dd23cf724217a78c960e3dc5231fbf95e592c5e52a621e26395a8b39498b8",
-      "hardware/assemblies/camera-pod/payload-integrated-tilt-pivot-support.scad": "9f6290b18b0aec3758c0a03fd070ab5020e8bd4814630e67c6f09a11efdef2ce",
-      "hardware/assemblies/camera-pod/payload-pan-fairing.scad": "6a6ea7c17086dcb79620f46fec050e5981e118df767d4b83d139c056552f260c",
-      "hardware/assemblies/camera-pod/payload-pan-servo-mount.scad": "231b167e2db6edcb857eca43262a25b449af1e8b882db8f86f67e1c3840f9360",
-      "hardware/assemblies/camera-pod/payload-pan-yoke.scad": "04bcb26c0b633f4810fc3d51efe9684857eda266d01afdeab075932f9511ea04",
-      "hardware/assemblies/camera-pod/payload-rain-assembly.scad": "f9e6165376f4313d1109bb28219aa690f184199f35bf3ec1e24e1a938b4d8075",
-      "hardware/assemblies/camera-pod/payload-rain-hood.scad": "3c2db07ccebd5dc84709e92901d08793465c462f7c6e588995971a4cb5c8f6d1",
-      "hardware/assemblies/camera-pod/payload-servo-fit-coupon.scad": "d50a9a85fa33dc954b8c908d23497ecc2db2bc90afc62b357cade8a0a5dc18e3",
-      "hardware/assemblies/camera-pod/payload-spider-spacer.scad": "eb4d41b065002e4845cf7990dfb2802d67e8dd78fb8b31dde35a721b17faf344",
-      "hardware/assemblies/camera-pod/payload-tilt-pivot-support.scad": "1c3b56b430206f2c63b71c66a232df35ff5e4463d1b05e71d6a554a4b2c7f0ce",
-      "hardware/assemblies/camera-pod/payload-tilt-servo-boot.scad": "5d5524e087e08c6541b9911704c5da2590c445621414a5b4610e488f71f59612",
+      "hardware/assemblies/camera-pod/camera-pod-tilt-pivot-support.scad": "196b588cef28d6e18fde50da65027479ca921865707a43f4e84b81278439fc21",
+      "hardware/assemblies/camera-pod/camera-pod-tilt-servo-boot.scad": "32868fe27039dd7c6ba78ddf8d245da770196c20662a40ebfd871cb5c3bf8d9c",
       "hardware/assemblies/corner-station/pole-pulley-mount-assembly.scad": "5e66700be1fc081044a537e54d4872644fce659ee6ad8cd7c2ac65de23c411e0",
       "hardware/assemblies/corner-station/pole-pulley-mount-front.scad": "cfcc603055084f2ac181614d77ab59b0b0f8ddd6d956c4cbc191b500e8b0880e",
       "hardware/assemblies/corner-station/pole-pulley-mount-rear.scad": "77699bed6cc4672f8cb03fe3f4843834a2b9c276b210ba1448574dadb86b9c59",
@@ -92,153 +92,152 @@
       "hardware/assemblies/winch/winch-pole-nut-cover.scad": "1c74d56a34fa29851462d65ef506394f13ed951290246e60f2cdc3c0c9946d1c",
       "hardware/assemblies/winch/winch-pole-rear-saddle.scad": "8f5b5a94b027c7ed1b34e0540502a6b017a0278454daa70a5025409cbbb0bfc5",
       "hardware/lib/arbi.scad": "39939675020b805ced0e8a05cd41b40037ae627f602e08f7bf638c7ba9d9d9c7",
-      "hardware/lib/camera-pod.scad": "a9c5a6722d39ac199f3e2ba2106055e04a2cbbd85fae2edc53292770ab58a8ea",
-      "hardware/lib/payload-bench-assembly.scad": "e71ec3a6202a3a43a6d88d82041c76eac90c75dd3bc49743af473bba87182c38",
-      "hardware/lib/payload-enclosure.scad": "6fc5a7743f2a0fa7e0ecfce9e426e0b18a6da93ef1fbddf6b0a57dc0cf951a7a",
-      "hardware/lib/payload-integrated-deck.scad": "55e406d003c770a7a60dc8b80b062d540fa6232cdf82a10e256f15a1d0a7af2f",
-      "hardware/lib/payload-integrated-gimbal.scad": "946f133bdaddf246c579868b6d9dd9c6f01a1d0f5ee900bc2d3ae129a6aee98f",
-      "hardware/lib/payload-integrated-head.scad": "d506927a29d19697977d6a244668401163c0079f0efef9e3726cdcf2ce59b191",
-      "hardware/lib/payload-mounts.scad": "489db6bba746e741d4db140c9d9fe4dc92bec7eca1a35b7b1e2ef19439f96039",
+      "hardware/lib/camera-pod-bench-assembly.scad": "f679ab2f24374013718adb1a2b8414437610d8f4c43a0bc4fb1355193bb28153",
+      "hardware/lib/camera-pod-enclosure.scad": "e6bd217233c85fdfd29cd81bb0327b746eec648a76c241f53cb4f67619e772a5",
+      "hardware/lib/camera-pod-integrated-deck.scad": "b8d07acc6e1738c4fd453f2768f2abffbf830852016253e17cd3aabee0f72191",
+      "hardware/lib/camera-pod-integrated-gimbal.scad": "790e02530ea3046dd02eb0ae0165348a8144cf4d7cb9aeaff0a3930ab1d9b996",
+      "hardware/lib/camera-pod-integrated-head.scad": "eccbf8010d83908fadf13e13cf0615e7273819dcc8cd65d95c3c774ce4c9d5cc",
+      "hardware/lib/camera-pod-mounts.scad": "b5b2cefe5f8787db7d9b6a62f04032c32000f669682ea43452d1d3bc3f9ebc58",
+      "hardware/lib/camera-pod.scad": "324d1d886ddb52fd9b5545e9ba2116e1c6c42fac7b026951d18bbbb090d85379",
       "hardware/lib/pole-pulley-mount.scad": "6db768a3b412dd9b95372597bf7146eee325c04a1615d5a0086689c9a7bdb86e",
       "hardware/lib/winch-cover.scad": "e74ae15fa129899675a5528bda4a92878b34a61d0a5d7111c0477256bf51e553",
       "hardware/lib/winch-desk-feet.scad": "06a551dbe77420599590dc3f8a3bd9b66cd5d647d94bd75fa9e852dcdd4dd719",
       "hardware/lib/winch-drum.scad": "0684c28615d398d1b7a2beb7d15a4fa4e27d62382b8a8bde1470367f5de1e837",
       "hardware/lib/winch-mount.scad": "05bb92d3955500a3a52914c01f7f530bf3a243f60bef69f7d4a7af7a461e231e",
-      "hardware/lib/winch-pole.scad": "58e2f446a74cb8d38e31c332727ae31ab6e10ec49ce38ba16dcd88a20ba8fc85",
-      "hardware/models.json": "8f4d4497618c09ec2bfadec197836343f94fcc682b93cae6a8a8282b92b4705c"
+      "hardware/lib/winch-pole.scad": "58e2f446a74cb8d38e31c332727ae31ab6e10ec49ce38ba16dcd88a20ba8fc85"
     },
     "models": [
+      {
+        "modelId": "camera-pod-enclosure-base",
+        "revision": "0.2.3",
+        "volumeCm3": "31.381263",
+        "stlSha256": "3c775383737dbb23fa88e803faac0e5f684598f812c9e20b4eec2756259cae2e"
+      },
+      {
+        "modelId": "camera-pod-horn-retainer",
+        "revision": "0.1.0",
+        "volumeCm3": "0.545253",
+        "stlSha256": "c515a47a2002a116c8c8ec18e948a47730693e5c63e69c3150ed2b1110bcacd5"
+      },
+      {
+        "modelId": "camera-pod-integrated-camera-cradle",
+        "revision": "0.1.0",
+        "volumeCm3": "3.191199",
+        "stlSha256": "108c5a2c5699a65b06f196ab578fe34a7f71db74f5512fe4f0e9a3bc9cf6ca60"
+      },
+      {
+        "modelId": "camera-pod-integrated-camera-hood",
+        "revision": "0.1.1",
+        "volumeCm3": "4.588465",
+        "stlSha256": "2bea002ddace94ffc2da6b5b05d43c0b53622e23fda5ac373ca0549d24fd639c"
+      },
+      {
+        "modelId": "camera-pod-integrated-deck",
+        "revision": "0.1.0",
+        "volumeCm3": "13.441886",
+        "stlSha256": "7ec8ed3322404fa48481ca1e93b0b5877cddb852d0446b4eecf32b2a0874bc5e"
+      },
+      {
+        "modelId": "camera-pod-integrated-gimbal-carrier",
+        "revision": "0.1.1",
+        "volumeCm3": "8.458834",
+        "stlSha256": "e4b911967feb9d5aa22633cf7eda0e5bd1c0b2aae8443dff92c38c6f977361fd"
+      },
+      {
+        "modelId": "camera-pod-integrated-gimbal-head",
+        "revision": "0.1.3",
+        "volumeCm3": "22.087140",
+        "stlSha256": "585903d98870651929f88e12e6368605c4c593fcf5d1a6a4e06b252dbd811fd9"
+      },
+      {
+        "modelId": "camera-pod-integrated-tilt-pivot-support",
+        "revision": "0.1.0",
+        "volumeCm3": "1.088757",
+        "stlSha256": "51ed8778efd3a12d8c0e9095ccba5e9ac967190ab2dd8b2f9c3f329ccccc3c2c"
+      },
+      {
+        "modelId": "camera-pod-pan-servo-mount",
+        "revision": "0.1.0",
+        "volumeCm3": "8.299465",
+        "stlSha256": "73fbc7898bde0abd054cc4e97f168d26c9263a9498262034178ceac6c29fdc26"
+      },
+      {
+        "modelId": "camera-pod-rain-hood",
+        "revision": "0.2.1",
+        "volumeCm3": "36.443415",
+        "stlSha256": "c94f674c89f6c2c296f801515d367ce09089badd0ecccacba9f0c5594e9f4ed0"
+      },
       {
         "modelId": "camera-pod-spider",
         "revision": "0.1.0",
         "volumeCm3": "66.232475",
-        "stlSha256": "d453acc7614c1538d2fd4c52ee5a91a38cf90494a3fb458cf60f2d69e298abca"
+        "stlSha256": "92365f1f7b4a8addc7ba761885222c9ca4fefcaf7b589c6af57fd04f7b637ce0"
+      },
+      {
+        "modelId": "camera-pod-spider-spacer",
+        "revision": "0.1.0",
+        "volumeCm3": "0.875489",
+        "stlSha256": "bb0e7862c1cadf75afffedd9c0263dfcc033c5a5ca42c4149b74134299181abf"
       },
       {
         "modelId": "dock-funnel",
         "revision": "0.1.0",
         "volumeCm3": "301.044950",
-        "stlSha256": "a528591b48898726be50013f84ddfd953e959f8b822795e87ec4505b1db5bed7"
+        "stlSha256": "9413eef5df8863fb2d019b2777d80e9866cb37374bfb2c22f1c993aa768e93d5"
       },
       {
         "modelId": "dock-nest",
         "revision": "0.1.0",
         "volumeCm3": "1949.764697",
-        "stlSha256": "c54ef924f7d5ccacc022d937e00fe3d31614242139bda13405f32dd9c5a070eb"
-      },
-      {
-        "modelId": "payload-enclosure-base",
-        "revision": "0.2.3",
-        "volumeCm3": "31.381263",
-        "stlSha256": "cbeb635205d544ec58b036f31358324cec6183060019feba1373889ef4ae669d"
-      },
-      {
-        "modelId": "payload-horn-retainer",
-        "revision": "0.1.0",
-        "volumeCm3": "0.545253",
-        "stlSha256": "10b0a1ff09bfc70703f6054b0fbc593af9249bbb092b44ff1e3e88e76e622e21"
-      },
-      {
-        "modelId": "payload-integrated-camera-cradle",
-        "revision": "0.1.0",
-        "volumeCm3": "3.191199",
-        "stlSha256": "58f870e1f44b09b34f5a9ab6ab35f0648cb1e0e191dac67eba00dc28248701e4"
-      },
-      {
-        "modelId": "payload-integrated-camera-hood",
-        "revision": "0.1.1",
-        "volumeCm3": "4.588465",
-        "stlSha256": "fcc4b71c15ff8572bdbce152ebff3fbe304bcad9ae1fef17b4fe1ab811e572cd"
-      },
-      {
-        "modelId": "payload-integrated-deck",
-        "revision": "0.1.0",
-        "volumeCm3": "13.441886",
-        "stlSha256": "842948538869a82ce03e1f26e6f1776b3c83d9d789ac0eca48abe251e0ea9fa0"
-      },
-      {
-        "modelId": "payload-integrated-gimbal-carrier",
-        "revision": "0.1.1",
-        "volumeCm3": "8.458834",
-        "stlSha256": "8cb7561344fc9ed6ee18d88d019f0c3b6ec30b47c0806f647e633b8c67563611"
-      },
-      {
-        "modelId": "payload-integrated-gimbal-head",
-        "revision": "0.1.3",
-        "volumeCm3": "22.087140",
-        "stlSha256": "0acc569de875406b991943bdfb1e215474a3d4bf6c4e2214ce871a541fe16268"
-      },
-      {
-        "modelId": "payload-integrated-tilt-pivot-support",
-        "revision": "0.1.0",
-        "volumeCm3": "1.088757",
-        "stlSha256": "e340b29bf4a996c3ffb49fe55985c05aefdb040b36dcbba5e3962fc25fc7c967"
-      },
-      {
-        "modelId": "payload-pan-servo-mount",
-        "revision": "0.1.0",
-        "volumeCm3": "8.299465",
-        "stlSha256": "b56f7af03f826e4a323189e99b5f159bd68e3c0529145cfff3ca015f439d98f8"
-      },
-      {
-        "modelId": "payload-rain-hood",
-        "revision": "0.2.1",
-        "volumeCm3": "36.443415",
-        "stlSha256": "5339dde3b60c736845ebdf6879b7f0a3d4a8432c989a9f25a855e0558ccb8085"
-      },
-      {
-        "modelId": "payload-spider-spacer",
-        "revision": "0.1.0",
-        "volumeCm3": "0.875489",
-        "stlSha256": "676544a70159a7957c8841a7e025c7b147caab6b423f622c7748d2a21f590e6f"
+        "stlSha256": "97ffffbac74bf4b31ed5e1b43e77dd7c54c96d3a435290b2d3a7368054af9771"
       },
       {
         "modelId": "pole-pulley-mount-front",
         "revision": "0.1.0",
         "volumeCm3": "357.917151",
-        "stlSha256": "e4993c199691679264f2b8dc2e950dd4b287728518d8b368c291e3258cb35e6a"
+        "stlSha256": "01cf0ae88fb88331451ba38189e72b57c90156f47ea00d27828d1f444b5bb577"
       },
       {
         "modelId": "pole-pulley-mount-rear",
         "revision": "0.1.0",
         "volumeCm3": "264.313526",
-        "stlSha256": "f6b3a8e2077d3c04936eb7dc1ee3bb014dafcd0d9ac88bdaaaeb82a05f15d7e8"
+        "stlSha256": "3cf1e104b15becc5bea48e134ff2c92966ee9079012aa7e7d42b345bd17a99e5"
       },
       {
         "modelId": "top-pulley-keeper",
         "revision": "0.1.0",
         "volumeCm3": "22.146573",
-        "stlSha256": "cb8351502ee8a35e38c82772c4435f00b9a84584cfe1be0ca0490b0b7d10232b"
+        "stlSha256": "66765ebe8534e63a01fb2e1a9b4ee4b3a8da185c60c105686ca850ea076b912d"
       },
       {
         "modelId": "winch-bearing-cap",
         "revision": "0.1.0",
         "volumeCm3": "5.243271",
-        "stlSha256": "b6542ad13d87a907c510f1794d623509ab9ee3b9acaddb3181d9ec7761aacaa2"
+        "stlSha256": "6d8ef998c334d6a36c8ec5fdb94c1eefa7b0cf780836b0811263084c06c81249"
       },
       {
         "modelId": "winch-bearing-lower",
         "revision": "0.1.0",
         "volumeCm3": "60.812971",
-        "stlSha256": "bfecc97b818bb7432a5850632d2671ccf8367f6325040e4ff0997c77710fece2"
+        "stlSha256": "8732e37f251615652e34d4b4b33b67d97f7e64e8806427341f76af194fb3720a"
       },
       {
         "modelId": "winch-coupling-guard",
         "revision": "0.1.1",
         "volumeCm3": "30.825830",
-        "stlSha256": "e7347ce4dcbb13d087830581ac424a568d6460eef4cbe7f85bfc62d4f1ae5ba3"
+        "stlSha256": "b23e92bd4c3f7ee7d97f2acde84e80cd5c0eab8ee4c59259cf9c5476a1077631"
       },
       {
         "modelId": "winch-cover-cable-anchor",
         "revision": "0.1.0",
         "volumeCm3": "4.514930",
-        "stlSha256": "8ccf1459cce0f0e32435d2cfeae1ebdb22433576c7cda14856681a4c0913e9ed"
+        "stlSha256": "2a5fe2e25876a191f0305151f9b047c6f8e1e26763411bb1e9b2df68168a8bfd"
       },
       {
         "modelId": "winch-cover-clip",
         "revision": "0.2.0",
         "volumeCm3": "6.118286",
-        "stlSha256": "a57f65db65d75ce3a2c9934ac6dc9548a73c8f26ae30fcec70dedcfe1b854cf5"
+        "stlSha256": "a9243bbfbbe6e8dbba4658fef9bfc0b3e8bb1c3ad1d616a5bb61dcb2a4e3508d"
       },
       {
         "modelId": "winch-cover-passive-fascia",
@@ -250,19 +249,19 @@
         "modelId": "winch-cover-passive-left",
         "revision": "0.3.0",
         "volumeCm3": "374.072990",
-        "stlSha256": "10a5e0d1f7b63c9736e7e00cf4c6fb8520e421b0bea79cf603e2ccf5c250f4cc"
+        "stlSha256": "cbcaf8af8f343bdf08fa986e88e093eb3b7300fbd233d94357f9516310c58883"
       },
       {
         "modelId": "winch-cover-passive-middle",
         "revision": "0.2.0",
         "volumeCm3": "250.605223",
-        "stlSha256": "2de2575ebfbbd83da076f11a46f7e0021f8c4e8db30061d298c2c077ddcbec15"
+        "stlSha256": "f64417bc8f62b0e2a4c183f84fb2f48384471d43171920119cf304f65cd762b3"
       },
       {
         "modelId": "winch-cover-passive-pole-fascia",
         "revision": "0.1.0",
         "volumeCm3": "76.231311",
-        "stlSha256": "0653142d7948bf8e66e92ca2db0375ee42cbdee8dad5f8272f8e8924f5a66653"
+        "stlSha256": "0cfc4bc6c62682bee11031bf9f091d7ba6926d0c78c7de79c573e32809918d64"
       },
       {
         "modelId": "winch-cover-passive-rear-left",
@@ -280,13 +279,13 @@
         "modelId": "winch-cover-passive-right",
         "revision": "0.3.0",
         "volumeCm3": "449.144055",
-        "stlSha256": "6c3e67be0c87655d5e6a56a1c819347a79bea26b0955ed46b46a2200ffbc3650"
+        "stlSha256": "1440e6e3f63c2456cf87db8b434e5f557879a5e42c45f8a5b51695c5fc6f387c"
       },
       {
         "modelId": "winch-cover-passive-shutter",
         "revision": "0.2.0",
         "volumeCm3": "79.436506",
-        "stlSha256": "18f3971c94f2f73cde7826fbf4fb101dc06825c543c296c236570e6ceeb8ff37"
+        "stlSha256": "310d9823974e57a8436f939ef45a8e4e3d2d5647f8aa0967773e045ce0614376"
       },
       {
         "modelId": "winch-cover-powered-fascia",
@@ -298,25 +297,25 @@
         "modelId": "winch-cover-powered-left",
         "revision": "0.2.0",
         "volumeCm3": "367.652286",
-        "stlSha256": "540884fcd4ac34575dabe6837235932b277c1a64dbeb50b17c4e25c46ae65d1d"
+        "stlSha256": "4a147967ab6765c89b1a9c05fbd1b62b2ce903a0721d4a374f5c2c33c1ccceea"
       },
       {
         "modelId": "winch-cover-powered-middle",
         "revision": "0.2.0",
         "volumeCm3": "242.744073",
-        "stlSha256": "71a46f0bac9dcfab53e0dfaad17f209755e5757f3f15b2b9cf7e10c4aa2295cb"
+        "stlSha256": "89c1ea73014b662cde943134e3d2d92458ecfab002559e1884e45ba2b58fc440"
       },
       {
         "modelId": "winch-cover-powered-pole-fascia",
         "revision": "0.1.0",
         "volumeCm3": "73.701924",
-        "stlSha256": "5305b5fa28a93f8fbd10397a6ef8a23645a189cc549d635eec2eee88ca7282f2"
+        "stlSha256": "d4d223cbc047b2651c2a1efa8386f6b00518f43d834bb993fd0dc6b17fd73e50"
       },
       {
         "modelId": "winch-cover-powered-pole-middle",
         "revision": "0.1.0",
         "volumeCm3": "240.640072",
-        "stlSha256": "e11fda8412044f7003b7f5a6aea87755d505086143f9a75fee87fa62837faa7d"
+        "stlSha256": "959468003abcbd060d375f5d0c084100a990960a6e47986c4bca5d51a8ae1cad"
       },
       {
         "modelId": "winch-cover-powered-rear-left",
@@ -334,109 +333,109 @@
         "modelId": "winch-cover-powered-right",
         "revision": "0.3.0",
         "volumeCm3": "437.959117",
-        "stlSha256": "adac9af0c79d43209958da72595f0fda6c0677de7c39294eb415b666a539e028"
+        "stlSha256": "da7186d4bc35ba25690de3b730355afc5dc68a3cac9487665fde0d2922484493"
       },
       {
         "modelId": "winch-cover-powered-shutter",
         "revision": "0.2.0",
         "volumeCm3": "76.694057",
-        "stlSha256": "b55c3f52e260a9ddc756ada21b4086c42a3ee926d7ab3e5117d288755f7664ed"
+        "stlSha256": "c0d95aa9adc43169a5ec47b9302fa134c7b9d3faeb3056bca2b4a6dd1311afaf"
       },
       {
         "modelId": "winch-cover-powered-transition",
         "revision": "0.2.0",
         "volumeCm3": "241.880800",
-        "stlSha256": "a70e056c48f96e8e607e27bab8ec6e276b92f0c752e13b383392d2977964a9bc"
+        "stlSha256": "56762f35f39901fc3f8c32a685a0cd2dc8b334e89f136e85c02ac09a108afeb4"
       },
       {
         "modelId": "winch-desk-foot-long",
         "revision": "0.1.0",
         "volumeCm3": "105.802227",
-        "stlSha256": "7032b31ba61af25dcab2967481a3640fec952db3e36687b795c9a9cf36f633c5"
+        "stlSha256": "a3fae8754249c3179b688145950c2a063abbd696dd0745937b200e8fce9e4be1"
       },
       {
         "modelId": "winch-desk-foot-short",
         "revision": "0.1.0",
         "volumeCm3": "74.282202",
-        "stlSha256": "6b862dc253e6c5ae136622367992d95212277ed85b2b915107d6af4ee44faea4"
+        "stlSha256": "9f560952e0feded25d24fbc31d7d9c14a26bf01390d14033526e90fe46e23ace"
       },
       {
         "modelId": "winch-drum-alignment-pin",
         "revision": "0.1.0",
         "volumeCm3": "0.156072",
-        "stlSha256": "7ee4833edd7c5e93eaeb18049eae5f807f22dfe01cd6ce825ad7fb8111065ed2"
+        "stlSha256": "189d0ecace2a5e0b2848ce9967d123ee49e14b47e2127fac88721240ba653bb8"
       },
       {
         "modelId": "winch-drum-clamp-half",
         "revision": "0.1.0",
         "volumeCm3": "13.614323",
-        "stlSha256": "4e209570c561ccddc4f00ec96a0a7f4aedc4e79a697d66ebc3fc5ae44d96d5c9"
+        "stlSha256": "ed89fb0e03b088f0e6eb0fe237a4a5a38b3b39037e4f267807f02850c73808e7"
       },
       {
         "modelId": "winch-drum-flange",
         "revision": "0.1.0",
         "volumeCm3": "75.053615",
-        "stlSha256": "4b61f0359f5f12204dc016930355e94eeb875cfdb6d138c89520b4a3ba9e84e4"
+        "stlSha256": "580c60144d8ffcb0670e266271f83f0618dd0b437d1d9e325d293dd13b539b02"
       },
       {
         "modelId": "winch-drum-flange-right",
         "revision": "0.1.0",
         "volumeCm3": "75.053615",
-        "stlSha256": "f141b2ad24bdcefb7e63560e51f07f12fbe544912b8e1ed99e1f19a867e83d65"
+        "stlSha256": "afede8fc4eb28565029e94aec9efd8eb52119064926f11a9324218606fe9aa5d"
       },
       {
         "modelId": "winch-drum-passive-1",
         "revision": "0.1.0",
         "volumeCm3": "316.427023",
-        "stlSha256": "ff6e0f76fff79c7ddacd37202f0ae7f5ccdfb165106a6eb3d3594ee03a0d09f0"
+        "stlSha256": "2689b956e1b1024792b5ce8bd21c96af84825bdc3ed85e3d27469a328ad18cd3"
       },
       {
         "modelId": "winch-drum-passive-2",
         "revision": "0.1.0",
         "volumeCm3": "316.426147",
-        "stlSha256": "32afed565e34dfe07de55a661c60c710c8d3f3a777e9f6fc8e16335f9901ff56"
+        "stlSha256": "9bcffe74afd983defff33cb129151071ce31deda13e42a17027d64b0e4845e66"
       },
       {
         "modelId": "winch-drum-powered-1",
         "revision": "0.1.0",
         "volumeCm3": "456.629544",
-        "stlSha256": "0d58d8ff201ffe877c947bf605f6a5058a24290b9767ca2f154933fa5b0ffc91"
+        "stlSha256": "e17193aaaf482c37db5f71575c81341f33739e066e2505d20b4f8c3c6263e0cc"
       },
       {
         "modelId": "winch-drum-powered-2",
         "revision": "0.1.0",
         "volumeCm3": "454.324400",
-        "stlSha256": "f5f85ee8b32559c0e052533ecd9476111ecf9e7c870e1484f84d1c9730fb8eea"
+        "stlSha256": "969815874122353a56f096c90f81f9bfde6c69d7a82c9fd0831accc5bf470a3d"
       },
       {
         "modelId": "winch-drum-powered-3",
         "revision": "0.1.0",
         "volumeCm3": "456.627803",
-        "stlSha256": "cd8483a5c6c415e94e4eeada76fb380a538b1782f8c49865cddc546eb1302ef9"
+        "stlSha256": "cb218ddceb945f33489400d91df39aa96c6251f8db24e2d3edeca8a34c4a5b2c"
       },
       {
         "modelId": "winch-drum-tail-clamp",
         "revision": "0.1.0",
         "volumeCm3": "1.742899",
-        "stlSha256": "aa054a9cdd4f02906123fc890f188afdc9f01363982e4f57260da2a032cd6225"
+        "stlSha256": "5755ad61d35a1150cf1efae7bebc0907d492fdf1e14d895e43caadf8c5f2d10d"
       },
       {
         "modelId": "winch-motor-stand",
         "revision": "0.1.0",
         "volumeCm3": "156.792774",
-        "stlSha256": "564a0750407de14008f4bf92a8c468cd3c544d7ada1fee541aca7a9c1a837331"
+        "stlSha256": "99d0303807b37ddf8531d415bd57567ba2a3a410fd449354b1e275359f8c3df3"
       },
       {
         "modelId": "winch-pole-cable-guide",
         "revision": "0.1.0",
         "volumeCm3": "9.881734",
-        "stlSha256": "dd514443e290fc7a0a37252f352f6e444c239af5786452f00879baa35203cede"
+        "stlSha256": "60984333aa416c82dd23009b15becd46118ee2d8d3913d1c3495f8c93a76fcb5"
       },
       {
         "modelId": "winch-pole-nut-cover",
         "revision": "0.1.0",
         "volumeCm3": "44.800318",
-        "stlSha256": "8b060411014cdc330a55981f2ed305093dd1e3413f7a01b15cee96ee5a408c38"
+        "stlSha256": "05f97e1f7d668ae88de754ad5d55d43b71f96e745d99061e48f70a61d21aeb48"
       },
       {
         "modelId": "winch-pole-nut-cover-bottom",
@@ -540,34 +539,34 @@
           "color": "black"
         },
         {
-          "modelId": "payload-integrated-deck",
+          "modelId": "camera-pod-integrated-deck",
           "quantity": "1",
           "color": "black"
         },
         {
-          "modelId": "payload-spider-spacer",
+          "modelId": "camera-pod-spider-spacer",
           "quantity": "4",
           "color": "black"
         },
         {
-          "modelId": "payload-pan-servo-mount",
+          "modelId": "camera-pod-pan-servo-mount",
           "quantity": "1",
           "color": "black"
         },
         {
-          "modelId": "payload-rain-hood",
+          "modelId": "camera-pod-rain-hood",
           "quantity": "1",
           "color": "white",
           "materialId": "petg-matte"
         },
         {
-          "modelId": "payload-enclosure-base",
+          "modelId": "camera-pod-enclosure-base",
           "quantity": "1",
           "color": "black",
           "materialId": "petg-matte"
         }
       ],
-      "note": "Current rain-enclosure kit from payload-enclosure.md; excludes dry-bench alternatives and test coupons. Cosmetic shell surfaces use PETG Matte White (35100) or Black (35101) as listed per component; functional parts retain their existing material assumptions. Material and colour selections require physical fit, retention, weather and thermal checks."
+      "note": "Current rain-enclosure kit from camera-pod-enclosure.md; excludes dry-bench alternatives and test coupons. Cosmetic shell surfaces use PETG Matte White (35100) or Black (35101) as listed per component; functional parts retain their existing material assumptions. Material and colour selections require physical fit, retention, weather and thermal checks."
     },
     {
       "partId": "camera-gimbal",
@@ -576,33 +575,33 @@
       "materialId": "petg",
       "components": [
         {
-          "modelId": "payload-integrated-gimbal-carrier",
+          "modelId": "camera-pod-integrated-gimbal-carrier",
           "quantity": "1",
           "color": "black"
         },
         {
-          "modelId": "payload-integrated-gimbal-head",
+          "modelId": "camera-pod-integrated-gimbal-head",
           "quantity": "1",
           "color": "black",
           "materialId": "petg-matte"
         },
         {
-          "modelId": "payload-integrated-camera-cradle",
+          "modelId": "camera-pod-integrated-camera-cradle",
           "quantity": "1",
           "color": "black"
         },
         {
-          "modelId": "payload-integrated-tilt-pivot-support",
+          "modelId": "camera-pod-integrated-tilt-pivot-support",
           "quantity": "1",
           "color": "black"
         },
         {
-          "modelId": "payload-horn-retainer",
+          "modelId": "camera-pod-horn-retainer",
           "quantity": "2",
           "color": "black"
         },
         {
-          "modelId": "payload-integrated-camera-hood",
+          "modelId": "camera-pod-integrated-camera-hood",
           "quantity": "1",
           "color": "white",
           "materialId": "petg-matte"
