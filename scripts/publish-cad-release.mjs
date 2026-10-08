@@ -40,7 +40,7 @@ if (pointer) {
 if (!existing || existing.draft) {
   const registry = JSON.parse(readFileSync('hardware/models.json', 'utf8'));
   const required = [
-    ...registry.models.map((m) => m.output), `cad-sources-${commit}.zip`,
+    ...registry.models.map((m) => m.output), `cad-sources-${commit}.zip`, 'ARBI-CAD-previews.zip',
     ...['ARBI-winch', 'ARBI-payload', 'ARBI-payload-enclosure'].flatMap((name) => [`${name}-assembly-STL.pdf`, `${name}-STL-pack.zip`]),
   ];
   for (const name of required) {
@@ -56,7 +56,7 @@ if (!existing || existing.draft) {
   const notes = join(output, 'release-notes.md');
   writeFileSync(notes, `CAD and assembly booklet snapshot ${version} for [commit ${commit.slice(0, 12)}](https://github.com/${repo}/commit/${commit}).\n\n`
     + `All ${registry.models.length} registered models were built with OpenSCAD ${registry.openScadVersion}. Includes individual STL fabrication parts, CSG assembly references, hardware sources, and the winch, dry payload and integrated enclosure PDFs and source packs.\n\n`
-    + '`cad-release.json` records the source commit, model revisions and exact CAD/booklet input hashes. `SHA256SUMS.txt` verifies every distributed asset.\n\n'
+    + '`ARBI-CAD-previews.zip` includes a source-checked figure for every registered model. `cad-release.json` records the source commit, model revisions and exact CAD/booklet/preview input hashes. `SHA256SUMS.txt` verifies every distributed asset.\n\n'
     + 'Nominal CAD checks do not establish physical fit, mass, strength, weather resistance or installation safety.\n');
   const paths = [...assets, 'SHA256SUMS.txt'].map((name) => join(output, name));
   if (existing) gh('release', 'upload', tag, ...paths, '--clobber');

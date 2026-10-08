@@ -33,6 +33,7 @@ export function packIsCurrent(files, outputs, root, kind) {
     if (!meshes.length || meshes.some((n) => !outputs.has(basename(n)))) return false;
     const provenance = parse(files['source-provenance.json']);
     const sourcePaths = Object.keys(provenance.source_hashes);
+    if (['source/render_figures.py', 'source/build_booklet.py'].some((path) => !sourcePaths.includes(path) || !files[path])) return false;
     const scad = sourcePaths.filter((p) => p.startsWith('source/arbi-hardware/') && p.endsWith('.scad'));
     if (!scad.length) return false;
     for (const path of scad) {

@@ -41,17 +41,24 @@ test('release provenance rejects unchanged filenames with changed source, missin
 test('booklet freshness checks shared geometry and pose source, even when STL filenames still match', () => {
   const geometry = readFileSync(join(root, 'hardware/lib/payload-integrated-head.scad'));
   const pose = readFileSync(join(root, 'scripts/payload-booklet/render_figures.py'));
+  const booklet = readFileSync(join(root, 'scripts/payload-booklet/build_booklet.py'));
   const source = 'source/arbi-hardware/lib/payload-integrated-head.scad';
   const output = 'payload-integrated-gimbal-head-r0.1.3.stl';
   const files = {
     [`models/printable/${output}`]: new Uint8Array(), [source]: geometry,
-    'source/render_figures.py': pose,
-    'source-provenance.json': Buffer.from(JSON.stringify({ source_hashes: { [source]: sha256(geometry), 'source/render_figures.py': sha256(pose) } })),
+    'source/render_figures.py': pose, 'source/build_booklet.py': booklet,
+    'source-provenance.json': Buffer.from(JSON.stringify({ source_hashes: { [source]: sha256(geometry), 'source/render_figures.py': sha256(pose), 'source/build_booklet.py': sha256(booklet) } })),
   };
   const outputs = new Set([output]);
   assert.equal(packIsCurrent(files, outputs, root, 'pod'), true);
   assert.equal(packIsCurrent({ ...files, [source]: Buffer.from('old geometry') }, outputs, root, 'pod'), false);
   assert.equal(packIsCurrent({ ...files, 'source/render_figures.py': Buffer.from('old poses') }, outputs, root, 'pod'), false);
+  for (const path of ['source/render_figures.py', 'source/build_booklet.py']) {
+    const incomplete = { ...files }; delete incomplete[path];
+    assert.equal(packIsCurrent(incomplete, outputs, root, 'pod'), false);
+    const provenance = JSON.parse(files['source-provenance.json']); delete provenance.source_hashes[path];
+    assert.equal(packIsCurrent({ ...files, 'source-provenance.json': Buffer.from(JSON.stringify(provenance)) }, outputs, root, 'pod'), false);
+  }
   assert.equal(packIsCurrent({}, outputs, root, 'pod'), false);
 });
 
@@ -106,7 +113,7 @@ test('publication reruns refresh existing releases and old source commits cannot
     }
     for (const mode of ['new', 'draft', 'bump']) {
       const assets = join(temp, `assets-${mode}`); mkdirSync(assets);
-      const names = [...registry.models.map((m) => m.output), `cad-sources-${'a'.repeat(40)}.zip`,
+      const names = [...registry.models.map((m) => m.output), `cad-sources-${'a'.repeat(40)}.zip`, 'ARBI-CAD-previews.zip',
         ...['ARBI-winch', 'ARBI-payload', 'ARBI-payload-enclosure'].flatMap((n) => [`${n}-assembly-STL.pdf`, `${n}-STL-pack.zip`])];
       for (const name of names) writeFileSync(join(assets, name), 'publication fixture');
       const calls = join(temp, `calls-${mode}`);

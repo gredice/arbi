@@ -13,7 +13,8 @@ do {
     if (!response.ok) throw new Error(`Site data HTTP ${response.status}`);
     const site = await response.json();
     if (!site.release || site.release.missingOutputs.length || !site.scenes['camera-pod']?.source.current
-      || !site.scenes.winch?.source.current || !site.scenes['winch-powered']?.source.current) throw new Error('Site still has incomplete or archived CAD data');
+      || !site.scenes.winch?.source.current || !site.scenes['winch-powered']?.source.current
+      || Object.keys(site.figures ?? {}).length !== site.registry.models.length) throw new Error('Site still has incomplete or archived CAD data');
     if (site.release.tag !== tag) {
       const relation = execFileSync('gh', ['api', `repos/gredice/arbi/compare/${commit}...${site.release.commit}`, '--jq', '.status'], { encoding: 'utf8' }).trim();
       if (relation !== 'ahead') throw new Error('Site still uses a preceding CAD release');

@@ -19,6 +19,7 @@ import { fileURLToPath } from 'node:url';
 import { unzipSync } from 'fflate';
 import { CAD_TAG } from '../../../scripts/cad-release-data.mjs';
 import { packIsCurrent, parseChecksums, validateReleaseManifest } from './cad-data.mjs';
+import { previewFigures } from './cad-previews.mjs';
 
 const APP = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const REPO = resolve(APP, '../..');
@@ -304,6 +305,27 @@ const winchPack = await choosePack('winch', release, outputs);
 const winch = winchPack && winchScene(winchPack, modelsByOutput);
 const poweredWinch = winchPack && winchScene(winchPack, modelsByOutput, 'powered');
 
+// Complete CAD inventory figures are published independently of booklet coverage.
+// A local pack is useful for offline rendering checks before its release is published.
+const figures = {};
+try {
+  if (PRODUCTION && process.env.ARBI_CAD_PREVIEW_PACK) throw new Error('Production requires the verified release preview pack');
+  const bytes = process.env.ARBI_CAD_PREVIEW_PACK
+    ? readFileSync(resolve(process.env.ARBI_CAD_PREVIEW_PACK))
+    : await releaseAsset(release, 'ARBI-CAD-previews.zip');
+  if (bytes) {
+    for (const [id, png] of Object.entries(previewFigures(bytes, registry.models, (path) => readFileSync(join(REPO, path))))) {
+      const path = `figures/${id}.png`;
+      write(join(OUT, path), png);
+      figures[id] = path;
+    }
+  }
+} catch (error) {
+  if (PRODUCTION) throw error;
+  console.warn(`CAD previews unavailable, using booklet figures: ${error.message}`);
+}
+if (PRODUCTION && Object.keys(figures).length !== registry.models.length) throw new Error('Production requires current figures for every registered model');
+
 // Per-model mesh for 3D: pod GLB node, booklet-pack STL, else verified release STL.
 const meshes = {};
 for (const p of pod?.parts ?? []) if (p.registered && pod.source.current) meshes[p.model] ??= { kind: 'glb', node: p.node };
@@ -352,10 +374,11 @@ const site = {
     hero: s.hero ? `${s.figureDir}/figures/${s.hero}.png` : null, exploded: s.pose ? `${s.figureDir}/figures/${s.pose}.png` : null, parts: s.parts.length }])),
   meshes: Object.fromEntries(Object.entries(meshes).map(([id, m]) => [id, { kind: m.kind, node: m.node, url: m.url }])),
   downloads,
+  figures,
   snapshots: snapshotFiles.map((path) => ({ path: rel(path), name: basename(path), bytes: statSync(path).size, url: `${GITHUB}/raw/${ref}/${rel(path)}`,
     kind: path.endsWith('.pdf') ? (rel(path).includes('booklet') ? 'booklet' : 'drawing') : 'pack' })),
 };
 write(join(OUT, 'site.json'), site);
 const size = walk(OUT, () => true).reduce((s, p) => s + statSync(p).size, 0);
 console.log(`Compiled ${rel(OUT)} (${(size / 1e6).toFixed(1)} MB) from ${commit.slice(0, 12)}; CAD release ${release?.tag.slice(0, 16) ?? 'unavailable'}; ` +
-  Object.entries(scenes).map(([s, d]) => `${s}: ${d.source.kind}${d.pose ? ` + ${d.pose}` : ''}`).join(', ') + `; ${missing.length} outputs not in release`);
+  Object.entries(scenes).map(([s, d]) => `${s}: ${d.source.kind}${d.pose ? ` + ${d.pose}` : ''}`).join(', ') + `; ${Object.keys(figures).length} CAD figures; ${missing.length} outputs not in release`);
