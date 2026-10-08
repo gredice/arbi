@@ -20,6 +20,15 @@ Code layout: `src/lib/site.ts` reads the compiled data on the server; `src/lib/m
 
 Line art combines sharp feature edges and open boundaries with camera-dependent silhouettes, so rounded surfaces keep a continuous outline while orbiting, zooming or exploding an assembly. Coplanar triangle edges stay hidden. Mesh adjacency is cached; contour buffers belong to each displayed instance and are released with the viewer.
 
+The shaded part view uses a bounds-fitted Z-up studio with key, fill and rim
+lights, filtered self shadows and a transparent floor shadow. A bundled room
+environment supplies reflections for satin shells and metal parts; filmic tone
+mapping keeps highlights readable. Denoised ambient occlusion adds depth to
+recesses and contact points, with its resolution capped independently of the
+display. The floor is excluded from CAD envelopes and
+camera fitting. Lighting, shadow and environment resources are released when
+switching views. Line and ink drawings keep their exact flat colors.
+
 Embedded viewers preserve vertical touch scrolling, browser pinch zoom and
 mouse-wheel page scrolling. Mouse dragging still rotates a model. The cover's
 explosion follows page scrolling; assembly pages also have an explosion slider.
