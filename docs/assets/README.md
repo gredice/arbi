@@ -19,4 +19,6 @@ files and usage rules. The assets live in [brand](brand):
 
 ## Scenic-cover edit prompt
 
+This is the exact historical prompt used on 7 October 2026; its wording predates the camera-pod naming migration.
+
 Use case: precise-object-edit. Asset type: ARBI public engineering repository scenic hero. Image 1 is the edit target; image 2 is the accepted payload appearance reference only. Preserve image 1's panoramic raised-bed garden, sunset lighting, timber posts, four taut overhead positioning cables, landscape and lower-left typography. Replace only the small suspended camera payload in the upper center with the compact integrated payload from image 2: one rounded warm-white upper enclosure, charcoal black structural core and capsule-ended X spider with four cable attachment points, hanging dark open two-axis gimbal and a small white camera bezel. Match the original object's scale, perspective, attachment height and sunlight. Keep the four cables actually connected to the four spider arms; no propellers, no extra cables, no batteries. Preserve text exactly: 'ARBI' and 'Automatic Raised Bed Imaging system'. This is scenic concept imagery, not manufacturing CAD. Do not change other scene objects or add text. Return the same wide aspect ratio as image 1.

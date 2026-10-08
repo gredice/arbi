@@ -23,8 +23,8 @@ The [PETG Matte technical data sheet V1.0](https://store.bblcdn.eu/s8/default/24
 
 PETG Matte is selected as a prototype costing candidate for the cosmetic shell portions:
 
-- White: payload rain hood and optical surround, coupling guard, winch cover shells/shutters/fascias/rear panels, and optional round-pole nut covers.
-- Black: payload lower enclosure and removable outer gimbal head. The separate internal gimbal carrier retains PETG Basic.
+- White: camera-pod rain hood and optical surround, coupling guard, winch cover shells/shutters/fascias/rear panels, and optional round-pole nut covers.
+- Black: camera-pod lower enclosure and removable outer gimbal head. The separate internal gimbal carrier retains PETG Basic.
 
 Structural and functional recipes retain their existing assumptions: PETG Basic for the spider, deck, spacers, servo mounts, gimbal carrier/cradle/pivot supports, horn retainers, winch drum, bearing/motor mounts, dock and pulley keeper; ASA for winch cover clips/cable anchors and the optional pole cable guide. Optional configurations remain excluded from the base build. Cosmetic shells still have fastening interfaces and require inspection; appearance does not establish clamp strength or retention.
 
