@@ -82,6 +82,7 @@ jobs:
       - uses: ./.github/actions/setup-workspace
         with:
           filter: ${{ matrix.name }}...
+          extra-filter: ${{ matrix.name == '@arbi/dashboard' && '@arbi/edge-controller...' || '' }}
       - name: Restore compilation and Next.js caches
         uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
         with:
@@ -103,6 +104,9 @@ jobs:
           pnpm build --filter "$WORKSPACE" --concurrency=1
           pnpm lint --filter "$WORKSPACE" --concurrency=1
           pnpm typecheck --filter "$WORKSPACE" --concurrency=1
+      - name: Build independent edge consumer for dashboard native recovery tests
+        if: matrix.name == '@arbi/dashboard'
+        run: pnpm build --filter @arbi/edge-controller --concurrency=1
       - name: Stage pinned Node for edge Linux service verification
         if: matrix.name == '@arbi/edge-controller'
         run: |

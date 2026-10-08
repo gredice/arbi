@@ -4,6 +4,9 @@ inputs:
   filter:
     description: pnpm workspace selector, including dependencies when needed
     required: true
+  extra-filter:
+    description: Optional independent integration-test workspace and its dependencies
+    default: ''
 runs:
   using: composite
   steps:
@@ -16,4 +19,8 @@ runs:
       shell: bash
       env:
         WORKSPACE_FILTER: ${{ inputs.filter }}
-      run: pnpm --filter "$WORKSPACE_FILTER" install --frozen-lockfile
+        EXTRA_FILTER: ${{ inputs.extra-filter }}
+      run: |
+        filters=(--filter "$WORKSPACE_FILTER")
+        if [[ -n "$EXTRA_FILTER" ]]; then filters+=(--filter "$EXTRA_FILTER"); fi
+        pnpm "${filters[@]}" install --frozen-lockfile

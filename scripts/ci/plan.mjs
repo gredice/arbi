@@ -9,6 +9,9 @@ const variants = [
     { variant: 'bench', script: 'scripts/payload-booklet/build.py', artifact: 'ARBI-payload' },
     { variant: 'enclosure', script: 'scripts/payload-booklet/build.py', artifact: 'ARBI-payload-enclosure' },
 ];
+// The native dashboard realtime test starts a separately built edge consumer.
+// This test-only dependency is deliberately absent from the deployed app graph.
+const integrationDependencies = { '@arbi/dashboard': ['@arbi/edge-controller'] };
 
 export function readWorkspaces(root = repository) {
     return ['apps', 'packages'].flatMap((parent) =>
@@ -74,7 +77,10 @@ export function plan(changes, { workspaces = readWorkspaces(), eventName = 'pull
     let previous;
     do {
         previous = selected.size;
-        for (const workspace of workspaces) if (workspace.dependencies.some((name) => selected.has(name))) selected.add(workspace.name);
+        for (const workspace of workspaces) {
+            const dependencies = [...workspace.dependencies, ...(integrationDependencies[workspace.name] ?? [])];
+            if (dependencies.some((name) => selected.has(name))) selected.add(workspace.name);
+        }
     } while (selected.size !== previous);
 
     let cad = full || paths.some((path) => /^hardware\/.*\.scad$/u.test(path)) || has('hardware/models.json', 'hardware/models.schema.json', 'bom/catalog/parts.json', 'scripts/check-cad.mjs') || deleted.some((path) => path.startsWith('hardware/') || modelDocs.includes(path));

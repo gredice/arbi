@@ -78,7 +78,10 @@ Shared toolchain, lockfile and CI tooling changes also select all checks.
 
 Each affected workspace runs on its own runner. Internal `workspace:*`
 dependencies from package manifests select downstream consumers transitively;
-only their dependency builds run upstream. The selected package owns its lint,
+the dashboard's native recovery test also declares its independent edge consumer
+as a test-only dependency in the planner. The dashboard runner installs and
+builds that consumer without running the edge suite. Only dependency builds run
+upstream. The selected package owns its lint,
 typecheck, tests and build, plus its existing native/conformance or dashboard
 PostgreSQL/browser/HTTP checks. Suites stay serial within a runner while
 independent workspaces, BOM, CAD and booklets run in parallel.
@@ -87,7 +90,7 @@ independent workspaces, BOM, CAD and booklets run in parallel.
 | --- | --- |
 | Website source, `docs`, root README | Website only; the industrial-design document also selects booklets |
 | Dashboard source | Dashboard, including its integration checks |
-| Edge source | Edge, including Linux service verification |
+| Edge source | Edge, including Linux service verification, and dashboard recovery integration |
 | Shared software package | That package and all downstream consumers |
 | BOM data/reports | BOM package, generated-report verification and website; part mappings also select CAD |
 | Registered/shared geometry, registry/schema, CAD validator, deleted model documentation | CAD; hardware changes also select website |
