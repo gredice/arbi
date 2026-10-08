@@ -22,7 +22,8 @@
         {
           "assemblyId": "winch-set",
           "kind": "physical",
-          "quantity": "10"
+          "quantity": "10",
+          "knownGoodsAmount": "3.97"
         }
       ],
       "selectedOfferId": "aliexpress-bearing-608-2rs"
@@ -35,7 +36,8 @@
         {
           "assemblyId": "camera-pod",
           "kind": "physical",
-          "quantity": "2"
+          "quantity": "2",
+          "knownGoodsAmount": "3.29"
         }
       ],
       "selectedOfferId": "aliexpress-bulk-capacitor-1000uf"
@@ -48,7 +50,8 @@
         {
           "assemblyId": "shared-procurement-stock",
           "kind": "shared-procurement-stock",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": "11.19"
         }
       ],
       "selectedOfferId": "aliexpress-cable-gland-assortment"
@@ -61,7 +64,8 @@
         {
           "assemblyId": "camera-pod",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": "in-house-fabrication-camera-gimbal"
@@ -74,7 +78,8 @@
         {
           "assemblyId": "camera-pod",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": "in-house-fabrication-camera-pod-chassis"
@@ -87,7 +92,8 @@
         {
           "assemblyId": "positioning-line-set",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": "9.69"
         }
       ],
       "selectedOfferId": "aliexpress-capsule-slip-ring-6x2a"
@@ -100,7 +106,8 @@
         {
           "assemblyId": "winch-set",
           "kind": "physical",
-          "quantity": "4"
+          "quantity": "4",
+          "knownGoodsAmount": "73.34"
         }
       ],
       "selectedOfferId": "stepperonline-4-axis-v2-kit"
@@ -113,7 +120,8 @@
         {
           "assemblyId": "control-cabinet",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": "kabel24-control-panel-enclosure"
@@ -126,7 +134,8 @@
         {
           "assemblyId": "control-cabinet",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": "5.55"
         }
       ],
       "selectedOfferId": "aliexpress-controller-buck-converter-48v-5v"
@@ -139,7 +148,8 @@
         {
           "assemblyId": "corner-support-set",
           "kind": "physical",
-          "quantity": "4"
+          "quantity": "4",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": "cotra-zagreb-corner-post-treated-timber"
@@ -152,7 +162,8 @@
         {
           "assemblyId": "control-cabinet",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": "5.95"
         }
       ],
       "selectedOfferId": "bauhaus-din-rail-ground-distribution-block"
@@ -165,7 +176,8 @@
         {
           "assemblyId": "dock",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": "in-house-fabrication-dock-capture-set"
@@ -178,7 +190,8 @@
         {
           "assemblyId": "dock",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": "in-house-fabrication-dock-latch-hardware"
@@ -191,7 +204,8 @@
         {
           "assemblyId": "dock",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": "in-house-fabrication-dock-capture-set"
@@ -204,7 +218,8 @@
         {
           "assemblyId": "dock",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": "in-house-fabrication-dock-weather-hood"
@@ -217,7 +232,8 @@
         {
           "assemblyId": "positioning-line-set",
           "kind": "physical",
-          "quantity": "180"
+          "quantity": "180",
+          "knownGoodsAmount": "73.52"
         }
       ],
       "selectedOfferId": "dive-store-dyneema-positioning-line"
@@ -230,7 +246,8 @@
         {
           "assemblyId": "control-cabinet",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": "aliexpress-emergency-stop-switch"
@@ -243,7 +260,8 @@
         {
           "assemblyId": "winch-set",
           "kind": "physical",
-          "quantity": "4"
+          "quantity": "4",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": "aliexpress-flexible-jaw-coupling-8mm"
@@ -256,7 +274,8 @@
         {
           "assemblyId": "corner-support-set",
           "kind": "physical",
-          "quantity": "4"
+          "quantity": "4",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": "njuskalo-guy-ground-anchor"
@@ -269,7 +288,8 @@
         {
           "assemblyId": "corner-support-set",
           "kind": "physical",
-          "quantity": "4"
+          "quantity": "4",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": "bauhaus-guy-turnbuckle-m12"
@@ -282,7 +302,8 @@
         {
           "assemblyId": "corner-support-set",
           "kind": "physical",
-          "quantity": "16"
+          "quantity": "16",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": "bauhaus-guy-wire-3mm"
@@ -295,7 +316,8 @@
         {
           "assemblyId": "shared-procurement-stock",
           "kind": "shared-procurement-stock",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": "16"
         }
       ],
       "selectedOfferId": "aliexpress-heat-set-insert-assortment"
@@ -308,7 +330,8 @@
         {
           "assemblyId": "winch-set",
           "kind": "physical",
-          "quantity": "4"
+          "quantity": "4",
+          "knownGoodsAmount": "73.34"
         }
       ],
       "selectedOfferId": "stepperonline-4-axis-v2-kit"
@@ -321,7 +344,8 @@
         {
           "assemblyId": "camera-pod",
           "kind": "physical",
-          "quantity": "2"
+          "quantity": "2",
+          "knownGoodsAmount": "16.72"
         }
       ],
       "selectedOfferId": "aliexpress-micro-pan-tilt-servo"
@@ -334,7 +358,8 @@
         {
           "assemblyId": "camera-pod",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": "24"
         }
       ],
       "selectedOfferId": "tme-microsd-card-32gb"
@@ -347,7 +372,8 @@
         {
           "assemblyId": "site-installation",
           "kind": "physical",
-          "quantity": "50"
+          "quantity": "50",
+          "knownGoodsAmount": "89"
         }
       ],
       "selectedOfferId": "bauhaus-motor-power-branch-cable"
@@ -360,7 +386,8 @@
         {
           "assemblyId": "winch-set",
           "kind": "physical",
-          "quantity": "4"
+          "quantity": "4",
+          "knownGoodsAmount": "73.33"
         }
       ],
       "selectedOfferId": "stepperonline-4-axis-v2-kit"
@@ -373,7 +400,8 @@
         {
           "assemblyId": "site-installation",
           "kind": "physical",
-          "quantity": "85"
+          "quantity": "85",
+          "knownGoodsAmount": "52"
         }
       ],
       "selectedOfferId": "ronis-outdoor-cat5e-signal-cable"
@@ -386,7 +414,8 @@
         {
           "assemblyId": "control-cabinet",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": "9.4"
         }
       ],
       "selectedOfferId": "tme-pico-terminal-expansion-board"
@@ -399,7 +428,8 @@
         {
           "assemblyId": "camera-pod",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": "5.55"
         }
       ],
       "selectedOfferId": "aliexpress-pod-buck-converter-48v-5v"
@@ -412,7 +442,8 @@
         {
           "assemblyId": "positioning-line-set",
           "kind": "physical",
-          "quantity": "50"
+          "quantity": "50",
+          "knownGoodsAmount": "10.38"
         }
       ],
       "selectedOfferId": "aliexpress-pod-power-wire-black-awg26"
@@ -425,7 +456,8 @@
         {
           "assemblyId": "positioning-line-set",
           "kind": "physical",
-          "quantity": "50"
+          "quantity": "50",
+          "knownGoodsAmount": "10.38"
         }
       ],
       "selectedOfferId": "aliexpress-pod-power-wire-red-awg26"
@@ -438,7 +470,8 @@
         {
           "assemblyId": "winch-set",
           "kind": "physical",
-          "quantity": "4"
+          "quantity": "4",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": "bauhaus-post-electronics-enclosure"
@@ -451,7 +484,8 @@
         {
           "assemblyId": "control-cabinet",
           "kind": "physical",
-          "quantity": "2"
+          "quantity": "2",
+          "knownGoodsAmount": "36.67"
         }
       ],
       "selectedOfferId": "stepperonline-4-axis-v2-kit"
@@ -464,7 +498,8 @@
         {
           "assemblyId": "corner-support-set",
           "kind": "physical",
-          "quantity": "8"
+          "quantity": "8",
+          "knownGoodsAmount": "28.4"
         }
       ],
       "selectedOfferId": "bauhaus-pulley-bracket-backing-plate"
@@ -477,7 +512,8 @@
         {
           "assemblyId": "corner-support-set",
           "kind": "physical",
-          "quantity": "8"
+          "quantity": "8",
+          "knownGoodsAmount": "9"
         }
       ],
       "selectedOfferId": "bauhaus-pulley-bracket-locknut-m12"
@@ -490,7 +526,8 @@
         {
           "assemblyId": "corner-support-set",
           "kind": "physical",
-          "quantity": "4"
+          "quantity": "4",
+          "knownGoodsAmount": "14.28"
         }
       ],
       "selectedOfferId": "bauhaus-pulley-bracket-shackle-m8"
@@ -503,7 +540,8 @@
         {
           "assemblyId": "corner-support-set",
           "kind": "physical",
-          "quantity": "8"
+          "quantity": "8",
+          "knownGoodsAmount": "33.2"
         }
       ],
       "selectedOfferId": "bauhaus-pulley-bracket-through-bolt-m12x160"
@@ -516,7 +554,8 @@
         {
           "assemblyId": "corner-support-set",
           "kind": "physical",
-          "quantity": "16"
+          "quantity": "16",
+          "knownGoodsAmount": "16"
         }
       ],
       "selectedOfferId": "bauhaus-pulley-bracket-washer-m12"
@@ -529,7 +568,8 @@
         {
           "assemblyId": "camera-pod",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": "28"
         }
       ],
       "selectedOfferId": "pimoroni-raspberry-pi-3a-plus"
@@ -542,7 +582,8 @@
         {
           "assemblyId": "camera-pod",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": "37.51"
         }
       ],
       "selectedOfferId": "tme-raspberry-pi-camera-module-3"
@@ -555,7 +596,8 @@
         {
           "assemblyId": "control-cabinet",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": "8.59"
         }
       ],
       "selectedOfferId": "tme-raspberry-pi-pico-2-w"
@@ -568,12 +610,14 @@
         {
           "assemblyId": "dock",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": "0.96"
         },
         {
           "assemblyId": "winch-set",
           "kind": "physical",
-          "quantity": "4"
+          "quantity": "4",
+          "knownGoodsAmount": "3.83"
         }
       ],
       "selectedOfferId": "aliexpress-roller-lever-microswitch"
@@ -586,7 +630,8 @@
         {
           "assemblyId": "winch-set",
           "kind": "physical",
-          "quantity": "8"
+          "quantity": "8",
+          "knownGoodsAmount": "40.4"
         }
       ],
       "selectedOfferId": "aliexpress-shaft-collar-8mm"
@@ -599,7 +644,8 @@
         {
           "assemblyId": "shared-procurement-stock",
           "kind": "shared-procurement-stock",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": "16"
         }
       ],
       "selectedOfferId": "aliexpress-stainless-fastener-assortment"
@@ -612,7 +658,8 @@
         {
           "assemblyId": "corner-support-set",
           "kind": "physical",
-          "quantity": "4"
+          "quantity": "4",
+          "knownGoodsAmount": "56.8"
         }
       ],
       "selectedOfferId": "wasi-barton-30mm"
@@ -625,7 +672,8 @@
         {
           "assemblyId": "corner-support-set",
           "kind": "physical",
-          "quantity": "4"
+          "quantity": "4",
+          "knownGoodsAmount": "16.6"
         }
       ],
       "selectedOfferId": "bauhaus-top-pulley-bracket"
@@ -638,7 +686,8 @@
         {
           "assemblyId": "corner-support-set",
           "kind": "physical",
-          "quantity": "4"
+          "quantity": "4",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": "in-house-fabrication-top-pulley-keeper"
@@ -651,7 +700,8 @@
         {
           "assemblyId": "winch-set",
           "kind": "physical",
-          "quantity": "4"
+          "quantity": "4",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": "in-house-fabrication-winch-drum"
@@ -664,7 +714,8 @@
         {
           "assemblyId": "winch-set",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": "unresolved-winch-drum-joining-hardware"
@@ -677,7 +728,8 @@
         {
           "assemblyId": "winch-set",
           "kind": "physical",
-          "quantity": "4"
+          "quantity": "4",
+          "knownGoodsAmount": "6.95"
         }
       ],
       "selectedOfferId": "bauhaus-winch-drum-shaft-8mm"
@@ -690,7 +742,8 @@
         {
           "assemblyId": "winch-set",
           "kind": "physical",
-          "quantity": "4"
+          "quantity": "4",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": null
@@ -703,7 +756,8 @@
         {
           "assemblyId": "winch-set",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": null
@@ -716,7 +770,8 @@
         {
           "assemblyId": "winch-set",
           "kind": "physical",
-          "quantity": "4"
+          "quantity": "4",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": "in-house-fabrication-winch-mount-and-guard"
@@ -729,7 +784,8 @@
         {
           "assemblyId": "winch-set",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": "unresolved-winch-mount-hardware"
@@ -742,7 +798,8 @@
         {
           "assemblyId": "corner-support-set",
           "kind": "physical",
-          "quantity": "16"
+          "quantity": "16",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": "bauhaus-wire-rope-clamp-3mm"
@@ -755,7 +812,8 @@
         {
           "assemblyId": "corner-support-set",
           "kind": "physical",
-          "quantity": "8"
+          "quantity": "8",
+          "knownGoodsAmount": null
         }
       ],
       "selectedOfferId": "bauhaus-wire-rope-thimble-3mm"
@@ -768,7 +826,8 @@
         {
           "assemblyId": "corner-support-set",
           "kind": "physical",
-          "quantity": "1"
+          "quantity": "1",
+          "knownGoodsAmount": "11.69"
         }
       ],
       "selectedOfferId": "bauhaus-zinc-spray"
@@ -783,13 +842,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "3.97",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "bearing-608-2rs",
           "required": "10",
           "purchased": "10",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "3.97"
         }
       ],
       "warnings": [
@@ -807,13 +868,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "3.29",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "bulk-capacitor-1000uf",
           "required": "2",
           "purchased": "20",
           "surplus": "18",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "3.29"
         }
       ],
       "warnings": [
@@ -831,13 +894,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "11.19",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "cable-gland-assortment",
           "required": "1",
           "purchased": "1",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "11.19"
         }
       ],
       "warnings": [
@@ -855,13 +920,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "9.69",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "capsule-slip-ring-6x2a",
           "required": "1",
           "purchased": "1",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "9.69"
         }
       ],
       "warnings": [
@@ -879,13 +946,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "5.55",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "controller-buck-converter-48v-5v",
           "required": "1",
           "purchased": "1",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "5.55"
         }
       ],
       "warnings": [
@@ -903,13 +972,15 @@
       "purchaseUnits": null,
       "knownGoodsAmount": null,
       "currency": null,
+      "goodsAllocationBasis": null,
       "coverage": [
         {
           "partId": "emergency-stop-switch",
           "required": "1",
           "purchased": null,
           "surplus": null,
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": null
         }
       ],
       "warnings": [
@@ -928,13 +999,15 @@
       "purchaseUnits": null,
       "knownGoodsAmount": null,
       "currency": null,
+      "goodsAllocationBasis": null,
       "coverage": [
         {
           "partId": "flexible-jaw-coupling-8mm",
           "required": "4",
           "purchased": null,
           "surplus": null,
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": null
         }
       ],
       "warnings": [
@@ -953,13 +1026,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "16",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "heat-set-insert-assortment",
           "required": "1",
           "purchased": "1",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "16"
         }
       ],
       "warnings": [
@@ -977,13 +1052,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "16.72",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "micro-pan-tilt-servo",
           "required": "2",
           "purchased": "3",
           "surplus": "1",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "16.72"
         }
       ],
       "warnings": [
@@ -1001,13 +1078,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "5.55",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "pod-buck-converter-48v-5v",
           "required": "1",
           "purchased": "1",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "5.55"
         }
       ],
       "warnings": [
@@ -1025,13 +1104,15 @@
       "purchaseUnits": "10",
       "knownGoodsAmount": "10.38",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "pod-power-wire-black-awg26",
           "required": "50",
           "purchased": "50",
           "surplus": "0",
-          "unit": "m"
+          "unit": "m",
+          "knownGoodsAmount": "10.38"
         }
       ],
       "warnings": [
@@ -1049,13 +1130,15 @@
       "purchaseUnits": "10",
       "knownGoodsAmount": "10.38",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "pod-power-wire-red-awg26",
           "required": "50",
           "purchased": "50",
           "surplus": "0",
-          "unit": "m"
+          "unit": "m",
+          "knownGoodsAmount": "10.38"
         }
       ],
       "warnings": [
@@ -1073,13 +1156,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "4.79",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "roller-lever-microswitch",
           "required": "5",
           "purchased": "10",
           "surplus": "5",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "4.79"
         }
       ],
       "warnings": [
@@ -1097,13 +1182,15 @@
       "purchaseUnits": "4",
       "knownGoodsAmount": "40.4",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "shaft-collar-8mm",
           "required": "8",
           "purchased": "8",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "40.4"
         }
       ],
       "warnings": [
@@ -1121,13 +1208,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "16",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "stainless-fastener-assortment",
           "required": "1",
           "purchased": "1",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "16"
         }
       ],
       "warnings": [
@@ -1145,13 +1234,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "5.95",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "din-rail-ground-distribution-block",
           "required": "1",
           "purchased": "1",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "5.95"
         }
       ],
       "warnings": [
@@ -1169,13 +1260,15 @@
       "purchaseUnits": null,
       "knownGoodsAmount": null,
       "currency": null,
+      "goodsAllocationBasis": null,
       "coverage": [
         {
           "partId": "guy-turnbuckle-m12",
           "required": "4",
           "purchased": null,
           "surplus": null,
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": null
         }
       ],
       "warnings": [
@@ -1194,13 +1287,15 @@
       "purchaseUnits": null,
       "knownGoodsAmount": null,
       "currency": null,
+      "goodsAllocationBasis": null,
       "coverage": [
         {
           "partId": "guy-wire-3mm",
           "required": "16",
           "purchased": null,
           "surplus": null,
-          "unit": "m"
+          "unit": "m",
+          "knownGoodsAmount": null
         }
       ],
       "warnings": [
@@ -1219,13 +1314,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "89",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "motor-power-branch-cable",
           "required": "50",
           "purchased": "50",
           "surplus": "0",
-          "unit": "m"
+          "unit": "m",
+          "knownGoodsAmount": "89"
         }
       ],
       "warnings": [
@@ -1243,13 +1340,15 @@
       "purchaseUnits": null,
       "knownGoodsAmount": null,
       "currency": null,
+      "goodsAllocationBasis": null,
       "coverage": [
         {
           "partId": "post-electronics-enclosure",
           "required": "4",
           "purchased": null,
           "surplus": null,
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": null
         }
       ],
       "warnings": [
@@ -1268,13 +1367,15 @@
       "purchaseUnits": "8",
       "knownGoodsAmount": "28.4",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "pulley-bracket-backing-plate",
           "required": "8",
           "purchased": "8",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "28.4"
         }
       ],
       "warnings": [
@@ -1292,13 +1393,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "9",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "pulley-bracket-locknut-m12",
           "required": "8",
           "purchased": "50",
           "surplus": "42",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "9"
         }
       ],
       "warnings": [
@@ -1316,13 +1419,15 @@
       "purchaseUnits": "4",
       "knownGoodsAmount": "14.28",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "pulley-bracket-shackle-m8",
           "required": "4",
           "purchased": "4",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "14.28"
         }
       ],
       "warnings": [
@@ -1340,13 +1445,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "33.2",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "pulley-bracket-through-bolt-m12x160",
           "required": "8",
           "purchased": "40",
           "surplus": "32",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "33.2"
         }
       ],
       "warnings": [
@@ -1364,13 +1471,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "16",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "pulley-bracket-washer-m12",
           "required": "16",
           "purchased": "100",
           "surplus": "84",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "16"
         }
       ],
       "warnings": [
@@ -1388,13 +1497,15 @@
       "purchaseUnits": "4",
       "knownGoodsAmount": "16.6",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "top-pulley-bracket",
           "required": "4",
           "purchased": "4",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "16.6"
         }
       ],
       "warnings": [
@@ -1412,13 +1523,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "6.95",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "winch-drum-shaft-8mm",
           "required": "4",
           "purchased": "4",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "6.95"
         }
       ],
       "warnings": [
@@ -1434,13 +1547,15 @@
       "purchaseUnits": null,
       "knownGoodsAmount": null,
       "currency": null,
+      "goodsAllocationBasis": null,
       "coverage": [
         {
           "partId": "wire-rope-clamp-3mm",
           "required": "16",
           "purchased": null,
           "surplus": null,
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": null
         }
       ],
       "warnings": [
@@ -1459,13 +1574,15 @@
       "purchaseUnits": null,
       "knownGoodsAmount": null,
       "currency": null,
+      "goodsAllocationBasis": null,
       "coverage": [
         {
           "partId": "wire-rope-thimble-3mm",
           "required": "8",
           "purchased": null,
           "surplus": null,
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": null
         }
       ],
       "warnings": [
@@ -1484,13 +1601,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "11.69",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "zinc-spray",
           "required": "1",
           "purchased": "1",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "11.69"
         }
       ],
       "warnings": [
@@ -1508,13 +1627,15 @@
       "purchaseUnits": null,
       "knownGoodsAmount": null,
       "currency": null,
+      "goodsAllocationBasis": null,
       "coverage": [
         {
           "partId": "corner-post-treated-timber",
           "required": "4",
           "purchased": null,
           "surplus": null,
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": null
         }
       ],
       "warnings": [
@@ -1533,13 +1654,15 @@
       "purchaseUnits": "4",
       "knownGoodsAmount": "73.52",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "dyneema-positioning-line",
           "required": "180",
           "purchased": "200",
           "surplus": "20",
-          "unit": "m"
+          "unit": "m",
+          "knownGoodsAmount": "73.52"
         }
       ],
       "warnings": [
@@ -1556,13 +1679,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": null,
       "currency": null,
+      "goodsAllocationBasis": null,
       "coverage": [
         {
           "partId": "camera-gimbal",
           "required": "1",
           "purchased": "1",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": null
         }
       ],
       "warnings": [
@@ -1579,13 +1704,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": null,
       "currency": null,
+      "goodsAllocationBasis": null,
       "coverage": [
         {
           "partId": "camera-pod-chassis",
           "required": "1",
           "purchased": "1",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": null
         }
       ],
       "warnings": [
@@ -1602,20 +1729,23 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": null,
       "currency": null,
+      "goodsAllocationBasis": null,
       "coverage": [
         {
           "partId": "dock-funnel",
           "required": "1",
           "purchased": "1",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": null
         },
         {
           "partId": "dock-nest",
           "required": "1",
           "purchased": "1",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": null
         }
       ],
       "warnings": [
@@ -1632,13 +1762,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": null,
       "currency": null,
+      "goodsAllocationBasis": null,
       "coverage": [
         {
           "partId": "dock-latch-hardware",
           "required": "1",
           "purchased": "1",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": null
         }
       ],
       "warnings": [
@@ -1655,13 +1787,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": null,
       "currency": null,
+      "goodsAllocationBasis": null,
       "coverage": [
         {
           "partId": "dock-weather-hood",
           "required": "1",
           "purchased": "1",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": null
         }
       ],
       "warnings": [
@@ -1678,13 +1812,15 @@
       "purchaseUnits": "4",
       "knownGoodsAmount": null,
       "currency": null,
+      "goodsAllocationBasis": null,
       "coverage": [
         {
           "partId": "top-pulley-keeper",
           "required": "4",
           "purchased": "4",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": null
         }
       ],
       "warnings": [
@@ -1701,13 +1837,15 @@
       "purchaseUnits": "4",
       "knownGoodsAmount": null,
       "currency": null,
+      "goodsAllocationBasis": null,
       "coverage": [
         {
           "partId": "winch-drum",
           "required": "4",
           "purchased": "4",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": null
         }
       ],
       "warnings": [
@@ -1724,13 +1862,15 @@
       "purchaseUnits": "4",
       "knownGoodsAmount": null,
       "currency": null,
+      "goodsAllocationBasis": null,
       "coverage": [
         {
           "partId": "winch-mount-and-guard",
           "required": "4",
           "purchased": "4",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": null
         }
       ],
       "warnings": [
@@ -1747,13 +1887,15 @@
       "purchaseUnits": null,
       "knownGoodsAmount": null,
       "currency": null,
+      "goodsAllocationBasis": null,
       "coverage": [
         {
           "partId": "control-panel-enclosure",
           "required": "1",
           "purchased": null,
           "surplus": null,
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": null
         }
       ],
       "warnings": [
@@ -1772,13 +1914,15 @@
       "purchaseUnits": null,
       "knownGoodsAmount": null,
       "currency": null,
+      "goodsAllocationBasis": null,
       "coverage": [
         {
           "partId": "guy-ground-anchor",
           "required": "4",
           "purchased": null,
           "surplus": null,
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": null
         }
       ],
       "warnings": [
@@ -1797,13 +1941,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "28",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "raspberry-pi-3a-plus",
           "required": "1",
           "purchased": "1",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "28"
         }
       ],
       "warnings": [
@@ -1821,13 +1967,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "52",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "outdoor-cat5e-signal-cable",
           "required": "85",
           "purchased": "100",
           "surplus": "15",
-          "unit": "m"
+          "unit": "m",
+          "knownGoodsAmount": "52"
         }
       ],
       "warnings": [
@@ -1845,34 +1993,39 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "256.68",
       "currency": "EUR",
+      "goodsAllocationBasis": "part-count",
       "coverage": [
         {
           "partId": "cl57y-v20-driver",
           "required": "4",
           "purchased": "4",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "73.34"
         },
         {
           "partId": "matched-motor-cable",
           "required": "4",
           "purchased": "4",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "73.34"
         },
         {
           "partId": "nema23-closed-loop-motor",
           "required": "4",
           "purchased": "4",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "73.33"
         },
         {
           "partId": "power-supply-48v-350w",
           "required": "2",
           "purchased": "2",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "36.67"
         }
       ],
       "warnings": [
@@ -1890,13 +2043,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "24",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "microsd-card-32gb",
           "required": "1",
           "purchased": "1",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "24"
         }
       ],
       "warnings": [
@@ -1914,13 +2069,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "9.4",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "pico-terminal-expansion-board",
           "required": "1",
           "purchased": "1",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "9.4"
         }
       ],
       "warnings": [
@@ -1938,13 +2095,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "37.51",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "raspberry-pi-camera-module-3",
           "required": "1",
           "purchased": "1",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "37.51"
         }
       ],
       "warnings": [
@@ -1962,13 +2121,15 @@
       "purchaseUnits": "1",
       "knownGoodsAmount": "8.59",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "raspberry-pi-pico-2-w",
           "required": "1",
           "purchased": "1",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "8.59"
         }
       ],
       "warnings": [
@@ -1986,13 +2147,15 @@
       "purchaseUnits": null,
       "knownGoodsAmount": null,
       "currency": null,
+      "goodsAllocationBasis": null,
       "coverage": [
         {
           "partId": "winch-drum-joining-hardware",
           "required": "1",
           "purchased": null,
           "surplus": null,
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": null
         }
       ],
       "warnings": [
@@ -2010,13 +2173,15 @@
       "purchaseUnits": null,
       "knownGoodsAmount": null,
       "currency": null,
+      "goodsAllocationBasis": null,
       "coverage": [
         {
           "partId": "winch-mount-hardware",
           "required": "1",
           "purchased": null,
           "surplus": null,
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": null
         }
       ],
       "warnings": [
@@ -2034,13 +2199,15 @@
       "purchaseUnits": "4",
       "knownGoodsAmount": "56.8",
       "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "top-positioning-line-pulley",
           "required": "4",
           "purchased": "4",
           "surplus": "0",
-          "unit": "each"
+          "unit": "each",
+          "knownGoodsAmount": "56.8"
         }
       ],
       "warnings": [
@@ -2232,7 +2399,7 @@
     },
     {
       "assemblyId": "control-cabinet",
-      "amount": "29.49"
+      "amount": "66.16"
     },
     {
       "assemblyId": "corner-support-set",
@@ -2252,11 +2419,11 @@
     },
     {
       "assemblyId": "winch-set",
-      "amount": "55.15"
+      "amount": "275.16"
     }
   ],
   "sharedProcurementStockKnownGoods": "43.19",
-  "sharedBundleGoods": "256.68",
+  "sharedBundleGoods": "0",
   "sharedShipping": "88.38",
   "warnings": [
     "Required part winch-full-cover has no pinned offer.",

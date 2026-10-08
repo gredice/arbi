@@ -70,12 +70,13 @@ export type BomPart = {
     requirements: string[];
     required: string | null;
     unit: string;
-    usedIn: { assemblyId: string; kind: string; quantity: string }[];
+    usedIn: { assemblyId: string; kind: string; quantity: string; knownGoodsAmount: string | null }[];
     offerId: string | null;
     supplierId: string | null;
     qualification: string | null;
     purchaseUnits: string | null;
     bundle: boolean;
+    goodsAllocationBasis: "single-part" | "part-count" | null;
     knownGoods: string | null;
     offerUrl: string | null;
     warnings: string[];

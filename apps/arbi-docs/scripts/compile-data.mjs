@@ -273,10 +273,11 @@ function bom() {
   const parts = catalog.map((part) => {
     const r = reqs[part.id] ?? {};
     const sel = selections[r.selectedOfferId];
-    const bundle = Boolean(sel && sel.coverage.length > 1);
+    const bundle = (offers[r.selectedOfferId]?.purchaseUnit.contents.length ?? 0) > 1;
     return { ...part, required: r.required ?? null, unit: r.unit ?? part.baseUnit, usedIn: r.assemblies ?? [], offerId: r.selectedOfferId ?? null,
       supplierId: sel?.supplierId ?? null, qualification: sel?.qualification ?? null, purchaseUnits: sel?.purchaseUnits ?? null, bundle,
-      knownGoods: bundle ? null : sel?.knownGoodsAmount ?? null, offerUrl: offers[r.selectedOfferId]?.listing?.url ?? null,
+      knownGoods: sel?.coverage.find((c) => c.partId === part.id)?.knownGoodsAmount ?? null,
+      goodsAllocationBasis: sel?.goodsAllocationBasis ?? null, offerUrl: offers[r.selectedOfferId]?.listing?.url ?? null,
       warnings: sel?.warnings ?? [], page: `bom/generated/parts/${part.id}.md` };
   });
   const keys = ['scenarioId', 'scenarioName', 'buildId', 'destinationName', 'quoteSnapshotId', 'inputDigest', 'reportCurrency', 'complete',

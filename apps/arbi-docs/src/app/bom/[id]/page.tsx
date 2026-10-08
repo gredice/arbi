@@ -24,7 +24,10 @@ export default async function BomItem({ params }: { params: Promise<{ id: string
         ["Supplier", p.supplierId ?? "—"],
         ["Qualification", fmt.status(p.qualification)],
         ["Purchase units", p.purchaseUnits ?? "—"],
-        ["Known goods", p.bundle ? "Shared bundle" : fmt.eur(p.knownGoods)],
+        ["Known goods", fmt.eur(p.knownGoods)],
+        ...(p.bundle ? [["Cost allocation", p.goodsAllocationBasis === "part-count"
+            ? "Bundle share by purchased part count (including surplus); not an individual supplier price."
+            : "Bundle share unavailable: price or comparable part counts are unknown."] as [string, ReactNode]] : []),
         [
             "Listing",
             p.offerUrl ? (
