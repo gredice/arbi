@@ -1,0 +1,10 @@
+.agents/
+.codex/
+.github/
+.vercel/
+**/.env*
+**/test-results/
+**/playwright-report/
+**/.next/
+**/dist/
+**/node_modules/

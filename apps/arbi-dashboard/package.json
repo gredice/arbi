@@ -9,7 +9,7 @@
     "build": "next build --webpack",
     "lint": "tsc --noEmit",
     "typecheck": "tsc --noEmit",
-    "test": "node --no-wasm-code-gc --import tsx --test --test-concurrency=1 src/enrollment/*.test.ts src/media/*.test.ts src/audit/*.test.ts src/jobs/*.test.ts src/realtime/*.test.ts",
+    "test": "node --no-wasm-code-gc --import tsx --test --test-concurrency=1 src/enrollment/*.test.ts src/media/*.test.ts src/audit/*.test.ts src/jobs/*.test.ts src/realtime/*.test.ts src/dashboard/*.test.ts",
     "test:postgres": "node scripts/test-postgres.mjs",
     "test:http": "node scripts/test-http.mjs",
     "db:migrate": "node --import tsx scripts/migrate.ts",
@@ -17,14 +17,18 @@
     "db:migrate:audit": "node --import tsx scripts/migrate-audit.ts",
     "db:migrate:jobs": "node --import tsx scripts/migrate-jobs.ts",
     "db:migrate:realtime": "node --import tsx scripts/migrate-realtime.ts",
-    "realtime:maintain": "node --import tsx scripts/realtime-worker.ts"
+    "realtime:maintain": "node --import tsx scripts/realtime-worker.ts",
+    "test:browser": "node scripts/test-shell.mjs",
+    "db:provision-dashboard-test": "node --import tsx scripts/provision-dashboard-test.ts"
   },
   "dependencies": {
     "@arbi/audit": "workspace:*",
     "@arbi/gredice": "workspace:*",
     "@arbi/protocol": "workspace:*",
+    "@arbi/simulation-core": "workspace:*",
     "@vercel/blob": "2.8.1",
     "ably": "2.29.0",
+    "jose": "6.2.12",
     "next": "16.3.8",
     "pg": "8.23.1",
     "react": "19.3.0",
@@ -33,6 +37,7 @@
   },
   "devDependencies": {
     "@electric-sql/pglite": "0.5.8",
+    "@playwright/test": "1.58.2",
     "@types/node": "24.12.4",
     "@types/pg": "8.23.1",
     "@types/react": "19.3.0",

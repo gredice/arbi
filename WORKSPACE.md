@@ -13,7 +13,7 @@ Use this guide for repository layout, toolchains, commands, package boundaries, 
 - `packages/arbi-gredice`: [implemented signed identity, current account/site permissions and server request boundary](packages/arbi-gredice/README.md), with an isolated simulation identity provider; live Gredice provisioning and resource implementations remain separate work.
 - `packages/arbi-traffic`: [implemented application taps, bounded SQLite traffic spool, Linux interface collector and optional router snapshot adapter](packages/arbi-traffic/README.md), consumed by edge/pod diagnostics; actual cellular/router/provider coverage remains separate.
 - `packages/arbi-audit`: [implemented bounded SQLite admission and replay spool](packages/arbi-audit/README.md) for edge/pod Node runtimes and cloud receipt/integrity primitives; storage hardware power-loss evidence remains separate.
-- `apps/arbi-dashboard`: [implemented Next.js enrollment, image-storage, command-job and realtime HTTP boundaries](apps/arbi-dashboard/README.md), simulation-only device identity/inventory lifecycle, private Blob/Ably SDK adapters and transactional PostgreSQL state/audit/recovery; live provider setup and dashboard UI remain separate work.
+- `apps/arbi-dashboard`: [implemented authenticated shell, enrollment, image-storage, command-job and realtime HTTP boundaries](apps/arbi-dashboard/README.md), explicit bounded-plant test provider, simulation-only device identity/inventory lifecycle, private Blob/Ably SDK adapters and transactional PostgreSQL state/audit/recovery; live provider setup and detailed operational UI remain separate work.
 - `apps/arbi-docs`: [public statically generated Next.js site](apps/arbi-docs/README.md) deployed to `arbi.gredice.com` from the Gredice Vercel team. It reads data compiled at build time from the CAD registry, BOM reports, documents, booklet packs and the latest CAD release.
 - `apps/arbi-edge-controller`: [executable supervised edge prototype](apps/arbi-edge-controller/README.md), bounded authenticated loopback diagnostic transport, optional [durable local job/policy consumer](docs/software/local-jobs.md), health/readiness and Linux service definition; physical host/transport activation remains gated by ADR-0008.
 - `scripts/check-cad.mjs`: registry, source, include, and optional OpenSCAD compilation validation.
@@ -105,7 +105,7 @@ Generated BOM Markdown and JSON are intentionally tracked because they are direc
 
 The following paths are reserved but should not exist until implementation begins; implemented destinations above retain these ownership boundaries:
 
-- `apps/arbi-dashboard`: implemented enrollment and [image-storage HTTP slices](docs/software/image-storage.md); authenticated user/engineering dashboard and remaining HTTP API in Gredice's Vercel team are follow-up work;
+- `apps/arbi-dashboard`: implemented enrollment, [image-storage HTTP slices](docs/software/image-storage.md) and [authenticated user/engineering shell](docs/software/dashboard-shell.md); remaining operational UI/API and live provider acceptance in Gredice's Vercel team are follow-up work;
 - `apps/arbi-simulator`: executable simulator or simulator UI;
 - `apps/arbi-cloud`: reserved only if a later reviewed decision requires an independent backend; the initial API belongs to `apps/arbi-dashboard`;
 - `apps/arbi-pod-firmware`: pod camera, gimbal, power-health, and local service target;

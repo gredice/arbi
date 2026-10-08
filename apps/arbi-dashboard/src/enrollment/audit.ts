@@ -2,6 +2,7 @@ import { randomUUID } from "node:crypto";
 import { AUDIT_VERSION, parseAuditEvent } from "@arbi/protocol";
 import type { AuditEvent, AuditSource } from "@arbi/protocol";
 import type { AuthorizationObservation } from "@arbi/gredice";
+import { isRead } from "@arbi/gredice";
 import { EnrollmentError } from "./contracts";
 import type { Registry, TransitionObservation } from "./contracts";
 
@@ -29,7 +30,7 @@ export function authorizationAudit(state: Registry, source: AuditSource, monoton
   result.links.sessionId = record.sessionId;
   result.outcome = record.decision === "authorized" ? "allow" : "deny";
   result.reason = record.decision === "authorized" ? "authorized" : "not-authorized";
-  result.metadata.permission = record.capability === "diagnostics.read" ? "view" : "configure";
+  result.metadata.permission = record.capability && isRead(record.capability) ? "view" : "configure";
   return checked(result);
 }
 /** A registry policy result is a cloud service result; it cannot establish a device/physical effect. */
