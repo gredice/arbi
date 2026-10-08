@@ -40,6 +40,31 @@ def check(root, variant):
     for name, digest in provenance['source_hashes'].items():
         assert hashlib.sha256((root / name).read_bytes()).hexdigest() == digest, name
     figures = json.loads((root / 'figure-manifest.json').read_text())
+    if variant == 'winch':
+        import numpy as np
+        import trimesh
+
+        # Check actual cable/port meshes at both endpoints and intermediate
+        # website animation poses. Fixed looms with moving fascias must fail.
+        for cable_variant in ['passive', 'powered']:
+            installed = figures[f'cover-{cable_variant}-installed']['parts']
+            exploded = figures[f'cover-{cable_variant}-exploded']['parts']
+            fascia = next(p for p in installed if f'cover-{cable_variant}-pole-fascia-' in p['file'])
+            looms = [p for p in installed if f'loom-{cable_variant}-bottom-' in p['file']]
+            assert len(looms) == 2, cable_variant
+            for loom in looms:
+                for fraction in [0, .25, .5, .75, 1]:
+                    placed = []
+                    for part in [fascia, loom]:
+                        target = next(p for p in exploded if p['file'] == part['file'])
+                        matrix = np.asarray(part['matrix']).copy()
+                        matrix[:3, 3] += fraction * (np.asarray(target['matrix'])[:3, 3] - matrix[:3, 3])
+                        mesh = trimesh.load_mesh(root / part['file'])
+                        mesh.apply_transform(matrix)
+                        placed.append(mesh)
+                    intersection = trimesh.boolean.intersection(placed, engine='manifold')
+                    overlap = 0 if intersection.is_empty else intersection.volume
+                    assert overlap < .001, (cable_variant, loom['file'], fraction, 'cable intersects fascia', overlap)
     for name, figure in figures.items():
         assert figure['render_style'] == 'assembly-line-art-v1', name
         with Image.open(root / 'figures' / (name + '.png')) as image:

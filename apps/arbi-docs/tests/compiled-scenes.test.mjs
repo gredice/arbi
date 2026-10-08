@@ -28,6 +28,14 @@ test("passive and powered inventories and poses match their own canonical bookle
             assert.equal(scene.pose, `cover-${variant}-exploded`);
             assert.deepEqual(scene.parts.map((p) => p.matrix), source.map((p) => p.matrix));
             assert.ok(scene.parts.some((p) => p.explode.some((n) => n !== 0)));
+            const fascia = scene.parts.find((p) => p.model === `winch-cover-${variant}-pole-fascia`);
+            const looms = scene.parts.filter((p) => p.model.startsWith(`loom-${variant}-bottom-`));
+            assert.equal(looms.length, 2);
+            assert.ok(fascia.explode.some((n) => n !== 0));
+            for (const loom of looms) {
+                assert.deepEqual(loom.explode, fascia.explode,
+                    `${variant} cable must stay aligned with its fascia port throughout explosion`);
+            }
             for (const part of scene.parts) assert.ok(existsSync(join(output, part.url)));
         }
         assert.ok(powered.parts.some((p) => p.model === "winch-drum-powered-3"));
