@@ -62,4 +62,41 @@ Quantities are per assembly definition, before build multipliers. Optional and d
 - [hardware/assemblies/winch/winch-cover-passive-pole-fascia.scad](../../../hardware/assemblies/winch/winch-cover-passive-pole-fascia.scad) — module `wc_print_fascia`; revision 0.1.0.
 - [hardware/assemblies/winch/winch-cover-powered-pole-fascia.scad](../../../hardware/assemblies/winch/winch-cover-powered-pole-fascia.scad) — module `wc_print_fascia`; revision 0.1.0.
 
+### Print material estimate
+
+Build arbi-v1; batch represents 4 BOM unit(s). Four-winch pole-routing cover batch per full-cover.md; 126 installed prints, excluding four optional removable bench blanks. Per-unit values are batch averages.
+
+| Model | Copies in batch | Solid volume per copy |
+| --- | ---: | ---: |
+| winch-cover-passive-left r0.3.0 | 3 | 374.072990 cm³ |
+| winch-cover-passive-middle r0.2.0 | 3 | 250.605223 cm³ |
+| winch-cover-passive-right r0.3.0 | 3 | 449.144055 cm³ |
+| winch-cover-powered-left r0.2.0 | 1 | 367.652286 cm³ |
+| winch-cover-powered-middle r0.2.0 | 1 | 242.744073 cm³ |
+| winch-cover-powered-pole-middle r0.1.0 | 1 | 240.640072 cm³ |
+| winch-cover-powered-transition r0.2.0 | 1 | 241.880800 cm³ |
+| winch-cover-powered-right r0.3.0 | 1 | 437.959117 cm³ |
+| winch-cover-clip r0.2.0 | 56 | 6.118286 cm³ |
+| winch-cover-cable-anchor r0.1.0 | 4 | 4.514930 cm³ |
+| winch-cover-passive-shutter r0.2.0 | 6 | 79.436506 cm³ |
+| winch-cover-powered-shutter r0.2.0 | 4 | 76.694057 cm³ |
+| winch-cover-passive-fascia r0.1.0 | 15 | 73.077741 cm³ |
+| winch-cover-powered-fascia r0.1.0 | 9 | 70.548380 cm³ |
+| winch-cover-passive-pole-fascia r0.1.0 | 3 | 76.231311 cm³ |
+| winch-cover-powered-pole-fascia r0.1.0 | 1 | 73.701924 cm³ |
+| winch-cover-passive-rear-left r0.1.0 | 3 | 74.675803 cm³ |
+| winch-cover-powered-rear-left r0.1.0 | 2 | 86.862141 cm³ |
+| winch-cover-passive-rear-right r0.1.0 | 6 | 99.716010 cm³ |
+| winch-cover-powered-rear-right r0.1.0 | 3 | 100.859819 cm³ |
+
+| Material | Density | Single spool | Estimated batch weight | Estimated batch cost |
+| --- | ---: | ---: | ---: | ---: |
+| [Bambu Lab PLA Basic](https://eu.store.bambulab.com/products/pla-basic-filament) | [1.24 g/cm³](https://store.bblcdn.com/s1/default/58b85d0f3db94878854a28fdb8a0006e/Bambu_PLA_Basic_Technical_Data_Sheet.pdf) | 19.99 EUR / 1000 g | 11443.398 g | 228.75 EUR |
+| [Bambu Lab PETG Basic](https://eu.store.bambulab.com/products/petg-basic) | [1.25 g/cm³](https://store.bblcdn.com/s1/default/cb94589bf7994fdcbfa833badefae9cd/Bambu_PETG_Basic_Technical_Data_Sheet.pdf) | 18.99 EUR / 1000 g | 11535.683 g | 219.06 EUR |
+| [Bambu Lab ASA](https://eu.store.bambulab.com/products/asa-filament) (costing selection) | [1.05 g/cm³](https://store.bblcdn.com/ad7b08230c164e72856cffbe06bb7dc9.pdf) | 24.99 EUR / 1000 g | 9689.974 g | 242.15 EUR |
+
+Volume evidence: [cad-v0.1.4](https://github.com/gredice/arbi/releases/tag/cad-v0.1.4); [canonical recipes, mesh checksums and source hashes](../../catalog/fabrication.json).
+
+Material consumption only at single 1 kg filament-with-spool MSRP; bulk discounts excluded. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. PETG is a prototype costing assumption; ASA is used for exposed cover recipes. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.
+
 Catalog lifecycle, procurement, and generated documentation do not establish physical validation. See the owning assembly for evidence and acceptance requirements.

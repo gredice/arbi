@@ -59,6 +59,16 @@ export type SceneMeta = {
 /** A mesh for one model: a node of the pod GLB or an STL path, both under /data. */
 export type MeshRef = { kind: "glb"; node: string; glb: string } | { kind: "stl"; url: string };
 
+export type PrintEstimate = {
+    basis: string;
+    required: string;
+    materialId: string;
+    weightGrams: string;
+    materialCost: string | null;
+    note: string;
+    alternatives: { materialId: string; name: string; weightGrams: string; materialCost: string | null; spoolPrice: string | null; spoolWeightGrams: string; priceSourceUrl: string; observedAt: string }[];
+};
+
 export type BomPart = {
     id: string;
     name: string;
@@ -83,6 +93,8 @@ export type BomPart = {
     delivery: { amount: string; currency: string; note: string } | null;
     observedAt: string | null;
     customsPolicy: { amount: string; currency: string; startsOn: string; endsOn: string | null; orderValueBelow: string } | null;
+    printEstimate: PrintEstimate | null;
+    printReference: PrintEstimate | null;
     offerUrl: string | null;
     warnings: string[];
 };

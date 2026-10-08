@@ -45,6 +45,40 @@ function requireId(
 export function validateRepository(repository: BomRepository): ValidationResult {
   const result: ValidationResult = { errors: [], warnings: [] };
 
+  const fabrication = repository.fabrication;
+  for (const [label, values] of [
+    ["filament material", fabrication.materials.map((item) => item.id)],
+    ["print geometry", fabrication.geometry.models.map((item) => item.modelId)],
+    ["print recipe", fabrication.recipes.map((item) => `${item.buildId}/${item.partId}`)],
+  ] as Array<[string, string[]]>) {
+    for (const id of duplicateIds(values)) result.errors.push(`Duplicate ${label}: ${id}`);
+  }
+  if (!repository.locations.locations.some((item) => item.id === fabrication.destinationId)) {
+    result.errors.push("Unknown filament pricing destination");
+  }
+  for (const material of fabrication.materials) {
+    requireDecimal(result, material.densityGramsPerCm3, `${material.id} density`, false);
+    requireDecimal(result, material.spoolWeightGrams, `${material.id} spool weight`, false);
+    if (material.spoolPrice !== null) requireDecimal(result, material.spoolPrice, `${material.id} spool price`, false);
+  }
+  for (const model of fabrication.geometry.models) {
+    requireDecimal(result, model.volumeCm3, `${model.modelId} volume`, false);
+  }
+  for (const recipe of fabrication.recipes) {
+    const part = repository.parts.parts.find((item) => item.id === recipe.partId);
+    if (!part?.fabrication || part.fabrication.modelStatus === "planned") result.errors.push(`Print recipe ${recipe.partId} needs implemented fabrication sources`);
+    if (!repository.builds.builds.some((item) => item.id === recipe.buildId)) result.errors.push(`Print recipe ${recipe.partId} has an unknown build`);
+    if (!fabrication.materials.some((item) => item.id === recipe.materialId)) result.errors.push(`Print recipe ${recipe.partId} has an unknown material`);
+    requireDecimal(result, recipe.representedQuantity, `${recipe.partId} represented quantity`, false);
+    for (const id of duplicateIds(recipe.components.map((item) => item.modelId))) result.errors.push(`Duplicate component ${id} in ${recipe.partId}`);
+    for (const component of recipe.components) {
+      requireDecimal(result, component.quantity, `${recipe.partId}/${component.modelId} quantity`, false);
+      const model = fabrication.geometry.models.find((item) => item.modelId === component.modelId);
+      const source = part?.fabrication?.sources.find((item) => item.modelId === component.modelId);
+      if (!model || !source || source.revision !== model.revision) result.errors.push(`Print recipe ${recipe.partId} has missing or mismatched geometry: ${component.modelId}`);
+    }
+  }
+
   const partIds = repository.parts.parts.map((part) => part.id);
   const assemblyIds = repository.assemblies.assemblies.map(
     (assembly) => assembly.id,

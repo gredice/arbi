@@ -16,6 +16,7 @@ Supplier websites and offer URLs are procurement evidence. Dated price, availabi
 - `catalog/suppliers.json`: stable supplier identities and uniquely owned checkout groups for each seller, warehouse, or basket boundary.
 - `catalog/customs.json`: shared destination customs policies with start/end dates, fixed charge per item type and order-value limits.
 - `catalog/offers.json`: purchasable packages, bundles, URLs, qualification state, MOQ, package contents, and relevant notes.
+- `catalog/fabrication.json`: print-kit quantities, source-matched CAD volumes, material densities and dated single-spool prices for material consumption estimates.
 - `locations/locations.json`: privacy-safe destination and tax context.
 - `quotes/*.json`: immutable destination-specific price observations, currencies, exchange rates, timestamps, and checkout-group shipping evidence.
 - `scenarios/scenarios.json`: pinned selection and reporting policy.
@@ -78,7 +79,27 @@ The same quote records the owner's four Dive Store 50 m spools at EUR 18.38 each
 
 The [2026-10-08 coupling quote](quotes/hr-zagreb-2026-10-08-coupling.json) is now selected and records EUR 3.09 per piece and free Croatian delivery for the coupling. The [dated sourcing note](sourcing/coupling-2026-10-08.md) records the owner-confirmed EUR 16.12 actual delivered total for four couplings, with no additional VAT or customs added; the EUR 3.09 quoted unit price remains separate. The shared [customs policy](catalog/customs.json) applies EUR 3 per item type per order from 2026-07-01, with no end date set, for order goods strictly below EUR 150. The estimate is EUR 12.36 goods plus EUR 3 conditional customs, EUR 15.36; the actual delivered purchase total is EUR 16.12. The owner confirmed EUR 3.76 actual import charges: EUR 12.36 goods + EUR 0 delivery + EUR 3.76 import charges = EUR 16.12. Actual delivered totals are displayed separately and are not summed with estimated customs. Customs is separate from delivery in the report. Basket goods must be known and below the threshold; unknown or larger baskets leave actual duty unresolved. One selected offer approximates one declared item type; no split orders are assumed. Free delivery is confirmed for the coupling only. Earlier snapshots preserve their combined allowance.
 
-In-house fabrication offers keep a null goods price until material, energy, machine time, labour, scrap, and safety costs are evidenced. `not-applicable` shipping means only that there is no external shipment; it must never be interpreted as zero fabrication cost.
+In-house fabrication offers retain an unknown full quote while a separate material estimate accounts for the plastic consumed. The [print costing evidence](sourcing/print-materials-2026-10-08.md) records Bambu Lab's single 1 kg **filament-with-spool** prices, densities and print-kit choices. Bulk-sale, refill, bundle, coupon and membership prices are excluded.
+
+The calculator extends each chosen recipe by the required BOM quantity, then calculates **solid volume in cm³ × density in g/cm³ × spool price / spool grams** using exact decimal arithmetic. It applies each weight-based material cost once, including the separately owned funnel and nest within the shared dock offer. A quoted fabrication price supersedes its material allowance. Printed parts without procurement offers, such as the full cover, still receive an estimate. Optional/deferred prints remain outside the base subtotal.
+
+The current weights are estimates of fully dense CAD plastic, not sliced or measured weights. Infill is not modeled by multiplying the entire mesh by a nominal infill percentage, which would incorrectly scale walls and skins. Supports, brims, purge, failed prints, filament shipping, Croatian checkout VAT adjustments, energy, machine time and labour remain unresolved. Changing print settings requires new slicer evidence; a material costing choice does not qualify it for physical use. Planned parts without geometry and machined metal parts retain unknown costs.
+
+Reports expose `estimatedMaterialSubtotal` and `estimatedPartialSubtotal` alongside quoted goods and shipping. The website identifies estimated material amounts in each item row and assembly sum, and shows PLA/PETG/ASA weight/cost comparisons on included printed-item pages. `completeLandedTotal` remains unavailable. `not-applicable` in-house shipping describes the absence of a fabricated-part shipment; it does not make raw filament delivery or fabrication free.
+
+Geometry evidence pins each STL checksum, model revision and the CAD source hashes. `bom:generate` and `bom:check` reject changed geometry until volumes are recaptured. To reproduce a release capture, download its `cad-release.json`, `SHA256SUMS.txt` and recipe STLs into an external directory and run:
+
+```bash
+python3 packages/arbi-bom/scripts/capture-print-volumes.py /path/to/cad-release-assets
+pnpm bom:generate
+pnpm bom:check
+```
+
+The capture script verifies source and release/STL checksums, closed consistently oriented mesh edges and positive signed volume before updating canonical evidence. It commits no generated meshes. The recipe lists select installed variants explicitly rather than totaling every linked fabrication source.
+
+The capture tool and its independent mesh-volume tests use Python 3's standard library. Package tests include ASCII/binary volume-unit and invalid-mesh controls alongside the TypeScript costing regressions.
+
+For changed CAD awaiting a release, omit the directory argument to export the current recipes with the registry-pinned OpenSCAD version. This uses temporary meshes, checks source hashes before/after export and records local evidence with `releaseTag: null`; `sourceCommit` is the base commit, while source hashes identify the exact geometry. The website compiler also rejects stale geometry evidence.
 
 ## Reports
 

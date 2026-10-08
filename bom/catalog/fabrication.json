@@ -1,0 +1,815 @@
+{
+  "schemaVersion": 1,
+  "destinationId": "hr-zagreb",
+  "note": "Material consumption only at single 1 kg filament-with-spool MSRP; bulk discounts excluded. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. PETG is a prototype costing assumption; ASA is used for exposed cover recipes. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+  "geometry": {
+    "releaseTag": "cad-v0.1.4",
+    "sourceCommit": "4e0eb44fd8df41174272569e910db93b835e51b2",
+    "sourceHashes": {
+      "hardware/assemblies/camera-pod/camera-gimbal-base.scad": "aaa44f020ea99055c07d5aeb165f76da34c90562f1bccd29fe6ab8a746ccde2f",
+      "hardware/assemblies/camera-pod/camera-gimbal-camera-plate.scad": "ee46401f166414b9c65f8b361e84a9694128b8a04de4aab8f35e343f69d9c535",
+      "hardware/assemblies/camera-pod/camera-gimbal-optical-hood.scad": "b812f413d9efba9c156083b4508f15647e3fc5cfa1589a2950fd3d8d9b34df3d",
+      "hardware/assemblies/camera-pod/camera-gimbal-rain-cap.scad": "c3ef78aa8d602f0fb6621b47292bf39f197de453b9877a244dce3897605343fd",
+      "hardware/assemblies/camera-pod/camera-gimbal-yoke.scad": "bf82f067e8ebdcda99cdda1c68a08512a23c3c7d34670df5974624140d5a0177",
+      "hardware/assemblies/camera-pod/camera-pod-assembly.scad": "bad60f7414e90d7adfd96bec2128e7d83b277d4be8c99a15438e3bb52d8485d3",
+      "hardware/assemblies/camera-pod/camera-pod-docking-stud.scad": "b4d26a0e2d8914c77383e1556db1f9e86b6c2dc92ff6a8e3d9744c9ee59bfc1f",
+      "hardware/assemblies/camera-pod/camera-pod-electronics-mount.scad": "20c726ac047aaa26ad2e81d58ec9e2f9cf82692490e8a06135bc9595639e779b",
+      "hardware/assemblies/camera-pod/camera-pod-envelope.scad": "8e4502a70290ffdaf4e82f8bb886ab6d259d8060fd502076da6d6da8c1ac7d08",
+      "hardware/assemblies/camera-pod/camera-pod-line-strain-relief.scad": "55ebe149da5f2025f8a46e056c47cb866a63d8f9016b7bd20ef45ae3e1aa1fba",
+      "hardware/assemblies/camera-pod/camera-pod-spider.scad": "6e914f806f9acdd605b2ff17b37b572d2591a1aa0b5d5d7044c818b7bcde7a29",
+      "hardware/assemblies/camera-pod/payload-camera-cowl.scad": "820e430cbab03a554a501d9dbb6249f8a98641cb7ce73ffc3614e97df3b01ed2",
+      "hardware/assemblies/camera-pod/payload-camera-cradle.scad": "9c691442df4b78756045cc42cca0bcc26bbcbab1fa3b12fe09b6387e6005bba0",
+      "hardware/assemblies/camera-pod/payload-camera-hood.scad": "440dfc70e6be114f7d62f6f25876b2392809316711822b776bdd8a082fd45c32",
+      "hardware/assemblies/camera-pod/payload-electronics-cover.scad": "b8c8d85b0d79f09c1a9c6f494db88363e45380e1b1c54a545b09f87ac20f5212",
+      "hardware/assemblies/camera-pod/payload-electronics-deck.scad": "6735f5d043c43e8198963f9b439f045982e092a7ab6889de8e6bef1f359390b3",
+      "hardware/assemblies/camera-pod/payload-enclosure-base.scad": "01aae0668a1d6391afa56521df72a0cdd111f7e89830fec4308dec8a3795837c",
+      "hardware/assemblies/camera-pod/payload-horn-retainer.scad": "287d05e7612b5817fa2bfc9cabf3104a71609527bd1a994b993e4cebb3d12b28",
+      "hardware/assemblies/camera-pod/payload-integrated-camera-cradle.scad": "26f5f9e4b31a03d49b3086ac0612e76d850b371f71e3fd8bfa0c2e01b763998a",
+      "hardware/assemblies/camera-pod/payload-integrated-camera-hood.scad": "30ea719d1a8d31199d0ffbaa33aa26023dcfb0cefbc383417a3e0ce64716a1b9",
+      "hardware/assemblies/camera-pod/payload-integrated-deck.scad": "aba8ab432856d68cd28230eece2bbe6008d57fee1d2b35a36996c00b1618d2b1",
+      "hardware/assemblies/camera-pod/payload-integrated-gimbal-carrier.scad": "eb77939cd0116bc7e2b0e2a7da0cd39b8361b1cd6354124f7d5967422294b52d",
+      "hardware/assemblies/camera-pod/payload-integrated-gimbal-head.scad": "c83dd23cf724217a78c960e3dc5231fbf95e592c5e52a621e26395a8b39498b8",
+      "hardware/assemblies/camera-pod/payload-integrated-tilt-pivot-support.scad": "9f6290b18b0aec3758c0a03fd070ab5020e8bd4814630e67c6f09a11efdef2ce",
+      "hardware/assemblies/camera-pod/payload-pan-fairing.scad": "6a6ea7c17086dcb79620f46fec050e5981e118df767d4b83d139c056552f260c",
+      "hardware/assemblies/camera-pod/payload-pan-servo-mount.scad": "231b167e2db6edcb857eca43262a25b449af1e8b882db8f86f67e1c3840f9360",
+      "hardware/assemblies/camera-pod/payload-pan-yoke.scad": "04bcb26c0b633f4810fc3d51efe9684857eda266d01afdeab075932f9511ea04",
+      "hardware/assemblies/camera-pod/payload-rain-assembly.scad": "f9e6165376f4313d1109bb28219aa690f184199f35bf3ec1e24e1a938b4d8075",
+      "hardware/assemblies/camera-pod/payload-rain-hood.scad": "3c2db07ccebd5dc84709e92901d08793465c462f7c6e588995971a4cb5c8f6d1",
+      "hardware/assemblies/camera-pod/payload-servo-fit-coupon.scad": "d50a9a85fa33dc954b8c908d23497ecc2db2bc90afc62b357cade8a0a5dc18e3",
+      "hardware/assemblies/camera-pod/payload-spider-spacer.scad": "eb4d41b065002e4845cf7990dfb2802d67e8dd78fb8b31dde35a721b17faf344",
+      "hardware/assemblies/camera-pod/payload-tilt-pivot-support.scad": "1c3b56b430206f2c63b71c66a232df35ff5e4463d1b05e71d6a554a4b2c7f0ce",
+      "hardware/assemblies/camera-pod/payload-tilt-servo-boot.scad": "5d5524e087e08c6541b9911704c5da2590c445621414a5b4610e488f71f59612",
+      "hardware/assemblies/corner-station/pole-pulley-mount-assembly.scad": "5e66700be1fc081044a537e54d4872644fce659ee6ad8cd7c2ac65de23c411e0",
+      "hardware/assemblies/corner-station/pole-pulley-mount-front.scad": "cfcc603055084f2ac181614d77ab59b0b0f8ddd6d956c4cbc191b500e8b0880e",
+      "hardware/assemblies/corner-station/pole-pulley-mount-rear.scad": "77699bed6cc4672f8cb03fe3f4843834a2b9c276b210ba1448574dadb86b9c59",
+      "hardware/assemblies/corner-station/top-pulley-keeper.scad": "a20d8629f5ebb84de0d82f418b7d0508de32622662d4e4b78393f7b469037250",
+      "hardware/assemblies/dock/dock-funnel.scad": "14422530ce7c18eb583ff01628531af8a4a84d7617b02ab58bccb6744bade2cd",
+      "hardware/assemblies/dock/dock-nest.scad": "af355c65ac3b4ec2f8dc1435e0e42c8c74fd656e911fa21ee9ab15aa1034eb56",
+      "hardware/assemblies/winch/winch-bearing-cap.scad": "ee3968b765fddeb281b84baf13cce71eb241592a3c1ac3f787438b023dbe0060",
+      "hardware/assemblies/winch/winch-bearing-lower.scad": "3da56cced498b8644e6bc6c44501f8bef00eb525e48104c6504f72eb50071ce2",
+      "hardware/assemblies/winch/winch-coupling-guard.scad": "980836d50357f93b6b916062df4b72a98f777b3bb8b16060eab7b69508451eb5",
+      "hardware/assemblies/winch/winch-cover-assembly.scad": "83f527667197dbc9b123c694ecb8441a35c2de7a657b270d2ccab7130ea86157",
+      "hardware/assemblies/winch/winch-cover-cable-anchor.scad": "ec8c7197e193fd9923197fe1d5c9fc0ce38f3001d95459529fddd2db8b1fbcfe",
+      "hardware/assemblies/winch/winch-cover-clip.scad": "dac86a1f503d42185ff02a31056b9fd1f8c50573f039ee9483cef44682588c7c",
+      "hardware/assemblies/winch/winch-cover-passive-fascia.scad": "b532979b5ce0ce0712022c98b04b7c0d9a397e11273d4159691f59cbaa043403",
+      "hardware/assemblies/winch/winch-cover-passive-left.scad": "6bf5a2d0860a2f4914c5a7cb2603eca9ce5c2857a19763f29f1f1f4fcee983cf",
+      "hardware/assemblies/winch/winch-cover-passive-middle.scad": "5b55cea379bad6f996511f5fdf3e1205f971f009afc15585e2bd11b6c6a11425",
+      "hardware/assemblies/winch/winch-cover-passive-pole-fascia.scad": "c8bc414e3cd28cccc64a404c19f0eb2ef290bef32c8d83b8f34d2dfd608c2a9b",
+      "hardware/assemblies/winch/winch-cover-passive-rear-left.scad": "d2365b81ededd86168335ab6f57742aaeac039dab8b04653e50cf5b81b3b40e4",
+      "hardware/assemblies/winch/winch-cover-passive-rear-right.scad": "0cf012eff1990cffa90516c64294fc408793996104d5d21feff3b91b79a2be66",
+      "hardware/assemblies/winch/winch-cover-passive-right.scad": "4a53ab09a6f6a9014399ccf9cb70b8e2d0e52504d70541e8c95516b35826fd5a",
+      "hardware/assemblies/winch/winch-cover-passive-shutter.scad": "56d89f0b50affa32caaf1bfa0fa35f20be25d3d616881f7aa2e0098b31a8788a",
+      "hardware/assemblies/winch/winch-cover-powered-fascia.scad": "adc0a6e4c34831101e5a93bf556d82869154b06abe147b413345057aa9848a0c",
+      "hardware/assemblies/winch/winch-cover-powered-left.scad": "f9ef14c4cb50877b5cffaad8454343f73bc2ff5e9a2e9eeb7cba822cca70dbd8",
+      "hardware/assemblies/winch/winch-cover-powered-middle.scad": "935af221e0d7b858397b45f8c9646bb1a5b0bc4d959dd2a68667279a749e7d18",
+      "hardware/assemblies/winch/winch-cover-powered-pole-fascia.scad": "bb7e346c9bc4552e28e54870b0ea9e89d05d9cf4c8a6c328235cd308b6a5dd0a",
+      "hardware/assemblies/winch/winch-cover-powered-pole-middle.scad": "5415d5c2d794ec6aebad0caf50d028eea2f28dc4138c59b69437469a9807765e",
+      "hardware/assemblies/winch/winch-cover-powered-rear-left.scad": "20217afc1aa75de55d286163085d875be303191b7b4506ed12bbd41665f42e77",
+      "hardware/assemblies/winch/winch-cover-powered-rear-right.scad": "819e26f0c30534567249624d63547b1e7923de4d26d9cd7d0df552a704f614ca",
+      "hardware/assemblies/winch/winch-cover-powered-right.scad": "db782441e55f94c5d2fbc566be475b9d6c7c6dcc8ed12e1bdae79a781ac1b78f",
+      "hardware/assemblies/winch/winch-cover-powered-shutter.scad": "d949bc9b25354d4cfdfe42ba8e5c41ca0e66e22cde16bb47ccbf57d02e6411d0",
+      "hardware/assemblies/winch/winch-cover-powered-transition.scad": "60bbcea2fcff11d94c48c4e59b8bdf10bf0b8634e0fb48a8b48a33d0ea817023",
+      "hardware/assemblies/winch/winch-cover-rear-blank.scad": "23de96625279b40af279d74a2586a0def89311f4f403821821a39e2b3356045c",
+      "hardware/assemblies/winch/winch-desk-foot-long.scad": "24c643f4a4bbc355b54fe7eebb6f8a1e335bcdb34881ffb8badaffea8e4768e7",
+      "hardware/assemblies/winch/winch-desk-foot-short.scad": "ec4c98ca963e42956e29a1e7d4d03cbac65dcc8bca7a718a9611a8fb0e68f138",
+      "hardware/assemblies/winch/winch-drum-alignment-pin.scad": "adf83c9c9686ef667b3090cef8018defe53637419fd0379bd3db7dc47101b2b8",
+      "hardware/assemblies/winch/winch-drum-clamp-half.scad": "a97b451ae1861d0b1f798387e5d17c5b8738883defd8a0376c0638596f350dd7",
+      "hardware/assemblies/winch/winch-drum-flange-right.scad": "f8963600231a63cde299fd541038590cbe929ddbb6e9ca07ef1f84da500bf1b4",
+      "hardware/assemblies/winch/winch-drum-flange.scad": "f75ffdd009ea4f7f3c2081509167f0f793fa518a3174c57e5f1a3b4f8183c83d",
+      "hardware/assemblies/winch/winch-drum-passive-1.scad": "05f4da0c306b7f28b6cbb0892aa6077492a718a1dd92e73f6147ec2a67e69d48",
+      "hardware/assemblies/winch/winch-drum-passive-2.scad": "2ddcff6c8e33cf4a49ee9eb5f9c16464e80282699c32c6d9898cb217ee0be2ae",
+      "hardware/assemblies/winch/winch-drum-powered-1.scad": "2740e6fe707fdf99709c3cb5f0d191cdbba3f99037fedce6ee8fae4c5a5b06c2",
+      "hardware/assemblies/winch/winch-drum-powered-2.scad": "0c6621de35d65fb0e791547773ee819dafc3b49f9c1083625590ad2d7232ebce",
+      "hardware/assemblies/winch/winch-drum-powered-3.scad": "e31351649898a9afaac8c3b2c2f6af3f3686c4a6ee985ff5b790f9139ff0a247",
+      "hardware/assemblies/winch/winch-drum-tail-clamp.scad": "eb4c30af128974a8402d64319d3ff320b0d70dd7c1f35ec461bfd604c698e027",
+      "hardware/assemblies/winch/winch-drum.scad": "4cefc906adb1085f83af59e883cc6ab4dcaf125e77e6ad579e05a8b7d42b3b9e",
+      "hardware/assemblies/winch/winch-motor-stand.scad": "49d830ffab4c3aa590bca08d56d7934cec78ab1f19e641316d7268feb54fb020",
+      "hardware/assemblies/winch/winch-mount.scad": "8ef15e702a72672b354c5325876f007a78e65a6c0a54b8ae9c5e487859027843",
+      "hardware/assemblies/winch/winch-pole-assembly.scad": "f85463ecd5926160822032703abf41b1c8be4fe52317048717f9e18c026546bd",
+      "hardware/assemblies/winch/winch-pole-cable-guide.scad": "2bd78e897e3c9c294767c6017bfa28716a9b6e546eccbd9d3d7c5573fb8c0273",
+      "hardware/assemblies/winch/winch-pole-front-saddle.scad": "f0f63e9925cb9f39e782d143adfdd1c210b425cdb992e79868780a9335600bf7",
+      "hardware/assemblies/winch/winch-pole-nut-cover-bottom.scad": "b221beee4fd50733560f379b382348fccd51e727bf8730b4be732a093bb2d19f",
+      "hardware/assemblies/winch/winch-pole-nut-cover.scad": "1c74d56a34fa29851462d65ef506394f13ed951290246e60f2cdc3c0c9946d1c",
+      "hardware/assemblies/winch/winch-pole-rear-saddle.scad": "8f5b5a94b027c7ed1b34e0540502a6b017a0278454daa70a5025409cbbb0bfc5",
+      "hardware/lib/arbi.scad": "39939675020b805ced0e8a05cd41b40037ae627f602e08f7bf638c7ba9d9d9c7",
+      "hardware/lib/camera-pod.scad": "a9c5a6722d39ac199f3e2ba2106055e04a2cbbd85fae2edc53292770ab58a8ea",
+      "hardware/lib/payload-bench-assembly.scad": "e71ec3a6202a3a43a6d88d82041c76eac90c75dd3bc49743af473bba87182c38",
+      "hardware/lib/payload-enclosure.scad": "6fc5a7743f2a0fa7e0ecfce9e426e0b18a6da93ef1fbddf6b0a57dc0cf951a7a",
+      "hardware/lib/payload-integrated-deck.scad": "55e406d003c770a7a60dc8b80b062d540fa6232cdf82a10e256f15a1d0a7af2f",
+      "hardware/lib/payload-integrated-gimbal.scad": "946f133bdaddf246c579868b6d9dd9c6f01a1d0f5ee900bc2d3ae129a6aee98f",
+      "hardware/lib/payload-integrated-head.scad": "d506927a29d19697977d6a244668401163c0079f0efef9e3726cdcf2ce59b191",
+      "hardware/lib/payload-mounts.scad": "489db6bba746e741d4db140c9d9fe4dc92bec7eca1a35b7b1e2ef19439f96039",
+      "hardware/lib/pole-pulley-mount.scad": "6db768a3b412dd9b95372597bf7146eee325c04a1615d5a0086689c9a7bdb86e",
+      "hardware/lib/winch-cover.scad": "e74ae15fa129899675a5528bda4a92878b34a61d0a5d7111c0477256bf51e553",
+      "hardware/lib/winch-desk-feet.scad": "06a551dbe77420599590dc3f8a3bd9b66cd5d647d94bd75fa9e852dcdd4dd719",
+      "hardware/lib/winch-drum.scad": "0684c28615d398d1b7a2beb7d15a4fa4e27d62382b8a8bde1470367f5de1e837",
+      "hardware/lib/winch-mount.scad": "05bb92d3955500a3a52914c01f7f530bf3a243f60bef69f7d4a7af7a461e231e",
+      "hardware/lib/winch-pole.scad": "58e2f446a74cb8d38e31c332727ae31ab6e10ec49ce38ba16dcd88a20ba8fc85",
+      "hardware/models.json": "c486409fce4c577dcab5ef08c57399b762b1fde8035360246a0a88932a8e155e"
+    },
+    "models": [
+      {
+        "modelId": "camera-pod-spider",
+        "revision": "0.1.0",
+        "volumeCm3": "66.232475",
+        "stlSha256": "d453acc7614c1538d2fd4c52ee5a91a38cf90494a3fb458cf60f2d69e298abca"
+      },
+      {
+        "modelId": "dock-funnel",
+        "revision": "0.1.0",
+        "volumeCm3": "301.044950",
+        "stlSha256": "a528591b48898726be50013f84ddfd953e959f8b822795e87ec4505b1db5bed7"
+      },
+      {
+        "modelId": "dock-nest",
+        "revision": "0.1.0",
+        "volumeCm3": "1949.764697",
+        "stlSha256": "c54ef924f7d5ccacc022d937e00fe3d31614242139bda13405f32dd9c5a070eb"
+      },
+      {
+        "modelId": "payload-enclosure-base",
+        "revision": "0.2.3",
+        "volumeCm3": "31.381263",
+        "stlSha256": "cbeb635205d544ec58b036f31358324cec6183060019feba1373889ef4ae669d"
+      },
+      {
+        "modelId": "payload-horn-retainer",
+        "revision": "0.1.0",
+        "volumeCm3": "0.545253",
+        "stlSha256": "10b0a1ff09bfc70703f6054b0fbc593af9249bbb092b44ff1e3e88e76e622e21"
+      },
+      {
+        "modelId": "payload-integrated-camera-cradle",
+        "revision": "0.1.0",
+        "volumeCm3": "3.191199",
+        "stlSha256": "58f870e1f44b09b34f5a9ab6ab35f0648cb1e0e191dac67eba00dc28248701e4"
+      },
+      {
+        "modelId": "payload-integrated-camera-hood",
+        "revision": "0.1.1",
+        "volumeCm3": "4.588465",
+        "stlSha256": "fcc4b71c15ff8572bdbce152ebff3fbe304bcad9ae1fef17b4fe1ab811e572cd"
+      },
+      {
+        "modelId": "payload-integrated-deck",
+        "revision": "0.1.0",
+        "volumeCm3": "13.441886",
+        "stlSha256": "842948538869a82ce03e1f26e6f1776b3c83d9d789ac0eca48abe251e0ea9fa0"
+      },
+      {
+        "modelId": "payload-integrated-gimbal-carrier",
+        "revision": "0.1.1",
+        "volumeCm3": "8.458834",
+        "stlSha256": "8cb7561344fc9ed6ee18d88d019f0c3b6ec30b47c0806f647e633b8c67563611"
+      },
+      {
+        "modelId": "payload-integrated-gimbal-head",
+        "revision": "0.1.3",
+        "volumeCm3": "22.087140",
+        "stlSha256": "0acc569de875406b991943bdfb1e215474a3d4bf6c4e2214ce871a541fe16268"
+      },
+      {
+        "modelId": "payload-integrated-tilt-pivot-support",
+        "revision": "0.1.0",
+        "volumeCm3": "1.088757",
+        "stlSha256": "e340b29bf4a996c3ffb49fe55985c05aefdb040b36dcbba5e3962fc25fc7c967"
+      },
+      {
+        "modelId": "payload-pan-servo-mount",
+        "revision": "0.1.0",
+        "volumeCm3": "8.299465",
+        "stlSha256": "b56f7af03f826e4a323189e99b5f159bd68e3c0529145cfff3ca015f439d98f8"
+      },
+      {
+        "modelId": "payload-rain-hood",
+        "revision": "0.2.1",
+        "volumeCm3": "36.443415",
+        "stlSha256": "5339dde3b60c736845ebdf6879b7f0a3d4a8432c989a9f25a855e0558ccb8085"
+      },
+      {
+        "modelId": "payload-spider-spacer",
+        "revision": "0.1.0",
+        "volumeCm3": "0.875489",
+        "stlSha256": "676544a70159a7957c8841a7e025c7b147caab6b423f622c7748d2a21f590e6f"
+      },
+      {
+        "modelId": "pole-pulley-mount-front",
+        "revision": "0.1.0",
+        "volumeCm3": "357.917151",
+        "stlSha256": "e4993c199691679264f2b8dc2e950dd4b287728518d8b368c291e3258cb35e6a"
+      },
+      {
+        "modelId": "pole-pulley-mount-rear",
+        "revision": "0.1.0",
+        "volumeCm3": "264.313526",
+        "stlSha256": "f6b3a8e2077d3c04936eb7dc1ee3bb014dafcd0d9ac88bdaaaeb82a05f15d7e8"
+      },
+      {
+        "modelId": "top-pulley-keeper",
+        "revision": "0.1.0",
+        "volumeCm3": "22.146573",
+        "stlSha256": "cb8351502ee8a35e38c82772c4435f00b9a84584cfe1be0ca0490b0b7d10232b"
+      },
+      {
+        "modelId": "winch-bearing-cap",
+        "revision": "0.1.0",
+        "volumeCm3": "5.243271",
+        "stlSha256": "b6542ad13d87a907c510f1794d623509ab9ee3b9acaddb3181d9ec7761aacaa2"
+      },
+      {
+        "modelId": "winch-bearing-lower",
+        "revision": "0.1.0",
+        "volumeCm3": "60.812971",
+        "stlSha256": "bfecc97b818bb7432a5850632d2671ccf8367f6325040e4ff0997c77710fece2"
+      },
+      {
+        "modelId": "winch-coupling-guard",
+        "revision": "0.1.1",
+        "volumeCm3": "30.825830",
+        "stlSha256": "e7347ce4dcbb13d087830581ac424a568d6460eef4cbe7f85bfc62d4f1ae5ba3"
+      },
+      {
+        "modelId": "winch-cover-cable-anchor",
+        "revision": "0.1.0",
+        "volumeCm3": "4.514930",
+        "stlSha256": "8ccf1459cce0f0e32435d2cfeae1ebdb22433576c7cda14856681a4c0913e9ed"
+      },
+      {
+        "modelId": "winch-cover-clip",
+        "revision": "0.2.0",
+        "volumeCm3": "6.118286",
+        "stlSha256": "a57f65db65d75ce3a2c9934ac6dc9548a73c8f26ae30fcec70dedcfe1b854cf5"
+      },
+      {
+        "modelId": "winch-cover-passive-fascia",
+        "revision": "0.1.0",
+        "volumeCm3": "73.077741",
+        "stlSha256": "ea6c7709eb14fcdde9bc1334ad5e405483611c978f480e1ca02fb37e3a444823"
+      },
+      {
+        "modelId": "winch-cover-passive-left",
+        "revision": "0.3.0",
+        "volumeCm3": "374.072990",
+        "stlSha256": "10a5e0d1f7b63c9736e7e00cf4c6fb8520e421b0bea79cf603e2ccf5c250f4cc"
+      },
+      {
+        "modelId": "winch-cover-passive-middle",
+        "revision": "0.2.0",
+        "volumeCm3": "250.605223",
+        "stlSha256": "2de2575ebfbbd83da076f11a46f7e0021f8c4e8db30061d298c2c077ddcbec15"
+      },
+      {
+        "modelId": "winch-cover-passive-pole-fascia",
+        "revision": "0.1.0",
+        "volumeCm3": "76.231311",
+        "stlSha256": "0653142d7948bf8e66e92ca2db0375ee42cbdee8dad5f8272f8e8924f5a66653"
+      },
+      {
+        "modelId": "winch-cover-passive-rear-left",
+        "revision": "0.1.0",
+        "volumeCm3": "74.675803",
+        "stlSha256": "cb0c389a8e7c818967a2725263ca3088ee9742674faf22165f494e009e014be5"
+      },
+      {
+        "modelId": "winch-cover-passive-rear-right",
+        "revision": "0.1.0",
+        "volumeCm3": "99.716010",
+        "stlSha256": "0b81e279f773d99f5ae7a691857824ebc138ae81d831e1dcaaf2e11d742904c1"
+      },
+      {
+        "modelId": "winch-cover-passive-right",
+        "revision": "0.3.0",
+        "volumeCm3": "449.144055",
+        "stlSha256": "6c3e67be0c87655d5e6a56a1c819347a79bea26b0955ed46b46a2200ffbc3650"
+      },
+      {
+        "modelId": "winch-cover-passive-shutter",
+        "revision": "0.2.0",
+        "volumeCm3": "79.436506",
+        "stlSha256": "18f3971c94f2f73cde7826fbf4fb101dc06825c543c296c236570e6ceeb8ff37"
+      },
+      {
+        "modelId": "winch-cover-powered-fascia",
+        "revision": "0.1.0",
+        "volumeCm3": "70.548380",
+        "stlSha256": "52a1c4466d8ea832cc439f2ad6edd6016e42a5064c1c3fa3e71a1b53b45b661e"
+      },
+      {
+        "modelId": "winch-cover-powered-left",
+        "revision": "0.2.0",
+        "volumeCm3": "367.652286",
+        "stlSha256": "540884fcd4ac34575dabe6837235932b277c1a64dbeb50b17c4e25c46ae65d1d"
+      },
+      {
+        "modelId": "winch-cover-powered-middle",
+        "revision": "0.2.0",
+        "volumeCm3": "242.744073",
+        "stlSha256": "71a46f0bac9dcfab53e0dfaad17f209755e5757f3f15b2b9cf7e10c4aa2295cb"
+      },
+      {
+        "modelId": "winch-cover-powered-pole-fascia",
+        "revision": "0.1.0",
+        "volumeCm3": "73.701924",
+        "stlSha256": "5305b5fa28a93f8fbd10397a6ef8a23645a189cc549d635eec2eee88ca7282f2"
+      },
+      {
+        "modelId": "winch-cover-powered-pole-middle",
+        "revision": "0.1.0",
+        "volumeCm3": "240.640072",
+        "stlSha256": "e11fda8412044f7003b7f5a6aea87755d505086143f9a75fee87fa62837faa7d"
+      },
+      {
+        "modelId": "winch-cover-powered-rear-left",
+        "revision": "0.1.0",
+        "volumeCm3": "86.862141",
+        "stlSha256": "0db96df27404b1c94ebfd2710ae812e35683340bc7b91ada38c5ed6199309552"
+      },
+      {
+        "modelId": "winch-cover-powered-rear-right",
+        "revision": "0.1.0",
+        "volumeCm3": "100.859819",
+        "stlSha256": "d590f8e14daeaec955a7419f873a9709f8963feb1fbf493c2d9bb0856979daf8"
+      },
+      {
+        "modelId": "winch-cover-powered-right",
+        "revision": "0.3.0",
+        "volumeCm3": "437.959117",
+        "stlSha256": "adac9af0c79d43209958da72595f0fda6c0677de7c39294eb415b666a539e028"
+      },
+      {
+        "modelId": "winch-cover-powered-shutter",
+        "revision": "0.2.0",
+        "volumeCm3": "76.694057",
+        "stlSha256": "b55c3f52e260a9ddc756ada21b4086c42a3ee926d7ab3e5117d288755f7664ed"
+      },
+      {
+        "modelId": "winch-cover-powered-transition",
+        "revision": "0.2.0",
+        "volumeCm3": "241.880800",
+        "stlSha256": "a70e056c48f96e8e607e27bab8ec6e276b92f0c752e13b383392d2977964a9bc"
+      },
+      {
+        "modelId": "winch-desk-foot-long",
+        "revision": "0.1.0",
+        "volumeCm3": "105.802227",
+        "stlSha256": "7032b31ba61af25dcab2967481a3640fec952db3e36687b795c9a9cf36f633c5"
+      },
+      {
+        "modelId": "winch-desk-foot-short",
+        "revision": "0.1.0",
+        "volumeCm3": "74.282202",
+        "stlSha256": "6b862dc253e6c5ae136622367992d95212277ed85b2b915107d6af4ee44faea4"
+      },
+      {
+        "modelId": "winch-drum-alignment-pin",
+        "revision": "0.1.0",
+        "volumeCm3": "0.156072",
+        "stlSha256": "7ee4833edd7c5e93eaeb18049eae5f807f22dfe01cd6ce825ad7fb8111065ed2"
+      },
+      {
+        "modelId": "winch-drum-clamp-half",
+        "revision": "0.1.0",
+        "volumeCm3": "13.614323",
+        "stlSha256": "4e209570c561ccddc4f00ec96a0a7f4aedc4e79a697d66ebc3fc5ae44d96d5c9"
+      },
+      {
+        "modelId": "winch-drum-flange",
+        "revision": "0.1.0",
+        "volumeCm3": "75.053615",
+        "stlSha256": "4b61f0359f5f12204dc016930355e94eeb875cfdb6d138c89520b4a3ba9e84e4"
+      },
+      {
+        "modelId": "winch-drum-flange-right",
+        "revision": "0.1.0",
+        "volumeCm3": "75.053615",
+        "stlSha256": "f141b2ad24bdcefb7e63560e51f07f12fbe544912b8e1ed99e1f19a867e83d65"
+      },
+      {
+        "modelId": "winch-drum-passive-1",
+        "revision": "0.1.0",
+        "volumeCm3": "316.427023",
+        "stlSha256": "ff6e0f76fff79c7ddacd37202f0ae7f5ccdfb165106a6eb3d3594ee03a0d09f0"
+      },
+      {
+        "modelId": "winch-drum-passive-2",
+        "revision": "0.1.0",
+        "volumeCm3": "316.426147",
+        "stlSha256": "32afed565e34dfe07de55a661c60c710c8d3f3a777e9f6fc8e16335f9901ff56"
+      },
+      {
+        "modelId": "winch-drum-powered-1",
+        "revision": "0.1.0",
+        "volumeCm3": "456.629544",
+        "stlSha256": "0d58d8ff201ffe877c947bf605f6a5058a24290b9767ca2f154933fa5b0ffc91"
+      },
+      {
+        "modelId": "winch-drum-powered-2",
+        "revision": "0.1.0",
+        "volumeCm3": "454.324400",
+        "stlSha256": "f5f85ee8b32559c0e052533ecd9476111ecf9e7c870e1484f84d1c9730fb8eea"
+      },
+      {
+        "modelId": "winch-drum-powered-3",
+        "revision": "0.1.0",
+        "volumeCm3": "456.627803",
+        "stlSha256": "cd8483a5c6c415e94e4eeada76fb380a538b1782f8c49865cddc546eb1302ef9"
+      },
+      {
+        "modelId": "winch-drum-tail-clamp",
+        "revision": "0.1.0",
+        "volumeCm3": "1.742899",
+        "stlSha256": "aa054a9cdd4f02906123fc890f188afdc9f01363982e4f57260da2a032cd6225"
+      },
+      {
+        "modelId": "winch-motor-stand",
+        "revision": "0.1.0",
+        "volumeCm3": "156.792774",
+        "stlSha256": "564a0750407de14008f4bf92a8c468cd3c544d7ada1fee541aca7a9c1a837331"
+      },
+      {
+        "modelId": "winch-pole-cable-guide",
+        "revision": "0.1.0",
+        "volumeCm3": "9.881734",
+        "stlSha256": "dd514443e290fc7a0a37252f352f6e444c239af5786452f00879baa35203cede"
+      },
+      {
+        "modelId": "winch-pole-nut-cover",
+        "revision": "0.1.0",
+        "volumeCm3": "44.800318",
+        "stlSha256": "8b060411014cdc330a55981f2ed305093dd1e3413f7a01b15cee96ee5a408c38"
+      },
+      {
+        "modelId": "winch-pole-nut-cover-bottom",
+        "revision": "0.1.0",
+        "volumeCm3": "16.878400",
+        "stlSha256": "8c4864d175d3008b51defefd254eb015b4bae7dabdc4d994f6c46e008b38c74c"
+      }
+    ]
+  },
+  "materials": [
+    {
+      "id": "pla",
+      "name": "Bambu Lab PLA Basic",
+      "densityGramsPerCm3": "1.24",
+      "densitySourceUrl": "https://store.bblcdn.com/s1/default/58b85d0f3db94878854a28fdb8a0006e/Bambu_PLA_Basic_Technical_Data_Sheet.pdf",
+      "spoolWeightGrams": "1000",
+      "spoolPrice": "19.99",
+      "currency": "EUR",
+      "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+      "observedAt": "2026-10-08T18:06:00Z",
+      "priceBasis": "single-spool",
+      "taxTreatment": "unknown"
+    },
+    {
+      "id": "petg",
+      "name": "Bambu Lab PETG Basic",
+      "densityGramsPerCm3": "1.25",
+      "densitySourceUrl": "https://store.bblcdn.com/s1/default/cb94589bf7994fdcbfa833badefae9cd/Bambu_PETG_Basic_Technical_Data_Sheet.pdf",
+      "spoolWeightGrams": "1000",
+      "spoolPrice": "18.99",
+      "currency": "EUR",
+      "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+      "observedAt": "2026-10-08T18:06:00Z",
+      "priceBasis": "single-spool",
+      "taxTreatment": "unknown"
+    },
+    {
+      "id": "asa",
+      "name": "Bambu Lab ASA",
+      "densityGramsPerCm3": "1.05",
+      "densitySourceUrl": "https://store.bblcdn.com/ad7b08230c164e72856cffbe06bb7dc9.pdf",
+      "spoolWeightGrams": "1000",
+      "spoolPrice": "24.99",
+      "currency": "EUR",
+      "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+      "observedAt": "2026-10-08T18:06:00Z",
+      "priceBasis": "single-spool",
+      "taxTreatment": "unknown"
+    }
+  ],
+  "recipes": [
+    {
+      "partId": "camera-pod-chassis",
+      "buildId": "arbi-v1",
+      "representedQuantity": "1",
+      "materialId": "petg",
+      "components": [
+        {
+          "modelId": "camera-pod-spider",
+          "quantity": "1"
+        },
+        {
+          "modelId": "payload-integrated-deck",
+          "quantity": "1"
+        },
+        {
+          "modelId": "payload-spider-spacer",
+          "quantity": "4"
+        },
+        {
+          "modelId": "payload-pan-servo-mount",
+          "quantity": "1"
+        },
+        {
+          "modelId": "payload-rain-hood",
+          "quantity": "1"
+        },
+        {
+          "modelId": "payload-enclosure-base",
+          "quantity": "1"
+        }
+      ],
+      "note": "Current rain-enclosure kit from payload-enclosure.md; excludes dry-bench alternatives and test coupons."
+    },
+    {
+      "partId": "camera-gimbal",
+      "buildId": "arbi-v1",
+      "representedQuantity": "1",
+      "materialId": "petg",
+      "components": [
+        {
+          "modelId": "payload-integrated-gimbal-carrier",
+          "quantity": "1"
+        },
+        {
+          "modelId": "payload-integrated-gimbal-head",
+          "quantity": "1"
+        },
+        {
+          "modelId": "payload-integrated-camera-cradle",
+          "quantity": "1"
+        },
+        {
+          "modelId": "payload-integrated-tilt-pivot-support",
+          "quantity": "1"
+        },
+        {
+          "modelId": "payload-horn-retainer",
+          "quantity": "2"
+        },
+        {
+          "modelId": "payload-integrated-camera-hood",
+          "quantity": "1"
+        }
+      ],
+      "note": "Current compact rain-enclosure gimbal; excludes earlier gimbal and dry-bench alternatives."
+    },
+    {
+      "partId": "winch-drum",
+      "buildId": "arbi-v1",
+      "representedQuantity": "4",
+      "materialId": "petg",
+      "components": [
+        {
+          "modelId": "winch-drum-passive-1",
+          "quantity": "3"
+        },
+        {
+          "modelId": "winch-drum-passive-2",
+          "quantity": "3"
+        },
+        {
+          "modelId": "winch-drum-powered-1",
+          "quantity": "1"
+        },
+        {
+          "modelId": "winch-drum-powered-2",
+          "quantity": "1"
+        },
+        {
+          "modelId": "winch-drum-powered-3",
+          "quantity": "1"
+        },
+        {
+          "modelId": "winch-drum-flange",
+          "quantity": "4"
+        },
+        {
+          "modelId": "winch-drum-flange-right",
+          "quantity": "4"
+        },
+        {
+          "modelId": "winch-drum-clamp-half",
+          "quantity": "8"
+        },
+        {
+          "modelId": "winch-drum-tail-clamp",
+          "quantity": "4"
+        },
+        {
+          "modelId": "winch-drum-alignment-pin",
+          "quantity": "13"
+        }
+      ],
+      "note": "Four-drum batch: three passive kits and one powered kit, including repeated flanges, clamps and pins; per-unit values are batch averages."
+    },
+    {
+      "partId": "winch-mount-and-guard",
+      "buildId": "arbi-v1",
+      "representedQuantity": "1",
+      "materialId": "petg",
+      "components": [
+        {
+          "modelId": "winch-bearing-lower",
+          "quantity": "2"
+        },
+        {
+          "modelId": "winch-bearing-cap",
+          "quantity": "2"
+        },
+        {
+          "modelId": "winch-motor-stand",
+          "quantity": "1"
+        },
+        {
+          "modelId": "winch-coupling-guard",
+          "quantity": "1"
+        }
+      ],
+      "note": "One mount kit includes two bearing supports/caps, one motor stand and one coupling guard; metal plate, spacers and fasteners belong to winch-mount-hardware."
+    },
+    {
+      "partId": "dock-funnel",
+      "buildId": "arbi-v1",
+      "representedQuantity": "1",
+      "materialId": "petg",
+      "components": [
+        {
+          "modelId": "dock-funnel",
+          "quantity": "1"
+        }
+      ],
+      "note": "One dock capture funnel. Latch hardware and weather hood remain separate unresolved fabrication costs."
+    },
+    {
+      "partId": "dock-nest",
+      "buildId": "arbi-v1",
+      "representedQuantity": "1",
+      "materialId": "petg",
+      "components": [
+        {
+          "modelId": "dock-nest",
+          "quantity": "1"
+        }
+      ],
+      "note": "One dock nest, independently costed even though its procurement placeholder shares the capture-set bundle."
+    },
+    {
+      "partId": "top-pulley-keeper",
+      "buildId": "arbi-v1",
+      "representedQuantity": "1",
+      "materialId": "petg",
+      "components": [
+        {
+          "modelId": "top-pulley-keeper",
+          "quantity": "1"
+        }
+      ],
+      "note": "One line keeper per corner pulley."
+    },
+    {
+      "partId": "winch-full-cover",
+      "buildId": "arbi-v1",
+      "representedQuantity": "4",
+      "materialId": "asa",
+      "components": [
+        {
+          "modelId": "winch-cover-passive-left",
+          "quantity": "3"
+        },
+        {
+          "modelId": "winch-cover-passive-middle",
+          "quantity": "3"
+        },
+        {
+          "modelId": "winch-cover-passive-right",
+          "quantity": "3"
+        },
+        {
+          "modelId": "winch-cover-powered-left",
+          "quantity": "1"
+        },
+        {
+          "modelId": "winch-cover-powered-middle",
+          "quantity": "1"
+        },
+        {
+          "modelId": "winch-cover-powered-pole-middle",
+          "quantity": "1"
+        },
+        {
+          "modelId": "winch-cover-powered-transition",
+          "quantity": "1"
+        },
+        {
+          "modelId": "winch-cover-powered-right",
+          "quantity": "1"
+        },
+        {
+          "modelId": "winch-cover-clip",
+          "quantity": "56"
+        },
+        {
+          "modelId": "winch-cover-cable-anchor",
+          "quantity": "4"
+        },
+        {
+          "modelId": "winch-cover-passive-shutter",
+          "quantity": "6"
+        },
+        {
+          "modelId": "winch-cover-powered-shutter",
+          "quantity": "4"
+        },
+        {
+          "modelId": "winch-cover-passive-fascia",
+          "quantity": "15"
+        },
+        {
+          "modelId": "winch-cover-powered-fascia",
+          "quantity": "9"
+        },
+        {
+          "modelId": "winch-cover-passive-pole-fascia",
+          "quantity": "3"
+        },
+        {
+          "modelId": "winch-cover-powered-pole-fascia",
+          "quantity": "1"
+        },
+        {
+          "modelId": "winch-cover-passive-rear-left",
+          "quantity": "3"
+        },
+        {
+          "modelId": "winch-cover-powered-rear-left",
+          "quantity": "2"
+        },
+        {
+          "modelId": "winch-cover-passive-rear-right",
+          "quantity": "6"
+        },
+        {
+          "modelId": "winch-cover-powered-rear-right",
+          "quantity": "3"
+        }
+      ],
+      "note": "Four-winch pole-routing cover batch per full-cover.md; 126 installed prints, excluding four optional removable bench blanks. Per-unit values are batch averages."
+    },
+    {
+      "partId": "winch-desk-feet",
+      "buildId": "arbi-v1",
+      "representedQuantity": "1",
+      "materialId": "petg",
+      "components": [
+        {
+          "modelId": "winch-desk-foot-short",
+          "quantity": "2"
+        },
+        {
+          "modelId": "winch-desk-foot-long",
+          "quantity": "2"
+        }
+      ],
+      "note": "Optional desk-foot kit for one winch; excluded from the base build."
+    },
+    {
+      "partId": "winch-round-pole-covers",
+      "buildId": "arbi-v1",
+      "representedQuantity": "1",
+      "materialId": "asa",
+      "components": [
+        {
+          "modelId": "winch-pole-nut-cover",
+          "quantity": "2"
+        },
+        {
+          "modelId": "winch-pole-nut-cover-bottom",
+          "quantity": "2"
+        },
+        {
+          "modelId": "winch-pole-cable-guide",
+          "quantity": "1"
+        }
+      ],
+      "note": "Optional covers for one round-pole mount. The machined metal saddles are not prints."
+    },
+    {
+      "partId": "pole-pulley-mount-concept",
+      "buildId": "arbi-v1",
+      "representedQuantity": "1",
+      "materialId": "petg",
+      "components": [
+        {
+          "modelId": "pole-pulley-mount-front",
+          "quantity": "1"
+        },
+        {
+          "modelId": "pole-pulley-mount-rear",
+          "quantity": "1"
+        }
+      ],
+      "note": "Deferred concept clamp pair; excluded from the base build. Pricing does not qualify its load-bearing use."
+    }
+  ]
+}

@@ -11,11 +11,13 @@
 - Build: arbi-v1
 - Destination: hr-zagreb
 - Quote snapshot: hr-zagreb-2026-10-08-coupling
-- Input digest: sha256:6f9a47217eafb9cb921191437b39eccf0c465e373a5acf6dbe43cc84845bd866
+- Input digest: sha256:24fdcc37fd7f5f92bf001855fed0e4df3a6aa88875886aff2c0538a03bc94bc0
 - Complete landed total: **unavailable**
 - Known quoted goods subtotal: **EUR 943.84**
 - Known checkout-group shipping subtotal: **EUR 43.38**
 - Known partial subtotal: **EUR 987.22**
+- Estimated print materials: **EUR 427.36**
+- Estimated partial subtotal (known amounts + print materials): **EUR 1414.58**
 
 The known partial subtotal is evidence about recorded values only. It excludes every unresolved amount and must not be presented as the project cost.
 
@@ -35,6 +37,21 @@ The known partial subtotal is evidence about recorded values only. It excludes e
 | Shared checkout-group shipping | EUR 43.38 |
 
 Multi-part bundles of countable components are allocated by purchased part count, including surplus, with cents distributed deterministically. These shares are accounting allocations, not individual supplier prices. Unselected contents or bundles without comparable part counts remain in the shared bundle bucket; shipping remains separate.
+
+## Estimated print material costs
+
+Solid CAD volume × material density × single-spool price / spool grams. These consumption estimates exclude supports, purge, failures, energy, machine time, labour, filament shipping and destination VAT adjustments. They do not make the landed total complete.
+
+| Part | Required | Material | Estimated weight | Estimated material cost |
+| --- | ---: | --- | ---: | ---: |
+| [camera-gimbal](parts/camera-gimbal.md) | 1 | PETG | 50.631 g | EUR 0.96 |
+| [camera-pod-chassis](parts/camera-pod-chassis.md) | 1 | PETG | 199.126 g | EUR 3.78 |
+| [dock-funnel](parts/dock-funnel.md) | 1 | PETG | 376.306 g | EUR 7.15 |
+| [dock-nest](parts/dock-nest.md) | 1 | PETG | 2437.206 g | EUR 46.28 |
+| [top-pulley-keeper](parts/top-pulley-keeper.md) | 4 | PETG | 110.733 g | EUR 2.10 |
+| [winch-drum](parts/winch-drum.md) | 4 | PETG | 4980.607 g | EUR 94.58 |
+| [winch-full-cover](parts/winch-full-cover.md) | 4 | ASA | 9689.974 g | EUR 242.15 |
+| [winch-mount-and-guard](parts/winch-mount-and-guard.md) | 4 | PETG | 1598.655 g | EUR 30.36 |
 
 ## Non-physical procurement bucket
 
@@ -320,6 +337,8 @@ aliexpress-hr: EUR 3.00 per item type (not per piece), order goods strictly belo
 - bauhaus-zinc-spray: Price and availability observation date is unknown; quote capture time is not verification time.
 - bauhaus-zinc-spray: Qualification is baseline-selected; the recorded selection is not engineering approval.
 - bauhaus-zinc-spray: Tax/VAT treatment is unknown.
+- camera-gimbal: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
+- camera-pod-chassis: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
 - cotra-zagreb-corner-post-treated-timber: Availability is unknown.
 - cotra-zagreb-corner-post-treated-timber: Package size/MOQ is unknown.
 - cotra-zagreb-corner-post-treated-timber: Price and availability observation date is unknown; quote capture time is not verification time.
@@ -331,6 +350,8 @@ aliexpress-hr: EUR 3.00 per item type (not per piece), order goods strictly belo
 - dive-store-dyneema-positioning-line: Qualification is baseline-selected; the recorded selection is not engineering approval.
 - dive-store-dyneema-positioning-line: Tax/VAT treatment is unknown.
 - dive-store-hr: Shipping tax/VAT treatment is unknown.
+- dock-funnel: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
+- dock-nest: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
 - hr-zagreb: Destination tax/VAT status is unknown and blocks a complete landed total.
 - in-house-fabrication-camera-gimbal: Price and availability observation date is unknown; quote capture time is not verification time.
 - in-house-fabrication-camera-gimbal: Price is unknown.
@@ -407,6 +428,7 @@ aliexpress-hr: EUR 3.00 per item type (not per piece), order goods strictly belo
 - tme-raspberry-pi-pico-2-w: Price and availability observation date is unknown; quote capture time is not verification time.
 - tme-raspberry-pi-pico-2-w: Qualification is baseline-selected; the recorded selection is not engineering approval.
 - tme-raspberry-pi-pico-2-w: Tax/VAT treatment is unknown.
+- top-pulley-keeper: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
 - unresolved-winch-drum-joining-hardware: Destination quote row is missing.
 - unresolved-winch-drum-joining-hardware: Package size/MOQ is unknown.
 - unresolved-winch-drum-joining-hardware: Price is unknown.
@@ -417,6 +439,9 @@ aliexpress-hr: EUR 3.00 per item type (not per piece), order goods strictly belo
 - unresolved-winch-mount-hardware: Qualification is unresolved; the recorded selection is not engineering approval.
 - wasi-barton-30mm: Qualification is baseline-selected; the recorded selection is not engineering approval.
 - wasi-barton-30mm: Tax/VAT treatment is unknown.
+- winch-drum: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
+- winch-full-cover: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
+- winch-mount-and-guard: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
 
 ## Evidence boundary
 

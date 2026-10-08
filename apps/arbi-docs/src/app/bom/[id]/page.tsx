@@ -18,6 +18,7 @@ export default async function BomItem({ params }: { params: Promise<{ id: string
     const p = data().bomById.get((await params).id);
     if (!p) notFound();
     const fab = modelsForBomPart(p.id);
+    const print = p.printEstimate ?? p.printReference;
     const rows: [string, ReactNode][] = [
         ["Used in", p.usedIn.map((u) => `${u.assemblyId} × ${u.quantity}`).join(", ") || "—"],
         ["Offer", p.offerId ?? "—"],
@@ -35,6 +36,11 @@ export default async function BomItem({ params }: { params: Promise<{ id: string
         ...(p.bundle ? [["Cost allocation", p.goodsAllocationBasis === "part-count"
             ? "Bundle share by purchased part count (including surplus); not an individual supplier price."
             : "Bundle share unavailable: price or comparable part counts are unknown."] as [string, ReactNode]] : []),
+        ...(print ? [
+            ["Print material", print.materialId.toUpperCase()],
+            ["Estimated weight", `${print.weightGrams} g for ${print.required} BOM unit(s)${p.printEstimate ? " required" : " · reference, excluded from build"}`],
+            ["Estimated material cost", fmt.eur(print.materialCost)],
+        ] as [string, ReactNode][] : []),
         [
             "Listing",
             p.offerUrl ? (
@@ -90,6 +96,26 @@ export default async function BomItem({ params }: { params: Promise<{ id: string
                         )}
                     </div>
                 </section>
+                {print && (
+                    <section className="mt-10">
+                        <h2 className="cond text-[30px]">Print material estimate</h2>
+                        <p className="mt-3 max-w-4xl text-[13px]">{print.note}</p>
+                        <table className="mt-4 w-full border-t-2 border-ink text-[13px]">
+                            <thead><tr className="tag border-b border-ink text-left">
+                                <th className="py-2">Material</th><th className="text-right">Single spool</th><th className="text-right">Estimated total weight</th><th className="text-right">Material cost</th>
+                            </tr></thead>
+                            <tbody>{print.alternatives.map((a) => (
+                                <tr key={a.materialId} className="border-b border-hair">
+                                    <td className="py-3"><a className="underline" href={a.priceSourceUrl} target="_blank" rel="noreferrer">{a.name}</a>{a.materialId === print.materialId ? " · costing selection" : ""}<div className="tag mt-1">Observed {a.observedAt.slice(0, 10)}</div></td>
+                                    <td className="mono text-right">{fmt.eur(a.spoolPrice)} / {a.spoolWeightGrams} g</td>
+                                    <td className="mono text-right">{a.weightGrams} g</td>
+                                    <td className="mono text-right">{fmt.eur(a.materialCost)}</td>
+                                </tr>
+                            ))}</tbody>
+                        </table>
+                        <p className="mt-3 text-[13px]">Material comparisons are costing options; they do not establish suitability for this part. Weights are estimates of fully dense CAD plastic, before supports and waste.</p>
+                    </section>
+                )}
                 {fab.length > 0 && (
                     <section className="mt-10">
                         <h2 className="cond text-[30px]">Fabrication sources</h2>

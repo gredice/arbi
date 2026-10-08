@@ -6,7 +6,7 @@
   "destinationId": "hr-zagreb",
   "destinationName": "Zagreb, Croatia",
   "quoteSnapshotId": "hr-zagreb-2026-10-08-coupling",
-  "inputDigest": "sha256:6f9a47217eafb9cb921191437b39eccf0c465e373a5acf6dbe43cc84845bd866",
+  "inputDigest": "sha256:24fdcc37fd7f5f92bf001855fed0e4df3a6aa88875886aff2c0538a03bc94bc0",
   "reportCurrency": "EUR",
   "complete": false,
   "completeLandedTotal": null,
@@ -38,6 +38,862 @@
   ],
   "knownShippingSubtotal": "43.38",
   "knownSubtotal": "987.22",
+  "estimatedMaterialSubtotal": "427.36",
+  "estimatedPartialSubtotal": "1414.58",
+  "fabrication": [
+    {
+      "partId": "camera-gimbal",
+      "required": "1",
+      "basis": "solid-volume-estimate",
+      "materialId": "petg",
+      "weightGrams": "50.631",
+      "materialCost": "0.96",
+      "currency": "EUR",
+      "note": "Current compact rain-enclosure gimbal; excludes earlier gimbal and dry-bench alternatives. Material consumption only at single 1 kg filament-with-spool MSRP; bulk discounts excluded. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. PETG is a prototype costing assumption; ASA is used for exposed cover recipes. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "alternatives": [
+        {
+          "materialId": "pla",
+          "name": "Bambu Lab PLA Basic",
+          "weightGrams": "50.226",
+          "materialCost": "1",
+          "spoolPrice": "19.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+          "observedAt": "2026-10-08T18:06:00Z"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "50.631",
+          "materialCost": "0.96",
+          "spoolPrice": "18.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T18:06:00Z"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "42.53",
+          "materialCost": "1.06",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z"
+        }
+      ]
+    },
+    {
+      "partId": "camera-pod-chassis",
+      "required": "1",
+      "basis": "solid-volume-estimate",
+      "materialId": "petg",
+      "weightGrams": "199.126",
+      "materialCost": "3.78",
+      "currency": "EUR",
+      "note": "Current rain-enclosure kit from payload-enclosure.md; excludes dry-bench alternatives and test coupons. Material consumption only at single 1 kg filament-with-spool MSRP; bulk discounts excluded. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. PETG is a prototype costing assumption; ASA is used for exposed cover recipes. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "alternatives": [
+        {
+          "materialId": "pla",
+          "name": "Bambu Lab PLA Basic",
+          "weightGrams": "197.533",
+          "materialCost": "3.95",
+          "spoolPrice": "19.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+          "observedAt": "2026-10-08T18:06:00Z"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "199.126",
+          "materialCost": "3.78",
+          "spoolPrice": "18.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T18:06:00Z"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "167.265",
+          "materialCost": "4.18",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z"
+        }
+      ]
+    },
+    {
+      "partId": "dock-funnel",
+      "required": "1",
+      "basis": "solid-volume-estimate",
+      "materialId": "petg",
+      "weightGrams": "376.306",
+      "materialCost": "7.15",
+      "currency": "EUR",
+      "note": "One dock capture funnel. Latch hardware and weather hood remain separate unresolved fabrication costs. Material consumption only at single 1 kg filament-with-spool MSRP; bulk discounts excluded. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. PETG is a prototype costing assumption; ASA is used for exposed cover recipes. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "alternatives": [
+        {
+          "materialId": "pla",
+          "name": "Bambu Lab PLA Basic",
+          "weightGrams": "373.296",
+          "materialCost": "7.46",
+          "spoolPrice": "19.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+          "observedAt": "2026-10-08T18:06:00Z"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "376.306",
+          "materialCost": "7.15",
+          "spoolPrice": "18.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T18:06:00Z"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "316.097",
+          "materialCost": "7.9",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z"
+        }
+      ]
+    },
+    {
+      "partId": "dock-nest",
+      "required": "1",
+      "basis": "solid-volume-estimate",
+      "materialId": "petg",
+      "weightGrams": "2437.206",
+      "materialCost": "46.28",
+      "currency": "EUR",
+      "note": "One dock nest, independently costed even though its procurement placeholder shares the capture-set bundle. Material consumption only at single 1 kg filament-with-spool MSRP; bulk discounts excluded. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. PETG is a prototype costing assumption; ASA is used for exposed cover recipes. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "alternatives": [
+        {
+          "materialId": "pla",
+          "name": "Bambu Lab PLA Basic",
+          "weightGrams": "2417.708",
+          "materialCost": "48.33",
+          "spoolPrice": "19.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+          "observedAt": "2026-10-08T18:06:00Z"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "2437.206",
+          "materialCost": "46.28",
+          "spoolPrice": "18.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T18:06:00Z"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "2047.253",
+          "materialCost": "51.16",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z"
+        }
+      ]
+    },
+    {
+      "partId": "top-pulley-keeper",
+      "required": "4",
+      "basis": "solid-volume-estimate",
+      "materialId": "petg",
+      "weightGrams": "110.733",
+      "materialCost": "2.1",
+      "currency": "EUR",
+      "note": "One line keeper per corner pulley. Material consumption only at single 1 kg filament-with-spool MSRP; bulk discounts excluded. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. PETG is a prototype costing assumption; ASA is used for exposed cover recipes. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "alternatives": [
+        {
+          "materialId": "pla",
+          "name": "Bambu Lab PLA Basic",
+          "weightGrams": "109.847",
+          "materialCost": "2.2",
+          "spoolPrice": "19.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+          "observedAt": "2026-10-08T18:06:00Z"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "110.733",
+          "materialCost": "2.1",
+          "spoolPrice": "18.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T18:06:00Z"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "93.016",
+          "materialCost": "2.32",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z"
+        }
+      ]
+    },
+    {
+      "partId": "winch-drum",
+      "required": "4",
+      "basis": "solid-volume-estimate",
+      "materialId": "petg",
+      "weightGrams": "4980.607",
+      "materialCost": "94.58",
+      "currency": "EUR",
+      "note": "Four-drum batch: three passive kits and one powered kit, including repeated flanges, clamps and pins; per-unit values are batch averages. Material consumption only at single 1 kg filament-with-spool MSRP; bulk discounts excluded. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. PETG is a prototype costing assumption; ASA is used for exposed cover recipes. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "alternatives": [
+        {
+          "materialId": "pla",
+          "name": "Bambu Lab PLA Basic",
+          "weightGrams": "4940.762",
+          "materialCost": "98.77",
+          "spoolPrice": "19.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+          "observedAt": "2026-10-08T18:06:00Z"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "4980.607",
+          "materialCost": "94.58",
+          "spoolPrice": "18.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T18:06:00Z"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "4183.71",
+          "materialCost": "104.55",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z"
+        }
+      ]
+    },
+    {
+      "partId": "winch-full-cover",
+      "required": "4",
+      "basis": "solid-volume-estimate",
+      "materialId": "asa",
+      "weightGrams": "9689.974",
+      "materialCost": "242.15",
+      "currency": "EUR",
+      "note": "Four-winch pole-routing cover batch per full-cover.md; 126 installed prints, excluding four optional removable bench blanks. Per-unit values are batch averages. Material consumption only at single 1 kg filament-with-spool MSRP; bulk discounts excluded. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. PETG is a prototype costing assumption; ASA is used for exposed cover recipes. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "alternatives": [
+        {
+          "materialId": "pla",
+          "name": "Bambu Lab PLA Basic",
+          "weightGrams": "11443.398",
+          "materialCost": "228.75",
+          "spoolPrice": "19.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+          "observedAt": "2026-10-08T18:06:00Z"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "11535.683",
+          "materialCost": "219.06",
+          "spoolPrice": "18.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T18:06:00Z"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "9689.974",
+          "materialCost": "242.15",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z"
+        }
+      ]
+    },
+    {
+      "partId": "winch-mount-and-guard",
+      "required": "4",
+      "basis": "solid-volume-estimate",
+      "materialId": "petg",
+      "weightGrams": "1598.655",
+      "materialCost": "30.36",
+      "currency": "EUR",
+      "note": "One mount kit includes two bearing supports/caps, one motor stand and one coupling guard; metal plate, spacers and fasteners belong to winch-mount-hardware. Material consumption only at single 1 kg filament-with-spool MSRP; bulk discounts excluded. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. PETG is a prototype costing assumption; ASA is used for exposed cover recipes. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "alternatives": [
+        {
+          "materialId": "pla",
+          "name": "Bambu Lab PLA Basic",
+          "weightGrams": "1585.866",
+          "materialCost": "31.7",
+          "spoolPrice": "19.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+          "observedAt": "2026-10-08T18:06:00Z"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "1598.655",
+          "materialCost": "30.36",
+          "spoolPrice": "18.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T18:06:00Z"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "1342.871",
+          "materialCost": "33.56",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z"
+        }
+      ]
+    }
+  ],
+  "printReferences": [
+    {
+      "partId": "camera-gimbal",
+      "required": "1",
+      "basis": "solid-volume-estimate",
+      "materialId": "petg",
+      "weightGrams": "50.631",
+      "materialCost": "0.96",
+      "currency": "EUR",
+      "note": "Current compact rain-enclosure gimbal; excludes earlier gimbal and dry-bench alternatives. Material consumption only at single 1 kg filament-with-spool MSRP; bulk discounts excluded. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. PETG is a prototype costing assumption; ASA is used for exposed cover recipes. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "alternatives": [
+        {
+          "materialId": "pla",
+          "name": "Bambu Lab PLA Basic",
+          "weightGrams": "50.226",
+          "materialCost": "1",
+          "spoolPrice": "19.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+          "observedAt": "2026-10-08T18:06:00Z"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "50.631",
+          "materialCost": "0.96",
+          "spoolPrice": "18.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T18:06:00Z"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "42.53",
+          "materialCost": "1.06",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z"
+        }
+      ]
+    },
+    {
+      "partId": "camera-pod-chassis",
+      "required": "1",
+      "basis": "solid-volume-estimate",
+      "materialId": "petg",
+      "weightGrams": "199.126",
+      "materialCost": "3.78",
+      "currency": "EUR",
+      "note": "Current rain-enclosure kit from payload-enclosure.md; excludes dry-bench alternatives and test coupons. Material consumption only at single 1 kg filament-with-spool MSRP; bulk discounts excluded. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. PETG is a prototype costing assumption; ASA is used for exposed cover recipes. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "alternatives": [
+        {
+          "materialId": "pla",
+          "name": "Bambu Lab PLA Basic",
+          "weightGrams": "197.533",
+          "materialCost": "3.95",
+          "spoolPrice": "19.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+          "observedAt": "2026-10-08T18:06:00Z"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "199.126",
+          "materialCost": "3.78",
+          "spoolPrice": "18.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T18:06:00Z"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "167.265",
+          "materialCost": "4.18",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z"
+        }
+      ]
+    },
+    {
+      "partId": "dock-funnel",
+      "required": "1",
+      "basis": "solid-volume-estimate",
+      "materialId": "petg",
+      "weightGrams": "376.306",
+      "materialCost": "7.15",
+      "currency": "EUR",
+      "note": "One dock capture funnel. Latch hardware and weather hood remain separate unresolved fabrication costs. Material consumption only at single 1 kg filament-with-spool MSRP; bulk discounts excluded. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. PETG is a prototype costing assumption; ASA is used for exposed cover recipes. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "alternatives": [
+        {
+          "materialId": "pla",
+          "name": "Bambu Lab PLA Basic",
+          "weightGrams": "373.296",
+          "materialCost": "7.46",
+          "spoolPrice": "19.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+          "observedAt": "2026-10-08T18:06:00Z"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "376.306",
+          "materialCost": "7.15",
+          "spoolPrice": "18.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T18:06:00Z"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "316.097",
+          "materialCost": "7.9",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z"
+        }
+      ]
+    },
+    {
+      "partId": "dock-nest",
+      "required": "1",
+      "basis": "solid-volume-estimate",
+      "materialId": "petg",
+      "weightGrams": "2437.206",
+      "materialCost": "46.28",
+      "currency": "EUR",
+      "note": "One dock nest, independently costed even though its procurement placeholder shares the capture-set bundle. Material consumption only at single 1 kg filament-with-spool MSRP; bulk discounts excluded. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. PETG is a prototype costing assumption; ASA is used for exposed cover recipes. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "alternatives": [
+        {
+          "materialId": "pla",
+          "name": "Bambu Lab PLA Basic",
+          "weightGrams": "2417.708",
+          "materialCost": "48.33",
+          "spoolPrice": "19.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+          "observedAt": "2026-10-08T18:06:00Z"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "2437.206",
+          "materialCost": "46.28",
+          "spoolPrice": "18.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T18:06:00Z"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "2047.253",
+          "materialCost": "51.16",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z"
+        }
+      ]
+    },
+    {
+      "partId": "pole-pulley-mount-concept",
+      "required": "1",
+      "basis": "solid-volume-estimate",
+      "materialId": "petg",
+      "weightGrams": "777.788",
+      "materialCost": "14.77",
+      "currency": "EUR",
+      "note": "Deferred concept clamp pair; excluded from the base build. Pricing does not qualify its load-bearing use. Material consumption only at single 1 kg filament-with-spool MSRP; bulk discounts excluded. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. PETG is a prototype costing assumption; ASA is used for exposed cover recipes. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "alternatives": [
+        {
+          "materialId": "pla",
+          "name": "Bambu Lab PLA Basic",
+          "weightGrams": "771.566",
+          "materialCost": "15.42",
+          "spoolPrice": "19.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+          "observedAt": "2026-10-08T18:06:00Z"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "777.788",
+          "materialCost": "14.77",
+          "spoolPrice": "18.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T18:06:00Z"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "653.342",
+          "materialCost": "16.33",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z"
+        }
+      ]
+    },
+    {
+      "partId": "top-pulley-keeper",
+      "required": "1",
+      "basis": "solid-volume-estimate",
+      "materialId": "petg",
+      "weightGrams": "27.683",
+      "materialCost": "0.53",
+      "currency": "EUR",
+      "note": "One line keeper per corner pulley. Material consumption only at single 1 kg filament-with-spool MSRP; bulk discounts excluded. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. PETG is a prototype costing assumption; ASA is used for exposed cover recipes. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "alternatives": [
+        {
+          "materialId": "pla",
+          "name": "Bambu Lab PLA Basic",
+          "weightGrams": "27.462",
+          "materialCost": "0.55",
+          "spoolPrice": "19.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+          "observedAt": "2026-10-08T18:06:00Z"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "27.683",
+          "materialCost": "0.53",
+          "spoolPrice": "18.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T18:06:00Z"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "23.254",
+          "materialCost": "0.58",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z"
+        }
+      ]
+    },
+    {
+      "partId": "winch-desk-feet",
+      "required": "1",
+      "basis": "solid-volume-estimate",
+      "materialId": "petg",
+      "weightGrams": "450.211",
+      "materialCost": "8.55",
+      "currency": "EUR",
+      "note": "Optional desk-foot kit for one winch; excluded from the base build. Material consumption only at single 1 kg filament-with-spool MSRP; bulk discounts excluded. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. PETG is a prototype costing assumption; ASA is used for exposed cover recipes. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "alternatives": [
+        {
+          "materialId": "pla",
+          "name": "Bambu Lab PLA Basic",
+          "weightGrams": "446.609",
+          "materialCost": "8.93",
+          "spoolPrice": "19.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+          "observedAt": "2026-10-08T18:06:00Z"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "450.211",
+          "materialCost": "8.55",
+          "spoolPrice": "18.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T18:06:00Z"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "378.177",
+          "materialCost": "9.45",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z"
+        }
+      ]
+    },
+    {
+      "partId": "winch-drum",
+      "required": "1",
+      "basis": "solid-volume-estimate",
+      "materialId": "petg",
+      "weightGrams": "1245.152",
+      "materialCost": "23.65",
+      "currency": "EUR",
+      "note": "Four-drum batch: three passive kits and one powered kit, including repeated flanges, clamps and pins; per-unit values are batch averages. Material consumption only at single 1 kg filament-with-spool MSRP; bulk discounts excluded. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. PETG is a prototype costing assumption; ASA is used for exposed cover recipes. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "alternatives": [
+        {
+          "materialId": "pla",
+          "name": "Bambu Lab PLA Basic",
+          "weightGrams": "1235.19",
+          "materialCost": "24.69",
+          "spoolPrice": "19.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+          "observedAt": "2026-10-08T18:06:00Z"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "1245.152",
+          "materialCost": "23.65",
+          "spoolPrice": "18.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T18:06:00Z"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "1045.927",
+          "materialCost": "26.14",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z"
+        }
+      ]
+    },
+    {
+      "partId": "winch-full-cover",
+      "required": "1",
+      "basis": "solid-volume-estimate",
+      "materialId": "asa",
+      "weightGrams": "2422.494",
+      "materialCost": "60.54",
+      "currency": "EUR",
+      "note": "Four-winch pole-routing cover batch per full-cover.md; 126 installed prints, excluding four optional removable bench blanks. Per-unit values are batch averages. Material consumption only at single 1 kg filament-with-spool MSRP; bulk discounts excluded. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. PETG is a prototype costing assumption; ASA is used for exposed cover recipes. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "alternatives": [
+        {
+          "materialId": "pla",
+          "name": "Bambu Lab PLA Basic",
+          "weightGrams": "2860.849",
+          "materialCost": "57.19",
+          "spoolPrice": "19.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+          "observedAt": "2026-10-08T18:06:00Z"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "2883.921",
+          "materialCost": "54.77",
+          "spoolPrice": "18.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T18:06:00Z"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "2422.494",
+          "materialCost": "60.54",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z"
+        }
+      ]
+    },
+    {
+      "partId": "winch-mount-and-guard",
+      "required": "1",
+      "basis": "solid-volume-estimate",
+      "materialId": "petg",
+      "weightGrams": "399.664",
+      "materialCost": "7.59",
+      "currency": "EUR",
+      "note": "One mount kit includes two bearing supports/caps, one motor stand and one coupling guard; metal plate, spacers and fasteners belong to winch-mount-hardware. Material consumption only at single 1 kg filament-with-spool MSRP; bulk discounts excluded. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. PETG is a prototype costing assumption; ASA is used for exposed cover recipes. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "alternatives": [
+        {
+          "materialId": "pla",
+          "name": "Bambu Lab PLA Basic",
+          "weightGrams": "396.467",
+          "materialCost": "7.93",
+          "spoolPrice": "19.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+          "observedAt": "2026-10-08T18:06:00Z"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "399.664",
+          "materialCost": "7.59",
+          "spoolPrice": "18.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T18:06:00Z"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "335.718",
+          "materialCost": "8.39",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z"
+        }
+      ]
+    },
+    {
+      "partId": "winch-round-pole-covers",
+      "required": "1",
+      "basis": "solid-volume-estimate",
+      "materialId": "asa",
+      "weightGrams": "139.901",
+      "materialCost": "3.5",
+      "currency": "EUR",
+      "note": "Optional covers for one round-pole mount. The machined metal saddles are not prints. Material consumption only at single 1 kg filament-with-spool MSRP; bulk discounts excluded. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. PETG is a prototype costing assumption; ASA is used for exposed cover recipes. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "alternatives": [
+        {
+          "materialId": "pla",
+          "name": "Bambu Lab PLA Basic",
+          "weightGrams": "165.217",
+          "materialCost": "3.3",
+          "spoolPrice": "19.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+          "observedAt": "2026-10-08T18:06:00Z"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "166.549",
+          "materialCost": "3.16",
+          "spoolPrice": "18.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T18:06:00Z"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "139.901",
+          "materialCost": "3.5",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z"
+        }
+      ]
+    }
+  ],
+  "assemblyEstimatedMaterials": [
+    {
+      "assemblyId": "camera-pod",
+      "amount": "4.74"
+    },
+    {
+      "assemblyId": "corner-support-set",
+      "amount": "2.1"
+    },
+    {
+      "assemblyId": "dock",
+      "amount": "53.43"
+    },
+    {
+      "assemblyId": "winch-set",
+      "amount": "367.09"
+    }
+  ],
+  "assemblyPartialGoods": [
+    {
+      "assemblyId": "camera-pod",
+      "amount": "119.81"
+    },
+    {
+      "assemblyId": "control-cabinet",
+      "amount": "66.16"
+    },
+    {
+      "assemblyId": "corner-support-set",
+      "amount": "188.07"
+    },
+    {
+      "assemblyId": "dock",
+      "amount": "54.39"
+    },
+    {
+      "assemblyId": "positioning-line-set",
+      "amount": "103.97"
+    },
+    {
+      "assemblyId": "shared-procurement-stock",
+      "amount": "43.19"
+    },
+    {
+      "assemblyId": "site-installation",
+      "amount": "141"
+    },
+    {
+      "assemblyId": "winch-set",
+      "amount": "654.61"
+    }
+  ],
   "requirements": [
     {
       "partId": "bearing-608-2rs",
@@ -2577,6 +3433,8 @@
     "bauhaus-zinc-spray: Price and availability observation date is unknown; quote capture time is not verification time.",
     "bauhaus-zinc-spray: Qualification is baseline-selected; the recorded selection is not engineering approval.",
     "bauhaus-zinc-spray: Tax/VAT treatment is unknown.",
+    "camera-gimbal: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.",
+    "camera-pod-chassis: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.",
     "cotra-zagreb-corner-post-treated-timber: Availability is unknown.",
     "cotra-zagreb-corner-post-treated-timber: Package size/MOQ is unknown.",
     "cotra-zagreb-corner-post-treated-timber: Price and availability observation date is unknown; quote capture time is not verification time.",
@@ -2588,6 +3446,8 @@
     "dive-store-dyneema-positioning-line: Qualification is baseline-selected; the recorded selection is not engineering approval.",
     "dive-store-dyneema-positioning-line: Tax/VAT treatment is unknown.",
     "dive-store-hr: Shipping tax/VAT treatment is unknown.",
+    "dock-funnel: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.",
+    "dock-nest: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.",
     "hr-zagreb: Destination tax/VAT status is unknown and blocks a complete landed total.",
     "in-house-fabrication-camera-gimbal: Price and availability observation date is unknown; quote capture time is not verification time.",
     "in-house-fabrication-camera-gimbal: Price is unknown.",
@@ -2664,6 +3524,7 @@
     "tme-raspberry-pi-pico-2-w: Price and availability observation date is unknown; quote capture time is not verification time.",
     "tme-raspberry-pi-pico-2-w: Qualification is baseline-selected; the recorded selection is not engineering approval.",
     "tme-raspberry-pi-pico-2-w: Tax/VAT treatment is unknown.",
+    "top-pulley-keeper: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.",
     "unresolved-winch-drum-joining-hardware: Destination quote row is missing.",
     "unresolved-winch-drum-joining-hardware: Package size/MOQ is unknown.",
     "unresolved-winch-drum-joining-hardware: Price is unknown.",
@@ -2673,6 +3534,9 @@
     "unresolved-winch-mount-hardware: Price is unknown.",
     "unresolved-winch-mount-hardware: Qualification is unresolved; the recorded selection is not engineering approval.",
     "wasi-barton-30mm: Qualification is baseline-selected; the recorded selection is not engineering approval.",
-    "wasi-barton-30mm: Tax/VAT treatment is unknown."
+    "wasi-barton-30mm: Tax/VAT treatment is unknown.",
+    "winch-drum: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.",
+    "winch-full-cover: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.",
+    "winch-mount-and-guard: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved."
   ]
 }

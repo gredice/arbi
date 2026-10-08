@@ -77,6 +77,8 @@ export function renderMarkdown(result: CalculationResult): string {
     "- Known partial subtotal: **" +
       money(result.knownSubtotal, result.reportCurrency) +
       "**",
+    "- Estimated print materials: **" + money(result.estimatedMaterialSubtotal, result.reportCurrency) + "**",
+    "- Estimated partial subtotal (known amounts + print materials): **" + money(result.estimatedPartialSubtotal, result.reportCurrency) + "**",
     "",
     result.complete
       ? "The committed evidence is sufficient for this pinned calculation. Changing destination, supplier selection, availability, or quote date requires a new scenario or quote snapshot."
@@ -106,6 +108,14 @@ export function renderMarkdown(result: CalculationResult): string {
       " |",
     "",
     "Multi-part bundles of countable components are allocated by purchased part count, including surplus, with cents distributed deterministically. These shares are accounting allocations, not individual supplier prices. Unselected contents or bundles without comparable part counts remain in the shared bundle bucket; shipping remains separate.",
+  );
+  lines.push("", "## Estimated print material costs", "",
+    "Solid CAD volume × material density × single-spool price / spool grams. These consumption estimates exclude supports, purge, failures, energy, machine time, labour, filament shipping and destination VAT adjustments. They do not make the landed total complete.", "",
+    "| Part | Required | Material | Estimated weight | Estimated material cost |", "| --- | ---: | --- | ---: | ---: |");
+  for (const estimate of result.fabrication) {
+    lines.push(`| [${estimate.partId}](parts/${estimate.partId}.md) | ${estimate.required} | ${estimate.materialId.toUpperCase()} | ${estimate.weightGrams} g | ${estimate.materialCost === null ? "unknown" : money(estimate.materialCost, result.reportCurrency)} |`);
+  }
+  lines.push(
     "",
     "## Non-physical procurement bucket",
     "",

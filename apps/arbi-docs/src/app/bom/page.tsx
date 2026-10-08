@@ -14,9 +14,9 @@ export default function Bom() {
         : [{ ...p, group: "not in v1 build" }]);
     const groups = Map.groupBy(lines, (p) => p.group);
     const head: [string, string][] = [
-        [fmt.eur(sum.knownSubtotal), "Known partial subtotal"],
+        [fmt.eur(sum.estimatedPartialSubtotal), "Estimated partial subtotal"],
         ["Unavailable", "Complete landed total"],
-        [fmt.eur(sum.knownGoodsSubtotal), "Known goods"],
+        [fmt.eur(sum.estimatedMaterialSubtotal), "Estimated print materials"],
         [String(sum.warningCount), "Open warnings"],
     ];
     return (
@@ -41,7 +41,10 @@ export default function Bom() {
                 <p className="tag border-b border-ink py-3">
                     Status: {sum.complete ? "complete" : "incomplete"} · {sum.destinationName} · quote {sum.quoteSnapshotId} · null values are never treated as zero
                 </p>
-                <p className="text-[13px] pt-3">
+                <p className="border-b border-hair py-3 text-[13px]">
+                    Includes {fmt.eur(sum.knownGoodsSubtotal)} known goods, {fmt.eur(sum.knownShippingSubtotal)} known shipping, {fmt.eur(sum.knownCustomsSubtotal)} known customs and {fmt.eur(sum.estimatedMaterialSubtotal)} estimated print materials.
+                    Printed weights use solid CAD volume and material density. Costs use Bambu Lab single-spool prices, with no bulk discount.
+                    Supports, purge, failed prints, energy, machine time, labour, filament shipping and destination VAT adjustments remain unresolved.
                     Bundle goods are allocated by purchased part count, including surplus. Allocated shares are not individual supplier prices; shipping stays separate.
                 </p>
                 {[...groups].map(([group, list]) => (
@@ -49,9 +52,8 @@ export default function Bom() {
                         <div className="flex items-end justify-between">
                             <h2 className="cond text-[30px] leading-none">{site.bom.assemblies.find((a) => a.id === group)?.name ?? group}</h2>
                             <span className="tag">
-                                {list.length} items · {fmt.eur(group === "shared-procurement-stock"
-                                    ? sum.sharedProcurementStockKnownGoods
-                                    : sum.assemblyKnownGoods.find((x) => x.assemblyId === group)?.amount)}
+                                {list.length} items · {fmt.eur(sum.assemblyPartialGoods.find((x) => x.assemblyId === group)?.amount)}
+                                {sum.assemblyEstimatedMaterials.some((x) => x.assemblyId === group) ? " incl. estimates" : ""}
                             </span>
                         </div>
                         <table className="mt-3 w-full table-fixed border-t-2 border-ink text-[13px]">
@@ -62,7 +64,7 @@ export default function Bom() {
                                     <th className="w-14 text-right">Qty</th>
                                     <th className="hidden pl-6 md:table-cell md:w-[18%]">Supplier</th>
                                     <th className="hidden md:table-cell md:w-[20%]">Qualification</th>
-                                    <th className="w-22 text-right">Known</th>
+                                    <th className="w-24 text-right">Cost</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -73,6 +75,11 @@ export default function Bom() {
                                             <Link href={`/bom/${p.id}`} className="hover:underline">
                                                 {p.name}
                                             </Link>
+                                            {p.printEstimate && (
+                                                <div className="tag mt-1 mb-2 text-[10px]">
+                                                    {p.printEstimate.materialId.toUpperCase()} · {p.printEstimate.weightGrams} g total · solid-volume estimate
+                                                </div>
+                                            )}
                                         </td>
                                         <td className="mono text-right">
                                             {p.required ?? "—"}
@@ -81,7 +88,8 @@ export default function Bom() {
                                         <td className="tag hidden pl-6 pr-4 [overflow-wrap:anywhere] md:table-cell">{p.supplierId ?? "—"}</td>
                                         <td className="tag hidden pr-4 [overflow-wrap:anywhere] md:table-cell">{fmt.status(p.qualification ?? "no offer")}</td>
                                         <td className="mono text-right">
-                                            {p.knownGoods !== null ? fmt.eur(p.knownGoods) : "—"}
+                                            {p.printEstimate ? <><span>{fmt.eur(p.printEstimate.materialCost)}</span><div className="tag text-[10px]">est. material</div></>
+                                                : p.knownGoods !== null ? fmt.eur(p.knownGoods) : "—"}
                                             {p.goodsAllocationBasis === "part-count" && <span className="tag block text-[9px]">Bundle share</span>}
                                         </td>
                                     </tr>

@@ -4,6 +4,7 @@ import {
   roundUpToIncrement,
 } from "./decimal.js";
 import { validateRepository } from "./validate.js";
+import { estimatePrintMaterials } from "./fabrication.js";
 import type {
   BomRepository,
   CalculationResult,
@@ -550,6 +551,33 @@ export function calculateBom(
       };
     });
 
+  const fabrication = [];
+  const assemblyMaterials = new Map<string, Decimal>();
+  let estimatedMaterials = Decimal.zero();
+  for (const recipe of repository.fabrication.recipes) {
+    const requirement = requirements.get(recipe.partId);
+    if (!requirement || recipe.buildId !== build.id) continue;
+    const offerId = scenario.selection.pins[recipe.partId];
+    // Bought parts use their quoted price. A complete fabrication quote also
+    // supersedes the consumption estimate, so the same part is never charged twice.
+    if (offerId && (offerById.get(offerId)?.supplierId !== "in-house-fabrication" || knownGoodsByOffer.has(offerId))) continue;
+    if (repository.fabrication.destinationId !== scenario.destinationId) {
+      globalWarnings.add(`${recipe.partId}: No filament price evidence for this destination.`);
+      continue;
+    }
+    const estimate = estimatePrintMaterials(repository, recipe, requirement.quantity.toString(), scenario.reportCurrency);
+    fabrication.push(estimate);
+    globalWarnings.add(`${recipe.partId}: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.`);
+    if (estimate.materialCost === null) {
+      globalWarnings.add(`${recipe.partId}: Filament price or currency conversion is unknown.`);
+      continue;
+    }
+    const amount = Decimal.parse(estimate.materialCost);
+    estimatedMaterials = estimatedMaterials.add(amount);
+    for (const allocation of allocateByWeight(amount, [...requirement.assemblies.entries()].map(([id, weight]) => ({ id, weight })))) {
+      assemblyMaterials.set(allocation.id, (assemblyMaterials.get(allocation.id) ?? Decimal.zero()).add(allocation.amount));
+    }
+  }
   const warnings = [...globalWarnings].sort();
   const complete = warnings.length === 0;
   const knownSubtotal = knownGoods.add(knownShipping).add(knownCustoms);
@@ -570,6 +598,16 @@ export function calculateBom(
     customs,
     knownShippingSubtotal: knownShipping.toString(),
     knownSubtotal: knownSubtotal.toString(),
+    estimatedMaterialSubtotal: estimatedMaterials.toString(),
+    estimatedPartialSubtotal: knownSubtotal.add(estimatedMaterials).toString(),
+    fabrication: fabrication.sort((a, b) => a.partId.localeCompare(b.partId)),
+    printReferences: repository.fabrication.recipes.filter((recipe) => recipe.buildId === build.id)
+      .map((recipe) => estimatePrintMaterials(repository, recipe, "1", scenario.reportCurrency))
+      .sort((a, b) => a.partId.localeCompare(b.partId)),
+    assemblyEstimatedMaterials: [...assemblyMaterials.entries()].sort(([a], [b]) => a.localeCompare(b))
+      .map(([assemblyId, amount]) => ({ assemblyId, amount: amount.toString() })),
+    assemblyPartialGoods: [...new Set([...assemblyAmounts.keys(), ...assemblyMaterials.keys()])].sort()
+      .map((assemblyId) => ({ assemblyId, amount: (assemblyAmounts.get(assemblyId) ?? Decimal.zero()).add(assemblyMaterials.get(assemblyId) ?? Decimal.zero()).toString() })),
     requirements: requirementResults,
     selections,
     shipping,

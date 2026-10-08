@@ -306,7 +306,7 @@ test("unknown bundle prices and incompatible counts remain unallocated", async (
   assert.equal(calculated.sharedBundleGoods, kit.knownGoodsAmount);
 });
 
-test("in-house fabrication costs remain unknown rather than zero", async () => {
+test("full in-house fabrication quotes remain unknown despite separate material estimates", async () => {
   const repository = await loadBomRepository(repositoryRoot);
   const inHouseIds = new Set(
     repository.offers.offers
