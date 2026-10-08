@@ -48,7 +48,7 @@
           "type": "object",
           "minProperties": 1,
           "propertyNames": {
-            "pattern": "^hardware/(?!.*\\.\\.).+\\.(scad|json)$"
+            "pattern": "^hardware/(?!generated/)(?!.*\\.\\.).+\\.(scad|json)$"
           },
           "additionalProperties": {
             "type": "string",

@@ -8,9 +8,17 @@ import { calculateBom } from "./calculate.js";
 import { Decimal } from "./decimal.js";
 import { estimatePrintMaterials } from "./fabrication.js";
 import { loadBomRepository } from "./load.js";
+import { assertJsonSchema } from "./schema-validation.js";
 import { validateRepository } from "./validate.js";
 
 const root = fileURLToPath(new URL("../../../", import.meta.url));
+
+test("print evidence cannot require an ignored local booklet source copy", async () => {
+  const fabrication = JSON.parse(await readFile(join(root, "bom/catalog/fabrication.json"), "utf8"));
+  fabrication.geometry.sourceHashes = { "hardware/generated/booklet/source/model.scad": "a".repeat(64) };
+  await assert.rejects(assertJsonSchema("fabrication.json", fabrication,
+    join(root, "bom/schemas/fabrication.schema.json")), /sourceHashes.*pattern/);
+});
 
 test("weight costing uses density and the conditional bulk rate, without rounding to whole rolls", async () => {
   const repository = await loadBomRepository(root);
