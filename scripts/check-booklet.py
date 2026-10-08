@@ -10,6 +10,13 @@ from pypdf import PdfReader
 
 
 def check(root, variant):
+    if variant == 'corner':
+        import importlib.util
+        spec = importlib.util.spec_from_file_location('corner_check', Path(__file__).parent/'corner-support/check.py')
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        module.check(root)
+        return
     artifact, pages, revision, label = {
         'winch': ('ARBI-winch', 20, 9, 'PASSIVE / COVER KIT'),
         'bench': ('ARBI-payload', 14, 4, 'MOUNT SET / BENCH EDITION'),
@@ -96,6 +103,6 @@ def check(root, variant):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('root', type=Path)
-    parser.add_argument('--variant', required=True, choices=['winch', 'bench', 'enclosure'])
+    parser.add_argument('--variant', required=True, choices=['winch', 'bench', 'enclosure', 'corner'])
     args = parser.parse_args()
     check(args.root.resolve(), args.variant)

@@ -6,6 +6,13 @@ Each of four corner stations reacts positioning-line load and routes one line be
 
 One corner station also supports the [dock](../dock/README.md). Dock loads and clearances must be included in that station's variant.
 
+The [corner support design package](design-package.md) supplies the proposed
+round-pole head, dimensioned drilling/fastener stacks, removable shields,
+assembly booklet builder and [acceptance record](acceptance-record.md).
+Its proposed 200 mm angle corrects a nominal tangent-depth mismatch with the
+round-pole winch. It remains `concept-unvalidated`; the historical 150 mm
+drill-only bracket below remains the purchasing baseline pending review.
+
 ## V1 starting geometry
 
 | Property | Starting value | Status |
@@ -47,7 +54,10 @@ The repository baseline calls for one weather-resistant marine single block per 
 - known load rating and suitable groove geometry;
 - removable printed keeper that does not carry structural load.
 
-Specific supplier offers belong in the BOM. Two differently described preferred pulley choices currently use the same product URL; verify manufacturer and SKU before selection.
+The [purchase record](../../../bom/sourcing/wasi-pulley-2026-10-08.md) identifies
+four received WASI Barton BA01090 30 mm plain-bearing double-tang blocks.
+Inspect their tang/pin geometry and thin-line retention before selection for
+loaded operation. Supplier offers and receipt do not prove engineering fit.
 
 ## Drill-only bracket baseline
 
@@ -88,6 +98,9 @@ The removable keeper should:
 - permit inspection and removal without unloading the structural bracket.
 
 ASA is preferred for outdoor use. PETG is prototype-only pending creep, temperature, and weather evidence. The print is expressly non-structural.
+The legacy keeper defaults to 58 mm and is not fitted to the received 30 mm
+block. The proposed white weather shields leave the pulley exposed and do not
+close hazardous side gaps; keeper acceptance remains open.
 
 ## Winch and line alignment
 

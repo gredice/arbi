@@ -1177,6 +1177,102 @@
             "output": "payload-integrated-camera-hood-r0.1.1.stl",
             "documentation": "hardware/assemblies/camera-pod/README.md",
             "description": "Rounded white optical eye surround with a circular front aperture, preserved rear camera cavity and mounting axes, and front fastener-access tunnels; physical and imaging performance unverified."
+        },
+        {
+            "id": "corner-head-hood",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "corner-head-weather-kit"
+            ],
+            "assembly": "corner-station",
+            "entrypoint": "hardware/assemblies/corner-station/corner-head-hood.scad",
+            "output": "corner-head-hood-r0.1.0.stl",
+            "documentation": "hardware/assemblies/corner-station/README.md",
+            "description": "Non-structural warm-white angle hood; exposed pulley and open drainage; straps require physical qualification."
+        },
+        {
+            "id": "corner-head-rear-cover",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "corner-head-weather-kit"
+            ],
+            "assembly": "corner-station",
+            "entrypoint": "hardware/assemblies/corner-station/corner-head-rear-cover.scad",
+            "output": "corner-head-rear-cover-r0.1.0.stl",
+            "documentation": "hardware/assemblies/corner-station/README.md",
+            "description": "Removable warm-white rear nut shield; matching post and bolt-length variant required."
+        },
+        {
+            "id": "corner-head-front-saddle",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "corner-head-round-saddles"
+            ],
+            "assembly": "corner-station",
+            "entrypoint": "hardware/assemblies/corner-station/corner-head-front-saddle.scad",
+            "output": "corner-head-front-saddle-r0.1.0.stl",
+            "documentation": "hardware/assemblies/corner-station/README.md",
+            "description": "Machined METAL front saddle for the proposed 200 mm angle on nominal 120 mm round timber; never print for load."
+        },
+        {
+            "id": "corner-head-rear-saddle",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "corner-head-round-saddles"
+            ],
+            "assembly": "corner-station",
+            "entrypoint": "hardware/assemblies/corner-station/corner-head-rear-saddle.scad",
+            "output": "corner-head-rear-saddle-r0.1.0.stl",
+            "documentation": "hardware/assemblies/corner-station/README.md",
+            "description": "Machined METAL rear saddle for two stacked 100 x 200 mm plates on nominal 120 mm timber; never print for load."
+        },
+        {
+            "id": "corner-head-marking-template",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "corner-head-marking-template"
+            ],
+            "assembly": "corner-station",
+            "entrypoint": "hardware/assemblies/corner-station/corner-head-marking-template.scad",
+            "output": "corner-head-marking-template-r0.1.0.stl",
+            "documentation": "hardware/assemblies/corner-station/README.md",
+            "description": "Reusable 45/155 mm centre marking aid for the proposed 200 mm head; not a powered drill guide."
+        },
+        {
+            "id": "corner-head-assembly",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "reference",
+            "bomPartIds": [],
+            "assembly": "corner-station",
+            "entrypoint": "hardware/assemblies/corner-station/corner-head-assembly.scad",
+            "output": "corner-head-assembly-r0.1.0.csg",
+            "documentation": "hardware/assemblies/corner-station/README.md",
+            "description": "Through-bolted 200 mm corner head with round saddles, removable shields and provisional purchased-block connection; not structural approval."
+        },
+        {
+            "id": "corner-head-roof",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "corner-head-weather-kit"
+            ],
+            "assembly": "corner-station",
+            "entrypoint": "hardware/assemblies/corner-station/corner-head-roof.scad",
+            "output": "corner-head-roof-r0.1.0.stl",
+            "documentation": "hardware/assemblies/corner-station/README.md",
+            "description": "Separate non-structural white angle roof; lift 20 mm then slide laterally for service."
         }
     ]
 }

@@ -2,6 +2,38 @@
 
 System context: [Corner station assembly documentation](../../../docs/assemblies/corner-station/README.md).
 
+## Through-bolted corner head package
+
+The [design package](../../../docs/assemblies/corner-station/design-package.md)
+adds a proposed 200 mm angle arrangement aligned with the round-pole winch,
+metal saddle fit solids, removable white weather shields, a shared marking aid,
+actual-mesh instructions and explicit acceptance inputs. All seven registered
+entrypoints are r0.1.0, `concept-unvalidated`. The 150 mm square arrangement is
+a separately labelled historical study, not a combined build kit.
+
+| Model | Purpose |
+| --- | --- |
+| [corner-head-hood](corner-head-hood.scad) | Non-structural front weather shield, open below |
+| [corner-head-roof](corner-head-roof.scad) | Separate lift-off angle roof with independent retention strap |
+| [corner-head-rear-cover](corner-head-rear-cover.scad) | Non-structural rear nut shield |
+| [corner-head-front-saddle](corner-head-front-saddle.scad) | Machined **metal** round-post front seating envelope |
+| [corner-head-rear-saddle](corner-head-rear-saddle.scad) | Machined **metal** full-width rear seating envelope |
+| [corner-head-marking-template](corner-head-marking-template.scad) | Shared centre marking aid; remove before powered drilling |
+| [corner-head-assembly](corner-head-assembly.scad) | Installed/exploded purchased-hardware layout reference |
+
+Parameters live in [corner-head.scad](../../lib/corner-head.scad). Match
+`post_shape`, `post_size_mm`, `bracket_leg_mm` and `line_diameter_mm` across all
+exports. Default is round/120/200/1.5; the 4.5 mm powered assumption uses a
+different terminal position. Use `bracket_leg_mm=150`, `post_shape="square"`,
+`post_size_mm=100` only for the historical square study.
+
+[Build instructions](../../../scripts/corner-support/README.md) produce the PDF,
+GLB, mesh figures, source/STL ZIP and nominal hash report. The bought block and
+connector are explicitly provisional envelopes; received pin/tang dimensions
+must be measured. Neither white shield is a fitted line keeper. Do not print
+the saddles as structural parts. See [nominal checks](../../../docs/assemblies/corner-station/geometry-check.md)
+and [physical acceptance](../../../docs/assemblies/corner-station/acceptance-record.md).
+
 ## Round-pole pulley mount concept
 
 The [split-clamp proposal and dimensions](pole-pulley-mount.md) define an adjustable

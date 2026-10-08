@@ -1,23 +1,23 @@
-# M12 × 160 galvanized 8.8 through-bolt for pulley bracket
+# Proposed round-head M12 through-bolt pair
 
 > Generated from canonical BOM inputs by `pnpm bom:generate`. Do not edit this page by hand.
 
 [BOM](../../README.md) · [All items](README.md) · [Canonical part catalog](../../catalog/parts.json)
 
-- Part ID: `pulley-bracket-through-bolt-m12x160`
+- Part ID: `corner-head-through-bolts`
 - Unit: each
 - Kind: component
-- Lifecycle: active
+- Lifecycle: planned
 - Disciplines: mechanical
 - Traits: fastener, off-the-shelf
 
 ## Requirements
 
-- DIN 931, class 8.8, galvanized M12 × 160 mm hex through-bolt; two per post. Length suits 100–120 mm timber plus 5 mm angle, two 2 mm backing plates, washers and locking nut; confirm against actual stack before purchase.
+- Two M12 galvanized 8.8 bolts per round head: nominal 160/180/200 mm lengths for 100/120/140 mm timber with two 10 mm saddles. Check full nut/locking engagement and >=2 protruding threads on received stack. Replaces the baseline M12 x 160 pair.
 
 ## Notes
 
-Project uses 8; linked BAUHAUS product is sold as a 40-piece box. Do not use DIN 571 wood/coach screws. Does not cover a 120/140 mm round-head stack with the proposed metal saddles; use the separately reviewed replacement pair.
+Proposed package; excluded from the baseline scenario. See docs/assemblies/corner-station/design-package.md. No supplier price or engineering qualification asserted.
 
 ## Used in
 
@@ -25,12 +25,12 @@ Quantities are per assembly definition, before build multipliers. Optional and d
 
 | Assembly or purchasing bucket | Quantity | Inclusion | Usage note |
 | --- | ---: | --- | --- |
-| [Corner support set](../../../docs/assemblies/corner-station/README.md) | 8 each | base | — |
+| [Corner support set](../../../docs/assemblies/corner-station/README.md) | 4 each | optional | Alternative: four pairs replace eight baseline M12 x 160 bolts; length depends on timber. |
 
 [Canonical assembly quantities](../../assemblies/assemblies.json)
 
 ## BOM reports
 
-- [ARBI V1 — Zagreb repository baseline](../arbi-v1-hr-zagreb.md#required-parts-by-physical-owner-or-procurement-bucket) — included.
+- [ARBI V1 — Zagreb repository baseline](../arbi-v1-hr-zagreb.md) — not included by this build/inclusion policy.
 
 Catalog lifecycle, procurement, and generated documentation do not establish physical validation. See the owning assembly for evidence and acceptance requirements.

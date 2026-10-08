@@ -88,6 +88,48 @@
           "partId": "zinc-spray",
           "quantity": "1",
           "inclusion": "base"
+        },
+        {
+          "partId": "corner-head-weather-kit",
+          "quantity": "4",
+          "inclusion": "optional",
+          "note": "Optional three-piece non-structural shield kit, not a line keeper."
+        },
+        {
+          "partId": "corner-head-round-saddles",
+          "quantity": "4",
+          "inclusion": "optional",
+          "note": "Round poles only: four pairs (eight metal parts)."
+        },
+        {
+          "partId": "corner-head-marking-template",
+          "quantity": "1",
+          "inclusion": "optional",
+          "note": "One shared reusable tool, not four installed parts."
+        },
+        {
+          "partId": "corner-head-retention-straps",
+          "quantity": "12",
+          "inclusion": "optional",
+          "note": "Three per shield kit (two stem/rear, one roof); replace when removed."
+        },
+        {
+          "partId": "corner-head-angle-200",
+          "quantity": "4",
+          "inclusion": "optional",
+          "note": "Alternative: replace all four baseline 150 mm angles; do not add both."
+        },
+        {
+          "partId": "corner-head-through-bolts",
+          "quantity": "4",
+          "inclusion": "optional",
+          "note": "Alternative: four pairs replace eight baseline M12 x 160 bolts; length depends on timber."
+        },
+        {
+          "partId": "corner-guy-post-connection",
+          "quantity": "4",
+          "inclusion": "deferred",
+          "note": "Required unresolved structural interface; quantity allowance only, no installation approval."
         }
       ],
       "documentation": "docs/assemblies/corner-station/README.md"

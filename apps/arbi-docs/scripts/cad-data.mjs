@@ -31,6 +31,26 @@ export function packIsCurrent(files, outputs, root, kind) {
   try {
     const meshes = Object.keys(files).filter((n) => /^models\/(printable|arbi)\/.+\.stl$/.test(n));
     if (!meshes.length || meshes.some((n) => !outputs.has(basename(n)))) return false;
+    if (kind === 'corner') {
+      const manifest = parse(files['manifest.json']).files_sha256;
+      for (const [path, digest] of Object.entries(manifest)) {
+        if (!files[path] || sha256(files[path]) !== digest) return false;
+      }
+      if (!manifest['figure-manifest.json'] || !manifest['geometry-report.json']) return false;
+      const report = parse(files['geometry-report.json']);
+      const sourcePaths = Object.keys(report.sources_sha256);
+      if (!sourcePaths.includes('hardware/lib/corner-head.scad') || !sourcePaths.includes('scripts/corner-support/build.py')) return false;
+      for (const path of sourcePaths) {
+        const local = join(root, path);
+        const packed = files[`source/repository/${path}`];
+        if (!packed || !existsSync(local) || sha256(packed) !== report.sources_sha256[path]
+          || sha256(readFileSync(local)) !== report.sources_sha256[path]) return false;
+      }
+      for (const [path, digest] of Object.entries(report.mesh_sha256)) {
+        if (!files[path] || sha256(files[path]) !== digest) return false;
+      }
+      return Boolean(files['figure-manifest.json']) && meshes.every((path) => report.mesh_sha256[path]);
+    }
     const provenance = parse(files['source-provenance.json']);
     const sourcePaths = Object.keys(provenance.source_hashes);
     if (['source/render_figures.py', 'source/build_booklet.py'].some((path) => !sourcePaths.includes(path) || !files[path])) return false;

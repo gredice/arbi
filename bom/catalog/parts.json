@@ -940,7 +940,7 @@
       "requirements": [
         "DIN 931, class 8.8, galvanized M12 × 160 mm hex through-bolt; two per post. Length suits 100–120 mm timber plus 5 mm angle, two 2 mm backing plates, washers and locking nut; confirm against actual stack before purchase."
       ],
-      "notes": "Project uses 8; linked BAUHAUS product is sold as a 40-piece box. Do not use DIN 571 wood/coach screws."
+      "notes": "Project uses 8; linked BAUHAUS product is sold as a 40-piece box. Do not use DIN 571 wood/coach screws. Does not cover a 120/140 mm round-head stack with the proposed metal saddles; use the separately reviewed replacement pair."
     },
     {
       "id": "pulley-bracket-washer-m12",
@@ -1111,7 +1111,7 @@
       "requirements": [
         "ASA preferred; PETG acceptable for prototype. Close side gaps around 1.5 mm Dyneema, keep line centred, prevent jump-off, shield direct rain/UV, drain below and remain removable for inspection."
       ],
-      "notes": "Non-structural only; must not carry pulley or cable load and should not rub the line during normal running.",
+      "notes": "Non-structural only; must not carry pulley or cable load and should not rub the line during normal running. The legacy default is a 58 mm keeper, not fitted to the purchased BA01090 30 mm block; it is not a completed guard for the corner-head package.",
       "fabrication": {
         "process": "openscad",
         "modelStatus": "concept-unvalidated",
@@ -1752,6 +1752,182 @@
         "Replace the flat-post through-bolts/backing stack when selecting this round-pole alternative; structural/bolt-bending qualification remains open."
       ],
       "notes": "No prices or supplier offers asserted. See hardware/assemblies/winch/round-pole.md."
+    },
+    {
+      "id": "corner-head-weather-kit",
+      "name": "Corner head removable weather shield kit",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "planned",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "fabricated",
+        "printed"
+      ],
+      "requirements": [
+        "One stem hood, one separate roof and one rear cover per station. Non-structural ASA candidate; pulley remains visible. Match post/angle/bolt configuration; three replaceable straps required."
+      ],
+      "notes": "Proposed package; excluded from the baseline scenario. See docs/assemblies/corner-station/design-package.md. No supplier price or engineering qualification asserted.",
+      "fabrication": {
+        "process": "openscad",
+        "modelStatus": "concept-unvalidated",
+        "sources": [
+          {
+            "path": "hardware/assemblies/corner-station/corner-head-hood.scad",
+            "module": "corner_head_hood",
+            "modelId": "corner-head-hood",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/corner-station/corner-head-rear-cover.scad",
+            "module": "corner_head_rear_cover",
+            "modelId": "corner-head-rear-cover",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/corner-station/corner-head-roof.scad",
+            "module": "corner_head_roof",
+            "modelId": "corner-head-roof",
+            "revision": "0.1.0"
+          }
+        ]
+      }
+    },
+    {
+      "id": "corner-head-round-saddles",
+      "name": "Corner head round-timber metal saddle pair",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "planned",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "fabricated"
+      ],
+      "requirements": [
+        "One front and one rear machined METAL saddle per round-pole station. Nominal 100/120/140 mm studies; measure taper/ovality. Material, contact, corrosion, tolerance and capacity require review. Do not print for structural use."
+      ],
+      "notes": "Proposed package; excluded from the baseline scenario. See docs/assemblies/corner-station/design-package.md. No supplier price or engineering qualification asserted.",
+      "fabrication": {
+        "process": "openscad",
+        "modelStatus": "concept-unvalidated",
+        "sources": [
+          {
+            "path": "hardware/assemblies/corner-station/corner-head-front-saddle.scad",
+            "module": "corner_head_front_saddle",
+            "modelId": "corner-head-front-saddle",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/corner-station/corner-head-rear-saddle.scad",
+            "module": "corner_head_rear_saddle",
+            "modelId": "corner-head-rear-saddle",
+            "revision": "0.1.0"
+          }
+        ]
+      }
+    },
+    {
+      "id": "corner-head-marking-template",
+      "name": "Corner head reusable centre marking template",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "planned",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "fabricated",
+        "printed"
+      ],
+      "requirements": [
+        "One shared 200 x 50 x 4 mm marking template, 45/155 mm centre pattern. Mark with 3 mm punch; remove before drilling. Check scale and actual bought angle holes."
+      ],
+      "notes": "Proposed package; excluded from the baseline scenario. See docs/assemblies/corner-station/design-package.md. No supplier price or engineering qualification asserted.",
+      "fabrication": {
+        "process": "openscad",
+        "modelStatus": "concept-unvalidated",
+        "sources": [
+          {
+            "path": "hardware/assemblies/corner-station/corner-head-marking-template.scad",
+            "module": "corner_head_marking_template",
+            "modelId": "corner-head-marking-template",
+            "revision": "0.1.0"
+          }
+        ]
+      }
+    },
+    {
+      "id": "corner-head-retention-straps",
+      "name": "Corner head replaceable shield retention straps",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "planned",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "Three independent outdoor UV-rated straps per head, <=2.5 mm wide and <=1 mm thick; starting length 800 mm. Two pass through stem/rear shields; one wraps the roof and steel arm; no structural retention role. Physical strength, creep, weather and retention qualification required."
+      ],
+      "notes": "Proposed package; excluded from the baseline scenario. See docs/assemblies/corner-station/design-package.md. No supplier price or engineering qualification asserted."
+    },
+    {
+      "id": "corner-head-angle-200",
+      "name": "Proposed 200 mm top-pulley steel angle",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "planned",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "200 x 40 x 200 mm, 5 mm galvanized steel angle. Replace the 150 mm angle; two 13 mm centres at 45/155 mm, terminal 9 mm hole 167.55 mm from front seat for passive line, 166.65 mm for powered. Existing factory holes/bend require inspection before drilling."
+      ],
+      "notes": "Proposed package; excluded from the baseline scenario. See docs/assemblies/corner-station/design-package.md. No supplier price or engineering qualification asserted."
+    },
+    {
+      "id": "corner-head-through-bolts",
+      "name": "Proposed round-head M12 through-bolt pair",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "planned",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "fastener",
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "Two M12 galvanized 8.8 bolts per round head: nominal 160/180/200 mm lengths for 100/120/140 mm timber with two 10 mm saddles. Check full nut/locking engagement and >=2 protruding threads on received stack. Replaces the baseline M12 x 160 pair."
+      ],
+      "notes": "Proposed package; excluded from the baseline scenario. See docs/assemblies/corner-station/design-package.md. No supplier price or engineering qualification asserted."
+    },
+    {
+      "id": "corner-guy-post-connection",
+      "name": "Reviewed guy-to-post attachment set",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "planned",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "fabricated"
+      ],
+      "requirements": [
+        "One independently reviewed metal guy-to-post attachment per station. Must define height, direction, load path, attachment to timber, connection sizes and corrosion compatibility. No design or capacity currently approved; do not substitute a strap, wood screw or weather cover."
+      ],
+      "notes": "Proposed package; excluded from the baseline scenario. See docs/assemblies/corner-station/design-package.md. No supplier price or engineering qualification asserted."
     }
   ]
 }
