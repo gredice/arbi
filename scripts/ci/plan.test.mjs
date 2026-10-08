@@ -87,7 +87,7 @@ test('new workspace manifests join the reverse dependency graph automatically', 
 });
 
 test('manual and shared tooling changes select all work; missing push baseline is conservative', () => {
-    for (const path of ['package.json', 'pnpm-lock.yaml', 'pnpm-workspace.yaml', 'tsconfig.base.json', 'turbo.json', '.nvmrc', '.npmrc', '.github/workflows/ci.yml', '.github/actions/setup-workspace/action.yml', 'scripts/ci/plan.mjs']) {
+    for (const path of ['.github/workflows/ci.yml', '.github/actions/setup-workspace/action.yml', 'scripts/ci/plan.mjs']) {
         const result = select(path);
         assert.deepEqual(names(result), workspaces.map((workspace) => workspace.name), path);
         for (const job of ['bom', 'cad', 'previews', 'booklets', 'recovery']) assert.equal(result[job], true, `${path}: ${job}`);
@@ -96,6 +96,18 @@ test('manual and shared tooling changes select all work; missing push baseline i
     assert.deepEqual(names(plan(null)), workspaces.map((workspace) => workspace.name));
     assert.equal(detectChanges('workflow_dispatch', {}), null);
     assert.equal(detectChanges('push', { before: '0'.repeat(40), after: '1'.repeat(40) }), null);
+});
+
+test('shared software tooling validates software without rendering or publishing unchanged hardware', () => {
+    for (const path of ['package.json', 'pnpm-lock.yaml', 'pnpm-workspace.yaml', '.nvmrc', '.npmrc', 'tsconfig.base.json', 'turbo.json']) {
+        const result = plan([{ path, status: 'M' }], { eventName: 'push' });
+        assert.deepEqual(names(result), workspaces.map((workspace) => workspace.name));
+        assert.equal(result.bom, true);
+        assert.equal(result.cad, !['tsconfig.base.json', 'turbo.json'].includes(path));
+        assert.equal(result.previews, false);
+        assert.equal(result.booklets, false);
+        assert.equal(result.release, false);
+    }
 });
 
 test('model documentation deletion triggers CAD; removed workspaces cannot vanish silently', () => {

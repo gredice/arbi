@@ -74,7 +74,10 @@ The standard Turbo commands cover implemented workspaces only. `docs:check` vali
 CAD releases. Its [planner](scripts/ci/plan.mjs) compares the complete pushed
 range on `main` or the PR merge base and head, treating renames as deletions and
 additions. Manual dispatches and unavailable push baselines validate everything.
-Shared toolchain, lockfile and CI tooling changes also select all checks.
+CI tooling changes also select all checks. Shared software toolchain and lockfile
+changes select every workspace, BOM and recovery checks; Node/dependency inputs
+also select CAD validation. They do not rebuild booklets/previews or publish an
+unchanged hardware release.
 
 Each affected workspace runs on its own runner. Internal `workspace:*`
 dependencies from package manifests select downstream consumers transitively;
