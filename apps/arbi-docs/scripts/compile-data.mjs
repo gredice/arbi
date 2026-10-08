@@ -20,15 +20,14 @@ import { unzipSync } from 'fflate';
 
 const APP = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const REPO = resolve(APP, '../..');
-const OUT = join(APP, 'public/data');
+const OUT = process.env.ARBI_DATA_DIR ? resolve(process.env.ARBI_DATA_DIR) : join(APP, 'public/data');
 const GITHUB = 'https://github.com/gredice/arbi';
 const CORE = [0.12, 0.14, 0.15];
 // Booklet packs: committed snapshot path, release asset name, installed/exploded figures.
 const PACKS = {
   pod: { snapshot: 'docs/assemblies/camera-pod/booklet/ARBI-payload-enclosure-STL-pack.zip', asset: 'ARBI-payload-enclosure-STL-pack.zip',
     exploded: ['overview-exploded', 'enclosure-exploded'] },
-  winch: { snapshot: 'docs/assemblies/winch/booklet/ARBI-winch-STL-pack.zip', asset: 'ARBI-winch-STL-pack.zip',
-    installed: 'cover-passive-installed', exploded: ['overview-exploded', 'cover-passive-exploded'] },
+  winch: { snapshot: 'docs/assemblies/winch/booklet/ARBI-winch-STL-pack.zip', asset: 'ARBI-winch-STL-pack.zip' },
 };
 
 const posix = (p) => p.split(sep).join('/');
@@ -167,14 +166,15 @@ function podScene({ files, source }, modelsByOutput) {
     configuration: assembly.configuration, figures: Object.keys(figures).sort(), parts };
 }
 
-function winchScene({ files, source }, modelsByOutput) {
+function winchScene({ files, source }, modelsByOutput, variant = 'passive') {
   const figures = parse(files['figure-manifest.json']);
   for (const [name, data] of Object.entries(files)) {
     if (name.startsWith('figures/') && name.endsWith('.png')) write(join(OUT, 'winch', name), data);
     else if (name.startsWith('models/') && name.endsWith('.stl')) write(join(OUT, 'winch', name), data);
   }
-  const installed = figures[PACKS.winch.installed].parts;
-  const pose = poseFigure(figures, PACKS.winch.exploded);
+  const installedFigure = `cover-${variant}-installed`;
+  const installed = figures[installedFigure].parts;
+  const pose = poseFigure(figures, [`cover-${variant}-exploded`]);
   const exploded = pose ? pairExploded(installed, pose.parts) : [];
   const parts = installed.map((p, i) => {
     const name = basename(p.file);
@@ -182,7 +182,7 @@ function winchScene({ files, source }, modelsByOutput) {
     return { node: `${String(i).padStart(3, '0')}-${name.replace(/\.stl$/, '')}`, model: model ? model.id : name.replace(/\.stl$/, ''),
       registered: Boolean(model), group: 'fixed', color: p.color, url: `winch/${p.file}`, matrix: p.matrix, explode: offsetOf(p.matrix, exploded[i]) };
   });
-  return { kind: 'stl', layout: 'assembly', figureDir: 'winch', hero: PACKS.winch.installed, source, pose: pose?.name ?? null, installedFigure: PACKS.winch.installed, figures: Object.keys(figures).sort(), parts };
+  return { kind: 'stl', layout: 'assembly', figureDir: 'winch', hero: installedFigure, source, pose: pose?.name ?? null, installedFigure, figures: Object.keys(figures).sort(), parts };
 }
 
 // Bounds of a binary or ASCII STL (OpenSCAD 2021.01 exports ASCII), for laying parts side by side.
@@ -231,7 +231,10 @@ function docs() {
   const linked = [...walk(join(REPO, 'docs'), (n) => n.endsWith('.md')), ...walk(join(REPO, 'hardware'), (n) => n.endsWith('.md'), ['generated']), join(REPO, 'bom/README.md')];
   for (const path of linked) texts[rel(path)] = readFileSync(path, 'utf8');
   write(join(OUT, 'docs.json'), texts);
-  for (const img of walk(join(REPO, 'docs'), (n) => n.endsWith('.png'))) cpSync(img, join(OUT, rel(img)));
+  for (const img of walk(join(REPO, 'docs'), (n) => /\.(png|svg)$/.test(n))) {
+    mkdirSync(dirname(join(OUT, rel(img))), { recursive: true });
+    cpSync(img, join(OUT, rel(img)));
+  }
   return entries;
 }
 
@@ -274,7 +277,9 @@ const snapshotFiles = walk(join(REPO, 'docs'), (n) => /\.(pdf|zip)$/.test(n)).co
 const packListings = Object.fromEntries(snapshotFiles.filter((p) => p.endsWith('.zip')).map((p) => [rel(p), Object.keys(unzipSync(readFileSync(p))).map((n) => basename(n))]));
 
 const pod = podScene(await choosePack('pod', release, outputs), modelsByOutput);
-const winch = winchScene(await choosePack('winch', release, outputs), modelsByOutput);
+const winchPack = await choosePack('winch', release, outputs);
+const winch = winchScene(winchPack, modelsByOutput);
+const poweredWinch = winchScene(winchPack, modelsByOutput, 'powered');
 
 // Per-model mesh for 3D: pod GLB node, booklet-pack STL, else verified release STL.
 const meshes = {};
@@ -293,7 +298,7 @@ for (const m of registry.models) {
   }
 }
 
-const scenes = { 'camera-pod': pod, winch };
+const scenes = { 'camera-pod': pod, winch, 'winch-powered': poweredWinch };
 for (const slug of [...new Set(registry.models.map((m) => m.assembly))]) {
   if (scenes[slug]) continue;
   const lineup = lineupScene(slug, registry.models.filter((m) => m.assembly === slug && m.artifactRole === 'fabrication'), meshes);

@@ -14,13 +14,14 @@ type Props = {
     caption: string;
     nav: { slug: string; number: string; name: string }[];
     current: string;
+    variants: { slug: string; name: string }[];
     inventory: InventoryItem[];
     inventoryNote: string;
     children: ReactNode;
 };
 
 /** Black exploded-view stage with numbered bubbles, hover-synced with the parts inventory. */
-export function SystemExplorer({ number, name, scene, caption, nav, current, inventory, inventoryNote, children }: Props) {
+export function SystemExplorer({ number, name, scene, caption, nav, current, variants, inventory, inventoryNote, children }: Props) {
     const router = useRouter();
     const stage = useRef<HTMLDivElement>(null);
     const calls = useRef<HTMLDivElement>(null);
@@ -61,7 +62,7 @@ export function SystemExplorer({ number, name, scene, caption, nav, current, inv
             if (!alive) return;
             const lineup = scene.layout === "lineup";
             viewer.setExplode(1);
-            viewer.frame({ distance: lineup ? 0.72 : scene.kind === "glb" ? 0.8 : 0.78, elevation: lineup ? 0.35 : scene.kind === "glb" ? 0.22 : 0.5 });
+            viewer.frame({ distance: 1.05, elevation: lineup ? 0.35 : scene.kind === "glb" ? 0.22 : 0.5 });
             setCanExplode(viewer.canExplode);
         });
         return () => {
@@ -105,12 +106,22 @@ export function SystemExplorer({ number, name, scene, caption, nav, current, inv
                 <div className="pointer-events-none absolute top-6 left-0 z-20 px-4 sm:px-6">
                     <div className="cond text-[96px] leading-[0.8]">{number}</div>
                     <h1 className="cond mt-3 text-[48px] leading-[0.9]">{name}</h1>
+                    {variants.length > 0 && (
+                        <nav aria-label="Winch configuration" className="pointer-events-auto mt-4 flex flex-wrap gap-2">
+                            {variants.map((variant) => (
+                                <Link key={variant.slug} href={`/systems/${variant.slug}`} aria-current={variant.slug === current ? "page" : undefined}
+                                    className={`tag border border-paper px-3 py-2 ${variant.slug === current ? "bg-paper text-ink" : "hover:bg-paper hover:text-ink"}`}>
+                                    {variant.name}
+                                </Link>
+                            ))}
+                        </nav>
+                    )}
                 </div>
                 <div className="absolute bottom-6 left-0 z-20 flex flex-wrap items-center gap-2 px-4 sm:px-6">
                     {canExplode && (
                         <label className="flex items-center gap-3 border border-paper px-3 py-2">
                             <span className="tag">Assembled</span>
-                            <input type="range" min={0} max={1} step={0.01} defaultValue={1} className="w-40 accent-white" onChange={(e) => viewerRef.current?.setExplode(Number(e.target.value))} />
+                            <input aria-label="Assembly explosion" type="range" min={0} max={1} step={0.01} defaultValue={1} className="w-40 accent-white" onChange={(e) => viewerRef.current?.setExplode(Number(e.target.value))} />
                             <span className="tag">Exploded</span>
                         </label>
                     )}
@@ -122,7 +133,7 @@ export function SystemExplorer({ number, name, scene, caption, nav, current, inv
                             key={s.slug}
                             href={`/systems/${s.slug}`}
                             title={s.name}
-                            className={`tag border border-paper/40 px-2.5 py-1.5 ${s.slug === current ? "bg-paper text-ink" : "text-paper/70 hover:text-paper"}`}
+                            className={`tag border border-paper/40 px-2.5 py-1.5 ${s.slug === current || (current === "winch-powered" && s.slug === "winch") ? "bg-paper text-ink" : "text-paper/70 hover:text-paper"}`}
                         >
                             {s.number}
                         </Link>

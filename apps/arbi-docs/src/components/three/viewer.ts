@@ -7,6 +7,7 @@ import { STLLoader } from "three/addons/loaders/STLLoader.js";
 import { toCreasedNormals } from "three/addons/utils/BufferGeometryUtils.js";
 import type { MeshRef, Scene, ScenePart, Vec3 } from "@/lib/types";
 import { OutlineGeometry } from "./outlines";
+import { configurePageControls } from "./page-controls";
 
 const DATA = "/data/";
 
@@ -96,14 +97,14 @@ export class Viewer {
 
     constructor(
         private el: HTMLElement,
-        private options: { style?: ViewerStyle; autoRotate?: boolean; fov?: number; interactive?: boolean; zoom?: boolean } = {},
+        private options: { style?: ViewerStyle; autoRotate?: boolean; fov?: number; interactive?: boolean; animate?: boolean; outlineOpacity?: number } = {},
     ) {
         const style = (this.options.style ??= "light");
         const r = (this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }));
         r.setPixelRatio(Math.min(devicePixelRatio, 2));
         r.outputColorSpace = THREE.SRGBColorSpace;
         r.toneMapping = THREE.NeutralToneMapping;
-        r.domElement.style.cssText = "width:100%;height:100%;display:block;touch-action:none";
+        r.domElement.style.cssText = "width:100%;height:100%;display:block";
         el.appendChild(r.domElement);
         if (ENV[style]) {
             this.scene.environment = new THREE.PMREMGenerator(r).fromScene(new RoomEnvironment(), 0.04).texture;
@@ -119,7 +120,7 @@ export class Viewer {
         this.controls.autoRotate = options.autoRotate ?? false;
         this.controls.autoRotateSpeed = 0.6;
         this.controls.enabled = options.interactive ?? true;
-        this.controls.enableZoom = options.zoom ?? true;
+        configurePageControls(this.controls);
         if (this.controls.enabled) this.bindPointer();
         this.resizeObserver = new ResizeObserver(() => this.resize());
         this.resizeObserver.observe(el);
@@ -132,7 +133,7 @@ export class Viewer {
             requestAnimationFrame(tick);
             if (this.visible) this.render();
         };
-        tick();
+        if (options.animate !== false) tick();
     }
 
     on<K extends keyof Events>(event: K, fn: Events[K]) {
@@ -163,6 +164,9 @@ export class Viewer {
         this.renderer.setSize(w, h, false);
         this.camera.aspect = w / h;
         this.camera.updateProjectionMatrix();
+        if (this.options.animate === false && this.parts.length) {
+            this.frame({ distance: 1.04 });
+        }
     }
 
     private bindPointer() {
@@ -209,6 +213,7 @@ export class Viewer {
     async loadScene(scene: Scene) {
         if (scene.kind === "glb") {
             const gltf = await loadGLB(scene.glb!);
+            if (!this.running) return;
             const copy = gltf.scene.clone(true);
             const byNode = new Map(scene.parts.map((p) => [p.node, p]));
             for (const node of [...copy.children]) {
@@ -222,6 +227,7 @@ export class Viewer {
             }
         } else {
             const geometries = await Promise.all(scene.parts.map((p) => loadSTL(p.url!)));
+            if (!this.running) return;
             scene.parts.forEach((p, i) => {
                 const mesh = new THREE.Mesh(geometries[i]);
                 mesh.applyMatrix4(new THREE.Matrix4().set(...(p.matrix!.flat() as Parameters<THREE.Matrix4["set"]>)));
@@ -245,6 +251,7 @@ export class Viewer {
             obj = new THREE.Mesh(await loadSTL(mesh.url));
         }
         const box = new THREE.Box3().setFromObject(obj);
+        if (!this.running) return box.getSize(new THREE.Vector3());
         obj.position.sub(box.getCenter(new THREE.Vector3()));
         const holder = new THREE.Group();
         holder.add(obj);
@@ -281,6 +288,7 @@ export class Viewer {
         this.camera.updateProjectionMatrix();
         this.controls.target.copy(c);
         this.controls.update();
+        if (this.options.animate === false) this.render();
     }
 
     setExplode(t: number) {
@@ -344,7 +352,7 @@ export class Viewer {
                     this.localCamera.copy(this.camera.position).applyMatrix4(this.inverseWorld.copy(m.matrixWorld).invert());
                     line.geometry.update(this.localCamera);
                     const lm = line.material;
-                    lm.opacity = mat.opacity;
+                    lm.opacity = mat.opacity * (this.options.outlineOpacity ?? 1);
                     lm.color.setHex(hot ? d.hoverEdge : d.edge);
                 }
             }

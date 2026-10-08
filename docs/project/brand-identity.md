@@ -20,12 +20,15 @@ hardware revision, physical interface or validation claim.
 | --- | --- | --- |
 | Primary logo | [arbi-logo.png](../assets/brand/arbi-logo.png) | Emblem and wordmark on a warm-white panel; preferred for README files and unknown background themes |
 | Transparent logo | [arbi-logo-transparent.png](../assets/brand/arbi-logo-transparent.png) | Emblem and wordmark on a light, uncluttered background |
+| Vector logo | [arbi-logo.svg](../assets/brand/arbi-logo.svg) | Scalable charcoal paths for the public site; inverted to white in the dark footer |
 | Standalone emblem | [arbi-mark-transparent.png](../assets/brand/arbi-mark-transparent.png) | Square avatars and compact identity marks where ARBI is already named |
 | Selected artwork | [garden-focus-selection.png](../assets/brand/garden-focus-selection.png) | Unchanged reference from the three-concept exploration; retained for provenance |
 
 Use the supplied files instead of recreating the letterforms with a substitute
-font. These are raster PNG assets, not editable vector paths or manufacturing
-geometry. The primary and transparent logos are 2172 × 724 px; the emblem is
+font. The SVG traces the selected transparent logo's artwork and letterforms;
+it preserves the 2172 × 724 view box and contains paths, without embedded raster
+images or font dependencies. The PNG assets remain the original artwork
+reference. No brand asset is manufacturing geometry. The primary and transparent logos are 2172 × 724 px; the emblem is
 1254 × 1254 px; the selection reference is 1536 × 1024 px.
 
 ## Color and placement
@@ -36,7 +39,8 @@ warm white **`#f0f0eb`**. The supplied raster artwork is the visual reference;
 the hex values specify the intended palette rather than every antialiased pixel.
 
 - Use the primary logo on dark or unknown backgrounds so its light panel keeps
-  the charcoal artwork legible. Transparent variants require a light background.
+  the charcoal artwork legible. Transparent charcoal variants require a light background.
+  The vector logo may be inverted to white on the public site's dark footer.
 - Keep the original aspect ratio and internal spacing. Preserve the leaf's
   circular opening and all four viewfinder corners.
 - Keep clear space around the visible artwork of at least one viewfinder
@@ -44,7 +48,7 @@ the hex values specify the intended palette rather than every antialiased pixel.
 - Start at 240 CSS px wide for the full logo and 32 CSS px square for the
   standalone emblem. Check legibility at the intended display size; these are
   usage recommendations, not a tested printing specification.
-- Do not stretch, rotate, recolor, add effects, replace the wordmark, or place
+- Do not stretch, rotate, recolor (except the white footer variant), add effects, replace the wordmark, or place
   the transparent charcoal artwork over a photograph or dark background.
 - Provide accessible text such as `ARBI` when the image names the project.
   Use empty alt text when adjacent text already supplies the same identity.
@@ -57,6 +61,17 @@ prepared from that artwork with the same tool. The
 [generation record](../assets/brand/generation.json) preserves the exact prompts
 and the input relationship for each file. The unchanged selection reference is
 retained alongside the delivery variants.
+
+The public-site SVG was traced from `arbi-logo-transparent.png` on 8 October
+2026 using VTracer 0.6.15 in binary spline mode (speckle filter 12, corner
+threshold 60, length threshold 3.5, splice threshold 45, path precision 2),
+with transparency flattened over white and paths set to nominal charcoal.
+The [white Gredice logo](../assets/brand/gredice-logo-white.svg) preserves the
+original paths from [gredice.com](https://www.gredice.com), with a white fill.
+The [Croatian](../assets/brand/flag-hr.svg) and
+[EU](../assets/brand/flag-eu.svg) flags are the same SVG assets used by that
+site's footer, retrieved on 8 October 2026. These partner assets support the
+public site's attribution; the flags identify origin and do not assert funding.
 
 Future identity changes should update these assets and this guide together in a
 reviewed pull request. Repository documentation uses the primary logo;

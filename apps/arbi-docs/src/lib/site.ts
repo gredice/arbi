@@ -87,6 +87,9 @@ function load() {
         if (scene.layout !== "assembly") continue;
         for (const p of scene.parts) {
             if (!instances.has(p.model)) instances.set(p.model, { scene: slug, parts: [] });
+            // A shared part's default count belongs to its first configured assembly.
+            // Variant inventories request their own scene's quantities explicitly.
+            if (instances.get(p.model)!.scene !== slug) continue;
             instances.get(p.model)!.parts.push(p);
         }
     }
@@ -96,8 +99,22 @@ function load() {
 let cache: ReturnType<typeof load> | undefined;
 export const data = () => (cache ??= load());
 
-export const systemBySlug = (slug: string) => data().systems.find((s) => s.slug === slug);
-export const installedCount = (id: string) => data().instances.get(id)?.parts.length ?? null;
+export const systemBySlug = (slug: string): System | undefined => {
+    if (slug === "winch-powered") {
+        const winch = data().systems.find((s) => s.slug === "winch");
+        return winch && {
+            ...winch,
+            slug,
+            name: "Powered winch set",
+            description: "The powered positioning-line winch, with its longer drum, slip-ring interface, and dedicated enclosure parts. One of the four winches in the winch set.",
+            scene: data().site.scenes[slug] ?? null,
+        };
+    }
+    return data().systems.find((s) => s.slug === slug);
+};
+export const installedCount = (id: string, slug?: string) => slug
+    ? data().scenes[slug]?.parts.filter((p) => p.model === id).length ?? null
+    : data().instances.get(id)?.parts.length ?? null;
 
 export function figureFor(id: string): string | null {
     for (const scene of Object.values(data().scenes)) {
@@ -133,8 +150,8 @@ export function sceneModels(slug: string): string[] {
     return scene ? [...new Set(scene.parts.filter((p) => p.registered).map((p) => p.model))] : [];
 }
 
-export const inventory = (ids: string[], counted = true): InventoryItem[] =>
-    ids.map((id) => ({ id, figure: figureFor(id), count: counted ? installedCount(id) : null }));
+export const inventory = (ids: string[], counted = true, slug?: string): InventoryItem[] =>
+    ids.map((id) => ({ id, figure: figureFor(id), count: counted ? installedCount(id, slug) : null }));
 
 // ------------------------------------------------------------------ documents
 

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { System } from "@/lib/site";
+import { SystemThumbnail } from "./SystemThumbnail";
 
 export function ContentsList({ systems }: { systems: System[] }) {
     return (
@@ -20,8 +21,8 @@ export function ContentsList({ systems }: { systems: System[] }) {
                         <br />
                         {s.usages.length} BOM lines
                     </div>
-                    <div className="hidden h-[96px] place-items-center md:grid">
-                        {s.scene?.hero ? <img src={`/data/${s.scene.hero}`} alt="" loading="lazy" className="max-h-[96px]" /> : <span className="tag text-grey">{s.scene ? "3D parts layout" : "no registered CAD"}</span>}
+                    <div className="hidden h-[128px] place-items-center md:grid">
+                        {s.scene?.hero ? <SystemThumbnail scene={s.scene} /> : <span className="tag text-grey">{s.scene ? "3D parts layout" : "no registered CAD"}</span>}
                     </div>
                 </Link>
             ))}

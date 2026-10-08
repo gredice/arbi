@@ -48,7 +48,9 @@ export default function Home() {
             <section className="mt-16 mb-20 px-4 sm:px-6">
                 <div className="grid border-2 border-ink lg:grid-cols-12">
                     <figure className="border-b-2 border-ink lg:col-span-8 lg:border-r-2 lg:border-b-0">
-                        <img src="/data/docs/assets/arbi-cover.png" alt="ARBI concept over raised beds" className="aspect-[2.4/1] w-full object-cover grayscale" />
+                        <div className="bg-ink p-3 sm:p-4">
+                            <img src="/data/docs/assets/arbi-cover.png" alt="ARBI concept over raised beds" className="h-auto w-full" />
+                        </div>
                         <figcaption className="tag border-t border-ink p-3">Concept imagery. Not a built installation.</figcaption>
                     </figure>
                     <div className="flex flex-col p-6 lg:col-span-4">

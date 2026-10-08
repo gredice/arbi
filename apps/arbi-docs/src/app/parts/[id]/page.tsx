@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 export default async function PartPage({ params }: { params: Promise<{ id: string }> }) {
     const m = data().modelById.get((await params).id);
     if (!m) notFound();
-    const sys = systemBySlug(m.assembly);
+    const sys = systemBySlug(data().instances.get(m.id)?.scene ?? m.assembly);
     const count = installedCount(m.id);
     const bom = bomForModel(m);
     const fig = figureFor(m.id);
