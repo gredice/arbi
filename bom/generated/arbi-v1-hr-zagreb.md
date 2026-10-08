@@ -10,12 +10,12 @@
 - Scenario: arbi-v1-hr-zagreb
 - Build: arbi-v1
 - Destination: hr-zagreb
-- Quote snapshot: hr-zagreb-2026-10-08-purchases
-- Input digest: sha256:17afcff68005c21521de51ee1f22133c00a8c693a2179b17e75bb7c8e9e4e8ae
+- Quote snapshot: hr-zagreb-2026-10-08-coupling
+- Input digest: sha256:6f9a47217eafb9cb921191437b39eccf0c465e373a5acf6dbe43cc84845bd866
 - Complete landed total: **unavailable**
-- Known quoted goods subtotal: **EUR 931.48**
-- Known checkout-group shipping subtotal: **EUR 88.38**
-- Known partial subtotal: **EUR 1019.86**
+- Known quoted goods subtotal: **EUR 943.84**
+- Known checkout-group shipping subtotal: **EUR 43.38**
+- Known partial subtotal: **EUR 987.22**
 
 The known partial subtotal is evidence about recorded values only. It excludes every unresolved amount and must not be presented as the project cost.
 
@@ -29,9 +29,10 @@ The known partial subtotal is evidence about recorded values only. It excludes e
 | dock | EUR 0.96 |
 | positioning-line-set | EUR 103.97 |
 | site-installation | EUR 141.00 |
-| winch-set | EUR 275.16 |
+| winch-set | EUR 287.52 |
 | Shared multi-part purchase bundles | EUR 0.00 |
-| Shared checkout-group shipping | EUR 88.38 |
+| Shared customs | EUR 0.00 |
+| Shared checkout-group shipping | EUR 43.38 |
 
 Multi-part bundles of countable components are allocated by purchased part count, including surplus, with cents distributed deterministically. These shares are accounting allocations, not individual supplier prices. Unselected contents or bundles without comparable part counts remain in the shared bundle bucket; shipping remains separate.
 
@@ -47,7 +48,7 @@ This bucket is not a subsystem or physical owner. It holds assortment purchases 
 
 | Checkout group | Supplier | Shipping evidence | Charged |
 | --- | --- | --- | ---: |
-| aliexpress-hr | aliexpress | known | EUR 45.00 |
+| aliexpress-hr | aliexpress | unknown | unknown |
 | bauhaus-hr | bauhaus | unknown | unknown |
 | cotra-zagreb-hr | cotra-zagreb | unknown | unknown |
 | dive-store-hr | dive-store | known | EUR 6.91 |
@@ -62,7 +63,11 @@ This bucket is not a subsystem or physical owner. It holds assortment purchases 
 
 Shipping is evaluated once per checkout group. The recorded TME EUR 2.46 charge is represented once.
 
-aliexpress-hr: 15 distinct selected offers; fixed charge per offer, independent of quantity. Owner-confirmed Croatian delivery/customs costing assumption on 2026-09-08: EUR 3 per distinct selected AliExpress offer, regardless of unit or pack quantity, for orders below EUR 150. This replaces the unknown delivery allowance. One BOM offer is treated as one declared item; actual declaration grouping and split shipments are not modeled. Legal context: https://carina.gov.hr/print.aspx?id=2718&url=print . Other prices and observations are carried forward from hr-zagreb-2026-08-30 without re-verification. Date-only confirmation is normalized to midnight UTC.
+## Customs
+
+Known customs subtotal: EUR 0.00. Conditional or unknown duty is excluded from the known subtotal.
+
+aliexpress-hr: EUR 3.00 per item type (not per piece), order goods strictly below EUR 150.00; effective 2026-07-01 until no end date set (exclusive end). 15 item types; calculated charge: unknown. Owner costing policy: EUR 3 per declared item type, not per piece, for orders strictly below EUR 150. One selected offer approximates one declared item type; actual tariff/description/origin grouping and split shipments require checkout evidence. Customs guidance includes EUR 150; this policy uses the owner-requested strict limit. VAT is separate. No end date currently recorded.
 
 ## Selected purchase units
 
@@ -74,7 +79,7 @@ aliexpress-hr: 15 distinct selected offers; fixed charge per offer, independent 
 | aliexpress-capsule-slip-ring-6x2a | baseline-selected | 1 | [capsule-slip-ring-6x2a](parts/capsule-slip-ring-6x2a.md): 1 each required, 1 each purchased; 0 surplus; goods EUR 9.69 | EUR 9.69 | single-part |
 | aliexpress-controller-buck-converter-48v-5v | baseline-selected | 1 | [controller-buck-converter-48v-5v](parts/controller-buck-converter-48v-5v.md): 1 each required, 1 each purchased; 0 surplus; goods EUR 5.55 | EUR 5.55 | single-part |
 | aliexpress-emergency-stop-switch | baseline-selected | unknown | [emergency-stop-switch](parts/emergency-stop-switch.md): 1 each required, unknown purchase quantity; goods unknown | unknown | unallocated |
-| aliexpress-flexible-jaw-coupling-8mm | baseline-selected | unknown | [flexible-jaw-coupling-8mm](parts/flexible-jaw-coupling-8mm.md): 4 each required, unknown purchase quantity; goods unknown | unknown | unallocated |
+| aliexpress-flexible-jaw-coupling-8mm | baseline-selected | 4 | [flexible-jaw-coupling-8mm](parts/flexible-jaw-coupling-8mm.md): 4 each required, 4 each purchased; 0 surplus; goods EUR 12.36 | EUR 12.36 | single-part |
 | aliexpress-heat-set-insert-assortment | baseline-selected | 1 | [heat-set-insert-assortment](parts/heat-set-insert-assortment.md): 1 each required, 1 each purchased; 0 surplus; goods EUR 16.00 | EUR 16.00 | single-part |
 | aliexpress-micro-pan-tilt-servo | baseline-selected | 1 | [micro-pan-tilt-servo](parts/micro-pan-tilt-servo.md): 2 each required, 3 each purchased; 1 surplus; goods EUR 16.72 | EUR 16.72 | single-part |
 | aliexpress-pod-buck-converter-48v-5v | baseline-selected | 1 | [pod-buck-converter-48v-5v](parts/pod-buck-converter-48v-5v.md): 1 each required, 1 each purchased; 0 surplus; goods EUR 5.55 | EUR 5.55 | single-part |
@@ -213,16 +218,15 @@ aliexpress-hr: 15 distinct selected offers; fixed charge per offer, independent 
 - aliexpress-emergency-stop-switch: Package size/MOQ is unknown.
 - aliexpress-emergency-stop-switch: Price and availability observation date is unknown; quote capture time is not verification time.
 - aliexpress-emergency-stop-switch: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- aliexpress-flexible-jaw-coupling-8mm: A quoted price cannot be extended without package data.
 - aliexpress-flexible-jaw-coupling-8mm: Availability is unknown.
-- aliexpress-flexible-jaw-coupling-8mm: Package size/MOQ is unknown.
-- aliexpress-flexible-jaw-coupling-8mm: Price and availability observation date is unknown; quote capture time is not verification time.
 - aliexpress-flexible-jaw-coupling-8mm: Qualification is baseline-selected; the recorded selection is not engineering approval.
 - aliexpress-heat-set-insert-assortment: Availability is unknown.
 - aliexpress-heat-set-insert-assortment: Price and availability observation date is unknown; quote capture time is not verification time.
 - aliexpress-heat-set-insert-assortment: Qualification is baseline-selected; the recorded selection is not engineering approval.
 - aliexpress-heat-set-insert-assortment: Tax/VAT treatment is unknown.
-- aliexpress-hr: Shipping tax/VAT treatment is unknown.
+- aliexpress-hr: Customs is conditional: total order goods value is unknown; split orders are not assumed.
+- aliexpress-hr: One selected offer approximates one declared item type; actual customs grouping is unconfirmed.
+- aliexpress-hr: Shipping is unknown; null is not treated as free.
 - aliexpress-micro-pan-tilt-servo: Availability is unknown.
 - aliexpress-micro-pan-tilt-servo: Price and availability observation date is unknown; quote capture time is not verification time.
 - aliexpress-micro-pan-tilt-servo: Qualification is baseline-selected; the recorded selection is not engineering approval.

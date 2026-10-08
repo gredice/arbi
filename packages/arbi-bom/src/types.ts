@@ -130,7 +130,36 @@ export interface LocationCatalog {
   locations: Location[];
 }
 
+export interface CustomsPolicy {
+  id: string;
+  destinationId: string;
+  startsOn: string;
+  endsOn: string | null;
+  amount: string;
+  currency: string;
+  orderValueBelow: string;
+  basis: "item-type";
+  sourceUrl: string;
+  note: string;
+}
+
+export interface CustomsCatalog {
+  schemaVersion: 1;
+  policies: CustomsPolicy[];
+}
+
+export interface CustomsResult {
+  checkoutGroupId: string;
+  policy: CustomsPolicy;
+  chargeCount: number;
+  orderGoodsAmount: string | null;
+  knownAmount: string | null;
+  warnings: string[];
+}
+
 export interface OfferPrice {
+  actualDelivered?: { importCharges?: string; amount: string; currency: string; quantity: string; confirmedAt: string; note: string };
+  delivery?: { amount: string; currency: string; note: string };
   offerId: string;
   availability: "available" | "in-stock" | "out-of-stock" | "unknown";
   observedAt: string | null;
@@ -144,6 +173,7 @@ export interface OfferPrice {
 }
 
 export interface CheckoutGroupQuote {
+  customsPolicyId?: string;
   basis?: "checkout-group" | "selected-offer";
   checkoutGroupId: string;
   supplierId: string;
@@ -191,6 +221,7 @@ export interface ScenarioCatalog {
 }
 
 export interface BomRepository {
+  customs: CustomsCatalog;
   inputDigest: string;
   loadedScenarioId: string;
   parts: PartCatalog;
@@ -269,6 +300,8 @@ export interface CalculationResult {
   complete: boolean;
   completeLandedTotal: string | null;
   knownGoodsSubtotal: string;
+  knownCustomsSubtotal: string;
+  customs: CustomsResult[];
   knownShippingSubtotal: string;
   knownSubtotal: string;
   requirements: RequirementResult[];

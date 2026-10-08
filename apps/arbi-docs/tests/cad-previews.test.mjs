@@ -85,6 +85,15 @@ test('the offline compiler consumes a current preview pack and writes its refere
     const site = JSON.parse(readFileSync(join(data, 'site.json')));
     assert.ok(site.registry.models.some((m) => m.id === 'camera-pod-assembly'));
     assert.ok(!site.registry.models.some((m) => m.id === 'payload-assembly'));
+    const coupling = site.bom.parts.find((part) => part.id === 'flexible-jaw-coupling-8mm');
+    assert.equal(coupling.actualDelivered.amount, '16.12');
+    assert.equal(coupling.actualDelivered.importCharges, '3.76');
+    assert.equal(coupling.actualDelivered.quantity, '4');
+    assert.equal(coupling.quotedPrice.amount, '3.09');
+    assert.equal(coupling.delivery.amount, '0');
+    assert.equal(coupling.customsPolicy.startsOn, '2026-07-01');
+    assert.equal(coupling.customsPolicy.endsOn, null);
+    assert.ok(!coupling.warnings.some((warning) => warning.includes('Tax/VAT')));
     assert.equal(site.figures[model.id], `figures/${model.id}.png`);
     assert.ok(existsSync(join(data, site.figures[model.id])));
     assert.deepEqual(readFileSync(join(data, site.figures[model.id])), figure);

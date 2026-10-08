@@ -100,6 +100,7 @@ export function renderMarkdown(result: CalculationResult): string {
     "| Shared multi-part purchase bundles | " +
       money(result.sharedBundleGoods, result.reportCurrency) +
       " |",
+    "| Shared customs | " + money(result.knownCustomsSubtotal, result.reportCurrency) + " |",
     "| Shared checkout-group shipping | " +
       money(result.sharedShipping, result.reportCurrency) +
       " |",
@@ -146,6 +147,14 @@ export function renderMarkdown(result: CalculationResult): string {
     "",
     ...result.shipping.filter((item) => item.basis === "selected-offer").flatMap((item) => [
       cell(item.checkoutGroupId) + ": " + item.chargeCount + " distinct selected offers; fixed charge per offer, independent of quantity. " + cell(item.note),
+      "",
+    ]),
+    "## Customs",
+    "",
+    "Known customs subtotal: " + money(result.knownCustomsSubtotal, result.reportCurrency) + ". Conditional or unknown duty is excluded from the known subtotal.",
+    "",
+    ...result.customs.flatMap((item) => [
+      `${item.checkoutGroupId}: ${money(item.policy.amount, item.policy.currency)} per item type (not per piece), order goods strictly below ${money(item.policy.orderValueBelow, item.policy.currency)}; effective ${item.policy.startsOn} until ${item.policy.endsOn ?? "no end date set"} (exclusive end). ${item.chargeCount} item types; calculated charge: ${item.knownAmount === null ? "unknown" : money(item.knownAmount, result.reportCurrency)}. ${item.policy.note}`,
       "",
     ]),
     "## Selected purchase units",

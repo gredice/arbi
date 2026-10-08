@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "policies": [
+    {
+      "id": "hr-low-value-import",
+      "destinationId": "hr-zagreb",
+      "startsOn": "2026-07-01",
+      "endsOn": null,
+      "amount": "3",
+      "currency": "EUR",
+      "orderValueBelow": "150",
+      "basis": "item-type",
+      "sourceUrl": "https://carina.gov.hr/print.aspx?id=2718&url=print",
+      "note": "Owner costing policy: EUR 3 per declared item type, not per piece, for orders strictly below EUR 150. One selected offer approximates one declared item type; actual tariff/description/origin grouping and split shipments require checkout evidence. Customs guidance includes EUR 150; this policy uses the owner-requested strict limit. VAT is separate. No end date currently recorded."
+    }
+  ]
+}

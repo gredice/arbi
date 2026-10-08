@@ -8,6 +8,7 @@ import type {
   AssemblyCatalog,
   BomRepository,
   BuildCatalog,
+  CustomsCatalog,
   LocationCatalog,
   OfferCatalog,
   PartCatalog,
@@ -32,6 +33,7 @@ export async function loadBomRepository(
   repositoryRoot: string,
   scenarioId = "arbi-v1-hr-zagreb",
 ): Promise<BomRepository> {
+  let customs: CustomsCatalog | undefined;
   let parts: PartCatalog | undefined;
   let assemblies: AssemblyCatalog | undefined;
   let builds: BuildCatalog | undefined;
@@ -41,6 +43,12 @@ export async function loadBomRepository(
   let scenarios: ScenarioCatalog | undefined;
 
   const definitions: Array<InputDefinition<unknown>> = [
+    {
+      key: "customs",
+      path: "bom/catalog/customs.json",
+      schemaPath: "bom/schemas/customs.schema.json",
+      assign: (value) => { customs = value as CustomsCatalog; },
+    },
     {
       key: "assemblies",
       path: "bom/assemblies/assemblies.json",
@@ -116,6 +124,7 @@ export async function loadBomRepository(
   }
 
   if (
+    customs === undefined ||
     parts === undefined ||
     assemblies === undefined ||
     builds === undefined ||
@@ -147,6 +156,7 @@ export async function loadBomRepository(
   return {
     inputDigest: `sha256:${hash.digest("hex")}`,
     loadedScenarioId: scenarioId,
+    customs,
     parts,
     assemblies,
     builds,

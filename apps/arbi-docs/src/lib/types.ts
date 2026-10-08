@@ -78,6 +78,11 @@ export type BomPart = {
     bundle: boolean;
     goodsAllocationBasis: "single-part" | "part-count" | null;
     knownGoods: string | null;
+    actualDelivered: { importCharges?: string; amount: string; currency: string; quantity: string; confirmedAt: string; note: string } | null;
+    quotedPrice: { amount: string; currency: string; basis: string } | null;
+    delivery: { amount: string; currency: string; note: string } | null;
+    observedAt: string | null;
+    customsPolicy: { amount: string; currency: string; startsOn: string; endsOn: string | null; orderValueBelow: string } | null;
     offerUrl: string | null;
     warnings: string[];
 };

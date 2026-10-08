@@ -5,14 +5,39 @@
   "buildId": "arbi-v1",
   "destinationId": "hr-zagreb",
   "destinationName": "Zagreb, Croatia",
-  "quoteSnapshotId": "hr-zagreb-2026-10-08-purchases",
-  "inputDigest": "sha256:17afcff68005c21521de51ee1f22133c00a8c693a2179b17e75bb7c8e9e4e8ae",
+  "quoteSnapshotId": "hr-zagreb-2026-10-08-coupling",
+  "inputDigest": "sha256:6f9a47217eafb9cb921191437b39eccf0c465e373a5acf6dbe43cc84845bd866",
   "reportCurrency": "EUR",
   "complete": false,
   "completeLandedTotal": null,
-  "knownGoodsSubtotal": "931.48",
-  "knownShippingSubtotal": "88.38",
-  "knownSubtotal": "1019.86",
+  "knownGoodsSubtotal": "943.84",
+  "knownCustomsSubtotal": "0",
+  "customs": [
+    {
+      "checkoutGroupId": "aliexpress-hr",
+      "policy": {
+        "id": "hr-low-value-import",
+        "destinationId": "hr-zagreb",
+        "startsOn": "2026-07-01",
+        "endsOn": null,
+        "amount": "3",
+        "currency": "EUR",
+        "orderValueBelow": "150",
+        "basis": "item-type",
+        "sourceUrl": "https://carina.gov.hr/print.aspx?id=2718&url=print",
+        "note": "Owner costing policy: EUR 3 per declared item type, not per piece, for orders strictly below EUR 150. One selected offer approximates one declared item type; actual tariff/description/origin grouping and split shipments require checkout evidence. Customs guidance includes EUR 150; this policy uses the owner-requested strict limit. VAT is separate. No end date currently recorded."
+      },
+      "chargeCount": 15,
+      "orderGoodsAmount": null,
+      "knownAmount": null,
+      "warnings": [
+        "Customs is conditional: total order goods value is unknown; split orders are not assumed.",
+        "One selected offer approximates one declared item type; actual customs grouping is unconfirmed."
+      ]
+    }
+  ],
+  "knownShippingSubtotal": "43.38",
+  "knownSubtotal": "987.22",
   "requirements": [
     {
       "partId": "bearing-608-2rs",
@@ -261,7 +286,7 @@
           "assemblyId": "winch-set",
           "kind": "physical",
           "quantity": "4",
-          "knownGoodsAmount": null
+          "knownGoodsAmount": "12.36"
         }
       ],
       "selectedOfferId": "aliexpress-flexible-jaw-coupling-8mm"
@@ -996,25 +1021,22 @@
       "supplierId": "aliexpress",
       "checkoutGroupId": "aliexpress-hr",
       "qualification": "baseline-selected",
-      "purchaseUnits": null,
-      "knownGoodsAmount": null,
-      "currency": null,
-      "goodsAllocationBasis": null,
+      "purchaseUnits": "4",
+      "knownGoodsAmount": "12.36",
+      "currency": "EUR",
+      "goodsAllocationBasis": "single-part",
       "coverage": [
         {
           "partId": "flexible-jaw-coupling-8mm",
           "required": "4",
-          "purchased": null,
-          "surplus": null,
+          "purchased": "4",
+          "surplus": "0",
           "unit": "each",
-          "knownGoodsAmount": null
+          "knownGoodsAmount": "12.36"
         }
       ],
       "warnings": [
-        "A quoted price cannot be extended without package data.",
         "Availability is unknown.",
-        "Package size/MOQ is unknown.",
-        "Price and availability observation date is unknown; quote capture time is not verification time.",
         "Qualification is baseline-selected; the recorded selection is not engineering approval."
       ]
     },
@@ -2218,17 +2240,17 @@
   ],
   "shipping": [
     {
-      "basis": "selected-offer",
-      "chargeCount": 15,
-      "note": "Owner-confirmed Croatian delivery/customs costing assumption on 2026-09-08: EUR 3 per distinct selected AliExpress offer, regardless of unit or pack quantity, for orders below EUR 150. This replaces the unknown delivery allowance. One BOM offer is treated as one declared item; actual declaration grouping and split shipments are not modeled. Legal context: https://carina.gov.hr/print.aspx?id=2718&url=print . Other prices and observations are carried forward from hr-zagreb-2026-08-30 without re-verification. Date-only confirmation is normalized to midnight UTC.",
+      "basis": "checkout-group",
+      "chargeCount": 1,
+      "note": "Delivery is unknown for the combined basket; the coupling offer separately records free delivery. Customs uses the shared dated Croatian policy and is calculated separately. No actual basket value, declaration grouping or split shipments confirmed.",
       "checkoutGroupId": "aliexpress-hr",
       "supplierId": "aliexpress",
       "chargedOnce": true,
-      "status": "known",
-      "knownAmount": "45",
+      "status": "unknown",
+      "knownAmount": null,
       "currency": "EUR",
       "warnings": [
-        "Shipping tax/VAT treatment is unknown."
+        "Shipping is unknown; null is not treated as free."
       ]
     },
     {
@@ -2419,12 +2441,12 @@
     },
     {
       "assemblyId": "winch-set",
-      "amount": "275.16"
+      "amount": "287.52"
     }
   ],
   "sharedProcurementStockKnownGoods": "43.19",
   "sharedBundleGoods": "0",
-  "sharedShipping": "88.38",
+  "sharedShipping": "43.38",
   "warnings": [
     "Required part winch-full-cover has no pinned offer.",
     "Required part winch-full-cover-hardware has no pinned offer.",
@@ -2453,16 +2475,15 @@
     "aliexpress-emergency-stop-switch: Package size/MOQ is unknown.",
     "aliexpress-emergency-stop-switch: Price and availability observation date is unknown; quote capture time is not verification time.",
     "aliexpress-emergency-stop-switch: Qualification is baseline-selected; the recorded selection is not engineering approval.",
-    "aliexpress-flexible-jaw-coupling-8mm: A quoted price cannot be extended without package data.",
     "aliexpress-flexible-jaw-coupling-8mm: Availability is unknown.",
-    "aliexpress-flexible-jaw-coupling-8mm: Package size/MOQ is unknown.",
-    "aliexpress-flexible-jaw-coupling-8mm: Price and availability observation date is unknown; quote capture time is not verification time.",
     "aliexpress-flexible-jaw-coupling-8mm: Qualification is baseline-selected; the recorded selection is not engineering approval.",
     "aliexpress-heat-set-insert-assortment: Availability is unknown.",
     "aliexpress-heat-set-insert-assortment: Price and availability observation date is unknown; quote capture time is not verification time.",
     "aliexpress-heat-set-insert-assortment: Qualification is baseline-selected; the recorded selection is not engineering approval.",
     "aliexpress-heat-set-insert-assortment: Tax/VAT treatment is unknown.",
-    "aliexpress-hr: Shipping tax/VAT treatment is unknown.",
+    "aliexpress-hr: Customs is conditional: total order goods value is unknown; split orders are not assumed.",
+    "aliexpress-hr: One selected offer approximates one declared item type; actual customs grouping is unconfirmed.",
+    "aliexpress-hr: Shipping is unknown; null is not treated as free.",
     "aliexpress-micro-pan-tilt-servo: Availability is unknown.",
     "aliexpress-micro-pan-tilt-servo: Price and availability observation date is unknown; quote capture time is not verification time.",
     "aliexpress-micro-pan-tilt-servo: Qualification is baseline-selected; the recorded selection is not engineering approval.",
