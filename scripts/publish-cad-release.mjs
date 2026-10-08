@@ -36,6 +36,13 @@ if (pointer) {
 
 if (!existing || existing.draft) {
   const registry = JSON.parse(readFileSync('hardware/models.json', 'utf8'));
+  const required = [
+    ...registry.models.map((m) => m.output), `cad-sources-${commit}.zip`,
+    ...['ARBI-winch', 'ARBI-payload', 'ARBI-payload-enclosure'].flatMap((name) => [`${name}-assembly-STL.pdf`, `${name}-STL-pack.zip`]),
+  ];
+  for (const name of required) {
+    if (!readFileSync(join(output, name)).length) throw new Error(`Empty CAD release asset: ${name}`);
+  }
   writeFileSync(join(output, 'cad-release.json'), JSON.stringify({
     schemaVersion: 1, version, commit, openScadVersion: registry.openScadVersion,
     inputs: releaseInputs(process.cwd()),

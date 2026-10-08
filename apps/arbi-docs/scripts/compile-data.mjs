@@ -220,7 +220,7 @@ function stlBounds(bytes) {
 
 // Assemblies with registered fabrication meshes but no assembly transforms: show the
 // release meshes side by side. This is a parts layout, not an assembly claim.
-function lineupScene(slug, models, meshes) {
+function lineupScene(slug, models, meshes, release) {
   let x = 0;
   const parts = [];
   for (const m of models) {
@@ -231,7 +231,7 @@ function lineupScene(slug, models, meshes) {
     parts.push({ node: m.id, model: m.id, registered: true, group: 'fixed', color: CORE, url: mesh.url, matrix, explode: [0, 0, 0] });
     x += max[0] - min[0] + 40;
   }
-  return parts.length ? { kind: 'stl', layout: 'lineup', source: { kind: 'release' }, pose: null, figures: [], parts } : null;
+  return parts.length ? { kind: 'stl', layout: 'lineup', source: { kind: 'release', tag: release?.tag, current: true }, pose: null, figures: [], parts } : null;
 }
 
 // ------------------------------------------------------------------ repository content
@@ -324,7 +324,7 @@ for (const m of registry.models) {
 const scenes = Object.fromEntries(Object.entries({ 'camera-pod': pod, winch, 'winch-powered': poweredWinch }).filter(([, scene]) => scene));
 for (const slug of [...new Set(registry.models.map((m) => m.assembly))]) {
   if (scenes[slug]) continue;
-  const lineup = lineupScene(slug, registry.models.filter((m) => m.assembly === slug && m.artifactRole === 'fabrication'), meshes);
+  const lineup = lineupScene(slug, registry.models.filter((m) => m.assembly === slug && m.artifactRole === 'fabrication'), meshes, release);
   if (lineup) scenes[slug] = lineup;
 }
 for (const [slug, scene] of Object.entries(scenes)) write(join(OUT, `scenes/${slug}.json`), scene);

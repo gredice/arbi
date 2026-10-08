@@ -106,7 +106,9 @@ test('publication reruns refresh existing releases and old source commits cannot
     }
     for (const mode of ['new', 'draft']) {
       const assets = join(temp, `assets-${mode}`); mkdirSync(assets);
-      writeFileSync(join(assets, 'fixture.stl'), 'nominal mesh fixture');
+      const names = [...registry.models.map((m) => m.output), `cad-sources-${'a'.repeat(40)}.zip`,
+        ...['ARBI-winch', 'ARBI-payload', 'ARBI-payload-enclosure'].flatMap((n) => [`${n}-assembly-STL.pdf`, `${n}-STL-pack.zip`])];
+      for (const name of names) writeFileSync(join(assets, name), 'publication fixture');
       const calls = join(temp, `calls-${mode}`);
       execFileSync(process.execPath, ['scripts/publish-cad-release.mjs'], {
         cwd: root, env: { ...process.env, PATH: `${bin}:${process.env.PATH}`, GITHUB_SHA: 'a'.repeat(40), GITHUB_REPOSITORY: 'gredice/arbi',
