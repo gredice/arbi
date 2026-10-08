@@ -44,10 +44,10 @@ remains at tilt 55. `product-electronics` shows the roof removed. `product-under
 direction and part transforms separately from the booklet's grayscale
 `figure-manifest.json`.
 
-[Booklet CI](../../.github/workflows/booklets.yml) builds and checks both payload
-variants and the winch from fresh CAD exports on relevant pull requests, `main`
-and manual dispatches. PR PDFs/ZIPs are downloadable for 14 days. The
-[CAD release workflow](../../.github/workflows/cad-release.yml) publishes the
+[Booklet jobs in CI](../../.github/workflows/ci.yml) build and check affected payload
+variants and the winch from fresh CAD exports on relevant pull requests, and all
+three on release runs or manual dispatches. PR PDFs/ZIPs are downloadable for 14 days. The
+[CAD release workflow](../../.github/workflows/ci.yml) publishes the
 three PDF/ZIP pairs with the same commit's STLs and checksums on `main`. CI does
 not use `--publish` or rewrite checked-in snapshots/evidence.
 

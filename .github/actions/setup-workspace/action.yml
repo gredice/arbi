@@ -1,0 +1,32 @@
+name: Set up cached workspace
+description: Install the pinned runtime and only the selected workspace dependency closure
+inputs:
+  filter:
+    description: pnpm workspace selector, including dependencies when needed
+    required: true
+  extra-filter:
+    description: Optional independent integration-test workspace and its dependencies
+    default: ''
+  cache-dependency-path:
+    description: Lockfile and manifests that identify this installed dependency closure
+    default: |
+      pnpm-lock.yaml
+      package.json
+runs:
+  using: composite
+  steps:
+    - uses: pnpm/action-setup@v6.0.8
+    - uses: actions/setup-node@v6.4.0
+      with:
+        node-version: 24.15.0
+        cache: pnpm
+        cache-dependency-path: ${{ inputs.cache-dependency-path }}
+    - name: Install selected dependencies
+      shell: bash
+      env:
+        WORKSPACE_FILTER: ${{ inputs.filter }}
+        EXTRA_FILTER: ${{ inputs.extra-filter }}
+      run: |
+        filters=(--filter "$WORKSPACE_FILTER")
+        if [[ -n "$EXTRA_FILTER" ]]; then filters+=(--filter "$EXTRA_FILTER"); fi
+        pnpm "${filters[@]}" install --frozen-lockfile
