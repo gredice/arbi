@@ -34,9 +34,10 @@ def shift(parts,fn):
 # overview-exploded figure; the public site reads its transforms from figure-manifest.json.
 OVERVIEW_LAYERS=[(('rain-hood','electronics-cover'),('cover-nut-','cover-top-washer-'),215),(('pi','converter','capacitor'),('pi-','converter-','capacitor-'),140),
  (('deck',),('frame-upper-washer-','frame-nut-'),95),(('enclosure-base',),('cover-bolt-','cover-bottom-washer-'),52),((),('spider-spacer-',),22),
- (('pan-mount','pan-servo'),('pan-servo-','frame-bolt-','frame-lower-washer-'),-44),(('pan-fairing',),('fairing-',),-92)]
+ (('pan-mount','pan-servo'),('pan-servo-','frame-bolt-','frame-lower-washer-'),-44),(('pan-fairing','gimbal-head'),('fairing-','head-'),-92)]
 OVERVIEW_GROUP={'fixed':0,'pan':-150,'tilt':-196}
-# Moving-part details repeat the boot, pivot, horn and camera figures at a larger spacing.
+# The outer head has its own layer; internal pan parts remain on the carrier layer.
+# Moving-part details repeat the pivot, horn and camera figures at larger spacing.
 OVERVIEW_DETAIL=[('tilt-servo-boot','boot-',(-66,0,0)),('tilt-pivot-support','pivot-support-',(42,0,-16)),('camera-cowl','camera-cowl-nut-',(0,0,35)),
  ('camera-hood',None,(0,0,-42)),('camera',None,(0,0,-19)),('pan-horn-retainer',None,(0,0,24)),('pan-horn',None,(0,0,11))]
 
@@ -46,20 +47,25 @@ def overview_ex(p):
   if n in names or n.startswith(prefixes):return T(0,0,z)
  x,y,z=0,0,OVERVIEW_GROUP[p['group']]
  for name,prefix,(dx,dy,dz) in OVERVIEW_DETAIL:
-  if n==name or (prefix and n.startswith(prefix)):x,y,z=x+dx,y+dy,z+dz;break
+  if n==name or (prefix and n.startswith(prefix)):
+   if ENCLOSURE and name=='tilt-pivot-support':dz=0
+   x,y,z=x+dx,y+dy,z+dz;break
  return T(x,y,z)
 
 def main():
  for name,kind in [('raspberry-pi-3a-plus-reference','pi'),('camera-module-3-standard-reference','camera'),('buck-converter-UNVERIFIED','buck')]:tint(name,kind)
  allparts=assembly();openparts=assembly(cover=False)
  if ENCLOSURE:
-  openparts=[p for p in openparts if p['name'] not in ['enclosure-base','pan-fairing','tilt-servo-boot','camera-cowl'] and not any(p['name'].startswith(prefix) for prefix in ['fairing-','boot-','camera-cowl-nut-'])]
+  openparts=[p for p in openparts if p['name'] not in ['enclosure-base','gimbal-head'] and not p['name'].startswith('head-')]
  render('assembled-open',assembly(cover=False),direction=(.55,-1,.55),size=(1600,1350))
- render('assembled-covered',allparts,direction=(.7,-1,.48),size=(1400,1250))
+ # At tilt 0 the optical axis points down; tilt 55 presents the camera face.
+ # Retain a separately named neutral inspection view and neutral GLB/manifest.
+ render('assembled-covered',assembly(0,55) if ENCLOSURE else allparts,direction=(.7,1,.4) if ENCLOSURE else (.7,-1,.48),size=(1400,1250))
+ if ENCLOSURE:render('assembled-neutral',allparts,direction=(.7,1,.4),size=(1400,1250))
  manifest=json.loads((ROOT/'mesh-manifest.json').read_text())
  for e in manifest:
   if e['file'].startswith('models/printable/'):
-   render('part-'+e['model_id'],[{'file':e['file'],'matrix':np.eye(4).tolist(),'color':WHITE if e['model_id'] in ['payload-rain-hood','payload-camera-cowl','payload-electronics-cover'] else BLACK}],direction=(.45,-1,.85),size=(800,580))
+   render('part-'+e['model_id'],[{'file':e['file'],'matrix':np.eye(4).tolist(),'color':WHITE if e['model_id'] in ['payload-rain-hood','payload-integrated-camera-hood','payload-electronics-cover'] else BLACK}],direction=(.45,-1,.85),size=(800,580))
  # Exact retained groups, with displacements only for exploded illustrations.
  fixed=[p for p in openparts if p['group']=='fixed' and p['name'] not in ['pan-servo','pi','converter','capacitor'] and not any(p['name'].startswith(q) for q in ['pi-','pan-servo-','converter-','capacitor-'])]
  def frame_ex(p):
@@ -84,7 +90,9 @@ def main():
   return T(0,0,20)
  render('pan-horn-exploded',shift(horn,horn_ex),direction=(.5,-1,.55),size=(1250,1150))
  tilt=[p for p in openparts if p['name']=='pan-yoke' or p['name'].startswith('tilt-servo')]
- render('tilt-servo-insertion',shift(tilt,lambda p:T() if p['name']=='pan-yoke' else T(10 if 'bolt' in p['name'] else -20)),direction=(-1,-.7,.4),size=(1400,1000))
+ if ENCLOSURE:
+  render('tilt-servo-insertion',tilt,direction=(-.7,-.7,1.2),size=(1400,1000))
+ else:render('tilt-servo-insertion',shift(tilt,lambda p:T() if p['name']=='pan-yoke' else T(10 if 'bolt' in p['name'] else -20)),direction=(-1,-.7,.4),size=(1400,1000))
  camera=[p for p in assembly(cover=False) if p['group']=='tilt' and p['name']!='tilt-horn-center-screw' and not p['name'].startswith('tilt-retainer') and p['name'] not in ['tilt-horn','tilt-horn-retainer','pivot-nut'] and not p['name'].startswith('pivot-')]
  def cam_ex(p):
   n=p['name']
@@ -103,7 +111,7 @@ def main():
  def pivot_ex(p):
   n=p['name']
   if n=='camera-cradle':return T()
-  if n=='tilt-pivot-support' or n.startswith('pivot-support-'):return T(14,0,-10)
+  if n=='tilt-pivot-support' or n.startswith('pivot-support-'):return T(14,0,0 if ENCLOSURE else -10)
   if n in ['pivot-bolt','pivot-outer-washer']:return T(16)
   if n=='pivot-nut':return T(0,0,10)
   return T()
@@ -117,18 +125,18 @@ def main():
   bare=openparts
   base=[p for p in allparts if p['name']=='enclosure-base']
   render('base-and-spider',[p for p in bare if p['name']=='spider']+shift(base,lambda p:T(0,0,35)),direction=(.5,-1,.6),size=(1500,1100))
-  shell=[p for p in allparts if p['name'] in ['rain-hood','enclosure-base','pan-fairing']]
-  render('enclosure-exploded',shift(allparts,lambda p:T(0,0,55) if p['name']=='rain-hood' or p['name'].startswith('cover-nut') else T(0,0,-30) if p['name']=='pan-fairing' or p['name'].startswith('fairing-') else T()),direction=(.6,-1,.45),size=(1550,1400))
-  render('fairing-fit',[p for p in bare if p['name'] in ['spider','deck','pan-mount']]+base+shift([p for p in allparts if p['name']=='pan-fairing' or p['name'].startswith('fairing-')],lambda p:T(0,0,-35)),direction=(.6,-1,.45),size=(1450,1200))
+  render('enclosure-exploded',shift(allparts,lambda p:T(0,0,55) if p['name']=='rain-hood' or p['name'].startswith('cover-nut') else T(0,0,-35) if p['group']!='fixed' else T()),direction=(.6,-1,.45),size=(1550,1400))
+  # Explode the single outer body away from the separately assembled carrier.
+  fit=[p for p in assembly(cover=False) if p['group']!='fixed' or p['name'] in ['spider','pan-mount','pan-servo'] or p['name'].startswith('pan-servo-')]
+  render('head-fit',shift(fit,lambda p:T(0,0,40) if p['name'].startswith('head-bolt-') or p['name'].startswith('head-upper-washer-') else T(0,0,-35) if p['name']=='gimbal-head' or p['name'].startswith('head-') else T()),direction=(.6,1,.35),size=(1450,1200))
+  render('head-open-top',[p for p in allparts if p['group']!='fixed'],direction=(.1,-.2,1),size=(1500,1100))
   service=json.loads((ROOT/'service-check.json').read_text())
   route={'file':service['fixed_power_route']['file'],'matrix':np.eye(4).tolist(),'color':(.85,.55,.14)}
-  render('power-route',[p for p in assembly(cover=False) if p['name'] not in ['enclosure-base','pan-fairing'] and not p['name'].startswith('fairing-')]+[route],direction=(.5,1,.15),size=(1500,1200))
+  render('power-route',[p for p in assembly(cover=False) if p['name']!='enclosure-base']+[route],direction=(.5,1,.15),size=(1500,1200))
   render('wiring-bottom',[p for p in allparts if p['name'] in ['enclosure-base','deck']],direction=(.05,-.2,-1),size=(1550,1050))
   render('hood-nut-seats',[p for p in allparts if p['name']=='rain-hood' or p['name'].startswith('cover-nut')],direction=(.4,-1,-.65),size=(1500,1100))
-  boot=[p for p in allparts if p['name'] in ['pan-yoke','tilt-servo','tilt-servo-boot'] or p['name'].startswith('boot-')]
-  render('boot-exploded',shift(boot,lambda p:T(-22,0,0) if p['name']=='tilt-servo-boot' or p['name'].startswith('boot-') else T()),direction=(-1,-.6,.25),size=(1500,1050))
-  cowl=[p for p in allparts if p['group']=='tilt' and (p['name'] in ['camera-cradle','camera','camera-hood','camera-cowl'] or p['name'].startswith('camera-'))]
-  render('cowl-exploded',shift(cowl,lambda p:T(0,0,22) if p['name']=='camera-cowl' or p['name'].startswith('camera-cowl-nut') else T()),direction=(.8,-1,.5),size=(1400,1050))
+  camera_rear=[p for p in allparts if p['group']=='tilt' and (p['name'] in ['camera-cradle','camera','camera-hood'] or p['name'].startswith('camera-'))]
+  render('camera-rear',camera_rear,direction=(.8,-1,.5),size=(1400,1050))
  render('overview-exploded',shift(allparts,overview_ex),direction=(.6,-1,.28),size=(1400,1800))
  (ROOT/'figure-manifest.json').write_text(json.dumps(v.manifest,indent=2)+'\n')
  (ROOT/'assembly-manifest.json').write_text(json.dumps({'configuration':CONFIG,'pose':{'pan_deg':0,'tilt_deg':0,'cover':True},'parts':allparts},indent=2)+'\n')

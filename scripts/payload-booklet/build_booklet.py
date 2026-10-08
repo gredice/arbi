@@ -24,24 +24,26 @@ def enclosure_booklet():
  begin('Build the rain enclosure','Rounded white roof and black lower chassis; Camera Module 3 Standard, Pi 3A+ and two micro servos. Ordinary-rain/splash concept.')
  fig('assembled-covered',13,53,184,142)
  text(16,201,'CURRENT CAD, COMPLETE ASSEMBLY',11,True,BLUE)
- para(16,209,178,'Every illustration uses the checked STL meshes. The continuous roof, lower tray, removable fairing, servo boot and rear camera cowl supplement the existing gimbal and optical hood.',max_h=23)
+ para(16,209,178,'Every illustration uses the checked STL meshes. The one-piece black head tapers from its broad shoulder to a narrow chin around the camera. It conceals the sideways servo and compact internal carrier. This presentation uses pan 0 / tilt 55 degrees; neutral points down.',max_h=23)
  note(240,'Measure the received servo, horn, converter and connectors first. These are nominal references, with no physical fit or rain test and no claimed ingress rating.')
  para(16,266,178,'Build unpowered on a supported bench fixture. Complete mass, cable movement, heat, electrical performance and suspended operation require separate checks.',small=True,max_h=15)
 
  begin('01  Chassis and gimbal prints','Print quantities below. White-face line drawings show every part; IDs identify prints. Boards and metal are nominal references.')
- items=[('camera-pod-spider','P01 Spider',1),('payload-electronics-deck','P02 Electronics deck',1),('payload-spider-spacer','P03 14 mm spacer',4),('payload-pan-servo-mount','P04 Pan mount',1),('payload-pan-yoke','P05 Pan yoke',1),('payload-tilt-pivot-support','P06 Pivot support',1),('payload-camera-cradle','P07 Camera cradle',1),('payload-horn-retainer','P08 Horn retainer',2),('payload-camera-hood','P09 Optical hood',1),('payload-servo-fit-coupon','T01 Fit coupon',1)]
+ items=[('camera-pod-spider','P01 Spider',1),('payload-integrated-deck','P02 Integrated deck',1),('payload-spider-spacer','P03 14 mm spacer',4),('payload-pan-servo-mount','P04 Pan mount',1),('payload-integrated-gimbal-carrier','P05 Pan carrier',1),('payload-integrated-tilt-pivot-support','P06 Short pivot support',1),('payload-integrated-camera-cradle','P07 Compact cradle',1),('payload-horn-retainer','P08 Horn retainer',2),('payload-integrated-camera-hood','P09 White optical hood',1),('payload-servo-fit-coupon','T01 Fit coupon',1)]
  for i,(name,title,count) in enumerate(items):
   x=16+i%3*61;y=54+i//3*49
   fig('part-'+name,x,y,56,32)
   para(x,y+33,57,'<b>'+title+'</b>',small=True,max_h=10)
   para(x,y+41,57,f'{count} x / '+Path(by[name]['file']).stem.rsplit('-r',1)[1],small=True,max_h=10)
- para(78,207,113,'Reprint P02 deck and P05 yoke at r0.1.1: the deck has the CSI passage; the yoke has boot attachment ears. The coupon is a test print and is not installed.',small=True,max_h=34)
+ para(78,207,113,'P02, P05, P06, P07, P09 and P12 are enclosure-specific prints. The dry mounts, servo boot, fixed fairing and camera cowl are alternative parts. The coupon is a test print and is not installed.',small=True,max_h=34)
  note(261,'STLs use mm and Z=0 print-bed placement. PETG is a starting material; plan supports in the slicer, inspect mating faces and holes, and weigh the sliced and printed parts.')
 
- begin('02  Enclosure prints','P10 replaces the bench electronics cover. P11-P14 are new parts. Use white for the roof and camera cowl; black for the tray, fairing and servo boot.')
- for i,(name,title,body) in enumerate([('payload-rain-hood','P10 White rain hood','Closed roof; inside-loaded M3 nut pockets'),('payload-enclosure-base','P11 Black rain tray','Perimeter skirt, raised lip and downward outlets'),('payload-tilt-servo-boot','P12 Tilt servo boot','Moving cover; servo retained separately'),('payload-camera-cowl','P13 White camera cowl','Four second camera nuts retain the cowl'),('payload-pan-fairing','P14 Black pan fairing','Removes downward; four posts pass between spider arms')]):
+ begin('02  Three exterior shells','P10 is the white roof, P11 its black tray and P12 the single black outer head. The head turns with its internal carrier; a second rear camera cover is omitted.')
+ for i,(name,title,body) in enumerate([('payload-rain-hood','P10 White rain hood','Closed roof; inside-loaded M3 nut pockets'),('payload-enclosure-base','P11 Black rain tray','Perimeter skirt, raised lip and downward outlets'),('payload-integrated-gimbal-head','P12 Compact head','Four M2 fasteners join it to the internal carrier')]):
   x=16+i%3*61;y=55+i//3*93
   fig('part-'+name,x,y,56,60);para(x,y+61,57,'<b>'+title+'</b>',small=True,max_h=10);para(x,y+70,57,body,small=True,max_h=24)
+ fig('gimbal-front',39,151,132,92)
+ text(41,250,'COMPACT MECHANISM WITH OUTER HEAD REMOVED',8,True,BLUE)
  note(261,'These covers manage ordinary rain and splash; openings and moving interfaces are present. Print orientation, drain performance, seals, heat and outdoor exposure remain unverified.')
 
  begin('03  Measure actual hardware','The Pi/camera mounting patterns follow cited drawings. Servo, horn, converter, capacitor and connectors remain provisional.')
@@ -56,67 +58,67 @@ def enclosure_booklet():
  step(2,16,219,'Seat the recessed screws','Use 2 x M1.6 x 6 countersunk screws upward from below and two M1.6 nuts above the ears. No head washers.')
  note(258,'Countersunk servo and horn-retainer heads are essential. Proud heads collide during rotation. Compare real head diameter, recess seating and supplied hardware with the checked reference.')
 
- begin('05  Couple the pan yoke','Set servo neutral electrically, disconnect power, then fit the original horn. There is no printed spline.')
+ begin('05  Prepare the pan carrier','Set servo neutral electrically, disconnect power, then fit the original horn. There is no printed spline.')
  fig('pan-horn-exploded',22,54,166,123)
  step(1,16,183,'Capture the stock horn','Place the horn in the upper pocket of P05. P08 bears on its arm. Shim a loose horn only after checking its actual shape.')
  step(2,16,218,'Fasten and engage','2 x M2 x 10 countersunk screws, two lower washers and two nuts retain P08. Engage the spline and install the original centre screw from below.')
- note(257,'The original centre screw thread and length are supplier dependent. Local 15 mm straight-tip tool access is checked; driver handles and every possible approach are not represented.')
+ note(257,'The original centre screw thread and length are supplier dependent. A 65 mm pan-centre driver shaft is checked with the camera removed. Retainer access uses local tips; handles and wrench turning need a bench trial.')
 
- begin('06  Tilt servo and moving boot','Leave the opposite pivot support off. The boot is fitted after retaining the servo and routes its lead through the lower opening.')
- fig('tilt-servo-insertion',16,52,88,91);fig('boot-exploded',108,52,86,91)
- step(1,16,151,'Slide the servo inward','Insert from the left into P05. The shaft faces the camera. Use 2 x M1.6 x 6 countersunk ear screws from the inner lug face and two nuts outside.')
- step(2,16,197,'Fit the removable boot','Place P12 around the retained servo. Use 2 x M2 x 8 screws from the outside, two M2 washers and two nuts at the yoke ears. Keep the case lead loose.')
- note(256,'After its two bolts are removed, P12 withdraws 20 mm outward, lowers 15 mm, then withdraws another 20 mm. It does not retain the servo, seal the spline, or establish the actual lead-exit position.')
+ begin('06  Populate the compact carrier','The tilt servo lies sideways and 2 mm inboard. Its shaft is at Y=3, Z=-45, 14 mm above the earlier layout. Leave the opposite support, camera and outer body off while fitting it.')
+ fig('tilt-servo-insertion',16,52,88,91);fig('head-open-top',108,52,86,91)
+ step(1,16,151,'Fit the internal tilt servo','With P12 off, slide the servo inward from the left into P05. The case length runs front-to-back; the shaft faces the camera. Keep the opposite support and camera out during insertion.')
+ step(2,16,197,'Retain the servo directly','Use 2 x M1.6 x 6 countersunk ear screws from the inner lug face and two nuts outside the lug plate. P12 covers the servo after carrier assembly; there is no separate servo boot.')
+ note(256,'Populate P05 on a supported bench with P12 removed. Servo, stock horn, fasteners and leads stay accessible before the body encloses the carrier. Inspect actual hardware before fitting the camera.')
 
- begin('07  Camera cradle and rear cowl','Secure the tilt horn centre screw before fitting the camera. P13 sits behind the board; P09 remains at the optical face.')
- fig('camera-exploded',16,52,88,97);fig('cowl-exploded',107,52,87,97)
- step(1,16,158,'Capture and engage the tilt horn','Use P08, 2 x M2 x 8 countersunk screws, two rear washers and two nuts. Engage the spline with P06 removed, then install the original centre screw.')
- step(2,16,204,'Retain camera, then cowl','Use 4 x M2 x 18 through the front washers, P09, PCB and cradle. Rear washers and first nuts secure the camera. Fit P13 over the rear, then add four second M2 nuts.')
- note(261,'The first camera nuts remain at the cradle; the second nuts secure only P13. Route the camera CSI connector through the rear relief. Remove rear nuts, lift P13 by 14 mm, then withdraw it 45 mm toward -Y.')
+ begin('07  Fit the compact camera cradle','Secure the tilt horn centre screw before fitting the camera. P09 remains at the optical face. The outer head provides rear coverage; no separate camera cowl is installed.')
+ fig('camera-exploded',16,52,88,97);fig('camera-rear',107,52,87,97)
+ step(1,16,158,'Capture the horn before engaging it','On the separate cradle, fasten P08 with 2 x M2 x 8 countersunk screws, two rear washers and two nuts. Then slide onto the servo spline with P06 removed and fit the original centre screw.')
+ step(2,16,204,'Retain the camera directly','Insert each M2 x 12 screw with its front washer through the 5.4 mm P09 tunnel, PCB and cradle. Fit four rear washers and four nuts. Inspect the thin webs beside the lens opening.')
+ note(261,'The camera uses four nuts and eight washers. The earlier M2 x 18 screws and four second nuts are omitted. For service, support the pan mount, remove the upper stack and lower the outer head before releasing the four rear camera nuts.')
 
  begin('08  Close the supported pivot','Fit the opposite support after spline engagement. The pivot must rotate freely without squeezing the cradle.')
  fig('pivot-exploded',16,52,178,104)
- step(1,16,163,'Drop in the M3 pivot nut','Insert the plain M3 nut through the open-top cradle pocket. Fit P06 from below; its stop pins face the cradle tab.')
+ step(1,16,163,'Drop in the M3 pivot nut','Insert the plain M3 nut through the open-top cradle pocket. Slide the short P06 inward from the right; its stop pins face the cradle tab.')
  step(2,16,199,'Fasten the removable support','Use 2 x M2 x 12 screws, four M2 washers and two nuts at the yoke top pad.')
  step(3,16,235,'Fit the pivot and shim','Use M3 x 12 with a 0.5 mm outer washer and 0.7 mm gap shim. Adjust for free motion and retain the joint without locking the pivot.')
 
- begin('09  Lower base and frame','Fit P11 before the electronics deck and gimbal obstruct access. The spider remains the canonical structural part.')
- fig('base-and-spider',16,51,89,100);fig('fairing-fit',110,51,84,100)
- step(1,16,156,'Place the upper tray','Lower P11 onto the spider before spacers or electronics are fitted. Keep its raised lip upward and outlets downward.')
- step(2,16,188,'Fit the fairing from below','P14 posts pass between the four arms. Use 4 x M2 x 25 upward through the lower washers; four M2 nuts sit above the tray floor.')
- step(3,16,225,'Stack the frame levels','P04 below the spider; four P03 spacers through the tray; P02 on top. Fit 4 x M4 x 35 upward, eight washers and four nuts.')
- note(260,'Fit the fairing nuts before the deck blocks access. For service, secure pan at 45 degrees and tilt at 0, isolate power, and disconnect or feed harness slack before lowering. P12 may remain fitted.')
-
- begin('10  Mount compute and power','Fixed electronics stay on P02. Work with power disconnected; route the leads before fitting the roof.')
+ begin('09  Preassemble compute and power','Prepare P02 outside the tray so its underside fasteners remain accessible. Work with power disconnected.')
  fig('deck-loaded',16,52,178,93)
- step(1,16,151,'Mount the Pi on four posts','Use 4 x M2.5 x 20 screws, eight washers and four nuts. Fit the microSD and CSI cable while the roof is off.')
- step(2,16,190,'Tie the converter to its pads','Two 2.5 mm insulated ties pass through deck slots over clear PCB strips. Confirm there are no actual components beneath these strips.')
- step(3,16,231,'Retain the capacitor','Insulate its leads, seat it in the loose cup and use the separate tie. Preserve polarity and separation.')
+ step(1,16,151,'Mount the Pi on four posts','Before lowering P02 into the tray, fit the Pi at X=-22, Y=0 with 4 x M2.5 x 20 screws, eight washers and four nuts. Seat the underside washers/nuts now; fit the microSD and CSI cable.')
+ step(2,16,190,'Tie the converter to its pads','Centre the converter at X=32, Y=0, rotated 90 degrees. Two 2.5 mm ties run over clear PCB strips at Y=8 and Y=22. Check the received components beneath each strip.')
+ step(3,16,231,'Retain the capacitor','Insulate its leads and seat it at X=32, Y=-34. Fit the separate tie. Preserve polarity and separation.')
  para(16,270,178,'Verify regulated 5 V and polarity before connecting the Pi. GPIO carries servo signals; the regulated supply powers the motors.',small=True,max_h=12)
 
- begin('11  Route the downward outlets','Tray underside at left; tray and fairing omitted at right to expose the nominal power route. Actual connectors, cable bends and weather seals require fitting.')
+ begin('10  Close the head; fit upper tray','Keep P11 and the loaded P02 deck off for head-bolt access. The fitting view omits the upper stack. Support the spider and pan mount with a bench fixture.')
+ fig('base-and-spider',16,51,89,100);fig('head-fit',110,51,84,100)
+ step(1,16,156,'Preload the head hardware','Before P05 enters P12, slide four M2 nuts and lower washers 11 mm outward from the inside into their side pockets. Support the spider and pan mount on a bench fixture.')
+ step(2,16,188,'Fit the one-piece body','Raise P12 around the assembled P05 carrier. Fit 4 x M2 x 10 and four upper washers from above at X=+/-8, Y=+/-30.5 into the preloaded lower nuts. Keep the upper tray off for the driver.')
+ step(3,16,225,'Lower the loaded deck','Fit P11 above the spider, then four P03 spacers and loaded P02. Keep P04 below the spider. Fit 4 x M4 x 35, eight washers and four nuts; hold the left nuts with a side wrench under the Pi.')
+ note(260,'Fit Pi underside washers and nuts before lowering P02 into the tray. Side-wrench engagement and turning under the Pi need a received-tool trial; the short-driver checks do not prove this complete fastening sequence. Do not force access or load the PCB.')
+
+ begin('11  Route the downward outlets','Tray underside at left; tray omitted at right to expose the fixed power route outside the moving head. Actual connectors, cable bends and weather seals require fitting.')
  fig('wiring-bottom',16,52,88,111);fig('power-route',109,52,85,111)
- table([['<b>Outlet axis</b>','<b>Reference and route</b>'],['Power X=-8, Y=31','6 mm nominal lead: descend to Z=-14, across to X16/Y37, down to Z=-42, then out to Y60'],['CSI X=0, Y=-27','16 x 0.3 mm ribbon; centre it at Y=-28 within the slot, then bend away from the spider hub before descending'],['Servo X=-22, Y=-32','4 x 2 mm lead reference; bend away from spider arm before descending'],['Moving covers','Boot lower exit and cowl rear CSI relief; leave a separate pan-to-camera loop']],172,[55,123])
+ table([['<b>Outlet axis</b>','<b>Reference and route</b>'],['Power X=10, Y=40','6 mm lead: down to Z1; out to Y60 above the moving head; down to Z-61, then out to Y70'],['CSI X=0, Y=-48','16 x 0.3 mm ribbon; centre within the slot, then bend away from the spider hub before descending'],['Servo X=-40, Y=-15','4 x 2 mm lead reference; bend away from spider arm before descending'],['Moving head','Open-top lead passage; leave separate pan and camera loops and retain the ribbon clear of the shortened mechanism']],172,[55,123])
  note(258,'The shown lead is a rigid power-route proxy, checked at 111 poses. Use soft sleeves, ties and a drip loop; actual bend radius and flexible CSI/servo loops still require bench inspection.')
 
  begin('12  Close the continuous roof','The roof has no fastener penetrations. Four plain M3 nuts load sideways into blind columns; bolts enter from underneath.')
  fig('hood-nut-seats',16,52,87,116);fig('cover-fit',108,52,86,116)
  step(1,16,174,'Preload four captive nuts','Slide one plain M3 nut into each inward-facing window. Inspect pocket seating before lowering P10 over the tray lip. Keep wires away from the lip and columns.')
- step(2,16,214,'Fasten from below','Use 4 x M3 x 35 with four lower M3 washers. The bolts pass through base and deck into the captive nuts. No roof washers are fitted.')
+ step(2,16,214,'Fasten from below','Use 4 x M3 x 35 with four lower M3 washers at X=+/-22, Y=+/-46. Reach upward through the gaps between spider arms, through base and deck into the captive nuts. No roof washers are fitted.')
  note(259,'For service, remove the four lower bolts and lift the roof vertically with its captured nuts. Confirm drain slots stay open; test seals, drip paths and internal temperatures before outdoor use.')
 
  begin('13  Hardware for one assembly','Counts follow the actual assembly definition. Plain nuts and nominal heads are checked; supplied servo-centre hardware remains provisional.')
- table([['<b>Location</b>','<b>Screws</b>','<b>Nuts / washers</b>'],['Spider / deck','4 x M4 x 35','4 nuts; 8 washers'],['Pi','4 x M2.5 x 20','4 nuts; 8 washers'],['Servo ears','4 x M1.6 x 6 countersunk','4 nuts; no head washers'],['Pan retainer','2 x M2 x 10 countersunk','2 nuts; 2 washers'],['Tilt retainer','2 x M2 x 8 countersunk','2 nuts; 2 washers'],['Camera / optical hood / cowl','4 x M2 x 18','8 nuts; 8 washers'],['Tilt boot','2 x M2 x 8','2 nuts; 2 washers'],['Pivot support','2 x M2 x 12','2 nuts; 4 washers'],['Tilt pivot','1 x M3 x 12','1 nut; 0.5 washer + 0.7 shim'],['Rain hood / tray','4 x M3 x 35','4 captive nuts; 4 lower washers'],['Pan fairing','4 x M2 x 25','4 nuts; 4 lower washers'],['Servo centres','2 x original horn screws','Verify actual thread / length']],53,[47,68,63])
+ table([['<b>Location</b>','<b>Screws</b>','<b>Nuts / washers</b>'],['Spider / deck','4 x M4 x 35','4 nuts; 8 washers'],['Pi','4 x M2.5 x 20','4 nuts; 8 washers'],['Servo ears','4 x M1.6 x 6 countersunk','4 nuts; no head washers'],['Pan retainer','2 x M2 x 10 countersunk','2 nuts; 2 washers'],['Tilt retainer','2 x M2 x 8 countersunk','2 nuts; 2 washers'],['Camera / optical hood','4 x M2 x 12','4 nuts; 8 washers'],['Pivot support','2 x M2 x 12','2 nuts; 4 washers'],['Tilt pivot','1 x M3 x 12','1 nut; 0.5 washer + 0.7 shim'],['Rain hood / tray','4 x M3 x 35','4 captive nuts; 4 lower washers'],['Outer head / carrier','4 x M2 x 10','4 nuts; 8 washers'],['Servo centres','2 x original horn screws','Verify actual thread / length']],53,[47,68,63])
  para(16,252,178,'Also: two converter ties, one capacitor tie, and soft sleeves/ties for lead anchoring. The pack includes simplified hardware references to show the complete retained assembly.',small=True,max_h=22)
 
  begin('14  CAD evidence and limits','Geometry checks use final exported meshes and the same assembly transforms as these figures. Physical fit, load and rain performance remain unverified.')
  for i,n in enumerate(['motion-left','motion-down','motion-right']):fig(n,16+61*i,54,56,62)
  for x,label in [(16,'PAN -90 / TILT 70'),(77,'PAN 0 / TILT 0'),(138,'PAN +90 / TILT 70')]:text(x,122,label,8,True,BLUE)
- table([['<b>Check</b>','<b>Result / scope</b>'],['Rigid motion grid',f"{report['motion_grid']['poses']} poses; 5-degree steps; no intersections above 0.005 mm3"],['Mechanical stops','Contact outside usable +/-90 pan, 0..70 tilt'],['Assembly and service',f"{len(service['assembly_paths'])} sampled paths; short local driver/socket envelopes"],['Cable outlets',f"{len(service['wiring_ports'])} nominal opening envelopes; no flexible-cable simulation"],['Fixed power route',f"{service['fixed_power_route']['poses']} rigid-route poses; incorrect straight route detects the pan stop"],['Optical opening','66 x 41 degree Standard-camera viewing volume to 80 mm'],['Full-solid PETG mass',f"{report['solid_total_PETG_g']:.1f} g before electronics, wires and metal hardware"]],135,[57,121])
- note(258,'The 170 g flying ceiling is not demonstrated. Slicer settings change mass; weigh the completed build. Sampled rigid checks do not prove continuous clearance, temperature, sealing, strength or safe flight.')
+ table([['<b>Check</b>','<b>Result / scope</b>'],['Rigid motion grid',f"{report['motion_grid']['poses']} poses; 5-degree steps; no intersections above 0.005 mm3"],['Mechanical stops','Contact outside usable +/-90 pan, 0..70 tilt'],['Assembly and service',f"{len(service['assembly_paths'])} sampled paths; local sockets and staged head/centre-screw access"],['Cable outlets',f"{len(service['wiring_ports'])} nominal opening envelopes; no flexible-cable simulation"],['Fixed power route',f"{service['fixed_power_route']['poses']} rigid-route poses; misplaced central-drop control detects the pan stop"],['Optical opening','66 x 41 degree Standard-camera viewing volume to 80 mm'],['Full-solid PETG mass',f"{report['solid_total_PETG_g']:.1f} g before electronics, wires and metal hardware"]],135,[57,121])
+ note(258,'Weigh the completed build; the 170 g flying ceiling is not demonstrated. The head loads the pan servo: verify torque, current and heat on the bench. Rigid checks do not prove sealing, strength or safe flight.')
 
  begin('15  Final supported bench check','Support the spider with the camera free. Do not rest the assembly on the camera hood or force geared servos by hand.')
- steps=[('Inspect fastening','Confirm seated countersunk heads, retained horns, both camera nut sets, boot bolts and captive M3 nuts. The pivot must remain free.'),('Inspect wires and ports','Fit protective sleeves, strain relief and drip loops. No plug is trapped; ribbon loops clear all four travel corners without sharp bends or tension.'),('Measure power, heat and imaging','Check converter voltage/polarity before the Pi. Test servo motion, brownouts, focus and framing, then record internal temperatures with the roof closed.'),('Record the physical build','Record received dimensions, source revision, print settings, sliced/actual mass, usable limits, faults and a controlled rain/splash test. No IP rating or suspended-use approval is supplied.')]
+ steps=[('Inspect fastening','Confirm seated countersunk heads, retained horns, the four camera nuts, pan horn centre screw, four head clamps and captive roof M3 nuts. The pivot must remain free.'),('Inspect wires and ports','Fit protective sleeves, strain relief and drip loops. No plug is trapped; ribbon loops clear all four travel corners without sharp bends or tension.'),('Measure power, heat and imaging','Check converter voltage/polarity before the Pi. Test servo motion, brownouts, focus and framing, then record internal temperatures with the roof closed.'),('Record the physical build','Record received dimensions, source revision, print settings, sliced/actual mass, usable limits, faults and a controlled rain/splash test. No IP rating or suspended-use approval is supplied.')]
  for i,(title,body) in enumerate(steps):step(i+1,16,54+i*42,title,body)
  para(16,232,178,f'<b>Pack contents</b><br/>{len(models)} checked STLs, assembled GLB, canonical CAD snapshot, model/figure transforms, source hashes, configuration and JSON geometry/service reports.',small=True,max_h=21)
  para(16,259,178,'<b>Source and open interfaces</b><br/>See sources.json for nominal hardware. Actual seals, ribbon motion, electrical performance, flying mass, line tensile terminations and docking remain open.',small=True,max_h=21)

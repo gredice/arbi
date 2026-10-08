@@ -17,7 +17,7 @@
 
 ## Notes
 
-Includes the camera-gimbal concept family and the alternative payload mount family, with dry bench and integrated ordinary-rain/splash configurations. Select one arrangement; these sources are not a combined print kit. The enclosure uses pan yoke r0.1.1, retains the optical hood, and adds the tilt-servo boot and rear camera cowl. Quantities, hardware and cable routes are in hardware/assemblies/camera-pod/payload-mounts.md and payload-enclosure.md. Servo/connector dimensions are provisional; source checks do not validate physical fit, rain protection or flying mass.
+Includes the camera-gimbal concept family and the alternative payload mount family, with dry bench and integrated ordinary-rain/splash configurations. Select one arrangement; these sources are not a combined print kit. The current enclosure uses one-piece tapered outer payload-integrated-gimbal-head r0.1.2 with a separate payload-integrated-gimbal-carrier r0.1.1, both moving in pan, in place of the legacy pan yoke, fixed fairing and tilt-servo boot. Four M2 x 10 clamp stacks join the head and carrier. The compact kit uses payload-integrated-camera-cradle and payload-integrated-tilt-pivot-support r0.1.0, omits the rear camera cowl and its four secondary nuts, and uses four M2 x 12 camera screws. The legacy cradle, pivot support, yoke and shields remain alternative sources and are not printed for this configuration. The selected compact kit exports 13 fabrication models including the optional coupon and installs 16 printed pieces. Quantities, hardware and cable routes are in hardware/assemblies/camera-pod/payload-mounts.md and payload-enclosure.md. Servo/connector dimensions are provisional; source checks do not validate physical fit, rain protection or flying mass. The compact integrated variant substitutes payload-integrated-camera-hood r0.1.1 as the rounded white optical surround; the dry bench hood remains an alternative.
 
 ## Used in
 
@@ -42,6 +42,8 @@ Quantities are per assembly definition, before build multipliers. Optional and d
 - [hardware/assemblies/camera-pod/camera-gimbal-optical-hood.scad](../../../hardware/assemblies/camera-pod/camera-gimbal-optical-hood.scad) — module `camera_gimbal_optical_hood`; revision 0.1.0.
 - [hardware/assemblies/camera-pod/camera-gimbal-rain-cap.scad](../../../hardware/assemblies/camera-pod/camera-gimbal-rain-cap.scad) — module `camera_gimbal_rain_cap`; revision 0.1.0.
 - [hardware/assemblies/camera-pod/camera-gimbal-yoke.scad](../../../hardware/assemblies/camera-pod/camera-gimbal-yoke.scad) — module `camera_gimbal_yoke`; revision 0.1.0.
+- [hardware/assemblies/camera-pod/payload-integrated-camera-cradle.scad](../../../hardware/assemblies/camera-pod/payload-integrated-camera-cradle.scad) — module `payload_integrated_camera_cradle`; revision 0.1.0.
+- [hardware/assemblies/camera-pod/payload-integrated-tilt-pivot-support.scad](../../../hardware/assemblies/camera-pod/payload-integrated-tilt-pivot-support.scad) — module `payload_integrated_tilt_pivot_support`; revision 0.1.0.
 - [hardware/assemblies/camera-pod/payload-camera-cradle.scad](../../../hardware/assemblies/camera-pod/payload-camera-cradle.scad) — module `payload_camera_cradle`; revision 0.1.0.
 - [hardware/assemblies/camera-pod/payload-camera-hood.scad](../../../hardware/assemblies/camera-pod/payload-camera-hood.scad) — module `payload_camera_hood`; revision 0.1.0.
 - [hardware/assemblies/camera-pod/payload-horn-retainer.scad](../../../hardware/assemblies/camera-pod/payload-horn-retainer.scad) — module `payload_horn_retainer`; revision 0.1.0.
@@ -50,5 +52,8 @@ Quantities are per assembly definition, before build multipliers. Optional and d
 - [hardware/assemblies/camera-pod/payload-tilt-pivot-support.scad](../../../hardware/assemblies/camera-pod/payload-tilt-pivot-support.scad) — module `payload_tilt_pivot_support`; revision 0.1.0.
 - [hardware/assemblies/camera-pod/payload-tilt-servo-boot.scad](../../../hardware/assemblies/camera-pod/payload-tilt-servo-boot.scad) — module `payload_tilt_servo_boot`; revision 0.1.0.
 - [hardware/assemblies/camera-pod/payload-camera-cowl.scad](../../../hardware/assemblies/camera-pod/payload-camera-cowl.scad) — module `payload_camera_cowl`; revision 0.1.0.
+- [hardware/assemblies/camera-pod/payload-integrated-camera-hood.scad](../../../hardware/assemblies/camera-pod/payload-integrated-camera-hood.scad) — module `payload_integrated_camera_hood`; revision 0.1.1.
+- [hardware/assemblies/camera-pod/payload-integrated-gimbal-head.scad](../../../hardware/assemblies/camera-pod/payload-integrated-gimbal-head.scad) — module `payload_integrated_gimbal_head`; revision 0.1.2.
+- [hardware/assemblies/camera-pod/payload-integrated-gimbal-carrier.scad](../../../hardware/assemblies/camera-pod/payload-integrated-gimbal-carrier.scad) — module `payload_integrated_gimbal_carrier`; revision 0.1.1.
 
 Catalog lifecycle, procurement, and generated documentation do not establish physical validation. See the owning assembly for evidence and acceptance requirements.

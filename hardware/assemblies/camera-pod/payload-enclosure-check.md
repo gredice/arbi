@@ -1,108 +1,87 @@
-# Payload enclosure CAD check — 7 October 2026
+# Compact one-piece gimbal CAD check — 7 October 2026
 
 ## Scope and status
 
-CAD-only inspection and calculation for the [integrated rain enclosure](payload-enclosure.md), with unchanged `camera-pod-spider` r0.1.0, revised `payload-electronics-deck` and `payload-pan-yoke` r0.1.1, five new enclosure models r0.1.0 and the other reused models r0.1.0. All remain **concept-unvalidated**. No physical fit, flexible-harness, powered, rain, thermal or suspended test is claimed.
+The preferred [integrated enclosure](payload-enclosure.md) uses one printed black outer head r0.1.2 and a compact internal carrier r0.1.1. The integrated camera cradle and short pivot support are both r0.1.0. The tilt axis moves from Y=0, Z=−59 to Y=3, Z=−45; the tilt servo lies sideways and its drive moves 2 mm inward. The shoulder-to-chin taper is retained in a smaller shell. The entire head pans with the camera, enclosing the tilt servo, horn and pivot brackets behind a close camera opening. It replaces the fixed fairing, separate servo boot and dry pan yoke in this variant. The upper white hood r0.2.1, tray r0.2.2, integrated deck r0.1.0 and lens-centred camera face r0.1.1 complete the configuration. All models remain **concept-unvalidated**; [ADR-0009](../../../docs/decisions/0009-compact-integrated-payload.md) records the design direction accepted on merge; physical validation remains pending.
 
-The [machine-readable record](payload-enclosure-check.json) records exact revisions, source/checker hashes, all 48 mesh SHA256 digests, sampled intersections, service paths, routing/clamp probes and installed-piece volumes. Codex reviewed those reports against the current canonical sources and exported meshes. Received servo/horn, converter/capacitor, connector and fastener dimensions remain unverified.
+The [machine-readable record](payload-enclosure-check.json) identifies exact model revisions, mesh SHA256 values, checker sources, staged service paths and mass calculations. The [historical r0.1.0 record](payload-enclosure-check-r0.1.0.md) and [JSON](payload-enclosure-check-r0.1.0.json) preserve the earlier elongated enclosure. Supplier-dependent servo, horn, converter, connector and fastener dimensions remain nominal.
 
-![Actual assembled CAD preview](../../../docs/assemblies/camera-pod/enclosure/assembled-cad.png)
+![Covered one-piece head at pan 0 degrees and tilt 70 degrees](../../../docs/assemblies/camera-pod/enclosure/compact-front-cad.png)
 
-This is the modeled neutral assembly. The separate [selected appearance concept](../../../docs/assemblies/camera-pod/enclosure/integrated-concept.png) is an illustration, not dimensional or fit evidence.
+These are registered CAD meshes with nominal bought-part references. The [hero](../../../docs/assemblies/camera-pod/enclosure/assembled-cad.png), [neutral](../../../docs/assemblies/camera-pod/enclosure/compact-neutral-cad.png), [eye-aligned](../../../docs/assemblies/camera-pod/enclosure/compact-eye-aligned-cad.png) and [electronics](../../../docs/assemblies/camera-pod/enclosure/compact-electronics-cad.png) views share the same geometry. Product front/hero/eye views use tilt 70°; the booklet line art uses 55° and the neutral GLB points down. The concept artwork is appearance intent, not fabricated-part evidence.
 
 ## Results
 
 | Check | Result |
 | --- | --- |
-| Model compilation | All 49 registered models compiled with OpenSCAD 2021.01; source proof only. |
-| Mesh export | 15 fabrication STLs, including the non-installed fit coupon; 32 nominal stock/hardware references and one power-route proxy. All 48 meshes are closed, consistently wound, positive-volume and single-body. The enclosure installs 18 printed pieces. |
-| Neutral assembly | Zero unintended intersections above the 0.005 mm³ numeric threshold. |
-| Sampled rigid motion | 555 poses: pan -90…90°, tilt 0…70°, every 5°; zero unintended cross-group intersections. Sampled checking is not continuous proof. |
-| Stop controls | Contacts detected at pan -96/+96° and tilt -6/+76°; nominal limits remain ±95° and -5…75°. |
-| Assembly/service paths | 20 paths; zero failures. Fairing descent requires pan=45°, tilt=0° and includes the installed boot as an obstacle. Boot and cowl use staged neutral-pose removals. |
-| Local tools | 28 driver/socket probes clear at the specified assembly stages; handles and arbitrary wrenches are not represented. |
-| Wire ports | Five nominal lead/connector proxies clear; the fixed CSI proxy uses Y=-28 within the deck slot. |
-| Fixed power route | Nominal Ø6 mm tube clears 111 poses: pan -90…90° every 5°, tilt 0/35/70°. The deliberately incorrect straight-down route intersects the pan yoke by 75.29455 mm³. |
-| Cowl clamp | Four annular probes confirm support contact on existing camera nuts and seating below added rear nuts. Physical nut height, print dimensions and tightening remain unverified. |
-| Optical volume | Standard-camera 66° × 41° nominal viewing pyramid to 80 mm clears 15 poses: pan -90/-45/0/45/90°, tilt 0/35/70°. |
-| Proud-head control | An intentionally proud retainer head intersects the pan mount by 9.96017 mm³; the checker rejects that substitution. |
-| BOM | Canonical inputs are valid and generated reports current; 232 existing procurement incompleteness warnings remain. |
+| Repository compilation | The 7 October local source snapshot compiled all 74 models then registered with pinned OpenSCAD 2021.01. Later repository additions are covered by their commit-specific CI, not this dated run. |
+| Exported meshes | 13 fabrication meshes including the uninstalled coupon, 30 hardware/reference meshes and one rigid power-route proxy. All 44 are single connected, watertight, consistently wound solids with positive volume. |
+| Taper | 1566 horizontal sections of the actual STL narrow downward in both axes, with zero failures at 0.001 mm numerical tolerance. |
+| One-piece housing | The outer head is one connected printable solid; the removable carrier is a separate internal print. |
+| Neutral assembly | Zero unintended intersections above the unchanged 0.005 mm³ numerical tolerance. |
+| Sampled travel | 555 poses, pan −90…90° and tilt 0…70° in 5° steps; zero cross-group interference. This is sampled, not continuous proof. |
+| Stop controls | Pan −96/+96° and tilt −6/+76° produce the intended stop contacts. |
+| Assembly and service | 29 paths with zero failures, including full camera bolt/washer insertion, captive head hardware loading, outer-body removal, camera removal and carrier release. Removed parts and intentional OEM engagements are recorded explicitly. |
+| Tool envelopes | 22 probes clear at their documented stages, including 80 mm head-screw and 65 mm pan-centre shafts. Four rear-camera probes use a 5.3 mm hollow socket and 6 mm local length. Full driver handles, wrench turning and side-wrench engagement under the Pi remain unrepresented. |
+| Wiring openings | 4 local opening proxies clear. CSI/servo paths do not establish complete flexible routing. |
+| Fixed power route | Ø6 mm rigid proxy clears 111 poses, pan every 5° at tilt 0/35/70°. It stays outside the moving head below the spider. The misplaced central-drop control still detects the internal carrier. |
+| Optics | The 66° × 41° viewing pyramid, 80 mm deep, clears 15 poses: pan −90/−45/0/45/90°, tilt 0/35/70°. |
+| Proud-head control | A deliberately proud retainer screw still intersects the pan mount. |
+| BOM/docs | Canonical/generated BOM consistency and local Markdown links pass; 234 procurement incompleteness warnings remain. |
 
-Stock-horn/servo spline and OEM centre-screw/servo threaded engagement are intentional exclusions because the simplified servo has no mating socket/thread. They are not verified supplier fits. Neutral checking covers same-group stacks; the motion grid checks relative motion between rigid groups.
+No numerical tolerance or general collision exclusion was relaxed. The original servo spline/horn and OEM screw/thread engagements are explicit exceptions; their use during removal is limited to those exact pairs. The dry bench remains a separate unchanged geometry selection with its [own earlier check record](payload-geometry-check.md).
 
-## Harness and service limits
+## Enclosure and assembly
 
-The checked power centreline is `[-8,31,24] → [-8,31,-14] → [16,37,-14] → [16,37,-42] → [16,60,-42]`. The outboard turn is below the fairing tower/fastener and above the pan stops. This rigid tube does not establish real bend radii, sleeves, ties, lead construction or service slack. Separate flexible pan/tilt loops for CSI and servo leads remain physical-inspection work.
+The upper shell is 124 × 118 mm and centred at X=0 above the camera. The black moving head is widest at its 94 × 76 mm open shoulder and narrows toward the camera opening. Its final mesh height is 72.545 mm, ending at Z=−76.6453. The earlier tapered preview measured 112 × 96 × 83.8045 mm, so the new bounding-box volume is 42.48% smaller; this is an envelope comparison, not a material or mass claim. The front profile uses radius 47 mm, height 75 mm and exponent 3; the side uses radius 38 mm, height 75 mm and exponent 2.5. Rounded rectangular plan sections (exponent 3) fit the horizontal servo without widening the outer sides. The inward offset is slope-compensated; inspect actual wall thickness and print quality. The optical opening stays open around the camera rather than closing into a solid point. Its top at Z=−4.1 leaves a nominal 0.6 mm below the spider. The narrow front/underside opening accommodates the tilting camera while enclosing the side mechanism. The former internal rear camera cowl and its four extra nuts are omitted. Four M2 × 12 screws, eight washers and four nuts retain the unchanged camera/white-hood stack; M3 remains at the existing opposite pivot. A separate rear cover is not included in this selected geometry, while weather and flexible-ribbon protection still require physical checks. The 34 × 36 mm white camera face has a lens-centred Ø14 mm opening and Ø5.4 mm screw/washer passages. The approximately 0.8 mm webs beside its eye require print inspection.
 
-The fairing removal test precedes incoming-harness installation. A fitted harness must be isolated and disconnected or have measured slack fed during removal. Cowl service lifts 14 mm then withdraws 45 mm toward -Y; boot service withdraws 20 mm toward -X, lowers 15 mm and continues outward. These paths do not prove service with connected flexible cables. See [assembly instructions](payload-enclosure.md) for the hardware, stages and measurement gates.
+Four M2 × 10 bolts and eight washers clamp the carrier to the outer head at X=±8, Y=±30.5. Four plain nuts and lower washers load sideways from inside into the head's captive pockets before the mechanism enters. The carrier has complete washer lands on both front and rear tabs. Assemble the servo and camera mechanism outside the body; attach the pan horn centre screw before the camera blocks its long access route. Raise the body over the neutral assembly and fasten it from above before the upper tray and electronics obstruct access.
 
-## Calculated solid-volume mass
+For service, disconnect power/leads and support the spider and pan mount on a bench fixture. Remove the upper stack to reach the four head screws, then lower the one-piece body with its captive hardware while retaining the complete carrier. Remove the four rear camera nuts and washers and lower the camera, white hood and front fasteners, then reach the pan centre screw through the retained open cradle. The short opposite pivot support slides inward from the right during assembly. Capture and fasten the tilt horn in the separate cradle before servo engagement; the sideways servo obstructs a retainer driver afterwards. The paths assume disconnected leads or measured slack; they do not prove removal around attached flexible cables.
 
-Exported solid volumes are multiplied by **1.27 g/cm³ PETG density**. This is not a slicer estimate or weighed print. Infill, walls, supports, material density and manufacturing behavior change actual mass. The non-installed fit coupon and nominal hardware references are excluded; four spacers and two retainers are included.
+Preassemble the Pi's underside washers/nuts before lowering its deck into the tray. The Pi covers the two left M4 frame nuts, so actual side-wrench engagement and turning remain an open received-tool check. A supported fixture is essential while shared upper-stack/frame fasteners are removed; the CAD paths do not establish a suspended service procedure.
 
-| Installed group | Printed pieces | Solid volume (cm³) | Full-solid PETG estimate (g) |
-| --- | ---: | ---: | ---: |
-| Retained core, with revised deck/yoke | 13 | 109.568 | 139.151 |
-| White upper rain hood | 1 | 39.557 | 50.237 |
-| Black upper rain tray | 1 | 24.321 | 30.888 |
-| Black lower pan fairing | 1 | 17.001 | 21.592 |
-| Black tilt-servo boot | 1 | 2.566 | 3.258 |
-| White rear camera cowl | 1 | 2.528 | 3.210 |
-| **Complete printed configuration** | **18** | **195.540** | **248.336** |
+The fixed power proxy centreline is `[10,40,24] → [10,40,1] → [10,60,1] → [10,60,-61] → [10,70,-61]`. It turns outward at Z=1 between the fixed tray skirt and rotating head, then descends at Y=60 outside the pan sweep. These waypoints describe a rigid clearance volume, not sharp bends to impose on a cable. Actual bend radius, sleeves, drip loops, restraint and the separate moving CSI/servo loops require inspection.
 
-The five new shell parts total **109.185 g** and replace the unchanged dry cover's **24.157 g**, a **85.028 g increase** over the same revised core with that cover. The current dry variant calculates to **163.308 g**; the preserved [28 September record](payload-geometry-check-2026-09-28.md) calculates approximately 164.0 g for its earlier revisions. Values above are independently rounded.
+## Solid-volume calculation
 
-**The full-solid prints alone exceed the 170 g complete-pod ceiling. This revision does not demonstrate flight-mass compliance.** The complete pod still targets 100–120 g and must be weighed with electronics, horns, fasteners, wiring, insulation and retention. The owner's earlier 103.05 g sliced result has unspecified installed quantities/support settings and is not extrapolated to the enclosure. Re-slice the chosen 18-piece kit and weigh the completed assembly.
+Mesh volume × **1.27 g/cm³ PETG density**, for **16 installed prints**, is **244.868 g**. This is a full-solid CAD calculation, not slicer output or measured mass.
 
-Neutral represented bounds are approximately **169.08 × 169.08 × 126.02 mm**. Dock clearance, line terminations, centre of gravity, balance and structural load remain unverified.
+| Installed part | Solid volume (cm³) | Full-solid PETG (g) |
+| --- | ---: | ---: |
+| `spider` | 66.232 | 84.115 |
+| `deck` | 13.442 | 17.071 |
+| `spider-spacer-0` | 0.875 | 1.112 |
+| `spider-spacer-1` | 0.875 | 1.112 |
+| `spider-spacer-2` | 0.875 | 1.112 |
+| `spider-spacer-3` | 0.875 | 1.112 |
+| `pan-mount` | 8.299 | 10.540 |
+| `pan-yoke` | 8.459 | 10.743 |
+| `gimbal-head` | 21.803 | 27.690 |
+| `tilt-pivot-support` | 1.089 | 1.383 |
+| `camera-cradle` | 3.191 | 4.053 |
+| `camera-hood` | 4.588 | 5.827 |
+| `pan-horn-retainer` | 0.545 | 0.692 |
+| `tilt-horn-retainer` | 0.545 | 0.692 |
+| `enclosure-base` | 24.669 | 31.330 |
+| `rain-hood` | 36.443 | 46.283 |
+| **Total** | **192.809** | **244.868** |
 
-## Revised dry bench regression
+The print calculation alone exceeds the **170 g complete-pod ceiling**. Slice and weigh the complete configured assembly before assessing flying mass. The outer head now moves in pan, adding load and inertia to the servo; torque, settling, current, heating and cable drag require separate physical checks. The earlier owner-reported 103.05 g sliced number has no confirmed quantity/settings basis for this revision and is not extrapolated.
 
-A separate dry run inspected r0.1.1 deck/yoke with the unchanged r0.1.0 cover, spider and other reused parts. Its 41 meshes comprise 11 fabrication models, 29 hardware references and a legacy multi-body keep-out. Neutral checking found zero unintended intersections; all 555 motion poses and four stop controls passed, as did eight service paths, ten tool probes, nine optical poses and the proud-head negative control. This supports nominal compatibility with the dry arrangement, without establishing actual fit or flying mass.
+Neutral modeled dimensions are approximately **169.08 × 169.08 × 126.15 mm**. Strength, balance, docking, received-part fit, cable fatigue, electrical/thermal behavior and ordinary-rain/splash performance remain unvalidated. No ingress rating or suspended-use approval follows from these CAD checks.
 
-The shared mounts source matches the current SHA256 below. The inspected bench exports are identified separately:
+## Reproduction
 
-```text
-payload-electronics-deck r0.1.1
-  bf5fca0872add2edcd497903519474b9d2cb144caea6087be720c2bb52b250e9
-payload-pan-yoke r0.1.1
-  98c24d2c70623b8330a1170532c315eb20bb46c423d4724b61f0014722a0749b
-```
+Use Node ≥24, pinned pnpm, OpenSCAD 2021.01 and the [booklet workflow/dependencies](../../../scripts/payload-booklet/README.md). Generated meshes and packs stay in ignored `hardware/generated/`; checked-in earlier PDFs/ZIPs are labeled historical snapshots.
 
-The current bench checker SHA256 is `a479f2757c7a7e9df097641bb0f0abfb6426eeb1f81fbe954b1c5cd9d3e3acb0`. Current source/STL hashes and results are in the [dry bench JSON](payload-geometry-check.json). The [dated historical record](payload-geometry-check-2026-09-28.md) retains the earlier r0.1.0 evidence; the [published booklets](../../../docs/assemblies/camera-pod/booklet/README.md) now use the revised kit.
-
-## Source and mesh audit
-
-All final mesh digests matched the exported files, manifest and machine-readable record. These canonical source files matched the inspected export snapshots byte for byte:
-
-```text
-hardware/lib/payload-mounts.scad
-  489db6bba746e741d4db140c9d9fe4dc92bec7eca1a35b7b1e2ef19439f96039
-hardware/lib/payload-enclosure.scad
-  b19d4257581e7e5a7d3d42bc5129a5da677406febba4ad74acbf300bb37534ed
-scripts/payload-booklet/integration.py
-  6ac209ef141615a0c5fe3735eee3a112600f31c6d00afab9aa3c16f969ea7aa9
-scripts/payload-booklet/check_integration.py
-  a479f2757c7a7e9df097641bb0f0abfb6426eeb1f81fbe954b1c5cd9d3e3acb0
-scripts/payload-booklet/check_service.py
-  23fd31c0ef77ae46db5b9fd954096dfe85d34783765eec4249ea95f8e9e19b5e
-scripts/payload-booklet/reference-parts.scad
-  ee5e874c8549bd9cfe1a63f9a7f43e24769086855f7884d0c2bad390e1fab96c
-```
-
-Full fabrication/reference STL digests are retained in [payload-enclosure-check.json](payload-enclosure-check.json). The [published enclosure pack](../../../docs/assemblies/camera-pod/booklet/README.md) contains mesh/assembly/figure manifests and source provenance. The current PDF/ZIP are authorized reviewable snapshots. Loose meshes and bulk renders remain ignored; dated earlier evidence is retained separately.
-
-## Repeat and remaining evidence
-
-```bash
-python3 scripts/payload-booklet/build.py --enclosure --output hardware/generated/payload-enclosure
-python3 scripts/payload-booklet/build.py --output hardware/generated/payload-bench-regression
+```sh
 pnpm cad:check -- --require-openscad
 pnpm bom:check
 pnpm docs:check
+python3 scripts/payload-booklet/build.py --enclosure --output hardware/generated/payload-compact-gimbal
+python3 scripts/check-booklet.py hardware/generated/payload-compact-gimbal --variant enclosure
 git diff --check
 ```
 
-Follow the [pipeline setup](../../../scripts/payload-booklet/README.md). The build rejects failed mesh, rigid, service, tool, port, optical, route, clamp and negative-control checks before packaging. It does not run a physical prototype.
-
-Received-hardware fit, flexible harness/ribbon fatigue, servo torque/settling, electrical isolation and retention, complete mass/balance, thermal load/heat soak, rain/drainage/condensation, UV/creep, load capacity, line interfaces and docking still need measured evidence. The shell has no ingress rating; CAD results do not change the weather policy or flight acceptance gates.
+The enclosure build emits booklet revision 5, the current STL/source pack, neutral GLB, product previews and exact figure transforms. Do not combine the older dry, fixed-fairing or servo-boot alternatives with this print inventory.

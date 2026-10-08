@@ -17,7 +17,7 @@
 
 ## Notes
 
-Includes the camera-pod concept family and the alternative payload mount family, sharing the unchanged camera-pod-spider. Select one arrangement; these sources are not a combined print kit. The integrated ordinary-rain/splash configuration uses electronics deck r0.1.1 and replaces payload-electronics-cover with payload-rain-hood, payload-enclosure-base and removable payload-pan-fairing. Quantities, hardware and cable routes are in hardware/assemblies/camera-pod/payload-mounts.md and payload-enclosure.md. Physical fit, rain/thermal behavior and complete flying mass remain unverified. Updated for Raspberry Pi 3A+ V1 pod architecture; replaces earlier Pi Zero 2 W mass/layout assumptions.
+Includes the camera-pod concept family and the alternative payload mount family, sharing the unchanged camera-pod-spider. Select one arrangement; these sources are not a combined print kit. The integrated ordinary-rain/splash configuration uses compact payload-integrated-deck r0.1.0 instead of the dry bench deck and replaces payload-electronics-cover with payload-rain-hood r0.2.1 and payload-enclosure-base r0.2.2. Its pan-moving payload-integrated-gimbal-head belongs to the camera-gimbal part; the separate fixed payload-pan-fairing remains a historical alternative and is omitted from the current enclosure kit. Quantities, hardware and cable routes are in hardware/assemblies/camera-pod/payload-mounts.md and payload-enclosure.md. Physical fit, rain/thermal behavior and complete flying mass remain unverified. Updated for Raspberry Pi 3A+ V1 pod architecture; replaces earlier Pi Zero 2 W mass/layout assumptions.
 
 ## Used in
 
@@ -45,8 +45,9 @@ Quantities are per assembly definition, before build multipliers. Optional and d
 - [hardware/assemblies/camera-pod/payload-pan-servo-mount.scad](../../../hardware/assemblies/camera-pod/payload-pan-servo-mount.scad) — module `payload_pan_servo_mount`; revision 0.1.0.
 - [hardware/assemblies/camera-pod/payload-electronics-cover.scad](../../../hardware/assemblies/camera-pod/payload-electronics-cover.scad) — module `payload_electronics_cover`; revision 0.1.0.
 - [hardware/assemblies/camera-pod/payload-spider-spacer.scad](../../../hardware/assemblies/camera-pod/payload-spider-spacer.scad) — module `payload_spider_spacer`; revision 0.1.0.
-- [hardware/assemblies/camera-pod/payload-rain-hood.scad](../../../hardware/assemblies/camera-pod/payload-rain-hood.scad) — module `payload_rain_hood`; revision 0.1.0.
-- [hardware/assemblies/camera-pod/payload-enclosure-base.scad](../../../hardware/assemblies/camera-pod/payload-enclosure-base.scad) — module `payload_enclosure_base`; revision 0.1.0.
-- [hardware/assemblies/camera-pod/payload-pan-fairing.scad](../../../hardware/assemblies/camera-pod/payload-pan-fairing.scad) — module `payload_pan_fairing`; revision 0.1.0.
+- [hardware/assemblies/camera-pod/payload-rain-hood.scad](../../../hardware/assemblies/camera-pod/payload-rain-hood.scad) — module `payload_rain_hood`; revision 0.2.1.
+- [hardware/assemblies/camera-pod/payload-enclosure-base.scad](../../../hardware/assemblies/camera-pod/payload-enclosure-base.scad) — module `payload_enclosure_base`; revision 0.2.2.
+- [hardware/assemblies/camera-pod/payload-pan-fairing.scad](../../../hardware/assemblies/camera-pod/payload-pan-fairing.scad) — module `payload_pan_fairing`; revision 0.2.1.
+- [hardware/assemblies/camera-pod/payload-integrated-deck.scad](../../../hardware/assemblies/camera-pod/payload-integrated-deck.scad) — module `payload_integrated_deck`; revision 0.1.0.
 
 Catalog lifecycle, procurement, and generated documentation do not establish physical validation. See the owning assembly for evidence and acceptance requirements.

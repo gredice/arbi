@@ -8,6 +8,8 @@ CAD-only inspection of the **dry bench mount set with r0.1.1 deck/yoke and remai
 
 This current record supersedes the [28 September r0.1.0 record](payload-geometry-check-2026-09-28.md). That dated record and its separate JSON are retained; the earlier revision 2 pack remains in Git history. The integrated enclosure has [separate evidence](payload-enclosure-check.md) and its own print list.
 
+The unchanged dry geometry was rechecked alongside the compact enclosure proposal. Its own deck, square optical hood and cover remain separate; compact part selection does not add them to the enclosure kit.
+
 ## Results
 
 | Check | Result |

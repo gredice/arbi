@@ -51,7 +51,7 @@ Horn screw span is an 8 mm starting pattern. Servo spline index, pan/tilt hard-s
 
 ## `camera-pod-envelope`
 
-[camera-pod-envelope.scad](camera-pod-envelope.scad) is a keep-out for the fixed component volume, gimbal sweep, docking interface, rear service space, and four line-termination zones. It has no BOM part ID and must not be interpreted as a pod enclosure. The cable spider remains the primary chassis. The [integrated shell proposal](payload-enclosure.md) is a bounded ordinary-rain/splash configuration whose complete mass must still satisfy the V1 target and ceiling; it does not redefine the operating weather policy.
+[camera-pod-envelope.scad](camera-pod-envelope.scad) is a keep-out for the fixed component volume, gimbal sweep, docking interface, rear service space, and four line-termination zones. It has no BOM part ID and must not be interpreted as a pod enclosure. The cable spider remains the primary chassis. The [integrated shell design](payload-enclosure.md) is a bounded ordinary-rain/splash configuration whose complete mass must still satisfy the V1 target and ceiling; it does not redefine the operating weather policy.
 
 Registry ID and design revision: `camera-pod-envelope` `0.1.1`, role `reference`, status `concept-unvalidated`.
 
@@ -59,7 +59,7 @@ Registry ID and design revision: `camera-pod-envelope` `0.1.1`, role `reference`
 
 [camera-pod-assembly.scad](camera-pod-assembly.scad) defaults to the integrated enclosure. Set `show_legacy=true` to show the separate historical printed kit; `show_context` applies only to that layout. Set `show_hood=false` to expose the integrated core. Both views use the shared white-shell/black-core palette. It does not prove clearances, mass properties, centre of gravity, or dock capture.
 
-Registry ID and design revision: `camera-pod-assembly` `0.2.0`, role `reference`, status `concept-unvalidated`.
+Registry ID and design revision: `camera-pod-assembly` `0.3.4`, role `reference`, status `concept-unvalidated`.
 
 ## `camera-pod-spider`
 
@@ -77,6 +77,6 @@ All remain concept-unvalidated. The [7 October CAD checks](payload-geometry-chec
 
 ## Integrated rain enclosure
 
-The [enclosure configuration](payload-enclosure.md) adds `payload-rain-hood`, `payload-enclosure-base`, `payload-pan-fairing`, `payload-tilt-servo-boot` and `payload-camera-cowl`, all r0.1.0. It uses the revised deck/yoke and **replaces** `payload-electronics-cover`. The spider is unchanged. White upper/rear shells and a black tray/removable lower fairing form the selected rounded appearance. [payload-rain-assembly.scad](payload-rain-assembly.scad) r0.1.1 is its reference CSG and must not be printed.
+The [compact enclosure configuration](payload-enclosure.md) retains the integrated electronics deck r0.1.0, white optical hood r0.1.1, upper rain hood r0.2.1 and tray r0.2.2. The compact gimbal uses outer head r0.1.2, carrier r0.1.1 and new `payload-integrated-camera-cradle` / `payload-integrated-tilt-pivot-support` r0.1.0. A horizontal tilt servo moves the driven interface 2 mm inboard to X=-19.8; the camera tilt axis moves to Y=3, Z=-45. The one-piece outer housing narrows downward around this arrangement; its final mesh envelope is 94 × 76 × 72.545 mm. Reprint these four compact gimbal parts and omit the earlier cowl/secondary nuts, retaining four M2 × 12 camera screws, four primary nuts and eight washers. The kit has 13 fabrication models including the optional coupon and 16 installed prints from 12 model types. [payload-rain-assembly.scad](payload-rain-assembly.scad) r0.2.4 is its non-printing reference CSG; [ADR-0009](../../../docs/decisions/0009-compact-integrated-payload.md) records the design direction accepted on merge, with physical validation pending.
 
-The enclosure document owns print counts, colour suggestions, clamp hardware, service steps, downward power/CSI/servo passages, relaxed moving cable loops and unresolved fit/rain/thermal/mass acceptance. The [7 October CAD record](payload-enclosure-check.md) and [machine-readable results](payload-enclosure-check.json) cover nominal rigid checks and the revised dry bench regression. The shell has no ingress rating; its 248.336 g full-solid PETG print calculation does not establish the 170 g complete-pod ceiling, ordinary-rain protection or flying operation.
+The enclosure document owns print counts, colours, captive head clamps, supported assembly/service sequence, harness passages and unresolved fit/rain/thermal/mass acceptance. The [current CAD record](payload-enclosure-check.md) and [machine-readable results](payload-enclosure-check.json) identify passing nominal compact-gimbal motion, taper, service, optical and routing checks. Its 16 installed prints total 244.868 g as a solid-volume PETG estimate at 1.27 g/cm³, before hardware and electronics. Sliced and measured mass, servo torque/settling, received-part fit and rain protection around the camera/CSI loops remain unverified. The shell has no ingress rating; CAD checks do not establish the 170 g complete-pod ceiling or flying operation.
