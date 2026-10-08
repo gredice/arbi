@@ -11,7 +11,7 @@ await new Promise((resolve) => reservation.close(resolve));
 const env = { ...process.env, NEXT_TELEMETRY_DISABLED: "1" };
 // This launcher verifies the ordinary secret-free start, even in an operator shell.
 for (const name of Object.keys(env)) if (name.startsWith("ARBI_DASHBOARD_")) delete env[name];
-const child = spawn(process.execPath, ["node_modules/next/dist/bin/next", "start", "--hostname", "127.0.0.1", "--port", String(port)],
+const child = spawn(process.execPath, ["--no-experimental-require-module", "node_modules/next/dist/bin/next", "start", "--hostname", "127.0.0.1", "--port", String(port)],
   { env, stdio: ["ignore", "pipe", "ignore"] });
 let timer;
 try {
