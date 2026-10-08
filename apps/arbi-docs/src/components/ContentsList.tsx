@@ -22,7 +22,7 @@ export function ContentsList({ systems }: { systems: System[] }) {
                         {s.usages.length} BOM lines
                     </div>
                     <div className="hidden h-[128px] place-items-center md:grid">
-                        {s.scene?.hero ? <SystemThumbnail scene={s.scene} /> : <span className="tag text-grey">{s.scene ? "3D parts layout" : "no registered CAD"}</span>}
+                        {s.scene?.hero ? <SystemThumbnail scene={s.scene} /> : <span className="tag text-grey">{s.scene ? "3D parts layout" : s.models.length ? "CAD preview pending" : "no registered CAD"}</span>}
                     </div>
                 </Link>
             ))}

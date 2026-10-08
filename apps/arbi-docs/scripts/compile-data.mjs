@@ -5,18 +5,20 @@
 // - bom/catalog/*.json, bom/assemblies/assemblies.json, bom/generated/*.json (BOM)
 // - docs/**/*.md, hardware/**/*.md, bom/README.md and committed docs images
 // - booklet packs (GLB, STL meshes, assembly/figure manifests, line-art figures): the latest
-//   cad-<commit> release when its meshes match the registry, else the committed snapshot
+//   source-matched versioned CAD release, else a source-checked committed snapshot
 // - exploded poses from the booklet renderer's figure manifests
 // - release STLs, verified against the release SHA256SUMS.txt
 //
 // ARBI_OFFLINE=1 skips the network and uses committed snapshots only.
-// ARBI_CAD_RELEASE=cad-<sha> pins a release instead of the latest one.
+// ARBI_CAD_RELEASE=cad-v<version> pins a release instead of the latest one.
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { basename, dirname, join, relative, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { unzipSync } from 'fflate';
+import { CAD_TAG } from '../../../scripts/cad-release-data.mjs';
+import { packIsCurrent, parseChecksums, validateReleaseManifest } from './cad-data.mjs';
 import { previewFigures } from './cad-previews.mjs';
 
 const APP = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -24,6 +26,8 @@ const REPO = resolve(APP, '../..');
 const OUT = process.env.ARBI_DATA_DIR ? resolve(process.env.ARBI_DATA_DIR) : join(APP, 'public/data');
 const GITHUB = 'https://github.com/gredice/arbi';
 const CORE = [0.12, 0.14, 0.15];
+const PRODUCTION = process.env.VERCEL_ENV === 'production';
+const OFFLINE = process.env.ARBI_OFFLINE === '1';
 // Booklet packs: committed snapshot path, release asset name, installed/exploded figures.
 const PACKS = {
   pod: { snapshot: 'docs/assemblies/camera-pod/booklet/ARBI-payload-enclosure-STL-pack.zip', asset: 'ARBI-payload-enclosure-STL-pack.zip',
@@ -66,26 +70,35 @@ function mdSummary(text) {
 
 // ------------------------------------------------------------------ CAD release
 
-async function resolveRelease() {
-  if (process.env.ARBI_OFFLINE === '1') return null;
+async function resolveRelease(models) {
+  if (OFFLINE) {
+    if (PRODUCTION) throw new Error('Production requires a source-matched CAD release; ARBI_OFFLINE is for local archival previews');
+    return null;
+  }
   try {
     let tag = process.env.ARBI_CAD_RELEASE;
     if (!tag) {
-      const res = await fetch(`${GITHUB}/releases/latest`, { method: 'HEAD', redirect: 'manual' });
-      tag = res.headers.get('location')?.match(/\/releases\/tag\/(cad-[0-9a-f]{40})$/)?.[1];
-      if (!tag) throw new Error(`no cad-* latest release (HTTP ${res.status})`);
+      const res = await fetch(`${GITHUB}/releases/latest`, { method: 'HEAD', redirect: 'manual', signal: AbortSignal.timeout(60000) });
+      tag = res.headers.get('location')?.split('/releases/tag/')[1];
+      if (!tag) throw new Error(`no latest CAD release (HTTP ${res.status})`);
     }
+    if (!CAD_TAG.test(tag)) throw new Error('Latest CAD release needs versioned source provenance');
     const base = `${GITHUB}/releases/download/${tag}/`;
     const sums = await (await fetchOk(base + 'SHA256SUMS.txt')).text();
-    const assets = Object.fromEntries(sums.trim().split('\n').map((l) => l.trim().split(/\s+\*?/)).map(([digest, name]) => [name, digest]));
-    return { tag, commit: tag.slice(4), url: `${GITHUB}/releases/tag/${tag}`, base, assets };
+    const assets = parseChecksums(sums);
+    const release = { tag, url: `${GITHUB}/releases/tag/${tag}`, base, assets };
+    const bytes = await releaseAsset(release, 'cad-release.json');
+    if (!bytes) throw new Error('CAD release has no verified cad-release.json');
+    release.commit = validateReleaseManifest(parse(bytes), tag, REPO, models, assets);
+    return release;
   } catch (error) {
-    console.warn(`CAD release unavailable, using committed snapshots only: ${error.message}`);
+    if (PRODUCTION) throw error;
+    console.warn(`CAD release unavailable: ${error.message}`);
     return null;
   }
 }
 async function fetchOk(url) {
-  const res = await fetch(url);
+  const res = await fetch(url, { signal: AbortSignal.timeout(60000) });
   if (!res.ok) throw new Error(`${url}: HTTP ${res.status}`);
   return res;
 }
@@ -96,6 +109,7 @@ async function releaseAsset(release, name) {
     if (sha256(bytes) !== release.assets[name]) throw new Error(`${name}: SHA-256 mismatch`);
     return bytes;
   } catch (error) {
+    if (PRODUCTION) throw error;
     console.warn(`Skipping release asset: ${error.message}`);
     return null;
   }
@@ -108,18 +122,22 @@ function unpack(bytes) {
   for (const [name, data] of Object.entries(unzipSync(bytes))) if (!name.endsWith('/')) byRel[name.split('/').slice(1).join('/')] = data;
   return byRel;
 }
-// A pack is current when every fabrication mesh it ships is a registered output name.
-const packIsCurrent = (files, outputs) => Object.keys(files).filter((n) => /^models\/(printable|arbi)\/.+\.stl$/.test(n)).every((n) => outputs.has(basename(n)));
-
 async function choosePack(key, release, outputs) {
   const spec = PACKS[key];
   const fromRelease = await releaseAsset(release, spec.asset);
   if (fromRelease) {
     const files = unpack(fromRelease);
-    if (packIsCurrent(files, outputs)) return { files, source: { kind: 'release', tag: release.tag, asset: spec.asset } };
-    console.warn(`${spec.asset} in ${release.tag} has superseded mesh revisions; using the committed snapshot.`);
+    if (packIsCurrent(files, outputs, REPO, key)) return { files, source: { kind: 'release', tag: release.tag, asset: spec.asset, current: true } };
+    console.warn(`${spec.asset} in ${release.tag} differs from current CAD/booklet sources.`);
   }
-  return { files: unpack(readFileSync(join(REPO, spec.snapshot))), source: { kind: 'snapshot', path: spec.snapshot } };
+  if (PRODUCTION) throw new Error(`Production requires the current verified ${spec.asset}`);
+  const files = unpack(readFileSync(join(REPO, spec.snapshot)));
+  const current = packIsCurrent(files, outputs, REPO, key);
+  if (!current && !OFFLINE) {
+    console.warn(`Omitting outdated ${key} scene; its CAD release is not ready.`);
+    return null;
+  }
+  return { files, source: { kind: 'snapshot', path: spec.snapshot, current } };
 }
 
 const translation = (m) => [m[0][3], m[1][3], m[2][3]];
@@ -203,7 +221,7 @@ function stlBounds(bytes) {
 
 // Assemblies with registered fabrication meshes but no assembly transforms: show the
 // release meshes side by side. This is a parts layout, not an assembly claim.
-function lineupScene(slug, models, meshes) {
+function lineupScene(slug, models, meshes, release) {
   let x = 0;
   const parts = [];
   for (const m of models) {
@@ -214,7 +232,7 @@ function lineupScene(slug, models, meshes) {
     parts.push({ node: m.id, model: m.id, registered: true, group: 'fixed', color: CORE, url: mesh.url, matrix, explode: [0, 0, 0] });
     x += max[0] - min[0] + 40;
   }
-  return parts.length ? { kind: 'stl', layout: 'lineup', source: { kind: 'release' }, pose: null, figures: [], parts } : null;
+  return parts.length ? { kind: 'stl', layout: 'lineup', source: { kind: 'release', tag: release?.tag, current: true }, pose: null, figures: [], parts } : null;
 }
 
 // ------------------------------------------------------------------ repository content
@@ -272,20 +290,26 @@ const modelsByOutput = Object.fromEntries(registry.models.map((m) => [m.output, 
 const outputs = new Set(Object.keys(modelsByOutput));
 const commit = process.env.VERCEL_GIT_COMMIT_SHA || process.env.ARBI_SOURCE_COMMIT || git('rev-parse', 'HEAD') || 'unknown';
 const ref = /^[0-9a-f]{40}$/.test(commit) ? commit : 'main';
-const release = await resolveRelease();
+const release = await resolveRelease(registry.models);
 
 const snapshotFiles = walk(join(REPO, 'docs'), (n) => /\.(pdf|zip)$/.test(n)).concat(walk(join(REPO, 'hardware'), (n) => /\.(pdf|zip)$/.test(n), ['generated']));
-const packListings = Object.fromEntries(snapshotFiles.filter((p) => p.endsWith('.zip')).map((p) => [rel(p), Object.keys(unzipSync(readFileSync(p))).map((n) => basename(n))]));
+const packListings = Object.fromEntries(snapshotFiles.filter((p) => p.endsWith('.zip')).flatMap((p) => {
+  const files = unpack(readFileSync(p));
+  const kind = basename(p).startsWith('ARBI-winch') ? 'winch' : 'pod';
+  return packIsCurrent(files, outputs, REPO, kind) ? [[rel(p), Object.keys(files).map((n) => basename(n))]] : [];
+}));
 
-const pod = podScene(await choosePack('pod', release, outputs), modelsByOutput);
+const podPack = await choosePack('pod', release, outputs);
+const pod = podPack && podScene(podPack, modelsByOutput);
 const winchPack = await choosePack('winch', release, outputs);
-const winch = winchScene(winchPack, modelsByOutput);
-const poweredWinch = winchScene(winchPack, modelsByOutput, 'powered');
+const winch = winchPack && winchScene(winchPack, modelsByOutput);
+const poweredWinch = winchPack && winchScene(winchPack, modelsByOutput, 'powered');
 
 // Complete CAD inventory figures are published independently of booklet coverage.
 // A local pack is useful for offline rendering checks before its release is published.
 const figures = {};
 try {
+  if (PRODUCTION && process.env.ARBI_CAD_PREVIEW_PACK) throw new Error('Production requires the verified release preview pack');
   const bytes = process.env.ARBI_CAD_PREVIEW_PACK
     ? readFileSync(resolve(process.env.ARBI_CAD_PREVIEW_PACK))
     : await releaseAsset(release, 'ARBI-CAD-previews.zip');
@@ -297,16 +321,18 @@ try {
     }
   }
 } catch (error) {
+  if (PRODUCTION) throw error;
   console.warn(`CAD previews unavailable, using booklet figures: ${error.message}`);
 }
+if (PRODUCTION && Object.keys(figures).length !== registry.models.length) throw new Error('Production requires current figures for every registered model');
 
 // Per-model mesh for 3D: pod GLB node, booklet-pack STL, else verified release STL.
 const meshes = {};
-for (const p of pod.parts) meshes[p.model] ??= { kind: 'glb', node: p.node };
+for (const p of pod?.parts ?? []) if (p.registered && pod.source.current) meshes[p.model] ??= { kind: 'glb', node: p.node };
 for (const m of registry.models) {
   if (meshes[m.id] || !m.output.endsWith('.stl')) continue;
   const packed = join(OUT, 'winch/models/arbi', m.output);
-  if (existsSync(packed)) {
+  if (winch?.source.current && existsSync(packed)) {
     meshes[m.id] = { kind: 'stl', url: `winch/models/arbi/${m.output}`, bounds: stlBounds(readFileSync(packed)) };
     continue;
   }
@@ -317,10 +343,10 @@ for (const m of registry.models) {
   }
 }
 
-const scenes = { 'camera-pod': pod, winch, 'winch-powered': poweredWinch };
+const scenes = Object.fromEntries(Object.entries({ 'camera-pod': pod, winch, 'winch-powered': poweredWinch }).filter(([, scene]) => scene));
 for (const slug of [...new Set(registry.models.map((m) => m.assembly))]) {
   if (scenes[slug]) continue;
-  const lineup = lineupScene(slug, registry.models.filter((m) => m.assembly === slug && m.artifactRole === 'fabrication'), meshes);
+  const lineup = lineupScene(slug, registry.models.filter((m) => m.assembly === slug && m.artifactRole === 'fabrication'), meshes, release);
   if (lineup) scenes[slug] = lineup;
 }
 for (const [slug, scene] of Object.entries(scenes)) write(join(OUT, `scenes/${slug}.json`), scene);

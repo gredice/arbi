@@ -11,6 +11,7 @@ type Props = {
     number: string;
     name: string;
     scene: Scene | null;
+    cadPending: boolean;
     caption: string;
     nav: { slug: string; number: string; name: string }[];
     current: string;
@@ -21,7 +22,7 @@ type Props = {
 };
 
 /** Black exploded-view stage with numbered bubbles, hover-synced with the parts inventory. */
-export function SystemExplorer({ number, name, scene, caption, nav, current, variants, inventory, inventoryNote, children }: Props) {
+export function SystemExplorer({ number, name, scene, cadPending, caption, nav, current, variants, inventory, inventoryNote, children }: Props) {
     const router = useRouter();
     const stage = useRef<HTMLDivElement>(null);
     const calls = useRef<HTMLDivElement>(null);
@@ -98,8 +99,8 @@ export function SystemExplorer({ number, name, scene, caption, nav, current, var
                 ) : (
                     <div className="absolute inset-0 grid place-items-center">
                         <div className="text-center">
-                            <div className="cond text-[28px]">No registered CAD</div>
-                            <p className="mt-2 max-w-[42ch] text-paper/60">This assembly has no OpenSCAD models in hardware/models.json yet. Its documentation and BOM lines are below.</p>
+                            <div className="cond text-[28px]">{cadPending ? "CAD preview pending" : "No registered CAD"}</div>
+                            <p className="mt-2 max-w-[42ch] text-paper/60">{cadPending ? "A preview matching the current design is being prepared. Its documentation and model sources are below." : "This assembly has no CAD models yet. Its documentation and BOM lines are below."}</p>
                         </div>
                     </div>
                 )}

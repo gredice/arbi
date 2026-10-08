@@ -61,7 +61,8 @@ export function plan(changes, { workspaces = readWorkspaces(), eventName = 'pull
     const deleted = changes?.filter((change) => change.status === 'D').map((change) => change.path) ?? [];
     const under = (prefix) => paths.some((path) => path.startsWith(prefix));
     const has = (...names) => paths.some((path) => names.includes(path));
-    const ownedScripts = ['scripts/check-docs.mjs', 'scripts/check-cad.mjs', 'scripts/check-booklet.py', 'scripts/check-winch-cover-meshes.py', 'scripts/check-winch-pole-meshes.py'];
+    const releaseTooling = has('scripts/cad-release-data.mjs', 'scripts/publish-cad-release.mjs', 'scripts/check-site-release.mjs');
+    const ownedScripts = ['scripts/check-docs.mjs', 'scripts/check-cad.mjs', 'scripts/check-booklet.py', 'scripts/check-winch-cover-meshes.py', 'scripts/check-winch-pole-meshes.py', 'scripts/cad-release-data.mjs', 'scripts/publish-cad-release.mjs', 'scripts/check-site-release.mjs'];
     const unknownWorkspace = paths.some((path) => /^(apps|packages)\//u.test(path) && !workspaces.some((workspace) => path.startsWith(`${workspace.path}/`)));
     const unknownScript = paths.some((path) => path.startsWith('scripts/') && !ownedScripts.includes(path) && !/^scripts\/(ci|spikes|cad-previews|winch-booklet|payload-booklet)\//u.test(path));
     const full = changes === null || unknownWorkspace || unknownScript || under('.github/workflows/') || under('.github/actions/') || under('scripts/ci/');
@@ -73,7 +74,7 @@ export function plan(changes, { workspaces = readWorkspaces(), eventName = 'pull
         selected.add(name);
     };
     for (const workspace of workspaces) if (softwareFull || under(`${workspace.path}/`)) selected.add(workspace.name);
-    if (under('docs/') || under('hardware/') || under('bom/') || has('README.md')) select('@arbi/docs');
+    if (releaseTooling || under('docs/') || under('hardware/') || under('bom/') || has('README.md')) select('@arbi/docs');
     if (under('bom/')) select('@arbi/bom');
     // Walk reverse dependencies to a fixed point, including transitive consumers.
     let previous;
@@ -85,9 +86,9 @@ export function plan(changes, { workspaces = readWorkspaces(), eventName = 'pull
         }
     } while (selected.size !== previous);
 
-    let previews = full || paths.some((path) => /^hardware\/.*\.scad$/u.test(path)) || has('hardware/models.json', 'hardware/models.schema.json', 'scripts/check-cad.mjs') || under('scripts/cad-previews/');
+    let previews = full || releaseTooling || paths.some((path) => /^hardware\/.*\.scad$/u.test(path)) || has('hardware/models.json', 'hardware/models.schema.json', 'scripts/check-cad.mjs') || under('scripts/cad-previews/');
     let cad = cadToolchain || previews || has('bom/catalog/parts.json') || deleted.some((path) => path.startsWith('hardware/') || modelDocs.includes(path));
-    const sharedBooklets = full || under('hardware/lib/') || has('hardware/models.json', 'hardware/models.schema.json', 'scripts/check-booklet.py', 'docs/project/industrial-design.md', 'LICENSE') || under('scripts/winch-booklet/');
+    const sharedBooklets = full || releaseTooling || under('hardware/lib/') || has('hardware/models.json', 'hardware/models.schema.json', 'scripts/check-booklet.py', 'docs/project/industrial-design.md', 'LICENSE') || under('scripts/winch-booklet/');
     const winch = sharedBooklets || under('hardware/assemblies/winch/') || has('scripts/check-winch-cover-meshes.py', 'scripts/check-winch-pole-meshes.py');
     const payload = sharedBooklets || under('hardware/assemblies/camera-pod/') || under('scripts/payload-booklet/');
     // Every main release contains all three packs from this commit. PRs can build

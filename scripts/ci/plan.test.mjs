@@ -61,6 +61,16 @@ test('CAD preview tooling selects geometry and preview validation without unrela
     assert.deepEqual(variants(release), ['winch', 'bench', 'enclosure']);
 });
 
+test('versioned release tooling selects all required artifacts and website tests, without dashboard work', () => {
+    for (const path of ['scripts/cad-release-data.mjs', 'scripts/publish-cad-release.mjs', 'scripts/check-site-release.mjs']) {
+        const result = plan([{ path, status: 'M' }], { eventName: 'push' });
+        assert.deepEqual(names(result), ['@arbi/docs']);
+        for (const job of ['cad', 'previews', 'booklets', 'release']) assert.equal(result[job], true);
+        assert.equal(result.bom, false);
+        assert.equal(result.recovery, false);
+    }
+});
+
 test('reverse dependency graph includes consumers, never unrelated packages', () => {
     assert.deepEqual(names(select('apps/arbi-dashboard/src/jobs/worker.ts')), ['@arbi/dashboard']);
     assert.deepEqual(names(select('apps/arbi-edge-controller/src/cli.ts')), ['@arbi/dashboard', '@arbi/edge-controller']);
