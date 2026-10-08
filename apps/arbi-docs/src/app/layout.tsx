@@ -37,8 +37,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 <header className="sticky top-0 z-40 border-b-2 border-ink bg-paper text-ink">
                     <div className="flex h-14 items-center gap-6 px-4 sm:px-6">
                         <Link href="/" className="shrink-0">
-                            {/* Transparent logo on a light header. */}
-                            <img src={`${BRAND}/arbi-logo-transparent.png`} alt="ARBI" className="h-10 w-auto" />
+                            <img src={`${BRAND}/arbi-logo.svg`} alt="ARBI" className="h-10 w-auto" />
                         </Link>
                         <span className="tag hidden text-grey lg:inline">Automatic Raised Bed Imaging · open engineering manual</span>
                         <nav className="tag ml-auto flex gap-5 overflow-x-auto">
@@ -51,9 +50,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                     </div>
                 </header>
                 <main>{children}</main>
-                <footer className="tag flex flex-wrap items-center gap-x-8 gap-y-3 bg-ink px-4 py-6 text-paper sm:px-6">
-                    {/* Primary (warm-white panel) logo on a dark background. */}
-                    <img src={`${BRAND}/arbi-logo.png`} alt="ARBI" className="h-12 w-auto" />
+                <footer className="tag flex flex-wrap items-center gap-x-8 gap-y-4 bg-ink px-4 py-6 text-paper sm:px-6">
+                    <img src={`${BRAND}/arbi-logo.svg`} alt="ARBI" className="h-12 w-auto brightness-0 invert" />
                     <span>
                         Source{" "}
                         <a className="underline" href={links.commit(site.commit)} target="_blank" rel="noreferrer">
@@ -62,10 +60,21 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                         · {site.commitDate}
                     </span>
                     <span>AGPL-3.0-only</span>
-                    <span>Compiled from the repository · no website-only content</span>
+                    <span>Compiled from the repository</span>
                     <a className="ml-auto underline" href={GITHUB} target="_blank" rel="noreferrer">
                         github.com/gredice/arbi
                     </a>
+                    <div className="flex w-full flex-wrap items-center justify-between gap-4 border-t border-paper/30 pt-4">
+                        <a href="https://www.gredice.com" className="flex items-center gap-3" target="_blank" rel="noreferrer">
+                            <span>Powered by</span>
+                            <img src={`${BRAND}/gredice-logo-white.svg`} alt="Gredice" className="h-8 w-auto" />
+                        </a>
+                        <div className="flex items-center gap-2">
+                            <img src={`${BRAND}/flag-hr.svg`} alt="Croatia" width={24} height={18} />
+                            <img src={`${BRAND}/flag-eu.svg`} alt="European Union" width={24} height={18} />
+                            <span>With love from Croatia.</span>
+                        </div>
+                    </div>
                 </footer>
             </body>
         </html>

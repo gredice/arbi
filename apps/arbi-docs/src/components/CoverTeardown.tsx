@@ -21,7 +21,7 @@ export function CoverTeardown({ scene, steps, date }: { scene: Scene; steps: Ste
     const stepRef = useRef(-1);
 
     useEffect(() => {
-        const viewer = new Viewer(stage.current!, { style: "ink", autoRotate: true, fov: 24, zoom: false });
+        const viewer = new Viewer(stage.current!, { style: "ink", autoRotate: true, fov: 24 });
         let alive = true;
         const onScroll = () => {
             const box = cover.current!.getBoundingClientRect();
