@@ -31,6 +31,10 @@ The owner's [Mavic 4 Pro spherical gimbal](https://repair.dji.com/help/content?c
 
 Judge the silhouette from actual registered geometry in neutral, front, side and representative tilted poses. Label pose angles so a tilted presentation cannot conceal a difference in the underlying packaging. Keep service and exploded views alongside the covered assembly.
 
+## Underside refinement — 8 October 2026
+
+Tray r0.2.3 and moving head r0.1.3 form a matched underside revision. A rolled fixed shoulder changes from the existing rounded tray outline to a Ø103 mm throat at Z=-6.1. A Ø100 mm moving neck at Z=-4.1 blends into the existing lower head over 28 mm. Their nominal 1.5 mm radial seam and 2 mm overlap make the visible underside continuous while keeping fixed and moving skins separate. Open-bottom spider reliefs, recessed access, the rear power breakout and through-drains preserve the existing structure and supported service sequence. The preceding 94 × 76 mm head dimensions above describe r0.1.2; the [current enclosure record](../../hardware/assemblies/camera-pod/payload-enclosure-check.md) owns the refined mesh dimensions and checks. Physical interfaces, pan/tilt travel, load path and electrical architecture remain as recorded above.
+
 ## Preserved interfaces and limits
 
 - Retain the four-cable architecture, existing spider geometry and line attachment interfaces, structural frame axes, pan axis, purchased servo horns and nominal camera mounting pattern.

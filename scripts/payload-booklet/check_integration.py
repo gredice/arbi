@@ -70,6 +70,39 @@ def head_taper(part):
             'method':'Horizontal STL sections from top to bottom; all four XY bounds must move inward within numerical tolerance.',
             'representative_sections':[sections[i] for i in indices],'failures':failures}
 
+def neck_clearance(tray,head):
+    """Measure the actual STL annulus in the fixed/moving neck overlap.
+
+    Radial bounds are conservative for every pan angle, including angles
+    between the sampled motion poses. They do not model print tolerances.
+    """
+    meshes=[]
+    for part in [tray,head]:
+        mesh=trimesh.load_mesh(ROOT/part['file'])
+        mesh.apply_transform(np.array(part['matrix']));meshes.append(mesh)
+    lower=max(m.bounds[0,2] for m in meshes)
+    upper=min(m.bounds[1,2] for m in meshes)
+    assert upper>lower,'Fixed shoulder must overlap the moving neck'
+    sections=[]
+    for z in np.linspace(lower+1e-4,upper-1e-4,41):
+        lines=[trimesh.intersections.mesh_plane(m,[0,0,1],[0,0,z])[:,:,:2] for m in meshes]
+        assert all(len(line) for line in lines),'Missing neck section'
+        start=lines[0][:,0];delta=lines[0][:,1]-start
+        t=np.clip(-np.sum(start*delta,axis=1)/np.maximum(np.sum(delta*delta,axis=1),1e-12),0,1)
+        inner=float(np.linalg.norm(start+t[:,None]*delta,axis=1).min())
+        outer=float(np.linalg.norm(lines[1].reshape(-1,2),axis=1).max())
+        sections.append({'z_mm':float(z),'tray_inner_radius_mm':inner,
+                         'head_outer_radius_mm':outer,'clearance_mm':inner-outer})
+    # Expand the moving mesh radially to check that an interference is caught.
+    oversized=dict(head);matrix=np.array(head['matrix'])
+    scale=np.diag([1.04,1.04,1,1]);oversized['matrix']=(scale@matrix).tolist()
+    control=paircheck([tray,oversized])
+    return {'method':'Actual horizontal STL segments: closest fixed-skin point minus largest moving radius; conservative for all pan angles.',
+            'overlap_z_mm':[float(lower),float(upper)],'sections':sections,
+            'minimum_clearance_mm':min(s['clearance_mm'] for s in sections),
+            'required_nominal_clearance_mm':1.4,
+            'oversized_neck_control':{'xy_scale':1.04,'collision_detected':bool(control),'collisions':control}}
+
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('--quick',action='store_true');args=ap.parse_args()
     for e in json.loads((ROOT/'mesh-manifest.json').read_text()):
@@ -82,6 +115,10 @@ def main():
       'source_hashes':{str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in [ROOT/'source/integration.py',ROOT/'source/check_integration.py',ROOT/'source/arbi-hardware/lib/payload-mounts.scad']+([ROOT/'source/arbi-hardware/lib/payload-enclosure.scad',ROOT/'source/arbi-hardware/lib/payload-integrated-deck.scad',ROOT/'source/arbi-hardware/lib/payload-integrated-head.scad',ROOT/'source/arbi-hardware/lib/payload-integrated-gimbal.scad'] if ENCLOSURE else [])}}
     if ENCLOSURE:
         report['head_taper']=head_taper(next(p for p in zero if p['name']=='gimbal-head'))
+        report['neck_clearance']=neck_clearance(next(p for p in zero if p['name']=='enclosure-base'),
+                                               next(p for p in zero if p['name']=='gimbal-head'))
+        assert report['neck_clearance']['minimum_clearance_mm']>=1.4,'Neck clearance too small'
+        assert report['neck_clearance']['oversized_neck_control']['collision_detected'],'Oversized neck control missed'
         print('Head taper sections:',report['head_taper']['sample_count'],
               'failures:',len(report['head_taper']['failures']),flush=True)
     if not args.quick and not bad:

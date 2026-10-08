@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-07",
+  "date": "2026-10-08",
   "configuration": {
     "variant": "enclosure",
     "units": "mm",
@@ -14,7 +14,7 @@
       5
     ],
     "hardware_basis": "declared nominal references; supplier dimensions unverified",
-    "evidence_date": "2026-10-07",
+    "evidence_date": "2026-10-08",
     "fabrication_models": [
       {
         "id": "camera-pod-spider",
@@ -25,26 +25,6 @@
         "id": "payload-pan-servo-mount",
         "revision": "0.1.0",
         "output": "payload-pan-servo-mount-r0.1.0.stl"
-      },
-      {
-        "id": "payload-integrated-gimbal-head",
-        "revision": "0.1.2",
-        "output": "payload-integrated-gimbal-head-r0.1.2.stl"
-      },
-      {
-        "id": "payload-integrated-gimbal-carrier",
-        "revision": "0.1.1",
-        "output": "payload-integrated-gimbal-carrier-r0.1.1.stl"
-      },
-      {
-        "id": "payload-integrated-camera-cradle",
-        "revision": "0.1.0",
-        "output": "payload-integrated-camera-cradle-r0.1.0.stl"
-      },
-      {
-        "id": "payload-integrated-tilt-pivot-support",
-        "revision": "0.1.0",
-        "output": "payload-integrated-tilt-pivot-support-r0.1.0.stl"
       },
       {
         "id": "payload-horn-retainer",
@@ -68,8 +48,28 @@
       },
       {
         "id": "payload-enclosure-base",
-        "revision": "0.2.2",
-        "output": "payload-enclosure-base-r0.2.2.stl"
+        "revision": "0.2.3",
+        "output": "payload-enclosure-base-r0.2.3.stl"
+      },
+      {
+        "id": "payload-integrated-gimbal-head",
+        "revision": "0.1.3",
+        "output": "payload-integrated-gimbal-head-r0.1.3.stl"
+      },
+      {
+        "id": "payload-integrated-gimbal-carrier",
+        "revision": "0.1.1",
+        "output": "payload-integrated-gimbal-carrier-r0.1.1.stl"
+      },
+      {
+        "id": "payload-integrated-camera-cradle",
+        "revision": "0.1.0",
+        "output": "payload-integrated-camera-cradle-r0.1.0.stl"
+      },
+      {
+        "id": "payload-integrated-tilt-pivot-support",
+        "revision": "0.1.0",
+        "output": "payload-integrated-tilt-pivot-support-r0.1.0.stl"
       },
       {
         "id": "payload-integrated-deck",
@@ -99,7 +99,7 @@
         5
       ],
       "hardware_basis": "declared nominal references; supplier dimensions unverified",
-      "evidence_date": "2026-10-07",
+      "evidence_date": "2026-10-08",
       "fabrication_models": [
         {
           "id": "camera-pod-spider",
@@ -110,26 +110,6 @@
           "id": "payload-pan-servo-mount",
           "revision": "0.1.0",
           "output": "payload-pan-servo-mount-r0.1.0.stl"
-        },
-        {
-          "id": "payload-integrated-gimbal-head",
-          "revision": "0.1.2",
-          "output": "payload-integrated-gimbal-head-r0.1.2.stl"
-        },
-        {
-          "id": "payload-integrated-gimbal-carrier",
-          "revision": "0.1.1",
-          "output": "payload-integrated-gimbal-carrier-r0.1.1.stl"
-        },
-        {
-          "id": "payload-integrated-camera-cradle",
-          "revision": "0.1.0",
-          "output": "payload-integrated-camera-cradle-r0.1.0.stl"
-        },
-        {
-          "id": "payload-integrated-tilt-pivot-support",
-          "revision": "0.1.0",
-          "output": "payload-integrated-tilt-pivot-support-r0.1.0.stl"
         },
         {
           "id": "payload-horn-retainer",
@@ -153,8 +133,28 @@
         },
         {
           "id": "payload-enclosure-base",
-          "revision": "0.2.2",
-          "output": "payload-enclosure-base-r0.2.2.stl"
+          "revision": "0.2.3",
+          "output": "payload-enclosure-base-r0.2.3.stl"
+        },
+        {
+          "id": "payload-integrated-gimbal-head",
+          "revision": "0.1.3",
+          "output": "payload-integrated-gimbal-head-r0.1.3.stl"
+        },
+        {
+          "id": "payload-integrated-gimbal-carrier",
+          "revision": "0.1.1",
+          "output": "payload-integrated-gimbal-carrier-r0.1.1.stl"
+        },
+        {
+          "id": "payload-integrated-camera-cradle",
+          "revision": "0.1.0",
+          "output": "payload-integrated-camera-cradle-r0.1.0.stl"
+        },
+        {
+          "id": "payload-integrated-tilt-pivot-support",
+          "revision": "0.1.0",
+          "output": "payload-integrated-tilt-pivot-support-r0.1.0.stl"
         },
         {
           "id": "payload-integrated-deck",
@@ -178,25 +178,25 @@
     ],
     "source_hashes": {
       "source/integration.py": "4fe5bf788c3899d4b51ea57e6b80c97e7b63914977e5494312a321dd603dc657",
-      "source/check_integration.py": "2c1455a2992362fc949ae72b1d19e2e2f901cf79d8b32770d8036404881ed9da",
+      "source/check_integration.py": "9a3dd9adb86a51f84efdf9081b6ae940500038e6bc37c3a85813932b8b1ea336",
       "source/arbi-hardware/lib/payload-mounts.scad": "489db6bba746e741d4db140c9d9fe4dc92bec7eca1a35b7b1e2ef19439f96039",
-      "source/arbi-hardware/lib/payload-enclosure.scad": "a88c61f6523284615d4f480eb3e8fd275a88917186a89c937ef97fe985e62d18",
+      "source/arbi-hardware/lib/payload-enclosure.scad": "6fc5a7743f2a0fa7e0ecfce9e426e0b18a6da93ef1fbddf6b0a57dc0cf951a7a",
       "source/arbi-hardware/lib/payload-integrated-deck.scad": "55e406d003c770a7a60dc8b80b062d540fa6232cdf82a10e256f15a1d0a7af2f",
-      "source/arbi-hardware/lib/payload-integrated-head.scad": "aa17c7dcfa931a1d5d826c06ba11ff3bcdda0f5da27adc350d9f85bcec74c845",
+      "source/arbi-hardware/lib/payload-integrated-head.scad": "d506927a29d19697977d6a244668401163c0079f0efef9e3726cdcf2ce59b191",
       "source/arbi-hardware/lib/payload-integrated-gimbal.scad": "946f133bdaddf246c579868b6d9dd9c6f01a1d0f5ee900bc2d3ae129a6aee98f"
     },
     "head_taper": {
-      "file": "models/printable/payload-integrated-gimbal-head-r0.1.2.stl",
-      "stl_sha256": "b178752708e45c0ea17af56211dd4b8938475a02fc3b74198c306cc59e95e49a",
+      "file": "models/printable/payload-integrated-gimbal-head-r0.1.3.stl",
+      "stl_sha256": "c1a3b9e84f29440822a11681a54e8a1f6b2c754185ba1a0cb5ab6c48be019971",
       "assembly_bounds_mm": [
         [
-          -47.0,
-          -38.0,
+          -50.0,
+          -50.0,
           -76.6453
         ],
         [
-          47.0,
-          38.0,
+          50.0,
+          50.0,
           -4.0999966552734435
         ]
       ],
@@ -208,31 +208,31 @@
           "z_mm": -4.100096655273443,
           "xy_bounds_mm": [
             [
-              -46.99999998493195,
-              -37.99999990997314
+              -49.99999781494141,
+              -49.99999125003815
             ],
             [
-              46.99999998493195,
-              37.99999990997314
+              49.99999781494141,
+              49.99999125003815
             ]
           ],
-          "width_x_mm": 93.9999999698639,
-          "depth_y_mm": 75.99999981994628
+          "width_x_mm": 99.99999562988282,
+          "depth_y_mm": 99.9999825000763
         },
         {
           "z_mm": -19.277200358024047,
           "xy_bounds_mm": [
             [
-              -46.86817594124212,
-              -37.71612413767068
+              -48.236591080827935,
+              -43.08631148648395
             ],
             [
-              46.86817594124212,
-              37.71612413767068
+              48.236591080827935,
+              43.08631148648395
             ]
           ],
-          "width_x_mm": 93.73635188248424,
-          "depth_y_mm": 75.43224827534137
+          "width_x_mm": 96.47318216165587,
+          "depth_y_mm": 86.1726229729679
         },
         {
           "z_mm": -34.091215455445685,
@@ -327,6 +327,274 @@
       ],
       "failures": []
     },
+    "neck_clearance": {
+      "method": "Actual horizontal STL segments: closest fixed-skin point minus largest moving radius; conservative for all pan angles.",
+      "overlap_z_mm": [
+        -6.1,
+        -4.0999966552734435
+      ],
+      "sections": [
+        {
+          "z_mm": -6.0999,
+          "tray_inner_radius_mm": 51.43794088637579,
+          "head_outer_radius_mm": 49.984799282467776,
+          "clearance_mm": 1.4531416039080156
+        },
+        {
+          "z_mm": -6.049904916381836,
+          "tray_inner_radius_mm": 51.43794088637579,
+          "head_outer_radius_mm": 49.98517809503986,
+          "clearance_mm": 1.4527627913359282
+        },
+        {
+          "z_mm": -5.999909832763672,
+          "tray_inner_radius_mm": 51.4379408863758,
+          "head_outer_radius_mm": 49.98555690815358,
+          "clearance_mm": 1.4523839782222154
+        },
+        {
+          "z_mm": -5.949914749145508,
+          "tray_inner_radius_mm": 51.43794088637579,
+          "head_outer_radius_mm": 49.98593572180893,
+          "clearance_mm": 1.452005164566863
+        },
+        {
+          "z_mm": -5.899919665527344,
+          "tray_inner_radius_mm": 51.4379408863758,
+          "head_outer_radius_mm": 49.986314536005885,
+          "clearance_mm": 1.4516263503699136
+        },
+        {
+          "z_mm": -5.84992458190918,
+          "tray_inner_radius_mm": 51.4379408863758,
+          "head_outer_radius_mm": 49.98669335074444,
+          "clearance_mm": 1.45124753563136
+        },
+        {
+          "z_mm": -5.799929498291016,
+          "tray_inner_radius_mm": 51.437940886375785,
+          "head_outer_radius_mm": 49.98707216602458,
+          "clearance_mm": 1.4508687203512025
+        },
+        {
+          "z_mm": -5.749934414672852,
+          "tray_inner_radius_mm": 51.4379408863758,
+          "head_outer_radius_mm": 49.987450981846294,
+          "clearance_mm": 1.4504899045295048
+        },
+        {
+          "z_mm": -5.699939331054688,
+          "tray_inner_radius_mm": 51.437940886375785,
+          "head_outer_radius_mm": 49.987829798209575,
+          "clearance_mm": 1.45011108816621
+        },
+        {
+          "z_mm": -5.649944247436524,
+          "tray_inner_radius_mm": 51.43794088637579,
+          "head_outer_radius_mm": 49.98820861511439,
+          "clearance_mm": 1.4497322712614036
+        },
+        {
+          "z_mm": -5.59994916381836,
+          "tray_inner_radius_mm": 51.437940886375785,
+          "head_outer_radius_mm": 49.98858743256075,
+          "clearance_mm": 1.4493534538150357
+        },
+        {
+          "z_mm": -5.549954080200196,
+          "tray_inner_radius_mm": 51.4379408863758,
+          "head_outer_radius_mm": 49.988966250548636,
+          "clearance_mm": 1.4489746358271631
+        },
+        {
+          "z_mm": -5.499958996582032,
+          "tray_inner_radius_mm": 51.437940886375785,
+          "head_outer_radius_mm": 49.989345069078034,
+          "clearance_mm": 1.4485958172977504
+        },
+        {
+          "z_mm": -5.449963912963869,
+          "tray_inner_radius_mm": 51.43794088637579,
+          "head_outer_radius_mm": 49.98972388814893,
+          "clearance_mm": 1.4482169982268616
+        },
+        {
+          "z_mm": -5.399968829345705,
+          "tray_inner_radius_mm": 51.4379408863758,
+          "head_outer_radius_mm": 49.99010270776131,
+          "clearance_mm": 1.4478381786144894
+        },
+        {
+          "z_mm": -5.349973745727541,
+          "tray_inner_radius_mm": 51.43794088637579,
+          "head_outer_radius_mm": 49.990481527915165,
+          "clearance_mm": 1.4474593584606268
+        },
+        {
+          "z_mm": -5.299978662109377,
+          "tray_inner_radius_mm": 51.43794088637579,
+          "head_outer_radius_mm": 49.99086034861049,
+          "clearance_mm": 1.4470805377653022
+        },
+        {
+          "z_mm": -5.249983578491213,
+          "tray_inner_radius_mm": 51.437940886375785,
+          "head_outer_radius_mm": 49.99123916984725,
+          "clearance_mm": 1.446701716528537
+        },
+        {
+          "z_mm": -5.1999884948730495,
+          "tray_inner_radius_mm": 51.4379408863758,
+          "head_outer_radius_mm": 49.99161799162547,
+          "clearance_mm": 1.446322894750331
+        },
+        {
+          "z_mm": -5.1499934112548855,
+          "tray_inner_radius_mm": 51.437940886375785,
+          "head_outer_radius_mm": 49.9919968139451,
+          "clearance_mm": 1.4459440724306845
+        },
+        {
+          "z_mm": -5.099998327636722,
+          "tray_inner_radius_mm": 51.4379408863758,
+          "head_outer_radius_mm": 49.992375636806145,
+          "clearance_mm": 1.445565249569654
+        },
+        {
+          "z_mm": -5.050003244018558,
+          "tray_inner_radius_mm": 51.4379408863758,
+          "head_outer_radius_mm": 49.99275446020859,
+          "clearance_mm": 1.4451864261672114
+        },
+        {
+          "z_mm": -5.000008160400394,
+          "tray_inner_radius_mm": 51.43794088637579,
+          "head_outer_radius_mm": 49.99313328415242,
+          "clearance_mm": 1.4448076022233707
+        },
+        {
+          "z_mm": -4.95001307678223,
+          "tray_inner_radius_mm": 51.4379408863758,
+          "head_outer_radius_mm": 49.99351210863763,
+          "clearance_mm": 1.4444287777381675
+        },
+        {
+          "z_mm": -4.900017993164066,
+          "tray_inner_radius_mm": 51.43794088637579,
+          "head_outer_radius_mm": 49.99389093366422,
+          "clearance_mm": 1.4440499527115733
+        },
+        {
+          "z_mm": -4.850022909545902,
+          "tray_inner_radius_mm": 51.77873875666724,
+          "head_outer_radius_mm": 49.99426975923214,
+          "clearance_mm": 1.7844689974350985
+        },
+        {
+          "z_mm": -4.800027825927738,
+          "tray_inner_radius_mm": 51.958675049600224,
+          "head_outer_radius_mm": 49.99464858534141,
+          "clearance_mm": 1.964026464258815
+        },
+        {
+          "z_mm": -4.750032742309574,
+          "tray_inner_radius_mm": 52.05114942814993,
+          "head_outer_radius_mm": 49.99503008728325,
+          "clearance_mm": 2.0561193408666796
+        },
+        {
+          "z_mm": -4.70003765869141,
+          "tray_inner_radius_mm": 52.14362380669962,
+          "head_outer_radius_mm": 49.99541431220462,
+          "clearance_mm": 2.148209494494999
+        },
+        {
+          "z_mm": -4.650042575073246,
+          "tray_inner_radius_mm": 52.236098185249325,
+          "head_outer_radius_mm": 49.99579853814361,
+          "clearance_mm": 2.240299647105715
+        },
+        {
+          "z_mm": -4.600047491455083,
+          "tray_inner_radius_mm": 52.32350746322024,
+          "head_outer_radius_mm": 49.9961827651002,
+          "clearance_mm": 2.3273246981200373
+        },
+        {
+          "z_mm": -4.550052407836919,
+          "tray_inner_radius_mm": 52.378424818184236,
+          "head_outer_radius_mm": 49.99656699307437,
+          "clearance_mm": 2.3818578251098685
+        },
+        {
+          "z_mm": -4.500057324218755,
+          "tray_inner_radius_mm": 52.43334217314823,
+          "head_outer_radius_mm": 49.99695122206609,
+          "clearance_mm": 2.4363909510821458
+        },
+        {
+          "z_mm": -4.450062240600591,
+          "tray_inner_radius_mm": 52.48825952811223,
+          "head_outer_radius_mm": 49.99733545207533,
+          "clearance_mm": 2.4909240760368974
+        },
+        {
+          "z_mm": -4.400067156982427,
+          "tray_inner_radius_mm": 52.543176883076235,
+          "head_outer_radius_mm": 49.99771968310208,
+          "clearance_mm": 2.5454571999741518
+        },
+        {
+          "z_mm": -4.350072073364263,
+          "tray_inner_radius_mm": 52.59809423804023,
+          "head_outer_radius_mm": 49.99810391514632,
+          "clearance_mm": 2.599990322893916
+        },
+        {
+          "z_mm": -4.300076989746099,
+          "tray_inner_radius_mm": 52.65301159300423,
+          "head_outer_radius_mm": 49.998488148208004,
+          "clearance_mm": 2.654523444796226
+        },
+        {
+          "z_mm": -4.250081906127935,
+          "tray_inner_radius_mm": 52.70792894796823,
+          "head_outer_radius_mm": 49.99887238228713,
+          "clearance_mm": 2.709056565681095
+        },
+        {
+          "z_mm": -4.200086822509771,
+          "tray_inner_radius_mm": 52.74906232771571,
+          "head_outer_radius_mm": 49.99925661738367,
+          "clearance_mm": 2.7498057103320406
+        },
+        {
+          "z_mm": -4.150091738891607,
+          "tray_inner_radius_mm": 52.7876816826368,
+          "head_outer_radius_mm": 49.9996408534976,
+          "clearance_mm": 2.7880408291391987
+        },
+        {
+          "z_mm": -4.100096655273443,
+          "tray_inner_radius_mm": 52.82630103755788,
+          "head_outer_radius_mm": 50.00004436643641,
+          "clearance_mm": 2.8262566711214703
+        }
+      ],
+      "minimum_clearance_mm": 1.4440499527115733,
+      "required_nominal_clearance_mm": 1.4,
+      "oversized_neck_control": {
+        "xy_scale": 1.04,
+        "collision_detected": true,
+        "collisions": [
+          {
+            "a": "enclosure-base",
+            "b": "gimbal-head",
+            "intersection_mm3": 100.41262
+          }
+        ]
+      }
+    },
     "motion_grid": {
       "poses": 555,
       "pan_deg": [
@@ -394,8 +662,8 @@
     "solid_printed_mass_estimates": [
       {
         "name": "spider",
-        "solid_volume_cm3": 66.2324689896371,
-        "solid_PETG_estimate_g_at_1p27": 84.11523561683912
+        "solid_volume_cm3": 66.23246898963708,
+        "solid_PETG_estimate_g_at_1p27": 84.1152356168391
       },
       {
         "name": "deck",
@@ -434,8 +702,8 @@
       },
       {
         "name": "gimbal-head",
-        "solid_volume_cm3": 21.80331381649423,
-        "solid_PETG_estimate_g_at_1p27": 27.690208546947673
+        "solid_volume_cm3": 22.08714014140466,
+        "solid_PETG_estimate_g_at_1p27": 28.05066797958392
       },
       {
         "name": "tilt-pivot-support",
@@ -444,8 +712,8 @@
       },
       {
         "name": "camera-cradle",
-        "solid_volume_cm3": 3.191198817787224,
-        "solid_PETG_estimate_g_at_1p27": 4.052822498589775
+        "solid_volume_cm3": 3.1911988177872233,
+        "solid_PETG_estimate_g_at_1p27": 4.052822498589774
       },
       {
         "name": "camera-hood",
@@ -464,16 +732,16 @@
       },
       {
         "name": "enclosure-base",
-        "solid_volume_cm3": 24.669107540684713,
-        "solid_PETG_estimate_g_at_1p27": 31.329766576669588
+        "solid_volume_cm3": 31.38127679876046,
+        "solid_PETG_estimate_g_at_1p27": 39.85422153442578
       },
       {
         "name": "rain-hood",
-        "solid_volume_cm3": 36.4434305688613,
-        "solid_PETG_estimate_g_at_1p27": 46.283156822453854
+        "solid_volume_cm3": 36.44343056886137,
+        "solid_PETG_estimate_g_at_1p27": 46.28315682245395
       }
     ],
-    "solid_total_PETG_g": 244.86792232034858,
+    "solid_total_PETG_g": 253.75283671074112,
     "neutral_assembly_bounds_mm": [
       [
         -84.53910064697266,
@@ -502,7 +770,7 @@
         5
       ],
       "hardware_basis": "declared nominal references; supplier dimensions unverified",
-      "evidence_date": "2026-10-07",
+      "evidence_date": "2026-10-08",
       "fabrication_models": [
         {
           "id": "camera-pod-spider",
@@ -513,26 +781,6 @@
           "id": "payload-pan-servo-mount",
           "revision": "0.1.0",
           "output": "payload-pan-servo-mount-r0.1.0.stl"
-        },
-        {
-          "id": "payload-integrated-gimbal-head",
-          "revision": "0.1.2",
-          "output": "payload-integrated-gimbal-head-r0.1.2.stl"
-        },
-        {
-          "id": "payload-integrated-gimbal-carrier",
-          "revision": "0.1.1",
-          "output": "payload-integrated-gimbal-carrier-r0.1.1.stl"
-        },
-        {
-          "id": "payload-integrated-camera-cradle",
-          "revision": "0.1.0",
-          "output": "payload-integrated-camera-cradle-r0.1.0.stl"
-        },
-        {
-          "id": "payload-integrated-tilt-pivot-support",
-          "revision": "0.1.0",
-          "output": "payload-integrated-tilt-pivot-support-r0.1.0.stl"
         },
         {
           "id": "payload-horn-retainer",
@@ -556,8 +804,28 @@
         },
         {
           "id": "payload-enclosure-base",
-          "revision": "0.2.2",
-          "output": "payload-enclosure-base-r0.2.2.stl"
+          "revision": "0.2.3",
+          "output": "payload-enclosure-base-r0.2.3.stl"
+        },
+        {
+          "id": "payload-integrated-gimbal-head",
+          "revision": "0.1.3",
+          "output": "payload-integrated-gimbal-head-r0.1.3.stl"
+        },
+        {
+          "id": "payload-integrated-gimbal-carrier",
+          "revision": "0.1.1",
+          "output": "payload-integrated-gimbal-carrier-r0.1.1.stl"
+        },
+        {
+          "id": "payload-integrated-camera-cradle",
+          "revision": "0.1.0",
+          "output": "payload-integrated-camera-cradle-r0.1.0.stl"
+        },
+        {
+          "id": "payload-integrated-tilt-pivot-support",
+          "revision": "0.1.0",
+          "output": "payload-integrated-tilt-pivot-support-r0.1.0.stl"
         },
         {
           "id": "payload-integrated-deck",
@@ -687,6 +955,11 @@
       },
       {
         "name": "upper rain tray lifts off spider before deck spacers and gimbal are fitted",
+        "positions": 61,
+        "failures": []
+      },
+      {
+        "name": "rolled upper rain tray lifts off retained neutral gimbal after upper hardware and harness are removed",
         "positions": 61,
         "failures": []
       },
@@ -1216,6 +1489,42 @@
           ]
         },
         "hits": []
+      },
+      {
+        "name": "tray drain at X=-30 remains open through the rolled shoulder",
+        "nominal_envelope": {
+          "section_mm": [
+            5.6,
+            1.6
+          ],
+          "axis_mm": [
+            -30,
+            -56
+          ],
+          "z_mm": [
+            -7,
+            14.4
+          ]
+        },
+        "hits": []
+      },
+      {
+        "name": "tray drain at X=20 remains open through the rolled shoulder",
+        "nominal_envelope": {
+          "section_mm": [
+            5.6,
+            1.6
+          ],
+          "axis_mm": [
+            20,
+            -56
+          ],
+          "z_mm": [
+            -7,
+            14.4
+          ]
+        },
+        "hits": []
       }
     ],
     "tool_access": [
@@ -1507,55 +1816,55 @@
     ]
   },
   "mesh_hashes": {
-    "raspberry-pi-3a-plus-reference": "e19d8266dc91a96b86f7cccd6bb3395fa8be889f68acb394d0825aa94dca762f",
-    "camera-module-3-standard-reference": "b86b76a554d642278ff0a6295dca5ab697266f6ab88de353728ffe878683ffb4",
-    "micro-servo-3p7g-UNVERIFIED": "d999ae48b985fc7e059fff884df26b7a1cb10d5321f66459a7a3e41013d8bf5f",
-    "servo-horn-UNVERIFIED": "c01df5b2f3a4554b49131fc4c9b2b2b56ef26e7793c284329e20376561851413",
-    "buck-converter-UNVERIFIED": "c9eefe3428173128853c60a3b919c0dadb649e5a0fb11f24a6c5611405461662",
-    "capacitor-1000uf-UNVERIFIED": "5698d7e88883b03e02e1c411b2524bffcacd6ad2b83b89b36f6a510e42e3b9f1",
+    "raspberry-pi-3a-plus-reference": "3393fd1cb419d173b53e7198dc7506314a9c9ad232979e02dd65044606f412e3",
+    "camera-module-3-standard-reference": "a42d5eea1b423340b4a6cfd4ba4f059c6338a8628f7be1f82775eca281287a7b",
+    "micro-servo-3p7g-UNVERIFIED": "b68d2b7c47f4b7bf7cca3382cff8a25cff2275e76236929a8a6059676d935b50",
+    "servo-horn-UNVERIFIED": "0e0d943e9f87e2e255ef9c4ff0075d0ca0e53038c632f185220feb2c56f79c8a",
+    "buck-converter-UNVERIFIED": "d417b6b979851b01cd3877fcd352f970d377953f8a72f1645f27bdcaad79f065",
+    "capacitor-1000uf-UNVERIFIED": "457266c17f936a045a5ea235fbf1cf286f24a9828bdf8c1b709f93ac7d61d08a",
     "microsd-reference": "f2c07472383626694fa8f2a3428a6a45be6b602a14fc838458e10a40ade18ac0",
     "csi-15pin-flat-reference": "3e62a5870e394e21035180878391079bee325c3a849bbb8a376000b56a8c30a0",
-    "nut-M2-reference": "cd6487bad772f418563483cf76e724d3a34f3f6fe44ca448f3cf0ed90370a2c5",
-    "nut-M2p5-reference": "21214df9319a558df02c1e4d151507fbc34963461c77716e42a4401ab8b950ae",
-    "nut-M4-reference": "93ebca886a78cfe420735f5f93afd6597449256bb4767a68436fd52cc69a17cb",
-    "washer-M2-reference": "5721c05d0075a9bde042a90075162bd67b3c1a4cce702bc8f7a0ab1d7ec00196",
-    "washer-M2p5-reference": "1129c9101b16ba07bb0658364ac6e11987a6805652a3f52fc11a78d055fff0ad",
-    "washer-M4-reference": "a7ee5a2dc4a2eca3024a3f60333add5492c8ac2d024cacc26e8216f957b6329e",
-    "bolt-M4x35-reference": "710a26f2e0b3c9d58f6a14247902fed0f6f81be966b6c5ab50a52a4e82329ebe",
-    "bolt-M2p5x20-reference": "03d5bfa56b5ecfbf37f3f6311fe200ebb5b54241a04fd818018bd38d2265a419",
-    "bolt-M2x12-reference": "64c1b441ea4ef5ae076fa98e81866671c98b6b0b72b98df12f0ed7d69fdcfd03",
-    "bolt-M3x12-reference": "3239d2b87ae6d44222bcf7de19990fbecc6525a2e5a4bd2823e752e5b51f63b6",
-    "bolt-M3x35-reference": "a213309ce5a27c928b668754775d79372a4417a1094d8c303978804ed7a431dd",
-    "nut-M1p6-reference": "208b0a8097348267143fcc288e1e04c5f17ad81d2f3d3535264e06e764506d3d",
-    "nut-M3-reference": "5d8d994834793bb8182b6579776886e3042ac1a1d83e600b028a3c3f8e1bc5c7",
-    "washer-M3-reference": "349b095a7ac71962f99242b68a7182b760441b80753b63e25a5ff40c4b0c9ae4",
-    "washer-M3x0p7-reference": "567cfb11dabb12f6c4c9dd2afa83d02df089bc1c9e40b4eb9772f4fcac477874",
-    "bolt-OEM-horn-UNVERIFIED": "b311de304f5264f576260da9a51124df79d98725c70d2fc19ef72b3c5b303c03",
+    "nut-M2-reference": "c20a6eb904125dc7186cedc3873526e5bf8abdd2fd4ec5eafece56996191118b",
+    "nut-M2p5-reference": "06b11cf8217fdedd4606b9203a799a3f83aed862d8f6603d8266663cdbf587be",
+    "nut-M4-reference": "bf44fa356e01ef1983e5c3830ec14aba8d026375db9771a6f2bf0a826ef12c16",
+    "washer-M2-reference": "f98c2c20ad1b7d4f3eaee79aa18b929fe42353dc1c90baad5512c2066c3d95cc",
+    "washer-M2p5-reference": "835ff7cb995fcc58d23b5492ed6582aa6d9cbe3a915f7c64b555639aeeb3a147",
+    "washer-M4-reference": "e1d68f65dc775d0511a8c7964d479939e83ae7b22e504bb180a80b57eced86cc",
+    "bolt-M4x35-reference": "7d7382f026454670e72f71d72793e0ff8bbea7fcb28276bca207a1acdaae898e",
+    "bolt-M2p5x20-reference": "d33f96ccb0447aca33bd086718c52b4fcf0369e56e2ab7d86f7e1be57888ac1d",
+    "bolt-M2x12-reference": "8125a579f2d6bade327dfc8d94e00b64efc26d9fe9ae6a4de81fe6dcf37221f6",
+    "bolt-M3x12-reference": "910643980b7ff9847309c40faabda2af64c1efb9043bd346db295aef546deb14",
+    "bolt-M3x35-reference": "28e9591cdf59a304bd0542a8266588e5eeb8bb80abc3a00c655e1473f2010b4c",
+    "nut-M1p6-reference": "c2816d08c0d2cba777c12ee7f9e3ec2c2d1f627aad80ce7aa28c0866ab8f52e1",
+    "nut-M3-reference": "e79ba8d34a29c64fe7208a2cdf94e79f41859ea4e3b26739c8636e587ef83374",
+    "washer-M3-reference": "06d6944aa2f1b949d225cdc8fc7a2347fd8c5838a844be8745caca0f8686afcd",
+    "washer-M3x0p7-reference": "da239abcd94d148e2b387ac272ebbeadaf61e6d135f5dbd7412382eb7b8cfd92",
+    "bolt-OEM-horn-UNVERIFIED": "610616c90aa1f0796d7ae956a34660e45122254d0640789726af236152c315df",
     "converter-tie-reference": "a92d362e39dc39cf8f8c963b45a4f97b200ac8710a626c5618b3284fb1c7dee7",
     "capacitor-tie-reference": "22e411439b72115e23873c4b7de4338dc732223a45b086edf78f033c505a245a",
-    "csk-M1p6x6-reference": "62e76a4ccd84383733f53e90e84040474230a68f2f647d57a4c7f72d4a60404f",
-    "csk-M2x8-reference": "218a22afae83b6fd0fa179cc419c002e8753705c921084494113214a635faff7",
-    "csk-M2x10-reference": "46a3adfe3426030abd0279368eb248a0e6a7aa6a7635d2dabadc91b97569c8ae",
-    "bolt-M2x10-reference": "7809c339f087d01f40071f5b3b04bd5336ff5c44dff430c58acecb2fffac6f08",
-    "camera-pod-spider": "1e43cbde7ec073216ab059349ad85b0e6bcc40bb9bf469d480a7f0608a9afbfb",
-    "payload-pan-servo-mount": "697be87c65c12901cc3fb1385d2810e3b3c9ebffb6e609818f8dd3d170ff0717",
-    "payload-integrated-gimbal-head": "b178752708e45c0ea17af56211dd4b8938475a02fc3b74198c306cc59e95e49a",
-    "payload-integrated-gimbal-carrier": "98ad6c4b4eb3a9cb83968ef31febca625e33ad461ebb46fdafdf54783c852c30",
-    "payload-integrated-camera-cradle": "74039be16be2df9813427a93a6e7c6ce8a3991434d022bb7254fc6cb068b3526",
-    "payload-integrated-tilt-pivot-support": "947df58dd50db712f15bd2db179c8592b18bf8cf783782320c49cd61d840ee2d",
-    "payload-horn-retainer": "0ac97263b2c6dd0b86df48d8e52f0792cde92ac77cdadc716c19ad96eb5e5520",
-    "payload-servo-fit-coupon": "b71bced8930cd8844a72e0fdd9078040cb946544b8c2413fb18e96ddaebd83d3",
-    "payload-spider-spacer": "990c1662aa4bdeab555986a092fa3e8a211b22eab8073141e246b1e25f5d7b16",
-    "payload-rain-hood": "fd90e69c3b9cb0f13d383f3e924e7862f1680f60e7662a7b62963c8a7d2f71d4",
-    "payload-enclosure-base": "29a23c7960ae38e0a6b4d39944c17c6d07b1cfbb86d45f0ecdbe32a3d67db871",
-    "payload-integrated-deck": "37ab65e59e2680f72a10c0ce6eda850918500e356bd42b232b06ee80ef75f386",
-    "payload-integrated-camera-hood": "dbf08e4f68d18525a43b23ac12abc35eea7ec920fca3a46036a3ff985504f240",
+    "csk-M1p6x6-reference": "0f8310f01a31b59de760414638ccce0212f51002a3c9d00a225d1ab19a029b36",
+    "csk-M2x8-reference": "1ba171b2dc43797262be73f02646889dc5461f31c3914f739fb8ebf3412d47d2",
+    "csk-M2x10-reference": "5718656dc87c8bf143ccdddc0b26b88276abe55ab971e4c0fe52990b4137568f",
+    "bolt-M2x10-reference": "fb8720134f161cba335a058a50f901f7bc6ab2b6634982c733d421c29aeffef7",
+    "camera-pod-spider": "ac39e2c641b723df16c75f4212faafa0ec2211d9788fc14d5465b677c7950e1f",
+    "payload-pan-servo-mount": "ee4dd72abfc0cc24a0a7d67f9d1566a4a854578a7be8737c7af28c7bf14011cf",
+    "payload-horn-retainer": "bd24f6566ccbb2b4f013751baa51cad59200a603198a138768626c2314ffbfb6",
+    "payload-servo-fit-coupon": "65d3122067c397de5a45347fc5245bc79205cf206f1fba4af8f3ae603910baae",
+    "payload-spider-spacer": "2d6f635291196cdab61e7a278791c609fbc806be202c2c8c696715965918307c",
+    "payload-rain-hood": "dfacf7c64e7b0fe585b5379adc6928e3e859599b390019bdb2a48a6fbd3b2e6d",
+    "payload-enclosure-base": "12f6078f5e1b4ff4ae534985cc7ce20c0e6a26278e3182d7ca9e779a774514d7",
+    "payload-integrated-gimbal-head": "c1a3b9e84f29440822a11681a54e8a1f6b2c754185ba1a0cb5ab6c48be019971",
+    "payload-integrated-gimbal-carrier": "dfc6494d0a76aac9f37bcb16da2856d592815459fe8bb1a06fd304f343cd1aa1",
+    "payload-integrated-camera-cradle": "1e880d03f46e1622846978fee8281eac15dc4b1fb80f8401b6c046f8f3856977",
+    "payload-integrated-tilt-pivot-support": "3c23c821741ff7ac9389eb07278a1b63562d9c2d8b033da85ce8be84876f9886",
+    "payload-integrated-deck": "accddee4cbef4ffdbeab537f9699c6d18551ee23b8f2d43f9021ff835917c8b2",
+    "payload-integrated-camera-hood": "89199c9751f204e7836b15e571667b5829dcc7acaa27f5b7f43935812fcf074a",
     "fixed-power-route-6mm-NOMINAL": "63dedc46aae2a92430d49dd574236eb8ed922e5fb5e6fc5291f1983459241bc7"
   },
   "checker_sources": {
     "integration.py": "4fe5bf788c3899d4b51ea57e6b80c97e7b63914977e5494312a321dd603dc657",
-    "check_integration.py": "2c1455a2992362fc949ae72b1d19e2e2f901cf79d8b32770d8036404881ed9da",
-    "check_service.py": "7b502fab0f5f231bdc64a50a48f157d48d3c0903ae0dc9f0238cee3e5668c781",
+    "check_integration.py": "9a3dd9adb86a51f84efdf9081b6ae940500038e6bc37c3a85813932b8b1ea336",
+    "check_service.py": "80e4c9c9fd1f6a48f1f0f682d4f9d2d4aa959590385a893992426802a4fd1a55",
     "reference-parts.scad": "ee5e874c8549bd9cfe1a63f9a7f43e24769086855f7884d0c2bad390e1fab96c"
   }
 }

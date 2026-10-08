@@ -39,12 +39,12 @@ def enclosure_booklet():
  note(261,'STLs use mm and Z=0 print-bed placement. PETG is a starting material; plan supports in the slicer, inspect mating faces and holes, and weigh the sliced and printed parts.')
 
  begin('02  Three exterior shells','P10 is the white roof, P11 its black tray and P12 the single black outer head. The head turns with its internal carrier; a second rear camera cover is omitted.')
- for i,(name,title,body) in enumerate([('payload-rain-hood','P10 White rain hood','Closed roof; inside-loaded M3 nut pockets'),('payload-enclosure-base','P11 Black rain tray','Perimeter skirt, raised lip and downward outlets'),('payload-integrated-gimbal-head','P12 Compact head','Four M2 fasteners join it to the internal carrier')]):
+ for i,(name,title,body) in enumerate([('payload-rain-hood','P10 White rain hood','Closed roof; inside-loaded M3 nut pockets'),('payload-enclosure-base','P11 Rolled rain tray','Rounded shoulder, recessed outlets and open-bottom arm reliefs'),('payload-integrated-gimbal-head','P12 Circular-neck head','Round neck and four M2 carrier clamps; keep the pan seam clear')]):
   x=16+i%3*61;y=55+i//3*93
   fig('part-'+name,x,y,56,60);para(x,y+61,57,'<b>'+title+'</b>',small=True,max_h=10);para(x,y+70,57,body,small=True,max_h=24)
  fig('gimbal-front',39,151,132,92)
  text(41,250,'COMPACT MECHANISM WITH OUTER HEAD REMOVED',8,True,BLUE)
- note(261,'These covers manage ordinary rain and splash; openings and moving interfaces are present. Print orientation, drain performance, seals, heat and outdoor exposure remain unverified.')
+ note(261,'Reprint P11 r0.2.3 and P12 r0.1.3 together. Keep their clearance seam free of support scars. Drainage, prints, outdoor exposure and complete mass need physical inspection.')
 
  begin('03  Measure actual hardware','The Pi/camera mounting patterns follow cited drawings. Servo, horn, converter, capacitor and connectors remain provisional.')
  fig('part-payload-servo-fit-coupon',16,54,73,51)
@@ -114,7 +114,7 @@ def enclosure_booklet():
  begin('14  CAD evidence and limits','Geometry checks use final exported meshes and the same assembly transforms as these figures. Physical fit, load and rain performance remain unverified.')
  for i,n in enumerate(['motion-left','motion-down','motion-right']):fig(n,16+61*i,54,56,62)
  for x,label in [(16,'PAN -90 / TILT 70'),(77,'PAN 0 / TILT 0'),(138,'PAN +90 / TILT 70')]:text(x,122,label,8,True,BLUE)
- table([['<b>Check</b>','<b>Result / scope</b>'],['Rigid motion grid',f"{report['motion_grid']['poses']} poses; 5-degree steps; no intersections above 0.005 mm3"],['Mechanical stops','Contact outside usable +/-90 pan, 0..70 tilt'],['Assembly and service',f"{len(service['assembly_paths'])} sampled paths; local sockets and staged head/centre-screw access"],['Cable outlets',f"{len(service['wiring_ports'])} nominal opening envelopes; no flexible-cable simulation"],['Fixed power route',f"{service['fixed_power_route']['poses']} rigid-route poses; misplaced central-drop control detects the pan stop"],['Optical opening','66 x 41 degree Standard-camera viewing volume to 80 mm'],['Full-solid PETG mass',f"{report['solid_total_PETG_g']:.1f} g before electronics, wires and metal hardware"]],135,[57,121])
+ table([['<b>Check</b>','<b>Result / scope</b>'],['Rigid motion grid',f"{report['motion_grid']['poses']} poses; 5-degree steps; no intersections above 0.005 mm3"],['Mechanical stops','Contact outside usable +/-90 pan, 0..70 tilt'],['Neck seam',f"{report['neck_clearance']['minimum_clearance_mm']:.3f} mm minimum in 41 sections; oversized-neck control detects interference"],['Assembly and service',f"{len(service['assembly_paths'])} sampled paths; local sockets and staged head/centre-screw access"],['Cable outlets',f"{len(service['wiring_ports'])} nominal opening envelopes; no flexible-cable simulation"],['Fixed power route',f"{service['fixed_power_route']['poses']} rigid-route poses; misplaced central-drop control detects the pan stop"],['Optical opening','66 x 41 degree Standard-camera viewing volume to 80 mm'],['Full-solid PETG mass',f"{report['solid_total_PETG_g']:.1f} g before electronics, wires and metal hardware"]],135,[57,121])
  note(258,'Weigh the completed build; the 170 g flying ceiling is not demonstrated. The head loads the pan servo: verify torque, current and heat on the bench. Rigid checks do not prove sealing, strength or safe flight.')
 
  begin('15  Final supported bench check','Support the spider with the camera free. Do not rest the assembly on the camera hood or force geared servos by hand.')
