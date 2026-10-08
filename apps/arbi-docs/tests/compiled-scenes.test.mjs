@@ -39,9 +39,9 @@ test("passive and powered inventories and poses match their own canonical bookle
             for (const part of scene.parts) assert.ok(existsSync(join(output, part.url)));
             const catalog = JSON.parse(readFileSync(join(output, 'site.json'), 'utf8')).bom.parts;
             const bomIds = new Set(catalog.map((p) => p.id));
-            for (const part of scene.parts) {
+            for (const [index, part] of scene.parts.entries()) {
                 if (part.registered) assert.equal(part.href, `/parts/${part.model}`);
-                if (/^(motor-|bolt-|nut-|nyloc-|washer-)/.test(part.model)) {
+                if (source[index].bomPartId || part.href?.startsWith('/bom/')) {
                     assert.ok(part.href?.startsWith('/bom/'), `${part.model} must be clickable`);
                     assert.ok(bomIds.has(part.href.slice(5)), `${part.model} must open an existing page`);
                 }

@@ -18,6 +18,10 @@ test('archived references remain navigable and unmapped context does not invent 
   assert.equal(sceneHref('motor-23HS40-reference', false, undefined, catalogIds), '/bom/nema23-closed-loop-motor');
   assert.equal(sceneHref('bolt-M6x30', false, undefined, catalogIds), '/bom/winch-mount-hardware');
   assert.equal(sceneHref('nut-M5', false, undefined, catalogIds), '/bom/winch-mount-hardware');
+  for (const ambiguous of ['bolt-M4x25', 'washer-M4', 'washer-M5', 'nyloc-M4', 'nyloc-M5']) {
+    assert.equal(sceneHref(ambiguous, false, undefined, catalogIds), undefined);
+  }
+  assert.equal(sceneHref('base-plate-passive-covered', false, undefined, catalogIds), '/bom/winch-mount-hardware');
   assert.equal(sceneHref('line-passive-reference', false, undefined, catalogIds), undefined);
   assert.throws(() => sceneHref('bolt-M4x25', false, 'missing-part', catalogIds), /missing BOM part/);
 });
