@@ -2,8 +2,11 @@
     "$schema": "https://v2-9-16.turborepo.dev/schema.json",
     "extends": ["//"],
     "tasks": {
+        "test": {
+            "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/scripts/**", "$TURBO_ROOT$/hardware/**", "$TURBO_ROOT$/docs/**"]
+        },
         "build": {
-            "env": ["ARBI_SOURCE_COMMIT", "ARBI_SOURCE_DATE", "ARBI_CAD_RELEASE", "ARBI_OFFLINE", "VERCEL_GIT_COMMIT_SHA"],
+            "env": ["ARBI_SOURCE_COMMIT", "ARBI_SOURCE_DATE", "ARBI_CAD_RELEASE", "ARBI_CAD_PREVIEW_PACK", "ARBI_OFFLINE", "VERCEL_GIT_COMMIT_SHA", "VERCEL_ENV"],
             "cache": false,
             "inputs": [
                 "$TURBO_DEFAULT$",
@@ -11,6 +14,7 @@
                 "$TURBO_ROOT$/docs/**",
                 "$TURBO_ROOT$/hardware/**",
                 "$TURBO_ROOT$/bom/**",
+                "$TURBO_ROOT$/scripts/**",
                 "!public/data/**"
             ],
             "outputs": [".next/**", "!.next/cache/**", "public/data/**"]

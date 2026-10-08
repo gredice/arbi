@@ -18,7 +18,14 @@ export default function Home() {
     return (
         <>
             <Crumb left="Cover" right={`Rev ${site.commit.slice(0, 7)}`} dark />
-            <CoverTeardown scene={scenes["camera-pod"]} steps={coverSteps(scenes["camera-pod"])} date={site.commitDate} />
+            {scenes["camera-pod"] ? (
+                <CoverTeardown scene={scenes["camera-pod"]} steps={coverSteps(scenes["camera-pod"])} date={site.commitDate} />
+            ) : (
+                <section className="bg-ink px-4 py-20 text-paper sm:px-6">
+                    <h1 className="cond text-[64px] leading-none">Automatic raised bed imaging</h1>
+                    <p className="mt-6">The current camera pod preview is being prepared. Explore the latest design documentation below.</p>
+                </section>
+            )}
             <section className="grid grid-cols-2 border-b-2 border-ink px-4 sm:px-6 md:grid-cols-4">
                 {stats.map(([n, l], i) => (
                     <div key={l} className={`py-6 ${i ? "border-ink md:border-l md:pl-6" : ""}`}>

@@ -51,6 +51,8 @@ jobs:
               - 'scripts/cad-previews/**'
               - '.github/workflows/ci.yml'
               - '.github/workflows/cad-release.yml'
+              - 'scripts/cad-release-data.mjs'
+              - 'scripts/publish-cad-release.mjs'
               - 'package.json'
               - 'pnpm-lock.yaml'
               - 'pnpm-workspace.yaml'
@@ -67,6 +69,8 @@ jobs:
               - '.github/workflows/booklets.yml'
               - '.github/workflows/ci.yml'
               - '.github/workflows/cad-release.yml'
+              - 'scripts/cad-release-data.mjs'
+              - 'scripts/publish-cad-release.mjs'
 
   workspace:
     name: Validate workspace
