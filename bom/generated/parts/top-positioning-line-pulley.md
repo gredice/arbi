@@ -13,7 +13,7 @@
 
 ## Requirements
 
-- Weather-resistant 25–30 mm marine single block for ~1.5 mm Dyneema; 30 mm preferred. Low-friction ball bearing preferred for repeated movement; positive side enclosure plus printed keeper. Mount near ~3.0–3.1 m on the through-bolted offset steel bracket.
+- Weather-resistant 25–30 mm marine single block for ~1.5 mm Dyneema; 30 mm preferred. Low-friction ball bearing preferred for repeated movement; positive side enclosure plus printed keeper. Mount near ~3.0–3.1 m on the selected through-bolted head; historical steel and proposed printed variants have separate attachment and acceptance requirements.
 
 ## Notes
 

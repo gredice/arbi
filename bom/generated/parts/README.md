@@ -18,6 +18,16 @@ One stable page per catalog part, including optional and deferred items. Usage q
 | [CL57Y-V20 closed-loop motor driver](cl57y-v20-driver.md) | cl57y-v20-driver |
 | [Central outdoor electrical cabinet](control-panel-enclosure.md) | control-panel-enclosure |
 | [48 V → 5 V controller buck converter](controller-buck-converter-48v-5v.md) | controller-buck-converter-48v-5v |
+| [Reviewed bought guy-to-post attachment set](corner-guy-post-connection.md) | corner-guy-post-connection |
+| [Proposed 200 mm top-pulley steel angle](corner-head-angle-200.md) | corner-head-angle-200 |
+| [Corner head reusable centre marking template](corner-head-marking-template.md) | corner-head-marking-template |
+| [Printed corner-head bought fastener and retention set](corner-head-printed-hardware.md) | corner-head-printed-hardware |
+| [Printed corner-head carrier, pads and covers kit](corner-head-printed-kit.md) | corner-head-printed-kit |
+| [Printed-head shared timber centre marking template](corner-head-printed-marking-template.md) | corner-head-printed-marking-template |
+| [Corner head replaceable shield retention straps](corner-head-retention-straps.md) | corner-head-retention-straps |
+| [Corner head round-timber metal saddle pair](corner-head-round-saddles.md) | corner-head-round-saddles |
+| [Proposed round-head M12 through-bolt pair](corner-head-through-bolts.md) | corner-head-through-bolts |
+| [Corner head removable weather shield kit](corner-head-weather-kit.md) | corner-head-weather-kit |
 | [Ground-contact treated timber corner post](corner-post-treated-timber.md) | corner-post-treated-timber |
 | [DIN-rail GND distribution block](din-rail-ground-distribution-block.md) | din-rail-ground-distribution-block |
 | [High-dock alignment funnel](dock-funnel.md) | dock-funnel |

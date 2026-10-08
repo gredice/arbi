@@ -123,7 +123,7 @@ test('publication handles large paginated release histories, reruns and Latest a
     for (const mode of ['new', 'draft', 'bump']) {
       const assets = join(temp, `assets-${mode}`); mkdirSync(assets);
       const names = [...registry.models.map((m) => m.output), `cad-sources-${'a'.repeat(40)}.zip`, 'ARBI-CAD-previews.zip',
-        ...['ARBI-winch', 'ARBI-payload', 'ARBI-payload-enclosure'].flatMap((n) => [`${n}-assembly-STL.pdf`, `${n}-STL-pack.zip`])];
+        ...['ARBI-winch', 'ARBI-payload', 'ARBI-payload-enclosure', 'ARBI-corner-support'].flatMap((n) => [`${n}-assembly-STL.pdf`, `${n}-STL-pack.zip`])];
       for (const name of names) writeFileSync(join(assets, name), 'publication fixture');
       const calls = join(temp, `calls-${mode}`);
       execFileSync(process.execPath, ['scripts/publish-cad-release.mjs'], {
@@ -151,4 +151,27 @@ test('publication handles large paginated release histories, reruns and Latest a
     }), /ENOENT/);
     assert.ok(!readFileSync(calls, 'utf8').trim().split('\n').map(JSON.parse).some((a) => a[0] === 'release'));
   } finally { rmSync(temp, { recursive: true, force: true }); }
+});
+
+
+test('corner source packs reject changed canonical geometry and corrupted fabrication meshes', () => {
+  const paths = ['hardware/lib/corner-head.scad', 'hardware/lib/corner-head-printed.scad', 'scripts/corner-support/build.py'];
+  const sources = Object.fromEntries(paths.map((path) => [path, readFileSync(join(root, path))]));
+  const mesh = 'models/arbi/corner-head-printed-front-cover-r0.1.0.stl';
+  const files = Object.fromEntries(paths.map((path) => [`source/repository/${path}`, sources[path]]));
+  files[mesh] = Buffer.from('nominal mesh fixture');
+  files['figure-manifest.json'] = Buffer.from('{}');
+  files['geometry-report.json'] = Buffer.from(JSON.stringify({
+    sources_sha256: Object.fromEntries(paths.map((path) => [path, sha256(sources[path])])),
+    mesh_sha256: { [mesh]: sha256(files[mesh]) },
+  }));
+  files['manifest.json'] = Buffer.from(JSON.stringify({ files_sha256: Object.fromEntries(Object.entries(files).map(([path, bytes]) => [path, sha256(bytes)])) }));
+  const outputs = new Set(['corner-head-printed-front-cover-r0.1.0.stl']);
+  assert.equal(packIsCurrent(files, outputs, root, 'corner'), true);
+  assert.equal(packIsCurrent({ ...files, [mesh]: Buffer.from('corrupt') }, outputs, root, 'corner'), false);
+  for (const path of paths) {
+    assert.equal(packIsCurrent({ ...files, ['source/repository/'+path]: Buffer.from('old') }, outputs, root, 'corner'), false);
+  }
+  assert.equal(packIsCurrent({ ...files, 'figure-manifest.json': Buffer.from('{"pose":"wrong"}') }, outputs, root, 'corner'), false);
+  assert.equal(packIsCurrent(files, new Set(), root, 'corner'), false);
 });

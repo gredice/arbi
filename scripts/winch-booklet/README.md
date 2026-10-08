@@ -47,10 +47,10 @@ the website; repeated fastener meshes retain the owner of each installed stack.
 and enclosed payload variants in separate jobs with Python 3.12, OpenSCAD 2021.01 and VTK
 9.5.2 on software EGL. Relevant pull requests get downloadable PDF/ZIP artifacts
 for 14 days. The required CI result includes booklet checks. A manual workflow
-dispatch rebuilds all three variants from the selected branch.
+dispatch rebuilds all four variants, including the [corner support package](../corner-support/README.md), from the selected branch.
 
 On `main`, [the release job in CI](../../.github/workflows/ci.yml) reuses all
-three validated booklets and adds them to the `cad-v<MAJOR.MINOR.PATCH>` release alongside the
+four validated booklets and adds them to the `cad-v<MAJOR.MINOR.PATCH>` release alongside the
 registered STL/CSG files and checksums. CI uses fresh exports, with neither
 `--reuse-models` nor `--publish`; it does not commit generated files back to Git.
 Checked-in PDFs/ZIPs are dated snapshots; releases contain commit-matched builds.
