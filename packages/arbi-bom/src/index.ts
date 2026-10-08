@@ -1,4 +1,5 @@
 export { calculateBom } from "./calculate.js";
+export { estimatePrintMaterials } from "./fabrication.js";
 export {
   ceilRatio,
   Decimal,

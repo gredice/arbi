@@ -32,8 +32,12 @@ type RawSite = {
             quoteSnapshotId: string;
             complete: boolean;
             knownGoodsSubtotal: string;
-            knownShippingSubtotal: string;
+            knownShippingSubtotal: string; knownCustomsSubtotal: string;
             knownSubtotal: string;
+            estimatedMaterialSubtotal: string;
+            estimatedPartialSubtotal: string;
+            assemblyPartialGoods: { assemblyId: string; amount: string }[];
+            assemblyEstimatedMaterials: { assemblyId: string; amount: string }[];
             assemblyKnownGoods: { assemblyId: string; amount: string }[];
             sharedProcurementStockKnownGoods: string;
             warningCount: number;

@@ -232,6 +232,65 @@ export interface BomRepository {
   locations: LocationCatalog;
   quote: QuoteSnapshot;
   scenarios: ScenarioCatalog;
+  fabrication: FabricationCatalog;
+}
+
+export interface FilamentMaterial {
+  id: string;
+  name: string;
+  densityGramsPerCm3: string;
+  densitySourceUrl: string;
+  spoolWeightGrams: string;
+  spoolPrice: string | null;
+  currency: string;
+  priceSourceUrl: string;
+  observedAt: string;
+  priceBasis: "single-spool";
+  taxTreatment: "unknown" | "included";
+}
+
+export interface PrintRecipe {
+  partId: string;
+  buildId: string;
+  representedQuantity: string;
+  materialId: string;
+  components: Array<{ modelId: string; quantity: string }>;
+  note: string;
+}
+
+export interface FabricationCatalog {
+  schemaVersion: 1;
+  destinationId: string;
+  note: string;
+  geometry: {
+    releaseTag: string | null;
+    sourceCommit: string;
+    sourceHashes: Record<string, string>;
+    models: Array<{ modelId: string; revision: string; volumeCm3: string; stlSha256: string }>;
+  };
+  materials: FilamentMaterial[];
+  recipes: PrintRecipe[];
+}
+
+export interface FabricationEstimate {
+  partId: string;
+  required: string;
+  basis: "solid-volume-estimate";
+  materialId: string;
+  weightGrams: string;
+  materialCost: string | null;
+  currency: string;
+  note: string;
+  alternatives: Array<{
+    materialId: string;
+    name: string;
+    weightGrams: string;
+    materialCost: string | null;
+    spoolPrice: string | null;
+    spoolWeightGrams: string;
+    priceSourceUrl: string;
+    observedAt: string;
+  }>;
 }
 
 export interface ValidationResult {
@@ -304,6 +363,12 @@ export interface CalculationResult {
   customs: CustomsResult[];
   knownShippingSubtotal: string;
   knownSubtotal: string;
+  estimatedMaterialSubtotal: string;
+  estimatedPartialSubtotal: string;
+  fabrication: FabricationEstimate[];
+  printReferences: FabricationEstimate[];
+  assemblyEstimatedMaterials: Array<{ assemblyId: string; amount: string }>;
+  assemblyPartialGoods: Array<{ assemblyId: string; amount: string }>;
   requirements: RequirementResult[];
   selections: SelectionResult[];
   shipping: ShippingResult[];

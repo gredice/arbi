@@ -264,6 +264,12 @@ function docs() {
 }
 
 function bom() {
+  const fabrication = readJson('bom/catalog/fabrication.json');
+  for (const [path, expected] of Object.entries(fabrication.geometry.sourceHashes)) {
+    if (createHash('sha256').update(readFileSync(join(REPO, path))).digest('hex') !== expected) {
+      throw new Error(`Stale print cost evidence: ${path}; recapture volumes and run pnpm bom:generate`);
+    }
+  }
   const report = readJson('bom/generated/arbi-v1-hr-zagreb.json');
   const catalog = readJson('bom/catalog/parts.json').parts;
   const quote = readJson(`bom/quotes/${report.quoteSnapshotId}.json`);
@@ -272,6 +278,8 @@ function bom() {
   const offers = Object.fromEntries(readJson('bom/catalog/offers.json').offers.map((o) => [o.id, o]));
   const selections = Object.fromEntries(report.selections.map((s) => [s.offerId, s]));
   const reqs = Object.fromEntries(report.requirements.map((r) => [r.partId, r]));
+  const prints = Object.fromEntries(report.fabrication.map((r) => [r.partId, r]));
+  const printReferences = Object.fromEntries(report.printReferences.map((r) => [r.partId, r]));
   const parts = catalog.map((part) => {
     const r = reqs[part.id] ?? {};
     const sel = selections[r.selectedOfferId];
@@ -285,11 +293,14 @@ function bom() {
       quotedPrice: price?.price ?? null, delivery: price?.delivery ?? null, observedAt: price?.observedAt ?? null, customsPolicy,
       knownGoods: sel?.coverage.find((c) => c.partId === part.id)?.knownGoodsAmount ?? null,
       goodsAllocationBasis: sel?.goodsAllocationBasis ?? null, offerUrl: offers[r.selectedOfferId]?.listing?.url ?? null,
+      printEstimate: prints[part.id] ?? null,
+      printReference: printReferences[part.id] ?? null,
       warnings: sel?.warnings ?? [], page: `bom/generated/parts/${part.id}.md` };
   });
   const keys = ['scenarioId', 'scenarioName', 'buildId', 'destinationName', 'quoteSnapshotId', 'inputDigest', 'reportCurrency', 'complete',
     'completeLandedTotal', 'knownGoodsSubtotal', 'knownShippingSubtotal', 'knownSubtotal', 'assemblyKnownGoods',
-    'sharedProcurementStockKnownGoods', 'sharedBundleGoods', 'sharedShipping', 'shipping', 'knownCustomsSubtotal', 'customs'];
+    'sharedProcurementStockKnownGoods', 'sharedBundleGoods', 'sharedShipping', 'shipping', 'knownCustomsSubtotal', 'customs',
+    'estimatedMaterialSubtotal', 'estimatedPartialSubtotal', 'assemblyEstimatedMaterials', 'assemblyPartialGoods'];
   const summary = Object.fromEntries(keys.map((k) => [k, report[k]]));
   summary.warningCount = report.warnings.length;
   return { summary, parts, assemblies };
