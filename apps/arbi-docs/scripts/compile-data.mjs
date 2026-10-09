@@ -31,7 +31,7 @@ const PRODUCTION = process.env.VERCEL_ENV === 'production';
 const OFFLINE = process.env.ARBI_OFFLINE === '1';
 // Booklet packs: committed snapshot path, release asset name, installed/exploded figures.
 const PACKS = {
-  pod: { snapshot: 'docs/assemblies/camera-pod/booklet/ARBI-payload-enclosure-STL-pack.zip', asset: 'ARBI-payload-enclosure-STL-pack.zip',
+  pod: { snapshot: 'docs/assemblies/camera-pod/booklet/ARBI-payload-enclosure-STL-pack.zip', asset: 'ARBI-camera-pod-enclosure-STL-pack.zip',
     exploded: ['overview-exploded', 'enclosure-exploded'] },
   winch: { snapshot: 'docs/assemblies/winch/booklet/ARBI-winch-STL-pack.zip', asset: 'ARBI-winch-STL-pack.zip' },
   corner: { snapshot: null, asset: 'ARBI-corner-support-STL-pack.zip' },
@@ -188,8 +188,8 @@ function podScene({ files, source }, modelsByOutput) {
   const pose = poseFigure(figures, PACKS.pod.exploded);
   const exploded = pose ? pairExploded(assembly.parts, pose.parts) : [];
   const parts = assembly.parts.map((p, i) => ({
-    node: p.name, model: p.model, registered: Boolean(modelsByOutput[basename(p.file)]),
-    href: sceneHref(p.model, Boolean(modelsByOutput[basename(p.file)]), p.bomPartId, catalogIds), group: p.group, color: p.color,
+    node: p.name, model: modelsByOutput[basename(p.file)]?.id ?? p.model, registered: Boolean(modelsByOutput[basename(p.file)]),
+    href: sceneHref(modelsByOutput[basename(p.file)]?.id ?? p.model, Boolean(modelsByOutput[basename(p.file)]), p.bomPartId, catalogIds), group: p.group, color: p.color,
     url: `pod/${p.file}`, matrix: p.matrix,
     explode: offsetOf(p.matrix, exploded[i]), kind: meshes[p.model]?.kind ?? null,
   }));
@@ -341,6 +341,15 @@ const registry = readJson('hardware/models.json');
 const catalogIds = new Set(readJson('bom/catalog/parts.json').parts.map((p) => p.id));
 const modelsByOutput = Object.fromEntries(registry.models.map((m) => [m.output, m]));
 const outputs = new Set(Object.keys(modelsByOutput));
+// Immutable archival packs keep their original filenames. Translate identities
+// only for explicit offline previews; source-matched releases use canonical names.
+if (OFFLINE) {
+  const aliases = readJson('hardware/model-aliases.json');
+  for (const [previous, current] of Object.entries(aliases)) {
+    const model = registry.models.find((m) => m.id === current);
+    if (model?.output.endsWith('.stl')) modelsByOutput[model.output.replace(current, previous)] = model;
+  }
+}
 const commit = process.env.VERCEL_GIT_COMMIT_SHA || process.env.ARBI_SOURCE_COMMIT || git('rev-parse', 'HEAD') || 'unknown';
 const ref = /^[0-9a-f]{40}$/.test(commit) ? commit : 'main';
 const release = await resolveRelease(registry.models);
@@ -431,7 +440,7 @@ const downloads = Object.fromEntries(registry.models.map((m) => [m.id, {
 }]));
 const missing = registry.models.filter((m) => !downloads[m.id].release).map((m) => m.output);
 
-for (const img of ['docs/assets/arbi-cover.png', 'docs/assets/payload-concept.png']) cpSync(join(REPO, img), join(OUT, img));
+for (const img of ['docs/assets/arbi-cover.png', 'docs/assets/camera-pod-concept.png']) cpSync(join(REPO, img), join(OUT, img));
 const readme = readFileSync(join(REPO, 'README.md'), 'utf8');
 const site = {
   repository: GITHUB,

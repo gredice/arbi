@@ -25,7 +25,7 @@ test('assembly models build their owning booklets and website without dashboard 
     assert.deepEqual(names(winch), ['@arbi/docs']);
     assert.equal(winch.cad, true);
     assert.deepEqual(variants(winch), ['winch']);
-    assert.deepEqual(variants(select('hardware/assemblies/camera-pod/payload-tray.scad')), ['bench', 'enclosure']);
+    assert.deepEqual(variants(select('hardware/assemblies/camera-pod/camera-pod-tray.scad')), ['bench', 'enclosure']);
     const dock = select('hardware/assemblies/dock/dock.scad');
     assert.equal(dock.cad, true);
     assert.equal(dock.booklets, false);
@@ -36,7 +36,7 @@ test('shared geometry, registry, rendering helpers and licenses cover every book
         assert.deepEqual(variants(select(path)), ['winch', 'bench', 'enclosure', 'corner'], path);
     }
     assert.deepEqual(variants(select('scripts/check-winch-pole-meshes.py')), ['winch']);
-    assert.deepEqual(variants(select('scripts/payload-booklet/check_service.py')), ['bench', 'enclosure']);
+    assert.deepEqual(variants(select('scripts/camera-pod-booklet/check_service.py')), ['bench', 'enclosure']);
 });
 
 test('BOM edits run canonical reports and BOM tests, with CAD only for part mappings', () => {
@@ -132,7 +132,7 @@ test('model documentation deletion triggers CAD; removed workspaces cannot vanis
 });
 
 test('main release expands to all commit-matched packs and CAD; ordinary content does not publish', () => {
-    for (const path of ['hardware/assemblies/dock/dock.scad', 'scripts/payload-booklet/build.py', 'hardware/assemblies/winch/README.md']) {
+    for (const path of ['hardware/assemblies/dock/dock.scad', 'scripts/camera-pod-booklet/build.py', 'hardware/assemblies/winch/README.md']) {
         const result = plan([{ path, status: 'M' }], { eventName: 'push' });
         assert.equal(result.release, true);
         assert.equal(result.cad, true);

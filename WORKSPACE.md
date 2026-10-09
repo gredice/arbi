@@ -156,11 +156,11 @@ and current assembly scenes. PRs only upload review artifacts.
 ## Assembly booklet builds
 
 The Python generators in [scripts/winch-booklet](scripts/winch-booklet/README.md),
-[scripts/payload-booklet](scripts/payload-booklet/README.md) and
+[scripts/camera-pod-booklet](scripts/camera-pod-booklet/README.md) and
 [scripts/corner-support](scripts/corner-support/README.md) export current
 registered CAD, check meshes and nominal assembly geometry, render white-face
 line illustrations and package A4 PDFs with portable STL/source ZIPs. The four
-configurations are the winch, dry payload bench, payload rain enclosure and
+configurations are the winch, dry camera pod bench, camera pod rain enclosure and
 proposed corner head.
 
 [Booklet CI](.github/workflows/ci.yml) builds affected variants on PRs and

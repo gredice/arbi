@@ -19,8 +19,8 @@ def check(root, variant):
         return
     artifact, pages, revision, label = {
         'winch': ('ARBI-winch', 20, 9, 'PASSIVE / COVER KIT'),
-        'bench': ('ARBI-payload', 14, 4, 'MOUNT SET / BENCH EDITION'),
-        'enclosure': ('ARBI-payload-enclosure', 16, 5, 'RAIN / SPLASH EDITION'),
+        'bench': ('ARBI-camera-pod-bench', 14, 4, 'MOUNT SET / BENCH EDITION'),
+        'enclosure': ('ARBI-camera-pod-enclosure', 16, 5, 'RAIN / SPLASH EDITION'),
     }[variant]
     pdf = root / (artifact + '-assembly-STL.pdf')
     reader = PdfReader(pdf)
@@ -37,7 +37,7 @@ def check(root, variant):
     assert provenance['render_style'] == 'assembly-line-art-v1'
     registry = json.loads((root / 'source/arbi-hardware/models.json').read_text())
     models = registry['models'] + ([m for m in registry.get('archivedModels', [])
-                                   if m.get('alternativeConfiguration') == 'payload-bench']
+                                   if m.get('alternativeConfiguration') == 'camera-pod-bench']
                                   if variant == 'bench' else [])
     outputs = {m['id']: m['output'] for m in models}
     manifests = ['arbi-mesh-manifest.json', 'reference-mesh-manifest.json'] if variant == 'winch' else ['mesh-manifest.json']
