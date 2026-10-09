@@ -4,6 +4,7 @@
 // Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication.
 include <../../lib/catalog-visualizations.scad>
 
-shape = "psu";
-dimensions = [215, 115, 50];
-arbi_catalog_visualization(shape, dimensions);
+module cabinet_power_supply() {
+    arbi_catalog_visualization("psu", [215, 115, 50]);
+}
+cabinet_power_supply();

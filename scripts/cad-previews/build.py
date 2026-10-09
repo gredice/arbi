@@ -13,6 +13,7 @@ import numpy as np
 from PIL import Image, ImageChops
 import vtk
 from reference_meshes import default_jobs, positive_jobs, prepare_references
+from assembly_scenes import assembly_scene
 
 REPO = Path(__file__).resolve().parents[2]
 SIZE = (480, 360)
@@ -33,7 +34,7 @@ def source_hashes(entrypoint):
         if relative in hashes:
             return
         hashes[relative] = digest(path)
-        for include in re.findall(r"^\s*(?:include|use)\s*<([^>]+)>", path.read_text(), re.M):
+        for include in re.findall(r"^\s*(?:include|use)\s*<([^>]+)>", path.read_text(encoding="utf-8"), re.M):
             visit(path.parent / include)
 
     visit(REPO / entrypoint)
@@ -161,6 +162,9 @@ def build(cad, output, jobs):
                 "entrypoint": model["entrypoint"], "revision": model["revision"], "output": model["output"],
                 "sourceHashes": source_hashes(model["entrypoint"]), "figure": figure, "sha256": digest(image),
             }
+            scene = assembly_scene(model, REPO, work, jobs)
+            if scene:
+                manifest["models"][model["id"]]["scene"] = scene
             if model["artifactRole"] == "visualization":
                 target = work / "meshes" / model["output"]
                 target.parent.mkdir(exist_ok=True)
@@ -169,7 +173,7 @@ def build(cad, output, jobs):
             print(f"Rendered {model['id']}", flush=True)
         (work / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
         with zipfile.ZipFile(output / ASSET, "w", zipfile.ZIP_DEFLATED) as archive:
-            for path in sorted(work.rglob("*.png")) + sorted((work / "meshes").glob("*.stl")) + [work / "manifest.json"]:
+            for path in sorted(work.rglob("*.png")) + sorted((work / "meshes").glob("*.stl")) + sorted((work / "assemblies").rglob("*.stl")) + [work / "manifest.json"]:
                 archive.write(path, "ARBI-CAD-previews/" + path.relative_to(work).as_posix())
     print(f"Packaged {len(manifest['models'])} figures in {output / ASSET}", flush=True)
 

@@ -11,6 +11,7 @@ export function previewAssets(bytes, models, readSource) {
   if (manifest.schemaVersion !== 1 || manifest.style !== 'cad-line-art-v2') throw new Error('Unsupported CAD preview manifest; current line-art figures required');
   const figures = {};
   const meshes = {};
+  const scenes = {};
   const sources = new Map();
   for (const model of models) {
     const entry = manifest.models[model.id];
@@ -43,8 +44,29 @@ export function previewAssets(bytes, models, readSource) {
       const stl = files[root + entry.mesh];
       if (stl?.length && digest(stl) === entry.meshSha256) meshes[model.id] = stl;
     }
+    // Explicit assembly inspection assets have separate identities and cannot
+    // populate the fabrication/download mesh inventory. All components must be intact.
+    if (model.artifactRole === 'reference' && entry.scene?.slug === model.assembly) {
+      const scene = entry.scene;
+      const nodes = new Set();
+      const vector = (value) => Array.isArray(value) && value.length === 3 && value.every(Number.isFinite);
+      const valid = typeof scene.configuration === 'string' && typeof scene.pose === 'string' &&
+        Array.isArray(scene.parts) && scene.parts.length > 0 && scene.parts.every((part) => {
+          if (!part || typeof part.node !== 'string' || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(part.node) || nodes.has(part.node)) return false;
+          nodes.add(part.node);
+          if (part.mesh !== `assemblies/${model.id}/${part.node}.stl` || !['fixed', 'cover'].includes(part.group) ||
+            typeof part.registered !== 'boolean' || (part.bomPartId != null && typeof part.bomPartId !== 'string') ||
+            !vector(part.color) || part.color.some((v) => v < 0 || v > 1) || !vector(part.explode)) return false;
+          const linked = models.find((item) => item.id === part.model);
+          if (part.registered && (!linked || linked.assembly !== model.assembly || linked.artifactRole !== 'visualization' ||
+            !linked.bomPartIds.includes(part.bomPartId))) return false;
+          const stl = files[root + part.mesh];
+          return stl?.length > 0 && digest(stl) === part.sha256;
+        });
+      if (valid) scenes[scene.slug] = { ...scene, parts: scene.parts.map((part) => ({ ...part, bytes: files[root + part.mesh] })) };
+    }
   }
-  return { figures, meshes };
+  return { figures, meshes, scenes };
 }
 
 export const previewFigures = (bytes, models, readSource) => previewAssets(bytes, models, readSource).figures;
