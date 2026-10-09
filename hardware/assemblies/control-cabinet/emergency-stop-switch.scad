@@ -4,6 +4,7 @@
 // Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication.
 include <../../lib/catalog-visualizations.scad>
 
-shape = "switch";
-dimensions = [22, 40];
-arbi_catalog_visualization(shape, dimensions);
+module cabinet_emergency_stop() {
+    arbi_catalog_visualization("switch", [22, 40]);
+}
+cabinet_emergency_stop();

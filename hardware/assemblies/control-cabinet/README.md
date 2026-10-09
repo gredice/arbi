@@ -2,6 +2,23 @@
 
 See the [owning assembly or procurement policy](../../../docs/assemblies/control-cabinet/README.md).
 
+## Proposed assembled reference
+
+[control-cabinet-assembly.scad](control-cabinet-assembly.scad), r0.1.0, is a
+`reference` with released CSG output, **concept-unvalidated**. It arranges the two
+supplies, Pico/terminal-board stack, controller converter, signal-ground block,
+door E-stop, provisional shell/plate/ducts and unselected protection/edge reserves.
+See the [dimensioned layout and interface proposal](../../../docs/assemblies/control-cabinet/layout-proposal.md).
+
+The proposal uses 500 W × 600 H × 250 D mm, independently of the existing catalog
+enclosure's smaller starting envelope. Default `door_angle=105` exposes the
+internals; `door_angle=0` closes the door and `explode=1` separates service groups.
+`scene_part=N` exports one inspection component; `emit_scene=true` emits IDs,
+ownership, colors and exploded offsets for the preview builder. The website's
+assembly meshes remain inspection assets, never fabrication sources. Generic
+protection solids and open reserved-space frames do not imply selected hardware,
+ratings, usable clearance, a wired circuit or extra procurement quantities.
+
 ## Approximate BOM visualizations
 
 These `visualization` models show catalog items in the Parts inventory. They are **Unverified** and are not manufacturing sources. Shape is not yet fully defined and needs rework against the selected supplier drawing or measured item before fit or clearance decisions. Nominal dimensions recorded in the catalog remain requirements, not measurement evidence. Threads, connectors, internal construction and fine detail are simplified. Kits and assortments show representative samples, not quantities; cable loops and lengths show samples, not installed routing.

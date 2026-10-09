@@ -6,6 +6,20 @@ The fixed control cabinet owns mains entry, isolation, electrical protection, ea
 
 The four CL57Y-V20 motor drivers remain near their pole-mounted motors because the baseline matched motor/encoder cables are approximately 2 m. The cabinet owns each outgoing branch up to the defined field interface; the endpoint assembly owns its local enclosure and internal wiring.
 
+## Assembly layout proposal
+
+The [r0.1.0 layout proposal](layout-proposal.md) adds an open-door assembled and
+exploded CAD reference, component inventory, zone dimensions, logical interface
+schedule, missing-component register and service plan. Its 500 W × 600 H × 250 D
+mm envelope is a packaging proposal, not an accepted enclosure selection or
+electrical construction drawing. Generic protection envelopes and open
+stop/edge reserves identify unresolved components without assigning ratings or
+adding them to the procurement BOM.
+
+The [registered assembly source](../../../hardware/assemblies/control-cabinet/control-cabinet-assembly.scad)
+reuses the bought-part modules. The website inspection scene is generated from
+that source with selectable components and an exploded service pose.
+
 ## Electrical baseline
 
 ```mermaid
@@ -79,7 +93,7 @@ The enclosure design must address:
 
 ## Edge service boundary
 
-[ADR-0005](../../decisions/0005-software-architecture-and-deployment.md) selects a supervised Linux edge service with a local SQLite journal and bounded capture spool, plus authenticated outbound cloud connectivity. Exact hardware, Linux distribution, local MCU/pod transport, storage durability, update recovery and cabinet integration remain unverified decisions/tests under [#23](https://github.com/gredice/arbi/issues/23). The service is expected to:
+[ADR-0005](../../decisions/0005-software-architecture-and-deployment.md) selects a supervised Linux edge service with a local SQLite journal and bounded capture spool, plus authenticated outbound cloud connectivity. [ADR-0008](../../decisions/0008-edge-host-and-local-transport.md) selects Debian 13/systemd as the OS target with a two-core, 4 GiB RAM, 64 GiB storage starting budget. Exact hardware, real MCU/pod transport, storage durability, update recovery and cabinet integration remain unverified. The service is expected to:
 
 - map bed/plant targets to physical position and framing presets;
 - queue and sequence local motion/capture jobs;

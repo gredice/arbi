@@ -378,6 +378,7 @@ const corner = cornerPack && assemblyPackScene(cornerPack, modelsByOutput, 'corn
 // A local pack is useful for offline rendering checks before its release is published.
 const figures = {};
 const visualizationMeshes = {};
+const inspectionScenes = {};
 try {
   if (PRODUCTION && process.env.ARBI_CAD_PREVIEW_PACK) throw new Error('Production requires the verified release preview pack');
   const bytes = process.env.ARBI_CAD_PREVIEW_PACK
@@ -386,6 +387,17 @@ try {
   if (bytes) {
     const assets = previewAssets(bytes, registry.models, (path) => readFileSync(join(REPO, path)));
     Object.assign(visualizationMeshes, assets.meshes);
+    for (const [slug, assembly] of Object.entries(assets.scenes)) {
+      const parts = assembly.parts.map(({ bytes, mesh, sha256: _checksum, bomPartId, ...part }) => {
+        const url = `inspection/${mesh}`;
+        write(join(OUT, url), bytes);
+        return { ...part, url, href: sceneHref(part.model, part.registered, bomPartId, catalogIds),
+          matrix: [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]] };
+      });
+      inspectionScenes[slug] = { kind: 'stl', layout: 'assembly', parts, figures: [],
+        configuration: assembly.configuration, pose: assembly.pose,
+        source: process.env.ARBI_CAD_PREVIEW_PACK ? { kind: 'local', current: true } : { kind: 'release', tag: release.tag, current: true } };
+    }
     for (const [id, png] of Object.entries(assets.figures)) {
       const path = `figures/${id}.png`;
       write(join(OUT, path), png);
@@ -397,6 +409,10 @@ try {
   console.warn(`CAD previews unavailable, using booklet figures: ${error.message}`);
 }
 if (PRODUCTION && Object.keys(figures).length !== registry.models.length) throw new Error('Production requires current figures for every registered model');
+if (PRODUCTION && registry.models.some((model) => model.artifactRole === 'reference' &&
+  readFileSync(join(REPO, model.entrypoint), 'utf8').includes('ARBI_ASSEMBLY_SCENE') && !inspectionScenes[model.assembly])) {
+  throw new Error('Production requires complete current inspection assets for declared assembly scenes');
+}
 
 // Per-model mesh for 3D: individual booklet-pack STL, else verified release STL.
 const meshes = {};
@@ -424,7 +440,7 @@ if (PRODUCTION && registry.models.some((model) => model.artifactRole === 'visual
   throw new Error('Production requires current meshes for every BOM visualization');
 }
 
-const scenes = Object.fromEntries(Object.entries({ 'camera-pod': pod, winch, 'winch-powered': poweredWinch, 'corner-station': corner, dock }).filter(([, scene]) => scene));
+const scenes = Object.fromEntries(Object.entries({ ...inspectionScenes, 'camera-pod': pod, winch, 'winch-powered': poweredWinch, 'corner-station': corner, dock }).filter(([, scene]) => scene));
 for (const slug of [...new Set(registry.models.map((m) => m.assembly))]) {
   if (scenes[slug]) continue;
   const lineup = lineupScene(slug, registry.models.filter((m) => m.assembly === slug && m.artifactRole === 'fabrication'), meshes, release);
@@ -469,7 +485,8 @@ const site = {
   release: release && { tag: release.tag, commit: release.commit, url: release.url, assetCount: Object.keys(release.assets).length, missingOutputs: missing,
     booklets: Object.keys(release.assets).filter((n) => /\.(pdf|zip)$/.test(n)).map((n) => ({ name: n, url: release.base + n, sha256: release.assets[n] })) },
   scenes: Object.fromEntries(Object.entries(scenes).map(([slug, s]) => [slug, { file: `scenes/${slug}.json`, kind: s.kind, layout: s.layout, pose: s.pose, source: s.source,
-    hero: s.hero ? `${s.figureDir}/figures/${s.hero}.png` : null, exploded: s.pose ? `${s.figureDir}/figures/${s.pose}.png` : null, parts: s.parts.length }])),
+    hero: s.hero ? `${s.figureDir}/figures/${s.hero}.png` : figures[`${slug}-assembly`] ?? null,
+    exploded: s.pose && s.figureDir ? `${s.figureDir}/figures/${s.pose}.png` : null, parts: s.parts.length }])),
   meshes: Object.fromEntries(Object.entries(meshes).map(([id, m]) => [id, { kind: m.kind, node: m.node, url: m.url }])),
   downloads,
   figures,

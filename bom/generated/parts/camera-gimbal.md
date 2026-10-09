@@ -53,7 +53,7 @@ Build arbi-v1; batch represents 1 BOM unit(s). Current compact rain-enclosure gi
 | --- | ---: | --- | ---: |
 | camera-pod-integrated-gimbal-carrier r0.1.1 | 1 | Bambu Lab PETG Basic / black | 8.458834 cm³ |
 | camera-pod-integrated-gimbal-head r0.1.3 | 1 | Bambu Lab PETG Matte / black | 22.087140 cm³ |
-| camera-pod-integrated-camera-cradle r0.1.1 | 1 | Bambu Lab PETG Basic / black | 3.328264 cm³ |
+| camera-pod-integrated-camera-cradle r0.1.1 | 1 | Bambu Lab PETG Basic / black | 3.328265 cm³ |
 | camera-pod-integrated-tilt-pivot-support r0.1.0 | 1 | Bambu Lab PETG Basic / black | 1.088757 cm³ |
 | camera-pod-horn-retainer r0.1.0 | 2 | Bambu Lab PETG Basic / black | 0.545253 cm³ |
 | camera-pod-integrated-camera-hood r0.1.1 | 1 | Bambu Lab PETG Matte / white | 4.588465 cm³ |

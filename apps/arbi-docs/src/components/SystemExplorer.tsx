@@ -31,6 +31,7 @@ export function SystemExplorer({ number, name, scene, cadPending, caption, nav, 
     const [active, setActive] = useState<string | null>(null);
     const [canExplode, setCanExplode] = useState(false);
     const ids = inventory.map((i) => i.id);
+    const initialExplosion = current === "control-cabinet" ? 0 : 1;
 
     useEffect(() => {
         if (!scene) return;
@@ -63,8 +64,9 @@ export function SystemExplorer({ number, name, scene, cadPending, caption, nav, 
         viewer.loadScene(scene).then(() => {
             if (!alive) return;
             const lineup = scene.layout === "lineup";
-            viewer.setExplode(1);
-            viewer.frame({ distance: 1.05, elevation: lineup ? 0.35 : current === "camera-pod" ? 0.22 : 0.5 });
+            viewer.setExplode(initialExplosion);
+            viewer.frame({ distance: 1.05, azimuth: current === "control-cabinet" ? 0.3 : -0.62,
+                elevation: lineup ? 0.35 : current === "camera-pod" ? 0.22 : current === "control-cabinet" ? 0.32 : 0.5 });
             setCanExplode(viewer.canExplode);
         });
         return () => {
@@ -73,7 +75,7 @@ export function SystemExplorer({ number, name, scene, cadPending, caption, nav, 
             viewerRef.current = null;
         };
         // ids derive from the scene, so the scene identity is the dependency.
-    }, [scene, router]);
+    }, [scene, router, current, initialExplosion]);
 
     const focus = (id: string | null) => {
         viewerRef.current?.setFocus(id);
@@ -123,7 +125,7 @@ export function SystemExplorer({ number, name, scene, cadPending, caption, nav, 
                     {canExplode && (
                         <label className="flex items-center gap-3 border border-paper px-3 py-2">
                             <span className="tag">Assembled</span>
-                            <input aria-label="Assembly explosion" type="range" min={0} max={1} step={0.01} defaultValue={1} className="w-40 accent-white" onChange={(e) => viewerRef.current?.setExplode(Number(e.target.value))} />
+                            <input aria-label="Assembly explosion" type="range" min={0} max={1} step={0.01} defaultValue={initialExplosion} className="w-40 accent-white" onChange={(e) => viewerRef.current?.setExplode(Number(e.target.value))} />
                             <span className="tag">Exploded</span>
                         </label>
                     )}

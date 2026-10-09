@@ -30,7 +30,7 @@ export default async function SystemPage({ params }: { params: Promise<{ slug: s
         ? ""
         : lineup
           ? `Parts laid out side by side · no assembly pose is registered · meshes from ${from}`
-          : `${scene?.configuration ? `${scene.configuration} · ` : ""}${sys.scene.pose ? `Exploded pose: booklet figure “${sys.scene.pose}”` : "Assembled only: no exploded figure in this pack"} · meshes from ${from}`;
+          : `${scene?.configuration ? `${scene.configuration} · ` : ""}${sys.scene.pose ? `Exploded pose: ${scene?.figureDir ? "booklet figure" : "CAD layout"} “${sys.scene.pose}”` : "Assembled only: no exploded figure in this pack"} · meshes from ${from}`;
     const doc = docHref(sys.documentation);
     const developmentDocs = sys.slug === "dock"
         ? ["assembly-guide", "booklet/README", "design-proposal", "design-package", "bench-test-plan", "acceptance-record"]
@@ -40,6 +40,7 @@ export default async function SystemPage({ params }: { params: Promise<{ slug: s
                 return entry && href ? [{ ...entry, href }] : [];
             })
         : [];
+    const layoutDoc = sys.slug === "control-cabinet" ? docHref("docs/assemblies/control-cabinet/layout-proposal.md") : null;
     const winch = sys.slug === "winch" || sys.slug === "winch-powered";
     return (
         <>
@@ -55,7 +56,7 @@ export default async function SystemPage({ params }: { params: Promise<{ slug: s
                 navCurrent={sys.rootSlug}
                 variants={winch ? [{ slug: "winch", name: "Ordinary winch" }, { slug: "winch-powered", name: "Powered winch" }] : []}
                 inventory={inventory(ids, !lineup, sys.slug)}
-                inventoryNote={lineup ? "Registered fabrication parts · quantities in the BOM" : `Quantities per configured ${sys.slug === "camera-pod" ? "pod" : sys.slug === "corner-station" ? "proposed corner head" : sys.slug === "dock" ? "dock bench kit" : sys.slug === "winch-powered" ? "powered winch" : "ordinary winch"}`}
+                inventoryNote={lineup ? "Registered fabrication parts · quantities in the BOM" : sys.slug === "control-cabinet" ? "Catalog components in the proposed cabinet · unselected protection and reserved spaces are illustrative" : `Quantities per configured ${sys.slug === "camera-pod" ? "pod" : sys.slug === "corner-station" ? "proposed corner head" : sys.slug === "dock" ? "dock bench kit" : sys.slug === "winch-powered" ? "powered winch" : "ordinary winch"}`}
             >
                 <section className="grid gap-8 border-b-2 border-ink px-4 py-8 sm:px-6 lg:grid-cols-12">
                     <p className="text-[17px] leading-snug lg:col-span-5">{sys.description}</p>
@@ -83,6 +84,11 @@ export default async function SystemPage({ params }: { params: Promise<{ slug: s
                         {doc && (
                             <Link href={doc} className="key w-full justify-between">
                                 Assembly document <span>→</span>
+                            </Link>
+                        )}
+                        {layoutDoc && (
+                            <Link href={layoutDoc} className="key mt-3 w-full justify-between">
+                                Layout &amp; interfaces <span>→</span>
                             </Link>
                         )}
                     </div>

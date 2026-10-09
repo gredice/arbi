@@ -4,6 +4,7 @@
 // Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication.
 include <../../lib/catalog-visualizations.scad>
 
-shape = "terminal";
-dimensions = [80, 35, 45];
-arbi_catalog_visualization(shape, dimensions);
+module cabinet_signal_ground() {
+    arbi_catalog_visualization("terminal", [80, 35, 45]);
+}
+cabinet_signal_ground();

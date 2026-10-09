@@ -4,8 +4,8 @@ Generate one 480 × 360 PNG for every model in
 [the registry](../../hardware/models.json). Every model uses opaque white
 faces with visible feature edges and silhouettes, fitted to its own frame.
 CSG references are meshed temporarily by additive component for the same line-art renderer; those
-inspection meshes are deleted after rendering and never enter the release or
-fabrication inventory. References retain their released CSG format and
+inspection meshes are deleted after rendering unless a reference explicitly
+declares an assembly inspection scene. References retain their released CSG format and
 engineering evidence status.
 
 ```bash
@@ -31,13 +31,25 @@ For `visualization` models, the pack also includes the registered STL under
 `meshes/`, with its path and SHA-256 in the same source-checked manifest entry.
 The site uses these approximate meshes for BOM item detail pages. They remain
 illustrative models with explicit assumptions and rework requirements; including
-them in the pack does not make them fabrication sources. Reference assembly
-inspection meshes remain temporary and excluded.
+them in the pack does not make them fabrication sources.
+
+An explicit `ARBI_ASSEMBLY_SCENE` declaration in a reference source enables
+selectable assembly inspection assets, currently used by the
+[control cabinet](../../hardware/assemblies/control-cabinet/README.md). The same
+OpenSCAD file emits component identity/BOM ownership, colors and exploded
+offsets with `emit_scene=true`, and exports each component with `scene_part=N`.
+The builder stores these STL meshes separately under `assemblies/` with
+checksums, covered by the reference's complete source hashes. The site accepts
+the scene only when every constituent mesh is intact and registered component
+ownership matches the catalog. These assets never populate the fabrication or
+individual downloadable-mesh inventory. Other reference inspection meshes
+remain temporary and excluded.
 
 Reference meshing keeps subtraction, intersections and hulls intact and preserves
 each component's world transforms. Components are drawn together with depth
 occlusion, without an expensive assembly-wide boolean union. A temporary cache
-shares identical component meshes across references; none are included in the pack.
+shares identical component meshes across references; only explicitly declared
+assembly inspection assets are included in the pack.
 Unique components are exported with a bounded pool of OpenSCAD processes before
 VTK draws figures serially. The default worker count is the available CPU count
 capped at four; `--jobs N` overrides this, and `--jobs 1` runs serially. Every

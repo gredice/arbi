@@ -2404,6 +2404,18 @@
                 "basis": "Nominal M12/M8/M4/M3 fitted stacks including simplified heads, washers and nuts, not a supplier drawing.",
                 "rework": "Measure received heads, washers, nuts, shanks and locking zones before fit and load use. Quantities and stack selections are in the BOM and assembly guide."
             }
+        },
+        {
+            "id": "control-cabinet-assembly",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "reference",
+            "bomPartIds": [],
+            "assembly": "control-cabinet",
+            "entrypoint": "hardware/assemblies/control-cabinet/control-cabinet-assembly.scad",
+            "output": "control-cabinet-assembly-r0.1.0.csg",
+            "documentation": "hardware/assemblies/control-cabinet/README.md",
+            "description": "Proposed 500 W x 600 H x 250 D mm control cabinet with open service door, two power supplies, Pico stack and unselected protection/edge reserves; inspection only."
         }
     ],
     "archivedModels": [
