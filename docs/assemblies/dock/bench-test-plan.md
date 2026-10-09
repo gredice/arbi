@@ -1,10 +1,10 @@
 # Dock capture and release bench-test plan
 
 Proposed staged tests for fit, capture, retention, release, sensor faults, power
-interruption and recovery. No test has been performed.
+interruption and recovery. No physical test has been performed.
 
 9 October 2026. Plan revision `0.1.0`, proposed for `DOCK-IF-01`.
-**No test has been performed by this change.** This is an evidence plan, not
+**No physical test has been performed by this change.** This is an evidence plan, not
 authorization to actuate a rig or load overhead hardware. Use the
 [design package](design-package.md), [blank acceptance record](acceptance-record.md)
 and [commissioning gates](../../operations/prototype-and-commissioning.md#local-safety-and-update-gates).

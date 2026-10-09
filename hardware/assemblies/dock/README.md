@@ -26,7 +26,7 @@ and remaining acceptance work.
 [dock-assembly.scad](dock-assembly.scad) registers the assembled reference pose;
 `dock_assembly(true)` shows the manually opened fork. Charcoal mechanical parts
 and a white protective roof follow the existing industrial design conventions.
-The default post is the corner set's round-120 (radius60), on a non-powered
+The default post is the corner set's round-120 (radius 60 mm), on a non-powered
 corner. Shared 100–140 mm round parameters adjust root, joint and projection;
 the published pack checks only the round-120 nominal configuration.
 
