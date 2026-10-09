@@ -4,7 +4,9 @@
 
 Each winch converts motor rotation into controlled positioning-line length. The assembly owns its motor, motor driver interface, flexible coupling, supported drum shaft, bearings, bearing blocks, single-layer drum, line guide/termination, home/reference device, structural mount, guard/weather cover, local harness, and characterization data.
 
-The [corner station](../corner-station/README.md) owns the pole and mounting envelope. The [positioning line](../positioning-lines/README.md) owns the line construction and external termination. One powered-line winch adds a slip-ring variant.
+The winch set is a subassembly of the [corner support set](../corner-station/README.md), which owns the posts, heads, pulleys, keepers and mounting envelope. Each winch owns its positioning line and line-side terminations. The powered winch also owns its hybrid-line conductors and slip-ring interface. Common construction, inspection and replacement requirements are in the shared [positioning-line specification](../positioning-lines/README.md); it is not a separate BOM assembly. See [ADR-0010](../../decisions/0010-corner-support-and-winch-line-ownership.md).
+
+The four-winch BOM includes all four lines: 180 m total Dyneema allowance, 50 m of each red/black conductor and one installed slip ring. Three ordinary winches have rope only; the powered winch has a Dyneema core plus both conductors. These are material allowances, not calibrated installed lengths. No spare slip ring is included in the baseline quantity.
 
 ## Motor kit baseline
 

@@ -17,9 +17,9 @@ export function ContentsList({ systems }: { systems: System[] }) {
                         <div className="mt-1 max-w-[60ch] text-[13px] text-grey">{s.description}</div>
                     </div>
                     <div className="tag hidden md:block">
-                        {s.models.length} models
+                        {s.models.length} {s.slug === "corner-station" ? "support models" : "models"}
                         <br />
-                        {s.usages.length} BOM lines
+                        {s.usages.length} {s.slug === "corner-station" ? "support BOM lines" : "BOM lines"}
                     </div>
                     <div className="hidden h-[128px] place-items-center md:grid">
                         {s.scene?.hero ? <SystemThumbnail scene={s.scene} /> : <span className="tag text-grey">{s.scene ? "3D parts layout" : s.models.length ? "CAD preview pending" : "no registered CAD"}</span>}

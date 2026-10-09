@@ -4,7 +4,7 @@
 
 The camera pod is the only substantial moving assembly. It owns the four-line cable spider, fixed compute and power-electronics mounts, two-axis gimbal, camera, pod harness, optical/rain protection, docking stud, pod-side strain relief, pod software, mass properties, thermal behavior, and health reporting.
 
-The [positioning lines](../positioning-lines/README.md) own the lines and their tensile/electrical construction. The [dock](../dock/README.md) owns the receiving funnel, latch, shelter, and parked-state sensor.
+The [winches](../winch/README.md) own the positioning lines and line-side tensile/electrical terminations, following the shared [positioning-line specification](../positioning-lines/README.md). The pod owns the spider attachment hardware and electrical inlet. The [dock](../dock/README.md) owns the receiving funnel, latch, shelter, and parked-state sensor.
 
 ## V1 mass budget
 

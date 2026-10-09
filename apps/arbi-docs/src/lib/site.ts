@@ -3,13 +3,14 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { links } from "./format";
+import { numberAssemblies } from "./assembly-hierarchy";
 import { partCatalog } from "./part-catalog";
 import type { BomPart, Download, InventoryItem, MeshRef, Model, Scene, SceneMeta, ScenePart } from "./types";
 
 const DATA = join(process.cwd(), "public/data");
 const readJson = <T,>(path: string): T => JSON.parse(readFileSync(join(DATA, path), "utf8")) as T;
 
-type Assembly = { id: string; kind: string; name: string; description: string; documentation: string; usages: { partId: string; quantity: string; inclusion: string }[] };
+type Assembly = { id: string; kind: string; parentAssemblyId: string | null; name: string; description: string; documentation: string; usages: { partId: string; quantity: string; inclusion: string }[] };
 type DocEntry = { path: string; title: string; section: string; summary: string; bytes: number };
 type ReleaseInfo = {
     tag: string;
@@ -58,6 +59,7 @@ type RawSite = {
 export type System = Assembly & {
     slug: string;
     number: string;
+    rootSlug: string;
     scene: SceneMeta | null;
     models: Model[];
     goods: string | null;
@@ -75,20 +77,20 @@ function load() {
     const bomById = new Map(site.bom.parts.map((p) => [p.id, p]));
     const goods = new Map(site.bom.summary.assemblyKnownGoods.map((g) => [g.assemblyId, g.amount]));
     const slugOf = (path: string) => path.match(/assemblies\/([^/]+)\//)?.[1] ?? path;
-    const systems: System[] = site.bom.assemblies
-        .filter((a) => a.kind === "physical")
-        .map((a, i) => {
+    const assemblies: System[] = numberAssemblies(site.bom.assemblies)
+        .map((a) => {
             const slug = slugOf(a.documentation);
             return {
                 ...a,
                 slug,
-                number: String(i + 1).padStart(2, "0"),
+                rootSlug: slugOf(site.bom.assemblies.find((root) => root.id === a.rootId)!.documentation),
                 scene: site.scenes[slug] ?? null,
                 models: models.filter((m) => m.assembly === slug),
                 goods: goods.get(a.id) ?? null,
                 doc: site.docs.find((d) => d.path === a.documentation),
             };
         });
+    const systems = assemblies.filter((assembly) => assembly.parentAssemblyId === null);
     // Installed quantities come only from assembly scenes, never from part lineups.
     const instances = new Map<string, { scene: string; parts: ScenePart[] }>();
     for (const [slug, scene] of Object.entries(scenes)) {
@@ -102,7 +104,7 @@ function load() {
         }
     }
     const parts = partCatalog(site.bom.parts, models, site.bom.assemblies);
-    return { site, scenes, docTexts, models, parts, archivedModels, modelById, bomById, systems, instances };
+    return { site, scenes, docTexts, models, parts, archivedModels, modelById, bomById, systems, assemblies, instances };
 }
 
 let cache: ReturnType<typeof load> | undefined;
@@ -110,7 +112,7 @@ export const data = () => (cache ??= load());
 
 export const systemBySlug = (slug: string): System | undefined => {
     if (slug === "winch-powered") {
-        const winch = data().systems.find((s) => s.slug === "winch");
+        const winch = data().assemblies.find((s) => s.slug === "winch");
         return winch && {
             ...winch,
             slug,
@@ -119,7 +121,7 @@ export const systemBySlug = (slug: string): System | undefined => {
             scene: data().site.scenes[slug] ?? null,
         };
     }
-    return data().systems.find((s) => s.slug === slug);
+    return data().assemblies.find((s) => s.slug === slug);
 };
 export const installedCount = (id: string, slug?: string) => data().modelById.get(id)?.archiveReason ? null : slug
     ? data().scenes[slug]?.parts.filter((p) => p.model === id).length ?? null

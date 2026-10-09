@@ -7,12 +7,15 @@ Every page is statically generated at build time with the Next.js App Router:
 | Route | Content |
 | --- | --- |
 | `/` | Cover with a scroll-driven teardown of the camera pod, statistics, contents and the BOM total |
-| `/systems`, `/systems/[slug]` | Physical assemblies; each has a black exploded-view stage with numbered parts and a hover-linked parts inventory |
+| `/systems`, `/systems/[slug]` | Five physical root systems, with winch detail pages under the corner support set; each preview has numbered parts and a hover-linked inventory |
+| `/systems/positioning-lines` | Permanent redirect to `/systems/corner-station`; the shared specification remains under `/docs/assemblies/positioning-lines` |
 | `/systems/winch-powered` | Powered winch configuration with its own booklet pose and installed parts inventory; linked from the passive winch page |
 | `/parts`, `/parts/[id]` | Every BOM item plus individual CAD components and references, grouped by owner with line-art figures, a 3D viewer, BOM links, geometry evidence and verified downloads |
 | `/bom`, `/bom/[id]` | The generated BOM report and one page per catalog item |
 | `/docs`, `/docs/[...slug]` | `docs/**`, `hardware/**` and `bom/README.md` rendered from Markdown with repository links mapped to site routes |
 | `/downloads` | CAD release assets, archived committed booklet snapshots and per-model files with SHA-256 |
+
+System navigation follows `parentAssemblyId`: only physical roots appear in the contents and numbered system links. Winch variants remain available from the corner support page and share its system number. Parts keep their direct winch owner. Support and winch goods totals are shown separately, following [ADR-0010](../../docs/decisions/0010-corner-support-and-winch-line-ownership.md).
 
 The design is the selected "Manual + Ink" direction. White manual pages use heavy rules, condensed type and booklet-style line art. Exploded views sit in full-black sections that draw the same line art inverted, with each part's role readable: white shells in pure white, the charcoal core in neutral lighter gray, bought metal in mid gray.
 

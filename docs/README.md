@@ -21,12 +21,14 @@ The committed material is a **design baseline**, not proof of a built or safe in
 ## Physical assemblies
 
 - [Site installation](assemblies/site-installation/README.md)
-- [Corner station](assemblies/corner-station/README.md)
-- [Winch](assemblies/winch/README.md)
-- [Positioning lines](assemblies/positioning-lines/README.md)
+- [Corner support set](assemblies/corner-station/README.md), including the [winch set](assemblies/winch/README.md) and its ordinary/powered positioning lines
 - [Camera pod](assemblies/camera-pod/README.md)
 - [Dock](assemblies/dock/README.md)
 - [Control cabinet](assemblies/control-cabinet/README.md)
+
+## Shared assembly specifications
+
+- [Positioning-line specification](assemblies/positioning-lines/README.md): construction, terminations, inspection and replacement of winch-owned lines
 
 ## Components and procurement
 
@@ -50,6 +52,7 @@ The committed material is a **design baseline**, not proof of a built or safe in
 - [ADR-0007: Integrated product design](decisions/0007-integrated-product-design.md)
 - [ADR-0008: Edge host and bounded local transport](decisions/0008-edge-host-and-local-transport.md)
 - [ADR-0009: Compact integrated camera pod packaging](decisions/0009-compact-integrated-camera-pod.md)
+- [ADR-0010: Corner support and winch-line ownership](decisions/0010-corner-support-and-winch-line-ownership.md)
 
 ## Software evidence
 

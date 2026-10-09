@@ -17,7 +17,7 @@
 
 ## Notes
 
-Prototype geometry basis from owner-supplied AWG26 table on 2026-09-08: insulated OD 1.5 mm, 30 strands × 0.08 mm, claimed copper area 0.15 mm². Applies provisionally to the selected variant; not a delivered measurement. Supersedes earlier buyer-comment dimensions. Evidence and limitations: bom/sourcing/pod-wire-dimensions-2026-09-08.md.
+Owned by the powered winch within the corner support set. Prototype geometry basis from owner-supplied AWG26 table on 2026-09-08: insulated OD 1.5 mm, 30 strands × 0.08 mm, claimed copper area 0.15 mm². Applies provisionally to the selected variant; not a delivered measurement. Supersedes earlier buyer-comment dimensions. Evidence and limitations: bom/sourcing/pod-wire-dimensions-2026-09-08.md.
 
 ## Used in
 
@@ -25,7 +25,7 @@ Quantities are per assembly definition, before build multipliers. Optional and d
 
 | Assembly or purchasing bucket | Quantity | Inclusion | Usage note |
 | --- | ---: | --- | --- |
-| [Positioning line set](../../../docs/assemblies/positioning-lines/README.md) | 50 m | base | — |
+| [Winch set](../../../docs/assemblies/winch/README.md) | 50 m | base | Powered winch only: +48 V conductor for its hybrid positioning line. The 50 m allowance is not an installed length. |
 
 [Canonical assembly quantities](../../assemblies/assemblies.json)
 

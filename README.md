@@ -33,7 +33,7 @@ The current material is a **concept and design baseline**. It is not evidence of
 - `scripts`: repository-level validation that does not belong to one package.
 - `.github`: public contribution templates and secret-free continuous integration.
 
-The documentation is organized by physical assembly: [site installation](docs/assemblies/site-installation/README.md), [corner station](docs/assemblies/corner-station/README.md), [winch](docs/assemblies/winch/README.md), [positioning lines](docs/assemblies/positioning-lines/README.md), [camera pod](docs/assemblies/camera-pod/README.md), [dock](docs/assemblies/dock/README.md), and [control cabinet](docs/assemblies/control-cabinet/README.md). Mechanical parts, electronics, wiring, fasteners, printed parts, software interfaces, tests, and maintenance information belong to their owning assembly rather than to component-type subsystems.
+The documentation is organized by physical assembly: [corner support set](docs/assemblies/corner-station/README.md), [camera pod](docs/assemblies/camera-pod/README.md), [dock](docs/assemblies/dock/README.md), [control cabinet](docs/assemblies/control-cabinet/README.md), and [site installation](docs/assemblies/site-installation/README.md). The [winch set](docs/assemblies/winch/README.md) is a corner-support subassembly and owns the four lines, with a shared [positioning-line specification](docs/assemblies/positioning-lines/README.md). Mechanical parts, electronics, wiring, fasteners, printed parts, software interfaces, tests, and maintenance information belong to their owning assembly rather than to component-type subsystems.
 
 ## Local setup
 

@@ -485,9 +485,7 @@ export function validateRepository(repository: BomRepository): ValidationResult 
     "control-cabinet",
     "corner-support-set",
     "dock",
-    "positioning-line-set",
     "site-installation",
-    "winch-set",
   ];
   const physicalRootIds = repository.assemblies.assemblies
     .filter(
@@ -498,8 +496,11 @@ export function validateRepository(repository: BomRepository): ValidationResult 
     .sort();
   if (physicalRootIds.join(",") !== expectedRootIds.join(",")) {
     result.errors.push(
-      "ARBI V1 taxonomy must preserve the seven canonical physical root assemblies",
+      "ARBI V1 taxonomy must preserve the five canonical physical root assemblies (ADR-0010)",
     );
+  }
+  if (assemblyById.get("winch-set")?.parentAssemblyId !== "corner-support-set") {
+    result.errors.push("The winch-set must be a physical subassembly of corner-support-set (ADR-0010)");
   }
   for (const assembly of repository.assemblies.assemblies) {
     if (assembly.kind === "shared-procurement-stock") {
