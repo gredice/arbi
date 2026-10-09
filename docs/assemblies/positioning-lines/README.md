@@ -75,7 +75,7 @@ Simple Euclidean anchor distance does not by itself solve the four-line tension 
 
 ## Printed parts, fasteners, and guides
 
-Possible winch-owned line-interface parts include pod strain relief, cable guides, end-transition supports, service gauges, and identifiers. A printed pulley keeper is owned by the corner station; drum grooves and guides are owned by the winch. No printed guide may carry an unspecified structural load or conceal damage.
+Possible winch-owned line-interface parts include strain relief on the line side of the pod connection, cable guides, end-transition supports, service gauges, and identifiers. A printed pulley keeper is owned by the corner station; drum grooves and guides are owned by the winch. No printed guide may carry an unspecified structural load or conceal damage.
 
 ## Software and records
 
