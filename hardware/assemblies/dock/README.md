@@ -19,3 +19,12 @@ Before prototype use, derive both models from the released pod envelope and dock
 ## Appearance
 
 The structural capture/retention parts preview in charcoal following the [industrial design conventions](../../../docs/project/industrial-design.md). Their dimensions and physical design revisions are unchanged. Future protective housings use the rounded white-shell convention while keeping these interfaces visible and accessible.
+
+## Approximate BOM visualizations
+
+These `visualization` models show catalog items in the Parts inventory. They are **Unverified** and are not manufacturing sources. Shape is not yet fully defined and needs rework against the selected supplier drawing or measured item before fit or clearance decisions. Nominal dimensions recorded in the catalog remain requirements, not measurement evidence. Threads, connectors, internal construction and fine detail are simplified. Kits and assortments show representative samples, not quantities; cable loops and lengths show samples, not installed routing.
+
+| BOM item / source | Shape | Dimension basis and remaining uncertainty |
+| --- | --- | --- |
+| [dock-latch-hardware](dock-latch-hardware.scad) · [BOM](../../../bom/generated/parts/dock-latch-hardware.md) | latch | Representative stud, latch arm and pivot; retention interfaces and final mechanism are not yet defined. |
+| [dock-weather-hood](dock-weather-hood.scad) · [BOM](../../../bom/generated/parts/dock-weather-hood.md) | hood | Catalog 300 × 300 mm starting roof footprint with an assumed 60 mm slope and 3 mm wall. |

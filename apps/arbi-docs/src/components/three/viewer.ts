@@ -228,11 +228,22 @@ export class Viewer {
             const pixels = this.renderer.getDrawingBufferSize(new THREE.Vector2());
             this.antialias!.uniforms.resolution.value.set(1 / pixels.x, 1 / pixels.y);
         }
+        const previousAspect = this.camera.aspect;
         this.camera.aspect = w / h;
-        this.camera.updateProjectionMatrix();
         if (this.options.animate === false && this.parts.length) {
             this.frame({ distance: 1.04 });
+        } else if (this.parts.length && previousAspect !== this.camera.aspect) {
+            // Keep the model fitted when the viewport narrows, preserving orbit and zoom.
+            const tangent = Math.tan(THREE.MathUtils.degToRad(this.camera.fov) / 2);
+            const previousHalfFov = Math.atan(tangent * Math.min(1, previousAspect));
+            const halfFov = Math.atan(tangent * Math.min(1, this.camera.aspect));
+            const scale = Math.sin(previousHalfFov) / Math.sin(halfFov);
+            this.camera.position.sub(this.controls.target).multiplyScalar(scale).add(this.controls.target);
+            this.camera.near *= scale;
+            this.camera.far *= scale;
+            this.controls.update();
         }
+        this.camera.updateProjectionMatrix();
     }
 
     private bindPointer() {
@@ -329,7 +340,7 @@ export class Viewer {
             const holder = new THREE.Group();
             holder.add(obj);
             this.addPart(holder, { node: model, model, color, registered: true, href: `/parts/${model}`, group: "fixed", explode: [0, 0, 0] });
-            this.frame({ distance: this.options.style === "light" ? 1.04 : 0.78 });
+            this.frame({ distance: 1.04 });
             this.loading.update({ loaded: 1, failed: 0, total: 1 });
             return box.getSize(new THREE.Vector3());
         } catch (error) {

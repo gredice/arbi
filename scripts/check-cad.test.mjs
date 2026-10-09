@@ -144,3 +144,30 @@ test('CLI validates the full current registry before exporting every declared ar
     assert.equal(starts.length, models.length);
     assert.equal(new Set(starts.map(e => e.id)).size, models.length);
 });
+
+
+test('every BOM item has geometry and visualization assumptions cannot become fabrication evidence', () => {
+    const current = validateRegistry();
+    const parts = JSON.parse(readFileSync('bom/catalog/parts.json', 'utf8'));
+    for (const part of parts.parts) {
+        assert.ok(current.models.some(model => model.bomPartIds.includes(part.id)), part.id);
+    }
+    const card = current.models.find(model => model.id === 'microsd-card-32gb');
+    assert.equal(card.artifactRole, 'visualization');
+    assert.equal(card.geometry.status, 'approximate');
+    assert.match(card.geometry.rework, /rework/);
+    const uncovered = structuredClone(parts);
+    uncovered.parts.push({ ...parts.parts[0], id: 'unmodeled-part' });
+    assert.throws(() => validateRegistry(current, uncovered), /has no active CAD model/);
+    for (const field of ['basis', 'rework']) {
+        const broken = structuredClone(current);
+        delete broken.models.find(model => model.id === card.id).geometry[field];
+        assert.throws(() => validateRegistry(broken), /does not match/);
+    }
+    const manufactured = structuredClone(parts);
+    manufactured.parts.find(part => part.id === card.id).fabrication = {
+        process: 'openscad', modelStatus: card.status,
+        sources: [{ modelId: card.id, path: card.entrypoint, revision: card.revision, module: 'arbi_catalog_visualization' }],
+    };
+    assert.throws(() => validateRegistry(current, manufactured), /not a fabrication model/);
+});

@@ -1107,6 +1107,1184 @@
             "output": "corner-head-printed-assembly-r0.1.0.csg",
             "documentation": "hardware/assemblies/corner-station/README.md",
             "description": "Mostly printed through-bolted corner head with purchased pulley and standard metal fasteners; concept-unvalidated."
+        },
+        {
+            "id": "as5600-angle-sensor",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "as5600-angle-sensor"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/as5600-angle-sensor.scad",
+            "output": "as5600-angle-sensor-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Approximate visualization of AS5600 magnetic angle sensor + magnet. Assumed 23 \u00d7 23 mm breakout with a representative magnet; no selected board outline is recorded.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Assumed 23 \u00d7 23 mm breakout with a representative magnet; no selected board outline is recorded.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "bearing-608-2rs",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "bearing-608-2rs"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/bearing-608-2rs.scad",
+            "output": "bearing-608-2rs-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Approximate visualization of 608-2RS sealed bearing. Catalog nominal 22 mm OD, 8 mm bore and 7 mm width; seals and races simplified.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Catalog nominal 22 mm OD, 8 mm bore and 7 mm width; seals and races simplified.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "bulk-capacitor-1000uf",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "bulk-capacitor-1000uf"
+            ],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/bulk-capacitor-1000uf.scad",
+            "output": "bulk-capacitor-1000uf-r0.1.0.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Approximate visualization of 1000 \u00b5F 5 V rail bulk capacitor. Assumed \u00d810 \u00d7 16 mm can and representative leads; rating and selected package remain open.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Assumed \u00d810 \u00d7 16 mm can and representative leads; rating and selected package remain open.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "cable-gland-assortment",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "cable-gland-assortment"
+            ],
+            "assembly": "shared-procurement-stock",
+            "entrypoint": "hardware/assemblies/shared-procurement-stock/cable-gland-assortment.scad",
+            "output": "cable-gland-assortment-r0.1.0.stl",
+            "documentation": "hardware/assemblies/shared-procurement-stock/README.md",
+            "description": "Approximate visualization of IP68 cable gland assortment. Representative M12/M16/M20 glands; overall lengths and cable bores are assumed, not pack contents.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Representative M12/M16/M20 glands; overall lengths and cable bores are assumed, not pack contents.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication. Confirm the kit contents and model each required size; the displayed sample does not specify quantities."
+            }
+        },
+        {
+            "id": "capsule-slip-ring-6x2a",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "capsule-slip-ring-6x2a"
+            ],
+            "assembly": "positioning-lines",
+            "entrypoint": "hardware/assemblies/positioning-lines/capsule-slip-ring-6x2a.scad",
+            "output": "capsule-slip-ring-6x2a-r0.1.0.stl",
+            "documentation": "hardware/assemblies/positioning-lines/README.md",
+            "description": "Approximate visualization of Capsule slip ring, \u22656 channels \u00d7 2 A. Assumed \u00d822 \u00d7 28 mm capsule with illustrative leads; exact SKU and flange geometry are unknown.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Assumed \u00d822 \u00d7 28 mm capsule with illustrative leads; exact SKU and flange geometry are unknown.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "cl57y-v20-driver",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "cl57y-v20-driver"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/cl57y-v20-driver.scad",
+            "output": "cl57y-v20-driver-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Approximate visualization of CL57Y-V20 closed-loop motor driver. Assumed 118 \u00d7 76 \u00d7 34 mm driver body with terminal envelopes; confirm the included kit model.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Assumed 118 \u00d7 76 \u00d7 34 mm driver body with terminal envelopes; confirm the included kit model.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "control-panel-enclosure",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "control-panel-enclosure"
+            ],
+            "assembly": "control-cabinet",
+            "entrypoint": "hardware/assemblies/control-cabinet/control-panel-enclosure.scad",
+            "output": "control-panel-enclosure-r0.1.0.stl",
+            "documentation": "hardware/assemblies/control-cabinet/README.md",
+            "description": "Approximate visualization of Central outdoor electrical cabinet. 400 \u00d7 300 \u00d7 200 mm starting cabinet envelope from catalog; walls, door and mounting details assumed.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "400 \u00d7 300 \u00d7 200 mm starting cabinet envelope from catalog; walls, door and mounting details assumed.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "controller-buck-converter-48v-5v",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "controller-buck-converter-48v-5v"
+            ],
+            "assembly": "control-cabinet",
+            "entrypoint": "hardware/assemblies/control-cabinet/controller-buck-converter-48v-5v.scad",
+            "output": "controller-buck-converter-48v-5v-r0.1.0.stl",
+            "documentation": "hardware/assemblies/control-cabinet/README.md",
+            "description": "Approximate visualization of 48 V \u2192 5 V controller buck converter. Assumed 45 \u00d7 25 \u00d7 15 mm occupied envelope; no converter package drawing is recorded.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Assumed 45 \u00d7 25 \u00d7 15 mm occupied envelope; no converter package drawing is recorded.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "corner-post-treated-timber",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "corner-post-treated-timber"
+            ],
+            "assembly": "corner-station",
+            "entrypoint": "hardware/assemblies/corner-station/corner-post-treated-timber.scad",
+            "output": "corner-post-treated-timber-r0.1.0.stl",
+            "documentation": "hardware/assemblies/corner-station/README.md",
+            "description": "Approximate visualization of Ground-contact treated timber corner post. Catalog alternative of a 100 \u00d7 100 mm, 4 m square post; actual timber section and length need a survey.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Catalog alternative of a 100 \u00d7 100 mm, 4 m square post; actual timber section and length need a survey.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "din-rail-ground-distribution-block",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "din-rail-ground-distribution-block"
+            ],
+            "assembly": "control-cabinet",
+            "entrypoint": "hardware/assemblies/control-cabinet/din-rail-ground-distribution-block.scad",
+            "output": "din-rail-ground-distribution-block-r0.1.0.stl",
+            "documentation": "hardware/assemblies/control-cabinet/README.md",
+            "description": "Approximate visualization of DIN-rail GND distribution block. Assumed 80 \u00d7 35 \u00d7 45 mm block with representative terminals; terminal count and DIN clip unknown.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Assumed 80 \u00d7 35 \u00d7 45 mm block with representative terminals; terminal count and DIN clip unknown.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "dock-latch-hardware",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "dock-latch-hardware"
+            ],
+            "assembly": "dock",
+            "entrypoint": "hardware/assemblies/dock/dock-latch-hardware.scad",
+            "output": "dock-latch-hardware-r0.1.0.stl",
+            "documentation": "hardware/assemblies/dock/README.md",
+            "description": "Approximate visualization of Dock mushroom locating stud + passive latch hardware. Representative stud, latch arm and pivot; retention interfaces and final mechanism are not yet defined.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Representative stud, latch arm and pivot; retention interfaces and final mechanism are not yet defined.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication. Confirm the kit contents and model each required size; the displayed sample does not specify quantities."
+            }
+        },
+        {
+            "id": "dock-weather-hood",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "dock-weather-hood"
+            ],
+            "assembly": "dock",
+            "entrypoint": "hardware/assemblies/dock/dock-weather-hood.scad",
+            "output": "dock-weather-hood-r0.1.0.stl",
+            "documentation": "hardware/assemblies/dock/README.md",
+            "description": "Approximate visualization of Dock weather roof / hood. Catalog 300 \u00d7 300 mm starting roof footprint with an assumed 60 mm slope and 3 mm wall.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Catalog 300 \u00d7 300 mm starting roof footprint with an assumed 60 mm slope and 3 mm wall.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "dyneema-positioning-line",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "dyneema-positioning-line"
+            ],
+            "assembly": "positioning-lines",
+            "entrypoint": "hardware/assemblies/positioning-lines/dyneema-positioning-line.scad",
+            "output": "dyneema-positioning-line-r0.1.0.stl",
+            "documentation": "hardware/assemblies/positioning-lines/README.md",
+            "description": "Approximate visualization of 1.5 mm Dyneema positioning line, 50 m. Catalog 1.5 mm nominal line represented by a short loop, not the 50 m purchase length or installed routing.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Catalog 1.5 mm nominal line represented by a short loop, not the 50 m purchase length or installed routing.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "emergency-stop-switch",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "emergency-stop-switch"
+            ],
+            "assembly": "control-cabinet",
+            "entrypoint": "hardware/assemblies/control-cabinet/emergency-stop-switch.scad",
+            "output": "emergency-stop-switch-r0.1.0.stl",
+            "documentation": "hardware/assemblies/control-cabinet/README.md",
+            "description": "Approximate visualization of Waterproof emergency-stop switch. Catalog 22 mm panel stem with an assumed \u00d840 mm mushroom; contacts and panel fit unspecified.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Catalog 22 mm panel stem with an assumed \u00d840 mm mushroom; contacts and panel fit unspecified.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "extension-spring-assortment",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "extension-spring-assortment"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/extension-spring-assortment.scad",
+            "output": "extension-spring-assortment-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Approximate visualization of Stainless extension spring assortment. Representative coil spring sizes; wire gauge, end hooks and pack contents are unknown.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Representative coil spring sizes; wire gauge, end hooks and pack contents are unknown.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication. Confirm the kit contents and model each required size; the displayed sample does not specify quantities."
+            }
+        },
+        {
+            "id": "flexible-jaw-coupling-8mm",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "flexible-jaw-coupling-8mm"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/flexible-jaw-coupling-8mm.scad",
+            "output": "flexible-jaw-coupling-8mm-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Approximate visualization of 8 mm \u2192 8 mm flexible jaw coupling. Catalog approximate \u00d820 \u00d7 25 mm body and 8 mm bores; jaws and elastomer simplified.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Catalog approximate \u00d820 \u00d7 25 mm body and 8 mm bores; jaws and elastomer simplified.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "guy-ground-anchor",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "guy-ground-anchor"
+            ],
+            "assembly": "corner-station",
+            "entrypoint": "hardware/assemblies/corner-station/guy-ground-anchor.scad",
+            "output": "guy-ground-anchor-r0.1.0.stl",
+            "documentation": "hardware/assemblies/corner-station/README.md",
+            "description": "Approximate visualization of Guy ground anchor. Catalog 800 mm starting anchor length with assumed \u00d812 mm shaft, eye and helical plate.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Catalog 800 mm starting anchor length with assumed \u00d812 mm shaft, eye and helical plate.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "guy-turnbuckle-m12",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "guy-turnbuckle-m12"
+            ],
+            "assembly": "corner-station",
+            "entrypoint": "hardware/assemblies/corner-station/guy-turnbuckle-m12.scad",
+            "output": "guy-turnbuckle-m12-r0.1.0.stl",
+            "documentation": "hardware/assemblies/corner-station/README.md",
+            "description": "Approximate visualization of M12 guy turnbuckle. Catalog M12 rod size with assumed 180 mm body; eye, travel and thread details unspecified.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Catalog M12 rod size with assumed 180 mm body; eye, travel and thread details unspecified.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "guy-wire-3mm",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "guy-wire-3mm"
+            ],
+            "assembly": "corner-station",
+            "entrypoint": "hardware/assemblies/corner-station/guy-wire-3mm.scad",
+            "output": "guy-wire-3mm-r0.1.0.stl",
+            "documentation": "hardware/assemblies/corner-station/README.md",
+            "description": "Approximate visualization of 3 mm stainless/galvanized guy wire. Catalog 3 mm wire represented by a short loop; actual cut length and lay are not modeled.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Catalog 3 mm wire represented by a short loop; actual cut length and lay are not modeled.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "heat-set-insert-assortment",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "heat-set-insert-assortment"
+            ],
+            "assembly": "shared-procurement-stock",
+            "entrypoint": "hardware/assemblies/shared-procurement-stock/heat-set-insert-assortment.scad",
+            "output": "heat-set-insert-assortment-r0.1.0.stl",
+            "documentation": "hardware/assemblies/shared-procurement-stock/README.md",
+            "description": "Approximate visualization of Heat-set threaded insert assortment. Representative M3/M4/M5 insert rings; knurl, length and pack quantities unknown.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Representative M3/M4/M5 insert rings; knurl, length and pack quantities unknown.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication. Confirm the kit contents and model each required size; the displayed sample does not specify quantities."
+            }
+        },
+        {
+            "id": "matched-motor-cable",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "matched-motor-cable"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/matched-motor-cable.scad",
+            "output": "matched-motor-cable-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Approximate visualization of Matched closed-loop motor cable. Assumed \u00d88 mm cable sample with connector envelopes; selected motor/encoder connectors unknown.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Assumed \u00d88 mm cable sample with connector envelopes; selected motor/encoder connectors unknown.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "micro-pan-tilt-servo",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "micro-pan-tilt-servo"
+            ],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/micro-pan-tilt-servo.scad",
+            "output": "micro-pan-tilt-servo-r0.1.0.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Approximate visualization of Micro pan/tilt servo. Uses the existing payload booklet assumption of 20 \u00d7 8.5 \u00d7 18 mm; not a measured servo or horn.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Uses the existing payload booklet assumption of 20 \u00d7 8.5 \u00d7 18 mm; not a measured servo or horn.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "microsd-card-32gb",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "microsd-card-32gb"
+            ],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/microsd-card-32gb.scad",
+            "output": "microsd-card-32gb-r0.1.0.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Approximate visualization of 32 GB microSD card. Uses the existing booklet nominal 11 \u00d7 15 \u00d7 0.8 mm outline; notch and contact details simplified.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Uses the existing booklet nominal 11 \u00d7 15 \u00d7 0.8 mm outline; notch and contact details simplified.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "motor-power-branch-cable",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "motor-power-branch-cable"
+            ],
+            "assembly": "site-installation",
+            "entrypoint": "hardware/assemblies/site-installation/motor-power-branch-cable.scad",
+            "output": "motor-power-branch-cable-r0.1.0.stl",
+            "documentation": "hardware/assemblies/site-installation/README.md",
+            "description": "Approximate visualization of 48 V motor power branch cable. Assumed \u00d88 mm cable sample; jacket diameter, conductor sizes and installed routing unknown.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Assumed \u00d88 mm cable sample; jacket diameter, conductor sizes and installed routing unknown.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "nema23-closed-loop-motor",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "nema23-closed-loop-motor"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/nema23-closed-loop-motor.scad",
+            "output": "nema23-closed-loop-motor-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Approximate visualization of 3.0 Nm NEMA 23 closed-loop motor. Existing winch booklet nominal 57 mm face, 122 mm body and 8 mm shaft; confirm supplied kit motor.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Existing winch booklet nominal 57 mm face, 122 mm body and 8 mm shaft; confirm supplied kit motor.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "outdoor-cat5e-signal-cable",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "outdoor-cat5e-signal-cable"
+            ],
+            "assembly": "site-installation",
+            "entrypoint": "hardware/assemblies/site-installation/outdoor-cat5e-signal-cable.scad",
+            "output": "outdoor-cat5e-signal-cable-r0.1.0.stl",
+            "documentation": "hardware/assemblies/site-installation/README.md",
+            "description": "Approximate visualization of Outdoor Cat5e signal cable. Assumed \u00d86 mm cable sample; selected jacket diameter and installed routing unknown.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Assumed \u00d86 mm cable sample; selected jacket diameter and installed routing unknown.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "pico-terminal-expansion-board",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "pico-terminal-expansion-board"
+            ],
+            "assembly": "control-cabinet",
+            "entrypoint": "hardware/assemblies/control-cabinet/pico-terminal-expansion-board.scad",
+            "output": "pico-terminal-expansion-board-r0.1.0.stl",
+            "documentation": "hardware/assemblies/control-cabinet/README.md",
+            "description": "Approximate visualization of 52Pi EP-0145 Screw Terminal Expansion Board. Assumed 90 \u00d7 60 \u00d7 18 mm terminal-board envelope; EP-0145 mounting and terminal geometry unverified.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Assumed 90 \u00d7 60 \u00d7 18 mm terminal-board envelope; EP-0145 mounting and terminal geometry unverified.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "pod-buck-converter-48v-5v",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "pod-buck-converter-48v-5v"
+            ],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/pod-buck-converter-48v-5v.scad",
+            "output": "pod-buck-converter-48v-5v-r0.1.0.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Approximate visualization of 48 V \u2192 5 V pod buck converter. Existing payload booklet assumption of a 45 \u00d7 25 \u00d7 15 mm converter envelope; no SKU dimensions verified.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Existing payload booklet assumption of a 45 \u00d7 25 \u00d7 15 mm converter envelope; no SKU dimensions verified.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "pod-power-wire-black-awg26",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "pod-power-wire-black-awg26"
+            ],
+            "assembly": "positioning-lines",
+            "entrypoint": "hardware/assemblies/positioning-lines/pod-power-wire-black-awg26.scad",
+            "output": "pod-power-wire-black-awg26-r0.1.0.stl",
+            "documentation": "hardware/assemblies/positioning-lines/README.md",
+            "description": "Approximate visualization of AWG26 flexible silicone wire \u2014 black. Assumed 1.5 mm insulated OD; AWG26 denotes conductor gauge, not verified insulation or hybrid-line diameter.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Assumed 1.5 mm insulated OD; AWG26 denotes conductor gauge, not verified insulation or hybrid-line diameter.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "pod-power-wire-red-awg26",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "pod-power-wire-red-awg26"
+            ],
+            "assembly": "positioning-lines",
+            "entrypoint": "hardware/assemblies/positioning-lines/pod-power-wire-red-awg26.scad",
+            "output": "pod-power-wire-red-awg26-r0.1.0.stl",
+            "documentation": "hardware/assemblies/positioning-lines/README.md",
+            "description": "Approximate visualization of AWG26 flexible silicone wire \u2014 red. Assumed 1.5 mm insulated OD; loop is a sample, not the installed helical routing.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Assumed 1.5 mm insulated OD; loop is a sample, not the installed helical routing.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "post-electronics-enclosure",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "post-electronics-enclosure"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/post-electronics-enclosure.scad",
+            "output": "post-electronics-enclosure-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Approximate visualization of IP65/IP67 ABS post electronics box. Catalog approximate 150 \u00d7 100 \u00d7 70 mm box; flange, gasket and driver clearance unknown.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Catalog approximate 150 \u00d7 100 \u00d7 70 mm box; flange, gasket and driver clearance unknown.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "power-supply-48v-350w",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "power-supply-48v-350w"
+            ],
+            "assembly": "control-cabinet",
+            "entrypoint": "hardware/assemblies/control-cabinet/power-supply-48v-350w.scad",
+            "output": "power-supply-48v-350w-r0.1.0.stl",
+            "documentation": "hardware/assemblies/control-cabinet/README.md",
+            "description": "Approximate visualization of 48 V / 350 W power supply. Assumed 215 \u00d7 115 \u00d7 50 mm PSU envelope with vent/terminal details; exact kit supply drawing unverified.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Assumed 215 \u00d7 115 \u00d7 50 mm PSU envelope with vent/terminal details; exact kit supply drawing unverified.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "pulley-bracket-backing-plate",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "pulley-bracket-backing-plate"
+            ],
+            "assembly": "corner-station",
+            "entrypoint": "hardware/assemblies/corner-station/pulley-bracket-backing-plate.scad",
+            "output": "pulley-bracket-backing-plate-r0.1.0.stl",
+            "documentation": "hardware/assemblies/corner-station/README.md",
+            "description": "Approximate visualization of Rear backing plate for top-pulley bracket \u2014 stacked BAUHAUS plates. Catalog 100 \u00d7 200 \u00d7 2 mm stock plate; shows one plate, with assumed perforations; two are stacked per post.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Catalog 100 \u00d7 200 \u00d7 2 mm stock plate; shows one plate, with assumed perforations; two are stacked per post.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "pulley-bracket-locknut-m12",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "pulley-bracket-locknut-m12"
+            ],
+            "assembly": "corner-station",
+            "entrypoint": "hardware/assemblies/corner-station/pulley-bracket-locknut-m12.scad",
+            "output": "pulley-bracket-locknut-m12-r0.1.0.stl",
+            "documentation": "hardware/assemblies/corner-station/README.md",
+            "description": "Approximate visualization of M12 galvanized locking nut for pulley bracket. Catalog M12 locking nut with assumed 19 mm across flats and 12 mm height; thread and nylon insert simplified.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Catalog M12 locking nut with assumed 19 mm across flats and 12 mm height; thread and nylon insert simplified.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "pulley-bracket-shackle-m8",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "pulley-bracket-shackle-m8"
+            ],
+            "assembly": "corner-station",
+            "entrypoint": "hardware/assemblies/corner-station/pulley-bracket-shackle-m8.scad",
+            "output": "pulley-bracket-shackle-m8-r0.1.0.stl",
+            "documentation": "hardware/assemblies/corner-station/README.md",
+            "description": "Approximate visualization of M8 A4 shackle for pulley-to-bracket connection. Catalog 8 mm pin with assumed 32 \u00d7 48 mm shackle envelope; exact supplier clearances unverified.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Catalog 8 mm pin with assumed 32 \u00d7 48 mm shackle envelope; exact supplier clearances unverified.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "pulley-bracket-through-bolt-m12x160",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "pulley-bracket-through-bolt-m12x160"
+            ],
+            "assembly": "corner-station",
+            "entrypoint": "hardware/assemblies/corner-station/pulley-bracket-through-bolt-m12x160.scad",
+            "output": "pulley-bracket-through-bolt-m12x160-r0.1.0.stl",
+            "documentation": "hardware/assemblies/corner-station/README.md",
+            "description": "Approximate visualization of M12 \u00d7 160 galvanized 8.8 through-bolt for pulley bracket. Catalog M12 \u00d7 160 shank; assumed 19 mm hex head and 8 mm head height; threads omitted.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Catalog M12 \u00d7 160 shank; assumed 19 mm hex head and 8 mm head height; threads omitted.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "pulley-bracket-washer-m12",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "pulley-bracket-washer-m12"
+            ],
+            "assembly": "corner-station",
+            "entrypoint": "hardware/assemblies/corner-station/pulley-bracket-washer-m12.scad",
+            "output": "pulley-bracket-washer-m12-r0.1.0.stl",
+            "documentation": "hardware/assemblies/corner-station/README.md",
+            "description": "Approximate visualization of M12 DIN 9021 large washer for pulley bracket. Catalog nominal 37 mm OD, 13 mm ID and 3 mm thickness; edges simplified.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Catalog nominal 37 mm OD, 13 mm ID and 3 mm thickness; edges simplified.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "raspberry-pi-3a-plus",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "raspberry-pi-3a-plus"
+            ],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/raspberry-pi-3a-plus.scad",
+            "output": "raspberry-pi-3a-plus-r0.1.0.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Approximate visualization of Raspberry Pi 3A+. Existing payload booklet nominal 65 \u00d7 56 mm PCB and 58 \u00d7 49 mm mounting pitch; connectors simplified.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Existing payload booklet nominal 65 \u00d7 56 mm PCB and 58 \u00d7 49 mm mounting pitch; connectors simplified.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "raspberry-pi-camera-module-3",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "raspberry-pi-camera-module-3"
+            ],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/raspberry-pi-camera-module-3.scad",
+            "output": "raspberry-pi-camera-module-3-r0.1.0.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Approximate visualization of Raspberry Pi Camera Module 3 Standard. Existing payload booklet nominal 25 \u00d7 23.862 mm PCB and 21 \u00d7 12.5 mm hole pitch; lens/connector approximate.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Existing payload booklet nominal 25 \u00d7 23.862 mm PCB and 21 \u00d7 12.5 mm hole pitch; lens/connector approximate.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "raspberry-pi-pico-2-w",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "raspberry-pi-pico-2-w"
+            ],
+            "assembly": "control-cabinet",
+            "entrypoint": "hardware/assemblies/control-cabinet/raspberry-pi-pico-2-w.scad",
+            "output": "raspberry-pi-pico-2-w-r0.1.0.stl",
+            "documentation": "hardware/assemblies/control-cabinet/README.md",
+            "description": "Approximate visualization of Raspberry Pi Pico 2 W with headers. Assumed nominal 51 \u00d7 21 mm PCB with illustrative headers/USB; confirm header height and component keep-outs.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Assumed nominal 51 \u00d7 21 mm PCB with illustrative headers/USB; confirm header height and component keep-outs.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "roller-lever-microswitch",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "roller-lever-microswitch"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/roller-lever-microswitch.scad",
+            "output": "roller-lever-microswitch-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Approximate visualization of Winch home/reference and docked position roller microswitch. Assumed KW12-class 20 \u00d7 10 \u00d7 6 mm body with lever and roller; mounting and travel unspecified.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Assumed KW12-class 20 \u00d7 10 \u00d7 6 mm body with lever and roller; mounting and travel unspecified.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "shaft-collar-8mm",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "shaft-collar-8mm"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/shaft-collar-8mm.scad",
+            "output": "shaft-collar-8mm-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Approximate visualization of 8 mm clamp shaft collar. Existing winch booklet nominal \u00d820 \u00d7 10 mm body, 8 mm bore; clamp slot and screw simplified.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Existing winch booklet nominal \u00d820 \u00d7 10 mm body, 8 mm bore; clamp slot and screw simplified.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "stainless-fastener-assortment",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "stainless-fastener-assortment"
+            ],
+            "assembly": "shared-procurement-stock",
+            "entrypoint": "hardware/assemblies/shared-procurement-stock/stainless-fastener-assortment.scad",
+            "output": "stainless-fastener-assortment-r0.1.0.stl",
+            "documentation": "hardware/assemblies/shared-procurement-stock/README.md",
+            "description": "Approximate visualization of Stainless metric fastener assortment. Representative M3/M4/M5/M6 bolts, nuts and washers; no size-level pack contents or quantities claimed.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Representative M3/M4/M5/M6 bolts, nuts and washers; no size-level pack contents or quantities claimed.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication. Confirm the kit contents and model each required size; the displayed sample does not specify quantities."
+            }
+        },
+        {
+            "id": "top-positioning-line-pulley",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "top-positioning-line-pulley"
+            ],
+            "assembly": "corner-station",
+            "entrypoint": "hardware/assemblies/corner-station/top-positioning-line-pulley.scad",
+            "output": "top-positioning-line-pulley-r0.1.0.stl",
+            "documentation": "hardware/assemblies/corner-station/README.md",
+            "description": "Approximate visualization of Top positioning-line pulley. Catalog preferred 30 mm sheave with assumed cheeks and attachment eye; supplier block envelope unknown.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Catalog preferred 30 mm sheave with assumed cheeks and attachment eye; supplier block envelope unknown.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "top-pulley-bracket",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "top-pulley-bracket"
+            ],
+            "assembly": "corner-station",
+            "entrypoint": "hardware/assemblies/corner-station/top-pulley-bracket.scad",
+            "output": "top-pulley-bracket-r0.1.0.stl",
+            "documentation": "hardware/assemblies/corner-station/README.md",
+            "description": "Approximate visualization of Top-pulley offset steel mounting bracket \u2014 BAUHAUS Stabilit solid angle. Catalog 150 \u00d7 40 \u00d7 150 mm, 5 mm solid angle; starting drill pattern simplified.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Catalog 150 \u00d7 40 \u00d7 150 mm, 5 mm solid angle; starting drill pattern simplified.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "underground-cable-sleeve",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "underground-cable-sleeve"
+            ],
+            "assembly": "site-installation",
+            "entrypoint": "hardware/assemblies/site-installation/underground-cable-sleeve.scad",
+            "output": "underground-cable-sleeve-r0.1.0.stl",
+            "documentation": "hardware/assemblies/site-installation/README.md",
+            "description": "Approximate visualization of Underground cable sleeve. Assumed 25 mm OD, 20 mm ID conduit sample; selected diameter, corrugations and routing unknown.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Assumed 25 mm OD, 20 mm ID conduit sample; selected diameter, corrugations and routing unknown.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "winch-drum-shaft-8mm",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "winch-drum-shaft-8mm"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-drum-shaft-8mm.scad",
+            "output": "winch-drum-shaft-8mm-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Approximate visualization of 8 mm steel drum shaft (variant cut allowance). Catalog 8 mm shaft; representative 340 mm passive cut from the existing winch booklet, not all purchased stock.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Catalog 8 mm shaft; representative 340 mm passive cut from the existing winch booklet, not all purchased stock.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "winch-fail-safe-brake",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "winch-fail-safe-brake"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-fail-safe-brake.scad",
+            "output": "winch-fail-safe-brake-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Approximate visualization of Mechanical drum lock / fail-safe brake. Assumed \u00d860 \u00d7 40 mm brake envelope with 8 mm bore; mechanism and safety function not yet defined.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Assumed \u00d860 \u00d7 40 mm brake envelope with 8 mm bore; mechanism and safety function not yet defined.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "wind-sensor-rs485-transceiver",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "wind-sensor-rs485-transceiver"
+            ],
+            "assembly": "site-installation",
+            "entrypoint": "hardware/assemblies/site-installation/wind-sensor-rs485-transceiver.scad",
+            "output": "wind-sensor-rs485-transceiver-r0.1.0.stl",
+            "documentation": "hardware/assemblies/site-installation/README.md",
+            "description": "Approximate visualization of 3.3 V RS485 transceiver module for wind sensor. Assumed 30 \u00d7 20 \u00d7 10 mm RS485 breakout; no selected module drawing exists.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Assumed 30 \u00d7 20 \u00d7 10 mm RS485 breakout; no selected module drawing exists.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "wind-speed-sensor",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "wind-speed-sensor"
+            ],
+            "assembly": "site-installation",
+            "entrypoint": "hardware/assemblies/site-installation/wind-speed-sensor.scad",
+            "output": "wind-speed-sensor-r0.1.0.stl",
+            "documentation": "hardware/assemblies/site-installation/README.md",
+            "description": "Approximate visualization of RS485/Modbus wind-speed sensor. Representative three-cup sensor with assumed 150 mm sweep and 120 mm stem; mounting and SKU unknown.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Representative three-cup sensor with assumed 150 mm sweep and 120 mm stem; mounting and SKU unknown.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "wire-rope-clamp-3mm",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "wire-rope-clamp-3mm"
+            ],
+            "assembly": "corner-station",
+            "entrypoint": "hardware/assemblies/corner-station/wire-rope-clamp-3mm.scad",
+            "output": "wire-rope-clamp-3mm-r0.1.0.stl",
+            "documentation": "hardware/assemblies/corner-station/README.md",
+            "description": "Approximate visualization of 3 mm wire-rope clamp. Representative 3 mm wire-rope U-clamp; saddle, threaded legs and overall envelope assumed.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Representative 3 mm wire-rope U-clamp; saddle, threaded legs and overall envelope assumed.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "wire-rope-thimble-3mm",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "wire-rope-thimble-3mm"
+            ],
+            "assembly": "corner-station",
+            "entrypoint": "hardware/assemblies/corner-station/wire-rope-thimble-3mm.scad",
+            "output": "wire-rope-thimble-3mm-r0.1.0.stl",
+            "documentation": "hardware/assemblies/corner-station/README.md",
+            "description": "Approximate visualization of 3 mm wire-rope thimble. Representative grooved thimble for 3 mm wire; eye shape and bend radius assumed.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Representative grooved thimble for 3 mm wire; eye shape and bend radius assumed.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "zinc-spray",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "zinc-spray"
+            ],
+            "assembly": "corner-station",
+            "entrypoint": "hardware/assemblies/corner-station/zinc-spray.scad",
+            "output": "zinc-spray-r0.1.0.stl",
+            "documentation": "hardware/assemblies/corner-station/README.md",
+            "description": "Approximate visualization of Zinc-rich spray for drilled pulley-bracket edges. Catalog 400 ml can represented by an assumed \u00d865 \u00d7 200 mm package; can/nozzle dimensions unknown.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Catalog 400 ml can represented by an assumed \u00d865 \u00d7 200 mm package; can/nozzle dimensions unknown.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "winch-drum-joining-hardware",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "winch-drum-joining-hardware"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-drum-joining-hardware.scad",
+            "output": "winch-drum-joining-hardware-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Approximate visualization of Joining and clamp hardware for four segmented drums. Representative M5 rod, M4 screws, nuts and washers from the catalog allowance; not a complete kit or count.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Representative M5 rod, M4 screws, nuts and washers from the catalog allowance; not a complete kit or count.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication. Confirm the kit contents and model each required size; the displayed sample does not specify quantities."
+            }
+        },
+        {
+            "id": "winch-mount-hardware",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "winch-mount-hardware"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-mount-hardware.scad",
+            "output": "winch-mount-hardware-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Approximate visualization of Rigid bases, bearing spacers and fasteners for four winch mounts. One representative 550 \u00d7 180 \u00d7 8 mm base, spacer and fasteners from catalog assumptions; powered base/counts omitted.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "One representative 550 \u00d7 180 \u00d7 8 mm base, spacer and fasteners from catalog assumptions; powered base/counts omitted.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication. Confirm the kit contents and model each required size; the displayed sample does not specify quantities."
+            }
+        },
+        {
+            "id": "winch-full-cover-hardware",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "winch-full-cover-hardware"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-full-cover-hardware.scad",
+            "output": "winch-full-cover-hardware-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Approximate visualization of Four-winch full-cover fastening and loom allowance. Representative cover-kit fasteners; final sizes and pack contents need confirmation against assembly requirements.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Representative cover-kit fasteners; final sizes and pack contents need confirmation against assembly requirements.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication. Confirm the kit contents and model each required size; the displayed sample does not specify quantities."
+            }
+        },
+        {
+            "id": "winch-round-pole-hardware",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "winch-round-pole-hardware"
+            ],
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/winch-round-pole-hardware.scad",
+            "output": "winch-round-pole-hardware-r0.1.0.stl",
+            "documentation": "hardware/assemblies/winch/README.md",
+            "description": "Approximate visualization of One-winch round-pole fastening allowance. Representative M8 clamp rods/nuts and backing hardware; pole dimensions and final cut lengths need confirmation.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Representative M8 clamp rods/nuts and backing hardware; pole dimensions and final cut lengths need confirmation.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication. Confirm the kit contents and model each required size; the displayed sample does not specify quantities."
+            }
+        },
+        {
+            "id": "corner-head-retention-straps",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "corner-head-retention-straps"
+            ],
+            "assembly": "corner-station",
+            "entrypoint": "hardware/assemblies/corner-station/corner-head-retention-straps.scad",
+            "output": "corner-head-retention-straps-r0.1.0.stl",
+            "documentation": "hardware/assemblies/corner-station/README.md",
+            "description": "Approximate visualization of Corner head replaceable shield retention straps; shape needs rework.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Catalog <=2.5 mm strap width and <=1 mm thickness, shown as one assumed circular loop; actual length, latch and installed routing undefined.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "corner-head-angle-200",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "corner-head-angle-200"
+            ],
+            "assembly": "corner-station",
+            "entrypoint": "hardware/assemblies/corner-station/corner-head-angle-200.scad",
+            "output": "corner-head-angle-200-r0.1.0.stl",
+            "documentation": "hardware/assemblies/corner-station/README.md",
+            "description": "Approximate visualization of Proposed 200 mm top-pulley steel angle; shape needs rework.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Catalog historical 200 \u00d7 40 \u00d7 200 mm, 5 mm steel angle; illustrative holes and bend are simplified and do not define the proposed drilling pattern.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "corner-head-through-bolts",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "corner-head-through-bolts"
+            ],
+            "assembly": "corner-station",
+            "entrypoint": "hardware/assemblies/corner-station/corner-head-through-bolts.scad",
+            "output": "corner-head-through-bolts-r0.1.0.stl",
+            "documentation": "hardware/assemblies/corner-station/README.md",
+            "description": "Approximate visualization of Proposed round-head M12 through-bolt pair; shape needs rework.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Catalog M12 with one representative 180 mm shank and assumed 19 mm hex head; the 160/180/200 mm pair variants, threads and received stack remain undefined.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "corner-guy-post-connection",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "corner-guy-post-connection"
+            ],
+            "assembly": "corner-station",
+            "entrypoint": "hardware/assemblies/corner-station/corner-guy-post-connection.scad",
+            "output": "corner-guy-post-connection-r0.1.0.stl",
+            "documentation": "hardware/assemblies/corner-station/README.md",
+            "description": "Approximate visualization of Reviewed bought guy-to-post attachment set; shape needs rework.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Assumed M8 shackle silhouette representing an unselected bought attachment set; post mounting, height, load path and capacity are undefined.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
+        },
+        {
+            "id": "corner-head-printed-hardware",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "corner-head-printed-hardware"
+            ],
+            "assembly": "corner-station",
+            "entrypoint": "hardware/assemblies/corner-station/corner-head-printed-hardware.scad",
+            "output": "corner-head-printed-hardware-r0.1.0.stl",
+            "documentation": "hardware/assemblies/corner-station/README.md",
+            "description": "Approximate visualization of Printed corner-head bought fastener and retention set; shape needs rework.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Representative catalog M12 \u00d7 190 and M8 \u00d7 100 bolts with nominal washer/nut samples; grade, threads, locking, pulley pin, straps and received stack are undefined.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            }
         }
     ],
     "archivedModels": [

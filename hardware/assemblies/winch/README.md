@@ -177,3 +177,26 @@ Follow the [industrial design conventions](../../../docs/project/industrial-desi
 ## Round timber interface and bottom cables
 
 The [round-pole kit](round-pole.md) adds matching machined-metal saddles, removable white rear nut covers and a non-structural cable guide. Default diameter is 120 mm; nominal 100–140 mm parameter studies do not replace measured fit or structural review. [Development proposal](round-pole-development.md), [assembly reference](winch-pole-assembly.scad), and [nominal record](round-pole-check.md). The [full-cover r0.3.0](full-cover.md) moves stationary looms to the lower pole side while preserving upward positioning-line payout.
+
+## Approximate BOM visualizations
+
+These `visualization` models show catalog items in the Parts inventory. They are **Unverified** and are not manufacturing sources. Shape is not yet fully defined and needs rework against the selected supplier drawing or measured item before fit or clearance decisions. Nominal dimensions recorded in the catalog remain requirements, not measurement evidence. Threads, connectors, internal construction and fine detail are simplified. Kits and assortments show representative samples, not quantities; cable loops and lengths show samples, not installed routing.
+
+| BOM item / source | Shape | Dimension basis and remaining uncertainty |
+| --- | --- | --- |
+| [as5600-angle-sensor](as5600-angle-sensor.scad) · [BOM](../../../bom/generated/parts/as5600-angle-sensor.md) | board | Assumed 23 × 23 mm breakout with a representative magnet; no selected board outline is recorded. |
+| [bearing-608-2rs](bearing-608-2rs.scad) · [BOM](../../../bom/generated/parts/bearing-608-2rs.md) | ring | Catalog nominal 22 mm OD, 8 mm bore and 7 mm width; seals and races simplified. |
+| [cl57y-v20-driver](cl57y-v20-driver.scad) · [BOM](../../../bom/generated/parts/cl57y-v20-driver.md) | driver | Assumed 118 × 76 × 34 mm driver body with terminal envelopes; confirm the included kit model. |
+| [extension-spring-assortment](extension-spring-assortment.scad) · [BOM](../../../bom/generated/parts/extension-spring-assortment.md) | springs | Representative coil spring sizes; wire gauge, end hooks and pack contents are unknown. |
+| [flexible-jaw-coupling-8mm](flexible-jaw-coupling-8mm.scad) · [BOM](../../../bom/generated/parts/flexible-jaw-coupling-8mm.md) | coupling | Catalog approximate Ø20 × 25 mm body and 8 mm bores; jaws and elastomer simplified. |
+| [matched-motor-cable](matched-motor-cable.scad) · [BOM](../../../bom/generated/parts/matched-motor-cable.md) | cable | Assumed Ø8 mm cable sample with connector envelopes; selected motor/encoder connectors unknown. |
+| [nema23-closed-loop-motor](nema23-closed-loop-motor.scad) · [BOM](../../../bom/generated/parts/nema23-closed-loop-motor.md) | motor | Existing winch booklet nominal 57 mm face, 122 mm body and 8 mm shaft; confirm supplied kit motor. |
+| [post-electronics-enclosure](post-electronics-enclosure.scad) · [BOM](../../../bom/generated/parts/post-electronics-enclosure.md) | enclosure | Catalog approximate 150 × 100 × 70 mm box; flange, gasket and driver clearance unknown. |
+| [roller-lever-microswitch](roller-lever-microswitch.scad) · [BOM](../../../bom/generated/parts/roller-lever-microswitch.md) | microswitch | Assumed KW12-class 20 × 10 × 6 mm body with lever and roller; mounting and travel unspecified. |
+| [shaft-collar-8mm](shaft-collar-8mm.scad) · [BOM](../../../bom/generated/parts/shaft-collar-8mm.md) | collar | Existing winch booklet nominal Ø20 × 10 mm body, 8 mm bore; clamp slot and screw simplified. |
+| [winch-drum-shaft-8mm](winch-drum-shaft-8mm.scad) · [BOM](../../../bom/generated/parts/winch-drum-shaft-8mm.md) | rod | Catalog 8 mm shaft; representative 340 mm passive cut from the existing winch booklet, not all purchased stock. |
+| [winch-fail-safe-brake](winch-fail-safe-brake.scad) · [BOM](../../../bom/generated/parts/winch-fail-safe-brake.md) | brake | Assumed Ø60 × 40 mm brake envelope with 8 mm bore; mechanism and safety function not yet defined. |
+| [winch-drum-joining-hardware](winch-drum-joining-hardware.scad) · [BOM](../../../bom/generated/parts/winch-drum-joining-hardware.md) | drum hardware | Representative M5 rod, M4 screws, nuts and washers from the catalog allowance; not a complete kit or count. |
+| [winch-mount-hardware](winch-mount-hardware.scad) · [BOM](../../../bom/generated/parts/winch-mount-hardware.md) | mount hardware | One representative 550 × 180 × 8 mm base, spacer and fasteners from catalog assumptions; powered base/counts omitted. |
+| [winch-full-cover-hardware](winch-full-cover-hardware.scad) · [BOM](../../../bom/generated/parts/winch-full-cover-hardware.md) | fasteners | Representative cover-kit fasteners; final sizes and pack contents need confirmation against assembly requirements. |
+| [winch-round-pole-hardware](winch-round-pole-hardware.scad) · [BOM](../../../bom/generated/parts/winch-round-pole-hardware.md) | pole hardware | Representative M8 clamp rods/nuts and backing hardware; pole dimensions and final cut lengths need confirmation. |

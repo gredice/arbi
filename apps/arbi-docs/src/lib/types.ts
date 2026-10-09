@@ -9,7 +9,8 @@ export type Model = {
     id: string;
     revision: string;
     status: string;
-    artifactRole: "fabrication" | "reference";
+    artifactRole: "fabrication" | "reference" | "visualization";
+    geometry?: { status: "approximate"; basis: string; rework: string };
     bomPartIds: string[];
     assembly: string;
     entrypoint: string;
@@ -90,6 +91,7 @@ export type BomPart = {
     disciplines: string[];
     traits: string[];
     requirements: string[];
+    notes?: string;
     required: string | null;
     unit: string;
     usedIn: { assemblyId: string; kind: string; quantity: string; knownGoodsAmount: string | null }[];
@@ -113,4 +115,4 @@ export type BomPart = {
 
 export type Download = { url: string; label: string; sha256: string | null; verified: boolean };
 
-export type InventoryItem = { id: string; figure: string | null; count: number | null };
+export type InventoryItem = { id: string; name?: string; note?: string; figure: string | null; count: number | null };

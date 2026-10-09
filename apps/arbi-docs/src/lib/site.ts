@@ -3,6 +3,7 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { links } from "./format";
+import { partCatalog } from "./part-catalog";
 import type { BomPart, Download, InventoryItem, MeshRef, Model, Scene, SceneMeta, ScenePart } from "./types";
 
 const DATA = join(process.cwd(), "public/data");
@@ -100,7 +101,8 @@ function load() {
             instances.get(p.model)!.parts.push(p);
         }
     }
-    return { site, scenes, docTexts, models, archivedModels, modelById, bomById, systems, instances };
+    const parts = partCatalog(site.bom.parts, models, site.bom.assemblies);
+    return { site, scenes, docTexts, models, parts, archivedModels, modelById, bomById, systems, instances };
 }
 
 let cache: ReturnType<typeof load> | undefined;
@@ -163,6 +165,18 @@ export function sceneModels(slug: string): string[] {
 
 export const inventory = (ids: string[], counted = true, slug?: string): InventoryItem[] =>
     ids.map((id) => ({ id, figure: figureFor(id), count: counted ? installedCount(id, slug) : null }));
+
+export function catalogInventory(ids: string[]): InventoryItem[] {
+    return ids.map((id) => {
+        const entry = data().parts.find((part) => part.id === id)!;
+        const models = entry.modelIds.map((modelId) => data().modelById.get(modelId)!);
+        return {
+            id, name: entry.name, count: null,
+            figure: entry.modelIds.map(figureFor).find(Boolean) ?? figureFor(id),
+            note: models.some((model) => model.geometry) ? "Approximate · needs rework" : undefined,
+        };
+    });
+}
 
 // ------------------------------------------------------------------ documents
 

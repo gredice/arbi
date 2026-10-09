@@ -6,8 +6,8 @@ import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { test } from 'node:test';
-import { strToU8, zipSync } from 'fflate';
-import { previewFigures } from '../scripts/cad-previews.mjs';
+import { strToU8, unzipSync, zipSync } from 'fflate';
+import { previewAssets, previewFigures } from '../scripts/cad-previews.mjs';
 
 const digest = (bytes) => createHash('sha256').update(bytes).digest('hex');
 const app = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -37,6 +37,23 @@ test('a CSG reference receives a figure without needing a booklet drawing or fab
   assert.ok(model.output.endsWith('.csg'));
   const result = previewFigures(pack(), [model], (path) => sources[path]);
   assert.deepEqual(Buffer.from(result[model.id]), figure);
+});
+
+test('visualization meshes require current source evidence and an intact mesh checksum', () => {
+  const visualization = { ...model, artifactRole: 'visualization', output: 'winch-drum-r2.1.1.stl' };
+  const stl = Buffer.from('solid sample\nfacet normal 0 0 1\nouter loop\nvertex 0 0 0\nvertex 1 0 0\nvertex 0 1 0\nendloop\nendfacet\nendsolid sample');
+  const files = {
+    'ARBI-CAD-previews/manifest.json': strToU8(JSON.stringify({ schemaVersion: 1, style: 'cad-line-art-v2', models: {
+      [model.id]: { ...JSON.parse(new TextDecoder().decode((unzipSync(pack()))['ARBI-CAD-previews/manifest.json'])).models[model.id],
+        output: visualization.output, mesh: `meshes/${visualization.output}`, meshSha256: digest(stl) },
+    } })),
+    [`ARBI-CAD-previews/figures/${model.id}.png`]: figure,
+    [`ARBI-CAD-previews/meshes/${visualization.output}`]: stl,
+  };
+  assert.deepEqual(Buffer.from(previewAssets(zipSync(files), [visualization], (path) => sources[path]).meshes[model.id]), stl);
+  assert.deepEqual(previewAssets(zipSync(files), [{ ...visualization, artifactRole: 'reference' }], (path) => sources[path]).meshes, {});
+  assert.deepEqual(previewAssets(zipSync({ ...files, [`ARBI-CAD-previews/meshes/${visualization.output}`]: strToU8('corrupt') }), [visualization], (path) => sources[path]).meshes, {});
+  assert.deepEqual(previewAssets(zipSync(files), [visualization], () => Buffer.from('changed')).meshes, {});
 });
 
 test('legacy packs with shaded reference figures cannot enter the line-art inventory', () => {

@@ -1,0 +1,9 @@
+// dyneema-positioning-line — r0.1.0, concept-unvalidated.
+// Approximate visualization only; not a manufacturing source. Units: mm.
+// Catalog 1.5 mm nominal line represented by a short loop, not the 50 m purchase length or installed routing.
+// Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication.
+include <../../lib/catalog-visualizations.scad>
+
+shape = "coil";
+dimensions = [1.5, 80];
+arbi_catalog_visualization(shape, dimensions);
