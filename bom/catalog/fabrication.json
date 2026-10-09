@@ -4,15 +4,15 @@
   "note": "Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
   "geometry": {
     "releaseTag": null,
-    "sourceCommit": "e3529eebf989193150e816f54ca7cd9805b61526",
+    "sourceCommit": "1e526324f27197047b0b946f75bc665a62eaf287",
     "sourceHashes": {
-      "hardware/models.json": "0924da14f5ddc0d1008f8c89941543ce2eccaf5c72ecf949fcb5242e0bfa6cfe",
+      "hardware/models.json": "8af771b3a4a6ccadbe43f79b2aad1300e674fd82e8d032742f4f29ac44fbbf32",
       "hardware/assemblies/camera-pod/camera-gimbal-base.scad": "aaa44f020ea99055c07d5aeb165f76da34c90562f1bccd29fe6ab8a746ccde2f",
       "hardware/assemblies/camera-pod/camera-gimbal-camera-plate.scad": "ee46401f166414b9c65f8b361e84a9694128b8a04de4aab8f35e343f69d9c535",
       "hardware/assemblies/camera-pod/camera-gimbal-optical-hood.scad": "b812f413d9efba9c156083b4508f15647e3fc5cfa1589a2950fd3d8d9b34df3d",
       "hardware/assemblies/camera-pod/camera-gimbal-rain-cap.scad": "c3ef78aa8d602f0fb6621b47292bf39f197de453b9877a244dce3897605343fd",
       "hardware/assemblies/camera-pod/camera-gimbal-yoke.scad": "bf82f067e8ebdcda99cdda1c68a08512a23c3c7d34670df5974624140d5a0177",
-      "hardware/assemblies/camera-pod/camera-pod-assembly.scad": "6a02811b713ec5de8c0ca522a7badf5490f9dca07d58d3f703ee88df9b897448",
+      "hardware/assemblies/camera-pod/camera-pod-assembly.scad": "2e17667d4ef589128bbe0ca0784246be24582950a4eddcf9c7c38d4c2616c6cd",
       "hardware/assemblies/camera-pod/camera-pod-camera-cowl.scad": "3161c4e209eb3db5769ca5a9f6be6ddac760159e0b1d2a78c7e4634acf79fcc3",
       "hardware/assemblies/camera-pod/camera-pod-camera-cradle.scad": "0b8757bfd228a84930b1da61a0571e73984065b31bd1de5f8249f7bdfcb91c5f",
       "hardware/assemblies/camera-pod/camera-pod-camera-hood.scad": "9916f9a8709aaff701d527a095bbbb684e2213fcdaee68222ebdf0cd1c23b2f3",
@@ -23,7 +23,7 @@
       "hardware/assemblies/camera-pod/camera-pod-enclosure-base.scad": "e2453cdb1790a8fef1d0f97e9e1372d8e694c31d5a8c04f0a4601e9f152da3d9",
       "hardware/assemblies/camera-pod/camera-pod-envelope.scad": "8e4502a70290ffdaf4e82f8bb886ab6d259d8060fd502076da6d6da8c1ac7d08",
       "hardware/assemblies/camera-pod/camera-pod-horn-retainer.scad": "0c6a9971cd3cdda6a8ba103afcc75b506a2b9cb995b842ef74621f68ae912132",
-      "hardware/assemblies/camera-pod/camera-pod-integrated-camera-cradle.scad": "cdb546f0d8988125d331d56266b9a1d8aa01c436326ef2153b0906b06b976ca5",
+      "hardware/assemblies/camera-pod/camera-pod-integrated-camera-cradle.scad": "7eddaad7e89e98a49712478ac704821bc7a72ce28c6bf937ca7a8e5eea7184bc",
       "hardware/assemblies/camera-pod/camera-pod-integrated-camera-hood.scad": "ee340666bd4d288d3f2393da573885cfd46735d94adf600fe872a6679f9f2eb0",
       "hardware/assemblies/camera-pod/camera-pod-integrated-deck.scad": "98a42c37c5eb695e8a6b9ece9d3e78ac5584864f7f6aa9fb9e2a9c7d79dccbec",
       "hardware/assemblies/camera-pod/camera-pod-integrated-gimbal-carrier.scad": "16356cc0b48ae58708b77b3a2054a7395d273652cd6aa82f0dae9bf249fb3d74",
@@ -109,7 +109,7 @@
       "hardware/lib/camera-pod-bench-assembly.scad": "f679ab2f24374013718adb1a2b8414437610d8f4c43a0bc4fb1355193bb28153",
       "hardware/lib/camera-pod-enclosure.scad": "e6bd217233c85fdfd29cd81bb0327b746eec648a76c241f53cb4f67619e772a5",
       "hardware/lib/camera-pod-integrated-deck.scad": "b8d07acc6e1738c4fd453f2768f2abffbf830852016253e17cd3aabee0f72191",
-      "hardware/lib/camera-pod-integrated-gimbal.scad": "790e02530ea3046dd02eb0ae0165348a8144cf4d7cb9aeaff0a3930ab1d9b996",
+      "hardware/lib/camera-pod-integrated-gimbal.scad": "70f41ec01272776715b4208461a7da8682059c2f18720817365a2e8291a2dc2c",
       "hardware/lib/camera-pod-integrated-head.scad": "eccbf8010d83908fadf13e13cf0615e7273819dcc8cd65d95c3c774ce4c9d5cc",
       "hardware/lib/camera-pod-mounts.scad": "b5b2cefe5f8787db7d9b6a62f04032c32000f669682ea43452d1d3bc3f9ebc58",
       "hardware/lib/camera-pod.scad": "324d1d886ddb52fd9b5545e9ba2116e1c6c42fac7b026951d18bbbb090d85379",
@@ -137,9 +137,9 @@
       },
       {
         "modelId": "camera-pod-integrated-camera-cradle",
-        "revision": "0.1.0",
-        "volumeCm3": "3.191199",
-        "stlSha256": "6c277eef3b4574101afb8a0c0c9f0490e69805561159dfa668782dafcfb9ae97"
+        "revision": "0.1.1",
+        "volumeCm3": "3.328264",
+        "stlSha256": "25ebaeed400b23a1e91dffa91e00572b58698c91d4341c51db4afc78a69430cc"
       },
       {
         "modelId": "camera-pod-integrated-camera-hood",

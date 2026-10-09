@@ -31,11 +31,14 @@ def write_evidence(root,publish=False):
         assert integration['neck_clearance']['oversized_neck_control']['collision_detected']
         assert not service['fixed_power_route']['failures']
         assert service['fixed_power_route']['incorrect_straight_route_control']['expected_collision_detected']
+        cradle=json.loads((root/'cradle-check.json').read_text())
+        assert cradle['weak_joint_control']['detected']
     evidence={'date':date.today().isoformat(),'configuration':config,'status':'CAD-only; concept-unvalidated',
       'integration':integration,'service':service,
       'mesh_hashes':{e['model_id']:e['stl_sha256'] for e in meshes},
       'checker_sources':{name:hashlib.sha256((root/'source'/name).read_bytes()).hexdigest()
-         for name in ['integration.py','check_integration.py','check_service.py','reference-parts.scad']}}
+         for name in ['integration.py','check_integration.py','check_service.py','reference-parts.scad']+(['check_cradle.py'] if enclosure else [])}}
+    if enclosure:evidence['cradle']=cradle
     relative=Path('assemblies/camera-pod')/('camera-pod-enclosure-check.json' if enclosure else 'camera-pod-geometry-check.json')
     (root/'source/arbi-hardware'/relative).write_text(json.dumps(evidence,indent=2)+'\n')
     (root/relative.name).write_text(json.dumps(evidence,indent=2)+'\n')
@@ -95,7 +98,7 @@ def main():
     shutil.copytree(REPO/'scripts/winch-booklet/fonts',root/'source/fonts',dirs_exist_ok=True)
     shutil.copy2(REPO/'scripts/winch-booklet/requirements.txt',root/'source/requirements.txt')
     shutil.copy2(REPO/'LICENSE',root/'source/LICENSE-ARBI')
-    for name in ['reference-parts.scad','export_models.py','model_selection.py','render_figures.py','render_preview.py','build_booklet.py','integration.py','check_integration.py','check_service.py']:
+    for name in ['reference-parts.scad','export_models.py','model_selection.py','render_figures.py','render_preview.py','build_booklet.py','integration.py','check_integration.py','check_service.py','check_cradle.py']:
         shutil.copy2(HERE/name,root/'source'/name)
     shutil.copy2(HERE/'pack-README.md',root/'README.md')
     shutil.copy2(HERE/'sources.json',root/'sources.json')
@@ -121,7 +124,7 @@ def main():
         subprocess.run([sys.executable,str(root/'source/export_models.py')],check=True)
         (root/'build-input-hashes.json').write_text(json.dumps(hashes,indent=2)+'\n')
     if (root/'figures').exists():shutil.rmtree(root/'figures')
-    checks=[('check_integration.py',['--quick']),('check_service.py',[]),('check_integration.py',[])] if args.enclosure else [('check_integration.py',[]),('check_service.py',[])]
+    checks=[('check_cradle.py',[]),('check_integration.py',['--quick']),('check_service.py',[]),('check_integration.py',[])] if args.enclosure else [('check_integration.py',[]),('check_service.py',[])]
     for name,options in checks:
         subprocess.run([sys.executable,str(root/'source'/name),*options],check=True)
     write_evidence(root)

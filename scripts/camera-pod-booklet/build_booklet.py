@@ -36,7 +36,7 @@ def enclosure_booklet():
   para(x,y+33,57,'<b>'+title+'</b>',small=True,max_h=10)
   para(x,y+41,57,f'{count} x / '+Path(by[name]['file']).stem.rsplit('-r',1)[1],small=True,max_h=10)
  para(78,207,113,'P02, P05, P06, P07, P09 and P12 are enclosure-specific prints. The dry mounts, servo boot, fixed fairing and camera cowl are alternative parts. The coupon is a test print and is not installed.',small=True,max_h=34)
- note(261,'STLs use mm and Z=0 print-bed placement. PETG is a starting material; plan supports in the slicer, inspect mating faces and holes, and weigh the sliced and printed parts.')
+ note(261,'P07 r0.1.1: print outer horn face down (rotate -90 degrees about Y), place on bed, start with four walls. Inspect remaining bridges/pockets for local supports; cut supports away while holding the joint. Reprint durability remains unverified.')
 
  begin('02  Three exterior shells','P10 is the white roof, P11 its black tray and P12 the single black outer head. The head turns with its internal carrier; a second rear camera cover is omitted.')
  for i,(name,title,body) in enumerate([('camera-pod-rain-hood','P10 White rain hood','Closed roof; inside-loaded M3 nut pockets'),('camera-pod-enclosure-base','P11 Rolled rain tray','Rounded shoulder, recessed outlets and open-bottom arm reliefs'),('camera-pod-integrated-gimbal-head','P12 Circular-neck head','Round neck and four M2 carrier clamps; keep the pan seam clear')]):

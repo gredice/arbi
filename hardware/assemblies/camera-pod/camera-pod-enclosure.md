@@ -1,4 +1,4 @@
-# Compact integrated camera pod rain enclosure r0.2.5
+# Compact integrated camera pod rain enclosure r0.3.6
 
 This is the compact rounded black/white appearance configuration for the [camera pod mount family](camera-pod-mounts.md). It is designed to reduce ordinary rain and splash exposure of the fixed Pi/power electronics, both servo bodies, and the camera rear connector. All models remain **concept-unvalidated**. The shell has downward openings, drainage, an open gimbal aperture and exposed moving interfaces; it has no ingress rating. It does not change the [weather operating policy](../../../docs/operations/weather-parking-and-maintenance.md), dock shelter requirement or physical flight acceptance gates.
 
@@ -22,7 +22,7 @@ Choose either the dry bench arrangement or the compact enclosure arrangement bel
 | `camera-pod-pan-servo-mount` | 0.1.0 | 1 | Black | Reuse |
 | `camera-pod-integrated-gimbal-carrier` | 0.1.1 | 1 | Black | Reprint compact carrier for the horizontal tilt servo |
 | `camera-pod-integrated-gimbal-head` | 0.1.3 | 1 | Black | Reprint circular neck blending into the tapered outer housing |
-| `camera-pod-integrated-camera-cradle` | 0.1.0 | 1 | Black | New compact cradle; replaces the dry cradle |
+| `camera-pod-integrated-camera-cradle` | 0.1.1 | 1 | Black | Reprint reinforced horn/frame junction; same envelope and interfaces |
 | `camera-pod-integrated-tilt-pivot-support` | 0.1.0 | 1 | Black | New compact pivot support; replaces the dry support |
 | `camera-pod-horn-retainer` | 0.1.0 | 2 | Black | Reuse |
 | `camera-pod-integrated-camera-hood` | 0.1.1 | 1 | White | New rounded optical surround; replaces dry hood |
@@ -31,7 +31,7 @@ Choose either the dry bench arrangement or the compact enclosure arrangement bel
 
 This is 16 installed printed pieces from 12 installed model types. The 13th exported fabrication model, `camera-pod-servo-fit-coupon`, is an optional test print and is not installed. `camera-pod-assembly` is a reference CSG, not a print part. The stable BOM owners remain [camera-pod-chassis](../../../bom/generated/parts/camera-pod-chassis.md) and [camera-gimbal](../../../bom/generated/parts/camera-gimbal.md); their fabrication-source lists include only the current compact kit. Superseded concept parts, dry bench alternatives and retired shields are archived separately in the registry and excluded from current BOM mappings and individual fabrication downloads.
 
-When upgrading from the earlier large tapered-head configuration, fit the compact carrier and integrated cradle/pivot support listed above. Remove the separate rear camera cowl and its four secondary nuts. Return to four M2 × 12 camera screws, retaining four primary M2 nuts and eight washers. The underside refinement replaces tray r0.2.2 with r0.2.3 and outer head r0.1.2 with r0.1.3 as a matched pair. The white hood, electronics deck, optical hood, carrier, cradle, pivot support and remaining compatible prints keep their revisions. The assembled reference is `camera-pod-assembly` r0.3.5.
+When upgrading from the earlier large tapered-head configuration, fit the compact carrier and integrated cradle/pivot support listed above. Remove the separate rear camera cowl and its four secondary nuts. Return to four M2 × 12 camera screws, retaining four primary M2 nuts and eight washers. The underside refinement replaces tray r0.2.2 with r0.2.3 and outer head r0.1.2 with r0.1.3 as a matched pair. Reprint cradle r0.1.1 for the reinforced horn/frame junction. The white hood, electronics deck, optical hood, carrier, pivot support and remaining compatible prints keep their revisions. The assembled reference is `camera-pod-assembly` r0.3.6.
 
 The new shell walls start at 1.2 mm. ASA remains the preferred exposed-release material and PETG is a prototype starting point; neither material/colour choice establishes UV resistance, creep performance, water resistance or thermal acceptance. Slice the complete chosen quantities with the intended nozzle, walls, layers and supports, inspect thin walls and bridging, and weigh the printed assembly. Keep support scars away from mating lips, nut pockets, horn pockets and pivot bores. Print orientation and removable-support access need slicer review before manufacture.
 
@@ -66,6 +66,12 @@ The compact camera stack uses **four M2 × 12 screws, eight M2 washers and four 
 The white `camera-pod-integrated-camera-hood` r0.1.1 has a 34 × 36 mm eye outline with 9 mm corner radius, centred on the lens at local Y=-2.469. Its front face spans local Z=2–3.4 and has a Ø14 mm circular optical opening. The rear cavity remains 26.6 × 25.6 mm, and the four M2 camera axes remain unchanged. Four Ø5.4 mm tunnels admit each complete M2 screw head and Ø5 mm front washer before the rear nuts are fitted. The approximately 0.8 mm web between the nearest fastener tunnel and the Ø14 mm lens opening requires print and physical inspection. It moves with the camera and is fitted in place of the dry hood. Confirm the optical-volume check and front-driver access with this outline.
 
 Nominal software travel remains pan ±90° and tilt 0–70°; the mechanical range used for checks is pan ±95° and tilt -5–75°. Establish physical limits inside the measured cable and collision envelope. The outer head now adds mass and inertia to the pan group. Recheck servo torque, horn/fastener loads, current, backlash and settling with the complete printed assembly; a clear CAD sweep does not establish those physical limits.
+
+## Reinforced cradle and print orientation
+
+Cradle r0.1.1 replaces the two narrow horn-plate/frame connections with broad ties, two 45-degree back ribs and a sloped web beneath the long frame edge. It retains the 41.6 × 32 × 25 mm envelope, camera bolt axes, stock horn recess, opposite pivot, central service opening and existing fasteners. Only this cradle needs reprinting for the reinforcement. The reported r0.1.0 break during removal of support under the large bridge motivates the change; the new revision still requires a physical reprint and inspection. See the [cradle geometry record](camera-pod-camera-cradle-check.md).
+
+For the first reprint, place the outer flat horn-plate face on the bed: rotate the canonical model −90° about Y and place its lowest face at Z=0. The plate then grows into the sloped web and ribs, avoiding a large support block attached to the two old ligaments. Inspect the slicer for the remaining open-frame bridge, camera standoffs, pocket roofs and pivot tab; apply local removable supports where needed. Use a starting profile with a 0.4 mm nozzle, 0.2 mm layers and four walls so the small ties and ribs are largely solid. Keep supports off the new junction when the slicer permits, cut them into small pieces before removal and hold the frame beside each cut. These are starting settings, not validated print parameters. Check cracks, layer adhesion, horn engagement, all washer/nut seats and the full assembled travel before use.
 
 ## Harness entry, exit and strain relief
 
