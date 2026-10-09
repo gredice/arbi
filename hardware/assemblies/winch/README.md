@@ -4,6 +4,17 @@ System requirements: [winch](../../../docs/assemblies/winch/README.md).
 Design rationale and owner inputs: [development proposal](drum-development.md).
 Wire evidence: [AWG26 table](../../../bom/sourcing/pod-wire-dimensions-2026-09-08.md).
 
+## Winch-owned line and power visualizations
+
+The line and slip-ring models retain stable IDs, revisions and output names. They belong to the winch set within the corner support set, following [ADR-0010](../../../docs/decisions/0010-corner-support-and-winch-line-ownership.md). The [ownership source check](line-ownership-check.md) records unchanged geometry and fabrication provenance. These approximate `visualization` models are **Unverified** and are not manufacturing sources or installed routing.
+
+| BOM item / source | Shape | Dimension basis and remaining uncertainty |
+| --- | --- | --- |
+| [capsule-slip-ring-6x2a](capsule-slip-ring-6x2a.scad) · [BOM](../../../bom/generated/parts/capsule-slip-ring-6x2a.md) | slip ring | Powered winch only. Assumed Ø22 × 28 mm capsule with illustrative leads; exact SKU and mounting are unknown. |
+| [dyneema-positioning-line](dyneema-positioning-line.scad) · [BOM](../../../bom/generated/parts/dyneema-positioning-line.md) | coil | All four winches. Catalog 1.5 mm nominal line shown as a short loop, not the purchase length or installed routing. |
+| [pod-power-wire-black-awg26](pod-power-wire-black-awg26.scad) · [BOM](../../../bom/generated/parts/pod-power-wire-black-awg26.md) | coil | Powered winch return conductor. Assumed 1.5 mm insulated OD; conductor/insulation and hybrid-line fit remain unverified. |
+| [pod-power-wire-red-awg26](pod-power-wire-red-awg26.scad) · [BOM](../../../bom/generated/parts/pod-power-wire-red-awg26.md) | coil | Powered winch +48 V conductor. Assumed 1.5 mm insulated OD; loop is a sample, not installed helical routing. |
+
 ## Passive-base bench aids
 
 - [Modular full assembly cover r0.3.0](full-cover.md): three main white panels

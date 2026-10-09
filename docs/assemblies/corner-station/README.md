@@ -2,7 +2,11 @@
 
 ## Responsibility and boundary
 
-Each of four corner stations reacts positioning-line load and routes one line between the garden span and a separately documented [winch](../winch/README.md). The assembly owns its post, soil/foundation interface, outward guy, guy anchor interface, top head, pulley attachment, non-structural line keeper/weather cover, winch mounting envelope, and installed inspection points.
+The corner support set groups the four complete corner installations. Each station reacts positioning-line load and routes one line between the garden span and its [winch](../winch/README.md). The support assembly directly owns its post, soil/foundation interface, outward guy, guy anchor interface, top head, pulley attachment, non-structural line keeper/weather cover, winch mounting envelope, and installed inspection points.
+
+The four-winch set is a separately documented child assembly: three ordinary winches with Dyneema lines and one powered winch with a hybrid line and slip ring. Lines and their conductors belong to the winches rather than a standalone line set. The shared [positioning-line specification](../positioning-lines/README.md) defines construction and maintenance requirements. See [ADR-0010](../../decisions/0010-corner-support-and-winch-line-ownership.md).
+
+Support and winch BOM quantities and goods allocations have separate direct owners. Build definitions include both sets once; the ownership hierarchy does not multiply or duplicate child parts. The support CAD preview shows the head, not an assembled scene of every corner subassembly.
 
 One corner station also supports the [dock](../dock/README.md). Dock loads and clearances must be included in that station's variant.
 

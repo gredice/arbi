@@ -1,8 +1,10 @@
-# Positioning lines
+# Positioning-line specification
 
 ## Responsibility and boundary
 
-The positioning-line system transmits controlled tension from four [winches](../winch/README.md), through four [corner pulleys](../corner-station/README.md), to the [camera-pod spider](../camera-pod/README.md). It owns line material, length, construction, terminations, splice/attachment methods, powered-line conductors, strain relief, identification, inspection, discard criteria, and replacement calibration.
+Each positioning line transmits controlled tension from its [winch](../winch/README.md), through a [corner pulley](../corner-station/README.md), to the [camera-pod spider](../camera-pod/README.md). This is a shared specification, not a separate physical assembly or BOM owner; see [ADR-0010](../../decisions/0010-corner-support-and-winch-line-ownership.md).
+
+The winch set, a subassembly of the corner support set, owns all four lines and their line-side terminations, construction, strain relief, inspection and replacement calibration. The powered winch also owns its hybrid-line conductors and slip ring. Corner supports own pulleys and keepers; the pod owns its attachment hardware and electrical inlet. This specification defines the common material, length, splice/attachment, identification, inspection and discard requirements for those winch-owned lines.
 
 ## V1 arrangement
 
@@ -12,6 +14,8 @@ The positioning-line system transmits controlled tension from four [winches](../
 - Starting Dyneema diameter: approximately 1–1.5 mm; pulley sizing currently assumes approximately 1.5 mm.
 - Dyneema carries all tensile load.
 - Electrical conductors remain mechanically slack relative to the Dyneema and must not become structural load paths.
+
+“Ordinary” or “electrically unpowered” describes the three lines without conductors; all four lines are motorized. The winch-set BOM retains 180 m Dyneema, 50 m of each conductor and one powered-winch slip ring. These material allowances do not specify installed line lengths or add a spare slip ring.
 
 Exact fiber grade, construction, coating, breaking load, creep, UV behavior, bend-fatigue rating, and supplier part remain open.
 
@@ -71,7 +75,7 @@ Simple Euclidean anchor distance does not by itself solve the four-line tension 
 
 ## Printed parts, fasteners, and guides
 
-Possible line-owned custom parts include pod strain relief, cable guides, end-transition supports, service gauges, and identifiers. A printed pulley keeper is owned by the corner station; drum grooves and guides are owned by the winch. No printed guide may carry an unspecified structural load or conceal damage.
+Possible winch-owned line-interface parts include pod strain relief, cable guides, end-transition supports, service gauges, and identifiers. A printed pulley keeper is owned by the corner station; drum grooves and guides are owned by the winch. No printed guide may carry an unspecified structural load or conceal damage.
 
 ## Software and records
 

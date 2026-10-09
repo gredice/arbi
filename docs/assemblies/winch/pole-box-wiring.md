@@ -76,7 +76,7 @@ The motor circuit continues separately through `X-MOTOR` to the CL57Y-V20. The p
 
 Do not put several wires under one screw unless the terminal is rated for that combination. Record the actual stator/rotor wire colors for each C1–C6 channel in the as-built schedule before forming the groups. Keep stationary leads anchored to the fixed structure and rotating leads anchored to the drum assembly so the slip ring, joints, and conductor terminals take no line tension.
 
-At the drum exit, preserve independent Dyneema tensile termination and insulated electrical termination. The conductors remain mechanically slack relative to the Dyneema through the drum, top pulley, span, and pod transition. The [hybrid-line construction](../positioning-lines/README.md) owns wrap pitch, extra conductor length, abrasion protection, and fatigue qualification. The [pod](../camera-pod/README.md) owns conversion and 5 V distribution.
+At the drum exit, preserve independent Dyneema tensile termination and insulated electrical termination. The conductors remain mechanically slack relative to the Dyneema through the drum, top pulley, span, and pod transition. The powered winch owns its hybrid line; the shared [hybrid-line specification](../positioning-lines/README.md) defines wrap pitch, extra conductor length, abrasion protection, and fatigue qualification. The [pod](../camera-pod/README.md) owns conversion and 5 V distribution.
 
 ## Protection, service, and completion record
 

@@ -15,6 +15,7 @@ type Props = {
     caption: string;
     nav: { slug: string; number: string; name: string }[];
     current: string;
+    navCurrent: string;
     variants: { slug: string; name: string }[];
     inventory: InventoryItem[];
     inventoryNote: string;
@@ -22,7 +23,7 @@ type Props = {
 };
 
 /** Black exploded-view stage with numbered bubbles, hover-synced with the parts inventory. */
-export function SystemExplorer({ number, name, scene, cadPending, caption, nav, current, variants, inventory, inventoryNote, children }: Props) {
+export function SystemExplorer({ number, name, scene, cadPending, caption, nav, current, navCurrent, variants, inventory, inventoryNote, children }: Props) {
     const router = useRouter();
     const stage = useRef<HTMLDivElement>(null);
     const calls = useRef<HTMLDivElement>(null);
@@ -134,7 +135,7 @@ export function SystemExplorer({ number, name, scene, cadPending, caption, nav, 
                             key={s.slug}
                             href={`/systems/${s.slug}`}
                             title={s.name}
-                            className={`tag border border-paper/40 px-2.5 py-1.5 ${s.slug === current || (current === "winch-powered" && s.slug === "winch") ? "bg-paper text-ink" : "text-paper/70 hover:text-paper"}`}
+                            className={`tag border border-paper/40 px-2.5 py-1.5 ${s.slug === navCurrent ? "bg-paper text-ink" : "text-paper/70 hover:text-paper"}`}
                         >
                             {s.number}
                         </Link>

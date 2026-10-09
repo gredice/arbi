@@ -11,7 +11,7 @@
 - Build: arbi-v1
 - Destination: hr-zagreb
 - Quote snapshot: hr-zagreb-2026-10-08-coupling
-- Input digest: sha256:fb0fb8f5f115a50a9c83ab201b8e204b3633a37083c17c22ab212e27a9ffe8af
+- Input digest: sha256:3d87f762e01327bc6525b2000c1197b130d4595d13e9773f96657ed7ecb1bd33
 - Complete landed total: **unavailable**
 - Known quoted goods subtotal: **EUR 943.84**
 - Known checkout-group shipping subtotal: **EUR 43.38**
@@ -29,9 +29,8 @@ The known partial subtotal is evidence about recorded values only. It excludes e
 | control-cabinet | EUR 66.16 |
 | corner-support-set | EUR 185.97 |
 | dock | EUR 0.96 |
-| positioning-line-set | EUR 103.97 |
 | site-installation | EUR 141.00 |
-| winch-set | EUR 287.52 |
+| winch-set | EUR 391.49 |
 | Shared multi-part purchase bundles | EUR 0.00 |
 | Shared customs | EUR 0.00 |
 | Shared checkout-group shipping | EUR 43.38 |
@@ -152,7 +151,7 @@ aliexpress-hr: EUR 3.00 per item type (not per piece), order goods strictly belo
 | [cable-gland-assortment](parts/cable-gland-assortment.md) | 1 each | shared-procurement-stock [non-physical] (1 each) | aliexpress-cable-gland-assortment |
 | [camera-gimbal](parts/camera-gimbal.md) | 1 each | camera-pod (1 each) | in-house-fabrication-camera-gimbal |
 | [camera-pod-chassis](parts/camera-pod-chassis.md) | 1 each | camera-pod (1 each) | in-house-fabrication-camera-pod-chassis |
-| [capsule-slip-ring-6x2a](parts/capsule-slip-ring-6x2a.md) | 1 each | positioning-line-set (1 each) | aliexpress-capsule-slip-ring-6x2a |
+| [capsule-slip-ring-6x2a](parts/capsule-slip-ring-6x2a.md) | 1 each | winch-set (1 each) | aliexpress-capsule-slip-ring-6x2a |
 | [cl57y-v20-driver](parts/cl57y-v20-driver.md) | 4 each | winch-set (4 each) | stepperonline-4-axis-v2-kit |
 | [control-panel-enclosure](parts/control-panel-enclosure.md) | 1 each | control-cabinet (1 each) | kabel24-control-panel-enclosure |
 | [controller-buck-converter-48v-5v](parts/controller-buck-converter-48v-5v.md) | 1 each | control-cabinet (1 each) | aliexpress-controller-buck-converter-48v-5v |
@@ -162,7 +161,7 @@ aliexpress-hr: EUR 3.00 per item type (not per piece), order goods strictly belo
 | [dock-latch-hardware](parts/dock-latch-hardware.md) | 1 each | dock (1 each) | in-house-fabrication-dock-latch-hardware |
 | [dock-nest](parts/dock-nest.md) | 1 each | dock (1 each) | in-house-fabrication-dock-capture-set |
 | [dock-weather-hood](parts/dock-weather-hood.md) | 1 each | dock (1 each) | in-house-fabrication-dock-weather-hood |
-| [dyneema-positioning-line](parts/dyneema-positioning-line.md) | 180 m | positioning-line-set (180 m) | dive-store-dyneema-positioning-line |
+| [dyneema-positioning-line](parts/dyneema-positioning-line.md) | 180 m | winch-set (180 m) | dive-store-dyneema-positioning-line |
 | [emergency-stop-switch](parts/emergency-stop-switch.md) | 1 each | control-cabinet (1 each) | aliexpress-emergency-stop-switch |
 | [flexible-jaw-coupling-8mm](parts/flexible-jaw-coupling-8mm.md) | 4 each | winch-set (4 each) | aliexpress-flexible-jaw-coupling-8mm |
 | [guy-ground-anchor](parts/guy-ground-anchor.md) | 4 each | corner-support-set (4 each) | njuskalo-guy-ground-anchor |
@@ -177,8 +176,8 @@ aliexpress-hr: EUR 3.00 per item type (not per piece), order goods strictly belo
 | [outdoor-cat5e-signal-cable](parts/outdoor-cat5e-signal-cable.md) | 85 m | site-installation (85 m) | ronis-outdoor-cat5e-signal-cable |
 | [pico-terminal-expansion-board](parts/pico-terminal-expansion-board.md) | 1 each | control-cabinet (1 each) | tme-pico-terminal-expansion-board |
 | [pod-buck-converter-48v-5v](parts/pod-buck-converter-48v-5v.md) | 1 each | camera-pod (1 each) | aliexpress-pod-buck-converter-48v-5v |
-| [pod-power-wire-black-awg26](parts/pod-power-wire-black-awg26.md) | 50 m | positioning-line-set (50 m) | aliexpress-pod-power-wire-black-awg26 |
-| [pod-power-wire-red-awg26](parts/pod-power-wire-red-awg26.md) | 50 m | positioning-line-set (50 m) | aliexpress-pod-power-wire-red-awg26 |
+| [pod-power-wire-black-awg26](parts/pod-power-wire-black-awg26.md) | 50 m | winch-set (50 m) | aliexpress-pod-power-wire-black-awg26 |
+| [pod-power-wire-red-awg26](parts/pod-power-wire-red-awg26.md) | 50 m | winch-set (50 m) | aliexpress-pod-power-wire-red-awg26 |
 | [post-electronics-enclosure](parts/post-electronics-enclosure.md) | 4 each | winch-set (4 each) | bauhaus-post-electronics-enclosure |
 | [power-supply-48v-350w](parts/power-supply-48v-350w.md) | 2 each | control-cabinet (2 each) | stepperonline-4-axis-v2-kit |
 | [pulley-bracket-backing-plate](parts/pulley-bracket-backing-plate.md) | 8 each | corner-support-set (8 each) | bauhaus-pulley-bracket-backing-plate |

@@ -3,6 +3,11 @@
 - Status: Accepted
 - Date: 2026-08-30
 
+The original ownership list below is retained as the decision history.
+[ADR-0010](0010-corner-support-and-winch-line-ownership.md) supersedes the
+separate positioning-line root and places the winch set under the corner support
+set. The physical-assembly ownership principle remains in force.
+
 ## Context
 
 An assembly definition organized around component types such as structure, power, cabling, fasteners, printed parts, weather, and safety would mix those categories with physical assemblies such as the camera pod and dock. That makes ownership unclear: a winch cannot be assembled or validated from a “motion” list that omits its local wiring, fasteners, guard, printed drum, and maintenance evidence.

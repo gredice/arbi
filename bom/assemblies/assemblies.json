@@ -6,7 +6,7 @@
       "kind": "physical",
       "parentAssemblyId": null,
       "name": "Corner support set",
-      "description": "The four installed posts, guying, top-pulley mounts, line keepers, and their fasteners.",
+      "description": "The four installed corner supports, with posts, guying, top-pulley mounts, line keepers, fasteners, and the winch set as a separately owned subassembly.",
       "disciplines": [
         "mechanical",
         "cabling",
@@ -155,15 +155,16 @@
     {
       "id": "winch-set",
       "kind": "physical",
-      "parentAssemblyId": null,
+      "parentAssemblyId": "corner-support-set",
       "name": "Winch set",
-      "description": "Four winches including drivetrain, drums, local motor electronics, homing, guards, and optional tension/safety mechanisms.",
+      "description": "Three ordinary winches and one powered winch, with their positioning lines, hybrid-line conductors, slip ring, mounts, and local hardware. A subassembly of the corner support set.",
       "disciplines": [
         "mechanical",
         "electrical",
         "electronics",
         "fasteners",
-        "fabrication"
+        "fabrication",
+        "cabling"
       ],
       "usages": [
         {
@@ -277,44 +278,33 @@
           "quantity": "4",
           "inclusion": "optional",
           "note": "Round timber alternative for four winches; replaces flat-post spacer/backing/bolt allowances, not an additional structural stack."
-        }
-      ],
-      "documentation": "docs/assemblies/winch/README.md"
-    },
-    {
-      "id": "positioning-line-set",
-      "kind": "physical",
-      "parentAssemblyId": null,
-      "name": "Positioning line set",
-      "description": "Three passive positioning lines and one powered positioning line, including conductors and slip ring.",
-      "disciplines": [
-        "mechanical",
-        "electrical",
-        "cabling"
-      ],
-      "usages": [
+        },
         {
           "partId": "dyneema-positioning-line",
           "quantity": "180",
-          "inclusion": "base"
+          "inclusion": "base",
+          "note": "Four winch-owned lines: three ordinary lines and one powered hybrid core. The 180 m total is a material allowance; installed lengths and cutting allocation require site calibration."
         },
         {
           "partId": "pod-power-wire-black-awg26",
           "quantity": "50",
-          "inclusion": "base"
+          "inclusion": "base",
+          "note": "Powered winch only: return conductor for its hybrid positioning line. The 50 m allowance is not an installed length."
         },
         {
           "partId": "pod-power-wire-red-awg26",
           "quantity": "50",
-          "inclusion": "base"
+          "inclusion": "base",
+          "note": "Powered winch only: +48 V conductor for its hybrid positioning line. The 50 m allowance is not an installed length."
         },
         {
           "partId": "capsule-slip-ring-6x2a",
           "quantity": "1",
-          "inclusion": "base"
+          "inclusion": "base",
+          "note": "One installed on the powered winch; no additional spare is included in the baseline quantity."
         }
       ],
-      "documentation": "docs/assemblies/positioning-lines/README.md"
+      "documentation": "docs/assemblies/winch/README.md"
     },
     {
       "id": "camera-pod",

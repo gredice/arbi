@@ -6,7 +6,7 @@
     "releaseTag": null,
     "sourceCommit": "1e526324f27197047b0b946f75bc665a62eaf287",
     "sourceHashes": {
-      "hardware/models.json": "8af771b3a4a6ccadbe43f79b2aad1300e674fd82e8d032742f4f29ac44fbbf32",
+      "hardware/models.json": "f92ff474592be9670939d7d25f7ed8b45edb6e5ba0ea6829de0fec204495ded2",
       "hardware/assemblies/camera-pod/camera-gimbal-base.scad": "aaa44f020ea99055c07d5aeb165f76da34c90562f1bccd29fe6ab8a746ccde2f",
       "hardware/assemblies/camera-pod/camera-gimbal-camera-plate.scad": "ee46401f166414b9c65f8b361e84a9694128b8a04de4aab8f35e343f69d9c535",
       "hardware/assemblies/camera-pod/camera-gimbal-optical-hood.scad": "b812f413d9efba9c156083b4508f15647e3fc5cfa1589a2950fd3d8d9b34df3d",

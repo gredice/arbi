@@ -26,6 +26,12 @@ test('Parts covers the entire BOM and retains individual CAD pages with unique r
 test('purchased, optional, planned and unallocated items retain geometry and ownership', () => {
   const entries = partCatalog(parts, registry.models, owners);
   assert.equal(entries.find((entry) => entry.id === 'microsd-card-32gb').assembly, 'camera-pod');
+  for (const id of ['capsule-slip-ring-6x2a', 'dyneema-positioning-line', 'pod-power-wire-black-awg26', 'pod-power-wire-red-awg26']) {
+    assert.equal(entries.find((entry) => entry.id === id).assembly, 'winch');
+    const model = registry.models.find((entry) => entry.id === id);
+    assert.equal(model.assembly, 'winch');
+    assert.ok(model.entrypoint.startsWith('hardware/assemblies/winch/'));
+  }
   assert.equal(entries.find((entry) => entry.id === 'cable-gland-assortment').assembly, 'shared-procurement-stock');
   for (const id of ['as5600-angle-sensor', 'wind-speed-sensor', 'pole-pulley-mount-concept']) {
     assert.ok(entries.find((entry) => entry.id === id)?.modelIds.length);

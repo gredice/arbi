@@ -210,8 +210,9 @@
         "off-the-shelf"
       ],
       "requirements": [
-        "Use three channels in parallel for +48 V and three for GND. One installed on powered-line winch + one spare."
-      ]
+        "Rotating pod-power interface owned by the powered winch. Six channels; proposed three-contact groups for +48 V and return require manufacturer permission and a reviewed protection design."
+      ],
+      "notes": "The baseline winch BOM includes one installed slip ring, without a spare. Exact SKU, pinout, voltage rating, permitted parallel use, mounting, and cycle life remain unverified; see docs/assemblies/winch/pole-box-wiring.md."
     },
     {
       "id": "cl57y-v20-driver",
@@ -413,7 +414,8 @@
       ],
       "requirements": [
         "Four primary positioning lines. Approx. 50 m per spool gives installation and termination margin."
-      ]
+      ],
+      "notes": "Owned by the winch set within the corner support set."
     },
     {
       "id": "emergency-stop-switch",
@@ -680,7 +682,7 @@
       "requirements": [
         "High-flex fine-strand black conductor helically wrapped around one Dyneema line for pod GND."
       ],
-      "notes": "Prototype geometry basis from owner-supplied AWG26 table on 2026-09-08: insulated OD 1.5 mm, 30 strands × 0.08 mm, claimed copper area 0.15 mm². Applies provisionally to the selected variant; not a delivered measurement. Supersedes earlier buyer-comment dimensions. Evidence and limitations: bom/sourcing/pod-wire-dimensions-2026-09-08.md."
+      "notes": "Owned by the powered winch within the corner support set. Prototype geometry basis from owner-supplied AWG26 table on 2026-09-08: insulated OD 1.5 mm, 30 strands × 0.08 mm, claimed copper area 0.15 mm². Applies provisionally to the selected variant; not a delivered measurement. Supersedes earlier buyer-comment dimensions. Evidence and limitations: bom/sourcing/pod-wire-dimensions-2026-09-08.md."
     },
     {
       "id": "pod-power-wire-red-awg26",
@@ -698,7 +700,7 @@
       "requirements": [
         "High-flex fine-strand red conductor helically wrapped around one Dyneema line for pod +48 V."
       ],
-      "notes": "Prototype geometry basis from owner-supplied AWG26 table on 2026-09-08: insulated OD 1.5 mm, 30 strands × 0.08 mm, claimed copper area 0.15 mm². Applies provisionally to the selected variant; not a delivered measurement. Supersedes earlier buyer-comment dimensions. Evidence and limitations: bom/sourcing/pod-wire-dimensions-2026-09-08.md."
+      "notes": "Owned by the powered winch within the corner support set. Prototype geometry basis from owner-supplied AWG26 table on 2026-09-08: insulated OD 1.5 mm, 30 strands × 0.08 mm, claimed copper area 0.15 mm². Applies provisionally to the selected variant; not a delivered measurement. Supersedes earlier buyer-comment dimensions. Evidence and limitations: bom/sourcing/pod-wire-dimensions-2026-09-08.md."
     },
     {
       "id": "post-electronics-enclosure",

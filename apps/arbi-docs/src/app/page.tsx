@@ -37,7 +37,7 @@ export default function Home() {
             <section className="mt-12 px-4 sm:px-6">
                 <div className="flex items-end justify-between">
                     <h2 className="cond text-[40px] leading-none">Contents</h2>
-                    <span className="tag">{systems.length} physical assemblies</span>
+                    <span className="tag">{systems.length} physical systems</span>
                 </div>
                 <div className="mt-4">
                     <ContentsList systems={systems} />

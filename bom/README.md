@@ -34,7 +34,9 @@ Item pages and their index are generated: change canonical inputs and run `pnpm 
 
 ## Physical ownership
 
-The V1 build has seven canonical physical root owners: the corner-support set, four-winch set, positioning-line set, camera pod, dock, control cabinet, and site installation. Site installation owns installed power and signal routes plus the deferred weather-sensing endpoint rather than promoting cabling or weather into type-based top-level subsystems. A complex root may gain physical child assemblies through `parentAssemblyId`; parent links must stay within the physical hierarchy and cannot self-reference or form cycles.
+The V1 build has five canonical physical root owners: the corner-support set, camera pod, dock, control cabinet, and site installation. The four-winch set is a child of the corner-support set and owns the four positioning lines; its powered variant additionally owns the hybrid-line conductors and slip ring. There is no separate positioning-line BOM owner. See [ADR-0010](../docs/decisions/0010-corner-support-and-winch-line-ownership.md). Site installation owns installed power and signal routes plus the deferred weather-sensing endpoint rather than promoting cabling or weather into type-based top-level subsystems. A complex root may gain physical child assemblies through `parentAssemblyId`; parent links must stay within the physical hierarchy and cannot self-reference or form cycles.
+
+Builds explicitly include parent and child definitions once each. `parentAssemblyId` describes ownership; it does not recursively expand child quantities. Goods allocations remain direct-owner amounts, so support and winch costs are separate and are summed only once.
 
 `shared-procurement-stock` is an explicitly typed, non-physical purchasing exception. It represents assortments whose exact installed size-level allocation is not yet defensible. Reports keep this stock separate and never describe it as subsystem ownership.
 
@@ -141,6 +143,6 @@ pnpm --filter @arbi/bom check
 3. Add alternative suppliers as new offers rather than overwriting existing observations.
 4. Record package contents, minimum, increment, observed price, currency, destination, tax treatment, checkout group, and observation date. Use null for unknown.
 5. Reserve `approved` for an evidence-backed engineering qualification.
-6. Add complex physical subassemblies under one of the seven roots with `parentAssemblyId`; keep `shared-procurement-stock` outside the physical hierarchy.
+6. Add complex physical subassemblies under one of the five roots with `parentAssemblyId`; keep `shared-procurement-stock` outside the physical hierarchy.
 7. Run package tests and `generate`, then commit both canonical inputs and generated changes.
 8. Treat calculation, OpenSCAD compilation, procurement, installation, and physical safety validation as separate evidence.

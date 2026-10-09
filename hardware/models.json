@@ -1192,10 +1192,10 @@
             "bomPartIds": [
                 "capsule-slip-ring-6x2a"
             ],
-            "assembly": "positioning-lines",
-            "entrypoint": "hardware/assemblies/positioning-lines/capsule-slip-ring-6x2a.scad",
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/capsule-slip-ring-6x2a.scad",
             "output": "capsule-slip-ring-6x2a-r0.1.0.stl",
-            "documentation": "hardware/assemblies/positioning-lines/README.md",
+            "documentation": "hardware/assemblies/winch/README.md",
             "description": "Approximate visualization of Capsule slip ring, \u22656 channels \u00d7 2 A. Assumed \u00d822 \u00d7 28 mm capsule with illustrative leads; exact SKU and flange geometry are unknown.",
             "geometry": {
                 "status": "approximate",
@@ -1344,10 +1344,10 @@
             "bomPartIds": [
                 "dyneema-positioning-line"
             ],
-            "assembly": "positioning-lines",
-            "entrypoint": "hardware/assemblies/positioning-lines/dyneema-positioning-line.scad",
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/dyneema-positioning-line.scad",
             "output": "dyneema-positioning-line-r0.1.0.stl",
-            "documentation": "hardware/assemblies/positioning-lines/README.md",
+            "documentation": "hardware/assemblies/winch/README.md",
             "description": "Approximate visualization of 1.5 mm Dyneema positioning line, 50 m. Catalog 1.5 mm nominal line represented by a short loop, not the 50 m purchase length or installed routing.",
             "geometry": {
                 "status": "approximate",
@@ -1648,10 +1648,10 @@
             "bomPartIds": [
                 "pod-power-wire-black-awg26"
             ],
-            "assembly": "positioning-lines",
-            "entrypoint": "hardware/assemblies/positioning-lines/pod-power-wire-black-awg26.scad",
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/pod-power-wire-black-awg26.scad",
             "output": "pod-power-wire-black-awg26-r0.1.0.stl",
-            "documentation": "hardware/assemblies/positioning-lines/README.md",
+            "documentation": "hardware/assemblies/winch/README.md",
             "description": "Approximate visualization of AWG26 flexible silicone wire \u2014 black. Assumed 1.5 mm insulated OD; AWG26 denotes conductor gauge, not verified insulation or hybrid-line diameter.",
             "geometry": {
                 "status": "approximate",
@@ -1667,10 +1667,10 @@
             "bomPartIds": [
                 "pod-power-wire-red-awg26"
             ],
-            "assembly": "positioning-lines",
-            "entrypoint": "hardware/assemblies/positioning-lines/pod-power-wire-red-awg26.scad",
+            "assembly": "winch",
+            "entrypoint": "hardware/assemblies/winch/pod-power-wire-red-awg26.scad",
             "output": "pod-power-wire-red-awg26-r0.1.0.stl",
-            "documentation": "hardware/assemblies/positioning-lines/README.md",
+            "documentation": "hardware/assemblies/winch/README.md",
             "description": "Approximate visualization of AWG26 flexible silicone wire \u2014 red. Assumed 1.5 mm insulated OD; loop is a sample, not the installed helical routing.",
             "geometry": {
                 "status": "approximate",

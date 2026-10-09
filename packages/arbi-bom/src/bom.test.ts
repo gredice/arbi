@@ -235,7 +235,7 @@ test("bundle part-count shares reconcile to goods and physical assembly totals",
     ["nema23-closed-loop-motor", "73.33"],
     ["power-supply-48v-350w", "36.67"],
   ]);
-  assert.equal(calculated.assemblyKnownGoods.find((item) => item.assemblyId === "winch-set")?.amount, "287.52");
+  assert.equal(calculated.assemblyKnownGoods.find((item) => item.assemblyId === "winch-set")?.amount, "391.49");
   assert.equal(calculated.assemblyKnownGoods.find((item) => item.assemblyId === "control-cabinet")?.amount, "66.16");
   const owners = calculated.assemblyKnownGoods.reduce(
     (total, item) => total.add(Decimal.parse(item.amount)), Decimal.zero(),
@@ -492,6 +492,26 @@ test("canonical usages and offers cannot reference unknown parts", async () => {
       error.includes("contains unknown part unknown-offer-part"),
     ),
   );
+});
+
+test("corner support owns the winch set while line quantities have one direct owner", async () => {
+  const repository = await loadBomRepository(repositoryRoot);
+  const winch = repository.assemblies.assemblies.find((assembly) => assembly.id === "winch-set");
+  assert.ok(winch);
+  assert.equal(winch.parentAssemblyId, "corner-support-set");
+  assert.ok(!repository.assemblies.assemblies.some((assembly) => assembly.id === "positioning-line-set"));
+  assert.deepEqual(repository.assemblies.assemblies.filter((assembly) => assembly.kind === "physical" && assembly.parentAssemblyId === null).map((assembly) => assembly.id).sort(),
+    ["camera-pod", "control-cabinet", "corner-support-set", "dock", "site-installation"]);
+  const calculated = calculateBom(repository);
+  for (const [partId, quantity] of [["dyneema-positioning-line", "180"], ["pod-power-wire-black-awg26", "50"], ["pod-power-wire-red-awg26", "50"], ["capsule-slip-ring-6x2a", "1"]]) {
+    const requirement = calculated.requirements.find((item) => item.partId === partId);
+    assert.equal(requirement?.required, quantity);
+    assert.deepEqual(requirement?.assemblies.map((owner) => [owner.assemblyId, owner.quantity]), [["winch-set", quantity]]);
+  }
+  winch.parentAssemblyId = null;
+  const errors = validateRepository(repository).errors;
+  assert.ok(errors.some((error) => error.includes("five canonical physical root assemblies")));
+  assert.ok(errors.some((error) => error.includes("winch-set must be a physical subassembly")));
 });
 
 test("repository-native part, child usage, and offer extend the canonical graph", async () => {

@@ -30,7 +30,7 @@ Each station supports a top pulley and reacts positioning-line load through its 
 
 ### Four winches and positioning lines
 
-Each winch independently controls one line. Three lines are normal Dyneema; one is a powered hybrid with two conductors and a rotating slip-ring interface. See [winch](../assemblies/winch/README.md) and [positioning lines](../assemblies/positioning-lines/README.md).
+Each winch independently controls and owns one line. Three lines are normal Dyneema; one is a powered hybrid with two conductors and a rotating slip-ring interface owned by the powered winch. The winch set is a child of the corner support set; see [ADR-0010](../decisions/0010-corner-support-and-winch-line-ownership.md), [winch](../assemblies/winch/README.md) and the shared [positioning-line specification](../assemblies/positioning-lines/README.md).
 
 ### Camera pod and dock
 

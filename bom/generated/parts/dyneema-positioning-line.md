@@ -15,13 +15,17 @@
 
 - Four primary positioning lines. Approx. 50 m per spool gives installation and termination margin.
 
+## Notes
+
+Owned by the winch set within the corner support set.
+
 ## Used in
 
 Quantities are per assembly definition, before build multipliers. Optional and deferred usages are shown even when excluded from a scenario. Procurement stock is not an installed physical owner.
 
 | Assembly or purchasing bucket | Quantity | Inclusion | Usage note |
 | --- | ---: | --- | --- |
-| [Positioning line set](../../../docs/assemblies/positioning-lines/README.md) | 180 m | base | — |
+| [Winch set](../../../docs/assemblies/winch/README.md) | 180 m | base | Four winch-owned lines: three ordinary lines and one powered hybrid core. The 180 m total is a material allowance; installed lengths and cutting allocation require site calibration. |
 
 [Canonical assembly quantities](../../assemblies/assemblies.json)
 

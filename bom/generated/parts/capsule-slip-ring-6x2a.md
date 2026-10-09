@@ -13,7 +13,11 @@
 
 ## Requirements
 
-- Use three channels in parallel for +48 V and three for GND. One installed on powered-line winch + one spare.
+- Rotating pod-power interface owned by the powered winch. Six channels; proposed three-contact groups for +48 V and return require manufacturer permission and a reviewed protection design.
+
+## Notes
+
+The baseline winch BOM includes one installed slip ring, without a spare. Exact SKU, pinout, voltage rating, permitted parallel use, mounting, and cycle life remain unverified; see docs/assemblies/winch/pole-box-wiring.md.
 
 ## Used in
 
@@ -21,7 +25,7 @@ Quantities are per assembly definition, before build multipliers. Optional and d
 
 | Assembly or purchasing bucket | Quantity | Inclusion | Usage note |
 | --- | ---: | --- | --- |
-| [Positioning line set](../../../docs/assemblies/positioning-lines/README.md) | 1 each | base | — |
+| [Winch set](../../../docs/assemblies/winch/README.md) | 1 each | base | One installed on the powered winch; no additional spare is included in the baseline quantity. |
 
 [Canonical assembly quantities](../../assemblies/assemblies.json)
 

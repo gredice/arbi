@@ -6,7 +6,7 @@
   "destinationId": "hr-zagreb",
   "destinationName": "Zagreb, Croatia",
   "quoteSnapshotId": "hr-zagreb-2026-10-08-coupling",
-  "inputDigest": "sha256:fb0fb8f5f115a50a9c83ab201b8e204b3633a37083c17c22ab212e27a9ffe8af",
+  "inputDigest": "sha256:3d87f762e01327bc6525b2000c1197b130d4595d13e9773f96657ed7ecb1bd33",
   "reportCurrency": "EUR",
   "complete": false,
   "completeLandedTotal": null,
@@ -1801,10 +1801,6 @@
       "amount": "33.01"
     },
     {
-      "assemblyId": "positioning-line-set",
-      "amount": "103.97"
-    },
-    {
       "assemblyId": "shared-procurement-stock",
       "amount": "43.19"
     },
@@ -1814,7 +1810,7 @@
     },
     {
       "assemblyId": "winch-set",
-      "amount": "510.46"
+      "amount": "614.43"
     }
   ],
   "requirements": [
@@ -1894,7 +1890,7 @@
       "unit": "each",
       "assemblies": [
         {
-          "assemblyId": "positioning-line-set",
+          "assemblyId": "winch-set",
           "kind": "physical",
           "quantity": "1",
           "knownGoodsAmount": "9.69"
@@ -2034,7 +2030,7 @@
       "unit": "m",
       "assemblies": [
         {
-          "assemblyId": "positioning-line-set",
+          "assemblyId": "winch-set",
           "kind": "physical",
           "quantity": "180",
           "knownGoodsAmount": "73.52"
@@ -2244,7 +2240,7 @@
       "unit": "m",
       "assemblies": [
         {
-          "assemblyId": "positioning-line-set",
+          "assemblyId": "winch-set",
           "kind": "physical",
           "quantity": "50",
           "knownGoodsAmount": "10.38"
@@ -2258,7 +2254,7 @@
       "unit": "m",
       "assemblies": [
         {
-          "assemblyId": "positioning-line-set",
+          "assemblyId": "winch-set",
           "kind": "physical",
           "quantity": "50",
           "knownGoodsAmount": "10.38"
@@ -4211,16 +4207,12 @@
       "amount": "0.96"
     },
     {
-      "assemblyId": "positioning-line-set",
-      "amount": "103.97"
-    },
-    {
       "assemblyId": "site-installation",
       "amount": "141"
     },
     {
       "assemblyId": "winch-set",
-      "amount": "287.52"
+      "amount": "391.49"
     }
   ],
   "sharedProcurementStockKnownGoods": "43.19",
