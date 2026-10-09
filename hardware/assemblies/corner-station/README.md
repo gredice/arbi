@@ -115,3 +115,29 @@ covers use rounded warm-white shells following the
 [industrial design conventions](../../../docs/project/industrial-design.md).
 Bought hardware uses neutral metal coloring. Keep loaded interfaces, pulley,
 wear and drainage visible and accessible when covers are removed.
+
+## Approximate BOM visualizations
+
+These `visualization` models show catalog items in the Parts inventory. They are **Unverified** and are not manufacturing sources. Shape is not yet fully defined and needs rework against the selected supplier drawing or measured item before fit or clearance decisions. Nominal dimensions recorded in the catalog remain requirements, not measurement evidence. Threads, connectors, internal construction and fine detail are simplified. Kits and assortments show representative samples, not quantities; cable loops and lengths show samples, not installed routing.
+
+| BOM item / source | Shape | Dimension basis and remaining uncertainty |
+| --- | --- | --- |
+| [corner-post-treated-timber](corner-post-treated-timber.scad) · [BOM](../../../bom/generated/parts/corner-post-treated-timber.md) | box | Catalog alternative of a 100 × 100 mm, 4 m square post; actual timber section and length need a survey. |
+| [guy-ground-anchor](guy-ground-anchor.scad) · [BOM](../../../bom/generated/parts/guy-ground-anchor.md) | anchor | Catalog 800 mm starting anchor length with assumed Ø12 mm shaft, eye and helical plate. |
+| [guy-turnbuckle-m12](guy-turnbuckle-m12.scad) · [BOM](../../../bom/generated/parts/guy-turnbuckle-m12.md) | turnbuckle | Catalog M12 rod size with assumed 180 mm body; eye, travel and thread details unspecified. |
+| [guy-wire-3mm](guy-wire-3mm.scad) · [BOM](../../../bom/generated/parts/guy-wire-3mm.md) | coil | Catalog 3 mm wire represented by a short loop; actual cut length and lay are not modeled. |
+| [pulley-bracket-backing-plate](pulley-bracket-backing-plate.scad) · [BOM](../../../bom/generated/parts/pulley-bracket-backing-plate.md) | plate | Catalog 100 × 200 × 2 mm stock plate; shows one plate, with assumed perforations; two are stacked per post. |
+| [pulley-bracket-locknut-m12](pulley-bracket-locknut-m12.scad) · [BOM](../../../bom/generated/parts/pulley-bracket-locknut-m12.md) | nut | Catalog M12 locking nut with assumed 19 mm across flats and 12 mm height; thread and nylon insert simplified. |
+| [pulley-bracket-shackle-m8](pulley-bracket-shackle-m8.scad) · [BOM](../../../bom/generated/parts/pulley-bracket-shackle-m8.md) | shackle | Catalog 8 mm pin with assumed 32 × 48 mm shackle envelope; exact supplier clearances unverified. |
+| [pulley-bracket-through-bolt-m12x160](pulley-bracket-through-bolt-m12x160.scad) · [BOM](../../../bom/generated/parts/pulley-bracket-through-bolt-m12x160.md) | bolt | Catalog M12 × 160 shank; assumed 19 mm hex head and 8 mm head height; threads omitted. |
+| [pulley-bracket-washer-m12](pulley-bracket-washer-m12.scad) · [BOM](../../../bom/generated/parts/pulley-bracket-washer-m12.md) | ring | Catalog nominal 37 mm OD, 13 mm ID and 3 mm thickness; edges simplified. |
+| [top-positioning-line-pulley](top-positioning-line-pulley.scad) · [BOM](../../../bom/generated/parts/top-positioning-line-pulley.md) | pulley | Catalog preferred 30 mm sheave with assumed cheeks and attachment eye; supplier block envelope unknown. |
+| [top-pulley-bracket](top-pulley-bracket.scad) · [BOM](../../../bom/generated/parts/top-pulley-bracket.md) | angle | Catalog 150 × 40 × 150 mm, 5 mm solid angle; starting drill pattern simplified. |
+| [wire-rope-clamp-3mm](wire-rope-clamp-3mm.scad) · [BOM](../../../bom/generated/parts/wire-rope-clamp-3mm.md) | rope clamp | Representative 3 mm wire-rope U-clamp; saddle, threaded legs and overall envelope assumed. |
+| [wire-rope-thimble-3mm](wire-rope-thimble-3mm.scad) · [BOM](../../../bom/generated/parts/wire-rope-thimble-3mm.md) | thimble | Representative grooved thimble for 3 mm wire; eye shape and bend radius assumed. |
+| [zinc-spray](zinc-spray.scad) · [BOM](../../../bom/generated/parts/zinc-spray.md) | can | Catalog 400 ml can represented by an assumed Ø65 × 200 mm package; can/nozzle dimensions unknown. |
+| [corner-head-retention-straps](corner-head-retention-straps.scad) · [BOM](../../../bom/generated/parts/corner-head-retention-straps.md) | ring | Catalog <=2.5 mm strap width and <=1 mm thickness, shown as one assumed circular loop; actual length, latch and installed routing undefined. |
+| [corner-head-angle-200](corner-head-angle-200.scad) · [BOM](../../../bom/generated/parts/corner-head-angle-200.md) | angle | Catalog historical 200 × 40 × 200 mm, 5 mm steel angle; illustrative holes and bend are simplified and do not define the proposed drilling pattern. |
+| [corner-head-through-bolts](corner-head-through-bolts.scad) · [BOM](../../../bom/generated/parts/corner-head-through-bolts.md) | bolt | Catalog M12 with one representative 180 mm shank and assumed 19 mm hex head; the 160/180/200 mm pair variants, threads and received stack remain undefined. |
+| [corner-guy-post-connection](corner-guy-post-connection.scad) · [BOM](../../../bom/generated/parts/corner-guy-post-connection.md) | shackle | Assumed M8 shackle silhouette representing an unselected bought attachment set; post mounting, height, load path and capacity are undefined. |
+| [corner-head-printed-hardware](corner-head-printed-hardware.scad) · [BOM](../../../bom/generated/parts/corner-head-printed-hardware.md) | hardware sample | Representative catalog M12 × 190 and M8 × 100 bolts with nominal washer/nut samples; grade, threads, locking, pulley pin, straps and received stack are undefined. |

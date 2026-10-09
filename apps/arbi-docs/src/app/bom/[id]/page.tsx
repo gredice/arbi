@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import { Crumb } from "@/components/Crumb";
 import { InventoryGrid } from "@/components/InventoryGrid";
+import { GeometryNotice } from "@/components/GeometryNotice";
 import { fmt } from "@/lib/format";
 import { data, inventory, modelsForBomPart } from "@/lib/site";
 
@@ -17,9 +19,11 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 export default async function BomItem({ params }: { params: Promise<{ id: string }> }) {
     const p = data().bomById.get((await params).id);
     if (!p) notFound();
-    const fab = modelsForBomPart(p.id);
+    const models = modelsForBomPart(p.id);
+    const fab = models.filter((model) => model.artifactRole === "fabrication");
     const print = p.printEstimate ?? p.printReference;
     const rows: [string, ReactNode][] = [
+        ["Part / 3D model", <Link className="underline" href={`/parts/${p.id}`}>{p.name}</Link>],
         ["Used in", p.usedIn.map((u) => `${u.assemblyId} × ${u.quantity}`).join(", ") || "—"],
         ["Offer", p.offerId ?? "—"],
         ["Supplier", p.supplierId ?? "—"],
@@ -68,6 +72,7 @@ export default async function BomItem({ params }: { params: Promise<{ id: string
                                 </li>
                             ))}
                         </ol>
+                        {models.filter((model) => model.geometry).map((model) => <GeometryNotice key={model.id} model={model} />)}
                     </div>
                     <div className="lg:col-span-5">
                         <div className="flex items-end gap-3 border-b-2 border-ink pb-3">

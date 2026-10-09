@@ -4,12 +4,13 @@ import { unzipSync } from 'fflate';
 const digest = (bytes) => createHash('sha256').update(bytes).digest('hex');
 
 /** Read only current, intact CAD figures; older releases can still supply unchanged parts. */
-export function previewFigures(bytes, models, readSource) {
+export function previewAssets(bytes, models, readSource) {
   const files = unzipSync(bytes);
   const root = 'ARBI-CAD-previews/';
   const manifest = JSON.parse(new TextDecoder().decode(files[root + 'manifest.json']));
   if (manifest.schemaVersion !== 1 || manifest.style !== 'cad-line-art-v2') throw new Error('Unsupported CAD preview manifest; current line-art figures required');
   const figures = {};
+  const meshes = {};
   const sources = new Map();
   for (const model of models) {
     const entry = manifest.models[model.id];
@@ -36,6 +37,14 @@ export function previewFigures(bytes, models, readSource) {
     const header = new DataView(png.buffer, png.byteOffset, png.byteLength);
     if (png.byteLength < 24 || header.getUint32(16) !== 480 || header.getUint32(20) !== 360) continue;
     figures[model.id] = png;
+    // Visualization meshes share the figure's checked source dependency closure.
+    // Assembly CSG previews must never become downloadable fabrication meshes.
+    if (model.artifactRole === 'visualization' && entry.mesh === `meshes/${model.output}`) {
+      const stl = files[root + entry.mesh];
+      if (stl?.length && digest(stl) === entry.meshSha256) meshes[model.id] = stl;
+    }
   }
-  return figures;
+  return { figures, meshes };
 }
+
+export const previewFigures = (bytes, models, readSource) => previewAssets(bytes, models, readSource).figures;

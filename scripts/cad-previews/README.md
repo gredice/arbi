@@ -27,6 +27,13 @@ entrypoint, every transitively included source hash, and the image SHA-256.
 The CAD release publishes the pack with its checksum. Generated figures and
 temporary meshes stay outside Git.
 
+For `visualization` models, the pack also includes the registered STL under
+`meshes/`, with its path and SHA-256 in the same source-checked manifest entry.
+The site uses these approximate meshes for BOM item detail pages. They remain
+illustrative models with explicit assumptions and rework requirements; including
+them in the pack does not make them fabrication sources. Reference assembly
+inspection meshes remain temporary and excluded.
+
 Reference meshing keeps subtraction, intersections and hulls intact and preserves
 each component's world transforms. Components are drawn together with depth
 occlusion, without an expensive assembly-wide boolean union. A temporary cache

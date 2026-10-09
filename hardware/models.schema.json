@@ -94,7 +94,8 @@
                 "artifactRole": {
                     "enum": [
                         "fabrication",
-                        "reference"
+                        "reference",
+                        "visualization"
                     ]
                 },
                 "bomPartIds": {
@@ -139,6 +140,28 @@
                 },
                 "alternativeConfiguration": {
                     "const": "camera-pod-bench"
+                },
+                "geometry": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                        "status",
+                        "basis",
+                        "rework"
+                    ],
+                    "properties": {
+                        "status": {
+                            "const": "approximate"
+                        },
+                        "basis": {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "rework": {
+                            "type": "string",
+                            "minLength": 1
+                        }
+                    }
                 }
             },
             "allOf": [
@@ -188,6 +211,44 @@
                             "output": {
                                 "type": "string",
                                 "pattern": "\\.csg$"
+                            }
+                        }
+                    }
+                },
+                {
+                    "if": {
+                        "properties": {
+                            "artifactRole": {
+                                "const": "visualization"
+                            }
+                        }
+                    },
+                    "then": {
+                        "required": [
+                            "geometry"
+                        ],
+                        "properties": {
+                            "bomPartIds": {
+                                "minItems": 1,
+                                "type": "array"
+                            },
+                            "output": {
+                                "pattern": "\\.stl$",
+                                "type": "string"
+                            },
+                            "status": {
+                                "const": "concept-unvalidated"
+                            },
+                            "geometry": {}
+                        }
+                    },
+                    "else": {
+                        "not": {
+                            "required": [
+                                "geometry"
+                            ],
+                            "properties": {
+                                "geometry": {}
                             }
                         }
                     }

@@ -86,3 +86,16 @@ The [compact enclosure configuration](camera-pod-enclosure.md) retains the integ
 The enclosure document owns print counts, colours, captive head clamps, supported assembly/service sequence, harness passages and unresolved fit/rain/thermal/mass acceptance. The [current cradle CAD record](camera-pod-camera-cradle-check.md) and [machine-readable results](camera-pod-camera-cradle-check.json) identify passing nominal compact-gimbal motion, taper, service, optical and routing checks. Its 16 installed prints total 253.927 g as a solid-volume PETG estimate at 1.27 g/cm³, before hardware and electronics. Sliced and measured mass, servo torque/settling, received-part fit and rain protection around the camera/CSI loops remain unverified. The shell has no ingress rating; CAD checks do not establish the 170 g complete-pod ceiling or flying operation.
 
 The [reinforced cradle record](camera-pod-camera-cradle-check.md) covers r0.1.1: wider horn/frame joints and sloped bracing inside the original envelope. Reprint the cradle using the [orientation and starting settings](camera-pod-enclosure.md#reinforced-cradle-and-print-orientation), then inspect support removal and physical durability. The 8 October enclosure record predates that reinforcement.
+
+## Approximate BOM visualizations
+
+These `visualization` models show catalog items in the Parts inventory. They are **Unverified** and are not manufacturing sources. Shape is not yet fully defined and needs rework against the selected supplier drawing or measured item before fit or clearance decisions. Nominal dimensions recorded in the catalog remain requirements, not measurement evidence. Threads, connectors, internal construction and fine detail are simplified. Kits and assortments show representative samples, not quantities; cable loops and lengths show samples, not installed routing.
+
+| BOM item / source | Shape | Dimension basis and remaining uncertainty |
+| --- | --- | --- |
+| [bulk-capacitor-1000uf](bulk-capacitor-1000uf.scad) · [BOM](../../../bom/generated/parts/bulk-capacitor-1000uf.md) | capacitor | Assumed Ø10 × 16 mm can and representative leads; rating and selected package remain open. |
+| [micro-pan-tilt-servo](micro-pan-tilt-servo.scad) · [BOM](../../../bom/generated/parts/micro-pan-tilt-servo.md) | servo | Uses the existing payload booklet assumption of 20 × 8.5 × 18 mm; not a measured servo or horn. |
+| [microsd-card-32gb](microsd-card-32gb.scad) · [BOM](../../../bom/generated/parts/microsd-card-32gb.md) | microsd | Uses the existing booklet nominal 11 × 15 × 0.8 mm outline; notch and contact details simplified. |
+| [pod-buck-converter-48v-5v](pod-buck-converter-48v-5v.scad) · [BOM](../../../bom/generated/parts/pod-buck-converter-48v-5v.md) | board | Existing payload booklet assumption of a 45 × 25 × 15 mm converter envelope; no SKU dimensions verified. |
+| [raspberry-pi-3a-plus](raspberry-pi-3a-plus.scad) · [BOM](../../../bom/generated/parts/raspberry-pi-3a-plus.md) | pi | Existing payload booklet nominal 65 × 56 mm PCB and 58 × 49 mm mounting pitch; connectors simplified. |
+| [raspberry-pi-camera-module-3](raspberry-pi-camera-module-3.scad) · [BOM](../../../bom/generated/parts/raspberry-pi-camera-module-3.md) | camera | Existing payload booklet nominal 25 × 23.862 mm PCB and 21 × 12.5 mm hole pitch; lens/connector approximate. |

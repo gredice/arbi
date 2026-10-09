@@ -81,6 +81,7 @@ export default function Downloads() {
                                         <Link href={`/parts/${m.id}`} className="hover:underline">
                                             {m.id}
                                         </Link>
+                                        {m.geometry && <div className="mt-1 text-xs text-grey">Approximate visualization · needs rework · not for fabrication</div>}
                                     </td>
                                     <td className="tag hidden md:table-cell">{m.assembly}</td>
                                     <td className="mono">{m.revision}</td>

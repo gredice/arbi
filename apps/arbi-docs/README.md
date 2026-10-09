@@ -9,7 +9,7 @@ Every page is statically generated at build time with the Next.js App Router:
 | `/` | Cover with a scroll-driven teardown of the camera pod, statistics, contents and the BOM total |
 | `/systems`, `/systems/[slug]` | Physical assemblies; each has a black exploded-view stage with numbered parts and a hover-linked parts inventory |
 | `/systems/winch-powered` | Powered winch configuration with its own booklet pose and installed parts inventory; linked from the passive winch page |
-| `/parts`, `/parts/[id]` | Every registered CAD model, grouped in system-number order with line-art inventory figures, a 3D viewer (line art or shaded), registry metadata, BOM link and verified downloads |
+| `/parts`, `/parts/[id]` | Every BOM item plus individual CAD components and references, grouped by owner with line-art figures, a 3D viewer, BOM links, geometry evidence and verified downloads |
 | `/bom`, `/bom/[id]` | The generated BOM report and one page per catalog item |
 | `/docs`, `/docs/[...slug]` | `docs/**`, `hardware/**` and `bom/README.md` rendered from Markdown with repository links mapped to site routes |
 | `/downloads` | CAD release assets, archived committed booklet snapshots and per-model files with SHA-256 |
@@ -77,6 +77,20 @@ The build needs no secrets. It reads the public GitHub release; set `ARBI_OFFLIN
 
 Compiler tests use `ARBI_DATA_DIR` to write to a temporary output directory
 without replacing the running site's `public/data`.
+
+Every catalog item, including optional, planned and unallocated items, has a
+stable `/parts/<bom-part-id>` page and reciprocal `/bom/<bom-part-id>` link.
+Individual component model pages remain available. When a BOM ID also names an
+assembly reference (for example `winch-drum`), the Parts page describes the BOM
+kit and links its individual components. Required quantities come from the BOM;
+the displayed geometry never substitutes for the assembly quantity record.
+
+Purchased parts and items without fabrication sources have approximate
+`visualization` models in the canonical CAD registry. Parts and BOM pages expose
+their dimension basis and explicit rework requirements. Visualizations cannot
+be used as fabrication sources or added to installed assembly counts by a parts
+lineup. The CAD preview pack includes their STL meshes with checksums and full
+source hashes, so local preview and production consume the same verified geometry.
 
 ## Deployment
 

@@ -3,21 +3,27 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import { Crumb } from "@/components/Crumb";
+import { CatalogPart } from "@/components/CatalogPart";
 import { PartViewer } from "@/components/PartViewer";
 import { fmt, links } from "@/lib/format";
 import { bomForModel, data, docHref, download, figureFor, installedCount, meshFor, partColor, systemBySlug } from "@/lib/site";
 import type { Vec3 } from "@/lib/types";
 
 export const dynamicParams = false;
-export const generateStaticParams = () => [...data().models, ...data().archivedModels].map((m) => ({ id: m.id }));
+export const generateStaticParams = () => [...new Set([...data().parts, ...data().archivedModels].map((part) => part.id))].map((id) => ({ id }));
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
-    const m = data().modelById.get((await params).id);
-    return { title: m?.id, description: m?.description };
+    const id = (await params).id;
+    const part = data().bomById.get(id);
+    const m = data().modelById.get(id);
+    return { title: part?.name ?? m?.id, description: part?.requirements.join(" ") ?? m?.description };
 }
 
 export default async function PartPage({ params }: { params: Promise<{ id: string }> }) {
-    const m = data().modelById.get((await params).id);
+    const id = (await params).id;
+    const part = data().bomById.get(id);
+    if (part) return <CatalogPart part={part} />;
+    const m = data().modelById.get(id);
     if (!m) notFound();
     if (m.archiveReason) return (
         <>
