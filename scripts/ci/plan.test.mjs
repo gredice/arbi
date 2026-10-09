@@ -25,15 +25,15 @@ test('assembly models build their owning booklets and website without dashboard 
     assert.deepEqual(names(winch), ['@arbi/docs']);
     assert.equal(winch.cad, true);
     assert.deepEqual(variants(winch), ['winch']);
-    assert.deepEqual(variants(select('hardware/assemblies/camera-pod/camera-pod-tray.scad')), ['bench', 'enclosure']);
+    assert.deepEqual(variants(select('hardware/assemblies/camera-pod/camera-pod-tray.scad')), ['bench', 'enclosure', 'dock']);
     const dock = select('hardware/assemblies/dock/dock.scad');
     assert.equal(dock.cad, true);
-    assert.equal(dock.booklets, false);
+    assert.deepEqual(variants(dock), ['dock']);
 });
 
 test('shared geometry, registry, rendering helpers and licenses cover every booklet', () => {
     for (const path of ['hardware/lib/arbi.scad', 'hardware/models.json', 'hardware/models.schema.json', 'scripts/winch-booklet/render_figures.py', 'scripts/winch-booklet/fonts/DejaVuSans.ttf', 'LICENSE']) {
-        assert.deepEqual(variants(select(path)), ['winch', 'bench', 'enclosure', 'corner'], path);
+        assert.deepEqual(variants(select(path)), ['winch', 'bench', 'enclosure', 'corner', 'dock'], path);
     }
     assert.deepEqual(variants(select('scripts/check-winch-pole-meshes.py')), ['winch']);
     assert.deepEqual(variants(select('scripts/camera-pod-booklet/check_service.py')), ['bench', 'enclosure']);
@@ -60,7 +60,7 @@ test('CAD preview tooling selects geometry and preview validation without unrela
     const release = plan([{ path: 'scripts/cad-previews/requirements.txt', status: 'M' }], { eventName: 'push' });
     assert.equal(release.release, true);
     assert.equal(release.previews, true);
-    assert.deepEqual(variants(release), ['winch', 'bench', 'enclosure', 'corner']);
+    assert.deepEqual(variants(release), ['winch', 'bench', 'enclosure', 'corner', 'dock']);
 });
 
 test('versioned release tooling selects all required artifacts and website tests, without dashboard work', () => {
@@ -136,7 +136,7 @@ test('main release expands to all commit-matched packs and CAD; ordinary content
         const result = plan([{ path, status: 'M' }], { eventName: 'push' });
         assert.equal(result.release, true);
         assert.equal(result.cad, true);
-        assert.deepEqual(variants(result), ['winch', 'bench', 'enclosure', 'corner']);
+        assert.deepEqual(variants(result), ['winch', 'bench', 'enclosure', 'corner', 'dock']);
     }
     assert.equal(plan([{ path: 'docs/project/goals-and-v1-scope.md', status: 'M' }], { eventName: 'push' }).release, false);
     assert.equal(plan(null, { eventName: 'workflow_dispatch', ref: 'refs/heads/feature' }).release, false);
@@ -204,9 +204,22 @@ test('required gate rejects failed, cancelled, unknown and unexpected skipped wo
 test('corner assembly and instructions regenerate the owning package; main publishes all variants', () => {
     for (const path of ['hardware/assemblies/corner-station/corner-head-hood.scad', 'docs/assemblies/corner-station/design-package.md', 'scripts/corner-support/build.py', 'scripts/corner-support/check.py']) {
         const result = select(path);
-        assert.deepEqual(variants(result), ['corner']);
+        assert.deepEqual(variants(result), path.startsWith('scripts/corner-support/') ? ['corner', 'dock'] : ['corner']);
         assert.equal(result.recovery, false);
         assert.equal(names(result).includes('@arbi/dashboard'), false);
         assert.equal(plan([{ path, status: 'M' }], { eventName: 'push' }).release, true);
+    }
+});
+
+
+test('dock kit and interface changes rebuild its pack, and current pod geometry invalidates dock context', () => {
+    for (const path of ['scripts/dock-booklet/kit.json', 'scripts/dock-booklet/hardware.json', 'docs/assemblies/dock/assembly-guide.md']) {
+        assert.deepEqual(variants(select(path)), ['dock'], path);
+    }
+    assert.deepEqual(variants(select('hardware/assemblies/camera-pod/camera-pod-assembly.scad')), ['bench', 'enclosure', 'dock']);
+    assert.deepEqual(variants(select('scripts/cad-previews/csg.py')), ['dock']);
+    for (const path of ['bom/catalog/parts.json', 'bom/catalog/fabrication.json', 'bom/assemblies/assemblies.json']) {
+        assert.deepEqual(variants(select(path)), ['dock'], path);
+        assert.equal(plan([{ path, status: 'M' }], { eventName: 'push' }).release, true, path);
     }
 });

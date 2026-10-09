@@ -35,6 +35,7 @@ const PACKS = {
     exploded: ['overview-exploded', 'enclosure-exploded'] },
   winch: { snapshot: 'docs/assemblies/winch/booklet/ARBI-winch-STL-pack.zip', asset: 'ARBI-winch-STL-pack.zip' },
   corner: { snapshot: null, asset: 'ARBI-corner-support-STL-pack.zip' },
+  dock: { snapshot: null, asset: 'ARBI-dock-STL-pack.zip' },
 };
 
 const posix = (p) => p.split(sep).join('/');
@@ -126,10 +127,12 @@ function unpack(bytes) {
 }
 async function choosePack(key, release, outputs) {
   const spec = PACKS[key];
-  if (key === 'corner' && process.env.ARBI_CORNER_SUPPORT_PACK) {
-    if (PRODUCTION) throw new Error('Production requires the verified release corner support pack');
-    const files = unpack(readFileSync(resolve(process.env.ARBI_CORNER_SUPPORT_PACK)));
-    if (!packIsCurrent(files, outputs, REPO, key)) throw new Error('Local corner support pack is stale or incomplete');
+  const localVariable = { corner: 'ARBI_CORNER_SUPPORT_PACK', dock: 'ARBI_DOCK_PACK' }[key];
+  const localPack = localVariable && process.env[localVariable];
+  if (localPack) {
+    if (PRODUCTION) throw new Error('Production requires the verified release assembly pack');
+    const files = unpack(readFileSync(resolve(localPack)));
+    if (!packIsCurrent(files, outputs, REPO, key)) throw new Error('Local assembly pack is stale or incomplete');
     return { files, source: { kind: 'local', current: true } };
   }
   const fromRelease = await releaseAsset(release, spec.asset);
@@ -218,10 +221,10 @@ function winchScene({ files, source }, modelsByOutput, variant = 'passive') {
   return { kind: 'stl', layout: 'assembly', figureDir: 'winch', hero: installedFigure, source, pose: pose?.name ?? null, installedFigure, figures: Object.keys(figures).sort(), parts };
 }
 
-function cornerScene({ files, source }, modelsByOutput) {
+function assemblyPackScene({ files, source }, modelsByOutput, folder) {
   for (const [name, bytes] of Object.entries(files)) {
     if ((name.startsWith('models/') && name.endsWith('.stl')) || (name.startsWith('figures/') && name.endsWith('.png')))
-      write(join(OUT, 'corner', name), bytes);
+      write(join(OUT, folder, name), bytes);
   }
   const figures = parse(files['figure-manifest.json']);
   const installed = figures.covered.parts;
@@ -231,9 +234,9 @@ function cornerScene({ files, source }, modelsByOutput) {
     const id = model?.id ?? basename(p.file, '.stl');
     return { node: `${i}-${id}`, model: id, registered: Boolean(model),
       href: sceneHref(id, Boolean(model), p.bomPartId, catalogIds), group: 'fixed', color: p.color,
-      url: `corner/${p.file}`, matrix: p.matrix, explode: offsetOf(p.matrix, exploded[i]) };
+      url: `${folder}/${p.file}`, matrix: p.matrix, explode: offsetOf(p.matrix, exploded[i]) };
   });
-  return { kind: 'stl', layout: 'assembly', figureDir: 'corner', hero: 'covered', source, pose: 'exploded',
+  return { kind: 'stl', layout: 'assembly', figureDir: folder, hero: 'covered', source, pose: 'exploded',
     configuration: parse(files['geometry-report.json']).configuration, figures: Object.keys(figures).sort(), parts };
 }
 
@@ -367,7 +370,9 @@ const winchPack = await choosePack('winch', release, outputs);
 const winch = winchPack && winchScene(winchPack, modelsByOutput);
 const poweredWinch = winchPack && winchScene(winchPack, modelsByOutput, 'powered');
 const cornerPack = await choosePack('corner', release, outputs);
-const corner = cornerPack && cornerScene(cornerPack, modelsByOutput);
+const dockPack = await choosePack('dock', release, outputs);
+const dock = dockPack && assemblyPackScene(dockPack, modelsByOutput, 'dock');
+const corner = cornerPack && assemblyPackScene(cornerPack, modelsByOutput, 'corner');
 
 // Complete CAD inventory figures are published independently of booklet coverage.
 // A local pack is useful for offline rendering checks before its release is published.
@@ -401,7 +406,7 @@ for (const model of registry.models.filter((item) => visualizationMeshes[item.id
   meshes[model.id] = { kind: 'stl', url: `visualizations/${model.output}`, bounds: stlBounds(bytes) };
 }
 for (const p of pod?.parts ?? []) if (p.registered && pod.source.current) meshes[p.model] ??= { kind: 'stl', url: p.url, bounds: stlBounds(readFileSync(join(OUT, p.url))) };
-for (const p of corner?.parts ?? []) if (p.registered && corner.source.current) meshes[p.model] ??= { kind: 'stl', url: p.url, bounds: stlBounds(readFileSync(join(OUT, p.url))) };
+for (const scene of [corner, dock]) for (const p of scene?.parts ?? []) if (p.registered && scene.source.current) meshes[p.model] ??= { kind: 'stl', url: p.url, bounds: stlBounds(readFileSync(join(OUT, p.url))) };
 for (const m of registry.models) {
   if (meshes[m.id] || !m.output.endsWith('.stl')) continue;
   const packed = join(OUT, 'winch/models/arbi', m.output);
@@ -419,7 +424,7 @@ if (PRODUCTION && registry.models.some((model) => model.artifactRole === 'visual
   throw new Error('Production requires current meshes for every BOM visualization');
 }
 
-const scenes = Object.fromEntries(Object.entries({ 'camera-pod': pod, winch, 'winch-powered': poweredWinch, 'corner-station': corner }).filter(([, scene]) => scene));
+const scenes = Object.fromEntries(Object.entries({ 'camera-pod': pod, winch, 'winch-powered': poweredWinch, 'corner-station': corner, dock }).filter(([, scene]) => scene));
 for (const slug of [...new Set(registry.models.map((m) => m.assembly))]) {
   if (scenes[slug]) continue;
   const lineup = lineupScene(slug, registry.models.filter((m) => m.assembly === slug && m.artifactRole === 'fabrication'), meshes, release);

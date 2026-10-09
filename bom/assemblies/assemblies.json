@@ -369,7 +369,7 @@
       "kind": "physical",
       "parentAssemblyId": null,
       "name": "Dock",
-      "description": "High dock, capture hardware, weather cover, and docked-position detection.",
+      "description": "DOCK-IF-01 bench capture kit for the shared non-powered round-post corner: split guide, locator/fork, structural pod bridge, split arm and roof; fit/load/actuation unvalidated.",
       "disciplines": [
         "mechanical",
         "electronics",
@@ -378,7 +378,22 @@
       ],
       "usages": [
         {
+          "partId": "dock-funnel",
+          "quantity": "1",
+          "inclusion": "base"
+        },
+        {
+          "partId": "dock-nest",
+          "quantity": "1",
+          "inclusion": "base"
+        },
+        {
           "partId": "dock-latch-hardware",
+          "quantity": "1",
+          "inclusion": "base"
+        },
+        {
+          "partId": "dock-support-arm",
           "quantity": "1",
           "inclusion": "base"
         },
@@ -388,21 +403,20 @@
           "inclusion": "base"
         },
         {
-          "partId": "dock-funnel",
+          "partId": "dock-bench-hardware",
           "quantity": "1",
           "inclusion": "base"
         },
         {
-          "partId": "dock-nest",
+          "partId": "extension-spring-assortment",
           "quantity": "1",
-          "inclusion": "base",
-          "note": "Funnel and nest are separate physical artifacts with separate CAD entrypoints."
+          "inclusion": "base"
         },
         {
           "partId": "roller-lever-microswitch",
-          "quantity": "1",
+          "quantity": "2",
           "inclusion": "base",
-          "note": "Installed in the dock assembly in addition to the winch home switches."
+          "note": "Separate seating and fork-position observations proposed. Mounts, targets, circuits and accepted actuation travel remain unselected; no automatic dock authority."
         }
       ],
       "documentation": "docs/assemblies/dock/README.md"

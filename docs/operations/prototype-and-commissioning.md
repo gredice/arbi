@@ -29,7 +29,12 @@ ARBI progresses by reducing uncertainty at the smallest practical scale. A later
 
 ## Phase 3 — camera pod and dock
 
-- Print and assemble the spider/chassis, electronics mount, gimbal, cap, strain relief, and docking stud.
+- Print and assemble the current [compact camera-pod configuration](../../hardware/assemblies/camera-pod/camera-pod-enclosure.md)
+  using its selected kit and revisions. Do not add the archived docking stud or
+  historical printed alternatives to that kit.
+- Develop the structural docking attachment with the [dock interface package](../assemblies/dock/design-package.md);
+  exercise a secured dummy-pod capture/release fixture before real pod integration
+  using the [bench plan](../assemblies/dock/bench-test-plan.md).
 - Install Pi 3A+, selected converter/capacitor, Camera Module 3, and two selected micro servos.
 - Weigh the complete pod and record center of gravity.
 - Calibrate pan to approximately ±90 degrees and tilt from straight down toward approximately 70 degrees sideways, bounded by safe limits.

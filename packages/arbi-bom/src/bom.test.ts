@@ -235,7 +235,7 @@ test("bundle part-count shares reconcile to goods and physical assembly totals",
     ["nema23-closed-loop-motor", "73.33"],
     ["power-supply-48v-350w", "36.67"],
   ]);
-  assert.equal(calculated.assemblyKnownGoods.find((item) => item.assemblyId === "winch-set")?.amount, "391.49");
+  assert.equal(calculated.assemblyKnownGoods.find((item) => item.assemblyId === "winch-set")?.amount, "390.85");
   assert.equal(calculated.assemblyKnownGoods.find((item) => item.assemblyId === "control-cabinet")?.amount, "66.16");
   const owners = calculated.assemblyKnownGoods.reduce(
     (total, item) => total.add(Decimal.parse(item.amount)), Decimal.zero(),

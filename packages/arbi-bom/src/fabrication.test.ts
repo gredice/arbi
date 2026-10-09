@@ -23,7 +23,8 @@ test("print evidence cannot require an ignored local booklet source copy", async
 test("weight costing uses density and the conditional bulk rate, without rounding to whole rolls", async () => {
   const repository = await loadBomRepository(root);
   const recipe = repository.fabrication.recipes.find((item) => item.partId === "dock-funnel")!;
-  repository.fabrication.geometry.models.find((item) => item.modelId === "dock-funnel")!.volumeCm3 = "100";
+  recipe.components = [{ modelId: "dock-guide-quarter", quantity: "1" }];
+  repository.fabrication.geometry.models.find((item) => item.modelId === "dock-guide-quarter")!.volumeCm3 = "100";
   const estimate = estimatePrintMaterials(repository, recipe, "3", "EUR");
   assert.equal(estimate.weightGrams, "375");
   assert.equal(estimate.materialCost, "4.27");
@@ -55,14 +56,15 @@ test("dock bundle costs are attributed once and print estimates do not turn unkn
   const repository = await loadBomRepository(root);
   const base = calculateBom(repository);
   assert.equal(base.knownSubtotal, "987.22");
-  assert.equal(base.estimatedMaterialSubtotal, "259.22");
-  assert.equal(base.estimatedPartialSubtotal, "1246.44");
+  assert.equal(base.estimatedMaterialSubtotal, "254.45");
+  assert.equal(base.estimatedPartialSubtotal, "1241.67");
   assert.equal(base.completeLandedTotal, null);
   const allocated = base.assemblyEstimatedMaterials.reduce((sum, row) => sum.add(Decimal.parse(row.amount)), Decimal.zero());
   assert.equal(allocated.toString(), base.estimatedMaterialSubtotal);
   assert.ok(base.fabrication.some((item) => item.partId === "dock-funnel"));
   assert.ok(base.fabrication.some((item) => item.partId === "dock-nest"));
-  assert.ok(!base.fabrication.some((item) => item.partId === "dock-latch-hardware"));
+  assert.ok(base.fabrication.some((item) => item.partId === "dock-latch-hardware"));
+  assert.ok(base.fabrication.some((item) => item.partId === "dock-support-arm"));
   repository.fabrication.materials.find((item) => item.id === "petg")!.spoolPrice = null;
   assert.equal(calculateBom(repository).fabrication.find((item) => item.partId === "dock-nest")!.materialCost, null);
 });
@@ -119,7 +121,7 @@ test("unknown materials, zero spool weights, foreign model ownership and stale r
   const recipe = repository.fabrication.recipes[0]!;
   recipe.materialId = "missing";
   recipe.components[0]!.modelId = "dock-nest";
-  repository.fabrication.geometry.models.find((item) => item.modelId === "dock-funnel")!.revision = "99.0.0";
+  repository.fabrication.geometry.models.find((item) => item.modelId === "dock-guide-quarter")!.revision = "99.0.0";
   const errors = validateRepository(repository).errors.join("\n");
   assert.match(errors, /spool weight must be greater than zero/);
   assert.match(errors, /unknown material/);

@@ -171,3 +171,17 @@ test('every BOM item has geometry and visualization assumptions cannot become fa
     };
     assert.throws(() => validateRegistry(current, manufactured), /not a fabrication model/);
 });
+
+
+test('superseded dock visualizations remain archived without current BOM claims', () => {
+    const current = validateRegistry();
+    const retired = current.archivedModels.filter(m => ['dock-latch-hardware', 'dock-weather-hood'].includes(m.id));
+    assert.equal(retired.length, 2);
+    assert.ok(retired.every(m => m.artifactRole === 'visualization' && m.bomPartIds.length === 0 && m.geometry.status === 'approximate'));
+    const remapped = structuredClone(current);
+    remapped.archivedModels.find(m => m.id === 'dock-weather-hood').bomPartIds = ['dock-weather-hood'];
+    assert.throws(() => validateRegistry(remapped), /does not match/);
+    const unowned = structuredClone(current);
+    unowned.models.find(m => m.id === 'dock-bench-hardware').bomPartIds = [];
+    assert.throws(() => validateRegistry(unowned), /does not match/);
+});

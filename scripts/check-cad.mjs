@@ -227,7 +227,7 @@ export function validateRegistry(registryOverride, bomPartsOverride, aliasesOver
             assert(archivedIds.has(model.id) || model.bomPartIds.length > 0, `${model.id} fabrication model needs a BOM part ID.`);
         } else if (model.artifactRole === 'visualization') {
             assert(outputExtension === '.stl', `${model.id} visualization output must be STL.`);
-            assert(model.bomPartIds.length > 0, `${model.id} visualization needs a BOM part ID.`);
+            assert(archivedIds.has(model.id) || model.bomPartIds.length > 0, `${model.id} visualization needs a BOM part ID.`);
             assert(model.geometry?.status === 'approximate', `${model.id} needs explicit approximate geometry evidence.`);
         } else {
             assert(outputExtension === '.csg', `${model.id} reference output must be CSG, not a printable mesh.`);

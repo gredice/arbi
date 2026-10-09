@@ -43,34 +43,6 @@
             "description": "Integrated rain-camera pod reference by default; show_legacy=true retains the historical separate concept layout."
         },
         {
-            "id": "dock-funnel",
-            "revision": "0.1.0",
-            "status": "concept-unvalidated",
-            "artifactRole": "fabrication",
-            "bomPartIds": [
-                "dock-funnel"
-            ],
-            "assembly": "dock",
-            "entrypoint": "hardware/assemblies/dock/dock-funnel.scad",
-            "output": "dock-funnel-r0.1.0.stl",
-            "documentation": "hardware/assemblies/dock/README.md",
-            "description": "Passive tapered alignment funnel concept for docking approach."
-        },
-        {
-            "id": "dock-nest",
-            "revision": "0.1.0",
-            "status": "concept-unvalidated",
-            "artifactRole": "fabrication",
-            "bomPartIds": [
-                "dock-nest"
-            ],
-            "assembly": "dock",
-            "entrypoint": "hardware/assemblies/dock/dock-nest.scad",
-            "output": "dock-nest-r0.1.0.stl",
-            "documentation": "hardware/assemblies/dock/README.md",
-            "description": "Pod locating pocket and dock mounting plate concept."
-        },
-        {
             "id": "top-pulley-keeper",
             "revision": "0.1.0",
             "status": "concept-unvalidated",
@@ -1299,44 +1271,6 @@
             }
         },
         {
-            "id": "dock-latch-hardware",
-            "revision": "0.1.0",
-            "status": "concept-unvalidated",
-            "artifactRole": "visualization",
-            "bomPartIds": [
-                "dock-latch-hardware"
-            ],
-            "assembly": "dock",
-            "entrypoint": "hardware/assemblies/dock/dock-latch-hardware.scad",
-            "output": "dock-latch-hardware-r0.1.0.stl",
-            "documentation": "hardware/assemblies/dock/README.md",
-            "description": "Approximate visualization of Dock mushroom locating stud + passive latch hardware. Representative stud, latch arm and pivot; retention interfaces and final mechanism are not yet defined.",
-            "geometry": {
-                "status": "approximate",
-                "basis": "Representative stud, latch arm and pivot; retention interfaces and final mechanism are not yet defined.",
-                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication. Confirm the kit contents and model each required size; the displayed sample does not specify quantities."
-            }
-        },
-        {
-            "id": "dock-weather-hood",
-            "revision": "0.1.0",
-            "status": "concept-unvalidated",
-            "artifactRole": "visualization",
-            "bomPartIds": [
-                "dock-weather-hood"
-            ],
-            "assembly": "dock",
-            "entrypoint": "hardware/assemblies/dock/dock-weather-hood.scad",
-            "output": "dock-weather-hood-r0.1.0.stl",
-            "documentation": "hardware/assemblies/dock/README.md",
-            "description": "Approximate visualization of Dock weather roof / hood. Catalog 300 \u00d7 300 mm starting roof footprint with an assumed 60 mm slope and 3 mm wall.",
-            "geometry": {
-                "status": "approximate",
-                "basis": "Catalog 300 \u00d7 300 mm starting roof footprint with an assumed 60 mm slope and 3 mm wall.",
-                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
-            }
-        },
-        {
             "id": "dyneema-positioning-line",
             "revision": "0.1.0",
             "status": "concept-unvalidated",
@@ -2285,6 +2219,191 @@
                 "basis": "Representative catalog M12 \u00d7 190 and M8 \u00d7 100 bolts with nominal washer/nut samples; grade, threads, locking, pulley pin, straps and received stack are undefined.",
                 "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
             }
+        },
+        {
+            "id": "dock-guide-quarter",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "dock-funnel"
+            ],
+            "assembly": "dock",
+            "entrypoint": "hardware/assemblies/dock/dock-guide-quarter.scad",
+            "output": "dock-guide-quarter-r0.1.0.stl",
+            "documentation": "hardware/assemblies/dock/README.md",
+            "description": "DOCK-IF-01 bench candidate: guide quarter. No load or fit qualification."
+        },
+        {
+            "id": "dock-locator-carrier",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "dock-nest"
+            ],
+            "assembly": "dock",
+            "entrypoint": "hardware/assemblies/dock/dock-locator-carrier.scad",
+            "output": "dock-locator-carrier-r0.1.0.stl",
+            "documentation": "hardware/assemblies/dock/README.md",
+            "description": "DOCK-IF-01 bench candidate: locator carrier. No load or fit qualification."
+        },
+        {
+            "id": "dock-latch-fork",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "dock-latch-hardware"
+            ],
+            "assembly": "dock",
+            "entrypoint": "hardware/assemblies/dock/dock-latch-fork.scad",
+            "output": "dock-latch-fork-r0.1.0.stl",
+            "documentation": "hardware/assemblies/dock/README.md",
+            "description": "DOCK-IF-01 bench candidate: latch fork. No load or fit qualification."
+        },
+        {
+            "id": "dock-pod-bridge",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "dock-latch-hardware"
+            ],
+            "assembly": "dock",
+            "entrypoint": "hardware/assemblies/dock/dock-pod-bridge.scad",
+            "output": "dock-pod-bridge-r0.1.0.stl",
+            "documentation": "hardware/assemblies/dock/README.md",
+            "description": "DOCK-IF-01 bench candidate: pod bridge. No load or fit qualification."
+        },
+        {
+            "id": "dock-pod-bridge-shoe",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "dock-latch-hardware"
+            ],
+            "assembly": "dock",
+            "entrypoint": "hardware/assemblies/dock/dock-pod-bridge-shoe.scad",
+            "output": "dock-pod-bridge-shoe-r0.1.0.stl",
+            "documentation": "hardware/assemblies/dock/README.md",
+            "description": "DOCK-IF-01 bench candidate: pod bridge shoe. No load or fit qualification."
+        },
+        {
+            "id": "dock-pod-stud",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "dock-latch-hardware"
+            ],
+            "assembly": "dock",
+            "entrypoint": "hardware/assemblies/dock/dock-pod-stud.scad",
+            "output": "dock-pod-stud-r0.1.0.stl",
+            "documentation": "hardware/assemblies/dock/README.md",
+            "description": "DOCK-IF-01 bench candidate: pod stud. No load or fit qualification."
+        },
+        {
+            "id": "dock-roof-quarter",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "dock-weather-hood"
+            ],
+            "assembly": "dock",
+            "entrypoint": "hardware/assemblies/dock/dock-roof-quarter.scad",
+            "output": "dock-roof-quarter-r0.1.0.stl",
+            "documentation": "hardware/assemblies/dock/README.md",
+            "description": "DOCK-IF-01 bench candidate: roof quarter. No load or fit qualification."
+        },
+        {
+            "id": "dock-roof-spacer",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "dock-weather-hood"
+            ],
+            "assembly": "dock",
+            "entrypoint": "hardware/assemblies/dock/dock-roof-spacer.scad",
+            "output": "dock-roof-spacer-r0.1.0.stl",
+            "documentation": "hardware/assemblies/dock/README.md",
+            "description": "DOCK-IF-01 bench candidate: roof spacer. No load or fit qualification."
+        },
+        {
+            "id": "dock-arm-root",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "dock-support-arm"
+            ],
+            "assembly": "dock",
+            "entrypoint": "hardware/assemblies/dock/dock-arm-root.scad",
+            "output": "dock-arm-root-r0.1.0.stl",
+            "documentation": "hardware/assemblies/dock/README.md",
+            "description": "DOCK-IF-01 bench candidate: arm root. No load or fit qualification."
+        },
+        {
+            "id": "dock-arm-extension",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "dock-support-arm"
+            ],
+            "assembly": "dock",
+            "entrypoint": "hardware/assemblies/dock/dock-arm-extension.scad",
+            "output": "dock-arm-extension-r0.1.0.stl",
+            "documentation": "hardware/assemblies/dock/README.md",
+            "description": "DOCK-IF-01 bench candidate: arm extension. No load or fit qualification."
+        },
+        {
+            "id": "dock-post-rear-pad",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "dock-support-arm"
+            ],
+            "assembly": "dock",
+            "entrypoint": "hardware/assemblies/dock/dock-post-rear-pad.scad",
+            "output": "dock-post-rear-pad-r0.1.0.stl",
+            "documentation": "hardware/assemblies/dock/README.md",
+            "description": "DOCK-IF-01 bench candidate: post rear pad. No load or fit qualification."
+        },
+        {
+            "id": "dock-assembly",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "reference",
+            "bomPartIds": [],
+            "assembly": "dock",
+            "entrypoint": "hardware/assemblies/dock/dock-assembly.scad",
+            "output": "dock-assembly-r0.1.0.csg",
+            "documentation": "hardware/assemblies/dock/README.md",
+            "description": "DOCK-IF-01 assembled nominal bench mechanics; electronics, spring and structural acceptance unresolved."
+        },
+        {
+            "id": "dock-bench-hardware",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "dock-bench-hardware"
+            ],
+            "assembly": "dock",
+            "entrypoint": "hardware/assemblies/dock/dock-bench-hardware.scad",
+            "output": "dock-bench-hardware-r0.1.0.stl",
+            "documentation": "hardware/assemblies/dock/README.md",
+            "description": "Provisional nominal fitted bought fastener set for DOCK-IF-01; received geometry unverified.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Nominal M12/M8/M4/M3 fitted stacks including simplified heads, washers and nuts, not a supplier drawing.",
+                "rework": "Measure received heads, washers, nuts, shanks and locking zones before fit and load use. Quantities and stack selections are in the BOM and assembly guide."
+            }
         }
     ],
     "archivedModels": [
@@ -2578,6 +2697,80 @@
             "archiveReason": "Historical geometry superseded by the selected compact integrated enclosure; retained for source and evidence traceability.",
             "supersededBy": [
                 "camera-pod-integrated-gimbal-head"
+            ]
+        },
+        {
+            "id": "dock-funnel",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [],
+            "assembly": "dock",
+            "entrypoint": "hardware/assemblies/dock/dock-funnel.scad",
+            "output": "dock-funnel-r0.1.0.stl",
+            "documentation": "hardware/assemblies/dock/README.md",
+            "description": "Passive tapered alignment funnel concept for docking approach.",
+            "archiveReason": "Replaced by DOCK-IF-01 split bench kit; historical incompatible concept only.",
+            "supersededBy": [
+                "dock-guide-quarter"
+            ]
+        },
+        {
+            "id": "dock-nest",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [],
+            "assembly": "dock",
+            "entrypoint": "hardware/assemblies/dock/dock-nest.scad",
+            "output": "dock-nest-r0.1.0.stl",
+            "documentation": "hardware/assemblies/dock/README.md",
+            "description": "Pod locating pocket and dock mounting plate concept.",
+            "archiveReason": "Replaced by DOCK-IF-01 split bench kit; historical incompatible concept only.",
+            "supersededBy": [
+                "dock-locator-carrier"
+            ]
+        },
+        {
+            "id": "dock-latch-hardware",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [],
+            "assembly": "dock",
+            "entrypoint": "hardware/assemblies/dock/dock-latch-hardware.scad",
+            "output": "dock-latch-hardware-r0.1.0.stl",
+            "documentation": "hardware/assemblies/dock/README.md",
+            "description": "Approximate visualization of Dock mushroom locating stud + passive latch hardware. Representative stud, latch arm and pivot; retention interfaces and final mechanism are not yet defined.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Representative stud, latch arm and pivot; retention interfaces and final mechanism are not yet defined.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication. Confirm the kit contents and model each required size; the displayed sample does not specify quantities."
+            },
+            "archiveReason": "Replaced by DOCK-IF-01 split bench kit; historical incompatible concept only.",
+            "supersededBy": [
+                "dock-latch-fork"
+            ]
+        },
+        {
+            "id": "dock-weather-hood",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [],
+            "assembly": "dock",
+            "entrypoint": "hardware/assemblies/dock/dock-weather-hood.scad",
+            "output": "dock-weather-hood-r0.1.0.stl",
+            "documentation": "hardware/assemblies/dock/README.md",
+            "description": "Approximate visualization of Dock weather roof / hood. Catalog 300 \u00d7 300 mm starting roof footprint with an assumed 60 mm slope and 3 mm wall.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Catalog 300 \u00d7 300 mm starting roof footprint with an assumed 60 mm slope and 3 mm wall.",
+                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+            },
+            "archiveReason": "Replaced by DOCK-IF-01 split bench kit; historical incompatible concept only.",
+            "supersededBy": [
+                "dock-roof-quarter"
             ]
         }
     ]

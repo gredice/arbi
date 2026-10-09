@@ -10,9 +10,9 @@ from pypdf import PdfReader
 
 
 def check(root, variant):
-    if variant == 'corner':
+    if variant in ['corner', 'dock']:
         import importlib.util
-        spec = importlib.util.spec_from_file_location('corner_check', Path(__file__).parent/'corner-support/check.py')
+        spec = importlib.util.spec_from_file_location('corner_check', Path(__file__).parent/('corner-support/check.py' if variant == 'corner' else 'dock-booklet/check.py'))
         module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(module)
         module.check(root)
@@ -106,6 +106,6 @@ def check(root, variant):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('root', type=Path)
-    parser.add_argument('--variant', required=True, choices=['winch', 'bench', 'enclosure', 'corner'])
+    parser.add_argument('--variant', required=True, choices=['winch', 'bench', 'enclosure', 'corner', 'dock'])
     args = parser.parse_args()
     check(args.root.resolve(), args.variant)

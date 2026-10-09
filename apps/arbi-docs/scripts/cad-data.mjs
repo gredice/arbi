@@ -31,7 +31,7 @@ export function packIsCurrent(files, outputs, root, kind) {
   try {
     const meshes = Object.keys(files).filter((n) => /^models\/(printable|arbi)\/.+\.stl$/.test(n));
     if (!meshes.length || meshes.some((n) => !outputs.has(basename(n)))) return false;
-    if (kind === 'corner') {
+    if (['corner', 'dock'].includes(kind)) {
       const manifest = parse(files['manifest.json']).files_sha256;
       for (const [path, digest] of Object.entries(manifest)) {
         if (!files[path] || sha256(files[path]) !== digest) return false;
@@ -39,7 +39,8 @@ export function packIsCurrent(files, outputs, root, kind) {
       if (!manifest['figure-manifest.json'] || !manifest['geometry-report.json']) return false;
       const report = parse(files['geometry-report.json']);
       const sourcePaths = Object.keys(report.sources_sha256);
-      if (['hardware/lib/corner-head.scad', 'hardware/lib/corner-head-printed.scad', 'scripts/corner-support/build.py']
+      const requiredSources = kind === 'dock' ? ['hardware/lib/dock.scad', 'hardware/lib/corner-head.scad', 'scripts/dock-booklet/build.py'] : ['hardware/lib/corner-head.scad', 'hardware/lib/corner-head-printed.scad', 'scripts/corner-support/build.py'];
+      if (requiredSources
         .some((path) => !sourcePaths.includes(path))) return false;
       for (const path of sourcePaths) {
         const local = join(root, path);

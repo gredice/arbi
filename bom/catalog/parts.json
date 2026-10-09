@@ -312,20 +312,21 @@
         "printed"
       ],
       "requirements": [
-        "Approx. 250–300 mm approach opening guiding the pod toward the separate locating nest; dock capture at ~2.65–2.70 m."
+        "Four quadrants form a nominal 275 mm mouth and 60 mm throat; tabs attach through the support platform to the locator flange."
       ],
       "fabrication": {
         "process": "openscad",
         "modelStatus": "concept-unvalidated",
         "sources": [
           {
-            "path": "hardware/assemblies/dock/dock-funnel.scad",
-            "module": "dock_funnel",
-            "modelId": "dock-funnel",
+            "path": "hardware/assemblies/dock/dock-guide-quarter.scad",
+            "module": "dock_guide_quarter_tapered",
+            "modelId": "dock-guide-quarter",
             "revision": "0.1.0"
           }
         ]
-      }
+      },
+      "notes": "DOCK-IF-01 bench-development kit, not accepted for suspended installation. Bought hardware is counted separately."
     },
     {
       "id": "dock-nest",
@@ -341,24 +342,25 @@
         "printed"
       ],
       "requirements": [
-        "One locating socket and mounting plate receiving the pod after the separate alignment funnel."
+        "Nominal 26 mm final bore, stem slot and upward head stop; current compact pod bench interface."
       ],
       "fabrication": {
         "process": "openscad",
         "modelStatus": "concept-unvalidated",
         "sources": [
           {
-            "path": "hardware/assemblies/dock/dock-nest.scad",
-            "module": "dock_nest",
-            "modelId": "dock-nest",
+            "path": "hardware/assemblies/dock/dock-locator-carrier.scad",
+            "module": "dock_locator_carrier",
+            "modelId": "dock-locator-carrier",
             "revision": "0.1.0"
           }
         ]
-      }
+      },
+      "notes": "DOCK-IF-01 bench-development kit, not accepted for suspended installation. Bought hardware is counted separately."
     },
     {
       "id": "dock-latch-hardware",
-      "name": "Dock mushroom locating stud + passive latch hardware",
+      "name": "DOCK-IF-01 fork, structural pod bridge and stud print set",
       "baseUnit": "each",
       "kind": "component",
       "lifecycle": "active",
@@ -366,16 +368,43 @@
         "mechanical"
       ],
       "traits": [
-        "fabricated"
+        "fabricated",
+        "printed"
       ],
       "requirements": [
-        "Centred pod stud, passive spring latch, stainless pivot pins/bolts; magnets optional for centring only, not structural retention."
+        "One manually released sliding fork, one fixed structural bridge, four captive shoes and one axial-bolt stud. Spring force/product and stationary actuator circuit remain unselected."
       ],
       "fabrication": {
         "process": "openscad",
-        "modelStatus": "planned",
-        "sources": []
-      }
+        "modelStatus": "concept-unvalidated",
+        "sources": [
+          {
+            "path": "hardware/assemblies/dock/dock-latch-fork.scad",
+            "module": "dock_latch_fork",
+            "modelId": "dock-latch-fork",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/dock/dock-pod-bridge.scad",
+            "module": "dock_pod_bridge",
+            "modelId": "dock-pod-bridge",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/dock/dock-pod-bridge-shoe.scad",
+            "module": "dock_pod_bridge_shoe",
+            "modelId": "dock-pod-bridge-shoe",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/dock/dock-pod-stud.scad",
+            "module": "dock_pod_stud",
+            "modelId": "dock-pod-stud",
+            "revision": "0.1.0"
+          }
+        ]
+      },
+      "notes": "DOCK-IF-01 bench-development kit, not accepted for suspended installation. Bought hardware is counted separately."
     },
     {
       "id": "dock-weather-hood",
@@ -391,13 +420,27 @@
         "printed"
       ],
       "requirements": [
-        "Approx. 300×300 mm sloped rain/sun cover with drainage and unobstructed optical opening."
+        "Four roof quadrants form a 300 x 300 mm sloped cover on four spacers. Seams, drainage and ingress remain unqualified."
       ],
       "fabrication": {
         "process": "openscad",
-        "modelStatus": "planned",
-        "sources": []
-      }
+        "modelStatus": "concept-unvalidated",
+        "sources": [
+          {
+            "path": "hardware/assemblies/dock/dock-roof-quarter.scad",
+            "module": "dock_roof_quarter",
+            "modelId": "dock-roof-quarter",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/dock/dock-roof-spacer.scad",
+            "module": "dock_roof_spacer",
+            "modelId": "dock-roof-spacer",
+            "revision": "0.1.0"
+          }
+        ]
+      },
+      "notes": "DOCK-IF-01 bench-development kit, not accepted for suspended installation. Bought hardware is counted separately."
     },
     {
       "id": "dyneema-positioning-line",
@@ -1935,6 +1978,81 @@
           }
         ]
       }
+    },
+    {
+      "id": "dock-support-arm",
+      "name": "Split dock support arm and rear pads",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "fabricated",
+        "printed"
+      ],
+      "requirements": [
+        "Bench candidate on non-powered corner; use shared round-post dimensions and dedicated mounting rows."
+      ],
+      "fabrication": {
+        "process": "openscad",
+        "modelStatus": "concept-unvalidated",
+        "sources": [
+          {
+            "path": "hardware/assemblies/dock/dock-arm-root.scad",
+            "module": "dock_arm_root",
+            "modelId": "dock-arm-root",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/dock/dock-arm-extension.scad",
+            "module": "dock_arm_extension",
+            "modelId": "dock-arm-extension",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/dock/dock-post-rear-pad.scad",
+            "module": "dock_post_rear_pad",
+            "modelId": "dock-post-rear-pad",
+            "revision": "0.1.0"
+          }
+        ]
+      },
+      "notes": "DOCK-IF-01 bench-development kit, not accepted for suspended installation. Bought hardware is counted separately."
+    },
+    {
+      "id": "dock-bench-hardware",
+      "name": "DOCK-IF-01 bought fastener set",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical",
+        "fasteners"
+      ],
+      "traits": [
+        "fastener",
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "2 M12 x 190 through-bolt",
+        "4 M12 large washer 37 x 3",
+        "2 M12 locking nut",
+        "2 M8 x 50 arm lap bolt",
+        "4 M8 washer",
+        "2 M8 locking nut",
+        "4 M4 x 100 roof/carrier/arm bolt",
+        "4 M4 x 50 guide bolt",
+        "1 M4 x 100 stud through-bolt",
+        "18 M4 washer",
+        "9 M4 locking nut",
+        "8 M3 x 30 pod bridge clamp bolt",
+        "4 M3 x 16 roof seam bolt",
+        "24 M3 washer",
+        "12 M3 locking nut"
+      ],
+      "notes": "One set per bench dock, round-120 nominal lengths. No supplier or price selected. Verify received head/washer/nut dimensions, post stack and locking engagement; other shared post sizes require recalculated M12 length. Not the corner-head fastener set."
     }
   ]
 }

@@ -22,9 +22,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function Doc({ params }: { params: Promise<{ slug: string[] }> }) {
     const path = docBySlug((await params).slug);
     if (!path) notFound();
-    const booklet = path.match(/^docs\/assemblies\/(camera-pod|winch)\/booklet\//)?.[1];
+    const booklet = path.match(/^docs\/assemblies\/(camera-pod|winch|dock)\/booklet\//)?.[1];
     const release = data().site.release;
-    const currentBooklets = booklet ? release?.booklets.filter((b) => b.name.startsWith(booklet === "winch" ? "ARBI-winch-" : "ARBI-camera-pod-")) ?? [] : [];
+    const currentBooklets = booklet ? release?.booklets.filter((b) => b.name.startsWith(booklet === "camera-pod" ? "ARBI-camera-pod-" : `ARBI-${booklet}-`)) ?? [] : [];
     return (
         <>
             <Crumb left={`Documents / ${path}`} />
@@ -43,8 +43,8 @@ export default async function Doc({ params }: { params: Promise<{ slug: string[]
                 <div className="lg:col-span-9">
                     {booklet ? (
                         <section className="mb-8 border-2 border-ink p-5">
-                            <h1 className="cond text-[34px]">Current assembly guides</h1>
-                            <p className="mt-2 text-[13px]">{currentBooklets.length ? `${release!.tag} · current PDFs and STL/source packs` : "The current guides are being prepared."} The publication notes below describe archived snapshots.</p>
+                            <h2 className="cond text-[34px]">Current assembly guides</h2>
+                            <p className="mt-2 text-[13px]">{currentBooklets.length ? `${release!.tag} · current PDFs and STL/source packs` : "The current guides are being prepared."} The publication notes below explain the artifact and evidence status.</p>
                             <div className="mt-4 grid gap-2">
                                 {currentBooklets.map((b) => (
                                     <a key={b.name} className="key-line break-words" href={b.url}>{b.name} ↓</a>

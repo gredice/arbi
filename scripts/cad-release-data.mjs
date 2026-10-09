@@ -20,7 +20,9 @@ export function releaseInputs(root) {
   const paths = [
     ...files(root, 'hardware').filter((p) => p.endsWith('.scad') && !p.startsWith('hardware/generated/')),
     'hardware/models.json', 'hardware/models.schema.json', 'hardware/model-aliases.json',
+    'bom/catalog/parts.json', 'bom/catalog/fabrication.json', 'bom/assemblies/assemblies.json',
     ...files(root, 'scripts/camera-pod-booklet'), ...files(root, 'scripts/winch-booklet'), ...files(root, 'scripts/cad-previews'),
+    ...files(root, 'scripts/dock-booklet'), ...files(root, 'docs/assemblies/dock'),
     ...files(root, 'scripts/corner-support'), ...files(root, 'docs/assemblies/corner-station'),
     'scripts/cad-release-data.mjs', 'scripts/check-cad.mjs', 'scripts/check-booklet.py',
     'scripts/check-winch-cover-meshes.py', 'scripts/check-winch-pole-meshes.py',

@@ -14,6 +14,8 @@ do {
     const site = await response.json();
     if (!site.release || site.release.missingOutputs.length || !site.scenes['camera-pod']?.source.current
       || !site.scenes.winch?.source.current || !site.scenes['winch-powered']?.source.current
+      || !site.scenes['corner-station']?.source.current || !site.scenes.dock?.source.current
+      || site.scenes.dock.layout !== 'assembly'
       || Object.keys(site.figures ?? {}).length !== site.registry.models.length) throw new Error('Site still has incomplete or archived CAD data');
     if (site.release.tag !== tag) {
       const relation = execFileSync('gh', ['api', `repos/gredice/arbi/compare/${commit}...${site.release.commit}`, '--jq', '.status'], { encoding: 'utf8' }).trim();

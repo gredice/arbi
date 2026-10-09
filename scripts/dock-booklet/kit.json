@@ -1,0 +1,67 @@
+{
+  "dock-funnel": [
+    [
+      "dock-guide-quarter",
+      "dock_guide_quarter_tapered",
+      4
+    ]
+  ],
+  "dock-nest": [
+    [
+      "dock-locator-carrier",
+      "dock_locator_carrier",
+      1
+    ]
+  ],
+  "dock-latch-hardware": [
+    [
+      "dock-latch-fork",
+      "dock_latch_fork",
+      1
+    ],
+    [
+      "dock-pod-bridge",
+      "dock_pod_bridge",
+      1
+    ],
+    [
+      "dock-pod-bridge-shoe",
+      "dock_pod_bridge_shoe",
+      4
+    ],
+    [
+      "dock-pod-stud",
+      "dock_pod_stud",
+      1
+    ]
+  ],
+  "dock-weather-hood": [
+    [
+      "dock-roof-quarter",
+      "dock_roof_quarter",
+      4
+    ],
+    [
+      "dock-roof-spacer",
+      "dock_roof_spacer",
+      4
+    ]
+  ],
+  "dock-support-arm": [
+    [
+      "dock-arm-root",
+      "dock_arm_root",
+      1
+    ],
+    [
+      "dock-arm-extension",
+      "dock_arm_extension",
+      1
+    ],
+    [
+      "dock-post-rear-pad",
+      "dock_post_rear_pad",
+      2
+    ]
+  ]
+}

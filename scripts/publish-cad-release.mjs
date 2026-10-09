@@ -44,7 +44,7 @@ if (!existing || existing.draft) {
   const registry = JSON.parse(readFileSync('hardware/models.json', 'utf8'));
   const required = [
     ...registry.models.map((m) => m.output), `cad-sources-${commit}.zip`, 'ARBI-CAD-previews.zip',
-    ...['ARBI-winch', 'ARBI-camera-pod-bench', 'ARBI-camera-pod-enclosure', 'ARBI-corner-support'].flatMap((name) => [`${name}-assembly-STL.pdf`, `${name}-STL-pack.zip`]),
+    ...['ARBI-winch', 'ARBI-camera-pod-bench', 'ARBI-camera-pod-enclosure', 'ARBI-corner-support', 'ARBI-dock'].flatMap((name) => [`${name}-assembly-STL.pdf`, `${name}-STL-pack.zip`]),
   ];
   for (const name of required) {
     if (!readFileSync(join(output, name)).length) throw new Error(`Empty CAD release asset: ${name}`);
@@ -58,7 +58,7 @@ if (!existing || existing.draft) {
   writeFileSync(join(output, 'SHA256SUMS.txt'), assets.map((n) => `${sha256(readFileSync(join(output, n)))}  ${n}\n`).join(''));
   const notes = join(output, 'release-notes.md');
   writeFileSync(notes, `CAD and assembly booklet snapshot ${version} for [commit ${commit.slice(0, 12)}](https://github.com/${repo}/commit/${commit}).\n\n`
-    + `All ${registry.models.length} registered models were built with OpenSCAD ${registry.openScadVersion}. Includes individual STL fabrication parts, CSG assembly references, hardware sources, and the winch, current integrated enclosure and corner support PDFs and source packs. The dry camera pod booklet/pack is an explicit bench alternative containing archived bench models; do not combine it with the current enclosure kit.\n\n`
+    + `All ${registry.models.length} registered models were built with OpenSCAD ${registry.openScadVersion}. Includes individual STL fabrication parts, CSG assembly references, hardware sources, and the winch, current integrated enclosure, corner support and supported-dummy dock PDFs and source packs. The dry camera pod booklet/pack is an explicit bench alternative containing archived bench models; do not combine it with the current enclosure kit.\n\n`
     + '`ARBI-CAD-previews.zip` includes a source-checked figure for every registered model. `cad-release.json` records the source commit, model revisions and exact CAD/booklet/preview input hashes. `SHA256SUMS.txt` verifies every distributed asset.\n\n'
     + 'Nominal CAD checks do not establish physical fit, mass, strength, weather resistance or installation safety.\n');
   const paths = [...assets, 'SHA256SUMS.txt'].map((name) => join(output, name));
