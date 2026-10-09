@@ -11,7 +11,7 @@
 - Build: arbi-v1
 - Destination: hr-zagreb
 - Quote snapshot: hr-zagreb-2026-10-08-coupling
-- Input digest: sha256:b1f8f91f66f8c928fca36877b211a6f234f83e24c4fc67eea4547a83c2783064
+- Input digest: sha256:bfa3243fb3b7566dff1d986fe38872a253ca59f2168ff147c3ee225adbfbd8cd
 - Complete landed total: **unavailable**
 - Known quoted goods subtotal: **EUR 943.84**
 - Known checkout-group shipping subtotal: **EUR 43.38**
@@ -44,7 +44,7 @@ Solid CAD volume × each component's material density × observed roll price / r
 
 | Part | Required | Material | Estimated weight | Estimated material cost |
 | --- | ---: | --- | ---: | ---: |
-| [camera-gimbal](parts/camera-gimbal.md) | 1 | PETG Matte + PETG Basic | 53.832 g | EUR 0.61 |
+| [camera-gimbal](parts/camera-gimbal.md) | 1 | PETG Matte + PETG Basic | 54.004 g | EUR 0.61 |
 | [camera-pod-chassis](parts/camera-pod-chassis.md) | 1 | PETG Matte + PETG Basic | 207.265 g | EUR 2.36 |
 | [dock-funnel](parts/dock-funnel.md) | 1 | PETG Basic | 376.306 g | EUR 4.29 |
 | [dock-nest](parts/dock-nest.md) | 1 | PETG Basic | 2437.206 g | EUR 27.76 |

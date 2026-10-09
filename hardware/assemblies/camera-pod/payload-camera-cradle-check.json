@@ -1,0 +1,1264 @@
+{
+  "date": "2026-10-09",
+  "model_revision": "0.1.1",
+  "base_commit": "84f3b52829cafc73c5765cd619a582c97f770439",
+  "toolchain": {
+    "openscad": "2021.01",
+    "trimesh": "5.1.1",
+    "manifold3d": "3.5.4"
+  },
+  "scope": "Nominal CAD only; reported r0.1.0 support-removal fracture motivates reinforcement; physical reprint pending.",
+  "cradle": {
+    "model_id": "payload-integrated-camera-cradle",
+    "file": "models/printable/payload-integrated-camera-cradle-r0.1.1.stl",
+    "stl_sha256": "113fc49f642f7fa80bf4a678b8c0b07829ee2b9c24f4468ffeafe350a30fdc53",
+    "status": "concept-unvalidated",
+    "units": "mm",
+    "bounds_mm": [
+      [
+        -19.799999237060547,
+        -16.0,
+        -56.5
+      ],
+      [
+        21.799999237060547,
+        16.0,
+        -31.5
+      ]
+    ],
+    "volume_mm3": 3328.2642664472064,
+    "watertight": true,
+    "connected_solids": 1,
+    "joint_sections": [
+      {
+        "x_mm": -15.5,
+        "area_mm2": 73.708
+      },
+      {
+        "x_mm": -15.1,
+        "area_mm2": 71.508
+      },
+      {
+        "x_mm": -14.7,
+        "area_mm2": 69.058
+      }
+    ],
+    "minimum_joint_area_mm2": 30.0,
+    "interface_probes": [
+      {
+        "name": "open frame service passage",
+        "intersection_mm3": 0.0
+      },
+      {
+        "name": "camera M2 axis -10.5,7.931",
+        "intersection_mm3": 0.0
+      },
+      {
+        "name": "camera M2 axis -10.5,-4.569",
+        "intersection_mm3": 0.0
+      },
+      {
+        "name": "camera M2 axis 10.5,7.931",
+        "intersection_mm3": 0.0
+      },
+      {
+        "name": "camera M2 axis 10.5,-4.569",
+        "intersection_mm3": 0.0
+      },
+      {
+        "name": "OEM horn centre access",
+        "intersection_mm3": 0.0
+      },
+      {
+        "name": "stock horn hub pocket",
+        "intersection_mm3": 0.0
+      },
+      {
+        "name": "horn retainer M2 axis -7",
+        "intersection_mm3": 0.0
+      },
+      {
+        "name": "horn retainer M2 axis 13",
+        "intersection_mm3": 0.0
+      }
+    ],
+    "weak_joint_control": {
+      "detected": true,
+      "joint_sections": [
+        {
+          "x_mm": -15.5,
+          "area_mm2": 14.453
+        },
+        {
+          "x_mm": -15.1,
+          "area_mm2": 14.453
+        },
+        {
+          "x_mm": -14.7,
+          "area_mm2": 14.453
+        }
+      ]
+    },
+    "limits": "Nominal mesh inspection only; printed strength, support removal, fit and fatigue need a reprint.",
+    "baseline": {
+      "stl_sha256": "b7ecf99a8e78daa4692a3b0a614b7d6e60d85e558f6f5909ee3e2c470f740062",
+      "volume_mm3": 3191.199210332595,
+      "joint_sections": [
+        {
+          "x_mm": -15.5,
+          "area_mm2": 14.453
+        },
+        {
+          "x_mm": -15.1,
+          "area_mm2": 14.453
+        },
+        {
+          "x_mm": -14.7,
+          "area_mm2": 14.453
+        }
+      ],
+      "added_volume_mm3": 137.06505611461125,
+      "same_bounds": true,
+      "weak_joint_detected": true
+    }
+  },
+  "cad_source_hashes": {
+    "hardware/assemblies/camera-pod/camera-pod-envelope.scad": "8e4502a70290ffdaf4e82f8bb886ab6d259d8060fd502076da6d6da8c1ac7d08",
+    "hardware/assemblies/camera-pod/payload-integrated-camera-cradle.scad": "d13be9ab253d3a72cd7c3a97b40e22caa76a7c564d78125c48d5dad3220e8b56",
+    "hardware/assemblies/camera-pod/payload-pan-fairing.scad": "6a6ea7c17086dcb79620f46fec050e5981e118df767d4b83d139c056552f260c",
+    "hardware/assemblies/camera-pod/payload-camera-cowl.scad": "820e430cbab03a554a501d9dbb6249f8a98641cb7ce73ffc3614e97df3b01ed2",
+    "hardware/assemblies/camera-pod/payload-tilt-servo-boot.scad": "5d5524e087e08c6541b9911704c5da2590c445621414a5b4610e488f71f59612",
+    "hardware/assemblies/camera-pod/camera-gimbal-camera-plate.scad": "ee46401f166414b9c65f8b361e84a9694128b8a04de4aab8f35e343f69d9c535",
+    "hardware/assemblies/camera-pod/payload-pan-servo-mount.scad": "231b167e2db6edcb857eca43262a25b449af1e8b882db8f86f67e1c3840f9360",
+    "hardware/assemblies/camera-pod/camera-gimbal-rain-cap.scad": "c3ef78aa8d602f0fb6621b47292bf39f197de453b9877a244dce3897605343fd",
+    "hardware/assemblies/camera-pod/payload-electronics-deck.scad": "6735f5d043c43e8198963f9b439f045982e092a7ab6889de8e6bef1f359390b3",
+    "hardware/assemblies/camera-pod/camera-pod-spider.scad": "6e914f806f9acdd605b2ff17b37b572d2591a1aa0b5d5d7044c818b7bcde7a29",
+    "hardware/assemblies/camera-pod/camera-pod-electronics-mount.scad": "20c726ac047aaa26ad2e81d58ec9e2f9cf82692490e8a06135bc9595639e779b",
+    "hardware/assemblies/camera-pod/camera-gimbal-base.scad": "aaa44f020ea99055c07d5aeb165f76da34c90562f1bccd29fe6ab8a746ccde2f",
+    "hardware/assemblies/camera-pod/camera-pod-line-strain-relief.scad": "55ebe149da5f2025f8a46e056c47cb866a63d8f9016b7bd20ef45ae3e1aa1fba",
+    "hardware/assemblies/camera-pod/payload-integrated-gimbal-head.scad": "c83dd23cf724217a78c960e3dc5231fbf95e592c5e52a621e26395a8b39498b8",
+    "hardware/assemblies/camera-pod/payload-enclosure-base.scad": "01aae0668a1d6391afa56521df72a0cdd111f7e89830fec4308dec8a3795837c",
+    "hardware/assemblies/camera-pod/camera-gimbal-yoke.scad": "bf82f067e8ebdcda99cdda1c68a08512a23c3c7d34670df5974624140d5a0177",
+    "hardware/assemblies/camera-pod/payload-camera-hood.scad": "440dfc70e6be114f7d62f6f25876b2392809316711822b776bdd8a082fd45c32",
+    "hardware/assemblies/camera-pod/payload-servo-fit-coupon.scad": "d50a9a85fa33dc954b8c908d23497ecc2db2bc90afc62b357cade8a0a5dc18e3",
+    "hardware/assemblies/camera-pod/payload-camera-cradle.scad": "9c691442df4b78756045cc42cca0bcc26bbcbab1fa3b12fe09b6387e6005bba0",
+    "hardware/assemblies/camera-pod/payload-integrated-deck.scad": "aba8ab432856d68cd28230eece2bbe6008d57fee1d2b35a36996c00b1618d2b1",
+    "hardware/assemblies/camera-pod/payload-rain-hood.scad": "3c2db07ccebd5dc84709e92901d08793465c462f7c6e588995971a4cb5c8f6d1",
+    "hardware/assemblies/camera-pod/payload-rain-assembly.scad": "1d2496053ff2c69b4c57c6e03658adc0b4c68acc9b78ff9854ad0fe21eba14f0",
+    "hardware/assemblies/camera-pod/camera-pod-docking-stud.scad": "b4d26a0e2d8914c77383e1556db1f9e86b6c2dc92ff6a8e3d9744c9ee59bfc1f",
+    "hardware/assemblies/camera-pod/payload-integrated-tilt-pivot-support.scad": "9f6290b18b0aec3758c0a03fd070ab5020e8bd4814630e67c6f09a11efdef2ce",
+    "hardware/assemblies/camera-pod/payload-integrated-gimbal-carrier.scad": "eb77939cd0116bc7e2b0e2a7da0cd39b8361b1cd6354124f7d5967422294b52d",
+    "hardware/assemblies/camera-pod/payload-horn-retainer.scad": "287d05e7612b5817fa2bfc9cabf3104a71609527bd1a994b993e4cebb3d12b28",
+    "hardware/assemblies/camera-pod/payload-integrated-camera-hood.scad": "30ea719d1a8d31199d0ffbaa33aa26023dcfb0cefbc383417a3e0ce64716a1b9",
+    "hardware/assemblies/camera-pod/payload-electronics-cover.scad": "b8c8d85b0d79f09c1a9c6f494db88363e45380e1b1c54a545b09f87ac20f5212",
+    "hardware/assemblies/camera-pod/camera-gimbal-optical-hood.scad": "b812f413d9efba9c156083b4508f15647e3fc5cfa1589a2950fd3d8d9b34df3d",
+    "hardware/assemblies/camera-pod/camera-pod-assembly.scad": "f1b1ddb34e85a0eed4bdc6497474f1f037353d4dc4ddf305dad64fb861d72401",
+    "hardware/assemblies/camera-pod/payload-spider-spacer.scad": "eb4d41b065002e4845cf7990dfb2802d67e8dd78fb8b31dde35a721b17faf344",
+    "hardware/assemblies/camera-pod/payload-pan-yoke.scad": "04bcb26c0b633f4810fc3d51efe9684857eda266d01afdeab075932f9511ea04",
+    "hardware/assemblies/camera-pod/payload-tilt-pivot-support.scad": "1c3b56b430206f2c63b71c66a232df35ff5e4463d1b05e71d6a554a4b2c7f0ce",
+    "hardware/lib/arbi.scad": "39939675020b805ced0e8a05cd41b40037ae627f602e08f7bf638c7ba9d9d9c7",
+    "hardware/lib/camera-pod.scad": "a9c5a6722d39ac199f3e2ba2106055e04a2cbbd85fae2edc53292770ab58a8ea",
+    "hardware/lib/payload-mounts.scad": "489db6bba746e741d4db140c9d9fe4dc92bec7eca1a35b7b1e2ef19439f96039",
+    "hardware/lib/payload-enclosure.scad": "6fc5a7743f2a0fa7e0ecfce9e426e0b18a6da93ef1fbddf6b0a57dc0cf951a7a",
+    "hardware/lib/payload-integrated-deck.scad": "55e406d003c770a7a60dc8b80b062d540fa6232cdf82a10e256f15a1d0a7af2f",
+    "hardware/lib/payload-integrated-head.scad": "d506927a29d19697977d6a244668401163c0079f0efef9e3726cdcf2ce59b191",
+    "hardware/lib/payload-integrated-gimbal.scad": "46b4d8ad452c22876d42c41bc93ab5cc25bbf2bd7e0173bddf5e66852648ba56",
+    "hardware/models.json": "79a0be0aae5a7ac1e633001a9c1e284a8432e17c5499bd957b14bb01208bf505",
+    "scripts/payload-booklet/reference-parts.scad": "ee5e874c8549bd9cfe1a63f9a7f43e24769086855f7884d0c2bad390e1fab96c",
+    "scripts/payload-booklet/export_models.py": "8246c2c64187517f752c207b39d24ccc9280d740634a58c9a24318fbca11cf07",
+    "scripts/payload-booklet/model_selection.py": "36187d9620acc15c6348be8e1eb1923317b24b34596f5e2e9818101d1ae38b75"
+  },
+  "checker_source_hashes": {
+    "scripts/payload-booklet/check_cradle.py": "68569d31f53ef12987fc06c30590d7ac1a83b092a2c09bc99320cf080d9660fb",
+    "scripts/payload-booklet/check_integration.py": "9a3dd9adb86a51f84efdf9081b6ae940500038e6bc37c3a85813932b8b1ea336",
+    "scripts/payload-booklet/check_service.py": "80e4c9c9fd1f6a48f1f0f682d4f9d2d4aa959590385a893992426802a4fd1a55",
+    "scripts/payload-booklet/integration.py": "4fe5bf788c3899d4b51ea57e6b80c97e7b63914977e5494312a321dd603dc657",
+    "scripts/payload-booklet/reference-parts.scad": "ee5e874c8549bd9cfe1a63f9a7f43e24769086855f7884d0c2bad390e1fab96c"
+  },
+  "mesh_hashes": {
+    "raspberry-pi-3a-plus-reference": "147acdbd3d7235b9cd645e4151fe00e7c01ced74bf3bcd1412b33bba6ebea9d8",
+    "camera-module-3-standard-reference": "0c7acdf8ff8f268e046e656a69e30086e6c114a45125ad320685ede05bc91424",
+    "micro-servo-3p7g-UNVERIFIED": "4a0d4f37e81960a2ad44bb38626545370e409d78a0e43e6a6016f43c08565e83",
+    "servo-horn-UNVERIFIED": "5da3240a20a36f5d80f6f93c5771b4a33523cab427a5e462fceb2fa78af2908a",
+    "buck-converter-UNVERIFIED": "0c8acd6a2fd55c7cc7c1a0ddaaf35707a71b074bcf4930f4e661d301fbb0d52e",
+    "capacitor-1000uf-UNVERIFIED": "9f2965ff226b992e799a7ff633854fa2aff892b4f7fdc6ca14be7b5f4dc30392",
+    "microsd-reference": "f2c07472383626694fa8f2a3428a6a45be6b602a14fc838458e10a40ade18ac0",
+    "csi-15pin-flat-reference": "3e62a5870e394e21035180878391079bee325c3a849bbb8a376000b56a8c30a0",
+    "nut-M2-reference": "1066ceafd4c90c2c4e19178148e207e89afaed85b64cd18002a0e09f64d0c43d",
+    "nut-M2p5-reference": "026b1de5351e8f56c45a032fec9526d84b3d134a11b393a3eaff156f9210ea6a",
+    "nut-M4-reference": "dad40e4540aa65961e6f2fe350dd24732ff18b9ca7f51bc5719f8a1390c4e3e3",
+    "washer-M2-reference": "d80d10678bb14143de5c3631256eef364ea66f5dc5b4b1931a4e86c2d040989d",
+    "washer-M2p5-reference": "bda92ad77bd77af0e860435971bcb91e9c6cfd210bbc759fc55248923429124f",
+    "washer-M4-reference": "d770bbda0e5c61e9056cd760d5843d530d28211e94366a5e3add91a47aa6bd73",
+    "bolt-M4x35-reference": "ada5ec2d7d3adec38e6c9dce124ccd86c63340b08b2db81fb6661fa9ac588738",
+    "bolt-M2p5x20-reference": "2b335b43705db4626eefb40fd629bbf54750f3f43d0c402332d1a6d1f3fe5bbb",
+    "bolt-M2x12-reference": "780a094cc17e295b60830e8ddeefc5f167b8efc015e3d6eb3c1c4c493491241f",
+    "bolt-M3x12-reference": "985aa0b265514d33c26c7402b75d2de97d79e042d1a35e0753a9e02b197bec2c",
+    "bolt-M3x35-reference": "42122fdf992282832ea2bdf6f82c6688bfd2ba2dd02b6d6e412287363d49d0c5",
+    "nut-M1p6-reference": "57170d3c98ee6baa95b7b7f3274830d34c9915cf59e7c2764b5f61407d914000",
+    "nut-M3-reference": "21bc6be807f801f8b93513fc78e4dd2da5659f4c30f5e7639e8b8855adfda907",
+    "washer-M3-reference": "06d6944aa2f1b949d225cdc8fc7a2347fd8c5838a844be8745caca0f8686afcd",
+    "washer-M3x0p7-reference": "93dc286181487f41f0de099f79ce3cbe99efb44c359b3e5761545331bf79defe",
+    "bolt-OEM-horn-UNVERIFIED": "9e082517817001e6a6ddf7c9ef8b8bce7d213bf63f489326ea07707e7088cdc4",
+    "converter-tie-reference": "a92d362e39dc39cf8f8c963b45a4f97b200ac8710a626c5618b3284fb1c7dee7",
+    "capacitor-tie-reference": "22e411439b72115e23873c4b7de4338dc732223a45b086edf78f033c505a245a",
+    "csk-M1p6x6-reference": "0762d78cb5e79f1e75f9b344ac348659af75c43bbcd35a62a9a681782a9ac5f3",
+    "csk-M2x8-reference": "7b27b5d3bd2452cc27d7c7c2d4e79dcba6e0140d285cfaa1451bee60a1cb59da",
+    "csk-M2x10-reference": "b190e92fbc927cd3944291d4c5ba11ceac0b2893ef53e13f592a32eeff65d3ab",
+    "bolt-M2x10-reference": "864b01f7f7af41fcd42997dc567e08ce1c47e39e19fce1cf09356355f25940e2",
+    "camera-pod-spider": "c2e9f0b57e9d8bb155a291f14b2d33bef4dbf01c5e7ac8bb1d2b1c8ae0c71e75",
+    "payload-pan-servo-mount": "3d1c8f2057766e16e1dce1cb12e1449b8e0452a7ccd26dde6e0fe26d9a1d8b03",
+    "payload-horn-retainer": "b276264b005ec2ee327e4e3b9dc50c5240e39b2ba7bd064108b09c36651f4959",
+    "payload-servo-fit-coupon": "0e5cf918fb37755a48efa34d6a955d31aef4eb1634ff318bf46ca524ed1e5779",
+    "payload-spider-spacer": "6e8c07ad194a4dd98b2829c59323c13e0f1901e3f3cf560a0aa6446efd9df20e",
+    "payload-rain-hood": "9cd825a0573ac2554ec82e4fb7ff1f3d7ffdcdd9d9edb7b0031d2ca7588c107a",
+    "payload-enclosure-base": "0a5e2b9300a026583fca72ca3580ad8f94053fdcff9c31f4d2cd8396e69fc397",
+    "payload-integrated-gimbal-head": "f7288562ec5d9cb92daf72182d8e8035d83532cbf158a9479790bc10791f68a5",
+    "payload-integrated-gimbal-carrier": "55ee769f3da42b1d61f91d5bed241279977224d190ffb9a76a78ec721a19a912",
+    "payload-integrated-camera-cradle": "113fc49f642f7fa80bf4a678b8c0b07829ee2b9c24f4468ffeafe350a30fdc53",
+    "payload-integrated-tilt-pivot-support": "1de3b82c1ea8918722205423d0d7381228ed270969da1a92096147c01532436b",
+    "payload-integrated-deck": "c88145c9b0fe5c25be95d24f26d0fc82ce49399ed6539817f979074418cc3b43",
+    "payload-integrated-camera-hood": "57a8f17e941674623cd156a520d093394cd2933f1e9a3ef440a6f9896172963d",
+    "fixed-power-route-6mm-NOMINAL": "63dedc46aae2a92430d49dd574236eb8ed922e5fb5e6fc5291f1983459241bc7"
+  },
+  "assembly": {
+    "intersection_tolerance_mm3": 0.005,
+    "neutral_collisions": [],
+    "motion_grid": {
+      "poses": 555,
+      "pan_deg": [
+        -90,
+        90,
+        5
+      ],
+      "tilt_deg": [
+        0,
+        70,
+        5
+      ],
+      "failures": []
+    },
+    "hard_stop_overtravel": {
+      "pan-negative": {
+        "pan": -96,
+        "tilt": 0,
+        "stop_detected": true,
+        "collisions": [
+          {
+            "a": "pan-mount",
+            "b": "pan-yoke",
+            "intersection_mm3": 2.08938
+          }
+        ]
+      },
+      "pan-positive": {
+        "pan": 96,
+        "tilt": 0,
+        "stop_detected": true,
+        "collisions": [
+          {
+            "a": "pan-mount",
+            "b": "pan-yoke",
+            "intersection_mm3": 2.08938
+          }
+        ]
+      },
+      "tilt-negative": {
+        "pan": 0,
+        "tilt": -6,
+        "stop_detected": true,
+        "collisions": [
+          {
+            "a": "tilt-pivot-support",
+            "b": "camera-cradle",
+            "intersection_mm3": 0.07923
+          }
+        ]
+      },
+      "tilt-positive": {
+        "pan": 0,
+        "tilt": 76,
+        "stop_detected": true,
+        "collisions": [
+          {
+            "a": "tilt-pivot-support",
+            "b": "camera-cradle",
+            "intersection_mm3": 0.07921
+          }
+        ]
+      }
+    },
+    "neck_minimum_clearance_mm": 1.4440499527115733,
+    "head_taper_samples": 1566,
+    "head_taper_failures": [],
+    "solid_total_PETG_g": 253.92690983053942
+  },
+  "service": {
+    "assembly_paths": [
+      {
+        "name": "pan servo inserted downward through the upper opening",
+        "positions": 37,
+        "failures": []
+      },
+      {
+        "name": "tilt servo inserted inward from the left with outer head removed",
+        "positions": 31,
+        "failures": []
+      },
+      {
+        "name": "camera and hood inserted upward after horn attachment",
+        "positions": 26,
+        "failures": []
+      },
+      {
+        "name": "camera M2x12 bolt and front washer 0 enter through eye-face tunnel before rear nuts are fitted",
+        "positions": 41,
+        "failures": []
+      },
+      {
+        "name": "camera M2x12 bolt and front washer 1 enter through eye-face tunnel before rear nuts are fitted",
+        "positions": 41,
+        "failures": []
+      },
+      {
+        "name": "camera M2x12 bolt and front washer 2 enter through eye-face tunnel before rear nuts are fitted",
+        "positions": 41,
+        "failures": []
+      },
+      {
+        "name": "camera M2x12 bolt and front washer 3 enter through eye-face tunnel before rear nuts are fitted",
+        "positions": 41,
+        "failures": []
+      },
+      {
+        "name": "rain hood lifts vertically with captive nuts after lower bolts are removed",
+        "positions": 61,
+        "failures": []
+      },
+      {
+        "name": "upper rain tray lifts off spider before deck spacers and gimbal are fitted",
+        "positions": 61,
+        "failures": []
+      },
+      {
+        "name": "rolled upper rain tray lifts off retained neutral gimbal after upper hardware and harness are removed",
+        "positions": 61,
+        "failures": []
+      },
+      {
+        "name": "outer head captive nut and lower washer 0 slide 11 mm from inward side before carrier fitting",
+        "positions": 23,
+        "failures": [],
+        "stage": "outer body alone; carrier and upper bolts not yet fitted"
+      },
+      {
+        "name": "outer head captive nut and lower washer 1 slide 11 mm from inward side before carrier fitting",
+        "positions": 23,
+        "failures": [],
+        "stage": "outer body alone; carrier and upper bolts not yet fitted"
+      },
+      {
+        "name": "outer head captive nut and lower washer 2 slide 11 mm from inward side before carrier fitting",
+        "positions": 23,
+        "failures": [],
+        "stage": "outer body alone; carrier and upper bolts not yet fitted"
+      },
+      {
+        "name": "outer head captive nut and lower washer 3 slide 11 mm from inward side before carrier fitting",
+        "positions": 23,
+        "failures": [],
+        "stage": "outer body alone; carrier and upper bolts not yet fitted"
+      },
+      {
+        "name": "with upper stack removed and pan mount fixture-supported, outer body lowers off complete neutral carrier after four upper bolts are removed",
+        "positions": 101,
+        "failures": [],
+        "removed_before": [
+          "deck",
+          "spider-spacer-0",
+          "spider-spacer-1",
+          "spider-spacer-2",
+          "spider-spacer-3",
+          "enclosure-base",
+          "rain-hood",
+          "pi",
+          "converter",
+          "capacitor",
+          "converter-tie-0",
+          "converter-tie-1",
+          "capacitor-tie",
+          "frame-bolt-0",
+          "frame-lower-washer-0",
+          "frame-upper-washer-0",
+          "frame-nut-0",
+          "frame-bolt-1",
+          "frame-lower-washer-1",
+          "frame-upper-washer-1",
+          "frame-nut-1",
+          "frame-bolt-2",
+          "frame-lower-washer-2",
+          "frame-upper-washer-2",
+          "frame-nut-2",
+          "frame-bolt-3",
+          "frame-lower-washer-3",
+          "frame-upper-washer-3",
+          "frame-nut-3",
+          "pi-bolt-0",
+          "pi-top-washer-0",
+          "pi-bottom-washer-0",
+          "pi-nut-0",
+          "pi-bolt-1",
+          "pi-top-washer-1",
+          "pi-bottom-washer-1",
+          "pi-nut-1",
+          "pi-bolt-2",
+          "pi-top-washer-2",
+          "pi-bottom-washer-2",
+          "pi-nut-2",
+          "pi-bolt-3",
+          "pi-top-washer-3",
+          "pi-bottom-washer-3",
+          "pi-nut-3",
+          "cover-bolt-0",
+          "cover-bottom-washer-0",
+          "cover-nut-0",
+          "cover-bolt-1",
+          "cover-bottom-washer-1",
+          "cover-nut-1",
+          "cover-bolt-2",
+          "cover-bottom-washer-2",
+          "cover-nut-2",
+          "cover-bolt-3",
+          "cover-bottom-washer-3",
+          "cover-nut-3",
+          "head-bolt-0",
+          "head-upper-washer-0",
+          "head-bolt-1",
+          "head-upper-washer-1",
+          "head-bolt-2",
+          "head-upper-washer-2",
+          "head-bolt-3",
+          "head-upper-washer-3"
+        ]
+      },
+      {
+        "name": "head bolt and upper washer 0 inserted from open top before upper tray and electronics are fitted",
+        "positions": 81,
+        "failures": []
+      },
+      {
+        "name": "head bolt and upper washer 1 inserted from open top before upper tray and electronics are fitted",
+        "positions": 81,
+        "failures": []
+      },
+      {
+        "name": "head bolt and upper washer 2 inserted from open top before upper tray and electronics are fitted",
+        "positions": 81,
+        "failures": []
+      },
+      {
+        "name": "head bolt and upper washer 3 inserted from open top before upper tray and electronics are fitted",
+        "positions": 81,
+        "failures": []
+      },
+      {
+        "name": "with outer body and rear camera nuts removed, camera hood PCB front bolts and washers lower from retained cradle",
+        "positions": 31,
+        "failures": [],
+        "removed_before": [
+          "deck",
+          "spider-spacer-0",
+          "spider-spacer-1",
+          "spider-spacer-2",
+          "spider-spacer-3",
+          "enclosure-base",
+          "rain-hood",
+          "pi",
+          "converter",
+          "capacitor",
+          "converter-tie-0",
+          "converter-tie-1",
+          "capacitor-tie",
+          "frame-bolt-0",
+          "frame-lower-washer-0",
+          "frame-upper-washer-0",
+          "frame-nut-0",
+          "frame-bolt-1",
+          "frame-lower-washer-1",
+          "frame-upper-washer-1",
+          "frame-nut-1",
+          "frame-bolt-2",
+          "frame-lower-washer-2",
+          "frame-upper-washer-2",
+          "frame-nut-2",
+          "frame-bolt-3",
+          "frame-lower-washer-3",
+          "frame-upper-washer-3",
+          "frame-nut-3",
+          "pi-bolt-0",
+          "pi-top-washer-0",
+          "pi-bottom-washer-0",
+          "pi-nut-0",
+          "pi-bolt-1",
+          "pi-top-washer-1",
+          "pi-bottom-washer-1",
+          "pi-nut-1",
+          "pi-bolt-2",
+          "pi-top-washer-2",
+          "pi-bottom-washer-2",
+          "pi-nut-2",
+          "pi-bolt-3",
+          "pi-top-washer-3",
+          "pi-bottom-washer-3",
+          "pi-nut-3",
+          "cover-bolt-0",
+          "cover-bottom-washer-0",
+          "cover-nut-0",
+          "cover-bolt-1",
+          "cover-bottom-washer-1",
+          "cover-nut-1",
+          "cover-bolt-2",
+          "cover-bottom-washer-2",
+          "cover-nut-2",
+          "cover-bolt-3",
+          "cover-bottom-washer-3",
+          "cover-nut-3",
+          "gimbal-head",
+          "head-bolt-0",
+          "head-upper-washer-0",
+          "head-lower-washer-0",
+          "head-nut-0",
+          "head-bolt-1",
+          "head-upper-washer-1",
+          "head-lower-washer-1",
+          "head-nut-1",
+          "head-bolt-2",
+          "head-upper-washer-2",
+          "head-lower-washer-2",
+          "head-nut-2",
+          "head-bolt-3",
+          "head-upper-washer-3",
+          "head-lower-washer-3",
+          "head-nut-3",
+          "camera-back-washer-0",
+          "camera-nut-0",
+          "camera-back-washer-1",
+          "camera-nut-1",
+          "camera-back-washer-2",
+          "camera-nut-2",
+          "camera-back-washer-3",
+          "camera-nut-3"
+        ]
+      },
+      {
+        "name": "with outer body and camera removed, OEM pan centre screw withdraws through open cradle",
+        "positions": 71,
+        "failures": [],
+        "intended_engagement_exclusions": [
+          [
+            "pan-horn-center-screw",
+            "pan-servo"
+          ]
+        ],
+        "removed_before": [
+          "deck",
+          "spider-spacer-0",
+          "spider-spacer-1",
+          "spider-spacer-2",
+          "spider-spacer-3",
+          "enclosure-base",
+          "rain-hood",
+          "pi",
+          "converter",
+          "capacitor",
+          "converter-tie-0",
+          "converter-tie-1",
+          "capacitor-tie",
+          "frame-bolt-0",
+          "frame-lower-washer-0",
+          "frame-upper-washer-0",
+          "frame-nut-0",
+          "frame-bolt-1",
+          "frame-lower-washer-1",
+          "frame-upper-washer-1",
+          "frame-nut-1",
+          "frame-bolt-2",
+          "frame-lower-washer-2",
+          "frame-upper-washer-2",
+          "frame-nut-2",
+          "frame-bolt-3",
+          "frame-lower-washer-3",
+          "frame-upper-washer-3",
+          "frame-nut-3",
+          "pi-bolt-0",
+          "pi-top-washer-0",
+          "pi-bottom-washer-0",
+          "pi-nut-0",
+          "pi-bolt-1",
+          "pi-top-washer-1",
+          "pi-bottom-washer-1",
+          "pi-nut-1",
+          "pi-bolt-2",
+          "pi-top-washer-2",
+          "pi-bottom-washer-2",
+          "pi-nut-2",
+          "pi-bolt-3",
+          "pi-top-washer-3",
+          "pi-bottom-washer-3",
+          "pi-nut-3",
+          "cover-bolt-0",
+          "cover-bottom-washer-0",
+          "cover-nut-0",
+          "cover-bolt-1",
+          "cover-bottom-washer-1",
+          "cover-nut-1",
+          "cover-bolt-2",
+          "cover-bottom-washer-2",
+          "cover-nut-2",
+          "cover-bolt-3",
+          "cover-bottom-washer-3",
+          "cover-nut-3",
+          "gimbal-head",
+          "head-bolt-0",
+          "head-upper-washer-0",
+          "head-lower-washer-0",
+          "head-nut-0",
+          "head-bolt-1",
+          "head-upper-washer-1",
+          "head-lower-washer-1",
+          "head-nut-1",
+          "head-bolt-2",
+          "head-upper-washer-2",
+          "head-lower-washer-2",
+          "head-nut-2",
+          "head-bolt-3",
+          "head-upper-washer-3",
+          "head-lower-washer-3",
+          "head-nut-3",
+          "camera-hood",
+          "camera",
+          "camera-bolt-0",
+          "camera-front-washer-0",
+          "camera-back-washer-0",
+          "camera-nut-0",
+          "camera-bolt-1",
+          "camera-front-washer-1",
+          "camera-back-washer-1",
+          "camera-nut-1",
+          "camera-bolt-2",
+          "camera-front-washer-2",
+          "camera-back-washer-2",
+          "camera-nut-2",
+          "camera-bolt-3",
+          "camera-front-washer-3",
+          "camera-back-washer-3",
+          "camera-nut-3"
+        ]
+      },
+      {
+        "name": "after outer body camera and OEM centre screw removal, supported carrier lowers from fixed pan servo",
+        "positions": 101,
+        "failures": [],
+        "intended_engagement_exclusions": [
+          [
+            "pan-horn",
+            "pan-servo"
+          ]
+        ],
+        "removed_before": [
+          "deck",
+          "spider-spacer-0",
+          "spider-spacer-1",
+          "spider-spacer-2",
+          "spider-spacer-3",
+          "enclosure-base",
+          "rain-hood",
+          "pi",
+          "converter",
+          "capacitor",
+          "converter-tie-0",
+          "converter-tie-1",
+          "capacitor-tie",
+          "frame-bolt-0",
+          "frame-lower-washer-0",
+          "frame-upper-washer-0",
+          "frame-nut-0",
+          "frame-bolt-1",
+          "frame-lower-washer-1",
+          "frame-upper-washer-1",
+          "frame-nut-1",
+          "frame-bolt-2",
+          "frame-lower-washer-2",
+          "frame-upper-washer-2",
+          "frame-nut-2",
+          "frame-bolt-3",
+          "frame-lower-washer-3",
+          "frame-upper-washer-3",
+          "frame-nut-3",
+          "pi-bolt-0",
+          "pi-top-washer-0",
+          "pi-bottom-washer-0",
+          "pi-nut-0",
+          "pi-bolt-1",
+          "pi-top-washer-1",
+          "pi-bottom-washer-1",
+          "pi-nut-1",
+          "pi-bolt-2",
+          "pi-top-washer-2",
+          "pi-bottom-washer-2",
+          "pi-nut-2",
+          "pi-bolt-3",
+          "pi-top-washer-3",
+          "pi-bottom-washer-3",
+          "pi-nut-3",
+          "cover-bolt-0",
+          "cover-bottom-washer-0",
+          "cover-nut-0",
+          "cover-bolt-1",
+          "cover-bottom-washer-1",
+          "cover-nut-1",
+          "cover-bolt-2",
+          "cover-bottom-washer-2",
+          "cover-nut-2",
+          "cover-bolt-3",
+          "cover-bottom-washer-3",
+          "cover-nut-3",
+          "gimbal-head",
+          "head-bolt-0",
+          "head-upper-washer-0",
+          "head-lower-washer-0",
+          "head-nut-0",
+          "head-bolt-1",
+          "head-upper-washer-1",
+          "head-lower-washer-1",
+          "head-nut-1",
+          "head-bolt-2",
+          "head-upper-washer-2",
+          "head-lower-washer-2",
+          "head-nut-2",
+          "head-bolt-3",
+          "head-upper-washer-3",
+          "head-lower-washer-3",
+          "head-nut-3",
+          "camera-hood",
+          "camera",
+          "camera-bolt-0",
+          "camera-front-washer-0",
+          "camera-back-washer-0",
+          "camera-nut-0",
+          "camera-bolt-1",
+          "camera-front-washer-1",
+          "camera-back-washer-1",
+          "camera-nut-1",
+          "camera-bolt-2",
+          "camera-front-washer-2",
+          "camera-back-washer-2",
+          "camera-nut-2",
+          "camera-bolt-3",
+          "camera-front-washer-3",
+          "camera-back-washer-3",
+          "camera-nut-3",
+          "pan-horn-center-screw"
+        ]
+      },
+      {
+        "name": "M3 captive nut side load at -22,-46",
+        "positions": 29,
+        "failures": []
+      },
+      {
+        "name": "M3 captive nut side load at 22,-46",
+        "positions": 29,
+        "failures": []
+      },
+      {
+        "name": "M3 captive nut side load at -22,46",
+        "positions": 29,
+        "failures": []
+      },
+      {
+        "name": "M3 captive nut side load at 22,46",
+        "positions": 29,
+        "failures": []
+      },
+      {
+        "name": "cradle seated on tilt servo with opposite support removed",
+        "positions": 13,
+        "failures": []
+      },
+      {
+        "name": "camera cradle clears tilt servo during seating",
+        "positions": 13,
+        "failures": []
+      },
+      {
+        "name": "pivot nut drops through open-top slot",
+        "positions": 25,
+        "failures": []
+      },
+      {
+        "name": "opposite support fitted inward from the right",
+        "positions": 25,
+        "failures": []
+      }
+    ],
+    "tool_access": [
+      {
+        "name": "pan retainer short driver before outer head and fixed pan host are fitted",
+        "diameter_mm": 2,
+        "straight_tip_length_mm": 15,
+        "hits": []
+      },
+      {
+        "name": "tilt retainer driver on separate cradle and horn before servo engagement",
+        "diameter_mm": 2,
+        "straight_tip_length_mm": 15,
+        "hits": [],
+        "assembly_stage": {
+          "description": "Cradle and captured stock horn on the bench, before engaging the mounted tilt servo or fitting the camera and opposite support.",
+          "subassembly_parts": [
+            "camera-cradle",
+            "tilt-horn-retainer",
+            "tilt-horn",
+            "tilt-retainer-bolt-0",
+            "tilt-retainer-bottom-washer-0",
+            "tilt-retainer-nut-0",
+            "tilt-retainer-bolt-1",
+            "tilt-retainer-bottom-washer-1",
+            "tilt-retainer-nut-1"
+          ]
+        }
+      },
+      {
+        "name": "pan retainer short driver before outer head and fixed pan host are fitted",
+        "diameter_mm": 2,
+        "straight_tip_length_mm": 15,
+        "hits": []
+      },
+      {
+        "name": "tilt retainer driver on separate cradle and horn before servo engagement",
+        "diameter_mm": 2,
+        "straight_tip_length_mm": 15,
+        "hits": [],
+        "assembly_stage": {
+          "description": "Cradle and captured stock horn on the bench, before engaging the mounted tilt servo or fitting the camera and opposite support.",
+          "subassembly_parts": [
+            "camera-cradle",
+            "tilt-horn-retainer",
+            "tilt-horn",
+            "tilt-retainer-bolt-0",
+            "tilt-retainer-bottom-washer-0",
+            "tilt-retainer-nut-0",
+            "tilt-retainer-bolt-1",
+            "tilt-retainer-bottom-washer-1",
+            "tilt-retainer-nut-1"
+          ]
+        }
+      },
+      {
+        "name": "pan OEM centre driver through open cradle after outer body and camera removal",
+        "diameter_mm": 2.5,
+        "straight_tip_length_mm": 65,
+        "hits": []
+      },
+      {
+        "name": "tilt OEM centre driver before camera mounting",
+        "diameter_mm": 2.5,
+        "straight_tip_length_mm": 15,
+        "hits": []
+      },
+      {
+        "name": "camera front driver",
+        "diameter_mm": 2,
+        "straight_tip_length_mm": 15,
+        "hits": []
+      },
+      {
+        "name": "camera front driver",
+        "diameter_mm": 2,
+        "straight_tip_length_mm": 15,
+        "hits": []
+      },
+      {
+        "name": "camera front driver",
+        "diameter_mm": 2,
+        "straight_tip_length_mm": 15,
+        "hits": []
+      },
+      {
+        "name": "camera front driver",
+        "diameter_mm": 2,
+        "straight_tip_length_mm": 15,
+        "hits": []
+      },
+      {
+        "name": "rain hood lower screw driver",
+        "diameter_mm": 3,
+        "straight_tip_length_mm": 18,
+        "hits": []
+      },
+      {
+        "name": "rain hood lower screw driver",
+        "diameter_mm": 3,
+        "straight_tip_length_mm": 18,
+        "hits": []
+      },
+      {
+        "name": "rain hood lower screw driver",
+        "diameter_mm": 3,
+        "straight_tip_length_mm": 18,
+        "hits": []
+      },
+      {
+        "name": "rain hood lower screw driver",
+        "diameter_mm": 3,
+        "straight_tip_length_mm": 18,
+        "hits": []
+      },
+      {
+        "name": "head upper screw long driver with upper tray and electronics absent and spider retained",
+        "diameter_mm": 2,
+        "straight_tip_length_mm": 80,
+        "hits": []
+      },
+      {
+        "name": "head upper screw long driver with upper tray and electronics absent and spider retained",
+        "diameter_mm": 2,
+        "straight_tip_length_mm": 80,
+        "hits": []
+      },
+      {
+        "name": "head upper screw long driver with upper tray and electronics absent and spider retained",
+        "diameter_mm": 2,
+        "straight_tip_length_mm": 80,
+        "hits": []
+      },
+      {
+        "name": "head upper screw long driver with upper tray and electronics absent and spider retained",
+        "diameter_mm": 2,
+        "straight_tip_length_mm": 80,
+        "hits": []
+      },
+      {
+        "name": "rear camera nut 0 short socket neck after outer body removal",
+        "diameter_mm": 5.3,
+        "through_bore_diameter_mm": 2.4,
+        "straight_tip_length_mm": 6,
+        "axis_start_mm": [
+          -10.5,
+          7.931,
+          -41.58999997615815
+        ],
+        "assembly_stage": "Neutral carrier with the outer body and upper stack removed; this checks only the local socket neck above the nut, not handle placement or wrench turning.",
+        "hits": []
+      },
+      {
+        "name": "rear camera nut 1 short socket neck after outer body removal",
+        "diameter_mm": 5.3,
+        "through_bore_diameter_mm": 2.4,
+        "straight_tip_length_mm": 6,
+        "axis_start_mm": [
+          -10.5,
+          -4.569,
+          -41.58999997615815
+        ],
+        "assembly_stage": "Neutral carrier with the outer body and upper stack removed; this checks only the local socket neck above the nut, not handle placement or wrench turning.",
+        "hits": []
+      },
+      {
+        "name": "rear camera nut 2 short socket neck after outer body removal",
+        "diameter_mm": 5.3,
+        "through_bore_diameter_mm": 2.4,
+        "straight_tip_length_mm": 6,
+        "axis_start_mm": [
+          10.5,
+          7.931,
+          -41.58999997615815
+        ],
+        "assembly_stage": "Neutral carrier with the outer body and upper stack removed; this checks only the local socket neck above the nut, not handle placement or wrench turning.",
+        "hits": []
+      },
+      {
+        "name": "rear camera nut 3 short socket neck after outer body removal",
+        "diameter_mm": 5.3,
+        "through_bore_diameter_mm": 2.4,
+        "straight_tip_length_mm": 6,
+        "axis_start_mm": [
+          10.5,
+          -4.569,
+          -41.58999997615815
+        ],
+        "assembly_stage": "Neutral carrier with the outer body and upper stack removed; this checks only the local socket neck above the nut, not handle placement or wrench turning.",
+        "hits": []
+      }
+    ],
+    "wiring_ports": [
+      {
+        "name": "48 V input lead",
+        "nominal_envelope": {
+          "diameter_mm": 6,
+          "axis_mm": [
+            10,
+            40
+          ],
+          "z_mm": [
+            7,
+            24
+          ]
+        },
+        "hits": []
+      },
+      {
+        "name": "fixed CSI downward passage",
+        "nominal_envelope": {
+          "section_mm": [
+            16,
+            0.3
+          ],
+          "axis_mm": [
+            0,
+            -48
+          ],
+          "z_mm": [
+            7,
+            24
+          ]
+        },
+        "hits": []
+      },
+      {
+        "name": "pan servo downward leads",
+        "nominal_envelope": {
+          "section_mm": [
+            4,
+            2
+          ],
+          "axis_mm": [
+            -40,
+            -15
+          ],
+          "z_mm": [
+            7,
+            24
+          ]
+        },
+        "hits": []
+      },
+      {
+        "name": "moving head upper lead passage",
+        "nominal_envelope": {
+          "section_mm": [
+            6,
+            2
+          ],
+          "axis_mm": [
+            -36.5,
+            0
+          ],
+          "z_mm": [
+            -8.1,
+            -0.1
+          ]
+        },
+        "hits": []
+      },
+      {
+        "name": "tray drain at X=-30 remains open through the rolled shoulder",
+        "nominal_envelope": {
+          "section_mm": [
+            5.6,
+            1.6
+          ],
+          "axis_mm": [
+            -30,
+            -56
+          ],
+          "z_mm": [
+            -7,
+            14.4
+          ]
+        },
+        "hits": []
+      },
+      {
+        "name": "tray drain at X=20 remains open through the rolled shoulder",
+        "nominal_envelope": {
+          "section_mm": [
+            5.6,
+            1.6
+          ],
+          "axis_mm": [
+            20,
+            -56
+          ],
+          "z_mm": [
+            -7,
+            14.4
+          ]
+        },
+        "hits": []
+      }
+    ],
+    "view_check": {
+      "horizontal_deg": 66,
+      "vertical_deg": 41,
+      "depth_mm": 80,
+      "poses": [
+        {
+          "pan": -90,
+          "tilt": 0,
+          "hits": []
+        },
+        {
+          "pan": -90,
+          "tilt": 35,
+          "hits": []
+        },
+        {
+          "pan": -90,
+          "tilt": 70,
+          "hits": []
+        },
+        {
+          "pan": -45,
+          "tilt": 0,
+          "hits": []
+        },
+        {
+          "pan": -45,
+          "tilt": 35,
+          "hits": []
+        },
+        {
+          "pan": -45,
+          "tilt": 70,
+          "hits": []
+        },
+        {
+          "pan": 0,
+          "tilt": 0,
+          "hits": []
+        },
+        {
+          "pan": 0,
+          "tilt": 35,
+          "hits": []
+        },
+        {
+          "pan": 0,
+          "tilt": 70,
+          "hits": []
+        },
+        {
+          "pan": 45,
+          "tilt": 0,
+          "hits": []
+        },
+        {
+          "pan": 45,
+          "tilt": 35,
+          "hits": []
+        },
+        {
+          "pan": 45,
+          "tilt": 70,
+          "hits": []
+        },
+        {
+          "pan": 90,
+          "tilt": 0,
+          "hits": []
+        },
+        {
+          "pan": 90,
+          "tilt": 35,
+          "hits": []
+        },
+        {
+          "pan": 90,
+          "tilt": 70,
+          "hits": []
+        }
+      ]
+    },
+    "fixed_power_route": {
+      "diameter_mm": 6,
+      "centerline_mm": [
+        [
+          10.0,
+          40.0,
+          24.0
+        ],
+        [
+          10.0,
+          40.0,
+          1.0
+        ],
+        [
+          10.0,
+          60.0,
+          1.0
+        ],
+        [
+          10.0,
+          60.0,
+          -61.0
+        ],
+        [
+          10.0,
+          70.0,
+          -61.0
+        ]
+      ],
+      "poses": 111,
+      "pan_deg": [
+        -90,
+        90,
+        5
+      ],
+      "tilt_deg": [
+        0,
+        35,
+        70
+      ],
+      "file": "models/reference/fixed-power-route-6mm-NOMINAL.stl",
+      "failures": [],
+      "incorrect_straight_route_control": {
+        "description": "Deliberately misplaced central drop beside the pan stop; not the selected power outlet",
+        "axis_mm": [
+          -8,
+          31
+        ],
+        "z_mm": [
+          -70,
+          24
+        ],
+        "expected_collision_detected": true,
+        "hits": [
+          {
+            "part": "pan-yoke",
+            "volume_mm3": 75.29455
+          },
+          {
+            "part": "enclosure-base",
+            "volume_mm3": 33.87474
+          }
+        ]
+      },
+      "limits": "Rigid swept tube around a nominal polyline; actual bend radius, flexible loops, shrinkage, sleeves, ties and lead construction require bench inspection."
+    },
+    "proud_head_regression_control": {
+      "expected_collision_detected": true,
+      "hits": [
+        {
+          "part": "pan-mount",
+          "volume_mm3": 9.96017
+        }
+      ]
+    }
+  },
+  "detailed_report_hashes": {
+    "integration-check.json": "b818f6b1d1d2c8dcb3980bf8e6fbf09086eba8375ac1fe40e76903d049a58ba0",
+    "service-check.json": "15b74cdac931fad226e63754b847e1430dcf7fc0ac625522c642fc184a8a6413"
+  }
+}

@@ -4,15 +4,15 @@
   "note": "Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
   "geometry": {
     "releaseTag": null,
-    "sourceCommit": "b5ff8838be8da5d9ba0d13d8dabb854d0f4981e1",
+    "sourceCommit": "84f3b52829cafc73c5765cd619a582c97f770439",
     "sourceHashes": {
-      "hardware/models.json": "4259ede9f3fc735832c21dfbabbbcb27e5f0740bb2136830d916be6b8b228660",
+      "hardware/models.json": "79a0be0aae5a7ac1e633001a9c1e284a8432e17c5499bd957b14bb01208bf505",
       "hardware/assemblies/camera-pod/camera-gimbal-base.scad": "aaa44f020ea99055c07d5aeb165f76da34c90562f1bccd29fe6ab8a746ccde2f",
       "hardware/assemblies/camera-pod/camera-gimbal-camera-plate.scad": "ee46401f166414b9c65f8b361e84a9694128b8a04de4aab8f35e343f69d9c535",
       "hardware/assemblies/camera-pod/camera-gimbal-optical-hood.scad": "b812f413d9efba9c156083b4508f15647e3fc5cfa1589a2950fd3d8d9b34df3d",
       "hardware/assemblies/camera-pod/camera-gimbal-rain-cap.scad": "c3ef78aa8d602f0fb6621b47292bf39f197de453b9877a244dce3897605343fd",
       "hardware/assemblies/camera-pod/camera-gimbal-yoke.scad": "bf82f067e8ebdcda99cdda1c68a08512a23c3c7d34670df5974624140d5a0177",
-      "hardware/assemblies/camera-pod/camera-pod-assembly.scad": "bad60f7414e90d7adfd96bec2128e7d83b277d4be8c99a15438e3bb52d8485d3",
+      "hardware/assemblies/camera-pod/camera-pod-assembly.scad": "f1b1ddb34e85a0eed4bdc6497474f1f037353d4dc4ddf305dad64fb861d72401",
       "hardware/assemblies/camera-pod/camera-pod-docking-stud.scad": "b4d26a0e2d8914c77383e1556db1f9e86b6c2dc92ff6a8e3d9744c9ee59bfc1f",
       "hardware/assemblies/camera-pod/camera-pod-electronics-mount.scad": "20c726ac047aaa26ad2e81d58ec9e2f9cf82692490e8a06135bc9595639e779b",
       "hardware/assemblies/camera-pod/camera-pod-envelope.scad": "8e4502a70290ffdaf4e82f8bb886ab6d259d8060fd502076da6d6da8c1ac7d08",
@@ -25,7 +25,7 @@
       "hardware/assemblies/camera-pod/payload-electronics-deck.scad": "6735f5d043c43e8198963f9b439f045982e092a7ab6889de8e6bef1f359390b3",
       "hardware/assemblies/camera-pod/payload-enclosure-base.scad": "01aae0668a1d6391afa56521df72a0cdd111f7e89830fec4308dec8a3795837c",
       "hardware/assemblies/camera-pod/payload-horn-retainer.scad": "287d05e7612b5817fa2bfc9cabf3104a71609527bd1a994b993e4cebb3d12b28",
-      "hardware/assemblies/camera-pod/payload-integrated-camera-cradle.scad": "26f5f9e4b31a03d49b3086ac0612e76d850b371f71e3fd8bfa0c2e01b763998a",
+      "hardware/assemblies/camera-pod/payload-integrated-camera-cradle.scad": "d13be9ab253d3a72cd7c3a97b40e22caa76a7c564d78125c48d5dad3220e8b56",
       "hardware/assemblies/camera-pod/payload-integrated-camera-hood.scad": "30ea719d1a8d31199d0ffbaa33aa26023dcfb0cefbc383417a3e0ce64716a1b9",
       "hardware/assemblies/camera-pod/payload-integrated-deck.scad": "aba8ab432856d68cd28230eece2bbe6008d57fee1d2b35a36996c00b1618d2b1",
       "hardware/assemblies/camera-pod/payload-integrated-gimbal-carrier.scad": "eb77939cd0116bc7e2b0e2a7da0cd39b8361b1cd6354124f7d5967422294b52d",
@@ -34,7 +34,7 @@
       "hardware/assemblies/camera-pod/payload-pan-fairing.scad": "6a6ea7c17086dcb79620f46fec050e5981e118df767d4b83d139c056552f260c",
       "hardware/assemblies/camera-pod/payload-pan-servo-mount.scad": "231b167e2db6edcb857eca43262a25b449af1e8b882db8f86f67e1c3840f9360",
       "hardware/assemblies/camera-pod/payload-pan-yoke.scad": "04bcb26c0b633f4810fc3d51efe9684857eda266d01afdeab075932f9511ea04",
-      "hardware/assemblies/camera-pod/payload-rain-assembly.scad": "f9e6165376f4313d1109bb28219aa690f184199f35bf3ec1e24e1a938b4d8075",
+      "hardware/assemblies/camera-pod/payload-rain-assembly.scad": "1d2496053ff2c69b4c57c6e03658adc0b4c68acc9b78ff9854ad0fe21eba14f0",
       "hardware/assemblies/camera-pod/payload-rain-hood.scad": "3c2db07ccebd5dc84709e92901d08793465c462f7c6e588995971a4cb5c8f6d1",
       "hardware/assemblies/camera-pod/payload-servo-fit-coupon.scad": "d50a9a85fa33dc954b8c908d23497ecc2db2bc90afc62b357cade8a0a5dc18e3",
       "hardware/assemblies/camera-pod/payload-spider-spacer.scad": "eb4d41b065002e4845cf7990dfb2802d67e8dd78fb8b31dde35a721b17faf344",
@@ -113,7 +113,7 @@
       "hardware/lib/payload-bench-assembly.scad": "e71ec3a6202a3a43a6d88d82041c76eac90c75dd3bc49743af473bba87182c38",
       "hardware/lib/payload-enclosure.scad": "6fc5a7743f2a0fa7e0ecfce9e426e0b18a6da93ef1fbddf6b0a57dc0cf951a7a",
       "hardware/lib/payload-integrated-deck.scad": "55e406d003c770a7a60dc8b80b062d540fa6232cdf82a10e256f15a1d0a7af2f",
-      "hardware/lib/payload-integrated-gimbal.scad": "946f133bdaddf246c579868b6d9dd9c6f01a1d0f5ee900bc2d3ae129a6aee98f",
+      "hardware/lib/payload-integrated-gimbal.scad": "46b4d8ad452c22876d42c41bc93ab5cc25bbf2bd7e0173bddf5e66852648ba56",
       "hardware/lib/payload-integrated-head.scad": "d506927a29d19697977d6a244668401163c0079f0efef9e3726cdcf2ce59b191",
       "hardware/lib/payload-mounts.scad": "489db6bba746e741d4db140c9d9fe4dc92bec7eca1a35b7b1e2ef19439f96039",
       "hardware/lib/pole-pulley-mount.scad": "6db768a3b412dd9b95372597bf7146eee325c04a1615d5a0086689c9a7bdb86e",
@@ -156,9 +156,9 @@
       },
       {
         "modelId": "payload-integrated-camera-cradle",
-        "revision": "0.1.0",
-        "volumeCm3": "3.191199",
-        "stlSha256": "6e3b7c1ddd09dc97870737195043b33bd398b85e32ff39a62d8408faae62a27c"
+        "revision": "0.1.1",
+        "volumeCm3": "3.328264",
+        "stlSha256": "113fc49f642f7fa80bf4a678b8c0b07829ee2b9c24f4468ffeafe350a30fdc53"
       },
       {
         "modelId": "payload-integrated-camera-hood",

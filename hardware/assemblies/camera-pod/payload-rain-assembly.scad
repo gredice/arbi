@@ -1,4 +1,4 @@
-// ARBI payload-rain-assembly r0.2.5 — concept-unvalidated reference. Do not print.
+// ARBI payload-rain-assembly r0.2.6 — concept-unvalidated reference. Do not print.
 include <../../lib/payload-enclosure.scad>
 include <../../lib/payload-integrated-gimbal.scad>
 use <../../lib/payload-integrated-deck.scad>

@@ -1,5 +1,7 @@
 # Continuous payload underside CAD check — 8 October 2026
 
+This is the 8 October snapshot with cradle r0.1.0. The [reinforced cradle record](payload-camera-cradle-check.md) covers its r0.1.1 replacement and current nominal assembly/service checks.
+
 ## Scope and status
 
 The preferred [integrated enclosure](payload-enclosure.md) uses one printed black outer head r0.1.3 and a compact internal carrier r0.1.1. The integrated camera cradle and short pivot support are both r0.1.0. The tilt axis moves from Y=0, Z=−59 to Y=3, Z=−45; the tilt servo lies sideways and its drive moves 2 mm inward. The shoulder-to-chin taper is retained in a smaller shell. The entire head pans with the camera, enclosing the tilt servo, horn and pivot brackets behind a close camera opening. It replaces the fixed fairing, separate servo boot and dry pan yoke in this variant. The upper white hood r0.2.1, tray r0.2.3, integrated deck r0.1.0 and lens-centred camera face r0.1.1 complete the configuration. All models remain **concept-unvalidated**; [ADR-0009](../../../docs/decisions/0009-compact-integrated-payload.md) records the design direction accepted on merge; physical validation remains pending.

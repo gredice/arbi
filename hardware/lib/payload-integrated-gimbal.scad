@@ -57,6 +57,26 @@ module pg_legacy_drive_panel() {
     }
 }
 
+// Keep the camera frame and horn plate inside the original envelope. Broad
+// ties flank the horn access instead of leaving two 2.75 x 2.5 mm ligaments.
+module pg_cradle_braces() {
+    for(y=[-7,7]) {
+        pm_box([8,4,2.5],[-15.8,y],-60);
+        // 45-degree back ribs overlap the plate and frame. Their upper ends
+        // stay clear of the horn slot; the fastener reliefs are recut below.
+        hull() {
+            pm_box([.4,4,.4],[-15.8,y],-53.5);
+            pm_box([4.6,4,.4],[-13.7,y],-57.7);
+        }
+    }
+    // Fan the long frame edge out from the horn-face bed footprint at 45
+    // degrees. This supports its first layers without a large support block
+    // beneath the plate-to-frame junction.
+    translate([0,0,-60])linear_extrude(height=2.5)
+        polygon([[-19.8,-14],[-14.8,-19],[-12.5,-19],
+                 [-12.5,-9],[-19.8,-9]]);
+}
+
 module payload_integrated_camera_cradle() {
     translate([0,pg_tilt_y,pg_camera_z_shift])difference() {
         union() {
@@ -70,6 +90,7 @@ module payload_integrated_camera_cradle() {
                 pg_legacy_drive_panel();
                 pm_box([120,100,100],[0,0],-64.5);
             }
+            pg_cradle_braces();
         }
         // Recut the complete shifted clamp through the reused frame: unioning
         // the translated panel must not refill the horn pocket or screw tips.
@@ -78,6 +99,12 @@ module payload_integrated_camera_cradle() {
             pm_xcyl(2.3,8.22,[-23.01+pg_drive_shift,y,-59]);
             // The same lower washer and nut now sit 2 mm farther into the frame.
             pm_xcyl(5.4,2.4,[-18+pg_drive_shift,y,-59]);
+        }
+        // Recut both the full screw bores and the rear washer/socket lands;
+        // the rib feet slightly overlap the original left camera bosses.
+        for(y=[4.931,-7.569]) {
+            pm_cyl(2.3,8,[-10.5,y,-64.01]);
+            pm_cyl(5.5,4,[-10.5,y,-57.5]);
         }
     }
 }

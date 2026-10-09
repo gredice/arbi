@@ -32,13 +32,13 @@
         },
         {
             "id": "camera-pod-assembly",
-            "revision": "0.3.5",
+            "revision": "0.3.6",
             "status": "concept-unvalidated",
             "artifactRole": "reference",
             "bomPartIds": [],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/camera-pod-assembly.scad",
-            "output": "camera-pod-assembly-r0.3.5.csg",
+            "output": "camera-pod-assembly-r0.3.6.csg",
             "documentation": "hardware/assemblies/camera-pod/README.md",
             "description": "Integrated rain-payload reference by default; show_legacy=true retains the historical separate concept layout."
         },
@@ -446,13 +446,13 @@
         },
         {
             "id": "payload-rain-assembly",
-            "revision": "0.2.5",
+            "revision": "0.2.6",
             "status": "concept-unvalidated",
             "artifactRole": "reference",
             "bomPartIds": [],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/payload-rain-assembly.scad",
-            "output": "payload-rain-assembly-r0.2.5.csg",
+            "output": "payload-rain-assembly-r0.2.6.csg",
             "documentation": "hardware/assemblies/camera-pod/README.md",
             "description": "Compact integrated reference with repackaged electronics, rolled white crown, one-piece pan-moving black gimbal head and white optical surround; concept-unvalidated."
         },
@@ -874,7 +874,7 @@
         },
         {
             "id": "payload-integrated-camera-cradle",
-            "revision": "0.1.0",
+            "revision": "0.1.1",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
             "bomPartIds": [
@@ -882,9 +882,9 @@
             ],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/payload-integrated-camera-cradle.scad",
-            "output": "payload-integrated-camera-cradle-r0.1.0.stl",
+            "output": "payload-integrated-camera-cradle-r0.1.1.stl",
             "documentation": "hardware/assemblies/camera-pod/README.md",
-            "description": "Compact enclosed camera cradle with the revised tilt-axis and horn interfaces; provisional camera and servo fit."
+            "description": "Compact camera cradle with broad horn-to-frame ties, 45-degree ribs and a sloped print web inside the original envelope; provisional fit and printed durability."
         },
         {
             "id": "payload-integrated-tilt-pivot-support",
