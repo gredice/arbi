@@ -1,6 +1,6 @@
 # ARBI hardware sources
 
-This directory contains the canonical parametric OpenSCAD sources for custom ARBI parts. Every current model is a **concept-unvalidated** starting point: it has not been proven dimensionally compatible, printable, structurally adequate, weather-resistant, or safe for an installed system.
+This directory contains the canonical parametric OpenSCAD sources for custom ARBI parts and illustrative models of catalog items. Every current model is a **concept-unvalidated** starting point: it has not been proven dimensionally compatible, printable, structurally adequate, weather-resistant, or safe for an installed system.
 
 ## Model index
 
@@ -24,6 +24,17 @@ The machine-readable registry is [models.json](models.json). It declares stable 
 
 Fabrication models identify their canonical BOM part IDs in the registry. The winch-drum assembly, winch-mount, camera-pod envelope, and camera-pod assembly are `reference` artifacts with no BOM part IDs and export CSG. Individual drum, mount, camera-pod chassis, and gimbal components export fabrication STL and map to their BOM parts. All models remain concept-unvalidated.
 
+Every BOM catalog item has at least one active model. Purchased items, materials,
+consumables and custom items without manufacturing sources have `visualization`
+STLs. These carry explicit `geometry.status: approximate`, dimension assumptions
+and rework requirements in the registry, source header and assembly README. Their
+shape is not yet fully defined. They need supplier drawings or measurements and
+model rework before fit, clearance or fabrication decisions. Visualization STL
+does not establish a manufacturing source, even for a planned custom item.
+Assortments show samples rather than pack contents; cables show samples rather
+than installed length or routing. Shared purchasing samples live in
+[shared procurement stock](assemblies/shared-procurement-stock/README.md).
+
 ## Validation
 
 From the repository root:
@@ -35,13 +46,13 @@ pnpm cad:check -- --require-openscad
 
 The first command always validates registry metadata against its JSON Schema, checks source files, documentation links, relative OpenSCAD dependencies, bidirectional BOM fabrication-source traceability, and the exact pinned OpenSCAD version when the CLI is present. It compiles all registered models when `openscad` is installed. The second command requires the CLI and compilation and is the CI path. Both compile paths require OpenSCAD `2021.01`; a different installed version fails explicitly so model outputs are not presented as reproducible across an untracked toolchain change.
 
-Compilation writes declared STL fabrication meshes and CSG reference artifacts into a temporary directory and removes it afterward. Generated STL, 3MF, CSG, and bulk render output are not committed. A successful compile proves only that source geometry can be evaluated.
+Compilation writes declared STL fabrication and visualization meshes and CSG reference artifacts into a temporary directory and removes it afterward. Generated STL, 3MF, CSG, and bulk render output are not committed. A successful compile proves only that source geometry can be evaluated.
 
 ## CAD downloads
 
 [GitHub Releases](https://github.com/gredice/arbi/releases) publishes a complete CAD snapshot whenever OpenSCAD sources, the model registry, booklet inputs or CAD publication tooling change on `main`. New releases use `cad-vMAJOR.MINOR.PATCH`, starting at `cad-v0.1.0` and automatically incrementing the highest published or reserved patch version. A manual workflow dispatch can request a higher minor or major version. These are snapshot versions; each model keeps its own design revision and evidence status. Existing `cad-<full commit SHA>` releases remain historical records.
 
-Each release includes every registered STL fabrication part, CSG reference assembly, hardware source ZIP, all three assembly booklets and packs, the complete CAD preview pack, and SHA-256 checksums. `cad-release.json` records the exact source commit, model revisions and CAD/booklet/preview input hashes. Publication first uploads a draft, then publishes the complete release. Retrying a published source commit reuses its immutable version and retries the site refresh. Latest follows source commit ancestry, so rerunning an older commit cannot replace a newer source release even if it receives a higher snapshot version.
+Each release includes every registered STL fabrication part, approximate visualization STL, CSG reference assembly, hardware source ZIP, all three assembly booklets and packs, the complete CAD preview pack, and SHA-256 checksums. `cad-release.json` records the exact source commit, model revisions and CAD/booklet/preview input hashes. Publication first uploads a draft, then publishes the complete release. Retrying a published source commit reuses its immutable version and retries the site refresh. Latest follows source commit ancestry, so rerunning an older commit cannot replace a newer source release even if it receives a higher snapshot version.
 
 Production site builds require the release inputs to match their checkout and all registered outputs to be present. Publishing Latest calls the required `ARBI_SITE_DEPLOY_HOOK` secret and verifies that [arbi.gredice.com](https://arbi.gredice.com) serves the current release or a subsequent one within ten minutes. A missing hook, failed request or failed verification fails the workflow visibly; rerun it to retry. While new geometry is being built, a premature Vercel production build fails and the last successful site remains live until the release-triggered rebuild succeeds. A release does not establish that a part is physically safe to build or install.
 

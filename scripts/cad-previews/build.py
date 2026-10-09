@@ -3,6 +3,7 @@ import argparse
 import hashlib
 import json
 import re
+import shutil
 import subprocess
 import tempfile
 import zipfile
@@ -160,10 +161,15 @@ def build(cad, output, jobs):
                 "entrypoint": model["entrypoint"], "revision": model["revision"], "output": model["output"],
                 "sourceHashes": source_hashes(model["entrypoint"]), "figure": figure, "sha256": digest(image),
             }
+            if model["artifactRole"] == "visualization":
+                target = work / "meshes" / model["output"]
+                target.parent.mkdir(exist_ok=True)
+                shutil.copyfile(mesh, target)
+                manifest["models"][model["id"]].update(mesh=f"meshes/{model['output']}", meshSha256=digest(target))
             print(f"Rendered {model['id']}", flush=True)
         (work / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
         with zipfile.ZipFile(output / ASSET, "w", zipfile.ZIP_DEFLATED) as archive:
-            for path in sorted(work.rglob("*.png")) + [work / "manifest.json"]:
+            for path in sorted(work.rglob("*.png")) + sorted((work / "meshes").glob("*.stl")) + [work / "manifest.json"]:
                 archive.write(path, "ARBI-CAD-previews/" + path.relative_to(work).as_posix())
     print(f"Packaged {len(manifest['models'])} figures in {output / ASSET}", flush=True)
 

@@ -66,7 +66,7 @@ The standard Turbo commands cover implemented workspaces only. `docs:check` vali
 
 `scenario:check` builds protocol and simulation-core, then runs the [scenario 1.0 conformance suite](docs/software/scenarios.md) directly. Independent TypeScript and Python 3 consumers derive their own traces from identical committed fixtures, repeat each run and reject deliberate discrepancies. Python 3 is required; no provider/device credentials or network are used after dependencies are installed. `pnpm test` also includes these tests.
 
-`cad:check` always validates `hardware/models.json` against its JSON Schema, required files, relative includes, revisions, statuses, output names, and both directions of the model-to-BOM fabrication-source mapping. When OpenSCAD is installed it must match the registry's exact version, then the command compiles every registered entrypoint into a temporary directory. Exports use the available CPU count capped at four concurrent OpenSCAD processes; `--jobs N` overrides this and `--jobs 1` runs serially. Each export retains its 120-second timeout, diagnostic and nonempty-artifact checks. On failure the queue stops and active children finish before temporary output is removed. `--require-openscad` makes a missing CLI an error and is used in CI.
+`cad:check` always validates `hardware/models.json` against its JSON Schema, required files, relative includes, revisions, statuses, output names, and both directions of the model-to-BOM fabrication-source mapping and model coverage for every catalog item. When OpenSCAD is installed it must match the registry's exact version, then the command compiles every registered entrypoint into a temporary directory. Exports use the available CPU count capped at four concurrent OpenSCAD processes; `--jobs N` overrides this and `--jobs 1` runs serially. Each export retains its 120-second timeout, diagnostic and nonempty-artifact checks. On failure the queue stops and active children finish before temporary output is removed. `--require-openscad` makes a missing CLI an error and is used in CI.
 
 ## Selective CI
 
@@ -146,6 +146,7 @@ and current assembly scenes. PRs only upload review artifacts.
 ## OpenSCAD source and releases
 
 - One registered entrypoint produces one declared release artifact.
+- Every BOM catalog item has an active CAD mapping. `visualization` STLs cover purchased or undefined items with explicit approximate geometry assumptions and rework requirements; they are not fabrication sources.
 - Units are millimetres and the coordinate convention is documented in `hardware/conventions.md`.
 - Shared geometry helpers live in `hardware/lib`; assembly sources live in `hardware/assemblies/<assembly>`.
 - Models begin as `concept-unvalidated`. Revision or status changes must link the evidence that justifies them.

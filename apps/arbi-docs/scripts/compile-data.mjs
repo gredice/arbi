@@ -19,7 +19,7 @@ import { fileURLToPath } from 'node:url';
 import { unzipSync } from 'fflate';
 import { CAD_TAG } from '../../../scripts/cad-release-data.mjs';
 import { packIsCurrent, parseChecksums, validateReleaseManifest } from './cad-data.mjs';
-import { previewFigures } from './cad-previews.mjs';
+import { previewAssets } from './cad-previews.mjs';
 import { sceneHref } from './scene-links.mjs';
 
 const APP = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -372,13 +372,16 @@ const corner = cornerPack && cornerScene(cornerPack, modelsByOutput);
 // Complete CAD inventory figures are published independently of booklet coverage.
 // A local pack is useful for offline rendering checks before its release is published.
 const figures = {};
+const visualizationMeshes = {};
 try {
   if (PRODUCTION && process.env.ARBI_CAD_PREVIEW_PACK) throw new Error('Production requires the verified release preview pack');
   const bytes = process.env.ARBI_CAD_PREVIEW_PACK
     ? readFileSync(resolve(process.env.ARBI_CAD_PREVIEW_PACK))
     : await releaseAsset(release, 'ARBI-CAD-previews.zip');
   if (bytes) {
-    for (const [id, png] of Object.entries(previewFigures(bytes, registry.models, (path) => readFileSync(join(REPO, path))))) {
+    const assets = previewAssets(bytes, registry.models, (path) => readFileSync(join(REPO, path)));
+    Object.assign(visualizationMeshes, assets.meshes);
+    for (const [id, png] of Object.entries(assets.figures)) {
       const path = `figures/${id}.png`;
       write(join(OUT, path), png);
       figures[id] = path;
@@ -392,6 +395,11 @@ if (PRODUCTION && Object.keys(figures).length !== registry.models.length) throw 
 
 // Per-model mesh for 3D: individual booklet-pack STL, else verified release STL.
 const meshes = {};
+for (const model of registry.models.filter((item) => visualizationMeshes[item.id])) {
+  const bytes = visualizationMeshes[model.id];
+  write(join(OUT, 'visualizations', model.output), bytes);
+  meshes[model.id] = { kind: 'stl', url: `visualizations/${model.output}`, bounds: stlBounds(bytes) };
+}
 for (const p of pod?.parts ?? []) if (p.registered && pod.source.current) meshes[p.model] ??= { kind: 'stl', url: p.url, bounds: stlBounds(readFileSync(join(OUT, p.url))) };
 for (const p of corner?.parts ?? []) if (p.registered && corner.source.current) meshes[p.model] ??= { kind: 'stl', url: p.url, bounds: stlBounds(readFileSync(join(OUT, p.url))) };
 for (const m of registry.models) {
@@ -406,6 +414,9 @@ for (const m of registry.models) {
     write(join(OUT, 'release', m.output), bytes);
     meshes[m.id] = { kind: 'stl', url: `release/${m.output}`, bounds: stlBounds(bytes) };
   }
+}
+if (PRODUCTION && registry.models.some((model) => model.artifactRole === 'visualization' && !meshes[model.id])) {
+  throw new Error('Production requires current meshes for every BOM visualization');
 }
 
 const scenes = Object.fromEntries(Object.entries({ 'camera-pod': pod, winch, 'winch-powered': poweredWinch, 'corner-station': corner }).filter(([, scene]) => scene));

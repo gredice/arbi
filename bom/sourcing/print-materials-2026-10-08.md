@@ -30,3 +30,14 @@ These are **solid-volume material estimates**, not slicer output or measured wei
 PETG is the prototype costing selection for structural/functional recipes; ASA is selected for exposed covers. PLA is a price comparison. The costing choices do not alter engineering qualification or establish material suitability. Energy, depreciation/machine time and labour remain unknown rather than zero.
 
 The camera-pod naming cleanup re-exported all 56 costed fabrication meshes with pinned OpenSCAD 2021.01 and refreshed `fabrication.json` source hashes through the capture tool. Current source hashes identify the renamed sources; `sourceCommit` is the base commit and `releaseTag` is null until a matching release is available. Model revisions, installed quantities and source-based geometry estimates remain separate from physical print evidence. Earlier release assets retain their original names.
+
+## Registry metadata refresh, 2026-10-09
+
+Adding approximate BOM visualization models changes the registry checksum. The
+existing active and archived model entries and every previously hashed OpenSCAD
+source were compared against the merged baseline after the corner-support and camera-pod naming changes and retained unchanged. Only the
+`hardware/models.json` source hash in the fabrication evidence was refreshed;
+mesh checksums, measured solid volumes, design revisions, recipes and price
+observations remain those of the baseline's existing capture. Visualization meshes are
+excluded from the print-material recipes and estimates. Generated reports were
+regenerated to carry the updated input digest.

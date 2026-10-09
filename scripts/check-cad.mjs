@@ -32,7 +32,7 @@ const allowedStatuses = new Set([
     'released',
     'deprecated',
 ]);
-const allowedArtifactRoles = new Set(['fabrication', 'reference']);
+const allowedArtifactRoles = new Set(['fabrication', 'reference', 'visualization']);
 const idPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const revisionPattern = /^\d+\.\d+\.\d+$/;
 const includePattern = /^\s*(?:include|use)\s*<([^>]+)>/gm;
@@ -225,6 +225,10 @@ export function validateRegistry(registryOverride, bomPartsOverride, aliasesOver
         if (model.artifactRole === 'fabrication') {
             assert(outputExtension === '.stl', `${model.id} fabrication output must be STL.`);
             assert(archivedIds.has(model.id) || model.bomPartIds.length > 0, `${model.id} fabrication model needs a BOM part ID.`);
+        } else if (model.artifactRole === 'visualization') {
+            assert(outputExtension === '.stl', `${model.id} visualization output must be STL.`);
+            assert(model.bomPartIds.length > 0, `${model.id} visualization needs a BOM part ID.`);
+            assert(model.geometry?.status === 'approximate', `${model.id} needs explicit approximate geometry evidence.`);
         } else {
             assert(outputExtension === '.csg', `${model.id} reference output must be CSG, not a printable mesh.`);
             assert(model.bomPartIds.length === 0, `${model.id} reference model must not claim a BOM part ID.`);
@@ -316,6 +320,11 @@ export function validateRegistry(registryOverride, bomPartsOverride, aliasesOver
                 `${model.id} maps to BOM part ${bomPartId}, but that part has no matching fabrication source.`,
             );
         }
+    }
+
+    for (const part of bomParts.parts) {
+        assert(registry.models.some((model) => model.bomPartIds.includes(part.id)),
+            `BOM part ${part.id} has no active CAD model; add an approximate visualization with rework notes when geometry is unknown.`);
     }
 
     const assemblySources = listFiles(join(hardwareRoot, 'assemblies')).filter(
