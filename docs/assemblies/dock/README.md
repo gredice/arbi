@@ -6,6 +6,39 @@ The dock captures, mechanically retains, shelters, and confirms the inactive cam
 
 The dock does not infer safe parking from requested coordinates. `Parked` requires mechanical capture and accepted confirmation.
 
+## Current development package
+
+The [capture and release proposal](design-proposal.md) develops the dock around
+the current compact camera pod. It proposes a separate final locator, passive
+spring retention and a stationary release actuator. The owner selected a
+non-powered corner using the same post-radius configuration as the corner support
+set. The current study default is round-120; the exact passive corner, measured
+post/pulley geometry and printer build volume remain open.
+
+- [Interface design package](design-package.md): source compatibility, datums,
+  missing inputs, load cases, observation requirements and implementation order.
+- [Bench-test plan](bench-test-plan.md): capture, retention, release, faults,
+  weather, recovery and separate four-line/installed acceptance.
+- [Blank acceptance record](acceptance-record.md): exact configuration, reviewed
+  limits, raw evidence and stage authorization; all results remain pending.
+
+The current DOCK-IF-01 r0.1.0 sources define a **supported-dummy bench kit**:
+four guide quadrants, final locator and manually released fork, structural
+spider bridge/stud, split support arm and four roof quadrants. The old funnel,
+nest, latch sample and hood sample are archived. Use the
+[assembly guide](assembly-guide.md) and [PDF/STL publication](booklet/README.md).
+
+Automatic spring capture, release actuator/circuit, accepted sensors, complete-pod
+mass, line sweep and structural/weather acceptance remain unresolved. The kit's
+pod attachment is a substantial mass addition; weigh the complete pod against
+its 170 g ceiling before any suspended integration. Nominal vertical line
+corridors do not establish installed routing.
+
+The website's known-goods amount is partial. Printed materials are separately
+estimated from solid CAD volume, and bought hardware, actuator, wiring and
+mounting costs remain unresolved; see the
+[generated BOM report](../../../bom/generated/arbi-v1-hr-zagreb.md).
+
 ## High-dock baseline
 
 V1 uses a permanent high dock on one [corner station](../corner-station/README.md), rather than automatically lowering the pod into head space.
@@ -108,8 +141,10 @@ Software/configuration owns PRE-DOCK, final approach, sensor debounce/plausibili
 
 ## Open questions
 
-- Final dock corner, geometry, structure, latch, release actuator, and sensor arrangement.
-- Whether one dock sensor is sufficient and how it is cross-checked.
+- Exact non-powered dock corner, measured geometry and post dimensions, structure,
+  latch, release actuator, and sensor arrangement; reuse the corner set's post
+  configuration rather than selecting a separate radius.
+- Accepting the two proposed seating/fork observations, including targets, mounts and circuit diagnostics.
 - How the pod is recovered when it cannot dock or release.
 - Whether safe parked clearance requires a normally engaged winch brake for V1.
 - Final environmental operating and parking policy in wind, rain, lightning, heat, frost, or ice.

@@ -1,30 +1,56 @@
 # Dock OpenSCAD sources
 
-System context: [Dock assembly documentation](../../../docs/assemblies/dock/README.md).
+DOCK-IF-01 r0.1.0 is a supported-dummy bench kit, **concept-unvalidated**.
+Canonical dimensions and geometry are in [dock.scad](../../lib/dock.scad).
+The [design package](../../../docs/assemblies/dock/design-package.md),
+[assembly guide](../../../docs/assemblies/dock/assembly-guide.md) and
+[bench plan](../../../docs/assemblies/dock/bench-test-plan.md) own the interfaces
+and remaining acceptance work.
 
-## `dock-funnel`
+## Current fabrication entrypoints
 
-[dock-funnel.scad](dock-funnel.scad) is a conical guide-ring concept with three mounting lugs. Its defaults use the repository baseline of a 275 mm mouth and 60 mm throat, within the documented 250–300 mm capture opening and 50–70 mm locating range. It demonstrates independent mouth, throat, wall, height, and mounting parameters. It does not define the complete approach envelope, pod stud, latch, sensor, shelter, drainage path, wear surface, impact energy, or release behavior.
+| Model | One dock quantity | Function |
+| --- | ---: | --- |
+| [dock-guide-quarter.scad](dock-guide-quarter.scad) | 4 | Ø275 mouth / Ø60 throat split guide, nominal vertical line corridor |
+| [dock-locator-carrier.scad](dock-locator-carrier.scad) | 1 | Ø26 final bore, head stop and fork guide |
+| [dock-latch-fork.scad](dock-latch-fork.scad) | 1 | Ø17 stem slot, 40 mm manual release |
+| [dock-pod-bridge.scad](dock-pod-bridge.scad) | 1 | Fixed-spider attachment above hood |
+| [dock-pod-bridge-shoe.scad](dock-pod-bridge-shoe.scad) | 4 | Lower arm-width captive clamp shoe |
+| [dock-pod-stud.scad](dock-pod-stud.scad) | 1 | Ø14 stem / Ø24 head, axial M4 through-bolt |
+| [dock-arm-root.scad](dock-arm-root.scad) | 1 | Shared round-post interface and lap tongue |
+| [dock-arm-extension.scad](dock-arm-extension.scad) | 1 | Arm lap and locator platform |
+| [dock-post-rear-pad.scad](dock-post-rear-pad.scad) | 2 | Dedicated dock mounting-row rear seats |
+| [dock-roof-quarter.scad](dock-roof-quarter.scad) | 4 | Quarter of sloping 300 mm roof with seam flanges |
+| [dock-roof-spacer.scad](dock-roof-spacer.scad) | 4 | 49 mm roof stand-off |
 
-Registry ID and design revision: `dock-funnel` `0.1.0`, status `concept-unvalidated`.
+[dock-assembly.scad](dock-assembly.scad) registers the assembled reference pose;
+`dock_assembly(true)` shows the manually opened fork. Charcoal mechanical parts
+and a white protective roof follow the existing industrial design conventions.
+The default post is the corner set's round-120 (radius60), on a non-powered
+corner. Shared 100–140 mm round parameters adjust root, joint and projection;
+the published pack checks only the round-120 nominal configuration.
 
-## `dock-nest`
+The kit's bridge/shoes/stud belong to the dock BOM but install on the pod. They
+are not duplicated in the compact camera-pod BOM. Their added mass and radial
+clamp friction remain unresolved; nominal fit is not structural acceptance.
+The guide and roof corridors check only synthetic vertical 1.5 mm lines.
 
-[dock-nest.scad](dock-nest.scad) is a rounded mounting plate sized around the funnel's current capture envelope, with a shallow pod locating pocket, central latch/service opening, drain holes, and four mounting holes. It does not establish retention, structural support, weather sealing, electrical isolation, or a safe total-power-loss state.
+## Artifacts and checks
 
-Registry ID and design revision: `dock-nest` `0.1.0`, status `concept-unvalidated`.
+The [booklet builder](../../../scripts/dock-booklet/README.md) exports installed
+and print-coordinate meshes, checks nominal interfaces against actual current
+pod geometry, and renders a nine-page illustrated assembly PDF. CI/release
+artifacts include the paired source/STL ZIP; generated files are not committed.
 
-Before prototype use, derive both models from the released pod envelope and docking-stud interfaces. Validate misalignment capture, contact forces, bounce, jam/release cases, drainage, ice/debris tolerance, latch confirmation, retention loads, and repeated approach cycles as one dock assembly.
+[dock-bench-hardware.scad](dock-bench-hardware.scad) is an approximate
+visualization of bought size samples, not fabrication or received-part evidence.
+The exact provisional quantities are in the BOM and assembly guide. Measure
+received heads, washers, nuts, locking zones and stacks before use.
 
-## Appearance
+## Archived concepts
 
-The structural capture/retention parts preview in charcoal following the [industrial design conventions](../../../docs/project/industrial-design.md). Their dimensions and physical design revisions are unchanged. Future protective housings use the rounded white-shell convention while keeping these interfaces visible and accessible.
-
-## Approximate BOM visualizations
-
-These `visualization` models show catalog items in the Parts inventory. They are **Unverified** and are not manufacturing sources. Shape is not yet fully defined and needs rework against the selected supplier drawing or measured item before fit or clearance decisions. Nominal dimensions recorded in the catalog remain requirements, not measurement evidence. Threads, connectors, internal construction and fine detail are simplified. Kits and assortments show representative samples, not quantities; cable loops and lengths show samples, not installed routing.
-
-| BOM item / source | Shape | Dimension basis and remaining uncertainty |
-| --- | --- | --- |
-| [dock-latch-hardware](dock-latch-hardware.scad) · [BOM](../../../bom/generated/parts/dock-latch-hardware.md) | latch | Representative stud, latch arm and pivot; retention interfaces and final mechanism are not yet defined. |
-| [dock-weather-hood](dock-weather-hood.scad) · [BOM](../../../bom/generated/parts/dock-weather-hood.md) | hood | Catalog 300 × 300 mm starting roof footprint with an assumed 60 mm slope and 3 mm wall. |
+`dock-funnel`, `dock-nest`, `dock-latch-hardware` and `dock-weather-hood` r0.1.0
+remain historical entrypoints in `archivedModels`, superseded by this kit. They
+are not current compact-pod fabrication sources. The archived camera-pod stud is
+also excluded. Do not combine historical and current parts or infer physical
+acceptance from their registration.

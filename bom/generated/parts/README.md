@@ -30,9 +30,11 @@ One stable page per catalog part, including optional and deferred items. Usage q
 | [Corner head removable weather shield kit](corner-head-weather-kit.md) | corner-head-weather-kit |
 | [Ground-contact treated timber corner post](corner-post-treated-timber.md) | corner-post-treated-timber |
 | [DIN-rail GND distribution block](din-rail-ground-distribution-block.md) | din-rail-ground-distribution-block |
+| [DOCK-IF-01 bought fastener set](dock-bench-hardware.md) | dock-bench-hardware |
 | [High-dock alignment funnel](dock-funnel.md) | dock-funnel |
-| [Dock mushroom locating stud + passive latch hardware](dock-latch-hardware.md) | dock-latch-hardware |
+| [DOCK-IF-01 fork, structural pod bridge and stud print set](dock-latch-hardware.md) | dock-latch-hardware |
 | [High-dock locating nest](dock-nest.md) | dock-nest |
+| [Split dock support arm and rear pads](dock-support-arm.md) | dock-support-arm |
 | [Dock weather roof / hood](dock-weather-hood.md) | dock-weather-hood |
 | [1.5 mm Dyneema positioning line, 50 m](dyneema-positioning-line.md) | dyneema-positioning-line |
 | [Waterproof emergency-stop switch](emergency-stop-switch.md) | emergency-stop-switch |

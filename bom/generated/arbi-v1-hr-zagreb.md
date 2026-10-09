@@ -11,13 +11,13 @@
 - Build: arbi-v1
 - Destination: hr-zagreb
 - Quote snapshot: hr-zagreb-2026-10-08-coupling
-- Input digest: sha256:3d87f762e01327bc6525b2000c1197b130d4595d13e9773f96657ed7ecb1bd33
+- Input digest: sha256:1194f39686420a479f375a0f54797614d8d352237be3722f43ce51e86ff53fc7
 - Complete landed total: **unavailable**
 - Known quoted goods subtotal: **EUR 943.84**
 - Known checkout-group shipping subtotal: **EUR 43.38**
 - Known partial subtotal: **EUR 987.22**
-- Estimated print materials: **EUR 259.22**
-- Estimated partial subtotal (known amounts + print materials): **EUR 1246.44**
+- Estimated print materials: **EUR 254.45**
+- Estimated partial subtotal (known amounts + print materials): **EUR 1241.67**
 
 The known partial subtotal is evidence about recorded values only. It excludes every unresolved amount and must not be presented as the project cost.
 
@@ -28,9 +28,9 @@ The known partial subtotal is evidence about recorded values only. It excludes e
 | camera-pod | EUR 115.07 |
 | control-cabinet | EUR 66.16 |
 | corner-support-set | EUR 185.97 |
-| dock | EUR 0.96 |
+| dock | EUR 1.60 |
 | site-installation | EUR 141.00 |
-| winch-set | EUR 391.49 |
+| winch-set | EUR 390.85 |
 | Shared multi-part purchase bundles | EUR 0.00 |
 | Shared customs | EUR 0.00 |
 | Shared checkout-group shipping | EUR 43.38 |
@@ -45,8 +45,11 @@ Solid CAD volume × each component's material density × observed roll price / r
 | --- | ---: | --- | ---: | ---: |
 | [camera-gimbal](parts/camera-gimbal.md) | 1 | PETG Matte + PETG Basic | 54.004 g | EUR 0.61 |
 | [camera-pod-chassis](parts/camera-pod-chassis.md) | 1 | PETG Matte + PETG Basic | 207.265 g | EUR 2.36 |
-| [dock-funnel](parts/dock-funnel.md) | 1 | PETG Basic | 376.306 g | EUR 4.29 |
-| [dock-nest](parts/dock-nest.md) | 1 | PETG Basic | 2437.206 g | EUR 27.76 |
+| [dock-funnel](parts/dock-funnel.md) | 1 | PETG Basic | 149.073 g | EUR 1.70 |
+| [dock-latch-hardware](parts/dock-latch-hardware.md) | 1 | PETG Basic | 126.828 g | EUR 1.44 |
+| [dock-nest](parts/dock-nest.md) | 1 | PETG Basic | 216.782 g | EUR 2.47 |
+| [dock-support-arm](parts/dock-support-arm.md) | 1 | PETG Basic | 1602.762 g | EUR 18.26 |
+| [dock-weather-hood](parts/dock-weather-hood.md) | 1 | PETG Basic | 299.523 g | EUR 3.41 |
 | [top-pulley-keeper](parts/top-pulley-keeper.md) | 4 | PETG Basic | 110.733 g | EUR 1.26 |
 | [winch-drum](parts/winch-drum.md) | 4 | PETG Basic | 4980.607 g | EUR 56.73 |
 | [winch-full-cover](parts/winch-full-cover.md) | 4 | ASA + PETG Matte | 12527.69 g | EUR 147.84 |
@@ -101,7 +104,7 @@ aliexpress-hr: EUR 3.00 per item type (not per piece), order goods strictly belo
 | aliexpress-pod-buck-converter-48v-5v | baseline-selected | 1 | [pod-buck-converter-48v-5v](parts/pod-buck-converter-48v-5v.md): 1 each required, 1 each purchased; 0 surplus; goods EUR 5.55 | EUR 5.55 | single-part |
 | aliexpress-pod-power-wire-black-awg26 | baseline-selected | 10 | [pod-power-wire-black-awg26](parts/pod-power-wire-black-awg26.md): 50 m required, 50 m purchased; 0 surplus; goods EUR 10.38 | EUR 10.38 | single-part |
 | aliexpress-pod-power-wire-red-awg26 | baseline-selected | 10 | [pod-power-wire-red-awg26](parts/pod-power-wire-red-awg26.md): 50 m required, 50 m purchased; 0 surplus; goods EUR 10.38 | EUR 10.38 | single-part |
-| aliexpress-roller-lever-microswitch | baseline-selected | 1 | [roller-lever-microswitch](parts/roller-lever-microswitch.md): 5 each required, 10 each purchased; 5 surplus; goods EUR 4.79 | EUR 4.79 | single-part |
+| aliexpress-roller-lever-microswitch | baseline-selected | 1 | [roller-lever-microswitch](parts/roller-lever-microswitch.md): 6 each required, 10 each purchased; 4 surplus; goods EUR 4.79 | EUR 4.79 | single-part |
 | aliexpress-shaft-collar-8mm | baseline-selected | 4 | [shaft-collar-8mm](parts/shaft-collar-8mm.md): 8 each required, 8 each purchased; 0 surplus; goods EUR 40.40 | EUR 40.40 | single-part |
 | aliexpress-stainless-fastener-assortment | baseline-selected | 1 | [stainless-fastener-assortment](parts/stainless-fastener-assortment.md): 1 each required, 1 each purchased; 0 surplus; goods EUR 16.00 | EUR 16.00 | single-part |
 | bauhaus-din-rail-ground-distribution-block | baseline-selected | 1 | [din-rail-ground-distribution-block](parts/din-rail-ground-distribution-block.md): 1 each required, 1 each purchased; 0 surplus; goods EUR 5.95 | EUR 5.95 | single-part |
@@ -157,12 +160,15 @@ aliexpress-hr: EUR 3.00 per item type (not per piece), order goods strictly belo
 | [controller-buck-converter-48v-5v](parts/controller-buck-converter-48v-5v.md) | 1 each | control-cabinet (1 each) | aliexpress-controller-buck-converter-48v-5v |
 | [corner-post-treated-timber](parts/corner-post-treated-timber.md) | 4 each | corner-support-set (4 each) | cotra-zagreb-corner-post-treated-timber |
 | [din-rail-ground-distribution-block](parts/din-rail-ground-distribution-block.md) | 1 each | control-cabinet (1 each) | bauhaus-din-rail-ground-distribution-block |
+| [dock-bench-hardware](parts/dock-bench-hardware.md) | 1 each | dock (1 each) | unresolved |
 | [dock-funnel](parts/dock-funnel.md) | 1 each | dock (1 each) | in-house-fabrication-dock-capture-set |
 | [dock-latch-hardware](parts/dock-latch-hardware.md) | 1 each | dock (1 each) | in-house-fabrication-dock-latch-hardware |
 | [dock-nest](parts/dock-nest.md) | 1 each | dock (1 each) | in-house-fabrication-dock-capture-set |
+| [dock-support-arm](parts/dock-support-arm.md) | 1 each | dock (1 each) | unresolved |
 | [dock-weather-hood](parts/dock-weather-hood.md) | 1 each | dock (1 each) | in-house-fabrication-dock-weather-hood |
 | [dyneema-positioning-line](parts/dyneema-positioning-line.md) | 180 m | winch-set (180 m) | dive-store-dyneema-positioning-line |
 | [emergency-stop-switch](parts/emergency-stop-switch.md) | 1 each | control-cabinet (1 each) | aliexpress-emergency-stop-switch |
+| [extension-spring-assortment](parts/extension-spring-assortment.md) | 1 each | dock (1 each) | unresolved |
 | [flexible-jaw-coupling-8mm](parts/flexible-jaw-coupling-8mm.md) | 4 each | winch-set (4 each) | aliexpress-flexible-jaw-coupling-8mm |
 | [guy-ground-anchor](parts/guy-ground-anchor.md) | 4 each | corner-support-set (4 each) | njuskalo-guy-ground-anchor |
 | [guy-turnbuckle-m12](parts/guy-turnbuckle-m12.md) | 4 each | corner-support-set (4 each) | bauhaus-guy-turnbuckle-m12 |
@@ -188,7 +194,7 @@ aliexpress-hr: EUR 3.00 per item type (not per piece), order goods strictly belo
 | [raspberry-pi-3a-plus](parts/raspberry-pi-3a-plus.md) | 1 each | camera-pod (1 each) | pimoroni-raspberry-pi-3a-plus |
 | [raspberry-pi-camera-module-3](parts/raspberry-pi-camera-module-3.md) | 1 each | camera-pod (1 each) | tme-raspberry-pi-camera-module-3 |
 | [raspberry-pi-pico-2-w](parts/raspberry-pi-pico-2-w.md) | 1 each | control-cabinet (1 each) | tme-raspberry-pi-pico-2-w |
-| [roller-lever-microswitch](parts/roller-lever-microswitch.md) | 5 each | dock (1 each), winch-set (4 each) | aliexpress-roller-lever-microswitch |
+| [roller-lever-microswitch](parts/roller-lever-microswitch.md) | 6 each | dock (2 each), winch-set (4 each) | aliexpress-roller-lever-microswitch |
 | [shaft-collar-8mm](parts/shaft-collar-8mm.md) | 8 each | winch-set (8 each) | aliexpress-shaft-collar-8mm |
 | [stainless-fastener-assortment](parts/stainless-fastener-assortment.md) | 1 each | shared-procurement-stock [non-physical] (1 each) | aliexpress-stainless-fastener-assortment |
 | [top-positioning-line-pulley](parts/top-positioning-line-pulley.md) | 4 each | corner-support-set (4 each) | wasi-barton-30mm |
@@ -207,6 +213,9 @@ aliexpress-hr: EUR 3.00 per item type (not per piece), order goods strictly belo
 
 ## Incompleteness warnings
 
+- Required part dock-bench-hardware has no pinned offer.
+- Required part dock-support-arm has no pinned offer.
+- Required part extension-spring-assortment has no pinned offer.
 - Required part winch-full-cover has no pinned offer.
 - Required part winch-full-cover-hardware has no pinned offer.
 - aliexpress-bearing-608-2rs: Availability is unknown.
@@ -350,7 +359,10 @@ aliexpress-hr: EUR 3.00 per item type (not per piece), order goods strictly belo
 - dive-store-dyneema-positioning-line: Tax/VAT treatment is unknown.
 - dive-store-hr: Shipping tax/VAT treatment is unknown.
 - dock-funnel: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
+- dock-latch-hardware: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
 - dock-nest: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
+- dock-support-arm: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
+- dock-weather-hood: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
 - hr-zagreb: Destination tax/VAT status is unknown and blocks a complete landed total.
 - in-house-fabrication-camera-gimbal: Price and availability observation date is unknown; quote capture time is not verification time.
 - in-house-fabrication-camera-gimbal: Price is unknown.

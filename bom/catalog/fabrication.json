@@ -4,9 +4,10 @@
   "note": "Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
   "geometry": {
     "releaseTag": null,
-    "sourceCommit": "1e526324f27197047b0b946f75bc665a62eaf287",
+    "sourceCommit": "7e6bd1697927ffb6522b162f7a85de773d92ce26",
     "sourceHashes": {
-      "hardware/models.json": "f92ff474592be9670939d7d25f7ed8b45edb6e5ba0ea6829de0fec204495ded2",
+      "hardware/models.json": "3f4dba4961aa2fab5ffd01ab584a44ee06516df0df9b37f17f92ba13ee52f191",
+      "hardware/assemblies/camera-pod/bulk-capacitor-1000uf.scad": "b7125e5371d0aa55110fbcae7300b3a98bd4a3474341a0fed3bf199a6fb4a92e",
       "hardware/assemblies/camera-pod/camera-gimbal-base.scad": "aaa44f020ea99055c07d5aeb165f76da34c90562f1bccd29fe6ab8a746ccde2f",
       "hardware/assemblies/camera-pod/camera-gimbal-camera-plate.scad": "ee46401f166414b9c65f8b361e84a9694128b8a04de4aab8f35e343f69d9c535",
       "hardware/assemblies/camera-pod/camera-gimbal-optical-hood.scad": "b812f413d9efba9c156083b4508f15647e3fc5cfa1589a2950fd3d8d9b34df3d",
@@ -39,12 +40,27 @@
       "hardware/assemblies/camera-pod/camera-pod-spider.scad": "6e914f806f9acdd605b2ff17b37b572d2591a1aa0b5d5d7044c818b7bcde7a29",
       "hardware/assemblies/camera-pod/camera-pod-tilt-pivot-support.scad": "196b588cef28d6e18fde50da65027479ca921865707a43f4e84b81278439fc21",
       "hardware/assemblies/camera-pod/camera-pod-tilt-servo-boot.scad": "32868fe27039dd7c6ba78ddf8d245da770196c20662a40ebfd871cb5c3bf8d9c",
+      "hardware/assemblies/camera-pod/micro-pan-tilt-servo.scad": "f62faccebf2c51b265eae5a66b7f4d1749527c66e027d54129ba76343c5f76bb",
+      "hardware/assemblies/camera-pod/microsd-card-32gb.scad": "08c5bb8f6126486b012e08cd9f872d7914b660de4699eb43e74bd4757e7184bc",
+      "hardware/assemblies/camera-pod/pod-buck-converter-48v-5v.scad": "125bbfa533e120c06aa192a957550efe2c37b57a0df25cf2e28d195aa95722b5",
+      "hardware/assemblies/camera-pod/raspberry-pi-3a-plus.scad": "de59d5ec6d4f7f6d6f748622175e2d474bc5effcea7cf4d902a5773ff8fb1d58",
+      "hardware/assemblies/camera-pod/raspberry-pi-camera-module-3.scad": "67f9234705a6905e5954f90d56ff252b89b2d10881db52f77cdc79e843828700",
+      "hardware/assemblies/control-cabinet/control-panel-enclosure.scad": "4e27ba7ce1259470233b849a716de345bc77d0ac48dbaa3d23508abf232143fa",
+      "hardware/assemblies/control-cabinet/controller-buck-converter-48v-5v.scad": "faf3e48d405545b975ec8111f31cc2c895ad9206721e036aa1d79be4f1ddd30b",
+      "hardware/assemblies/control-cabinet/din-rail-ground-distribution-block.scad": "0eec219c6d6390d301df74b8aeda01606fb5d2bcc7849d0333e62d684746d8f3",
+      "hardware/assemblies/control-cabinet/emergency-stop-switch.scad": "03e4b20ca63908b0163b8219f0832586c028cd0a602256b606adbda01147e5b1",
+      "hardware/assemblies/control-cabinet/pico-terminal-expansion-board.scad": "46b4256e26614f7e1bb9e626ee5f50bc85af72e2541202044853d21bd4519542",
+      "hardware/assemblies/control-cabinet/power-supply-48v-350w.scad": "14f294456d96b5acae7dc34129ef8c17f4a98d5768c2ad28a21f01a0b17934ca",
+      "hardware/assemblies/control-cabinet/raspberry-pi-pico-2-w.scad": "e9161ce3bcf04ae35a57332c41616569668435ddc7f371f1cc71b5cd7ca25b37",
+      "hardware/assemblies/corner-station/corner-guy-post-connection.scad": "11b70135623213116721a4107b3746a9d8224dbb6ad6669d53c11bae4cf147bb",
+      "hardware/assemblies/corner-station/corner-head-angle-200.scad": "4aa627eb810a8f627710e64585966ef6d91c48ebfaa11f2186237b12fc126e18",
       "hardware/assemblies/corner-station/corner-head-assembly.scad": "01542366bd085f43588b67b869e26ca96f438a1b0f3d63ea98c86059a6cc3224",
       "hardware/assemblies/corner-station/corner-head-front-saddle.scad": "4803540e7f938ed7067e51101683c1c7b9879baf7750331d3f278ab6961995d9",
       "hardware/assemblies/corner-station/corner-head-hood.scad": "db39080392b047cf33c254bbeae4b7c9dd716433fdbb9d08c6c0270cf4886191",
       "hardware/assemblies/corner-station/corner-head-marking-template.scad": "77eaa8242e709249b28f506544aff659be9e53b169cf172483ee0dd68b8760b1",
       "hardware/assemblies/corner-station/corner-head-printed-assembly.scad": "95459aef22320bed46a68596ff89a733da64d1175da8b260f1f486512643be1a",
       "hardware/assemblies/corner-station/corner-head-printed-front-cover.scad": "4b692c2016fe73d600d91457ee93e54674c21682acc9e759afb9a4cd094dce72",
+      "hardware/assemblies/corner-station/corner-head-printed-hardware.scad": "8263e54ff734a33b4fddffbecb4f0135a9bd17260aaf7c9fe4534f17fd06c9f5",
       "hardware/assemblies/corner-station/corner-head-printed-left.scad": "0c8ab4ff40761c42e8fa670076256f7dff481a1a2568d5d78b6999eab2527730",
       "hardware/assemblies/corner-station/corner-head-printed-rear-cover.scad": "00d7ffa22dc6c6476a0a01fd4891c67a9bf1a9e2bd43c704451be7bd099363e8",
       "hardware/assemblies/corner-station/corner-head-printed-rear-pad.scad": "56e534384338f4c49eac181dc9d3bd9ac9a22e0c14800e8f71fe27948d070450",
@@ -52,13 +68,66 @@
       "hardware/assemblies/corner-station/corner-head-printed-template.scad": "75d4fe1a5ef3938a4405a4d4857ad8af8e48994ceefaa35ddd6d992b3d69a162",
       "hardware/assemblies/corner-station/corner-head-rear-cover.scad": "7313be0ca7f787f2fe086298cf7f7b52ffa8b3ead574d820a11350b4ad331ee0",
       "hardware/assemblies/corner-station/corner-head-rear-saddle.scad": "5254fe048f76dfd285aa58c4fd1b299a16f5d81ac60ac96db175e976ab64f730",
+      "hardware/assemblies/corner-station/corner-head-retention-straps.scad": "476c3addd8638eb23c0502da71ee9b1979429a7236479f9e0bcf2d960d78f646",
       "hardware/assemblies/corner-station/corner-head-roof.scad": "b91e02f3e900d75fa47ed8ae081287a14ae91a67da5f55c303489497042ac3fa",
+      "hardware/assemblies/corner-station/corner-head-through-bolts.scad": "ee54adcbd713368e1eaadf1b17d2b1781369424b9b236668c813d461ddd4bdbc",
+      "hardware/assemblies/corner-station/corner-post-treated-timber.scad": "2ac96d3a6330730ec116a3e202b1c4b4862a2bc2ae3b740fd35bf731c65a858b",
+      "hardware/assemblies/corner-station/guy-ground-anchor.scad": "56c935ca68c9464316bf77775f717da2d261ef61db09eda6e7e663bccb695fbb",
+      "hardware/assemblies/corner-station/guy-turnbuckle-m12.scad": "c8f1a26d38187a2f562eb043b53eb52e6e1d32024f0faf028c919ffcc36cb321",
+      "hardware/assemblies/corner-station/guy-wire-3mm.scad": "cb11160d4b662273e4c8d216550d40461fdb21b170e6f6ac19c5fbc057fa6501",
       "hardware/assemblies/corner-station/pole-pulley-mount-assembly.scad": "5e66700be1fc081044a537e54d4872644fce659ee6ad8cd7c2ac65de23c411e0",
       "hardware/assemblies/corner-station/pole-pulley-mount-front.scad": "cfcc603055084f2ac181614d77ab59b0b0f8ddd6d956c4cbc191b500e8b0880e",
       "hardware/assemblies/corner-station/pole-pulley-mount-rear.scad": "77699bed6cc4672f8cb03fe3f4843834a2b9c276b210ba1448574dadb86b9c59",
+      "hardware/assemblies/corner-station/pulley-bracket-backing-plate.scad": "5705c0fca264a5027240535faf294411f6a4aa84921f858aa0ed346cd25aadb8",
+      "hardware/assemblies/corner-station/pulley-bracket-locknut-m12.scad": "2cefcb3db47838bedbfed85d2ae989715da9651ac2daa64ea15d2b1ec60a9d07",
+      "hardware/assemblies/corner-station/pulley-bracket-shackle-m8.scad": "9aceb8cc3f09432ab78229f2050b76711d19a8492b5cc01241ce9d87f73ee096",
+      "hardware/assemblies/corner-station/pulley-bracket-through-bolt-m12x160.scad": "e28729b6a2fa8b368846e680206f545520c4257cca12db49e95415045c80f97c",
+      "hardware/assemblies/corner-station/pulley-bracket-washer-m12.scad": "44e8bf6e256e950d8dc6d304a2a698dd0589fd2ca01fd61eebb3689a07ef5c65",
+      "hardware/assemblies/corner-station/top-positioning-line-pulley.scad": "852cca7145fd07cb266a2423b58e84b4e464e3dd1b18604b0d5229beff0c28a3",
+      "hardware/assemblies/corner-station/top-pulley-bracket.scad": "838d683df52891a8d42b69d2cc5455022ac885bb4fe52115b74f4619ef45b8bf",
       "hardware/assemblies/corner-station/top-pulley-keeper.scad": "a20d8629f5ebb84de0d82f418b7d0508de32622662d4e4b78393f7b469037250",
+      "hardware/assemblies/corner-station/wire-rope-clamp-3mm.scad": "b614f4ecf44cdbe106b8ffeedac9c7b93da61de8276ca27c864d3995e4761dae",
+      "hardware/assemblies/corner-station/wire-rope-thimble-3mm.scad": "dd605396abe23db93d73085351303ba4e13d26fe09bed56e001e4e526de24399",
+      "hardware/assemblies/corner-station/zinc-spray.scad": "5473851bd125496d6f3a4383e033a14e38d18f928bcd541516cfcd42dc9e5335",
+      "hardware/assemblies/dock/dock-arm-extension.scad": "8b7d1a115235d65e03a72d178a5ffca6f9c8aaab55f1c0b4b96b2f61215ba0e0",
+      "hardware/assemblies/dock/dock-arm-root.scad": "882d8870dbd4e185daf2c780bfff0a341423f5c31ea011508cc3b830be6e1da5",
+      "hardware/assemblies/dock/dock-assembly.scad": "b96c7bb60e34633522251858d29165c73bc3a86caa34a85db99c53c3073c3a9b",
+      "hardware/assemblies/dock/dock-bench-hardware.scad": "ab5a31b326b7b01ff46c2017782cd576c94bd68f6effc1419f82c8fb8d492d17",
       "hardware/assemblies/dock/dock-funnel.scad": "14422530ce7c18eb583ff01628531af8a4a84d7617b02ab58bccb6744bade2cd",
+      "hardware/assemblies/dock/dock-guide-quarter.scad": "b79bc90dc1cbc6ed6c9b4d2c2486ff3eac323c39fcac0feac2b06a42948fcfae",
+      "hardware/assemblies/dock/dock-latch-fork.scad": "d7bd9d89fde7f0069bb88490f42abb90594dc455eabd8f97f4fca3dbc7eb1db8",
+      "hardware/assemblies/dock/dock-latch-hardware.scad": "ae40037a882580b15367b47d39c0fff30361cf6f1457313020b26dde8fa0400f",
+      "hardware/assemblies/dock/dock-locator-carrier.scad": "1cedd0cd765b28652ce211d9314f31bb521c123f1ef0d13bfe6030d5ed94acf1",
       "hardware/assemblies/dock/dock-nest.scad": "af355c65ac3b4ec2f8dc1435e0e42c8c74fd656e911fa21ee9ab15aa1034eb56",
+      "hardware/assemblies/dock/dock-pod-bridge-shoe.scad": "3893a0e707e787848fcf292fec332a51cbdcca4f5fc3bc7d50c733b5532b48c6",
+      "hardware/assemblies/dock/dock-pod-bridge.scad": "7e469cdda009682aef6bf9828eb96f73d7cbf9d74124a662b74d5c762fc1dc35",
+      "hardware/assemblies/dock/dock-pod-stud.scad": "b423af5bc68fe4ba5debb9ccabd96497e4643ce149a759fd7906be87aaeed3f3",
+      "hardware/assemblies/dock/dock-post-rear-pad.scad": "22193b3204340ea03ad5d1f9de6fc220282e2d3d5113ebbce23a08bcc45b399e",
+      "hardware/assemblies/dock/dock-roof-quarter.scad": "58fcf02d45c101bdf80b986765a790272b0777ecb0a5acaf9cdaf3abaaf15b7f",
+      "hardware/assemblies/dock/dock-roof-spacer.scad": "a44be8708e8b8f4355164fa29561e7691171df5ba6f3a59329a6c802aa9c9707",
+      "hardware/assemblies/dock/dock-weather-hood.scad": "cc5c8d12501f3a417ed75c6232d7ecd68090fc50fc22f0bdb401c00d8a20ea0a",
+      "hardware/assemblies/shared-procurement-stock/cable-gland-assortment.scad": "dd54eead338fc19bd285d50058e1fae48195cc994c7dcc85bf113c7b70bf4200",
+      "hardware/assemblies/shared-procurement-stock/heat-set-insert-assortment.scad": "17e6320d4710b9f5475d6242a3744c6bfc2662eceae6e7a3b90f93cb123b60c3",
+      "hardware/assemblies/shared-procurement-stock/stainless-fastener-assortment.scad": "afcea9eaddcab7d1bb1d7dc9f58485a2355dd00dbae3eb2c4c6e3db01382075e",
+      "hardware/assemblies/site-installation/motor-power-branch-cable.scad": "9c5f02700d5149df17d094425c431c240960c30ed062179e422889775d838f62",
+      "hardware/assemblies/site-installation/outdoor-cat5e-signal-cable.scad": "23c30b74bcd4219ecc502542229f90a25401b0b358fe5630f6b6cc3b506d6c53",
+      "hardware/assemblies/site-installation/underground-cable-sleeve.scad": "aa8ad2c3f870e51939f615c35b10e3dc88470f9d6f967346ba185b3a2e317b51",
+      "hardware/assemblies/site-installation/wind-sensor-rs485-transceiver.scad": "1e5e940c51f726658d5e285670bb5c2f8f587891f0a310558d181eef2d0b2507",
+      "hardware/assemblies/site-installation/wind-speed-sensor.scad": "ab5cfb825ad7cded7d286108779737eea59ecda1439b7fafdc38ee7c98191f77",
+      "hardware/assemblies/winch/as5600-angle-sensor.scad": "4998075fa2c6412aac397865a6fb28778aa105350064bc7440de5ce9196c0508",
+      "hardware/assemblies/winch/bearing-608-2rs.scad": "c3a4a2ee7ccf3161117a3cc578ec155b65d25a88b5af18df48d9302ec2c38434",
+      "hardware/assemblies/winch/capsule-slip-ring-6x2a.scad": "5a069473dd8673a023ad1f04bbea25d98e18d22a3504e5a67e9771eb7757e6d3",
+      "hardware/assemblies/winch/cl57y-v20-driver.scad": "ee8e99151cbd15f909ab1e98b143260c2f9c4eea72287d342504bddc83cc7a2e",
+      "hardware/assemblies/winch/dyneema-positioning-line.scad": "062b21f0103dd3c27e9d8bd1f3deb794147b67185d764abb947b94a96702cfeb",
+      "hardware/assemblies/winch/extension-spring-assortment.scad": "82027292bf43aae06cf421ab3c18d62e6bc93d1e40f24632385d6a98c1b98504",
+      "hardware/assemblies/winch/flexible-jaw-coupling-8mm.scad": "0fdb869a5142690a5b72c6802785734cd10a08f5d1c544fe9bd1c8443894deef",
+      "hardware/assemblies/winch/matched-motor-cable.scad": "7d8cfd66888047d4b38f4bef64718dfbb2061630edc2b68fd77801f202636c5e",
+      "hardware/assemblies/winch/nema23-closed-loop-motor.scad": "9703e90151e9553a714fbee485116e1b4023fbd9889961922453ebf8154f94d6",
+      "hardware/assemblies/winch/pod-power-wire-black-awg26.scad": "8badc1dc7c350750874137f7576c438f18d9bf348283deeb34e58942bd7fb6e2",
+      "hardware/assemblies/winch/pod-power-wire-red-awg26.scad": "5eb613824e7f9fc196fb391b365a50e5cae04ca9c82772e7d4e23e521b663af0",
+      "hardware/assemblies/winch/post-electronics-enclosure.scad": "2337104160d9a3b6ff093da76fb579154ff3fabaaed277633bf9ef0f2c7a4357",
+      "hardware/assemblies/winch/roller-lever-microswitch.scad": "256c0bd98fe2ceb475ecf4d1874acea59dd43ea8cb9795aec0431d78a7a615de",
+      "hardware/assemblies/winch/shaft-collar-8mm.scad": "e0b5659a489d4ce4a9b78b8bf7ccc806219e92b6b15fefd0dfcc8c2166e90716",
       "hardware/assemblies/winch/winch-bearing-cap.scad": "ee3968b765fddeb281b84baf13cce71eb241592a3c1ac3f787438b023dbe0060",
       "hardware/assemblies/winch/winch-bearing-lower.scad": "3da56cced498b8644e6bc6c44501f8bef00eb525e48104c6504f72eb50071ce2",
       "hardware/assemblies/winch/winch-coupling-guard.scad": "980836d50357f93b6b916062df4b72a98f777b3bb8b16060eab7b69508451eb5",
@@ -90,14 +159,19 @@
       "hardware/assemblies/winch/winch-drum-clamp-half.scad": "a97b451ae1861d0b1f798387e5d17c5b8738883defd8a0376c0638596f350dd7",
       "hardware/assemblies/winch/winch-drum-flange-right.scad": "f8963600231a63cde299fd541038590cbe929ddbb6e9ca07ef1f84da500bf1b4",
       "hardware/assemblies/winch/winch-drum-flange.scad": "f75ffdd009ea4f7f3c2081509167f0f793fa518a3174c57e5f1a3b4f8183c83d",
+      "hardware/assemblies/winch/winch-drum-joining-hardware.scad": "e32d08a3d71767ab3dd2097824019aefc2e84cc7432e064be26932c48b79d771",
       "hardware/assemblies/winch/winch-drum-passive-1.scad": "05f4da0c306b7f28b6cbb0892aa6077492a718a1dd92e73f6147ec2a67e69d48",
       "hardware/assemblies/winch/winch-drum-passive-2.scad": "2ddcff6c8e33cf4a49ee9eb5f9c16464e80282699c32c6d9898cb217ee0be2ae",
       "hardware/assemblies/winch/winch-drum-powered-1.scad": "2740e6fe707fdf99709c3cb5f0d191cdbba3f99037fedce6ee8fae4c5a5b06c2",
       "hardware/assemblies/winch/winch-drum-powered-2.scad": "0c6621de35d65fb0e791547773ee819dafc3b49f9c1083625590ad2d7232ebce",
       "hardware/assemblies/winch/winch-drum-powered-3.scad": "e31351649898a9afaac8c3b2c2f6af3f3686c4a6ee985ff5b790f9139ff0a247",
+      "hardware/assemblies/winch/winch-drum-shaft-8mm.scad": "ca4a6275dad5109dbf6bef3ca01779b543762e1dbb8f07432addc5128ca0b88e",
       "hardware/assemblies/winch/winch-drum-tail-clamp.scad": "eb4c30af128974a8402d64319d3ff320b0d70dd7c1f35ec461bfd604c698e027",
       "hardware/assemblies/winch/winch-drum.scad": "4cefc906adb1085f83af59e883cc6ab4dcaf125e77e6ad579e05a8b7d42b3b9e",
+      "hardware/assemblies/winch/winch-fail-safe-brake.scad": "d44b52cc875d1f8a2932d5d052ac2a7006e4718ce6bfdf57d98c385c43a8774b",
+      "hardware/assemblies/winch/winch-full-cover-hardware.scad": "46c554e5872ac5cff771c9680c0cbcc135f5a71b526354e00eedbedd833ca0ef",
       "hardware/assemblies/winch/winch-motor-stand.scad": "49d830ffab4c3aa590bca08d56d7934cec78ab1f19e641316d7268feb54fb020",
+      "hardware/assemblies/winch/winch-mount-hardware.scad": "5646fea98c37cf53e3c8172c8c7b6ce06aff5c5be5cb32d5c045389a7311ccca",
       "hardware/assemblies/winch/winch-mount.scad": "8ef15e702a72672b354c5325876f007a78e65a6c0a54b8ae9c5e487859027843",
       "hardware/assemblies/winch/winch-pole-assembly.scad": "f85463ecd5926160822032703abf41b1c8be4fe52317048717f9e18c026546bd",
       "hardware/assemblies/winch/winch-pole-cable-guide.scad": "2bd78e897e3c9c294767c6017bfa28716a9b6e546eccbd9d3d7c5573fb8c0273",
@@ -105,6 +179,7 @@
       "hardware/assemblies/winch/winch-pole-nut-cover-bottom.scad": "b221beee4fd50733560f379b382348fccd51e727bf8730b4be732a093bb2d19f",
       "hardware/assemblies/winch/winch-pole-nut-cover.scad": "1c74d56a34fa29851462d65ef506394f13ed951290246e60f2cdc3c0c9946d1c",
       "hardware/assemblies/winch/winch-pole-rear-saddle.scad": "8f5b5a94b027c7ed1b34e0540502a6b017a0278454daa70a5025409cbbb0bfc5",
+      "hardware/assemblies/winch/winch-round-pole-hardware.scad": "dc784ff6888eeeeeeded49d15cb788eafe0563f6dd3055e5a6a12816501f3f63",
       "hardware/lib/arbi.scad": "39939675020b805ced0e8a05cd41b40037ae627f602e08f7bf638c7ba9d9d9c7",
       "hardware/lib/camera-pod-bench-assembly.scad": "f679ab2f24374013718adb1a2b8414437610d8f4c43a0bc4fb1355193bb28153",
       "hardware/lib/camera-pod-enclosure.scad": "e6bd217233c85fdfd29cd81bb0327b746eec648a76c241f53cb4f67619e772a5",
@@ -113,8 +188,10 @@
       "hardware/lib/camera-pod-integrated-head.scad": "eccbf8010d83908fadf13e13cf0615e7273819dcc8cd65d95c3c774ce4c9d5cc",
       "hardware/lib/camera-pod-mounts.scad": "b5b2cefe5f8787db7d9b6a62f04032c32000f669682ea43452d1d3bc3f9ebc58",
       "hardware/lib/camera-pod.scad": "324d1d886ddb52fd9b5545e9ba2116e1c6c42fac7b026951d18bbbb090d85379",
+      "hardware/lib/catalog-visualizations.scad": "0096868d2fb11867d8b6e6c5fea332f8d8010d74b8c437bf4549ff01b465f59d",
       "hardware/lib/corner-head-printed.scad": "414defcdde68792a9b994532f13a3684e8a735dc89273652185e520b0ae2923b",
       "hardware/lib/corner-head.scad": "820a362a07db3e44b23212e6a4be823091dae4826c20b6b91c173b21b6ce3e61",
+      "hardware/lib/dock.scad": "3acbcac95dbe0b436a9d89f41570606f21ddd665fb72f540e26dfcf6cc9f9563",
       "hardware/lib/pole-pulley-mount.scad": "6db768a3b412dd9b95372597bf7146eee325c04a1615d5a0086689c9a7bdb86e",
       "hardware/lib/winch-cover.scad": "e74ae15fa129899675a5528bda4a92878b34a61d0a5d7111c0477256bf51e553",
       "hardware/lib/winch-desk-feet.scad": "06a551dbe77420599590dc3f8a3bd9b66cd5d647d94bd75fa9e852dcdd4dd719",
@@ -196,16 +273,70 @@
         "stlSha256": "bb0e7862c1cadf75afffedd9c0263dfcc033c5a5ca42c4149b74134299181abf"
       },
       {
-        "modelId": "dock-funnel",
+        "modelId": "dock-arm-extension",
         "revision": "0.1.0",
-        "volumeCm3": "301.044950",
-        "stlSha256": "1a2f6243097e418432fc1c67e10078d182ee151cc67825c50ef11ec05a7cceee"
+        "volumeCm3": "354.842933",
+        "stlSha256": "e5e437ec61b00dca1a03e2c804dd9b15b7dedcb351b83a89b6847525d2beee7e"
       },
       {
-        "modelId": "dock-nest",
+        "modelId": "dock-arm-root",
         "revision": "0.1.0",
-        "volumeCm3": "1949.764697",
-        "stlSha256": "d1beb64ccf268312514a8f6bebb2f3ea3e3c4c44680c0b3b05e005222f46ec8e"
+        "volumeCm3": "832.680301",
+        "stlSha256": "fd0de142dcfd176782f76d2d5b248b8034d030460ca68850051ad8a357b2cbfe"
+      },
+      {
+        "modelId": "dock-guide-quarter",
+        "revision": "0.1.0",
+        "volumeCm3": "29.814653",
+        "stlSha256": "069decae23f5c747315de16f5fd44bfe4c2c1689a95e31ae0351404bd9fa7d21"
+      },
+      {
+        "modelId": "dock-latch-fork",
+        "revision": "0.1.0",
+        "volumeCm3": "7.021294",
+        "stlSha256": "061c11dae85748f25ae7971e0026b01e3190cfdc422f834ddff2c960527f8601"
+      },
+      {
+        "modelId": "dock-locator-carrier",
+        "revision": "0.1.0",
+        "volumeCm3": "173.425490",
+        "stlSha256": "e0e6369da13b37c7635a69ecff3ef3a8accb661b1b23ec0c7df36c984776770f"
+      },
+      {
+        "modelId": "dock-pod-bridge",
+        "revision": "0.1.0",
+        "volumeCm3": "50.561306",
+        "stlSha256": "7c1b466d01069c4d027ed0afe85be0dd49ad2a6fe4023f7a140caa13e898e195"
+      },
+      {
+        "modelId": "dock-pod-bridge-shoe",
+        "revision": "0.1.0",
+        "volumeCm3": "6.747810",
+        "stlSha256": "716d8332188d2dc853408109e3e47c9e79e0327791485d40c9783e38c85178c5"
+      },
+      {
+        "modelId": "dock-pod-stud",
+        "revision": "0.1.0",
+        "volumeCm3": "16.888763",
+        "stlSha256": "8d85be6019365a8c3ece4d6414bc3a14846f9c4f43e137d5bdc800fff97d2f72"
+      },
+      {
+        "modelId": "dock-post-rear-pad",
+        "revision": "0.1.0",
+        "volumeCm3": "47.343064",
+        "stlSha256": "dac482c1227e7343f073bfa61f23a1d2165ab33c5468b069f0ecbc06e25f6b6f"
+      },
+      {
+        "modelId": "dock-roof-quarter",
+        "revision": "0.1.0",
+        "volumeCm3": "56.840319",
+        "stlSha256": "7b3462cb732d990fb45b041787c31f47aa0613de729454a3482193610402148c"
+      },
+      {
+        "modelId": "dock-roof-spacer",
+        "revision": "0.1.0",
+        "volumeCm3": "3.064212",
+        "stlSha256": "56f44fed9a3cb1d954bce1423026189519232b929053816ffcf8db11063d4c56"
       },
       {
         "modelId": "pole-pulley-mount-front",
@@ -715,34 +846,6 @@
       "note": "One mount kit includes two bearing supports/caps, one motor stand and one coupling guard; metal plate, spacers and fasteners belong to winch-mount-hardware. Cosmetic shell surfaces use PETG Matte White (35100) or Black (35101) as listed per component; functional parts retain their existing material assumptions. Material and colour selections require physical fit, retention, weather and thermal checks."
     },
     {
-      "partId": "dock-funnel",
-      "buildId": "arbi-v1",
-      "representedQuantity": "1",
-      "materialId": "petg",
-      "components": [
-        {
-          "modelId": "dock-funnel",
-          "quantity": "1",
-          "color": "black"
-        }
-      ],
-      "note": "One dock capture funnel. Latch hardware and weather hood remain separate unresolved fabrication costs."
-    },
-    {
-      "partId": "dock-nest",
-      "buildId": "arbi-v1",
-      "representedQuantity": "1",
-      "materialId": "petg",
-      "components": [
-        {
-          "modelId": "dock-nest",
-          "quantity": "1",
-          "color": "black"
-        }
-      ],
-      "note": "One dock nest, independently costed even though its procurement placeholder shares the capture-set bundle."
-    },
-    {
       "partId": "top-pulley-keeper",
       "buildId": "arbi-v1",
       "representedQuantity": "1",
@@ -946,6 +1049,106 @@
         }
       ],
       "note": "Deferred concept clamp pair; excluded from the base build. Pricing does not qualify its load-bearing use."
+    },
+    {
+      "partId": "dock-funnel",
+      "buildId": "arbi-v1",
+      "representedQuantity": "1",
+      "materialId": "petg",
+      "components": [
+        {
+          "modelId": "dock-guide-quarter",
+          "quantity": "4",
+          "color": "black"
+        }
+      ],
+      "note": "Solid CAD volume material estimate for one DOCK-IF-01 bench kit; slicing, supports, load and outdoor acceptance pending."
+    },
+    {
+      "partId": "dock-nest",
+      "buildId": "arbi-v1",
+      "representedQuantity": "1",
+      "materialId": "petg",
+      "components": [
+        {
+          "modelId": "dock-locator-carrier",
+          "quantity": "1",
+          "color": "black"
+        }
+      ],
+      "note": "Solid CAD volume material estimate for one DOCK-IF-01 bench kit; slicing, supports, load and outdoor acceptance pending."
+    },
+    {
+      "partId": "dock-latch-hardware",
+      "buildId": "arbi-v1",
+      "representedQuantity": "1",
+      "materialId": "petg",
+      "components": [
+        {
+          "modelId": "dock-latch-fork",
+          "quantity": "1",
+          "color": "black"
+        },
+        {
+          "modelId": "dock-pod-bridge",
+          "quantity": "1",
+          "color": "black"
+        },
+        {
+          "modelId": "dock-pod-bridge-shoe",
+          "quantity": "4",
+          "color": "black"
+        },
+        {
+          "modelId": "dock-pod-stud",
+          "quantity": "1",
+          "color": "black"
+        }
+      ],
+      "note": "Solid CAD volume material estimate for one DOCK-IF-01 bench kit; slicing, supports, load and outdoor acceptance pending."
+    },
+    {
+      "partId": "dock-weather-hood",
+      "buildId": "arbi-v1",
+      "representedQuantity": "1",
+      "materialId": "petg",
+      "components": [
+        {
+          "modelId": "dock-roof-quarter",
+          "quantity": "4",
+          "color": "white"
+        },
+        {
+          "modelId": "dock-roof-spacer",
+          "quantity": "4",
+          "color": "black"
+        }
+      ],
+      "note": "Solid CAD volume material estimate for one DOCK-IF-01 bench kit; slicing, supports, load and outdoor acceptance pending."
+    },
+    {
+      "partId": "dock-support-arm",
+      "buildId": "arbi-v1",
+      "representedQuantity": "1",
+      "materialId": "petg",
+      "components": [
+        {
+          "modelId": "dock-arm-root",
+          "quantity": "1",
+          "color": "black"
+        },
+        {
+          "modelId": "dock-arm-extension",
+          "quantity": "1",
+          "color": "black"
+        },
+        {
+          "modelId": "dock-post-rear-pad",
+          "quantity": "2",
+          "color": "black"
+        }
+      ],
+      "note": "Solid CAD volume material estimate for one DOCK-IF-01 bench kit; slicing, supports, load and outdoor acceptance pending."
     }
   ]
 }

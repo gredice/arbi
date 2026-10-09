@@ -229,7 +229,6 @@
                         ],
                         "properties": {
                             "bomPartIds": {
-                                "minItems": 1,
                                 "type": "array"
                             },
                             "output": {
@@ -240,7 +239,32 @@
                                 "const": "concept-unvalidated"
                             },
                             "geometry": {}
-                        }
+                        },
+                        "allOf": [
+                            {
+                                "if": {
+                                    "required": [
+                                        "archiveReason"
+                                    ]
+                                },
+                                "then": {
+                                    "properties": {
+                                        "bomPartIds": {
+                                            "maxItems": 0,
+                                            "type": "array"
+                                        }
+                                    }
+                                },
+                                "else": {
+                                    "properties": {
+                                        "bomPartIds": {
+                                            "minItems": 1,
+                                            "type": "array"
+                                        }
+                                    }
+                                }
+                            }
+                        ]
                     },
                     "else": {
                         "not": {

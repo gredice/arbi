@@ -22,7 +22,7 @@ Quantities are per assembly definition, before build multipliers. Optional and d
 | Assembly or purchasing bucket | Quantity | Inclusion | Usage note |
 | --- | ---: | --- | --- |
 | [Winch set](../../../docs/assemblies/winch/README.md) | 4 each | base | Installed in the winch assembly. |
-| [Dock](../../../docs/assemblies/dock/README.md) | 1 each | base | Installed in the dock assembly in addition to the winch home switches. |
+| [Dock](../../../docs/assemblies/dock/README.md) | 2 each | base | Separate seating and fork-position observations proposed. Mounts, targets, circuits and accepted actuation travel remain unselected; no automatic dock authority. |
 
 [Canonical assembly quantities](../../assemblies/assemblies.json)
 

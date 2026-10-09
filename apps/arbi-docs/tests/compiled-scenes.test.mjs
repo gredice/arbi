@@ -25,7 +25,7 @@ test("passive and powered inventories and poses match their own canonical bookle
         assert.equal(driver.usedIn[0].knownGoodsAmount, "73.34");
         assert.equal(bom.parts.find((part) => part.id === "power-supply-48v-350w").knownGoods, "36.67");
         assert.equal(bom.parts.find((part) => part.id === "dock-funnel").knownGoods, null);
-        assert.equal(bom.summary.assemblyKnownGoods.find((item) => item.assemblyId === "winch-set").amount, "391.49");
+        assert.equal(bom.summary.assemblyKnownGoods.find((item) => item.assemblyId === "winch-set").amount, "390.85");
         assert.equal(bom.summary.knownSubtotal, "987.22");
         const files = unzipSync(readFileSync(join(app, "../../docs/assemblies/winch/booklet/ARBI-winch-STL-pack.zip")));
         const manifest = JSON.parse(new TextDecoder().decode(files[Object.keys(files).find((n) => n.endsWith("/figure-manifest.json"))]));

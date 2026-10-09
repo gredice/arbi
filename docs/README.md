@@ -23,7 +23,8 @@ The committed material is a **design baseline**, not proof of a built or safe in
 - [Site installation](assemblies/site-installation/README.md)
 - [Corner support set](assemblies/corner-station/README.md), including the [winch set](assemblies/winch/README.md) and its ordinary/powered positioning lines
 - [Camera pod](assemblies/camera-pod/README.md)
-- [Dock](assemblies/dock/README.md)
+- [Dock](assemblies/dock/README.md), with a proposed [compact-pod interface package](assemblies/dock/design-package.md),
+  [bench plan](assemblies/dock/bench-test-plan.md) and [blank acceptance record](assemblies/dock/acceptance-record.md)
 - [Control cabinet](assemblies/control-cabinet/README.md)
 
 ## Shared assembly specifications

@@ -123,7 +123,7 @@ test('publication handles large paginated release histories, reruns and Latest a
     for (const mode of ['new', 'draft', 'bump']) {
       const assets = join(temp, `assets-${mode}`); mkdirSync(assets);
       const names = [...registry.models.map((m) => m.output), `cad-sources-${'a'.repeat(40)}.zip`, 'ARBI-CAD-previews.zip',
-        ...['ARBI-winch', 'ARBI-camera-pod-bench', 'ARBI-camera-pod-enclosure', 'ARBI-corner-support'].flatMap((n) => [`${n}-assembly-STL.pdf`, `${n}-STL-pack.zip`])];
+        ...['ARBI-winch', 'ARBI-camera-pod-bench', 'ARBI-camera-pod-enclosure', 'ARBI-corner-support', 'ARBI-dock'].flatMap((n) => [`${n}-assembly-STL.pdf`, `${n}-STL-pack.zip`])];
       for (const name of names) writeFileSync(join(assets, name), 'publication fixture');
       const calls = join(temp, `calls-${mode}`);
       execFileSync(process.execPath, ['scripts/publish-cad-release.mjs'], {
@@ -174,4 +174,24 @@ test('corner source packs reject changed canonical geometry and corrupted fabric
   }
   assert.equal(packIsCurrent({ ...files, 'figure-manifest.json': Buffer.from('{"pose":"wrong"}') }, outputs, root, 'corner'), false);
   assert.equal(packIsCurrent(files, new Set(), root, 'corner'), false);
+});
+
+test('dock source pack cannot reuse stale shared post, pose or component splitter inputs', () => {
+  const paths = ['hardware/lib/dock.scad', 'hardware/lib/corner-head.scad', 'scripts/dock-booklet/build.py', 'scripts/cad-previews/csg.py'];
+  const sources = Object.fromEntries(paths.map(path => [path, readFileSync(join(root, path))]));
+  const mesh = 'models/arbi/dock-latch-fork-r0.1.0.stl';
+  const files = Object.fromEntries(paths.map(path => ['source/repository/'+path, sources[path]]));
+  files[mesh] = Buffer.from('written mesh');
+  files['figure-manifest.json'] = Buffer.from('{}');
+  files['geometry-report.json'] = Buffer.from(JSON.stringify({
+    sources_sha256: Object.fromEntries(paths.map(path => [path, sha256(sources[path])])),
+    mesh_sha256: { [mesh]: sha256(files[mesh]) },
+  }));
+  files['manifest.json'] = Buffer.from(JSON.stringify({ files_sha256: Object.fromEntries(Object.entries(files).map(([path, bytes]) => [path, sha256(bytes)])) }));
+  const outputs = new Set(['dock-latch-fork-r0.1.0.stl']);
+  assert.equal(packIsCurrent(files, outputs, root, 'dock'), true);
+  assert.equal(packIsCurrent({ ...files, [mesh]: Buffer.from('corrupt') }, outputs, root, 'dock'), false);
+  for (const path of paths) assert.equal(packIsCurrent({ ...files, ['source/repository/'+path]: Buffer.from('stale') }, outputs, root, 'dock'), false);
+  assert.equal(packIsCurrent({ ...files, 'figure-manifest.json': Buffer.from('{"wrong":"pose"}') }, outputs, root, 'dock'), false);
+  assert.equal(packIsCurrent(files, new Set(), root, 'dock'), false);
 });

@@ -100,7 +100,7 @@ independent workspaces, BOM, CAD and booklets run in parallel.
 | Deleted model documentation | CAD and website |
 | Registered CAD preview tooling | CAD and registered preview validation |
 | Release/provenance/site-refresh tooling | Website tests, CAD, registered previews and all booklet variants |
-| Winch, camera-pod or corner-station assembly sources/documentation | Owning booklet variants and website; geometry also selects CAD |
+| Winch, camera-pod, corner-station or dock assembly sources/documentation | Owning booklet variants and website; geometry also selects CAD |
 | Booklet generators, shared rendering helpers, fonts, license and mesh validators | Affected booklet variants |
 | Architecture recovery experiment | Recovery experiment only |
 
@@ -126,7 +126,7 @@ Python jobs cache pip downloads, and the dashboard caches its pinned Chromium
 browser while installing system dependencies on every runner.
 
 On relevant `main` pushes and manual dispatches on `main`, the planner expands
-the release to all four commit-matched booklet packs, CAD and registered model
+the release to all five commit-matched booklet packs, CAD and registered model
 previews. Preview generation downloads this run's validated CAD and checks full
 registry coverage through the site compiler. CAD and reference-preview meshing
 each use four OpenSCAD workers in CI. Reference components are deduplicated
@@ -157,15 +157,16 @@ and current assembly scenes. PRs only upload review artifacts.
 ## Assembly booklet builds
 
 The Python generators in [scripts/winch-booklet](scripts/winch-booklet/README.md),
-[scripts/camera-pod-booklet](scripts/camera-pod-booklet/README.md) and
-[scripts/corner-support](scripts/corner-support/README.md) export current
+[scripts/camera-pod-booklet](scripts/camera-pod-booklet/README.md),
+[scripts/corner-support](scripts/corner-support/README.md) and
+[scripts/dock-booklet](scripts/dock-booklet/README.md) export current
 registered CAD, check meshes and nominal assembly geometry, render white-face
-line illustrations and package A4 PDFs with portable STL/source ZIPs. The four
+line illustrations and package A4 PDFs with portable STL/source ZIPs. The five
 configurations are the winch, dry camera pod bench, camera pod rain enclosure and
-proposed corner head.
+proposed corner head and supported-dummy dock.
 
 [Booklet CI](.github/workflows/ci.yml) builds affected variants on PRs and
-all four on release runs or manual dispatches. [CAD release CI](.github/workflows/ci.yml) includes
+all five on release runs or manual dispatches. [CAD release CI](.github/workflows/ci.yml) includes
 their PDFs/ZIPs and checksums in the same `cad-v<MAJOR.MINOR.PATCH>` release as the geometry.
 CI keeps generated outputs as artifacts and never commits snapshots back to Git.
 Use `scripts/check-booklet.py` for the owning PDF/pack checks; local `--publish`

@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function SystemPage({ params }: { params: Promise<{ slug: string }> }) {
     const sys = systemBySlug((await params).slug);
     if (!sys) notFound();
-    const { systems, assemblies, scenes } = data();
+    const { systems, assemblies, scenes, site } = data();
     const parent = assemblies.find((assembly) => assembly.id === sys.parentAssemblyId);
     const children = assemblies.filter((assembly) => assembly.parentAssemblyId === sys.id);
     const scene = sys.scene ? scenes[sys.slug] : null;
@@ -32,6 +32,14 @@ export default async function SystemPage({ params }: { params: Promise<{ slug: s
           ? `Parts laid out side by side · no assembly pose is registered · meshes from ${from}`
           : `${scene?.configuration ? `${scene.configuration} · ` : ""}${sys.scene.pose ? `Exploded pose: booklet figure “${sys.scene.pose}”` : "Assembled only: no exploded figure in this pack"} · meshes from ${from}`;
     const doc = docHref(sys.documentation);
+    const developmentDocs = sys.slug === "dock"
+        ? ["assembly-guide", "booklet/README", "design-proposal", "design-package", "bench-test-plan", "acceptance-record"]
+            .flatMap((name) => {
+                const entry = site.docs.find((item) => item.path === `docs/assemblies/dock/${name}.md`);
+                const href = entry && docHref(entry.path);
+                return entry && href ? [{ ...entry, href }] : [];
+            })
+        : [];
     const winch = sys.slug === "winch" || sys.slug === "winch-powered";
     return (
         <>
@@ -47,7 +55,7 @@ export default async function SystemPage({ params }: { params: Promise<{ slug: s
                 navCurrent={sys.rootSlug}
                 variants={winch ? [{ slug: "winch", name: "Ordinary winch" }, { slug: "winch-powered", name: "Powered winch" }] : []}
                 inventory={inventory(ids, !lineup, sys.slug)}
-                inventoryNote={lineup ? "Registered fabrication parts · quantities in the BOM" : `Quantities per configured ${sys.slug === "camera-pod" ? "pod" : sys.slug === "corner-station" ? "proposed corner head" : sys.slug === "winch-powered" ? "powered winch" : "ordinary winch"}`}
+                inventoryNote={lineup ? "Registered fabrication parts · quantities in the BOM" : `Quantities per configured ${sys.slug === "camera-pod" ? "pod" : sys.slug === "corner-station" ? "proposed corner head" : sys.slug === "dock" ? "dock bench kit" : sys.slug === "winch-powered" ? "powered winch" : "ordinary winch"}`}
             >
                 <section className="grid gap-8 border-b-2 border-ink px-4 py-8 sm:px-6 lg:grid-cols-12">
                     <p className="text-[17px] leading-snug lg:col-span-5">{sys.description}</p>
@@ -81,6 +89,19 @@ export default async function SystemPage({ params }: { params: Promise<{ slug: s
                 </section>
             </SystemExplorer>
             <div className="mb-20">
+                {developmentDocs.length > 0 && (
+                    <section className="mt-10 px-4 sm:px-6">
+                        <h2 className="cond text-[24px]">Design and acceptance</h2>
+                        <div className="mt-3 grid gap-4 sm:grid-cols-2">
+                            {developmentDocs.map((entry) => (
+                                <Link key={entry.path} href={entry.href} className="border-t-2 border-ink py-4">
+                                    <span className="cond text-[21px]">{entry.title} <span aria-hidden="true">→</span></span>
+                                    <p className="mt-2 text-[13px] leading-relaxed">{entry.summary}</p>
+                                </Link>
+                            ))}
+                        </div>
+                    </section>
+                )}
                 {children.length > 0 && (
                     <section className="mt-10 px-4 sm:px-6">
                         <h2 className="cond text-[24px]">Subassemblies</h2>

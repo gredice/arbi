@@ -18,7 +18,12 @@ test('Parts covers the entire BOM and retains individual CAD pages with unique r
     assert.ok(entry.modelIds.length > 0, part.id);
   }
   for (const model of registry.models) assert.ok(entries.some((entry) => entry.id === model.id));
-  for (const archived of registry.archivedModels) assert.ok(!entries.some((entry) => entry.id === archived.id));
+  for (const archived of registry.archivedModels) {
+    assert.ok(!entries.some((entry) => entry.modelIds.includes(archived.id)), 'Archived geometry must not return through a BOM route');
+    const route = entries.find((entry) => entry.id === archived.id);
+    if (route) assert.equal(route.bomPartId, archived.id, 'A retained BOM slug can name only its current kit');
+  }
+  assert.ok(entries.find(entry => entry.id === 'dock-funnel').modelIds.includes('dock-guide-quarter'));
   const drum = entries.find((entry) => entry.id === 'winch-drum');
   assert.ok(drum.modelIds.includes('winch-drum-powered-3'), 'BOM slug collision must retain the kit components');
 });
