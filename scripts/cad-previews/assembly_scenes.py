@@ -18,7 +18,7 @@ def checked_export(command, path):
 
 def assembly_scene(model, repo, work, jobs):
     entrypoint = repo / model["entrypoint"]
-    if model["artifactRole"] != "reference" or "ARBI_ASSEMBLY_SCENE" not in entrypoint.read_text():
+    if model["artifactRole"] != "reference" or "ARBI_ASSEMBLY_SCENE" not in entrypoint.read_text(encoding="utf-8"):
         return None
     metadata = work / f"{model['id']}-metadata.csg"
     diagnostics = checked_export(["openscad", "-o", str(metadata), "-D", "emit_scene=true", str(entrypoint)], metadata)

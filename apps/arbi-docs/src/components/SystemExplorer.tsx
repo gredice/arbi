@@ -123,7 +123,7 @@ export function SystemExplorer({ number, name, scene, cadPending, caption, nav, 
                 </div>
                 <div className="absolute bottom-6 left-0 z-20 flex flex-wrap items-center gap-2 px-4 sm:px-6">
                     {canExplode && (
-                        <label className="flex items-center gap-3 border border-paper px-3 py-2">
+                        <label key={current} className="flex items-center gap-3 border border-paper px-3 py-2">
                             <span className="tag">Assembled</span>
                             <input aria-label="Assembly explosion" type="range" min={0} max={1} step={0.01} defaultValue={initialExplosion} className="w-40 accent-white" onChange={(e) => viewerRef.current?.setExplode(Number(e.target.value))} />
                             <span className="tag">Exploded</span>

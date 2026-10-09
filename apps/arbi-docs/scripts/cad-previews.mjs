@@ -52,10 +52,11 @@ export function previewAssets(bytes, models, readSource) {
       const vector = (value) => Array.isArray(value) && value.length === 3 && value.every(Number.isFinite);
       const valid = typeof scene.configuration === 'string' && typeof scene.pose === 'string' &&
         Array.isArray(scene.parts) && scene.parts.length > 0 && scene.parts.every((part) => {
-          if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(part.node) || nodes.has(part.node)) return false;
+          if (!part || typeof part.node !== 'string' || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(part.node) || nodes.has(part.node)) return false;
           nodes.add(part.node);
           if (part.mesh !== `assemblies/${model.id}/${part.node}.stl` || !['fixed', 'cover'].includes(part.group) ||
-            typeof part.registered !== 'boolean' || !vector(part.color) || part.color.some((v) => v < 0 || v > 1) || !vector(part.explode)) return false;
+            typeof part.registered !== 'boolean' || (part.bomPartId != null && typeof part.bomPartId !== 'string') ||
+            !vector(part.color) || part.color.some((v) => v < 0 || v > 1) || !vector(part.explode)) return false;
           const linked = models.find((item) => item.id === part.model);
           if (part.registered && (!linked || linked.assembly !== model.assembly || linked.artifactRole !== 'visualization' ||
             !linked.bomPartIds.includes(part.bomPartId))) return false;

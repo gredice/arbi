@@ -34,7 +34,7 @@ def source_hashes(entrypoint):
         if relative in hashes:
             return
         hashes[relative] = digest(path)
-        for include in re.findall(r"^\s*(?:include|use)\s*<([^>]+)>", path.read_text(), re.M):
+        for include in re.findall(r"^\s*(?:include|use)\s*<([^>]+)>", path.read_text(encoding="utf-8"), re.M):
             visit(path.parent / include)
 
     visit(REPO / entrypoint)
