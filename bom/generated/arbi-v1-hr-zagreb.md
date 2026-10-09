@@ -11,7 +11,7 @@
 - Build: arbi-v1
 - Destination: hr-zagreb
 - Quote snapshot: hr-zagreb-2026-10-08-coupling
-- Input digest: sha256:b1f8f91f66f8c928fca36877b211a6f234f83e24c4fc67eea4547a83c2783064
+- Input digest: sha256:8f2f5ccdae11ed95b9f31ed4eef423f494e6ac654ca2fdc0e7d34278483c6a96
 - Complete landed total: **unavailable**
 - Known quoted goods subtotal: **EUR 943.84**
 - Known checkout-group shipping subtotal: **EUR 43.38**

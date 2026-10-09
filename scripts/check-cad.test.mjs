@@ -6,14 +6,26 @@ import { join } from 'node:path';
 import { test } from 'node:test';
 import { compileModels, parseArguments, validateRegistry } from './check-cad.mjs';
 
+test('camera pod names have one public assembly and direct aliases for retired identifiers', () => {
+    const current = validateRegistry();
+    const models = [...current.models, ...current.archivedModels];
+    const aliases = JSON.parse(readFileSync('hardware/model-aliases.json', 'utf8'));
+    assert.equal(current.models.filter(m => m.id === 'camera-pod-assembly').length, 1);
+    assert.ok(models.every(m => !m.id.startsWith('payload-') && !m.entrypoint.includes('/payload-') && !m.output.startsWith('payload-')));
+    assert.equal(aliases['payload-assembly'], 'camera-pod-assembly');
+    assert.equal(aliases['payload-rain-assembly'], 'camera-pod-assembly');
+    assert.throws(() => validateRegistry(current, undefined, { old: 'missing' }), /alias target/);
+    assert.throws(() => validateRegistry(current, undefined, { 'camera-pod-assembly': 'camera-pod-assembly' }), /must not shadow/);
+});
+
 test('archived sources remain traceable but cannot return to BOM mappings or current exports', () => {
     const current = validateRegistry();
-    const archived = current.archivedModels.find(m => m.id === 'payload-electronics-deck');
-    assert.ok(current.models.some(m => m.id === 'payload-integrated-deck'));
+    const archived = current.archivedModels.find(m => m.id === 'camera-pod-electronics-deck');
+    assert.ok(current.models.some(m => m.id === 'camera-pod-integrated-deck'));
     assert.ok(!current.models.some(m => m.id === archived.id));
     const parts = JSON.parse(readFileSync('bom/catalog/parts.json', 'utf8'));
     parts.parts.find(p => p.id === 'camera-pod-chassis').fabrication.sources.push({
-        modelId: archived.id, path: archived.entrypoint, revision: archived.revision, module: 'payload_electronics_deck',
+        modelId: archived.id, path: archived.entrypoint, revision: archived.revision, module: 'camera_pod_electronics_deck',
     });
     assert.throws(() => validateRegistry(current, parts), /references archived CAD model/);
     const broken = structuredClone(current);
@@ -25,7 +37,7 @@ test('archived sources remain traceable but cannot return to BOM mappings or cur
 });
 
 test('booklet selection preserves the current enclosure and explicit bench alternative', () => {
-    const result = spawnSync('python3', ['scripts/payload-booklet/test_model_selection.py'], { encoding: 'utf8' });
+    const result = spawnSync('python3', ['scripts/camera-pod-booklet/test_model_selection.py'], { encoding: 'utf8' });
     assert.equal(result.status, 0, result.stderr || result.error?.message);
 });
 

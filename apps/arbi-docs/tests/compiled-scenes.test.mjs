@@ -33,6 +33,7 @@ test("passive and powered inventories and poses match their own canonical bookle
         const podFiles = unzipSync(readFileSync(join(app, "../../docs/assemblies/camera-pod/booklet/ARBI-payload-enclosure-STL-pack.zip")));
         const podManifest = JSON.parse(new TextDecoder().decode(podFiles[Object.keys(podFiles).find((n) => n.endsWith("/assembly-manifest.json"))]));
         const pod = read("camera-pod");
+        assert.ok(pod.parts.filter((part) => part.registered).every((part) => part.model.startsWith("camera-pod-") && part.href === `/parts/${part.model}`));
         assert.equal(pod.kind, "stl", "pod parts must be independently downloadable");
         assert.equal(pod.glb, undefined);
         assert.equal(pod.parts.length, podManifest.parts.length);

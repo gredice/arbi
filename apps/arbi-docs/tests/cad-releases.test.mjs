@@ -28,7 +28,7 @@ test('release provenance rejects unchanged filenames with changed source, missin
     models: registry.models.map(({ id, revision, output }) => ({ id, revision, output })) };
   const assets = Object.fromEntries(registry.models.map((m) => [m.output, 'b'.repeat(64)]));
   assert.equal(validateReleaseManifest(manifest, 'cad-v0.1.0', root, registry.models, assets), manifest.commit);
-  const path = 'hardware/lib/payload-integrated-head.scad';
+  const path = 'hardware/lib/camera-pod-integrated-head.scad';
   assert.throws(() => validateReleaseManifest({ ...manifest, inputs: { ...inputs, [path]: 'c'.repeat(64) } }, 'cad-v0.1.0', root, registry.models, assets), /inputs differ/);
   assert.throws(() => validateReleaseManifest({ ...manifest, models: manifest.models.slice(1) }, 'cad-v0.1.0', root, registry.models, assets), /outputs/);
   const incomplete = { ...assets }; delete incomplete[registry.models[0].output];
@@ -39,11 +39,11 @@ test('release provenance rejects unchanged filenames with changed source, missin
 });
 
 test('booklet freshness checks shared geometry and pose source, even when STL filenames still match', () => {
-  const geometry = readFileSync(join(root, 'hardware/lib/payload-integrated-head.scad'));
-  const pose = readFileSync(join(root, 'scripts/payload-booklet/render_figures.py'));
-  const booklet = readFileSync(join(root, 'scripts/payload-booklet/build_booklet.py'));
-  const source = 'source/arbi-hardware/lib/payload-integrated-head.scad';
-  const output = 'payload-integrated-gimbal-head-r0.1.3.stl';
+  const geometry = readFileSync(join(root, 'hardware/lib/camera-pod-integrated-head.scad'));
+  const pose = readFileSync(join(root, 'scripts/camera-pod-booklet/render_figures.py'));
+  const booklet = readFileSync(join(root, 'scripts/camera-pod-booklet/build_booklet.py'));
+  const source = 'source/arbi-hardware/lib/camera-pod-integrated-head.scad';
+  const output = 'camera-pod-integrated-gimbal-head-r0.1.3.stl';
   const files = {
     [`models/printable/${output}`]: new Uint8Array(), [source]: geometry,
     'source/render_figures.py': pose, 'source/build_booklet.py': booklet,
@@ -83,8 +83,8 @@ test('production rejects offline archival fallback; previews omit stale scenes a
     const site = JSON.parse(readFileSync(join(dataDir, 'site.json')));
     assert.equal(site.release, null);
     assert.equal(site.scenes['camera-pod'], undefined);
-    assert.equal(site.meshes['payload-integrated-gimbal-head'], undefined);
-    assert.deepEqual(site.downloads['payload-integrated-gimbal-head'].packs, []);
+    assert.equal(site.meshes['camera-pod-integrated-gimbal-head'], undefined);
+    assert.deepEqual(site.downloads['camera-pod-integrated-gimbal-head'].packs, []);
   } finally { rmSync(output, { recursive: true, force: true }); }
 });
 
@@ -123,7 +123,7 @@ test('publication handles large paginated release histories, reruns and Latest a
     for (const mode of ['new', 'draft', 'bump']) {
       const assets = join(temp, `assets-${mode}`); mkdirSync(assets);
       const names = [...registry.models.map((m) => m.output), `cad-sources-${'a'.repeat(40)}.zip`, 'ARBI-CAD-previews.zip',
-        ...['ARBI-winch', 'ARBI-payload', 'ARBI-payload-enclosure', 'ARBI-corner-support'].flatMap((n) => [`${n}-assembly-STL.pdf`, `${n}-STL-pack.zip`])];
+        ...['ARBI-winch', 'ARBI-camera-pod-bench', 'ARBI-camera-pod-enclosure', 'ARBI-corner-support'].flatMap((n) => [`${n}-assembly-STL.pdf`, `${n}-STL-pack.zip`])];
       for (const name of names) writeFileSync(join(assets, name), 'publication fixture');
       const calls = join(temp, `calls-${mode}`);
       execFileSync(process.execPath, ['scripts/publish-cad-release.mjs'], {

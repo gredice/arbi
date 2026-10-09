@@ -63,7 +63,7 @@ export function packIsCurrent(files, outputs, root, kind) {
         || !existsSync(local) || sha256(readFileSync(local)) !== provenance.source_hashes[path]) return false;
     }
     for (const path of sourcePaths.filter((p) => /^source\/[^/]+\.(py|scad)$/.test(p))) {
-      const local = join(root, `scripts/${kind === 'pod' ? 'payload' : 'winch'}-booklet`, basename(path));
+      const local = join(root, `scripts/${kind === 'pod' ? 'camera-pod' : 'winch'}-booklet`, basename(path));
       if (existsSync(local) && (!files[path] || sha256(files[path]) !== sha256(readFileSync(local)))) return false;
     }
     return true;

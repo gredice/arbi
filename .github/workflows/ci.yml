@@ -411,7 +411,7 @@ jobs:
         env:
           CAD_OUTPUT: ${{ runner.temp }}/cad-release
         run: |
-          for artifact in ARBI-winch ARBI-payload ARBI-payload-enclosure ARBI-corner-support; do
+          for artifact in ARBI-winch ARBI-camera-pod-bench ARBI-camera-pod-enclosure ARBI-corner-support; do
             test -s "$CAD_OUTPUT/$artifact-assembly-STL.pdf"
             test -s "$CAD_OUTPUT/$artifact-STL-pack.zip"
           done

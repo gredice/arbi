@@ -114,13 +114,14 @@ function validateDependencies(entrypointPath, checkedDependencies) {
     }
 }
 
-export function validateRegistry(registryOverride, bomPartsOverride) {
+export function validateRegistry(registryOverride, bomPartsOverride, aliasesOverride) {
     assert(existsSync(registryPath), 'Missing hardware/models.json.');
     assert(existsSync(schemaPath), 'Missing hardware/models.schema.json.');
 
     const registry = registryOverride ?? readJson(registryPath, 'hardware/models.json');
     const registrySchema = readJson(schemaPath, 'hardware/models.schema.json');
     const bomParts = bomPartsOverride ?? readJson(bomPartsPath, 'bom/catalog/parts.json');
+    const aliases = aliasesOverride ?? readJson(join(hardwareRoot, 'model-aliases.json'), 'hardware/model-aliases.json');
 
     const ajv = new Ajv2020({ allErrors: true, strict: true });
     const validateRegistrySchema = ajv.compile(registrySchema);
@@ -255,6 +256,13 @@ export function validateRegistry(registryOverride, bomPartsOverride) {
 
         registeredEntrypoints.add(entrypointPath);
         validateDependencies(entrypointPath, checkedDependencies);
+    }
+
+    assert(aliases && typeof aliases === 'object' && !Array.isArray(aliases), 'CAD aliases must be an object.');
+    for (const [previous, current] of Object.entries(aliases)) {
+        assert(idPattern.test(previous) && typeof current === 'string' && idPattern.test(current), `Invalid CAD alias: ${previous}`);
+        assert(!ids.has(previous), `CAD alias must not shadow a registered model: ${previous}`);
+        assert(ids.has(current), `CAD alias target must be a registered model: ${previous} -> ${current}`);
     }
 
     const tracedModelPartPairs = new Set();

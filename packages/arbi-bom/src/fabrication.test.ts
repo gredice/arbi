@@ -8,9 +8,17 @@ import { calculateBom } from "./calculate.js";
 import { Decimal } from "./decimal.js";
 import { estimatePrintMaterials } from "./fabrication.js";
 import { loadBomRepository } from "./load.js";
+import { assertJsonSchema } from "./schema-validation.js";
 import { validateRepository } from "./validate.js";
 
 const root = fileURLToPath(new URL("../../../", import.meta.url));
+
+test("print evidence cannot require an ignored local booklet source copy", async () => {
+  const fabrication = JSON.parse(await readFile(join(root, "bom/catalog/fabrication.json"), "utf8"));
+  fabrication.geometry.sourceHashes = { "hardware/generated/booklet/source/model.scad": "a".repeat(64) };
+  await assert.rejects(assertJsonSchema("fabrication.json", fabrication,
+    join(root, "bom/schemas/fabrication.schema.json")), /sourceHashes.*pattern/);
+});
 
 test("weight costing uses density and the conditional bulk rate, without rounding to whole rolls", async () => {
   const repository = await loadBomRepository(root);
@@ -33,8 +41,8 @@ test("base print kits exclude alternatives and multiply repeated pieces and vari
   assert.equal(recipe.components.find((item) => item.modelId === "winch-drum-alignment-pin")!.quantity, "13");
   assert.equal(recipe.components.find((item) => item.modelId === "winch-drum-passive-1")!.quantity, "3");
   const chassis = repository.fabrication.recipes.find((item) => item.partId === "camera-pod-chassis")!;
-  assert.equal(chassis.components.find((item) => item.modelId === "payload-spider-spacer")!.quantity, "4");
-  assert.ok(!chassis.components.some((item) => item.modelId === "payload-electronics-deck"));
+  assert.equal(chassis.components.find((item) => item.modelId === "camera-pod-spider-spacer")!.quantity, "4");
+  assert.ok(!chassis.components.some((item) => item.modelId === "camera-pod-electronics-deck"));
   const base = calculateBom(repository);
   assert.ok(!base.fabrication.some((item) => item.partId === "winch-desk-feet"));
   const cover = base.fabrication.find((item) => item.partId === "winch-full-cover")!;
@@ -62,7 +70,7 @@ test("dock bundle costs are attributed once and print estimates do not turn unkn
 test("mixed recipes use component density, colour evidence and independently priced consumption", async () => {
   const repository = await loadBomRepository(root);
   const recipe = repository.fabrication.recipes.find((item) => item.partId === "camera-pod-chassis")!;
-  const selected = recipe.components.filter((item) => ["payload-rain-hood", "payload-enclosure-base", "camera-pod-spider"].includes(item.modelId));
+  const selected = recipe.components.filter((item) => ["camera-pod-rain-hood", "camera-pod-enclosure-base", "camera-pod-spider"].includes(item.modelId));
   recipe.components = selected;
   for (const component of selected) {
     component.quantity = "1";

@@ -17,7 +17,7 @@
 
 ## Notes
 
-Current compact enclosure uses payload-integrated-gimbal-head r0.1.3, payload-integrated-gimbal-carrier r0.1.1, integrated cradle/pivot support r0.1.0, horn retainers and payload-integrated-camera-hood r0.1.1. Historical concept and dry bench gimbal parts, fixed fairing, tilt-servo boot and rear camera cowl are archived and excluded from this BOM. Four M2 x 10 clamp stacks join head and carrier; four M2 x 12 camera screws retain four primary nuts and eight washers. The selected kit exports 13 fabrication models including the optional coupon and installs 16 printed pieces. See hardware/assemblies/camera-pod/payload-enclosure.md for quantities and service routes. Servo/connector dimensions, physical fit, rain protection and complete flying mass remain unverified.
+Current compact enclosure uses camera-pod-integrated-gimbal-head r0.1.3, camera-pod-integrated-gimbal-carrier r0.1.1, integrated cradle/pivot support r0.1.0, horn retainers and camera-pod-integrated-camera-hood r0.1.1. Historical concept and dry bench gimbal parts, fixed fairing, tilt-servo boot and rear camera cowl are archived and excluded from this BOM. Four M2 x 10 clamp stacks join head and carrier; four M2 x 12 camera screws retain four primary nuts and eight washers. The selected kit exports 13 fabrication models including the optional coupon and installs 16 printed pieces. See hardware/assemblies/camera-pod/camera-pod-enclosure.md for quantities and service routes. Servo/connector dimensions, physical fit, rain protection and complete flying mass remain unverified.
 
 ## Used in
 
@@ -37,13 +37,13 @@ Quantities are per assembly definition, before build multipliers. Optional and d
 
 - Process: openscad
 - Model status: concept-unvalidated
-- [hardware/assemblies/camera-pod/payload-integrated-camera-cradle.scad](../../../hardware/assemblies/camera-pod/payload-integrated-camera-cradle.scad) — module `payload_integrated_camera_cradle`; revision 0.1.0.
-- [hardware/assemblies/camera-pod/payload-integrated-tilt-pivot-support.scad](../../../hardware/assemblies/camera-pod/payload-integrated-tilt-pivot-support.scad) — module `payload_integrated_tilt_pivot_support`; revision 0.1.0.
-- [hardware/assemblies/camera-pod/payload-horn-retainer.scad](../../../hardware/assemblies/camera-pod/payload-horn-retainer.scad) — module `payload_horn_retainer`; revision 0.1.0.
-- [hardware/assemblies/camera-pod/payload-servo-fit-coupon.scad](../../../hardware/assemblies/camera-pod/payload-servo-fit-coupon.scad) — module `payload_servo_fit_coupon`; revision 0.1.0.
-- [hardware/assemblies/camera-pod/payload-integrated-camera-hood.scad](../../../hardware/assemblies/camera-pod/payload-integrated-camera-hood.scad) — module `payload_integrated_camera_hood`; revision 0.1.1.
-- [hardware/assemblies/camera-pod/payload-integrated-gimbal-head.scad](../../../hardware/assemblies/camera-pod/payload-integrated-gimbal-head.scad) — module `payload_integrated_gimbal_head`; revision 0.1.3.
-- [hardware/assemblies/camera-pod/payload-integrated-gimbal-carrier.scad](../../../hardware/assemblies/camera-pod/payload-integrated-gimbal-carrier.scad) — module `payload_integrated_gimbal_carrier`; revision 0.1.1.
+- [hardware/assemblies/camera-pod/camera-pod-integrated-camera-cradle.scad](../../../hardware/assemblies/camera-pod/camera-pod-integrated-camera-cradle.scad) — module `camera_pod_integrated_camera_cradle`; revision 0.1.0.
+- [hardware/assemblies/camera-pod/camera-pod-integrated-tilt-pivot-support.scad](../../../hardware/assemblies/camera-pod/camera-pod-integrated-tilt-pivot-support.scad) — module `camera_pod_integrated_tilt_pivot_support`; revision 0.1.0.
+- [hardware/assemblies/camera-pod/camera-pod-horn-retainer.scad](../../../hardware/assemblies/camera-pod/camera-pod-horn-retainer.scad) — module `camera_pod_horn_retainer`; revision 0.1.0.
+- [hardware/assemblies/camera-pod/camera-pod-servo-fit-coupon.scad](../../../hardware/assemblies/camera-pod/camera-pod-servo-fit-coupon.scad) — module `camera_pod_servo_fit_coupon`; revision 0.1.0.
+- [hardware/assemblies/camera-pod/camera-pod-integrated-camera-hood.scad](../../../hardware/assemblies/camera-pod/camera-pod-integrated-camera-hood.scad) — module `camera_pod_integrated_camera_hood`; revision 0.1.1.
+- [hardware/assemblies/camera-pod/camera-pod-integrated-gimbal-head.scad](../../../hardware/assemblies/camera-pod/camera-pod-integrated-gimbal-head.scad) — module `camera_pod_integrated_gimbal_head`; revision 0.1.3.
+- [hardware/assemblies/camera-pod/camera-pod-integrated-gimbal-carrier.scad](../../../hardware/assemblies/camera-pod/camera-pod-integrated-gimbal-carrier.scad) — module `camera_pod_integrated_gimbal_carrier`; revision 0.1.1.
 
 ### Print material estimate
 
@@ -51,12 +51,12 @@ Build arbi-v1; batch represents 1 BOM unit(s). Current compact rain-enclosure gi
 
 | Model | Copies in batch | Material / colour | Solid volume per copy |
 | --- | ---: | --- | ---: |
-| payload-integrated-gimbal-carrier r0.1.1 | 1 | Bambu Lab PETG Basic / black | 8.458834 cm³ |
-| payload-integrated-gimbal-head r0.1.3 | 1 | Bambu Lab PETG Matte / black | 22.087140 cm³ |
-| payload-integrated-camera-cradle r0.1.0 | 1 | Bambu Lab PETG Basic / black | 3.191199 cm³ |
-| payload-integrated-tilt-pivot-support r0.1.0 | 1 | Bambu Lab PETG Basic / black | 1.088757 cm³ |
-| payload-horn-retainer r0.1.0 | 2 | Bambu Lab PETG Basic / black | 0.545253 cm³ |
-| payload-integrated-camera-hood r0.1.1 | 1 | Bambu Lab PETG Matte / white | 4.588465 cm³ |
+| camera-pod-integrated-gimbal-carrier r0.1.1 | 1 | Bambu Lab PETG Basic / black | 8.458834 cm³ |
+| camera-pod-integrated-gimbal-head r0.1.3 | 1 | Bambu Lab PETG Matte / black | 22.087140 cm³ |
+| camera-pod-integrated-camera-cradle r0.1.0 | 1 | Bambu Lab PETG Basic / black | 3.191199 cm³ |
+| camera-pod-integrated-tilt-pivot-support r0.1.0 | 1 | Bambu Lab PETG Basic / black | 1.088757 cm³ |
+| camera-pod-horn-retainer r0.1.0 | 2 | Bambu Lab PETG Basic / black | 0.545253 cm³ |
+| camera-pod-integrated-camera-hood r0.1.1 | 1 | Bambu Lab PETG Matte / white | 4.588465 cm³ |
 
 Selected recipe consumption:
 

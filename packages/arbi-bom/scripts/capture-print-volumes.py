@@ -105,6 +105,12 @@ def capture(directory):
     print(f'Captured {len(models)} closed mesh volumes from {catalog["geometry"]["releaseTag"]}.')
 
 
+def canonical_inputs(root):
+    hardware = root / 'hardware'
+    return [hardware / 'models.json', *sorted(p for p in hardware.rglob('*.scad')
+            if not p.is_relative_to(hardware / 'generated'))]
+
+
 def capture_current():
     """Export fresh current geometry when no matching release exists yet."""
     catalog_path = ROOT / 'bom/catalog/fabrication.json'
@@ -113,7 +119,7 @@ def capture_current():
     version = subprocess.run(['openscad', '--version'], capture_output=True, text=True, check=True)
     if (version.stdout + version.stderr).strip() != 'OpenSCAD version ' + registry['openScadVersion']:
         raise ValueError('OpenSCAD version must match hardware/models.json')
-    inputs = [ROOT / 'hardware/models.json', *sorted((ROOT / 'hardware').rglob('*.scad'))]
+    inputs = canonical_inputs(ROOT)
     def hashes():
         return {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest() for p in inputs}
     source_hashes = hashes()

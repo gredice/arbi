@@ -3,13 +3,13 @@
 System context: [Camera pod assembly documentation](../../../docs/assemblies/camera-pod/README.md).
 Shared parameters live in [the camera-pod library](../../lib/camera-pod.scad).
 
-The camera-pod and payload families contain individual **concept-unvalidated fabrication models** and non-manufacturing CSG references. No committed record demonstrates printed mass or fit to the purchased Pi, camera, servos, converter, or line hardware. ASA remains the preferred exposed-release material; PETG is acceptable only for prototypes pending creep and weather evidence.
+The camera-pod family contain individual **concept-unvalidated fabrication models** and non-manufacturing CSG references. No committed record demonstrates printed mass or fit to the purchased Pi, camera, servos, converter, or line hardware. ASA remains the preferred exposed-release material; PETG is acceptable only for prototypes pending creep and weather evidence.
 
 ## Archived camera-pod concept list
 
 One BOM `camera-pod-chassis` plus one `camera-gimbal` means the current integrated flying-pod printed kit. **Do not print the archived concept list below for that kit.**
 
-The preferred public appearance is the [integrated payload enclosure](payload-enclosure.md), following the [design conventions](../../../docs/project/industrial-design.md). Use its configuration table for the current enclosed print kit. The print list below describes the historical camera-pod concept family. The alternative [payload bench mount set](payload-mounts.md) shares the spider but uses its own electronics and gimbal mounts; follow that set's quantities when building the bench arrangement. The current BOM source lists contain only the compact enclosure kit. Historical models are retained in `hardware/models.json` under `archivedModels`, excluded from active inventory and individual CAD releases. Neither arrangement has demonstrated the complete flying mass limit.
+The preferred public appearance is the [integrated camera pod enclosure](camera-pod-enclosure.md), following the [design conventions](../../../docs/project/industrial-design.md). Use its configuration table for the current enclosed print kit. The print list below describes the historical camera-pod concept family. The alternative [camera pod bench mount set](camera-pod-mounts.md) shares the spider but uses its own electronics and gimbal mounts; follow that set's quantities when building the bench arrangement. The current BOM source lists contain only the compact enclosure kit. Historical models are retained in `hardware/models.json` under `archivedModels`, excluded from active inventory and individual CAD releases. Neither arrangement has demonstrated the complete flying mass limit.
 
 | Source | Per pod | Role |
 | --- | ---: | --- |
@@ -51,7 +51,7 @@ Horn screw span is an 8 mm starting pattern. Servo spline index, pan/tilt hard-s
 
 ## `camera-pod-envelope`
 
-[camera-pod-envelope.scad](camera-pod-envelope.scad) is a keep-out for the fixed component volume, gimbal sweep, docking interface, rear service space, and four line-termination zones. It has no BOM part ID and must not be interpreted as a pod enclosure. The cable spider remains the primary chassis. The [integrated shell design](payload-enclosure.md) is a bounded ordinary-rain/splash configuration whose complete mass must still satisfy the V1 target and ceiling; it does not redefine the operating weather policy.
+[camera-pod-envelope.scad](camera-pod-envelope.scad) is a keep-out for the fixed component volume, gimbal sweep, docking interface, rear service space, and four line-termination zones. It has no BOM part ID and must not be interpreted as a pod enclosure. The cable spider remains the primary chassis. The [integrated shell design](camera-pod-enclosure.md) is a bounded ordinary-rain/splash configuration whose complete mass must still satisfy the V1 target and ceiling; it does not redefine the operating weather policy.
 
 Registry ID and design revision: `camera-pod-envelope` `0.1.1`, role `reference`, status `concept-unvalidated`.
 
@@ -61,10 +61,9 @@ Registry ID and design revision: `camera-pod-envelope` `0.1.1`, role `reference`
 
 Registry ID and design revision: `camera-pod-assembly` `0.3.5`, role `reference`, status `concept-unvalidated`.
 
-This is the canonical public assembled reference. The older `payload-assembly`
-registry entry was redundant because it selected the same enclosed geometry;
-its source remains available for the alternative dry bench layout but is no
-longer registered or released as a second copy of the camera pod.
+This is the canonical public assembled reference. The former `payload-assembly` and `payload-rain-assembly` public IDs redirect here.
+The enclosed geometry now lives in this single entrypoint; the distinct dry bench
+layout remains in the unregistered camera-pod bench library.
 
 ## `camera-pod-spider`
 
@@ -76,12 +75,12 @@ Before prototype use, measure the real camera, compute, converter, gimbal, line 
 
 ## Bench mounting parts
 
-The [payload mount family](payload-mounts.md) supplies the fixed deck, spider spacers, pan mount, pan yoke, detachable tilt-pivot support, camera cradle, stock-horn retainers, optical hood and electronics cover. The deck and yoke are now r0.1.1; other dry bench parts remain r0.1.0. The [dry bench source](../../lib/payload-bench-assembly.scad) preserves the alternative arrangement; select `show_cover=false` to remove its cover. The registered [camera-pod assembly](camera-pod-assembly.scad) is the integrated enclosure. The [booklets](../../../docs/assemblies/camera-pod/booklet/README.md) publish both configurations using actual fabrication and nominal hardware meshes.
+The [camera pod mount family](camera-pod-mounts.md) supplies the fixed deck, spider spacers, pan mount, pan yoke, detachable tilt-pivot support, camera cradle, stock-horn retainers, optical hood and electronics cover. The deck and yoke are now r0.1.1; other dry bench parts remain r0.1.0. The [dry bench source](../../lib/camera-pod-bench-assembly.scad) preserves the alternative arrangement; select `show_cover=false` to remove its cover. The registered [camera-pod assembly](camera-pod-assembly.scad) is the integrated enclosure. The [booklets](../../../docs/assemblies/camera-pod/booklet/README.md) publish both configurations using actual fabrication and nominal hardware meshes.
 
-All remain concept-unvalidated. The [7 October CAD checks](payload-geometry-check.md) apply to the current dry configuration with r0.1.1 deck/yoke; the actual servo and power-module dimensions, ribbon, mass and physical performance remain open. The original envelope is a legacy space reservation and is not the bounds of this bench assembly.
+All remain concept-unvalidated. The [7 October CAD checks](camera-pod-geometry-check.md) apply to the current dry configuration with r0.1.1 deck/yoke; the actual servo and power-module dimensions, ribbon, mass and physical performance remain open. The original envelope is a legacy space reservation and is not the bounds of this bench assembly.
 
 ## Integrated rain enclosure
 
-The [compact enclosure configuration](payload-enclosure.md) retains the integrated electronics deck r0.1.0, white optical hood r0.1.1, upper rain hood r0.2.1 and uses tray r0.2.3 with a rolled underside shoulder. The compact gimbal uses outer head r0.1.3 with a circular neck, carrier r0.1.1 and new `payload-integrated-camera-cradle` / `payload-integrated-tilt-pivot-support` r0.1.0. A horizontal tilt servo moves the driven interface 2 mm inboard to X=-19.8; the camera tilt axis moves to Y=3, Z=-45. The one-piece outer housing narrows downward around this arrangement; its Ø100 mm upper neck overlaps the fixed Ø103 mm throat with a nominal 1.5 mm radial seam. Reprint the matched tray and outer head; retain the compact carrier, cradle and support and omit the earlier cowl/secondary nuts, retaining four M2 × 12 camera screws, four primary nuts and eight washers. The kit has 13 fabrication models including the optional coupon and 16 installed prints from 12 model types. [payload-rain-assembly.scad](payload-rain-assembly.scad) r0.2.5 is its non-printing reference CSG; [ADR-0009](../../../docs/decisions/0009-compact-integrated-payload.md) records the design direction accepted on merge, with physical validation pending.
+The [compact enclosure configuration](camera-pod-enclosure.md) retains the integrated electronics deck r0.1.0, white optical hood r0.1.1, upper rain hood r0.2.1 and uses tray r0.2.3 with a rolled underside shoulder. The compact gimbal uses outer head r0.1.3 with a circular neck, carrier r0.1.1 and new `camera-pod-integrated-camera-cradle` / `camera-pod-integrated-tilt-pivot-support` r0.1.0. A horizontal tilt servo moves the driven interface 2 mm inboard to X=-19.8; the camera tilt axis moves to Y=3, Z=-45. The one-piece outer housing narrows downward around this arrangement; its Ø100 mm upper neck overlaps the fixed Ø103 mm throat with a nominal 1.5 mm radial seam. Reprint the matched tray and outer head; retain the compact carrier, cradle and support and omit the earlier cowl/secondary nuts, retaining four M2 × 12 camera screws, four primary nuts and eight washers. The kit has 13 fabrication models including the optional coupon and 16 installed prints from 12 model types. [camera-pod-assembly.scad](camera-pod-assembly.scad) r0.3.5 is its non-printing reference CSG; [ADR-0009](../../../docs/decisions/0009-compact-integrated-camera-pod.md) records the design direction accepted on merge, with physical validation pending.
 
-The enclosure document owns print counts, colours, captive head clamps, supported assembly/service sequence, harness passages and unresolved fit/rain/thermal/mass acceptance. The [current CAD record](payload-enclosure-check.md) and [machine-readable results](payload-enclosure-check.json) identify passing nominal compact-gimbal motion, taper, service, optical and routing checks. Its 16 installed prints total 253.753 g as a solid-volume PETG estimate at 1.27 g/cm³, before hardware and electronics. Sliced and measured mass, servo torque/settling, received-part fit and rain protection around the camera/CSI loops remain unverified. The shell has no ingress rating; CAD checks do not establish the 170 g complete-pod ceiling or flying operation.
+The enclosure document owns print counts, colours, captive head clamps, supported assembly/service sequence, harness passages and unresolved fit/rain/thermal/mass acceptance. The [current CAD record](camera-pod-enclosure-check.md) and [machine-readable results](camera-pod-enclosure-check.json) identify passing nominal compact-gimbal motion, taper, service, optical and routing checks. Its 16 installed prints total 253.753 g as a solid-volume PETG estimate at 1.27 g/cm³, before hardware and electronics. Sliced and measured mass, servo torque/settling, received-part fit and rain protection around the camera/CSI loops remain unverified. The shell has no ingress rating; CAD checks do not establish the 170 g complete-pod ceiling or flying operation.

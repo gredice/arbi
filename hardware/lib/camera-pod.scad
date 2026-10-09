@@ -1,5 +1,5 @@
 // ARBI camera-pod family 0.1.0 — concept-unvalidated.
-// Canonical units are millimetres. Shared by payload fabrication and assembly entrypoints.
+// Canonical units are millimetres. Shared by camera pod fabrication and assembly entrypoints.
 // COTS envelopes are starting published dimensions, not measured parts.
 
 include <arbi.scad>
@@ -530,7 +530,7 @@ module camera_gimbal_optical_hood() {
         }
 }
 
-module camera_pod_assembly(show_context = false) {
+module camera_pod_legacy_assembly(show_context = false) {
     color(ARBI_CORE)camera_pod_spider();
 
     translate([0, 0, cp_plate_thickness / 2])

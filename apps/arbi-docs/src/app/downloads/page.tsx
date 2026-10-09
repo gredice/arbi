@@ -36,7 +36,7 @@ export default function Downloads() {
                             {r.booklets.map((b) => (
                                 <a key={b.name} href={b.url} className="border-r border-b border-ink p-4 hover:bg-sheet">
                                     <div className="font-semibold break-words">{b.name}</div>
-                                    {/^ARBI-payload-(assembly|STL)/.test(b.name) && <div className="tag mt-1">Dry bench alternative · archived model configuration</div>}
+                                    {/^ARBI-camera-pod-bench-(assembly|STL)/.test(b.name) && <div className="tag mt-1">Dry bench alternative · archived model configuration</div>}
                                     <div className="tag mt-1 text-grey">SHA-256 {b.sha256.slice(0, 16)}…</div>
                                 </a>
                             ))}
