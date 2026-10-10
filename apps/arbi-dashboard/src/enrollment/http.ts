@@ -7,9 +7,10 @@ import type { EnrollmentService } from "./service";
 const MAX_BODY_BYTES = 16_384;
 // Reused by app-owned metadata endpoints; this reads only bounded JSON, never media bytes.
 export { body as readJsonBody };
-async function body(request: Request): Promise<unknown> {
+async function body(request: Request, maxBytes = MAX_BODY_BYTES): Promise<unknown> {
+  if (!Number.isSafeInteger(maxBytes) || maxBytes < 1 || maxBytes > 60_000) throw new EnrollmentError("INVALID_REQUEST");
   if (request.headers.get("content-type")?.split(";")[0] !== "application/json" ||
-    (request.headers.has("content-length") && Number(request.headers.get("content-length")) > MAX_BODY_BYTES) || !request.body) {
+    (request.headers.has("content-length") && Number(request.headers.get("content-length")) > maxBytes) || !request.body) {
     throw new EnrollmentError("INVALID_REQUEST");
   }
   const reader = request.body.getReader();
@@ -28,7 +29,7 @@ async function body(request: Request): Promise<unknown> {
       } finally { clearTimeout(timer); }
       if (part.done) break;
       size += part.value.byteLength;
-      if (size > MAX_BODY_BYTES) throw new EnrollmentError("INVALID_REQUEST");
+      if (size > maxBytes) throw new EnrollmentError("INVALID_REQUEST");
       chunks.push(part.value);
     }
     return JSON.parse(Buffer.concat(chunks).toString("utf8"));
