@@ -143,6 +143,32 @@ replacing a newer Latest release. Publication refreshes the public site and
 verifies it uses this release or a newer source commit, complete model figures
 and current assembly scenes. PRs only upload review artifacts.
 
+## Claude Code cloud sessions
+
+A Claude Code cloud environment with Trusted network access needs only this
+setup script:
+
+```bash
+bash scripts/cloud/setup.sh
+```
+
+[`scripts/cloud/setup.sh`](scripts/cloud/setup.sh) runs once per cached
+environment snapshot. It installs the checksum-verified Node release from
+`.nvmrc`, corepack for the pinned pnpm, and the OpenSCAD package CI uses. The
+repository's SessionStart hook runs
+[`scripts/cloud/session-start.sh`](scripts/cloud/session-start.sh) on every
+cloud session start or resume. That script puts the pinned Node first on PATH,
+sets CI's telemetry and `ARBI_OFFLINE` variables, and runs
+`pnpm install --frozen-lockfile`. In local sessions the hook exits immediately.
+The environment needs no variables or secrets.
+
+The snapshot is rebuilt only when the environment's setup script or network
+settings change. After changing `scripts/cloud/setup.sh`, edit the setup script
+in the environment (a comment is enough). The hook fails if Node no longer
+matches `.nvmrc`. Cloud sessions run as root, where `initdb` refuses to start,
+so the dashboard's `test:postgres` remains a CI check. Playwright browsers and
+the booklet/preview Python requirements are not preinstalled.
+
 ## OpenSCAD source and releases
 
 - One registered entrypoint produces one declared release artifact.
