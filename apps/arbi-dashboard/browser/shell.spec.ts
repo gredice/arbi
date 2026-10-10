@@ -41,6 +41,33 @@ test("browser offline and elapsed session lifetime remove displayed values", asy
   await page.getByRole("button", { name: "Refresh status" }).click();
   await expect(page.getByText("Position Z", { exact: true })).toBeVisible();
 });
+test('full inventory and selected diagnostics bound demand, bytes, hidden lifecycle and redacted export',async({page})=>{
+  await page.clock.install();await login(page);await page.getByRole('link',{name:'Devices',exact:true}).click();
+  await expect(page.getByRole('table',{name:'All baseline assemblies'}).locator('tbody tr')).toHaveCount(19);
+  await expect(page.getByRole('row',{name:/Motion Pico/})).toContainText('Driver encoder feedback');
+  await page.getByRole('link',{name:'Engineering',exact:true}).click();await page.getByRole('link',{name:'Diagnostics',exact:true}).click();
+  let requests=0,bytes=0,completed=0;page.on('request',r=>{if(r.url().includes('/dashboard/detail?'))requests++;});
+  page.on('requestfinished',r=>{if(r.url().includes('/dashboard/detail?'))void r.response().then(async response=>{
+    if(response?.ok()){bytes+=(await response.body()).length;completed++;}
+  }).catch(()=>{/* Aborted/retired response is not a completed payload measurement. */});});
+  await page.clock.fastForward(10000);expect(requests).toBe(0);
+  await page.getByLabel('Detail demand').selectOption('pod');await expect(page.getByText(/Selected detail active/)).toBeVisible();
+  expect(requests).toBe(1);await expect(page.getByRole('row',{name:/position.z/})).toContainText('estimated');
+  await page.clock.fastForward(5000);await expect.poll(()=>requests).toBe(2);await expect.poll(()=>completed).toBe(2);
+  expect(bytes).toBeLessThan(2*32768);
+  await page.evaluate(()=>{Object.defineProperty(document,'visibilityState',{configurable:true,value:'hidden'});document.dispatchEvent(new Event('visibilitychange'));});
+  await page.clock.fastForward(20000);expect(requests).toBe(2);await expect(page.getByText(/Detail paused/)).toBeVisible();
+  await page.evaluate(()=>{Object.defineProperty(document,'visibilityState',{configurable:true,value:'visible'});document.dispatchEvent(new Event('visibilitychange'));});
+  await expect.poll(()=>requests).toBe(3);await expect.poll(()=>completed).toBe(3);await expect(page.getByText(/Selected detail active|Missing sequence|history reset/)).toBeVisible();
+  await page.setViewportSize({width:390,height:844});await expect(page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).resolves.toBe(true);
+  await page.screenshot({path:'test-results/assembly-diagnostics-mobile.png',fullPage:true});
+  const downloaded=page.waitForEvent('download');await page.getByRole('button',{name:'Export selected diagnostics'}).click();const file=await downloaded;
+  const stream=await file.createReadStream();let json='';for await(const chunk of stream!)json+=String(chunk);
+  const exported=JSON.parse(json);expect(exported.schema).toBe('arbi.diagnostics-export/1.0');expect(exported.points.length).toBeLessThanOrEqual(60);
+  expect(json).not.toMatch(/Bearer|arbi_dashboard_session|privateKey|signedUrl|positionMm/);
+  await page.getByLabel('Detail demand').selectOption('');await page.clock.fastForward(15000);expect(requests).toBe(3);
+  console.log(`Synthetic diagnostics payload evidence: ${requests} selected reads, ${bytes} application response bytes; overview/hidden/closed periodic reads: 0.`);
+});
 test("responsive keyboard navigation reaches status and explicit unavailable operations", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 }); await login(page);
   await expect(page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).resolves.toBe(true);

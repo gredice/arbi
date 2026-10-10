@@ -38,6 +38,34 @@ test("signed identity, current site capabilities and bounded module data are pro
     const records = await f.pg.query<{ count: string }>("SELECT COUNT(*) FROM arbi_audit_history"); assert.ok(Number(records.rows[0].count) >= 2);
   } finally { await f.pg.close(); }
 });
+test('selected assembly detail is authenticated, bounded and rejects cross-site, invalid units and mixed versions',async()=>{
+  const f=await fixture();try{
+    const request=(assembly='pod',site='synthetic-site',token=f.token)=>new Request(`http://localhost:3000/api/sites/${site}/dashboard/detail?assembly=${assembly}`,{headers:{authorization:`Bearer ${token}`}});
+    const response=await f.provider.server.handle(request(),'synthetic-site','detail');assert.equal(response.status,200);
+    const raw=await response.text();assert.ok(Buffer.byteLength(raw)<=32768);const data=JSON.parse(raw);assert.equal(data.detail.assembly.id,'pod');assert.equal(data.detail.pollAfterMs,5000);
+    assert.equal((await f.provider.server.handle(request('pod','other-site'),'other-site','detail')).status,403);
+    assert.equal((await f.provider.server.handle(request('missing'),'synthetic-site','detail')).status,503);
+    const viewer=(await f.provider.login('v'.repeat(48)))!;assert.equal((await f.provider.server.handle(request('pod','synthetic-site',viewer),'synthetic-site','detail')).status,403);
+    const broken=new DashboardServer({...f.provider.server.config,readState:async(site,signal)=>{const s=await f.provider.server.config.readState(site,signal);s.telemetry!.body.samples[0]!.unit='amps' as never;return s;}});
+    assert.equal((await broken.handle(request(),'synthetic-site','detail')).status,503);
+    const version=new DashboardServer({...f.provider.server.config,readState:async(site,signal)=>{const s=await f.provider.server.config.readState(site,signal);s.telemetry!.protocol='arbi/9.0' as never;return s;}});
+    assert.equal((await version.handle(request(),'synthetic-site','detail')).status,503);
+  }finally{await f.pg.close();}
+});
+test('selected fault/command history uses its protected bounded adapter and rechecks authority after reading',async()=>{
+  const f=await fixture();try{
+    const state=await f.provider.server.config.readState('synthetic-site',new AbortController().signal);
+    const event={...state.snapshot!,body:{type:'fault.changed' as const,faultId:'synthetic-fault',state:'raised' as const,severity:'inhibit' as const,error:{code:'FAULT_INHIBITED' as const,retryable:false}}};let calls=0;
+    const read=async(site:string,assembly:string)=>{calls++;assert.equal(site,'synthetic-site');assert.equal(assembly,'pico');return [event];};
+    const server=new DashboardServer({...f.provider.server.config,readDiagnosticEvents:read});
+    await server.handle(f.request(),'synthetic-site');assert.equal(calls,0);
+    const request=new Request('http://localhost:3000/api/sites/synthetic-site/dashboard/detail?assembly=pico',{headers:{authorization:`Bearer ${f.token}`}});
+    const response=await server.handle(request,'synthetic-site','detail');assert.equal(response.status,200);const body=await response.json();
+    assert.equal(body.detail.events[0].code,'FAULT_INHIBITED');assert.equal(body.detail.events[0].faultId,'synthetic-fault');assert.equal(calls,1);
+    const tooLarge=new DashboardServer({...server.config,readDiagnosticEvents:async()=>Array.from({length:33},()=>event)});assert.equal((await tooLarge.handle(request,'synthetic-site','detail')).status,503);
+    const revoked=new DashboardServer({...server.config,readDiagnosticEvents:async()=>{await f.provider.revoke(f.token);return [event];}});assert.equal((await revoked.handle(request,'synthetic-site','detail')).status,401);
+  }finally{await f.pg.close();}
+});
 test("current membership, diagnostics permission, expired and revoked sessions deny direct reads", async () => {
   const f = await fixture();
   try {

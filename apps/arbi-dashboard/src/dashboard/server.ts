@@ -1,10 +1,11 @@
 import { AuthorizationError, bounded, capabilities, isResourceScope, sameRealm, SiteRequestBoundary } from "@arbi/gredice";
 import type { AuditAuthorization, GrediceIdentityAdapter, ResourceResolver } from "@arbi/gredice";
-import { validateCommissioningStatus, validateMessage } from "@arbi/protocol";
-import type { CommissioningStatus, Configuration } from "@arbi/protocol";
+import { validateCommissioningStatus, validateConfigurationRecord, validateMessage } from "@arbi/protocol";
+import type { CommissioningStatus, Configuration, Event } from "@arbi/protocol";
 import { DASHBOARD_VERSION } from "./contracts";
 import type { DashboardContext, DashboardSite, DashboardState } from "./contracts";
 import type { AvailableRelease } from "../releases/catalog";
+import { assemblyInventory, detailObservation, projectDiagnosticEvent } from './assemblies';
 
 export interface DashboardServerConfig {
   identity: GrediceIdentityAdapter;
@@ -18,6 +19,8 @@ export interface DashboardServerConfig {
   readReleases?: (signal: AbortSignal) => Promise<AvailableRelease[]>;
   /** Protected authoritative edge projection. Missing/offline composition stays unavailable. */
   readCommissioning?: (siteId: string, signal: AbortSignal) => Promise<CommissioningStatus | null>;
+  /** Selected bounded history from the authoritative #37 store. No raw log/credential payloads. */
+  readDiagnosticEvents?: (siteId:string,assemblyId:string,signal:AbortSignal)=>Promise<Event[]>;
 }
 export class DashboardServer {
   readonly boundary: SiteRequestBoundary;
@@ -26,8 +29,9 @@ export class DashboardServer {
     this.boundary = new SiteRequestBoundary(config);
   }
   async handle(request: Request, siteId: string, view: string = "context"): Promise<Response> {
-    if (request.method !== "GET" || !["context", "state", "diagnostics", "releases"].includes(view)) return Response.json({ error: "INVALID_REQUEST" }, { status: 403, headers: { "cache-control": "private, no-store" } });
-    return this.boundary.run(request, { surface: "http", capability: view === "diagnostics" ? "diagnostics.read" : "state.read", siteId }, async authorized => {
+    if (request.method !== "GET" || !["context", "state", "diagnostics", "detail", "releases"].includes(view)) return Response.json({ error: "INVALID_REQUEST" }, { status: 403, headers: { "cache-control": "private, no-store" } });
+    const diagnostic=['diagnostics','detail'].includes(view);
+    return this.boundary.run(request, { surface: "http", capability: diagnostic ? "diagnostics.read" : "state.read", siteId }, async authorized => {
       try {
         const token = request.headers.get("authorization")!.slice(7);
         const principal = await this.config.identity.authenticate(token);
@@ -53,7 +57,7 @@ export class DashboardServer {
             if (!(error instanceof AuthorizationError) || !["MEMBERSHIP_REQUIRED", "CAPABILITY_DENIED", "SCOPE_MISMATCH"].includes(error.code)) throw error;
           }
         }
-        const state = await bounded(2000, signal => this.config.readState(siteId, signal));
+        const state = structuredClone(await bounded(2000, signal => this.config.readState(siteId, signal)));
         for (const message of [state.snapshot, state.telemetry]) {
           if (message && (!validateMessage(message).ok || !sameRealm(message.realm, authorized.realm) || message.siteId !== siteId || message.executionMode !== scope.executionMode)) throw new Error();
         }
@@ -63,9 +67,14 @@ export class DashboardServer {
           if (!snapshot || snapshot.body.type !== "state.snapshot" ||
             ["deviceId", "bootId", "sessionId"].some(key => snapshot.source[key as keyof typeof snapshot.source] !== state.telemetry!.source[key as keyof typeof snapshot.source]) ||
             snapshot.body.capabilitiesRevision !== state.telemetry.body.capabilitiesRevision) throw new Error();
+          for(const sample of state.telemetry.body.samples){
+            if((sample.originQuality??sample.quality)==='measured' && !snapshot.body.capabilities.some(c=>c.metric===sample.metric && c.qualities.includes('measured'))){
+              sample.value=null;sample.quality='unavailable';sample.originQuality=null;sample.reason='not-reported';sample.uncertainty=null;
+            }
+          }
         }
         const configuration = await bounded(2000, signal => this.config.readConfiguration(siteId, signal));
-        if (configuration && (configuration.siteId !== siteId || !sameRealm(configuration.realm, authorized.realm) || configuration.executionMode !== scope.executionMode)) throw new Error();
+        if (configuration && (!validateConfigurationRecord(configuration,'configuration').ok || configuration.siteId !== siteId || !sameRealm(configuration.realm, authorized.realm) || configuration.executionMode !== scope.executionMode)) throw new Error();
         if (configuration && state.snapshot?.body.type === "state.snapshot" && state.snapshot.body.configRevision !== configuration.revision) throw new Error();
         // Availability adds no desired/installed state and cannot create update intent.
         const releases = view === "releases" ? await bounded(2000, signal => {
@@ -79,10 +88,26 @@ export class DashboardServer {
             !sameRealm(commissioning.realm, authorized.realm) || commissioning.executionMode !== scope.executionMode)) throw new Error();
         }
         // Slow storage/assembly must not outlive the original grant or a revoked current session.
-        await this.config.identity.authorizeIdentity(principal, view === "diagnostics" ? "diagnostics.read" : "state.read", scope);
+        await this.config.identity.authorizeIdentity(principal, diagnostic ? "diagnostics.read" : "state.read", scope);
         if (commissioning) await this.config.identity.authorizeIdentity(principal, "configuration.read", scope);
         if (authorized.expiresAtMs <= this.config.identity.now()) throw new AuthorizationError("EXPIRED_SESSION");
-        const context: DashboardContext = { version: DASHBOARD_VERSION, realm: authorized.realm, executionMode: scope.executionMode, site, sites,
+        const assemblies=assemblyInventory(configuration,state);
+        if(view==='detail'){
+          const query=new URL(request.url).searchParams;
+          if([...query.keys()].some(k=>k!=='assembly') || query.getAll('assembly').length!==1)throw new Error();
+          const assembly=assemblies.find(a=>a.id===query.get('assembly'));if(!assembly)throw new Error();
+          const detail=detailObservation(assembly,state,this.config.identity.now());
+          if(this.config.readDiagnosticEvents){
+            const events=await bounded(1500,signal=>this.config.readDiagnosticEvents!(siteId,assembly.id,signal));
+            if(!Array.isArray(events) || events.length>32 || events.some(e=>!validateMessage(e).ok || e.kind!=='event' || e.siteId!==siteId || !sameRealm(e.realm,authorized.realm) || e.executionMode!==scope.executionMode))throw new Error();
+            detail.events=events.map(projectDiagnosticEvent);
+            await this.config.identity.authorizeIdentity(principal,'diagnostics.read',scope);
+            if(authorized.expiresAtMs<=this.config.identity.now())throw new AuthorizationError('EXPIRED_SESSION');
+          }
+          if(Buffer.byteLength(JSON.stringify(detail))>detail.maxResponseBytes)throw new Error();
+          return Response.json({version:DASHBOARD_VERSION,siteId,realm:authorized.realm,executionMode:scope.executionMode,detail});
+        }
+        const context: DashboardContext = { version: DASHBOARD_VERSION, realm: authorized.realm, executionMode: scope.executionMode, site, sites,assemblies,
           identity: { actorId: authorized.actor.id, accountId: authorized.accountId, sessionId: authorized.sessionId, expiresAtMs: principal.expiresAtMs },
           capabilities: allowed, state, configuration: configuration ? { revision: configuration.revision, schemaVersion: configuration.schemaVersion } : null,
           ...(releases ? { releases } : {}),
