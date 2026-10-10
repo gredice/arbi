@@ -72,6 +72,7 @@ The committed material is a **design baseline**, not proof of a built or safe in
 - [Device enrollment, inventory and credential lifecycle with isolated PostgreSQL evidence](software/device-enrollment.md)
 - [Image metadata, private Blob direct grants, lifecycle cleanup and isolated PostgreSQL/HTTP evidence](software/image-storage.md)
 - [Durable cloud command jobs, exclusive manual leases and isolated PostgreSQL/HTTP evidence](software/command-jobs.md)
+- [Current state, bounded telemetry/event history and configured assembly inventory](software/telemetry-history.md), with [host evidence](evidence/telemetry-history.md)
 - [Outbound realtime routing, scoped Ably SDK tokens and commit-safe authoritative recovery](software/realtime-recovery.md), with [host evidence](evidence/realtime-recovery.md)
 - [Authenticated user/engineering dashboard shell, explicit synthetic test provider and setup](software/dashboard-shell.md), with [dated source/hosted evidence](evidence/dashboard-shell.md)
 - [Supervised edge runtime, local framing and diagnostic authority](software/edge-runtime.md), with [development-host evidence](evidence/edge-runtime-prototype.md)
