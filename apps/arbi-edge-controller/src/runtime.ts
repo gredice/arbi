@@ -9,6 +9,7 @@ import { readBoundedFile, validateSettings, type Settings } from './settings.js'
 import { EdgeTraffic } from './metering.js';
 import { EdgeJobs } from './jobs/runtime.js';
 import type { CommissioningServer } from './commissioning/server.js';
+import type { TransferBudget } from './transfers/budget.js';
 
 export class EdgeRuntime {
   readonly identity: Identity;
@@ -21,6 +22,7 @@ export class EdgeRuntime {
   readonly traffic: EdgeTraffic;
   readonly jobs: EdgeJobs;
   #commissioning?: CommissioningServer;
+  #transfers?:TransferBudget;
   constructor(input: Settings) {
     this.#settings = validateSettings(input);
     this.identity = Object.freeze({ deviceId: this.#settings.serviceId, bootId: randomUUID(), sessionId: randomUUID() });
@@ -31,6 +33,12 @@ export class EdgeRuntime {
     this.#adapters = this.#settings.modules.map((m) => new ModuleAdapter(this.#settings, m, this.identity, tls, this.traffic));
   }
   get adapters(): readonly ModuleAdapter[] { return this.#adapters.slice(); }
+  /** Trusted optional WAN composition. Existing local stopping/transport never waits on transfer policy. */
+  composeTransfers(budget:TransferBudget){
+    const c=this.#settings.applied.request.configuration;
+    if(this.#server || this.#transfers || budget.options.siteId!==c.siteId || !isDeepStrictEqual(budget.options.realm,c.realm) || !isDeepStrictEqual(budget.options.source,this.identity))throw new Error('INVALID_TRANSFER_COMPOSITION');
+    this.#transfers=budget;
+  }
   /** Trusted local composition only; configuration files and TLS peers cannot supply human/local grants. */
   composeCommissioning(server: CommissioningServer) {
     const scope = server.coordinator.status, configuration = this.#settings.applied.request.configuration;
@@ -47,6 +55,7 @@ export class EdgeRuntime {
       ...(commissioning ? { commissioning } : {}),
       protocol: PROTOCOL_VERSION, source: this.identity, executionMode: 'simulation', actuationEnabled: false, updateEnabled: false, recordingEnabled: false,
       metering: this.traffic.status,
+      transfers:this.#transfers?.status??{configured:false,coverage:'unknown',remainingBytes:null},
       jobs: this.jobs.status,
       appliedConfiguration: { revision: this.#settings.applied.request.configuration.revision, digest: this.#settings.applied.configurationDigest,
         calibrationRevision: this.#settings.applied.request.configuration.calibration!.revision, appliedBy: this.#settings.applied.appliedBy }, modules };
@@ -84,6 +93,7 @@ export class EdgeRuntime {
     this.#commissioning?.coordinator.stop();
     // Local socket inhibition happens before accounting cleanup, even on failed storage.
     this.traffic.stop();
+    try{this.#transfers?.close();}catch{ /* transfer degradation remains visible; local stop already ran */ }
     // A signal may arrive before the pending bind completes. Closing first can
     // cancel its callback and leave start() unresolved, so settle the bind first.
     await this.#starting?.catch(() => {});

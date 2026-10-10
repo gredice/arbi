@@ -64,6 +64,7 @@ The committed material is a **design baseline**, not proof of a built or safe in
 - [Mobile data accounting 1.0 contracts, boundary rules and executable worked fixtures](software/mobile-data-accounting.md)
 - [Device transfer instrumentation, durable raw counters and explicit Linux/router coverage](software/device-traffic-metering.md), with [host evidence](evidence/device-traffic-metering.md)
 - [Durable usage ingestion, billing-period rollups and explicit accounting uncertainty](software/usage-rollups.md), with [host evidence](evidence/usage-rollups.md)
+- [Edge transfer budgets, essential traffic bounds and verified artifact recovery](software/transfer-budgets.md), with [host evidence](evidence/transfer-budgets.md)
 - [Cross-runtime reference vectors, independent host consumers and offline workspace checks](software/reference-fixtures.md)
 - [Scenario 1.0 contracts, deterministic offline runner and independent host evidence](software/scenarios.md)
 - [Bounded plant/module model 1.0, virtual sensors and independent host evidence](software/bounded-plant-model.md)
