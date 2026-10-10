@@ -1,11 +1,19 @@
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readFileSync, realpathSync, rmSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { targets } from './targets.mjs';
 
 export const sha256 = bytes => createHash('sha256').update(bytes).digest('hex');
+export function copyBuiltCode(source, destination, stage) {
+    const parent = realpathSync(destination), base = realpathSync(stage);
+    if (parent !== base && !parent.startsWith(`${base}/`)) throw new Error('Deployment dependency escapes archive');
+    // pnpm can hardlink files into the pack on a same-filesystem runner. Remove
+    // only the staged names before copying, keeping the original build intact.
+    rmSync(resolve(destination, 'dist'), { recursive: true, force: true });
+    cpSync(source, resolve(destination, 'dist'), { recursive: true });
+}
 export function packageTarget(id, output, { root = fileURLToPath(new URL('../../', import.meta.url)), run = execFileSync } = {}) {
     const target = targets.find(t => t.id === id);
     if (!target) throw new Error('Unimplemented release target');
@@ -25,11 +33,11 @@ export function packageTarget(id, output, { root = fileURLToPath(new URL('../../
         run('corepack', ['pnpm', '--filter', target.workspace, 'deploy', '--prod', '--legacy', stage], { cwd: root, stdio: 'inherit' });
     } finally { if (workspaceState) writeFileSync(stateFile, workspaceState); }
     // deploy follows npm pack rules; ignored dist must be copied explicitly.
-    run('cp', ['-a', resolve(root, target.path, 'dist'), stage]);
+    copyBuiltCode(resolve(root, target.path, 'dist'), stage, stage);
     for (const name of ['arbi-protocol', 'arbi-traffic', 'arbi-audit', 'arbi-simulation-core']) {
         const module = name.replace('arbi-', '');
         const destination = resolve(stage, 'node_modules/@arbi', module);
-        run('cp', ['-a', resolve(root, 'packages', name, 'dist'), destination]);
+        copyBuiltCode(resolve(root, 'packages', name, 'dist'), destination, stage);
     }
     if (!existsSync(resolve(stage, target.entrypoint))) throw new Error('Missing executable');
     const provenance = { schemaVersion: 'arbi.build/1.0', target: id, commit,
