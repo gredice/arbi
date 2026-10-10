@@ -148,6 +148,11 @@ test('empty changes skip expensive jobs and architecture experiments have their 
     for (const job of ['workspace', 'bom', 'cad', 'previews', 'booklets', 'recovery', 'release']) assert.equal(result[job], false);
     assert.equal(select('scripts/spikes/software-recovery.test.mjs').recovery, true);
     assert.equal(select('scripts/spikes/software-recovery.test.mjs').workspace, false);
+    // Claude Code cloud provisioning runs outside CI and selects no validation jobs.
+    for (const path of ['scripts/cloud/setup.sh', 'scripts/cloud/session-start.sh', '.claude/settings.json']) {
+        const result = select(path);
+        for (const job of ['workspace', 'bom', 'cad', 'previews', 'booklets', 'recovery', 'release']) assert.equal(result[job], false, `${path}: ${job}`);
+    }
 });
 
 test('Git detection covers full pushes, PR merge bases, deletions, renames and force pushes', () => {
