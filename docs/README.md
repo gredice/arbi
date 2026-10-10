@@ -79,6 +79,7 @@ The committed material is a **design baseline**, not proof of a built or safe in
 - [Outbound realtime routing, scoped Ably SDK tokens and commit-safe authoritative recovery](software/realtime-recovery.md), with [host evidence](evidence/realtime-recovery.md)
 - [Authenticated user/engineering dashboard shell, explicit synthetic test provider and setup](software/dashboard-shell.md), with [dated source/hosted evidence](evidence/dashboard-shell.md)
 - [Supervised edge runtime, local framing and diagnostic authority](software/edge-runtime.md), with [development-host evidence](evidence/edge-runtime-prototype.md)
+- [Local manual-control fences and independent deadman](software/manual-control.md), with [host/simulation evidence](evidence/manual-control.md)
 
 ## Evidence language
 

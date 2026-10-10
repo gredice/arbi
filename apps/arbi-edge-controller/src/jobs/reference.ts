@@ -9,9 +9,11 @@ import { JobJournal, type JournalOptions } from './journal.js';
 import { LocalJobConsumer, type ConsumerOptions } from './orchestrator.js';
 import { BoundedJobSimulator } from './simulator.js';
 import { REQUIRED_INPUTS, type LocalAuthority, type Phase } from './types.js';
+import { ManualControl, type ManualOptions } from './manual.js';
 
 /** Explicit fixture runner only; runtime settings never import or select this authority. */
-export function createJobReference(directory: string, patches: { journal?: Partial<JournalOptions>; consumer?: Partial<ConsumerOptions>; plant?: string } = {}) {
+export function createJobReference(directory: string, patches: { journal?: Partial<JournalOptions>; consumer?: Partial<ConsumerOptions>; plant?: string;
+  manual?:Pick<ManualOptions,'deadmanMs'|'maxJogMs'|'maxLeaseMs'> } = {}) {
   mkdirSync(directory, { recursive: true, mode: 0o700 });
   const applied = syntheticAppliedConfiguration(), config = applied.request.configuration;
   // dist/jobs is one level deeper than the existing edge runtime fixture helper.
@@ -45,7 +47,8 @@ export function createJobReference(directory: string, patches: { journal?: Parti
     fault: (point, record) => { if (armed) patches.journal?.fault?.(point, record); } });
   const relay = new JobAuditRelay(join(directory, 'audit'));
   const priorJobs = journal.status().jobs;
-  const consumer = new LocalJobConsumer({ journal, adapter, authority: () => authority, auditSpool: relay.spool, ...patches.consumer });
+  const manual=patches.manual?new ManualControl({journal,authority:()=>authority,localStop:()=>adapter.localStop(),...patches.manual}):undefined;
+  const consumer = new LocalJobConsumer({ journal, adapter, authority: () => authority, auditSpool: relay.spool, manual, ...patches.consumer });
   // Explicit isolated recipe is the local operator for a fresh experiment only.
   if (priorJobs === 0 && !consumer.status.degraded) consumer.authorizeRecovery();
   armed = true;
@@ -64,8 +67,8 @@ export function createJobReference(directory: string, patches: { journal?: Parti
     if (dock !== null) adapter.modules.disturb({ kind: 'sensor', sensor: 'dock', atMs: now, order: 0, value: dock });
     return consumer.tick();
   }
-  return { applied, plant: adapter.plant, authority, adapter, journal, relay, consumer, command, advance,
-    close() { adapter.localStop(); relay.close(); journal.close(); } };
+  return { applied, plant: adapter.plant, authority, adapter, journal, relay, consumer, manual, command, advance,
+    close() { manual?.lost('ended');adapter.localStop(); relay.close(); journal.close(); } };
 }
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   // A persistent directory is explicit; no fixture identity becomes deployment configuration.

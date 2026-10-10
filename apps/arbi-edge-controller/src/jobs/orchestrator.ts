@@ -3,12 +3,14 @@ import { admitCommand, createCommandLedger, validateConfigurationRecord, type Au
 import type { SqliteAuditSpool } from '@arbi/audit';
 import { admit, commandInput, plan, policy, same } from './admission.js';
 import { JobJournal } from './journal.js';
+import type { ManualControl } from './manual.js';
 import { JobError, type CrashPoint, type JobAdapter, type JobRecord, type LocalAuthority, type Operation, type Proof } from './types.js';
 
 export interface ConsumerOptions {
   journal: JobJournal; adapter: JobAdapter; authority: () => LocalAuthority;
   auditSpool: (event: AuditEvent) => SqliteAuditSpool;
   fault?: (point: CrashPoint, record: JobRecord) => void;
+  manual?:ManualControl;
 }
 /** A single supervised local consumer. No network or cloud callback is on its stop path. */
 export class LocalJobConsumer {
@@ -19,6 +21,7 @@ export class LocalJobConsumer {
     if (options.adapter.executionMode !== 'simulation') throw new JobError('NOT_AUTHORIZED');
     // Boot never restores moving/capturing state, even with the same supplied epoch.
     options.adapter.localStop();
+    options.manual?.restart();
     try { options.journal.recover(); options.journal.latch(); this.#flushAudit(); }
     catch { this.#degraded = true; }
   }
@@ -29,7 +32,7 @@ export class LocalJobConsumer {
     if (!same(c.source, a.gate.authenticatedSource) || !same(c.realm, a.gate.realm) || c.siteId !== a.gate.siteId
       || c.executionMode !== 'simulation' || !same(c.command.actor, a.gate.authorizedActor) || c.command.target.deviceId !== a.gate.receiver.deviceId) throw new JobError('NOT_AUTHORIZED');
     const prior = o.journal.duplicate(c); if (prior) return prior;
-    let error = admit(c, a), steps: JobRecord['steps'] = [];
+    let error = o.manual?.check(c,a) ?? admit(c, a), steps: JobRecord['steps'] = [];
     if (!error) try { steps = plan(c, a); } catch (e) { error = e instanceof JobError && e.code !== 'STORAGE_UNAVAILABLE' ? e.code : 'EXECUTION_FAILED'; }
     if (this.status.degraded && c.body.type !== 'control.stop') error = 'RESOURCE_LIMIT';
     if (c.body.type === 'control.stop' && !error) {
@@ -67,6 +70,7 @@ export class LocalJobConsumer {
     this.#flushAudit();
   }
   #current(r: JobRecord, a: LocalAuthority): ErrorCode | null {
+    const manualError=this.#options.manual?.check(r.command,a,true);if(manualError)return manualError;
     if (!same(r.command.command.target, a.gate.receiver)) return 'TARGET_RESTARTED';
     if (!same(r.modules, a.modules)) return 'RESYNC_REQUIRED';
     if (!same(r.appliedIdentity, { transactionId: a.applied.request.transactionId, appliedBy: a.applied.appliedBy })) return 'CONFIG_MISMATCH';
@@ -90,6 +94,9 @@ export class LocalJobConsumer {
     const o = this.#options;
     let r: JobRecord | undefined;
     try {
+      const manualError=o.manual?.tick(o.authority());
+      if(manualError){o.adapter.localStop();for(const active of o.journal.active())this.#fail(active,manualError);}
+      if(o.manual)this.#flushAudit();
       r = o.journal.active()[0]; if (!r) return null;
       if (this.status.degraded) return this.#fail(r, 'RESOURCE_LIMIT');
       const a = o.authority(), now = a.gate.nowMonotonicMs;
