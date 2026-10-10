@@ -6,6 +6,7 @@ import type { SqlDatabase } from "../enrollment/store";
 import { PostgresRegistryStore } from "../enrollment/store";
 import { DashboardServer } from "./server";
 import { createSimulatorRead, simulationSites, syntheticConfiguration } from "./simulator";
+import { configuredCatalog } from "../releases/catalog";
 
 export interface TestProviderConfig {
   realm: { environment: "test"; namespaceId: string };
@@ -49,7 +50,7 @@ export function createDashboardTestProvider(config: TestProviderConfig) {
       const row = (await sql.query<{ account_id: string }>("SELECT account_id FROM arbi_dashboard_sites WHERE namespace_id=$1 AND site_id=$2", [realm.namespaceId, query.siteId])).rows[0];
       return row && query.resource.kind === "site" && query.resource.id === query.siteId && sameRealm(query.realm, realm) ?
         { realm, siteId: query.siteId, accountId: row.account_id, executionMode: "simulation", resource: query.resource } : null;
-    }), readState: createSimulatorRead(realm, now), readConfiguration: async siteId => syntheticConfiguration(realm, siteId) });
+    }), readState: createSimulatorRead(realm, now), readConfiguration: async siteId => syntheticConfiguration(realm, siteId), readReleases: configuredCatalog });
   const equal = (value: string, expected: string) => {
     const a = Buffer.from(value), b = Buffer.from(expected);
     return a.length === b.length && timingSafeEqual(a, b);

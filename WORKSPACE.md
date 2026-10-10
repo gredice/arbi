@@ -228,6 +228,14 @@ The simulator and real adapters must consume the same versioned contracts and un
 
 ## Public Vercel site
 
+[Software publication](docs/software/software-publication.md) adds an affected
+Linux application artifact matrix, protected signing/sealing after `[CI] OK`,
+and a read-only dashboard availability catalog. Only the implemented simulated
+edge runtime is packaged; Pico/pod firmware and physical installers remain absent.
+Both web app production build commands check the exact main commit's required
+gate, and branch previews display their nonproduction status. Operator signing,
+immutable-release and credential-scoping setup must complete before live publication.
+
 `apps/arbi-docs` consumes repository documentation, CAD registry metadata, `bom/generated` reports, booklet packs and the latest CI-built `cad-v<MAJOR.MINOR.PATCH>` release; it never duplicates them. `scripts/compile-data.mjs` writes the ignored `public/data` during `dev` and `build`. It checks release assets against `SHA256SUMS.txt`, rejects production builds when the release is stale, incomplete or unreachable; local previews only use source-checked snapshots unless archival offline mode is explicitly selected, and reads exploded poses from the booklet renderer's figure manifests. The build is secret-free and works for pull requests from forks. The Vercel project `arbi` in the Gredice team uses root directory `apps/arbi-docs` and is connected to this repository: `main` deploys production at `arbi.gredice.com`, and pull requests get previews.
 
 When ARBI V1 is merged into the Gredice monorepo, align tool versions with the destination at merge time, preserve prefixed package names, and add any Vercel app to the destination's application registry. Do not copy environment pull or deployment scripts before they are needed.

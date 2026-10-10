@@ -3,6 +3,7 @@ import { isId } from "@arbi/gredice";
 import { postgresDatabase } from "../enrollment/store";
 import type { DashboardServer } from "./server";
 import { createDashboardTestProvider } from "./test-provider";
+import { isBranchPreview } from "../deployment";
 
 export const SESSION_COOKIE = "arbi_dashboard_session";
 interface DashboardRuntime { server: DashboardServer; login?: (code: string) => Promise<string | null>; revoke?: (token: string) => Promise<void> }
@@ -11,6 +12,7 @@ let attempted = false;
 /** Live composition supplies the existing trusted provider; it never uses fixture identity. */
 export function configureDashboard(runtime: DashboardRuntime) { configured = runtime; }
 export function dashboardRuntime(): DashboardRuntime | undefined {
+  if (isBranchPreview()) return undefined;
   if (configured || attempted) return configured;
   attempted = true;
   try {
