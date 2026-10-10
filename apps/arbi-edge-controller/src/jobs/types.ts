@@ -17,6 +17,8 @@ export interface CapturePlan {
 }
 /** Trusted local composition, never deserialized from a cloud command or browser. */
 export interface LocalAuthority {
+  /** Optional trusted commissioning composition, rechecked before admission and each phase. */
+  commissioning?: () => { ready: boolean; configurationDigest: string | null };
   gate: CommandGate; applied: AppliedConfiguration; boundary: ConfigurationBoundary;
   clockReliable: boolean; mode: 'manual' | 'autonomous' | 'inhibited'; state: State;
   cloudConnected: boolean; continueOffline: boolean; stationary: boolean; safeMotionPose: boolean;

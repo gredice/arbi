@@ -8,6 +8,7 @@ import { DashboardServer } from "./server";
 import { displayedSample, freshness } from "./contracts";
 import type { SqlDatabase } from "../enrollment/store";
 import type { DashboardContext } from "./contracts";
+import type { CommissioningStatus } from "@arbi/protocol";
 
 async function fixture() {
   const pg = await PGlite.create(); let clock = Date.now();
@@ -88,5 +89,34 @@ test("stale readings retain provenance; no-device and offline status are explici
     assert.equal(displayedSample(sample, stale.state, Date.now()).quality, "stale");
     const empty = await (await f.provider.server.handle(f.request("synthetic-empty"), "synthetic-empty")).json(); assert.equal(empty.state.connection, "no-device"); assert.equal(empty.state.snapshot, null);
     const offline = await (await f.provider.server.handle(f.request("synthetic-offline"), "synthetic-offline")).json(); assert.equal(offline.state.connection, "offline");
+  } finally { await f.pg.close(); }
+});
+test("engineering diagnostics reads scoped commissioning identities and blocks malformed or cross-site projections", async () => {
+  const f = await fixture();
+  try {
+    const identity = { revision: "config-2", digest: "a".repeat(64), configurationDigest: "b".repeat(64), calibrationRevision: "calibration-2" };
+    const status: CommissioningStatus = { version: "arbi.commissioning-status/1.0", realm: f.provider.server.config.identity.realm, siteId: "synthetic-site", executionMode: "simulation",
+      active: identity, staged: { ...identity, revision: "config-3" }, rejected: { identity, reason: "RECALIBRATION_REQUIRED" }, phase: "blocked", ready: false,
+      blockedReason: "RESTART_RECONCILIATION_REQUIRED", physicalActuationEnabled: false };
+    let reads = 0;
+    const server = new DashboardServer({ ...f.provider.server.config, readCommissioning: async () => { reads++; return structuredClone(status); } });
+    const response = await server.handle(f.request(), "synthetic-site", "diagnostics");
+    assert.equal(response.status, 200); assert.deepEqual((await response.json()).commissioning, status);
+    const context = await server.handle(f.request(), "synthetic-site", "context");
+    assert.equal(context.status, 200); assert.equal((await context.json()).commissioning, undefined); assert.equal(reads, 1);
+    const viewer = (await f.provider.login("v".repeat(48)))!;
+    assert.equal((await server.handle(f.request("synthetic-site", viewer), "synthetic-site", "diagnostics")).status, 403); assert.equal(reads, 1);
+    for (const poison of [
+      (s: CommissioningStatus) => { s.siteId = "other-site"; },
+      (s: CommissioningStatus) => { s.ready = true; },
+      (s: CommissioningStatus) => { s.physicalActuationEnabled = true as never; },
+      (s: CommissioningStatus) => { s.realm.environment = "production"; },
+      (s: CommissioningStatus) => { (s as unknown as Record<string, unknown>).credential = "forged"; },
+      (s: CommissioningStatus) => { s.active!.digest = "invalid"; },
+    ]) {
+      const poisoned = structuredClone(status); poison(poisoned);
+      const invalid = new DashboardServer({ ...f.provider.server.config, readCommissioning: async () => poisoned });
+      assert.equal((await invalid.handle(f.request(), "synthetic-site", "diagnostics")).status, 503);
+    }
   } finally { await f.pg.close(); }
 });

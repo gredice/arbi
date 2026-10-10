@@ -60,6 +60,7 @@ The committed material is a **design baseline**, not proof of a built or safe in
 - [Transport capability review and bounded local recovery experiment](evidence/software-transport-feasibility.md)
 - [Protocol 1.0 contracts, semantic rules and host reference-test boundary](software/protocol.md)
 - [Configuration 1.0, calibration identity and transactional apply/rollback reference boundary](software/configuration.md)
+- [Authorized site commissioning, multi-device staging and deliberate recovery](software/commissioning.md), with [host evidence](evidence/commissioning.md)
 - [Mobile data accounting 1.0 contracts, boundary rules and executable worked fixtures](software/mobile-data-accounting.md)
 - [Device transfer instrumentation, durable raw counters and explicit Linux/router coverage](software/device-traffic-metering.md), with [host evidence](evidence/device-traffic-metering.md)
 - [Cross-runtime reference vectors, independent host consumers and offline workspace checks](software/reference-fixtures.md)

@@ -12,6 +12,7 @@ export class EdgeJobs {
   #consumer?: LocalJobConsumer;
   #enabled: boolean;
   #degraded = false;
+  #commissioning?: LocalAuthority['commissioning'];
   constructor(settings: Settings, identity: Identity) {
     const options = settings.jobs; this.#enabled = !!options;
     if (!options) return;
@@ -25,8 +26,10 @@ export class EdgeJobs {
   }
   compose(adapter: JobAdapter, authority: () => LocalAuthority): LocalJobConsumer {
     if (!this.#journal || !this.#relay || this.#degraded || this.#consumer) throw new Error('LOCAL_JOB_UNAVAILABLE');
-    return this.#consumer = new LocalJobConsumer({ journal: this.#journal, adapter, authority, auditSpool: this.#relay.spool });
+    return this.#consumer = new LocalJobConsumer({ journal: this.#journal, adapter, authority: () => ({ ...authority(),
+      ...(this.#commissioning ? { commissioning: this.#commissioning } : {}) }), auditSpool: this.#relay.spool });
   }
+  requireCommissioning(read: NonNullable<LocalAuthority['commissioning']>) { this.#commissioning = read; }
   get status() {
     const stored = this.#consumer?.status ?? this.#journal?.status();
     return { enabled: this.#enabled, configuredConsumer: !!this.#consumer, physicalActuationEnabled: false,
