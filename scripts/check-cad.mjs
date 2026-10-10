@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import Ajv2020 from 'ajv/dist/2020.js';
+import { createHash } from 'node:crypto';
 import { execFile, spawnSync } from 'node:child_process';
 import {
     existsSync,
@@ -114,7 +115,26 @@ function validateDependencies(entrypointPath, checkedDependencies) {
     }
 }
 
+export function validateBosl2(directory = join(hardwareRoot, 'vendor', 'BOSL2')) {
+    const manifest = readJson(join(directory, 'manifest.json'), 'BOSL2 manifest');
+    assert(manifest.name === 'BOSL2' && manifest.version === '2.0.766', 'Expected pinned BOSL2 2.0.766.');
+    assert(manifest.commit === 'e173fa0ae45f9e2082e0d8c0382dae98621b7c20', 'Unexpected BOSL2 source commit.');
+    assert(manifest.license === 'BSD-2-Clause', 'BOSL2 must retain its BSD-2-Clause license.');
+    assert(manifest.files && typeof manifest.files === 'object', 'BOSL2 source hashes are missing.');
+    const expected = Object.keys(manifest.files).sort();
+    const actual = readdirSync(directory).filter((name) => name.endsWith('.scad') || name === 'LICENSE').sort();
+    assert(JSON.stringify(actual) === JSON.stringify(expected), 'BOSL2 vendored file inventory differs from its manifest.');
+    for (const name of expected) {
+        assert(/^(?:[a-zA-Z0-9_-]+\.scad|LICENSE)$/.test(name), `Invalid BOSL2 source filename: ${name}`);
+        const hash = createHash('sha256').update(readFileSync(join(directory, name))).digest('hex');
+        assert(hash === manifest.files[name], `BOSL2 upstream source changed: ${name}`);
+    }
+    assert(readFileSync(join(directory, 'version.scad'), 'utf8').includes('BOSL_VERSION = [2,0,766];'),
+        'BOSL2 source version differs from its manifest.');
+}
+
 export function validateRegistry(registryOverride, bomPartsOverride, aliasesOverride) {
+    validateBosl2();
     assert(existsSync(registryPath), 'Missing hardware/models.json.');
     assert(existsSync(schemaPath), 'Missing hardware/models.schema.json.');
 

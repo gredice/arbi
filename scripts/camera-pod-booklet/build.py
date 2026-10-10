@@ -82,6 +82,7 @@ def main():
     config['fabrication_models']=[{'id':m['id'],'revision':m['revision'],'output':m['output']} for m in selected]
     artifact='ARBI-camera-pod-enclosure' if args.enclosure else 'ARBI-camera-pod-bench'
     inputs=list((REPO/'hardware/assemblies/camera-pod').glob('*.scad'))+[REPO/'hardware/lib/arbi.scad',REPO/'hardware/lib/camera-pod.scad',REPO/'hardware/lib/camera-pod-mounts.scad',REPO/'hardware/lib/camera-pod-enclosure.scad',REPO/'hardware/lib/camera-pod-integrated-deck.scad',REPO/'hardware/lib/camera-pod-integrated-head.scad',REPO/'hardware/lib/camera-pod-integrated-gimbal.scad',REPO/'hardware/models.json',HERE/'reference-parts.scad',HERE/'export_models.py',HERE/'model_selection.py']
+    inputs += [p for p in (REPO/'hardware/vendor').rglob('*') if p.is_file()]
     hashes={str(p.relative_to(REPO)):hashlib.sha256(p.read_bytes()).hexdigest() for p in inputs}
     hashes['hardware/model-aliases.json']=hashlib.sha256((REPO/'hardware/model-aliases.json').read_bytes()).hexdigest()
     if args.reuse_models:
@@ -91,7 +92,7 @@ def main():
             assert hashlib.sha256((root/entry['file']).read_bytes()).hexdigest()==entry['stl_sha256'],entry['file']
     (root/'configuration.json').write_text(json.dumps(config,indent=2)+'\n')
     shutil.rmtree(root/'source');(root/'source').mkdir()
-    for name in ['lib','assemblies/camera-pod']:
+    for name in ['lib','vendor','assemblies/camera-pod']:
         shutil.copytree(REPO/'hardware'/name,root/'source/arbi-hardware'/name,dirs_exist_ok=True)
     shutil.copy2(REPO/'hardware/models.json',root/'source/arbi-hardware/models.json')
     shutil.copy2(REPO/'hardware/model-aliases.json',root/'source/arbi-hardware/model-aliases.json')

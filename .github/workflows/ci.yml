@@ -422,6 +422,8 @@ jobs:
           sudo apt-get install --yes openscad=2021.01-6build4 libegl1 libgl1-mesa-dri
       - name: Install booklet dependencies
         run: python -m pip install -r scripts/winch-booklet/requirements.txt
+      - name: Test portable source dependency controls
+        run: python scripts/winch-booklet/test-source-packs.py
       - name: Build current meshes, geometry checks, illustrations and PDF/ZIP
         env:
           BUILD_SCRIPT: ${{ matrix.script }}

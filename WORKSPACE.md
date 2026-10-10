@@ -26,6 +26,7 @@ Use this guide for repository layout, toolchains, commands, package boundaries, 
 - Task runner: Turborepo.
 - TypeScript: `7.0.2` with shared defaults in `tsconfig.base.json`.
 - Parametric CAD: OpenSCAD `2021.01`, pinned exactly in `hardware/models.json`. The CLI binary is named `openscad`.
+- CAD library: [BOSL2 `2.0.766`](hardware/vendor/BOSL2/README.md), vendored under `hardware/vendor/BOSL2` with its upstream license, commit and checksums; no global library installation is required.
 - Tests: package-owned tests invoked through Turbo and Node-based repository checks.
 
 ## Package boundaries

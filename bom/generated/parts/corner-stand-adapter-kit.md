@@ -53,9 +53,9 @@ Build arbi-v1; batch represents 1 BOM unit(s). Optional concept set; excluded fr
 | Model | Copies in batch | Material / colour | Solid volume per copy |
 | --- | ---: | --- | ---: |
 | corner-stand-head-front r0.1.0 | 2 | Bambu Lab ASA / black | 260.280311 cm³ |
-| corner-stand-head-rear r0.1.0 | 2 | Bambu Lab ASA / black | 100.468361 cm³ |
-| corner-stand-winch-front r0.1.0 | 2 | Bambu Lab ASA / black | 218.332514 cm³ |
-| corner-stand-winch-rear r0.1.0 | 2 | Bambu Lab ASA / black | 112.409720 cm³ |
+| corner-stand-head-rear r0.1.0 | 2 | Bambu Lab ASA / black | 100.468360 cm³ |
+| corner-stand-winch-front r0.1.0 | 2 | Bambu Lab ASA / black | 218.332513 cm³ |
+| corner-stand-winch-rear r0.1.0 | 2 | Bambu Lab ASA / black | 112.409719 cm³ |
 
 Selected recipe consumption:
 

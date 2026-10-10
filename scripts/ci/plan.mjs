@@ -89,10 +89,10 @@ export function plan(changes, { workspaces = readWorkspaces(), eventName = 'pull
         }
     } while (selected.size !== previous);
 
-    let previews = full || releaseTooling || paths.some((path) => /^hardware\/.*\.scad$/u.test(path)) || has('hardware/models.json', 'hardware/models.schema.json', 'hardware/model-aliases.json', 'scripts/check-cad.mjs', 'scripts/check-cad.test.mjs') || under('scripts/cad-previews/');
+    let previews = full || releaseTooling || under('hardware/vendor/') || paths.some((path) => /^hardware\/.*\.scad$/u.test(path)) || has('hardware/models.json', 'hardware/models.schema.json', 'hardware/model-aliases.json', 'scripts/check-cad.mjs', 'scripts/check-cad.test.mjs') || under('scripts/cad-previews/');
     let cad = cadToolchain || previews || has('bom/catalog/parts.json') || deleted.some((path) => path.startsWith('hardware/') || modelDocs.includes(path));
-    const sharedBooklets = full || releaseTooling || under('hardware/lib/') || has('hardware/models.json', 'hardware/models.schema.json', 'hardware/model-aliases.json', 'scripts/check-booklet.py', 'docs/project/industrial-design.md', 'LICENSE') || under('scripts/winch-booklet/');
-    const winch = sharedBooklets || under('hardware/assemblies/winch/') || has('scripts/check-winch-cover-meshes.py', 'scripts/check-winch-pole-meshes.py');
+    const sharedBooklets = full || releaseTooling || under('hardware/lib/') || under('hardware/vendor/') || has('hardware/models.json', 'hardware/models.schema.json', 'hardware/model-aliases.json', 'scripts/check-booklet.py', 'docs/project/industrial-design.md', 'LICENSE') || under('scripts/winch-booklet/');
+    const winch = sharedBooklets || under('hardware/assemblies/winch/') || has('hardware/assemblies/camera-pod/camera-pod-spider.scad', 'scripts/check-winch-cover-meshes.py', 'scripts/check-winch-pole-meshes.py');
     const pod = sharedBooklets || under('hardware/assemblies/camera-pod/') || under('scripts/camera-pod-booklet/');
     const corner = sharedBooklets || under('hardware/assemblies/corner-station/') || under('docs/assemblies/corner-station/') || under('scripts/corner-support/');
     const dock = sharedBooklets || has('scripts/cad-previews/csg.py', 'bom/catalog/parts.json', 'bom/catalog/fabrication.json', 'bom/assemblies/assemblies.json') || under('scripts/corner-support/') || under('hardware/assemblies/dock/') || under('hardware/assemblies/camera-pod/') || under('docs/assemblies/dock/') || under('scripts/dock-booklet/');

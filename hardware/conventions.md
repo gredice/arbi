@@ -29,6 +29,20 @@ Follow the [industrial design conventions](../docs/project/industrial-design.md)
 - Use a small named epsilon for subtractive geometry rather than unexplained offsets.
 - Avoid absolute include paths, environment-specific fonts, or external assets that are not committed.
 
+## BOSL2 library
+
+Use the [vendored BOSL2 v2.0.766](vendor/BOSL2/README.md) through the existing
+`hardware/lib/arbi.scad` include. Its version, upstream commit, license and source
+hashes are pinned in the repository and checked by `cad:check`; a user-installed
+copy is not a build input. Portable source packs contain the same pinned files.
+
+Keep helper interfaces and assembly datums explicit. BOSL2's `cuboid()` and
+`cyl()` center by default, and rounding all edges can change flat mating faces.
+Preserve release facet counts, printer clearances and named epsilons. Use
+attachments only after defining the part's local frame and mating anchors.
+Library refactors require mesh and clearance comparisons; shorter code alone is
+not evidence of faster exports or physical validation.
+
 ## Revisions and status
 
 Model revisions use semantic `major.minor.patch` form:

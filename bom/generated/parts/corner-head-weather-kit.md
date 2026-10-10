@@ -48,7 +48,7 @@ Build arbi-v1; batch represents 1 BOM unit(s). Optional historical metal-head sh
 | Model | Copies in batch | Material / colour | Solid volume per copy |
 | --- | ---: | --- | ---: |
 | corner-head-hood r0.1.0 | 1 | Bambu Lab PETG Matte / white | 84.644851 cm³ |
-| corner-head-roof r0.1.0 | 1 | Bambu Lab PETG Matte / white | 62.757846 cm³ |
+| corner-head-roof r0.1.0 | 1 | Bambu Lab PETG Matte / white | 62.757844 cm³ |
 | corner-head-rear-cover r0.1.0 | 1 | Bambu Lab PETG Matte / white | 145.729470 cm³ |
 
 Selected recipe consumption:

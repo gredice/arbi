@@ -37,21 +37,16 @@ module ph_volume(inset=0) {
         [-4.1-drop,
          ph_inner_radius(drop,ph_x_radius,ph_x_height,ph_x_exponent,inset),
          ph_inner_radius(drop,ph_y_radius,ph_y_height,ph_y_exponent,inset)]];
-    vertices = [for(p=rings,j=[0:ph_sides-1])
+    profiles = [for(p=rings) [for(j=[0:ph_sides-1])
         let(a=j*360/ph_sides,drop=-4.1-p[0],
             u=min(1,drop/ph_neck_blend_drop),blend=u*u*(3-2*u),
             circular=(ph_neck_radius-inset)*[cos(a),sin(a)],
             tapered=[p[1]*sign(cos(a))*pow(abs(cos(a)),2/ph_plan_exponent),
                      p[2]*sign(sin(a))*pow(abs(sin(a)),2/ph_plan_exponent)],
             xy=circular*(1-blend)+tapered*blend)
-        [xy[0],xy[1],p[0]]];
-    faces = concat(
-        [[for(j=[ph_sides-1:-1:0])j]],
-        [[for(j=[0:ph_sides-1])(len(rings)-1)*ph_sides+j]],
-        [for(i=[0:len(rings)-2],j=[0:ph_sides-1])
-            [i*ph_sides+j,i*ph_sides+(j+1)%ph_sides,
-             (i+1)*ph_sides+(j+1)%ph_sides,(i+1)*ph_sides+j]]);
-    polyhedron(points=vertices,faces=faces,convexity=10);
+        [xy[0],xy[1],p[0]]]];
+    // Preserve the existing rings and quad faces, including chin wall offsets.
+    arbi_ring_volume(profiles);
 }
 
 module ph_eye_opening() {

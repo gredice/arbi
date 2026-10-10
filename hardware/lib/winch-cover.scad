@@ -297,7 +297,6 @@ module wc_assembly(powered=false,exploded=false,show_core=true,show_fascia=true,
 }
 
 // Nominal stationary looms for context/clearance illustrations, not fabrication.
-function wc_bezier(a,b,c,d,t) = a*pow(1-t,3)+b*3*pow(1-t,2)*t+c*3*(1-t)*t*t+d*t*t*t;
 function wc_unit(v) = v/norm(v);
 function wc_loom_tangent(points,j) = wc_unit(points[min(j+1,len(points)-1)]-points[max(j-1,0)]);
 function wc_loom_ring(points,j,k,n) =
@@ -312,15 +311,13 @@ module wc_loom_run(powered=false,i=0) {
     // These are routing references; received connectors/bend limits still govern.
     rear=wm_motor_face(powered)+75+40*i;
     lead=[rear,27,57]; run=[wm_motor_face(powered)+75,-60,z];
-    points=concat([for(t=[0:0.025:0.975]) wc_bezier(lead,[rear,-8,57],[run[0],-30,z],run,t)], [run],
+    points=concat(bezier_points([lead,[rear,-8,57],[run[0],-30,z],run],[0:0.025:0.975]), [run],
         [for(angle=[0:3:90]) [px+30-30*sin(angle),-90+30*cos(angle),z]],
-        [for(t=[0:0.025:1]) wc_bezier(a,b,c,d,t)], [[target,-310,-24]]);
+        bezier_points([a,b,c,d],[0:0.025:1]), [[target,-310,-24]]);
     // One closed sweep keeps this nominal cable reference quick to export.
     // It is context geometry, not a manufactured cable or bend qualification.
-    n=24; last=len(points)-1;
-    polyhedron(points=[for(j=[0:last],k=[0:n-1]) wc_loom_ring(points,j,k,n)],
-        faces=concat([[for(k=[0:n-1]) k]],
-            [for(j=[0:last-1],k=[0:n-1])
-                [j*n+k,(j+1)*n+k,(j+1)*n+(k+1)%n,j*n+(k+1)%n]],
-            [[for(k=[n-1:-1:0]) last*n+k]]),convexity=10);
+    // Keep the original tangent frames and section count; BOSL2 joins the rings.
+    n=24;
+    profiles=[for(j=[0:len(points)-1]) [for(k=[0:n-1]) wc_loom_ring(points,j,k,n)]];
+    arbi_ring_volume(profiles, reverse=true);
 }

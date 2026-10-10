@@ -48,9 +48,9 @@ Build arbi-v1; batch represents 1 BOM unit(s). Optional covers for one round-pol
 
 | Model | Copies in batch | Material / colour | Solid volume per copy |
 | --- | ---: | --- | ---: |
-| winch-pole-nut-cover r0.1.0 | 2 | Bambu Lab PETG Matte / white | 44.800318 cm³ |
+| winch-pole-nut-cover r0.1.0 | 2 | Bambu Lab PETG Matte / white | 44.800316 cm³ |
 | winch-pole-nut-cover-bottom r0.1.0 | 2 | Bambu Lab PETG Matte / white | 16.878400 cm³ |
-| winch-pole-cable-guide r0.1.0 | 1 | Bambu Lab ASA / black | 9.881734 cm³ |
+| winch-pole-cable-guide r0.1.0 | 1 | Bambu Lab ASA / black | 9.881733 cm³ |
 
 Selected recipe consumption:
 

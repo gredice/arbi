@@ -204,6 +204,7 @@ def build(out):
         references = work/'models/reference'
         sources = [ROOT/'hardware/models.json', ROOT/'bom/catalog/parts.json', ROOT/'bom/assemblies/assemblies.json',
                    ROOT/'hardware/lib/arbi.scad', LIB, ROOT/'hardware/lib/corner-head.scad',
+                   ROOT/'hardware/lib/catalog-visualizations.scad',
                    Path(__file__).resolve(), ROOT/'scripts/corner-support/check.py', ROOT/'scripts/corner-support/README.md',
                    ROOT/'hardware/lib/winch-pole.scad', ROOT/'hardware/lib/winch-mount.scad', ROOT/'hardware/lib/winch-drum.scad',
                    ROOT/'hardware/assemblies/winch/round-pole.md', ROOT/'hardware/assemblies/winch/full-cover.md',
@@ -211,6 +212,7 @@ def build(out):
                    ROOT/'LICENSE', *sorted((ROOT/'hardware/assemblies/corner-station').glob('corner-head-*.scad')),
                    *sorted((ROOT/'docs/assemblies/corner-station').glob('*.md')),
                    ROOT/'hardware/assemblies/corner-station/README.md',
+                   *sorted(p for p in (ROOT/'hardware/vendor').rglob('*') if p.is_file()),
                    *sorted((ROOT/'scripts/winch-booklet/fonts').glob('*'))]
         report['sources_sha256'] = {p.relative_to(ROOT).as_posix(): digest(p) for p in sources}
         for source in sources:

@@ -22,7 +22,11 @@ def build():
     root.mkdir(parents=True, exist_ok=True)
     snapshot = root / 'source/arbi-hardware'
     source_files = list((REPO / 'hardware/lib').glob('*.scad'))
+    source_files += [p for p in (REPO / 'hardware/vendor').rglob('*') if p.is_file()]
     source_files += list((REPO / 'hardware/assemblies/winch').glob('*.scad'))
+    # The copied bench library includes this entrypoint; keep its include closed.
+    bench_spider = REPO / 'hardware/assemblies/camera-pod/camera-pod-spider.scad'
+    source_files.append(bench_spider)
     current_hashes = {str(p.relative_to(REPO / 'hardware')): hashlib.sha256(p.read_bytes()).hexdigest() for p in source_files}
     current_hashes['models.json'] = hashlib.sha256((REPO / 'hardware/models.json').read_bytes()).hexdigest()
     current_hashes['reference-parts.scad'] = hashlib.sha256((HERE / 'reference-parts.scad').read_bytes()).hexdigest()
@@ -33,11 +37,14 @@ def build():
         for name in ['arbi-mesh-manifest.json', 'reference-mesh-manifest.json']:
             for entry in json.loads((root / name).read_text()):
                 assert hashlib.sha256((root / entry['file']).read_bytes()).hexdigest() == entry['stl_sha256'], entry['file']
-    for name in ['lib', 'assemblies/winch']:
+    for name in ['lib', 'vendor', 'assemblies/winch']:
         target = snapshot / name
         if target.exists():
             shutil.rmtree(target)
         shutil.copytree(REPO / 'hardware' / name, target)
+    bench_target = snapshot / bench_spider.relative_to(REPO / 'hardware')
+    bench_target.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(bench_spider, bench_target)
     shutil.copy2(REPO / 'hardware/models.json', snapshot / 'models.json')
     # Keep the installation/evidence guides beside their canonical CAD in the
     # portable pack, including the preserved prior-revision records.

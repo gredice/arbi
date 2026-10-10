@@ -19,6 +19,7 @@ function files(root, dir) {
 export function releaseInputs(root) {
   const paths = [
     ...files(root, 'hardware').filter((p) => p.endsWith('.scad') && !p.startsWith('hardware/generated/')),
+    ...files(root, 'hardware/vendor').filter((p) => !p.endsWith('.scad')),
     'hardware/models.json', 'hardware/models.schema.json', 'hardware/model-aliases.json',
     'bom/catalog/parts.json', 'bom/catalog/fabrication.json', 'bom/assemblies/assemblies.json',
     ...files(root, 'scripts/camera-pod-booklet'), ...files(root, 'scripts/winch-booklet'), ...files(root, 'scripts/cad-previews'),
