@@ -70,6 +70,7 @@ The committed material is a **design baseline**, not proof of a built or safe in
 - [Bounded plant/module model 1.0, virtual sensors and independent host evidence](software/bounded-plant-model.md)
 - [Gredice identity, site permissions and executable request authorization boundary](software/site-authorization.md)
 - [Audit 1.0 vocabulary, privacy and evidence semantics](software/audit-events.md)
+- [Deferred recording, playback, custody and retention activation policy](software/recording-policy.md)
 - [Transactional audit admission, SQLite spool and deduplicated ingestion](software/audit-durability.md)
 - [Release/update 1.0 manifests, mixed-version paths and pure recovery reference](software/release-updates.md)
 - [Gated web builds, immutable Linux application releases and read-only dashboard catalog](software/software-publication.md)
