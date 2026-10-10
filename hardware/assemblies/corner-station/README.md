@@ -2,6 +2,30 @@
 
 System context: [Corner station assembly documentation](../../../docs/assemblies/corner-station/README.md).
 
+## Indoor WT-806 stand fixture
+
+The [print and assembly instructions](stand-adapter.md) define removable tube
+clamps for the owner's two Walimex pro WT-806 stands. Four fabrication models
+install eight prints per stand: two head fronts/rears on a nominal 26 mm tube,
+and two winch fronts/rears on a nominal 35 mm tube. The 30 mm section can be
+selected with matching exports. All five entrypoints are r0.1.0,
+`concept-unvalidated`; their optional BOM kit is excluded from installed poles.
+
+| Model | Purpose |
+| --- | --- |
+| [corner-stand-head-front](corner-stand-head-front.scad) | Curved round-120 head seat, short M12 mounting and front tube clamp |
+| [corner-stand-head-rear](corner-stand-head-rear.scad) | Matching removable 26 mm rear clamp |
+| [corner-stand-winch-front](corner-stand-winch-front.scad) | Passive winch base seat and front 35 mm clamp |
+| [corner-stand-winch-rear](corner-stand-winch-rear.scad) | Matching removable 35 mm rear clamp |
+| [corner-stand-assembly](corner-stand-assembly.scad) | Actual printed head and covered passive winch with schematic tube samples |
+
+The fixture uses short bolts and preserves nominal line alignment without
+drilling the stand or relying on its top thread. It supports unloaded indoor
+fit/rotation development only; tube fit, friction/creep, equipment mass,
+independent retention and tipping remain physical acceptance work. See the
+[geometry record](stand-adapter-check.md) and
+[proposal](https://github.com/gredice/arbi/issues/147).
+
 ## Mostly printed through-bolted corner head
 
 The owner selected the [printed design proposal](../../../docs/assemblies/corner-station/design-proposal.md)

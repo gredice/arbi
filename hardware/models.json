@@ -2416,6 +2416,74 @@
             "output": "control-cabinet-assembly-r0.1.0.csg",
             "documentation": "hardware/assemblies/control-cabinet/README.md",
             "description": "Proposed 500 W x 600 H x 250 D mm control cabinet with open service door, two power supplies, Pico stack and unselected protection/edge reserves; inspection only."
+        },
+        {
+            "id": "corner-stand-head-front",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "corner-stand-adapter-kit"
+            ],
+            "assembly": "corner-station",
+            "entrypoint": "hardware/assemblies/corner-station/corner-stand-head-front.scad",
+            "output": "corner-stand-head-front-r0.1.0.stl",
+            "documentation": "hardware/assemblies/corner-station/README.md",
+            "description": "WT-806 unloaded indoor fixture: head front, default 26 mm tube; print two per stand."
+        },
+        {
+            "id": "corner-stand-head-rear",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "corner-stand-adapter-kit"
+            ],
+            "assembly": "corner-station",
+            "entrypoint": "hardware/assemblies/corner-station/corner-stand-head-rear.scad",
+            "output": "corner-stand-head-rear-r0.1.0.stl",
+            "documentation": "hardware/assemblies/corner-station/README.md",
+            "description": "WT-806 unloaded indoor fixture: head rear, default 26 mm tube; print two per stand."
+        },
+        {
+            "id": "corner-stand-winch-front",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "corner-stand-adapter-kit"
+            ],
+            "assembly": "corner-station",
+            "entrypoint": "hardware/assemblies/corner-station/corner-stand-winch-front.scad",
+            "output": "corner-stand-winch-front-r0.1.0.stl",
+            "documentation": "hardware/assemblies/corner-station/README.md",
+            "description": "WT-806 unloaded indoor fixture: winch front, default 35 mm tube; print two per stand."
+        },
+        {
+            "id": "corner-stand-winch-rear",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "corner-stand-adapter-kit"
+            ],
+            "assembly": "corner-station",
+            "entrypoint": "hardware/assemblies/corner-station/corner-stand-winch-rear.scad",
+            "output": "corner-stand-winch-rear-r0.1.0.stl",
+            "documentation": "hardware/assemblies/corner-station/README.md",
+            "description": "WT-806 unloaded indoor fixture: winch rear, default 35 mm tube; print two per stand."
+        },
+        {
+            "id": "corner-stand-assembly",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "reference",
+            "bomPartIds": [],
+            "assembly": "corner-station",
+            "entrypoint": "hardware/assemblies/corner-station/corner-stand-assembly.scad",
+            "output": "corner-stand-assembly-r0.1.0.csg",
+            "documentation": "hardware/assemblies/corner-station/README.md",
+            "description": "WT-806 indoor fixture with actual round-120 printed head and passive winch; schematic tube samples, no tripod load qualification."
         }
     ],
     "archivedModels": [

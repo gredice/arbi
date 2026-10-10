@@ -2053,6 +2053,58 @@
         "12 M3 locking nut"
       ],
       "notes": "One set per bench dock, round-120 nominal lengths. No supplier or price selected. Verify received head/washer/nut dimensions, post stack and locking engagement; other shared post sizes require recalculated M12 length. Not the corner-head fastener set."
+    },
+    {
+      "id": "corner-stand-adapter-kit",
+      "name": "Optional WT-806 indoor corner-station adapter kit",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "fabricated",
+        "printed"
+      ],
+      "requirements": [
+        "One stand kit: two head fronts, two head rears, two winch fronts and two winch rears; eight installed prints from four models, revision 0.1.0.",
+        "Default head tube 26 mm, lower winch tube 35 mm; measure both stands and export matching halves for any parameter change. No tube drilling or top-thread attachment.",
+        "Round-120 printed carriers at 110 mm M12 pitch; passive winch original 50 x 120 mm M8 base-hole pattern. Short M12 x 90 and M8 x 40 mounting bolts replace timber bolts.",
+        "Per stand, buy separately: four M6 x 60 and four M6 x 70 bolts, sixteen M6 washers, eight M6 locking nuts; two M12 x 90 bolts, four large M12 washers, two M12 locking nuts; four M8 x 40 bolts, eight M8 washers, four M8 locking nuts.",
+        "Unloaded indoor fit/rotation development only. No validated clamp strength, tube-crush limit, creep, side-load or tipping capacity. Actual assembled mass and independent retention must be checked."
+      ],
+      "fabrication": {
+        "process": "openscad",
+        "modelStatus": "concept-unvalidated",
+        "sources": [
+          {
+            "path": "hardware/assemblies/corner-station/corner-stand-head-front.scad",
+            "module": "csa_print_front",
+            "modelId": "corner-stand-head-front",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/corner-station/corner-stand-head-rear.scad",
+            "module": "csa_print_rear",
+            "modelId": "corner-stand-head-rear",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/corner-station/corner-stand-winch-front.scad",
+            "module": "csa_print_front",
+            "modelId": "corner-stand-winch-front",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/corner-station/corner-stand-winch-rear.scad",
+            "module": "csa_print_rear",
+            "modelId": "corner-stand-winch-rear",
+            "revision": "0.1.0"
+          }
+        ]
+      },
+      "notes": "The owner has two WT-806 stands (ASIN B000LWEA0I). Two optional kits produce sixteen prints. Reuse existing carrier cross-bolts, pulley and compatible pin; omit timber rear pads, long through-bolts and rear cosmetic cover. Hardware/printing/acceptance: hardware/assemblies/corner-station/stand-adapter.md. No supplier offer or sliced-material estimate is assigned."
     }
   ]
 }

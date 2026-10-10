@@ -29,6 +29,7 @@ One stable page per catalog part, including optional and deferred items. Usage q
 | [Proposed round-head M12 through-bolt pair](corner-head-through-bolts.md) | corner-head-through-bolts |
 | [Corner head removable weather shield kit](corner-head-weather-kit.md) | corner-head-weather-kit |
 | [Ground-contact treated timber corner post](corner-post-treated-timber.md) | corner-post-treated-timber |
+| [Optional WT-806 indoor corner-station adapter kit](corner-stand-adapter-kit.md) | corner-stand-adapter-kit |
 | [DIN-rail GND distribution block](din-rail-ground-distribution-block.md) | din-rail-ground-distribution-block |
 | [DOCK-IF-01 bought fastener set](dock-bench-hardware.md) | dock-bench-hardware |
 | [High-dock alignment funnel](dock-funnel.md) | dock-funnel |
