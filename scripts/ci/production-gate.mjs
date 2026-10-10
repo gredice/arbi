@@ -30,6 +30,11 @@ export async function waitForProduction(commit, { request = fetch, pause = ms =>
         if (!response.ok) throw new Error(`Production CI lookup failed (${response.status})`);
         return response.json();
     };
+    const requireProtectedRef = async () => {
+        const branch = await get('branches/main');
+        if (branch.name !== 'main' || branch.protected !== true) throw new Error('Production requires a protected main ref');
+    };
+    await requireProtectedRef();
     for (let attempt = 0; attempt < attempts; attempt++) {
         const { workflow_runs: runs } = await get(`actions/workflows/ci.yml/runs?head_sha=${commit}&per_page=20`);
         const run = runs.filter(r => r.head_sha === commit && r.head_branch === 'main' && ['push', 'workflow_dispatch'].includes(r.event))
@@ -37,7 +42,10 @@ export async function waitForProduction(commit, { request = fetch, pause = ms =>
         // Use this run's latest attempt, never a PR merge commit or old run.
         const jobs = run ? (await get(`actions/runs/${run.id}/attempts/${run.run_attempt}/jobs?per_page=100`)).jobs : [];
         const state = inspectGate(runs, jobs, commit);
-        if (state === 'success') return { commit, runId: run.id, attempt: run.run_attempt };
+        if (state === 'success') {
+            await requireProtectedRef();
+            return { commit, runId: run.id, attempt: run.run_attempt };
+        }
         if (state === 'failure') throw new Error('Required [CI] OK failed; production build denied');
         if (attempt + 1 < attempts) await pause(60_000);
     }

@@ -39,7 +39,8 @@ from a UI banner. Keep fork protection enabled.
 
 Both app build commands invoke [the production gate](../../scripts/ci/production-gate.mjs)
 before Next.js builds. Vercel production builds require the platform's full
-`gredice/arbi`, `main` and source SHA metadata. The gate reads that exact commit's
+`gredice/arbi`, `main` and source SHA metadata. The gate verifies that GitHub marks
+`main` protected before waiting and again before accepting checks. It reads that exact commit's
 latest CI workflow attempt and accepts only a successful `[CI] OK` job. PR checks,
 another commit, failed/cancelled/skipped checks and missing evidence cannot grant
 production. Lookup errors, GitHub API rate limits and a 35-minute deadline fail
@@ -118,7 +119,9 @@ Before enabling publication, an authorized repository administrator must:
    revocation and incident response remain [#74](https://github.com/gredice/arbi/issues/74).
 
 The session implementing this slice could update the two Vercel project build
-commands and fork protection. Its GitHub integration returned 403 for branch
+commands and fork protection. Public GitHub branch metadata reported `main` as
+unprotected, so production web builds are denied until an administrator protects it.
+Its GitHub integration returned 403 for branch
 protection, variables and immutable-release settings, and Vercel returned 403
 for environment-variable metadata. Those configuration/readback gates and an
 actual protected signing run remain **unverified**; publication stays disabled

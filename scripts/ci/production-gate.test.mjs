@@ -4,6 +4,7 @@ import { inspectGate, productionIdentity, waitForProduction } from './production
 const commit = 'a'.repeat(40);
 const run = { id: 42, run_attempt: 1, head_sha: commit, head_branch: 'main', event: 'push', path: '.github/workflows/ci.yml', status: 'in_progress' };
 const job = { run_id: 42, name: '[CI] OK', status: 'completed', conclusion: 'success' };
+const branch = { name: 'main', protected: true };
 test('secret-free previews skip production lookup; only exact protected production identity is accepted', () => {
     assert.equal(productionIdentity({ VERCEL_ENV: 'preview' }), null);
     const env = { VERCEL_ENV: 'production', VERCEL_GIT_REPO_OWNER: 'gredice', VERCEL_GIT_REPO_SLUG: 'arbi', VERCEL_GIT_COMMIT_REF: 'main', VERCEL_GIT_COMMIT_SHA: commit };
@@ -20,9 +21,18 @@ test('gate cannot reuse old success, a PR run, another commit or an ambiguous/mi
     assert.equal(inspectGate([{ ...run, status: 'completed' }], [], commit), 'failure');
 });
 test('isolated success promotes only matching evidence; failed/missing/network checks stop the build', async () => {
-    const request = async url => Response.json(url.includes('/jobs?') ? { jobs: [job] } : { workflow_runs: [run] });
+    const request = async url => Response.json(url.endsWith('/branches/main') ? branch : url.includes('/jobs?') ? { jobs: [job] } : { workflow_runs: [run] });
     assert.deepEqual(await waitForProduction(commit, { request, attempts: 1 }), { commit, runId: 42, attempt: 1 });
-    await assert.rejects(waitForProduction(commit, { attempts: 1, request: async url => Response.json(url.includes('/jobs?') ? { jobs: [{ ...job, conclusion: 'failure' }] } : { workflow_runs: [run] }) }), /failed/);
-    await assert.rejects(waitForProduction(commit, { attempts: 1, request: async () => Response.json({ workflow_runs: [] }) }), /did not complete/);
+    await assert.rejects(waitForProduction(commit, { attempts: 1, request: async url => Response.json(url.endsWith('/branches/main') ? branch : url.includes('/jobs?') ? { jobs: [{ ...job, conclusion: 'failure' }] } : { workflow_runs: [run] }) }), /failed/);
+    await assert.rejects(waitForProduction(commit, { attempts: 1, request: async url => Response.json(url.endsWith('/branches/main') ? branch : { workflow_runs: [] }) }), /did not complete/);
     await assert.rejects(waitForProduction(commit, { attempts: 1, request: async () => new Response('', { status: 403 }) }), /lookup failed/);
+});
+test('unprotected or revoked main protection denies production even with successful CI', async () => {
+    for (const metadata of [{ ...branch, protected: false }, { name: 'main' }, { ...branch, name: 'other' }]) {
+        let calls = 0;
+        await assert.rejects(waitForProduction(commit, { attempts: 1, request: async () => { calls++; return Response.json(metadata); } }), /protected main/);
+        assert.equal(calls, 1);
+    }
+    let branchReads = 0;
+    await assert.rejects(waitForProduction(commit, { attempts: 1, request: async url => Response.json(url.endsWith('/branches/main') ? { ...branch, protected: ++branchReads === 1 } : url.includes('/jobs?') ? { jobs: [job] } : { workflow_runs: [run] }) }), /protected main/);
 });
