@@ -105,6 +105,21 @@ For changed CAD awaiting a release, omit the directory argument to export the cu
 
 ## Reports
 
+System pages expand costed print kits into model IDs, copy quantities, material
+assignments and individual consumption estimates. Component amounts retain four
+decimal places; material-group and kit totals retain their existing cent rounding.
+CAD file counts also include assembly references, alternatives and test pieces,
+so they are not physical quantities or expected BOM row counts.
+
+The compact pod now owns explicit fastener and internal-wiring sets; the cabinet
+owns mounting/termination and protection/stop-interface sets for the previously
+unmapped layout reserves. Their required quantities are one set per assembly.
+Exact kit requirements are in the catalog; unresolved products and quotes remain
+visible as missing prices. Reconcile OEM accessories and shared procurement
+stock before ordering. Optional head and stand print sets carry ASA consumption
+estimates as costing assumptions only; machined metal and full fabrication costs
+remain unknown. This does not resolve the report's completeness warnings.
+
 ### Delivery tracking
 
 [Order and receipt log](receipts.md) records orders, incoming items, and actual deliveries confirmed by the owner, using the stable offer IDs from `catalog/offers.json`. Keep actual ordered/received quantities and confirmation dates separate from calculated purchase quantities; leave unspecified quantities unknown. Items absent from the log have no recorded order or receipt status. These records do not change offer qualification or establish inspection, testing, or installation status.

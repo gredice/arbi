@@ -11,9 +11,13 @@ One stable page per catalog part, including optional and deferred items. Usage q
 | [AS5600 magnetic angle sensor + magnet](as5600-angle-sensor.md) | as5600-angle-sensor |
 | [608-2RS sealed bearing](bearing-608-2rs.md) | bearing-608-2rs |
 | [1000 µF 5 V rail bulk capacitor](bulk-capacitor-1000uf.md) | bulk-capacitor-1000uf |
+| [Cabinet mounting and internal termination set](cabinet-installation-kit.md) | cabinet-installation-kit |
+| [Cabinet protection and hardwired stop interface set](cabinet-protection-kit.md) | cabinet-protection-kit |
 | [IP68 cable gland assortment](cable-gland-assortment.md) | cable-gland-assortment |
 | [Pan/tilt camera gimbal](camera-gimbal.md) | camera-gimbal |
 | [Camera pod spider/chassis](camera-pod-chassis.md) | camera-pod-chassis |
+| [Compact camera pod bought fastener set](camera-pod-fastener-kit.md) | camera-pod-fastener-kit |
+| [Camera pod internal wiring and retention set](camera-pod-wiring-kit.md) | camera-pod-wiring-kit |
 | [Capsule slip ring, ≥6 channels × 2 A](capsule-slip-ring-6x2a.md) | capsule-slip-ring-6x2a |
 | [CL57Y-V20 closed-loop motor driver](cl57y-v20-driver.md) | cl57y-v20-driver |
 | [Central outdoor electrical cabinet](control-panel-enclosure.md) | control-panel-enclosure |

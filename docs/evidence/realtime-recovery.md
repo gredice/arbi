@@ -11,3 +11,69 @@ A separately spawned cloud HTTP process owns its own database pool; a separately
 Passed host commands: `pnpm docs:check`, `pnpm lint`, `pnpm typecheck`, `pnpm test --concurrency=1`, native `pnpm --filter @arbi/dashboard test:postgres`, `pnpm protocol:check`, `pnpm scenario:check`, `pnpm build`, `pnpm --filter @arbi/dashboard test:http` and `git diff --check`. Native PostgreSQL totals ten passing tests (five realtime subtests plus preserved suites); the recovery/SDK WebSocket suite has four passing tests. The ordinary dashboard suite has 30 passing tests and five explicit native-test skips, separately fulfilled by `test:postgres`. Linux service verification is skipped on macOS and remains a required CI check. The first repository run and a focused retry hit the unchanged LAN-metering diagnostic timeout; a temporary committed-main snapshot and the subsequent focused/full serialized worktree runs passed with no assertion or deadline changes. Required CI results are recorded in the accompanying PR. Node's existing PGlite-only `--no-wasm-code-gc` workaround and serial package/database tests are preserved.
 
 [Realtime semantics and the exact external gate](../software/realtime-recovery.md#external-acceptance-gate) remain binding. #29 stays open pending isolated live provider/mobile/deployment evidence. Bench/HIL, selected Linux host/storage power loss, installed/qualified physical operation, provider billing and physical completion are **not established**. Broker/HTTP recovery never enables actuator dispatch, clears a local fault, grants a control lease or makes `Parked` update-safe.
+
+## Browser source and host evidence — 10 October 2026
+
+Baseline: `9e1e4da` on current main; tested browser source accompanies this record.
+Configuration: macOS, Node 24.13.0, pnpm 11.5.2, native PostgreSQL 15.19
+(Homebrew), Ably SDK 2.29.0 and Playwright 1.58.2's Chromium
+145.0.7632.6. Reviewer: implementation self-review and executed assertions;
+independent provider/physical acceptance remains open.
+
+Six [browser consumer/HTTP unit checks](../../apps/arbi-dashboard/src/realtime/browser.test.ts)
+cover duplicate/reordered/wrong-site hints, dropped-hint heartbeats, replay gaps,
+bounded catch-up, eight admissions and 60 reads per minute, original expiry,
+broker-unavailable HTTPS fallback, denied authorization, wildcard/publish-token
+rejection and failed/oversized attempt bytes. One hundred overlapping callers
+produce one operation. Closing during delayed admission or SDK opening cannot
+resurrect state/subscriptions. HTTP cancellation also bounds an uncooperative
+credential callback; overflow cancels the response stream.
+
+The [Chromium integration check](../../apps/arbi-dashboard/browser/realtime.spec.ts)
+executes the actual browser source modules and installed Ably browser SDK, with
+the real authenticated `RealtimeHttp` boundary and two independent native
+PostgreSQL pools/runtime instances. It proves exact subscribe attachment,
+authenticated other-site denial, instance-change readback, a burst of 100
+notifications, dropped-hint recovery, epoch reset, cancellation during a delayed
+HTTP response, broker-unavailable authoritative HTTPS recovery and current
+session revocation. SQL readback verifies persisted routing/principal binding;
+the client emits no publication/presence or execution receipt and creates no
+command job. All identities, bearer tokens and databases are ephemeral synthetic
+fixtures. Broker WebSocket frames are intercepted test transport; no Ably account
+or mobile network is involved. Traces, videos, screenshots and browser storage
+are not saved.
+
+Passed commands:
+
+```text
+pnpm docs:check
+pnpm lint --filter @arbi/dashboard --concurrency=1
+pnpm typecheck --filter @arbi/dashboard --concurrency=1
+pnpm --filter @arbi/dashboard test
+pnpm --filter @arbi/dashboard test:postgres
+pnpm build --filter @arbi/edge-controller --concurrency=1
+pnpm build --filter @arbi/dashboard --concurrency=1
+pnpm --filter @arbi/dashboard test:browser
+pnpm --filter @arbi/dashboard test:http
+git diff --check
+```
+
+The ordinary dashboard suite passed 40 checks with six explicit native skips;
+the separate native suite passed all 11 checks. All eight browser checks passed,
+including the existing seven shell/redirect checks. PostgreSQL and the pinned
+Chromium were initially absent and installed before successful execution; native
+commands used the Homebrew PostgreSQL bin directory on PATH. The Chromium test
+exposed and corrected a native browser `fetch` receiver error that Node fixtures
+did not reproduce. Tests use the existing serial launchers and assertions, and
+the browser launcher now forwards optional Playwright file filters. Hardware/BOM
+source and generated artifacts are unchanged, so their owning checks are not
+selected by this change.
+
+This adds browser source/host evidence to the existing edge/server foundation;
+it does not close #29's live-provider/mobile/deployment gate. The client is
+explicit composition, not a default dashboard subscription or a browser export
+of the shell's HttpOnly session. The current five-second human directory
+freshness and persistent eight-admission budget can throttle continuous browser
+renewal; they remain enforced and need measured acceptance/review. No live
+Gredice, Ably, Neon/Vercel realtime deployment, actual cellular use, provider
+revocation latency or physical operation is established by these checks.

@@ -134,6 +134,18 @@ counting it as completed protection.
 
 ## Appearance
 
+The registered [mounted corner reference](corner-station-assembly.scad) places
+the current ordinary winch shell, round-pole saddles and proposed printed pulley
+head on one nominal 120 mm round timber post. A sinusoidal drawing break omits
+the middle post and line length. It is an abbreviated illustration: do not cut
+the post or use the displayed vertical spacing as installation dimensions.
+The view uses the existing source modules and round-pole coordinate transform;
+it adds no fabricated part, quantity or accepted physical configuration.
+The closed winch exterior omits concealed internals; use the winch subassembly
+for its complete exploded inspection. Powered winch geometry is shown separately.
+Actual mounting heights, timber, guy connection, alignment and payout motion
+remain subject to the owning design and acceptance records.
+
 Structural carrier and rear pads preview in charcoal; removable protective
 covers use rounded warm-white shells following the
 [industrial design conventions](../../../docs/project/industrial-design.md).

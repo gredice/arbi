@@ -27,7 +27,7 @@ try {
     server.on("error", reject); server.on("exit", () => reject(new Error("SERVER_EXIT")));
     server.stdout.on("data", chunk => { if (String(chunk).includes("Ready")) { clearTimeout(timer); resolve(); } });
   });
-  execFileSync(process.execPath, ["node_modules/@playwright/test/cli.js", "test", "--config", "playwright.config.ts"], { env, stdio: "inherit", timeout: 120000 });
+  execFileSync(process.execPath, ["node_modules/@playwright/test/cli.js", "test", "--config", "playwright.config.ts", ...process.argv.slice(2)], { env, stdio: "inherit", timeout: 120000 });
 } catch { process.stderr.write("Dashboard browser checks failed; built app, PostgreSQL tools and Chromium are required.\n"); process.exitCode = 1; }
 finally {
   if (server && server.exitCode === null) { server.kill("SIGTERM"); await once(server, "exit"); }

@@ -53,7 +53,9 @@ assembly inspection assets are included in the pack.
 Unique components are exported with a bounded pool of OpenSCAD processes before
 VTK draws figures serially. The default worker count is the available CPU count
 capped at four; `--jobs N` overrides this, and `--jobs 1` runs serially. Every
-export has a 120-second timeout and rejects compiler failures, warnings/errors
+reference export has a 300-second timeout to allow the large winch boolean
+components to complete on shared CI CPUs; explicit assembly inspection exports
+retain their 120-second timeout. Both reject compiler failures, warnings/errors
 and missing or empty meshes. A failure cancels queued work and waits for active
 processes before removing temporary files or returning; no pack is published.
 

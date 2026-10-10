@@ -35,10 +35,14 @@ export class PostgresJobStore {
     milliseconds(receiverUncertaintyMs,1,250);
     this.audit = new PostgresAuditStore(db,"job-service",Date.now,receiverUncertaintyMs);
   }
-  async transaction<T>(siteId: string, work: (tx: Tx) => Promise<T>): Promise<T> {
+  async transaction<T>(siteId: string, work: (tx: Tx) => Promise<T>, queryTimeoutMs?: number): Promise<T> {
     id(siteId); let domainError: JobError | undefined;
+    if (queryTimeoutMs !== undefined) milliseconds(queryTimeoutMs,1,1500);
     try { return await this.db.transaction(async (sql) => {
       try {
+        if (queryTimeoutMs !== undefined) {
+          await sql.query("SELECT set_config('statement_timeout',$1,true),set_config('lock_timeout','1000ms',true)",[`${queryTimeoutMs}ms`]);
+        }
         const key = scope(this.realm,siteId);
         const registry = (await sql.query<{ state: Registry }>("SELECT state FROM arbi_device_registry WHERE environment=$1 AND namespace_id=$2 AND site_id=$3 FOR UPDATE",key)).rows[0]?.state;
         if (!registry || registry.version !== VERSION || !sameRealm(registry.realm,this.realm) || registry.siteId !== siteId) throw new JobError("DENIED");

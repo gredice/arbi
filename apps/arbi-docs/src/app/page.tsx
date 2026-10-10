@@ -7,7 +7,7 @@ import { fmt } from "@/lib/format";
 import { data } from "@/lib/site";
 
 export default function Home() {
-    const { site, scenes, systems, models } = data();
+    const { site, scenes, systems, assemblies, models } = data();
     const sum = site.bom.summary;
     const stats: [string | number, string][] = [
         [models.length, "CAD models"],
@@ -40,7 +40,7 @@ export default function Home() {
                     <span className="tag">{systems.length} physical systems</span>
                 </div>
                 <div className="mt-4">
-                    <ContentsList systems={systems} />
+                    <ContentsList systems={systems} assemblies={assemblies} />
                 </div>
             </section>
             <section className="mt-16 mb-20 px-4 sm:px-6">

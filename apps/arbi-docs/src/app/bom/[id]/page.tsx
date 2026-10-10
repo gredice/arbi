@@ -105,6 +105,18 @@ export default async function BomItem({ params }: { params: Promise<{ id: string
                     <section className="mt-10">
                         <h2 className="cond text-[30px]">Print material estimate</h2>
                         <p className="mt-3 max-w-4xl text-[13px]">{print.note}</p>
+                        <h3 className="tag mt-6">Individual printed components</h3>
+                        <div className="mt-3 border-t-2 border-ink">
+                            {print.components.map((component) => (
+                                <div key={component.modelId} className="grid gap-2 border-b border-hair py-3 text-[13px] sm:grid-cols-[1fr_70px_160px_100px]">
+                                    <Link href={`/parts/${component.modelId}`} className="min-w-0 break-words underline">{component.modelId}</Link>
+                                    <span className="mono">× {component.quantity}</span>
+                                    <span>{component.name.replace("Bambu Lab ", "")} · {component.color ?? "unspecified"}</span>
+                                    <span className="mono sm:text-right">{component.materialCost === null ? "Unknown" : `€${component.materialCost}`} est.</span>
+                                </div>
+                            ))}
+                        </div>
+                        <p className="mt-2 text-[13px]">Quantities cover {print.required} BOM unit(s){p.printReference ? ", excluded from the current build" : ""}. Component estimates retain four decimal places; kit totals round each material group to cents.</p>
                         <h3 className="tag mt-6">Selected recipe by material and colour</h3>
                         <table className="mt-3 w-full border-t-2 border-ink text-[13px]">
                             <thead><tr className="tag border-b border-ink text-left">
