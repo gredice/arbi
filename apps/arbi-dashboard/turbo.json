@@ -1,0 +1,11 @@
+{
+  "$schema": "https://v2-9-16.turborepo.dev/schema.json",
+  "extends": ["//"],
+  "tasks": {
+    "build": {
+      "cache": false,
+      "env": ["VERCEL_ENV", "VERCEL_TARGET_ENV", "VERCEL_GIT_REPO_OWNER", "VERCEL_GIT_REPO_SLUG", "VERCEL_GIT_COMMIT_REF", "VERCEL_GIT_COMMIT_SHA", "ARBI_CI_READ_TOKEN"],
+      "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/scripts/ci/production-gate.mjs"]
+    }
+  }
+}

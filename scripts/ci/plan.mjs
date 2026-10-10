@@ -2,6 +2,7 @@ import { execFileSync } from 'node:child_process';
 import { appendFileSync, readFileSync, readdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { targets } from '../software-release/targets.mjs';
 
 export const repository = fileURLToPath(new URL('../../', import.meta.url));
 const variants = [
@@ -67,7 +68,7 @@ export function plan(changes, { workspaces = readWorkspaces(), eventName = 'pull
     const ownedScripts = ['scripts/check-docs.mjs', 'scripts/check-cad.mjs', 'scripts/check-cad.test.mjs', 'scripts/check-booklet.py', 'scripts/check-winch-cover-meshes.py', 'scripts/check-winch-pole-meshes.py', 'scripts/cad-release-data.mjs', 'scripts/publish-cad-release.mjs', 'scripts/check-site-release.mjs'];
     const unknownWorkspace = paths.some((path) => /^(apps|packages)\//u.test(path) && !workspaces.some((workspace) => path.startsWith(`${workspace.path}/`)));
     const unknownScript = paths.some((path) => path.startsWith('scripts/') && !ownedScripts.includes(path) && !/^scripts\/(ci|spikes|cad-previews|winch-booklet|camera-pod-booklet|corner-support|dock-booklet)\//u.test(path));
-    const full = changes === null || unknownWorkspace || unknownScript || under('.github/workflows/') || under('.github/actions/') || under('scripts/ci/');
+    const full = changes === null || unknownWorkspace || unknownScript || under('.github/workflows/') || under('.github/actions/') || under('scripts/ci/') || under('scripts/software-release/');
     const softwareFull = full || has('package.json', 'pnpm-lock.yaml', 'pnpm-workspace.yaml', 'turbo.json', 'tsconfig.base.json', '.npmrc', '.nvmrc');
     const cadToolchain = full || has('package.json', 'pnpm-lock.yaml', 'pnpm-workspace.yaml', '.npmrc', '.nvmrc');
     const selected = new Set();
@@ -102,6 +103,7 @@ export function plan(changes, { workspaces = readWorkspaces(), eventName = 'pull
     if (release) { cad = true; previews = true; }
     const booklets = variants.filter(({ variant }) => release || (variant === 'winch' ? winch : variant === 'corner' ? corner : variant === 'dock' ? dock : pod));
     const matrix = workspaces.filter((workspace) => selected.has(workspace.name)).map(({ name, path }) => ({ name, path }));
+    const artifacts = targets.filter(target => selected.has(target.workspace));
     return {
         workspace: matrix.length > 0,
         workspace_matrix: { include: matrix },
@@ -112,6 +114,8 @@ export function plan(changes, { workspaces = readWorkspaces(), eventName = 'pull
         booklet_matrix: { include: booklets },
         recovery: softwareFull || under('scripts/spikes/'),
         release,
+        software: artifacts.length > 0,
+        software_matrix: { include: artifacts.map(({ id, workspace, runner }) => ({ id, workspace, runner })) },
     };
 }
 

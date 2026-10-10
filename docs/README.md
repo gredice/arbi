@@ -69,6 +69,7 @@ The committed material is a **design baseline**, not proof of a built or safe in
 - [Audit 1.0 vocabulary, privacy and evidence semantics](software/audit-events.md)
 - [Transactional audit admission, SQLite spool and deduplicated ingestion](software/audit-durability.md)
 - [Release/update 1.0 manifests, mixed-version paths and pure recovery reference](software/release-updates.md)
+- [Gated web builds, immutable Linux application releases and read-only dashboard catalog](software/software-publication.md)
 - [Device enrollment, inventory and credential lifecycle with isolated PostgreSQL evidence](software/device-enrollment.md)
 - [Image metadata, private Blob direct grants, lifecycle cleanup and isolated PostgreSQL/HTTP evidence](software/image-storage.md)
 - [Durable cloud command jobs, exclusive manual leases and isolated PostgreSQL/HTTP evidence](software/command-jobs.md)

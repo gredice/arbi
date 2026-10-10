@@ -6,7 +6,7 @@
   "scripts": {
     "data": "node scripts/compile-data.mjs",
     "dev": "node scripts/compile-data.mjs && next dev",
-    "build": "node scripts/compile-data.mjs && next build",
+    "build": "node ../../scripts/ci/production-gate.mjs && node scripts/compile-data.mjs && next build",
     "start": "next start",
     "lint": "tsc --noEmit",
     "typecheck": "tsc --noEmit",

@@ -4,6 +4,7 @@ import { validateMessage } from "@arbi/protocol";
 import type { Configuration } from "@arbi/protocol";
 import { DASHBOARD_VERSION } from "./contracts";
 import type { DashboardContext, DashboardSite, DashboardState } from "./contracts";
+import type { AvailableRelease } from "../releases/catalog";
 
 export interface DashboardServerConfig {
   identity: GrediceIdentityAdapter;
@@ -14,6 +15,7 @@ export interface DashboardServerConfig {
   sites: readonly DashboardSite[];
   readState: (siteId: string, signal: AbortSignal) => Promise<DashboardState>;
   readConfiguration: (siteId: string, signal: AbortSignal) => Promise<Configuration | null>;
+  readReleases?: (signal: AbortSignal) => Promise<AvailableRelease[]>;
 }
 export class DashboardServer {
   readonly boundary: SiteRequestBoundary;
@@ -22,7 +24,7 @@ export class DashboardServer {
     this.boundary = new SiteRequestBoundary(config);
   }
   async handle(request: Request, siteId: string, view: string = "context"): Promise<Response> {
-    if (request.method !== "GET" || !["context", "state", "diagnostics"].includes(view)) return Response.json({ error: "INVALID_REQUEST" }, { status: 403, headers: { "cache-control": "private, no-store" } });
+    if (request.method !== "GET" || !["context", "state", "diagnostics", "releases"].includes(view)) return Response.json({ error: "INVALID_REQUEST" }, { status: 403, headers: { "cache-control": "private, no-store" } });
     return this.boundary.run(request, { surface: "http", capability: view === "diagnostics" ? "diagnostics.read" : "state.read", siteId }, async authorized => {
       try {
         const token = request.headers.get("authorization")!.slice(7);
@@ -63,12 +65,18 @@ export class DashboardServer {
         const configuration = await bounded(2000, signal => this.config.readConfiguration(siteId, signal));
         if (configuration && (configuration.siteId !== siteId || !sameRealm(configuration.realm, authorized.realm) || configuration.executionMode !== scope.executionMode)) throw new Error();
         if (configuration && state.snapshot?.body.type === "state.snapshot" && state.snapshot.body.configRevision !== configuration.revision) throw new Error();
+        // Availability adds no desired/installed state and cannot create update intent.
+        const releases = view === "releases" ? await bounded(2000, signal => {
+          if (!this.config.readReleases) throw new Error("CATALOG_UNCONFIGURED");
+          return this.config.readReleases(signal);
+        }) : undefined;
         // Slow storage/assembly must not outlive the original grant or a revoked current session.
         await this.config.identity.authorizeIdentity(principal, view === "diagnostics" ? "diagnostics.read" : "state.read", scope);
         if (authorized.expiresAtMs <= this.config.identity.now()) throw new AuthorizationError("EXPIRED_SESSION");
         const context: DashboardContext = { version: DASHBOARD_VERSION, realm: authorized.realm, executionMode: scope.executionMode, site, sites,
           identity: { actorId: authorized.actor.id, accountId: authorized.accountId, sessionId: authorized.sessionId, expiresAtMs: principal.expiresAtMs },
-          capabilities: allowed, state, configuration: configuration ? { revision: configuration.revision, schemaVersion: configuration.schemaVersion } : null };
+          capabilities: allowed, state, configuration: configuration ? { revision: configuration.revision, schemaVersion: configuration.schemaVersion } : null,
+          ...(releases ? { releases } : {}) };
         return Response.json(context);
       } catch (error) {
         const expired = error instanceof AuthorizationError && ["INVALID_CREDENTIAL", "REVOKED_SESSION", "EXPIRED_SESSION"].includes(error.code);

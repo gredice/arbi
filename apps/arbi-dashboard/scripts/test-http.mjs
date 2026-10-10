@@ -9,6 +9,8 @@ await once(reservation, "listening");
 const port = reservation.address().port;
 await new Promise((resolve) => reservation.close(resolve));
 const env = { ...process.env, NEXT_TELEMETRY_DISABLED: "1" };
+const preview = process.argv.includes("--preview");
+if (preview) { env.VERCEL_ENV = "preview"; delete env.VERCEL_TARGET_ENV; }
 // This launcher verifies the ordinary secret-free start, even in an operator shell.
 for (const name of Object.keys(env)) if (name.startsWith("ARBI_DASHBOARD_")) delete env[name];
 const child = spawn(process.execPath, ["--no-experimental-require-module", "node_modules/next/dist/bin/next", "start", "--hostname", "127.0.0.1", "--port", String(port)],
@@ -33,7 +35,7 @@ try {
     assert.equal(body.error, "UNAVAILABLE");
     assert.deepEqual(Object.keys(body).sort(), ["correlationId", "error"]);
   }
-  for (const view of ["context", "state", "diagnostics"]) {
+  for (const view of ["context", "state", "diagnostics", "releases"]) {
     const response = await fetch(`http://127.0.0.1:${port}/api/sites/synthetic-site/dashboard/${view}`, { signal: AbortSignal.timeout(5000) });
     assert.equal(response.status, 503); assert.equal(response.headers.get("cache-control"), "private, no-store");
     assert.deepEqual(await response.json(), { error: "UNAVAILABLE" });
@@ -44,6 +46,7 @@ try {
     const response = await fetch(`http://127.0.0.1:${port}${path}`, { signal: AbortSignal.timeout(5000) });
     assert.equal(response.status, 200); const html = await response.text();
     assert.match(html, /Provider unavailable/); assert.doesNotMatch(html, /name="code"/); assert.doesNotMatch(html, /synthetic-engineer/);
+    if (preview) assert.match(html, /NONPRODUCTION PREVIEW/);
   }
   process.stdout.write("Built Next.js enrollment/media/audit/jobs/realtime/dashboard boundaries fail closed, with no fixture login or protected site data on the ordinary start.\n");
 } catch { process.stderr.write("Built enrollment/media HTTP checks failed.\n"); process.exitCode = 1; }

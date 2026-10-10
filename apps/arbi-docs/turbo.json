@@ -6,7 +6,7 @@
             "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/scripts/**", "$TURBO_ROOT$/hardware/**", "$TURBO_ROOT$/docs/**"]
         },
         "build": {
-            "env": ["ARBI_SOURCE_COMMIT", "ARBI_SOURCE_DATE", "ARBI_CAD_RELEASE", "ARBI_CAD_PREVIEW_PACK", "ARBI_OFFLINE", "VERCEL_GIT_COMMIT_SHA", "VERCEL_ENV"],
+            "env": ["ARBI_SOURCE_COMMIT", "ARBI_SOURCE_DATE", "ARBI_CAD_RELEASE", "ARBI_CAD_PREVIEW_PACK", "ARBI_OFFLINE", "VERCEL_GIT_COMMIT_SHA", "VERCEL_GIT_REPO_OWNER", "VERCEL_GIT_REPO_SLUG", "VERCEL_GIT_COMMIT_REF", "VERCEL_ENV", "ARBI_CI_READ_TOKEN"],
             "cache": false,
             "inputs": [
                 "$TURBO_DEFAULT$",

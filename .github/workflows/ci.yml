@@ -41,6 +41,8 @@ jobs:
       booklet_matrix: ${{ steps.plan.outputs.booklet_matrix }}
       recovery: ${{ steps.plan.outputs.recovery }}
       release: ${{ steps.plan.outputs.release }}
+      software: ${{ steps.plan.outputs.software }}
+      software_matrix: ${{ steps.plan.outputs.software_matrix }}
     steps:
       - uses: actions/checkout@v6.0.3
         with:
@@ -110,6 +112,7 @@ jobs:
           WORKSPACE: ${{ matrix.name }}
           # Deterministic offline site inputs keep PR builds independent of Latest.
           ARBI_OFFLINE: '1'
+          VERCEL_ENV: 'preview'
         # pnpm lifecycle scripts supply the launcher metadata Turbo needs with
         # pnpm 11's native executable; bare `pnpm exec turbo` does not.
         run: |
@@ -158,6 +161,102 @@ jobs:
       - name: Check built dashboard HTTP boundary
         if: matrix.name == '@arbi/dashboard'
         run: pnpm --filter @arbi/dashboard test:http
+      - name: Record secret-free web review build provenance
+        if: matrix.name == '@arbi/dashboard' || matrix.name == '@arbi/docs'
+        env:
+          WEB_PATH: ${{ matrix.path }}
+        run: node scripts/ci/web-provenance.mjs
+      - name: Retain branch/PR web review build without deployment credentials
+        if: matrix.name == '@arbi/dashboard' || matrix.name == '@arbi/docs'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: web-preview-${{ matrix.name == '@arbi/dashboard' && 'dashboard' || 'docs' }}-${{ github.sha }}
+          include-hidden-files: true
+          path: |
+            ${{ matrix.path }}/.next/**
+            !${{ matrix.path }}/.next/cache/**
+          if-no-files-found: error
+          retention-days: 14
+
+  software:
+    name: Package ${{ matrix.id }} application
+    needs: changes
+    if: needs.changes.outputs.software == 'true'
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.changes.outputs.software_matrix) }}
+    steps:
+      - uses: actions/checkout@v6.0.3
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup-workspace
+        with:
+          filter: ${{ matrix.workspace }}...
+      - name: Build real executable and validate isolated release paths
+        env:
+          WORKSPACE: ${{ matrix.workspace }}
+        run: |
+          pnpm build --filter "$WORKSPACE" --concurrency=1
+          node --test scripts/software-release/*.test.mjs
+      - name: Package dependency closure with source and toolchain provenance
+        env:
+          TARGET: ${{ matrix.id }}
+          OUTPUT: ${{ runner.temp }}/software-${{ matrix.id }}
+        run: node scripts/software-release/package.mjs "$TARGET" "$OUTPUT"
+      - name: Smoke-test the packed executable without workspace dependencies
+        env:
+          OUTPUT: ${{ runner.temp }}/software-${{ matrix.id }}
+        run: node scripts/software-release/smoke.mjs "$OUTPUT/edge.tar.gz"
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: software-${{ matrix.id }}-${{ github.sha }}
+          path: |
+            ${{ runner.temp }}/software-${{ matrix.id }}/*.tar.gz
+            ${{ runner.temp }}/software-${{ matrix.id }}/*.build.json
+          if-no-files-found: error
+          retention-days: 30
+
+  publish_software:
+    name: Sign and seal available software releases
+    needs: [changes, ci_ok, software]
+    if: >-
+      ${{ !cancelled() && github.repository == 'gredice/arbi' &&
+          github.ref == 'refs/heads/main' && github.ref_protected &&
+          github.event_name != 'pull_request' && needs.ci_ok.result == 'success' &&
+          needs.software.result == 'success' && needs.changes.outputs.software == 'true' &&
+          vars.ARBI_SOFTWARE_RELEASE_ENABLED == 'true' }}
+    environment: software-release
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    concurrency:
+      group: software-release
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v6.0.3
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup-workspace
+        with:
+          filter: '@arbi/protocol...'
+      - run: pnpm --filter @arbi/protocol build
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          pattern: software-*-${{ github.sha }}
+          merge-multiple: true
+          path: ${{ runner.temp }}/software-release
+      - name: Sign, publish once, seal and verify exact catalog/artifact readback
+        env:
+          ARBI_REQUIRED_CHECK: ${{ needs.ci_ok.result }}
+          ARBI_RELEASE_KEY_ID: ${{ vars.ARBI_RELEASE_KEY_ID }}
+          ARBI_RELEASE_PUBLIC_KEY: ${{ vars.ARBI_RELEASE_PUBLIC_KEY }}
+          ARBI_RELEASE_SIGNING_KEY: ${{ secrets.ARBI_RELEASE_SIGNING_KEY }}
+          GH_TOKEN: ${{ secrets.ARBI_RELEASE_TOKEN }}
+          OUTPUT: ${{ runner.temp }}/software-release
+        run: node scripts/software-release/publish.mjs "$OUTPUT"
 
   recovery:
     name: Check architecture recovery experiment
@@ -353,7 +452,7 @@ jobs:
   ci_ok:
     name: "[CI] OK"
     if: ${{ always() }}
-    needs: [changes, repository, workspace, recovery, bom, cad, previews, booklets]
+    needs: [changes, repository, workspace, recovery, bom, cad, previews, booklets, software]
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:

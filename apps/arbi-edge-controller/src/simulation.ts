@@ -34,7 +34,7 @@ export function createSyntheticCredentials(): SyntheticCredentials {
   } catch (error) { rmSync(directory, { recursive: true, force: true }); throw error; }
 }
 export function syntheticAppliedConfiguration(): AppliedConfiguration {
-  const fixtures = JSON.parse(readFileSync(new URL('../../../packages/arbi-protocol/fixtures/configuration.json', import.meta.url), 'utf8')) as {
+  const fixtures = JSON.parse(readFileSync(new URL('../fixtures/configuration.json', import.meta.resolve('@arbi/protocol')), 'utf8')) as {
     context: ConfigurationApplyBoundary; valid: { configuration: Configuration }; requests: { request: Omit<ConfigurationRequest, 'configuration'> & { configurationFixture: string } }
   };
   const { configurationFixture: _fixture, ...wire } = fixtures.requests.request;
