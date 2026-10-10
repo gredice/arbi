@@ -17,7 +17,8 @@ hash.update(readFileSync('../../packages/arbi-traffic/package.json'));
 for (const file of readdirSync('../../packages/arbi-traffic/dist').filter((f) => f.endsWith('.js')).sort()) {
   hash.update(`traffic/${file}`).update(readFileSync(`../../packages/arbi-traffic/dist/${file}`));
 }
-for (const dependency of ['arbi-audit', 'arbi-simulation-core']) {
+hash.update(readFileSync('fixtures/commissioning.json'));
+for (const dependency of ['arbi-audit', 'arbi-simulation-core', 'arbi-gredice']) {
   hash.update(readFileSync(`../../packages/${dependency}/package.json`));
   for (const file of readdirSync(`../../packages/${dependency}/dist`).filter((f) => f.endsWith('.js')).sort()) {
     hash.update(`${dependency}/${file}`).update(readFileSync(`../../packages/${dependency}/dist/${file}`));

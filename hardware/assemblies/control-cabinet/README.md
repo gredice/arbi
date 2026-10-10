@@ -4,7 +4,7 @@ See the [owning assembly or procurement policy](../../../docs/assemblies/control
 
 ## Proposed assembled reference
 
-[control-cabinet-assembly.scad](control-cabinet-assembly.scad), r0.1.0, is a
+[control-cabinet-assembly.scad](control-cabinet-assembly.scad), r0.1.1, is a
 `reference` with released CSG output, **concept-unvalidated**. It arranges the two
 supplies, Pico/terminal-board stack, controller converter, signal-ground block,
 door E-stop, provisional shell/plate/ducts and unselected protection/edge reserves.
@@ -18,6 +18,8 @@ ownership, colors and exploded offsets for the preview builder. The website's
 assembly meshes remain inspection assets, never fabrication sources. Generic
 protection solids and open reserved-space frames do not imply selected hardware,
 ratings, usable clearance, a wired circuit or extra procurement quantities.
+The installation and protection reserves now link to their required BOM kits;
+their contents, supplier selections and prices remain unresolved.
 
 ## Approximate BOM visualizations
 

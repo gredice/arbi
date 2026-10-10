@@ -31,7 +31,7 @@ export function SystemExplorer({ number, name, scene, cadPending, caption, nav, 
     const [active, setActive] = useState<string | null>(null);
     const [canExplode, setCanExplode] = useState(false);
     const ids = inventory.map((i) => i.id);
-    const initialExplosion = current === "control-cabinet" ? 0 : 1;
+    const initialExplosion = current === "control-cabinet" || current === "corner-station" ? 0 : 1;
 
     useEffect(() => {
         if (!scene) return;
@@ -65,7 +65,7 @@ export function SystemExplorer({ number, name, scene, cadPending, caption, nav, 
             if (!alive) return;
             const lineup = scene.layout === "lineup";
             viewer.setExplode(initialExplosion);
-            viewer.frame({ distance: 1.05, azimuth: current === "control-cabinet" ? 0.3 : -0.62,
+            viewer.frame({ distance: 1.05, azimuth: current === "control-cabinet" ? 0.3 : scene.pose === "mounted" ? 0.62 : -0.62,
                 elevation: lineup ? 0.35 : current === "camera-pod" ? 0.22 : current === "control-cabinet" ? 0.32 : 0.5 });
             setCanExplode(viewer.canExplode);
         });
@@ -111,7 +111,7 @@ export function SystemExplorer({ number, name, scene, cadPending, caption, nav, 
                     <div className="cond text-[96px] leading-[0.8]">{number}</div>
                     <h1 className="cond mt-3 text-[48px] leading-[0.9]">{name}</h1>
                     {variants.length > 0 && (
-                        <nav aria-label="Winch configuration" className="pointer-events-auto mt-4 flex flex-wrap gap-2">
+                        <nav aria-label={current.startsWith("winch") ? "Winch configuration" : "System views"} className="pointer-events-auto mt-4 flex flex-wrap gap-2">
                             {variants.map((variant) => (
                                 <Link key={variant.slug} href={`/systems/${variant.slug}`} aria-current={variant.slug === current ? "page" : undefined}
                                     className={`tag border border-paper px-3 py-2 ${variant.slug === current ? "bg-paper text-ink" : "hover:bg-paper hover:text-ink"}`}>
@@ -146,9 +146,9 @@ export function SystemExplorer({ number, name, scene, cadPending, caption, nav, 
             </section>
             {children}
             {inventory.length > 0 && (
-                <section className="mt-10 px-4 sm:px-6">
+                <section id="parts-inventory" className="mt-10 scroll-mt-24 px-4 sm:px-6">
                     <div className="flex items-end justify-between">
-                        <h2 className="cond text-[34px] leading-none">Parts inventory</h2>
+                        <h2 className="cond text-[34px] leading-none">{current === "corner-station" ? "Support parts inventory" : "Parts inventory"}</h2>
                         <span className="tag">{inventoryNote}</span>
                     </div>
                     <div className="mt-4">

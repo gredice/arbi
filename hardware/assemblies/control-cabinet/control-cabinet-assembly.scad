@@ -1,4 +1,4 @@
-// control-cabinet-assembly — r0.1.0, concept-unvalidated. Units: mm.
+// control-cabinet-assembly — r0.1.1, concept-unvalidated. Units: mm.
 // Proposed packaging reference; not a cabinet fabrication or wiring drawing.
 // ARBI_ASSEMBLY_SCENE metadata and individually selected solids share this source.
 include <../../lib/catalog-visualizations.scad>
@@ -24,26 +24,26 @@ cc_green = [0.18,0.38,0.25];
 // Reserved/protection shapes have no selected SKU or implied electrical rating.
 cc_parts = [
     ["proposed-cabinet-shell", "", "control-panel-enclosure", "fixed", ARBI_SHELL, [0,0,0]],
-    ["mounting-plate", "", "", "fixed", ARBI_METAL, [0,-25,0]],
-    ["left-wiring-duct", "", "", "fixed", ARBI_CORE, [-35,-50,0]],
-    ["right-wiring-duct", "", "", "fixed", ARBI_CORE, [35,-50,0]],
-    ["mains-din-rail", "", "", "fixed", ARBI_METAL, [0,-65,0]],
-    ["dc-din-rail", "", "", "fixed", ARBI_METAL, [0,-65,0]],
-    ["mains-isolator-envelope-unselected", "", "", "fixed", ARBI_SHELL, [-40,-100,15]],
-    ["rcbo-envelope-unselected", "", "", "fixed", ARBI_SHELL, [0,-100,15]],
-    ["surge-protection-envelope-unselected", "", "", "fixed", ARBI_SHELL, [40,-100,15]],
-    ["protective-earth-bar-envelope-unselected", "", "", "fixed", ARBI_METAL, [0,-100,0]],
+    ["mounting-plate", "", "cabinet-installation-kit", "fixed", ARBI_METAL, [0,-25,0]],
+    ["left-wiring-duct", "", "cabinet-installation-kit", "fixed", ARBI_CORE, [-35,-50,0]],
+    ["right-wiring-duct", "", "cabinet-installation-kit", "fixed", ARBI_CORE, [35,-50,0]],
+    ["mains-din-rail", "", "cabinet-installation-kit", "fixed", ARBI_METAL, [0,-65,0]],
+    ["dc-din-rail", "", "cabinet-installation-kit", "fixed", ARBI_METAL, [0,-65,0]],
+    ["mains-isolator-envelope-unselected", "", "cabinet-protection-kit", "fixed", ARBI_SHELL, [-40,-100,15]],
+    ["rcbo-envelope-unselected", "", "cabinet-protection-kit", "fixed", ARBI_SHELL, [0,-100,15]],
+    ["surge-protection-envelope-unselected", "", "cabinet-protection-kit", "fixed", ARBI_SHELL, [40,-100,15]],
+    ["protective-earth-bar-envelope-unselected", "", "cabinet-installation-kit", "fixed", ARBI_METAL, [0,-100,0]],
     ["power-supply-a", "power-supply-48v-350w", "power-supply-48v-350w", "fixed", ARBI_METAL, [-50,-135,0]],
     ["power-supply-b", "power-supply-48v-350w", "power-supply-48v-350w", "fixed", ARBI_METAL, [50,-135,0]],
-    ["five-dc-branch-protection-envelopes-unselected", "", "", "fixed", ARBI_SHELL, [-35,-155,0]],
-    ["hardwired-stop-interface-reserve", "", "", "fixed", ARBI_CORE, [35,-155,0]],
+    ["five-dc-branch-protection-envelopes-unselected", "", "cabinet-protection-kit", "fixed", ARBI_SHELL, [-35,-155,0]],
+    ["hardwired-stop-interface-reserve", "", "cabinet-protection-kit", "fixed", ARBI_CORE, [35,-155,0]],
     ["pico-terminal-board", "pico-terminal-expansion-board", "pico-terminal-expansion-board", "fixed", cc_green, [-40,-190,0]],
     ["pico-motion-controller", "raspberry-pi-pico-2-w", "raspberry-pi-pico-2-w", "fixed", cc_green, [-40,-215,0]],
     ["controller-5v-converter", "controller-buck-converter-48v-5v", "controller-buck-converter-48v-5v", "fixed", cc_green, [-40,-190,-20]],
     ["signal-ground-terminals", "din-rail-ground-distribution-block", "din-rail-ground-distribution-block", "fixed", ARBI_CORE, [-40,-190,0]],
     ["edge-computer-reserved-space", "", "", "fixed", ARBI_METAL, [45,-190,0]],
-    ["bottom-field-terminal-envelopes-unselected", "", "", "fixed", ARBI_CORE, [0,-230,-20]],
-    ["bottom-cable-entry-envelopes-unselected", "", "", "fixed", ARBI_CORE, [0,0,-65]],
+    ["bottom-field-terminal-envelopes-unselected", "", "cabinet-installation-kit", "fixed", ARBI_CORE, [0,-230,-20]],
+    ["bottom-cable-entry-envelopes-unselected", "", "cable-gland-assortment", "fixed", ARBI_CORE, [0,0,-65]],
     ["open-service-door", "", "control-panel-enclosure", "cover", ARBI_SHELL, [-130,-80,0]],
     ["emergency-stop", "emergency-stop-switch", "emergency-stop-switch", "cover", [0.72,0.10,0.08], [-130,-80,0]]
 ];

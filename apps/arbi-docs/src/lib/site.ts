@@ -5,6 +5,7 @@ import { join } from "node:path";
 import { links } from "./format";
 import { numberAssemblies } from "./assembly-hierarchy";
 import { partCatalog } from "./part-catalog";
+import { isPulleyHeadPart, pulleyHeadModels } from "./corner-overview";
 import type { BomPart, Download, InventoryItem, MeshRef, Model, Scene, SceneMeta, ScenePart } from "./types";
 
 const DATA = join(process.cwd(), "public/data");
@@ -64,6 +65,8 @@ export type System = Assembly & {
     models: Model[];
     goods: string | null;
     doc: DocEntry | undefined;
+    /** A parts/scene subset whose BOM quantities retain their existing direct owner. */
+    presentationGroup?: true;
 };
 
 function load() {
@@ -90,6 +93,27 @@ function load() {
                 doc: site.docs.find((d) => d.path === a.documentation),
             };
         });
+    const corner = assemblies.find((assembly) => assembly.id === "corner-support-set");
+    if (corner) {
+        corner.description = "Four complete corner installations with pulley post heads, three ordinary winches and one powered winch, their positioning lines, posts and guying.";
+        const documentation = "docs/assemblies/corner-head/README.md";
+        assemblies.splice(assemblies.indexOf(corner) + 1, 0, {
+            ...corner,
+            id: "corner-head",
+            slug: "corner-head",
+            parentAssemblyId: corner.id,
+            name: "Pulley post head",
+            description: "Top pulley, post-mounted carriers, covers, fastening hardware and a separate line keeper with unresolved fit. Four heads guide the positioning lines above the winches; load and weather acceptance remain unvalidated.",
+            documentation,
+            doc: site.docs.find((entry) => entry.path === documentation),
+            models: pulleyHeadModels(models),
+            usages: corner.usages.filter((usage) => isPulleyHeadPart(usage.partId)),
+            goods: null,
+            presentationGroup: true,
+            scene: site.scenes["corner-head"] ?? corner.scene,
+        });
+        if (!scenes["corner-head"] && scenes[corner.slug]) scenes["corner-head"] = scenes[corner.slug];
+    }
     const systems = assemblies.filter((assembly) => assembly.parentAssemblyId === null);
     // Installed quantities come only from assembly scenes, never from part lineups.
     const instances = new Map<string, { scene: string; parts: ScenePart[] }>();
@@ -123,6 +147,24 @@ export const systemBySlug = (slug: string): System | undefined => {
     }
     return data().assemblies.find((s) => s.slug === slug);
 };
+
+/** Configured previews retain the assembly's direct parts and BOM ownership. */
+export function systemConfigurations(system: System) {
+    if (system.slug === "corner-station") {
+        return [
+            { slug: "corner-head", name: "Pulley post head", scene: systemBySlug("corner-head")?.scene ?? null },
+            { slug: "winch", name: "Winch set", scene: data().site.scenes.winch ?? null },
+        ];
+    }
+    if (system.slug === "winch" || system.slug === "winch-powered") {
+        return [
+            { slug: "winch", name: "Ordinary winch", scene: data().site.scenes.winch ?? null },
+            { slug: "winch-powered", name: "Powered winch", scene: data().site.scenes["winch-powered"] ?? null },
+        ];
+    }
+    return [{ slug: system.slug, name: system.name, scene: system.scene }];
+}
+
 export const installedCount = (id: string, slug?: string) => data().modelById.get(id)?.archiveReason ? null : slug
     ? data().scenes[slug]?.parts.filter((p) => p.model === id).length ?? null
     : data().instances.get(id)?.parts.length ?? null;

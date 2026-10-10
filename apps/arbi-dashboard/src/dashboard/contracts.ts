@@ -1,5 +1,5 @@
 import type { Capability } from "@arbi/gredice";
-import type { Event, Realm, Sample, Telemetry } from "@arbi/protocol";
+import type { CommissioningStatus, Event, Realm, Sample, Telemetry } from "@arbi/protocol";
 import type { AvailableRelease } from "../releases/catalog";
 
 export const DASHBOARD_VERSION = "arbi.dashboard/1.0";
@@ -23,6 +23,7 @@ export interface DashboardContext {
   state: DashboardState;
   configuration: { revision: string; schemaVersion: string } | null;
   releases?: AvailableRelease[];
+  commissioning?: CommissioningStatus | null;
 }
 export type DashboardResult = { ok: true; context: DashboardContext } |
   { ok: false; status: number; error: string };

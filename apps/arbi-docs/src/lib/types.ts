@@ -70,6 +70,7 @@ export type PrintEstimate = {
     materialId: string;
     materialName: string;
     materialUsages: (PrintMaterialCost & { color: string | null })[];
+    components: (PrintMaterialCost & { modelId: string; quantity: string; color: string | null })[];
     weightGrams: string;
     materialCost: string | null;
     note: string;

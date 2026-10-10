@@ -1,7 +1,7 @@
 import { AuthorizationError, bounded, capabilities, isResourceScope, sameRealm, SiteRequestBoundary } from "@arbi/gredice";
 import type { AuditAuthorization, GrediceIdentityAdapter, ResourceResolver } from "@arbi/gredice";
-import { validateMessage } from "@arbi/protocol";
-import type { Configuration } from "@arbi/protocol";
+import { validateCommissioningStatus, validateMessage } from "@arbi/protocol";
+import type { CommissioningStatus, Configuration } from "@arbi/protocol";
 import { DASHBOARD_VERSION } from "./contracts";
 import type { DashboardContext, DashboardSite, DashboardState } from "./contracts";
 import type { AvailableRelease } from "../releases/catalog";
@@ -16,6 +16,8 @@ export interface DashboardServerConfig {
   readState: (siteId: string, signal: AbortSignal) => Promise<DashboardState>;
   readConfiguration: (siteId: string, signal: AbortSignal) => Promise<Configuration | null>;
   readReleases?: (signal: AbortSignal) => Promise<AvailableRelease[]>;
+  /** Protected authoritative edge projection. Missing/offline composition stays unavailable. */
+  readCommissioning?: (siteId: string, signal: AbortSignal) => Promise<CommissioningStatus | null>;
 }
 export class DashboardServer {
   readonly boundary: SiteRequestBoundary;
@@ -70,13 +72,21 @@ export class DashboardServer {
           if (!this.config.readReleases) throw new Error("CATALOG_UNCONFIGURED");
           return this.config.readReleases(signal);
         }) : undefined;
+        let commissioning: CommissioningStatus | null = null;
+        if (view === "diagnostics" && allowed.includes("configuration.read") && this.config.readCommissioning) {
+          commissioning = await bounded(2000, signal => this.config.readCommissioning!(siteId, signal));
+          if (commissioning && (!validateCommissioningStatus(commissioning) || commissioning.siteId !== siteId ||
+            !sameRealm(commissioning.realm, authorized.realm) || commissioning.executionMode !== scope.executionMode)) throw new Error();
+        }
         // Slow storage/assembly must not outlive the original grant or a revoked current session.
         await this.config.identity.authorizeIdentity(principal, view === "diagnostics" ? "diagnostics.read" : "state.read", scope);
+        if (commissioning) await this.config.identity.authorizeIdentity(principal, "configuration.read", scope);
         if (authorized.expiresAtMs <= this.config.identity.now()) throw new AuthorizationError("EXPIRED_SESSION");
         const context: DashboardContext = { version: DASHBOARD_VERSION, realm: authorized.realm, executionMode: scope.executionMode, site, sites,
           identity: { actorId: authorized.actor.id, accountId: authorized.accountId, sessionId: authorized.sessionId, expiresAtMs: principal.expiresAtMs },
           capabilities: allowed, state, configuration: configuration ? { revision: configuration.revision, schemaVersion: configuration.schemaVersion } : null,
-          ...(releases ? { releases } : {}) };
+          ...(releases ? { releases } : {}),
+          ...(view === "diagnostics" ? { commissioning } : {}) };
         return Response.json(context);
       } catch (error) {
         const expired = error instanceof AuthorizationError && ["INVALID_CREDENTIAL", "REVOKED_SESSION", "EXPIRED_SESSION"].includes(error.code);

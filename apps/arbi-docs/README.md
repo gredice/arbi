@@ -15,7 +15,9 @@ Every page is statically generated at build time with the Next.js App Router:
 | `/docs`, `/docs/[...slug]` | `docs/**`, `hardware/**` and `bom/README.md` rendered from Markdown with repository links mapped to site routes |
 | `/downloads` | CAD release assets, archived committed booklet snapshots and per-model files with SHA-256 |
 
-System navigation follows `parentAssemblyId`: only physical roots appear in the contents and numbered system links. Winch variants remain available from the corner support page and share its system number. Parts keep their direct winch owner. Support and winch goods totals are shown separately, following [ADR-0010](../../docs/decisions/0010-corner-support-and-winch-line-ownership.md).
+System navigation follows `parentAssemblyId`: physical roots own the numbered system links. The cover contents and Systems overview display included subassemblies beneath each parent, with configured CAD previews and parts-inventory links. The same subassembly section sits immediately below the parent system's main 3D preview. The corner system's overview shows both the pulley post head and winch previews, and its description names the three ordinary winches and one powered winch. Overview counts include the complete system with duplicate model and BOM IDs removed; prices remain on detail/BOM pages.
+
+The [pulley post head](../../docs/assemblies/corner-head/README.md) has a `/systems/corner-head` presentation group using the existing corner-station CAD scene and a subset of its registered parts. It shares system number 01 with both winch variants. This group does not change direct BOM ownership, procurement quantities or source geometry. Parts keep their recorded direct owners, following [ADR-0010](../../docs/decisions/0010-corner-support-and-winch-line-ownership.md). Mobile navigation uses a Menu disclosure instead of a horizontally scrolling link strip; it closes after choosing a link, clicking outside or pressing Escape.
 
 The design is the selected "Manual + Ink" direction. White manual pages use heavy rules, condensed type and booklet-style line art. Exploded views sit in full-black sections that draw the same line art inverted, with each part's role readable: white shells in pure white, the charcoal core in neutral lighter gray, bought metal in mid gray.
 
@@ -81,6 +83,11 @@ The build needs no secrets. It reads the public GitHub release; set `ARBI_OFFLIN
 Compiler tests use `ARBI_DATA_DIR` to write to a temporary output directory
 without replacing the running site's `public/data`.
 
+Local reviews before a CAD release may set `ARBI_CAMERA_POD_PACK`,
+`ARBI_WINCH_PACK`, `ARBI_CORNER_SUPPORT_PACK` and `ARBI_DOCK_PACK` to checked
+assembly ZIPs alongside `ARBI_CAD_PREVIEW_PACK`. Each assembly pack must still
+match its current CAD and renderer sources. Production rejects these overrides.
+
 Every catalog item, including optional, planned and unallocated items, has a
 stable `/parts/<bom-part-id>` page and reciprocal `/bom/<bom-part-id>` link.
 Individual component model pages remain available. When a BOM ID also names an
@@ -110,6 +117,7 @@ vercel deploy /path/to/empty-dir --prod --scope gredice \
 ## Known gaps before the production site
 
 - A failed CAD release or site refresh retains the last successful production site; fix or rerun the failing workflow. New geometry cannot appear until CAD export and booklet checks pass. Historical committed snapshots are explicitly archived.
-- Only the camera pod and winch have assembly transforms. Other assemblies show a parts layout until a booklet or assembly reference exports transforms for them.
-- CSG reference assemblies have no browser mesh; their systems are shown from booklet meshes instead.
+- Camera pod, winch, pulley head and dock use source-checked booklet poses. The cabinet and mounted corner reference export explicit inspection scenes from canonical CAD; undeclared assemblies use a parts lineup.
+- The corner root shows an ordinary winch and proposed pulley head on one round post. Its wavy break omits middle length and the mounting heights are schematic. Pulley-head and ordinary/powered winch inspection views remain separate below it.
+- System BOMs expand print recipes into individual quantities and material estimates. CAD file counts include references, alternatives and coupons; BOM counts include kits. Required sets with unselected sourcing retain unresolved prices.
 - Renders and CAD checks are not physical evidence. Every model is still `concept-unvalidated`.

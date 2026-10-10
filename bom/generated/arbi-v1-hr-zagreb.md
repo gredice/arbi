@@ -11,7 +11,7 @@
 - Build: arbi-v1
 - Destination: hr-zagreb
 - Quote snapshot: hr-zagreb-2026-10-08-coupling
-- Input digest: sha256:4097a284a467ed4cf788a16513eaece97d6ad5400ee4e88f5fcf15c08f0b7344
+- Input digest: sha256:720ae0b21a89938e055f57c04f3a8ad405ec69f18ae6242cb8560af96dae3904
 - Complete landed total: **unavailable**
 - Known quoted goods subtotal: **EUR 943.84**
 - Known checkout-group shipping subtotal: **EUR 43.38**
@@ -151,9 +151,13 @@ aliexpress-hr: EUR 3.00 per item type (not per piece), order goods strictly belo
 | --- | ---: | --- | --- |
 | [bearing-608-2rs](parts/bearing-608-2rs.md) | 10 each | winch-set (10 each) | aliexpress-bearing-608-2rs |
 | [bulk-capacitor-1000uf](parts/bulk-capacitor-1000uf.md) | 2 each | camera-pod (2 each) | aliexpress-bulk-capacitor-1000uf |
+| [cabinet-installation-kit](parts/cabinet-installation-kit.md) | 1 each | control-cabinet (1 each) | unresolved |
+| [cabinet-protection-kit](parts/cabinet-protection-kit.md) | 1 each | control-cabinet (1 each) | unresolved |
 | [cable-gland-assortment](parts/cable-gland-assortment.md) | 1 each | shared-procurement-stock [non-physical] (1 each) | aliexpress-cable-gland-assortment |
 | [camera-gimbal](parts/camera-gimbal.md) | 1 each | camera-pod (1 each) | in-house-fabrication-camera-gimbal |
 | [camera-pod-chassis](parts/camera-pod-chassis.md) | 1 each | camera-pod (1 each) | in-house-fabrication-camera-pod-chassis |
+| [camera-pod-fastener-kit](parts/camera-pod-fastener-kit.md) | 1 each | camera-pod (1 each) | unresolved |
+| [camera-pod-wiring-kit](parts/camera-pod-wiring-kit.md) | 1 each | camera-pod (1 each) | unresolved |
 | [capsule-slip-ring-6x2a](parts/capsule-slip-ring-6x2a.md) | 1 each | winch-set (1 each) | aliexpress-capsule-slip-ring-6x2a |
 | [cl57y-v20-driver](parts/cl57y-v20-driver.md) | 4 each | winch-set (4 each) | stepperonline-4-axis-v2-kit |
 | [control-panel-enclosure](parts/control-panel-enclosure.md) | 1 each | control-cabinet (1 each) | kabel24-control-panel-enclosure |
@@ -213,6 +217,10 @@ aliexpress-hr: EUR 3.00 per item type (not per piece), order goods strictly belo
 
 ## Incompleteness warnings
 
+- Required part cabinet-installation-kit has no pinned offer.
+- Required part cabinet-protection-kit has no pinned offer.
+- Required part camera-pod-fastener-kit has no pinned offer.
+- Required part camera-pod-wiring-kit has no pinned offer.
 - Required part dock-bench-hardware has no pinned offer.
 - Required part dock-support-arm has no pinned offer.
 - Required part extension-spring-assortment has no pinned offer.

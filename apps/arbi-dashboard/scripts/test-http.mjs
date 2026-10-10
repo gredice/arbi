@@ -25,7 +25,7 @@ try {
   });
   clearTimeout(timer);
   for (const [method, path] of [["GET", "enrollment/inventory"], ["POST", "enrollment/challenge"],
-    ["POST", "media/upload"], ["POST", "media/complete"], ["POST", "images/synthetic-image/access"], ["GET", "images/synthetic-image/metadata"], ["POST", "audit/ingest"], ["POST", "jobs/acquire"], ["POST", "jobs/renew"], ["POST", "jobs/release"], ["POST", "jobs/revoke"], ["POST", "jobs/submit"], ["POST", "jobs/cancel"], ["GET", "jobs/status?jobId=synthetic-job"], ["POST", "jobs/device"], ["POST", "realtime/attach"], ["POST", "realtime/recover"], ["POST", "realtime/device"]]) {
+    ["POST", "media/upload"], ["POST", "media/complete"], ["POST", "images/synthetic-image/access"], ["GET", "images/synthetic-image/metadata"], ["POST", "audit/ingest"], ["POST", "jobs/acquire"], ["POST", "jobs/renew"], ["POST", "jobs/release"], ["POST", "jobs/revoke"], ["POST", "jobs/submit"], ["POST", "jobs/cancel"], ["GET", "jobs/status?jobId=synthetic-job"], ["POST", "jobs/device"], ["POST", "realtime/attach"], ["POST", "realtime/recover"], ["POST", "realtime/device"], ["GET", "telemetry/current"], ["GET", "telemetry/history"], ["GET", "telemetry/inventory"], ["POST", "telemetry/device"]]) {
     const response = await fetch(`http://127.0.0.1:${port}/api/sites/synthetic-site/${path}`, {
       method, signal: AbortSignal.timeout(5_000), ...(method === "POST" ? { headers: { "content-type": "application/json" }, body: "{}" } : {}),
     });
