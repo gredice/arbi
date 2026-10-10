@@ -59,12 +59,12 @@ test('booklet selection preserves the current enclosure and explicit bench alter
     assert.equal(result.status, 0, result.stderr || result.error?.message);
 });
 
-function fixture(t, mode = 'ok') {
+function fixture(t, mode = 'ok', concurrentStarts = 0) {
     const root = mkdtempSync(join(tmpdir(), 'arbi-cad-test-'));
     const events = join(root, 'events.jsonl');
     const executable = join(root, 'openscad');
     writeFileSync(executable, `#!${process.execPath}
-import { appendFileSync, writeFileSync } from 'node:fs';
+import { appendFileSync, readFileSync, writeFileSync } from 'node:fs';
 import { basename } from 'node:path';
 if (process.argv.includes('--version')) {
     console.error('OpenSCAD version 2021.01');
@@ -73,6 +73,12 @@ if (process.argv.includes('--version')) {
     const id = basename(output);
     const record = (event) => appendFileSync(process.env.CAD_TEST_EVENTS, JSON.stringify({ event, id, output }) + '\\n');
     record('start');
+    // Synchronize this concurrency probe instead of depending on process startup speed.
+    const deadline = Date.now() + 5000;
+    while (readFileSync(process.env.CAD_TEST_EVENTS, 'utf8').split('\\n').filter(line => line && JSON.parse(line).event === 'start').length < ${concurrentStarts}) {
+        if (Date.now() > deadline) throw new Error('Workers did not start concurrently');
+        await new Promise(resolve => setTimeout(resolve, 5));
+    }
     await new Promise(resolve => setTimeout(resolve, id.startsWith('slow') ? 250 : 40));
     const bad = id.startsWith('bad');
     const mode = process.env.CAD_TEST_MODE;
@@ -113,7 +119,7 @@ test('jobs accepts positive integers and rejects malformed or duplicate flags', 
 });
 
 test('parallel compilation covers every output once and respects the worker limit', async t => {
-    const f = fixture(t);
+    const f = fixture(t, 'ok', 3);
     const output = join(f.root, 'output');
     const models = registry('a', 'b', 'c', 'd', 'e', 'f', 'g');
     await compileModels(models, 'test compiler', output, 3);

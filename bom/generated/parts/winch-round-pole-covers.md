@@ -48,7 +48,7 @@ Build arbi-v1; batch represents 1 BOM unit(s). Optional covers for one round-pol
 
 | Model | Copies in batch | Material / colour | Solid volume per copy |
 | --- | ---: | --- | ---: |
-| winch-pole-nut-cover r0.1.0 | 2 | Bambu Lab PETG Matte / white | 44.800318 cm³ |
+| winch-pole-nut-cover r0.1.0 | 2 | Bambu Lab PETG Matte / white | 44.800315 cm³ |
 | winch-pole-nut-cover-bottom r0.1.0 | 2 | Bambu Lab PETG Matte / white | 16.878400 cm³ |
 | winch-pole-cable-guide r0.1.0 | 1 | Bambu Lab ASA / black | 9.881734 cm³ |
 
@@ -58,7 +58,7 @@ Selected recipe consumption:
 | --- | --- | ---: | ---: |
 | [Bambu Lab ASA](https://eu.store.bambulab.com/products/asa-filament) / black | 24.99 EUR / 1000 g; single spool | 10.376 g | 0.26 EUR |
 | [Bambu Lab PETG Matte](https://eu.store.bambulab.com/products/petg-matte?id=775952393450868758) / white | 11.39 EUR / 1000 g; 10+ eligible mixed rolls | 169 g | 1.92 EUR |
-| **Selected recipe total** | | **179.376 g** | **2.18 EUR** |
+| **Selected recipe total** | | **179.375 g** | **2.18 EUR** |
 
 Comparisons below assume every component uses the same material; the selected mixed recipe above is costed separately.
 
