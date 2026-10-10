@@ -34,6 +34,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     return (
         <html lang="en" className={`${archivo.variable} ${plexMono.variable}`}>
             <body className="flex min-h-dvh flex-col">
+                {process.env.VERCEL_ENV === "preview" && <div role="status" className="bg-ink px-4 py-2 text-paper">NONPRODUCTION PREVIEW · Source review only · No device installation authority</div>}
                 <HashRedirect />
                 <header className="sticky top-0 z-40 shrink-0 border-b-2 border-ink bg-paper text-ink">
                     <div className="flex h-14 items-center gap-6 px-4 sm:px-6">

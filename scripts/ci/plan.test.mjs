@@ -76,7 +76,7 @@ test('versioned release tooling selects all required artifacts and website tests
 test('reverse dependency graph includes consumers, never unrelated packages', () => {
     assert.deepEqual(names(select('apps/arbi-dashboard/src/jobs/worker.ts')), ['@arbi/dashboard']);
     assert.deepEqual(names(select('apps/arbi-edge-controller/src/cli.ts')), ['@arbi/dashboard', '@arbi/edge-controller']);
-    assert.deepEqual(names(select('packages/arbi-gredice/src/index.ts')), ['@arbi/dashboard', '@arbi/gredice']);
+    assert.deepEqual(names(select('packages/arbi-gredice/src/index.ts')), ['@arbi/dashboard', '@arbi/edge-controller', '@arbi/gredice']);
     assert.deepEqual(names(select('packages/arbi-traffic/src/index.ts')), ['@arbi/dashboard', '@arbi/edge-controller', '@arbi/traffic']);
     assert.deepEqual(names(select('packages/arbi-audit/src/index.ts')), ['@arbi/audit', '@arbi/dashboard', '@arbi/edge-controller']);
     assert.deepEqual(names(select('packages/arbi-simulation-core/src/index.ts')), ['@arbi/dashboard', '@arbi/edge-controller', '@arbi/simulation-core']);
@@ -184,13 +184,14 @@ test('Git detection covers full pushes, PR merge bases, deletions, renames and f
 
 test('required gate rejects failed, cancelled, unknown and unexpected skipped work', () => {
     const needs = {
-        changes: { result: 'success', outputs: { workspace: 'true', bom: 'false', cad: 'false', previews: 'false', booklets: 'false', recovery: 'false' } },
+        changes: { result: 'success', outputs: { workspace: 'true', bom: 'false', cad: 'false', previews: 'false', booklets: 'false', recovery: 'false', software: 'false' } },
         repository: { result: 'success' },
         workspace: { result: 'success' },
         bom: { result: 'skipped' }, cad: { result: 'skipped' }, previews: { result: 'skipped' }, booklets: { result: 'skipped' }, recovery: { result: 'skipped' },
+        software: { result: 'skipped' },
     };
     assert.doesNotThrow(() => checkResults(needs));
-    for (const job of ['changes', 'repository', 'workspace', 'bom', 'cad', 'previews', 'booklets', 'recovery']) {
+    for (const job of ['changes', 'repository', 'workspace', 'bom', 'cad', 'previews', 'booklets', 'recovery', 'software']) {
         for (const result of ['failure', 'cancelled', 'unknown']) assert.throws(() => checkResults({ ...needs, [job]: { ...needs[job], result } }));
     }
     assert.throws(() => checkResults({ ...needs, workspace: { result: 'skipped' } }));
@@ -198,6 +199,16 @@ test('required gate rejects failed, cancelled, unknown and unexpected skipped wo
         assert.throws(() => checkResults({ ...needs, changes: { ...needs.changes, outputs: { ...needs.changes.outputs, cad: selection } } }));
     }
     assert.throws(() => checkResults({ ...needs, changes: { ...needs.changes, outputs: { ...needs.changes.outputs, cad: 'true' } } }));
+});
+
+test('only implemented affected executables enter the artifact matrix', () => {
+    assert.equal(select('apps/arbi-dashboard/src/app/page.tsx').software, false);
+    assert.equal(select('docs/README.md').software, false);
+    for (const path of ['apps/arbi-edge-controller/src/cli.ts', 'packages/arbi-protocol/src/release.ts', 'pnpm-lock.yaml', 'scripts/software-release/publish.mjs']) {
+        const result = select(path);
+        assert.equal(result.software, true);
+        assert.deepEqual(result.software_matrix.include, [{ id: 'edge', workspace: '@arbi/edge-controller', runner: 'ubuntu-24.04' }]);
+    }
 });
 
 

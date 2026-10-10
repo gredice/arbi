@@ -5,7 +5,7 @@ import type { DashboardContext, DashboardMode, DashboardResult } from "./contrac
 import { Brand } from "./brand";
 
 const sections = [{ id: "overview", name: "Overview", icon: "◫" }, { id: "devices", name: "Devices", icon: "◇" },
-  { id: "images", name: "Images", icon: "▧" }, { id: "activity", name: "Activity", icon: "≋" }, { id: "live", name: "Live readiness", icon: "○" }, { id: "diagnostics", name: "Diagnostics", icon: "⌁" }];
+  { id: "images", name: "Images", icon: "▧" }, { id: "releases", name: "Releases", icon: "↓" }, { id: "activity", name: "Activity", icon: "≋" }, { id: "live", name: "Live readiness", icon: "○" }, { id: "diagnostics", name: "Diagnostics", icon: "⌁" }];
 export function DashboardShell({ siteId, mode, section, initial }: { siteId: string; mode: DashboardMode; section: string; initial: DashboardResult }) {
   const [result, setResult] = useState(initial);
   const [now, setNow] = useState(() => Date.now());
@@ -34,7 +34,7 @@ export function DashboardShell({ siteId, mode, section, initial }: { siteId: str
     setResult({ ok: false, status: 0, error: "LOADING" }); setLoading(true);
     const timeout = setTimeout(() => controller.abort(), 5000);
     try {
-      const response = await fetch(`/api/sites/${encodeURIComponent(siteId)}/dashboard/${section === "diagnostics" ? "diagnostics" : "context"}`, { cache: "no-store", signal: controller.signal });
+      const response = await fetch(`/api/sites/${encodeURIComponent(siteId)}/dashboard/${["diagnostics", "releases"].includes(section) ? section : "context"}`, { cache: "no-store", signal: controller.signal });
       const body = await response.json();
       if (controller.signal.aborted) return;
       if (response.ok && (body.version !== DASHBOARD_VERSION || body.site?.id !== siteId ||
@@ -84,6 +84,8 @@ function reading(sample: NonNullable<DashboardContext["state"]["telemetry"]>["bo
   return <>{value.value === null ? "Unavailable" : `${Number(value.value.toFixed(1))} ${value.unit}`}<small className="quality">{value.quality}{value.originQuality ? ` (was ${value.originQuality})` : ""}</small></>;
 }
 function Section({ context, section, now }: { context: DashboardContext; section: string; now: number }) {
+  if (section === "releases") return <div className="panel"><h2>Available releases</h2><p>Publishing makes a release available. Devices keep their installed versions until a separately authorized update.</p>
+    {!context.releases?.length ? <p>No verified releases are available.</p> : <div className="table-wrap"><table><caption>Verified simulation application releases</caption><thead><tr><th>Target</th><th>Version</th><th>Commit</th><th>Status</th></tr></thead><tbody>{context.releases.map(release => <tr key={release.manifest.releaseId}><th scope="row">{release.manifest.target.moduleId}</th><td>{release.manifest.build.version}</td><td><code>{release.manifest.build.commit.slice(0, 12)}</code></td><td>Available · Simulation only</td></tr>)}</tbody></table></div>}</div>;
   if (section === "diagnostics") return <div className="panel"><p className="eyebrow">Engineering context</p><h2>Commissioning</h2>
     {context.commissioning ? <><p>{context.commissioning.ready ? "Configuration reconciled" : `Blocked: ${context.commissioning.blockedReason}`}</p><dl>
       <dt>Active configuration</dt><dd>{context.commissioning.active?.revision ?? "None"}</dd>

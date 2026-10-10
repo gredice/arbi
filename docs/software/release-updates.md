@@ -44,7 +44,7 @@ A manifest identifies release/build/version/40-hex source commit, artifact ID, S
 
 `produceRelease` signs a domain-separated canonical SHA-256 of the entire manifest, with the signature value zeroed. The key ID remains included. Canonical JSON ordering is the [configuration digest](configuration.md) convention. Signatures therefore bind target, build, dependencies, channel, configuration and artifact identity together. `verifyReleaseArtifact` separately checks exact bytes and signature using a caller-supplied trusted public-key binding. Structural signature validity alone is not authenticity; a digest alone is not authentication. Fixture zero signatures intentionally have no authenticity.
 
-Publication makes a release **available** only. It does not establish authorization, download, boot, health or installation. Production immutability/retention, trusted key provisioning/revocation and release channel enforcement belong to [#33](https://github.com/gredice/arbi/issues/33) and [#74](https://github.com/gredice/arbi/issues/74), outside this reference producer.
+Publication makes a release **available** only. It does not establish authorization, download, boot, health or installation. [The gated software publication prototype](software-publication.md) implements immutable simulation-only Linux candidate publication and catalog verification; live operator setup remains unverified. Trusted key provisioning/revocation and broader release channel enforcement remain [#74](https://github.com/gredice/arbi/issues/74), outside this reference producer.
 
 ## Mixed versions and configuration migration
 

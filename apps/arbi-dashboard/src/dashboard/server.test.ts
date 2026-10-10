@@ -91,6 +91,23 @@ test("stale readings retain provenance; no-device and offline status are explici
     const offline = await (await f.provider.server.handle(f.request("synthetic-offline"), "synthetic-offline")).json(); assert.equal(offline.state.connection, "offline");
   } finally { await f.pg.close(); }
 });
+
+test("catalog reads are site-authorized and leave observed installed device state unchanged", async () => {
+  const f = await fixture(); let reads = 0;
+  try {
+    const before = await (await f.provider.server.handle(f.request(), "synthetic-site")).json() as DashboardContext;
+    const server = new DashboardServer({ ...f.provider.server.config,
+      readState: async () => structuredClone(before.state), readReleases: async () => { reads++; return []; } });
+    const forbidden = await server.handle(f.request("other-site"), "other-site", "releases");
+    assert.equal(forbidden.status, 403); assert.equal(reads, 0);
+    const response = await server.handle(f.request(), "synthetic-site", "releases");
+    assert.equal(response.status, 200);
+    const after = await response.json() as DashboardContext;
+    assert.deepEqual(after.state, before.state); assert.deepEqual(after.configuration, before.configuration);
+    assert.deepEqual(after.releases, []); assert.equal(reads, 1);
+    assert.equal((await server.handle(new Request("http://localhost/", { method: "POST", headers: { authorization: `Bearer ${f.token}` } }), "synthetic-site", "releases")).status, 403);
+  } finally { await f.pg.close(); }
+});
 test("engineering diagnostics reads scoped commissioning identities and blocks malformed or cross-site projections", async () => {
   const f = await fixture();
   try {
