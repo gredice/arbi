@@ -3,13 +3,32 @@ from pathlib import Path
 import argparse
 import hashlib
 import json
+import posixpath
+import re
 import zipfile
 
 from PIL import Image, ImageChops
 from pypdf import PdfReader
 
 
+def check_pack_dependencies(pack):
+    """Every copied SCAD include must resolve inside the actual portable ZIP."""
+    names = set(pack.namelist())
+    for name in sorted(names):
+        if '/source/' not in name or not name.endswith('.scad'):
+            continue
+        source = pack.read(name).decode('utf-8')
+        for include in re.findall(r'^\s*(?:include|use)\s*<([^>]+)>', source, re.M):
+            dependency = posixpath.normpath(posixpath.join(posixpath.dirname(name), include))
+            assert dependency in names, f'Missing packed SCAD dependency: {name} -> {include}'
+
+
 def check(root, variant):
+    artifact = {'winch': 'ARBI-winch', 'bench': 'ARBI-camera-pod-bench',
+                'enclosure': 'ARBI-camera-pod-enclosure', 'corner': 'ARBI-corner-support',
+                'dock': 'ARBI-dock'}[variant]
+    with zipfile.ZipFile(root / (artifact + '-STL-pack.zip')) as pack:
+        check_pack_dependencies(pack)
     if variant in ['corner', 'dock']:
         import importlib.util
         spec = importlib.util.spec_from_file_location('corner_check', Path(__file__).parent/('corner-support/check.py' if variant == 'corner' else 'dock-booklet/check.py'))

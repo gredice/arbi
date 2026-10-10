@@ -99,7 +99,9 @@ attached child, follow BOSL2's `diff()`/tag rules and recheck the Boolean result
 license and source hashes before compiling the registry. Changes to anything in
 `hardware/vendor/` select CAD, previews and all five booklet variants in CI.
 Release provenance and portable source packs include the library, this guide,
-the manifest and its license. Packed copies use relative includes too.
+the manifest and its license. Packed copies use relative includes too. The
+booklet checker verifies that every copied SCAD include resolves within its ZIP;
+missing library files or transitive dependencies fail the build.
 
 For an upgrade, download a tagged upstream archive into a temporary directory,
 verify the tag's commit and record the archive checksum. Replace all vendored

@@ -49,6 +49,11 @@ test('vendor sources, version manifest and license select every CAD consumer', (
     }
 });
 
+test('the bench source referenced in the winch snapshot regenerates that pack', () => {
+    assert.deepEqual(variants(select('hardware/assemblies/camera-pod/camera-pod-spider.scad')),
+        ['winch', 'bench', 'enclosure', 'dock']);
+});
+
 test('BOM edits run canonical reports and BOM tests, with CAD only for part mappings', () => {
     const offers = select('bom/catalog/offers.json');
     assert.deepEqual(names(offers), ['@arbi/bom', '@arbi/docs']);

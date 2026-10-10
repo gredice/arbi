@@ -204,6 +204,7 @@ def build(out):
         references = work/'models/reference'
         sources = [ROOT/'hardware/models.json', ROOT/'bom/catalog/parts.json', ROOT/'bom/assemblies/assemblies.json',
                    ROOT/'hardware/lib/arbi.scad', LIB, ROOT/'hardware/lib/corner-head.scad',
+                   ROOT/'hardware/lib/catalog-visualizations.scad',
                    Path(__file__).resolve(), ROOT/'scripts/corner-support/check.py', ROOT/'scripts/corner-support/README.md',
                    ROOT/'hardware/lib/winch-pole.scad', ROOT/'hardware/lib/winch-mount.scad', ROOT/'hardware/lib/winch-drum.scad',
                    ROOT/'hardware/assemblies/winch/round-pole.md', ROOT/'hardware/assemblies/winch/full-cover.md',
