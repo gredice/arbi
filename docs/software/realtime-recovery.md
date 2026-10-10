@@ -52,6 +52,73 @@ Recovery consumes the **merged signed command-job poll** independently, preservi
 
 [@arbi/traffic](../../packages/arbi-traffic/README.md) counts actual attempted HTTP JSON submissions and received chunks, including failed submissions and oversized/discarded responses. The SDK publisher carries the original bounded JSON hint string; the subscriber meters its decoded original string bytes before parsing. This covers application notification payload, not SDK/WebSocket framing, SDK authentication/heartbeat wire bytes, TLS, DNS, TCP retries or provider billing. Those remain unclassified/separate interface/provider coverage. Every repeated submission is a distinct attempt. Fixture paths are `lan`; loopback cannot claim `garden-sim` or cellular billing. No new traffic rollup/sink or recording support is added. Strict accounting capacity can deny this discretionary recovery path; local fault/stop paths do not consult it.
 
+## Browser subscription and recovery
+
+The opt-in [browser consumer](../../apps/arbi-dashboard/src/realtime/browser-consumer.ts),
+[HTTPS adapter](../../apps/arbi-dashboard/src/realtime/browser-http.ts) and
+[Ably browser SDK adapter](../../apps/arbi-dashboard/src/realtime/browser-ably.ts)
+complete the browser transport boundary. They are app-owned libraries, with no
+Node imports or actuator/job dispatch callback. The dashboard shell does not
+install a broker or invent a credential. Trusted composition must supply the
+current dedicated ARBI bearer callback and explicitly configured server above;
+the existing HttpOnly dashboard session is not exported to browser JavaScript.
+Cookie/BFF integration and operational presentation remain with the dashboard
+owner.
+
+Construct one `BrowserTraffic`, share it between `BrowserHttpsRecovery` and
+`AblyBrowserSubscription`, then pass those adapters and the expected realm/site
+to `BrowserRecoveryConsumer`. HTTPS uses only the configured origin, omits
+cookies, rejects redirects, and retrieves a current bearer for every request.
+Only explicit test/preview simulation realms are accepted. Local HTTP is allowed
+only with the adapter's explicit loopback fixture option. Admission validates
+the exact site/realm/channel/client binding, subscribe-only capability, token
+expiry and original grant expiry before opening the SDK. The SDK has no issuing
+key, automatic credential refresh, publishing queue or presence capability.
+
+The caller owns a single timer (a 500 ms `step()` cadence suffices), page
+visibility, site/session changes and rendering. `step()` ignores overlapping
+callers and honors `nextAt`; there is one operation and one bounded current
+snapshot. Call `close()` and clear the timer on page/site/session teardown.
+Closing aborts HTTP and SDK opening, releases the subscription and clears the
+snapshot. Late responses or attachment completion cannot restore a closed page.
+Share the traffic budget across replacement consumers within the same page;
+server admission budgets remain authoritative across pages and cloud instances.
+
+Duplicate/reordered hints retain no queue. They request a read after at least
+500 ms; a hint arriving during a read is retained as a coalesced dirty signal.
+The 2.5-second HTTPS heartbeat recovers dropped hints. Replay pages must be
+contiguous, correctly scoped and consistent with the epoch/cursor. Invalid replay
+discards the cursor; a server retention/epoch reset supplies a current snapshot.
+At most four catch-up pages precede a snapshot request. Snapshots contain only
+the bounded current view; the caller must preserve report provenance/freshness
+when displaying state. No replay invokes a command API.
+
+The browser permits at most eight admissions and 60 HTTP calls/minute, 64 KiB
+per response and 2 MiB/minute of attempted application bytes across HTTPS and
+broker hints. HTTPS has a four-second deadline covering credential acquisition,
+submission and streamed body reading. Attempted request JSON/bearer bytes and
+received chunks count even on failure, denial or overflow; broker payload bytes
+count before parsing. Totals explicitly exclude HTTP/SDK framing, SDK auth and
+heartbeat wire bytes, TLS, DNS, WAN retransmissions and provider billing. The
+browser counters do not replace the edge's durable mobile accounting.
+
+Broker opening failure retains the authorized grant for bounded HTTPS recovery,
+with visible `degraded` status. Established connection loss/discontinuity, token
+expiry or original grant expiry requires a new audited admission. Retry delay
+uses exponential backoff with jitter capped at 60 seconds; capacity exhaustion
+waits for the next minute window. A 401/403 clears state and enters `denied` until
+the caller explicitly creates a newly authorized composition. Short human
+directory-freshness deadlines can exhaust the existing persistent admission
+budget even without network churn; limits remain binding and must be measured
+and reviewed at the external gate, not bypassed by SDK token renewal.
+
+[Unit checks](../../apps/arbi-dashboard/src/realtime/browser.test.ts) run in the
+ordinary dashboard suite. The [Chromium integration check](../../apps/arbi-dashboard/browser/realtime.spec.ts)
+runs under the existing `test:browser` launcher with native PostgreSQL and the
+installed browser SDK. Its HTTP/module host, identities and broker transport are
+test-only fixtures. [Dated evidence](../evidence/realtime-recovery.md#browser-source-and-host-evidence--10-october-2026)
+keeps those checks separate from live provider/mobile acceptance.
+
 ## External acceptance gate
 
 Before closing #29, provision isolated nonproduction Ably (revocable issuing keys), Neon/PostgreSQL and Vercel/current identity adapters without production credentials; run the maintenance scheduler and at least two cloud instances. Verify original token expiry, provider subscription revocation/rotation, database role/restore/epoch behavior, deployment churn, quotas, broker downtime, slow consumers and repeated reconnects on an actual mobile network. Record application, transport/WAN and provider layers separately and preserve budgets. No secrets are requested in chat. Real Ably account/mobile tests, live deployment, Linux selected-host storage/power-loss, bench/HIL, installed operation and physical safety acceptance remain unverified. #68 recording remains disabled; live media, dashboard UI, local job policy and updates belong to their owners.
