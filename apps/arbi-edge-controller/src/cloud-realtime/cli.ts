@@ -21,7 +21,7 @@ try {
     maxRecords:2048,maxBytes:16777216,maxPages:8192,maxCounters:1});
   const meter=new ApplicationMeter(spool,() => stamp(config.identity.bootId));
   const api=new HttpsRecoveryApi({...config,key},meter,{realm:config.realm,siteId:config.siteId,executionMode:'simulation',source:config.identity,boundary:config.boundary,linkId:'cloud-recovery'});
-  consumer=new RecoveryConsumer(config,api,new AblySubscription(undefined,{meter,spec:api.spec('download','telemetry')}));
+  consumer=new RecoveryConsumer(config,api,new AblySubscription(undefined,{meter,spec:api.spec('download','telemetry')},api.traffic));
   timer=setInterval(() => {void consumer!.step();},250);
   const stop=() => {clearInterval(timer);consumer?.close();spool?.close();};
   process.once('SIGTERM',stop);process.once('SIGINT',stop);

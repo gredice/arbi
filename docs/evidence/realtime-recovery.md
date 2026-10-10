@@ -77,3 +77,73 @@ freshness and persistent eight-admission budget can throttle continuous browser
 renewal; they remain enforced and need measured acceptance/review. No live
 Gredice, Ably, Neon/Vercel realtime deployment, actual cellular use, provider
 revocation latency or physical operation is established by these checks.
+
+## Edge reconnect and traffic hardening — 11 October 2026
+
+Baseline: `63f75b9` on current main; tested source accompanies this record.
+Configuration: Debian 13 development container, Node 24.19.0, pinned pnpm
+11.5.2, Ably SDK 2.29.0, native PostgreSQL 16.14 and Playwright 1.58.2's
+Chromium 145.0.7632.6. Reviewer: implementation self-review and executed
+assertions. All accounts, identities, keys, sites and broker transports are
+synthetic fixtures. No live provider credentials or mobile network are present.
+
+The [edge recovery suite](../../apps/arbi-edge-controller/src/cloud-realtime/recovery.test.ts)
+now has ten passing checks. A replay gap is followed by a successful fresh
+snapshot; it cannot pin subsequent reconnects to the rejected cursor. Closing
+during admission, SDK opening, recovery or job polling aborts the adapter and
+cannot resurrect a subscription, snapshot or job count. Slow failed operations
+start backoff after settlement. Old subscription callbacks cannot wake a new
+grant. Invalid site/channel/capability/expiry claims never open the broker or
+poll jobs. Broker opening failure keeps bounded HTTPS recovery visibly degraded.
+The earlier provider token expiry closes an otherwise unexpired grant.
+
+Actual SDK WebSocket fixtures cover cancellation and missing attachment replies.
+An oversized discarded hint is metered before filtering, closes the subscription
+when the shared HTTPS/broker byte budget is exhausted and blocks a subsequent
+HTTP attempt. HTTP cancellation bounds an uncooperative submission and a stalled
+body read; 100 retries cannot accumulate additional orphan submissions. A late
+response body is cancelled. The budget resets only at its next minute window.
+The original failed/oversized transfer accounting assertions remain intact.
+
+The [browser unit suite](../../apps/arbi-dashboard/src/realtime/browser.test.ts)
+adds a seventh passing check for delayed callbacks during backoff and after grant
+replacement. Eight Chromium integration checks and all 19 native PostgreSQL
+checks pass, including the independent cloud/edge process test, persisted routing,
+site isolation, slow-consumer budgets, event gaps and deployment epoch changes.
+The ordinary built HTTP launcher also passes with unconfigured boundaries denied.
+These are host fixtures, not live Ably/Vercel/Neon or actual mobile measurements.
+
+Passed commands (using the pinned package manager through `corepack pnpm`):
+
+```text
+pnpm docs:check
+pnpm lint --filter @arbi/edge-controller --filter @arbi/dashboard --concurrency=1
+pnpm typecheck --filter @arbi/edge-controller --filter @arbi/dashboard --concurrency=1
+pnpm build --filter @arbi/edge-controller --concurrency=1
+node --test apps/arbi-edge-controller/dist/cloud-realtime/recovery.test.js
+pnpm build --filter @arbi/dashboard --concurrency=1
+pnpm --filter @arbi/dashboard test:postgres
+pnpm --filter @arbi/dashboard test:browser
+pnpm --filter @arbi/dashboard test:http
+git diff --check
+```
+
+The container lacks PostgreSQL and cannot install system packages as its
+unprivileged user. Test-only PostgreSQL 16.14 binaries from
+`@embedded-postgres/linux-x64@16.14.0-beta.17` were unpacked under `/tmp`, with
+library SONAME links, a `pg_config --bindir` shim and command-local PATH/library
+selectors. The unchanged launchers still create and remove their own real native
+socket-only clusters. No dependency or launcher changes are committed.
+
+The full edge suite's existing Linux service test fails locally with
+`spawnSync /usr/bin/node ENOENT`; this container's Node resides elsewhere. The
+repository CI already provisions that exact service runtime path before running
+the unmodified assertion. Its complete result remains required before merge.
+The recovery tests use a consistent injected clock for token and heartbeat
+fixtures; their original catch-up/admission assertions are preserved.
+
+The [external acceptance gate](../software/realtime-recovery.md#external-acceptance-gate)
+remains open under #29: isolated live revocable Ably keys, current identity and
+Neon/Vercel composition, maintenance scheduling, two deployed cloud instances,
+measured actual mobile reconnect/revocation/quotas and transport/provider layers.
+No actuator dispatch, physical acceptance or live-provider claim is added.
