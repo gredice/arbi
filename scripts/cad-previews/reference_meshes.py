@@ -23,7 +23,7 @@ def export_component(task):
     geometry, source, mesh = task
     source.write_text(geometry + "\n", encoding="utf-8")
     result = subprocess.run(["openscad", "-o", str(mesh), str(source)],
-                            capture_output=True, text=True, timeout=120, check=True)
+                            capture_output=True, text=True, timeout=300, check=True)
     diagnostics = "\n".join([result.stdout, result.stderr])
     if re.search(r"\b(?:ERROR|WARNING):", diagnostics):
         raise ValueError(f"{source.name} emitted OpenSCAD diagnostics:\n{diagnostics}")
