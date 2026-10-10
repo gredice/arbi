@@ -1,6 +1,6 @@
 # Pulley post head
 
-The pulley post head is the top-mounted subassembly of the [corner support set](../corner-station/README.md). Four heads guide the positioning lines above the three ordinary winches and one powered winch. The head contains the pulley, post-mounted carriers, line keeper, covers, adapters and fastening hardware.
+The pulley post head is the top-mounted subassembly of the [corner support set](../corner-station/README.md). Four heads guide the positioning lines above the three ordinary winches and one powered winch. The head contains the pulley, post-mounted carriers, covers, adapters and fastening hardware. A separate line keeper is specified but remains unresolved and is not fitted to the received pulley; the covers do not close the pulley side gaps.
 
 The current [printed-head design package](../corner-station/design-package.md) supplies the assembled and exploded CAD preview, hardware stack and assembly sequence. The [geometry record](../corner-station/geometry-check.md), [load-study note](../corner-station/printed-load-study.md) and [acceptance record](../corner-station/acceptance-record.md) describe the source checks and remaining physical work. Historical metal-head alternatives remain separate configurations.
 

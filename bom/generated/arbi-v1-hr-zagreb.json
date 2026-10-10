@@ -6,7 +6,7 @@
   "destinationId": "hr-zagreb",
   "destinationName": "Zagreb, Croatia",
   "quoteSnapshotId": "hr-zagreb-2026-10-08-coupling",
-  "inputDigest": "sha256:7fd02feee93cd8c22b86b986ed509b2ca0bdef1a82c24225915c1892ef1f493f",
+  "inputDigest": "sha256:720ae0b21a89938e055f57c04f3a8ad405ec69f18ae6242cb8560af96dae3904",
   "reportCurrency": "EUR",
   "complete": false,
   "completeLandedTotal": null,
@@ -2775,7 +2775,7 @@
       "partId": "corner-head-weather-kit",
       "required": "1",
       "basis": "solid-volume-estimate",
-      "materialId": "asa",
+      "materialId": "petg-matte",
       "materialName": "PETG Matte",
       "materialUsages": [
         {
@@ -2846,7 +2846,7 @@
       "weightGrams": "401.591",
       "materialCost": "4.57",
       "currency": "EUR",
-      "note": "Optional concept set; excluded from the purchasing baseline. ASA is a costing assumption using the recorded single-spool rate, not a qualified structural material or chosen print process. Fully dense CAD consumption only; physical fit, load, creep and manufacturing labour remain unresolved. Historical metal-head shields, printed carriers and stand adapters are separate alternatives. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "note": "Optional historical metal-head shield set; excluded from the purchasing baseline. PETG Matte White is the material consumption costing assumption using the recorded bulk rate, not a qualified weather material or chosen print process. Fully dense CAD consumption only; physical fit, weather performance and manufacturing labour remain unresolved. Printed carriers and stand adapters are separate alternatives. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
       "alternatives": [
         {
           "materialId": "pla",

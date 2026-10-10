@@ -1,20 +1,12 @@
 import Link from "next/link";
 import { data, modelsForBomPart, type System } from "@/lib/site";
 import { fmt } from "@/lib/format";
+import { descendantIds } from "@/lib/corner-overview";
 
 /** Direct owners and descendants share one deduplicated BOM, including kit contents. */
 export function SystemBom({ system }: { system: System }) {
     const { assemblies, bomById } = data();
-    const included = new Set([system.id]);
-    for (let changed = true; changed;) {
-        changed = false;
-        for (const owner of assemblies) {
-            if (owner.parentAssemblyId && included.has(owner.parentAssemblyId) && !included.has(owner.id)) {
-                included.add(owner.id);
-                changed = true;
-            }
-        }
-    }
+    const included = descendantIds(system.id, assemblies);
     const partIds = [...new Set(assemblies.filter((owner) => included.has(owner.id)).flatMap((owner) => owner.usages.map((usage) => usage.partId)))];
     const parts = partIds.map((id) => bomById.get(id)!);
     const pending = parts.filter((part) => part.knownGoods === null && (part.printEstimate ?? part.printReference)?.materialCost == null).length;

@@ -17,9 +17,9 @@ type OverviewAssembly = {
     usages: { partId: string }[];
 };
 
-/** Count unique parts across a system and its descendants, including display groups. */
-export function overviewCounts(system: OverviewAssembly, assemblies: OverviewAssembly[]) {
-    const included = new Set([system.id]);
+/** Physical children and display groups use the same descendant selection. */
+export function descendantIds(id: string, assemblies: Pick<OverviewAssembly, "id" | "parentAssemblyId">[]) {
+    const included = new Set([id]);
     for (let changed = true; changed;) {
         changed = false;
         for (const assembly of assemblies) {
@@ -29,6 +29,12 @@ export function overviewCounts(system: OverviewAssembly, assemblies: OverviewAss
             }
         }
     }
+    return included;
+}
+
+/** Count unique parts across a system and its descendants, including display groups. */
+export function overviewCounts(system: OverviewAssembly, assemblies: OverviewAssembly[]) {
+    const included = descendantIds(system.id, assemblies);
     const owners = assemblies.filter((assembly) => included.has(assembly.id));
     return {
         models: new Set(owners.flatMap((assembly) => assembly.models.map((model) => model.id))).size,

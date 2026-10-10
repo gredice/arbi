@@ -103,7 +103,7 @@ function load() {
             slug: "corner-head",
             parentAssemblyId: corner.id,
             name: "Pulley post head",
-            description: "Top pulley, post-mounted carriers, line keeper, covers and fastening hardware. Four heads guide the positioning lines above the winches; fit, load and weather acceptance remain unvalidated.",
+            description: "Top pulley, post-mounted carriers, covers, fastening hardware and a separate line keeper with unresolved fit. Four heads guide the positioning lines above the winches; load and weather acceptance remain unvalidated.",
             documentation,
             doc: site.docs.find((entry) => entry.path === documentation),
             models: pulleyHeadModels(models),

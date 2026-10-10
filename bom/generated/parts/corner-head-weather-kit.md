@@ -17,7 +17,7 @@
 
 ## Notes
 
-Historical metal-head alternative; excluded from baseline and printed-head selection. Do not combine its geometry or hardware stack with the printed carrier. See docs/assemblies/corner-station/design-package.md#historical-metal-alternatives. No full fabrication price or engineering qualification asserted. Optional ASA material consumption is estimated separately, without selecting a qualified print process.
+Historical metal-head alternative; excluded from baseline and printed-head selection. Do not combine its geometry or hardware stack with the printed carrier. See docs/assemblies/corner-station/design-package.md#historical-metal-alternatives. No full fabrication price or engineering qualification asserted. Optional PETG Matte White material consumption is estimated separately, without selecting a qualified print process.
 
 ## Used in
 
@@ -43,7 +43,7 @@ Quantities are per assembly definition, before build multipliers. Optional and d
 
 ### Print material estimate
 
-Build arbi-v1; batch represents 1 BOM unit(s). Optional concept set; excluded from the purchasing baseline. ASA is a costing assumption using the recorded single-spool rate, not a qualified structural material or chosen print process. Fully dense CAD consumption only; physical fit, load, creep and manufacturing labour remain unresolved. Historical metal-head shields, printed carriers and stand adapters are separate alternatives.
+Build arbi-v1; batch represents 1 BOM unit(s). Optional historical metal-head shield set; excluded from the purchasing baseline. PETG Matte White is the material consumption costing assumption using the recorded bulk rate, not a qualified weather material or chosen print process. Fully dense CAD consumption only; physical fit, weather performance and manufacturing labour remain unresolved. Printed carriers and stand adapters are separate alternatives.
 
 | Model | Copies in batch | Material / colour | Solid volume per copy |
 | --- | ---: | --- | ---: |

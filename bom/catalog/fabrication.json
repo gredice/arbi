@@ -1300,7 +1300,7 @@
       "partId": "corner-head-weather-kit",
       "buildId": "arbi-v1",
       "representedQuantity": "1",
-      "materialId": "asa",
+      "materialId": "petg-matte",
       "components": [
         {
           "modelId": "corner-head-hood",
@@ -1321,7 +1321,7 @@
           "materialId": "petg-matte"
         }
       ],
-      "note": "Optional concept set; excluded from the purchasing baseline. ASA is a costing assumption using the recorded single-spool rate, not a qualified structural material or chosen print process. Fully dense CAD consumption only; physical fit, load, creep and manufacturing labour remain unresolved. Historical metal-head shields, printed carriers and stand adapters are separate alternatives."
+      "note": "Optional historical metal-head shield set; excluded from the purchasing baseline. PETG Matte White is the material consumption costing assumption using the recorded bulk rate, not a qualified weather material or chosen print process. Fully dense CAD consumption only; physical fit, weather performance and manufacturing labour remain unresolved. Printed carriers and stand adapters are separate alternatives."
     },
     {
       "partId": "corner-head-marking-template",
