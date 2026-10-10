@@ -28,7 +28,7 @@ export class JobJournal {
     this.#db = new DatabaseSync(options.path, { timeout: 100 });
     try {
       const version = this.#db.prepare('PRAGMA user_version').get()!.user_version;
-      if (version !== 0 && version !== 1) throw new JobError('CONFIG_MISMATCH');
+      if (version !== 0 && version !== 1 && version !== 2) throw new JobError('CONFIG_MISMATCH');
       this.#db.exec(`PRAGMA journal_mode=DELETE; PRAGMA synchronous=FULL; PRAGMA fullfsync=ON; PRAGMA foreign_keys=ON;
         PRAGMA max_page_count=${options.maxPages}; PRAGMA cache_size=-1024;
         CREATE TABLE IF NOT EXISTS control (id INTEGER PRIMARY KEY CHECK(id=1), binding TEXT NOT NULL, owner TEXT, pid INTEGER, recovery INTEGER NOT NULL);
@@ -39,6 +39,8 @@ export class JobJournal {
         CREATE TABLE IF NOT EXISTS audit_intents (ordinal INTEGER PRIMARY KEY, event_id TEXT UNIQUE NOT NULL, record_id TEXT NOT NULL, body TEXT NOT NULL, hash TEXT NOT NULL);
         CREATE TABLE IF NOT EXISTS audit_copies (event_id TEXT PRIMARY KEY REFERENCES audit_intents(event_id));
         CREATE TABLE IF NOT EXISTS clocks (epoch TEXT PRIMARY KEY, floor INTEGER NOT NULL);
+        CREATE TABLE IF NOT EXISTS manual_fence (id INTEGER PRIMARY KEY CHECK(id=1), fence TEXT NOT NULL, body TEXT, hash TEXT);
+        INSERT OR IGNORE INTO manual_fence VALUES(1,'0',NULL,NULL);
         CREATE TRIGGER IF NOT EXISTS immutable_job BEFORE UPDATE ON jobs BEGIN SELECT RAISE(ABORT,'immutable'); END;`);
       for (const table of ['jobs', 'records', 'evidence', 'recoveries', 'audit_intents']) for (const mutation of ['UPDATE', 'DELETE']) this.#db.exec(`CREATE TRIGGER IF NOT EXISTS immutable_${table}_${mutation} BEFORE ${mutation} ON ${table} BEGIN SELECT RAISE(ABORT,'immutable'); END;`);
       this.#db.exec('BEGIN IMMEDIATE');
@@ -56,7 +58,7 @@ export class JobJournal {
         this.#db.exec('COMMIT');
       } catch (e) { this.#db.exec('ROLLBACK'); throw e; }
       this.verify();
-      this.#db.exec('PRAGMA user_version=1');
+      this.#db.exec('PRAGMA user_version=2');
     } catch (e) { this.#db.close(); throw e instanceof JobError ? e : new JobError('STORAGE_UNAVAILABLE'); }
   }
   close(): void {
@@ -80,12 +82,16 @@ export class JobJournal {
   }
   #capacity(): void {
     const stats = statfsSync(dirname(this.#options.path));
-    const bytes = ['jobs', 'records', 'evidence', 'recoveries', 'audit_intents'].reduce((sum, table) => sum + Number(this.#db.prepare(`SELECT coalesce(sum(length(CAST(body AS BLOB))),0) AS n FROM ${table}`).get()!.n), 0);
+    const bytes = ['jobs', 'records', 'evidence', 'recoveries', 'audit_intents','manual_fence'].reduce((sum, table) => sum + Number(this.#db.prepare(`SELECT coalesce(sum(length(CAST(body AS BLOB))),0) AS n FROM ${table}`).get()!.n), 0);
     if (bytes > this.#options.maxBytes || Number(this.#db.prepare('SELECT count(*) AS n FROM jobs').get()!.n) > this.#options.maxJobs
       || stats.bavail * stats.bsize < this.#options.minFreeBytes) throw new JobError('RESOURCE_LIMIT');
   }
   verify(): void {
     if (this.#db.prepare('PRAGMA quick_check').get()?.quick_check !== 'ok') throw new JobError('STORAGE_UNAVAILABLE');
+    const manual=this.#db.prepare('SELECT * FROM manual_fence WHERE id=1').get();
+    if(!manual || typeof manual.fence!=='string' || !/^(0|[1-9][0-9]{0,19})$/.test(manual.fence) || BigInt(manual.fence)>(1n<<64n)-1n)
+      throw new JobError('STORAGE_UNAVAILABLE');
+    if(manual.body!==null && digest(checked(JSON.parse(String(manual.body))))!==manual.hash)throw new JobError('STORAGE_UNAVAILABLE');
     for (const table of ['jobs', 'records', 'evidence', 'recoveries', 'audit_intents']) {
       for (const row of this.#db.prepare(`SELECT body,hash FROM ${table}`).all() as unknown as Row[]) {
         if (digest(JSON.parse(row.body)) !== row.hash) throw new JobError('STORAGE_UNAVAILABLE');
@@ -126,6 +132,46 @@ export class JobJournal {
     this.#db.prepare('INSERT INTO clocks VALUES(?,?) ON CONFLICT(epoch) DO UPDATE SET floor=excluded.floor').run(key, now);
   }
   observeClock(a: LocalAuthority): void { this.#transaction(() => { this.clock(a); }); }
+  /** Only a fresh higher upstream fence may open a local manual session, even after reboot. */
+  startManual(a:LocalAuthority):AuditEvent {
+    if(!same(a.gate.realm,this.#options.realm) || a.gate.siteId!==this.#options.siteId || a.gate.receiver.deviceId!==this.#options.deviceId)
+      throw new JobError('REALM_MISMATCH');
+    const lease=a.gate.lease;
+    if(!lease || !/^(0|[1-9][0-9]{0,19})$/.test(lease.fence) || BigInt(lease.fence)>(1n<<64n)-1n)throw new JobError('LEASE_STALE');
+    const result=this.#transaction(()=>{
+      this.clock(a);
+      const prior=this.#db.prepare('SELECT fence,body FROM manual_fence WHERE id=1').get()!;
+      if(prior.body!==null || BigInt(lease.fence)<=BigInt(String(prior.fence)))return null;
+      const eventId=randomUUID();
+      const event:AuditEvent={auditVersion:'arbi.audit/1.0',eventId,realm:a.gate.realm,executionMode:'simulation',siteId:a.gate.siteId,
+        actor:a.gate.authorizedActor,source:{module:'edge',identity:a.gate.receiver},sequence:this.#auditSequence(),
+        sourceTime:{utc:null,uncertaintyMs:null,monotonicMs:a.gate.nowMonotonicMs},ingestTime:null,
+        resource:{kind:'control-session',id:lease.id,deviceId:a.gate.receiver.deviceId},action:'control.session.start',evidence:'intent',outcome:'requested',reason:'requested',effect:'none',
+        links:{correlationId:eventId,intentEventId:eventId,causationEventId:null,jobId:null,sessionId:lease.id,commandId:null,requestSource:a.gate.authenticatedSource,target:a.gate.receiver},
+        record:null,metadata:{permission:'control',configRevision:a.gate.configRevision,calibrationRevision:a.applied.request.configuration.calibration!.revision},change:null};
+      this.#writeManual(event);
+      const allowed:AuditEvent={...event,eventId:randomUUID(),sequence:this.#auditSequence(),evidence:'authorization',outcome:'allow',reason:'authorized',links:{...event.links,causationEventId:eventId}};
+      this.#writeManual(allowed);
+      this.#db.prepare('UPDATE manual_fence SET fence=?,body=?,hash=? WHERE id=1').run(lease.fence,canonical(event),digest(event));return event;
+    });
+    if(!result)throw new JobError('LEASE_STALE');return result;
+  }
+  endManual(a:LocalAuthority,reason:'ended'|'timeout'|'revoked'|'source-restarted'):void {
+    this.#transaction(()=>{
+      const row=this.#db.prepare('SELECT body,hash FROM manual_fence WHERE id=1').get()!;if(row.body===null)return;
+      const root=checked(JSON.parse(String(row.body)));if(digest(root)!==row.hash)throw new JobError('STORAGE_UNAVAILABLE');
+      const now=Number.isSafeInteger(a.gate.nowMonotonicMs) && a.gate.nowMonotonicMs>=0?a.gate.nowMonotonicMs:0;
+      const event:AuditEvent={...root,eventId:randomUUID(),sequence:this.#auditSequence(),source:{module:'edge',identity:a.gate.receiver},sourceTime:{utc:null,uncertaintyMs:null,monotonicMs:now},
+        action:reason==='timeout'?'control.session.timeout':reason==='revoked'?'control.session.revoke':'control.session.end',
+        evidence:'service-outcome',outcome:'succeeded',reason:reason==='source-restarted'?'ended':reason,
+        links:{...root.links,causationEventId:root.eventId},metadata:{...root.metadata,...(reason==='source-restarted'?{protocolErrorCode:'TARGET_RESTARTED' as const}:{})}};
+      this.#writeManual(event);this.#db.prepare('UPDATE manual_fence SET body=NULL,hash=NULL WHERE id=1').run();
+    });
+  }
+  #auditSequence():string {return String(Number(this.#db.prepare('SELECT coalesce(max(ordinal),0)+1 AS n FROM audit_intents').get()!.n));}
+  #writeManual(event:AuditEvent):void {
+    checked(event);this.#db.prepare('INSERT INTO audit_intents(event_id,record_id,body,hash) VALUES(?,?,?,?)').run(event.eventId,event.links.intentEventId!,canonical(event),digest(event));
+  }
   create(c: Command, a: LocalAuthority, steps: Step[], error: ErrorCode | null): JobRecord {
     return this.#transaction(() => {
       const prior = this.duplicate(c); if (prior) return prior;

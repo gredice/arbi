@@ -43,6 +43,12 @@ Coordinates, HOME, “sent”, a transport receipt or a cloud acceptance cannot 
 
 ## Journal, audit handoff and recovery
 
+The optional [manual coordinator](manual-control.md) adds a persisted upstream fence,
+separate increasing human-intent pulses and a receiver-local deadman to direct manual
+jog/framing. Its gate is rechecked before admission and every running phase; ordinary
+runtime settings do not compose it. Schema 2 upgrades the journal additively and blocks
+older binaries from ignoring the fence. Physical watchdog/stopping evidence remains separate.
+
 The [SQLite journal](../../apps/arbi-edge-controller/src/jobs/journal.ts) uses bounded DELETE rollback journaling, synchronous FULL/fullfsync, a 100 ms lock timeout, page/logical-byte/job limits and free-space reserve. Intent, job records, immutable outcomes, phase decisions, operation/proof identity and `arbi.audit/1.0` outbox events commit in **one** `BEGIN IMMEDIATE` transaction. Schema triggers prohibit updates/deletes of intent/history/proofs/outbox; hashes and SQLite consistency are verified on open. Schema-owner tampering and storage firmware lies remain outside this accidental/application mutation protection.
 
 Original actor, site, source/target boot/session, configuration, lease/fence, correlation and payload remain in immutable records. Command ID and source/idempotency-key conflicts reject; the source sequence high-water cannot regress through reordered rejections. Exact retry delivery metadata may differ without creating another logical execution. No history pruning removes deduplication within this bounded journal. Capacity exhaustion requires deliberate retained-record export/rotation under a recovery procedure, not automatic forgetting or replay.

@@ -15,12 +15,18 @@ if (directory && point && indexText) {
       process.kill(process.pid, 'SIGKILL');
     }
   };
-  const rig = createJobReference(directory, { journal: { fault }, consumer: { fault } });
+  const manual=process.argv.includes('--manual');
+  const rig = createJobReference(directory, { journal: { fault }, consumer: { fault },
+    ...(manual?{manual:{deadmanMs:250,maxJogMs:500,maxLeaseMs:15000}}:{}) });
   const originalDispatch = rig.adapter.dispatch.bind(rig.adapter);
   rig.adapter.dispatch = operation => {
     appendFileSync(`${directory}/dispatch.jsonl`, JSON.stringify({ id: operation.id, phase: operation.phase }) + '\n');
     originalDispatch(operation);
   };
+  if(manual){
+    rig.manual!.acquire();rig.manual!.pulse('1');rig.command.command.deadline.expiresMonotonicMs=1500;
+    rig.command.body={type:'camera.gimbal',panDeg:1,tiltDeg:0,frame:rig.applied.request.configuration.geometry.gimbalFrame,maxDurationMs:500};
+  }
   rig.consumer.receive(rig.command);
   for (let now = 1000; now <= 10000; now += 50) {
     const r = rig.advance(now); if (r && ['completed', 'failed'].includes(r.outcome)) break;
