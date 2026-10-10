@@ -78,6 +78,10 @@ The projection binding also supplies trusted `realm`, `executionMode`, `siteId` 
 
 ## Viewing limits and privacy
 
+The [deferred recording specification](recording-policy.md) defines future lifecycle,
+playback, custody and retention hooks. Audit 1.0 still permits only disabled recording
+denials; a future activation needs a separately reviewed versioned contract.
+
 A view authorization means permission was decided. Session establishment means a transport was established. A positive `byteCount` attached to `bytes-delivered` means that source observed bytes, not that a person saw, understood or paid attention to frames. It is an audit observation, not WAN/carrier accounting; [#18](https://github.com/gredice/arbi/issues/18) owns the separate accounting contract.
 
 `observedInterval` is a bounded interval on the observing source's monotonic clock: start <= end <= source report time. It can describe transport activity or browser heartbeat reporting. Do not turn its length into exact watched duration. Background tabs, buffering, disconnected browsers, relays and heartbeat losses make such an inference unsupported. Heartbeat events are explicitly browser observations, never trusted access/delivery evidence. No human-attention or watched-duration field exists.
