@@ -26,7 +26,7 @@ fork protection policy permits a deployment. Do not authorize a fork deployment
 with provider credentials; its CI build remains available independently.
 
 Both apps label Vercel branch previews **NONPRODUCTION PREVIEW**. The dashboard
-blocks enrollment, media, audit, jobs, realtime and dashboard runtime adapters
+blocks enrollment, media, audit, jobs, realtime, telemetry and dashboard runtime adapters
 before invocation in ordinary previews, including an accidentally composed
 provider. No login, catalog-to-install action or production device endpoint is
 available. The explicit `isolated-test` Vercel custom environment is separately

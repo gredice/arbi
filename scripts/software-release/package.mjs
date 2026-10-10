@@ -17,7 +17,13 @@ export function packageTarget(id, output, { root = fileURLToPath(new URL('../../
     if (process.platform !== 'linux' || process.arch !== 'x64' || process.versions.node !== target.node) throw new Error('Release toolchain mismatch');
     const stage = resolve(output, 'application');
     mkdirSync(output, { recursive: true });
-    run('corepack', ['pnpm', '--filter', target.workspace, 'deploy', '--prod', '--legacy', stage], { cwd: root, stdio: 'inherit' });
+    // pnpm's legacy deploy rewrites the workspace-state cache with production
+    // settings. Restore it so the next source check does not prune dev tools.
+    const stateFile = resolve(root, 'node_modules/.pnpm-workspace-state-v1.json');
+    const workspaceState = existsSync(stateFile) ? readFileSync(stateFile) : null;
+    try {
+        run('corepack', ['pnpm', '--filter', target.workspace, 'deploy', '--prod', '--legacy', stage], { cwd: root, stdio: 'inherit' });
+    } finally { if (workspaceState) writeFileSync(stateFile, workspaceState); }
     // deploy follows npm pack rules; ignored dist must be copied explicitly.
     run('cp', ['-a', resolve(root, target.path, 'dist'), stage]);
     for (const name of ['arbi-protocol', 'arbi-traffic', 'arbi-audit', 'arbi-simulation-core']) {

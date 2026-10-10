@@ -6,6 +6,7 @@ import { configureJobs, jobsRoute } from "../jobs/runtime";
 import { configureRealtime, realtimeRoute } from "../realtime/runtime";
 import { configureAudit, auditRoute } from "../audit/runtime";
 import { dashboardRuntime, configureDashboard } from "../dashboard/runtime";
+import { configureTelemetry, telemetryRoute } from "../telemetry/runtime";
 
 test("a Vercel branch preview denies installed provider adapters before any production resource call", async () => {
   const previous = process.env.VERCEL_ENV, target = process.env.VERCEL_TARGET_ENV;
@@ -17,12 +18,14 @@ test("a Vercel branch preview denies installed provider adapters before any prod
   configureJobs(forbidden as unknown as Parameters<typeof configureJobs>[0]);
   configureRealtime(forbidden as unknown as Parameters<typeof configureRealtime>[0]);
   configureAudit(forbidden as unknown as Parameters<typeof configureAudit>[0]);
+  configureTelemetry(forbidden as unknown as Parameters<typeof configureTelemetry>[0]);
   configureDashboard({ server: forbidden } as unknown as Parameters<typeof configureDashboard>[0]);
   try {
     const request = new Request("https://preview.invalid/api/sites/production-site/jobs/submit", { method: "POST" });
     for (const response of await Promise.all([enrollmentRoute(request, { siteId: "production-site", action: "challenge" }),
       mediaRoute(request, { siteId: "production-site", action: "upload" }), jobsRoute(request, { siteId: "production-site", action: "submit" }),
-      realtimeRoute(request, { siteId: "production-site", action: "device" }), auditRoute(request, "production-site")])) {
+      realtimeRoute(request, { siteId: "production-site", action: "device" }), auditRoute(request, "production-site"),
+      telemetryRoute(request, { siteId: "production-site", action: "ingest" })])) {
       assert.equal(response.status, 503); assert.equal(response.headers.get("cache-control"), "private, no-store");
     }
     assert.equal(dashboardRuntime(), undefined); assert.equal(calls, 0);
