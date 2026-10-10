@@ -110,7 +110,9 @@ adds a seventh passing check for delayed callbacks during backoff and after gran
 replacement. Eight Chromium integration checks and all 19 native PostgreSQL
 checks pass, including the independent cloud/edge process test, persisted routing,
 site isolation, slow-consumer budgets, event gaps and deployment epoch changes.
-The ordinary built HTTP launcher also passes with unconfigured boundaries denied.
+The ordinary dashboard suite passes 49 checks with seven explicit native skips,
+fulfilled by the separate native suite. The ordinary built HTTP launcher also
+passes with unconfigured boundaries denied.
 These are host fixtures, not live Ably/Vercel/Neon or actual mobile measurements.
 
 Passed commands (using the pinned package manager through `corepack pnpm`):
@@ -121,6 +123,7 @@ pnpm lint --filter @arbi/edge-controller --filter @arbi/dashboard --concurrency=
 pnpm typecheck --filter @arbi/edge-controller --filter @arbi/dashboard --concurrency=1
 pnpm build --filter @arbi/edge-controller --concurrency=1
 node --test apps/arbi-edge-controller/dist/cloud-realtime/recovery.test.js
+pnpm --filter @arbi/dashboard test
 pnpm build --filter @arbi/dashboard --concurrency=1
 pnpm --filter @arbi/dashboard test:postgres
 pnpm --filter @arbi/dashboard test:browser
@@ -135,10 +138,13 @@ library SONAME links, a `pg_config --bindir` shim and command-local PATH/library
 selectors. The unchanged launchers still create and remove their own real native
 socket-only clusters. No dependency or launcher changes are committed.
 
-The full edge suite's existing Linux service test fails locally with
+`pnpm test --filter @arbi/edge-controller --filter @arbi/dashboard --concurrency=1`
+fails locally: the full edge suite's existing Linux service test reports
 `spawnSync /usr/bin/node ENOENT`; this container's Node resides elsewhere. The
 repository CI already provisions that exact service runtime path before running
-the unmodified assertion. Its complete result remains required before merge.
+the unmodified assertion. The unchanged local-job SIGKILL matrix also exceeds its
+300000 ms test timeout in this container. Neither assertion/deadline is changed;
+the complete configured CI result remains required before merge.
 The recovery tests use a consistent injected clock for token and heartbeat
 fixtures; their original catch-up/admission assertions are preserved.
 
