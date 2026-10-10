@@ -175,6 +175,12 @@ function compatible(config: Configuration, context: ConfigurationBoundary): Conf
   return success(true);
 }
 
+/** Compatibility without applying a transaction; trusted commissioning rechecks this after restart. */
+export function checkConfigurationCompatibility(input: unknown, context: ConfigurationBoundary): ConfigurationResult<true> {
+  const parsed = validateConfigurationRecord(input, 'configuration');
+  return parsed.ok ? compatible(parsed.value, context) : parsed;
+}
+
 function transitionValid(request: ConfigurationRequest, previous: Configuration | null, history: Configuration[]): ConfigurationResult<true> {
   const config = request.configuration;
   const edit = request.auditContext;

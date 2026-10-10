@@ -16,6 +16,10 @@ export function policy(command: Command, a: LocalAuthority, active = false): Err
   if (config.executionMode !== 'simulation' || config.realm.environment !== 'test' || config.calibration?.scope !== 'simulation') return 'NOT_AUTHORIZED';
   if (!same(gate.receiver, a.boundary.receiver) || !same(gate.realm, config.realm) || gate.siteId !== config.siteId || gate.executionMode !== 'simulation') return 'CONFIG_MISMATCH';
   if (command.body.type === 'control.stop') return null;
+  if (a.commissioning) {
+    const commissioning = a.commissioning();
+    if (!commissioning.ready || commissioning.configurationDigest !== applied.configurationDigest) return 'CONFIG_MISMATCH';
+  }
   const parsed = validateConfigurationRecord(applied, 'applied');
   if (!parsed.ok || command.command.configRevision !== config.revision || gate.configRevision !== config.revision) return 'CONFIG_MISMATCH';
   if (a.mode === 'inhibited' || gate.faultInhibited || (!active && a.state !== 'Ready')) return 'FAULT_INHIBITED';

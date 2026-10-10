@@ -56,6 +56,8 @@ This interpretation still needs a validated recovery and maintenance procedure. 
 
 ## Evidence still required before public operation
 
+The [authorized commissioning consumer](../software/commissioning.md) implements test-realm enrollment, versioned multi-device staging/activation and deliberate restart recovery, with [host evidence](../evidence/commissioning.md). Its configuration readiness and analytical framing fixtures clear no physical commissioning gate.
+
 Loaded/installed operational actuation and motion-controller updates remain disabled until the [stage-specific local safety gates](../operations/prototype-and-commissioning.md#local-safety-and-update-gates) pass. Explicitly authorized secured isolated bench/HIL testing and flashing under a reviewed procedure may generate evidence; source checks and simulation cannot clear physical gates. Current driver-local encoders provide no measured position or tension to the Pico, and `Parked` alone is not update-safe.
 
 - actual site survey and geotechnical/anchor assessment;

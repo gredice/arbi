@@ -131,6 +131,9 @@ importers:
       '@arbi/audit':
         specifier: workspace:*
         version: link:../../packages/arbi-audit
+      '@arbi/gredice':
+        specifier: workspace:*
+        version: link:../../packages/arbi-gredice
       '@arbi/protocol':
         specifier: workspace:*
         version: link:../../packages/arbi-protocol

@@ -6,7 +6,7 @@ import type { AuthorizationDirectory, DirectorySnapshot, PrincipalActor, Resourc
 import { GrediceIdentityAdapter } from "./identity.js";
 import type { Capability, Role } from "./policy.js";
 
-interface FixturePrincipal {
+export interface FixturePrincipal {
   actor: PrincipalActor;
   accountId: string;
   member: boolean;
