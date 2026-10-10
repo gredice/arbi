@@ -48,8 +48,8 @@ Build arbi-v1; batch represents 1 BOM unit(s). Deferred concept clamp pair; excl
 
 | Model | Copies in batch | Material / colour | Solid volume per copy |
 | --- | ---: | --- | ---: |
-| pole-pulley-mount-front r0.1.0 | 1 | Bambu Lab PETG Basic / black | 357.917151 cm³ |
-| pole-pulley-mount-rear r0.1.0 | 1 | Bambu Lab PETG Basic / black | 264.313526 cm³ |
+| pole-pulley-mount-front r0.1.0 | 1 | Bambu Lab PETG Basic / black | 357.917148 cm³ |
+| pole-pulley-mount-rear r0.1.0 | 1 | Bambu Lab PETG Basic / black | 264.313522 cm³ |
 
 Selected recipe consumption:
 

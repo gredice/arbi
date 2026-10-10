@@ -59,10 +59,16 @@ groove profiles or load-bearing interfaces with library defaults.
 
 | Source | BOSL2 use | Geometry retained |
 | --- | --- | --- |
-| [Shared helpers](../../lib/arbi.scad) | `cuboid()` in `arbi_rounded_box()` | Public centering, radius, facets and flat mating faces |
+| [Shared helpers](../../lib/arbi.scad) | Extruded rounded `rect()` in `arbi_rounded_box()` | Public centering, radius, facets and flat mating faces |
 | [Integrated camera head](../../lib/camera-pod-integrated-head.scad) | `vnf_vertex_array()` | Superelliptic rings, neck blend and slope-compensated inner profile |
 | [Enclosure shoulder](../../lib/camera-pod-enclosure.scad) | `vnf_vertex_array()` | Rounded tray-to-neck sections and wall offsets |
 | [Winch loom reference](../../lib/winch-cover.scad) | `bezier_points()` and `vnf_vertex_array()` | Route samples, 24-sided sections and original tangent frames |
+
+The rounded-box helper extrudes `rect()` so only vertical edges are rounded.
+This avoids the extra 3D corner clipping in `cuboid()`, which produced zero-area
+triangles after the stand adapter's Boolean cuts with this pinned toolchain.
+Keep the shared helper for these existing mating faces and retain the adapter's
+strict degenerate-face check.
 
 The shared `arbi_ring_volume()` adapter uses `style="quad"` with separate polygon
 caps and explicit winding. In this pin, `vnf_vertex_array()`'s quad sides wind

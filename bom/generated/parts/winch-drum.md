@@ -62,7 +62,7 @@ Build arbi-v1; batch represents 4 BOM unit(s). Four-drum batch: three passive ki
 | winch-drum-flange r0.1.0 | 4 | Bambu Lab PETG Basic / black | 75.053615 cm³ |
 | winch-drum-flange-right r0.1.0 | 4 | Bambu Lab PETG Basic / black | 75.053615 cm³ |
 | winch-drum-clamp-half r0.1.0 | 8 | Bambu Lab PETG Basic / black | 13.614323 cm³ |
-| winch-drum-tail-clamp r0.1.0 | 4 | Bambu Lab PETG Basic / black | 1.742899 cm³ |
+| winch-drum-tail-clamp r0.1.0 | 4 | Bambu Lab PETG Basic / black | 1.742897 cm³ |
 | winch-drum-alignment-pin r0.1.0 | 13 | Bambu Lab PETG Basic / black | 0.156072 cm³ |
 
 Selected recipe consumption:

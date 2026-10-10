@@ -39,9 +39,10 @@ module arbi_rounded_box(
     assert(radius > 0, "Rounded-box radius must be positive.");
     assert(2 * radius <= min(size[0], size[1]), "Rounded-box radius is too large.");
 
-    // Round only vertical edges; mating faces and the public datum stay flat.
-    cuboid(size, rounding = radius, edges = "Z",
-        anchor = center ? CENTER : BOTTOM + FRONT + LEFT, $fn = facets);
+    // Extrude a rounded 2D profile to retain flat mating faces and clean cuts.
+    translate(center ? [0, 0, 0] : [size[0]/2, size[1]/2, size[2]/2])
+        linear_extrude(height = size[2], center = true)
+            rect([size[0], size[1]], rounding = radius, $fn = facets);
 }
 
 // Capped, equally sampled rings, preserving the original quad tessellation.

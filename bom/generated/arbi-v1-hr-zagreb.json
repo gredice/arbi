@@ -6,7 +6,7 @@
   "destinationId": "hr-zagreb",
   "destinationName": "Zagreb, Croatia",
   "quoteSnapshotId": "hr-zagreb-2026-10-08-coupling",
-  "inputDigest": "sha256:e4e732c18b9326c87bd7051cdbb0a5f85dfbb6abd0f0f5e8bdf0ae35c7e11a9a",
+  "inputDigest": "sha256:f3057ac4a7070ce24e5387f8a8891263c3853d90ef5313e5ea0cd51f6099815a",
   "reportCurrency": "EUR",
   "complete": false,
   "completeLandedTotal": null,
@@ -4890,7 +4890,7 @@
           "color": "black"
         }
       ],
-      "weightGrams": "179.375",
+      "weightGrams": "179.376",
       "materialCost": "2.18",
       "currency": "EUR",
       "note": "Optional covers for one round-pole mount. The machined metal saddles are not prints. Cosmetic shell surfaces use PETG Matte White (35100) or Black (35101) as listed per component; functional parts retain their existing material assumptions. Material and colour selections require physical fit, retention, weather and thermal checks. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
