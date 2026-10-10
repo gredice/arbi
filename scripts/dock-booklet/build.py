@@ -163,6 +163,7 @@ def build(out):
         work=Path(temporary)
         sources=sorted(set([ROOT/'hardware/models.json',ROOT/'bom/catalog/parts.json',ROOT/'bom/assemblies/assemblies.json',ROOT/'bom/catalog/fabrication.json',
             *ROOT.glob('hardware/lib/*.scad'),*ROOT.glob('hardware/assemblies/camera-pod/*.scad'),*ROOT.glob('hardware/assemblies/dock/*.scad'),
+            *(p for p in (ROOT/'hardware/vendor').rglob('*') if p.is_file()),
             *ROOT.glob('docs/assemblies/dock/**/*.md'),*ROOT.glob('scripts/dock-booklet/*.*'),ROOT/'scripts/corner-support/build.py',
             ROOT/'scripts/cad-previews/csg.py',ROOT/'scripts/winch-booklet/render_figures.py',ROOT/'scripts/winch-booklet/requirements.txt',*ROOT.glob('scripts/winch-booklet/fonts/*'),ROOT/'LICENSE']))
         report['sources_sha256']={p.relative_to(ROOT).as_posix():digest(p) for p in sources}

@@ -2,6 +2,11 @@
 
 This directory contains the canonical parametric OpenSCAD sources for custom ARBI parts and illustrative models of catalog items. Every current model is a **concept-unvalidated** starting point: it has not been proven dimensionally compatible, printable, structurally adequate, weather-resistant, or safe for an installed system.
 
+The shared helpers use [BOSL2 v2.0.766](vendor/BOSL2/README.md), vendored with its
+license, upstream commit and source hashes. No global library installation is
+required. The guide documents current uses, anchoring and rounding conventions,
+portable source packs and the upgrade process.
+
 ## Model index
 
 The machine-readable registry is [models.json](models.json). It declares stable model IDs, design revisions, source entrypoints, owning assemblies, documentation, status, and release output names.

@@ -1,10 +1,28 @@
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
-import { existsSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { test } from 'node:test';
-import { compileModels, parseArguments, validateRegistry } from './check-cad.mjs';
+import { compileModels, parseArguments, validateBosl2, validateRegistry } from './check-cad.mjs';
+
+test('vendored BOSL2 rejects altered sources, missing license and unexpected files', t => {
+    const root = mkdtempSync(join(tmpdir(), 'arbi-bosl2-test-'));
+    t.after(() => rmSync(root, { recursive: true, force: true }));
+    cpSync('hardware/vendor/BOSL2', root, { recursive: true });
+    validateBosl2(root);
+    const source = join(root, 'shapes3d.scad');
+    const original = readFileSync(source);
+    writeFileSync(source, Buffer.concat([original, Buffer.from('// changed\n')]));
+    assert.throws(() => validateBosl2(root), /upstream source changed: shapes3d.scad/);
+    writeFileSync(source, original);
+    const license = readFileSync(join(root, 'LICENSE'));
+    rmSync(join(root, 'LICENSE'));
+    assert.throws(() => validateBosl2(root), /file inventory/);
+    writeFileSync(join(root, 'LICENSE'), license);
+    writeFileSync(join(root, 'unexpected.scad'), 'cube(1);\n');
+    assert.throws(() => validateBosl2(root), /file inventory/);
+});
 
 test('camera pod names have one public assembly and direct aliases for retired identifiers', () => {
     const current = validateRegistry();

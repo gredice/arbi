@@ -1,2 +1,5 @@
 # Preserve ready-to-print documents as binary files.
 *.pdf binary
+
+# Keep the pinned third-party sources byte-for-byte identical to upstream.
+hardware/vendor/BOSL2/*.scad -whitespace

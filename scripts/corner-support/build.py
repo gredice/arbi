@@ -211,6 +211,7 @@ def build(out):
                    ROOT/'LICENSE', *sorted((ROOT/'hardware/assemblies/corner-station').glob('corner-head-*.scad')),
                    *sorted((ROOT/'docs/assemblies/corner-station').glob('*.md')),
                    ROOT/'hardware/assemblies/corner-station/README.md',
+                   *sorted(p for p in (ROOT/'hardware/vendor').rglob('*') if p.is_file()),
                    *sorted((ROOT/'scripts/winch-booklet/fonts').glob('*'))]
         report['sources_sha256'] = {p.relative_to(ROOT).as_posix(): digest(p) for p in sources}
         for source in sources:

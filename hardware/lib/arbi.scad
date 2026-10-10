@@ -1,5 +1,6 @@
 // Shared ARBI OpenSCAD helpers.
 // Units: millimetres. License: AGPL-3.0-only.
+include <../vendor/BOSL2/std.scad>
 
 ARBI_EPSILON = 0.02;
 ARBI_DEFAULT_FACETS = 96;
@@ -38,14 +39,21 @@ module arbi_rounded_box(
     assert(radius > 0, "Rounded-box radius must be positive.");
     assert(2 * radius <= min(size[0], size[1]), "Rounded-box radius is too large.");
 
-    offset = center ? [0, 0, 0] : [size[0] / 2, size[1] / 2, size[2] / 2];
+    // Round only vertical edges; mating faces and the public datum stay flat.
+    cuboid(size, rounding = radius, edges = "Z",
+        anchor = center ? CENTER : BOTTOM + FRONT + LEFT, $fn = facets);
+}
 
-    translate(offset)
-        hull()
-            for (x = [-size[0] / 2 + radius, size[0] / 2 - radius])
-                for (y = [-size[1] / 2 + radius, size[1] / 2 - radius])
-                    translate([x, y, 0])
-                        cylinder(r = radius, h = size[2], center = true, $fn = facets);
+// Capped, equally sampled rings, preserving the original quad tessellation.
+module arbi_ring_volume(profiles, reverse = false, convexity = 10) {
+    // In this BOSL2 pin, quad sides and automatic caps have opposite winding.
+    // Build caps separately and keep each quad's original first vertex.
+    sides = vnf_vertex_array(profiles, col_wrap = true, style = "quad", reverse = !reverse);
+    caps = vnf_from_polygons(reverse
+        ? [profiles[0], reverse(last(profiles))]
+        : [reverse(profiles[0]), last(profiles)]);
+    faces = reverse ? sides[1] : [for (face = sides[1]) list_rotate(face, -1)];
+    vnf_polyhedron([[sides[0], faces], caps], convexity = convexity);
 }
 
 module arbi_capsule_bar(

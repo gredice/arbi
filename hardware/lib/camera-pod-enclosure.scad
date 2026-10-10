@@ -55,16 +55,10 @@ module pe_shoulder_volume(inset=0,lift=0) {
     // Corresponding corner samples form one ruled solid. This avoids a large
     // stack of CGAL hull unions while retaining the rolled quarter-ellipse.
     corners = [[1,1],[-1,1],[-1,-1],[1,-1]];
-    sides = 68;
-    points = [for(p=profile,k=[0:3],j=[0:16]) let(a=k*90+j*90/16)
+    profiles = [for(p=profile) [for(k=[0:3],j=[0:16]) let(a=k*90+j*90/16)
         [corners[k][0]*(p[1][0]/2-p[2])+p[2]*cos(a),
-         corners[k][1]*(p[1][1]/2-p[2])+p[2]*sin(a),p[0]]];
-    faces = concat([[for(j=[sides-1:-1:0])j]],
-        [[for(j=[0:sides-1])(len(profile)-1)*sides+j]],
-        [for(i=[0:len(profile)-2],j=[0:sides-1])
-            [i*sides+j,i*sides+(j+1)%sides,
-             (i+1)*sides+(j+1)%sides,(i+1)*sides+j]]);
-    polyhedron(points=points,faces=faces,convexity=10);
+         corners[k][1]*(p[1][1]/2-p[2])+p[2]*sin(a),p[0]]]];
+    arbi_ring_volume(profiles);
 }
 
 module pe_lower_shoulder() {

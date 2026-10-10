@@ -39,6 +39,16 @@ test('shared geometry, registry, rendering helpers and licenses cover every book
     assert.deepEqual(variants(select('scripts/camera-pod-booklet/check_service.py')), ['bench', 'enclosure']);
 });
 
+test('vendor sources, version manifest and license select every CAD consumer', () => {
+    for (const path of ['hardware/vendor/BOSL2/std.scad', 'hardware/vendor/BOSL2/manifest.json', 'hardware/vendor/BOSL2/LICENSE']) {
+        const result = select(path);
+        assert.equal(result.cad, true, path);
+        assert.equal(result.previews, true, path);
+        assert.deepEqual(variants(result), ['winch', 'bench', 'enclosure', 'corner', 'dock'], path);
+        assert.deepEqual(names(result), ['@arbi/docs'], path);
+    }
+});
+
 test('BOM edits run canonical reports and BOM tests, with CAD only for part mappings', () => {
     const offers = select('bom/catalog/offers.json');
     assert.deepEqual(names(offers), ['@arbi/bom', '@arbi/docs']);
