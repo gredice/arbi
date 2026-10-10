@@ -129,3 +129,16 @@ test('HTTP meters failed/discarded bytes, rechecks bearer per read and cancels o
   const limit = new BrowserTraffic(); for (let i = 0; i < 60; i++) limit.request(); assert.throws(() => limit.request(), { code: 'CAPACITY' });
   assert.throws(() => limit.account('broker', 2 * 1024 * 1024 + 1), { code: 'CAPACITY' });
 });
+
+test('callbacks from a disconnected subscription cannot shorten backoff or schedule reads in a new grant', async () => {
+  const f = setup(); const callbacks: ((value: unknown) => void)[] = [];
+  f.subscription.open = async (_admission, hint) => { callbacks.push(hint); return () => {}; };
+  await f.consumer.step(); f.setGap(); f.setCursor('2'); f.advance(2500); await f.consumer.step();
+  assert.equal(f.consumer.status, 'degraded'); const retryAt = f.consumer.nextAt;
+  f.advance(500); callbacks[0](notice('999')); f.consumer.hint(notice('999'));
+  assert.equal(f.consumer.nextAt, retryAt); await f.consumer.step(); assert.equal(f.counts().attaches, 1);
+  f.advance(500); await f.consumer.step(); assert.equal(f.consumer.status, 'current');
+  const heartbeatAt = f.consumer.nextAt;
+  callbacks[0](notice('999')); assert.equal(f.consumer.nextAt, heartbeatAt);
+  callbacks[1](notice('999')); assert.equal(f.consumer.nextAt, f.nowFn() + 500); f.consumer.close();
+});

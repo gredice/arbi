@@ -18,7 +18,7 @@ export class BrowserRecoveryConsumer {
   }
   get nextAt(): number { return this.#nextAt; }
   hint(value: unknown): void {
-    if (this.#closed || !object(value) || bytes(JSON.stringify(value)) > 1024 || Object.keys(value).sort().join() !== 'cursor,epoch,realm,siteId,version' ||
+    if (this.#closed || !this.#admission || this.#brokerLost || !object(value) || bytes(JSON.stringify(value)) > 1024 || Object.keys(value).sort().join() !== 'cursor,epoch,realm,siteId,version' ||
       value.version !== BROWSER_REALTIME_VERSION || !sameScope(value, this.scope) || !identifier(value.epoch) || !uint64(value.cursor)) return;
     if (value.epoch !== this.#epoch || this.#cursor === null || BigInt(value.cursor) > BigInt(this.#cursor)) {
       this.#hints++; this.#nextAt = Math.min(this.#nextAt, this.now() + 500);
@@ -47,7 +47,7 @@ export class BrowserRecoveryConsumer {
         this.#admission = admission; this.#pages = 0;
         const subscription = new AbortController(); this.#subscription = subscription;
         try {
-          const close = await this.subscription.open(admission, value => this.hint(value), () => {
+          const close = await this.subscription.open(admission, value => { if (this.#admission === admission) this.hint(value); }, () => {
             if (this.#admission === admission) { this.#brokerLost = true; this.status = 'degraded'; }
           }, subscription.signal);
           if (!live()) { close(); return; }

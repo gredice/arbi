@@ -50,6 +50,25 @@ The supported SDK consumer opens with only TokenDetails/client ID, explicit subs
 
 Recovery consumes the **merged signed command-job poll** independently, preserving its current authorization, receiver clock, lease/fence and original-deadline checks. It validates returned realm/site/current target, reports only a count and discards envelopes. It sends no accepted/running/completed receipt and never dispatches work. A reconnect cannot revive stale manual motion. Durable local execution policy is owned by #30.
 
+Edge shutdown aborts the active HTTPS/SDK operation, clears diagnostic state and
+permanently closes that consumer. Delayed admission, attachment, recovery or job
+poll results cannot restore it. SDK opening deadlines include channel attachment;
+the earlier of provider token and original grant expiry closes the subscription.
+Broker opening failure retains the authorized grant for metered HTTPS heartbeats
+with visible `degraded` status. Invalid replay discards its epoch/cursor before
+the next admission requests a fresh authoritative snapshot. Retry/heartbeat delays
+start after the operation settles, and callbacks from an old subscription cannot
+shorten backoff or trigger reads for a replacement grant.
+
+The edge executable shares one [application traffic budget](../../apps/arbi-edge-controller/src/cloud-realtime/traffic.ts)
+between HTTPS and Ably. Original broker payload bytes count before size/JSON
+filtering, including oversized discarded hints; exhausting 2 MiB/minute closes
+the discretionary subscription and denies HTTP submission until the next window.
+The HTTP adapter races submission and streamed reads against cancellation and its
+four-second deadline. A transport ignoring abort is quarantined until settlement,
+so repeated reconnects cannot accumulate orphan submissions. Late response bodies
+are cancelled. These bounds do not classify SDK heartbeat/framing or WAN bytes.
+
 [@arbi/traffic](../../packages/arbi-traffic/README.md) counts actual attempted HTTP JSON submissions and received chunks, including failed submissions and oversized/discarded responses. The SDK publisher carries the original bounded JSON hint string; the subscriber meters its decoded original string bytes before parsing. This covers application notification payload, not SDK/WebSocket framing, SDK authentication/heartbeat wire bytes, TLS, DNS, TCP retries or provider billing. Those remain unclassified/separate interface/provider coverage. Every repeated submission is a distinct attempt. Fixture paths are `lan`; loopback cannot claim `garden-sim` or cellular billing. No new traffic rollup/sink or recording support is added. Strict accounting capacity can deny this discretionary recovery path; local fault/stop paths do not consult it.
 
 ## Browser subscription and recovery
@@ -86,6 +105,8 @@ server admission budgets remain authoritative across pages and cloud instances.
 
 Duplicate/reordered hints retain no queue. They request a read after at least
 500 ms; a hint arriving during a read is retained as a coalesced dirty signal.
+Callbacks from retired grants cannot shorten retry/capacity backoff or schedule
+reads under a replacement grant.
 The 2.5-second HTTPS heartbeat recovers dropped hints. Replay pages must be
 contiguous, correctly scoped and consistent with the epoch/cursor. Invalid replay
 discards the cursor; a server retention/epoch reset supplies a current snapshot.
