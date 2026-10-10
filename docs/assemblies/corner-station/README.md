@@ -23,6 +23,13 @@ remain separate alternatives and preserve their purchasing records.
 
 ## V1 starting geometry
 
+For indoor development before the timber poles arrive, the optional
+[WT-806 stand adapters](../../../hardware/assemblies/corner-station/stand-adapter.md)
+mount the round-120 printed head and passive winch to two owned light stands
+using reversible tube clamps and short bolts. Their nominal line alignment is
+preserved. This `concept-unvalidated` fixture is for unloaded fit/rotation
+checks; it does not establish cable-load capacity or installed acceptance.
+
 | Property | Starting value | Status |
 | --- | ---: | --- |
 | Quantity | 4 | Baseline |

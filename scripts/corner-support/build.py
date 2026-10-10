@@ -12,6 +12,7 @@ from pathlib import Path
 import re
 import shutil
 import subprocess
+import sys
 import tempfile
 import zipfile
 
@@ -181,6 +182,10 @@ def build(out):
     if (version.stdout+version.stderr).strip() != 'OpenSCAD version 2021.01':
         raise ValueError('OpenSCAD 2021.01 required.')
     out.mkdir(parents=True, exist_ok=True)
+    # The optional indoor fixture shares this head's mounting interfaces.
+    # Keep its independent nominal checks in the owning corner CI build.
+    subprocess.run([sys.executable, str(ROOT/'scripts/corner-support/check-stand-adapter.py'),
+                    '--record', str(out/'stand-adapter-check.json')], check=True)
     # Build in an empty directory, then copy a complete fresh snapshot. Stale
     # meshes in an existing output directory cannot enter the archive.
     registry = json.loads((ROOT/'hardware/models.json').read_text())

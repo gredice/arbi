@@ -1,0 +1,1399 @@
+{
+  "schemaVersion": 1,
+  "revision": "0.1.0",
+  "evidence": "nominal CAD only; unprinted/unloaded",
+  "openscad": "2021.01",
+  "trimesh": "4.12.2",
+  "sourceSha256": {
+    "hardware/assemblies/corner-station/corner-stand-assembly.scad": "df54d8b5dbadb2e758dabb919c772cdb88594b621dc575c7f4f7242ce5b9f920",
+    "hardware/assemblies/corner-station/corner-stand-head-front.scad": "0e81720f428404ba624c50bfc1e6d24915f57901292e7307712c8b921b16525f",
+    "hardware/assemblies/corner-station/corner-stand-head-rear.scad": "ddb623ee7b205cf48a631f8011cab99dcaa7b5419fad67bd65ebbcd8fbd379dd",
+    "hardware/assemblies/corner-station/corner-stand-winch-front.scad": "c2b99e4bc1e31739940f6b3623f056a15108da3567a7885cfe7ad4089f2bb9c2",
+    "hardware/assemblies/corner-station/corner-stand-winch-rear.scad": "c9cd599e6ff9b1bc6d014c89056a333d2e4edb1f4ff1e64e6292b031b13653ec",
+    "hardware/lib/arbi.scad": "39939675020b805ced0e8a05cd41b40037ae627f602e08f7bf638c7ba9d9d9c7",
+    "hardware/lib/corner-head-printed.scad": "414defcdde68792a9b994532f13a3684e8a735dc89273652185e520b0ae2923b",
+    "hardware/lib/corner-head.scad": "820a362a07db3e44b23212e6a4be823091dae4826c20b6b91c173b21b6ce3e61",
+    "hardware/lib/corner-stand-adapter.scad": "4b584e47664635aa005300186557913dda0f063a7eb2c6456cc227ea6b65c75c",
+    "hardware/lib/winch-cover.scad": "e74ae15fa129899675a5528bda4a92878b34a61d0a5d7111c0477256bf51e553",
+    "hardware/lib/winch-drum.scad": "0684c28615d398d1b7a2beb7d15a4fa4e27d62382b8a8bde1470367f5de1e837",
+    "hardware/lib/winch-mount.scad": "05bb92d3955500a3a52914c01f7f530bf3a243f60bef69f7d4a7af7a461e231e",
+    "hardware/lib/winch-pole.scad": "58e2f446a74cb8d38e31c332727ae31ab6e10ec49ce38ba16dcd88a20ba8fc85",
+    "hardware/models.json": "ec4a7ee9734457e183cce0f7afdc5ea46e532a273c29c787d40b70c3a848eecd",
+    "scripts/corner-support/check-stand-adapter.py": "4b074e238a07915d6a65fc73fb77ab313fb00ccdaeea5a74eab68d2cbb25eb56"
+  },
+  "meshes": {
+    "head-front-26": {
+      "sha256": "878ef06f365b5bbe740ec0f49aa57b83ba3cf508f956c2deea9e7975ed813967",
+      "volume_mm3": 260280.31139808902,
+      "bounds_mm": [
+        [
+          0.0,
+          0.0,
+          -3.8147e-07
+        ],
+        [
+          50.0,
+          102.0,
+          89.6
+        ]
+      ],
+      "degenerateFaces": 0
+    },
+    "head-rear-26": {
+      "sha256": "24dff67868a8ad3860bc0e582744de497a460c9800b3e3947af1df5c5aae941b",
+      "volume_mm3": 100468.36100717547,
+      "bounds_mm": [
+        [
+          0.0,
+          0.0,
+          -3.8147e-07
+        ],
+        [
+          50.0,
+          102.0,
+          22.6
+        ]
+      ],
+      "degenerateFaces": 0
+    },
+    "winch-front-26": {
+      "sha256": "48664c4714ccbdaaee54eb73210c7071a63ae80c8345681b11e2afb5089697ca",
+      "volume_mm3": 209088.68676873864,
+      "bounds_mm": [
+        [
+          0.0,
+          0.0,
+          -3.8147e-07
+        ],
+        [
+          50.0,
+          102.0,
+          114.6
+        ]
+      ],
+      "degenerateFaces": 0
+    },
+    "winch-rear-26": {
+      "sha256": "766e95709ea93b3ab45a059d5775e8d100e01f508959e46e22b09cc9d428bb2f",
+      "volume_mm3": 100468.36100717547,
+      "bounds_mm": [
+        [
+          0.0,
+          0.0,
+          -3.8147e-07
+        ],
+        [
+          50.0,
+          102.0,
+          22.6
+        ]
+      ],
+      "degenerateFaces": 0
+    },
+    "head-front-30": {
+      "sha256": "ac6c9873c0e3a2a96eee35c93dfb3403c5c3ff474bd898575e2c32c27e689e2a",
+      "volume_mm3": 263580.1233145238,
+      "bounds_mm": [
+        [
+          0.0,
+          0.0,
+          -3.8147e-07
+        ],
+        [
+          50.0,
+          102.0,
+          89.6
+        ]
+      ],
+      "degenerateFaces": 0
+    },
+    "head-rear-30": {
+      "sha256": "397ca4f0521f368afdcb0a5270c9c026e87265ffe565233191d4bd14d4f57447",
+      "volume_mm3": 106168.17292361024,
+      "bounds_mm": [
+        [
+          0.0,
+          0.0,
+          -3.8147e-07
+        ],
+        [
+          50.0,
+          102.0,
+          24.6
+        ]
+      ],
+      "degenerateFaces": 0
+    },
+    "winch-front-30": {
+      "sha256": "e13250e595f11260f20fa0857974fa5079b6ca7aaf2d8dfa18ae25eff0bb88cc",
+      "volume_mm3": 213589.5956499734,
+      "bounds_mm": [
+        [
+          0.0,
+          0.0,
+          -3.8147e-07
+        ],
+        [
+          50.0,
+          102.0,
+          114.6
+        ]
+      ],
+      "degenerateFaces": 0
+    },
+    "winch-rear-30": {
+      "sha256": "ed735218d6c1ea47dfaccd5f81163d589dd3ebc652666c2bf0eee4bbe0e01d01",
+      "volume_mm3": 106168.17292361024,
+      "bounds_mm": [
+        [
+          0.0,
+          0.0,
+          -3.8147e-07
+        ],
+        [
+          50.0,
+          102.0,
+          24.6
+        ]
+      ],
+      "degenerateFaces": 0
+    },
+    "head-front-35": {
+      "sha256": "3e425f1f4d9218bae660f3a1cf883ca4a4dad8bb0d87c4a9ac210d435dabbce7",
+      "volume_mm3": 266821.67042763537,
+      "bounds_mm": [
+        [
+          0.0,
+          0.0,
+          -3.8147e-07
+        ],
+        [
+          50.0,
+          102.0,
+          89.6
+        ]
+      ],
+      "degenerateFaces": 0
+    },
+    "head-rear-35": {
+      "sha256": "89ff364876b6bbfd608c3333ca3de61bba8bbdb9263ed884a62e2fc19fee11bf",
+      "volume_mm3": 112409.72003672186,
+      "bounds_mm": [
+        [
+          0.0,
+          0.0,
+          -3.8147e-07
+        ],
+        [
+          50.0,
+          102.0,
+          27.1
+        ]
+      ],
+      "degenerateFaces": 0
+    },
+    "winch-front-35": {
+      "sha256": "18a13d24828284443b24cb37d68212574845fca390924533d83bf2f86e3a7476",
+      "volume_mm3": 218332.51396908503,
+      "bounds_mm": [
+        [
+          0.0,
+          0.0,
+          -3.8147e-07
+        ],
+        [
+          50.0,
+          102.0,
+          114.6
+        ]
+      ],
+      "degenerateFaces": 0
+    },
+    "winch-rear-35": {
+      "sha256": "e05192fe74c5d7f6bfad5158e616b196773b3da0bba62e653833da55d0905322",
+      "volume_mm3": 112409.72003672186,
+      "bounds_mm": [
+        [
+          0.0,
+          0.0,
+          -3.8147e-07
+        ],
+        [
+          50.0,
+          102.0,
+          27.1
+        ]
+      ],
+      "degenerateFaces": 0
+    },
+    "head-left": {
+      "sha256": "33f47665449e2bbedd053e5d58e5339f37414e093c0199b3af516974fbe79627",
+      "volume_mm3": 563335.20533488,
+      "bounds_mm": [
+        [
+          45.0413,
+          -40.0,
+          0.0
+        ],
+        [
+          225.266,
+          0.0,
+          205.0
+        ]
+      ],
+      "degenerateFaces": 0
+    },
+    "head-right": {
+      "sha256": "a610cc222eb03acddc04474e7b5e5dbaeceabb9a27eae2899c40b4263df6ad7e",
+      "volume_mm3": 563335.2050296799,
+      "bounds_mm": [
+        [
+          45.0413,
+          0.0,
+          0.0
+        ],
+        [
+          225.266,
+          40.0,
+          205.0
+        ]
+      ],
+      "degenerateFaces": 0
+    },
+    "winch-base": {
+      "sha256": "bbd414eb5118a9c97f9bedf0699368a2e02aa4830944d49608fc05318586de53",
+      "volume_mm3": 785760.2362772799,
+      "bounds_mm": [
+        [
+          -50.0,
+          -90.0,
+          -8.0
+        ],
+        [
+          500.0,
+          90.0,
+          0.0
+        ]
+      ],
+      "degenerateFaces": 0
+    },
+    "winch-rear-left": {
+      "sha256": "8832f4abbf30ccbab77655c1c252f0411d5adf7bcbc4fff631571b49e68c004f",
+      "volume_mm3": 74675.816,
+      "bounds_mm": [
+        [
+          -50.0,
+          -95.5,
+          -27.6
+        ],
+        [
+          71.85,
+          95.5,
+          -13.7
+        ]
+      ],
+      "degenerateFaces": 0
+    },
+    "winch-rear-right": {
+      "sha256": "3baa83625616ae667919f46de3a53656d28ff5d5f1a33fb7c0980f033342e235",
+      "volume_mm3": 99716.0280000001,
+      "bounds_mm": [
+        [
+          174.45,
+          -95.5,
+          -27.6
+        ],
+        [
+          336.625,
+          95.5,
+          -13.7
+        ]
+      ],
+      "degenerateFaces": 0
+    },
+    "winch-fascia": {
+      "sha256": "8e863d11206127394aa606f5f3c30bb4b5c46bac14abed2abefc237b9d7a644e",
+      "volume_mm3": 76231.2041150277,
+      "bounds_mm": [
+        [
+          -46.0,
+          80.3,
+          -32.0
+        ],
+        [
+          134.067,
+          98.0,
+          45.0
+        ]
+      ],
+      "degenerateFaces": 2
+    },
+    "head-line": {
+      "sha256": "bd535c836a105598c73a5770805ae45244823d15c532dfdcaaf2d36ad149ed15",
+      "volume_mm3": 822.556449442006,
+      "bounds_mm": [
+        [
+          222.576,
+          -0.724443,
+          -169.009
+        ],
+        [
+          418.274,
+          0.724443,
+          151.69
+        ]
+      ],
+      "degenerateFaces": 0
+    }
+  },
+  "checks": [
+    {
+      "check": "head-front-26 closed mesh / print envelope"
+    },
+    {
+      "check": "head-front-26 / unmodified tube",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-front-26 / M6 at Y=-42",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-front-26 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-front-26 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-front-26 / M6 at Y=42",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-front-26 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-front-26 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-rear-26 closed mesh / print envelope"
+    },
+    {
+      "check": "head-rear-26 / unmodified tube",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-rear-26 / M6 at Y=-42",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-rear-26 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-rear-26 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-rear-26 / M6 at Y=42",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-rear-26 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-rear-26 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-26 closed mesh / print envelope"
+    },
+    {
+      "check": "winch-front-26 / unmodified tube",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-26 / M6 at Y=-42",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-26 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-26 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-26 / M6 at Y=42",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-26 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-26 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-26 closed mesh / print envelope"
+    },
+    {
+      "check": "winch-rear-26 / unmodified tube",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-26 / M6 at Y=-42",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-26 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-26 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-26 / M6 at Y=42",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-26 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-26 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-26 / split faces",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-26 / split faces",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-26 / short M12 through actual head-left at 45",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-26 / short M12 through actual head-right at 45",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-front-26 / head-left at 45",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-front-26 / head-right at 45",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-rear-26 / head-left at 45",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-rear-26 / head-right at 45",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-26 / M12 shaft",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-26 / rear M12 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-26 / M12 locking nut envelope",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-26 / rear wrench bay",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-26 / short M12 through actual head-left at 155",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-26 / short M12 through actual head-right at 155",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-front-26 / head-left at 155",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-front-26 / head-right at 155",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-rear-26 / head-left at 155",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-rear-26 / head-right at 155",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-26 / M12 shaft",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-26 / rear M12 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-26 / M12 locking nut envelope",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-26 / rear wrench bay",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-26 / M8 shaft at -25",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-26 / rear M8 washer at -25",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-26 / M8 nut at -25",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-26 / socket approach at -25",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-26 / M8 shaft at 25",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-26 / rear M8 washer at 25",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-26 / M8 nut at 25",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-26 / socket approach at 25",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-26 / M8 through actual base at -25,-60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-26 / M8 through actual base at 25,-60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-26 / winch-base at -60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-26 / winch-base at -60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-26 / M8 through actual base at -25,60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-26 / M8 through actual base at 25,60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-26 / winch-base at 60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-26 / winch-base at 60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-26 / winch-rear-left at -60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-26 / winch-rear-left at -60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-26 / winch-rear-left at 60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-26 / winch-rear-left at 60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-26 / winch-rear-right at -60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-26 / winch-rear-right at -60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-26 / winch-rear-right at 60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-26 / winch-rear-right at 60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-26 / winch-fascia at -60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-26 / winch-fascia at -60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-26 / winch-fascia at -60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-26 / winch-fascia at -60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-26 / winch-fascia at 60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-26 / winch-fascia at 60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-26 / winch-fascia at 60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-26 / winch-fascia at 60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "diameter 26 / canonical payout alignment",
+      "head_mm": 253.300443,
+      "winch_mm": 253.3
+    },
+    {
+      "check": "head-front-30 closed mesh / print envelope"
+    },
+    {
+      "check": "head-front-30 / unmodified tube",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-front-30 / M6 at Y=-42",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-front-30 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-front-30 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-front-30 / M6 at Y=42",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-front-30 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-front-30 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-rear-30 closed mesh / print envelope"
+    },
+    {
+      "check": "head-rear-30 / unmodified tube",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-rear-30 / M6 at Y=-42",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-rear-30 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-rear-30 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-rear-30 / M6 at Y=42",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-rear-30 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-rear-30 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-30 closed mesh / print envelope"
+    },
+    {
+      "check": "winch-front-30 / unmodified tube",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-30 / M6 at Y=-42",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-30 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-30 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-30 / M6 at Y=42",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-30 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-30 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-30 closed mesh / print envelope"
+    },
+    {
+      "check": "winch-rear-30 / unmodified tube",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-30 / M6 at Y=-42",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-30 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-30 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-30 / M6 at Y=42",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-30 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-30 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-30 / split faces",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-30 / split faces",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-30 / short M12 through actual head-left at 45",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-30 / short M12 through actual head-right at 45",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-front-30 / head-left at 45",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-front-30 / head-right at 45",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-rear-30 / head-left at 45",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-rear-30 / head-right at 45",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-30 / M12 shaft",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-30 / rear M12 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-30 / M12 locking nut envelope",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-30 / rear wrench bay",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-30 / short M12 through actual head-left at 155",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-30 / short M12 through actual head-right at 155",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-front-30 / head-left at 155",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-front-30 / head-right at 155",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-rear-30 / head-left at 155",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-rear-30 / head-right at 155",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-30 / M12 shaft",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-30 / rear M12 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-30 / M12 locking nut envelope",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-30 / rear wrench bay",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-30 / M8 shaft at -25",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-30 / rear M8 washer at -25",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-30 / M8 nut at -25",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-30 / socket approach at -25",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-30 / M8 shaft at 25",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-30 / rear M8 washer at 25",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-30 / M8 nut at 25",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-30 / socket approach at 25",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-30 / M8 through actual base at -25,-60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-30 / M8 through actual base at 25,-60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-30 / winch-base at -60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-30 / winch-base at -60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-30 / M8 through actual base at -25,60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-30 / M8 through actual base at 25,60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-30 / winch-base at 60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-30 / winch-base at 60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-30 / winch-rear-left at -60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-30 / winch-rear-left at -60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-30 / winch-rear-left at 60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-30 / winch-rear-left at 60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-30 / winch-rear-right at -60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-30 / winch-rear-right at -60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-30 / winch-rear-right at 60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-30 / winch-rear-right at 60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-30 / winch-fascia at -60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-30 / winch-fascia at -60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-30 / winch-fascia at -60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-30 / winch-fascia at -60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-30 / winch-fascia at 60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-30 / winch-fascia at 60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-30 / winch-fascia at 60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-30 / winch-fascia at 60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "diameter 30 / canonical payout alignment",
+      "head_mm": 253.300443,
+      "winch_mm": 253.3
+    },
+    {
+      "check": "head-front-35 closed mesh / print envelope"
+    },
+    {
+      "check": "head-front-35 / unmodified tube",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-front-35 / M6 at Y=-42",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-front-35 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-front-35 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-front-35 / M6 at Y=42",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-front-35 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-front-35 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-rear-35 closed mesh / print envelope"
+    },
+    {
+      "check": "head-rear-35 / unmodified tube",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-rear-35 / M6 at Y=-42",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-rear-35 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-rear-35 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-rear-35 / M6 at Y=42",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-rear-35 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-rear-35 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-35 closed mesh / print envelope"
+    },
+    {
+      "check": "winch-front-35 / unmodified tube",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-35 / M6 at Y=-42",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-35 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-35 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-35 / M6 at Y=42",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-35 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-35 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-35 closed mesh / print envelope"
+    },
+    {
+      "check": "winch-rear-35 / unmodified tube",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-35 / M6 at Y=-42",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-35 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-35 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-35 / M6 at Y=42",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-35 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-35 / M6 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-35 / split faces",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-35 / split faces",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-35 / short M12 through actual head-left at 45",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-35 / short M12 through actual head-right at 45",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-front-35 / head-left at 45",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-front-35 / head-right at 45",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-rear-35 / head-left at 45",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-rear-35 / head-right at 45",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-35 / M12 shaft",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-35 / rear M12 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-35 / M12 locking nut envelope",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-35 / rear wrench bay",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-35 / short M12 through actual head-left at 155",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-35 / short M12 through actual head-right at 155",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-front-35 / head-left at 155",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-front-35 / head-right at 155",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-rear-35 / head-left at 155",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-rear-35 / head-right at 155",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-35 / M12 shaft",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-35 / rear M12 washer",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-35 / M12 locking nut envelope",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "head-35 / rear wrench bay",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-35 / M8 shaft at -25",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-35 / rear M8 washer at -25",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-35 / M8 nut at -25",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-35 / socket approach at -25",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-35 / M8 shaft at 25",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-35 / rear M8 washer at 25",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-35 / M8 nut at 25",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-35 / socket approach at 25",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-35 / M8 through actual base at -25,-60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-35 / M8 through actual base at 25,-60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-35 / winch-base at -60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-35 / winch-base at -60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-35 / M8 through actual base at -25,60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-35 / M8 through actual base at 25,60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-35 / winch-base at 60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-35 / winch-base at 60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-35 / winch-rear-left at -60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-35 / winch-rear-left at -60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-35 / winch-rear-left at 60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-35 / winch-rear-left at 60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-35 / winch-rear-right at -60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-35 / winch-rear-right at -60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-35 / winch-rear-right at 60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-35 / winch-rear-right at 60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-35 / winch-fascia at -60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-35 / winch-fascia at -60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-35 / winch-fascia at -60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-35 / winch-fascia at -60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-35 / winch-fascia at 60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-front-35 / winch-fascia at 60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-35 / winch-fascia at 60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "winch-rear-35 / winch-fascia at 60",
+      "intersection_mm3": 0.0
+    },
+    {
+      "check": "diameter 35 / canonical payout alignment",
+      "head_mm": 253.300443,
+      "winch_mm": 253.3
+    },
+    {
+      "check": "invalid parameter rejected: head_tube_diameter_mm=25"
+    },
+    {
+      "check": "invalid parameter rejected: winch_tube_diameter_mm=36"
+    },
+    {
+      "check": "invalid parameter rejected: split_gap_mm=0.2"
+    },
+    {
+      "check": "invalid parameter rejected: virtual_post_offset_mm=31"
+    }
+  ],
+  "checkCount": 265
+}

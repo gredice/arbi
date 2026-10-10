@@ -148,6 +148,12 @@
           "quantity": "1",
           "inclusion": "optional",
           "note": "One shared 205 mm printed-head marking tool, not four installed components."
+        },
+        {
+          "partId": "corner-stand-adapter-kit",
+          "quantity": "2",
+          "inclusion": "optional",
+          "note": "Two owned WT-806 stands for indoor development; sixteen adapter prints total. Excluded from installed baseline. Bought short bolts, washers and nuts are separate; see fixture instructions."
         }
       ],
       "documentation": "docs/assemblies/corner-station/README.md"
