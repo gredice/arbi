@@ -3,6 +3,7 @@ import { Archivo, IBM_Plex_Mono } from "next/font/google";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { HashRedirect } from "@/components/HashRedirect";
+import { MobileNavigation } from "@/components/MobileNavigation";
 import { GITHUB, links } from "@/lib/format";
 import { data } from "@/lib/site";
 import "./globals.css";
@@ -40,13 +41,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                             <img src={`${BRAND}/arbi-logo.svg`} alt="ARBI" className="h-10 w-auto" />
                         </Link>
                         <span className="tag hidden text-grey lg:inline">Automatic Raised Bed Imaging · open engineering manual</span>
-                        <nav className="tag ml-auto flex gap-5 overflow-x-auto">
+                        <nav aria-label="Main navigation" className="tag ml-auto hidden gap-5 md:flex">
                             {NAV.map(([href, label]) => (
                                 <Link key={href} href={href} className="hover:underline">
                                     {label}
                                 </Link>
                             ))}
                         </nav>
+                        <MobileNavigation items={NAV} />
                     </div>
                 </header>
                 <main className="flex-1">{children}</main>

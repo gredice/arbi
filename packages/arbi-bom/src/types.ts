@@ -281,6 +281,7 @@ export interface FabricationEstimate {
   materialId: string;
   materialName: string;
   materialUsages: Array<FilamentCost & { color: string | null }>;
+  components: Array<FilamentCost & { modelId: string; quantity: string; color: string | null }>;
   weightGrams: string;
   materialCost: string | null;
   currency: string;

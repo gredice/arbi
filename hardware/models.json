@@ -2407,13 +2407,13 @@
         },
         {
             "id": "control-cabinet-assembly",
-            "revision": "0.1.0",
+            "revision": "0.1.1",
             "status": "concept-unvalidated",
             "artifactRole": "reference",
             "bomPartIds": [],
             "assembly": "control-cabinet",
             "entrypoint": "hardware/assemblies/control-cabinet/control-cabinet-assembly.scad",
-            "output": "control-cabinet-assembly-r0.1.0.csg",
+            "output": "control-cabinet-assembly-r0.1.1.csg",
             "documentation": "hardware/assemblies/control-cabinet/README.md",
             "description": "Proposed 500 W x 600 H x 250 D mm control cabinet with open service door, two power supplies, Pico stack and unselected protection/edge reserves; inspection only."
         },
@@ -2484,6 +2484,94 @@
             "output": "corner-stand-assembly-r0.1.0.csg",
             "documentation": "hardware/assemblies/corner-station/README.md",
             "description": "WT-806 indoor fixture with actual round-120 printed head and passive winch; schematic tube samples, no tripod load qualification."
+        },
+        {
+            "id": "corner-station-assembly",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "reference",
+            "bomPartIds": [],
+            "assembly": "corner-station",
+            "entrypoint": "hardware/assemblies/corner-station/corner-station-assembly.scad",
+            "output": "corner-station-assembly-r0.1.0.csg",
+            "documentation": "hardware/assemblies/corner-station/README.md",
+            "description": "Mounted ordinary winch and proposed printed pulley head on an abbreviated round-120 timber post; wavy drawing break omits middle length; schematic mounting heights."
+        },
+        {
+            "id": "camera-pod-fastener-kit",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "camera-pod-fastener-kit"
+            ],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/camera-pod-fastener-kit.scad",
+            "output": "camera-pod-fastener-kit-r0.1.0.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Compact camera pod bought fastener set; nominal illustration, sourcing and price unresolved.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Illustrative set geometry; sizes and counts shown are representative samples, not the complete installed inventory or selected supplier products.",
+                "rework": "Use the canonical BOM requirements and reviewed assembly/electrical design; select and measure received components before fit or installation."
+            }
+        },
+        {
+            "id": "camera-pod-wiring-kit",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "camera-pod-wiring-kit"
+            ],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/camera-pod-wiring-kit.scad",
+            "output": "camera-pod-wiring-kit-r0.1.0.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Camera pod internal wiring and retention set; nominal illustration, sourcing and price unresolved.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Illustrative set geometry; sizes and counts shown are representative samples, not the complete installed inventory or selected supplier products.",
+                "rework": "Use the canonical BOM requirements and reviewed assembly/electrical design; select and measure received components before fit or installation."
+            }
+        },
+        {
+            "id": "cabinet-installation-kit",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "cabinet-installation-kit"
+            ],
+            "assembly": "control-cabinet",
+            "entrypoint": "hardware/assemblies/control-cabinet/cabinet-installation-kit.scad",
+            "output": "cabinet-installation-kit-r0.1.0.stl",
+            "documentation": "hardware/assemblies/control-cabinet/README.md",
+            "description": "Cabinet mounting and internal termination set; nominal illustration, sourcing and price unresolved.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Illustrative set geometry; sizes and counts shown are representative samples, not the complete installed inventory or selected supplier products.",
+                "rework": "Use the canonical BOM requirements and reviewed assembly/electrical design; select and measure received components before fit or installation."
+            }
+        },
+        {
+            "id": "cabinet-protection-kit",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "visualization",
+            "bomPartIds": [
+                "cabinet-protection-kit"
+            ],
+            "assembly": "control-cabinet",
+            "entrypoint": "hardware/assemblies/control-cabinet/cabinet-protection-kit.scad",
+            "output": "cabinet-protection-kit-r0.1.0.stl",
+            "documentation": "hardware/assemblies/control-cabinet/README.md",
+            "description": "Cabinet protection and hardwired stop interface set; nominal illustration, sourcing and price unresolved.",
+            "geometry": {
+                "status": "approximate",
+                "basis": "Illustrative set geometry; sizes and counts shown are representative samples, not the complete installed inventory or selected supplier products.",
+                "rework": "Use the canonical BOM requirements and reviewed assembly/electrical design; select and measure received components before fit or installation."
+            }
         }
     ],
     "archivedModels": [

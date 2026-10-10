@@ -127,7 +127,7 @@ function unpack(bytes) {
 }
 async function choosePack(key, release, outputs) {
   const spec = PACKS[key];
-  const localVariable = { corner: 'ARBI_CORNER_SUPPORT_PACK', dock: 'ARBI_DOCK_PACK' }[key];
+  const localVariable = { pod: 'ARBI_CAMERA_POD_PACK', winch: 'ARBI_WINCH_PACK', corner: 'ARBI_CORNER_SUPPORT_PACK', dock: 'ARBI_DOCK_PACK' }[key];
   const localPack = localVariable && process.env[localVariable];
   if (localPack) {
     if (PRODUCTION) throw new Error('Production requires the verified release assembly pack');
@@ -197,7 +197,8 @@ function podScene({ files, source }, modelsByOutput) {
     explode: offsetOf(p.matrix, exploded[i]), kind: meshes[p.model]?.kind ?? null,
   }));
   return { kind: 'stl', layout: 'assembly', figureDir: 'pod', hero: 'assembled-covered', source, pose: pose?.name ?? null,
-    configuration: assembly.configuration, figures: Object.keys(figures).sort(), parts };
+    configuration: typeof assembly.configuration === 'string' ? assembly.configuration : undefined,
+    figures: Object.keys(figures).sort(), parts };
 }
 
 function winchScene({ files, source }, modelsByOutput, variant = 'passive') {
@@ -440,7 +441,8 @@ if (PRODUCTION && registry.models.some((model) => model.artifactRole === 'visual
   throw new Error('Production requires current meshes for every BOM visualization');
 }
 
-const scenes = Object.fromEntries(Object.entries({ ...inspectionScenes, 'camera-pod': pod, winch, 'winch-powered': poweredWinch, 'corner-station': corner, dock }).filter(([, scene]) => scene));
+const scenes = Object.fromEntries(Object.entries({ ...inspectionScenes, 'camera-pod': pod, winch, 'winch-powered': poweredWinch,
+  'corner-head': corner, 'corner-station': inspectionScenes['corner-station'] ?? corner, dock }).filter(([, scene]) => scene));
 for (const slug of [...new Set(registry.models.map((m) => m.assembly))]) {
   if (scenes[slug]) continue;
   const lineup = lineupScene(slug, registry.models.filter((m) => m.assembly === slug && m.artifactRole === 'fabrication'), meshes, release);

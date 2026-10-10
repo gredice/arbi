@@ -19,7 +19,7 @@ export function estimatePrintMaterials(
   // applying matte density to the functional parts in the same BOM item.
   const extend = (volume: Decimal) => volume.multiply(Decimal.parse(required))
     .divide(Decimal.parse(recipe.representedQuantity), 9);
-  const costFor = (material: FilamentMaterial, volume: Decimal, color?: string): FilamentCost => {
+  const costFor = (material: FilamentMaterial, volume: Decimal, color?: string, precision = 2): FilamentCost => {
     const weight = extend(volume).multiply(Decimal.parse(material.densityGramsPerCm3));
     const rate = material.currency === reportCurrency ? "1"
       : repository.quote.exchangeRates.reportCurrency === reportCurrency
@@ -27,7 +27,7 @@ export function estimatePrintMaterials(
     const cost = material.spoolPrice === null || rate === undefined ? null
       : weight.multiply(Decimal.parse(material.spoolPrice))
         .divide(Decimal.parse(material.spoolWeightGrams), 12)
-        .multiply(Decimal.parse(rate)).round(2).toString();
+        .multiply(Decimal.parse(rate)).round(precision).toString();
     return {
       materialId: material.id, name: material.name, weightGrams: weight.round(3).toString(),
       materialCost: cost, spoolPrice: material.spoolPrice, spoolWeightGrams: material.spoolWeightGrams,
@@ -57,10 +57,16 @@ export function estimatePrintMaterials(
     .multiply(Decimal.parse(material.densityGramsPerCm3))), Decimal.zero());
   const materialCost = materialUsages.some((usage) => usage.materialCost === null) ? null
     : materialUsages.reduce((sum, usage) => sum.add(Decimal.parse(usage.materialCost!)), Decimal.zero()).toString();
+  const components = volumes.map(({ component, volume }) => ({
+    ...costFor(materials.get(component.materialId ?? recipe.materialId)!, volume, component.color, 4),
+    modelId: component.modelId,
+    quantity: extend(Decimal.parse(component.quantity)).toString(),
+    color: component.color ?? null,
+  }));
   return {
     partId: recipe.partId, required, basis: "solid-volume-estimate", materialId: recipe.materialId,
     materialName: [...new Set(materialUsages.map((usage) => usage.name.replace("Bambu Lab ", "")))].join(" + "),
-    materialUsages, weightGrams: weight.round(3).toString(), materialCost, currency: reportCurrency,
+    materialUsages, components, weightGrams: weight.round(3).toString(), materialCost, currency: reportCurrency,
     note: recipe.note + " " + repository.fabrication.note, alternatives,
   };
 }

@@ -366,6 +366,16 @@
           "partId": "bulk-capacitor-1000uf",
           "quantity": "2",
           "inclusion": "base"
+        },
+        {
+          "partId": "camera-pod-fastener-kit",
+          "quantity": "1",
+          "inclusion": "base"
+        },
+        {
+          "partId": "camera-pod-wiring-kit",
+          "quantity": "1",
+          "inclusion": "base"
         }
       ],
       "documentation": "docs/assemblies/camera-pod/README.md"
@@ -474,6 +484,16 @@
         },
         {
           "partId": "emergency-stop-switch",
+          "quantity": "1",
+          "inclusion": "base"
+        },
+        {
+          "partId": "cabinet-installation-kit",
+          "quantity": "1",
+          "inclusion": "base"
+        },
+        {
+          "partId": "cabinet-protection-kit",
           "quantity": "1",
           "inclusion": "base"
         }
