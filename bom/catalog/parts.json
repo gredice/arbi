@@ -1712,7 +1712,7 @@
       "requirements": [
         "One stem hood, one separate roof and one rear cover per station. Non-structural ASA candidate; pulley remains visible. Match post/angle/bolt configuration; three replaceable straps required."
       ],
-      "notes": "Historical metal-head alternative; excluded from baseline and printed-head selection. Do not combine its geometry or hardware stack with the printed carrier. See docs/assemblies/corner-station/design-package.md#historical-metal-alternatives. No price or engineering qualification asserted.",
+      "notes": "Historical metal-head alternative; excluded from baseline and printed-head selection. Do not combine its geometry or hardware stack with the printed carrier. See docs/assemblies/corner-station/design-package.md#historical-metal-alternatives. No full fabrication price or engineering qualification asserted. Optional ASA material consumption is estimated separately, without selecting a qualified print process.",
       "fabrication": {
         "process": "openscad",
         "modelStatus": "concept-unvalidated",
@@ -1789,7 +1789,7 @@
       "requirements": [
         "One shared 200 x 50 x 4 mm marking template, 45/155 mm centre pattern. Mark with 3 mm punch; remove before drilling. Check scale and actual bought angle holes."
       ],
-      "notes": "Historical metal-head alternative; excluded from baseline and printed-head selection. Do not combine its geometry or hardware stack with the printed carrier. See docs/assemblies/corner-station/design-package.md#historical-metal-alternatives. No price or engineering qualification asserted.",
+      "notes": "Historical metal-head alternative; excluded from baseline and printed-head selection. Do not combine its geometry or hardware stack with the printed carrier. See docs/assemblies/corner-station/design-package.md#historical-metal-alternatives. No full fabrication price or engineering qualification asserted. Optional ASA material consumption is estimated separately, without selecting a qualified print process.",
       "fabrication": {
         "process": "openscad",
         "modelStatus": "concept-unvalidated",
@@ -1890,7 +1890,7 @@
         "Primary carriers and rear pads are load-bearing printed concepts. PAHT-CF or tested ASA are candidates, not qualified materials; orientation, printer/slicer process, conditioning, hole finishing, bolt-seat pressure, creep, cycles, weather and complete-head proof tests remain required. Cosmetic cover straps carry no line or guy load.",
         "Two M12 through-bolts at Z45/155 and two M8 cross-bolts at X=post radius+50, Z100/190 join the selected kit. Provisional 8 mm terminal lug and 9 mm tang gap require received BA01090 pin/tang measurements. Fitted thin-line keeper and independent guy connection remain unresolved. Nominal equal-tension horizontal-span pose articulates the block 45 degrees about Y with assumed 40 mm pin-to-sheave distance: pin X=post radius+149.2657 passive /148.3657 powered, Z165; sheave X=post radius+177.55/176.65, Z136.7157. Other angles, unequal tensions, friction and received articulation require physical review."
       ],
-      "notes": "New printed-head proposal; excluded from the purchasing baseline. Select instead of steel angle/plates, metal saddles and their covers. See docs/assemblies/corner-station/design-package.md. No supplier offer, cost or physical qualification asserted.",
+      "notes": "New printed-head proposal; excluded from the purchasing baseline. Select instead of steel angle/plates, metal saddles and their covers. See docs/assemblies/corner-station/design-package.md. No supplier offer, full fabrication quote or physical qualification asserted. An optional ASA solid-volume material estimate is recorded separately; it is only a costing assumption.",
       "fabrication": {
         "process": "openscad",
         "modelStatus": "concept-unvalidated",
@@ -1965,7 +1965,7 @@
       "requirements": [
         "One shared 205 x 50 x 4 mm printed marking tool for the four-station set, with 3 mm centre marks at 45/155 mm. Check scale and selected print dimensions; remove before drilling controlled coaxial 13 mm timber holes. Not a drill bush or installed structural part."
       ],
-      "notes": "New printed-head proposal; excluded from the purchasing baseline. Select instead of steel angle/plates, metal saddles and their covers. See docs/assemblies/corner-station/design-package.md. No supplier offer, cost or physical qualification asserted.",
+      "notes": "New printed-head proposal; excluded from the purchasing baseline. Select instead of steel angle/plates, metal saddles and their covers. See docs/assemblies/corner-station/design-package.md. No supplier offer, full fabrication quote or physical qualification asserted. An optional ASA solid-volume material estimate is recorded separately; it is only a costing assumption.",
       "fabrication": {
         "process": "openscad",
         "modelStatus": "concept-unvalidated",
@@ -2105,6 +2105,96 @@
         ]
       },
       "notes": "The owner has two WT-806 stands (ASIN B000LWEA0I). Two optional kits produce sixteen prints. Reuse existing carrier cross-bolts, pulley and compatible pin; omit timber rear pads, long through-bolts and rear cosmetic cover. Hardware/printing/acceptance: hardware/assemblies/corner-station/stand-adapter.md. No supplier offer or sliced-material estimate is assigned."
+    },
+    {
+      "id": "camera-pod-fastener-kit",
+      "name": "Compact camera pod bought fastener set",
+      "disciplines": [
+        "mechanical",
+        "fasteners"
+      ],
+      "traits": [
+        "fastener",
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "4 M4 x 35 frame bolts, 8 M4 washers, 4 plain M4 nuts.",
+        "4 M2.5 x 20 Pi bolts, 8 M2.5 washers, 4 plain M2.5 nuts.",
+        "4 M1.6 x 6 countersunk servo-ear screws and 4 plain M1.6 nuts.",
+        "2 M2 x 10 countersunk pan-retainer screws; 2 M2 x 8 countersunk tilt-retainer screws. Each retainer screw has one lower M2 washer and one plain M2 nut; no washer beneath a countersunk head.",
+        "6 M2 x 12 screws (4 camera, 2 pivot support), 12 M2 washers, 6 plain M2 nuts.",
+        "4 M2 x 10 outer-head clamp screws, 8 M2 washers, 4 plain M2 nuts.",
+        "1 M3 x 12 pivot screw, 1 M3 outer washer (nominal 0.5 mm), 1 M3 shim (nominal 0.7 mm), 1 plain M3 nut.",
+        "4 M3 x 35 enclosure bolts, 4 M3 washers, 4 plain M3 nuts.",
+        "Two OEM horn centre screws and stock horns belong to the selected servo supply; confirm both are included, rather than buying duplicate unspecified screws."
+      ],
+      "notes": "One installed set per compact enclosed pod, derived from scripts/camera-pod-booklet/integration.py and camera-pod-enclosure.md. This supplies explicit M1.6/M2/M2.5 and length-level requirements missing from the generic M3/M4/M5/M6 shared assortment. No supplier or price selected. Shared stock is an unallocated purchasing bucket; reconcile it against this installed kit before ordering so hardware is not purchased twice. Received screw heads, pocket fit, stack lengths and thread engagement remain unverified.",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "planned"
+    },
+    {
+      "id": "camera-pod-wiring-kit",
+      "name": "Camera pod internal wiring and retention set",
+      "disciplines": [
+        "electrical",
+        "electronics"
+      ],
+      "traits": [
+        "cable",
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "One 15-pin CSI ribbon between Pi 3A+ and Camera Module 3; final length, end stiffeners, bend radius and fatigue behaviour must match the compact pan/tilt route. Check whether the selected camera supply includes a usable ribbon.",
+        "Fixed 5 V/ground distribution and two servo power/signal leads, capacitor connections and insulated incoming power termination. Connector types, conductor gauges and cut lengths remain unselected.",
+        "One soft incoming-lead sleeve/grommet and separate soft retention for power, CSI and servo service loops; two converter ties and one capacitor tie are shown by the assembly source.",
+        "Independent positioning-line tensile termination belongs to the winch line interface; internal conductors and connectors must carry no positioning load."
+      ],
+      "notes": "One required assembly set per pod; component selection and exact cut lengths remain unresolved. No supplier or price selected. The long powered positioning-line conductors stay owned by winch-set; this kit covers only the pod internal terminations/harness. CSI ribbon and OEM servo leads must be reconciled with supplied accessories before purchasing.",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "planned"
+    },
+    {
+      "id": "cabinet-installation-kit",
+      "name": "Cabinet mounting and internal termination set",
+      "disciplines": [
+        "electrical",
+        "mechanical",
+        "fasteners"
+      ],
+      "traits": [
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "DIN rails and supports, backplate fastening, wiring ducts and end fittings for the proposed cabinet layout. Cut lengths and actual enclosure mounting interfaces remain unselected.",
+        "Protective-earth bar/bonding conductors and field/DC terminal blocks, wire, ferrules, lugs and labels sized by the reviewed electrical design.",
+        "Cable entries use the existing shared cable-gland procurement assortment; reconcile the required size-level allocation before ordering. Glands are not duplicated in this set."
+      ],
+      "notes": "One required installation set per cabinet; the layout already shows nominal rails, ducts, PE bar and terminal spaces. Previously those shapes had no BOM identity. No selected products, quote, electrical rating or installation approval is asserted.",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "planned"
+    },
+    {
+      "id": "cabinet-protection-kit",
+      "name": "Cabinet protection and hardwired stop interface set",
+      "disciplines": [
+        "electrical",
+        "electronics"
+      ],
+      "traits": [
+        "off-the-shelf"
+      ],
+      "requirements": [
+        "Mains isolation, overcurrent/residual-current protection and surge protection to be selected through a reviewed electrical design.",
+        "DC branch protection for four corner branches and the pod branch; fuse/breaker type, ratings and coordination remain unselected.",
+        "Hardwired emergency-stop power interface and required switching/contactor/relay components to be defined by the reviewed stop circuit. The existing emergency-stop switch is a separate BOM item."
+      ],
+      "notes": "One required design/procurement set per cabinet, representing the unselected protection and hardwired-stop reserves already shown in the layout. This is not a specified circuit, approved component selection or construction instruction. No supplier or price selected.",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "planned"
     }
   ]
 }

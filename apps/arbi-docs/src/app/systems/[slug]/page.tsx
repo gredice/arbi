@@ -4,8 +4,10 @@ import { notFound } from "next/navigation";
 import { Crumb } from "@/components/Crumb";
 import { InventoryGrid } from "@/components/InventoryGrid";
 import { SystemExplorer } from "@/components/SystemExplorer";
+import { SubassemblyList } from "@/components/SubassemblyList";
+import { SystemBom } from "@/components/SystemBom";
 import { fmt } from "@/lib/format";
-import { data, docHref, inventory, sceneModels, systemBySlug } from "@/lib/site";
+import { data, docHref, inventory, sceneModels, systemBySlug, systemConfigurations } from "@/lib/site";
 
 export const dynamicParams = false;
 export const generateStaticParams = () => [...data().assemblies.map((s) => ({ slug: s.slug })), { slug: "winch-powered" }];
@@ -23,7 +25,9 @@ export default async function SystemPage({ params }: { params: Promise<{ slug: s
     const children = assemblies.filter((assembly) => assembly.parentAssemblyId === sys.id);
     const scene = sys.scene ? scenes[sys.slug] : null;
     const lineup = sys.scene?.layout === "lineup";
-    const ids = sceneModels(sys.slug);
+    const ids = sys.slug === "corner-station" && sys.scene?.pose === "mounted"
+        ? [...new Set([...sceneModels("corner-head"), ...sceneModels("winch")])]
+        : sceneModels(sys.slug);
     const others = sys.models.filter((m) => !ids.includes(m.id));
     const from = sys.scene ? (sys.scene.source.kind === "release" ? sys.scene.source.tag ?? "CAD release" : sys.scene.source.kind === "local" ? "current local design package" : sys.scene.source.current ? "current committed booklet snapshot" : "archived booklet snapshot · earlier design") : "";
     const caption = !sys.scene
@@ -44,28 +48,33 @@ export default async function SystemPage({ params }: { params: Promise<{ slug: s
     const winch = sys.slug === "winch" || sys.slug === "winch-powered";
     return (
         <>
-            <Crumb left={`${sys.number} · ${sys.name}`} right={scene ? (lineup ? "Parts layout · click a number" : "Exploded view · click a number") : ""} dark />
+            <Crumb left={`${sys.number} · ${sys.name}`} right={scene ? (lineup ? "Parts layout · click a number" : sys.scene?.pose === "mounted" ? "Mounted assembly · post shortened" : "Exploded view · click a number") : ""} dark />
             <SystemExplorer
                 number={sys.number}
                 name={sys.name}
                 scene={scene}
                 cadPending={sys.models.length > 0}
-                caption={caption}
+                caption={sys.scene?.pose === "mounted" ? `Winch and pulley head mounted on one post · wavy break omits middle length · schematic heights · meshes from ${from}` : caption}
                 nav={systems.map((s) => ({ slug: s.slug, number: s.number, name: s.name }))}
                 current={sys.slug}
                 navCurrent={sys.rootSlug}
-                variants={winch ? [{ slug: "winch", name: "Ordinary winch" }, { slug: "winch-powered", name: "Powered winch" }] : []}
-                inventory={inventory(ids, !lineup, sys.slug)}
-                inventoryNote={lineup ? "Registered fabrication parts · quantities in the BOM" : sys.slug === "control-cabinet" ? "Catalog components in the proposed cabinet · unselected protection and reserved spaces are illustrative" : `Quantities per configured ${sys.slug === "camera-pod" ? "pod" : sys.slug === "corner-station" ? "proposed corner head" : sys.slug === "dock" ? "dock bench kit" : sys.slug === "winch-powered" ? "powered winch" : "ordinary winch"}`}
+                variants={winch || sys.slug === "corner-station" ? systemConfigurations(sys).map(({ slug, name }) => ({ slug, name })) : []}
+                inventory={inventory(ids, !lineup, sys.scene?.pose === "mounted" ? undefined : sys.slug)}
+                inventoryNote={lineup ? "Registered fabrication parts · quantities in the BOM" : sys.slug === "corner-station" ? "Parts per pulley head and ordinary winch · full set quantities and alternatives in the BOM below" : sys.slug === "control-cabinet" ? "Catalog components in the proposed cabinet · unselected protection and reserved spaces are illustrative" : `Quantities per configured ${sys.slug === "camera-pod" ? "pod" : sys.slug === "corner-head" ? "pulley post head" : sys.slug === "dock" ? "dock bench kit" : sys.slug === "winch-powered" ? "powered winch" : "ordinary winch"}`}
             >
+                {children.length > 0 && (
+                    <div className="border-b-2 border-ink px-4 py-8 sm:px-6">
+                        <SubassemblyList assemblies={children} />
+                    </div>
+                )}
                 <section className="grid gap-8 border-b-2 border-ink px-4 py-8 sm:px-6 lg:grid-cols-12">
                     <p className="text-[17px] leading-snug lg:col-span-5">{sys.description}</p>
                     <div className="border-t-2 border-ink lg:col-span-4">
                         {(
                             [
-                                [winch ? "Registered models · full winch set" : sys.slug === "corner-station" ? "Registered models · supports" : "Registered models", sys.models.length],
-                                [winch ? "BOM lines · full winch set" : sys.slug === "corner-station" ? "BOM lines · supports" : "BOM lines", sys.usages.length],
-                                [winch ? "Known goods · full winch set" : sys.slug === "corner-station" ? "Known goods · supports only" : "Known goods", sys.goods ? fmt.eur(sys.goods) : "—"],
+                                [winch ? "CAD files · full winch set" : sys.slug === "corner-station" ? "CAD files · supports" : "CAD files", sys.models.length],
+                                [winch ? "BOM items / kits · full winch set" : sys.slug === "corner-station" ? "BOM items / kits · supports" : "BOM items / kits", sys.usages.length],
+                                ...(sys.presentationGroup ? [] : [[winch ? "Known goods · full winch set" : sys.slug === "corner-station" ? "Known goods · supports only" : "Known goods", sys.goods ? fmt.eur(sys.goods) : "—"]] as const),
                                 ["Status", "Concept · unvalidated"],
                             ] as const
                         ).map(([k, v]) => (
@@ -93,6 +102,7 @@ export default async function SystemPage({ params }: { params: Promise<{ slug: s
                         )}
                     </div>
                 </section>
+                <SystemBom system={sys} />
             </SystemExplorer>
             <div className="mb-20">
                 {developmentDocs.length > 0 && (
@@ -106,22 +116,6 @@ export default async function SystemPage({ params }: { params: Promise<{ slug: s
                                 </Link>
                             ))}
                         </div>
-                    </section>
-                )}
-                {children.length > 0 && (
-                    <section className="mt-10 px-4 sm:px-6">
-                        <h2 className="cond text-[24px]">Subassemblies</h2>
-                        {children.map((child) => (
-                            <div key={child.id} className="mt-3 border-t border-ink py-4">
-                                <h3 className="cond text-[26px]">{child.name}</h3>
-                                <p className="mt-2 max-w-[70ch]">{child.description}</p>
-                                <p className="tag mt-2">Known goods · full set {child.goods ? fmt.eur(child.goods) : "—"} · counted separately from supports</p>
-                                <div className="mt-3 flex flex-wrap gap-2">
-                                    <Link href={`/systems/${child.slug}`} className="key-line">{child.slug === "winch" ? "Ordinary winch" : child.name} →</Link>
-                                    {child.slug === "winch" && <Link href="/systems/winch-powered" className="key-line">Powered winch →</Link>}
-                                </div>
-                            </div>
-                        ))}
                     </section>
                 )}
                 {(winch || sys.slug === "corner-station") && (

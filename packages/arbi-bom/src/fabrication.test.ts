@@ -28,6 +28,9 @@ test("weight costing uses density and the conditional bulk rate, without roundin
   const estimate = estimatePrintMaterials(repository, recipe, "3", "EUR");
   assert.equal(estimate.weightGrams, "375");
   assert.equal(estimate.materialCost, "4.27");
+  assert.equal(estimate.components[0]!.modelId, "dock-guide-quarter");
+  assert.equal(estimate.components[0]!.quantity, "3");
+  assert.equal(estimate.components[0]!.materialCost, "4.2713");
   assert.equal(estimate.materialUsages[0]!.minimumBulkRolls, 10);
   assert.equal(estimate.alternatives.find((item) => item.materialId === "pla")!.weightGrams, "372");
   assert.equal(estimate.alternatives.find((item) => item.materialId === "asa")!.materialCost, "7.87");
@@ -50,6 +53,7 @@ test("base print kits exclude alternatives and multiply repeated pieces and vari
   assert.ok(cover.materialCost); // priced despite having no procurement offer
   const double = estimatePrintMaterials(repository, recipe, "8", "EUR");
   assert.equal(double.weightGrams, "9961.213"); // round after multiplying, not before
+  assert.equal(double.components.find((item) => item.modelId === "winch-drum-alignment-pin")!.quantity, "26");
 });
 
 test("dock bundle costs are attributed once and print estimates do not turn unknown costs into zero", async () => {
@@ -85,9 +89,14 @@ test("mixed recipes use component density, colour evidence and independently pri
   const white = estimate.materialUsages.find((usage) => usage.color === "white")!;
   assert.equal(white.materialId, "petg-matte");
   assert.match(white.priceSourceUrl, /775952393450868758/);
+  const hood = estimate.components.find((component) => component.modelId === "camera-pod-rain-hood")!;
+  assert.equal(hood.quantity, "2");
+  assert.equal(hood.materialId, "petg-matte");
+  assert.equal(hood.materialCost, "3.1209");
   assert.equal(estimate.alternatives.find((item) => item.materialId === "petg")!.weightGrams, "750");
   repository.fabrication.materials.find((item) => item.id === "petg-matte")!.spoolPrice = null;
   assert.equal(estimatePrintMaterials(repository, recipe, "2", "EUR").materialCost, null);
+  assert.equal(estimatePrintMaterials(repository, recipe, "2", "EUR").components.find((component) => component.modelId === hood.modelId)!.materialCost, null);
 });
 
 test("cosmetic shell substitutions preserve functional cover components", async () => {
