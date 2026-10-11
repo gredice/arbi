@@ -19,6 +19,7 @@
     "db:migrate:jobs": "node --import tsx scripts/migrate-jobs.ts",
     "db:migrate:telemetry": "node --import tsx scripts/migrate-telemetry.ts",
     "db:migrate:usage": "node --import tsx scripts/migrate-usage.ts",
+    "db:migrate:usage-settings": "node --import tsx scripts/migrate-usage-settings.ts",
     "telemetry:maintain": "node --import tsx scripts/telemetry-worker.ts",
     "db:migrate:realtime": "node --import tsx scripts/migrate-realtime.ts",
     "realtime:maintain": "node --import tsx scripts/realtime-worker.ts",
