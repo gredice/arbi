@@ -66,6 +66,7 @@ The committed material is a **design baseline**, not proof of a built or safe in
 - [Durable usage ingestion, billing-period rollups and explicit accounting uncertainty](software/usage-rollups.md), with [host evidence](evidence/usage-rollups.md)
 - [Bounded simulated control playground](software/control-playground.md), with [native/browser evidence](evidence/control-playground.md) and [ADR-0012](decisions/0012-bounded-control-playground.md)
 - [Isolated web–cloud–edge protocol integration](software/protocol-integration.md), with [host/browser fault evidence](evidence/protocol-integration.md) and [ADR-0013](decisions/0013-isolated-protocol-integration.md)
+- [Bounded live-session authority and isolated signaling](software/live-sessions.md), with [native evidence](evidence/live-sessions.md) and [ADR-0014](decisions/0014-live-session-authority.md)
 - [Cloud health, least privilege and isolated recovery quarantine](software/cloud-operations.md), with [native restore evidence](evidence/cloud-operations.md) and [ADR-0011](decisions/0011-cloud-recovery-quarantine.md)
 - [Usage, billing policy and correlated audit dashboard](software/usage-audit-dashboard.md), with [native/browser evidence](evidence/usage-audit-dashboard.md)
 - [Configurable usage reports, forecast assumptions and durable budget alerts](software/usage-settings-alerts.md), with [host evidence](evidence/usage-settings-alerts.md)
