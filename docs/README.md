@@ -137,6 +137,7 @@ Design decisions belong in ADRs. Work items and unresolved questions belong in G
 - [Calibrated gimbal and motion/settling interlocks](software/gimbal-model.md), [source checks and physical gates](evidence/gimbal-model.md), and [ADR-0032](decisions/0032-simulation-only-calibrated-gimbal.md)
 - [Traceable autofocus/still capture source sequence](software/capture-sequencing.md), [native source versus camera bench evidence](evidence/capture-sequencing.md), and [ADR-0033](decisions/0033-traceable-synthetic-capture-sequencing.md)
 - [Calibrated image-processing source adapter](software/image-processing.md), [fixture/host versus physical evidence](evidence/image-processing.md), and [ADR-0034](decisions/0034-bounded-synthetic-image-rectification.md)
+- [Native capture custody and recovery](software/capture-transfer.md), [source versus power/wireless evidence](evidence/capture-transfer.md), and [ADR-0035](decisions/0035-native-capture-custody-and-recovery.md)
 
 - [Input and bounded homing model](software/input-homing-model.md), [real interface review requirements](system/input-enable-interface-requirements.md), [source versus wiring/rig evidence](evidence/input-homing-model.md), and [ADR-0027](decisions/0027-unavailable-real-inputs-and-homing-model.md)
 

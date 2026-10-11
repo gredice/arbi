@@ -14,6 +14,8 @@ import { collectHealth,linuxHealthIO,type HealthIO,type HealthSample } from './h
 import { unavailableAdapters,type CameraAdapter,type GimbalAdapter } from './adapters.js';
 import { validatePodSettings,type PodSettings } from './settings.js';
 import { DiagnosticBuffer } from './diagnostic-buffer.js';
+import { CaptureTransfer } from './capture-transfer.js';
+import { PodCursorRecovery } from './cursor-recovery.js';
 const validId=(v:unknown):v is string=>typeof v==='string' && /^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$/u.test(v);
 const same=(a:unknown,b:unknown)=>configurationDigest(a)===configurationDigest(b);
 export class PodRuntime {
@@ -25,6 +27,7 @@ export class PodRuntime {
   #http?:HTTPServer;#tls?:TLSServer;#peer?:TLSSocket;#audit?:SqliteAuditSpool;#usage?:TrafficSpool;#meter?:ApplicationMeter;
   #buffer?:DiagnosticBuffer;#diagnostics=0;#stopped=false;#started=false;#lastFailure=-Infinity;#suppressed=0;
   #osBootId:string|null=null;
+  #captureTransfer:CaptureTransfer|null=null;#recovery:PodCursorRecovery|null=null;
   #build:{version:string;sha:string;dirty:boolean}={version:'0.1.0',sha:'unknown',dirty:true};
   constructor(settings:PodSettings|null,adapters=unavailableAdapters(),io?:HealthIO,now=()=>Math.floor(performance.now())) {
     this.#settings=settings===null?null:validatePodSettings(settings);this.#camera=adapters.camera;this.#gimbal=adapters.gimbal;
@@ -44,6 +47,7 @@ export class PodRuntime {
       state:ready?'Ready':'Fault',actuationInhibited:true,physicalAcceptance:false,camera:{...this.#cameraStatus,captureEnabled:false},
       supportedCommands:['state.resync'],health:structuredClone(this.#health),diagnosticRequests:this.#diagnostics,
       logs:{buffered:this.logs.snapshot().records.length,dropped:this.logs.snapshot().dropped,suppressed:this.#suppressed},
+      captureTransfer:this.#captureTransfer?.status??{state:'not-configured',wanBytes:null,physicalWiFiMeasured:false},recovery:this.#recovery?.status()??{state:'not-configured',cloudCommitted:false},
       diagnosticBuffer:this.#buffer?.status()??{degraded:true,buffered:null},audit:this.#audit?.status()??{degraded:true,pending:null},usage:{boundary:'lan',layer:'application',coverage:'partial',collectionPoint:'pod-local-tls-plaintext-frames',
         wanBytes:null,carrierBytes:null,healthHTTPBytes:null,spool:this.#usage?.status()??{degraded:true,pending:null}}};
   }
@@ -145,8 +149,15 @@ export class PodRuntime {
   pendingAudit(){return this.#audit?.pendingBounded()??[];}
   pendingDiagnostics(){return this.#buffer?.pending()??[];}
   pendingUsage(){return this.#usage?.pending(8)??[];}
+  connectCaptureTransfer(transfer:CaptureTransfer):void {
+    const c=this.#settings?.applied.request.configuration;if(this.#stopped||this.#captureTransfer||!c||!same(transfer.options.source,this.source)||transfer.options.store.bindingDigest!==configurationDigest({realm:c.realm,siteId:c.siteId,deviceId:'pod'}))throw new Error('CAPTURE_TRANSFER_BINDING');this.#captureTransfer=transfer;
+  }
+  connectRecovery(options:Omit<ConstructorParameters<typeof PodCursorRecovery>[0],'source'|'audit'|'usage'|'diagnostics'>):PodCursorRecovery {
+    if(this.#stopped||this.#recovery||!this.#audit||!this.#usage||!this.#buffer)throw new Error('RECOVERY_NOT_READY');this.#recovery=new PodCursorRecovery({...options,source:this.source,audit:this.#audit,usage:this.#usage,diagnostics:this.#buffer});return this.#recovery;
+  }
   async stop():Promise<void> {
     if(this.#stopped)return;this.#stopped=true;clearInterval(this.#poll);this.#gimbal.inhibit();this.#peer?.destroy();
+    await Promise.all([this.#captureTransfer?.stopAndDrain(),this.#recovery?.stopAndDrain()]);
     await Promise.all([this.#http,this.#tls].map(server=>server?.listening?new Promise<void>(resolve=>server.close(()=>resolve())):Promise.resolve()));
     try{await this.#camera.shutdown();}finally{this.#audit?.close();this.#usage?.close();this.#buffer?.close();this.logs.record('SHUTDOWN');}
   }

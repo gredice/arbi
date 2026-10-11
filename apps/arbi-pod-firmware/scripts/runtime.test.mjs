@@ -1,13 +1,17 @@
 import assert from 'node:assert/strict';
-import { readFileSync,rmSync } from 'node:fs';
+import { mkdtempSync,readFileSync,rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { connect } from 'node:tls';
 import { spawn } from 'node:child_process';
 import { once } from 'node:events';
-import { randomUUID } from 'node:crypto';
+import { generateKeyPairSync,randomUUID } from 'node:crypto';
 import { performance } from 'node:perf_hooks';
 import { test } from 'node:test';
 import { PodRuntime } from '../dist/runtime.js';
+import { CaptureStore } from '../dist/capture-store.js';
+import { CaptureTransfer } from '../dist/capture-transfer.js';
+import { ApplicationMeter,TrafficSpool,stamp } from '@arbi/traffic';
 import { FrameDecoder,frame,TRANSPORT_VERSION } from '@arbi/protocol/local';
 import { PROTOCOL_VERSION,parseMessage,validateAuditEvent } from '@arbi/protocol';
 import { createSyntheticCredentials,syntheticAppliedConfiguration } from '../../arbi-edge-controller/dist/simulation.js';
@@ -26,6 +30,17 @@ const waitFor=async(predicate)=>{
   const until=performance.now()+5000;
   while(performance.now()<until){if(predicate())return;await new Promise(resolve=>setTimeout(resolve,10));}throw new Error('WAIT_TIMEOUT');
 };
+test('runtime stop inhibits first and drains attached bounded media/cursor owners before storage closure',async()=>{
+  const f=fixture(),root=mkdtempSync(join(tmpdir(),'arbi-pod-capture-')),runtime=new PodRuntime(f.settings,f.adapters,io),c=f.settings.applied.request.configuration,key=generateKeyPairSync('ed25519'),edge={deviceId:'edge',bootId:'recovery-edge',sessionId:'recovery-session'};
+  const binding={realm:c.realm,siteId:c.siteId,deviceId:'pod'},store=new CaptureStore({root,binding}),usage=new TrafficSpool({path:join(root,'usage.sqlite'),binding:{...binding,executionMode:'simulation'},maxRecords:32,maxBytes:262144,maxPages:256,maxCounters:1});
+  try {
+    const native=JSON.parse(readFileSync(new URL('../../arbi-edge-controller/fixtures/captured-png.json',import.meta.url),'utf8')),r=native.receipt;store.reserve({commandId:r.commandId,correlationId:r.correlationId,resourceId:r.resourceId,fingerprint:r.fingerprint});store.publish(r.commandId,Buffer.from(native.pngBase64,'base64'),32,24,r.metadata);
+    const transfer=new CaptureTransfer({store,source:runtime.source,edge:()=>edge,publicKey:key.publicKey,meter:new ApplicationMeter(usage,()=>stamp(runtime.source.bootId)),authorized:()=>true,now:()=>Math.floor(performance.now()),higherPriorityPending:()=>false,transport:{begin:async()=>new Promise(()=>{}),chunk:async()=>{throw new Error('NOT_REACHED');},finish:async()=>{throw new Error('NOT_REACHED');}},policy:{timeoutMs:30}});runtime.connectCaptureTransfer(transfer);
+    await runtime.start();const recovery=runtime.connectRecovery({edge:()=>edge,publicKey:key.publicKey,authorized:()=>true});assert.equal(recovery.status().cloudCommitted,false);
+    const pending=transfer.step(r.commandId);await waitFor(()=>transfer.status.busy);const inhibits=f.state.inhibits,at=performance.now();await runtime.stop();assert.ok(f.state.inhibits>inhibits);assert.equal(transfer.status.closed,true);assert.equal(transfer.status.busy,false);assert.equal(recovery.status().closed,true);assert.ok(performance.now()-at<1000);await pending;
+    assert.equal(store.delivery(r.commandId),null);assert.ok(store.readImage(store.get(r.commandId)).length>0);assert.equal(runtime.status.camera.captureEnabled,false);
+  } finally {await runtime.stop();store.close();usage.close();rmSync(root,{recursive:true,force:true});f.remove();}
+});
 async function peer(f,port,patch={}) {
   const source={deviceId:'edge',bootId:randomUUID(),sessionId:randomUUID()},messages=[];
   const socket=connect({host:'127.0.0.1',port,servername:'pod.sim.arbi.test',ca:readFileSync(f.credentials.caFile),

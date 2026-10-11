@@ -15,6 +15,10 @@
     "./release-schema": "./schema/release.schema.json",
     "./update-schema": "./schema/update.schema.json",
     "./scenario-schema": "./schema/scenario.schema.json",
+    "./capture-transfer": {
+      "types": "./dist/capture-transfer.d.ts",
+      "import": "./dist/capture-transfer.js"
+    },
     "./local": {
       "types": "./dist/local.d.ts",
       "import": "./dist/local.js"
