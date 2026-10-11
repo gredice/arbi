@@ -84,6 +84,7 @@ test("native PostgreSQL dashboard: independent instances share current directory
     const input={key:'live-cookie-1',deviceId:'synthetic-usage-edge',profileId:'low-reference'},first=await (await live(a,'start',input)).json(),second=await (await live(b,'start',input,viewer)).json();
     assert.equal(first.admission,'granted');assert.equal(second.admission,'granted');assert.equal(first.producerId,second.producerId);assert.notEqual(first.id,second.id);
     assert.equal(first.measured.viewerBytes,null);assert.equal(first.observedConnection,'unobserved');assert.equal(first.siteId,'synthetic-site');assert.equal(first.realm.namespaceId,realm.namespaceId);
+    const observed=await (await live(b,'state',{sessionId:first.id})).json(),renewed=await live(a,'renew',{sessionId:first.id,token:observed.token});assert.equal(renewed.status,200,(await renewed.json()).error);
     assert.equal((await live(b,'state',{sessionId:first.id},viewer)).status,403);
     assert.equal((await live(a,'start',{...input,key:'third-viewer'})).status,429);
     assert.equal((await live(a,'end',{sessionId:first.id})).status,200);const revoked=await live(a,'revoke',{sessionId:second.id});assert.equal(revoked.status,200,(await revoked.json()).error);

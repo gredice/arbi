@@ -35,10 +35,10 @@ export function LiveViewing({context}:{context:DashboardContext}){
   async function start(){if(!inventory||current.current||!allowed)return;await run(async(signal,n)=>{const v=await request<Viewer>('start',{key:crypto.randomUUID(),deviceId:device,profileId:profile},signal);if(accept(v,n)){startedAt.current=performance.now();lastActivity.current=performance.now();lastPoll.current=performance.now();setElapsed(0);setNotice('Permission granted. Playback remains unobserved.');await request('signal',{sessionId:v.id,token:v.token,sequence:1,message:{type:'offer',data:'explicit-isolated-viewer'}},signal);}});}
   useEffect(()=>{const hide=()=>{if(!activeHistory(context))stop('Viewing stopped when the panel became inactive.');},end=()=>stop('Viewing stopped. Start again explicitly.'),activity=()=>{lastActivity.current=performance.now();};
     const timer=setInterval(()=>{const v=current.current;if(!v)return;
-      if(!activeHistory(context)||Date.now()>=v.expiresAtMs||Date.now()>=v.absoluteExpiresAtMs||performance.now()-lastActivity.current>=30000){stop('Viewing ended: expired or idle.');return;}
+      if(!activeHistory(context)||Date.now()>=v.expiresAtMs-1000||Date.now()>=v.absoluteExpiresAtMs||performance.now()-lastActivity.current>=30000){stop('Viewing ended: expired or idle.');return;}
       setElapsed(Math.floor((performance.now()-startedAt.current)/1000));if(pending.current||performance.now()-lastPoll.current<4000)return;lastPoll.current=performance.now();
       void run(async(signal,n)=>{let state=await request<Viewer>('state',{sessionId:v.id},signal);if(!accept(state,n))return;
-        if(state.expiresAtMs-Date.now()<8000){state=await request<Viewer>('renew',{sessionId:state.id,token:state.token},signal);if(!accept(state,n))return;await request('signal',{sessionId:state.id,token:state.token,sequence:1,message:{type:'offer',data:'explicit-isolated-viewer'}},signal);}
+        if(state.expiresAtMs-Date.now()<12000){state=await request<Viewer>('renew',{sessionId:state.id,token:state.token},signal);if(!accept(state,n))return;await request('signal',{sessionId:state.id,token:state.token,sequence:1,message:{type:'offer',data:'explicit-isolated-viewer'}},signal);}
         if(valid(n))setNotice('Session '+state.admission+' · '+state.observedConnection);
       });
     },250);

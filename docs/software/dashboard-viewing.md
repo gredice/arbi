@@ -9,7 +9,8 @@ no session or video. Changing quality requires stopping and a new explicit start
 The protected dashboard-live cookie bridge delegates to the original live
 service. Every viewer keeps its own server ID, original human session, token
 epoch and authorization/absolute deadline even when sharing a producer.
-A four-second heartbeat observes current authority; it renews a valid explicit
+A four-second heartbeat observes current authority; it renews conservatively
+before the last twelve seconds of a valid explicit
 session within its original absolute lifetime and re-establishes only that
 session's isolated signaling. Error, denial, expiry or revoked state stops it.
 
