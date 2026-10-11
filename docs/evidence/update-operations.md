@@ -17,3 +17,5 @@ Local verification passes 464 protocol checks; 179 focused audit/update/security
 Tested software revision: `d3105a2207304c0ab9cc683cfc063f1aa9bde0cd`. Documentation updates only identify this tested code snapshot; exact-head automation is recorded by the issue PR.
 
 Review follow-up: 28 update/security/transfer checks pass after enforcing the 32-attempt composition limit, preserving unknown allowance at a period boundary, recording recovery-required on an uncertain target reply, and keeping handler failures separate from SDK authorization denial.
+
+Tested review-fix revision: `953946fb87bae9b6be9110fe818aa13842da96ab` (local reviewer Codex). Exact-head CI and CodeRabbit review remain recorded on the issue PR.
