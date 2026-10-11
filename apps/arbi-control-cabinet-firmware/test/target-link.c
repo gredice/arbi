@@ -4,6 +4,7 @@
 #include "motion.h"
 #include "homing.h"
 #include "local_control.h"
+#include "update_denied.h"
 #include "pulse_pio.h"
 #include "pico/stdlib.h"
 static PulseQueue queue;
@@ -60,5 +61,6 @@ int main(void) {
   (void)diagnostics_record_json(&diagnostic_record,diagnostic_output);
   (void)diagnostics_outcome(&diagnostic_record,diagnostic_output);
   (void)diagnostics_snapshot(&local,&inputs,0,diagnostic_output);
+  (void)arbi_update_physical_available();
   for (;;) tight_loop_contents();
 }

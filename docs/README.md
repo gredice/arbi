@@ -138,3 +138,5 @@ Design decisions belong in ADRs. Work items and unresolved questions belong in G
 - [Local controller expiry, fault latching and deliberate recovery](software/local-controller-recovery.md), [source versus physical response evidence](evidence/local-controller-recovery.md), and [ADR-0028](decisions/0028-simulation-only-local-controller-recovery.md)
 
 - [Bounded MCU model diagnostics and command outcomes](software/mcu-model-diagnostics.md), [source versus measured timing evidence](evidence/mcu-model-diagnostics.md), and [ADR-0029](decisions/0029-bounded-mcu-model-diagnostics.md)
+
+- [Isolated signed Pico flash and trial recovery model](software/pico-flash-model.md), [native source versus device/recovery evidence](evidence/pico-flash-model.md), and [ADR-0030](decisions/0030-isolated-signed-pico-flash-recovery-model.md)

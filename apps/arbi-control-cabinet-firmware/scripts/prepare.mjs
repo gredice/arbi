@@ -17,6 +17,12 @@ export function sourceIdentity(directory = app) {
 export function prepare() {
   const output = join(app, 'dist/generated');
   mkdirSync(output, { recursive: true });
+  const layout=JSON.parse(readFileSync(join(app,'update-layout.json'),'utf8'));
+  if(layout.version!=='arbi.pico-flash-model/1.0'||layout.origin!=='simulated'||layout.physicalInstallerEnabled!==false||layout.romPartitionTableInstalled!==false||layout.deviceSignatureVerifierAvailable!==false)throw new Error('Physical updater remains unavailable');
+  let end=0;
+  for(const p of layout.partitions){if(!Number.isSafeInteger(p.offset)||!Number.isSafeInteger(p.bytes)||p.offset!==end||p.offset%4096||p.bytes<4096||p.bytes%4096)throw new Error('Invalid model partition');end=p.offset+p.bytes;}
+  if(end!==4194304||layout.flashBytes!==end||layout.localTrialBudgetMs!==8000)throw new Error('Invalid model bounds');
+  writeFileSync(join(output,'update_layout.h'),`#define ARBI_FLASH_MODEL_BYTES ${layout.flashBytes}u\n#define ARBI_FLASH_MODEL_IMAGE_BYTES ${layout.partitions.find(p=>p.name==='A').bytes}u\n#define ARBI_FLASH_MODEL_HEADER_BYTES ${layout.imageHeaderBytes}u\n#define ARBI_FLASH_MODEL_TRIAL_MS ${layout.localTrialBudgetMs}u\n`);
   const configuration = JSON.parse(readFileSync(new URL('../../packages/arbi-protocol/fixtures/configuration.json', new URL('../', import.meta.url)), 'utf8')).valid.configuration;
   const result = validateConfigurationRecord(configuration, 'configuration');
   if (!result.ok || configuration.executionMode !== 'simulation' || configuration.realm.environment !== 'test') throw new Error('Invalid isolated configuration fixture');
