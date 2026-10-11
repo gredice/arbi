@@ -19,5 +19,5 @@ try {
     intervalMs:elapsedMs,rssBytes:last.resources.rssBytes,cpuMicroseconds,cpuPercent:cpuMicroseconds/(elapsedMs*10),temperature:last.health.temperature,
     networkBytes:null,networkReason:'no-interface-baseline-collected',actuationInhibited:last.actuationInhibited,ready:last.ready})}\n`);
 } finally {
-  const ended=once(child,'exit');child.kill('SIGTERM');const timer=setTimeout(()=>child.kill('SIGKILL'),5000);await ended;clearTimeout(timer);
+  if(child.exitCode===null && child.signalCode===null){const ended=once(child,'exit');child.kill('SIGTERM');const timer=setTimeout(()=>child.kill('SIGKILL'),5000);await ended;clearTimeout(timer);}
 }

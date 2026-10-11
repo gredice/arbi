@@ -100,7 +100,8 @@ test('unenrolled certificates, actuator commands, malformed JSON and stalled fra
       cert:readFileSync(f.credentials.modules.pico.certFile),key:readFileSync(f.credentials.modules.pico.keyFile),ALPNProtocols:[TRANSPORT_VERSION],minVersion:'TLSv1.3',maxVersion:'TLSv1.3'});
     alien.on('error',()=>{});await waitFor(()=>alien.closed);assert.equal(runtime.status.diagnosticRequests,0);
     let p=await peer(f,ports.modulePort);peers.push(p);await waitFor(()=>p.messages.length>=2);
-    const move=command(f,p);move.body={type:'camera.gimbal',panDeg:0,tiltDeg:0,frame:{name:'pod-gimbal',revision:'gimbal-1'}};
+    const move=command(f,p);move.body={type:'camera.gimbal',panDeg:0,tiltDeg:0,frame:{name:'pod-gimbal',revision:'gimbal-1'},maxDurationMs:500};
+    assert.equal(parseMessage(JSON.stringify(move)).ok,true);
     p.socket.write(frame(move));await waitFor(()=>p.socket.closed);assert.equal(runtime.status.diagnosticRequests,0);
     p=await peer(f,ports.modulePort);peers.push(p);await waitFor(()=>p.messages.length>=2);
     const body=Buffer.from('{"secret":"PRIVATE KEY",');const prefix=Buffer.alloc(4);prefix.writeUInt32BE(body.length);
