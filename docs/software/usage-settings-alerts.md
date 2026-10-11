@@ -1,6 +1,6 @@
 # Usage reports, configurable plans and durable alerts
 
-This implements the isolated prototype scope of [#55](https://github.com/gredice/arbi/issues/55), building on [signed usage windows and rollups](usage-rollups.md) and the separately enforced [edge transfer budgets](transfer-budgets.md). Dashboard rendering belongs to [#57](https://github.com/gredice/arbi/issues/57). The accounting contract, wire version and sensor meanings remain unchanged.
+This implements the isolated prototype scope of [#55](https://github.com/gredice/arbi/issues/55), building on [signed usage windows and rollups](usage-rollups.md) and the separately enforced [edge transfer budgets](transfer-budgets.md). Dashboard rendering belongs to [#5](https://github.com/gredice/arbi/issues/5), specifically [#57](https://github.com/gredice/arbi/issues/57). The accounting contract, wire version and sensor meanings remain unchanged.
 
 ## API and configuration
 

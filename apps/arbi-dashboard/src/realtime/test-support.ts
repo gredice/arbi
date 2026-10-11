@@ -8,8 +8,9 @@ export async function fixture() {
   const f=await jobsFixture();const keys=generateKeyPairSync('ed25519');
   f.registry.devices[0].credentials[0].publicKey=keys.publicKey.export({format:'der',type:'spki'}).toString('base64url');
   const signed=(action: string,payload: unknown,version=VERSION) => {
+    const issuedAtMs=Date.now();
     const unsigned={version,realm,siteId:f.registry.siteId,deviceId:'edge-1',credentialId:'credential-1',identity:f.registry.devices[0].current,
-      issuedAtMs:Date.now(),expiresAtMs:Date.now()+10000,action,payload};
+      issuedAtMs,expiresAtMs:issuedAtMs+10000,action,payload};
     return {...unsigned,signature:sign(null,proofBytes(unsigned),keys.privateKey).toString('base64url')};
   };
   const published: {channel:string;notification:Notification}[]=[];const revoked: string[]=[];

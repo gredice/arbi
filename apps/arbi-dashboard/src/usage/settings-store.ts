@@ -80,7 +80,9 @@ export class UsageSettingsStore {
       CROSS JOIN LATERAL jsonb_array_elements(a.record->'destinations') d(value) LEFT JOIN arbi_usage_alert_deliveries r ON r.alert_id=a.id AND r.destination_id=d.value->>'id'
       WHERE a.environment=$1 AND a.namespace_id=$2 AND a.site_id=$3 AND r.alert_id IS NULL ORDER BY a.at_ms,a.id,d.value->>'id' LIMIT $4`,[...scope(this.usage.jobs.realm,siteId),limit])).rows,1500);
     let delivered=0;for(const row of pending){const key=digest([this.usage.jobs.realm,siteId,row.record.id,row.destination.id]);
-      if(!await bounded(1000,signal=>send(structuredClone(row.record),structuredClone(row.destination),key,signal)))continue;
+      let acknowledged=false;
+      try{acknowledged=await bounded(1000,signal=>send(structuredClone(row.record),structuredClone(row.destination),key,signal));}catch{/* A failed destination remains pending without blocking this batch. */}
+      if(!acknowledged)continue;
       await this.usage.jobs.transaction(siteId,async tx=>{await tx.sql.query('INSERT INTO arbi_usage_alert_deliveries VALUES($1,$2,$3) ON CONFLICT DO NOTHING',[row.record.id,row.destination.id,tx.now]);},1500);delivered++;
     }return {attempted:pending.length,delivered};
   }

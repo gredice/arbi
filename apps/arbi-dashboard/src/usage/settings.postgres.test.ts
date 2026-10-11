@@ -51,8 +51,8 @@ test('native PostgreSQL persisted usage settings, late threshold alerts, restart
   });
   await t.test('lost external acknowledgement retries the same deduplication key; receipt survives another process',async()=>{
     const seen=new Set<string>();let lost=true;
-    await assert.rejects(f.server.settings.deliver(f.siteId,async(_a,_d,key)=>{seen.add(key);if(lost){lost=false;throw Error('synthetic lost acknowledgement');}return true;}));
-    await restarted.settings.deliver(f.siteId,async(_a,_d,key)=>{seen.add(key);return true;});assert.equal(seen.size,5);
+    assert.deepEqual(await f.server.settings.deliver(f.siteId,async(_a,_d,key)=>{seen.add(key);if(lost){lost=false;throw Error('synthetic lost acknowledgement');}return true;}),{attempted:5,delivered:4});
+    assert.deepEqual(await restarted.settings.deliver(f.siteId,async(_a,_d,key)=>{seen.add(key);return true;}),{attempted:1,delivered:1});assert.equal(seen.size,5);
     assert.deepEqual(await f.server.settings.deliver(f.siteId,async()=>{throw Error('unexpected replay');}),{attempted:0,delivered:0});
   });
   await t.test('SQL failures roll back edits and authorization intent atomically',async()=>{

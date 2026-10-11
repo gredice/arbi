@@ -52,8 +52,9 @@ test('full inventory and selected diagnostics bound demand, bytes, hidden lifecy
   }).catch(()=>{/* Aborted/retired response is not a completed payload measurement. */});});
   await page.clock.fastForward(10000);expect(requests).toBe(0);
   await page.getByLabel('Detail demand').selectOption('pod');await expect(page.getByText(/Selected detail active/)).toBeVisible();
-  expect(requests).toBe(1);await expect(page.getByRole('row',{name:/position.z/})).toContainText('estimated');
-  await page.clock.fastForward(5000);await expect.poll(()=>requests).toBe(2);await expect.poll(()=>completed).toBe(2);
+  expect(requests).toBe(1);await expect.poll(()=>completed).toBe(1);await expect(page.getByRole('row',{name:/position.z/})).toContainText('estimated');
+  // Run the refresh interval continuously so a newly started fetch gets its real I/O before its deadline.
+  await page.clock.runFor(5000);await expect.poll(()=>requests).toBe(2);await expect.poll(()=>completed).toBe(2);
   expect(bytes).toBeLessThan(2*32768);
   await page.evaluate(()=>{Object.defineProperty(document,'visibilityState',{configurable:true,value:'hidden'});document.dispatchEvent(new Event('visibilitychange'));});
   await page.clock.fastForward(20000);expect(requests).toBe(2);await expect(page.getByText(/Detail paused/)).toBeVisible();
