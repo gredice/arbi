@@ -1,0 +1,15 @@
+# ADR-0026: Inhibited pod service foundation
+
+Status: accepted when the issue PR merges. Work record: [#32](https://github.com/gredice/arbi/issues/32).
+
+Implement the pod as a separate Node/TypeScript Linux application in `apps/arbi-pod-firmware`, preserving cabinet-edge ownership. Target Debian 13 arm64 with systemd and the repository's Node 24 runtime on the baseline Pi 3A+. Actual image/driver support, confinement enforcement, startup/restart and CPU/RAM/thermal/network acceptance require a named device bench record. No image qualification is implied by the development-host process tests.
+
+Default startup opens only loopback health, advertises not-ready and inhibits output without credentials or a configuration. A validated test/simulation applied configuration, exact enrolled TLS 1.3 edge certificate, and a trusted simulated camera can enable diagnostic readiness only. Real camera/gimbal adapter interfaces remain unavailable; the application exposes no capture, servo, autofocus, provisioning or updater command. There is no sweep/home or restored movement on boot/reconnect. The Linux unit has private devices, no capabilities and no WAN/LAN activation permission.
+
+Reuse `arbi.local/1.0` and the existing bounded edge framing implementation through the Node-only `@arbi/protocol/local` export. Schema fingerprints and shared wire messages remain unchanged. One enrolled current edge connection, fresh per-connection pod identity, exact configuration/site/realm/version checks, bounded framing/rate/partial-frame/handshake deadlines and the shared command ledger protect diagnostic resynchronization. Certificate trust is not human authorization or hardware readiness.
+
+Keep health provenance explicit: Linux temperature measurement, current/historical OS undervoltage/throttling flags, filesystem available bytes, network-configuration estimate, runtime/build identity and separate OS/process boots. Unsupported voltage and reset-cause channels are unavailable. Mock health origin is simulated and its values are estimated. Interface/carrier/WAN bytes are not inferred from diagnostic plaintext traffic.
+
+Local logs use fixed allowlisted fields and bounded retention. A bounded SQLite informational diagnostic buffer persists correlation/connection/boot/sequence fields across restarts and reports eviction/degradation. It is not shared authorization or device-effect evidence. The existing shared audit schema assigns authorization to cloud/edge; the actual edge grants remain its authority. The pod initializes the shared audit outbox for future valid pod outcomes without inventing diagnostic authorization events. Shared application metering counts actual local TLS plaintext frames in a separate LAN view.
+
+The [guide](../software/pod-runtime.md) and [source evidence](../evidence/pod-runtime.md) preserve the boundary. Gimbal limits and measured settling, real camera/media, field networking, power/reset, updates and installed safety remain their separate issues and gates.

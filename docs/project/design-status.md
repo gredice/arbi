@@ -85,3 +85,5 @@ Portable incident replay and explicit model comparison are available as isolated
 [Update dashboard software](../software/update-dashboard.md) now separates web build identity, signed availability and observed target health, with explicit selection, allowance/override, durable reconnect and local refusal. Its actual isolated browser/BFF/SDK/Range/SQLite evidence remains separate from live publisher, installed recovery and physical acceptance.
 
 [Seeded service fault workflows](../software/fault-workflows.md) exercise actual durable control/update/transfer and cloud viewing/media services with reproducible semantic traces. Alarm, restart, deadline, canary, budget, disabled recording and upload retry remain source/native/synthetic evidence; physical timing, camera/radio and installed recovery gates remain unverified.
+
+The [pod runtime foundation](../software/pod-runtime.md) adds authenticated bounded loopback diagnostics, health provenance and native process/SQLite checks. It has no physical camera/gimbal adapter; named Pi 3A+ startup, resource, electrical and imaging evidence remain unverified.
