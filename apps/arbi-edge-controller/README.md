@@ -73,3 +73,8 @@ The explicit [capture composition](../../docs/software/capture-orchestration.md)
 an optional private A/B file adapter for the existing update owner. Signed native
 staging and process recovery remain separate from physical application/OS boot,
 storage reimage and secure-boot acceptance.
+
+[Edge update preflight](../../docs/software/edge-update-preflight.md) optionally
+connects the existing update owner to local jobs, manual lease fencing and capture
+draining. [Host evidence](../../docs/evidence/edge-update-preflight.md) retains
+physical restraint, OS boot and power-loss gates as blocked/unverified.

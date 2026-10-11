@@ -6,6 +6,7 @@ import { JobError, type LocalAuthority } from './types.js';
 
 export interface ManualOptions {
   journal:JobJournal; authority:()=>LocalAuthority; localStop:()=>void;
+  admissionInhibit?:()=>ErrorCode|null;
   deadmanMs:number; maxJogMs:number; maxLeaseMs:number;
 }
 interface Session {root:AuditEvent; binding:string; lastPulseAtMs:number; lastSequence:bigint; expiresAtMs:number}
@@ -39,7 +40,7 @@ export class ManualControl {
   }
   #authorized(a:LocalAuthority):boolean {
     const g=a.gate,l=g.lease,now=g.nowMonotonicMs;
-    return !this.#failed && a.mode==='manual' && a.cloudConnected && g.executionMode==='simulation' && g.realm.environment==='test' &&
+    return !this.options.admissionInhibit?.() && !this.#failed && a.mode==='manual' && a.cloudConnected && g.executionMode==='simulation' && g.realm.environment==='test' &&
       g.authorizedActor.kind==='human' && !!l && l.holderId===g.authorizedActor.id && same(l.receiver,g.receiver) &&
       Number.isSafeInteger(l.expiresMonotonicMs) && l.expiresMonotonicMs>now && l.expiresMonotonicMs-now<=this.options.maxLeaseMs &&
       g.allowedTypes.some(t=>t==='motion.move' || t==='camera.gimbal') && !g.faultInhibited && a.state!=='Maintenance';
@@ -84,6 +85,8 @@ export class ManualControl {
     const a=this.options.authority();if(!this.#session)return;
     if(!this.#authorized(a) || this.#binding(a)!==this.#session.binding)this.#reject('NOT_AUTHORIZED');this.lost('ended');
   }
+  /** Stop first, then durably retire the current fence even without an active session. */
+  retireForUpdate():void {this.lost('revoked');this.options.journal.retireManualLease(this.options.authority());}
   /** A local stop/transport teardown may always remove authority; it never grants a replacement. */
   lost(reason:'ended'|'timeout'|'revoked'='revoked'):void {
     this.options.localStop();this.#session=null;

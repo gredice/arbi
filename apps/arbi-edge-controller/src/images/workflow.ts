@@ -43,5 +43,5 @@ export class CaptureWorkflow {
     try{await this.options.uploader.stopAndDrain();}finally{await this.#drain;}
     if(failure)throw failure;
   }
-  get status(){return {jobs:this.options.jobs.status,images:this.options.stage.status(),upload:this.options.uploader.status,preview:this.options.preview?.status??null,closed:this.#closed,physicalActuationEnabled:false,recordingEnabled:false};}
+  get status(){return {jobs:this.options.jobs.status,images:this.options.stage.status(),upload:this.options.uploader.status,preview:this.options.preview?.status??null,closed:this.#closed,busy:this.#busy,physicalActuationEnabled:false,recordingEnabled:false};}
 }

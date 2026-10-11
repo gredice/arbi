@@ -11,6 +11,7 @@ export interface ConsumerOptions {
   auditSpool: (event: AuditEvent) => SqliteAuditSpool;
   fault?: (point: CrashPoint, record: JobRecord) => void;
   manual?:ManualControl;
+  admissionInhibit?:()=>ErrorCode|null;
 }
 /** A single supervised local consumer. No network or cloud callback is on its stop path. */
 export class LocalJobConsumer {
@@ -25,16 +26,16 @@ export class LocalJobConsumer {
     try { options.journal.recover(); options.journal.latch(); this.#flushAudit(); }
     catch { this.#degraded = true; }
   }
-  get status() { return { ...this.#options.journal.status(), degraded: this.#degraded || this.#options.journal.status().degraded, physicalActuationEnabled: false }; }
+  get status() { return { ...this.#options.journal.status(), degraded: this.#degraded || this.#options.journal.status().degraded, journalDegraded:this.#options.journal.status().degraded, physicalActuationEnabled: false }; }
   receive(input: unknown): JobRecord {
     const c = commandInput(input), o = this.#options, a = o.authority();
     // An authenticated boundary is needed even for cached results of a retired boot.
     if (!same(c.source, a.gate.authenticatedSource) || !same(c.realm, a.gate.realm) || c.siteId !== a.gate.siteId
       || c.executionMode !== 'simulation' || !same(c.command.actor, a.gate.authorizedActor) || c.command.target.deviceId !== a.gate.receiver.deviceId) throw new JobError('NOT_AUTHORIZED');
     const prior = o.journal.duplicate(c); if (prior) return prior;
-    let error = o.manual?.check(c,a) ?? admit(c, a), steps: JobRecord['steps'] = [];
+    let error = (c.body.type==='control.stop'?null:o.admissionInhibit?.()) ?? o.manual?.check(c,a) ?? admit(c, a), steps: JobRecord['steps'] = [];
     if (!error) try { steps = plan(c, a); } catch (e) { error = e instanceof JobError && e.code !== 'STORAGE_UNAVAILABLE' ? e.code : 'EXECUTION_FAILED'; }
-    if (this.status.degraded && c.body.type !== 'control.stop') error = 'RESOURCE_LIMIT';
+    if (!error && this.status.degraded && c.body.type !== 'control.stop') error = 'RESOURCE_LIMIT';
     if (c.body.type === 'control.stop' && !error) {
       // Best-effort remote stop after protocol authorization, before any disk/audit work.
       o.adapter.localStop();
@@ -55,6 +56,7 @@ export class LocalJobConsumer {
     catch { /* Required stopping has already happened. */ }
   }
   authorizeRecovery(): void {
+    if(this.#options.admissionInhibit?.())throw new JobError('FAULT_INHIBITED');
     const a = this.#options.authority();
     // All local prerequisites are rechecked; a remote grant is insufficient.
     const pending = this.#options.journal.active();
@@ -70,6 +72,7 @@ export class LocalJobConsumer {
     this.#flushAudit();
   }
   #current(r: JobRecord, a: LocalAuthority): ErrorCode | null {
+    const inhibit=this.#options.admissionInhibit?.();if(inhibit)return inhibit;
     const manualError=this.#options.manual?.check(r.command,a,true);if(manualError)return manualError;
     if (!same(r.command.command.target, a.gate.receiver)) return 'TARGET_RESTARTED';
     if (!same(r.modules, a.modules)) return 'RESYNC_REQUIRED';
