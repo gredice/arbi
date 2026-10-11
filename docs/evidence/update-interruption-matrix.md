@@ -32,7 +32,7 @@ The clean source passed 13 forced build/lint/typecheck tasks and all 58 update
 tests serially in 75.994 seconds, including the new matrix and the existing
 preflight, trust/migration, range/budget/audit, native Linux and SIGKILL tests.
 A separate report generation ran all nine cases and four kills on the same
-clean source. Its native kill/recovery durations were 1769.85–1900.80 ms on
+clean source. Its native kill/recovery durations were 1754.54–1900.80 ms on
 this host; no physical timing is inferred. Documentation links and whole-tree
 whitespace pass. The evidence-only follow-up changes no tested source.
 

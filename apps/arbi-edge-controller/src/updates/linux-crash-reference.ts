@@ -5,6 +5,7 @@ import {createPublicKey} from 'node:crypto';
 import {mkdtempSync,readFileSync,rmSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
+import {fileURLToPath} from 'node:url';
 import {IsolatedLinuxUpdateTarget} from './linux-target.js';
 import {UpdateTrustStore} from './trust.js';
 import {UpdateMigrationStore} from './migrations.js';
@@ -12,7 +13,7 @@ import {UpdateMigrationStore} from './migrations.js';
 export async function runLinuxCrashReference(point:'image-fsync'|'image-rename'|'trial'|'confirmed'){
   const began=performance.now();
     const root=mkdtempSync(join(tmpdir(),'arbi-linux-kill-'));let target:IsolatedLinuxUpdateTarget|undefined,trust:InstanceType<typeof UpdateTrustStore>|undefined,data:InstanceType<typeof UpdateMigrationStore>|undefined;
-    const child=spawn(process.execPath,[new URL('./linux-crash-child.js',import.meta.url).pathname,root,point],{stdio:['ignore','ignore','pipe']});let output='';child.stderr.on('data',chunk=>{output+=String(chunk).slice(0,2048-output.length);});let timedOut=false;const ended=once(child,'exit'),timer=setTimeout(()=>{timedOut=true;child.kill('SIGKILL');},20000);
+    const child=spawn(process.execPath,[fileURLToPath(new URL('./linux-crash-child.js',import.meta.url)),root,point],{stdio:['ignore','ignore','pipe']});let output='';child.stderr.on('data',chunk=>{output+=String(chunk).slice(0,2048-output.length);});let timedOut=false;const ended=once(child,'exit'),timer=setTimeout(()=>{timedOut=true;child.kill('SIGKILL');},20000);
     try{const [code,signal]=await ended;clearTimeout(timer);assert.equal(timedOut,false,'isolated child deadline');assert.equal(code,null,output);assert.equal(signal,'SIGKILL');const record=JSON.parse(readFileSync(join(root,'crash-readback.json'),'utf8'));assert.equal(record.version,'arbi.isolated-linux-crash/1.0');
       trust=new UpdateTrustStore({path:record.trust.path,realm:record.realm,siteId:record.siteId,deviceId:'pod',rootId:record.trust.rootId,rootPublicKey:createPublicKey({key:Buffer.from(record.trust.spki,'base64'),format:'der',type:'spki'}),provisioningReviewId:record.trust.provisioningReviewId,clock:()=>({utcMs:record.now,reliable:true})});
       data=new UpdateMigrationStore({path:record.dataPath,realm:record.realm,siteId:record.siteId,deviceId:'pod',trust});
