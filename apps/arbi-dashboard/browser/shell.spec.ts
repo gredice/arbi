@@ -46,6 +46,8 @@ test('full inventory and selected diagnostics bound demand, bytes, hidden lifecy
   await expect(page.getByRole('table',{name:'All baseline assemblies'}).locator('tbody tr')).toHaveCount(19);
   await expect(page.getByRole('row',{name:/Motion Pico/})).toContainText('Driver encoder feedback');
   await page.getByRole('link',{name:'Engineering',exact:true}).click();await page.getByRole('link',{name:'Diagnostics',exact:true}).click();
+  // This is a full-document navigation: finish loading the client before changing its controlled selection.
+  await page.waitForLoadState('networkidle');
   let requests=0,bytes=0,completed=0;page.on('request',r=>{if(r.url().includes('/dashboard/detail?'))requests++;});
   page.on('response',response=>{if(response.url().includes('/dashboard/detail?')&&response.ok())void response.body().then(body=>{
     bytes+=body.length;completed++;

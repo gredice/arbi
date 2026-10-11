@@ -17,6 +17,8 @@ import { databaseProbe, OperationsMonitor } from './monitor';
 import { OperationsHttp } from './server';
 import { dumpIsolatedDatabase, restoreIsolatedDatabase } from './isolated-backup';
 import { quarantineRestoredRealm } from './recovery';
+import {createLiveServer} from '../live/server';
+import {SimulatedLiveAdapter} from '../live/simulated-adapter';
 const socket=process.env.ARBI_ENROLLMENT_TEST_SOCKET;
 test('native PostgreSQL operations: bounded degradation, least privilege, transactional quarantine and isolated dump/restore',{skip:!socket,timeout:45000},async t=>{
   const root=realpathSync(socket!);assert.ok(root.startsWith(`${realpathSync(process.platform==='darwin'?'/private/tmp':tmpdir())}/arbi-enrollment-pg-`));
@@ -24,7 +26,7 @@ test('native PostgreSQL operations: bounded degradation, least privilege, transa
   const admin=new pg.Pool({...base,database:'postgres',max:1});await admin.query(`CREATE DATABASE ${sourceName}`);await admin.query(`CREATE DATABASE ${targetName}`);await admin.end();
   const source=new pg.Pool({...base,database:sourceName}),target=new pg.Pool({...base,database:targetName});
   const privateDirectory=mkdtempSync(join(tmpdir(),'arbi-operations-backup-'));chmodSync(privateDirectory,0o700);
-  const migrations=['0001-enrollment','0002-media','0003-audit','0004-jobs','0005-realtime','0006-telemetry','0006-dashboard','0007-usage','0008-audit-lifecycle','0009-usage-settings','0010-operations'];
+  const migrations=['0001-enrollment','0002-media','0003-audit','0004-jobs','0005-realtime','0006-telemetry','0006-dashboard','0007-usage','0008-audit-lifecycle','0009-usage-settings','0010-operations','0011-live'];
   for(const file of migrations)await source.query(await readFile(new URL(`../../migrations/${file}.sql`,import.meta.url),'utf8'));
   await source.query(await readFile(new URL('../../migrations/0010-operations.sql',import.meta.url),'utf8'));
   await source.query('CREATE ROLE arbi_operations_app NOLOGIN; GRANT SELECT ON arbi_operations_gate TO arbi_operations_app; GRANT EXECUTE ON FUNCTION arbi_operations_ready() TO arbi_operations_app');
@@ -39,6 +41,14 @@ test('native PostgreSQL operations: bounded degradation, least privilege, transa
   const lease=await jobs.store.lease(engineer.context,'acquire',{key:'restore-lease',deviceId:f.registry.devices[0].id,ttlMs:10000});
   const submission={key:'restored-capture',deviceId:f.registry.devices[0].id,body:{type:'camera.capture',resourceId:'capture-for-restore',maxDurationMs:500},timeoutMs:10000,leaseId:lease.id,fence:lease.fence};
   const job=await jobs.store.submit(engineer.context,submission);
+  const liveAdapter=new SimulatedLiveAdapter();t.after(()=>liveAdapter.close());
+  const live=createLiveServer({db,realm,identity:f.identity.adapter,resolveSite:f.identity.resolveResource,currentAuthority:f.currentAuthority,browserOrigins:['https://synthetic.test'],adapter:liveAdapter,tokenKey:new Uint8Array(32).fill(7),
+    profiles:[{id:'restore-test',transport:'isolated-signaling',maxUpstreamBps:100000,maxDownstreamBps:200000,maxViewers:2}],approveDevice:()=>true,
+    evaluatePolicy:async()=>({allow:true,reason:'within-budget',revision:'restore-policy',layer:'application-payload',remainingBytes:'1000000',maxUpstreamBps:100000})});
+  const liveHuman=await f.human('ops-live','live.view'),liveViewer=await live.store.start(liveHuman.context,{key:'restored-live',deviceId:f.registry.devices[0].id,profileId:'restore-test'});
+  const liveIntent=(await source.query('SELECT intent_id FROM arbi_live_viewers WHERE id=$1',[liveViewer.id])).rows[0].intent_id;
+  await assert.rejects(source.query('INSERT INTO arbi_audit_retirements VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)',[
+    'active-live-retirement','durable',liveIntent,realm.environment,realm.namespaceId,siteId,Date.now(),liveIntent,'test-policy','a'.repeat(64),'a'.repeat(64),null,'operator-delete']),{code:'42501'});
   const releaseFixture=JSON.parse(await readFile(new URL('../../../../packages/arbi-protocol/fixtures/releases.json',import.meta.url),'utf8'));
   const unsigned:ReleaseManifest=releaseFixture.releaseSet.manifests.find((m:ReleaseManifest)=>m.target.moduleId==='edge');
   const keys=generateKeyPairSync('ed25519'),trust={keyId:'isolated-restore-release-key',publicKey:keys.publicKey};unsigned.build.commit='a'.repeat(40);unsigned.channel='candidate';unsigned.artifact.signature.keyId=trust.keyId;
@@ -99,7 +109,9 @@ test('native PostgreSQL operations: bounded degradation, least privilege, transa
     assert.equal((await target.query('SELECT count(*)::text n FROM arbi_audit_events')).rows[0].n,oldAudit);
     await target.query('ALTER TABLE arbi_recovery_runs DROP CONSTRAINT injected_failure');
     const recovery=await quarantineRestoredRealm(postgresOperatorDatabase(target),realm,recoveryId,backup.manifest.archiveDigest);
-    assert.equal(recovery.state,'quarantined');assert.equal(recovery.closedLeases,1);assert.equal(recovery.quarantinedJobs,1);assert.equal(recovery.revokedDevices,1);
+    assert.equal(recovery.state,'quarantined');assert.equal(recovery.closedLeases,1);assert.equal(recovery.quarantinedJobs,1);assert.equal(recovery.revokedDevices,1);assert.equal(recovery.closedLiveViewers,1);
+    assert.equal((await target.query('SELECT record FROM arbi_live_viewers WHERE id=$1',[liveViewer.id])).rows[0].record.endReason,'restore-quarantine');
+    const restoredProducer=(await target.query('SELECT record FROM arbi_live_producers WHERE id=$1',[liveViewer.producerId])).rows[0].record;assert.equal(restoredProducer.demand.viewers,0);assert.equal(restoredProducer.deliveredGeneration,null);assert.equal(restoredProducer.observedState,null);
     assert.deepEqual(await quarantineRestoredRealm(postgresOperatorDatabase(target),realm,recoveryId,backup.manifest.archiveDigest),recovery);
     await assert.rejects(quarantineRestoredRealm(postgresOperatorDatabase(target),realm,recoveryId,'f'.repeat(64)),{code:'TAMPER'});
     const state=(await target.query('SELECT state FROM arbi_device_registry')).rows[0].state;assert.equal(state.devices[0].status,'revoked');assert.ok(state.devices[0].credentials.every((c:{revokedAtMs:number|null})=>c.revokedAtMs!==null));

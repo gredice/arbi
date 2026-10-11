@@ -19,7 +19,8 @@ export async function quarantineRestoredRealm(db:SqlDatabase,realm:Realm,recover
     if(Number(foreign.n))fail('DENIED');
     const sites=(await sql.query<{site_id:string;state:Registry}>('SELECT site_id,state FROM arbi_device_registry WHERE environment=$1 AND namespace_id=$2 ORDER BY site_id LIMIT 33 FOR UPDATE',[realm.environment,realm.namespaceId])).rows;
     if(!sites.length||sites.length>32||count+sites.length+1>128)fail('CAPACITY');
-    const atMs=Date.now(),generation=randomUUID(),audit=new PostgresAuditStore(db,'operations-recovery');let revokedDevices=0,closedLeases=0,quarantinedJobs=0;
+    const atMs=Date.now(),generation=randomUUID(),audit=new PostgresAuditStore(db,'operations-recovery');let revokedDevices=0,closedLeases=0,quarantinedJobs=0,closedLiveViewers=0;
+    const hasLive=(await sql.query<{present:boolean}>("SELECT to_regclass('arbi_live_viewers') IS NOT NULL present")).rows[0].present;
     for(const site of sites){const key=[realm.environment,realm.namespaceId,site.site_id],state=structuredClone(site.state);
       for(const device of state.devices){if(device.status==='active'){device.status='revoked';device.revokedAtMs=atMs;revokedDevices++;}for(const credential of device.credentials)if(credential.revokedAtMs===null)credential.revokedAtMs=atMs;}
       await sql.query('UPDATE arbi_device_registry SET state=$4::jsonb WHERE environment=$1 AND namespace_id=$2 AND site_id=$3',[...key,JSON.stringify(state)]);
@@ -30,6 +31,15 @@ export async function quarantineRestoredRealm(db:SqlDatabase,realm:Realm,recover
       for(const table of ['arbi_job_receivers','arbi_telemetry_heads','arbi_realtime_grants','arbi_realtime_events','arbi_realtime_budgets','arbi_realtime_outbox'])
         await sql.query(`DELETE FROM ${table} WHERE environment=$1 AND namespace_id=$2 AND site_id=$3`,key);
       await sql.query('UPDATE arbi_realtime_sites SET epoch=$4,cursor=0 WHERE environment=$1 AND namespace_id=$2 AND site_id=$3',[...key,generation]);
+      if(hasLive){
+        closedLiveViewers+=(await sql.query(`UPDATE arbi_live_viewers SET ended_at_ms=$4,record=jsonb_set(jsonb_set(record,'{endedAtMs}',to_jsonb($4::bigint)),'{endReason}','"restore-quarantine"') WHERE environment=$1 AND namespace_id=$2 AND site_id=$3 AND ended_at_ms IS NULL RETURNING id`,[...key,atMs])).rows.length;
+        const producers=(await sql.query<{id:string;record:{demand:Record<string,unknown>;deliveredGeneration:null;observedState:null}}>('SELECT id,record FROM arbi_live_producers WHERE environment=$1 AND namespace_id=$2 AND site_id=$3 ORDER BY id LIMIT 33',key)).rows;
+        if(producers.length>32)fail('CAPACITY');
+        for(const producer of producers){const fence=(await sql.query<{value:string}>(`UPDATE arbi_job_sites SET fence=fence+1 WHERE environment=$1 AND namespace_id=$2 AND site_id=$3 AND fence<18446744073709551615 RETURNING fence::text value`,key)).rows[0];if(!fence)fail('CAPACITY');
+          Object.assign(producer.record.demand,{generation:fence.value,viewers:0,issuedAtMs:atMs,expiresAtMs:atMs});producer.record.deliveredGeneration=null;producer.record.observedState=null;
+          await sql.query('UPDATE arbi_live_producers SET record=$2::jsonb WHERE id=$1',[producer.id,JSON.stringify(producer.record)]);
+        }
+      }
       const event:AuditEvent={auditVersion:'arbi.audit/1.0',eventId:randomUUID(),realm,executionMode:'simulation',siteId:site.site_id,actor:{kind:'service',id:'restore-quarantine-v1'},
         source:{module:'cloud',identity:{deviceId:'operations-service',bootId:generation,sessionId:recoveryId}},sequence:'1',sourceTime:{utc:null,uncertaintyMs:null,monotonicMs:0},ingestTime:null,
         resource:{kind:'site',id:site.site_id,deviceId:null},action:'authorization.check',evidence:'authorization',outcome:'allow',effect:'none',reason:'authorized',
@@ -44,7 +54,7 @@ export async function quarantineRestoredRealm(db:SqlDatabase,realm:Realm,recover
     }
     if((await sql.query<{present:boolean}>("SELECT to_regclass('public.arbi_dashboard_sessions') IS NOT NULL present")).rows[0].present)
       await sql.query('UPDATE arbi_dashboard_sessions SET revoked=true WHERE namespace_id=$1',[realm.namespaceId]);
-    const receipt={version:OPERATIONS_VERSION,recoveryId,realm,archiveDigest,generation,atMs,state:'quarantined',sites:sites.map(s=>s.site_id),revokedDevices,closedLeases,quarantinedJobs,
+    const receipt={version:OPERATIONS_VERSION,recoveryId,realm,archiveDigest,generation,atMs,state:'quarantined',sites:sites.map(s=>s.site_id),revokedDevices,closedLeases,quarantinedJobs,closedLiveViewers,
       scope:'database as of backup; later device/provider writes and private object bytes are outside this snapshot; no invented terminal outcomes'};
     await sql.query('INSERT INTO arbi_recovery_runs VALUES($1,$2,$3,$4,$5::jsonb)',[recoveryId,realm.environment,realm.namespaceId,sites[0].site_id,JSON.stringify(receipt)]);
     await sql.query("UPDATE public.arbi_operations_gate SET state='quarantined',generation=$1,changed_at_ms=$2,recovery_id=$3 WHERE singleton=true",[generation,atMs,recoveryId]);

@@ -1,0 +1,17 @@
+# Live-session prototype evidence
+
+Scope: [#38](https://github.com/gredice/arbi/issues/38), [ADR-0014](../decisions/0014-live-session-authority.md). Evidence is source/native-host/isolated-signaling only. No real camera, encoder, relay, mobile carrier or installed producer was used.
+
+Native PostgreSQL tests exercise independent cloud instances against actual migrated storage and current signed human/device identity boundaries. Concurrent viewers share one producer while retaining separate human sessions and audited grants. Exact start retries return one logical viewer; a third viewer above the configured limit is denied. Renewals rotate epochs, retain original lifetime bounds and append policy decisions. Signaling retries return one reply while contradictory/older sequences fail. Cross-session/site requests, forged tokens, incorrect browser origin and current human revocation deny access.
+
+Tests also expire an abandoned viewer, close explicit intent, deny exhausted policy, revoke optional media during renewal, change the device boot/configuration binding, and retry a lost producer acknowledgement through another instance. SQL failure in required audit rolls back the viewer, producer and intent before any adapter work. Signed device observations preserve the initiating viewer actor and source clock, reject forged proof and acknowledge a duplicate ended report after session closure. Browser playing/ended claims remain advisory, do not extend expiry and cannot establish device connection or byte delivery.
+
+Admission and renewal recheck current human authority after the bounded policy evaluator returns; a native race fixture revokes that authority inside the evaluator and verifies rollback without a grant or renewed epoch.
+
+The isolated adapter test independently expires a short monotonic lease, rejects stale generations, denies a production realm and deduplicates signaling without cloud participation. This adapter owns no physical encoder/relay demand; real adapters must implement the same independent expiry bound and pass selected transport tests before activation. No handler transports unbounded video.
+
+The native recovery drill dumps/restores live-session metadata with digest verification, blocks retirement of an active live intent, closes restored viewer authority and fences producer demand to zero while clearing delivery observations. Immutable intent/report evidence survives. Quarantine is an authority change, not evidence that a remote stream physically stopped.
+
+Local validation on 2026-10-11: 81 passing dashboard source checks, a final focused isolated-adapter run, 63 native PostgreSQL checks, and 17 Chromium integration checks. Dashboard lint/type checking, production build, ordinary/preview HTTP denial checks, Markdown links and diff whitespace passed. Native-only source skips were covered by the PostgreSQL run; these counts establish host/software behavior only.
+
+Remaining gates include actual pod startup/camera readiness, Pi 3A+ CPU/memory/thermal and preview/capture concurrency, mobile NAT/direct/relay trials, provider credential rotation, observed first frames/intervals, measured WAN/relay/downstream byte reconciliation and installed review. Recording remains disabled under its existing policy. Full viewer/report ledgers are explicit capacity failures; no public destructive retention or automatic recovery endpoint exists.
