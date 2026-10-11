@@ -55,11 +55,16 @@ test("native PostgreSQL jobs: independent connections, fences, crash/replay, sig
   assert.deepEqual((await poll()).commands,[]);
   let readContext = await f.identity.adapter.authorize(winner.token,"state.read",{ realm,siteId,accountId: "account-1",resource: { kind: "site",id: siteId },executionMode: "simulation" });
   assert.equal((await a.status(readContext,job.id)).deviceStatus,"accepted");
+  const controls=await b.controls(readContext);
+  assert.equal(controls.version,'arbi.controls/1.0');assert.equal(controls.lease?.id,lease.id);assert.equal(controls.lease?.owned,true);
+  assert.equal(controls.jobs[0].deviceStatus,'accepted');assert.equal(controls.jobs[0].terminal,null);
+  assert.equal(controls.snapshot.source.bootId,f.registry.devices[0].current?.bootId);assert.ok(controls.observedAtMs<=Date.now());
   const running = f.outcome(job.command,"running");await b.device(siteId,f.upload("outcome",running));
   assert.equal((await a.status(readContext,job.id)).deviceStatus,"running");
   const done = f.outcome(job.command);
   const receipts = await Promise.all([a.device(siteId,f.upload("outcome",done)),b.device(siteId,f.upload("outcome",done))]);assert.deepEqual(receipts[0],receipts[1]);
   const terminalJob = await a.status(readContext,job.id);assert.equal(terminalJob.deviceStatus,"completed");assert.deepEqual({ ...terminalJob.terminal,ingestTime: null },done);assert.ok(terminalJob.terminal?.ingestTime);
+  assert.deepEqual((await a.controls(readContext)).jobs[0].terminal,terminalJob.terminal);
   const contradiction = f.outcome(job.command,"failed");assert.deepEqual(await a.device(siteId,f.upload("outcome",contradiction)),{ decision: "contradiction",durable: true });
   assert.deepEqual((await b.status(readContext,job.id)).terminal,terminalJob.terminal);
   const reordered = f.outcome(job.command,"accepted");assert.deepEqual(await a.device(siteId,f.upload("outcome",reordered)),{ decision: "stale",durable: true });

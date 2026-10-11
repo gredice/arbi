@@ -27,11 +27,17 @@ export class JobsHttp {
         if (request.method !== "POST" || request.headers.has("origin") || request.headers.has("authorization")) throw new JobError("DENIED");
         return Response.json(await this.store.device(siteId,await readJsonBody(request)),{ headers: { "cache-control": "private, no-store" } });
       }
-      if (!["submit","status","cancel","acquire","renew","release","revoke"].includes(action) ||
-        request.method !== (action === "status" ? "GET" : "POST")) throw new JobError("INVALID_REQUEST");
-      return await this.humans.run(request,{ siteId,surface: "http",capability: action === "status" ? "state.read" : action === "revoke" ? "configuration.write" : "manipulation.request" },async (context) => {
+      if (!["submit","status","controls","cancel","acquire","renew","release","revoke"].includes(action) ||
+        request.method !== (["status","controls"].includes(action) ? "GET" : "POST")) throw new JobError("INVALID_REQUEST");
+      return await this.humans.run(request,{ siteId,surface: "http",capability: ["status","controls"].includes(action) ? "state.read" : action === "revoke" ? "configuration.write" : "manipulation.request" },async (context) => {
         try {
           if (context.actor.kind !== "human") throw new JobError("DENIED");
+          if(action==='controls'){
+            if(new URL(request.url).search)throw new JobError('INVALID_REQUEST');
+            const json=JSON.stringify(await this.store.controls(context));
+            if(Buffer.byteLength(json)>65536)throw new JobError('CAPACITY');
+            return new Response(json,{headers:{'content-type':'application/json'}});
+          }
           if (action === "status") {
             const url = new URL(request.url);if ([...url.searchParams.keys()].some((k) => k !== "jobId") || url.searchParams.getAll("jobId").length !== 1) throw new JobError("INVALID_REQUEST");
             const jobId = url.searchParams.get("jobId");id(jobId);

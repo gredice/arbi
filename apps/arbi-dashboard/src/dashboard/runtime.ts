@@ -7,7 +7,8 @@ import { isBranchPreview } from "../deployment";
 
 export const SESSION_COOKIE = "arbi_dashboard_session";
 interface DashboardRuntime { server: DashboardServer; login?: (code: string) => Promise<string | null>; revoke?: (token: string) => Promise<void>;
-  historyTools?:{handle:(request:Request,siteId:string,feature:string,action:string)=>Promise<Response>}; }
+  historyTools?:{handle:(request:Request,siteId:string,feature:string,action:string)=>Promise<Response>};
+  controlTools?:{handle:(request:Request,siteId:string,action:string)=>Promise<Response>}; }
 let configured: DashboardRuntime | undefined;
 let attempted = false;
 /** Live composition supplies the existing trusted provider; it never uses fixture identity. */
@@ -33,7 +34,7 @@ export function dashboardRuntime(): DashboardRuntime | undefined {
     const pool = new pg.Pool({ connectionString, max: 3, connectionTimeoutMillis: 1500, statement_timeout: 1500, idleTimeoutMillis: 10_000 });
     const origins = [origin, ...(process.env.VERCEL_URL ? [`https://${process.env.VERCEL_URL}`] : [])];
     configured = createDashboardTestProvider({ realm: { environment: "test", namespaceId }, verificationKey: Buffer.from(key, "base64url"),
-      accessCode, viewerCode: process.env.ARBI_DASHBOARD_TEST_VIEWER_CODE, browserOrigins: origins, db: postgresDatabase(pool) });
+      accessCode, viewerCode: process.env.ARBI_DASHBOARD_TEST_VIEWER_CODE,operatorCode:process.env.ARBI_DASHBOARD_TEST_OPERATOR_CODE, browserOrigins: origins, db: postgresDatabase(pool) });
     return configured;
   } catch { return undefined; }
 }
@@ -56,4 +57,8 @@ export function dashboardRoute(request: Request, siteId: string, view: string) {
 }
 export function dashboardHistoryRoute(request:Request,siteId:string,feature:string,action:string){
   return dashboardRuntime()?.historyTools?.handle(dashboardRequest(request),siteId,feature,action)??Promise.resolve(unavailable());
+}
+export function dashboardControlRoute(request:Request,siteId:string,action:string){
+  // Device proofs go through the existing device boundary; a cookie cannot become device authority.
+  return dashboardRuntime()?.controlTools?.handle(action==='device'?request:dashboardRequest(request),siteId,action)??Promise.resolve(unavailable());
 }

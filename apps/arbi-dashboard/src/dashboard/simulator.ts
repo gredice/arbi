@@ -7,6 +7,7 @@ import type { DashboardState } from "./contracts";
 
 export const simulationSites = [
   { id: "synthetic-site", name: "Synthetic garden" },
+  { id: "synthetic-controls", name: "Control garden" },
   { id: "synthetic-offline", name: "Offline garden" },
   { id: "synthetic-stale", name: "Stale garden" },
   { id: "synthetic-empty", name: "Unenrolled garden" },
