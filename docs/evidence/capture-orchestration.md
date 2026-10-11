@@ -4,7 +4,7 @@ This record covers issue #66's required simulation and native-host checks,
 using the [explicit composition](../software/capture-orchestration.md).
 It supplies no physical camera, installed-system or provider-account acceptance.
 
-Source revision: recorded after the clean source commit and checks below.
+Clean source revision: `1cffac843160ed60bea22e9116dd3c958a26ded4` (`dirty=false`).
 
 | Required behavior | Committed executable evidence |
 | --- | --- |
@@ -23,12 +23,9 @@ sequencer and native store. The marker variant is a separate explicit pixel
 fixture; it does not claim that the synthetic pod checkerboard contained markers.
 Both are simulated, and their low resolution/focus score are not camera evidence.
 
-Local checks: lint/typecheck/build, complete affected pod/image groups, native
-PostgreSQL integration and existing media/live regression, protocol contracts,
-Markdown links and whitespace. The edge's `/usr/bin/node` Linux service test
+Validation: 21 lint/typecheck/build tasks and dashboard typecheck passed. The full affected pod/image run passed 66 tests before final proof/stop/preview hardening; the clean final composition run passed all 24 tests covering those changes. Native PostgreSQL passed all 71 tests, including actual Blob SDK/HTTP upload and existing live-session audit. Media/live regressions passed 19 tests, and protocol TypeScript/Python/C checks passed 464. Markdown links and whitespace pass. The edge's `/usr/bin/node` Linux service test
 requires CI's staged binary on this host; source-focused local invocation
-excludes that one platform check. Logs and exact clean revision will be recorded
-before the PR is ready to merge. A successful CI gate remains a separate fact.
+excludes that one platform check. The broader unchanged edge regression is recorded separately once complete. A successful CI gate remains a separate fact.
 
 Cut fixtures exercise actual native SQLite/filesystem state with injected
 process boundaries. Earlier custody/sequencer suites also run actual SIGKILL
