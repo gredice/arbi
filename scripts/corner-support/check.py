@@ -145,6 +145,7 @@ def check(output):
     for i,page in enumerate(pages,1):
         text=page.extract_text()
         assert f'{i} / {PAGE_COUNT}' in text and 'CONCEPT - UNVALIDATED' in text
+        assert f'ARBI / CORNER SUPPORT SET / r{report["revision"]} /' in text, 'Stale booklet revision'
         assert abs(float(page.mediabox.width)-595.276)<1 and abs(float(page.mediabox.height)-841.890)<1
     indoor='\n'.join(page.extract_text() for page in pages[8:])
     for value in ['WT-806','M6 x 60','M6 x 70','M12 x 90','M8 x 40','110 mm','120 mm','253.3 mm','locking nut']:

@@ -507,7 +507,7 @@ def booklet(work, report):
     figures=json.loads((work/'figure-manifest.json').read_text())
     def page(number,title,paragraphs,figure=None,labels=False,rows=None,after=()):
         c.setFillColor(colors.HexColor('#1f2426'));c.setFont('ARBI-Bold',18);c.drawString(44,height-55,title)
-        c.setFont('ARBI',9);c.drawString(44,height-78,'ARBI / CORNER SUPPORT SET / r0.1.0 / GUIDE UPDATED 11 OCTOBER 2026')
+        c.setFont('ARBI',9);c.drawString(44,height-78,f'ARBI / CORNER SUPPORT SET / r{report["revision"]} / GUIDE UPDATED 11 OCTOBER 2026')
         y=height-105
         for paragraph in paragraphs:y=text(paragraph,y)
         if rows:
