@@ -134,3 +134,5 @@ Design decisions belong in ADRs. Work items and unresolved questions belong in G
 - [Revision-bound motion geometry](software/motion-geometry.md), [cross-language source evidence](evidence/motion-geometry.md), and [ADR-0025](decisions/0025-revision-bound-motion-model.md)
 
 - [Input and bounded homing model](software/input-homing-model.md), [real interface review requirements](system/input-enable-interface-requirements.md), [source versus wiring/rig evidence](evidence/input-homing-model.md), and [ADR-0027](decisions/0027-unavailable-real-inputs-and-homing-model.md)
+
+- [Local controller expiry, fault latching and deliberate recovery](software/local-controller-recovery.md), [source versus physical response evidence](evidence/local-controller-recovery.md), and [ADR-0028](decisions/0028-simulation-only-local-controller-recovery.md)

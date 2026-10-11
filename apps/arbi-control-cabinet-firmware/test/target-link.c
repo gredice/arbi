@@ -3,6 +3,7 @@
 #include "pulse.h"
 #include "motion.h"
 #include "homing.h"
+#include "local_control.h"
 #include "pulse_pio.h"
 #include "pico/stdlib.h"
 static PulseQueue queue;
@@ -14,6 +15,9 @@ static MotionReport report;
 static InputsModel inputs;
 static HomeModel home;
 static HomePolicy home_policy;
+static LocalModel local;
+static LocalResetRecord reset_record;
+static LocalCommand local_command;
 int main(void) {
   const PulseLimits limits = {1000000, 5, 10, 10, 250000, 20000, 2000000};
   const PulseRequest request = {{1, -2, 3, 0}, 1000, 100000};
@@ -37,5 +41,16 @@ int main(void) {
   (void)home_model_restore(&home,&profile,&home_policy,0);
   (void)home_model_tick(&home,&profile.identity,&inputs,0,&limits,&plan);
   (void)home_model_complete_plan(&home,0); home_model_inhibit(&home,"LINK_CHECK_ONLY");
+  local_model_reset(&local,(Identity){"link-check","boot","session"},LOCAL_RESET_UNKNOWN,0);
+  (void)local_model_reset_record(&local,&reset_record);(void)local_model_reset_history(&local,&reset_record);
+  (void)local_model_configure(&local,&profile,(Identity){"edge","boot","session"},0);
+  (void)local_model_link_observe(&local,(Identity){"edge","boot","session"},0);
+  local_model_fault_signal(&local,LOCAL_FAULT_CONFIGURATION);
+  local_model_tick(&local,&profile.identity,&inputs,0);(void)local_model_output(&local);
+  (void)local_model_watchdog_feed_eligible(&local,0);
+  (void)local_model_recover(&local,&local_command,&home,(MotionPoint){0},&inputs,0);
+  (void)local_model_grant_manual(&local,&local_command,0,&inputs,0);
+  (void)local_model_move(&local,&local_command,&movement,false,&inputs,0,&limits,&plan);
+  (void)local_model_complete(&local,&profile.identity,0,motion.commanded,&inputs,0);
   for (;;) tight_loop_contents();
 }
