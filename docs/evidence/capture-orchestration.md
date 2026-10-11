@@ -32,3 +32,5 @@ process boundaries. Earlier custody/sequencer suites also run actual SIGKILL
 children. Neither is board power-loss testing. Host CPU/storage, modelled motion,
 application payload and isolated provider HTTP do not establish selected edge,
 Pi, physical settling, real WAN/provider accounting or live privacy deployment.
+
+Clean source `62e10b6` also passes the full offline/preview dashboard Next build, lint and typecheck with the independent edge test adapter built first. CI now builds that adapter before dashboard TypeScript checks. The server webpack boundary preserves native imports for reviewed workspace package subpaths, preventing Node filesystem/schema modules from being rebundled with webpack URL objects. No dependency versions or application package boundaries change.
