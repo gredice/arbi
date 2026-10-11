@@ -17,7 +17,9 @@ Exact versions, SDK/submodule commits and Debian package digests are in [toolcha
 
 ```bash
 node scripts/build.mjs --host-only --sanitize
-ARBI_FIRMWARE_HOST_BIN="$PWD/dist/host/firmware-sanitized" ARBI_PULSE_HOST_BIN="$PWD/dist/host/pulse-sanitized" node --test scripts/*.test.mjs
+ARBI_FIRMWARE_HOST_BIN="$PWD/dist/host/firmware-sanitized" ARBI_PULSE_HOST_BIN="$PWD/dist/host/pulse-sanitized" ARBI_MOTION_HOST_BIN="$PWD/dist/host/motion-sanitized" node --test scripts/*.test.mjs
 ```
 
 Build identity includes the actual checkout SHA and dirty flag. Host fixtures use test-only key bytes and canonical shared configuration; neither is linked into the Pico image. A configured host test remains inhibited. See the [protocol/enrollment boundary](../../docs/software/pico-foundation.md), [ADR-0023](../../docs/decisions/0023-pico-diagnostic-foundation.md) and [evidence limits](../../docs/evidence/pico-foundation.md). This foundation provides no physical deployment or board-flashing procedure.
+
+The [revision-bound geometry model](../../docs/software/motion-geometry.md) checks signed microstep conversion, per-axis travel, every quantized segment estimate and revision changes in the same C core and simulator. Its constant-radius mechanics are synthetic host fixtures; the diagnostic target links no admitted motion profile.

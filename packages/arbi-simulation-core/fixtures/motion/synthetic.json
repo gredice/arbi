@@ -1,0 +1,61 @@
+{
+  "description": "Synthetic single-layer constant-radius drum model. No installed mechanics or physical acceptance.",
+  "axes": [
+    {
+      "radiusMm": 50,
+      "fullStepsPerTurn": 200,
+      "microsteps": 16,
+      "direction": 1,
+      "homeCableMm": 3000,
+      "homeSteps": 0,
+      "minimumCableMm": 500,
+      "maximumCableMm": 7000,
+      "minimumSteps": -100000,
+      "maximumSteps": 100000,
+      "maximumRateHz": 20000,
+      "maximumAccelerationHzPerS": 2000000
+    },
+    {
+      "radiusMm": 52,
+      "fullStepsPerTurn": 200,
+      "microsteps": 16,
+      "direction": -1,
+      "homeCableMm": 3100,
+      "homeSteps": 100,
+      "minimumCableMm": 500,
+      "maximumCableMm": 7000,
+      "minimumSteps": -100000,
+      "maximumSteps": 100000,
+      "maximumRateHz": 20000,
+      "maximumAccelerationHzPerS": 2000000
+    },
+    {
+      "radiusMm": 54,
+      "fullStepsPerTurn": 200,
+      "microsteps": 16,
+      "direction": 1,
+      "homeCableMm": 3200,
+      "homeSteps": 200,
+      "minimumCableMm": 500,
+      "maximumCableMm": 7000,
+      "minimumSteps": -100000,
+      "maximumSteps": 100000,
+      "maximumRateHz": 20000,
+      "maximumAccelerationHzPerS": 2000000
+    },
+    {
+      "radiusMm": 56,
+      "fullStepsPerTurn": 200,
+      "microsteps": 16,
+      "direction": -1,
+      "homeCableMm": 3300,
+      "homeSteps": 300,
+      "minimumCableMm": 500,
+      "maximumCableMm": 7000,
+      "minimumSteps": -100000,
+      "maximumSteps": 100000,
+      "maximumRateHz": 20000,
+      "maximumAccelerationHzPerS": 2000000
+    }
+  ]
+}

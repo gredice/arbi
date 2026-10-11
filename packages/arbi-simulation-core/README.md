@@ -26,3 +26,5 @@ pnpm --filter @arbi/simulation-core plant
 node packages/arbi-simulation-core/dist/plant-runner.js packages/arbi-simulation-core/fixtures/plant/1.0/nominal.json packages/arbi-protocol --trace
 python3 -I -B packages/arbi-simulation-core/conformance/plant.py packages/arbi-simulation-core/fixtures/plant/1.0/nominal.json packages/arbi-protocol --trace
 ```
+
+The [motion geometry model](../../docs/software/motion-geometry.md) exports trusted synthetic mechanics, pose/count conversion and a four-sphere residual check. Its shared fixture and reference positions are also consumed by the Pico C core; no numerical result supplies measured position, tension or physical readiness.

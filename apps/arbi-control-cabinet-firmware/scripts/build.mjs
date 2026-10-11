@@ -12,6 +12,7 @@ const common = ['-std=c11', '-Wall', '-Wextra', '-Werror', '-pedantic', '-O2', '
 const sanitize = process.argv.includes('--sanitize') ? ['-fsanitize=address,undefined', '-fno-omit-frame-pointer'] : [];
 execFileSync('cc', [...common, ...sanitize, 'test/host.c', '-o', join(host, sanitize.length ? 'firmware-sanitized' : 'firmware')], { cwd: app, stdio: 'inherit', timeout: 60000 });
 execFileSync('cc', ['-std=c11', '-Wall', '-Wextra', '-Werror', '-pedantic', '-O2', '-g', '-Iinclude', ...sanitize, 'src/pulse.c', 'test/pulse-host.c', '-lm', '-pthread', '-o', join(host, sanitize.length ? 'pulse-sanitized' : 'pulse')], { cwd: app, stdio: 'inherit', timeout: 60000 });
+execFileSync('cc', ['-std=c11', '-Wall', '-Wextra', '-Werror', '-pedantic', '-O2', '-g', '-Iinclude', '-Idist/generated', ...sanitize, 'src/motion.c', 'src/pulse.c', 'test/motion-host.c', '-lm', '-o', join(host, sanitize.length ? 'motion-sanitized' : 'motion')], { cwd: app, stdio: 'inherit', timeout: 60000 });
 if (!process.argv.includes('--host-only')) {
   const bench = process.argv.includes('--bench-code-check');
   const build = join(app, bench ? 'dist/pico-bench-check' : 'dist/pico');
