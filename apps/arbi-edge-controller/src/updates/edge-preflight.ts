@@ -61,8 +61,9 @@ export class EdgeUpdatePreflight {
     return safe.ok?null:safe.reason;
   }
   check=(operationId:string,target:string):string|null=>{
-    const lock=this.#lock();if(lock&&lock.operationId!==operationId)return 'UPDATE_LOCK_HELD';
-    return this.#local(target,lock);
+    try{const lock=this.#lock();if(lock&&lock.operationId!==operationId)return 'UPDATE_LOCK_HELD';
+      return this.#local(target,lock);
+    }catch{return 'LOCAL_PREFLIGHT_UNAVAILABLE';}
   };
   /** The durable lock precedes every stop/drain and survives lost responses. */
   prepare=async(operationId:string,target:string):Promise<string|null>=>{
@@ -110,7 +111,7 @@ export class EdgeUpdatePreflight {
     if(!lock||lock.operationId!==operationId)reject('UPDATE_LOCK_REQUIRED');
     const operation=o.options.store.get(operationId);
     if(operation.worker||!['healthy','failed','rolled-back','cancelled'].includes(operation.state))reject('UPDATE_NOT_TERMINAL');
-    for(const target of operation.targets){const local=this.#local(target.moduleId,{...lock,binding:this.#binding(this.options.authority())});if(local)reject(local);
+    for(const target of operation.targets){const local=this.#local(target.moduleId,lock);if(local)reject(local);
       const current=o.options.targets.get(target.moduleId)?.status;
       const expected=target.phase==='healthy'?target.manifest:target.journal.baselineManifest;
       if(!current||current.boot.health!=='passed'||current.boot.releaseId!==expected.releaseId||canonical(current.manifest)!==canonical(expected))reject('TARGET_RECONCILIATION_REQUIRED');

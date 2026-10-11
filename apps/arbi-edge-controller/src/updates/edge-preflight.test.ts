@@ -87,3 +87,7 @@ test('native job journal unavailability and loss of private Internet source reta
   const f=await fixture(t),requested=await f.request();f.jobs.journal.close();assert.equal((await f.advance(requested.operationId)).view.reason,'LOCAL_JOB_RECOVERY_REQUIRED');assert.equal(f.r.targets.get('pico')!.status.installations,0);
   const g=await fixture(t),next=await g.request();g.r.sourceMode('unavailable');const blocked=await g.advance(next.operationId);assert.equal(blocked.view.state,'paused');assert.equal(g.guard.admissionInhibit(),'FAULT_INHIBITED');assert.equal(g.r.targets.get('pico')!.status.installations,0);g.r.sourceMode('complete');assert.equal((await g.run(next.operationId)).view.state,'healthy');assert.equal(g.jobs.adapter.dispatches.length,0);
 });
+
+test('unavailable local preflight on an authenticated request is a durable specific rejection',async t=>{
+  const f=await fixture(t);f.guard.close();const requested=await f.request();assert.equal(requested.state,'blocked');assert.equal(requested.reason,'LOCAL_PREFLIGHT_UNAVAILABLE');assert.equal(f.r.store.get(requested.operationId).reason,'LOCAL_PREFLIGHT_UNAVAILABLE');assert.equal(f.r.requests.length,0);assert.equal(f.r.targets.get('pico')!.status.installations,0);f.reopen();
+});
