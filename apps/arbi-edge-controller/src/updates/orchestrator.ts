@@ -20,7 +20,8 @@ export interface UpdateChoice {key:string;releaseSetId:string;targets:string[];a
 export class UpdateOrchestrator {
   constructor(readonly options:{store:UpdateOperationStore;trust:UpdateTrustStore;inventory:ReleaseInventory;sets:ReleaseSet[];
     targets:Map<string,UpdateTargetPort>;budget:TransferBudget;cache:ArtifactCache;source:IsolatedRangeSource;
-    metered:()=>boolean;safety:(target:string)=>LocalUpdateSafety|null;afterReservation?:()=>void}){
+    metered:()=>boolean;safety:(target:string)=>LocalUpdateSafety|null;afterReservation?:()=>void;
+    local?:{check:(operationId:string,target:string)=>string|null;prepare:(operationId:string,target:string)=>Promise<string|null>}}){
     if(options.budget.policy.maxAttempts>32)reject('UPDATE_RETRY_POLICY_LIMIT');
     const s=options.store.options;options.trust.assertScope(s.realm,s.siteId,s.source.deviceId);
     if(options.inventory.executionMode!=='simulation'||canonical(options.inventory.realm)!==canonical(s.realm)||options.inventory.siteId!==s.siteId)reject('SCOPE_MISMATCH');
@@ -58,7 +59,9 @@ export class UpdateOrchestrator {
         targets.push({moduleId:step.moduleId,manifest,journal,intent,transferId,phase:'pending',receipts:[]});selections=selections.map(s=>s.moduleId===step.moduleId?step:s);
       }
       return {operation:{id,key:choice.key,fingerprint,realm:context.realm,siteId:context.siteId,releaseSetId:set.releaseSetId,createdAtMs:c.utcMs,deadlineMs:c.utcMs+300000,actor:context.actor,sessionId:context.sessionId,authorizationId,allowMetered:choice.allowMetered,targets,index:0,reason:null,state:'requested',worker:null,overrideId:null},audit};
-    });return this.view(operation.id);
+    });
+    for(const target of operation.targets){const reason=this.options.local?.check(operation.id,target.moduleId);if(reason){this.#block(operation.id,reason,authorizationId);break;}}
+    return this.view(operation.id);
   }
   owner(id:string,context:AuthorizedContext){const o=this.options.store.get(id);if(context.actor.kind!=='human'||canonical(context.actor)!==canonical(o.actor)||context.siteId!==o.siteId||canonical(context.realm)!==canonical(o.realm))reject('NOT_AUTHORIZED');return o;}
   #progress(o:UpdateOperation,t:OperationTarget,next:(source?:AuditSource)=>string,authorizationId:string,reason:AuditEvent['reason']='observed',receipt?:RangeReceipt):AuditEvent{
@@ -84,6 +87,8 @@ export class UpdateOrchestrator {
       o=this.options.store.get(id);let t=o.targets[o.index]!,state=result(recoverUpdate(t.journal)).status;
       // An ambiguous reserved start is reconciled exclusively from the target; never resend it.
       if(!state.installationReserved){
+        const localReason=this.options.local?.check(id,t.moduleId);if(localReason){this.#block(id,localReason,authorizationId);return this.view(id);}
+        const drainReason=await this.options.local?.prepare(id,t.moduleId);if(drainReason){this.#block(id,drainReason,authorizationId);return this.view(id);}
         if(this.#now().utcMs>=Date.parse(t.journal.request.startDeadline)){this.#append(id,this.#event(t,'failed'),authorizationId);return this.view(id);}
         if(state.state==='requested'){
           if(this.options.metered()&&!o.allowMetered){this.#block(id,'METERED_CONSENT_REQUIRED',authorizationId,'paused');return this.view(id);}
@@ -106,6 +111,7 @@ export class UpdateOrchestrator {
         const safe=updateSafety(this.options.safety(t.moduleId),t.moduleId,this.#now().utcMs);if(!safe.ok){this.#block(id,safe.reason,authorizationId);return this.view(id);}
         const transfer=this.options.budget.getTransfer(t.transferId);if(!transfer||transfer.state!=='complete')reject('VERIFIED_ARTIFACT_REQUIRED');
         const cached=await this.options.cache.step(t.transferId,this.options.source.transport(t.manifest.artifact.sizeBytes,()=>{}));const bytes=readFileSync(cached.path!);this.options.trust.verifyArtifact(t.manifest,bytes);
+        const preparation=await this.options.local?.prepare(id,t.moduleId);if(preparation){this.#block(id,preparation,authorizationId);return this.view(id);}
         const finalSafe=updateSafety(this.options.safety(t.moduleId),t.moduleId,this.#now().utcMs);if(!finalSafe.ok){this.#block(id,finalSafe.reason,authorizationId);return this.view(id);}
         const reservation=this.#event(t,'installation-reserved');reservation.preflight=finalSafe.preflight;
         // Atomic reservation + audit acknowledgement precede the sole dispatch attempt.
@@ -125,6 +131,7 @@ export class UpdateOrchestrator {
       const recoveryApproval=await recheck();if(!recoveryApproval){this.#block(id,'CURRENT_APPROVAL_REQUIRED',authorizationId,'recovery-required');return this.view(id);}
       authorizationId=recoveryApproval;
       const safe=updateSafety(this.options.safety(t.moduleId),t.moduleId,this.#now().utcMs);if(!safe.ok){this.#block(id,safe.reason,authorizationId,'recovery-required');return this.view(id);}
+      const localRecovery=this.options.local?.check(id,t.moduleId);if(localRecovery){this.#block(id,localRecovery,authorizationId,'recovery-required');return this.view(id);}
       const restored=target.rollback(t.journal);this.#append(id,this.#event(t,'rolled-back',restored),authorizationId);return this.view(id);
     }catch(e){if(e instanceof TransferError){if(lastReceipt){this.options.store.update(id,(op,next)=>{const target=op.targets[op.index]!;target.receipts.push(lastReceipt!);return [this.#progress(op,target,next,authorizationId,'interrupted',lastReceipt!)];});lastReceipt=null;}const current=this.options.store.get(id).targets[o.index]!,transfer=this.options.budget.getTransfer(current.transferId);if(transfer?.state==='active'&&!transfer.pending)this.options.budget.pause(transfer.id);this.#block(id,updateError(e),authorizationId,e.code==='OVERSIZED_RANGE'?'blocked':'paused');return this.view(id);}if(e instanceof UpdateSecurityError){const current=this.options.store.get(id).targets[o.index]!,reserved=result(recoverUpdate(current.journal)).status.installationReserved;this.#block(id,updateError(e),authorizationId,reserved?'recovery-required':'blocked');return this.view(id);}try{const current=this.options.store.get(id).targets[o.index]!,reserved=result(recoverUpdate(current.journal)).status.installationReserved;this.#block(id,reserved?'INSTALLATION_RESULT_UNAVAILABLE':'UPDATE_RESULT_UNAVAILABLE',authorizationId,reserved?'recovery-required':'blocked');}catch{ /* No action can follow an unavailable journal; prior reservation/charges remain recoverable. */ }throw e;}
     finally{this.options.store.release(id,token);}

@@ -14,7 +14,7 @@ import { ManualControl, type ManualOptions } from './manual.js';
 
 /** Explicit fixture runner only; runtime settings never import or select this authority. */
 export function createJobReference(directory: string, patches: { journal?: Partial<JournalOptions>; consumer?: Partial<ConsumerOptions>; plant?: string;
-  manual?:Pick<ManualOptions,'deadmanMs'|'maxJogMs'|'maxLeaseMs'>;
+  manual?:Pick<ManualOptions,'deadmanMs'|'maxJogMs'|'maxLeaseMs'|'admissionInhibit'>;
   scope?:{realm:Realm;siteId:string;receiver:Identity} } = {}) {
   mkdirSync(directory, { recursive: true, mode: 0o700 });
   const applied = syntheticAppliedConfiguration(), config = applied.request.configuration;

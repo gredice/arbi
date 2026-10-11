@@ -132,6 +132,16 @@ export class JobJournal {
     this.#db.prepare('INSERT INTO clocks VALUES(?,?) ON CONFLICT(epoch) DO UPDATE SET floor=excluded.floor').run(key, now);
   }
   observeClock(a: LocalAuthority): void { this.#transaction(() => { this.clock(a); }); }
+  /** Update inhibition retires even an unused current lease without opening a session. */
+  retireManualLease(a:LocalAuthority):void {
+    if(!same(a.gate.realm,this.#options.realm)||a.gate.siteId!==this.#options.siteId||a.gate.receiver.deviceId!==this.#options.deviceId)throw new JobError('REALM_MISMATCH');
+    const lease=a.gate.lease;if(!lease)return;
+    if(!/^(0|[1-9][0-9]{0,19})$/.test(lease.fence)||BigInt(lease.fence)>(1n<<64n)-1n)throw new JobError('LEASE_STALE');
+    this.#transaction(()=>{this.clock(a);const old=this.#db.prepare('SELECT fence,body FROM manual_fence WHERE id=1').get()!;
+      if(old.body!==null)throw new JobError('LEASE_STALE');
+      if(BigInt(lease.fence)>BigInt(String(old.fence)))this.#db.prepare('UPDATE manual_fence SET fence=? WHERE id=1').run(lease.fence);
+    });
+  }
   /** Only a fresh higher upstream fence may open a local manual session, even after reboot. */
   startManual(a:LocalAuthority):AuditEvent {
     if(!same(a.gate.realm,this.#options.realm) || a.gate.siteId!==this.#options.siteId || a.gate.receiver.deviceId!==this.#options.deviceId)

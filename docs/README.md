@@ -154,3 +154,5 @@ Design decisions belong in ADRs. Work items and unresolved questions belong in G
 - [Protected capture history, explicit media access and versioned framing review](software/capture-dashboard.md), [native/API/browser evidence](evidence/capture-dashboard.md), and [ADR-0037](decisions/0037-protected-capture-history-and-framing-review.md)
 
 - [Isolated native Linux slot reference](software/linux-slot-reference.md), [source/file/process recovery evidence](evidence/linux-slot-reference.md), and [ADR-0039](decisions/0039-isolated-native-linux-slots.md)
+
+- [Edge update preflight and recovery integration](software/edge-update-preflight.md), [host versus hardware evidence](evidence/edge-update-preflight.md), and [ADR-0040](decisions/0040-isolated-edge-update-preflight.md)

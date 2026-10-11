@@ -3,14 +3,15 @@ import {readFileSync,mkdtempSync} from 'node:fs';
 import {join} from 'node:path';
 import {tmpdir} from 'node:os';
 import {generateKeyPairSync} from 'node:crypto';
-import {configurationDigest} from '@arbi/protocol';
+import {configurationDigest,type Realm} from '@arbi/protocol';
 import {payloadDigest} from '@arbi/protocol/capture-transfer';
 import type {CaptureManifest} from '@arbi/protocol/capture-transfer';
 import {CaptureReceiver} from './capture-receiver.js';
 import {decodePng,encodePng} from './png.js';
 import type {Calibration} from './contracts.js';
-export function captureStageFixture(markers=false){
+export function captureStageFixture(markers=false,scope?:{realm:Realm;siteId:string}){
   const fixture=JSON.parse(readFileSync(new URL('../../fixtures/captured-png.json',import.meta.url),'utf8')),r=fixture.receipt,{file:_,...image}=r.image;
+  if(scope){if(scope.realm.environment!=='test')throw Error('ISOLATED_SCOPE_REQUIRED');r.metadata.realm=scope.realm;r.metadata.siteId=scope.siteId;}
   let bytes:Buffer=Buffer.from(fixture.pngBase64,'base64');
   if(markers){const decoded=decodePng(bytes),points=[{x:4,y:4},{x:27,y:4},{x:27,y:19},{x:4,y:19}],colours=[[240,20,20],[20,240,20],[20,20,240],[240,20,240]];
     for(const [n,p] of points.entries())for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++)decoded.rgb.set(colours[n],((p.y+dy)*decoded.width+p.x+dx)*3);

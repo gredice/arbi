@@ -34,7 +34,7 @@ export class CapturePreview {
     }finally{if(timer)clearTimeout(timer);signal.removeEventListener('abort',abort);controller.abort();this.#abort=null;}
   }
   stop(event:'stop'|'expiry'='stop'):void {const g=this.#grant;this.#grant=null;this.#abort?.abort();if(!this.#frameActive){this.#release?.();this.#release=null;}if(!g)return;try{const t=this.options.budget.getTransfer(this.#id(g));if(t&&!t.pending)this.options.budget.finish(t.id,true);}finally{this.#hook(event,g);}}
-  get status(){this.tick();return {active:this.#grant!==null,grant:this.#grant?structuredClone(this.#grant):null,recordingEnabled:false,physicalMedia:false,observedDelivery:false};}
+  get status(){this.tick();return {active:this.#grant!==null,busy:this.#frameActive,quarantined:this.#quarantined,grant:this.#grant?structuredClone(this.#grant):null,recordingEnabled:false,physicalMedia:false,observedDelivery:false};}
 }
 /** LivePolicyEvaluator composition hook. This is a policy snapshot, not a
  * transport reservation or a viewer-delivery observation. */
