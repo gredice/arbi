@@ -109,7 +109,7 @@ export class CommissioningStore {
       action: 'configuration.change', evidence: 'intent', outcome: 'requested', effect: 'none', reason: 'requested',
       links: { correlationId: state.activationId ?? recordId, intentEventId: eventId, causationEventId: null, jobId: state.activationId, sessionId,
         commandId: state.activationId ?? recordId, requestSource: this.#options.source, target: this.#options.source },
-      record: null, metadata: { permission: 'configure', ...(after ? { configRevision: after.configuration.revision, calibrationRevision: after.configuration.calibration!.revision } : {}) },
+      record: null, metadata: { permission: 'configure', ...(actor.kind !== 'human' ? { recoveryPolicy: reasonCode === 'source-restarted' ? 'commissioning-restart/1' as const : 'commissioning-reconcile/1' as const } : {}), ...(after ? { configRevision: after.configuration.revision, calibrationRevision: after.configuration.calibration!.revision } : {}) },
       change: { fields: ['references', 'target-mapping', 'motion-envelope', 'gimbal-limits'],
         before: { revisionId: before?.configuration.revision ?? null, state: before ? previous.phase === 'active' ? 'active' : 'staged' : 'absent' },
         after: { revisionId: after?.configuration.revision ?? null, state: !after ? 'absent' : state.phase === 'active' ? 'active' : state.phase === 'blocked' ? 'failed' : 'staged' } } };
@@ -120,6 +120,16 @@ export class CommissioningStore {
     this.#transaction(() => {
       this.#db.prepare('INSERT INTO records(record_id,reason_code,actor,session_id,body,hash) VALUES(?,?,?,?,?,?)').run(recordId, reasonCode, canonical(actor), sessionId, canonical(state), digest({ state, reasonCode, actor, sessionId }));
       this.#append(intent, recordId); this.#append(outcome, recordId);
+      if(before?.configuration.calibration?.revision !== after?.configuration.calibration?.revision || (after && previous.phase !== state.phase)) {
+        const calibration = structuredClone(intent);calibration.eventId = randomUUID();calibration.action = 'calibration.change';
+        calibration.resource = { kind: 'calibration',id: after?.configuration.calibration?.revision ?? 'commissioning',deviceId: this.#options.source.deviceId };
+        calibration.links.intentEventId = calibration.eventId;
+        calibration.change!.before.revisionId = before?.configuration.calibration?.revision ?? null;
+        calibration.change!.after.revisionId = after?.configuration.calibration?.revision ?? null;
+        const result = { ...structuredClone(outcome),eventId: randomUUID(),action: calibration.action,resource: calibration.resource,
+          change: calibration.change,links: { ...calibration.links,intentEventId: calibration.eventId,causationEventId: calibration.eventId } };
+        this.#append(calibration,recordId);this.#append(result,recordId);
+      }
     });
   }
   auditAuthorization(actor: Actor, sessionId: string | null, allowed: boolean, correlationId: string, atMs: number) {

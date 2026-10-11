@@ -112,3 +112,5 @@ Do not change a claim to **Validated** in prose alone. Link the evidence and rec
 Cross-discipline item types are not separate subsystems. A fastener used on a winch belongs to the winch assembly; a cable from the cabinet to a corner has named endpoints and an owning interface. Shared standards may describe conventions, but the assembly documentation owns quantities, fit, routing, acceptance, and maintenance.
 
 Design decisions belong in ADRs. Work items and unresolved questions belong in GitHub issues, with links back to the affected document. Procurement data belongs in the repository BOM rather than being copied into prose. Private notes, chats, external pages, spreadsheets, and dashboards are not project records.
+
+- [Lifecycle audit and bounded attempts](software/lifecycle-audit.md) — [software evidence](evidence/lifecycle-audit.md).

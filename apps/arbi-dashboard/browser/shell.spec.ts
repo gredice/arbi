@@ -48,24 +48,35 @@ test('full inventory and selected diagnostics bound demand, bytes, hidden lifecy
   await page.getByRole('link',{name:'Engineering',exact:true}).click();await page.getByRole('link',{name:'Diagnostics',exact:true}).click();
   // This is a full-document navigation: finish loading the client before changing its controlled selection.
   await page.waitForLoadState('networkidle');
-  let requests=0,bytes=0,completed=0;page.on('request',r=>{if(r.url().includes('/dashboard/detail?'))requests++;});
-  page.on('response',response=>{if(response.url().includes('/dashboard/detail?')&&response.ok())void response.body().then(body=>{
-    bytes+=body.length;completed++;
-  }).catch(()=>{/* Aborted/retired response is not a completed payload measurement. */});});
+  let requests=0;page.on('request',r=>{if(r.url().includes('/dashboard/detail?'))requests++;});
+  // Measure completed payloads in the browser. CDP may discard a body after the app drains its stream.
+  await page.evaluate(()=>{
+    const target=window as unknown as {arbiDetailPayload:{bytes:number;completed:number}};
+    target.arbiDetailPayload={bytes:0,completed:0};const original=window.fetch.bind(window);
+    window.fetch=async(...args)=>{
+      const response=await original(...args);
+      const url=args[0] instanceof Request ? args[0].url : String(args[0]);
+      if(url.includes('/dashboard/detail?')&&response.ok)void response.clone().arrayBuffer().then(body=>{
+        target.arbiDetailPayload.bytes+=body.byteLength;target.arbiDetailPayload.completed++;
+      }).catch(()=>{/* An incomplete body is not counted. */});
+      return response;
+    };
+  });
+  const payload=()=>page.evaluate(()=>(window as unknown as {arbiDetailPayload:{bytes:number;completed:number}}).arbiDetailPayload);
   await page.clock.fastForward(10000);expect(requests).toBe(0);
   await page.getByLabel('Detail demand').selectOption('pod');await expect(page.getByText(/Selected detail active/)).toBeVisible();
-  expect(requests).toBe(1);await expect.poll(()=>completed).toBe(1);await expect(page.getByRole('row',{name:/position.z/})).toContainText('estimated');
+  expect(requests).toBe(1);await expect.poll(async()=>(await payload()).completed).toBe(1);await expect(page.getByRole('row',{name:/position.z/})).toContainText('estimated');
   // Run the refresh interval continuously so a newly started fetch gets its real I/O before its deadline.
-  await page.clock.runFor(5000);await expect.poll(()=>requests).toBe(2);await expect.poll(()=>completed).toBe(2);
+  await page.clock.runFor(5000);await expect.poll(()=>requests).toBe(2);await expect.poll(async()=>(await payload()).completed).toBe(2);
   // Receipt of response bytes can precede React consuming the response and scheduling its next read.
   await expect(page.getByText(/2\/60 observations/).first()).toBeVisible();
-  expect(bytes).toBeLessThan(2*32768);
+  expect((await payload()).bytes).toBeLessThan(2*32768);
   await page.evaluate(()=>{Object.defineProperty(document,'visibilityState',{configurable:true,value:'hidden'});document.dispatchEvent(new Event('visibilitychange'));});
   await page.clock.fastForward(20000);expect(requests).toBe(2);await expect(page.getByText(/Detail paused/)).toBeVisible();
   await page.evaluate(()=>{Object.defineProperty(document,'visibilityState',{configurable:true,value:'visible'});document.dispatchEvent(new Event('visibilitychange'));});
   // Resuming still respects the previous read's minimum period; drive the fake clock until one read starts.
   for(let step=0;step<24&&requests<3;step++)await page.clock.runFor(250);
-  await expect.poll(()=>requests).toBe(3);await expect.poll(()=>completed).toBe(3);await expect(page.getByText(/Selected detail active|Missing sequence|history reset/)).toBeVisible();
+  await expect.poll(()=>requests).toBe(3);await expect.poll(async()=>(await payload()).completed).toBe(3);await expect(page.getByText(/Selected detail active|Missing sequence|history reset/)).toBeVisible();
   await page.setViewportSize({width:390,height:844});await expect(page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).resolves.toBe(true);
   await page.screenshot({path:'test-results/assembly-diagnostics-mobile.png',fullPage:true});
   const downloaded=page.waitForEvent('download');await page.getByRole('button',{name:'Export selected diagnostics'}).click();const file=await downloaded;
@@ -73,7 +84,7 @@ test('full inventory and selected diagnostics bound demand, bytes, hidden lifecy
   const exported=JSON.parse(json);expect(exported.schema).toBe('arbi.diagnostics-export/1.0');expect(exported.points.length).toBeLessThanOrEqual(60);
   expect(json).not.toMatch(/Bearer|arbi_dashboard_session|privateKey|signedUrl|positionMm/);
   await page.getByLabel('Detail demand').selectOption('');await page.clock.fastForward(15000);expect(requests).toBe(3);
-  console.log(`Synthetic diagnostics payload evidence: ${requests} selected reads, ${bytes} application response bytes; overview/hidden/closed periodic reads: 0.`);
+  console.log(`Synthetic diagnostics payload evidence: ${requests} selected reads, ${(await payload()).bytes} application response bytes; overview/hidden/closed periodic reads: 0.`);
 });
 test("responsive keyboard navigation reaches status and explicit unavailable operations", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 }); await login(page);

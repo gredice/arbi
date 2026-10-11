@@ -27,11 +27,21 @@ export class JobsHttp {
         if (request.method !== "POST" || request.headers.has("origin") || request.headers.has("authorization")) throw new JobError("DENIED");
         return Response.json(await this.store.device(siteId,await readJsonBody(request)),{ headers: { "cache-control": "private, no-store" } });
       }
-      if (!["submit","status","controls","cancel","acquire","renew","release","revoke"].includes(action) ||
-        request.method !== (["status","controls"].includes(action) ? "GET" : "POST")) throw new JobError("INVALID_REQUEST");
-      return await this.humans.run(request,{ siteId,surface: "http",capability: ["status","controls"].includes(action) ? "state.read" : action === "revoke" ? "configuration.write" : "manipulation.request" },async (context) => {
+      if (!["submit","status","controls","attempts","timeline","cancel","acquire","renew","release","revoke"].includes(action) ||
+        request.method !== (["status","controls","attempts","timeline"].includes(action) ? "GET" : "POST")) throw new JobError("INVALID_REQUEST");
+      return await this.humans.run(request,{ siteId,surface: ["attempts","timeline"].includes(action) ? "audit" : "http",capability: ["attempts","timeline"].includes(action) ? "audit.read" : ["status","controls"].includes(action) ? "state.read" : action === "revoke" ? "configuration.write" : "manipulation.request" },async (context) => {
         try {
           if (context.actor.kind !== "human") throw new JobError("DENIED");
+          if(action === 'timeline') {
+            const url = new URL(request.url);
+            if([...url.searchParams.keys()].some(k=>k !== 'jobId') || url.searchParams.getAll('jobId').length !== 1) throw new JobError('INVALID_REQUEST');
+            const jobId = url.searchParams.get('jobId');id(jobId);
+            return Response.json(await this.store.timeline(context,jobId));
+          }
+          if(action === 'attempts') {
+            if(new URL(request.url).search) throw new JobError('INVALID_REQUEST');
+            return Response.json(await this.store.attempts(context));
+          }
           if(action==='controls'){
             if(new URL(request.url).search)throw new JobError('INVALID_REQUEST');
             const json=JSON.stringify(await this.store.controls(context));
@@ -50,7 +60,12 @@ export class JobsHttp {
           }
           const lease = await this.store.lease(context,action as "acquire" | "renew" | "release" | "revoke",body);
           return Response.json({ id: lease.id,fence: lease.fence,expiresAtMs: lease.expiresAtMs,endedAtMs: lease.endedAtMs });
-        } catch (error) { return jobFailure(error); }
+        } catch (error) {
+          if(!["status","controls","attempts","timeline"].includes(action)) {
+            try { await this.store.rejected(context,error); } catch { return jobFailure(new JobError("UNAVAILABLE")); }
+          }
+          return jobFailure(error);
+        }
       });
     } catch (error) { return jobFailure(error); }
   }

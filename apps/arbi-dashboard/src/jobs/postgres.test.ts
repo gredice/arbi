@@ -7,10 +7,11 @@ import { tmpdir } from "node:os";
 import test from "node:test";
 import pg from "pg";
 import type { AuthorizedContext } from "@arbi/gredice";
-import type { Command, Event } from "@arbi/protocol";
+import type { AuditEvent, Command, Event } from "@arbi/protocol";
 import { postgresDatabase } from "../enrollment/store";
 import type { Job } from "./contracts";
 import { createJobsServer } from "./server";
+import { recordDeniedAttempt } from "./attempts";
 import { PostgresJobStore } from "./store";
 import { fixture,realm } from "./test-support";
 
@@ -22,7 +23,7 @@ test("native PostgreSQL jobs: independent connections, fences, crash/replay, sig
   const config = { host: root,user: "arbi_test",port: 54321,database: "arbi_jobs_test",max: 4 };
   const pool = new pg.Pool(config), independent = new pg.Pool({ ...config,max: 1 });t.after(async () => { await independent.end();await pool.end(); });
   t.diagnostic(`Native PostgreSQL ${(await pool.query("SHOW server_version")).rows[0].server_version}`);
-  for (const file of ["0001-enrollment","0002-media","0003-audit","0004-jobs","0004-jobs"]) await pool.query(await readFile(new URL(`../../migrations/${file}.sql`,import.meta.url),"utf8"));
+  for (const file of ["0001-enrollment","0002-media","0003-audit","0004-jobs","0004-jobs","0013-command-attempts","0013-command-attempts"]) await pool.query(await readFile(new URL(`../../migrations/${file}.sql`,import.meta.url),"utf8"));
   async function setup() {
     const f = await fixture();await pool.query("INSERT INTO arbi_device_registry VALUES($1,$2,$3,$4::jsonb)",[realm.environment,realm.namespaceId,f.registry.siteId,JSON.stringify(f.registry)]);
     const a = new PostgresJobStore(postgresDatabase(pool),realm,f.currentAuthority), b = new PostgresJobStore(postgresDatabase(independent),realm,f.currentAuthority);
@@ -69,6 +70,17 @@ test("native PostgreSQL jobs: independent connections, fences, crash/replay, sig
   assert.deepEqual((await b.status(readContext,job.id)).terminal,terminalJob.terminal);
   const reordered = f.outcome(job.command,"accepted");assert.deepEqual(await a.device(siteId,f.upload("outcome",reordered)),{ decision: "stale",durable: true });
   await assert.rejects(a.device(siteId,f.upload("outcome",{ ...done,body: { ...done.body,outcome: "failed",error: { code: "EXECUTION_FAILED",retryable: false } } })),{ code: "CONFLICT" });
+  const auditContext = await f.identity.adapter.authorize(winner.token,"audit.read",{ realm,siteId,accountId: "account-1",resource: { kind: "site",id: siteId },executionMode: "simulation" });
+  const timeline = await b.timeline(auditContext,job.id);
+  assert.deepEqual(timeline.actor,winner.context.actor);assert.equal(timeline.controlLease?.id,lease.id);
+  assert.equal(timeline.softwareRevision,"synthetic");assert.equal(timeline.deviceStatus,"completed");
+  assert.ok(timeline.audit.some(e=>e.evidence === "intent"));
+  assert.ok(timeline.audit.some(e=>e.evidence === "authorization" && e.outcome === "allow"));
+  assert.ok(timeline.reports.some(row=>row.record.body.type === "command.outcome" && row.record.body.outcome === "accepted"));
+  assert.ok(timeline.reports.some(row=>row.decision === "contradiction"));
+  assert.ok(timeline.audit.filter(e=>e.evidence === "device-outcome").every(e=>e.metadata.controlLeaseId === lease.id && e.metadata.softwareRevision === "synthetic"));
+  await assert.rejects(a.timeline(readContext,job.id),{code:"DENIED"});
+  await assert.rejects(a.timeline(auditContext,"foreign-job"),{code:"DENIED"});
   const persisted = (await pool.query("SELECT record FROM arbi_job_reports WHERE id=$1",[done.messageId])).rows[0].record;
   assert.deepEqual(persisted.sourceTime,done.sourceTime);assert.ok(persisted.ingestTime.utc);
   const event = (await pool.query("SELECT record FROM arbi_audit_events WHERE id=$1",[done.messageId])).rows[0].record;
@@ -81,6 +93,31 @@ test("native PostgreSQL jobs: independent connections, fences, crash/replay, sig
 
   // HTTP against real migrated PostgreSQL and current signed identity; browser claims confer no authority.
   const h = await setup();
+  const abuse = await setup(), abuseSite = abuse.f.registry.siteId;
+  const denial = { realm,siteId: abuseSite,actor: {kind:"human" as const,id:abuse.one.context.actor.id},sessionId: abuse.one.context.sessionId,
+    observedAtMs: Date.now(),surface: "http" as const,resource: { kind: "site" as const,id: abuseSite },reason: null,membershipRevision: null,
+    correlationId: "denial-fixture",capability: "manipulation.request" as const,decision: "denied" as const };
+  // Two instances and distinct HTTP attempts converge on one durable first fact plus an exact open count.
+  const signal = new AbortController().signal;
+  for(let i=0;i<40;i++) await (i%2 ? abuse.a : abuse.b).authorization(denial,signal);
+  assert.equal((await pool.query("SELECT attempt_count FROM arbi_job_attempts WHERE site_id=$1",[abuseSite])).rows[0].attempt_count,40);
+  assert.equal((await pool.query("SELECT count(*) FROM arbi_audit_events WHERE site_id=$1",[abuseSite])).rows[0].count,"1");
+  for(let i=0;i<40;i++) await abuse.a.authorization({...denial,actor:{kind:"human",id:`denied-${i}`},sessionId:`session-${i}`},signal);
+  assert.equal((await pool.query("SELECT count(*) FROM arbi_job_attempts WHERE site_id=$1",[abuseSite])).rows[0].count,"33");
+  const overflow = (await pool.query("SELECT * FROM arbi_job_attempts WHERE site_id=$1 AND key='overflow'",[abuseSite])).rows[0];
+  assert.equal(overflow.mixed,true);assert.equal(overflow.attempt_count,9);
+  const overflowEvent = (await pool.query("SELECT record FROM arbi_audit_events WHERE id=$1",[overflow.first_event_id])).rows[0].record;
+  assert.deepEqual(overflowEvent.actor,{kind:"service",id:"job-attempt-aggregation"});
+  // Controlled counter-clock transition: close all previous windows under the same native registry lock.
+  await abuse.b.transaction(abuseSite,async tx=> {
+    await recordDeniedAttempt(tx.sql,realm,abuseSite,tx.now+120_000,"stale-command",abuse.one.context.actor,abuse.one.context.sessionId,
+      async(actor,sessionId)=>abuse.b.event(tx,{...abuse.one.context,actor,sessionId:sessionId!},"authorization.check",{kind:"site",id:abuseSite,deviceId:null}),
+      async(event)=>{await abuse.b.audit.stage(tx.sql,event,{...event,authenticatedSource:event.source});});
+  });
+  const summaries = (await pool.query("SELECT record FROM arbi_audit_events WHERE site_id=$1 AND record->'metadata'->>'aggregation' LIKE '%summary'",[abuseSite])).rows.map(row=>row.record as AuditEvent);
+  assert.ok(summaries.some(e=>e.metadata.attemptCount === 40 && e.links.causationEventId));
+  assert.ok(summaries.some(e=>e.metadata.attemptCount === 9 && e.metadata.aggregation === 'mixed-actors-summary'));
+  assert.equal((await pool.query("SELECT count(*) FROM arbi_job_attempts WHERE site_id=$1",[abuseSite])).rows[0].count,"1");
   const http = createJobsServer({ db: postgresDatabase(pool),realm,identity: h.f.identity.adapter,resolveSite: h.f.identity.resolveResource,
     currentAuthority: h.f.currentAuthority,browserOrigins: ["https://synthetic.test"] });
   function req(action: string,body: unknown,token = h.one.token,extra: Record<string,string> = {}) {
@@ -92,6 +129,10 @@ test("native PostgreSQL jobs: independent connections, fences, crash/replay, sig
   const httpInput = { ...input,key: "http-submit",leaseId: httpLease.id,fence: httpLease.fence };
   response = await http.handle(req("submit",httpInput),{ siteId: h.f.registry.siteId,action: "submit" });assert.equal(response.status,202);
   const httpJob = await response.json();assert.equal(httpJob.deviceStatus,null);assert.equal(httpJob.terminal,null);
+  const traceResponse = await http.handle(new Request(`https://synthetic.test/jobs/timeline?jobId=${httpJob.id}`,{headers:{authorization:`Bearer ${h.one.token}`,origin:"https://synthetic.test"}}),{siteId:h.f.registry.siteId,action:"timeline"});
+  assert.equal(traceResponse.status,200);assert.ok(Buffer.byteLength(await traceResponse.clone().text()) <= 65536);
+  const directTrace = await traceResponse.json();assert.equal(directTrace.deviceStatus,null);assert.equal(directTrace.terminal,null);
+  assert.ok(directTrace.audit.some((event:AuditEvent)=>event.evidence === "intent"));
   for (const mutation of [{ ...httpInput,key: "wrong-config",configRevision: "forged" },{ ...httpInput,key: "wrong-boot",target: { bootId: "forged" } }]) {
     assert.equal((await http.handle(req("submit",mutation),{ siteId: h.f.registry.siteId,action: "submit" })).status,400);
   }
@@ -103,6 +144,8 @@ test("native PostgreSQL jobs: independent connections, fences, crash/replay, sig
     sites: { [h.f.registry.siteId]: { roles: [],serviceScopes: ["capture.request"],active: true,revision: "member-1" } } });
   const svc = await h.f.identity.issue({ kind: "service",id: "service-1" });
   assert.equal((await http.handle(req("submit",httpInput,svc.token,{ origin: "" }),{ siteId: h.f.registry.siteId,action: "submit" })).status,403);
+  const attemptsResponse = await http.handle(new Request("https://synthetic.test/jobs/attempts",{headers:{authorization:`Bearer ${h.one.token}`,origin:"https://synthetic.test"}}),{siteId:h.f.registry.siteId,action:"attempts"});
+  assert.equal(attemptsResponse.status,200);assert.ok((await attemptsResponse.json()).windows.some((window:{attemptClass:string})=>window.attemptClass === "invalid-command"));
   h.f.identity.revoke(h.one.sessionId);
   assert.equal((await http.handle(req("submit",httpInput),{ siteId: h.f.registry.siteId,action: "submit" })).status,401);
   assert.deepEqual(await h.a.device(h.f.registry.siteId,h.f.upload("poll",{})),{ commands: [] });

@@ -226,7 +226,7 @@ export class JobJournal {
       links: { correlationId: c.command.correlationId, intentEventId: intent ? eventId : String(intentRow!.event_id), causationEventId: null,
         jobId: c.command.correlationId, sessionId: c.command.lease?.id ?? null, commandId: c.command.commandId, requestSource: c.source, target: c.command.target },
       record: ['completed', 'rejected'].includes(outcome) ? { kind: 'local-record', id: r.event.messageId } : null,
-      metadata: { configRevision: c.command.configRevision, calibrationRevision: r.calibrationRevision, ...(error ? { protocolErrorCode: error } : {}) }, change: null };
+      metadata: { configRevision: c.command.configRevision, calibrationRevision: r.calibrationRevision, ...(c.command.lease ? { controlLeaseId: c.command.lease.id } : {}), ...(error ? { protocolErrorCode: error } : {}) }, change: null };
     checked(audit);
     this.#db.prepare('INSERT INTO audit_intents(event_id,record_id,body,hash) VALUES(?,?,?,?)').run(eventId, r.event.messageId, canonical(audit), digest(audit));
     this.#transitionRecord = structuredClone(r);
@@ -253,7 +253,7 @@ export class JobJournal {
         sourceTime: { utc: null, uncertaintyMs: null, monotonicMs: a.gate.nowMonotonicMs }, ingestTime: null,
         resource: { kind: 'site', id: a.gate.siteId, deviceId: a.gate.receiver.deviceId }, action: 'authorization.check', evidence: 'authorization', outcome: 'allow', effect: 'none', reason: 'authorized',
         links: { correlationId: reconciliation.authorizationId, intentEventId: null, causationEventId: null, jobId: null, sessionId: null, commandId: null, requestSource: null, target: a.gate.receiver },
-        record: null, metadata: { permission: 'control', configRevision: a.gate.configRevision, calibrationRevision: a.applied.request.configuration.calibration!.revision }, change: null };
+        record: null, metadata: { permission: 'control', configRevision: a.gate.configRevision, calibrationRevision: a.applied.request.configuration.calibration!.revision, recoveryPolicy: 'commissioning-reconcile/1' }, change: null };
       checked(audit);
       this.#db.prepare('INSERT INTO audit_intents(event_id,record_id,body,hash) VALUES(?,?,?,?)').run(eventId, id, canonical(audit), digest(audit));
       this.#db.prepare('UPDATE control SET recovery=0').run();

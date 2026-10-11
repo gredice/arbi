@@ -56,6 +56,9 @@ export function validateAuditEvent(input: unknown): Result<AuditEvent> {
   if (event.resource.kind === "device" && event.resource.id !== event.resource.deviceId) return fail("TARGET_MISMATCH", "/resource");
   if (event.change !== null && !["calibration.change", "configuration.change", "schedule.create", "schedule.update", "schedule.delete", "update.request", "update.install", "update.rollback"].includes(event.action)) return fail("INVALID_MESSAGE", "/change");
   const metadata = event.metadata;
+  if ((metadata.attemptCount !== undefined || metadata.attemptClass !== undefined || metadata.aggregation !== undefined || metadata.attemptWindowStartUtc !== undefined) &&
+    (event.action !== "authorization.check" || event.evidence !== "authorization" || event.outcome !== "deny" || event.effect !== "none" ||
+      metadata.attemptCount === undefined || metadata.attemptClass === undefined || metadata.aggregation === undefined || metadata.attemptWindowStartUtc === undefined)) return fail("INVALID_MESSAGE", "/metadata");
   const observational = ["media-observation", "access-observation", "browser-observation"].includes(event.evidence);
   if (!observational && (metadata.observation !== undefined || metadata.byteCount !== undefined || metadata.observedInterval !== undefined)) return fail("INVALID_MESSAGE", "/metadata");
   if (metadata.byteCount !== undefined && (metadata.observation !== "bytes-delivered" || event.outcome !== "observed")) return fail("INVALID_MESSAGE", "/metadata/byteCount");
@@ -202,7 +205,7 @@ export function auditFromProtocolOutcome(intentInput: unknown, outcomeInput: unk
     effect: "device-reported", reason: body.outcome === "rejected" ? "rejected" : interrupted ? (body.outcome === "cancelled" ? "cancelled" : "interrupted") : body.outcome === "completed" ? "completed" : "execution-failed",
     links: { ...structuredClone(root.value.links), intentEventId: root.value.eventId, causationEventId: root.value.eventId,
       commandId: binding.commandId, requestSource: structuredClone(binding.requestSource), target: structuredClone(binding.target) },
-    record: { kind: "protocol-event", id: record.messageId }, metadata: body.error ? { protocolErrorCode: body.error.code } : {}, change: null,
+    record: { kind: "protocol-event", id: record.messageId }, metadata: { ...structuredClone(root.value.metadata),...(body.error ? { protocolErrorCode: body.error.code } : {}) }, change: null,
   };
   return correlateAuditEvent(root.value, event);
 }

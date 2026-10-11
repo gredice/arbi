@@ -88,6 +88,7 @@ test('activation commits exact all-device identities and reports active/staged/r
   assert.equal(r.coordinator.status.rejected!.reason, 'RECALIBRATION_REQUIRED');
   assert.equal(r.coordinator.status.active!.digest, configurationDigest(r.set));
   assert.ok(r.store.pendingAudit().some(e => e.action === 'configuration.change' && e.change?.after.state === 'active' && e.actor.kind === 'human'));
+  assert.ok(r.store.pendingAudit().some(e => e.action === 'calibration.change' && e.evidence === 'device-outcome' && e.change?.after.revisionId === r.set.configuration.calibration!.revision && e.actor.kind === 'human'));
 });
 test('all preparation precedes activation; failed preparation changes no active device', async t => {
   const r = await rig(t); await stage(r);

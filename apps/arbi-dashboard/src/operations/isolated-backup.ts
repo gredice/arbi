@@ -28,8 +28,8 @@ export async function isolatedDatabaseDigest(sql:SqlSession,realm:Realm){
   if(foreign)throw new OperationsError('DENIED');
   const tables:Record<string,{rows:string;digest:string}>={};
   // Hash rows in PostgreSQL, never publish private snapshots or command bodies.
-  for(const table of ['arbi_operations_gate','arbi_device_registry','arbi_command_jobs','arbi_job_reports','arbi_control_leases','arbi_audit_events','arbi_audit_heads','arbi_audit_outbox','arbi_usage_windows','arbi_usage_settings','arbi_media_images','arbi_realtime_sites','arbi_telemetry_history','arbi_live_producers','arbi_live_viewers','arbi_live_reports']){
-    if(table.startsWith('arbi_live_')&&!(await sql.query<{present:boolean}>("SELECT to_regclass($1) IS NOT NULL present",[table])).rows[0].present)continue;
+  for(const table of ['arbi_operations_gate','arbi_device_registry','arbi_command_jobs','arbi_job_reports','arbi_control_leases','arbi_audit_events','arbi_audit_heads','arbi_audit_outbox','arbi_usage_windows','arbi_usage_settings','arbi_media_images','arbi_realtime_sites','arbi_telemetry_history','arbi_live_producers','arbi_live_viewers','arbi_live_reports','arbi_job_attempts']){
+    if((table.startsWith('arbi_live_')||table==='arbi_job_attempts')&&!(await sql.query<{present:boolean}>("SELECT to_regclass($1) IS NOT NULL present",[table])).rows[0].present)continue;
     const result=(await sql.query<{n:string;hash:string}>(`SELECT count(*)::text n,md5(coalesce(string_agg(md5(to_jsonb(t)::text),'' ORDER BY md5(to_jsonb(t)::text)),'')) hash FROM ${table} t`)).rows[0];
     tables[table]={rows:result.n,digest:result.hash};
   }
@@ -56,7 +56,7 @@ export async function restoreIsolatedDatabase(input:Target,sql:SqlSession,backup
   command('pg_restore',['--no-owner','--no-privileges','--exit-on-error','--single-transaction',backup.archive],input);
   // Dumps omit deployment ACLs. Reapply the additive owner migrations to
   // restore closed PUBLIC privileges before any application role is granted.
-  for(const file of ['0001-enrollment','0002-media','0003-audit','0004-jobs','0005-realtime','0006-telemetry','0006-dashboard','0007-usage','0008-audit-lifecycle','0009-usage-settings','0010-operations','0011-live','0012-media-audit'])
+  for(const file of ['0001-enrollment','0002-media','0003-audit','0004-jobs','0005-realtime','0006-telemetry','0006-dashboard','0007-usage','0008-audit-lifecycle','0009-usage-settings','0010-operations','0011-live','0012-media-audit','0013-command-attempts'])
     await sql.query(await readFile(new URL(`../../migrations/${file}.sql`,import.meta.url),'utf8'));
   const restored=await isolatedDatabaseDigest(sql,input.realm);
   for(const [table,reference] of Object.entries(backup.manifest.reference))if(JSON.stringify(restored[table])!==JSON.stringify(reference))throw new OperationsError('TAMPER');

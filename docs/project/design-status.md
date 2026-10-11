@@ -71,3 +71,5 @@ Loaded/installed operational actuation and motion-controller updates remain disa
 - mains design, earthing, protection, enclosure, and installation review;
 - image repeatability, calibration, privacy, and data-retention controls;
 - inspection intervals and replacement criteria.
+
+Command lifecycle software includes bounded denied-attempt aggregation, current audit-authorized trace views and original lease/software/configuration attribution. Calibration commits and simulated update terminal conversion retain explicit recovery policy; see [lifecycle evidence](../evidence/lifecycle-audit.md). Physical home and installation outcomes remain separate gates.
