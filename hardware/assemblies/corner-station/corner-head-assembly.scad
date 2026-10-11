@@ -1,4 +1,4 @@
-// ARBI corner-head-assembly 0.1.0 — concept-unvalidated.
+// ARBI corner-head-assembly 1.0.0 — concept-unvalidated.
 include <../../lib/corner-head.scad>
 show_covers = true;
 explode_mm = 0;

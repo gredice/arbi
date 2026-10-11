@@ -1,4 +1,4 @@
-// Printed corner head r0.1.0 — concept-unvalidated, millimetres.
+// Printed corner head r1.0.0 — concept-unvalidated, millimetres.
 // Primary printed parts require process, load, creep and installed qualification.
 include <corner-head.scad>
 
@@ -6,8 +6,8 @@ function pch_radius() = post_size_mm/2;
 function pch_front() = pch_radius()+32;
 function pch_rear() = -pch_radius()-16;
 // Equal tensions with a horizontal span and vertical winch leg pitch the
-// freely pinned provisional block 45 degrees; its pin is behind the sheave.
-function pch_block_drop() = 40;
+// freely pinned measured block 45 degrees; its pin is behind the sheave.
+function pch_block_drop() = barton_pin_spacing();
 function pch_sheave_x() = pch_radius()+(line_diameter_mm<=1.5 ? 177.55 : 176.65);
 function pch_pin_x() = pch_sheave_x()-pch_block_drop()/sqrt(2);
 function pch_sheave_z() = 165-pch_block_drop()/sqrt(2);
@@ -58,7 +58,7 @@ module pch_carrier_body() {
             translate([0,-24,0]) pch_web();
             // Full-width upper chord and central direct double-tang lug.
             translate([pch_front()-2,-40,185]) cube([pch_pin_x()+18-pch_front(),80,20]);
-            translate([pch_pin_x()-16,-4,150]) cube([32,8,40]);
+            translate([pch_pin_x(),0,165]) barton_mount_lug(fn=facets);
             // Solid cross-bolt bosses avoid squeezing two unsupported ribs.
             for(z=[100,190]) translate([pch_radius()+50,0,z]) ch_ycyl(26,80);
         }
@@ -67,7 +67,7 @@ module pch_carrier_body() {
         for(z=pch_rows()) translate([pch_front()/2,0,z]) ch_xcyl(13,pch_front()+2);
         for(z=[100,190]) translate([pch_radius()+50,0,z]) ch_ycyl(8.6,100);
         // The bought pin passes only through the central lug, not side webs.
-        translate([pch_pin_x(),0,165]) ch_ycyl(8.6,10);
+        translate([pch_pin_x(),0,165]) ch_ycyl(barton_lug_bore(),barton_tang_gap());
         pch_strap_channels();
     }
 }
@@ -122,7 +122,7 @@ module pch_cross_hardware() {
 }
 module pch_block() {
     translate([pch_pin_x(),0,165]) rotate([0,-45,0])
-        translate([-ch_pin_x(),0,-165]) ch_block();
+        translate([0,0,-barton_pin_spacing()]) barton_size_1_block(fn=facets);
 }
 module pch_line() { translate([0,0,pch_sheave_z()-ch_sheave_z()]) ch_line(); }
 module corner_head_printed_front_cover() {

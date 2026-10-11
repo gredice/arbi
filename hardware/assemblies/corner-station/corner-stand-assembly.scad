@@ -1,4 +1,4 @@
-// corner-stand-assembly r0.1.0 — concept-unvalidated. Schematic tube locations.
+// corner-stand-assembly r1.0.0 — concept-unvalidated. Schematic tube locations.
 include <../../lib/corner-stand-adapter.scad>
 include <../../lib/corner-head-printed.scad>
 include <../../lib/winch-cover.scad>

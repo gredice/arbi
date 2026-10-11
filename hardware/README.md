@@ -25,7 +25,7 @@ The machine-readable registry is [models.json](models.json). It declares stable 
 | `camera-gimbal-base`, `camera-gimbal-yoke`, `camera-gimbal-camera-plate`, `camera-gimbal-rain-cap`, `camera-gimbal-optical-hood` | [Camera pod](assemblies/camera-pod/README.md) | `0.1.0` | Two-axis gimbal fabrication set |
 | `dock-funnel` | [Dock](assemblies/dock/README.md) | `0.1.0` | Passive conical alignment funnel concept |
 | `dock-nest` | [Dock](assemblies/dock/README.md) | `0.1.0` | Pod locating nest and mounting plate concept |
-| `top-pulley-keeper` | [Corner station](assemblies/corner-station/README.md) | `0.1.0` | Line-retention keeper around the top pulley concept |
+| `top-pulley-keeper` | [Corner station](assemblies/corner-station/README.md) | `1.0.0` | Guard candidate around measured Barton cheeks; retention/attachment unqualified |
 
 Fabrication models identify their canonical BOM part IDs in the registry. The winch-drum assembly, winch-mount, camera-pod envelope, and camera-pod assembly are `reference` artifacts with no BOM part IDs and export CSG. Individual drum, mount, camera-pod chassis, and gimbal components export fabrication STL and map to their BOM parts. All models remain concept-unvalidated.
 

@@ -791,10 +791,10 @@
         "fabricated"
       ],
       "requirements": [
-        "Alternative concept for a measured 100–140 mm round pole. One front collar/clevis plus one rear collar, with four nominal M8 clamp bolts and a separate M8 pulley pin.",
+        "Alternative concept for a measured 100–140 mm round pole. One front collar/clevis plus one rear collar, with four nominal M8 clamp bolts and a separate supplied 4.7 mm Barton pulley pin.",
         "STLs support fit and appearance mock-ups only. Structural material, manufacturing process, friction/slip resistance, timber movement and allowable loads are unverified."
       ],
-      "notes": "Not included in any build or purchasing quantity; does not replace the through-bolted top-pulley-bracket baseline. Nominal hardware and generic pulley envelopes are not supplied fabrication parts.",
+      "notes": "Not included in any build or purchasing quantity; does not replace the through-bolted top-pulley-bracket baseline. Nominal hardware and measured block reference details are not supplied fabrication parts. r1.0.0 front has a 14.8 mm central lug and 5.2 mm bore for received BA01090 double tang; native pin replaces the old M8 eye/spacer stack. Collar clamping and structural/creep acceptance remain unqualified.",
       "fabrication": {
         "process": "openscad",
         "modelStatus": "concept-unvalidated",
@@ -803,7 +803,7 @@
             "path": "hardware/assemblies/corner-station/pole-pulley-mount-front.scad",
             "module": "pole_pulley_mount_front",
             "modelId": "pole-pulley-mount-front",
-            "revision": "0.1.0"
+            "revision": "1.0.0"
           },
           {
             "path": "hardware/assemblies/corner-station/pole-pulley-mount-rear.scad",
@@ -863,9 +863,9 @@
         "off-the-shelf"
       ],
       "requirements": [
-        "Marinetech short round A4 stainless shackle with 8 mm removable pin; one per pulley. Pass through the bracket's Ø9 mm terminal hole and the pulley attachment."
+        "Marinetech short round A4 stainless shackle with 8 mm bracket-side pin through the bracket Ø9 mm hole. The received Barton double tang uses its own 4.7 mm retained pin through a compatible link body; do not pass an 8 mm pin through factory tang holes. Actual link-body size, pin locking and articulation remain unqualified."
       ],
-      "notes": "Confirm the selected pulley fits and articulates freely without side-plate distortion. If incompatible, use an M8 A2/A4 bolt with spacers/washers and a locking nut as the attachment pin."
+      "notes": "Historical steel-head connector only; omitted from the printed central-lug alternative. The CAD two-axis loop is an unqualified envelope, not the received shackle. Its body must fit the 15.8 mm tang gap and supplied 4.7 mm pin. No M8 pulley-pin substitution or factory-hole modification is permitted. See bom/sourcing/barton-n01090-2026-10-11.md."
     },
     {
       "id": "pulley-bracket-through-bolt-m12x160",
@@ -1016,9 +1016,11 @@
         "off-the-shelf"
       ],
       "requirements": [
-        "Weather-resistant 25–30 mm marine single block for ~1.5 mm Dyneema; 30 mm preferred. Low-friction ball bearing preferred for repeated movement; positive side enclosure plus printed keeper. Mount near ~3.0–3.1 m on the selected through-bolted head; historical steel and proposed printed variants have separate attachment and acceptance requirements."
+        "Received Barton N01090 / WASI BA01090 Series 1 single fixed-eye double-tang block, plain bearing. Catalogue sheave 30 mm diameter x 12 mm width; maximum rope 8 mm. Owner measured overall 65 x 36 x 24 mm on 2026-10-11.",
+        "Measured clevis interface: supplied pin diameter 4.7 mm, tang clear gap 15.8 mm, each tang 1.5 mm thick, clevis-pin centre to sheave-axle centre 42 mm. Printed mount candidate uses a 14.8 mm central lug and 5.2 mm bore; print allowances and actual locking engagement require inspection.",
+        "Manufacturer SWL 355 kg and breaking load 710 kg describe the block only. Plain-bearing friction, groove/side gaps and retention of the ARBI 1.5 mm Dyneema or 4.5 mm powered line remain unqualified. Mount height and complete printed/steel/stand load paths require separate acceptance."
       ],
-      "notes": "Purchased prototype: Barton BA01090 30 mm STANDARD, WASI, https://wasi.hr/kolotura-jednostruka-fiksna-za-uze-do-8m; four units collected in store; receipt confirmed 2026-09-08, SKU and price confirmed 2026-10-08; actual collection date was not supplied. Supplier lists a plain bearing; repeated-movement friction and retention remain unverified. Alternative: Allen A2030 30 mm Dynamic, 26 g, SWL 140 kg. Other alternatives: Harken 348 29 mm fixed Carbo; Lewmar 30 mm Control, https://www.imnasa.com/hr/katroli/control-pulley-simple-30mm-black-lewmar-l29901321bk; Viadana 25 mm fixed stainless, https://www.imnasa.com/hr/katroli/fixed-block-simple-25mm-s-s-viadana-28000013. Check stock and price before further orders. Purchase evidence: bom/sourcing/wasi-pulley-2026-10-08.md."
+      "notes": "Four units already collected from WASI; purchase/price evidence remains bom/sourcing/wasi-pulley-2026-10-08.md. Owner measurements, photos, manufacturer specification and CAD assumptions: bom/sourcing/barton-n01090-2026-10-11.md. Barton catalogue issue 56 lists 65 mm and 47 g; manufacturer web listing lists 66 x 32 x 25 mm and 48 g, superseded for this received sample envelope by owner measurements. N11090 is the ball-bearing alternative, not this purchased N01090. No supplier manufacturing drawing or CAD found. Acetal sheave on brass plain bearing, glass-reinforced nylon cheeks and internal stainless frame; manufacturer ratings do not qualify the ARBI assembly."
     },
     {
       "id": "top-pulley-bracket",
@@ -1054,7 +1056,7 @@
       "requirements": [
         "ASA preferred; PETG acceptable for prototype. Close side gaps around 1.5 mm Dyneema, keep line centred, prevent jump-off, shield direct rain/UV, drain below and remain removable for inspection."
       ],
-      "notes": "Non-structural only; must not carry pulley or cable load and should not rub the line during normal running. The legacy default is a 58 mm keeper, not fitted to the purchased BA01090 30 mm block; it is not a completed guard for the corner-head package.",
+      "notes": "Non-structural candidate reworked around the measured 36 mm cheek width and 24 mm block thickness with 1 mm nominal radial/side allowance. Side bridges leave the clevis neck open. No fitted attachment or 1.5 mm line-retention acceptance; not installed in the printed-head package. See bom/sourcing/barton-n01090-2026-10-11.md.",
       "fabrication": {
         "process": "openscad",
         "modelStatus": "concept-unvalidated",
@@ -1063,7 +1065,7 @@
             "path": "hardware/assemblies/corner-station/top-pulley-keeper.scad",
             "module": "top_pulley_keeper",
             "modelId": "top-pulley-keeper",
-            "revision": "0.1.0"
+            "revision": "1.0.0"
           }
         ]
       }
@@ -1888,7 +1890,7 @@
       "requirements": [
         "One left carrier, one right carrier, two copies of the rear pad, one front cosmetic cover and one rear cosmetic cover per station: six installed prints from five distinct models. Default round 120; separate round 100/140, square 100 and powered 4.5 mm line studies. No steel angle, custom machined saddle or rear metal plate in this variant.",
         "Primary carriers and rear pads are load-bearing printed concepts. PAHT-CF or tested ASA are candidates, not qualified materials; orientation, printer/slicer process, conditioning, hole finishing, bolt-seat pressure, creep, cycles, weather and complete-head proof tests remain required. Cosmetic cover straps carry no line or guy load.",
-        "Two M12 through-bolts at Z45/155 and two M8 cross-bolts at X=post radius+50, Z100/190 join the selected kit. Provisional 8 mm terminal lug and 9 mm tang gap require received BA01090 pin/tang measurements. Fitted thin-line keeper and independent guy connection remain unresolved. Nominal equal-tension horizontal-span pose articulates the block 45 degrees about Y with assumed 40 mm pin-to-sheave distance: pin X=post radius+149.2657 passive /148.3657 powered, Z165; sheave X=post radius+177.55/176.65, Z136.7157. Other angles, unequal tensions, friction and received articulation require physical review."
+        "Two M12 through-bolts at Z45/155 and two M8 cross-bolts at X=post radius+50, Z100/190 join the selected kit. Measured Barton interface: 14.8 mm rounded central lug inside 15.8 mm clear tang gap, 5.2 mm bore for the supplied 4.7 mm retained pin. Equal-tension horizontal-span pose rotates -45 degrees about Y with measured 42 mm pin-to-sheave centres: pin X=post radius+147.8515 passive /146.9515 powered, Z165; sheave X=post radius+177.55/176.65, Z135.3015. These allowances and pose require physical inspection. Groove seating, thin-line keeper, guy connection, other angles and unequal tension remain unresolved."
       ],
       "notes": "New printed-head proposal; excluded from the purchasing baseline. Select instead of steel angle/plates, metal saddles and their covers. See docs/assemblies/corner-station/design-package.md. No supplier offer, full fabrication quote or physical qualification asserted. An optional ASA solid-volume material estimate is recorded separately; it is only a costing assumption.",
       "fabrication": {
@@ -1899,13 +1901,13 @@
             "path": "hardware/assemblies/corner-station/corner-head-printed-left.scad",
             "module": "corner_head_printed_left",
             "modelId": "corner-head-printed-left",
-            "revision": "0.1.0"
+            "revision": "1.0.0"
           },
           {
             "path": "hardware/assemblies/corner-station/corner-head-printed-right.scad",
             "module": "corner_head_printed_right",
             "modelId": "corner-head-printed-right",
-            "revision": "0.1.0"
+            "revision": "1.0.0"
           },
           {
             "path": "hardware/assemblies/corner-station/corner-head-printed-rear-pad.scad",
@@ -1944,7 +1946,7 @@
       "requirements": [
         "Two bought M12 bolts, four 37 x 13 x 3 mm large washers and two nominal 12 mm locking nuts per station. Bolt starting lengths 170/190/210 mm for round 100/120/140; square 100 uses 170 mm. Represented stack is post + 66 mm with 4 mm projection; verify full locking-zone engagement and at least two protruding coarse threads on every received stack. Select longer bought bolts and regenerate cover clearance if needed.",
         "Two M8 x 100 cross-bolts, four nominal 16 OD x 8.4 bore x 1.6 mm washers and two 6.5 mm locking nuts per station. Represented 80 mm carrier width gives 10.3 mm projection. Actual fastener grade, locking, tool/cover clearance, clamp process and printed contact pressure remain unqualified.",
-        "One compatible bought pulley pin/locking set per station, selected only after received double-tang and usable pin measurements. Nominal M8 is a layout envelope; do not force or modify the pulley. Two independent outdoor UV-rated cosmetic straps per head, <=2.5 mm wide and <=1 mm thick, starting length 800 mm; replace after service.",
+        "Use the one supplied 4.7 mm Barton clevis pin and its positive locking ring per block; inspect usable length, seating and locking engagement on the actual 14.8 mm lug. Do not substitute an M8 pin or enlarge factory tang holes. Two independent outdoor UV-rated cosmetic straps per head, <=2.5 mm wide and <=1 mm thick, starting length 800 mm; replace after service.",
         "This set replaces baseline bolt/washer/nut/shackle quantities when choosing the printed head. Measured suitable baseline M12 washers/nuts may be reused and counted once. Does not include the received pulley, fitted keeper, guy hardware or steel-head optional sets."
       ],
       "notes": "New printed-head proposal; excluded from the purchasing baseline. Select instead of steel angle/plates, metal saddles and their covers. See docs/assemblies/corner-station/design-package.md. No supplier offer, cost or physical qualification asserted."

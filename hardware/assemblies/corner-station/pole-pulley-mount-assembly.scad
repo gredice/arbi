@@ -1,4 +1,4 @@
-// ARBI pole-pulley-mount-assembly r0.1.0 — concept-unvalidated.
+// ARBI pole-pulley-mount-assembly r1.0.0 — concept-unvalidated.
 // Purchased hardware, pole, pulley and line are non-manufacturing references.
 include <../../lib/pole-pulley-mount.scad>
 explode_mm = 0;

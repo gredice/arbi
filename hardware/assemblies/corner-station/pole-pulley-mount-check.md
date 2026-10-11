@@ -1,5 +1,9 @@
 # Round-pole mount nominal CAD record
 
+Historical r0.1.0 generic-eye record. Current front/assembly r1.0.0 uses the
+measured Barton double tang; see the [new geometry record](../../../docs/assemblies/corner-station/barton-geometry-check.md).
+The original results below are preserved and do not describe the new interface.
+
 Revision `0.1.0`, `concept-unvalidated`, 7 October 2026.
 
 This record covers only the [split-clamp proposal](pole-pulley-mount.md), using

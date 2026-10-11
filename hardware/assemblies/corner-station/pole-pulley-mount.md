@@ -1,21 +1,22 @@
 # Round-pole pulley mount proposal
 
-Revision `0.1.0`, status `concept-unvalidated`, 7 October 2026.
+Front/assembly revision `1.0.0`; rear `0.1.0`, all `concept-unvalidated`.
+Updated 11 October 2026 for the received Barton double tang.
 
 ## Intent and baseline boundary
 
 Create an editable 3D concept that attaches a purchased marine pulley to a round
 post. Two half collars can be installed around an existing pole without access
-to its end. Four transverse clamp bolts join the halves; two integral gusseted
-arms support a removable pulley attachment pin. The eye sits between spacer
-sleeves so tightening the pin stack need not squeeze the pulley body.
+to its end. Four transverse clamp bolts join the halves; one integral gusseted
+central web and rounded lug support the supplied 4.7 mm retained pin inside
+the received double tang. No M8 attachment pin or eye/spacer stack remains.
 
 This is a proposed friction-clamp alternative to the committed
 [through-bolted steel bracket](../../../docs/assemblies/corner-station/README.md).
 It does not change the installed-system baseline, current purchasing quantities
-or approved physical interfaces. The pole diameter and actual pulley have not
-been supplied for this concept. Defaults below are design assumptions from the
-repository's starting range, not measurements of received parts.
+or approved physical interfaces. The pole diameter remains a study assumption. The
+[Barton block interface](../../../bom/sourcing/barton-n01090-2026-10-11.md) is
+owner measured; collar and print clearances remain provisional.
 
 ## Starting dimensions
 
@@ -30,18 +31,17 @@ repository's starting range, not measurements of received parts.
 | Clamp column spacing | 160.5 mm | Varies with pole diameter and collar wall |
 | Pin offset from pole surface | 110 mm | Pin X = 170 mm for the default Ø120 pole |
 | Pin height | 60 mm | Above collar bottom |
-| Clevis opening / cheek thickness | 22 / 8 mm | 38 mm total outside width |
-| Attachment pin | Nominal M8 × 60 | Ø9 mm holes; verify actual eye and bearing surfaces |
-| Pulley eye width / spacers | 12 / 2 × 5 mm | Generic nominal eye; spacers Ø14 with Ø8.6 bore |
-| Sheave diameter / width | 30 / 18 mm | Generic visualization only |
-| Pin to sheave-center drop | 42 mm | Sheave center Z = 18 mm |
+| Central lug / tang gap | 14.8 / measured 15.8 mm | Provisional 0.5 mm each-side clearance |
+| Attachment pin / lug bore | Supplied 4.7 / 5.2 mm | Native positive locking ring; no M8 substitute |
+| Sheave diameter / width | 30 / 12 mm | Catalogue, plain bearing |
+| Pin to sheave-centre distance | Measured 42 mm | 45° pose puts sheave at X199.6985, Z30.3015 |
 
-The approximate line route turns 90 degrees from the garden span to a vertical
-drop toward the winch. Its centerline is shown for layout only. The down-going
-tangent is 95.75 mm from the nominal pole surface at the default geometry.
-The pulley body, eye, groove, bearing, spacer length and attachment freedom must
-be replaced with measured supplier geometry before fit decisions. No supplier
-SKU, load rating or keeper fit is asserted by this generic block.
+The approximate 1.5 mm line route turns 90 degrees from the span to a vertical
+drop. Its nominal down-going tangent is 125.4485 mm from the pole surface for
+the default study; this alternative is not aligned with the canonical winch
+163.3 mm tangent. It needs a coordinated lower mount before installation.
+Body/interface dimensions are measured; groove seating, pin usable length,
+ring engagement, print fit and actual articulation remain unqualified.
 
 ## Sources and export
 
@@ -85,8 +85,8 @@ metres as required by glTF; SCAD and STL dimensions remain in millimetres.
 
 ## Load path and unresolved decisions
 
-Proposed load path: line → purchased pulley → metal attachment pin and spacers →
-twin arms → collar → pole contact. Unlike the baseline, this proposal depends on
+Proposed load path: line → purchased pulley → supplied retained metal pin →
+central printed lug/web → collar → pole contact. Unlike the baseline, this proposal depends on
 clamp friction to resist sliding and rotation. A circular pole has no positive
 anti-rotation key in this model. Collar closure, preload and contact pressure
 cannot be inferred from the fit allowance, and the two halves must not bottom
@@ -101,8 +101,8 @@ for unloaded fit/appearance mock-ups, not approved overhead structural parts.
 A metal implementation still needs a fabrication design and load assessment.
 
 Before selecting this alternative, measure the pole at both clamp rows, account
-for taper/ovality and timber moisture movement, select the exact closed pulley,
-verify the pin/spacer stack and articulation, and check the complete line path
+for taper/ovality and timber moisture movement, inspect the received Barton block,
+verify the pin locking, finished lug and articulation, and check the complete line path
 with the actual winch. Resolve clamp slip/rotation, creep, corrosion and weather
 exposure, local pole crushing, fastener retention and the independent retention
 strategy. Physical load testing and review must precede installed use.

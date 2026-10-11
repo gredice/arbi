@@ -1,6 +1,6 @@
 // Corner support head r0.1.0 — concept-unvalidated, millimetres.
 // Bought-part shapes are nominal envelopes, not supplier manufacturing drawings.
-include <arbi.scad>
+include <barton-size-1-block.scad>
 
 post_shape = "round";
 post_size_mm = 120;
@@ -10,9 +10,9 @@ bracket_width_mm = 40;
 bracket_thickness_mm = 5;
 // The 200 mm proposed variant aligns with the committed round-pole winch.
 // Select 150 to reproduce the historical angle and its 125 mm terminal hole.
-// The purchased BA01090 has a double tang. Connection dimensions need measurement.
-block_drop_mm = 70; // Beam underside to sheave centre; layout allowance only.
-block_width_mm = 25;
+// The purchased BA01090 has a double tang. Measured clevis dimensions are in barton-size-1-block.scad.
+block_drop_mm = 61; // Beam underside to sheave centre; unqualified link layout: native pin 4 mm below connector-loop centre.
+block_width_mm = barton_thickness();
 block_body_mm = 36;
 sheave_diameter_mm = 30;
 line_diameter_mm = 1.5;
@@ -107,26 +107,7 @@ module ch_connector() {
     }
 }
 module ch_block() {
-    // WASI lists 66 x 32 x 25 and a 30 x 12 sheave. Use a conservative
-    // 36 mm body envelope and explicit assumed tang geometry; not a BA01090 CAD.
-    translate([ch_pin_x(),0,ch_sheave_z()]) {
-        for(s=[-1,1]) translate([0,s*(block_width_mm/2-1.5),0])
-            hull() {
-                ch_ycyl(block_body_mm,3);
-                translate([0,0,25]) ch_ycyl(20,3);
-            }
-        difference() {
-            ch_ycyl(sheave_diameter_mm,12);
-            rotate([90,0,0]) rotate_extrude($fn=facets)
-                translate([sheave_diameter_mm/2,0]) circle(r=1.5,$fn=24);
-        }
-        ch_ycyl(6,block_width_mm);
-        for(s=[-1,1]) translate([0,s*6,40]) difference() {
-            hull() { ch_ycyl(16,3); translate([0,0,-15]) ch_ycyl(16,3); }
-            ch_ycyl(9,5);
-        }
-        translate([0,0,40]) ch_ycyl(8,25);
-    }
+    translate([ch_pin_x(),0,ch_sheave_z()]) barton_size_1_block(fn=facets);
 }
 module ch_line() {
     r=sheave_diameter_mm/2-line_diameter_mm/2;

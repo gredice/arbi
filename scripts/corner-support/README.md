@@ -57,8 +57,13 @@ other custom parts with only zero-volume mating contact permitted. Portable
 canonical sources are under `source/repository`; rebuild from an ARBI checkout
 with the pinned tooling. Stale output-folder files never enter the ZIP.
 
-The provisional block uses the frictionless equal-leg-tension 90-degree pose:
--45° about its Y pin, with a 40 mm pin-to-sheave distance. An independent
+The measured-reference block uses the frictionless equal-leg-tension 90-degree pose:
+-45° about its Y pin, with the owner-measured 42 mm pin-to-sheave distance. Its 65 x 36 x 24 mm
+envelope, 4.7 mm supplied pin, 15.8 mm gap and 1.5 mm tangs have an independent
+mesh regression (`check-barton-block.py`). M8 pins and a 16 mm lug are deliberate
+negative controls. The r1.0.0 rounded lug is 14.8 mm thick with a 5.2 mm bore;
+both carrier halves must be reprinted. Keeper/collar clearance and articulation
+are sampled nominal checks, not acceptance of received or printed parts. An independent
 moment calculation rejects the vertical block pose, and the actual block mesh
 is compared with the transformed vertical reference. The new pin X offset
 preserves the canonical winch tangent; arbitrary span azimuth and received
@@ -68,7 +73,7 @@ fascia and the old front-cover X/Y removal. The checked service is front cover
 190 mm down then 100 mm sideways, and rear cover 80 mm backward.
 
 Render every PDF page with `pdftoppm` and inspect it after layout changes. These
-checks establish nominal geometry only. Received BA01090 pin/groove/retention,
+checks establish nominal geometry only. Actual printed pin fit/locking and BA01090 groove/retention,
 guy attachment, print process, long-term creep, timber, soil, structural load
 capacity and installed operation require separate acceptance.
 

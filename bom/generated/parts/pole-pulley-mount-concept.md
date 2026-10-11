@@ -13,12 +13,12 @@
 
 ## Requirements
 
-- Alternative concept for a measured 100–140 mm round pole. One front collar/clevis plus one rear collar, with four nominal M8 clamp bolts and a separate M8 pulley pin.
+- Alternative concept for a measured 100–140 mm round pole. One front collar/clevis plus one rear collar, with four nominal M8 clamp bolts and a separate supplied 4.7 mm Barton pulley pin.
 - STLs support fit and appearance mock-ups only. Structural material, manufacturing process, friction/slip resistance, timber movement and allowable loads are unverified.
 
 ## Notes
 
-Not included in any build or purchasing quantity; does not replace the through-bolted top-pulley-bracket baseline. Nominal hardware and generic pulley envelopes are not supplied fabrication parts.
+Not included in any build or purchasing quantity; does not replace the through-bolted top-pulley-bracket baseline. Nominal hardware and measured block reference details are not supplied fabrication parts. r1.0.0 front has a 14.8 mm central lug and 5.2 mm bore for received BA01090 double tang; native pin replaces the old M8 eye/spacer stack. Collar clamping and structural/creep acceptance remain unqualified.
 
 ## Used in
 
@@ -39,7 +39,7 @@ No assembly usage recorded.
 
 - Process: openscad
 - Model status: concept-unvalidated
-- [hardware/assemblies/corner-station/pole-pulley-mount-front.scad](../../../hardware/assemblies/corner-station/pole-pulley-mount-front.scad) — module `pole_pulley_mount_front`; revision 0.1.0.
+- [hardware/assemblies/corner-station/pole-pulley-mount-front.scad](../../../hardware/assemblies/corner-station/pole-pulley-mount-front.scad) — module `pole_pulley_mount_front`; revision 1.0.0.
 - [hardware/assemblies/corner-station/pole-pulley-mount-rear.scad](../../../hardware/assemblies/corner-station/pole-pulley-mount-rear.scad) — module `pole_pulley_mount_rear`; revision 0.1.0.
 
 ### Print material estimate
@@ -48,24 +48,24 @@ Build arbi-v1; batch represents 1 BOM unit(s). Deferred concept clamp pair; excl
 
 | Model | Copies in batch | Material / colour | Solid volume per copy |
 | --- | ---: | --- | ---: |
-| pole-pulley-mount-front r0.1.0 | 1 | Bambu Lab PETG Basic / black | 357.917148 cm³ |
+| pole-pulley-mount-front r1.0.0 | 1 | Bambu Lab PETG Basic / black | 340.757080 cm³ |
 | pole-pulley-mount-rear r0.1.0 | 1 | Bambu Lab PETG Basic / black | 264.313522 cm³ |
 
 Selected recipe consumption:
 
 | Material / colour | Roll price basis | Estimated batch weight | Estimated batch cost |
 | --- | --- | ---: | ---: |
-| [Bambu Lab PETG Basic](https://eu.store.bambulab.com/products/petg-basic) / black | 11.39 EUR / 1000 g; 10+ eligible mixed rolls | 777.788 g | 8.86 EUR |
-| **Selected recipe total** | | **777.788 g** | **8.86 EUR** |
+| [Bambu Lab PETG Basic](https://eu.store.bambulab.com/products/petg-basic) / black | 11.39 EUR / 1000 g; 10+ eligible mixed rolls | 756.338 g | 8.61 EUR |
+| **Selected recipe total** | | **756.338 g** | **8.61 EUR** |
 
 Comparisons below assume every component uses the same material; the selected mixed recipe above is costed separately.
 
 | Material | Density | Roll price | Estimated batch weight | Estimated batch cost |
 | --- | ---: | ---: | ---: | ---: |
-| [Bambu Lab PLA Basic](https://eu.store.bambulab.com/products/pla-basic-filament) | [1.24 g/cm³](https://store.bblcdn.com/s1/default/58b85d0f3db94878854a28fdb8a0006e/Bambu_PLA_Basic_Technical_Data_Sheet.pdf) | 11.99 EUR / 1000 g; 10+ eligible mixed rolls | 771.566 g | 9.25 EUR |
-| [Bambu Lab PETG Basic](https://eu.store.bambulab.com/products/petg-basic) | [1.25 g/cm³](https://store.bblcdn.com/s1/default/cb94589bf7994fdcbfa833badefae9cd/Bambu_PETG_Basic_Technical_Data_Sheet.pdf) | 11.39 EUR / 1000 g; 10+ eligible mixed rolls | 777.788 g | 8.86 EUR |
-| [Bambu Lab PETG Matte](https://eu.store.bambulab.com/products/petg-matte) | [1.37 g/cm³](https://store.bblcdn.eu/s8/default/240fb0c791fb4903a9d72934895e9a16/PETG_Matte.pdf) | 11.39 EUR / 1000 g; 10+ eligible mixed rolls | 852.456 g | 9.71 EUR |
-| [Bambu Lab ASA](https://eu.store.bambulab.com/products/asa-filament) | [1.05 g/cm³](https://store.bblcdn.com/ad7b08230c164e72856cffbe06bb7dc9.pdf) | 24.99 EUR / 1000 g; single spool | 653.342 g | 16.33 EUR |
+| [Bambu Lab PLA Basic](https://eu.store.bambulab.com/products/pla-basic-filament) | [1.24 g/cm³](https://store.bblcdn.com/s1/default/58b85d0f3db94878854a28fdb8a0006e/Bambu_PLA_Basic_Technical_Data_Sheet.pdf) | 11.99 EUR / 1000 g; 10+ eligible mixed rolls | 750.288 g | 9 EUR |
+| [Bambu Lab PETG Basic](https://eu.store.bambulab.com/products/petg-basic) | [1.25 g/cm³](https://store.bblcdn.com/s1/default/cb94589bf7994fdcbfa833badefae9cd/Bambu_PETG_Basic_Technical_Data_Sheet.pdf) | 11.39 EUR / 1000 g; 10+ eligible mixed rolls | 756.338 g | 8.61 EUR |
+| [Bambu Lab PETG Matte](https://eu.store.bambulab.com/products/petg-matte) | [1.37 g/cm³](https://store.bblcdn.eu/s8/default/240fb0c791fb4903a9d72934895e9a16/PETG_Matte.pdf) | 11.39 EUR / 1000 g; 10+ eligible mixed rolls | 828.947 g | 9.44 EUR |
+| [Bambu Lab ASA](https://eu.store.bambulab.com/products/asa-filament) | [1.05 g/cm³](https://store.bblcdn.com/ad7b08230c164e72856cffbe06bb7dc9.pdf) | 24.99 EUR / 1000 g; single spool | 635.324 g | 15.88 EUR |
 
 Volume evidence: current local OpenSCAD exports; [canonical recipes, mesh checksums and source hashes](../../catalog/fabrication.json).
 

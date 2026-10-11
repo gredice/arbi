@@ -1,6 +1,8 @@
 # Corner support printed-head acceptance record
 
-Blank commissioning record for new printed models r0.1.0.
+Commissioning record: r1.0.0 carrier halves / measured Barton interface;
+unchanged prints remain r0.1.0. Owner dimensions are evidence for the reference
+model, not completed station acceptance.
 **No physical test has been performed by this change.** Record one form per
 station and link approved calculations, as-built drawings, print records and
 dated test records. Empty fields remain unverified. Successful CAD exports
@@ -17,8 +19,8 @@ and mesh checks do not fill them.
 | Printed dimensions, fit allowance, hole finishing, voids/layer inspection and retained wall/edge dimensions | Pending |
 | M12/M8 bolt grades/lengths, washers/nuts, locking engagement, protrusion and tool/cover clearance | Pending |
 | Reviewed clamp process/preload; carrier/rear-pad pressure, timber contact and settlement | Pending |
-| Received BA01090 identity, tang gap, pin diameter/usable length and locking | Pending |
-| Pin-to-sheave separation, actual block pose/articulation over span angles and unequal tensions, groove/side gaps | Pending |
+| Received BA01090 identity, tang gap, pin diameter/usable length and locking | [Owner report 2026-10-11](../../../bom/sourcing/barton-n01090-2026-10-11.md): N01090/BA01090, 15.8 mm gap, 4.7 mm pin, 1.5 mm tangs. Usable length and fitted locking: pending |
+| Pin-to-sheave separation, actual block pose/articulation over span angles and unequal tensions, groove/side gaps | Owner-reported 42 mm centre spacing. Actual pose/articulation, groove and side gaps: pending |
 | Compatible bought pin dimensions/rating, terminal-lug bearing, pin bending, articulation and locking | Pending |
 | Fitted removable keeper: gap, full line sweep, slack/derailment behavior | Pending |
 | Winch drum tangent depth, loaded deflection and lateral alignment across winding travel | Pending |

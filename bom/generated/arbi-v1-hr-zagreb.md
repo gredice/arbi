@@ -11,13 +11,13 @@
 - Build: arbi-v1
 - Destination: hr-zagreb
 - Quote snapshot: hr-zagreb-2026-10-08-coupling
-- Input digest: sha256:f3057ac4a7070ce24e5387f8a8891263c3853d90ef5313e5ea0cd51f6099815a
+- Input digest: sha256:8b6605bd9a46116da9d6ab58137cac784265b0f5599b8f55d4a42a4f08f024e7
 - Complete landed total: **unavailable**
 - Known quoted goods subtotal: **EUR 943.84**
 - Known checkout-group shipping subtotal: **EUR 43.38**
 - Known partial subtotal: **EUR 987.22**
-- Estimated print materials: **EUR 254.45**
-- Estimated partial subtotal (known amounts + print materials): **EUR 1241.67**
+- Estimated print materials: **EUR 254.03**
+- Estimated partial subtotal (known amounts + print materials): **EUR 1241.25**
 
 The known partial subtotal is evidence about recorded values only. It excludes every unresolved amount and must not be presented as the project cost.
 
@@ -50,7 +50,7 @@ Solid CAD volume × each component's material density × observed roll price / r
 | [dock-nest](parts/dock-nest.md) | 1 | PETG Basic | 216.782 g | EUR 2.47 |
 | [dock-support-arm](parts/dock-support-arm.md) | 1 | PETG Basic | 1602.762 g | EUR 18.26 |
 | [dock-weather-hood](parts/dock-weather-hood.md) | 1 | PETG Basic | 299.523 g | EUR 3.41 |
-| [top-pulley-keeper](parts/top-pulley-keeper.md) | 4 | PETG Basic | 110.733 g | EUR 1.26 |
+| [top-pulley-keeper](parts/top-pulley-keeper.md) | 4 | PETG Basic | 73.507 g | EUR 0.84 |
 | [winch-drum](parts/winch-drum.md) | 4 | PETG Basic | 4980.607 g | EUR 56.73 |
 | [winch-full-cover](parts/winch-full-cover.md) | 4 | ASA + PETG Matte | 12527.69 g | EUR 147.84 |
 | [winch-mount-and-guard](parts/winch-mount-and-guard.md) | 4 | PETG Matte + PETG Basic | 1613.452 g | EUR 18.37 |

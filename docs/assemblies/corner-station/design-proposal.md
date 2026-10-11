@@ -1,5 +1,9 @@
 # Corner support set printed-head proposal
 
+Historical proposal geometry dated 8 October. The [received Barton update](../../../bom/sourcing/barton-n01090-2026-10-11.md)
+and [current design package](design-package.md) supersede its provisional
+8 mm lug, M8 pin and 40 mm centre-spacing assumptions.
+
 8 October 2026. New printed models are revision `0.1.0`, `concept-unvalidated`.
 
 The owner selected a mostly 3D-printed corner head with ordinary bought metal
