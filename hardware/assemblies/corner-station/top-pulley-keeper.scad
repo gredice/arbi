@@ -1,17 +1,17 @@
-// ARBI top pulley keeper 0.1.0 — concept-unvalidated.
+// ARBI top pulley keeper 1.0.0 — concept-unvalidated.
 // Canonical source in millimetres. Line retention and loads are unresolved.
 
-include <../../lib/arbi.scad>
+include <../../lib/barton-size-1-block.scad>
 
-pulley_diameter = 58;
-pulley_width = 18;
-radial_clearance = 4;
-side_clearance = 2;
+pulley_diameter = barton_body_width(); // Guard the cheeks, not only the sheave.
+pulley_width = barton_thickness();
+radial_clearance = 1;
+side_clearance = 1;
 keeper_wall = 10;
 cheek_thickness = 4;
 mount_leg_drop = 24;
 mount_hole_diameter = 5.5;
-bridge_width = 12;
+bridge_width = 10;
 facets = 128;
 
 module keeper_cheek(
@@ -66,7 +66,8 @@ module top_pulley_keeper(
     cheek_y = pulley_width / 2 + side_clearance + cheek_thickness / 2;
     total_width = 2 * cheek_y + cheek_thickness;
     leg_x = outer_diameter / 2 - keeper_wall / 2;
-    bridge_z = inner_diameter / 2 + keeper_wall / 2;
+    // Side bridges leave the clevis neck and upper pin accessible.
+    bridge_z = 0;
 
     assert(pulley_diameter > 0 && pulley_width > 0, "Pulley dimensions must be positive.");
     assert(radial_clearance > 0 && side_clearance > 0, "Keeper clearances must be positive.");
@@ -87,7 +88,7 @@ module top_pulley_keeper(
                     facets
                 );
 
-            for (x = [-inner_diameter / 3, 0, inner_diameter / 3])
+            for (x = [-leg_x, leg_x])
                 translate([x, 0, bridge_z])
                     cube([bridge_width, total_width, keeper_wall], center = true);
         }

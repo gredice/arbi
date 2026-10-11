@@ -1,6 +1,7 @@
 # Corner support set printed design package
 
-8 October 2026. The printed-head models are revision `0.1.0`,
+11 October 2026. The carrier halves and assembly are revision `1.0.0`;
+unchanged pads, covers and template remain `0.1.0`. All are
 **concept-unvalidated**. The owner selected this
 [printed-head proposal](design-proposal.md) for design development. The package
 defines nominal geometry, print-kit selection and assembly; structural and
@@ -27,11 +28,13 @@ square-100 and round-120/powered-4.5 are separate study configurations.
 | Rear washer seat X | -post radius - 16 | Two printed rear pads, one per row |
 | Rear pad width / height | 80 / 50 each | Curved depth varies away from the central 16 mm seat |
 | M8 cross-bolt centres | X=post radius + 50, Z=100/190 | Two bolts through the 80 mm root width |
-| Passive pulley pin X | Post radius + 149.2657 | 45° equal-tension horizontal-span block pose |
-| Powered pulley pin X | Post radius + 148.3657 | Provisional 4.5 mm line, same nominal pose |
+| Passive pulley pin X | Post radius + 147.8515 | 45° equal-tension horizontal-span block pose |
+| Powered pulley pin X | Post radius + 146.9515 | Provisional 4.5 mm line, same nominal pose |
 | Sheave centre X | Post radius + 177.55 passive / 176.65 powered | Distinct from attachment-pin X |
-| Pulley pin Z / sheave centre Z | 165 / 136.7157 | Provisional 40 mm pin-to-sheave separation at 45° |
-| Terminal lug / tang gap | 8 / provisional 9 | Layout assumption, not BA01090 fit evidence |
+| Pulley pin Z / sheave centre Z | 165 / 135.3015 | Measured 42 mm pin-to-sheave separation at 45° |
+| Terminal lug / tang gap | 14.8 / measured 15.8 | 0.5 clearance each side; print allowance unqualified |
+| Pin diameter / lug bore | Measured 4.7 / 5.2 | Supplied retained pin; 0.5 diametral print allowance |
+| Rounded lug width / height | 16 / 41 | Lower nose radius 8; bore radial ligament 5.4; Z157–198 |
 | Carrier end | Pulley pin X + 16 | Terminal edge material remains subject to strength review |
 | Front / rear cosmetic cover | 39 × 130 × 180 / nominal 25.25 × 98 × 180 | Default round-120 bolt stack; regenerate other configurations |
 | Front fascia | 3 thick, X=front seat + 33…36 | Intact face; cosmetic strap cuts stop behind it |
@@ -63,11 +66,11 @@ sheave centre X from post surface = winch drop + line-centre sheave radius
 passive: 163.3 + 14.25 = 177.55 mm
 powered: 163.9 + 12.75 = 176.65 mm
 
-provisional pin-to-sheave distance = 40 mm
+measured pin-to-sheave distance = 42 mm
 nominal equal-tension horizontal-span pose = 45 degrees about the Y pin
-pin X from post surface = sheave centre offset - 40 / sqrt(2)
-passive pin: 149.2657 mm; powered pin: 148.3657 mm
-sheave centre Z = 165 - 40 / sqrt(2) = 136.7157 mm
+pin X from post surface = sheave centre offset - 42 / sqrt(2)
+passive pin: 147.8515 mm; powered pin: 146.9515 mm
+sheave centre Z = 165 - 42 / sqrt(2) = 135.3015 mm
 ```
 
 The nominal pose assumes equal span/descending-leg tension, a horizontal +X
@@ -76,7 +79,7 @@ points 45° toward the span and down, so the sheave lies forward/below the pin;
 a vertical hanging-block pose would misplace the downward tangent. In the
 represented 45° pose, the tangent coincides with the winch reference.
 Actual span elevation/azimuth, unequal tensions, bearing friction, articulation
-stops and received pin-to-sheave distance change this pose. Check alignment
+stops and actual groove seating change this pose. The 42 mm centre spacing is owner reported. Check alignment
 through full span/winding travel and loaded deflection physically. The nominal
 pose is neither an articulation envelope nor acceptance of every line angle.
 The square-100 printed study uses the same head alignment reference; its lower
@@ -85,24 +88,29 @@ winch must supply the matching measured tangent before installation.
 ## Pulley, pin and keeper
 
 The [received purchase record](../../../bom/sourcing/wasi-pulley-2026-10-08.md)
-identifies four Barton BA01090 plain-bearing double-tang blocks. The
-[WASI listing](https://wasi.hr/kolotura-jednostruka-fiksna-za-uze-do-8m), observed
-8 October 2026, lists a 66 × 32 × 25 envelope and 30 × 12 sheave.
-[Barton's double-tang range](https://bartonmarine.com/block-type/double-tang/)
-confirms the attachment type. The CAD block is a provisional layout envelope,
-not supplier-certified geometry, and maximum rope size is not proof of retention
-of 1.5 mm Dyneema or the actual powered hybrid line.
+identifies four Barton BA01090 / N01090 **plain-bearing** double-tang blocks.
+The [dated specification and measurement record](../../../bom/sourcing/barton-n01090-2026-10-11.md)
+owns the received 65 × 36 × 24 mm envelope, 4.7 mm supplied pin, 15.8 mm clear
+tang gap, 1.5 mm tangs and 42 mm centre spacing. Catalogue sheave is 30 × 12 mm.
+The N11090 ball-bearing version is not the purchased article. No public supplier
+manufacturing CAD/drawing was found. Cheek, groove and locking details are photo
+reconstructions; nominal outside-diameter line seating is still assumed.
 
-Measure tang gap, pin diameter, usable pin length, locking details, sheave
-position, groove and hazardous side gaps. Select a compatible bought pin and
-locking arrangement; the nominal M8 envelope is not authorization to force
-M8 hardware into the received block. Check terminal-lug bearing, edge distance,
-pin bending and articulation. Retain the supplier's locking parts where applicable.
+The assembled rounded lug is 14.8 mm thick and has a 5.2 mm bore. Inspect the
+finished print, actual bore, usable supplied pin length and positive ring
+engagement. Do not force an M8 pin, enlarge factory holes or omit the locking
+ring. Check local bearing, edge distance, pin bending and the actual articulation
+under changing line angles. Reprint both carrier halves at r1.0.0; the old
+8 mm lug and M8 pin references are incompatible with this interface. Pads,
+covers, template and stand clamps retain their existing fabrication dimensions.
 
-The historical `top-pulley-keeper` r0.1.0 defaults to a 58 mm pulley and is not
-fitted to this received 30 mm block. The new covers do not close pulley side gaps.
-A fitted removable keeper remains required before loaded acceptance; its gap
-must be derived from the actual groove, line and full tension/slack sweep.
+The standalone `top-pulley-keeper` r1.0.0 now surrounds the measured 36 × 24 mm
+cheek envelope with provisional 1 mm radial/side allowance; two side bridges
+leave the clevis neck clear. Its mounting/locking and thin-line side gaps are
+not accepted, and it remains absent from the installed printed-head scene.
+Neither cosmetic cover closes pulley side gaps. Derive a final removable keeper
+from measured groove/line gaps and the full tension/slack sweep before loaded
+acceptance; maximum rope size does not establish minimum rope retention.
 
 ## Bought hardware and bolt stacks
 
@@ -116,7 +124,7 @@ positioning line → received block → compatible bought metal pin
 ```
 
 Both carrier halves participate in the printed structure. The integrated top
-chord spans Z=185–205; the 8 mm central terminal lug spans Z=150–190. Two M8
+chord spans Z=185–205; the rounded 14.8 mm central terminal lug spans Z=157–198. Two M8
 cross-bolts join the halves; do not run with a missing half or missing cross-bolt. There are no
 steel angles, custom metal saddles or rear steel plates in this printed variant.
 
@@ -167,8 +175,8 @@ positions and actual part dimensions. A prototype process should provide
 continuous walls around bolt and pin holes and avoid sparse infill as the only
 connection between loaded features. Final settings must come from testing.
 
-The current round-120 carrier mesh encloses approximately 563 cm³ per half,
-about 1.13 litres for the pair before pads and covers. These are substantial
+The round-120 carrier mesh encloses roughly half a litre per half. The generated
+report records the revised r1.0.0 solid volumes. These are substantial
 prototype prints. The generated geometry report owns the exact solid volume
 for each configuration; older exports with different bore or pulley-pin geometry
 do not describe the current carrier. CAD volume is not a filament, finished-mass,

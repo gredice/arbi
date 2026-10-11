@@ -17,7 +17,7 @@
 
 ## Notes
 
-Non-structural only; must not carry pulley or cable load and should not rub the line during normal running. The legacy default is a 58 mm keeper, not fitted to the purchased BA01090 30 mm block; it is not a completed guard for the corner-head package.
+Non-structural candidate reworked around the measured 36 mm cheek width and 24 mm block thickness with 1 mm nominal radial/side allowance. Side bridges leave the clevis neck open. No fitted attachment or 1.5 mm line-retention acceptance; not installed in the printed-head package. See bom/sourcing/barton-n01090-2026-10-11.md.
 
 ## Used in
 
@@ -37,7 +37,7 @@ Quantities are per assembly definition, before build multipliers. Optional and d
 
 - Process: openscad
 - Model status: concept-unvalidated
-- [hardware/assemblies/corner-station/top-pulley-keeper.scad](../../../hardware/assemblies/corner-station/top-pulley-keeper.scad) — module `top_pulley_keeper`; revision 0.1.0.
+- [hardware/assemblies/corner-station/top-pulley-keeper.scad](../../../hardware/assemblies/corner-station/top-pulley-keeper.scad) — module `top_pulley_keeper`; revision 1.0.0.
 
 ### Print material estimate
 
@@ -45,23 +45,23 @@ Build arbi-v1; batch represents 1 BOM unit(s). One line keeper per corner pulley
 
 | Model | Copies in batch | Material / colour | Solid volume per copy |
 | --- | ---: | --- | ---: |
-| top-pulley-keeper r0.1.0 | 1 | Bambu Lab PETG Basic / black | 22.146573 cm³ |
+| top-pulley-keeper r1.0.0 | 1 | Bambu Lab PETG Basic / black | 14.701475 cm³ |
 
 Selected recipe consumption:
 
 | Material / colour | Roll price basis | Estimated batch weight | Estimated batch cost |
 | --- | --- | ---: | ---: |
-| [Bambu Lab PETG Basic](https://eu.store.bambulab.com/products/petg-basic) / black | 11.39 EUR / 1000 g; 10+ eligible mixed rolls | 27.683 g | 0.32 EUR |
-| **Selected recipe total** | | **27.683 g** | **0.32 EUR** |
+| [Bambu Lab PETG Basic](https://eu.store.bambulab.com/products/petg-basic) / black | 11.39 EUR / 1000 g; 10+ eligible mixed rolls | 18.377 g | 0.21 EUR |
+| **Selected recipe total** | | **18.377 g** | **0.21 EUR** |
 
 Comparisons below assume every component uses the same material; the selected mixed recipe above is costed separately.
 
 | Material | Density | Roll price | Estimated batch weight | Estimated batch cost |
 | --- | ---: | ---: | ---: | ---: |
-| [Bambu Lab PLA Basic](https://eu.store.bambulab.com/products/pla-basic-filament) | [1.24 g/cm³](https://store.bblcdn.com/s1/default/58b85d0f3db94878854a28fdb8a0006e/Bambu_PLA_Basic_Technical_Data_Sheet.pdf) | 11.99 EUR / 1000 g; 10+ eligible mixed rolls | 27.462 g | 0.33 EUR |
-| [Bambu Lab PETG Basic](https://eu.store.bambulab.com/products/petg-basic) | [1.25 g/cm³](https://store.bblcdn.com/s1/default/cb94589bf7994fdcbfa833badefae9cd/Bambu_PETG_Basic_Technical_Data_Sheet.pdf) | 11.39 EUR / 1000 g; 10+ eligible mixed rolls | 27.683 g | 0.32 EUR |
-| [Bambu Lab PETG Matte](https://eu.store.bambulab.com/products/petg-matte) | [1.37 g/cm³](https://store.bblcdn.eu/s8/default/240fb0c791fb4903a9d72934895e9a16/PETG_Matte.pdf) | 11.39 EUR / 1000 g; 10+ eligible mixed rolls | 30.341 g | 0.35 EUR |
-| [Bambu Lab ASA](https://eu.store.bambulab.com/products/asa-filament) | [1.05 g/cm³](https://store.bblcdn.com/ad7b08230c164e72856cffbe06bb7dc9.pdf) | 24.99 EUR / 1000 g; single spool | 23.254 g | 0.58 EUR |
+| [Bambu Lab PLA Basic](https://eu.store.bambulab.com/products/pla-basic-filament) | [1.24 g/cm³](https://store.bblcdn.com/s1/default/58b85d0f3db94878854a28fdb8a0006e/Bambu_PLA_Basic_Technical_Data_Sheet.pdf) | 11.99 EUR / 1000 g; 10+ eligible mixed rolls | 18.23 g | 0.22 EUR |
+| [Bambu Lab PETG Basic](https://eu.store.bambulab.com/products/petg-basic) | [1.25 g/cm³](https://store.bblcdn.com/s1/default/cb94589bf7994fdcbfa833badefae9cd/Bambu_PETG_Basic_Technical_Data_Sheet.pdf) | 11.39 EUR / 1000 g; 10+ eligible mixed rolls | 18.377 g | 0.21 EUR |
+| [Bambu Lab PETG Matte](https://eu.store.bambulab.com/products/petg-matte) | [1.37 g/cm³](https://store.bblcdn.eu/s8/default/240fb0c791fb4903a9d72934895e9a16/PETG_Matte.pdf) | 11.39 EUR / 1000 g; 10+ eligible mixed rolls | 20.141 g | 0.23 EUR |
+| [Bambu Lab ASA](https://eu.store.bambulab.com/products/asa-filament) | [1.05 g/cm³](https://store.bblcdn.com/ad7b08230c164e72856cffbe06bb7dc9.pdf) | 24.99 EUR / 1000 g; single spool | 15.437 g | 0.39 EUR |
 
 Volume evidence: current local OpenSCAD exports; [canonical recipes, mesh checksums and source hashes](../../catalog/fabrication.json).
 

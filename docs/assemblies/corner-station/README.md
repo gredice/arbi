@@ -84,7 +84,9 @@ The repository baseline calls for one weather-resistant marine single block per 
 - removable printed keeper that does not carry structural load.
 
 The [purchase record](../../../bom/sourcing/wasi-pulley-2026-10-08.md) identifies
-four received WASI Barton BA01090 30 mm plain-bearing double-tang blocks.
+four received WASI Barton BA01090 / N01090 30 mm plain-bearing double-tang blocks.
+The [received specification and CAD dimensions](received-barton-pulley.md)
+define their measured envelope and native pin interface.
 Inspect their tang/pin geometry and thin-line retention before selection for
 loaded operation. Supplier offers and receipt do not prove engineering fit.
 
@@ -113,7 +115,7 @@ bolt head → large washer → steel angle → timber
 → two stacked backing plates → large washer → locking nut
 ```
 
-Do not substitute wood screws, coach screws, or a screw-in eye. Tightening must clamp the assembly without crushing timber, and torque/tension must be rechecked after settlement. If the selected pulley does not fit the shackle without side-plate distortion, a reviewed M8 stainless bolt, spacer/washer, and locking-nut pin may be used instead.
+Do not substitute wood screws, coach screws, or a screw-in eye. Tightening must clamp the assembly without crushing timber, and torque/tension must be rechecked after settlement. The steel connector must be inspected as a separate interface. Its M8 bracket-side pin cannot replace the supplied 4.7 mm Barton pin; use a reviewed link body within the 15.8 mm tang gap and retain the native locking ring.
 
 Material compatibility, galvanic exposure, locking method, actual edge distances, timber splitting, plate-hole geometry, and bolt preload still need engineering review.
 
@@ -143,9 +145,13 @@ The removable keeper should:
 ASA is a candidate for the non-structural keeper and cosmetic covers. Its
 weather suitability does not qualify the printed carrier. PETG has no recorded
 load-bearing qualification here. The keeper is expressly non-structural.
-The legacy keeper defaults to 58 mm and is not fitted to the received 30 mm
-block. The proposed white weather shields leave the pulley exposed and do not
-close hazardous side gaps; keeper acceptance remains open.
+The [Barton measurement/specification record](../../../bom/sourcing/barton-n01090-2026-10-11.md)
+now defines the received 65 × 36 × 24 mm block and its 4.7 mm pin, 15.8 mm gap,
+1.5 mm tangs and 42 mm centres. Carrier halves/assemblies are r1.0.0; use the
+native retained pin inside the 14.8 mm lug with 5.2 mm bore. The standalone
+keeper r1.0.0 surrounds the measured cheek envelope but remains a candidate:
+attachment and minimum-line retention are not accepted. It is not installed in
+the printed head. See the [current nominal record](barton-geometry-check.md).
 
 ## Winch and line alignment
 

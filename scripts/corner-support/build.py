@@ -166,12 +166,12 @@ def verify_load_reference():
 def verify_block_equilibrium():
     # Equal horizontal and descending tensions give [T,0,-T]. A freely
     # pivoting Y pin aligns the pin-to-sheave vector with that resultant.
-    r = np.array([40/math.sqrt(2),0,-40/math.sqrt(2)])
+    r = np.array([42/math.sqrt(2),0,-42/math.sqrt(2)])
     force = np.array([10,0,-10])
     assert np.allclose(np.cross(r,force),[0,0,0],atol=1e-10)
-    wrong = np.cross([0,0,-40],force)
-    assert np.allclose(wrong,[0,-400,0])
-    return dict(pin_to_sheave_length_mm=40, rotation_about_Y_deg=-45,
+    wrong = np.cross([0,0,-42],force)
+    assert np.allclose(wrong,[0,-420,0])
+    return dict(pin_to_sheave_length_mm=42, rotation_about_Y_deg=-45,
                 pin_to_sheave_mm=r.tolist(), equal_tension_10N_moment_Nmm=np.cross(r,force).tolist(),
                 rejected_vertical_10N_moment_Nmm=wrong.tolist(),
                 meaning='Provisional frictionless 90-degree equal-leg-tension equilibrium; articulation and supplier geometry unqualified.')
@@ -183,6 +183,8 @@ def build(out):
     if (version.stdout+version.stderr).strip() != 'OpenSCAD version 2021.01':
         raise ValueError('OpenSCAD 2021.01 required.')
     out.mkdir(parents=True, exist_ok=True)
+    subprocess.run([sys.executable, str(ROOT/'scripts/corner-support/check-barton-block.py'),
+                    '--record', str(out/'barton-block-check.json')], check=True)
     # The optional indoor fixture shares this head's mounting interfaces.
     # Keep its independent nominal checks in the owning corner CI build.
     subprocess.run([sys.executable, str(ROOT/'scripts/corner-support/check-stand-adapter.py'),
@@ -191,7 +193,7 @@ def build(out):
     # meshes in an existing output directory cannot enter the archive.
     registry = json.loads((ROOT/'hardware/models.json').read_text())
     models = {m['id']: m for m in registry['models']}
-    report = dict(revision='0.1.0', status='concept-unvalidated', configuration='Printed round 120 / passive line; concept-unvalidated',
+    report = dict(revision='1.0.0', status='concept-unvalidated', configuration='Printed round 120 / passive line; concept-unvalidated',
                   fabrication_ids=IDS, printed_model_ids=IDS, openscad='2021.01', checks=0, tangent_tolerance_mm=.001,
                   printer_envelope_mm=[BED_MM]*3, bed_edge_reserve_mm=BED_RESERVE_MM,
                   variants={}, statics=verify_load_reference(), block_equilibrium=verify_block_equilibrium())
@@ -204,8 +206,13 @@ def build(out):
         work = Path(temporary)
         references = work/'models/reference'
         sources = [ROOT/'hardware/models.json', ROOT/'bom/catalog/parts.json', ROOT/'bom/assemblies/assemblies.json',
-                   ROOT/'hardware/lib/arbi.scad', LIB, ROOT/'hardware/lib/corner-head.scad',
-                   ROOT/'hardware/lib/catalog-visualizations.scad',
+                   ROOT/'hardware/lib/arbi.scad', ROOT/'hardware/lib/barton-size-1-block.scad', LIB, ROOT/'hardware/lib/corner-head.scad',
+                   ROOT/'hardware/lib/catalog-visualizations.scad', ROOT/'hardware/lib/pole-pulley-mount.scad',
+                   ROOT/'hardware/assemblies/corner-station/top-pulley-keeper.scad',
+                   ROOT/'hardware/assemblies/corner-station/top-positioning-line-pulley.scad',
+                   ROOT/'docs/assets/barton-n01090-dimensions.svg', ROOT/'scripts/corner-support/check-barton-block.py',
+                   ROOT/'bom/sourcing/barton-n01090-2026-10-11.md',
+                   *sorted((ROOT/'bom/sourcing/evidence/barton-n01090').glob('*')),
                    Path(__file__).resolve(), ROOT/'scripts/corner-support/check.py', ROOT/'scripts/corner-support/README.md',
                    ROOT/'scripts/corner-support/stand_instructions.py', ROOT/'scripts/corner-support/check-stand-adapter.py',
                    *sorted((ROOT/'hardware/lib').glob('winch-*.scad')), ROOT/'hardware/lib/corner-stand-adapter.scad',
@@ -298,16 +305,16 @@ def build(out):
                 refs[name] = export(source, path, defines)
             installed = instances(meshes)
             assert np.allclose(meshes['corner-head-printed-template'].extents,[205,50,4]), (key,'template')
-            pin = size/2+33+(130.3 if line==1.5 else 130.9)+15-line/2-40/math.sqrt(2)
-            sheave_z = 165-40/math.sqrt(2)
-            old_axis = pin+40/math.sqrt(2)
+            pin = size/2+33+(130.3 if line==1.5 else 130.9)+15-line/2-42/math.sqrt(2)
+            sheave_z = 165-42/math.sqrt(2)
+            old_axis = pin+42/math.sqrt(2)
             vertical_source = work/'block-vertical-control.scad'
-            vertical_source.write_text(f'include <{LIB.as_posix()}>\nch_block();\n')
+            vertical_source.write_text(f'include <{LIB.as_posix()}>\nbarton_size_1_block(fn=facets);\n')
             control_path = (work/'models/controls' if default else directory/'controls')/'block-vertical.stl'
             vertical_mesh = export(vertical_source,control_path,defines)
             expected_block = vertical_mesh.copy()
             expected_block.apply_transform(pose(x=pin,z=165)
-                @trimesh.transformations.rotation_matrix(-math.pi/4,[0,1,0])@pose(x=-old_axis,z=-165))
+                @trimesh.transformations.rotation_matrix(-math.pi/4,[0,1,0])@pose(z=-42))
             assert same_vertices(expected_block,refs['block']), (key,'loaded block pose')
             written_line_radius = refs['line'].extents[1]/2
             assert abs(written_line_radius-line/2*math.cos(math.pi/12))<.001, (key,'faceted line radius')
@@ -316,7 +323,7 @@ def build(out):
             wall_probes = {}
             bore_probes = {}
             for mid,sign in [('corner-head-printed-left',-1),('corner-head-printed-right',1)]:
-                for label,center in [('lug',[pin+10,sign*2,159]),('web',[pin+1,sign*30,167])]:
+                for label,center in [('lug',[pin+5,sign*2,160]),('web',[pin+1,sign*30,167])]:
                     probe_mesh = trimesh.creation.box(extents=[1,1,1])
                     probe_mesh.apply_translation(center)
                     retained = overlap(meshes[mid],probe_mesh)
@@ -437,6 +444,7 @@ def build(out):
         renderer.render('template',[item('models/arbi/'+models['corner-head-printed-template']['output'],[.12,.14,.15])],direction=(0,0,1),up=(0,1,0),size=(1300,650))
         stand_instructions.build(work, models, renderer, export, report)
         shutil.copy2(out/'stand-adapter-check.json',work/'stand-adapter-check.json')
+        shutil.copy2(out/'barton-block-check.json',work/'barton-block-check.json')
         (work/'figure-manifest.json').write_text(json.dumps(renderer.manifest,indent=2)+'\n')
         scene = trimesh.Scene()
         for i,part in enumerate(parts+shields+straps):
@@ -445,7 +453,7 @@ def build(out):
             mesh.apply_transform(part['matrix'])
             scene.add_geometry(mesh,node_name=f'part-{i}',geom_name=Path(part['file']).stem)
         scene.apply_scale(.001)
-        (work/'corner-head-assembly-r0.1.0.glb').write_bytes(scene.export(file_type='glb'))
+        (work/'corner-head-assembly-r1.0.0.glb').write_bytes(scene.export(file_type='glb'))
         booklet(work, report)
         for path in work.rglob('*.stl'):
             report.setdefault('mesh_sha256',{})[path.relative_to(work).as_posix()] = digest(path)
@@ -457,7 +465,7 @@ def build(out):
         for path in (work/'source').rglob('__pycache__'):
             shutil.rmtree(path)
         (work/'README.txt').write_text(
-            'ARBI Corner support set r0.1.0 - concept-unvalidated\n'
+            'ARBI Corner support set r1.0.0 - concept-unvalidated\n'
             'Default: printed carrier, 120 mm round pole, passive 1.5 mm line.\n'
             'Pages 9-14 cover the optional WT-806 unloaded indoor fixture.\n'
             'models/stand/print contains current adapter STLs already posed for printing.\n'
@@ -478,7 +486,7 @@ def build(out):
         with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED) as pack:
             for path in sorted(work.rglob('*')):
                 if path.is_file():pack.write(path,ARTIFACT+'-STL-pack/'+path.relative_to(work).as_posix())
-        for name in [PDF,'geometry-report.json','manifest.json','figure-manifest.json','corner-head-assembly-r0.1.0.glb']:
+        for name in [PDF,'geometry-report.json','manifest.json','figure-manifest.json','corner-head-assembly-r1.0.0.glb']:
             shutil.copy2(work/name,out/name)
         shutil.copytree(work/'figures',out/'figures',dirs_exist_ok=True)
         with zipfile.ZipFile(archive) as pack:
@@ -499,7 +507,7 @@ def booklet(work, report):
     figures=json.loads((work/'figure-manifest.json').read_text())
     def page(number,title,paragraphs,figure=None,labels=False,rows=None,after=()):
         c.setFillColor(colors.HexColor('#1f2426'));c.setFont('ARBI-Bold',18);c.drawString(44,height-55,title)
-        c.setFont('ARBI',9);c.drawString(44,height-78,'ARBI / CORNER SUPPORT SET / r0.1.0 / GUIDE UPDATED 11 OCTOBER 2026')
+        c.setFont('ARBI',9);c.drawString(44,height-78,f'ARBI / CORNER SUPPORT SET / r{report["revision"]} / GUIDE UPDATED 11 OCTOBER 2026')
         y=height-105
         for paragraph in paragraphs:y=text(paragraph,y)
         if rows:
@@ -532,12 +540,12 @@ def booklet(work, report):
     page(1,'Printed corner support set',[
         'Dimensioned nominal prototype and assembly guide. Default: 120 mm round timber, two printed carrier halves, two printed rear pads, passive 1.5 mm line and the received BA01090 block.',
         'The steel angle, machined saddles and stacked backing plates are replaced by a print-oriented carrier. Standard metal through-bolts, washers, locking nuts, crossbars and pulley pin remain. No custom metal fabrication is required by this proposed head.',
-        'The block tang, pin and groove meshes remain provisional envelopes. Printed load parts need process, load and creep acceptance before loaded installation. The cosmetic covers conceal the M12 mounting stack; the upper M8 cross-bolt and pulley remain exposed for inspection.'], 'covered')
+        'The block envelope and clevis dimensions are owner measurements; cheek/groove and locking detail surfaces remain reconstructed. Printed load parts need process, load and creep acceptance before loaded installation. The cosmetic covers conceal the M12 mounting stack; the upper M8 cross-bolt and pulley remain exposed for inspection.'], 'covered')
     page(2,'Inventory and print selection',[
         '<b>One head:</b> 1 printed left carrier, 1 right carrier, 2 identical rear pads, 1 front cover, 1 rear cover and 2 bought outdoor retention straps. One shared centre-marking template serves all four heads.',
         '<b>Metal hardware per head:</b> 2 M12 through-bolts, 4 large washers and 2 locking nuts; 2 M8 x 100 carrier cross-bolts, 4 M8 washers and 2 locking nuts; the received pulley with a compatible retained attachment pin. Verify every actual dimension and locking zone.',
         '<b>Four heads:</b> 4 left and 4 right carriers, 8 rear pads, 4 front and 4 rear covers, 8 straps, 8 M12 bolts, 16 large washers, 8 M12 nuts, 8 cross-bolts, 16 M8 washers, 8 M8 nuts and 4 pulleys.',
-        'Replace the angle/saddle/backing stack and select the new bolt lengths. Keep the historical metal alternative separate; do not combine its source STLs with the printed head. Received pin compatibility and thin-line retention remain open.',
+        'Replace the angle/saddle/backing stack and select the new bolt lengths. Keep the historical metal alternative separate; do not combine its source STLs with the printed head. Actual print/pin locking engagement and thin-line retention remain open. Reprint both r1.0.0 carriers; the old 8 mm lug interface is superseded.',
         'The site still requires four posts, reviewed guy connections, anchors, turnbuckles and wire-rope terminations. Their quantities and structural qualification remain separately owned.'], 'open')
     page(3,'Print pose and process record',[
         'Use <b>models/print</b> meshes, not the installed-coordinate <b>models/arbi</b> files. The source pack records the installed-to-print rigid matrices and actual mesh bounds for every configuration. The left/right carriers lie on their wide web faces.',
@@ -552,9 +560,9 @@ def booklet(work, report):
         '<b>M12 study lengths:</b> 100 / 120 / 140 mm posts use 170 / 190 / 210 mm. The represented stack is post size +66 mm, leaving 4 mm projection. M12 x180 fails the 120 mm printed stack; verify full locking-zone engagement and at least two threads.',
         'Do not infer torque from bolt diameter or compress the printed/timber seats to an invented preload. Record the reviewed assembly procedure and post-settlement recheck. Printed parts retain the selected load path; ordinary fasteners do not bypass their creep limits.'], 'template')
     page(5,'Fit the block and align the line',[
-        'The integrated central lug has a nominal 8 mm thickness and 8.6 mm hole. The provisional tang gap is 9 mm. Measure the received BA01090 tang gap, pin diameter, usable length and locking parts before treating this interface as fitted.',
-        'Retain the supplied pin if compatible, or select reviewed ordinary hardware. Do not enlarge the factory tang holes, force an M8 bolt, omit a locking feature or count on plastic threads to retain the suspended block.',
-        'Equal horizontal and descending tension rotates the freely pivoting block -45 degrees about Y. With the provisional 40 mm pin-to-sheave distance, the sheave is at Z=136.716; the attachment axis is 149.266 mm from the post surface for passive line or 148.366 mm for the powered study. The sheave centre remains 177.55 / 176.65 mm from the post. The loaded drop follows the canonical round-winch tangent: 163.3 / 163.9 mm from the post.',
+        'The r1.0.0 rounded central lug is 14.8 mm thick with a 5.2 mm bore. The received BA01090 has a measured 15.8 mm clear tang gap and 4.7 mm pin: nominal side allowance is 0.5 mm each side and diametral allowance is 0.5 mm. Inspect the finished print, usable pin length and locking engagement before use.',
+        'Use the supplied 4.7 mm pin and its positive locking ring after checking engagement. Do not enlarge the factory tang holes, force an M8 bolt, omit a locking feature or count on plastic threads to retain the suspended block.',
+        'Equal horizontal and descending tension rotates the freely pivoting block -45 degrees about Y. With the measured 42 mm pin-to-sheave distance, the sheave is at Z=135.302; the attachment axis is 147.852 mm from the post surface for passive line or 146.952 mm for the powered study. The sheave centre remains 177.55 / 176.65 mm from the post. The loaded drop follows the canonical round-winch tangent: 163.3 / 163.9 mm from the post.',
         'A maximum rope-size listing does not qualify 1.5 mm retention. Inspect groove, side gaps and the complete line sweep under span angles, reversing, full drum width and slack setup. The structural top chord and cosmetic covers do not qualify a fitted keeper; this package does not freeze one.',
         'The nominal Y-axis pivot does not establish yaw freedom or acceptable side lead at arbitrary span azimuth. Received articulation, fleet angle, powered-line bend/fatigue and electrical insulation require their own acceptance. A static mesh alignment result is not an installed operation test.'], 'open')
     page(6,'Fit covers and preserve service access',[

@@ -1,6 +1,6 @@
-// Round-pole pulley mount r0.1.0 — concept-unvalidated.
+// Round-pole pulley mount r1.0.0 — concept-unvalidated.
 // Assembly frame: Z up the pole; +X toward the span; Y along the pulley pin.
-include <arbi.scad>
+include <barton-size-1-block.scad>
 
 pole_diameter_mm = 120;
 bore_radial_clearance_mm = 0.25;
@@ -13,14 +13,9 @@ clamp_hole_diameter_mm = 8.6;
 clamp_row_inset_mm = 22;
 pulley_offset_mm = 110; // Pole surface to attachment-pin axis, not sheave tangent.
 pin_height_mm = 60;
-pin_hole_diameter_mm = 9;
-cheek_thickness_mm = 8;
-clevis_gap_mm = 22;
-pin_boss_diameter_mm = 30;
-pulley_diameter_mm = 30;
-pulley_width_mm = 18;
-pulley_eye_width_mm = 12;
-pulley_hang_mm = 42; // Attachment pin to sheave center; placeholder envelope.
+pin_hole_diameter_mm = barton_lug_bore();
+pulley_diameter_mm = barton_sheave_diameter();
+pulley_hang_mm = barton_pin_spacing();
 facets = 128;
 
 function ppm_bore_radius() = pole_diameter_mm / 2 + bore_radial_clearance_mm;
@@ -28,7 +23,7 @@ function ppm_outer_radius() = ppm_bore_radius() + collar_wall_mm;
 function ppm_ear_y() = ppm_outer_radius() + 10;
 function ppm_ear_face() = split_gap_mm / 2 + ear_thickness_mm;
 function ppm_pin_x() = pole_diameter_mm / 2 + pulley_offset_mm;
-function ppm_cheek_y() = (clevis_gap_mm + cheek_thickness_mm) / 2;
+
 
 module ppm_checks() {
     assert(pole_diameter_mm >= 100 && pole_diameter_mm <= 140, "Concept pole range is 100–140 mm.");
@@ -42,14 +37,8 @@ module ppm_checks() {
     assert(clamp_row_inset_mm >= 18 && 2 * clamp_row_inset_mm + 24 <= collar_height_mm);
     assert(pulley_offset_mm >= 100 && pulley_offset_mm <= 150);
     assert(pin_height_mm >= 50 && pin_height_mm <= collar_height_mm - 15);
-    assert(pin_hole_diameter_mm >= 8.4 && pin_hole_diameter_mm <= 10);
-    assert(pin_boss_diameter_mm >= pin_hole_diameter_mm + 16 && pin_boss_diameter_mm <= 32);
-    assert(cheek_thickness_mm >= 6 && cheek_thickness_mm <= 12);
-    assert(clevis_gap_mm >= 20 && clevis_gap_mm <= 30);
-    assert(pulley_eye_width_mm > 0 && pulley_eye_width_mm < clevis_gap_mm);
-    assert(pulley_diameter_mm >= 25 && pulley_diameter_mm <= 30);
-    assert(pulley_width_mm >= 12 && pulley_width_mm <= 18);
-    assert(pulley_hang_mm >= 42 && pulley_hang_mm <= 60);
+    assert(pin_hole_diameter_mm == barton_lug_bore());
+    assert(pulley_hang_mm == barton_pin_spacing());
     assert(facets >= 64 && facets == floor(facets));
     children();
 }
@@ -80,25 +69,23 @@ module ppm_bore_and_clamp_holes() {
         translate([0, y, z]) ppm_axis_x(clamp_hole_diameter_mm, 2 * ppm_ear_face() + 2 * ARBI_EPSILON);
 }
 
-module ppm_gusseted_cheek(y) {
-    // Broad root and capsule nose form one continuous web, with no thin butt joint.
+module ppm_gusseted_lug() {
+    // Central web mates inside the bought double tang. Upper chord leaves
+    // the neck free at the nominal equal-tension 45-degree articulation.
     hull() {
-        for (z = [12, collar_height_mm - 12])
-            translate([pole_diameter_mm / 2, y, z]) ppm_axis_y(16, cheek_thickness_mm);
-        translate([ppm_pin_x(), y, pin_height_mm])
-            ppm_axis_y(pin_boss_diameter_mm, cheek_thickness_mm);
+        for(z=[12,collar_height_mm-12])
+            translate([pole_diameter_mm/2,0,z]) ppm_axis_y(16,barton_lug_thickness());
+        translate([ppm_pin_x(),0,pin_height_mm+24]) ppm_axis_y(16,barton_lug_thickness());
     }
+    translate([ppm_pin_x(),0,pin_height_mm]) barton_mount_lug(24,facets);
 }
 
 module pole_pulley_mount_front() {
     ppm_checks() difference() {
-        union() {
-            ppm_half_blank();
-            for (y = [-ppm_cheek_y(), ppm_cheek_y()]) ppm_gusseted_cheek(y);
-        }
+        union() { ppm_half_blank(); ppm_gusseted_lug(); }
         ppm_bore_and_clamp_holes();
-        translate([ppm_pin_x(), 0, pin_height_mm])
-            ppm_axis_y(pin_hole_diameter_mm, clevis_gap_mm + 2 * cheek_thickness_mm + 2 * ARBI_EPSILON);
+        translate([ppm_pin_x(),0,pin_height_mm])
+            ppm_axis_y(pin_hole_diameter_mm,barton_tang_gap());
     }
 }
 
@@ -122,50 +109,16 @@ module ppm_clamp_hardware() {
     }
 }
 
-module ppm_pin_hardware() {
-    outer_y = clevis_gap_mm / 2 + cheek_thickness_mm;
-    translate([ppm_pin_x(), 0, pin_height_mm]) {
-        ppm_axis_y(8, 2 * outer_y + 22);
-        for (side = [-1, 1]) {
-            translate([0, side * (outer_y + 1), 0])
-                rotate([90, 0, 0]) arbi_tube(18, 8.6, 2, true, 48);
-            spacer = (clevis_gap_mm - pulley_eye_width_mm) / 2;
-            translate([0, side * (pulley_eye_width_mm / 2 + spacer / 2), 0])
-                rotate([90, 0, 0]) arbi_tube(14, 8.6, spacer, true, 48);
-        }
-        translate([0, outer_y + 5, 0]) rotate([90, 0, 0]) cylinder(d = 15, h = 6, center = true, $fn = 6);
-        translate([0, -outer_y - 6, 0]) rotate([90, 0, 0]) cylinder(d = 15, h = 8, center = true, $fn = 6);
-    }
+module ppm_block_pose() {
+    translate([ppm_pin_x(),0,pin_height_mm]) rotate([0,-45,0])
+        translate([0,0,-pulley_hang_mm]) children();
 }
-
-// Generic closed marine-block envelope. Not a selected manufacturer's geometry.
-module ppm_pulley_reference() {
-    sheave_z = pin_height_mm - pulley_hang_mm;
-    translate([ppm_pin_x(), 0, 0]) {
-        color(ARBI_METAL) difference() {
-            hull() {
-                translate([0, 0, pin_height_mm]) ppm_axis_y(20, pulley_eye_width_mm);
-                translate([0, 0, sheave_z + 20]) ppm_axis_y(12, pulley_eye_width_mm);
-            }
-            translate([0, 0, pin_height_mm]) ppm_axis_y(9, pulley_eye_width_mm + 2 * ARBI_EPSILON);
-        }
-        color(ARBI_CORE) for (side = [-1, 1])
-            translate([0, side * (pulley_width_mm / 2 + 2), 0]) hull() {
-                translate([0, 0, sheave_z]) ppm_axis_y(pulley_diameter_mm + 6, 3);
-                translate([0, 0, sheave_z + 14]) ppm_axis_y(20, 3);
-            }
-        color(ARBI_METAL) translate([0, 0, sheave_z]) difference() {
-            ppm_axis_y(pulley_diameter_mm, pulley_width_mm);
-            rotate([90, 0, 0]) rotate_extrude($fn = facets)
-                translate([pulley_diameter_mm / 2, 0]) circle(r = 1.5, $fn = 32);
-        }
-        color(ARBI_METAL) translate([0, 0, sheave_z]) ppm_axis_y(6, pulley_width_mm + 10);
-    }
-}
+module ppm_pin_hardware() { ppm_block_pose() barton_clevis_pin(facets); }
+module ppm_pulley_reference() { ppm_block_pose() barton_size_1_block(false,facets); }
 
 module ppm_line_reference() {
-    x = ppm_pin_x();
-    z = pin_height_mm - pulley_hang_mm;
+    x = ppm_pin_x()+pulley_hang_mm/sqrt(2);
+    z = pin_height_mm-pulley_hang_mm/sqrt(2);
     r = pulley_diameter_mm / 2 - 0.75;
     points = concat([[x - r, 0, -155]],
         [for (a = [180 : -5 : 90]) [x + r * cos(a), 0, z + r * sin(a)]],

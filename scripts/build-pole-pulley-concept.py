@@ -1,4 +1,4 @@
-"""Export, inspect and preview the r0.1.0 round-pole mount concept.
+"""Export, inspect and preview the r1.0.0 round-pole mount concept.
 
 Requires OpenSCAD 2021.01 on PATH and Python numpy, trimesh, manifold3d, vtk.
 Run from any directory; outputs default to ignored hardware/generated/.
@@ -60,12 +60,12 @@ def cylinder(radius, height, center, axis='z'):
     return mesh
 
 
-report = {'revision': '0.1.0', 'status': 'concept-unvalidated', 'openscad': '2021.01', 'variants': {}}
+report = {'revision': '1.0.0', 'status': 'concept-unvalidated', 'openscad': '2021.01', 'variants': {}}
 for diameter in [100, 120, 140]:
     pieces = {}
     result = {}
     for role in ['front', 'rear']:
-        name = f'pole-pulley-mount-{role}-r0.1.0'
+        name = f'pole-pulley-mount-{role}-r'+('1.0.0' if role=='front' else '0.1.0')
         target = OUT / (name + ('' if diameter == 120 else f'-pole-{diameter}') + '.stl')
         export(ASSEMBLY / f'pole-pulley-mount-{role}.scad', target, [f'pole_diameter_mm={diameter}'])
         mesh = trimesh.load_mesh(target)
@@ -83,16 +83,15 @@ for diameter in [100, 120, 140]:
                 assert overlap(mesh, cylinder(4, 70, [0, y, z], 'x')) < 0.001
                 for x in [-20.5, 20.5]:
                     assert overlap(mesh, cylinder(9, 1.98, [x, y, z], 'x')) < 0.001
-    pin = cylinder(4, 80, [diameter / 2 + 110, 0, 60], 'y')
+    pin = cylinder(2.35, 24, [diameter / 2 + 110, 0, 60], 'y')
     assert overlap(pieces['front'], pin) < 0.001
-    # An unobstructed 22 mm nominal clevis gap around a 12 mm eye plus spacers.
-    eye_stack = cylinder(10, 21.98, [diameter / 2 + 110, 0, 60], 'y')
-    assert overlap(pieces['front'], eye_stack) < 0.001
-    result['clearance_checks'] = 'No nominal pole, half-to-half, bolt, washer or eye-stack interference.'
+    wrong_pin = cylinder(4, 24, [diameter / 2 + 110, 0, 60], 'y')
+    assert overlap(pieces['front'], wrong_pin) > 1, 'Old M8 pin must fail the new bore'
+    result['clearance_checks'] = 'No nominal pole, half-to-half, clamp bolt, washer or supplied 4.7 mm pin interference; M8 pin rejected.'
     report['variants'][str(diameter)] = result
     print(f'Pole {diameter} mm: both halves single watertight solids; nominal interface checks passed.', flush=True)
 
-export(ASSEMBLY / 'pole-pulley-mount-assembly.scad', OUT / 'pole-pulley-mount-assembly-r0.1.0.csg')
+export(ASSEMBLY / 'pole-pulley-mount-assembly.scad', OUT / 'pole-pulley-mount-assembly-r1.0.0.csg')
 references = {
     'pole': 'translate([0,0,-160]) cylinder(d=120,h=310,$fn=128);',
     'clamp-hardware': 'ppm_clamp_hardware();',
@@ -109,7 +108,7 @@ with tempfile.TemporaryDirectory(prefix='arbi-pulley-reference-') as temp:
 colors = {'front': [.12, .14, .15], 'rear': [.12, .14, .15], 'pole': [.63, .53, .39],
           'clamp-hardware': [.66, .70, .73], 'pin-hardware': [.66, .70, .73],
           'pulley': [.45, .49, .51], 'line': [.12, .14, .15]}
-files = {role: OUT / f'pole-pulley-mount-{role}-r0.1.0.stl' for role in ['front', 'rear']}
+files = {role: OUT / (f'pole-pulley-mount-{role}-r'+('1.0.0' if role=='front' else '0.1.0')+'.stl') for role in ['front', 'rear']}
 files.update({name: OUT / f'reference-{name}.stl' for name in references})
 meshes = {name: trimesh.load_mesh(file) for name, file in files.items()}
 for name in ['pulley', 'line', 'clamp-hardware', 'pin-hardware']:
@@ -122,8 +121,8 @@ for name, mesh in meshes.items():
     mesh.visual.face_colors = [*[round(c * 255) for c in colors[name]], 255]
     scene.add_geometry(mesh, node_name=name, geom_name=name)
 scene.apply_scale(0.001)  # glTF uses metres; CAD/STL sources remain millimetres.
-scene.metadata = {'units': 'm', 'status': 'concept-unvalidated', 'revision': '0.1.0'}
-glb_path = OUT / 'pole-pulley-mount-assembly-r0.1.0.glb'
+scene.metadata = {'units': 'm', 'status': 'concept-unvalidated', 'revision': '1.0.0'}
+glb_path = OUT / 'pole-pulley-mount-assembly-r1.0.0.glb'
 glb_path.write_bytes(scene.export(file_type='glb'))
 generated_outputs.append(glb_path)
 
@@ -170,9 +169,9 @@ def render(name, exploded=False):
     camera.SetParallelScale(235 if exploded else 215)
     renderer.ResetCameraClippingRange()
     text_actor(renderer, 'ARBI / ROUND-POLE PULLEY MOUNT', 55, 1030, 29)
-    text_actor(renderer, 'Exploded collar view' if exploded else 'Assembled concept / r0.1.0', 55, 987, 23, (.38, .41, .42))
+    text_actor(renderer, 'Exploded collar view' if exploded else 'Assembled concept / r1.0.0', 55, 987, 23, (.38, .41, .42))
     text_actor(renderer, '120 mm pole  |  90 mm collar  |  110 mm pin offset', 55, 64, 23)
-    text_actor(renderer, 'CONCEPT — UNVALIDATED     •     Generic pulley envelope; no load rating', 55, 28, 18, (.38, .41, .42))
+    text_actor(renderer, 'CONCEPT — UNVALIDATED     •     Measured Barton reference; no assembly load rating', 55, 28, 18, (.38, .41, .42))
     window.Render()
     capture = vtk.vtkWindowToImageFilter()
     capture.SetInput(window)
@@ -188,23 +187,23 @@ def render(name, exploded=False):
 render('assembled.png')
 render('exploded.png', True)
 report['sources_sha256'] = {str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest()
-                            for path in [LIBRARY, ROOT / 'hardware/lib/arbi.scad', *sorted(ASSEMBLY.glob('pole-pulley-mount-*.scad'))]}
+                            for path in [LIBRARY, ROOT / 'hardware/lib/arbi.scad', ROOT / 'hardware/lib/barton-size-1-block.scad', *sorted(ASSEMBLY.glob('pole-pulley-mount-*.scad'))]}
 report_path = OUT / 'geometry-report.json'
 report_path.write_text(json.dumps(report, indent=2) + '\n')
 generated_outputs.append(report_path)
-with zipfile.ZipFile(OUT / 'pole-pulley-mount-concept-r0.1.0.zip', 'w', zipfile.ZIP_DEFLATED) as pack:
-    pack.writestr('README.txt', 'ARBI round-pole pulley mount r0.1.0 — concept-unvalidated.\n'
+with zipfile.ZipFile(OUT / 'pole-pulley-mount-concept-r1.0.0.zip', 'w', zipfile.ZIP_DEFLATED) as pack:
+    pack.writestr('README.txt', 'ARBI round-pole pulley mount r1.0.0 — concept-unvalidated.\n'
                   'Unloaded fit/appearance concept; no material, load rating or overhead-use approval.\n'
-                  'Default: 120 mm pole, 90 mm collar, 110 mm pin offset, generic 30 mm pulley.\n'
+                  'Default: 120 mm pole, 90 mm collar, 110 mm pin offset, measured Barton N01090 double tang.\n'
                   'STLs use millimetres; GLB uses metres. The 100/140 suffixes are pole variants.\n'
                   'Only front/rear STLs are custom parts. reference-* meshes are visualization only.\n'
                   'Open source/hardware/assemblies/corner-station/pole-pulley-mount-assembly.scad\n'
                   'in OpenSCAD 2021.01. Edit shared parameters in source/hardware/lib/pole-pulley-mount.scad.\n'
-                  'Exact pole and purchased pulley dimensions remain to be confirmed.\n')
+                  'Measure the pole; print fit, pin locking and block groove/retention remain unqualified.\n')
     # Reusing an output directory must not publish stale or unrelated artifacts.
     for path in sorted(generated_outputs):
         pack.write(path, f'outputs/{path.name}')
-    for path in [LIBRARY, ROOT / 'hardware/lib/arbi.scad', *sorted(ASSEMBLY.glob('pole-pulley-mount*.scad')),
+    for path in [LIBRARY, ROOT / 'hardware/lib/arbi.scad', ROOT / 'hardware/lib/barton-size-1-block.scad', *sorted(ASSEMBLY.glob('pole-pulley-mount*.scad')),
                  ASSEMBLY / 'pole-pulley-mount.md', ASSEMBLY / 'pole-pulley-mount-check.md',
                  Path(__file__).resolve(), ROOT / 'LICENSE']:
         pack.write(path, 'source/' + path.relative_to(ROOT).as_posix())

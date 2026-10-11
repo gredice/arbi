@@ -1,9 +1,4 @@
-// top-positioning-line-pulley — r0.1.0, concept-unvalidated.
-// Approximate visualization only; not a manufacturing source. Units: mm.
-// Catalog preferred 30 mm sheave with assumed cheeks and attachment eye; supplier block envelope unknown.
-// Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication.
-include <../../lib/catalog-visualizations.scad>
-
-shape = "pulley";
-dimensions = [30, 12];
-arbi_catalog_visualization(shape, dimensions);
+// top-positioning-line-pulley: Barton N01090 / BA01090 — r1.0.0, concept-unvalidated, millimetres.
+// Measured envelope/interface; reconstructed details. See dated BOM evidence.
+include <../../lib/barton-size-1-block.scad>
+barton_size_1_block();

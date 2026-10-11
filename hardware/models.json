@@ -44,7 +44,7 @@
         },
         {
             "id": "top-pulley-keeper",
-            "revision": "0.1.0",
+            "revision": "1.0.0",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
             "bomPartIds": [
@@ -52,13 +52,13 @@
             ],
             "assembly": "corner-station",
             "entrypoint": "hardware/assemblies/corner-station/top-pulley-keeper.scad",
-            "output": "top-pulley-keeper-r0.1.0.stl",
+            "output": "top-pulley-keeper-r1.0.0.stl",
             "documentation": "hardware/assemblies/corner-station/README.md",
             "description": "Two-cheek upper line-retention keeper concept for a corner pulley."
         },
         {
             "id": "pole-pulley-mount-front",
-            "revision": "0.1.0",
+            "revision": "1.0.0",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
             "bomPartIds": [
@@ -66,9 +66,9 @@
             ],
             "assembly": "corner-station",
             "entrypoint": "hardware/assemblies/corner-station/pole-pulley-mount-front.scad",
-            "output": "pole-pulley-mount-front-r0.1.0.stl",
+            "output": "pole-pulley-mount-front-r1.0.0.stl",
             "documentation": "hardware/assemblies/corner-station/README.md",
-            "description": "Round-pole split collar with twin gusseted clevis arms; fit/mock-up concept only, structural process unselected."
+            "description": "Central rounded 14.8 mm lug and 5.2 mm bore for measured Barton double tang; unqualified split-collar alternative."
         },
         {
             "id": "pole-pulley-mount-rear",
@@ -86,13 +86,13 @@
         },
         {
             "id": "pole-pulley-mount-assembly",
-            "revision": "0.1.0",
+            "revision": "1.0.0",
             "status": "concept-unvalidated",
             "artifactRole": "reference",
             "bomPartIds": [],
             "assembly": "corner-station",
             "entrypoint": "hardware/assemblies/corner-station/pole-pulley-mount-assembly.scad",
-            "output": "pole-pulley-mount-assembly-r0.1.0.csg",
+            "output": "pole-pulley-mount-assembly-r1.0.0.csg",
             "documentation": "hardware/assemblies/corner-station/README.md",
             "description": "Round-pole split-clamp alternative with nominal M8 hardware and generic marine-block envelope; not the through-bolt baseline."
         },
@@ -960,13 +960,13 @@
         },
         {
             "id": "corner-head-assembly",
-            "revision": "0.1.0",
+            "revision": "1.0.0",
             "status": "concept-unvalidated",
             "artifactRole": "reference",
             "bomPartIds": [],
             "assembly": "corner-station",
             "entrypoint": "hardware/assemblies/corner-station/corner-head-assembly.scad",
-            "output": "corner-head-assembly-r0.1.0.csg",
+            "output": "corner-head-assembly-r1.0.0.csg",
             "documentation": "hardware/assemblies/corner-station/README.md",
             "description": "Through-bolted 200 mm corner head with round saddles, removable shields and provisional purchased-block connection; not structural approval."
         },
@@ -986,7 +986,7 @@
         },
         {
             "id": "corner-head-printed-left",
-            "revision": "0.1.0",
+            "revision": "1.0.0",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
             "bomPartIds": [
@@ -994,13 +994,13 @@
             ],
             "assembly": "corner-station",
             "entrypoint": "hardware/assemblies/corner-station/corner-head-printed-left.scad",
-            "output": "corner-head-printed-left-r0.1.0.stl",
+            "output": "corner-head-printed-left-r1.0.0.stl",
             "documentation": "hardware/assemblies/corner-station/README.md",
             "description": "Two-piece ribbed printed carrier, left half with integrated curved front seat; process and structural qualification open."
         },
         {
             "id": "corner-head-printed-right",
-            "revision": "0.1.0",
+            "revision": "1.0.0",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
             "bomPartIds": [
@@ -1008,7 +1008,7 @@
             ],
             "assembly": "corner-station",
             "entrypoint": "hardware/assemblies/corner-station/corner-head-printed-right.scad",
-            "output": "corner-head-printed-right-r0.1.0.stl",
+            "output": "corner-head-printed-right-r1.0.0.stl",
             "documentation": "hardware/assemblies/corner-station/README.md",
             "description": "Two-piece ribbed printed carrier, right half; direct provisional double-tang lug and printed cross-bolt bosses."
         },
@@ -1070,13 +1070,13 @@
         },
         {
             "id": "corner-head-printed-assembly",
-            "revision": "0.1.0",
+            "revision": "1.0.0",
             "status": "concept-unvalidated",
             "artifactRole": "reference",
             "bomPartIds": [],
             "assembly": "corner-station",
             "entrypoint": "hardware/assemblies/corner-station/corner-head-printed-assembly.scad",
-            "output": "corner-head-printed-assembly-r0.1.0.csg",
+            "output": "corner-head-printed-assembly-r1.0.0.csg",
             "documentation": "hardware/assemblies/corner-station/README.md",
             "description": "Mostly printed through-bolted corner head with purchased pulley and standard metal fasteners; concept-unvalidated."
         },
@@ -1861,7 +1861,7 @@
         },
         {
             "id": "top-positioning-line-pulley",
-            "revision": "0.1.0",
+            "revision": "1.0.0",
             "status": "concept-unvalidated",
             "artifactRole": "visualization",
             "bomPartIds": [
@@ -1869,13 +1869,13 @@
             ],
             "assembly": "corner-station",
             "entrypoint": "hardware/assemblies/corner-station/top-positioning-line-pulley.scad",
-            "output": "top-positioning-line-pulley-r0.1.0.stl",
+            "output": "top-positioning-line-pulley-r1.0.0.stl",
             "documentation": "hardware/assemblies/corner-station/README.md",
-            "description": "Approximate visualization of Top positioning-line pulley. Catalog preferred 30 mm sheave with assumed cheeks and attachment eye; supplier block envelope unknown.",
+            "description": "Barton N01090 / WASI BA01090 reference from owner measurements and photos, 2026-10-11; catalogue 30 x 12 mm plain-bearing sheave.",
             "geometry": {
                 "status": "approximate",
-                "basis": "Catalog preferred 30 mm sheave with assumed cheeks and attachment eye; supplier block envelope unknown.",
-                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+                "basis": "Owner-reported 65 x 36 x 24 mm envelope; 4.7 mm clevis pin, 15.8 mm tang gap, 1.5 mm tangs, 42 mm pin-to-sheave centres. Catalogue 30 x 12 mm sheave. See bom/sourcing/barton-n01090-2026-10-11.md.",
+                "rework": "Measure groove root and side gaps, usable pin length/locking parts and complete articulation. Cheek profile, rivets, groove and ring are photo reconstructions. Nominal fit only; physical retention, friction, printed mount strength and installed use remain unqualified."
             }
         },
         {
@@ -2475,25 +2475,25 @@
         },
         {
             "id": "corner-stand-assembly",
-            "revision": "0.1.0",
+            "revision": "1.0.0",
             "status": "concept-unvalidated",
             "artifactRole": "reference",
             "bomPartIds": [],
             "assembly": "corner-station",
             "entrypoint": "hardware/assemblies/corner-station/corner-stand-assembly.scad",
-            "output": "corner-stand-assembly-r0.1.0.csg",
+            "output": "corner-stand-assembly-r1.0.0.csg",
             "documentation": "hardware/assemblies/corner-station/README.md",
             "description": "WT-806 indoor fixture with actual round-120 printed head and passive winch; schematic tube samples, no tripod load qualification."
         },
         {
             "id": "corner-station-assembly",
-            "revision": "0.1.0",
+            "revision": "1.0.0",
             "status": "concept-unvalidated",
             "artifactRole": "reference",
             "bomPartIds": [],
             "assembly": "corner-station",
             "entrypoint": "hardware/assemblies/corner-station/corner-station-assembly.scad",
-            "output": "corner-station-assembly-r0.1.0.csg",
+            "output": "corner-station-assembly-r1.0.0.csg",
             "documentation": "hardware/assemblies/corner-station/README.md",
             "description": "Mounted ordinary winch and proposed printed pulley head on an abbreviated round-120 timber post; wavy drawing break omits middle length; schematic mounting heights."
         },

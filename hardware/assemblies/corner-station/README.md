@@ -8,7 +8,7 @@ The [print and assembly instructions](stand-adapter.md) define removable tube
 clamps for the owner's two Walimex pro WT-806 stands. Four fabrication models
 install eight prints per stand: two head fronts/rears on a nominal 26 mm tube,
 and two winch fronts/rears on a nominal 35 mm tube. The 30 mm section can be
-selected with matching exports. All five entrypoints are r0.1.0,
+selected with matching exports. The four clamp solids are r0.1.0; the revised head assembly is r1.0.0,
 `concept-unvalidated`; their optional BOM kit is excluded from installed poles.
 
 The [mounting assembly guide](../../../docs/assemblies/corner-station/stand-assembly.md)
@@ -44,7 +44,8 @@ The front cover retains a 3 mm fascia, with sidewall strap passages behind it
 and two open-top 18 mm channels for the structural webs. It is an open cosmetic
 shield, with drainage and received-fit review still required.
 
-All seven new registered entrypoints are r0.1.0, `concept-unvalidated`:
+Carrier halves and assembly are r1.0.0; pads, covers and marking template remain
+r0.1.0. All are `concept-unvalidated`:
 
 | Model | Purpose / installed quantity per head |
 | --- | --- |
@@ -61,7 +62,7 @@ Match `post_shape`, `post_size_mm` and `line_diameter_mm` across all selected
 exports. Default is round/120/1.5; round/100/140, square/100 and round/120/4.5
 are separately labelled studies. The provisional 45° block pose assumes equal
 leg tensions and a horizontal +X span; pin and sheave coordinates differ.
-Received pin-to-sheave distance and full articulation remain unverified.
+Pin-to-sheave distance is owner measured at 42 mm; actual articulation and groove seating remain unverified.
 The six fabrication IDs yield six installed
 prints per head from five models, plus the one shared marking tool.
 
@@ -77,16 +78,18 @@ shrinkage and holes in the slicer and on the prototype.
 The carrier and rear-pad STLs are intended printed prototype parts, with
 PAHT-CF or tested ASA as unqualified candidates. Structural, anisotropic,
 fastener-pressure, sustained-creep, cyclic, outdoor and installed qualification
-remain required. The provisional 8 mm lug / 9 mm block tang gap / M8 pin
-must be checked against received parts. Neither cover is a fitted thin-line
+remain required. The revised 14.8 mm central lug / 5.2 mm bore uses the measured
+15.8 mm tang gap and supplied 4.7 mm pin. Reprint both carrier halves; check
+actual printed clearances and usable pin/locking engagement. Neither cover is a fitted thin-line
 keeper. See the [load-study note](../../../docs/assemblies/corner-station/printed-load-study.md),
-[nominal checks](../../../docs/assemblies/corner-station/geometry-check.md) and
+[current nominal checks](../../../docs/assemblies/corner-station/barton-geometry-check.md) and
 [physical acceptance](../../../docs/assemblies/corner-station/acceptance-record.md).
 
 ## Historical steel-angle head alternatives
 
-The original seven r0.1.0, `concept-unvalidated` entrypoints remain unchanged as
-separate metal-head alternatives. They are not parts of the printed selection:
+The six metal-head fabrication models remain r0.1.0; the assembly reference is
+r1.0.0 with the measured block. These `concept-unvalidated` alternatives remain
+separate from the printed selection. They are not parts of the printed selection:
 
 | Model | Purpose |
 | --- | --- |
@@ -110,32 +113,38 @@ fastener stack, covers and print poses; never substitute the old saddle STLs.
 The [split-clamp proposal and dimensions](pole-pulley-mount.md) define an adjustable
 round-pole mount with two removable collar halves and a gusseted pulley clevis.
 This remains separate from both through-bolted head designs. Its three
-registered models are revision `0.1.0`, `concept-unvalidated`:
+front/assembly models are revision `1.0.0`; the rear remains `0.1.0`. All are
+`concept-unvalidated`:
 
 | Model | Purpose |
 | --- | --- |
-| [pole-pulley-mount-front](pole-pulley-mount-front.scad) | Front half with integral gusseted arms; fit/mock-up solid |
+| [pole-pulley-mount-front](pole-pulley-mount-front.scad) | Front half with central rounded lug; fit/mock-up solid |
 | [pole-pulley-mount-rear](pole-pulley-mount-rear.scad) | Removable rear half; fit/mock-up solid |
-| [pole-pulley-mount-assembly](pole-pulley-mount-assembly.scad) | Assembly with nominal hardware, pole and generic marine block |
+| [pole-pulley-mount-assembly](pole-pulley-mount-assembly.scad) | Assembly with nominal hardware, pole and measured Barton block |
 
 The common [source](../../lib/pole-pulley-mount.scad) starts at a 120 mm pole and
 30 mm sheave. Its BOM concept pair is not added to the printed-head quantities.
 Friction, timber seating and structural acceptance remain unverified.
 
-## Historical `top-pulley-keeper`
+## Received block and keeper candidate
 
-[top-pulley-keeper.scad](top-pulley-keeper.scad) is a two-cheek upper guard concept
-with nominal semicircular keeper cheeks, mounting legs, fastener holes and
-three bridges. It remains `top-pulley-keeper` r0.1.0, `concept-unvalidated`.
-Its default 58 mm pulley geometry has not been fitted to the received 30 mm
-BA01090 or the printed head.
+The [Barton N01090 measurement/specification record](../../../bom/sourcing/barton-n01090-2026-10-11.md)
+links owner photos, catalogue evidence, the [dimension diagram](../../../docs/assets/barton-n01090-dimensions.svg)
+and shared [block source](../../lib/barton-size-1-block.scad). The registered
+pulley reference is r1.0.0: measured envelope/interface, reconstructed detail
+surfaces, no manufacturing or loaded-use approval.
 
-The model does not define actual groove/side gaps, pin/bearing, line sweep,
-installation sequence, locking, outdoor material or discard limits. A fitted
-keeper must not rub in normal operation or conceal a derailed/damaged line.
-Derive it from received pulley and line measurements and verify all approach
-angles, slack states, loaded deflection, service access and retention before
-counting it as completed protection.
+[top-pulley-keeper.scad](top-pulley-keeper.scad) r1.0.0 is a non-structural
+candidate reworked around the 36 × 24 mm cheek envelope with 1 mm radial/side
+allowance. Two side bridges keep the upper clevis neck clear. Its separate
+mounting legs and M5 holes do not define an accepted attachment to the printed
+head; it is not installed or counted as completed protection in that package.
+
+The model does not define actual groove/side gaps, full line sweep, attachment
+locking, outdoor process or discard limits. Derive a fitted keeper from actual
+line and groove measurements, then verify approach angles, slack states,
+loaded deflection, service access and retention. A nominal envelope clearance
+check does not establish retention of 1.5 mm Dyneema.
 
 ## Appearance
 
@@ -172,7 +181,7 @@ These `visualization` models show catalog items in the Parts inventory. They are
 | [pulley-bracket-shackle-m8](pulley-bracket-shackle-m8.scad) · [BOM](../../../bom/generated/parts/pulley-bracket-shackle-m8.md) | shackle | Catalog 8 mm pin with assumed 32 × 48 mm shackle envelope; exact supplier clearances unverified. |
 | [pulley-bracket-through-bolt-m12x160](pulley-bracket-through-bolt-m12x160.scad) · [BOM](../../../bom/generated/parts/pulley-bracket-through-bolt-m12x160.md) | bolt | Catalog M12 × 160 shank; assumed 19 mm hex head and 8 mm head height; threads omitted. |
 | [pulley-bracket-washer-m12](pulley-bracket-washer-m12.scad) · [BOM](../../../bom/generated/parts/pulley-bracket-washer-m12.md) | ring | Catalog nominal 37 mm OD, 13 mm ID and 3 mm thickness; edges simplified. |
-| [top-positioning-line-pulley](top-positioning-line-pulley.scad) · [BOM](../../../bom/generated/parts/top-positioning-line-pulley.md) | pulley | Catalog preferred 30 mm sheave with assumed cheeks and attachment eye; supplier block envelope unknown. |
+| [top-positioning-line-pulley](top-positioning-line-pulley.scad) · [BOM](../../../bom/generated/parts/top-positioning-line-pulley.md) | double-tang block | Owner measured 65 × 36 × 24 mm, 4.7 mm pin, 15.8 mm tang gap, 42 mm centres; catalogue 30 × 12 mm sheave; groove and detail surfaces reconstructed. |
 | [top-pulley-bracket](top-pulley-bracket.scad) · [BOM](../../../bom/generated/parts/top-pulley-bracket.md) | angle | Catalog 150 × 40 × 150 mm, 5 mm solid angle; starting drill pattern simplified. |
 | [wire-rope-clamp-3mm](wire-rope-clamp-3mm.scad) · [BOM](../../../bom/generated/parts/wire-rope-clamp-3mm.md) | rope clamp | Representative 3 mm wire-rope U-clamp; saddle, threaded legs and overall envelope assumed. |
 | [wire-rope-thimble-3mm](wire-rope-thimble-3mm.scad) · [BOM](../../../bom/generated/parts/wire-rope-thimble-3mm.md) | thimble | Representative grooved thimble for 3 mm wire; eye shape and bend radius assumed. |

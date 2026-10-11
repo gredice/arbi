@@ -1,5 +1,9 @@
 # Printed corner head nominal geometry record
 
+Historical r0.1.0 record. For the measured Barton interface and current carrier
+revision see the [11 October geometry record](barton-geometry-check.md). The
+results below retain their original geometry and do not describe r1.0.0.
+
 8 October 2026. New printed models r0.1.0, **concept-unvalidated**.
 
 The [package builder](../../../scripts/corner-support/build.py) exports the

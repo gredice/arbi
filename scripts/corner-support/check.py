@@ -44,6 +44,14 @@ def check(output):
         outputs = {models[mid]['output'] for mid in IDS}
         current = {Path(name).name for name in report['mesh_sha256'] if name.startswith('models/arbi/')}
         assert outputs==current, 'Wrong fabrication revisions'
+        assert report['revision']=='1.0.0'
+        barton=json.loads(pack.read(PREFIX+'barton-block-check.json'))
+        assert barton['measured_envelope_mm']==[65,36,24] and barton['pin_to_sheave_mm']==42
+        assert barton['rejected_M8_pin_collision_mm3']>1 and barton['rejected_16mm_lug_collision_mm3']>1
+        assert barton['keeper_block_overlap_mm3']<.002
+        for name, expected in barton['sources_sha256'].items():
+            assert hashlib.sha256((ROOT/name).read_bytes()).hexdigest()==expected, name
+            assert hashlib.sha256(pack.read(PREFIX+'source/repository/'+name)).hexdigest()==expected, name
         assert report['fabrication_ids']==IDS and report['printed_model_ids']==IDS
         assert report['configuration']=='Printed round 120 / passive line; concept-unvalidated'
         assert set(report['variants'])==VARIANTS and report['checks']>400
@@ -54,7 +62,7 @@ def check(output):
             assert variant['crossbar_length_mm']==100 and variant['crossbar_tip_projection_mm']>=3.5
             assert len(variant['wall_probes_mm3'])==4 and all(v>=.99 for v in variant['wall_probes_mm3'].values())
             assert len(variant['pin_bore_probes_mm3'])==2 and all(v<=.01 for v in variant['pin_bore_probes_mm3'].values())
-            assert abs(variant['sheave_center_Z_mm']-(165-40/np.sqrt(2)))<.001
+            assert abs(variant['sheave_center_Z_mm']-(165-42/np.sqrt(2)))<.001
             assert abs(variant['line_center_Z_from_mesh_mm']-variant['sheave_center_Z_mm'])<.001
             assert set(variant['print_parts'])==set(IDS)
             directory = 'models/arbi' if key=='round-120-printed-line-1.5' else 'variants/'+key
@@ -80,9 +88,9 @@ def check(output):
         assert report['negative_controls']['overlong_M12_cut_removes_lug_probe']
         assert report['negative_controls']['overlong_pin_cut_removes_web_probe']
         equilibrium=report['block_equilibrium']
-        assert equilibrium['rotation_about_Y_deg']==-45 and equilibrium['pin_to_sheave_length_mm']==40
+        assert equilibrium['rotation_about_Y_deg']==-45 and equilibrium['pin_to_sheave_length_mm']==42
         assert np.allclose(np.cross(equilibrium['pin_to_sheave_mm'],[10,0,-10]),[0,0,0],atol=1e-8)
-        assert np.allclose(equilibrium['rejected_vertical_10N_moment_Nmm'],[0,-400,0])
+        assert np.allclose(equilibrium['rejected_vertical_10N_moment_Nmm'],[0,-420,0])
         assert report['service_paths_mm']==dict(front_cover=[[0,0,-190],[0,100,-190]],rear_cover=[[-80,0,0]])
         figures=json.loads(pack.read(PREFIX+'figure-manifest.json'))
         assert {'covered','open','exploded','print-left','template',*STAND_FIGURES}==set(figures)
@@ -137,6 +145,7 @@ def check(output):
     for i,page in enumerate(pages,1):
         text=page.extract_text()
         assert f'{i} / {PAGE_COUNT}' in text and 'CONCEPT - UNVALIDATED' in text
+        assert f'ARBI / CORNER SUPPORT SET / r{report["revision"]} /' in text, 'Stale booklet revision'
         assert abs(float(page.mediabox.width)-595.276)<1 and abs(float(page.mediabox.height)-841.890)<1
     indoor='\n'.join(page.extract_text() for page in pages[8:])
     for value in ['WT-806','M6 x 60','M6 x 70','M12 x 90','M8 x 40','110 mm','120 mm','253.3 mm','locking nut']:

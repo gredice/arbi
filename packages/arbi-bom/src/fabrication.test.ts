@@ -60,8 +60,8 @@ test("dock bundle costs are attributed once and print estimates do not turn unkn
   const repository = await loadBomRepository(root);
   const base = calculateBom(repository);
   assert.equal(base.knownSubtotal, "987.22");
-  assert.equal(base.estimatedMaterialSubtotal, "254.45");
-  assert.equal(base.estimatedPartialSubtotal, "1241.67");
+  assert.equal(base.estimatedMaterialSubtotal, "254.03");
+  assert.equal(base.estimatedPartialSubtotal, "1241.25");
   assert.equal(base.completeLandedTotal, null);
   const allocated = base.assemblyEstimatedMaterials.reduce((sum, row) => sum.add(Decimal.parse(row.amount)), Decimal.zero());
   assert.equal(allocated.toString(), base.estimatedMaterialSubtotal);

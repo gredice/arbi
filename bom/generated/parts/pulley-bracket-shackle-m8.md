@@ -13,11 +13,11 @@
 
 ## Requirements
 
-- Marinetech short round A4 stainless shackle with 8 mm removable pin; one per pulley. Pass through the bracket's Ø9 mm terminal hole and the pulley attachment.
+- Marinetech short round A4 stainless shackle with 8 mm bracket-side pin through the bracket Ø9 mm hole. The received Barton double tang uses its own 4.7 mm retained pin through a compatible link body; do not pass an 8 mm pin through factory tang holes. Actual link-body size, pin locking and articulation remain unqualified.
 
 ## Notes
 
-Confirm the selected pulley fits and articulates freely without side-plate distortion. If incompatible, use an M8 A2/A4 bolt with spacers/washers and a locking nut as the attachment pin.
+Historical steel-head connector only; omitted from the printed central-lug alternative. The CAD two-axis loop is an unqualified envelope, not the received shackle. Its body must fit the 15.8 mm tang gap and supplied 4.7 mm pin. No M8 pulley-pin substitution or factory-hole modification is permitted. See bom/sourcing/barton-n01090-2026-10-11.md.
 
 ## Used in
 

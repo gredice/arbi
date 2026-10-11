@@ -1,4 +1,4 @@
-// corner-station-assembly r0.1.0 — concept-unvalidated. Units: mm.
+// corner-station-assembly r1.0.0 — concept-unvalidated. Units: mm.
 // Mounted ordinary winch + proposed printed head, on one abbreviated round post.
 // The missing post length and line length are DRAWING BREAKS, not cuts to make.
 include <../../lib/corner-head-printed.scad>
