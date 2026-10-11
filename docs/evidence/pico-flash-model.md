@@ -8,6 +8,8 @@ Clean source revision `aa5e8da3c7809d5085f677d0214d11add5c4537d` reports `ARBI_B
 
 Host restart/kill and interrupted committed writes are source/native filesystem evidence. They are not removal of board power, real flash endurance/atomicity, boot-ROM execution, measured GPIO timing or physical rescue.
 
+After combining the merged diagnostics source, clean revision `2657e7ad4a27dd69ecb6106baa69e1d9e1a1249e` reports `ARBI_BUILD_DIRTY=0` and passes all 31 groups normally and with six C host binaries under ASan/UBSan. Both pinned target builds pass. The denied link retains diagnostics and the unavailable installer gate together, using 55,104 text / 73,780 BSS bytes; the normal image remains 59,832 text / 57,788 BSS bytes. No physical adapter is enabled by the composition.
+
 | Required gate | Evidence |
 | --- | --- |
 | Host authenticity, bounded image/partition/state and isolated failure/recovery logic | Explicit signed native fixtures |
