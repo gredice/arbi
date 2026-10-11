@@ -42,6 +42,7 @@ export class GimbalModel {
     options.source=structuredClone(options.source);options.motionSource=structuredClone(options.motionSource);options.servo.inhibit();
   }
   #clock(){const n=this.options.now();if(!Number.isSafeInteger(n)||n<0||n<this.#lastMs){this.inhibit('CLOCK_INVALID');reject('CLOCK_INVALID');}this.#lastMs=n;return n;}
+  #gate(){try{return this.options.gate();}catch{this.inhibit('AUTHORITY_UNAVAILABLE');reject('AUTHORITY_UNAVAILABLE');}}
   #angles(pan:number,tilt:number){if(!finite(pan)||!finite(tilt)||pan<this.#calibration.pan.minimumDeg||pan>this.#calibration.pan.maximumDeg||tilt<this.#calibration.tilt.minimumDeg||tilt>this.#calibration.tilt.maximumDeg)reject('OUTSIDE_LIMITS');}
   #stopped(now:number){let e:MotionStopEvidence|null;try{e=this.options.motion();}catch{reject('MOTION_STOP_UNAVAILABLE');}if(!e)reject('MOTION_STOP_UNAVAILABLE');fields(e,['origin','identity','generation','sequence','configurationDigest','calibrationRevision','stopped','sampledMs']);
     fields(e.identity,['deviceId','bootId','sessionId']);
@@ -55,7 +56,7 @@ export class GimbalModel {
     this.#stopped(this.#clock());this.#angles(fixture.panDeg,fixture.tiltDeg);this.#pose={panDeg:fixture.panDeg,tiltDeg:fixture.tiltDeg};this.#phase='idle';this.#reason=null;
   }
   move(input:unknown) {
-    const now=this.#clock(),gate=this.options.gate();if(gate.executionMode!=='simulation'||!same(gate.receiver,this.options.source)||gate.configRevision!==this.#applied.request.configuration.revision)reject('GATE_MISMATCH');
+    const now=this.#clock(),gate=this.#gate();if(gate.executionMode!=='simulation'||!same(gate.receiver,this.options.source)||gate.configRevision!==this.#applied.request.configuration.revision)reject('GATE_MISMATCH');
     const valid=checkConfiguredCommand(input,this.#applied,this.#boundary);if(!valid.ok)reject(valid.error.code);if(valid.value.body.type!=='camera.gimbal')reject('UNSUPPORTED_CAPABILITY');
     const admitted=admitCommand(input,{...gate,nowMonotonicMs:now,maxDeadlineAheadMs:1000},this.#ledger);if(!admitted.ok)reject(admitted.error.code);
     const c=admitted.value.command;if(admitted.value.decision==='duplicate')return structuredClone(this.#outcomes.get(c.command.commandId)??{outcome:'failed',reason:'ADMISSION_UNCERTAIN'});
@@ -70,7 +71,7 @@ export class GimbalModel {
     } catch(e){const reason=e instanceof GimbalError?e.code:'SERVO_FAILED';this.#outcomes.set(c.command.commandId,{outcome:'failed',reason});if(this.#active?.command.command.commandId===c.command.commandId)this.inhibit(reason);throw new GimbalError(reason);}
   }
   tick(){const now=this.#clock();try{this.#stopped(now);}catch{this.inhibit('MOTION_STOP_STALE');return this.status;}const a=this.#active,c=this.#authorized;
-    const gate=this.options.gate();if(c&&(!gate.lease||gate.lease.expiresMonotonicMs<=now||gate.lease.id!==c.command.lease?.id||gate.lease.fence!==c.command.lease?.fence
+    let gate:CommandGate;try{gate=this.#gate();}catch{return this.status;}if(c&&(!gate.lease||gate.lease.expiresMonotonicMs<=now||gate.lease.id!==c.command.lease?.id||gate.lease.fence!==c.command.lease?.fence
       ||gate.executionMode!=='simulation'||!same(gate.realm,c.realm)||gate.siteId!==c.siteId||gate.configRevision!==c.command.configRevision||gate.faultInhibited
       ||!same(gate.receiver,this.options.source)||!same(gate.authenticatedSource,c.source)||!same(gate.authorizedActor,c.command.actor)||!gate.allowedTypes.includes('camera.gimbal')||!gate.supportedTypes.includes('camera.gimbal'))){this.inhibit('AUTHORITY_LOST');return this.status;}
     if(!a)return this.status;

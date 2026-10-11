@@ -73,3 +73,10 @@ test('lease loss, stop loss after settling, timeout and clock reversal retain fa
     assert.equal(f.model.tick().phase,'inhibited');assert.equal(f.model.move(c).outcome,scenario==='stop'?'completed':'failed');assert.equal(f.servo.status.moves,1);assert.equal(f.model.status.commandedPose,null);
   }
 });
+test('bounded admission and adapter failures cannot forget identities or retain capture authority',()=>{
+  const f=fixture();f.reconcile();const first=f.command();f.model.move(first);
+  for(let n=1;n<128;n++)assert.throws(()=>f.model.move(f.command()),{code:'GIMBAL_NOT_RECONCILED'});
+  assert.throws(()=>f.model.move(f.command()),{code:'RESOURCE_LIMIT'});assert.equal(f.servo.status.moves,1);assert.equal(f.model.move(first).outcome,'running');
+  f.options.gate=()=>{throw new Error('unavailable');};assert.equal(f.model.tick().reason,'AUTHORITY_UNAVAILABLE');assert.equal(f.model.status.simulatedCaptureEligible,false);
+  const moving=fixture();moving.reconcile();moving.adapter.move=()=>{throw new Error('failed');};assert.throws(()=>moving.model.move(moving.command()),{code:'SERVO_FAILED'});assert.equal(moving.model.status.phase,'inhibited');
+});
