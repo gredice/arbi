@@ -86,7 +86,7 @@ test('full inventory and selected diagnostics bound demand, bytes, hidden lifecy
   await page.getByLabel('Detail demand').selectOption('');await page.clock.fastForward(15000);expect(requests).toBe(3);
   console.log(`Synthetic diagnostics payload evidence: ${requests} selected reads, ${(await payload()).bytes} application response bytes; overview/hidden/closed periodic reads: 0.`);
 });
-test("responsive keyboard navigation reaches status and explicit unavailable operations", async ({ page }) => {
+test("responsive keyboard navigation reaches status and explicit capture metadata", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 }); await login(page);
   await expect(page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).resolves.toBe(true);
   await page.keyboard.press("Tab"); await expect(page.getByRole("link", { name: "Skip to content" })).toBeFocused();
@@ -94,7 +94,12 @@ test("responsive keyboard navigation reaches status and explicit unavailable ope
   await page.getByRole("button", { name: "Menu", exact: true }).focus(); await page.keyboard.press("Enter");
   await expect(page.getByRole("button", { name: "Menu", exact: true })).toHaveAttribute("aria-expanded", "true");
   const images = page.getByRole("link", { name: "Images", exact: true }); await images.focus(); await page.keyboard.press("Enter");
-  await expect(page.getByRole("heading", { name: "Camera and images unavailable" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Recorded outcomes" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Read capture history", exact: true })).toBeVisible();
+  await expect(page.locator(".capture-dashboard img")).toHaveCount(0);
+  await page.getByRole("button", { name: "Read capture history", exact: true }).click();
+  await expect(page.getByText("Backend rejected: UNAVAILABLE", { exact: true })).toBeVisible();
+  await expect(page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).resolves.toBe(true);
   await page.screenshot({ path: "test-results/shell-mobile.png", fullPage: true });
 });
 test("site changes show offline/stale/no-device and never retain another site's values", async ({ page }) => {
