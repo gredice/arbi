@@ -9,6 +9,7 @@ import {postgresDatabase} from '../enrollment/store';
 import {fixture,realm} from '../jobs/test-support';
 import {createLiveServer} from './server';
 import {SimulatedLiveAdapter} from './simulated-adapter';
+import {liveProducerReference} from './producer-reference.test-support';
 import type {LivePolicy,LiveAdapter} from './contracts';
 import {proofBytes} from '../enrollment/crypto';
 import {UsageStore} from '../usage/store';
@@ -177,6 +178,52 @@ test('native PostgreSQL live authority: shared producer, scoped leases, policy, 
     const engineer=await f.human('usage-reader','history.read'),totals=await meter.read(engineer.context,{linkId:'sim-shared',fromMs:end-1000,toMs:end});assert.equal(totals.totals[0].bytes,'100');
     await a.store.action(one.context,'end',{sessionId:first.id});await pool.query("UPDATE arbi_live_viewers SET record=jsonb_set(record,'{expiresAtMs}',to_jsonb($2::bigint)) WHERE id=$1",[second.id,Date.now()-1]);
     const closed=await b.store.action(two.context,'state',{sessionId:second.id});assert.equal(closed.endReason,'timeout');assert.equal(closed.closure?.deliveryCoverage,'partial');assert.equal(closed.closure?.playbackDurationMs,null);assert.equal(closed.closure?.remoteStopObserved,false);
+    await a.store.jobs.audit.verify(realm,f.registry.siteId);
+  });
+  await t.test('private frame hook rechecks permission after policy waits and independently closes an expired viewer',async()=>{
+    const {a,one,two,start,f,options}=await setup(),first=await a.store.start(one.context,start),second=await a.store.start(two.context,start);
+    const demand=(await pool.query('SELECT record FROM arbi_live_producers WHERE id=$1',[first.producerId])).rows[0].record.demand;
+    const racing=createLiveServer({db:postgresDatabase(other),...options,evaluatePolicy:async()=>{f.identity.revoke(one.sessionId);return options.evaluatePolicy();}});
+    const denied=await racing.store.inspectFrameRecipients(demand);assert.equal(denied.authorized,false);assert.equal(denied.recipients.length,0);assert.equal(denied.demand.viewers,1);
+    const current=await a.store.inspectFrameRecipients(denied.demand);assert.equal(current.authorized,true);assert.deepEqual(current.recipients.map(v=>v.id),[second.id]);
+    assert.equal(current.recipients[0].sessionId,two.sessionId);
+    await pool.query("UPDATE arbi_live_viewers SET record=jsonb_set(record,'{expiresAtMs}',to_jsonb($2::bigint)) WHERE id=$1",[second.id,Date.now()-1]);
+    const expired=await a.store.inspectFrameRecipients(denied.demand);assert.equal(expired.authorized,false);assert.equal(expired.recipients.length,0);assert.equal(expired.demand.viewers,0);
+    assert.equal((await a.store.action(two.context,'state',{sessionId:second.id})).endReason,'timeout');await a.store.jobs.audit.verify(realm,f.registry.siteId);
+  });
+  await t.test('actual native producer and TCP viewer payloads retain independent grants and one measured shared uplink',async()=>{
+    let native:Awaited<ReturnType<typeof liveProducerReference>>;
+    const adapter:LiveAdapter={apply:(...args)=>native.adapter.apply(...args),signal:(...args)=>native.adapter.signal(...args)};
+    const {a,b,one,two,start,f,report,usage}=await setup(adapter);
+    native=await liveProducerReference({realm,siteId:f.registry.siteId,source:f.registry.devices[0].current!,inspect:d=>a.store.inspectFrameRecipients(d)});t.after(()=>native.close());
+    assert.equal(native.camera,0);assert.equal(native.encoded,0);const first=await a.store.start(one.context,start),second=await b.store.start(two.context,start);
+    for(const [context,view] of [[one.context,first],[two.context,second]] as const)await a.store.signal(context,{sessionId:view.id,token:view.token,sequence:1,message:{type:'offer',data:'native-reference'}});
+    const begin=Date.now(),mono=Math.floor(performance.now());
+    for(let n=0;n<6;n++){if(n)await new Promise(resolve=>setTimeout(resolve,230));assert.equal((await native.producer.step(new AbortController().signal)).state,'sent');}
+    const end=Date.now(),stopMono=Math.floor(performance.now()),interval={start:new Date(begin).toISOString(),end:new Date(end).toISOString()};
+    assert.equal(native.encoded,6);assert.equal(native.upstreamBytes,native.bytes.length*6);
+    for(const view of [first,second]){assert.equal(native.viewers.get(view.id)!.bytes,native.upstreamBytes);assert.equal(native.viewers.get(view.id)!.frames,6);}
+    assert.ok(native.upstreamWire>native.upstreamBytes);
+    const meter=new UsageStore(a.store.jobs),observation=(viewerId:string|null,bytes:number):UsageObservation=>({version:'arbi-accounting/1.0',kind:'usage',observationId:randomUUID(),realm,siteId:f.registry.siteId,executionMode:'simulation',
+      source:f.registry.devices[0].current!,counterEpoch:'native-payload-reference',boundary:viewerId?'cloud-viewer':'garden-sim',layer:'application-payload',direction:viewerId?'download':'upload',linkId:viewerId?'native-viewer-'+viewerId:'native-shared',
+      scope:'attributed',attributionRevision:'native-media-attribution',deviceId:'edge-1',category:'live-video',interval,bytes:String(bytes),
+      evidence:{quality:'measured',coverage:'complete',includes:['payload'],observedAt:interval.end,maxAgeMs:15000,reason:null},media:{topology:'shared',sessionId:first.producerId,viewerId,viewerCount:2}});
+    const up=observation(null,native.upstreamBytes),down1=observation(first.id,native.viewers.get(first.id)!.bytes),down2=observation(second.id,native.viewers.get(second.id)!.bytes);
+    await meter.ingest(f.registry.siteId,usage([up,down1,down2].map((observation,n)=>({sequence:String(n+1),observation}))));
+    const demand=(await pool.query('SELECT record FROM arbi_live_producers WHERE id=$1',[first.producerId])).rows[0].record.demand;
+    const grants=await a.store.inspectFrameRecipients(demand);assert.deepEqual(new Set(grants.recipients.map(v=>v.actor.id)),new Set([one.context.actor.id,two.context.actor.id]));
+    for(const [view,down,seq] of [[first,down1,'1'],[second,down2,'2']] as const)await a.store.device(f.registry.siteId,report({sessionId:view.id,epoch:view.epoch,generation:demand.generation,eventId:randomUUID(),sequence:seq,kind:'delivery',
+      sourceTime:{utc:interval.end,uncertaintyMs:10,monotonicMs:stopMono},summary:{viewerUsageId:down.observationId,upstreamUsageId:up.observationId,relayUsageId:null,startMonotonicMs:mono,endMonotonicMs:stopMono}}));
+    const reader=await f.human('native-usage-reader','history.read'),totals=await meter.read(reader.context,{linkId:'native-shared',fromMs:begin,toMs:end});assert.equal(totals.totals[0].bytes,String(native.upstreamBytes));
+    // Revoke one original session. The stale generation delivers no further
+    // viewer payload, then explicit current-demand delivery serves the other.
+    const previous=native.viewers.get(first.id)!.bytes;f.identity.revoke(one.sessionId);
+    await new Promise(resolve=>setTimeout(resolve,230));assert.equal((await native.producer.step(new AbortController().signal)).state,'stopped');assert.equal(native.viewers.get(first.id)!.bytes,previous);
+    await b.store.synchronize(f.registry.siteId,'edge-1');await new Promise(resolve=>setTimeout(resolve,230));assert.equal((await native.producer.step(new AbortController().signal)).state,'sent');
+    assert.equal(native.viewers.get(first.id)!.bytes,previous);assert.ok(native.viewers.get(second.id)!.bytes>previous);
+    assert.equal((await pool.query('SELECT record FROM arbi_live_viewers WHERE id=$1',[first.id])).rows[0].record.endReason,'revoked');
+    await b.store.action(two.context,'end',{sessionId:second.id});await b.store.synchronize(f.registry.siteId,'edge-1');assert.equal(native.camera,0);
+    const last=native.encoded;assert.equal((await native.producer.step(new AbortController().signal)).state,'stopped');assert.equal(native.encoded,last);
     await a.store.jobs.audit.verify(realm,f.registry.siteId);
   });
   await t.test('replacement media service uses its own audit clock epoch without changing the initiating actor',async()=>{

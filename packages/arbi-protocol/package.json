@@ -30,6 +30,10 @@
     "./capture-history": {
       "types": "./dist/capture-history.d.ts",
       "import": "./dist/capture-history.js"
+    },
+    "./live-demand": {
+      "types": "./dist/live-demand.d.ts",
+      "import": "./dist/live-demand.js"
     }
   },
   "scripts": {

@@ -1,9 +1,10 @@
 import type {AuthorizedContext} from '@arbi/gredice';
-import type {AuditEvent,Identity,Realm} from '@arbi/protocol';
+import type {AuditEvent,Identity} from '@arbi/protocol';
 import type {Device,Registry} from '../enrollment/contracts';
 import {exact,id,JobError,milliseconds} from '../jobs/contracts';
 export const LIVE_VERSION='arbi.live/1.0',LIVE_LEASE_MS=15000,LIVE_MAX_LIFETIME_MS=300000;
-export interface LiveProfile {id:string;transport:'isolated-signaling';maxUpstreamBps:number;maxDownstreamBps:number;maxViewers:number}
+export type {LiveProducerProfile as LiveProfile,LiveProducerDemand as ProducerDemand} from '@arbi/protocol/live-demand';
+import type {LiveProducerProfile as LiveProfile,LiveProducerDemand as ProducerDemand} from '@arbi/protocol/live-demand';
 export interface LivePolicy {allow:boolean;reason:'within-budget'|'budget-exhausted'|'metering-unavailable'|'profile-denied';revision:string;
   layer:'wan'|'application-payload'|'provider'|'unknown';remainingBytes:string|null;maxUpstreamBps:number|null}
 export type LivePolicyEvaluator=(query:{context:AuthorizedContext;device:Device;profile:LiveProfile;sharedUpstream:boolean;viewers:number;signal:AbortSignal})=>Promise<LivePolicy>;
@@ -16,8 +17,6 @@ export interface LiveViewer {version:typeof LIVE_VERSION;id:string;producerId:st
   browserAdvisory?:{sequence:number;receivedAtMs:number;state:'playing'|'ended';reports:number};
   delivery?:{receivedAtMs:number;startMonotonicMs:number;endMonotonicMs:number;reports:number;lastReportId:string;viewerUsageId:string;upstreamUsageId:string|null;relayUsageId:string|null};
   closure?:{authorityDurationUpperBoundMs:number;deliveryCoverage:'partial'|'unknown';playbackDurationMs:null;remoteStopObserved:false}}
-export interface ProducerDemand {version:typeof LIVE_VERSION;realm:Realm;siteId:string;id:string;generation:string;target:Identity;configRevision:string;
-  profile:LiveProfile;viewers:number;issuedAtMs:number;expiresAtMs:number;sharedUpstream:true}
 export interface LiveSignal {type:'offer'|'answer'|'candidate';data:string}
 export interface LiveAdapter {
   /** Implementations must independently expire demand and fence old generations, including after reconnect. */
