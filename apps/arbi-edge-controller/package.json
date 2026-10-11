@@ -7,14 +7,15 @@
     "build": "tsc -p tsconfig.build.json && node scripts/build-identity.mjs",
     "lint": "tsc -p tsconfig.json --noEmit",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "test": "pnpm build && node --test --test-concurrency=1 dist/*.test.js dist/cloud-realtime/*.test.js dist/jobs/*.test.js dist/commissioning/*.test.js dist/transfers/*.test.js dist/diagnostics/*.test.js dist/updates/*.test.js",
+    "test": "pnpm build && node --test --test-concurrency=1 dist/*.test.js dist/cloud-realtime/*.test.js dist/jobs/*.test.js dist/commissioning/*.test.js dist/transfers/*.test.js dist/diagnostics/*.test.js dist/updates/*.test.js dist/scenarios/*.test.js",
     "start": "node dist/cli.js",
     "simulate": "node dist/cli.js --simulate",
     "supervise": "node dist/supervisor.js",
     "recover:cloud": "node dist/cloud-realtime/cli.js",
     "simulate:jobs": "node dist/jobs/reference.js",
     "simulate:commissioning": "node dist/commissioning/reference.js",
-    "simulate:updates": "node dist/updates/reference.js"
+    "simulate:updates": "node dist/updates/reference.js",
+    "simulate:faults": "node dist/scenarios/workflows.js"
   },
   "dependencies": {
     "@arbi/protocol": "workspace:*",

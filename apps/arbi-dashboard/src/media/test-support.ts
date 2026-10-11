@@ -25,7 +25,7 @@ export async function blobFixture(t: { after: (work: () => Promise<void>) => voi
   const tokens = new Map<string, string>();
   const signingRoot = randomBytes(32);
   const issued: IssueSignedTokenOptions[] = [];
-  const controls = { failDelete: false, failIssue: false, beforeIssue: undefined as (() => void) | undefined };
+  const controls = { putPayloadBytes:0, failDelete: false, failIssue: false, beforeIssue: undefined as (() => void) | undefined };
   const server = createServer(async (request, response) => {
     try {
       const url = new URL(request.url!, "http://localhost");
@@ -53,6 +53,7 @@ export async function blobFixture(t: { after: (work: () => Promise<void>) => voi
       if (signature !== url.searchParams.get("vercel-blob-signature") || scope.pathname !== path ||
         !scope.operations.includes(operation) || now() >= Math.min(expires, scope.validUntil)) { response.writeHead(403).end(); return; }
       if (operation === "put") {
+        controls.putPayloadBytes+=bytes.length;
         const type = request.headers["content-type"] as string;
         const allowed = url.searchParams.get("vercel-blob-allowed-content-types")?.split(",") ?? scope.allowedContentTypes;
         const max = Number(url.searchParams.get("vercel-blob-maximum-size-in-bytes") ?? scope.maximumSizeInBytes);

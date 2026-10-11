@@ -1,0 +1,2393 @@
+{
+  "version": "arbi.fault-workflow-evidence/1.0",
+  "seed": 77,
+  "provenance": "isolated-software-experiment",
+  "physicalAcceptance": false,
+  "scenarios": [
+    {
+      "id": "driver-alarm",
+      "seed": 77,
+      "injectedAtMs": 1150,
+      "expected": {
+        "state": "Fault/recovery-required",
+        "reason": "FAULT_INHIBITED",
+        "bandwidth": "local-stop-independent-of-optional-transfer",
+        "audit": "attributed-intent-and-interrupted-unknown-effect"
+      },
+      "observed": {
+        "state": "Fault",
+        "reason": "FAULT_INHIBITED",
+        "dispatches": 1,
+        "applicationPayloadBytes": null
+      },
+      "trace": [
+        {
+          "outcome": "requested",
+          "state": "Ready",
+          "phase": "admitted",
+          "error": null,
+          "commandId": "fault-driver-alarm",
+          "sequence": "1"
+        },
+        {
+          "outcome": "accepted",
+          "state": "Ready",
+          "phase": "admitted",
+          "error": null,
+          "commandId": "fault-driver-alarm",
+          "sequence": "2"
+        },
+        {
+          "outcome": "running",
+          "state": "Moving",
+          "phase": "move",
+          "error": null,
+          "commandId": "fault-driver-alarm",
+          "sequence": "3"
+        },
+        {
+          "outcome": "running",
+          "state": "Moving",
+          "phase": "move",
+          "error": null,
+          "commandId": "fault-driver-alarm",
+          "sequence": "4"
+        },
+        {
+          "outcome": "failed",
+          "state": "Fault",
+          "phase": "operator-required",
+          "error": "FAULT_INHIBITED",
+          "commandId": "fault-driver-alarm",
+          "sequence": "5"
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "operator-1",
+          "correlation": 1,
+          "intentEventIndex": null,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "capture.request",
+          "evidence": "intent",
+          "outcome": "requested",
+          "reason": "requested",
+          "actor": "operator-1",
+          "correlation": 2,
+          "intentEventIndex": 1,
+          "commandId": "fault-driver-alarm",
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "capture.request",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "operator-1",
+          "correlation": 2,
+          "intentEventIndex": 1,
+          "commandId": "fault-driver-alarm",
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "capture.request",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "operator-1",
+          "correlation": 2,
+          "intentEventIndex": 1,
+          "commandId": "fault-driver-alarm",
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "capture.request",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "operator-1",
+          "correlation": 2,
+          "intentEventIndex": 1,
+          "commandId": "fault-driver-alarm",
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "capture.request",
+          "evidence": "connection-loss",
+          "outcome": "interrupted",
+          "reason": "response-lost",
+          "actor": "operator-1",
+          "correlation": 2,
+          "intentEventIndex": 1,
+          "commandId": "fault-driver-alarm",
+          "phase": null,
+          "bytes": null
+        }
+      ],
+      "version": "arbi.fault-workflow/1.0",
+      "semanticDigest": "36774151b28e329e652ad72404a0713fa178f2aff6ad078de9c85f4117a4ae86",
+      "physicalAcceptance": false
+    },
+    {
+      "id": "lost-reference",
+      "seed": 77,
+      "injectedAtMs": 1050,
+      "expected": {
+        "state": "Fault/recovery-required",
+        "reason": "FAULT_INHIBITED",
+        "bandwidth": "local-stop-independent-of-optional-transfer",
+        "audit": "attributed-intent-and-interrupted-unknown-effect"
+      },
+      "observed": {
+        "state": "Fault",
+        "reason": "FAULT_INHIBITED",
+        "dispatches": 1,
+        "applicationPayloadBytes": null
+      },
+      "trace": [
+        {
+          "outcome": "requested",
+          "state": "Ready",
+          "phase": "admitted",
+          "error": null,
+          "commandId": "fault-lost-reference",
+          "sequence": "1"
+        },
+        {
+          "outcome": "accepted",
+          "state": "Ready",
+          "phase": "admitted",
+          "error": null,
+          "commandId": "fault-lost-reference",
+          "sequence": "2"
+        },
+        {
+          "outcome": "running",
+          "state": "Moving",
+          "phase": "move",
+          "error": null,
+          "commandId": "fault-lost-reference",
+          "sequence": "3"
+        },
+        {
+          "outcome": "running",
+          "state": "Moving",
+          "phase": "move",
+          "error": null,
+          "commandId": "fault-lost-reference",
+          "sequence": "4"
+        },
+        {
+          "outcome": "failed",
+          "state": "Fault",
+          "phase": "operator-required",
+          "error": "FAULT_INHIBITED",
+          "commandId": "fault-lost-reference",
+          "sequence": "5"
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "operator-1",
+          "correlation": 1,
+          "intentEventIndex": null,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "capture.request",
+          "evidence": "intent",
+          "outcome": "requested",
+          "reason": "requested",
+          "actor": "operator-1",
+          "correlation": 2,
+          "intentEventIndex": 1,
+          "commandId": "fault-lost-reference",
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "capture.request",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "operator-1",
+          "correlation": 2,
+          "intentEventIndex": 1,
+          "commandId": "fault-lost-reference",
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "capture.request",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "operator-1",
+          "correlation": 2,
+          "intentEventIndex": 1,
+          "commandId": "fault-lost-reference",
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "capture.request",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "operator-1",
+          "correlation": 2,
+          "intentEventIndex": 1,
+          "commandId": "fault-lost-reference",
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "capture.request",
+          "evidence": "connection-loss",
+          "outcome": "interrupted",
+          "reason": "response-lost",
+          "actor": "operator-1",
+          "correlation": 2,
+          "intentEventIndex": 1,
+          "commandId": "fault-lost-reference",
+          "phase": null,
+          "bytes": null
+        }
+      ],
+      "version": "arbi.fault-workflow/1.0",
+      "semanticDigest": "4c541d2fffcf75acc7fac9732aa5d256fa7c7a80a4ecb3c7678f3c3ece33c720",
+      "physicalAcceptance": false
+    },
+    {
+      "id": "sensor-disagreement",
+      "seed": 77,
+      "injectedAtMs": 1050,
+      "expected": {
+        "state": "Fault/recovery-required",
+        "reason": "FAULT_INHIBITED",
+        "bandwidth": "local-stop-independent-of-optional-transfer",
+        "audit": "attributed-intent-and-interrupted-unknown-effect"
+      },
+      "observed": {
+        "state": "Fault",
+        "reason": "FAULT_INHIBITED",
+        "dispatches": 1,
+        "applicationPayloadBytes": null
+      },
+      "trace": [
+        {
+          "outcome": "requested",
+          "state": "Ready",
+          "phase": "admitted",
+          "error": null,
+          "commandId": "fault-sensor-disagreement",
+          "sequence": "1"
+        },
+        {
+          "outcome": "accepted",
+          "state": "Ready",
+          "phase": "admitted",
+          "error": null,
+          "commandId": "fault-sensor-disagreement",
+          "sequence": "2"
+        },
+        {
+          "outcome": "running",
+          "state": "Moving",
+          "phase": "move",
+          "error": null,
+          "commandId": "fault-sensor-disagreement",
+          "sequence": "3"
+        },
+        {
+          "outcome": "running",
+          "state": "Moving",
+          "phase": "move",
+          "error": null,
+          "commandId": "fault-sensor-disagreement",
+          "sequence": "4"
+        },
+        {
+          "outcome": "failed",
+          "state": "Fault",
+          "phase": "operator-required",
+          "error": "FAULT_INHIBITED",
+          "commandId": "fault-sensor-disagreement",
+          "sequence": "5"
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "operator-1",
+          "correlation": 1,
+          "intentEventIndex": null,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "capture.request",
+          "evidence": "intent",
+          "outcome": "requested",
+          "reason": "requested",
+          "actor": "operator-1",
+          "correlation": 2,
+          "intentEventIndex": 1,
+          "commandId": "fault-sensor-disagreement",
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "capture.request",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "operator-1",
+          "correlation": 2,
+          "intentEventIndex": 1,
+          "commandId": "fault-sensor-disagreement",
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "capture.request",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "operator-1",
+          "correlation": 2,
+          "intentEventIndex": 1,
+          "commandId": "fault-sensor-disagreement",
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "capture.request",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "operator-1",
+          "correlation": 2,
+          "intentEventIndex": 1,
+          "commandId": "fault-sensor-disagreement",
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "capture.request",
+          "evidence": "connection-loss",
+          "outcome": "interrupted",
+          "reason": "response-lost",
+          "actor": "operator-1",
+          "correlation": 2,
+          "intentEventIndex": 1,
+          "commandId": "fault-sensor-disagreement",
+          "phase": null,
+          "bytes": null
+        }
+      ],
+      "version": "arbi.fault-workflow/1.0",
+      "semanticDigest": "7f498b3a70208828bbc5638c29c60cf9dbb584eac084195fe812858b704f25a9",
+      "physicalAcceptance": false
+    },
+    {
+      "id": "pod-reset",
+      "seed": 77,
+      "injectedAtMs": 1050,
+      "expected": {
+        "state": "Fault/recovery-required",
+        "reason": "RESYNC_REQUIRED",
+        "bandwidth": "local-stop-independent-of-optional-transfer",
+        "audit": "attributed-intent-and-interrupted-unknown-effect"
+      },
+      "observed": {
+        "state": "Fault",
+        "reason": "RESYNC_REQUIRED",
+        "dispatches": 1,
+        "applicationPayloadBytes": null
+      },
+      "trace": [
+        {
+          "outcome": "requested",
+          "state": "Ready",
+          "phase": "admitted",
+          "error": null,
+          "commandId": "fault-pod-reset",
+          "sequence": "1"
+        },
+        {
+          "outcome": "accepted",
+          "state": "Ready",
+          "phase": "admitted",
+          "error": null,
+          "commandId": "fault-pod-reset",
+          "sequence": "2"
+        },
+        {
+          "outcome": "running",
+          "state": "Moving",
+          "phase": "move",
+          "error": null,
+          "commandId": "fault-pod-reset",
+          "sequence": "3"
+        },
+        {
+          "outcome": "running",
+          "state": "Moving",
+          "phase": "move",
+          "error": null,
+          "commandId": "fault-pod-reset",
+          "sequence": "4"
+        },
+        {
+          "outcome": "failed",
+          "state": "Fault",
+          "phase": "operator-required",
+          "error": "RESYNC_REQUIRED",
+          "commandId": "fault-pod-reset",
+          "sequence": "5"
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "operator-1",
+          "correlation": 1,
+          "intentEventIndex": null,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "capture.request",
+          "evidence": "intent",
+          "outcome": "requested",
+          "reason": "requested",
+          "actor": "operator-1",
+          "correlation": 2,
+          "intentEventIndex": 1,
+          "commandId": "fault-pod-reset",
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "capture.request",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "operator-1",
+          "correlation": 2,
+          "intentEventIndex": 1,
+          "commandId": "fault-pod-reset",
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "capture.request",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "operator-1",
+          "correlation": 2,
+          "intentEventIndex": 1,
+          "commandId": "fault-pod-reset",
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "capture.request",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "operator-1",
+          "correlation": 2,
+          "intentEventIndex": 1,
+          "commandId": "fault-pod-reset",
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "capture.request",
+          "evidence": "connection-loss",
+          "outcome": "interrupted",
+          "reason": "response-lost",
+          "actor": "operator-1",
+          "correlation": 2,
+          "intentEventIndex": 1,
+          "commandId": "fault-pod-reset",
+          "phase": null,
+          "bytes": null
+        }
+      ],
+      "version": "arbi.fault-workflow/1.0",
+      "semanticDigest": "0c7130e23f5caaff8d82c32977026256de1d259fc0f9669fbd6700924a2f0565",
+      "physicalAcceptance": false
+    },
+    {
+      "id": "power-instability",
+      "seed": 77,
+      "injectedAtMs": 1050,
+      "expected": {
+        "state": "Fault/recovery-required",
+        "reason": "FAULT_INHIBITED",
+        "bandwidth": "local-stop-independent-of-optional-transfer",
+        "audit": "attributed-intent-and-interrupted-unknown-effect"
+      },
+      "observed": {
+        "state": "Fault",
+        "reason": "FAULT_INHIBITED",
+        "dispatches": 1,
+        "applicationPayloadBytes": null
+      },
+      "trace": [
+        {
+          "outcome": "requested",
+          "state": "Ready",
+          "phase": "admitted",
+          "error": null,
+          "commandId": "fault-power-instability",
+          "sequence": "1"
+        },
+        {
+          "outcome": "accepted",
+          "state": "Ready",
+          "phase": "admitted",
+          "error": null,
+          "commandId": "fault-power-instability",
+          "sequence": "2"
+        },
+        {
+          "outcome": "running",
+          "state": "Moving",
+          "phase": "move",
+          "error": null,
+          "commandId": "fault-power-instability",
+          "sequence": "3"
+        },
+        {
+          "outcome": "running",
+          "state": "Moving",
+          "phase": "move",
+          "error": null,
+          "commandId": "fault-power-instability",
+          "sequence": "4"
+        },
+        {
+          "outcome": "failed",
+          "state": "Fault",
+          "phase": "operator-required",
+          "error": "FAULT_INHIBITED",
+          "commandId": "fault-power-instability",
+          "sequence": "5"
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "operator-1",
+          "correlation": 1,
+          "intentEventIndex": null,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "capture.request",
+          "evidence": "intent",
+          "outcome": "requested",
+          "reason": "requested",
+          "actor": "operator-1",
+          "correlation": 2,
+          "intentEventIndex": 1,
+          "commandId": "fault-power-instability",
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "capture.request",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "operator-1",
+          "correlation": 2,
+          "intentEventIndex": 1,
+          "commandId": "fault-power-instability",
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "capture.request",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "operator-1",
+          "correlation": 2,
+          "intentEventIndex": 1,
+          "commandId": "fault-power-instability",
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "capture.request",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "operator-1",
+          "correlation": 2,
+          "intentEventIndex": 1,
+          "commandId": "fault-power-instability",
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "capture.request",
+          "evidence": "connection-loss",
+          "outcome": "interrupted",
+          "reason": "response-lost",
+          "actor": "operator-1",
+          "correlation": 2,
+          "intentEventIndex": 1,
+          "commandId": "fault-power-instability",
+          "phase": null,
+          "bytes": null
+        }
+      ],
+      "version": "arbi.fault-workflow/1.0",
+      "semanticDigest": "a545c0e0775767125bd9ae6344ccd98e33b67700c8479611a583658850b129ba",
+      "physicalAcceptance": false
+    },
+    {
+      "id": "command-timeout",
+      "seed": 77,
+      "injectedAtMs": 10000,
+      "expected": {
+        "state": "Fault/recovery-required",
+        "reason": "DEADLINE_EXPIRED",
+        "bandwidth": "local-stop-independent-of-optional-transfer",
+        "audit": "attributed-intent-and-interrupted-unknown-effect"
+      },
+      "observed": {
+        "state": "Fault",
+        "reason": "DEADLINE_EXPIRED",
+        "dispatches": 1,
+        "applicationPayloadBytes": null
+      },
+      "trace": [
+        {
+          "outcome": "requested",
+          "state": "Ready",
+          "phase": "admitted",
+          "error": null,
+          "commandId": "fault-command-timeout",
+          "sequence": "1"
+        },
+        {
+          "outcome": "accepted",
+          "state": "Ready",
+          "phase": "admitted",
+          "error": null,
+          "commandId": "fault-command-timeout",
+          "sequence": "2"
+        },
+        {
+          "outcome": "running",
+          "state": "Moving",
+          "phase": "move",
+          "error": null,
+          "commandId": "fault-command-timeout",
+          "sequence": "3"
+        },
+        {
+          "outcome": "running",
+          "state": "Moving",
+          "phase": "move",
+          "error": null,
+          "commandId": "fault-command-timeout",
+          "sequence": "4"
+        },
+        {
+          "outcome": "failed",
+          "state": "Fault",
+          "phase": "operator-required",
+          "error": "DEADLINE_EXPIRED",
+          "commandId": "fault-command-timeout",
+          "sequence": "5"
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "operator-1",
+          "correlation": 1,
+          "intentEventIndex": null,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "capture.request",
+          "evidence": "intent",
+          "outcome": "requested",
+          "reason": "requested",
+          "actor": "operator-1",
+          "correlation": 2,
+          "intentEventIndex": 1,
+          "commandId": "fault-command-timeout",
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "capture.request",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "operator-1",
+          "correlation": 2,
+          "intentEventIndex": 1,
+          "commandId": "fault-command-timeout",
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "capture.request",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "operator-1",
+          "correlation": 2,
+          "intentEventIndex": 1,
+          "commandId": "fault-command-timeout",
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "capture.request",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "operator-1",
+          "correlation": 2,
+          "intentEventIndex": 1,
+          "commandId": "fault-command-timeout",
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "capture.request",
+          "evidence": "connection-loss",
+          "outcome": "interrupted",
+          "reason": "timeout",
+          "actor": "operator-1",
+          "correlation": 2,
+          "intentEventIndex": 1,
+          "commandId": "fault-command-timeout",
+          "phase": null,
+          "bytes": null
+        }
+      ],
+      "version": "arbi.fault-workflow/1.0",
+      "semanticDigest": "95e1759aa2c6531192690189aa4eb1f5083e16089c13053bb7ba990c9faa8a1f",
+      "physicalAcceptance": false
+    },
+    {
+      "id": "edge-restart",
+      "seed": 77,
+      "injectedAtMs": 1000,
+      "expected": {
+        "state": "Fault/recovery-required",
+        "reason": "INTERRUPTED",
+        "bandwidth": "local-stop-independent-of-optional-transfer",
+        "audit": "attributed-intent-and-interrupted-unknown-effect"
+      },
+      "observed": {
+        "state": "Fault",
+        "reason": "INTERRUPTED",
+        "dispatches": 1,
+        "applicationPayloadBytes": null
+      },
+      "trace": [
+        {
+          "outcome": "requested",
+          "state": "Ready",
+          "phase": "admitted",
+          "error": null,
+          "commandId": "fault-edge-restart",
+          "sequence": "1"
+        },
+        {
+          "outcome": "accepted",
+          "state": "Ready",
+          "phase": "admitted",
+          "error": null,
+          "commandId": "fault-edge-restart",
+          "sequence": "2"
+        },
+        {
+          "outcome": "running",
+          "state": "Moving",
+          "phase": "move",
+          "error": null,
+          "commandId": "fault-edge-restart",
+          "sequence": "3"
+        },
+        {
+          "outcome": "running",
+          "state": "Moving",
+          "phase": "move",
+          "error": null,
+          "commandId": "fault-edge-restart",
+          "sequence": "4"
+        },
+        {
+          "outcome": "failed",
+          "state": "Fault",
+          "phase": "operator-required",
+          "error": "INTERRUPTED",
+          "commandId": "fault-edge-restart",
+          "sequence": "5"
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "operator-1",
+          "correlation": 1,
+          "intentEventIndex": null,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "capture.request",
+          "evidence": "intent",
+          "outcome": "requested",
+          "reason": "requested",
+          "actor": "operator-1",
+          "correlation": 2,
+          "intentEventIndex": 1,
+          "commandId": "fault-edge-restart",
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "capture.request",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "operator-1",
+          "correlation": 2,
+          "intentEventIndex": 1,
+          "commandId": "fault-edge-restart",
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "capture.request",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "operator-1",
+          "correlation": 2,
+          "intentEventIndex": 1,
+          "commandId": "fault-edge-restart",
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "capture.request",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "operator-1",
+          "correlation": 2,
+          "intentEventIndex": 1,
+          "commandId": "fault-edge-restart",
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "capture.request",
+          "evidence": "connection-loss",
+          "outcome": "interrupted",
+          "reason": "source-restarted",
+          "actor": "operator-1",
+          "correlation": 2,
+          "intentEventIndex": 1,
+          "commandId": "fault-edge-restart",
+          "phase": null,
+          "bytes": null
+        }
+      ],
+      "version": "arbi.fault-workflow/1.0",
+      "semanticDigest": "e616164e8a2d71f440a458362039a1de4248005f99c2125ea8c2a644eeb0fae7",
+      "physicalAcceptance": false
+    },
+    {
+      "id": "cloud-outage",
+      "seed": 77,
+      "injectedAtMs": 1050,
+      "expected": {
+        "state": "Fault/recovery-required",
+        "reason": "LEASE_EXPIRED",
+        "bandwidth": "local-stop-independent-of-optional-transfer",
+        "audit": "attributed-intent-and-interrupted-unknown-effect"
+      },
+      "observed": {
+        "state": "Fault",
+        "reason": "LEASE_EXPIRED",
+        "dispatches": 1,
+        "applicationPayloadBytes": null
+      },
+      "trace": [
+        {
+          "outcome": "requested",
+          "state": "Ready",
+          "phase": "admitted",
+          "error": null,
+          "commandId": "fault-cloud-outage",
+          "sequence": "1"
+        },
+        {
+          "outcome": "accepted",
+          "state": "Ready",
+          "phase": "admitted",
+          "error": null,
+          "commandId": "fault-cloud-outage",
+          "sequence": "2"
+        },
+        {
+          "outcome": "running",
+          "state": "Moving",
+          "phase": "move",
+          "error": null,
+          "commandId": "fault-cloud-outage",
+          "sequence": "3"
+        },
+        {
+          "outcome": "running",
+          "state": "Moving",
+          "phase": "move",
+          "error": null,
+          "commandId": "fault-cloud-outage",
+          "sequence": "4"
+        },
+        {
+          "outcome": "failed",
+          "state": "Fault",
+          "phase": "operator-required",
+          "error": "LEASE_EXPIRED",
+          "commandId": "fault-cloud-outage",
+          "sequence": "5"
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "operator-1",
+          "correlation": 1,
+          "intentEventIndex": null,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "capture.request",
+          "evidence": "intent",
+          "outcome": "requested",
+          "reason": "requested",
+          "actor": "operator-1",
+          "correlation": 2,
+          "intentEventIndex": 1,
+          "commandId": "fault-cloud-outage",
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "capture.request",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "operator-1",
+          "correlation": 2,
+          "intentEventIndex": 1,
+          "commandId": "fault-cloud-outage",
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "capture.request",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "operator-1",
+          "correlation": 2,
+          "intentEventIndex": 1,
+          "commandId": "fault-cloud-outage",
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "capture.request",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "operator-1",
+          "correlation": 2,
+          "intentEventIndex": 1,
+          "commandId": "fault-cloud-outage",
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "capture.request",
+          "evidence": "connection-loss",
+          "outcome": "interrupted",
+          "reason": "response-lost",
+          "actor": "operator-1",
+          "correlation": 2,
+          "intentEventIndex": 1,
+          "commandId": "fault-cloud-outage",
+          "phase": null,
+          "bytes": null
+        }
+      ],
+      "version": "arbi.fault-workflow/1.0",
+      "semanticDigest": "3088b58421f5b6ea886e16a4b03ec6294168cac8332afb87dcaf7c7681ea449f",
+      "physicalAcceptance": false
+    },
+    {
+      "id": "interrupted-download",
+      "seed": 77,
+      "injectedAtMs": 0,
+      "expected": {
+        "state": "healthy",
+        "bandwidth": "70000-payload-bytes-including-retry;essential-health-allowed;optional-media-denied",
+        "audit": "original-actor-session-and-terminal-or-policy-outcome"
+      },
+      "observed": {
+        "state": "healthy",
+        "reason": null,
+        "dispatches": 1,
+        "applicationPayloadBytes": 70000
+      },
+      "trace": [
+        {
+          "class": "essential",
+          "simulatedHealthPayloadBytes": 64,
+          "transport": "not-executed",
+          "optionalMedia": "QUOTA_EXHAUSTED"
+        },
+        {
+          "offset": 0,
+          "requestedBytes": 65536,
+          "sentPayloadBytes": 4096
+        },
+        {
+          "offset": 4096,
+          "requestedBytes": 65536,
+          "sentPayloadBytes": 65536
+        },
+        {
+          "offset": 69632,
+          "requestedBytes": 368,
+          "sentPayloadBytes": 368
+        },
+        {
+          "module": "pico",
+          "phase": "healthy",
+          "installed": "pico-1.1.0",
+          "confirmed": "pico-1.1.0"
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "synthetic-update-operator",
+          "correlation": 1,
+          "intentEventIndex": null,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "synthetic-update-operator",
+          "correlation": 2,
+          "intentEventIndex": null,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "update.request",
+          "evidence": "intent",
+          "outcome": "requested",
+          "reason": "requested",
+          "actor": "synthetic-update-operator",
+          "correlation": 3,
+          "intentEventIndex": 2,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "synthetic-update-operator",
+          "correlation": 4,
+          "intentEventIndex": null,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "synthetic-update-operator",
+          "correlation": 5,
+          "intentEventIndex": null,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "update.install",
+          "evidence": "update-observation",
+          "outcome": "observed",
+          "reason": "observed",
+          "actor": "synthetic-update-operator",
+          "correlation": 3,
+          "intentEventIndex": 2,
+          "commandId": null,
+          "phase": "downloading",
+          "bytes": 4096
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "synthetic-update-operator",
+          "correlation": 6,
+          "intentEventIndex": null,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "synthetic-update-operator",
+          "correlation": 7,
+          "intentEventIndex": null,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "synthetic-update-operator",
+          "correlation": 8,
+          "intentEventIndex": null,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "update.install",
+          "evidence": "update-observation",
+          "outcome": "observed",
+          "reason": "observed",
+          "actor": "synthetic-update-operator",
+          "correlation": 3,
+          "intentEventIndex": 2,
+          "commandId": null,
+          "phase": "downloading",
+          "bytes": 65536
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "synthetic-update-operator",
+          "correlation": 9,
+          "intentEventIndex": null,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "synthetic-update-operator",
+          "correlation": 10,
+          "intentEventIndex": null,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "synthetic-update-operator",
+          "correlation": 11,
+          "intentEventIndex": null,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "update.install",
+          "evidence": "update-observation",
+          "outcome": "observed",
+          "reason": "observed",
+          "actor": "synthetic-update-operator",
+          "correlation": 3,
+          "intentEventIndex": 2,
+          "commandId": null,
+          "phase": "downloading",
+          "bytes": 368
+        },
+        {
+          "action": "update.install",
+          "evidence": "update-observation",
+          "outcome": "observed",
+          "reason": "observed",
+          "actor": "synthetic-update-operator",
+          "correlation": 3,
+          "intentEventIndex": 2,
+          "commandId": null,
+          "phase": "staged",
+          "bytes": null
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "synthetic-update-operator",
+          "correlation": 12,
+          "intentEventIndex": null,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "update.install",
+          "evidence": "update-observation",
+          "outcome": "observed",
+          "reason": "observed",
+          "actor": "synthetic-update-operator",
+          "correlation": 3,
+          "intentEventIndex": 2,
+          "commandId": null,
+          "phase": "staged",
+          "bytes": null
+        },
+        {
+          "action": "update.install",
+          "evidence": "update-observation",
+          "outcome": "observed",
+          "reason": "observed",
+          "actor": "synthetic-update-operator",
+          "correlation": 3,
+          "intentEventIndex": 2,
+          "commandId": null,
+          "phase": "trial",
+          "bytes": null
+        },
+        {
+          "action": "update.install",
+          "evidence": "device-outcome",
+          "outcome": "succeeded",
+          "reason": "completed",
+          "actor": "synthetic-update-operator",
+          "correlation": 3,
+          "intentEventIndex": 2,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "synthetic-update-operator",
+          "correlation": 13,
+          "intentEventIndex": null,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        }
+      ],
+      "version": "arbi.fault-workflow/1.0",
+      "semanticDigest": "3fa5bab5684b12c3ebc297549ab059d93e6d547182011437075913b57a5558ee",
+      "physicalAcceptance": false
+    },
+    {
+      "id": "failed-canary",
+      "seed": 77,
+      "injectedAtMs": 0,
+      "expected": {
+        "state": "rolled-back",
+        "bandwidth": "70000-payload-bytes-including-retry;essential-health-allowed;optional-media-denied",
+        "audit": "original-actor-session-and-terminal-or-policy-outcome"
+      },
+      "observed": {
+        "state": "rolled-back",
+        "reason": "CANARY_FAILED_ROLLED_BACK",
+        "dispatches": 1,
+        "applicationPayloadBytes": 70000
+      },
+      "trace": [
+        {
+          "class": "essential",
+          "simulatedHealthPayloadBytes": 64,
+          "transport": "not-executed",
+          "optionalMedia": "QUOTA_EXHAUSTED"
+        },
+        {
+          "offset": 0,
+          "requestedBytes": 65536,
+          "sentPayloadBytes": 65536
+        },
+        {
+          "offset": 65536,
+          "requestedBytes": 4464,
+          "sentPayloadBytes": 4464
+        },
+        {
+          "module": "pico",
+          "phase": "rolled-back",
+          "installed": "pico-1.0.0",
+          "confirmed": "pico-1.0.0"
+        },
+        {
+          "module": "pod",
+          "phase": "pending",
+          "installed": "pod-1.0.0",
+          "confirmed": "pod-1.0.0"
+        },
+        {
+          "module": "edge",
+          "phase": "pending",
+          "installed": "edge-1.0.0",
+          "confirmed": "edge-1.0.0"
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "synthetic-update-operator",
+          "correlation": 1,
+          "intentEventIndex": null,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "synthetic-update-operator",
+          "correlation": 2,
+          "intentEventIndex": null,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "update.request",
+          "evidence": "intent",
+          "outcome": "requested",
+          "reason": "requested",
+          "actor": "synthetic-update-operator",
+          "correlation": 3,
+          "intentEventIndex": 2,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "update.request",
+          "evidence": "intent",
+          "outcome": "requested",
+          "reason": "requested",
+          "actor": "synthetic-update-operator",
+          "correlation": 3,
+          "intentEventIndex": 3,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "update.request",
+          "evidence": "intent",
+          "outcome": "requested",
+          "reason": "requested",
+          "actor": "synthetic-update-operator",
+          "correlation": 3,
+          "intentEventIndex": 4,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "synthetic-update-operator",
+          "correlation": 4,
+          "intentEventIndex": null,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "synthetic-update-operator",
+          "correlation": 5,
+          "intentEventIndex": null,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "update.install",
+          "evidence": "update-observation",
+          "outcome": "observed",
+          "reason": "observed",
+          "actor": "synthetic-update-operator",
+          "correlation": 3,
+          "intentEventIndex": 2,
+          "commandId": null,
+          "phase": "downloading",
+          "bytes": 65536
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "synthetic-update-operator",
+          "correlation": 6,
+          "intentEventIndex": null,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "synthetic-update-operator",
+          "correlation": 7,
+          "intentEventIndex": null,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "synthetic-update-operator",
+          "correlation": 8,
+          "intentEventIndex": null,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "update.install",
+          "evidence": "update-observation",
+          "outcome": "observed",
+          "reason": "observed",
+          "actor": "synthetic-update-operator",
+          "correlation": 3,
+          "intentEventIndex": 2,
+          "commandId": null,
+          "phase": "downloading",
+          "bytes": 4464
+        },
+        {
+          "action": "update.install",
+          "evidence": "update-observation",
+          "outcome": "observed",
+          "reason": "observed",
+          "actor": "synthetic-update-operator",
+          "correlation": 3,
+          "intentEventIndex": 2,
+          "commandId": null,
+          "phase": "staged",
+          "bytes": null
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "synthetic-update-operator",
+          "correlation": 9,
+          "intentEventIndex": null,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "update.install",
+          "evidence": "update-observation",
+          "outcome": "observed",
+          "reason": "observed",
+          "actor": "synthetic-update-operator",
+          "correlation": 3,
+          "intentEventIndex": 2,
+          "commandId": null,
+          "phase": "staged",
+          "bytes": null
+        },
+        {
+          "action": "update.install",
+          "evidence": "update-observation",
+          "outcome": "observed",
+          "reason": "observed",
+          "actor": "synthetic-update-operator",
+          "correlation": 3,
+          "intentEventIndex": 2,
+          "commandId": null,
+          "phase": "trial",
+          "bytes": null
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "synthetic-update-operator",
+          "correlation": 10,
+          "intentEventIndex": null,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "update.rollback",
+          "evidence": "device-outcome",
+          "outcome": "succeeded",
+          "reason": "completed",
+          "actor": "synthetic-update-operator",
+          "correlation": 3,
+          "intentEventIndex": 2,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "synthetic-update-operator",
+          "correlation": 11,
+          "intentEventIndex": null,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        }
+      ],
+      "version": "arbi.fault-workflow/1.0",
+      "semanticDigest": "9db779172646b4f980ad8c2c84510d7b07f495db3cd34a9548c94494ef3e475b",
+      "physicalAcceptance": false
+    },
+    {
+      "id": "incompatible-release",
+      "seed": 77,
+      "injectedAtMs": 0,
+      "expected": {
+        "state": "rejected",
+        "bandwidth": "zero-artifact-bytes",
+        "audit": "attributed-current-authorization-without-installation"
+      },
+      "observed": {
+        "state": "rejected",
+        "reason": "INVALID_SIGNATURE",
+        "dispatches": 0,
+        "applicationPayloadBytes": 0
+      },
+      "trace": [
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "synthetic-update-operator",
+          "correlation": 1,
+          "intentEventIndex": null,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "synthetic-update-operator",
+          "correlation": 2,
+          "intentEventIndex": null,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        }
+      ],
+      "version": "arbi.fault-workflow/1.0",
+      "semanticDigest": "64d2ac4166f5cde49cbdaf4aa074a5269208c292e03f91f7de3f75b996395ae8",
+      "physicalAcceptance": false
+    },
+    {
+      "id": "corrupt-artifact",
+      "seed": 77,
+      "injectedAtMs": 0,
+      "expected": {
+        "state": "paused",
+        "bandwidth": "70000-payload-bytes-including-retry;essential-health-allowed;optional-media-denied",
+        "audit": "original-actor-session-and-terminal-or-policy-outcome"
+      },
+      "observed": {
+        "state": "paused",
+        "reason": "DIGEST_MISMATCH",
+        "dispatches": 0,
+        "applicationPayloadBytes": 70000
+      },
+      "trace": [
+        {
+          "class": "essential",
+          "simulatedHealthPayloadBytes": 64,
+          "transport": "not-executed",
+          "optionalMedia": "QUOTA_EXHAUSTED"
+        },
+        {
+          "offset": 0,
+          "requestedBytes": 65536,
+          "sentPayloadBytes": 65536
+        },
+        {
+          "offset": 65536,
+          "requestedBytes": 4464,
+          "sentPayloadBytes": 4464
+        },
+        {
+          "module": "pico",
+          "phase": "downloading",
+          "installed": "pico-1.0.0",
+          "confirmed": "pico-1.0.0"
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "synthetic-update-operator",
+          "correlation": 1,
+          "intentEventIndex": null,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "synthetic-update-operator",
+          "correlation": 2,
+          "intentEventIndex": null,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "update.request",
+          "evidence": "intent",
+          "outcome": "requested",
+          "reason": "requested",
+          "actor": "synthetic-update-operator",
+          "correlation": 3,
+          "intentEventIndex": 2,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "synthetic-update-operator",
+          "correlation": 4,
+          "intentEventIndex": null,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "synthetic-update-operator",
+          "correlation": 5,
+          "intentEventIndex": null,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "update.install",
+          "evidence": "update-observation",
+          "outcome": "observed",
+          "reason": "observed",
+          "actor": "synthetic-update-operator",
+          "correlation": 3,
+          "intentEventIndex": 2,
+          "commandId": null,
+          "phase": "downloading",
+          "bytes": 65536
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "synthetic-update-operator",
+          "correlation": 6,
+          "intentEventIndex": null,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "synthetic-update-operator",
+          "correlation": 7,
+          "intentEventIndex": null,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "synthetic-update-operator",
+          "correlation": 8,
+          "intentEventIndex": null,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        },
+        {
+          "action": "update.install",
+          "evidence": "update-observation",
+          "outcome": "observed",
+          "reason": "interrupted",
+          "actor": "synthetic-update-operator",
+          "correlation": 3,
+          "intentEventIndex": 2,
+          "commandId": null,
+          "phase": "downloading",
+          "bytes": 4464
+        },
+        {
+          "action": "update.install",
+          "evidence": "update-observation",
+          "outcome": "observed",
+          "reason": "local-inhibit",
+          "actor": "synthetic-update-operator",
+          "correlation": 3,
+          "intentEventIndex": 2,
+          "commandId": null,
+          "phase": "downloading",
+          "bytes": null
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "synthetic-update-operator",
+          "correlation": 9,
+          "intentEventIndex": null,
+          "commandId": null,
+          "phase": null,
+          "bytes": null
+        }
+      ],
+      "version": "arbi.fault-workflow/1.0",
+      "semanticDigest": "704b393da1fae7f9d2c72f7b479acd3683df09223b62b66e35c73c387a6f776b",
+      "physicalAcceptance": false
+    },
+    {
+      "version": "arbi.fault-workflow/1.0",
+      "id": "manipulation-revocation",
+      "seed": 77,
+      "expected": {
+        "admission": "one-allowed-one-denied",
+        "replay": "none",
+        "bandwidth": "not-measured"
+      },
+      "observed": {
+        "jobs": 1,
+        "disposition": "authority-lost",
+        "deviceOutcome": null
+      },
+      "trace": [
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "fault-operator",
+          "correlation": 1,
+          "intentEventIndex": null
+        },
+        {
+          "action": "control.session.start",
+          "evidence": "intent",
+          "outcome": "requested",
+          "reason": "requested",
+          "actor": "fault-operator",
+          "correlation": 2,
+          "intentEventIndex": 1
+        },
+        {
+          "action": "control.session.start",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "fault-operator",
+          "correlation": 2,
+          "intentEventIndex": 1
+        },
+        {
+          "action": "control.session.start",
+          "evidence": "service-outcome",
+          "outcome": "succeeded",
+          "reason": "completed",
+          "actor": "fault-operator",
+          "correlation": 2,
+          "intentEventIndex": 1
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "deny",
+          "reason": "not-authorized",
+          "actor": "fault-viewer",
+          "correlation": 3,
+          "intentEventIndex": null
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "fault-operator",
+          "correlation": 4,
+          "intentEventIndex": null
+        },
+        {
+          "action": "gimbal.move",
+          "evidence": "intent",
+          "outcome": "requested",
+          "reason": "requested",
+          "actor": "fault-operator",
+          "correlation": 5,
+          "intentEventIndex": 6
+        },
+        {
+          "action": "gimbal.move",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "fault-operator",
+          "correlation": 5,
+          "intentEventIndex": 6
+        },
+        {
+          "action": "gimbal.move",
+          "evidence": "service-outcome",
+          "outcome": "fail",
+          "reason": "execution-failed",
+          "actor": "fault-operator",
+          "correlation": 5,
+          "intentEventIndex": 6
+        }
+      ],
+      "physicalAcceptance": false,
+      "semanticDigest": "693cd27a094e9c2157592c64edf3b5171aed435894840ea81e4f32f9b22917d9"
+    },
+    {
+      "version": "arbi.fault-workflow/1.0",
+      "id": "concurrent-viewing-exhaustion",
+      "seed": 77,
+      "expected": {
+        "viewers": 2,
+        "sharedProducer": 1,
+        "policy": "profile-denied;explicit-lower;budget-exhausted",
+        "deliveryBytes": null
+      },
+      "observed": {
+        "viewers": 2,
+        "producersAfterStop": 0,
+        "deliveryBytes": null
+      },
+      "trace": [
+        {
+          "action": "live.grant",
+          "evidence": "intent",
+          "outcome": "requested",
+          "reason": "requested",
+          "actor": "fault-viewer",
+          "correlation": 1,
+          "intentEventIndex": 0
+        },
+        {
+          "action": "live.grant",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "fault-viewer",
+          "correlation": 1,
+          "intentEventIndex": 0
+        },
+        {
+          "action": "live.grant",
+          "evidence": "access-grant",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "fault-viewer",
+          "correlation": 1,
+          "intentEventIndex": 0
+        },
+        {
+          "action": "live.grant",
+          "evidence": "intent",
+          "outcome": "requested",
+          "reason": "requested",
+          "actor": "fault-second-viewer",
+          "correlation": 2,
+          "intentEventIndex": 3
+        },
+        {
+          "action": "live.grant",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "fault-second-viewer",
+          "correlation": 2,
+          "intentEventIndex": 3
+        },
+        {
+          "action": "live.grant",
+          "evidence": "access-grant",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "fault-second-viewer",
+          "correlation": 2,
+          "intentEventIndex": 3
+        },
+        {
+          "action": "live.grant",
+          "evidence": "authorization",
+          "outcome": "deny",
+          "reason": "not-authorized",
+          "actor": "fault-viewer",
+          "correlation": 1,
+          "intentEventIndex": 0
+        },
+        {
+          "action": "live.revoke",
+          "evidence": "service-outcome",
+          "outcome": "succeeded",
+          "reason": "revoked",
+          "actor": "fault-viewer",
+          "correlation": 1,
+          "intentEventIndex": 0
+        },
+        {
+          "action": "live.grant",
+          "evidence": "authorization",
+          "outcome": "deny",
+          "reason": "not-authorized",
+          "actor": "fault-second-viewer",
+          "correlation": 2,
+          "intentEventIndex": 3
+        },
+        {
+          "action": "live.revoke",
+          "evidence": "service-outcome",
+          "outcome": "succeeded",
+          "reason": "revoked",
+          "actor": "fault-second-viewer",
+          "correlation": 2,
+          "intentEventIndex": 3
+        },
+        {
+          "action": "live.grant",
+          "evidence": "intent",
+          "outcome": "requested",
+          "reason": "requested",
+          "actor": "fault-viewer",
+          "correlation": 3,
+          "intentEventIndex": 10
+        },
+        {
+          "action": "live.grant",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "fault-viewer",
+          "correlation": 3,
+          "intentEventIndex": 10
+        },
+        {
+          "action": "live.grant",
+          "evidence": "access-grant",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "fault-viewer",
+          "correlation": 3,
+          "intentEventIndex": 10
+        },
+        {
+          "action": "live.grant",
+          "evidence": "authorization",
+          "outcome": "deny",
+          "reason": "not-authorized",
+          "actor": "fault-viewer",
+          "correlation": 3,
+          "intentEventIndex": 10
+        },
+        {
+          "action": "live.revoke",
+          "evidence": "service-outcome",
+          "outcome": "succeeded",
+          "reason": "revoked",
+          "actor": "fault-viewer",
+          "correlation": 3,
+          "intentEventIndex": 10
+        },
+        {
+          "action": "live.grant",
+          "evidence": "intent",
+          "outcome": "requested",
+          "reason": "requested",
+          "actor": "fault-viewer",
+          "correlation": 4,
+          "intentEventIndex": 15
+        },
+        {
+          "action": "live.grant",
+          "evidence": "authorization",
+          "outcome": "deny",
+          "reason": "not-authorized",
+          "actor": "fault-viewer",
+          "correlation": 4,
+          "intentEventIndex": 15
+        }
+      ],
+      "physicalAcceptance": false,
+      "semanticDigest": "66c16533ec066abfddfb2d5b5841a462fe3e7b184d56ff1e8c1a74883fbc3bff"
+    },
+    {
+      "version": "arbi.fault-workflow/1.0",
+      "id": "disabled-recording",
+      "seed": 77,
+      "expected": {
+        "enabled": false
+      },
+      "observed": {
+        "enabled": false,
+        "operations": 6
+      },
+      "trace": [
+        {
+          "action": "start",
+          "enabled": false,
+          "status": 403
+        },
+        {
+          "action": "stop",
+          "enabled": false,
+          "status": 403
+        },
+        {
+          "action": "failure",
+          "enabled": false,
+          "status": 403
+        },
+        {
+          "action": "playback",
+          "enabled": false,
+          "status": 403
+        },
+        {
+          "action": "export",
+          "enabled": false,
+          "status": 403
+        },
+        {
+          "action": "delete",
+          "enabled": false,
+          "status": 403
+        }
+      ],
+      "physicalAcceptance": false,
+      "semanticDigest": "2cf437e5788720127bba73578971f5b26cb2a20f73de20c3298efd07dd53729a"
+    },
+    {
+      "version": "arbi.fault-workflow/1.0",
+      "id": "upload-lost-ack-retry",
+      "seed": 77,
+      "expected": {
+        "images": 1,
+        "layer": "application-payload",
+        "actualBytes": 246
+      },
+      "observed": {
+        "images": 1,
+        "objectBytes": 123,
+        "actualBytes": 246,
+        "carrierBytes": null
+      },
+      "trace": [
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "operator",
+          "correlation": 1,
+          "intentEventIndex": null
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "intent",
+          "outcome": "requested",
+          "reason": "requested",
+          "actor": "operator",
+          "correlation": 2,
+          "intentEventIndex": 1
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "service-outcome",
+          "outcome": "succeeded",
+          "reason": "completed",
+          "actor": "operator",
+          "correlation": 2,
+          "intentEventIndex": 1
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "intent",
+          "outcome": "requested",
+          "reason": "requested",
+          "actor": "operator",
+          "correlation": 3,
+          "intentEventIndex": 3
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "service-outcome",
+          "outcome": "succeeded",
+          "reason": "completed",
+          "actor": "operator",
+          "correlation": 3,
+          "intentEventIndex": 3
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "operator",
+          "correlation": 4,
+          "intentEventIndex": null
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "operator",
+          "correlation": 5,
+          "intentEventIndex": null
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "intent",
+          "outcome": "requested",
+          "reason": "requested",
+          "actor": "operator",
+          "correlation": 6,
+          "intentEventIndex": 7
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "service-outcome",
+          "outcome": "fail",
+          "reason": "storage-failed",
+          "actor": "operator",
+          "correlation": 6,
+          "intentEventIndex": 7
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "operator",
+          "correlation": 7,
+          "intentEventIndex": null
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "intent",
+          "outcome": "requested",
+          "reason": "requested",
+          "actor": "operator",
+          "correlation": 8,
+          "intentEventIndex": 10
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "service-outcome",
+          "outcome": "succeeded",
+          "reason": "completed",
+          "actor": "operator",
+          "correlation": 8,
+          "intentEventIndex": 10
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "operator",
+          "correlation": 9,
+          "intentEventIndex": null
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "operator",
+          "correlation": 10,
+          "intentEventIndex": null
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "intent",
+          "outcome": "requested",
+          "reason": "requested",
+          "actor": "operator",
+          "correlation": 11,
+          "intentEventIndex": 14
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "service-outcome",
+          "outcome": "succeeded",
+          "reason": "completed",
+          "actor": "operator",
+          "correlation": 11,
+          "intentEventIndex": 14
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "operator",
+          "correlation": 12,
+          "intentEventIndex": null
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "operator",
+          "correlation": 13,
+          "intentEventIndex": null
+        },
+        {
+          "action": "authorization.check",
+          "evidence": "authorization",
+          "outcome": "allow",
+          "reason": "authorized",
+          "actor": "operator",
+          "correlation": 14,
+          "intentEventIndex": null
+        }
+      ],
+      "physicalAcceptance": false,
+      "semanticDigest": "54e8a936d402b83d54b1b3b5987e1670abd39e8f6d84be5a13fce8b2bc8f7275"
+    }
+  ]
+}

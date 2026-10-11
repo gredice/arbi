@@ -124,3 +124,5 @@ Design decisions belong in ADRs. Work items and unresolved questions belong in G
 - [Isolated update operation API](software/update-operations.md), [software evidence](evidence/update-operations.md), and [ADR-0020](decisions/0020-isolated-update-orchestration.md)
 
 - [Device release and update dashboard](software/update-dashboard.md), [browser/software evidence](evidence/update-dashboard.md), and [ADR-0021](decisions/0021-isolated-update-dashboard.md)
+
+- [Seeded service fault workflows](software/fault-workflows.md), [software evidence](evidence/fault-workflows.md), and [ADR-0022](decisions/0022-seeded-service-fault-workflows.md)
