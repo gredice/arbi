@@ -9,6 +9,7 @@ Use this guide for repository layout, toolchains, commands, package boundaries, 
 - `bom`: canonical procurement and assembly inputs plus deterministic generated reports.
 - `packages/arbi-bom`: implemented BOM schemas, calculations, generators, and tests.
 - `packages/arbi-protocol`: [implemented versioned message and configuration/calibration contracts](packages/arbi-protocol/README.md), runtime validation, consumed TypeScript bindings and reference fixtures; device adapters and physical calibration remain follow-up work.
+- `apps/arbi-pod-firmware`: [inhibited Linux service foundation](apps/arbi-pod-firmware/README.md), authenticated bounded loopback diagnostics and explicit health/log/usage provenance; real camera/gimbal and named Pi bench acceptance remain gated.
 - `apps/arbi-control-cabinet-firmware`: [Pico 2 W C11 diagnostic foundation](apps/arbi-control-cabinet-firmware/README.md), pinned ARM build and shared-core host checks; target boot is unconfigured, unenrolled and inhibited, without actuator outputs.
 - `packages/arbi-simulation-core`: [implemented offline scenario runner and adapter seams](packages/arbi-simulation-core/README.md), bounded virtual time, seeded disturbances, analytical references and [bounded plant/module model 1.0](docs/software/bounded-plant-model.md); physical fidelity and runtime integration remain follow-up work.
 - `packages/arbi-gredice`: [implemented signed identity, current account/site permissions and server request boundary](packages/arbi-gredice/README.md), with an isolated simulation identity provider; live Gredice provisioning and resource implementations remain separate work.
@@ -194,7 +195,6 @@ The following paths are reserved but should not exist until implementation begin
 - `apps/arbi-dashboard`: implemented enrollment, [image-storage HTTP slices](docs/software/image-storage.md) and [authenticated user/engineering shell](docs/software/dashboard-shell.md); remaining operational UI/API and live provider acceptance in Gredice's Vercel team are follow-up work;
 - `apps/arbi-simulator`: executable simulator or simulator UI;
 - `apps/arbi-cloud`: reserved only if a later reviewed decision requires an independent backend; the initial API belongs to `apps/arbi-dashboard`;
-- `apps/arbi-pod-firmware`: pod camera, gimbal, power-health, and local service target;
 - `packages/arbi-gredice`: implemented identity/site authorization; bed/plant target integration remains future work in this adapter;
 - `packages/arbi-control`: pure control and geometry logic when shared;
 - `packages/arbi-simulation-core`: implemented deterministic scenarios and bounded plant/module references described above; measured physical fidelity remains separate work.

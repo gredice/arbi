@@ -2,7 +2,7 @@ import { openSync, fstatSync, readSync, closeSync } from 'node:fs';
 import { Ajv2020 } from 'ajv/dist/2020.js';
 import { validateConfigurationRecord, type AppliedConfiguration } from '@arbi/protocol';
 
-export const TRANSPORT_VERSION = 'arbi.local/1.0';
+export { TRANSPORT_VERSION } from '@arbi/protocol/local';
 export const LINK_TIMEOUT_MS = 1500;
 export const RECONNECT_MIN_MS = 250;
 export const RECONNECT_MAX_MS = 5000;
