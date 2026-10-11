@@ -1,0 +1,23 @@
+{
+  "version": "arbi.pico-flash-model/1.0",
+  "origin": "simulated",
+  "boardId": "raspberry-pi-pico-2-w",
+  "flashBytes": 4194304,
+  "eraseBytes": 4096,
+  "programBytes": 256,
+  "imageHeaderBytes": 16384,
+  "localTrialBudgetMs": 8000,
+  "partitions": [
+    { "name": "rom-table-reserve", "offset": 0, "bytes": 4096 },
+    { "name": "rescue", "offset": 4096, "bytes": 258048 },
+    { "name": "A", "offset": 262144, "bytes": 1572864 },
+    { "name": "B", "offset": 1835008, "bytes": 1572864 },
+    { "name": "configuration", "offset": 3407872, "bytes": 65536 },
+    { "name": "journal-0", "offset": 3473408, "bytes": 4096 },
+    { "name": "journal-1", "offset": 3477504, "bytes": 4096 },
+    { "name": "unallocated", "offset": 3481600, "bytes": 712704 }
+  ],
+  "physicalInstallerEnabled": false,
+  "romPartitionTableInstalled": false,
+  "deviceSignatureVerifierAvailable": false
+}
