@@ -16,6 +16,13 @@ export interface SqlDatabase {
 }
 /** Same checked-out connection owns BEGIN, row lock, audit, state update and COMMIT. */
 export function postgresDatabase(pool: Pool): SqlDatabase {
+  return database(pool,false);
+}
+/** Private operator migration/recovery connection only; never an HTTP-selected mode. */
+export function postgresOperatorDatabase(pool:Pool):SqlDatabase {
+  return database(pool,true);
+}
+function database(pool:Pool,operator:boolean):SqlDatabase {
   return { async transaction(work) {
     const client = await pool.connect();
     try {
@@ -23,6 +30,15 @@ export function postgresDatabase(pool: Pool): SqlDatabase {
       await client.query("SET LOCAL statement_timeout = '5s'");
       await client.query("SET LOCAL lock_timeout = '2s'");
       await client.query("SET LOCAL idle_in_transaction_session_timeout = '5s'");
+      if(!operator){
+        const exists=(await client.query("SELECT to_regclass('public.arbi_operations_gate') IS NOT NULL AS present")).rows[0].present;
+        if(exists){
+          // The shared lock keeps a recovery operator from changing admission
+          // while an application transaction is in flight. Missing rows deny.
+          const gate=(await client.query("SELECT public.arbi_operations_ready() AS ready")).rows[0];
+          if(gate?.ready!==true)throw new EnrollmentError('UNAVAILABLE');
+        }
+      }
       const result = await work({ query: async (sql, parameters) => client.query(sql, parameters) });
       await client.query("COMMIT");
       return result;

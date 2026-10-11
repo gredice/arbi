@@ -60,3 +60,7 @@ The [usage adapter](src/usage/server.ts) mounts `/api/sites/:siteId/usage/:actio
 ## Bandwidth and activity
 
 [Usage and audit dashboard](../../docs/software/usage-audit-dashboard.md) documents the demand-driven persisted reports, audited policy editor, frozen filtered timeline and authorized minimized exports. Trusted composition installs [createDashboardHistoryTools](src/dashboard/history-tools.ts) alongside the dashboard identity/resource boundary; ordinary/branch-preview starts deny these BFF routes. The isolated operator provisioner applies additive usage/audit-lifecycle/settings migrations and signs synthetic history before browser checks. No app startup migration or real provider acceptance is implied.
+
+## Operations and recovery
+
+[Cloud operations](../../docs/software/cloud-operations.md) and [ADR-0011](../../docs/decisions/0011-cloud-recovery-quarantine.md) define private configuration validation, current-authority diagnostics, bounded process logs/counters, owner migration and restoration quarantine. Ordinary/branch-preview operations routes fail closed until explicitly composed. Apply owner-only `db:migrate:operations` after the existing audit baseline, retaining narrow app function/SELECT grants. The native suite runs an actual private dump/restore drill; it preserves historical references and blocks restored admission until external/local state is reconciled. No production restore target or automatic release endpoint is exposed.
