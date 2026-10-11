@@ -8,11 +8,11 @@ import type { SqlDatabase, SqlSession } from "../enrollment/store";
 export type TrustedBinding = Omit<AuditBoundary, "ingestTime">;
 export type StagedReceipt = Omit<DurableReceipt, "durable">;
 export interface AuditRow extends Record<string, unknown> {
-  id: string; ordinal: string; content_hash: string; previous_hash: string; hash: string; record: AuditEvent;
+  id: string; ordinal: string; content_hash: string; previous_hash: string; hash: string; record: AuditEvent | null;
 }
 export function scope(realm: Realm, siteId: string): string[] { return [realm.environment, realm.namespaceId, siteId]; }
 function receipt(row: AuditRow): StagedReceipt {
-  if (!row.record.ingestTime) throw new AuditError("TAMPER");
+  if (!row.record?.ingestTime) throw new AuditError("TAMPER");
   return { eventId: row.id, contentHash: row.content_hash, ingestTime: row.record.ingestTime };
 }
 export class PostgresAuditStore {
@@ -28,20 +28,24 @@ export class PostgresAuditStore {
       utc: new Date(this.now()).toISOString(), uncertaintyMs: this.uncertaintyMs, deviceId: this.receiverId,
     } });
     if (!admitted.ok) throw new AuditError("DENIED");
-    if (event.evidence !== "intent" && event.links.intentEventId !== null) {
-      const root = (await sql.query<{ record: AuditEvent }>("SELECT record FROM arbi_audit_history WHERE id=$1 AND environment=$2 AND namespace_id=$3 AND site_id=$4",
-        [event.links.intentEventId,...scope(event.realm,event.siteId)])).rows;
-      if (root.length !== 1 || !correlateAuditEvent(root[0].record,event).ok) throw new AuditError("DENIED");
-    }
     const key = scope(event.realm, event.siteId), hash = contentHash(event), stream = streamKey(event);
     await sql.query("INSERT INTO arbi_audit_heads(environment,namespace_id,site_id) VALUES($1,$2,$3) ON CONFLICT DO NOTHING", key);
     const head = (await sql.query<{ ordinal: string; hash: string }>(
       "SELECT ordinal,hash FROM arbi_audit_heads WHERE environment=$1 AND namespace_id=$2 AND site_id=$3 FOR UPDATE", key)).rows[0];
     const prior = (await sql.query<AuditRow>("SELECT * FROM arbi_audit_events WHERE id=$1 OR (stream=$2 AND sequence=$3)", [event.eventId, stream, event.sequence])).rows;
     if (prior.length) {
+      if(prior.length===1 && prior[0].record===null && prior[0].id===event.eventId && prior[0].content_hash===hash){
+        const retired=(await sql.query<{original_ingest_time:AuditEvent['ingestTime']}>("SELECT original_ingest_time FROM arbi_audit_retirements WHERE origin='durable' AND event_id=$1 AND environment=$2 AND namespace_id=$3 AND site_id=$4",[event.eventId,...key])).rows[0];
+        if(!retired?.original_ingest_time)throw new AuditError('TAMPER');return {eventId:event.eventId,contentHash:hash,ingestTime:retired.original_ingest_time};
+      }
       if (prior.length !== 1 || prior[0].id !== event.eventId || prior[0].content_hash !== hash ||
         !isDeepStrictEqual({ ...prior[0].record, ingestTime: null }, event)) throw new AuditError("CONFLICT");
       return receipt(prior[0]);
+    }
+    if (event.evidence !== "intent" && event.links.intentEventId !== null) {
+      const root = (await sql.query<{ record: AuditEvent | null }>("SELECT record FROM arbi_audit_history WHERE id=$1 AND environment=$2 AND namespace_id=$3 AND site_id=$4",
+        [event.links.intentEventId,...scope(event.realm,event.siteId)])).rows;
+      if (root.length !== 1 || !root[0].record || !correlateAuditEvent(root[0].record,event).ok) throw new AuditError("DENIED");
     }
     const ordinal = Number(head.ordinal) + 1;
     if (!Number.isSafeInteger(ordinal)) throw new AuditError("CAPACITY");
@@ -56,9 +60,9 @@ export class PostgresAuditStore {
       SELECT sequence,lag(sequence,1,0::numeric) OVER(ORDER BY sequence) AS prior FROM arbi_audit_events WHERE stream=$1
       ) SELECT (prior+1)::text AS "from",(sequence-1)::text AS "to" FROM ordered WHERE sequence>prior+1 ORDER BY sequence LIMIT 33`, [stream])).rows;
     const adjacent = (await sql.query<{ sequence: string; record: AuditEvent }>(`(
-      SELECT sequence,record FROM arbi_audit_events WHERE stream=$1 AND sequence<$2::numeric ORDER BY sequence DESC LIMIT 1
+      SELECT sequence,record FROM arbi_audit_events WHERE stream=$1 AND record IS NOT NULL AND sequence<$2::numeric ORDER BY sequence DESC LIMIT 1
       ) UNION ALL (
-      SELECT sequence,record FROM arbi_audit_events WHERE stream=$1 AND sequence>$2::numeric ORDER BY sequence ASC LIMIT 1
+      SELECT sequence,record FROM arbi_audit_events WHERE stream=$1 AND record IS NOT NULL AND sequence>$2::numeric ORDER BY sequence ASC LIMIT 1
       )`, [stream, event.sequence])).rows;
     const clockRegression = adjacent.some((r) => BigInt(r.sequence) < BigInt(event.sequence) ?
       r.record.sourceTime.monotonicMs > event.sourceTime.monotonicMs : r.record.sourceTime.monotonicMs < event.sourceTime.monotonicMs);
@@ -102,24 +106,30 @@ export class PostgresAuditStore {
       JOIN arbi_audit_events e ON e.id=o.id LEFT JOIN arbi_audit_deliveries d ON d.id=o.id
       WHERE e.environment=$1 AND e.namespace_id=$2 AND e.site_id=$3 AND d.id IS NULL ORDER BY e.ordinal LIMIT $4`, [...scope(realm, siteId), limit])).rows);
     for (const row of rows) {
+      if(!row.record)throw new AuditError('TAMPER');
       await send(row.id, structuredClone(row.record));
       await this.db.transaction(async (sql) => { await sql.query("INSERT INTO arbi_audit_deliveries(id) VALUES($1) ON CONFLICT DO NOTHING", [row.id]); });
     }
     return rows.length;
   }
-  async verify(realm: Realm, siteId: string): Promise<{ ordinal: number; hash: string }> {
+  async verify(realm: Realm, siteId: string): Promise<{ ordinal: number; hash: string; retiredPayloads:number }> {
     return this.db.transaction(async (sql) => {
       const key = scope(realm,siteId);
       const head = (await sql.query<{ ordinal: string; hash: string }>("SELECT * FROM arbi_audit_heads WHERE environment=$1 AND namespace_id=$2 AND site_id=$3 FOR UPDATE",key)).rows[0];
       const rows = (await sql.query<AuditRow>("SELECT * FROM arbi_audit_events WHERE environment=$1 AND namespace_id=$2 AND site_id=$3 ORDER BY ordinal",key)).rows;
-      let ordinal = 0, hash = GENESIS;
+      let ordinal = 0, hash = GENESIS,retiredPayloads=0;
       for (const row of rows) {
+        if(row.record===null){
+          const retired=(await sql.query<{record_digest:string;content_hash:string}>("SELECT record_digest,content_hash FROM arbi_audit_retirements WHERE origin='durable' AND event_id=$1 AND environment=$2 AND namespace_id=$3 AND site_id=$4",[row.id,...key])).rows[0];
+          if(!retired || retired.content_hash!==row.content_hash || Number(row.ordinal)!==ordinal+1 || row.previous_hash!==hash || row.hash!==chainHash(hash,ordinal+1,retired.record_digest))throw new AuditError('TAMPER');
+          ordinal++;hash=row.hash;retiredPayloads++;continue;
+        }
         if (Number(row.ordinal) !== ordinal + 1 || row.id !== row.record.eventId || row.content_hash !== contentHash(row.record) ||
           row.previous_hash !== hash || row.hash !== chainHash(hash,ordinal+1,digest(row.record))) throw new AuditError("TAMPER");
         ordinal++; hash = row.hash;
       }
       if (head && (Number(head.ordinal) !== ordinal || head.hash !== hash)) throw new AuditError("TAMPER");
-      return { ordinal, hash };
+      return { ordinal, hash,retiredPayloads };
     });
   }
 }

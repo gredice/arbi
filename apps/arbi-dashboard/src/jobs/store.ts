@@ -292,6 +292,8 @@ export class PostgresJobStore {
       const event = await this.event(tx,context,"authorization.check",{ kind: "site",id: record.siteId!,deviceId: null });
       event.evidence = "authorization";event.outcome = record.decision === "authorized" ? "allow" : "deny";
       event.reason = record.decision === "authorized" ? "authorized" : "not-authorized";
+      if(record.capability === 'audit.export') event.metadata.permission = 'export';
+      if(record.capability === 'audit.read') event.metadata.permission = 'view';
       event.links = { ...event.links,correlationId: record.correlationId,intentEventId: null,sessionId: record.sessionId };
       if (signal.aborted) throw new JobError("UNAVAILABLE");await this.audit.stage(tx.sql,event,binding(event));
     });return !signal.aborted;
