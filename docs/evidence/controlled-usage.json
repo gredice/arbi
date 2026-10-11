@@ -1,0 +1,257 @@
+{
+  "version": "arbi.controlled-usage-evidence/1.0",
+  "node": "v24.19.0",
+  "cases": [
+    {
+      "id": "idle-short-sample",
+      "durationMs": 63.899137999999766,
+      "connections": 0,
+      "application": {
+        "uploadBytes": "0",
+        "downloadBytes": "0",
+        "peerReceivedBytes": [],
+        "attempts": 0,
+        "retryAttempts": 0,
+        "category": "still",
+        "coverage": "fixture-transport-submission-and-peer-receipt"
+      },
+      "link": {
+        "boundary": "linux-loopback",
+        "coverage": "partial",
+        "uncertaintyMs": 20,
+        "uploadBytes": "0",
+        "downloadBytes": "0",
+        "unexplainedUploadBytes": "0",
+        "unexplainedDownloadBytes": "0",
+        "includes": [
+          "payload",
+          "retries",
+          "transport-overhead",
+          "non-arbi"
+        ],
+        "carrierBytes": null,
+        "turnBytes": null
+      },
+      "localStop": false,
+      "optionalMediaDenied": false,
+      "optionalUpdateDenied": false,
+      "physicalAcceptance": false
+    },
+    {
+      "id": "bounded-reconnect",
+      "durationMs": 70.48687500000051,
+      "connections": 8,
+      "application": {
+        "uploadBytes": "512",
+        "downloadBytes": "128",
+        "peerReceivedBytes": [
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64
+        ],
+        "attempts": 16,
+        "retryAttempts": 0,
+        "category": "telemetry",
+        "coverage": "fixture-transport-submission-and-peer-receipt"
+      },
+      "link": {
+        "boundary": "linux-loopback",
+        "coverage": "partial",
+        "uncertaintyMs": 20,
+        "uploadBytes": "4928",
+        "downloadBytes": "4928",
+        "unexplainedUploadBytes": "4288",
+        "unexplainedDownloadBytes": "4288",
+        "includes": [
+          "payload",
+          "retries",
+          "transport-overhead",
+          "non-arbi"
+        ],
+        "carrierBytes": null,
+        "turnBytes": null
+      },
+      "localStop": false,
+      "optionalMediaDenied": false,
+      "optionalUpdateDenied": false,
+      "physicalAcceptance": false
+    },
+    {
+      "id": "still-interrupted-retry",
+      "durationMs": 51.22400800000014,
+      "connections": 2,
+      "application": {
+        "uploadBytes": "327680",
+        "downloadBytes": "32",
+        "peerReceivedBytes": [
+          65536,
+          262144
+        ],
+        "attempts": 4,
+        "retryAttempts": 1,
+        "category": "still",
+        "coverage": "fixture-transport-submission-and-peer-receipt"
+      },
+      "link": {
+        "boundary": "linux-loopback",
+        "coverage": "partial",
+        "uncertaintyMs": 20,
+        "uploadBytes": "329356",
+        "downloadBytes": "329356",
+        "unexplainedUploadBytes": "1644",
+        "unexplainedDownloadBytes": "1644",
+        "includes": [
+          "payload",
+          "retries",
+          "transport-overhead",
+          "non-arbi"
+        ],
+        "carrierBytes": null,
+        "turnBytes": null
+      },
+      "localStop": false,
+      "optionalMediaDenied": false,
+      "optionalUpdateDenied": false,
+      "physicalAcceptance": false
+    },
+    {
+      "id": "diagnostic-export",
+      "durationMs": 47.123993000000155,
+      "connections": 1,
+      "application": {
+        "uploadBytes": "64",
+        "downloadBytes": "65536",
+        "peerReceivedBytes": [
+          64
+        ],
+        "attempts": 2,
+        "retryAttempts": 0,
+        "category": "logs-audit",
+        "coverage": "fixture-transport-submission-and-peer-receipt"
+      },
+      "link": {
+        "boundary": "linux-loopback",
+        "coverage": "partial",
+        "uncertaintyMs": 20,
+        "uploadBytes": "66188",
+        "downloadBytes": "66188",
+        "unexplainedUploadBytes": "588",
+        "unexplainedDownloadBytes": "588",
+        "includes": [
+          "payload",
+          "retries",
+          "transport-overhead",
+          "non-arbi"
+        ],
+        "carrierBytes": null,
+        "turnBytes": null
+      },
+      "localStop": false,
+      "optionalMediaDenied": false,
+      "optionalUpdateDenied": false,
+      "physicalAcceptance": false
+    },
+    {
+      "id": "artifact-download",
+      "durationMs": 51.11909999999989,
+      "connections": 1,
+      "application": {
+        "uploadBytes": "64",
+        "downloadBytes": "524288",
+        "peerReceivedBytes": [
+          64
+        ],
+        "attempts": 2,
+        "retryAttempts": 0,
+        "category": "ota",
+        "coverage": "fixture-transport-submission-and-peer-receipt"
+      },
+      "link": {
+        "boundary": "linux-loopback",
+        "coverage": "partial",
+        "uncertaintyMs": 20,
+        "uploadBytes": "525876",
+        "downloadBytes": "525876",
+        "unexplainedUploadBytes": "1524",
+        "unexplainedDownloadBytes": "1524",
+        "includes": [
+          "payload",
+          "retries",
+          "transport-overhead",
+          "non-arbi"
+        ],
+        "carrierBytes": null,
+        "turnBytes": null
+      },
+      "localStop": false,
+      "optionalMediaDenied": false,
+      "optionalUpdateDenied": false,
+      "physicalAcceptance": false
+    },
+    {
+      "id": "optional-exhaustion-essential-stop",
+      "durationMs": 97.76387800000066,
+      "connections": 1,
+      "application": {
+        "uploadBytes": "64",
+        "downloadBytes": "16",
+        "peerReceivedBytes": [
+          64
+        ],
+        "attempts": 2,
+        "retryAttempts": 0,
+        "category": "telemetry",
+        "coverage": "fixture-transport-submission-and-peer-receipt"
+      },
+      "link": {
+        "boundary": "linux-loopback",
+        "coverage": "partial",
+        "uncertaintyMs": 20,
+        "uploadBytes": "616",
+        "downloadBytes": "616",
+        "unexplainedUploadBytes": "536",
+        "unexplainedDownloadBytes": "536",
+        "includes": [
+          "payload",
+          "retries",
+          "transport-overhead",
+          "non-arbi"
+        ],
+        "carrierBytes": null,
+        "turnBytes": null
+      },
+      "localStop": true,
+      "optionalMediaDenied": true,
+      "optionalUpdateDenied": true,
+      "physicalAcceptance": false
+    }
+  ],
+  "physicalAcceptance": false,
+  "invoiceSavings": null,
+  "blocked": [
+    {
+      "id": "idle-day",
+      "reason": "24-hour-mobile-link-measurement-required"
+    },
+    {
+      "id": "production-direct-turn",
+      "reason": "transport-not-selected"
+    },
+    {
+      "id": "carrier-router-wan",
+      "reason": "no-mobile-link-or-provider"
+    },
+    {
+      "id": "recording",
+      "reason": "deferred-disabled"
+    }
+  ],
+  "sourceCommit": "d70a2acd2a86b8b02d18071593fe825cdeffe31c",
+  "sourceDigest": "c514044c6a1c3b7f1f7d1cd0208d5a62096d943ea9d3de797f3774044f76a55b",
+  "dirty": false
+}
