@@ -1,5 +1,7 @@
 # Pod service foundation
 
+The trusted [gimbal source model](../../docs/software/gimbal-model.md) consumes actual configuration/command admission and stopped-motion evidence. It bounds axis/PWM/velocity policy and synthetic settling without hardware activation. See [source and physical evidence](../../docs/evidence/gimbal-model.md).
+
 Node/TypeScript executable with a supervised Linux unit, real TLS 1.3 loopback diagnostic adapter, bounded local records and shared audit/traffic spools. The production adapter has no camera or servo access. Default startup needs no credentials and exposes `Fault` / `CONFIG_MISSING` on loopback health; it cannot capture, reposition, autofocus, provision devices or install updates.
 
 From the repository root:
