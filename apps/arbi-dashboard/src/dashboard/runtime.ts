@@ -6,7 +6,8 @@ import { createDashboardTestProvider } from "./test-provider";
 import { isBranchPreview } from "../deployment";
 
 export const SESSION_COOKIE = "arbi_dashboard_session";
-interface DashboardRuntime { server: DashboardServer; login?: (code: string) => Promise<string | null>; revoke?: (token: string) => Promise<void> }
+interface DashboardRuntime { server: DashboardServer; login?: (code: string) => Promise<string | null>; revoke?: (token: string) => Promise<void>;
+  historyTools?:{handle:(request:Request,siteId:string,feature:string,action:string)=>Promise<Response>}; }
 let configured: DashboardRuntime | undefined;
 let attempted = false;
 /** Live composition supplies the existing trusted provider; it never uses fixture identity. */
@@ -43,9 +44,16 @@ export function dashboardRequest(request: Request): Request {
     const token = request.headers.get("cookie")?.split(";").map(v => v.trim()).find(v => v.startsWith(`${SESSION_COOKIE}=`))?.slice(SESSION_COOKIE.length + 1);
     if (token) headers.set("authorization", `Bearer ${token}`);
   }
-  return new Request(request.url, { method: request.method, headers });
+  // Next's incoming request may use a different Request implementation than Node's
+  // global constructor. Copy the public fields rather than its private brand.
+  const init:RequestInit & {duplex?:'half'}={method:request.method,headers,signal:request.signal};
+  if(request.method!=='GET'&&request.method!=='HEAD'&&request.body){init.body=request.body;init.duplex='half';}
+  return new Request(request.url,init);
 }
 export function unavailable() { return Response.json({ error: "UNAVAILABLE" }, { status: 503, headers: { "cache-control": "private, no-store" } }); }
 export function dashboardRoute(request: Request, siteId: string, view: string) {
   return dashboardRuntime()?.server.handle(dashboardRequest(request), siteId, view) ?? Promise.resolve(unavailable());
+}
+export function dashboardHistoryRoute(request:Request,siteId:string,feature:string,action:string){
+  return dashboardRuntime()?.historyTools?.handle(dashboardRequest(request),siteId,feature,action)??Promise.resolve(unavailable());
 }

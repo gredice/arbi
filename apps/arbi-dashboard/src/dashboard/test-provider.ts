@@ -1,4 +1,4 @@
-import { randomUUID, timingSafeEqual } from "node:crypto";
+import { hkdfSync, randomUUID, timingSafeEqual } from "node:crypto";
 import { SignJWT } from "jose";
 import { createGrediceAuthorizationDirectory, GrediceIdentityAdapter, sameRealm } from "@arbi/gredice";
 import type { DirectorySnapshot } from "@arbi/gredice";
@@ -7,6 +7,8 @@ import { PostgresRegistryStore } from "../enrollment/store";
 import { DashboardServer } from "./server";
 import { createSimulatorRead, simulationSites, syntheticConfiguration } from "./simulator";
 import { configuredCatalog } from "../releases/catalog";
+import { createDashboardHistoryTools } from './history-tools';
+import type { ResourceResolver } from '@arbi/gredice';
 
 export interface TestProviderConfig {
   realm: { environment: "test"; namespaceId: string };
@@ -44,18 +46,21 @@ export function createDashboardTestProvider(config: TestProviderConfig) {
     })),
   });
   const registry = new PostgresRegistryStore(config.db);
-  const server = new DashboardServer({ identity, browserOrigins: config.browserOrigins, sites: simulationSites,
-    auditAuthorization: (record, signal) => registry.authorization(record, signal),
-    resolveResource: async query => config.db.transaction(async sql => {
+  const resolveResource:ResourceResolver=async query => config.db.transaction(async sql => {
       const row = (await sql.query<{ account_id: string }>("SELECT account_id FROM arbi_dashboard_sites WHERE namespace_id=$1 AND site_id=$2", [realm.namespaceId, query.siteId])).rows[0];
-      return row && query.resource.kind === "site" && query.resource.id === query.siteId && sameRealm(query.realm, realm) ?
+      return row && ['site','audit-export'].includes(query.resource.kind) && query.resource.id === query.siteId && sameRealm(query.realm, realm) ?
         { realm, siteId: query.siteId, accountId: row.account_id, executionMode: "simulation", resource: query.resource } : null;
-    }), readState: createSimulatorRead(realm, now), readConfiguration: async siteId => syntheticConfiguration(realm, siteId), readReleases: configuredCatalog });
+    });
+  const server = new DashboardServer({ identity, browserOrigins: config.browserOrigins, sites: simulationSites,
+    auditAuthorization: (record, signal) => registry.authorization(record, signal),resolveResource,
+    readState: createSimulatorRead(realm, now), readConfiguration: async siteId => syntheticConfiguration(realm, siteId), readReleases: configuredCatalog });
+  const historyTools=createDashboardHistoryTools({db:config.db,realm,identity,resolveSite:resolveResource,browserOrigins:config.browserOrigins,
+    queryKey:new Uint8Array(hkdfSync('sha256',config.verificationKey,realm.namespaceId,'arbi.dashboard.audit-cursor/1.0',32))});
   const equal = (value: string, expected: string) => {
     const a = Buffer.from(value), b = Buffer.from(expected);
     return a.length === b.length && timingSafeEqual(a, b);
   };
-  return { server, async login(code: string) {
+  return { server,historyTools, async login(code: string) {
     const actorId = equal(code, config.accessCode) ? "synthetic-engineer" : config.viewerCode && equal(code, config.viewerCode) ? "synthetic-viewer" : null;
     if (!actorId) return null;
     const id = randomUUID(), issuedAt = Math.floor(now() / 1000), expiresAtMs = (issuedAt + 300) * 1000;

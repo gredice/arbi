@@ -4,11 +4,12 @@ import type { SqlDatabase } from "../enrollment/store";
 import { PostgresRegistryStore } from "../enrollment/store";
 import { VERSION } from "../enrollment/contracts";
 import { simulationSites } from "./simulator";
+import { provisionDashboardHistory } from './history-fixture';
 
 /** Operator-only setup of a dedicated empty synthetic database; never called on app startup. */
-export async function provisionDashboardTest(db: SqlDatabase, realm: Realm) {
+export async function provisionDashboardTest(db: SqlDatabase, realm: Realm, options:{history?:boolean}={}) {
   if (realm.environment !== "test") throw new Error("DENIED");
-  for (const file of ["0001-enrollment.sql", "0002-media.sql", "0003-audit.sql", "0006-dashboard.sql"]) {
+  for (const file of ["0001-enrollment.sql", "0002-media.sql", "0003-audit.sql", "0004-jobs.sql", "0006-dashboard.sql", "0007-usage.sql", "0008-audit-lifecycle.sql", "0009-usage-settings.sql"]) {
     const sql = await readFile(new URL(`../../migrations/${file}`, import.meta.url), "utf8");
     await db.transaction(async connection => { await connection.query(sql); });
   }
@@ -21,4 +22,6 @@ export async function provisionDashboardTest(db: SqlDatabase, realm: Realm) {
       await sql.query("INSERT INTO arbi_dashboard_memberships VALUES ($1,$2,$3,$4,$5,$6::jsonb)", [realm.namespaceId, site.id, "synthetic-viewer", site.id === "synthetic-site", "membership-1", JSON.stringify(["viewer"])]);
     });
   }
+  // Durable signed history requires native PostgreSQL/WAL, not embedded source fixtures.
+  if(options.history)await provisionDashboardHistory(db,realm);
 }
