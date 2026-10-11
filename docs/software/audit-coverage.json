@@ -389,6 +389,28 @@
         "apps/arbi-edge-controller/src/images/history.test.ts"
       ],
       "observability": "bounded metadata reads create no media grant or delivery claim; native cloud access intent precedes signing; local commissioning owner records staging/activation with source correlation and no asserted cloud delivery; browser/provider/hardware availability remains distinct"
+    },
+    {
+      "entrypoint": "apps/arbi-dashboard/src/app/api/sites/[siteId]/dashboard-live/[action]/route.ts",
+      "actions": [
+        "inventory",
+        "start",
+        "state",
+        "renew",
+        "end",
+        "revoke",
+        "signal"
+      ],
+      "requiredFacts": [
+        "current human media authorization check with original site/session identity",
+        "delegated live.grant intent/authorization/access-grant and renewal epochs",
+        "delegated live.end/revoke/timeout service outcome"
+      ],
+      "evidence": [
+        "apps/arbi-dashboard/src/dashboard/postgres.test.ts",
+        "apps/arbi-dashboard/src/live/postgres.test.ts"
+      ],
+      "observability": "cookie bridge delegates the existing live owner; inventory admits no viewer, granted permission and isolated signaling prove no physical connection, delivery, playback duration or remote stop; original actor/session and signed usage windows remain distinct"
     }
   ],
   "internal": [

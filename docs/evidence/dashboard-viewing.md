@@ -30,4 +30,7 @@ Clean source 71347f6 passed 16 forced build/lint/typecheck tasks,
 46.805 seconds and all 23 Chromium browser checks in 1.5 minutes. The browser
 checks renew through epoch five beyond the initial directory grant, preserve
 two original viewer identities, revoke one, and close on hidden/offline/reload.
-Documentation links and whole-tree whitespace pass. #65 remains open for its hardware-dependent media validation.
+The full dashboard unit suite passed 92 checks with 18 environment-guarded
+skips in 104.956 seconds. Its exhaustive audit-route inventory includes the
+new protected dashboard-live bridge. Documentation links and whole-tree
+whitespace pass. #65 remains open for its hardware-dependent media validation.
