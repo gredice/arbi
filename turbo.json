@@ -2,26 +2,82 @@
     "$schema": "https://v2-9-16.turborepo.dev/schema.json",
     "concurrency": "12",
     "cacheDir": ".turbo/cache",
-    "globalDependencies": ["tsconfig.base.json", ".nvmrc", ".npmrc"],
+    "globalDependencies": [
+        "tsconfig.base.json",
+        ".nvmrc",
+        ".npmrc"
+    ],
     "tasks": {
         "build": {
-            "dependsOn": ["^build"],
-            "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
+            "dependsOn": [
+                "^build"
+            ],
+            "outputs": [
+                "dist/**",
+                ".next/**",
+                "!.next/cache/**"
+            ]
         },
         "clean": {
             "cache": false
         },
         "lint": {
-            "dependsOn": ["^build"]
+            "dependsOn": [
+                "^build"
+            ]
         },
         "typecheck": {
-            "dependsOn": ["^build", "^typecheck"],
+            "dependsOn": [
+                "^build",
+                "^typecheck"
+            ],
             "outputs": []
         },
         "test": {
             "cache": false,
-            "dependsOn": ["^build"],
-            "outputs": ["coverage/**", "dist/**"]
+            "dependsOn": [
+                "^build"
+            ],
+            "outputs": [
+                "coverage/**",
+                "dist/**"
+            ]
+        },
+        "@arbi/dashboard#build": {
+            "dependsOn": [
+                "^build",
+                "@arbi/edge-controller#build"
+            ],
+            "outputs": [
+                "dist/**",
+                ".next/**",
+                "!.next/cache/**"
+            ]
+        },
+        "@arbi/dashboard#lint": {
+            "dependsOn": [
+                "^build",
+                "@arbi/edge-controller#build"
+            ]
+        },
+        "@arbi/dashboard#typecheck": {
+            "dependsOn": [
+                "^build",
+                "^typecheck",
+                "@arbi/edge-controller#build"
+            ],
+            "outputs": []
+        },
+        "@arbi/dashboard#test": {
+            "cache": false,
+            "dependsOn": [
+                "^build",
+                "@arbi/edge-controller#build"
+            ],
+            "outputs": [
+                "coverage/**",
+                "dist/**"
+            ]
         }
     }
 }
