@@ -1,0 +1,683 @@
+{
+  "version": "arbi.release-evidence-catalog/1.0",
+  "stages": [
+    {
+      "id": "unit-contract",
+      "entry": [
+        "Exact source revision and named evidence owners"
+      ],
+      "exit": [
+        "All mandatory stage tests passed with reviewed raw evidence",
+        "No unresolved mandatory failure or missing record"
+      ],
+      "instruments": [
+        "Pinned toolchain, fresh native fixtures and reproducible test logs"
+      ],
+      "stopConditions": [
+        "Stop reporting passed on test failure, stale source/configuration or unknown provenance"
+      ],
+      "acceptedConfiguration": "Exact source commit; fixture configuration stated",
+      "reviewer": "Source/contract reviewer"
+    },
+    {
+      "id": "simulation",
+      "entry": [
+        "Exact source revision and named evidence owners"
+      ],
+      "exit": [
+        "All mandatory stage tests passed with reviewed raw evidence",
+        "No unresolved mandatory failure or missing record"
+      ],
+      "instruments": [
+        "Pinned toolchain, fresh native fixtures and reproducible test logs"
+      ],
+      "stopConditions": [
+        "Stop reporting passed on test failure, stale source/configuration or unknown provenance"
+      ],
+      "acceptedConfiguration": "Exact source commit; fixture configuration stated",
+      "reviewer": "Source/contract reviewer"
+    },
+    {
+      "id": "component-bench",
+      "entry": [
+        "All earlier mandatory stage records accepted for identical source/configuration",
+        "Named evidence owners and approved stage procedure"
+      ],
+      "exit": [
+        "All mandatory stage tests passed with reviewed raw evidence",
+        "No unresolved mandatory failure or missing record"
+      ],
+      "instruments": [
+        "Calibrated target/interface timestamps and named instruments",
+        "Actual target revision readback",
+        "Independent power/clearance/load measurement as declared"
+      ],
+      "stopConditions": [
+        "Stop on independent-protection loss, unexpected motion, power instability, exceeded configured load/clearance/timing limits, or missing evidence"
+      ],
+      "acceptedConfiguration": "Exact reviewed configuration digest and target revisions",
+      "reviewer": "Independent qualified stage/target reviewer"
+    },
+    {
+      "id": "hardware-in-loop",
+      "entry": [
+        "All earlier mandatory stage records accepted for identical source/configuration",
+        "Named evidence owners and approved stage procedure"
+      ],
+      "exit": [
+        "All mandatory stage tests passed with reviewed raw evidence",
+        "No unresolved mandatory failure or missing record"
+      ],
+      "instruments": [
+        "Calibrated target/interface timestamps and named instruments",
+        "Actual target revision readback",
+        "Independent power/clearance/load measurement as declared"
+      ],
+      "stopConditions": [
+        "Stop on independent-protection loss, unexpected motion, power instability, exceeded configured load/clearance/timing limits, or missing evidence"
+      ],
+      "acceptedConfiguration": "Exact reviewed configuration digest and target revisions",
+      "reviewer": "Independent qualified stage/target reviewer"
+    },
+    {
+      "id": "secured-frame",
+      "entry": [
+        "All earlier mandatory stage records accepted for identical source/configuration",
+        "Named evidence owners and approved stage procedure"
+      ],
+      "exit": [
+        "All mandatory stage tests passed with reviewed raw evidence",
+        "No unresolved mandatory failure or missing record"
+      ],
+      "instruments": [
+        "Calibrated target/interface timestamps and named instruments",
+        "Actual target revision readback",
+        "Independent power/clearance/load measurement as declared"
+      ],
+      "stopConditions": [
+        "Stop on independent-protection loss, unexpected motion, power instability, exceeded configured load/clearance/timing limits, or missing evidence"
+      ],
+      "acceptedConfiguration": "Exact reviewed configuration digest and target revisions",
+      "reviewer": "Independent qualified stage/target reviewer"
+    },
+    {
+      "id": "installed-site",
+      "entry": [
+        "All earlier mandatory stage records accepted for identical source/configuration",
+        "Named evidence owners and approved stage procedure"
+      ],
+      "exit": [
+        "All mandatory stage tests passed with reviewed raw evidence",
+        "No unresolved mandatory failure or missing record"
+      ],
+      "instruments": [
+        "Calibrated target/interface timestamps and named instruments",
+        "Actual target revision readback",
+        "Independent power/clearance/load measurement as declared"
+      ],
+      "stopConditions": [
+        "Stop on independent-protection loss, unexpected motion, power instability, exceeded configured load/clearance/timing limits, or missing evidence"
+      ],
+      "acceptedConfiguration": "Exact reviewed configuration digest and target revisions",
+      "reviewer": "Independent qualified stage/target reviewer"
+    }
+  ],
+  "hazards": [
+    "falling-hardware",
+    "line-clearance",
+    "overload-collapse",
+    "pinch-entanglement",
+    "electrical-fire",
+    "unexpected-motion",
+    "weather",
+    "privacy",
+    "maintenance"
+  ],
+  "requirements": [
+    {
+      "id": "identity",
+      "description": "Current original human/device authority",
+      "hazard": "privacy",
+      "ownerRole": "software-owner"
+    },
+    {
+      "id": "realm",
+      "description": "Environment/site isolation",
+      "hazard": "privacy",
+      "ownerRole": "software-owner"
+    },
+    {
+      "id": "command",
+      "description": "Expired/replayed commands cannot restart motion",
+      "hazard": "unexpected-motion",
+      "ownerRole": "software-owner"
+    },
+    {
+      "id": "local-stop",
+      "description": "Independent local fault stopping",
+      "hazard": "unexpected-motion",
+      "ownerRole": "local-safety-owner"
+    },
+    {
+      "id": "reset",
+      "description": "Reset/brownout requires explicit reconciled recovery",
+      "hazard": "unexpected-motion",
+      "ownerRole": "local-safety-owner"
+    },
+    {
+      "id": "media",
+      "description": "Explicit bounded viewing and camera-control permission",
+      "hazard": "privacy",
+      "ownerRole": "media-owner"
+    },
+    {
+      "id": "capture",
+      "description": "Immutable attributable capture lifecycle",
+      "hazard": "privacy",
+      "ownerRole": "media-owner"
+    },
+    {
+      "id": "accounting",
+      "description": "Measured mobile accounting with unknown residuals",
+      "hazard": "privacy",
+      "ownerRole": "data-owner"
+    },
+    {
+      "id": "audit",
+      "description": "Original actor and complete failure-aware audit",
+      "hazard": "privacy",
+      "ownerRole": "data-owner"
+    },
+    {
+      "id": "update",
+      "description": "Signed ordered update and interruption recovery",
+      "hazard": "unexpected-motion",
+      "ownerRole": "software-owner"
+    },
+    {
+      "id": "dock",
+      "description": "Independent dock retention under loss of power",
+      "hazard": "falling-hardware",
+      "ownerRole": "mechanical-owner"
+    },
+    {
+      "id": "clearance",
+      "description": "Line clearance under faults and power loss",
+      "hazard": "line-clearance",
+      "ownerRole": "mechanical-owner"
+    },
+    {
+      "id": "structure",
+      "description": "Accepted configured loads, anchors and retention",
+      "hazard": "overload-collapse",
+      "ownerRole": "mechanical-owner"
+    },
+    {
+      "id": "guards",
+      "description": "Winch/line guards and isolation",
+      "hazard": "pinch-entanglement",
+      "ownerRole": "mechanical-owner"
+    },
+    {
+      "id": "electrical",
+      "description": "Qualified electrical protection and installation",
+      "hazard": "electrical-fire",
+      "ownerRole": "electrical-owner"
+    },
+    {
+      "id": "weather",
+      "description": "Accepted environmental operating envelope",
+      "hazard": "weather",
+      "ownerRole": "commissioning-owner"
+    },
+    {
+      "id": "privacy",
+      "description": "Accepted capture zones and data access",
+      "hazard": "privacy",
+      "ownerRole": "media-owner"
+    },
+    {
+      "id": "maintenance",
+      "description": "Area clearance and lockout before service",
+      "hazard": "maintenance",
+      "ownerRole": "commissioning-owner"
+    },
+    {
+      "id": "recording",
+      "description": "Recording disabled until separately accepted",
+      "hazard": "privacy",
+      "ownerRole": "media-owner"
+    },
+    {
+      "id": "installed",
+      "description": "Site-specific end-to-end commissioning",
+      "hazard": "unexpected-motion",
+      "ownerRole": "commissioning-owner"
+    }
+  ],
+  "tests": [
+    {
+      "id": "identity-contract",
+      "stage": "unit-contract",
+      "requirements": [
+        "identity",
+        "realm"
+      ],
+      "target": "cloud",
+      "ownerRole": "software-owner",
+      "reviewerRole": "software-reviewer",
+      "definition": "packages/arbi-gredice/src/identity.test.ts",
+      "name": "executable human matrix covers each role and capability independently",
+      "measurements": [],
+      "recordingOnly": false
+    },
+    {
+      "id": "command-contract",
+      "stage": "unit-contract",
+      "requirements": [
+        "command",
+        "local-stop",
+        "reset"
+      ],
+      "target": "edge",
+      "ownerRole": "software-owner",
+      "reviewerRole": "software-reviewer",
+      "definition": "apps/arbi-edge-controller/src/jobs/jobs.test.ts",
+      "name": "journal admission, stopping and recovery contract",
+      "measurements": [],
+      "recordingOnly": false
+    },
+    {
+      "id": "media-contract",
+      "stage": "unit-contract",
+      "requirements": [
+        "media",
+        "capture",
+        "privacy"
+      ],
+      "target": "cloud",
+      "ownerRole": "media-owner",
+      "reviewerRole": "software-reviewer",
+      "definition": "apps/arbi-dashboard/src/live/postgres.test.ts",
+      "name": "native PostgreSQL live authority: shared producer, scoped leases, policy, reconnect and atomic audit",
+      "measurements": [],
+      "recordingOnly": false
+    },
+    {
+      "id": "usage-contract",
+      "stage": "unit-contract",
+      "requirements": [
+        "accounting"
+      ],
+      "target": "edge",
+      "ownerRole": "data-owner",
+      "reviewerRole": "software-reviewer",
+      "definition": "packages/arbi-traffic/src/traffic.test.ts",
+      "name": "application accounting and interrupted attempt lineage",
+      "measurements": [],
+      "recordingOnly": false
+    },
+    {
+      "id": "audit-contract",
+      "stage": "unit-contract",
+      "requirements": [
+        "audit"
+      ],
+      "target": "cloud",
+      "ownerRole": "data-owner",
+      "reviewerRole": "software-reviewer",
+      "definition": "packages/arbi-audit/src/spool.test.ts",
+      "name": "immutable audit persistence and gap behavior",
+      "measurements": [],
+      "recordingOnly": false
+    },
+    {
+      "id": "update-contract",
+      "stage": "unit-contract",
+      "requirements": [
+        "update"
+      ],
+      "target": "edge",
+      "ownerRole": "software-owner",
+      "reviewerRole": "software-reviewer",
+      "definition": "apps/arbi-edge-controller/src/updates/linux-target.test.ts",
+      "name": "native target files and SIGKILL recovery",
+      "measurements": [],
+      "recordingOnly": false
+    },
+    {
+      "id": "recording-disabled",
+      "stage": "unit-contract",
+      "requirements": [
+        "recording"
+      ],
+      "target": "cloud",
+      "ownerRole": "media-owner",
+      "reviewerRole": "software-reviewer",
+      "definition": "packages/arbi-gredice/src/identity.test.ts",
+      "name": "disabled recording capability and event contract",
+      "measurements": [],
+      "recordingOnly": false
+    },
+    {
+      "id": "local-fault-simulation",
+      "stage": "simulation",
+      "requirements": [
+        "command",
+        "local-stop",
+        "reset",
+        "update",
+        "audit"
+      ],
+      "target": "edge",
+      "ownerRole": "software-owner",
+      "reviewerRole": "software-reviewer",
+      "definition": "apps/arbi-edge-controller/src/scenarios/workflows.test.ts",
+      "name": "seeded actual local-service fault workflows retain replayable semantic traces, original audit attribution and essential traffic",
+      "measurements": [],
+      "recordingOnly": false
+    },
+    {
+      "id": "geometry-simulation",
+      "stage": "simulation",
+      "requirements": [
+        "structure",
+        "clearance",
+        "dock"
+      ],
+      "target": "mechanical",
+      "ownerRole": "mechanical-owner",
+      "reviewerRole": "software-reviewer",
+      "definition": "packages/arbi-simulation-core/src/motion-geometry.test.ts",
+      "name": "workspace, load and restraint model checks",
+      "measurements": [],
+      "recordingOnly": false
+    },
+    {
+      "id": "mobile-bench",
+      "stage": "component-bench",
+      "requirements": [
+        "accounting",
+        "media"
+      ],
+      "target": "edge",
+      "ownerRole": "data-owner",
+      "reviewerRole": "qualified-commissioning-reviewer",
+      "definition": "docs/software/transfer-budgets.md",
+      "name": "24-hour idle, reconnect/loss, one/two viewers, direct/TURN and router/carrier comparison",
+      "measurements": [
+        "duration",
+        "application-bytes",
+        "wan-bytes",
+        "latency",
+        "unexplained-bytes"
+      ],
+      "recordingOnly": false
+    },
+    {
+      "id": "target-update-bench",
+      "stage": "component-bench",
+      "requirements": [
+        "update",
+        "reset"
+      ],
+      "target": "pico",
+      "ownerRole": "software-owner",
+      "reviewerRole": "qualified-commissioning-reviewer",
+      "definition": "docs/software/controller-update-model.md",
+      "name": "actual selected firmware/bootloader power-cut and interface recovery",
+      "measurements": [
+        "brownout-voltage",
+        "recovery-latency",
+        "interface-latency"
+      ],
+      "recordingOnly": false
+    },
+    {
+      "id": "dock-bench",
+      "stage": "component-bench",
+      "requirements": [
+        "dock"
+      ],
+      "target": "dock",
+      "ownerRole": "mechanical-owner",
+      "reviewerRole": "qualified-structural-reviewer",
+      "definition": "docs/assemblies/dock/acceptance-record.md",
+      "name": "retention without motor torque and power-loss release behavior",
+      "measurements": [
+        "retention-load",
+        "clearance",
+        "hold-duration"
+      ],
+      "recordingOnly": false
+    },
+    {
+      "id": "electrical-bench",
+      "stage": "component-bench",
+      "requirements": [
+        "electrical"
+      ],
+      "target": "electrical",
+      "ownerRole": "electrical-owner",
+      "reviewerRole": "qualified-electrical-reviewer",
+      "definition": "docs/system/safety-case.md",
+      "name": "selected electrical protection and isolation measurements",
+      "measurements": [
+        "insulation",
+        "earth-continuity",
+        "trip-time"
+      ],
+      "recordingOnly": false
+    },
+    {
+      "id": "hil-local-stop",
+      "stage": "hardware-in-loop",
+      "requirements": [
+        "local-stop",
+        "reset",
+        "command"
+      ],
+      "target": "pico",
+      "ownerRole": "local-safety-owner",
+      "reviewerRole": "qualified-commissioning-reviewer",
+      "definition": "docs/operations/prototype-and-commissioning.md",
+      "name": "real firmware/interfaces against controlled substitutes and simulator trace comparison",
+      "measurements": [
+        "stop-latency",
+        "interface-latency",
+        "timing-error"
+      ],
+      "recordingOnly": false
+    },
+    {
+      "id": "hil-camera",
+      "stage": "hardware-in-loop",
+      "requirements": [
+        "media",
+        "capture",
+        "privacy"
+      ],
+      "target": "pod",
+      "ownerRole": "media-owner",
+      "reviewerRole": "qualified-commissioning-reviewer",
+      "definition": "docs/software/live-producer.md",
+      "name": "selected camera, settling, resource contention and transport shutdown",
+      "measurements": [
+        "settle-time",
+        "frame-rate",
+        "stop-latency",
+        "memory"
+      ],
+      "recordingOnly": false
+    },
+    {
+      "id": "hil-update",
+      "stage": "hardware-in-loop",
+      "requirements": [
+        "update",
+        "reset"
+      ],
+      "target": "edge",
+      "ownerRole": "software-owner",
+      "reviewerRole": "qualified-commissioning-reviewer",
+      "definition": "docs/operations/prototype-and-commissioning.md",
+      "name": "actual target revisions and interrupted staged recovery against substitutes",
+      "measurements": [
+        "recovery-latency",
+        "interface-latency",
+        "timing-error"
+      ],
+      "recordingOnly": false
+    },
+    {
+      "id": "frame-end-to-end",
+      "stage": "secured-frame",
+      "requirements": [
+        "identity",
+        "realm",
+        "command",
+        "local-stop",
+        "media",
+        "capture",
+        "accounting",
+        "audit",
+        "update"
+      ],
+      "target": "site",
+      "ownerRole": "software-owner",
+      "reviewerRole": "qualified-commissioning-reviewer",
+      "definition": "docs/operations/prototype-and-commissioning.md",
+      "name": "restrained frame remote user/engineer flow, camera, mobile data, audit and interrupted update",
+      "measurements": [
+        "stop-latency",
+        "clearance",
+        "application-bytes",
+        "wan-bytes",
+        "audit-gaps",
+        "recovery-latency"
+      ],
+      "recordingOnly": false
+    },
+    {
+      "id": "frame-retention",
+      "stage": "secured-frame",
+      "requirements": [
+        "dock",
+        "clearance",
+        "structure",
+        "guards"
+      ],
+      "target": "mechanical",
+      "ownerRole": "mechanical-owner",
+      "reviewerRole": "qualified-structural-reviewer",
+      "definition": "docs/system/safety-case.md",
+      "name": "secured configured load and independent loss-of-power restraint/clearance",
+      "measurements": [
+        "retention-load",
+        "clearance",
+        "deflection",
+        "hold-duration"
+      ],
+      "recordingOnly": false
+    },
+    {
+      "id": "installed-electrical",
+      "stage": "installed-site",
+      "requirements": [
+        "electrical"
+      ],
+      "target": "electrical",
+      "ownerRole": "electrical-owner",
+      "reviewerRole": "qualified-electrical-reviewer",
+      "definition": "docs/system/safety-case.md",
+      "name": "qualified inspection of actual fixed/overhead electrical installation",
+      "measurements": [
+        "insulation",
+        "earth-continuity",
+        "trip-time"
+      ],
+      "recordingOnly": false
+    },
+    {
+      "id": "installed-envelope",
+      "stage": "installed-site",
+      "requirements": [
+        "weather",
+        "structure",
+        "clearance",
+        "installed"
+      ],
+      "target": "site",
+      "ownerRole": "commissioning-owner",
+      "reviewerRole": "qualified-commissioning-reviewer",
+      "definition": "docs/system/safety-case.md",
+      "name": "accepted site loads, anchors and weather operating envelope",
+      "measurements": [
+        "wind-limit",
+        "temperature-limit",
+        "anchor-load",
+        "clearance"
+      ],
+      "recordingOnly": false
+    },
+    {
+      "id": "installed-service",
+      "stage": "installed-site",
+      "requirements": [
+        "guards",
+        "privacy",
+        "maintenance",
+        "installed"
+      ],
+      "target": "site",
+      "ownerRole": "mechanical-owner",
+      "reviewerRole": "qualified-commissioning-reviewer",
+      "definition": "docs/operations/prototype-and-commissioning.md",
+      "name": "guarding, lockout, capture zones, area-clearance and explicit operation review",
+      "measurements": [
+        "clearance",
+        "isolation-time",
+        "stop-latency"
+      ],
+      "recordingOnly": false
+    },
+    {
+      "id": "installed-recovery",
+      "stage": "installed-site",
+      "requirements": [
+        "update",
+        "reset",
+        "local-stop",
+        "installed"
+      ],
+      "target": "site",
+      "ownerRole": "software-owner",
+      "reviewerRole": "qualified-commissioning-reviewer",
+      "definition": "docs/operations/prototype-and-commissioning.md",
+      "name": "site-specific loss-of-power/interruption and offline recovery",
+      "measurements": [
+        "stop-latency",
+        "clearance",
+        "recovery-latency"
+      ],
+      "recordingOnly": false
+    },
+    {
+      "id": "recording-acceptance",
+      "stage": "secured-frame",
+      "requirements": [
+        "recording"
+      ],
+      "target": "pod",
+      "ownerRole": "media-owner",
+      "reviewerRole": "qualified-commissioning-reviewer",
+      "definition": "docs/system/safety-case.md",
+      "name": "future recording capacity, privacy, usage and failure acceptance",
+      "measurements": [
+        "application-bytes",
+        "retention-duration"
+      ],
+      "recordingOnly": true
+    }
+  ]
+}
