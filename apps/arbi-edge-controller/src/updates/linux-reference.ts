@@ -22,4 +22,3 @@ export async function createLinuxUpdateReference(kind:'application'|'os'='applic
   const preserve=()=>{for(const id of ['pod','edge'])for(const name of ['identity','calibration','configuration','pending-capture'])assert.equal(readFileSync(join(root,`${id}-native`,'persistent',name),'utf8'),`synthetic-${id}-${name}-immutable`);};
   return {root,r,native,artifacts,faults,fail,unknown,request,advance,run,preserve,async close(){await r.close();rmSync(root,{recursive:true,force:true});}};
 }
-
