@@ -1,0 +1,827 @@
+{
+  "version": "arbi.playground-protocol-trace/1.0",
+  "evidence": "isolated-native-host-simulation",
+  "facts": [
+    {
+      "atMs": 1791686464149,
+      "feature": "telemetry",
+      "action": "ingest",
+      "effect": "held-for-reorder",
+      "status": 503,
+      "messageId": "2f38eb63-a750-4fa8-8bc4-c5cac007ba6f",
+      "kind": "telemetry",
+      "sequence": "23",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "c317166d-e507-42f3-bab1-4568e7970688",
+        "sessionId": "a64bc2b7-3c1b-4269-a738-e4d5edbe1665"
+      },
+      "sourceTime": {
+        "utc": "2026-10-11T02:41:04.147Z",
+        "monotonicMs": 24079,
+        "uncertaintyMs": 10
+      }
+    },
+    {
+      "atMs": 1791686465203,
+      "feature": "telemetry",
+      "action": "ingest",
+      "effect": "reordered-after-newer",
+      "status": 200,
+      "messageId": "2f38eb63-a750-4fa8-8bc4-c5cac007ba6f",
+      "kind": "telemetry",
+      "sequence": "23",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "c317166d-e507-42f3-bab1-4568e7970688",
+        "sessionId": "a64bc2b7-3c1b-4269-a738-e4d5edbe1665"
+      },
+      "sourceTime": {
+        "utc": "2026-10-11T02:41:04.147Z",
+        "monotonicMs": 24079,
+        "uncertaintyMs": 10
+      }
+    },
+    {
+      "atMs": 1791686467409,
+      "feature": "control",
+      "action": "poll",
+      "effect": "forwarded",
+      "status": 200,
+      "jobIds": [
+        "19e496ec-3cae-441c-8650-bf10df6b6c46"
+      ]
+    },
+    {
+      "atMs": 1791686467440,
+      "feature": "edge-local",
+      "action": "observe",
+      "effect": "dispatch",
+      "commandId": "19e496ec-3cae-441c-8650-bf10df6b6c46",
+      "atMonotonicMs": 27371,
+      "phase": "move",
+      "operationId": "c54641ac-cbdc-4046-a712-8df8b8876020",
+      "error": ""
+    },
+    {
+      "atMs": 1791686467565,
+      "feature": "edge-local",
+      "action": "observe",
+      "effect": "dispatch",
+      "commandId": "19e496ec-3cae-441c-8650-bf10df6b6c46",
+      "atMonotonicMs": 27497,
+      "phase": "stop",
+      "operationId": "ba9d2a78-9366-41c8-b898-ddffe660f89e",
+      "error": ""
+    },
+    {
+      "atMs": 1791686467659,
+      "feature": "control",
+      "action": "outcome",
+      "effect": "forwarded",
+      "status": 200,
+      "messageId": "71bc0666-c4c4-4e1d-be80-6ab4f40db98a",
+      "kind": "event",
+      "sequence": "132",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "c317166d-e507-42f3-bab1-4568e7970688",
+        "sessionId": "a64bc2b7-3c1b-4269-a738-e4d5edbe1665"
+      },
+      "sourceTime": {
+        "utc": "2026-10-11T02:41:07.429Z",
+        "monotonicMs": 27344,
+        "uncertaintyMs": 10
+      },
+      "commandId": "19e496ec-3cae-441c-8650-bf10df6b6c46",
+      "correlationId": "34bc37f9-a645-43dd-be7f-0fe62999e195",
+      "outcome": "accepted"
+    },
+    {
+      "atMs": 1791686467668,
+      "feature": "control",
+      "action": "outcome",
+      "effect": "forwarded",
+      "status": 200,
+      "messageId": "990b5793-b828-4b52-9a91-9e638253c7b4",
+      "kind": "event",
+      "sequence": "133",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "c317166d-e507-42f3-bab1-4568e7970688",
+        "sessionId": "a64bc2b7-3c1b-4269-a738-e4d5edbe1665"
+      },
+      "sourceTime": {
+        "utc": "2026-10-11T02:41:07.440Z",
+        "monotonicMs": 27371,
+        "uncertaintyMs": 10
+      },
+      "commandId": "19e496ec-3cae-441c-8650-bf10df6b6c46",
+      "correlationId": "34bc37f9-a645-43dd-be7f-0fe62999e195",
+      "outcome": "running"
+    },
+    {
+      "atMs": 1791686467681,
+      "feature": "control",
+      "action": "outcome",
+      "effect": "forwarded",
+      "status": 200,
+      "messageId": "53f8e5ca-91e8-4301-95c3-17e34454572a",
+      "kind": "event",
+      "sequence": "134",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "c317166d-e507-42f3-bab1-4568e7970688",
+        "sessionId": "a64bc2b7-3c1b-4269-a738-e4d5edbe1665"
+      },
+      "sourceTime": {
+        "utc": "2026-10-11T02:41:07.638Z",
+        "monotonicMs": 27571,
+        "uncertaintyMs": 10
+      },
+      "commandId": "19e496ec-3cae-441c-8650-bf10df6b6c46",
+      "correlationId": "34bc37f9-a645-43dd-be7f-0fe62999e195",
+      "outcome": "completed"
+    },
+    {
+      "atMs": 1791686467681,
+      "feature": "control",
+      "action": "outcome",
+      "effect": "ack-lost",
+      "status": 200,
+      "messageId": "53f8e5ca-91e8-4301-95c3-17e34454572a",
+      "kind": "event",
+      "sequence": "134",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "c317166d-e507-42f3-bab1-4568e7970688",
+        "sessionId": "a64bc2b7-3c1b-4269-a738-e4d5edbe1665"
+      },
+      "sourceTime": {
+        "utc": "2026-10-11T02:41:07.638Z",
+        "monotonicMs": 27571,
+        "uncertaintyMs": 10
+      },
+      "commandId": "19e496ec-3cae-441c-8650-bf10df6b6c46",
+      "correlationId": "34bc37f9-a645-43dd-be7f-0fe62999e195",
+      "outcome": "completed"
+    },
+    {
+      "atMs": 1791686467908,
+      "feature": "control",
+      "action": "outcome",
+      "effect": "forwarded",
+      "status": 200,
+      "messageId": "53f8e5ca-91e8-4301-95c3-17e34454572a",
+      "kind": "event",
+      "sequence": "134",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "c317166d-e507-42f3-bab1-4568e7970688",
+        "sessionId": "a64bc2b7-3c1b-4269-a738-e4d5edbe1665"
+      },
+      "sourceTime": {
+        "utc": "2026-10-11T02:41:07.638Z",
+        "monotonicMs": 27571,
+        "uncertaintyMs": 10
+      },
+      "commandId": "19e496ec-3cae-441c-8650-bf10df6b6c46",
+      "correlationId": "34bc37f9-a645-43dd-be7f-0fe62999e195",
+      "outcome": "completed"
+    },
+    {
+      "atMs": 1791686468208,
+      "feature": "telemetry",
+      "action": "ingest",
+      "effect": "disconnected",
+      "status": 503,
+      "messageId": "71bc0666-c4c4-4e1d-be80-6ab4f40db98a",
+      "kind": "event",
+      "sequence": "132",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "c317166d-e507-42f3-bab1-4568e7970688",
+        "sessionId": "a64bc2b7-3c1b-4269-a738-e4d5edbe1665"
+      },
+      "sourceTime": {
+        "utc": "2026-10-11T02:41:07.429Z",
+        "monotonicMs": 27344,
+        "uncertaintyMs": 10
+      },
+      "commandId": "19e496ec-3cae-441c-8650-bf10df6b6c46",
+      "correlationId": "34bc37f9-a645-43dd-be7f-0fe62999e195",
+      "outcome": "accepted"
+    },
+    {
+      "atMs": 1791686468391,
+      "feature": "control",
+      "action": "snapshot",
+      "effect": "disconnected",
+      "status": 503,
+      "messageId": "902bb6f9-9b28-424d-b7ad-c72e7a898a37",
+      "kind": "event",
+      "sequence": "139",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "c317166d-e507-42f3-bab1-4568e7970688",
+        "sessionId": "a64bc2b7-3c1b-4269-a738-e4d5edbe1665"
+      },
+      "sourceTime": {
+        "utc": "2026-10-11T02:41:08.389Z",
+        "monotonicMs": 28322,
+        "uncertaintyMs": 10
+      }
+    },
+    {
+      "atMs": 1791686468642,
+      "feature": "control",
+      "action": "snapshot",
+      "effect": "disconnected",
+      "status": 503,
+      "messageId": "a940644f-4e30-48a5-b083-b83fbd02427c",
+      "kind": "event",
+      "sequence": "140",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "c317166d-e507-42f3-bab1-4568e7970688",
+        "sessionId": "a64bc2b7-3c1b-4269-a738-e4d5edbe1665"
+      },
+      "sourceTime": {
+        "utc": "2026-10-11T02:41:08.640Z",
+        "monotonicMs": 28573,
+        "uncertaintyMs": 10
+      }
+    },
+    {
+      "atMs": 1791686468892,
+      "feature": "control",
+      "action": "snapshot",
+      "effect": "disconnected",
+      "status": 503,
+      "messageId": "b2d1b5e6-f0fb-49d4-8c65-77a829f228ef",
+      "kind": "event",
+      "sequence": "141",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "c317166d-e507-42f3-bab1-4568e7970688",
+        "sessionId": "a64bc2b7-3c1b-4269-a738-e4d5edbe1665"
+      },
+      "sourceTime": {
+        "utc": "2026-10-11T02:41:08.889Z",
+        "monotonicMs": 28822,
+        "uncertaintyMs": 10
+      }
+    },
+    {
+      "atMs": 1791686469131,
+      "feature": "telemetry",
+      "action": "ingest",
+      "effect": "disconnected",
+      "status": 503,
+      "messageId": "4de4d1cc-9053-402d-884d-43ce7e5aa35c",
+      "kind": "event",
+      "sequence": "142",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "c317166d-e507-42f3-bab1-4568e7970688",
+        "sessionId": "a64bc2b7-3c1b-4269-a738-e4d5edbe1665"
+      },
+      "sourceTime": {
+        "utc": "2026-10-11T02:41:09.129Z",
+        "monotonicMs": 29048,
+        "uncertaintyMs": 10
+      }
+    },
+    {
+      "atMs": 1791686469142,
+      "feature": "control",
+      "action": "snapshot",
+      "effect": "disconnected",
+      "status": 503,
+      "messageId": "14b999f6-cde1-43c9-b734-87b06a5c3c17",
+      "kind": "event",
+      "sequence": "143",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "c317166d-e507-42f3-bab1-4568e7970688",
+        "sessionId": "a64bc2b7-3c1b-4269-a738-e4d5edbe1665"
+      },
+      "sourceTime": {
+        "utc": "2026-10-11T02:41:09.140Z",
+        "monotonicMs": 29073,
+        "uncertaintyMs": 10
+      }
+    },
+    {
+      "atMs": 1791686469392,
+      "feature": "control",
+      "action": "snapshot",
+      "effect": "disconnected",
+      "status": 503,
+      "messageId": "07edc12e-f39b-4c3b-bb37-8546b532c323",
+      "kind": "event",
+      "sequence": "144",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "c317166d-e507-42f3-bab1-4568e7970688",
+        "sessionId": "a64bc2b7-3c1b-4269-a738-e4d5edbe1665"
+      },
+      "sourceTime": {
+        "utc": "2026-10-11T02:41:09.389Z",
+        "monotonicMs": 29324,
+        "uncertaintyMs": 10
+      }
+    },
+    {
+      "atMs": 1791686469642,
+      "feature": "control",
+      "action": "snapshot",
+      "effect": "disconnected",
+      "status": 503,
+      "messageId": "199ffb7b-03c7-46b1-9d00-ae575b2afa11",
+      "kind": "event",
+      "sequence": "145",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "c317166d-e507-42f3-bab1-4568e7970688",
+        "sessionId": "a64bc2b7-3c1b-4269-a738-e4d5edbe1665"
+      },
+      "sourceTime": {
+        "utc": "2026-10-11T02:41:09.639Z",
+        "monotonicMs": 29575,
+        "uncertaintyMs": 10
+      }
+    },
+    {
+      "atMs": 1791686469892,
+      "feature": "control",
+      "action": "snapshot",
+      "effect": "disconnected",
+      "status": 503,
+      "messageId": "b8131d94-831e-4210-b3ae-0572733edc4b",
+      "kind": "event",
+      "sequence": "146",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "c317166d-e507-42f3-bab1-4568e7970688",
+        "sessionId": "a64bc2b7-3c1b-4269-a738-e4d5edbe1665"
+      },
+      "sourceTime": {
+        "utc": "2026-10-11T02:41:09.889Z",
+        "monotonicMs": 29826,
+        "uncertaintyMs": 10
+      }
+    },
+    {
+      "atMs": 1791686470132,
+      "feature": "telemetry",
+      "action": "ingest",
+      "effect": "disconnected",
+      "status": 503,
+      "messageId": "a808a376-7805-45ba-af87-603c6f5d8c8c",
+      "kind": "event",
+      "sequence": "147",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "c317166d-e507-42f3-bab1-4568e7970688",
+        "sessionId": "a64bc2b7-3c1b-4269-a738-e4d5edbe1665"
+      },
+      "sourceTime": {
+        "utc": "2026-10-11T02:41:10.130Z",
+        "monotonicMs": 30051,
+        "uncertaintyMs": 10
+      }
+    },
+    {
+      "atMs": 1791686470141,
+      "feature": "control",
+      "action": "snapshot",
+      "effect": "disconnected",
+      "status": 503,
+      "messageId": "7e1496e1-9e46-4190-9a46-0bdafc8abd84",
+      "kind": "event",
+      "sequence": "148",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "c317166d-e507-42f3-bab1-4568e7970688",
+        "sessionId": "a64bc2b7-3c1b-4269-a738-e4d5edbe1665"
+      },
+      "sourceTime": {
+        "utc": "2026-10-11T02:41:10.139Z",
+        "monotonicMs": 30076,
+        "uncertaintyMs": 10
+      }
+    },
+    {
+      "atMs": 1791686470391,
+      "feature": "control",
+      "action": "snapshot",
+      "effect": "disconnected",
+      "status": 503,
+      "messageId": "8d8fb15d-d88c-4a1e-a288-c8e4dbc10e07",
+      "kind": "event",
+      "sequence": "149",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "c317166d-e507-42f3-bab1-4568e7970688",
+        "sessionId": "a64bc2b7-3c1b-4269-a738-e4d5edbe1665"
+      },
+      "sourceTime": {
+        "utc": "2026-10-11T02:41:10.389Z",
+        "monotonicMs": 30326,
+        "uncertaintyMs": 10
+      }
+    },
+    {
+      "atMs": 1791686470642,
+      "feature": "control",
+      "action": "snapshot",
+      "effect": "disconnected",
+      "status": 503,
+      "messageId": "e7d72d9b-62cb-49b7-b9ae-6059d606f487",
+      "kind": "event",
+      "sequence": "150",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "c317166d-e507-42f3-bab1-4568e7970688",
+        "sessionId": "a64bc2b7-3c1b-4269-a738-e4d5edbe1665"
+      },
+      "sourceTime": {
+        "utc": "2026-10-11T02:41:10.639Z",
+        "monotonicMs": 30577,
+        "uncertaintyMs": 10
+      }
+    },
+    {
+      "atMs": 1791686470892,
+      "feature": "control",
+      "action": "snapshot",
+      "effect": "disconnected",
+      "status": 503,
+      "messageId": "6dd7f40d-ddd2-4409-bb17-891839aaf0d4",
+      "kind": "event",
+      "sequence": "151",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "c317166d-e507-42f3-bab1-4568e7970688",
+        "sessionId": "a64bc2b7-3c1b-4269-a738-e4d5edbe1665"
+      },
+      "sourceTime": {
+        "utc": "2026-10-11T02:41:10.890Z",
+        "monotonicMs": 30829,
+        "uncertaintyMs": 10
+      }
+    },
+    {
+      "atMs": 1791686471132,
+      "feature": "telemetry",
+      "action": "ingest",
+      "effect": "disconnected",
+      "status": 503,
+      "messageId": "cb58c930-3c94-4747-91a0-8acbf8dc74b6",
+      "kind": "event",
+      "sequence": "152",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "c317166d-e507-42f3-bab1-4568e7970688",
+        "sessionId": "a64bc2b7-3c1b-4269-a738-e4d5edbe1665"
+      },
+      "sourceTime": {
+        "utc": "2026-10-11T02:41:11.130Z",
+        "monotonicMs": 31054,
+        "uncertaintyMs": 10
+      }
+    },
+    {
+      "atMs": 1791686471141,
+      "feature": "control",
+      "action": "snapshot",
+      "effect": "disconnected",
+      "status": 503,
+      "messageId": "b0be2be7-6738-4b66-8d6e-79cf88a38eca",
+      "kind": "event",
+      "sequence": "153",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "c317166d-e507-42f3-bab1-4568e7970688",
+        "sessionId": "a64bc2b7-3c1b-4269-a738-e4d5edbe1665"
+      },
+      "sourceTime": {
+        "utc": "2026-10-11T02:41:11.139Z",
+        "monotonicMs": 31079,
+        "uncertaintyMs": 10
+      }
+    },
+    {
+      "atMs": 1791686471392,
+      "feature": "control",
+      "action": "snapshot",
+      "effect": "disconnected",
+      "status": 503,
+      "messageId": "cc9012d6-3d1c-4e72-b0c6-1c5b66ff9c65",
+      "kind": "event",
+      "sequence": "154",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "c317166d-e507-42f3-bab1-4568e7970688",
+        "sessionId": "a64bc2b7-3c1b-4269-a738-e4d5edbe1665"
+      },
+      "sourceTime": {
+        "utc": "2026-10-11T02:41:11.389Z",
+        "monotonicMs": 31329,
+        "uncertaintyMs": 10
+      }
+    },
+    {
+      "atMs": 1791686471642,
+      "feature": "control",
+      "action": "snapshot",
+      "effect": "disconnected",
+      "status": 503,
+      "messageId": "7c06f810-76e7-46af-92a9-7c201639cc99",
+      "kind": "event",
+      "sequence": "155",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "c317166d-e507-42f3-bab1-4568e7970688",
+        "sessionId": "a64bc2b7-3c1b-4269-a738-e4d5edbe1665"
+      },
+      "sourceTime": {
+        "utc": "2026-10-11T02:41:11.639Z",
+        "monotonicMs": 31581,
+        "uncertaintyMs": 10
+      }
+    },
+    {
+      "atMs": 1791686471894,
+      "feature": "control",
+      "action": "snapshot",
+      "effect": "disconnected",
+      "status": 503,
+      "messageId": "87470e95-22f3-4eab-80c6-5a7e71bf3d7c",
+      "kind": "event",
+      "sequence": "156",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "c317166d-e507-42f3-bab1-4568e7970688",
+        "sessionId": "a64bc2b7-3c1b-4269-a738-e4d5edbe1665"
+      },
+      "sourceTime": {
+        "utc": "2026-10-11T02:41:11.889Z",
+        "monotonicMs": 31806,
+        "uncertaintyMs": 10
+      }
+    },
+    {
+      "atMs": 1791686472133,
+      "feature": "telemetry",
+      "action": "ingest",
+      "effect": "disconnected",
+      "status": 503,
+      "messageId": "4b446651-bcf6-4fae-844b-d09ee8505a89",
+      "kind": "event",
+      "sequence": "157",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "c317166d-e507-42f3-bab1-4568e7970688",
+        "sessionId": "a64bc2b7-3c1b-4269-a738-e4d5edbe1665"
+      },
+      "sourceTime": {
+        "utc": "2026-10-11T02:41:12.130Z",
+        "monotonicMs": 32057,
+        "uncertaintyMs": 10
+      }
+    },
+    {
+      "atMs": 1791686472142,
+      "feature": "control",
+      "action": "snapshot",
+      "effect": "disconnected",
+      "status": 503,
+      "messageId": "27742f59-08ca-41f2-9e81-ee35a50024c1",
+      "kind": "event",
+      "sequence": "158",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "c317166d-e507-42f3-bab1-4568e7970688",
+        "sessionId": "a64bc2b7-3c1b-4269-a738-e4d5edbe1665"
+      },
+      "sourceTime": {
+        "utc": "2026-10-11T02:41:12.140Z",
+        "monotonicMs": 32057,
+        "uncertaintyMs": 10
+      }
+    },
+    {
+      "atMs": 1791686472392,
+      "feature": "control",
+      "action": "snapshot",
+      "effect": "disconnected",
+      "status": 503,
+      "messageId": "d9c92fbb-4194-42e7-8403-8fc411ec930d",
+      "kind": "event",
+      "sequence": "159",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "c317166d-e507-42f3-bab1-4568e7970688",
+        "sessionId": "a64bc2b7-3c1b-4269-a738-e4d5edbe1665"
+      },
+      "sourceTime": {
+        "utc": "2026-10-11T02:41:12.390Z",
+        "monotonicMs": 32309,
+        "uncertaintyMs": 10
+      }
+    },
+    {
+      "atMs": 1791686472643,
+      "feature": "control",
+      "action": "snapshot",
+      "effect": "disconnected",
+      "status": 503,
+      "messageId": "2c93ce2d-8454-4cff-a3f8-c210739f3b3b",
+      "kind": "event",
+      "sequence": "160",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "c317166d-e507-42f3-bab1-4568e7970688",
+        "sessionId": "a64bc2b7-3c1b-4269-a738-e4d5edbe1665"
+      },
+      "sourceTime": {
+        "utc": "2026-10-11T02:41:12.640Z",
+        "monotonicMs": 32560,
+        "uncertaintyMs": 10
+      }
+    },
+    {
+      "atMs": 1791686472892,
+      "feature": "control",
+      "action": "snapshot",
+      "effect": "disconnected",
+      "status": 503,
+      "messageId": "e0201cda-7a4a-4aa8-866e-4d7fb93589c3",
+      "kind": "event",
+      "sequence": "161",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "c317166d-e507-42f3-bab1-4568e7970688",
+        "sessionId": "a64bc2b7-3c1b-4269-a738-e4d5edbe1665"
+      },
+      "sourceTime": {
+        "utc": "2026-10-11T02:41:12.889Z",
+        "monotonicMs": 32811,
+        "uncertaintyMs": 10
+      }
+    },
+    {
+      "atMs": 1791686473134,
+      "feature": "telemetry",
+      "action": "ingest",
+      "effect": "disconnected",
+      "status": 503,
+      "messageId": "8f8b5bd7-1d2a-4d80-87d4-c385a6974879",
+      "kind": "event",
+      "sequence": "162",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "c317166d-e507-42f3-bab1-4568e7970688",
+        "sessionId": "a64bc2b7-3c1b-4269-a738-e4d5edbe1665"
+      },
+      "sourceTime": {
+        "utc": "2026-10-11T02:41:13.131Z",
+        "monotonicMs": 33062,
+        "uncertaintyMs": 10
+      }
+    },
+    {
+      "atMs": 1791686473142,
+      "feature": "control",
+      "action": "snapshot",
+      "effect": "disconnected",
+      "status": 503,
+      "messageId": "b9847401-c73b-4b3a-bfb2-22274b8f0405",
+      "kind": "event",
+      "sequence": "163",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "c317166d-e507-42f3-bab1-4568e7970688",
+        "sessionId": "a64bc2b7-3c1b-4269-a738-e4d5edbe1665"
+      },
+      "sourceTime": {
+        "utc": "2026-10-11T02:41:13.140Z",
+        "monotonicMs": 33062,
+        "uncertaintyMs": 10
+      }
+    },
+    {
+      "atMs": 1791686473391,
+      "feature": "control",
+      "action": "snapshot",
+      "effect": "disconnected",
+      "status": 503,
+      "messageId": "abcb63f1-86e7-48b2-b8f1-0af62f12c3f0",
+      "kind": "event",
+      "sequence": "164",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "c317166d-e507-42f3-bab1-4568e7970688",
+        "sessionId": "a64bc2b7-3c1b-4269-a738-e4d5edbe1665"
+      },
+      "sourceTime": {
+        "utc": "2026-10-11T02:41:13.389Z",
+        "monotonicMs": 33313,
+        "uncertaintyMs": 10
+      }
+    },
+    {
+      "atMs": 1791686473641,
+      "feature": "control",
+      "action": "snapshot",
+      "effect": "disconnected",
+      "status": 503,
+      "messageId": "7006ed7f-7102-4480-b073-dcfb843c0ed4",
+      "kind": "event",
+      "sequence": "165",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "c317166d-e507-42f3-bab1-4568e7970688",
+        "sessionId": "a64bc2b7-3c1b-4269-a738-e4d5edbe1665"
+      },
+      "sourceTime": {
+        "utc": "2026-10-11T02:41:13.639Z",
+        "monotonicMs": 33565,
+        "uncertaintyMs": 10
+      }
+    },
+    {
+      "atMs": 1791686476689,
+      "feature": "control",
+      "action": "poll",
+      "effect": "forwarded",
+      "status": 200,
+      "jobIds": [
+        "8e36bac7-96e3-469e-9c39-cd5afa73d2f7"
+      ]
+    },
+    {
+      "atMs": 1791686476689,
+      "feature": "control",
+      "action": "poll",
+      "effect": "poll-delayed-1750ms",
+      "status": 200,
+      "jobIds": [
+        "8e36bac7-96e3-469e-9c39-cd5afa73d2f7"
+      ]
+    },
+    {
+      "atMs": 1791686478442,
+      "feature": "edge-local",
+      "action": "observe",
+      "effect": "admission-rejected",
+      "commandId": "8e36bac7-96e3-469e-9c39-cd5afa73d2f7",
+      "atMonotonicMs": 38363,
+      "phase": "",
+      "operationId": "",
+      "error": "NOT_AUTHORIZED"
+    },
+    {
+      "atMs": 1791686479177,
+      "feature": "control",
+      "action": "snapshot",
+      "effect": "forwarded",
+      "status": 200,
+      "messageId": "1040cad7-e536-4787-b17a-4a8de04b8bb4",
+      "kind": "event",
+      "sequence": "186",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "c317166d-e507-42f3-bab1-4568e7970688",
+        "sessionId": "a64bc2b7-3c1b-4269-a738-e4d5edbe1665"
+      },
+      "sourceTime": {
+        "utc": "2026-10-11T02:41:19.141Z",
+        "monotonicMs": 39067,
+        "uncertaintyMs": 10
+      }
+    },
+    {
+      "atMs": 1791686479217,
+      "feature": "telemetry",
+      "action": "ingest",
+      "effect": "forwarded",
+      "status": 200,
+      "messageId": "3130ffc9-5b6c-434a-a2d2-11383331c494",
+      "kind": "telemetry",
+      "sequence": "33",
+      "source": {
+        "deviceId": "edge",
+        "bootId": "c317166d-e507-42f3-bab1-4568e7970688",
+        "sessionId": "a64bc2b7-3c1b-4269-a738-e4d5edbe1665"
+      },
+      "sourceTime": {
+        "utc": "2026-10-11T02:41:19.159Z",
+        "monotonicMs": 39093,
+        "uncertaintyMs": 10
+      }
+    }
+  ]
+}

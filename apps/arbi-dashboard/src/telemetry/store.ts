@@ -36,11 +36,14 @@ export class TelemetryStore {
       WHERE environment=$1 AND namespace_id=$2 AND site_id=$3 ORDER BY device_id,stream LIMIT 65`,scope(this.jobs.realm,tx.registry.siteId))).rows;
   }
   private async snapshotMap(tx:Tx,heads:{device_id:string;record:Head}[]):Promise<Map<string,Event>> {
-    const receivers=(await tx.sql.query<{record:{event:Event}}>(`SELECT record FROM arbi_job_receivers
-      WHERE environment=$1 AND namespace_id=$2 AND site_id=$3 AND device_id=ANY($4::text[]) LIMIT 65`,
+    // Use the immutable admitted report, including its original receiver stamp.
+    // The mutable receiver's original device payload intentionally has no ingestTime.
+    const receivers=(await tx.sql.query<{record:Event}>(`SELECT r.record FROM arbi_job_receivers h JOIN arbi_job_reports r
+      ON r.id=h.record->'event'->>'messageId' AND r.environment=h.environment AND r.namespace_id=h.namespace_id AND r.site_id=h.site_id
+      WHERE h.environment=$1 AND h.namespace_id=$2 AND h.site_id=$3 AND h.device_id=ANY($4::text[]) LIMIT 65`,
       [...scope(this.jobs.realm,tx.registry.siteId),[...new Set(heads.map(h=>h.device_id))]])).rows;
     const snapshots=new Map<string,Event>();
-    for(const e of [...heads.map(h=>h.record.snapshot),...receivers.map(r=>r.record.event)]) {
+    for(const e of [...heads.map(h=>h.record.snapshot),...receivers.map(r=>r.record)]) {
       if(!e || e.body.type!=='state.snapshot' || e.body.configRevision!==tx.registry.configRevision) continue;
       const device=tx.registry.devices.find(d=>d.id===e.source.deviceId);
       if(!device || !isDeepStrictEqual(e.source,device.current) || !isDeepStrictEqual(e.body.capabilities,device.capabilities)) continue;

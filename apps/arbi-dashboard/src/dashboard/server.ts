@@ -1,5 +1,5 @@
 import { AuthorizationError, bounded, capabilities, isResourceScope, sameRealm, SiteRequestBoundary } from "@arbi/gredice";
-import type { AuditAuthorization, GrediceIdentityAdapter, ResourceResolver } from "@arbi/gredice";
+import type { AuditAuthorization, AuthorizedContext, GrediceIdentityAdapter, ResourceResolver } from "@arbi/gredice";
 import { validateCommissioningStatus, validateConfigurationRecord, validateMessage } from "@arbi/protocol";
 import type { CommissioningStatus, Configuration, Event } from "@arbi/protocol";
 import { DASHBOARD_VERSION } from "./contracts";
@@ -14,7 +14,7 @@ export interface DashboardServerConfig {
   browserOrigins: readonly string[];
   /** Trusted, bounded site candidates; labels are returned only after current authorization. */
   sites: readonly DashboardSite[];
-  readState: (siteId: string, signal: AbortSignal) => Promise<DashboardState>;
+  readState: (siteId: string, signal: AbortSignal, context?:AuthorizedContext) => Promise<DashboardState>;
   readConfiguration: (siteId: string, signal: AbortSignal) => Promise<Configuration | null>;
   readReleases?: (signal: AbortSignal) => Promise<AvailableRelease[]>;
   /** Protected authoritative edge projection. Missing/offline composition stays unavailable. */
@@ -57,7 +57,8 @@ export class DashboardServer {
             if (!(error instanceof AuthorizationError) || !["MEMBERSHIP_REQUIRED", "CAPABILITY_DENIED", "SCOPE_MISMATCH"].includes(error.code)) throw error;
           }
         }
-        const state = structuredClone(await bounded(2000, signal => this.config.readState(siteId, signal)));
+        const stateContext=diagnostic?await this.config.identity.authorizeIdentity(principal,'state.read',scope):authorized;
+        const state = structuredClone(await bounded(2000, signal => this.config.readState(siteId, signal,stateContext)));
         for (const message of [state.snapshot, state.telemetry]) {
           if (message && (!validateMessage(message).ok || !sameRealm(message.realm, authorized.realm) || message.siteId !== siteId || message.executionMode !== scope.executionMode)) throw new Error();
         }

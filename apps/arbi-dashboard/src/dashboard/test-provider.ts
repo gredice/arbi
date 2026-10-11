@@ -10,6 +10,9 @@ import { configuredCatalog } from "../releases/catalog";
 import { createDashboardHistoryTools } from './history-tools';
 import type { ResourceResolver } from '@arbi/gredice';
 import { createJobsServer } from '../jobs/server';
+import {TelemetryStore} from '../telemetry/store';
+import {TelemetryHttp} from '../telemetry/http';
+import {dashboardTelemetryState} from './telemetry-state';
 
 export interface TestProviderConfig {
   realm: { environment: "test"; namespaceId: string };
@@ -55,9 +58,15 @@ export function createDashboardTestProvider(config: TestProviderConfig) {
       return row && ['site','audit-export'].includes(query.resource.kind) && query.resource.id === query.siteId && sameRealm(query.realm, realm) ?
         { realm, siteId: query.siteId, accountId: row.account_id, executionMode: "simulation", resource: query.resource } : null;
     });
+  const fallback=createSimulatorRead(realm,now);
   const server = new DashboardServer({ identity, browserOrigins: config.browserOrigins, sites: simulationSites,
     auditAuthorization: (record, signal) => registry.authorization(record, signal),resolveResource,
-    readState: createSimulatorRead(realm, now), readConfiguration: async siteId => syntheticConfiguration(realm, siteId), readReleases: configuredCatalog });
+    readState:async(siteId,signal,context)=>{
+      if(!config.operatorCode||siteId!=='synthetic-controls')return fallback(siteId);
+      if(!context)throw Error('UNAVAILABLE');
+      const current=await telemetry.read(context,'current',{deviceId:'edge',limit:2});if(signal.aborted)throw Error('UNAVAILABLE');
+      return dashboardTelemetryState(current,realm,siteId,now());
+    },readConfiguration: async siteId => syntheticConfiguration(realm, siteId), readReleases: configuredCatalog });
   const historyTools=createDashboardHistoryTools({db:config.db,realm,identity,resolveSite:resolveResource,browserOrigins:config.browserOrigins,
     queryKey:new Uint8Array(hkdfSync('sha256',config.verificationKey,realm.namespaceId,'arbi.dashboard.audit-cursor/1.0',32))});
   const jobs=createJobsServer({db:config.db,realm,identity,resolveSite:resolveResource,browserOrigins:config.browserOrigins,
@@ -76,7 +85,16 @@ export function createDashboardTestProvider(config: TestProviderConfig) {
       if(!isResourceScope(scope)||signal.aborted)return null;
       try{return await identity.authorize(token,previous.capability,scope);}catch{return null;}
     }});
+  const telemetry=new TelemetryStore(jobs.store),telemetryHttp=new TelemetryHttp(telemetry,jobs.humans);
   let controlActive=false;
+  const telemetryTools={async handle(request:Request,siteId:string,action:string){
+    const headers={'cache-control':'private, no-store'};
+    if(!config.operatorCode)return Response.json({error:'UNAVAILABLE'},{status:503,headers});
+    if(!['device','current','history'].includes(action))return Response.json({error:'INVALID_REQUEST'},{status:404,headers});
+    if(action==='device')return telemetryHttp.handle(request,{siteId,action});
+    if(controlActive)return Response.json({error:'CAPACITY'},{status:429,headers});
+    controlActive=true;try{return await telemetryHttp.handle(request,{siteId,action});}finally{controlActive=false;}
+  }};
   const controlTools={async handle(request:Request,siteId:string,action:string){
     const headers={'cache-control':'private, no-store'};
     if(!config.operatorCode)return Response.json({error:'UNAVAILABLE'},{status:503,headers});
@@ -89,7 +107,7 @@ export function createDashboardTestProvider(config: TestProviderConfig) {
     const a = Buffer.from(value), b = Buffer.from(expected);
     return a.length === b.length && timingSafeEqual(a, b);
   };
-  return { server,historyTools,controlTools, async login(code: string) {
+  return { server,historyTools,controlTools,telemetryTools, async login(code: string) {
     const actorId = equal(code, config.accessCode) ? "synthetic-engineer" : config.viewerCode && equal(code, config.viewerCode) ? "synthetic-viewer" :
       config.operatorCode&&equal(code,config.operatorCode)?'synthetic-operator':null;
     if (!actorId) return null;
