@@ -26,7 +26,7 @@ try {
   execFileSync(join(bin, "initdb"), ["-D", join(root, "data"), "-U", "arbi_test", "--auth=trust", "--no-locale", "--encoding=UTF8"], { stdio: "ignore", timeout: 30000 });
   execFileSync(join(bin, "pg_ctl"), ["-D", join(root, "data"), "-l", join(root, "postgres.log"), "-o", `-k ${root} -p 54322 -c listen_addresses=''`, "-w", "start"], { stdio: "ignore", timeout: 30000 }); started = true;
   execFileSync(process.execPath, ["--import", "tsx", "scripts/provision-dashboard-test.ts"], { env, stdio: "inherit", timeout: 30000 });
-  updates=spawn(process.execPath,['--import','tsx','scripts/update-worker.ts'],{env,stdio:['ignore','pipe','pipe']});
+  updates=spawn(process.execPath,['--import','tsx','scripts/update-worker.mjs'],{env,stdio:['ignore','pipe','pipe']});
   await new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(Error('UPDATES_TIMEOUT')),12000);updates.once('error',reject);updates.once('exit',()=>reject(Error('UPDATES_EXIT')));updates.stdout.on('data',chunk=>{if(String(chunk).includes('UPDATES_READY')){clearTimeout(timer);resolve();}});});
   server = spawn(process.execPath, ["--no-experimental-require-module", "node_modules/next/dist/bin/next", "start", "--hostname", "127.0.0.1", "--port", String(port)], { env, stdio: ["ignore", "pipe", "pipe"] });
   await new Promise((resolve, reject) => {
