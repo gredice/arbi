@@ -70,3 +70,7 @@ The [usage adapter](src/usage/server.ts) mounts `/api/sites/:siteId/usage/:actio
 ## Device releases and updates
 
 [Update dashboard](../../docs/software/update-dashboard.md) provides explicit compatible selection and durable progress/history through the existing update boundary. The isolated browser harness runs a private actual edge worker; ordinary and preview startup remain unconfigured. [Evidence](../../docs/evidence/update-dashboard.md) records software limits separately from hardware/provider acceptance.
+
+[Local WebRTC candidate reference](../../docs/software/live-transport-reference.md)
+adds an explicit synthetic VP8 experiment to the browser checks. Its local RTP and
+host resource measurements do not select a physical camera or NAT/relay transport.

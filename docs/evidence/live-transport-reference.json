@@ -1,0 +1,102 @@
+{
+  "version": "arbi.live-transport-reference/1.0",
+  "stage": "development-host-candidate",
+  "physicalAcceptance": false,
+  "source": {
+    "commit": "b0f8cf7279452f5c1d32c03480b45e305cd669f1",
+    "dirty": false
+  },
+  "host": {
+    "platform": "linux",
+    "arch": "x64",
+    "kernel": "6.18.44",
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "node": "v24.19.0",
+    "chromium": "145.0.7632.6"
+  },
+  "profile": {
+    "codec": "VP8",
+    "syntheticCanvas": true,
+    "width": 320,
+    "height": 240,
+    "framesPerSecond": 5,
+    "maxBitratePerSenderBps": 96000,
+    "viewers": 2
+  },
+  "path": "localhost-host-candidates",
+  "signaling": "in-process-test-harness-only",
+  "authorization": "not-tested",
+  "sharedUpstream": false,
+  "elapsedMs": 5016.003161,
+  "resources": {
+    "boundary": "sampled-chromium-process-tree",
+    "completeness": "sampled-process-exit-gaps-possible",
+    "observedReadGaps": 0,
+    "cpuSeconds": 0.36,
+    "peakSumProcessRssBytes": 672284672,
+    "sharedPagesMayBeCountedRepeatedly": true,
+    "temperature": null
+  },
+  "paths": [
+    {
+      "connection": "connected",
+      "timestampMs": 1791726090415.004,
+      "rtpPayloadBytesSent": 7963,
+      "rtpPayloadBytesReceived": 7963,
+      "framesEncoded": 20,
+      "framesDecoded": 21,
+      "totalEncodeTimeSeconds": 0.026,
+      "packetsLost": 0,
+      "currentRoundTripTimeSeconds": 0,
+      "localCandidateType": "host",
+      "remoteCandidateType": "host",
+      "transportProtocol": "udp",
+      "encodeTimeSeconds": 0.022,
+      "observedPayloadBps": 12691.645282608826
+    },
+    {
+      "connection": "connected",
+      "timestampMs": 1791726090415.617,
+      "rtpPayloadBytesSent": 7230,
+      "rtpPayloadBytesReceived": 7230,
+      "framesEncoded": 20,
+      "framesDecoded": 20,
+      "totalEncodeTimeSeconds": 0.02,
+      "packetsLost": 0,
+      "currentRoundTripTimeSeconds": 0,
+      "localCandidateType": "host",
+      "remoteCandidateType": "host",
+      "transportProtocol": "udp",
+      "encodeTimeSeconds": 0.019,
+      "observedPayloadBps": 11523.8772796384
+    }
+  ],
+  "relayOnlyWithoutProvider": {
+    "state": "unsupported-unconfigured",
+    "localCandidates": 0,
+    "providerConfigured": false,
+    "feasibilityMeasured": false
+  },
+  "oneViewerClosePreservesOther": true,
+  "bytes": {
+    "boundary": "browser-rtp-payload",
+    "completeness": "partial",
+    "signalingOverhead": null,
+    "udpIpOverhead": null,
+    "stunTurnOverhead": null,
+    "wan": null,
+    "carrier": null
+  },
+  "untested": [
+    "Pi-3A+",
+    "physical-camera",
+    "still-capture-contention",
+    "mobile-NAT",
+    "TURN-relay",
+    "packet-loss-injection",
+    "end-to-end-frame-latency",
+    "current-site-authorization",
+    "field-operation"
+  ],
+  "productionSelection": null
+}
