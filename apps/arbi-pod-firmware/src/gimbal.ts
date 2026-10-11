@@ -44,12 +44,12 @@ export class GimbalModel {
   #clock(){const n=this.options.now();if(!Number.isSafeInteger(n)||n<0||n<this.#lastMs){this.inhibit('CLOCK_INVALID');reject('CLOCK_INVALID');}this.#lastMs=n;return n;}
   #gate(){try{return this.options.gate();}catch{this.inhibit('AUTHORITY_UNAVAILABLE');reject('AUTHORITY_UNAVAILABLE');}}
   #angles(pan:number,tilt:number){if(!finite(pan)||!finite(tilt)||pan<this.#calibration.pan.minimumDeg||pan>this.#calibration.pan.maximumDeg||tilt<this.#calibration.tilt.minimumDeg||tilt>this.#calibration.tilt.maximumDeg)reject('OUTSIDE_LIMITS');}
-  #stopped(now:number){let e:MotionStopEvidence|null;try{e=this.options.motion();}catch{reject('MOTION_STOP_UNAVAILABLE');}if(!e)reject('MOTION_STOP_UNAVAILABLE');fields(e,['origin','identity','generation','sequence','configurationDigest','calibrationRevision','stopped','sampledMs']);
+  #stopped(now:number,allowMoving=false){let e:MotionStopEvidence|null;try{e=this.options.motion();}catch{reject('MOTION_STOP_UNAVAILABLE');}if(!e)reject('MOTION_STOP_UNAVAILABLE');fields(e,['origin','identity','generation','sequence','configurationDigest','calibrationRevision','stopped','sampledMs']);
     fields(e.identity,['deviceId','bootId','sessionId']);
     if(e.origin!=='simulated'||!same(e.identity,this.options.motionSource)||e.generation!==this.options.motionGeneration||e.configurationDigest!==this.#applied.configurationDigest
-      ||e.calibrationRevision!==this.#calibration.calibrationRevision||e.stopped!==true||!Number.isSafeInteger(e.sampledMs)||e.sampledMs>now||now-e.sampledMs>=100
+      ||e.calibrationRevision!==this.#calibration.calibrationRevision||typeof e.stopped!=='boolean'||!Number.isSafeInteger(e.sampledMs)||e.sampledMs>now||now-e.sampledMs>=100
       ||typeof e.sequence!=='string'||!/^[1-9][0-9]{0,19}$/u.test(e.sequence)||BigInt(e.sequence)>18446744073709551615n||BigInt(e.sequence)<this.#motionSequence)reject('MOTION_STOP_STALE');
-    this.#motionSequence=BigInt(e.sequence);
+    this.#motionSequence=BigInt(e.sequence);if(!allowMoving&&!e.stopped)reject('MAIN_MOTION_ACTIVE');return e;
   }
   reconcile(fixture:{origin:'simulated';recordId:string;panDeg:number;tiltDeg:number}) {
     if(this.#active)reject('GIMBAL_BUSY');fields(fixture,['origin','recordId','panDeg','tiltDeg']);if(fixture.origin!=='simulated'||!id(fixture.recordId))reject('SIMULATION_REQUIRED');
@@ -70,10 +70,11 @@ export class GimbalModel {
       this.options.servo.move(request);return {outcome:'running' as const,reason:null};
     } catch(e){const reason=e instanceof GimbalError?e.code:'SERVO_FAILED';this.#outcomes.set(c.command.commandId,{outcome:'failed',reason});if(this.#active?.command.command.commandId===c.command.commandId)this.inhibit(reason);throw new GimbalError(reason);}
   }
-  tick(){const now=this.#clock();try{this.#stopped(now);}catch{this.inhibit('MOTION_STOP_STALE');return this.status;}const a=this.#active,c=this.#authorized;
+  tick(){const now=this.#clock();let motion:MotionStopEvidence;try{motion=this.#stopped(now,true);}catch{this.inhibit('MOTION_STOP_STALE');return this.status;}const a=this.#active,c=this.#authorized;
     let gate:CommandGate;try{gate=this.#gate();}catch{return this.status;}if(c&&(!gate.lease||gate.lease.expiresMonotonicMs<=now||gate.lease.id!==c.command.lease?.id||gate.lease.fence!==c.command.lease?.fence
       ||gate.executionMode!=='simulation'||!same(gate.realm,c.realm)||gate.siteId!==c.siteId||gate.configRevision!==c.command.configRevision||gate.faultInhibited
       ||!same(gate.receiver,this.options.source)||!same(gate.authenticatedSource,c.source)||!same(gate.authorizedActor,c.command.actor)||!gate.allowedTypes.includes('camera.gimbal')||!gate.supportedTypes.includes('camera.gimbal'))){this.inhibit('AUTHORITY_LOST');return this.status;}
+    if(!motion.stopped){if(!a&&this.status.safeMotionPose){this.#phase='idle';return this.status;}this.inhibit('MAIN_MOTION_ACTIVE');return this.status;}
     if(!a)return this.status;
     if(now>=a.deadline){this.inhibit('GIMBAL_TIMEOUT');return this.status;}
     let o:ServoObservation|null;try{o=this.options.servo.observe(now);}catch{this.inhibit('SERVO_FAILED');return this.status;}

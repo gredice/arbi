@@ -2,7 +2,7 @@
 
 Work record: [#42](https://github.com/gredice/arbi/issues/42). [Decision](../decisions/0032-simulation-only-calibrated-gimbal.md), [guide](../software/gimbal-model.md).
 
-Seven deterministic groups exercise actual configuration apply/compatibility and protocol command admission, bounded endpoint PWM mapping, invalid calibration/frames/angle and velocity deadlines, duplicate/conflicting/reordered/expired commands, old receiver epochs, wrong/stale/reordered stopped evidence, missing/repeated/reordered/unstable servo samples, lease/stop loss after settling, timeout, clock reversal, finite-ledger exhaustion, adapter exceptions and no automatic restart motion. They use the actual gimbal model and synthetic servo sink. Clean revision and full pod checks are recorded after implementation.
+Eight deterministic groups exercise actual configuration apply/compatibility and protocol command admission, bounded endpoint PWM mapping, invalid calibration/frames/angle and velocity deadlines, duplicate/conflicting/reordered/expired commands, old receiver epochs, wrong/stale/reordered stopped evidence, missing/repeated/reordered/unstable servo samples, lease/stop loss after settling, timeout, clock reversal, finite-ledger exhaustion, adapter exceptions, safe pose retained during normal main motion and no automatic restart motion. They use the actual gimbal model and synthetic servo sink. Clean revision and full pod checks are recorded after implementation.
 
 | Required physical evidence | Status |
 | --- | --- |

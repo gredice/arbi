@@ -80,3 +80,8 @@ test('bounded admission and adapter failures cannot forget identities or retain 
   f.options.gate=()=>{throw new Error('unavailable');};assert.equal(f.model.tick().reason,'AUTHORITY_UNAVAILABLE');assert.equal(f.model.status.simulatedCaptureEligible,false);
   const moving=fixture();moving.reconcile();moving.adapter.move=()=>{throw new Error('failed');};assert.throws(()=>moving.model.move(moving.command()),{code:'SERVO_FAILED'});assert.equal(moving.model.status.phase,'inhibited');
 });
+test('normal main motion retains a settled configured safe pose and blocks new gimbal/capture work',()=>{
+  const f=fixture();f.reconcile();f.model.move(f.command(0,0));f.model.tick();f.clock(30);assert.equal(f.model.captureEligibility(),true);
+  f.motion(e=>{e.stopped=false;});assert.equal(f.model.tick().phase,'idle');assert.equal(f.model.status.safeMotionPose,true);assert.equal(f.model.captureEligibility(),false);
+  assert.throws(()=>f.model.move(f.command()),{code:'MAIN_MOTION_ACTIVE'});assert.equal(f.servo.status.moves,1);assert.deepEqual(f.model.status.commandedPose,{panDeg:0,tiltDeg:0});
+});
