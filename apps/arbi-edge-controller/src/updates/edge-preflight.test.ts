@@ -74,7 +74,7 @@ test('active native job is rejected, and a bounded drain timeout retains lock wi
   const f=await fixture(t,true),w=f.workflow!;const job=f.jobs.consumer.receive(f.jobs.command);assert.equal(job.outcome,'accepted');const blocked=await f.request();assert.equal(blocked.reason,'LOCAL_JOB_ACTIVE');f.jobs.consumer.localSafetyStop();
   // A separate fresh composition is needed after local job inhibition.
   const g=await fixture(t,true),v=g.workflow!;await v.mediaStep();g.stuck(true);const pending=v.mediaStep();await new Promise<void>(resolve=>setImmediate(resolve));
-  const requested=await g.request(),began=performance.now(),result=await g.run(requested.operationId);assert.equal(result.view.reason,'UPDATE_DRAIN_UNCONFIRMED');assert.ok(performance.now()-began<1500);assert.equal(g.guard.status.lock?.phase,'draining');assert.equal(g.r.targets.get('pico')!.status.installations,0);assert.throws(()=>g.guard.reconcile(requested.operationId,'premature-review'),/UPDATE_NOT_TERMINAL/);
+  const requested=await g.request(),began=performance.now(),result=await g.run(requested.operationId);assert.equal(result.view.reason,'UPDATE_DRAIN_UNCONFIRMED');assert.ok(performance.now()-began<1500);assert.equal(g.guard.status.lock?.phase,'draining');assert.equal(g.r.targets.get('pico')!.status.installations,0);assert.throws(()=>g.guard.reconcile(requested.operationId,'premature-review'),/UPDATE_DRAIN_REVIEW_REQUIRED/);
   g.releaseDrain();await pending;await new Promise<void>(resolve=>setImmediate(resolve));assert.equal(g.guard.status.lock?.phase,'draining');g.reopen();assert.equal((await g.advance(requested.operationId)).view.reason,'UPDATE_DRAIN_REVIEW_REQUIRED');g.fresh();assert.equal(await g.guard.resumeDrain(requested.operationId,'pico','isolated-drain-review'),null);assert.equal((await g.run(requested.operationId)).view.state,'healthy');assert.equal(w.status.closed,false);
 });
 test('lost installation acknowledgement keeps inhibition and reconciles native target without resending',async t=>{
@@ -91,4 +91,13 @@ test('native job journal unavailability and loss of private Internet source reta
 
 test('unavailable local preflight on an authenticated request is a durable specific rejection',async t=>{
   const f=await fixture(t);f.guard.close();const requested=await f.request();assert.equal(requested.state,'blocked');assert.equal(requested.reason,'LOCAL_PREFLIGHT_UNAVAILABLE');assert.equal(f.r.store.get(requested.operationId).reason,'LOCAL_PREFLIGHT_UNAVAILABLE');assert.equal(f.r.requests.length,0);assert.equal(f.r.targets.get('pico')!.status.installations,0);f.reopen();
+});
+
+test('canceling an unreserved update cannot release an unconfirmed native capture drain',async t=>{
+  const f=await fixture(t,true),w=f.workflow!;await w.mediaStep();f.stuck(true);const pending=w.mediaStep();await new Promise<void>(resolve=>setImmediate(resolve));
+  const requested=await f.request();assert.equal((await f.run(requested.operationId)).view.reason,'UPDATE_DRAIN_UNCONFIRMED');f.fresh();
+  const canceled=await f.r.request('cancel',{operationId:requested.operationId});assert.equal(canceled.status,200);assert.equal(f.r.store.get(requested.operationId).state,'cancelled');
+  assert.throws(()=>f.guard.reconcile(requested.operationId,'cancel-is-not-drain-evidence'),/UPDATE_DRAIN_REVIEW_REQUIRED/);assert.equal(f.guard.admissionInhibit(),'FAULT_INHIBITED');
+  f.releaseDrain();await pending;assert.equal(f.guard.status.lock?.phase,'draining');f.fresh();assert.equal(await f.guard.resumeDrain(requested.operationId,'pico','reviewed-complete-cancel-drain'),null);
+  assert.equal(f.guard.reconcile(requested.operationId,'reviewed-terminal-cancel').lock,null);assert.equal(f.jobs.consumer.status.recoveryRequired,true);assert.equal(f.r.targets.get('pico')!.status.installations,0);
 });

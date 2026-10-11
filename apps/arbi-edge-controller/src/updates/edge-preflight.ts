@@ -110,6 +110,7 @@ export class EdgeUpdatePreflight {
   reconcile(operationId:string,reviewId:string){
     if(!isId(reviewId))reject('RECOVERY_REVIEW_REQUIRED');const lock=this.#lock(),o=this.options.orchestrator();
     if(!lock||lock.operationId!==operationId)reject('UPDATE_LOCK_REQUIRED');
+    if(lock.phase!=='ready')reject('UPDATE_DRAIN_REVIEW_REQUIRED');
     const operation=o.options.store.get(operationId);
     if(operation.worker||!['healthy','failed','rolled-back','cancelled'].includes(operation.state))reject('UPDATE_NOT_TERMINAL');
     for(const target of operation.targets){const local=this.#local(target.moduleId,lock);if(local)reject(local);

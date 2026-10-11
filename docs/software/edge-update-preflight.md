@@ -40,9 +40,10 @@ of stopped state, references, dock release and current modules; it retains the
 lock and installs nothing. An ambiguous reserved installation remains owned by
 the existing target readback/recovery path and must never be resent.
 
-Only `reconcile` may release the lock: it requires a terminal durable operation,
+Only `reconcile` may release the lock: it requires a ready lock, a terminal durable operation,
 no worker, healthy signed current target readbacks, fresh local conditions and a
-review ID. This does not reopen the capture workflow, clear job recovery, restore
+review ID. Cancellation cannot release an unconfirmed drain; reviewed `resumeDrain`
+must finish it first. This does not reopen the capture workflow, clear job recovery, restore
 a manual session, replay old commands or enable recording. New work needs the
 existing owners' deliberate recovery and fresh authority.
 
