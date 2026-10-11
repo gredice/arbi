@@ -78,3 +78,5 @@ storage reimage and secure-boot acceptance.
 connects the existing update owner to local jobs, manual lease fencing and capture
 draining. [Host evidence](../../docs/evidence/edge-update-preflight.md) retains
 physical restraint, OS boot and power-loss gates as blocked/unverified.
+
+The explicit [native live producer](../../docs/software/live-producer.md) uses current backend demand, the existing preview/budget owners and native generation fencing. [Host evidence](../../docs/evidence/live-producer.md) covers actual encoded fixture TCP payloads and independently authorized PostgreSQL viewers; production media transport remains unselected.

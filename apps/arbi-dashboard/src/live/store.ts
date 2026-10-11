@@ -12,6 +12,7 @@ import {LIVE_VERSION,LIVE_LEASE_MS,LIVE_MAX_LIFETIME_MS,liveSignal,policy,profil
 import type {LiveAdapter,LivePolicyEvaluator,LiveProfile,LiveViewer,MediaDeviceApproval,ProducerDemand,LiveSignal} from './contracts';
 import {LiveTokens} from './tokens';
 import {deliverySummary} from './delivery';
+import {validateLiveProducerDemand} from '@arbi/protocol/live-demand';
 type Tx=Parameters<Parameters<PostgresJobStore['transaction']>[1]>[0];
 interface Producer {demand:ProducerDemand;deliveredGeneration:string|null;observedState:'leased'|'stopped'|null}
 const binding=(e:AuditEvent):TrustedBinding=>({realm:e.realm,siteId:e.siteId,executionMode:e.executionMode,authenticatedSource:e.source,actor:e.actor,
@@ -61,6 +62,29 @@ export class LiveStore{
   async #owned(tx:Tx,context:AuthorizedContext,sessionId:string){id(sessionId);await this.jobs.authority(tx,context);
     const row=(await tx.sql.query<{record:LiveViewer}>('SELECT record FROM arbi_live_viewers WHERE id=$1 AND environment=$2 AND namespace_id=$3 AND site_id=$4',[sessionId,...scope(this.jobs.realm,context.siteId)])).rows[0];
     if(!row||row.record.authority.actor.id!==context.actor.id||row.record.authority.sessionId!==context.sessionId)throw new JobError('DENIED');return row.record;
+  }
+  /** Private frame-reference sink hook, never mounted as a media HTTP route.
+   * Read the existing grants and current authority; mint no new viewer session. */
+  async inspectFrameRecipients(input:ProducerDemand){
+    validateLiveProducerDemand(input);if(!isDeepStrictEqual(input.realm,this.jobs.realm))throw new JobError('DENIED');
+    return this.jobs.transaction(input.siteId,async tx=>{
+      const active=await this.#active(tx,input.target.deviceId),producer=await this.#producer(tx,input.target.deviceId),allowed:LiveViewer[]=[];
+      for(const v of active){try{
+        await this.jobs.authority(tx,v.currentAuthority);
+        const current=await this.#policy(tx,v.currentAuthority,v.target.deviceId,v.profile,Math.max(0,active.length-1));
+        if(!current.allow){await this.#close(tx,v,'revoked');continue;}allowed.push(v);
+      }catch(error){if(!(error instanceof JobError)||error.code!=='DENIED')throw error;await this.#close(tx,v,'revoked');}}
+      const current:LiveViewer[]=[];
+      // Policy evaluation can await remote work. Recheck authority and each
+      // independent deadline after all evaluations, before admitting a frame.
+      for(const v of allowed){try{await this.jobs.authority(tx,v.currentAuthority);
+        if(v.expiresAtMs<=tx.now||v.absoluteExpiresAtMs<=tx.now)await this.#close(tx,v,'timeout');else current.push(v);
+      }catch(error){if(!(error instanceof JobError)||error.code!=='DENIED')throw error;await this.#close(tx,v,'revoked');}}
+      const latest=(await this.#demand(tx,producer,current)).demand;
+      const authorized=isDeepStrictEqual(latest,input)&&input.expiresAtMs>tx.now&&current.length>0;
+      return {authorized,reason:authorized?null:'current-demand-required',demand:structuredClone(latest),
+        recipients:authorized?current.map(v=>({id:v.id,epoch:v.epoch,expiresAtMs:v.expiresAtMs,actor:structuredClone(v.authority.actor),sessionId:v.authority.sessionId,intentEventId:v.intent.eventId})):[]};
+    });
   }
   async #policy(tx:Tx,context:AuthorizedContext,deviceId:string,p:LiveProfile,count:number){
     const device=this.#device(tx,deviceId),result=policy(await bounded(750,signal=>this.evaluatePolicy({context:structuredClone(context),device:structuredClone(device),profile:structuredClone(p),sharedUpstream:count>0,viewers:count+1,signal})));
