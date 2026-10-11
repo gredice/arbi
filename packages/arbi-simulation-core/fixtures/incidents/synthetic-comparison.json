@@ -1,0 +1,73 @@
+{
+  "schemaVersion": "arbi.model-comparison/1.0",
+  "data": {
+    "id": "committed-synthetic-fault",
+    "revision": "1",
+    "origin": "synthetic",
+    "provenance": "declared-unverified",
+    "retentionUntilUtc": "2099-01-01T00:00:00.000Z",
+    "createdAtUtc": "2026-10-11T00:00:00.000Z"
+  },
+  "model": {
+    "id": "bounded-affine-modules-no-dynamics",
+    "revision": "3b9f17527cb8b94020e7daae156f28ad53e60b0b",
+    "assumptionRefs": [
+      "synthetic-only",
+      "no-physical-position-measurement"
+    ],
+    "parameters": [
+      {
+        "id": "voltage-estimate",
+        "unit": "V",
+        "value": 24,
+        "lower": 23,
+        "upper": 25,
+        "evidenceRef": "synthetic-voltage-fixture"
+      }
+    ]
+  },
+  "bundleDigest": "a04cda6f7a3e8f6a139f07cfd9faca1104c2f51b9bc3798c82114b374cffe471",
+  "pairing": "explicit-record-id-no-interpolation",
+  "residuals": [
+    {
+      "recordId": "incident-measured-voltage",
+      "metric": "power.voltage",
+      "unit": "V",
+      "residual": 0.6000000000000014,
+      "uncertainty": 0.30000000000000004,
+      "value": 48.1,
+      "offsetMs": 600,
+      "clockUncertaintyMs": 500
+    }
+  ],
+  "groups": [
+    {
+      "metric": "power.voltage",
+      "unit": "V",
+      "count": 1,
+      "bias": 0.6000000000000014,
+      "rmse": 0.6000000000000014,
+      "maxAbsolute": 0.6000000000000014,
+      "testedOperatingRange": {
+        "min": 48.1,
+        "max": 48.1
+      },
+      "missingValueUncertainty": 0,
+      "unknownClockQuality": 0
+    }
+  ],
+  "excluded": [
+    {
+      "recordId": "incident-estimated-position",
+      "metric": "position.x",
+      "reason": "not-a-recorded-measurement"
+    },
+    {
+      "recordId": "incident-estimated-position",
+      "metric": "line.tension.a",
+      "reason": "not-a-recorded-measurement"
+    }
+  ],
+  "physicalEvidence": "unavailable-synthetic-only",
+  "fittedParameters": false
+}

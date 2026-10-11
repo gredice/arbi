@@ -73,3 +73,5 @@ Loaded/installed operational actuation and motion-controller updates remain disa
 - inspection intervals and replacement criteria.
 
 Command lifecycle software includes bounded denied-attempt aggregation, current audit-authorized trace views and original lease/software/configuration attribution. Calibration commits and simulated update terminal conversion retain explicit recovery policy; see [lifecycle evidence](../evidence/lifecycle-audit.md). Physical home and installation outcomes remain separate gates.
+
+Portable incident replay and explicit model comparison are available as isolated software tools with scoped read/export boundaries. Original clocks, gaps, unavailable channels and data/model revisions are preserved; [incident evidence](../evidence/incident-replay.md) retains the missing physical bench-data gate. Replay has no actuator route.
