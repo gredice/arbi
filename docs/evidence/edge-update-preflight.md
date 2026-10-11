@@ -40,7 +40,11 @@ host with Node 24.19.0. The stalled-drain scenario uses a configured 50 ms
 deadline and measured the complete failed advance below its 1500 ms test bound;
 this is host integration timing, not actuator-stop or brownout timing. Software
 configuration, module identities and local health are the committed synthetic
-references; no hardware or bootloader revision was exercised. The evidence-only
-follow-up changes no tested implementation. This report records host integration only; no approved
+references; no hardware or bootloader revision was exercised. Clean source 6451ae44bbbd343a985507c0dd0dd8334f9e812c additionally passed all
+57 update tests, including 23 preflight scenarios, in 60.040 seconds after
+requiring a ready lock for reconciliation. A canceled, unreserved update with an
+unconfirmed native uploader drain remains inhibited until reviewed draining
+finishes; late completion alone cannot release it. Its 13 forced build/lint/
+typecheck tasks passed. The evidence-only follow-up changes no tested code. This report records host integration only; no approved
 physical bench, hardware revisions, real OS boot or passive restraint evidence
 is available. All corresponding field gates remain blocked/unverified.
