@@ -1,0 +1,175 @@
+{
+  "version": "arbi.capture-processing-fixture/1.0",
+  "producer": {
+    "source": "5835fa2d4959f8cdd87bcc3ee2c7d47dc1f3af1a",
+    "dirty": false,
+    "adapter": "SyntheticCaptureCamera",
+    "physicalCamera": false
+  },
+  "receipt": {
+    "version": "arbi.capture-result/1.0",
+    "commandId": "fixture-capture",
+    "correlationId": "capture-job-1",
+    "resourceId": "bed-target-1",
+    "fingerprint": "ebfd80d53877b205eb90200c0e98e76f63ae3c443243084d625968fba8c0abb2",
+    "state": "captured",
+    "phase": "captured",
+    "reason": null,
+    "image": {
+      "id": "972c6c27-5d50-436d-970b-8e3c74b1144a",
+      "file": "972c6c27-5d50-436d-970b-8e3c74b1144a.png",
+      "sha256": "eb2494caca6783c5d6328d48b9875f00b29afc2b50438dde81bd7fce1a1a917c",
+      "bytes": 120,
+      "contentType": "image/png",
+      "widthPx": 32,
+      "heightPx": 24
+    },
+    "metadata": {
+      "version": "arbi.raw-capture/1.0",
+      "origin": "simulated",
+      "request": {
+        "messageId": "fixture-message-1",
+        "sequence": "2",
+        "commandId": "fixture-capture",
+        "correlationId": "capture-job-1",
+        "idempotencyKey": "fixture-key-1",
+        "source": {
+          "deviceId": "edge",
+          "bootId": "edge-boot-1",
+          "sessionId": "edge-session-1"
+        },
+        "actor": {
+          "kind": "human",
+          "id": "operator-1"
+        },
+        "deadline": {
+          "bootId": "pod-boot-1",
+          "sessionId": "pod-session-1",
+          "expiresMonotonicMs": 2000
+        },
+        "lease": {
+          "id": "lease-1",
+          "holderId": "operator-1",
+          "fence": "1"
+        }
+      },
+      "source": {
+        "deviceId": "pod",
+        "bootId": "pod-boot-1",
+        "sessionId": "pod-session-1"
+      },
+      "realm": {
+        "environment": "test",
+        "namespaceId": "fixture-run"
+      },
+      "siteId": "synthetic-site",
+      "resourceId": "bed-target-1",
+      "jobId": "capture-job-1",
+      "targetId": "bed-target-1",
+      "capturedAt": {
+        "monotonicMs": 150,
+        "utc": null,
+        "uncertaintyMs": null,
+        "clockQuality": "utc-unavailable"
+      },
+      "requestedPose": {
+        "positionMm": {
+          "x": 1000,
+          "y": 1000,
+          "z": 2000
+        },
+        "frame": {
+          "name": "site",
+          "revision": "frame-1"
+        },
+        "units": "mm"
+      },
+      "availablePose": {
+        "origin": "unavailable",
+        "quality": "unavailable",
+        "positionMm": null,
+        "sampleMonotonicMs": null,
+        "uncertaintyMm": null,
+        "originQuality": null,
+        "ageMs": null,
+        "frame": {
+          "name": "site",
+          "revision": "frame-1"
+        },
+        "units": "mm"
+      },
+      "gimbal": {
+        "origin": "simulated",
+        "phase": "settled",
+        "commandedPose": {
+          "panDeg": 20,
+          "tiltDeg": -10
+        },
+        "quality": "commanded",
+        "reason": null,
+        "safeMotionPose": false,
+        "simulatedCaptureEligible": true,
+        "physicalCaptureEligible": false,
+        "physicalSettlingMeasured": false,
+        "configurationDigest": "15f54c85545697d1da5736ef52c0188a0cb8f9dd0916b90c915cba1e6d2ec153",
+        "calibrationRevision": "calibration-1",
+        "frame": {
+          "name": "pod-gimbal",
+          "revision": "gimbal-1"
+        },
+        "commandId": "fixture-gimbal"
+      },
+      "camera": {
+        "origin": "simulated",
+        "ready": true,
+        "revision": "synthetic-camera-1"
+      },
+      "focus": {
+        "origin": "simulated",
+        "status": "focused",
+        "score": 1,
+        "lensPosition": 0.5,
+        "algorithmRevision": "synthetic-focus-1"
+      },
+      "preview": null,
+      "profile": {
+        "version": "arbi.capture-profile/1.0",
+        "origin": "simulated",
+        "id": "profile-1",
+        "revision": "profile-revision-1",
+        "configurationDigest": "15f54c85545697d1da5736ef52c0188a0cb8f9dd0916b90c915cba1e6d2ec153",
+        "calibrationRevision": "calibration-1",
+        "widthPx": 32,
+        "heightPx": 24,
+        "exposureTimeUs": 10000,
+        "analogueGain": 1,
+        "focusMode": "single",
+        "lensRange": {
+          "minimum": 0,
+          "maximum": 1
+        },
+        "preview": false
+      },
+      "build": {
+        "version": "0.1.0",
+        "sha": "5835fa2d4959f8cdd87bcc3ee2c7d47dc1f3af1a",
+        "dirty": false
+      },
+      "configuration": {
+        "revision": "config-1",
+        "digest": "15f54c85545697d1da5736ef52c0188a0cb8f9dd0916b90c915cba1e6d2ec153",
+        "calibrationRevision": "calibration-1",
+        "geometryRevision": "geometry-1"
+      },
+      "processing": {
+        "state": "not-processed",
+        "derivedIds": []
+      },
+      "upload": {
+        "state": "not-uploaded"
+      },
+      "physicalCamera": false
+    }
+  },
+  "pngBase64": "iVBORw0KGgoAAAANSUhEUgAAACAAAAAYCAIAAAAUMWhjAAAAP0lEQVR4nO3NIQEAQAzDwMl5/3om5mlYyMpaGNCbhy121aeAAolT9gIOJE7ZCziQOGUv4EDilL2AA4lT9gLaPxjfkj3KWu08AAAAAElFTkSuQmCC"
+}
