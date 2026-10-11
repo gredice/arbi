@@ -12,6 +12,8 @@ Tested source revision: `a862239063d6f4be2cc83e76e16ec8277b31d735`, clean checko
 
 Both normal and AddressSanitizer/UndefinedBehaviorSanitizer host runs passed all eight test groups. The 25 repository CI-selection/gate tests, script syntax checks, 298-file Markdown link check and whitespace check passed. The source ELF/BIN/UF2 SHA-256 digests were respectively `32d6c9a6741ee58ff5e503731e8d4ff2cbb09f8b6677860db9bcdfa2e67d7d5b`, `aee62623510fe3a4baf2529e156e93ea2166af71f0a96adc082bf0332dedd734` and `df65db4faa532cb77cbb6eb38e6b7ee976f6523a70d4aed41164f54371e1283d`. These identify this local source build; the ELF includes local debug paths and these are not published/signed release checksums.
 
+Review follow-up source revision `7f5d42c01b8b2ee3db84e31c40053207c1b320a0` also cross-built cleanly and passed all eight groups normally and under both sanitizers, including identifier rejection after a deliberately matching trusted-profile digest. Separate host checks verified honest `unknown`/dirty identity outside Git and repaired both deleted newlib links in the internal bootstrap root. External tool roots remain unchanged. All five automated review threads were resolved after these fixes/clarifications; no human physical approval is implied.
+
 | Evidence | Result / boundary |
 | --- | --- |
 | Pinned target cross-compilation | Passed: real MCU architecture/link map |
