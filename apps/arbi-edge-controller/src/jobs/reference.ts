@@ -2,7 +2,8 @@ import { createHash } from 'node:crypto';
 import { readFileSync, mkdirSync } from 'node:fs';
 import { resolve, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { configurationDigest, configurationHardwareDigest, type Command, type ConfigurationBoundary } from '@arbi/protocol';
+import { configurationDigest, configurationHardwareDigest, type Command, type ConfigurationBoundary, type Realm, type Identity } from '@arbi/protocol';
+import { isId,isRealm } from '@arbi/gredice';
 import { syntheticAppliedConfiguration } from '../simulation.js';
 import { JobAuditRelay } from './audit-relay.js';
 import { JobJournal, type JournalOptions } from './journal.js';
@@ -13,12 +14,23 @@ import { ManualControl, type ManualOptions } from './manual.js';
 
 /** Explicit fixture runner only; runtime settings never import or select this authority. */
 export function createJobReference(directory: string, patches: { journal?: Partial<JournalOptions>; consumer?: Partial<ConsumerOptions>; plant?: string;
-  manual?:Pick<ManualOptions,'deadmanMs'|'maxJogMs'|'maxLeaseMs'> } = {}) {
+  manual?:Pick<ManualOptions,'deadmanMs'|'maxJogMs'|'maxLeaseMs'>;
+  scope?:{realm:Realm;siteId:string;receiver:Identity} } = {}) {
   mkdirSync(directory, { recursive: true, mode: 0o700 });
   const applied = syntheticAppliedConfiguration(), config = applied.request.configuration;
   // dist/jobs is one level deeper than the existing edge runtime fixture helper.
   const root = new URL('../../../../', import.meta.url);
   const plant = JSON.parse(readFileSync(new URL(`packages/arbi-simulation-core/fixtures/plant/1.0/${patches.plant ?? 'nominal'}.json`, root), 'utf8'));
+  if(patches.scope){
+    const {realm,siteId,receiver}=patches.scope;
+    if(!isRealm(realm)||realm.environment!=='test'||!isId(siteId)||receiver.deviceId!==applied.appliedBy.deviceId||!isId(receiver.bootId)||!isId(receiver.sessionId))throw new Error('ISOLATED_SCOPE_REQUIRED');
+    config.realm=realm;config.siteId=siteId;applied.appliedBy=receiver;applied.request.target=receiver;applied.configurationDigest=configurationDigest(config);
+    plant.context.identity.configurationDigest=applied.configurationDigest;plant.context.gate.receiver=receiver;
+    for(const input of plant.inputs)if(input.kind==='command'){
+      input.message.realm=realm;input.message.siteId=siteId;input.message.command.target=receiver;
+      input.message.command.deadline.bootId=receiver.bootId;input.message.command.deadline.sessionId=receiver.sessionId;
+    }
+  }
   const referenceDigest = createHash('sha256').update(readFileSync(new URL('packages/arbi-protocol/fixtures/reference/1.0/vectors.json', root))).digest('hex');
   const adapter = new BoundedJobSimulator(plant, config, referenceDigest);
   const gate = { realm: config.realm, siteId: config.siteId, executionMode: 'simulation' as const, authenticatedSource: plant.context.gate.source,

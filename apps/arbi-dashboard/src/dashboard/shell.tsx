@@ -6,9 +6,10 @@ import { Brand } from "./brand";
 import { AssemblyDiagnostics, AssemblyInventory } from './diagnostics';
 import { Bandwidth } from './bandwidth';
 import { AuditTimeline } from './audit-timeline';
+import { ControlPlayground } from './controls';
 
 const sections = [{ id: "overview", name: "Overview", icon: "◫" }, { id: "devices", name: "Devices", icon: "◇" },
-  { id: "images", name: "Images", icon: "▧" }, { id: "releases", name: "Releases", icon: "↓" }, { id: "usage", name: "Bandwidth", icon: "↕" }, { id: "activity", name: "Activity", icon: "≋" }, { id: "live", name: "Live readiness", icon: "○" }, { id: "diagnostics", name: "Diagnostics", icon: "⌁" }];
+  { id: "controls", name: "Controls", icon: "⊕" }, { id: "images", name: "Images", icon: "▧" }, { id: "releases", name: "Releases", icon: "↓" }, { id: "usage", name: "Bandwidth", icon: "↕" }, { id: "activity", name: "Activity", icon: "≋" }, { id: "live", name: "Live readiness", icon: "○" }, { id: "diagnostics", name: "Diagnostics", icon: "⌁" }];
 export function DashboardShell({ siteId, mode, section, initial }: { siteId: string; mode: DashboardMode; section: string; initial: DashboardResult }) {
   const [result, setResult] = useState(initial);
   const [now, setNow] = useState(() => Date.now());
@@ -87,6 +88,7 @@ function reading(sample: NonNullable<DashboardContext["state"]["telemetry"]>["bo
   return <>{value.value === null ? "Unavailable" : `${Number(value.value.toFixed(1))} ${value.unit}`}<small className="quality">{value.quality}{value.originQuality ? ` (was ${value.originQuality})` : ""}</small></>;
 }
 function Section({ context, section, now }: { context: DashboardContext; section: string; now: number }) {
+  if(section==='controls')return <ControlPlayground context={context}/>;
   if(section==='usage')return <Bandwidth context={context}/>;
   if(section==='activity')return <AuditTimeline context={context}/>;
   if(section==='devices')return <AssemblyInventory context={context}/>;

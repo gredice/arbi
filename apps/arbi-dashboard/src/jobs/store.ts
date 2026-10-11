@@ -117,7 +117,7 @@ export class PostgresJobStore {
     if (!device?.current || (applied && device.appliedConfigRevision !== tx.registry.configRevision)) throw new JobError("DENIED");
     return device;
   }
-  async receiver(tx: Tx, deviceId: string): Promise<{ event: Event & { body: Extract<Event["body"],{ type: "state.snapshot" }> }; margin: number; currentMono: number }> {
+  async receiver(tx: Tx, deviceId: string): Promise<{ event: Event & { body: Extract<Event["body"],{ type: "state.snapshot" }> }; margin: number; currentMono: number; observedAtMs:number }> {
     const device = this.activeDevice(tx,deviceId);
     const row = (await tx.sql.query<Row<Receiver>>("SELECT record FROM arbi_job_receivers WHERE environment=$1 AND namespace_id=$2 AND site_id=$3 AND device_id=$4",[...scope(this.realm,tx.registry.siteId),deviceId])).rows[0];
     const event = row?.record.event;
@@ -129,7 +129,7 @@ export class PostgresJobStore {
     const margin = uncertaintyMs+this.receiverUncertaintyMs+50;
     const currentMono = monotonicMs+tx.now-Date.parse(utc);
     if (!Number.isSafeInteger(currentMono) || currentMono < margin) throw new JobError("CLOCK_UNCERTAIN");
-    return { event: event as Event & { body: Extract<Event["body"],{ type: "state.snapshot" }> },margin,currentMono };
+    return { event: event as Event & { body: Extract<Event["body"],{ type: "state.snapshot" }> },margin,currentMono,observedAtMs:row.record.receivedAtMs };
   }
   async activeLease(tx: Tx): Promise<ControlLease | null> {
     const key = scope(this.realm,tx.registry.siteId);
@@ -149,6 +149,21 @@ export class PostgresJobStore {
     lease.endedAtMs = tx.now;
     await tx.sql.query("UPDATE arbi_control_leases SET ended_at_ms=$2,record=$3::jsonb WHERE id=$1",[lease.id,tx.now,JSON.stringify(lease)]);
     await this.observation(tx,lease.intent,reason,reason === "timeout" ? "control.session.timeout" : reason === "revoked" ? "control.session.revoke" : "control.session.end");
+  }
+  /** Bounded observed control state. Reading never acquires a lease or submits work. */
+  async controls(context: AuthorizedContext) {
+    return this.transaction(context.siteId,async tx=>{
+      await this.authority(tx,context);
+      if(context.capability!=="state.read")throw new JobError("DENIED");
+      const devices=tx.registry.devices.filter(d=>d.role==='edge'&&d.status==='active'&&d.current);
+      if(devices.length!==1)throw new JobError("DENIED");
+      const receiver=await this.receiver(tx,devices[0].id),lease=await this.activeLease(tx);
+      const jobs=(await tx.sql.query<Row<Job>>(`SELECT record FROM arbi_command_jobs WHERE environment=$1 AND namespace_id=$2 AND site_id=$3 ORDER BY expires_at_ms DESC,id DESC LIMIT 20`,scope(this.realm,context.siteId))).rows;
+      return {version:'arbi.controls/1.0',snapshot:receiver.event,observedAtMs:receiver.observedAtMs,
+        lease:lease?{id:lease.id,fence:lease.fence,operatorId:lease.authority.actor.id,owned:lease.authority.sessionId===context.sessionId,
+          expiresAtMs:lease.expiresAtMs,endedAtMs:lease.endedAtMs}:null,
+        jobs:jobs.map(({record:j})=>({id:j.id,cloudDisposition:j.cloudDisposition,deviceStatus:j.deviceStatus,terminal:j.terminal,command:j.command,expiresAtMs:j.expiresAtMs}))};
+    });
   }
   async lease(context: AuthorizedContext, action: "acquire" | "renew" | "release" | "revoke", input: unknown): Promise<ControlLease> {
     exact(input,action === "acquire" ? ["key","deviceId","ttlMs"] : action === "renew" ? ["key","leaseId","fence","ttlMs"] : ["key","leaseId","fence"]);

@@ -1,6 +1,6 @@
 import { hkdfSync, randomUUID, timingSafeEqual } from "node:crypto";
 import { SignJWT } from "jose";
-import { createGrediceAuthorizationDirectory, GrediceIdentityAdapter, sameRealm } from "@arbi/gredice";
+import { createGrediceAuthorizationDirectory, GrediceIdentityAdapter, isResourceScope, sameRealm } from "@arbi/gredice";
 import type { DirectorySnapshot } from "@arbi/gredice";
 import type { SqlDatabase } from "../enrollment/store";
 import { PostgresRegistryStore } from "../enrollment/store";
@@ -9,12 +9,15 @@ import { createSimulatorRead, simulationSites, syntheticConfiguration } from "./
 import { configuredCatalog } from "../releases/catalog";
 import { createDashboardHistoryTools } from './history-tools';
 import type { ResourceResolver } from '@arbi/gredice';
+import { createJobsServer } from '../jobs/server';
 
 export interface TestProviderConfig {
   realm: { environment: "test"; namespaceId: string };
   verificationKey: Uint8Array;
   accessCode: string;
   viewerCode?: string;
+  /** Separate private operator profile. Never adds manipulation to the engineer/viewer profile. */
+  operatorCode?: string;
   browserOrigins: readonly string[];
   db: SqlDatabase;
   now?: () => number;
@@ -22,7 +25,8 @@ export interface TestProviderConfig {
 /** Explicit isolated test composition, never an automatic fallback or a live Gredice issuer. */
 export function createDashboardTestProvider(config: TestProviderConfig) {
   if (config.realm.environment !== "test" || config.accessCode.length < 32 || config.verificationKey.length < 32 ||
-    (config.viewerCode && (config.viewerCode.length < 32 || config.viewerCode === config.accessCode))) throw new Error("INVALID_CONFIGURATION");
+    (config.viewerCode && (config.viewerCode.length < 32 || config.viewerCode === config.accessCode)) ||
+    (config.operatorCode && (config.operatorCode.length<32 || [config.accessCode,config.viewerCode].includes(config.operatorCode)))) throw new Error("INVALID_CONFIGURATION");
   const now = config.now ?? Date.now;
   const realm = config.realm;
   const issuer = `urn:arbi:dashboard-test:${realm.namespaceId}`;
@@ -56,12 +60,38 @@ export function createDashboardTestProvider(config: TestProviderConfig) {
     readState: createSimulatorRead(realm, now), readConfiguration: async siteId => syntheticConfiguration(realm, siteId), readReleases: configuredCatalog });
   const historyTools=createDashboardHistoryTools({db:config.db,realm,identity,resolveSite:resolveResource,browserOrigins:config.browserOrigins,
     queryKey:new Uint8Array(hkdfSync('sha256',config.verificationKey,realm.namespaceId,'arbi.dashboard.audit-cursor/1.0',32))});
+  const jobs=createJobsServer({db:config.db,realm,identity,resolveSite:resolveResource,browserOrigins:config.browserOrigins,
+    currentAuthority:async(previous,signal)=>{
+      // This isolated issuer may reconstruct its own original server session after restart.
+      // Recheck the stored session and current directory; preserve its original expiry.
+      if(signal.aborted||previous.actor.kind!=='human')return null;
+      const row=await config.db.transaction(async sql=>(await sql.query<{expires_at_ms:string}>(
+        `SELECT expires_at_ms FROM arbi_dashboard_sessions WHERE namespace_id=$1 AND id=$2 AND actor_id=$3 AND account_id=$4 AND NOT revoked`,
+        [realm.namespaceId,previous.sessionId,previous.actor.id,previous.accountId])).rows[0]);
+      const expiry=Math.floor(Number(row?.expires_at_ms)/1000),issued=Math.floor(now()/1000);
+      if(!Number.isSafeInteger(expiry)||expiry<=issued||expiry-issued>900||signal.aborted)return null;
+      const token=await new SignJWT({tokenUse:'arbi_access',realm,accountId:previous.accountId}).setProtectedHeader({alg:'HS256',typ:'arbi-identity+jwt'})
+        .setIssuer(issuer).setAudience(audiences.human).setSubject(previous.actor.id).setJti(previous.sessionId).setIssuedAt(issued).setExpirationTime(expiry).sign(config.verificationKey);
+      const scope=await resolveResource({realm,siteId:previous.siteId,resource:{kind:'site',id:previous.siteId},signal});
+      if(!isResourceScope(scope)||signal.aborted)return null;
+      try{return await identity.authorize(token,previous.capability,scope);}catch{return null;}
+    }});
+  let controlActive=false;
+  const controlTools={async handle(request:Request,siteId:string,action:string){
+    const headers={'cache-control':'private, no-store'};
+    if(!config.operatorCode)return Response.json({error:'UNAVAILABLE'},{status:503,headers});
+    if(!['controls','submit','status','cancel','acquire','release','device'].includes(action))return Response.json({error:'INVALID_REQUEST'},{status:404,headers});
+    if(action==='device')return jobs.handle(request,{siteId,action});
+    if(controlActive)return Response.json({error:'CAPACITY'},{status:429,headers:{...headers,'retry-after':'1'}});
+    controlActive=true;try{return await jobs.handle(request,{siteId,action});}finally{controlActive=false;}
+  }};
   const equal = (value: string, expected: string) => {
     const a = Buffer.from(value), b = Buffer.from(expected);
     return a.length === b.length && timingSafeEqual(a, b);
   };
-  return { server,historyTools, async login(code: string) {
-    const actorId = equal(code, config.accessCode) ? "synthetic-engineer" : config.viewerCode && equal(code, config.viewerCode) ? "synthetic-viewer" : null;
+  return { server,historyTools,controlTools, async login(code: string) {
+    const actorId = equal(code, config.accessCode) ? "synthetic-engineer" : config.viewerCode && equal(code, config.viewerCode) ? "synthetic-viewer" :
+      config.operatorCode&&equal(code,config.operatorCode)?'synthetic-operator':null;
     if (!actorId) return null;
     const id = randomUUID(), issuedAt = Math.floor(now() / 1000), expiresAtMs = (issuedAt + 300) * 1000;
     // Fixed server profiles. No form/body actor, role, account, site or capability is accepted.

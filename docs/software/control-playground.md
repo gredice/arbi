@@ -1,0 +1,15 @@
+# Bounded control playground
+
+The [#49](https://github.com/gredice/arbi/issues/49) prototype adds a site-scoped **Controls** screen. [ADR-0012](../decisions/0012-bounded-control-playground.md) records the authority and lifecycle rules; [native/browser evidence](../evidence/control-playground.md) records their verification.
+
+Read observed control state, then explicitly enter simulated manual control. The screen displays the current operator, original observation age, lease expiry, blocking reason and command ID/result. Bed/plant selection chooses a synthetic capture resource. Jog buttons request one small position step per pointer/key gesture. Return-home, neutral gimbal, capture and remote stop use the same durable backend command path. Main motion, stale/unavailable state, unsupported commands, expired leases and insufficient permissions disable the corresponding actions. The independent local consumer can still reject an admitted cloud request.
+
+The UI lease lasts at most 4.5 seconds and is never automatically renewed. Explicit re-entry releases an observed owned lease before acquiring a higher fence. Refresh reads recent jobs without entering manual mode or resending commands. An explicit exact retry after acknowledgement loss retains the same key/body and resolves to the original job. No command, credential, lease, retry or gesture is persisted in browser storage.
+
+`GET /api/sites/:siteId/jobs/controls` is a shared bearer boundary with `state.read`, current resource/directory rechecks and required authorization audit. It returns one active edge receiver, a minimized lease and at most 20 recent jobs, capped at 64 KiB. The browser reader independently bounds response bytes and its 2.5 second deadline. The explicit isolated browser bridge at `/api/sites/:siteId/dashboard-control/:action` accepts only `controls`, `status`, `acquire`, `release`, `submit`, `cancel`, and signed `device` messages. Human mutations require the approved Origin and `x-arbi-request: 1`; device requests cannot use browser Origin/bearer authority. No renewal endpoint is exposed through this bridge.
+
+The private `ARBI_DASHBOARD_TEST_OPERATOR_CODE` is optional and distinct from engineer/viewer codes. Absence leaves the bridge unconfigured. The fixed synthetic operator membership can access the synthetic control garden; mode switching cannot expand access. Branch previews, production and ordinary unconfigured starts remain denied.
+
+`pnpm --filter @arbi/dashboard test:browser` owns a fresh native PostgreSQL database, Next server and an independent edge fixture process. Build `@arbi/edge-controller` first. The fixture signs snapshots, polls durable commands and uploads local journal outcomes over real HTTP. Its IPC key and local journal stay in private temporary storage and are removed on shutdown. The control garden is separate from synthetic usage history so device enrollment/identity is preserved for both.
+
+Live motor enablement, physical homing, maintenance transitions, real camera capture, measured deadlines and installed-system acceptance remain their owning gates. Remote stop never replaces independent local stopping.

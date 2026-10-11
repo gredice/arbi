@@ -20,6 +20,7 @@ export async function provisionDashboardTest(db: SqlDatabase, realm: Realm, opti
       await sql.query("INSERT INTO arbi_dashboard_sites VALUES ($1,$2,$3,$4)", [realm.namespaceId, site.id, "synthetic-account", site.name]);
       await sql.query("INSERT INTO arbi_dashboard_memberships VALUES ($1,$2,$3,true,$4,$5::jsonb)", [realm.namespaceId, site.id, "synthetic-engineer", "membership-1", JSON.stringify(["engineer"])]);
       await sql.query("INSERT INTO arbi_dashboard_memberships VALUES ($1,$2,$3,$4,$5,$6::jsonb)", [realm.namespaceId, site.id, "synthetic-viewer", site.id === "synthetic-site", "membership-1", JSON.stringify(["viewer"])]);
+      await sql.query("INSERT INTO arbi_dashboard_memberships VALUES ($1,$2,$3,$4,$5,$6::jsonb)", [realm.namespaceId, site.id, "synthetic-operator", ['synthetic-site','synthetic-controls'].includes(site.id), "membership-1", JSON.stringify(["operator"])]);
     });
   }
   // Durable signed history requires native PostgreSQL/WAL, not embedded source fixtures.
