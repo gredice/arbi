@@ -138,6 +138,7 @@ Design decisions belong in ADRs. Work items and unresolved questions belong in G
 - [Traceable autofocus/still capture source sequence](software/capture-sequencing.md), [native source versus camera bench evidence](evidence/capture-sequencing.md), and [ADR-0033](decisions/0033-traceable-synthetic-capture-sequencing.md)
 - [Calibrated image-processing source adapter](software/image-processing.md), [fixture/host versus physical evidence](evidence/image-processing.md), and [ADR-0034](decisions/0034-bounded-synthetic-image-rectification.md)
 - [Native capture custody and recovery](software/capture-transfer.md), [source versus power/wireless evidence](evidence/capture-transfer.md), and [ADR-0035](decisions/0035-native-capture-custody-and-recovery.md)
+- [Capture job and offline media composition](software/capture-orchestration.md), [native simulation evidence](evidence/capture-orchestration.md), and [ADR-0036](decisions/0036-isolated-capture-job-and-media-composition.md)
 
 - [Input and bounded homing model](software/input-homing-model.md), [real interface review requirements](system/input-enable-interface-requirements.md), [source versus wiring/rig evidence](evidence/input-homing-model.md), and [ADR-0027](decisions/0027-unavailable-real-inputs-and-homing-model.md)
 

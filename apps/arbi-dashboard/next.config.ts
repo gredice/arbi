@@ -12,7 +12,7 @@ const config: NextConfig = {
     // Keep Node filesystem/schema consumers native, including in Server Components.
     // Native import also works with serverless loaders that reject require(ESM).
     if (isServer) config.externals.push(({ request }: { request?: string }, callback: (error: Error | null, result?: string) => void) => {
-      if (request && ["@arbi/protocol", "@arbi/gredice", "@arbi/simulation-core", "@arbi/audit"].includes(request)) callback(null, `import ${request}`);
+      if (request && ["@arbi/protocol", "@arbi/gredice", "@arbi/simulation-core", "@arbi/audit"].some(name => request === name || request.startsWith(`${name}/`))) callback(null, `import ${request}`);
       else callback(null);
     });
     return config;
