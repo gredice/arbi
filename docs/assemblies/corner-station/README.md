@@ -30,6 +30,11 @@ using reversible tube clamps and short bolts. Their nominal line alignment is
 preserved. This `concept-unvalidated` fixture is for unloaded fit/rotation
 checks; it does not establish cable-load capacity or installed acceptance.
 
+The [WT-806 mounting assembly guide](stand-assembly.md) identifies all adapter
+prints, additional fasteners and reused head/winch parts, then gives the mounting
+sequence and a blank unpowered trial record. Pages 9–14 of the corner support
+booklet illustrate this fixture with the actual CAD meshes.
+
 | Property | Starting value | Status |
 | --- | ---: | --- |
 | Quantity | 4 | Baseline |

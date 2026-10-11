@@ -11,6 +11,11 @@ and two winch fronts/rears on a nominal 35 mm tube. The 30 mm section can be
 selected with matching exports. All five entrypoints are r0.1.0,
 `concept-unvalidated`; their optional BOM kit is excluded from installed poles.
 
+The [mounting assembly guide](../../../docs/assemblies/corner-station/stand-assembly.md)
+and corner support booklet pages 9–14 show part IDs, fastener stacks and the
+unpowered trial sequence. The corner pack includes the four current adapter
+STLs in `models/stand/print/` and their figure transforms.
+
 | Model | Purpose |
 | --- | --- |
 | [corner-stand-head-front](corner-stand-head-front.scad) | Curved round-120 head seat, short M12 mounting and front tube clamp |

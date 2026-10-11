@@ -12,7 +12,8 @@ nominal bought references and deliberate print poses. It checks round 100/120/14
 mm, passive/powered line assumptions and square-100; bolt engagement, alignment,
 socket access, installed clearance and sampled cover-removal paths. It renders
 actual meshes with the existing winch line-art renderer and writes an eight-page
-A4 PDF, GLB, hash reports and verified portable source/STL ZIP. Working outputs
+A4 PDF with six additional WT-806 indoor mounting pages (14 pages total), GLB,
+hash reports and verified portable source/STL ZIP. Working outputs
 go to ignored `hardware/generated/corner-support`; `--output` overrides it.
 
 The default printed head replaces the angle, machined saddles and stacked backing
@@ -20,6 +21,15 @@ plates. It retains ordinary metal through-bolts, washers, locking nuts,
 cross-bolts and the received pulley/pin. Historical metal geometry remains in
 the source snapshot for context, but its fabricated meshes are absent from the
 new installed scene. Never combine study variants in one installation.
+
+The [WT-806 guide](../../docs/assemblies/corner-station/stand-assembly.md) insert
+uses four registered adapter exports, inverse print-to-installed transforms,
+the existing head meshes, the actual passive aluminium base and nominal bought
+hardware. `models/stand/print` contains the four adapter STLs already posed for
+printing. Figures identify A/B head halves and C/D winch halves, show M6/M12/M8
+stacks, and retain one front/rear pair per actual row. Schematic tube samples
+omit the tripod, collars and springs; no illustrated elevation is a stand plan.
+The pack includes the current adapter geometry check and its source hashes.
 
 ## Frames and printing
 

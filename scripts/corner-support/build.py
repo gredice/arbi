@@ -27,6 +27,7 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfgen import canvas
 from reportlab.platypus import Paragraph, Table, TableStyle
 from pypdf import PdfReader
+import stand_instructions
 
 ROOT = Path(__file__).resolve().parents[2]
 LIB = ROOT / 'hardware/lib/corner-head-printed.scad'
@@ -206,12 +207,16 @@ def build(out):
                    ROOT/'hardware/lib/arbi.scad', LIB, ROOT/'hardware/lib/corner-head.scad',
                    ROOT/'hardware/lib/catalog-visualizations.scad',
                    Path(__file__).resolve(), ROOT/'scripts/corner-support/check.py', ROOT/'scripts/corner-support/README.md',
-                   ROOT/'hardware/lib/winch-pole.scad', ROOT/'hardware/lib/winch-mount.scad', ROOT/'hardware/lib/winch-drum.scad',
+                   ROOT/'scripts/corner-support/stand_instructions.py', ROOT/'scripts/corner-support/check-stand-adapter.py',
+                   *sorted((ROOT/'hardware/lib').glob('winch-*.scad')), ROOT/'hardware/lib/corner-stand-adapter.scad',
                    ROOT/'hardware/assemblies/winch/round-pole.md', ROOT/'hardware/assemblies/winch/full-cover.md',
                    ROOT/'scripts/winch-booklet/render_figures.py', ROOT/'scripts/winch-booklet/requirements.txt',
                    ROOT/'LICENSE', *sorted((ROOT/'hardware/assemblies/corner-station').glob('corner-head-*.scad')),
                    *sorted((ROOT/'docs/assemblies/corner-station').glob('*.md')),
                    ROOT/'hardware/assemblies/corner-station/README.md',
+                   *sorted((ROOT/'hardware/assemblies/corner-station').glob('corner-stand-*.scad')),
+                   ROOT/'hardware/assemblies/corner-station/stand-adapter.md',
+                   ROOT/'hardware/assemblies/corner-station/stand-adapter-check.md',
                    *sorted(p for p in (ROOT/'hardware/vendor').rglob('*') if p.is_file()),
                    *sorted((ROOT/'scripts/winch-booklet/fonts').glob('*'))]
         report['sources_sha256'] = {p.relative_to(ROOT).as_posix(): digest(p) for p in sources}
@@ -430,6 +435,8 @@ def build(out):
         renderer.render('exploded',parts+exploded,direction=(.6,-1,.7),size=(1600,1100))
         renderer.render('print-left',[item('models/print/'+models['corner-head-printed-left']['output'],[.12,.14,.15])],direction=(.5,-1,.75),size=(1500,1050))
         renderer.render('template',[item('models/arbi/'+models['corner-head-printed-template']['output'],[.12,.14,.15])],direction=(0,0,1),up=(0,1,0),size=(1300,650))
+        stand_instructions.build(work, models, renderer, export, report)
+        shutil.copy2(out/'stand-adapter-check.json',work/'stand-adapter-check.json')
         (work/'figure-manifest.json').write_text(json.dumps(renderer.manifest,indent=2)+'\n')
         scene = trimesh.Scene()
         for i,part in enumerate(parts+shields+straps):
@@ -452,6 +459,9 @@ def build(out):
         (work/'README.txt').write_text(
             'ARBI Corner support set r0.1.0 - concept-unvalidated\n'
             'Default: printed carrier, 120 mm round pole, passive 1.5 mm line.\n'
+            'Pages 9-14 cover the optional WT-806 unloaded indoor fixture.\n'
+            'models/stand/print contains current adapter STLs already posed for printing.\n'
+            'Do not mix stand short bolts/clamps with timber through-bolts/rear pads.\n'
             'models/arbi STLs use the installed frame; models/print use the documented print pose in mm.\n'
             'Two rear-pad instances use the one registered STL at Z=45 and Z=155 in the installed frame.\n'
             'GLB uses metres. Reference meshes are not supplied parts.\n'
@@ -461,7 +471,7 @@ def build(out):
             'The purchased block connection, keeper, guy attachment, site and loads need acceptance.\n'
             'Rebuild from a repository checkout: python3 scripts/corner-support/build.py.\n')
         pdf = PdfReader(work/PDF)
-        assert len(pdf.pages)==8 and all('CONCEPT - UNVALIDATED' in page.extract_text() for page in pdf.pages)
+        assert len(pdf.pages)==stand_instructions.PAGE_COUNT and all('CONCEPT - UNVALIDATED' in page.extract_text() for page in pdf.pages)
         hashes = {p.relative_to(work).as_posix():digest(p) for p in sorted(work.rglob('*')) if p.is_file()}
         (work/'manifest.json').write_text(json.dumps(dict(files_sha256=hashes),indent=2)+'\n')
         archive = out/(ARTIFACT+'-STL-pack.zip')
@@ -485,16 +495,39 @@ def booklet(work, report):
     style=ParagraphStyle('body',fontName='ARBI',fontSize=10,leading=15,textColor=colors.HexColor('#1f2426'))
     def text(value,y):
         p=Paragraph(value,style);_,h=p.wrap(width-88,height);p.drawOn(c,44,y-h);return y-h-12
-    def page(number,title,paragraphs,figure=None):
+    figures=json.loads((work/'figure-manifest.json').read_text())
+    def page(number,title,paragraphs,figure=None,labels=False,rows=None,after=()):
         c.setFillColor(colors.HexColor('#1f2426'));c.setFont('ARBI-Bold',18);c.drawString(44,height-55,title)
-        c.setFont('ARBI',9);c.drawString(44,height-78,'ARBI / CORNER SUPPORT SET / r0.1.0 / 8 OCTOBER 2026')
+        c.setFont('ARBI',9);c.drawString(44,height-78,'ARBI / CORNER SUPPORT SET / r0.1.0 / GUIDE UPDATED 11 OCTOBER 2026')
         y=height-105
         for paragraph in paragraphs:y=text(paragraph,y)
+        if rows:
+            table=Table(rows,colWidths=[width-240,76,76],rowHeights=25)
+            table.setStyle(TableStyle([
+                ('FONTNAME',(0,0),(-1,-1),'ARBI'),('FONTNAME',(0,0),(-1,0),'ARBI-Bold'),
+                ('FONTSIZE',(0,0),(-1,-1),9),('BACKGROUND',(0,0),(-1,0),colors.HexColor('#eef0ef')),
+                ('ALIGN',(1,0),(-1,-1),'CENTER'),('VALIGN',(0,0),(-1,-1),'MIDDLE'),
+                ('LINEBELOW',(0,0),(-1,-1),.3,colors.HexColor('#c4c8c6'))]))
+            _,h=table.wrap(width-88,height);table.drawOn(c,44,y-h);y-=h+18
+        for paragraph in after:y=text(paragraph,y)
+        if y<85:
+            raise ValueError(f'Page {number} text overruns footer: {y}')
         if figure:
-            c.drawImage(str(work/'figures'/f'{figure}.png'),44,95,width=width-88,height=max(150,y-110),preserveAspectRatio=True,anchor='c',mask='auto')
+            box_width,box_height=width-88,y-110
+            if box_height<140:
+                raise ValueError(f'Page {number} figure too small: {box_height}')
+            fw,fh=figures[figure]['size'];scale=min(box_width/fw,box_height/fh)
+            iw,ih=fw*scale,fh*scale;ix,iy=44+(box_width-iw)/2,95+(box_height-ih)/2
+            c.drawImage(str(work/'figures'/f'{figure}.png'),ix,iy,width=iw,height=ih,mask='auto')
+            if labels:
+                for label,(ax,ay) in figures[figure]['anchors'].items():
+                    px,py=ix+ax*iw,iy+ay*ih
+                    c.setFillColor(colors.white);c.circle(px,py,11,fill=1,stroke=0)
+                    c.setFillColor(colors.HexColor('#1f2426'));c.setFont('ARBI-Bold',9)
+                    c.drawCentredString(px,py-3,label)
         c.setFont('ARBI',8);c.setFillColor(colors.HexColor('#5a6062'))
         c.drawString(44,47,'CONCEPT - UNVALIDATED / No structural, installed or physical acceptance')
-        c.drawRightString(width-44,47,f'{number} / 8');c.showPage()
+        c.drawRightString(width-44,47,f'{number} / {stand_instructions.PAGE_COUNT}');c.showPage()
     page(1,'Printed corner support set',[
         'Dimensioned nominal prototype and assembly guide. Default: 120 mm round timber, two printed carrier halves, two printed rear pads, passive 1.5 mm line and the received BA01090 block.',
         'The steel angle, machined saddles and stacked backing plates are replaced by a print-oriented carrier. Standard metal through-bolts, washers, locking nuts, crossbars and pulley pin remain. No custom metal fabrication is required by this proposed head.',
@@ -541,6 +574,7 @@ def booklet(work, report):
         'Record initial and post-test dimensions. Confirm no permanent deformation, cracks, delamination, timber crush/splitting, bolt movement, block binding, normal line rubbing or side-gap entry. Sweep span/drum travel and record powered/dock-specific conditions separately.',
         'Recheck after settlement and initial cycles, storms/impact and a reviewer-defined interval. Inspect witness marks, print and strap creep, UV/weather damage, wire/line wear, corrosion, fastener loosening and drainage. Covers must not conceal damage.',
         'No numerical proof factor, bolt torque, operating tension or inspection interval is invented here. Close the measurement, printing and review actions in design-package.md and acceptance-record.md. Nominal CAD, print fit and installed load acceptance are separate facts.'])
+    stand_instructions.pages(page,stand_instructions.HARDWARE_TABLE)
     c.save()
 
 

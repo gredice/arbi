@@ -190,11 +190,13 @@ def main():
             assert values["plate"]==8 and values["post_offset"]==33
             CHECKS.append(dict(check=f"diameter {diameter} / canonical payout alignment", head_mm=float(line_x),winch_mm=winch_x))
             records["head-line"] = line_record
-        for definition in ["head_tube_diameter_mm=25", "winch_tube_diameter_mm=36", "split_gap_mm=0.2", "virtual_post_offset_mm=31"]:
-            source = work/"invalid.scad"
+        for index, definition in enumerate(["head_tube_diameter_mm=25", "winch_tube_diameter_mm=36", "split_gap_mm=0.2", "virtual_post_offset_mm=31"]):
+            # Separate files also avoid stale reads through container file sharing
+            # when a shorter negative-control source replaces the previous one.
+            source = work/f"invalid-{index}.scad"
             call = 'csa_print_front("winch");' if definition.startswith("winch") else 'csa_print_front("head");'
             source.write_text(f"include <{LIB}/corner-stand-adapter.scad>\n{definition};\n{call}\n")
-            result = subprocess.run(["openscad","-o",str(work/"invalid.csg"),str(source)],capture_output=True,text=True,timeout=30)
+            result = subprocess.run(["openscad","-o",str(work/f"invalid-{index}.csg"),str(source)],capture_output=True,text=True,timeout=30)
             assert "ERROR: Assertion" in result.stderr, (definition,result.stderr)
             CHECKS.append(dict(check="invalid parameter rejected: "+definition))
     paths = [ROOT/"scripts/corner-support/check-stand-adapter.py", ROOT/"hardware/models.json"]
