@@ -7,10 +7,11 @@ import { AUDIT_VERSION, MAX_COUNTER, auditFromProtocolOutcome, validateMessage }
 import type { AuditAction, AuditEvent, AuditSource, Command, ErrorCode, Event, Realm } from "@arbi/protocol";
 import { PostgresAuditStore, scope } from "../audit/store";
 import type { TrustedBinding } from "../audit/store";
-import { VERSION } from "../enrollment/contracts";
+import { EnrollmentError, VERSION } from "../enrollment/contracts";
 import type { Device, Registry } from "../enrollment/contracts";
 import { prove } from "../enrollment/crypto";
 import type { SqlDatabase, SqlSession } from "../enrollment/store";
+import { recordDeniedAttempt, readDeniedAttempts } from "./attempts";
 import { commandActions, exact, id, JobError, milliseconds } from "./contracts";
 import type { ControlLease, CurrentAuthority, Job } from "./contracts";
 
@@ -227,7 +228,15 @@ export class PostgresJobStore {
       if (context.capability !== "manipulation.request") throw new JobError("DENIED");
       const prior = (await tx.sql.query<Row<Job> & { fingerprint: string }>("SELECT record,fingerprint FROM arbi_command_jobs WHERE environment=$1 AND namespace_id=$2 AND site_id=$3 AND actor_id=$4 AND request_key=$5",
         [...scope(this.realm,context.siteId),context.actor.id,value.key])).rows[0];
-      if (prior) { if (prior.fingerprint !== fingerprint) throw new JobError("CONFLICT");await this.refresh(tx,prior.record);return prior.record; }
+      if (prior) {
+        if (prior.fingerprint !== fingerprint) throw new JobError("CONFLICT");
+        await this.refresh(tx,prior.record);
+        const retry: AuditEvent = { ...structuredClone(prior.record.intent),eventId: randomUUID(),sequence: await this.next(tx,"sequence"),
+          source: this.source,sourceTime: { utc: null,uncertaintyMs: null,monotonicMs: Math.floor(performance.now()-this.startedAt) },
+          evidence: "authorization",outcome: "allow",reason: "authorized",
+          links: { ...prior.record.intent.links,causationEventId: prior.record.intent.eventId } };
+        await this.audit.stage(tx.sql,retry,binding(retry));return prior.record;
+      }
       const receiver = await this.receiver(tx,String(value.deviceId)), jobId = randomUUID();
       const body = value.body as Command["body"];
       if (!body || !Object.hasOwn(commandActions,body.type) || !receiver.event.body.supportedCommands.includes(body.type)) throw new JobError("INVALID_REQUEST");
@@ -252,6 +261,8 @@ export class PostgresJobStore {
       const resource: AuditEvent["resource"] = body.type === "camera.capture" ? { kind: "capture",id: body.resourceId,deviceId: receiver.event.source.deviceId } : { kind: "device",id: receiver.event.source.deviceId,deviceId: receiver.event.source.deviceId };
       const intent = await this.event(tx,context,commandActions[body.type as keyof typeof commandActions],resource,
         { correlationId: command.command.correlationId,jobId,commandId: jobId,requestSource: command.source,target: command.command.target });
+      intent.metadata.softwareRevision = tx.registry.devices.find(d => d.id === receiver.event.source.deviceId)?.softwareRevision ?? "unavailable";
+      if (lease) intent.metadata.controlLeaseId = lease.id;
       const job: Job = { id: jobId,authority: context,command,intent,expiresAtMs: tx.now+duration-receiver.margin*2,cloudDisposition: "admitted",deviceStatus: null,terminal: null };
       const count = (await tx.sql.query<{ count: string }>("SELECT count(*)::text AS count FROM arbi_command_jobs WHERE environment=$1 AND namespace_id=$2 AND site_id=$3 AND expires_at_ms>$4",[...scope(this.realm,context.siteId),tx.now])).rows[0].count;
       if (Number(count) >= 256) throw new JobError("CAPACITY");
@@ -303,6 +314,16 @@ export class PostgresJobStore {
   async authorization(record: AuthorizationObservation, signal: AbortSignal): Promise<boolean> {
     if (!record.siteId || signal.aborted) return false;
     await this.transaction(record.siteId,async (tx) => {
+      if(record.decision !== "authorized") {
+        await recordDeniedAttempt(tx.sql,this.realm,record.siteId!,tx.now,"authorization-denied",record.actor,record.sessionId,
+          async (actor, sessionId) => {
+            const event = await this.event(tx,{ actor,sessionId } as AuthorizedContext,"authorization.check",{ kind: "site",id: record.siteId!,deviceId: null });
+            if(actor.id !== "job-attempt-aggregation") event.links.correlationId = record.correlationId;
+            return event;
+          },
+          async (event) => { await this.audit.stage(tx.sql,event,binding(event)); });
+        return;
+      }
       const context = { actor: record.actor ?? { kind: "service",id: "unverified-attempt" },sessionId: record.sessionId ?? "unverified-session" } as AuthorizedContext;
       const event = await this.event(tx,context,"authorization.check",{ kind: "site",id: record.siteId!,deviceId: null });
       event.evidence = "authorization";event.outcome = record.decision === "authorized" ? "allow" : "deny";
@@ -312,6 +333,47 @@ export class PostgresJobStore {
       event.links = { ...event.links,correlationId: record.correlationId,intentEventId: null,sessionId: record.sessionId };
       if (signal.aborted) throw new JobError("UNAVAILABLE");await this.audit.stage(tx.sql,event,binding(event));
     });return !signal.aborted;
+  }
+  /** Only trusted boundary context is accepted; request bodies never enter the audit bucket. */
+  async rejected(context: AuthorizedContext, error: unknown): Promise<void> {
+    const code = error instanceof JobError ? error.code : error instanceof EnrollmentError && error.code === "INVALID_REQUEST" ? "INVALID_REQUEST" : "UNAVAILABLE";
+    const kind = code === "STALE_FENCE" || code === "EXPIRED" || code === "CLOCK_UNCERTAIN" ? "stale-command" :
+      code === "INVALID_REQUEST" || code === "CONFLICT" ? "invalid-command" : code === "UNAVAILABLE" ? "unavailable" : "other-denied";
+    await this.transaction(context.siteId,async tx => {
+      await recordDeniedAttempt(tx.sql,this.realm,context.siteId,tx.now,kind,context.actor,context.sessionId,
+        async (actor,sessionId) => this.event(tx,{ actor,sessionId } as AuthorizedContext,"authorization.check",{ kind: "site",id: context.siteId,deviceId: null }),
+        async event => { await this.audit.stage(tx.sql,event,binding(event)); });
+    });
+  }
+  async timeline(context: AuthorizedContext,jobId: string) {
+    id(jobId);
+    return this.transaction(context.siteId,async tx => {
+      await this.authority(tx,context);
+      if(context.capability !== "audit.read") throw new JobError("DENIED");
+      const key = scope(this.realm,context.siteId);
+      const job = (await tx.sql.query<Row<Job>>("SELECT record FROM arbi_command_jobs WHERE id=$1 AND environment=$2 AND namespace_id=$3 AND site_id=$4",[jobId,...key])).rows[0]?.record;
+      if(!job) throw new JobError("DENIED");
+      const audits = (await tx.sql.query<Row<AuditEvent>>("SELECT record FROM arbi_audit_events WHERE environment=$1 AND namespace_id=$2 AND site_id=$3 AND record->'links'->>'commandId'=$4 ORDER BY ordinal LIMIT 129",[...key,jobId])).rows;
+      const reports = (await tx.sql.query<Row<Event> & {decision:string}>("SELECT record,decision FROM arbi_job_reports WHERE environment=$1 AND namespace_id=$2 AND site_id=$3 AND record->'body'->>'commandId'=$4 ORDER BY received_at_ms,id LIMIT 129",[...key,jobId])).rows;
+      const result = { version: "arbi.command-timeline/1.0",jobId,actor: job.intent.actor,commandType: job.command.body.type,
+        configRevision: job.command.command.configRevision,softwareRevision: job.intent.metadata.softwareRevision ?? null,
+        controlLease: job.command.command.lease,cloudDisposition: job.cloudDisposition,deviceStatus: job.deviceStatus,
+        terminal: job.terminal,audit: audits.slice(0,128).map(row=>row.record),reports: reports.slice(0,128),
+        truncated: audits.length>128 || reports.length>128 };
+      while(Buffer.byteLength(JSON.stringify(result)) > 65536 && (result.audit.length || result.reports.length)) {
+        if(result.audit.length >= result.reports.length) result.audit.pop();else result.reports.pop();
+        result.truncated = true;
+      }
+      if(Buffer.byteLength(JSON.stringify(result)) > 65536) throw new JobError("CAPACITY");
+      return result;
+    });
+  }
+  async attempts(context: AuthorizedContext) {
+    return this.transaction(context.siteId,async tx => {
+      await this.authority(tx,context);
+      if(context.capability !== "audit.read") throw new JobError("DENIED");
+      return readDeniedAttempts(tx.sql,this.realm,context.siteId);
+    });
   }
   /** Signed outbound-device HTTP adapter; no broker, device-local state machine or actuator dispatch. */
   async device(siteId: string, input: unknown): Promise<unknown> {
@@ -392,7 +454,7 @@ export class PostgresJobStore {
             eventId: event.messageId,sequence: event.sequence,action: job.intent.action,sourceModule: "edge",resource: job.intent.resource,
             commandId: job.id,requestSource: job.command.source,target: job.command.command.target,ingestTime: null });
           if (!outcome.ok) throw new JobError("DENIED");
-          outcome.value.metadata.configRevision = job.command.command.configRevision;
+          outcome.value.metadata = { ...job.intent.metadata,...outcome.value.metadata };
           await this.audit.stage(tx.sql,outcome.value,binding(outcome.value));
           if (job.terminal) {
             decision = isDeepStrictEqual(job.terminal.body,event.body) ? "terminal-repeat" : "contradiction";

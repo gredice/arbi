@@ -15,3 +15,5 @@ export * from "./update.js";
 export type * from "./scenario-types.js";
 export * from "./scenario.js";
 export { checkReferenceVectors } from "./reference-vectors.js";
+
+export * from "./lifecycle-audit.js";

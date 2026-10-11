@@ -26,7 +26,7 @@ test('native PostgreSQL operations: bounded degradation, least privilege, transa
   const admin=new pg.Pool({...base,database:'postgres',max:1});await admin.query(`CREATE DATABASE ${sourceName}`);await admin.query(`CREATE DATABASE ${targetName}`);await admin.end();
   const source=new pg.Pool({...base,database:sourceName}),target=new pg.Pool({...base,database:targetName});
   const privateDirectory=mkdtempSync(join(tmpdir(),'arbi-operations-backup-'));chmodSync(privateDirectory,0o700);
-  const migrations=['0001-enrollment','0002-media','0003-audit','0004-jobs','0005-realtime','0006-telemetry','0006-dashboard','0007-usage','0008-audit-lifecycle','0009-usage-settings','0010-operations','0011-live'];
+  const migrations=['0001-enrollment','0002-media','0003-audit','0004-jobs','0005-realtime','0006-telemetry','0006-dashboard','0007-usage','0008-audit-lifecycle','0009-usage-settings','0010-operations','0011-live','0012-media-audit','0013-command-attempts'];
   for(const file of migrations)await source.query(await readFile(new URL(`../../migrations/${file}.sql`,import.meta.url),'utf8'));
   await source.query(await readFile(new URL('../../migrations/0010-operations.sql',import.meta.url),'utf8'));
   await source.query('CREATE ROLE arbi_operations_app NOLOGIN; GRANT SELECT ON arbi_operations_gate TO arbi_operations_app; GRANT EXECUTE ON FUNCTION arbi_operations_ready() TO arbi_operations_app');

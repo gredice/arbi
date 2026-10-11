@@ -169,7 +169,15 @@
         "configRevision": {"$ref":"https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"},
         "calibrationRevision": {"$ref":"https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"},
         "scheduleRevision": {"$ref":"https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"},
-        "releaseId": {"$ref":"https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"}
+        "releaseId": {"$ref":"https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"},
+        "authorizationId": {"$ref":"https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"},
+        "controlLeaseId": {"$ref":"https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"},
+        "softwareRevision": {"$ref":"https://arbi.gredice.com/schemas/protocol/1.0/message.schema.json#/$defs/Id"},
+        "recoveryPolicy": {"enum":["commissioning-restart/1","commissioning-reconcile/1","update-recovery/1"]},
+        "attemptWindowStartUtc": {"type":"string","format":"date-time"},
+        "attemptClass": {"enum":["authorization-denied","stale-command","invalid-command","unavailable","other-denied"]},
+        "attemptCount": {"type":"integer","minimum":1,"maximum":1000000000},
+        "aggregation": {"enum":["first-attempt","closed-window-summary","mixed-actors-summary"]}
       },
       "required": []
     },
