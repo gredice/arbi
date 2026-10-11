@@ -1,0 +1,513 @@
+{
+  "version": "arbi.update-interruption-evidence/1.0",
+  "sourceDigest": "b85ef708f42fa06cb01ec74d1079c51313991553306389e30c0cb3361e314fad",
+  "setup": {
+    "node": "v24.19.0",
+    "platform": "linux",
+    "architecture": "x64",
+    "health": "declared-isolated-probes",
+    "bootloader": "unselected",
+    "actuatorOutput": "not-connected"
+  },
+  "cases": [
+    {
+      "id": "ordered-success",
+      "result": "passed",
+      "durationMs": 2421.515533,
+      "state": "healthy",
+      "reason": null,
+      "targets": [
+        {
+          "moduleId": "pico",
+          "installed": "pico-1.1.0",
+          "confirmed": "pico-1.1.0",
+          "installations": 1,
+          "rollbacks": 0,
+          "storage": "sqlite-slot-model"
+        },
+        {
+          "moduleId": "pod",
+          "installed": "pod-1.1.0",
+          "confirmed": "pod-1.1.0",
+          "installations": 1,
+          "rollbacks": 0,
+          "storage": "native-signed-files"
+        },
+        {
+          "moduleId": "edge",
+          "installed": "edge-1.1.0",
+          "confirmed": "edge-1.1.0",
+          "installations": 1,
+          "rollbacks": 0,
+          "storage": "native-signed-files"
+        }
+      ],
+      "artifactIdentities": [
+        {
+          "moduleId": "pico",
+          "releaseId": "pico-1.1.0",
+          "sha256": "ecc77e2f3d200dbb99e01292ede2001edde19743d96cff1703e6cb78d0232688"
+        },
+        {
+          "moduleId": "pod",
+          "releaseId": "pod-1.1.0",
+          "sha256": "0d31a14ca18eeeb4ad04cf6ddba5eb9b2daf1b75f42f9a7a6ad0b42e57a360a9"
+        },
+        {
+          "moduleId": "edge",
+          "releaseId": "edge-1.1.0",
+          "sha256": "dc19e70de20670a5dc335ed57398ae48cb547428e32eb643e3ab10c88598082c"
+        }
+      ],
+      "traffic": {
+        "boundary": "localhost-artifact-http",
+        "layer": "application-payload",
+        "coverage": "complete-fixture-interval",
+        "sentPayloadBytes": 12288,
+        "chargedPayloadBytes": 12288,
+        "retryRequests": 3,
+        "wireBytes": null,
+        "carrierBytes": null
+      },
+      "audit": {
+        "events": 32,
+        "sequenceGaps": 0,
+        "missingReceipts": 0,
+        "unreconciledPayloadBytes": 0
+      },
+      "physicalAcceptance": false
+    },
+    {
+      "id": "truncated-download",
+      "result": "passed",
+      "durationMs": 432.6138369999999,
+      "state": "healthy",
+      "reason": null,
+      "targets": [
+        {
+          "moduleId": "pico",
+          "installed": "pico-1.1.0",
+          "confirmed": "pico-1.1.0",
+          "installations": 1,
+          "rollbacks": 0,
+          "storage": "sqlite-slot-model"
+        }
+      ],
+      "artifactIdentities": [
+        {
+          "moduleId": "pico",
+          "releaseId": "pico-1.1.0",
+          "sha256": "940b7ac428ce2821c0a5e798a71f9251f6817765822a9467f14fde97b7057c16"
+        }
+      ],
+      "traffic": {
+        "boundary": "localhost-artifact-http",
+        "layer": "application-payload",
+        "coverage": "complete-fixture-interval",
+        "sentPayloadBytes": 70000,
+        "chargedPayloadBytes": 70000,
+        "retryRequests": 3,
+        "wireBytes": null,
+        "carrierBytes": null
+      },
+      "audit": {
+        "events": 20,
+        "sequenceGaps": 0,
+        "missingReceipts": 0,
+        "unreconciledPayloadBytes": 0
+      },
+      "physicalAcceptance": false
+    },
+    {
+      "id": "rejected-retry",
+      "result": "passed",
+      "durationMs": 352.6100000000001,
+      "state": "healthy",
+      "reason": null,
+      "targets": [
+        {
+          "moduleId": "pico",
+          "installed": "pico-1.1.0",
+          "confirmed": "pico-1.1.0",
+          "installations": 1,
+          "rollbacks": 0,
+          "storage": "sqlite-slot-model"
+        }
+      ],
+      "artifactIdentities": [
+        {
+          "moduleId": "pico",
+          "releaseId": "pico-1.1.0",
+          "sha256": "940b7ac428ce2821c0a5e798a71f9251f6817765822a9467f14fde97b7057c16"
+        }
+      ],
+      "traffic": {
+        "boundary": "localhost-artifact-http",
+        "layer": "application-payload",
+        "coverage": "complete-fixture-interval",
+        "sentPayloadBytes": 78192,
+        "chargedPayloadBytes": 78192,
+        "retryRequests": 3,
+        "wireBytes": null,
+        "carrierBytes": null
+      },
+      "audit": {
+        "events": 20,
+        "sequenceGaps": 0,
+        "missingReceipts": 0,
+        "unreconciledPayloadBytes": 0
+      },
+      "physicalAcceptance": false
+    },
+    {
+      "id": "corrupt-artifact",
+      "result": "passed",
+      "durationMs": 84.51832699999977,
+      "state": "paused",
+      "reason": "DIGEST_MISMATCH",
+      "targets": [
+        {
+          "moduleId": "pico",
+          "installed": "pico-1.0.0",
+          "confirmed": "pico-1.0.0",
+          "installations": 0,
+          "rollbacks": 0,
+          "storage": "sqlite-slot-model"
+        }
+      ],
+      "artifactIdentities": [
+        {
+          "moduleId": "pico",
+          "releaseId": "pico-1.1.0",
+          "sha256": "cd64b2bb6121420e9aaf99881e9ea474594ecb167e1423a6505b43510aa8e781"
+        }
+      ],
+      "traffic": {
+        "boundary": "localhost-artifact-http",
+        "layer": "application-payload",
+        "coverage": "complete-fixture-interval",
+        "sentPayloadBytes": 256,
+        "chargedPayloadBytes": 256,
+        "retryRequests": 1,
+        "wireBytes": null,
+        "carrierBytes": null
+      },
+      "audit": {
+        "events": 8,
+        "sequenceGaps": 0,
+        "missingReceipts": 0,
+        "unreconciledPayloadBytes": 0
+      },
+      "physicalAcceptance": false
+    },
+    {
+      "id": "lost-target-ack",
+      "result": "passed",
+      "durationMs": 255.82090700000026,
+      "state": "healthy",
+      "reason": null,
+      "targets": [
+        {
+          "moduleId": "pico",
+          "installed": "pico-1.1.0",
+          "confirmed": "pico-1.1.0",
+          "installations": 1,
+          "rollbacks": 0,
+          "storage": "sqlite-slot-model"
+        }
+      ],
+      "artifactIdentities": [
+        {
+          "moduleId": "pico",
+          "releaseId": "pico-1.1.0",
+          "sha256": "cd64b2bb6121420e9aaf99881e9ea474594ecb167e1423a6505b43510aa8e781"
+        }
+      ],
+      "traffic": {
+        "boundary": "localhost-artifact-http",
+        "layer": "application-payload",
+        "coverage": "complete-fixture-interval",
+        "sentPayloadBytes": 256,
+        "chargedPayloadBytes": 256,
+        "retryRequests": 1,
+        "wireBytes": null,
+        "carrierBytes": null
+      },
+      "audit": {
+        "events": 15,
+        "sequenceGaps": 0,
+        "missingReceipts": 0,
+        "unreconciledPayloadBytes": 0
+      },
+      "physicalAcceptance": false
+    },
+    {
+      "id": "unobserved-reservation",
+      "result": "passed",
+      "durationMs": 233.68978199999947,
+      "state": "recovery-required",
+      "reason": "RESERVED_INSTALLATION_UNOBSERVED_NO_RESEND",
+      "targets": [
+        {
+          "moduleId": "pico",
+          "installed": "pico-1.0.0",
+          "confirmed": "pico-1.0.0",
+          "installations": 0,
+          "rollbacks": 0,
+          "storage": "sqlite-slot-model"
+        }
+      ],
+      "artifactIdentities": [
+        {
+          "moduleId": "pico",
+          "releaseId": "pico-1.1.0",
+          "sha256": "cd64b2bb6121420e9aaf99881e9ea474594ecb167e1423a6505b43510aa8e781"
+        }
+      ],
+      "traffic": {
+        "boundary": "localhost-artifact-http",
+        "layer": "application-payload",
+        "coverage": "complete-fixture-interval",
+        "sentPayloadBytes": 256,
+        "chargedPayloadBytes": 256,
+        "retryRequests": 1,
+        "wireBytes": null,
+        "carrierBytes": null
+      },
+      "audit": {
+        "events": 14,
+        "sequenceGaps": 0,
+        "missingReceipts": 0,
+        "unreconciledPayloadBytes": 0
+      },
+      "physicalAcceptance": false
+    },
+    {
+      "id": "failed-pod-canary",
+      "result": "passed",
+      "durationMs": 925.0516349999998,
+      "state": "rolled-back",
+      "reason": "CANARY_FAILED_ROLLED_BACK",
+      "targets": [
+        {
+          "moduleId": "pico",
+          "installed": "pico-1.1.0",
+          "confirmed": "pico-1.1.0",
+          "installations": 1,
+          "rollbacks": 0,
+          "storage": "sqlite-slot-model"
+        },
+        {
+          "moduleId": "pod",
+          "installed": "pod-1.0.0",
+          "confirmed": "pod-1.0.0",
+          "installations": 1,
+          "rollbacks": 1,
+          "storage": "native-signed-files"
+        },
+        {
+          "moduleId": "edge",
+          "installed": "edge-1.0.0",
+          "confirmed": "edge-1.0.0",
+          "installations": 0,
+          "rollbacks": 0,
+          "storage": "native-signed-files"
+        }
+      ],
+      "artifactIdentities": [
+        {
+          "moduleId": "pico",
+          "releaseId": "pico-1.1.0",
+          "sha256": "ecc77e2f3d200dbb99e01292ede2001edde19743d96cff1703e6cb78d0232688"
+        },
+        {
+          "moduleId": "pod",
+          "releaseId": "pod-1.1.0",
+          "sha256": "0d31a14ca18eeeb4ad04cf6ddba5eb9b2daf1b75f42f9a7a6ad0b42e57a360a9"
+        },
+        {
+          "moduleId": "edge",
+          "releaseId": "edge-1.1.0",
+          "sha256": "dc19e70de20670a5dc335ed57398ae48cb547428e32eb643e3ab10c88598082c"
+        }
+      ],
+      "traffic": {
+        "boundary": "localhost-artifact-http",
+        "layer": "application-payload",
+        "coverage": "complete-fixture-interval",
+        "sentPayloadBytes": 8192,
+        "chargedPayloadBytes": 8192,
+        "retryRequests": 2,
+        "wireBytes": null,
+        "carrierBytes": null
+      },
+      "audit": {
+        "events": 24,
+        "sequenceGaps": 0,
+        "missingReceipts": 0,
+        "unreconciledPayloadBytes": 0
+      },
+      "physicalAcceptance": false
+    },
+    {
+      "id": "mixed-version-floor",
+      "result": "passed",
+      "durationMs": 316.3485869999995,
+      "state": "recovery-required",
+      "reason": "SECURITY_DOWNGRADE_BLOCKED",
+      "targets": [
+        {
+          "moduleId": "pico",
+          "installed": "pico-1.1.0",
+          "confirmed": "pico-1.0.0",
+          "installations": 1,
+          "rollbacks": 0,
+          "storage": "sqlite-slot-model"
+        }
+      ],
+      "artifactIdentities": [
+        {
+          "moduleId": "pico",
+          "releaseId": "pico-1.1.0",
+          "sha256": "cd64b2bb6121420e9aaf99881e9ea474594ecb167e1423a6505b43510aa8e781"
+        }
+      ],
+      "traffic": {
+        "boundary": "localhost-artifact-http",
+        "layer": "application-payload",
+        "coverage": "complete-fixture-interval",
+        "sentPayloadBytes": 256,
+        "chargedPayloadBytes": 256,
+        "retryRequests": 1,
+        "wireBytes": null,
+        "carrierBytes": null
+      },
+      "audit": {
+        "events": 17,
+        "sequenceGaps": 0,
+        "missingReceipts": 0,
+        "unreconciledPayloadBytes": 0
+      },
+      "physicalAcceptance": false
+    },
+    {
+      "id": "operation-write-interruption",
+      "result": "passed",
+      "durationMs": 166.96173399999952,
+      "state": "healthy",
+      "reason": null,
+      "targets": [
+        {
+          "moduleId": "pico",
+          "installed": "pico-1.1.0",
+          "confirmed": "pico-1.1.0",
+          "installations": 1,
+          "rollbacks": 0,
+          "storage": "sqlite-slot-model"
+        }
+      ],
+      "artifactIdentities": [
+        {
+          "moduleId": "pico",
+          "releaseId": "pico-1.1.0",
+          "sha256": "cd64b2bb6121420e9aaf99881e9ea474594ecb167e1423a6505b43510aa8e781"
+        }
+      ],
+      "traffic": {
+        "boundary": "localhost-artifact-http",
+        "layer": "application-payload",
+        "coverage": "complete-fixture-interval",
+        "sentPayloadBytes": 256,
+        "chargedPayloadBytes": 256,
+        "retryRequests": 1,
+        "wireBytes": null,
+        "carrierBytes": null
+      },
+      "audit": {
+        "events": 12,
+        "sequenceGaps": 0,
+        "missingReceipts": 0,
+        "unreconciledPayloadBytes": 0
+      },
+      "physicalAcceptance": false
+    }
+  ],
+  "crashes": [
+    {
+      "point": "image-fsync",
+      "durationMs": 1769.84879,
+      "signal": "SIGKILL",
+      "installations": 1,
+      "releaseId": "pod-1.1.0",
+      "artifactSha256": "0d31a14ca18eeeb4ad04cf6ddba5eb9b2daf1b75f42f9a7a6ad0b42e57a360a9",
+      "preservedFiles": 4,
+      "physicalInstallationEnabled": false
+    },
+    {
+      "point": "image-rename",
+      "durationMs": 1882.4299539999993,
+      "signal": "SIGKILL",
+      "installations": 1,
+      "releaseId": "pod-1.1.0",
+      "artifactSha256": "0d31a14ca18eeeb4ad04cf6ddba5eb9b2daf1b75f42f9a7a6ad0b42e57a360a9",
+      "preservedFiles": 4,
+      "physicalInstallationEnabled": false
+    },
+    {
+      "point": "trial",
+      "durationMs": 1754.5393179999992,
+      "signal": "SIGKILL",
+      "installations": 1,
+      "releaseId": "pod-1.1.0",
+      "artifactSha256": "0d31a14ca18eeeb4ad04cf6ddba5eb9b2daf1b75f42f9a7a6ad0b42e57a360a9",
+      "preservedFiles": 4,
+      "physicalInstallationEnabled": false
+    },
+    {
+      "point": "confirmed",
+      "durationMs": 1900.8031179999998,
+      "signal": "SIGKILL",
+      "installations": 1,
+      "releaseId": "pod-1.1.0",
+      "artifactSha256": "0d31a14ca18eeeb4ad04cf6ddba5eb9b2daf1b75f42f9a7a6ad0b42e57a360a9",
+      "preservedFiles": 4,
+      "physicalInstallationEnabled": false
+    }
+  ],
+  "canaryPolicy": {
+    "order": [
+      "pico",
+      "pod",
+      "edge"
+    ],
+    "failedCanary": "halt-later-targets",
+    "retry": "explicit-current-authority",
+    "fieldRolloutEnabled": false
+  },
+  "physicalGates": [
+    {
+      "id": "pico-board-power-interruption",
+      "issue": 71,
+      "status": "blocked"
+    },
+    {
+      "id": "linux-real-boot-and-brownout",
+      "issue": 44,
+      "status": "blocked"
+    },
+    {
+      "id": "retention-line-clearance-power-loss",
+      "issue": 76,
+      "status": "blocked"
+    },
+    {
+      "id": "secured-frame-and-installed-recovery",
+      "issue": 79,
+      "status": "blocked"
+    }
+  ],
+  "physicalAcceptance": false,
+  "publicOperationReady": false,
+  "sourceCommit": "968a53cd671cb7e6ce3b4b808092f73dc437af19",
+  "dirty": false
+}
