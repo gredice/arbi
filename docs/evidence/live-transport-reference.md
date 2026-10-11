@@ -11,19 +11,19 @@ local candidates. No test fixture can report mobile NAT or TURN feasibility.
 
 ## Executed development-host record
 
-Clean source `0cf2d07502eda819c02de63370f6a83b755f88bb` passed dashboard TypeScript,
+Clean source `b0f8cf7279452f5c1d32c03480b45e305cd669f1` passed dashboard TypeScript,
 script syntax, and the standalone candidate assertions on 2026-10-11. The
 [complete machine-readable record](live-transport-reference.json) names Linux
 6.18.44/x64, AMD EPYC 9V74, Node 24.19.0 and Chromium 145.0.7632.6.
 
-Over 5,015.19 ms, the two separate senders reported 7,047 and 7,111 RTP payload
-bytes (11,226.94 and 11,329.39 bit/s). They each encoded 19 frames; the viewers
-decoded 20 and 19 in nearby sampling windows, with zero observed lost packets.
+Over 5,016.00 ms, the two separate senders reported 7,963 and 7,230 RTP payload
+bytes (12,691.65 and 11,523.88 bit/s). They each encoded 20 frames; the viewers
+decoded 21 and 20 in nearby sampling windows, with zero observed lost packets.
 The requested five fps is a configured ceiling, not an achieved measured rate.
 One viewer continued receiving after the other closed. All selected candidates
 were host/UDP; the unconfigured relay-only probe yielded zero candidates.
 
-The sampled Chromium process tree used 0.46 CPU seconds and peaked at 669,507,584
+The sampled Chromium process tree used 0.36 CPU seconds and peaked at 672,284,672
 summed process RSS bytes, including sender, receivers and browser workers. Shared
 pages can be counted repeatedly. These figures are desktop-browser host evidence
 and cannot estimate Pi encoder resource use. The measured simple scene is not a
@@ -38,3 +38,8 @@ authority and WAN/carrier counter comparison remain untested. The isolated live
 session authority has separate [native evidence](live-sessions.md); this candidate
 experiment does not claim to integrate its authorization or choose production
 transport.
+
+The optional browser entrypoint was additionally checked in isolated child
+processes with mocked macOS and Windows OS detection; both returned an explicit
+skip before opening HTTP/browser resources. These are platform-guard checks,
+not actual browser runs on those operating systems.

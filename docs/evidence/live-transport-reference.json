@@ -3,7 +3,7 @@
   "stage": "development-host-candidate",
   "physicalAcceptance": false,
   "source": {
-    "commit": "0cf2d07502eda819c02de63370f6a83b755f88bb",
+    "commit": "b0f8cf7279452f5c1d32c03480b45e305cd669f1",
     "dirty": false
   },
   "host": {
@@ -27,48 +27,48 @@
   "signaling": "in-process-test-harness-only",
   "authorization": "not-tested",
   "sharedUpstream": false,
-  "elapsedMs": 5015.193506,
+  "elapsedMs": 5016.003161,
   "resources": {
     "boundary": "sampled-chromium-process-tree",
     "completeness": "sampled-process-exit-gaps-possible",
     "observedReadGaps": 0,
-    "cpuSeconds": 0.46,
-    "peakSumProcessRssBytes": 669507584,
+    "cpuSeconds": 0.36,
+    "peakSumProcessRssBytes": 672284672,
     "sharedPagesMayBeCountedRepeatedly": true,
     "temperature": null
   },
   "paths": [
     {
       "connection": "connected",
-      "timestampMs": 1791725509759.782,
-      "rtpPayloadBytesSent": 7047,
-      "rtpPayloadBytesReceived": 7047,
-      "framesEncoded": 19,
-      "framesDecoded": 20,
+      "timestampMs": 1791726090415.004,
+      "rtpPayloadBytesSent": 7963,
+      "rtpPayloadBytesReceived": 7963,
+      "framesEncoded": 20,
+      "framesDecoded": 21,
       "totalEncodeTimeSeconds": 0.026,
       "packetsLost": 0,
-      "currentRoundTripTimeSeconds": 0.001,
+      "currentRoundTripTimeSeconds": 0,
       "localCandidateType": "host",
       "remoteCandidateType": "host",
       "transportProtocol": "udp",
       "encodeTimeSeconds": 0.022,
-      "observedPayloadBps": 11226.94442203912
+      "observedPayloadBps": 12691.645282608826
     },
     {
       "connection": "connected",
-      "timestampMs": 1791725509760.238,
-      "rtpPayloadBytesSent": 7111,
-      "rtpPayloadBytesReceived": 7111,
-      "framesEncoded": 19,
-      "framesDecoded": 19,
+      "timestampMs": 1791726090415.617,
+      "rtpPayloadBytesSent": 7230,
+      "rtpPayloadBytesReceived": 7230,
+      "framesEncoded": 20,
+      "framesDecoded": 20,
       "totalEncodeTimeSeconds": 0.02,
       "packetsLost": 0,
       "currentRoundTripTimeSeconds": 0,
       "localCandidateType": "host",
       "remoteCandidateType": "host",
       "transportProtocol": "udp",
-      "encodeTimeSeconds": 0.018000000000000002,
-      "observedPayloadBps": 11329.386490255945
+      "encodeTimeSeconds": 0.019,
+      "observedPayloadBps": 11523.8772796384
     }
   ],
   "relayOnlyWithoutProvider": {
