@@ -16,11 +16,19 @@ static bool revisions(const MotionIdentity *a,const MotionIdentity *b) {
     &&!strncmp(a->hardware,b->hardware,65)&&!strncmp(a->calibration,b->calibration,65)
     &&!strncmp(a->geometry,b->geometry,65)&&!strncmp(a->frame,b->frame,65)&&!strncmp(a->binding,b->binding,65);
 }
+static void diagnostic(LocalModel *m,const LocalCommand *c,DiagnosticKind kind,unsigned reason,uint64_t now) {
+  DiagnosticRecord record={0};record.kind=kind;record.reason=reason;record.monotonic_ms=now;record.target=m->self;record.faults=m->faults;
+  if(kind==DIAG_FAULT||kind==DIAG_ABORTED)record.faults|=reason;
+  record.identity_available=m->configured;if(m->configured)record.identity=m->motion.profile.identity;
+  if(c){record.source=c->source;memcpy(record.command,c->command_id,65);memcpy(record.correlation,c->correlation_id,65);record.command_sequence=c->sequence;record.fence=c->fence;record.deadline_ms=c->expires_ms;record.command_available=true;}
+  (void)diagnostics_append(&m->diagnostics,&record);
+}
 void local_model_reset(LocalModel *m,Identity self,LocalResetCause cause,uint64_t now) {
   if(!m)return;
   memset(m,0,sizeof *m);atomic_init(&m->pending_faults,0);m->self=self;
   m->phase=LOCAL_RECOVERY_REQUIRED;m->output=LOCAL_INHIBIT;m->reset_cause=cause;m->simulated_only=true;
   m->last_ms=m->last_loop_ms=now;m->recovery_generation=1;
+  diagnostics_reset(&m->diagnostics,self.boot);diagnostic(m,NULL,DIAG_RESET,(unsigned)cause,now);
 }
 bool local_model_reset_record(const LocalModel *m,LocalResetRecord *record) {
   if(!m||!record||!id(m->self.boot))return false;
@@ -36,6 +44,8 @@ bool local_model_reset_history(LocalModel *m,const LocalResetRecord *record) {
 static void latch(LocalModel *m,unsigned faults,uint64_t now) {
   bool moving=m->phase==LOCAL_RUNNING;
   if(!faults)return;
+  if(moving)diagnostic(m,&m->active_command,DIAG_ABORTED,faults,now);
+  if((m->faults&faults)!=faults)diagnostic(m,NULL,DIAG_FAULT,faults,now);
   if(!m->faults) {
     if(m->recovery_generation==UINT64_MAX)faults|=LOCAL_FAULT_CAPACITY;
     else m->recovery_generation++;
@@ -95,7 +105,7 @@ void local_model_tick(LocalModel *m,const MotionIdentity *current,const InputsMo
   if(now>=m->last_loop_ms)m->last_loop_ms=now;
 }
 static LocalResult result(LocalModel *m,const LocalCommand *c,LocalResult r) {
-  if(m){m->last_result=r;if(c)m->last_command=*c;}
+  if(m){m->last_result=r;if(c){m->last_command=*c;diagnostic(m,c,r==LOCAL_ACCEPTED?DIAG_ACCEPTED:DIAG_REJECTED,(unsigned)r,m->last_ms);}}
   return r;
 }
 static LocalResult envelope(LocalModel *m,const LocalCommand *c,uint64_t now,uint64_t horizon,bool recovery) {
@@ -126,6 +136,7 @@ LocalResult local_model_recover(LocalModel *m,const LocalCommand *c,const HomeMo
   // Never clears an interrupt that arrived during restoration. The output getter
   // remains inhibited, and the next owner tick latches that fault again.
   m->faults=0;m->fence=c->fence;m->phase=LOCAL_IDLE;m->output=LOCAL_INHIBIT;
+  m->commanded_at_ms=now;
   m->lease_active=false;m->manual=false;memset(&m->active_command,0,sizeof m->active_command);remember(m,c);return LOCAL_ACCEPTED;
 }
 LocalResult local_model_grant_manual(LocalModel *m,const LocalCommand *c,uint64_t expires,const InputsModel *inputs,uint64_t now) {
@@ -157,5 +168,6 @@ bool local_model_complete(LocalModel *m,const MotionIdentity *current,uint64_t s
     ||motion_observe_commanded(&m->motion,current,counts)!=MOTION_OK||motion_complete(&m->motion,current)!=MOTION_OK) {
     latch(m,LOCAL_FAULT_SCHEDULER,now);return false;
   }
-  m->phase=LOCAL_IDLE;m->output=LOCAL_INHIBIT;m->manual=false;m->last_ms=now;return true;
+  m->phase=LOCAL_IDLE;m->output=LOCAL_INHIBIT;m->manual=false;m->last_ms=now;m->commanded_at_ms=now;
+  diagnostic(m,&m->active_command,DIAG_COMPLETED,0,now);return true;
 }

@@ -18,6 +18,9 @@ static HomePolicy home_policy;
 static LocalModel local;
 static LocalResetRecord reset_record;
 static LocalCommand local_command;
+static DiagnosticPage diagnostic_page;
+static DiagnosticRecord diagnostic_record;
+static char diagnostic_output[DIAGNOSTIC_JSON_BYTES];
 int main(void) {
   const PulseLimits limits = {1000000, 5, 10, 10, 250000, 20000, 2000000};
   const PulseRequest request = {{1, -2, 3, 0}, 1000, 100000};
@@ -52,5 +55,10 @@ int main(void) {
   (void)local_model_grant_manual(&local,&local_command,0,&inputs,0);
   (void)local_model_move(&local,&local_command,&movement,false,&inputs,0,&limits,&plan);
   (void)local_model_complete(&local,&profile.identity,0,motion.commanded,&inputs,0);
+  (void)diagnostics_append(&local.diagnostics,&diagnostic_record);
+  (void)diagnostics_page(&local.diagnostics,local.self.boot,0,&diagnostic_page);
+  (void)diagnostics_record_json(&diagnostic_record,diagnostic_output);
+  (void)diagnostics_outcome(&diagnostic_record,diagnostic_output);
+  (void)diagnostics_snapshot(&local,&inputs,0,diagnostic_output);
   for (;;) tight_loop_contents();
 }
