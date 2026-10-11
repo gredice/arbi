@@ -3,12 +3,14 @@ import { isId } from "@arbi/gredice";
 import { postgresDatabase } from "../enrollment/store";
 import type { DashboardServer } from "./server";
 import { createDashboardTestProvider } from "./test-provider";
+import { IsolatedUpdateProxy } from '../updates/proxy';
 import { isBranchPreview } from "../deployment";
 
 export const SESSION_COOKIE = "arbi_dashboard_session";
 interface DashboardRuntime { server: DashboardServer; login?: (code: string) => Promise<string | null>; revoke?: (token: string) => Promise<void>;
   historyTools?:{handle:(request:Request,siteId:string,feature:string,action:string)=>Promise<Response>};
   controlTools?:{handle:(request:Request,siteId:string,action:string)=>Promise<Response>};
+  updateTools?:{handle:(request:Request,siteId:string,action:string)=>Promise<Response>};
   telemetryTools?:{handle:(request:Request,siteId:string,action:string)=>Promise<Response>}; }
 let configured: DashboardRuntime | undefined;
 let attempted = false;
@@ -35,7 +37,9 @@ export function dashboardRuntime(): DashboardRuntime | undefined {
     const pool = new pg.Pool({ connectionString, max: 4, connectionTimeoutMillis: 1500, statement_timeout: 1500, idleTimeoutMillis: 10_000 });
     const origins = [origin, ...(process.env.VERCEL_URL ? [`https://${process.env.VERCEL_URL}`] : [])];
     configured = createDashboardTestProvider({ realm: { environment: "test", namespaceId }, verificationKey: Buffer.from(key, "base64url"),
-      accessCode, viewerCode: process.env.ARBI_DASHBOARD_TEST_VIEWER_CODE,operatorCode:process.env.ARBI_DASHBOARD_TEST_OPERATOR_CODE, browserOrigins: origins, db: postgresDatabase(pool) });
+      accessCode, viewerCode: process.env.ARBI_DASHBOARD_TEST_VIEWER_CODE,operatorCode:process.env.ARBI_DASHBOARD_TEST_OPERATOR_CODE,updateCode:process.env.ARBI_DASHBOARD_TEST_UPDATE_CODE, browserOrigins: origins, db: postgresDatabase(pool) });
+    const updateOrigin=process.env.ARBI_DASHBOARD_UPDATE_ORIGIN,updateCredential=process.env.ARBI_DASHBOARD_UPDATE_CREDENTIAL;
+    if(!process.env.VERCEL&&updateOrigin&&updateCredential)configured.updateTools=new IsolatedUpdateProxy({realm:{environment:'test',namespaceId},origin:updateOrigin,credential:updateCredential});
     return configured;
   } catch { return undefined; }
 }
@@ -66,3 +70,5 @@ export function dashboardControlRoute(request:Request,siteId:string,action:strin
 export function dashboardTelemetryRoute(request:Request,siteId:string,action:string){
   return dashboardRuntime()?.telemetryTools?.handle(action==='device'?request:dashboardRequest(request),siteId,action)??Promise.resolve(unavailable());
 }
+
+export function dashboardUpdateRoute(request:Request,siteId:string,action:string){return dashboardRuntime()?.updateTools?.handle(dashboardRequest(request),siteId,action)??Promise.resolve(unavailable());}

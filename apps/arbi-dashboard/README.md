@@ -64,3 +64,7 @@ The [usage adapter](src/usage/server.ts) mounts `/api/sites/:siteId/usage/:actio
 ## Operations and recovery
 
 [Cloud operations](../../docs/software/cloud-operations.md) and [ADR-0011](../../docs/decisions/0011-cloud-recovery-quarantine.md) define private configuration validation, current-authority diagnostics, bounded process logs/counters, owner migration and restoration quarantine. Ordinary/branch-preview operations routes fail closed until explicitly composed. Apply owner-only `db:migrate:operations` after the existing audit baseline, retaining narrow app function/SELECT grants. The native suite runs an actual private dump/restore drill; it preserves historical references and blocks restored admission until external/local state is reconciled. No production restore target or automatic release endpoint is exposed.
+
+## Device releases and updates
+
+[Update dashboard](../../docs/software/update-dashboard.md) provides explicit compatible selection and durable progress/history through the existing update boundary. The isolated browser harness runs a private actual edge worker; ordinary and preview startup remain unconfigured. [Evidence](../../docs/evidence/update-dashboard.md) records software limits separately from hardware/provider acceptance.

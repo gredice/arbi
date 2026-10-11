@@ -21,6 +21,8 @@ export interface TestProviderConfig {
   viewerCode?: string;
   /** Separate private operator profile. Never adds manipulation to the engineer/viewer profile. */
   operatorCode?: string;
+  /** Separate private updater profile; no display mode grants these roles. */
+  updateCode?:string;
   browserOrigins: readonly string[];
   db: SqlDatabase;
   now?: () => number;
@@ -30,6 +32,7 @@ export function createDashboardTestProvider(config: TestProviderConfig) {
   if (config.realm.environment !== "test" || config.accessCode.length < 32 || config.verificationKey.length < 32 ||
     (config.viewerCode && (config.viewerCode.length < 32 || config.viewerCode === config.accessCode)) ||
     (config.operatorCode && (config.operatorCode.length<32 || [config.accessCode,config.viewerCode].includes(config.operatorCode)))) throw new Error("INVALID_CONFIGURATION");
+  if(config.updateCode&&(config.updateCode.length<32||[config.accessCode,config.viewerCode,config.operatorCode].includes(config.updateCode)))throw Error("INVALID_CONFIGURATION");
   const now = config.now ?? Date.now;
   const realm = config.realm;
   const issuer = `urn:arbi:dashboard-test:${realm.namespaceId}`;
@@ -107,9 +110,9 @@ export function createDashboardTestProvider(config: TestProviderConfig) {
     const a = Buffer.from(value), b = Buffer.from(expected);
     return a.length === b.length && timingSafeEqual(a, b);
   };
-  return { server,historyTools,controlTools,telemetryTools, async login(code: string) {
+  return { server,identity,resolveResource,historyTools,controlTools,telemetryTools, async login(code: string) {
     const actorId = equal(code, config.accessCode) ? "synthetic-engineer" : config.viewerCode && equal(code, config.viewerCode) ? "synthetic-viewer" :
-      config.operatorCode&&equal(code,config.operatorCode)?'synthetic-operator':null;
+      config.operatorCode&&equal(code,config.operatorCode)?'synthetic-operator':config.updateCode&&equal(code,config.updateCode)?'synthetic-updater':null;
     if (!actorId) return null;
     const id = randomUUID(), issuedAt = Math.floor(now() / 1000), expiresAtMs = (issuedAt + 300) * 1000;
     // Fixed server profiles. No form/body actor, role, account, site or capability is accepted.
