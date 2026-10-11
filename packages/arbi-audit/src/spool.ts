@@ -105,6 +105,31 @@ export class SqliteAuditSpool {
     if (!Number.isInteger(limit) || limit < 1 || limit > 64) throw new AuditError("INVALID_REQUEST");
     this.verify(); return this.#rows().slice(0, limit).map((row) => JSON.parse(row.body) as AuditEvent);
   }
+  #prefix(limit:number):Row[]{
+    const state=this.#state(),count=Number(this.#db.prepare('SELECT count(*) n FROM spool_events').get()!.n);
+    if(count!==state.tail-state.anchor)throw new AuditError('TAMPER');
+    const rows=this.#db.prepare('SELECT * FROM spool_events ORDER BY ordinal LIMIT ?').all(limit) as unknown as Row[];
+    let ordinal=state.anchor,hash=state.anchor_hash;
+    for(const row of rows){let event:AuditEvent;try{event=checked(JSON.parse(row.body));}catch{throw new AuditError('TAMPER');}
+      if(row.ordinal!==ordinal+1||row.previous!==hash||row.hash!==contentHash(event)||row.event_id!==event.eventId||row.bytes!==Buffer.byteLength(row.body)||
+        row.chain!==chainHash(hash,row.ordinal,row.hash))throw new AuditError('TAMPER');ordinal=row.ordinal;hash=row.chain;
+    }
+    if(ordinal===state.tail&&hash!==state.tail_hash)throw new AuditError('TAMPER');return rows;
+  }
+  /** Reconnect reads validate only this contiguous prefix, avoiding materialization of the entire backlog.
+   * Full-chain verification still runs at open/admission and remains explicitly available through verify(). */
+  pendingBounded(limit=8):AuditEvent[]{
+    if(!Number.isInteger(limit)||limit<1||limit>8)throw new AuditError('INVALID_REQUEST');
+    return this.#prefix(limit).map(row=>JSON.parse(row.body) as AuditEvent);
+  }
+  acknowledgeBounded(receipt:DurableReceipt):void{
+    this.#transaction(()=>{
+      const row=this.#prefix(1)[0];if(!row||receipt.durable!==true||row.event_id!==receipt.eventId||row.hash!==receipt.contentHash)throw new AuditError('CONFLICT');
+      const received=checked({...JSON.parse(row.body),ingestTime:receipt.ingestTime},true);if(received.ingestTime===null)throw new AuditError('INVALID_REQUEST');
+      this.#db.prepare('DELETE FROM spool_events WHERE ordinal=?').run(row.ordinal);
+      this.#db.prepare('UPDATE spool_state SET anchor=?,anchor_hash=? WHERE id=1').run(row.ordinal,row.chain);
+    });
+  }
   /** Only prefix acknowledgement is compacted; a lost response leaves the same event replayable. */
   acknowledge(receipt: DurableReceipt): void {
     this.#transaction(() => {

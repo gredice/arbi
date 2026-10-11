@@ -1,7 +1,7 @@
 import { createHash, randomUUID } from 'node:crypto';
 import { performance } from 'node:perf_hooks';
 import { connect, type TLSSocket, type ConnectionOptions } from 'node:tls';
-import { advanceCursor, applyTelemetry, AUDIT_VERSION, configurationCapabilities, configurationDigest, createTelemetryState, parseMessage, PROTOCOL_VERSION, validateAuditEvent, type Actor, type AuditEvent, type Command, type Identity, type TelemetryState } from '@arbi/protocol';
+import { advanceCursor, applyTelemetry, AUDIT_VERSION, configurationCapabilities, configurationDigest, createTelemetryState, parseMessage, PROTOCOL_VERSION, validateAuditEvent, type Actor, type AuditEvent, type Command, type Identity, type TelemetryContext, type TelemetryState } from '@arbi/protocol';
 import { FrameDecoder, frame } from './framing.js';
 import { LINK_TIMEOUT_MS, MAX_FRAMES_PER_SECOND, RECONNECT_MIN_MS, RECONNECT_MAX_MS, TRANSPORT_VERSION, type ModuleEnrollment, type Settings } from './settings.js';
 import type { EdgeTraffic } from './metering.js';
@@ -29,6 +29,10 @@ export function parseHello(input: unknown): Hello {
 
 /** Owns one current local connection. There is no command queue or automatic replay. */
 export class ModuleAdapter {
+  #observer?: (frame:string,context:TelemetryContext)=>void;
+  #observerFailures=0;
+  /** A trusted bounded observer receives only protocol messages accepted by this authenticated adapter. */
+  observeDiagnostics(observer:(frame:string,context:TelemetryContext)=>void){if(this.#observer)throw new Error('OBSERVER_ALREADY_CONFIGURED');this.#observer=observer;}
   #socket?: TLSSocket;
   #retry?: NodeJS.Timeout;
   #timer?: NodeJS.Timeout;
@@ -58,7 +62,7 @@ export class ModuleAdapter {
   get status() {
     if (this.#ready && performance.now() - this.#lastValid >= LINK_TIMEOUT_MS) this.#disconnect('LINK_EXPIRED');
     return { deviceId: this.#enrollment.deviceId, ready: this.#ready, reason: this.#reason, generation: this.#generation,
-      source: structuredClone(this.#hello?.source ?? null), actuationEnabled: false,
+      source: structuredClone(this.#hello?.source ?? null), actuationEnabled: false,diagnosticObserverFailures:this.#observerFailures,
       capabilities: configurationCapabilities(this.#settings.applied.request.configuration, this.#enrollment.deviceId) };
   }
   start(): void { if (!this.#stopped) return; this.#stopped = false; this.#connect(); }
@@ -151,6 +155,8 @@ export class ModuleAdapter {
       if (!result.ok) throw new Error(result.error.code);
     }
     this.#peerMonotonic = message.sourceTime.monotonicMs;
+    try{this.#observer?.(JSON.stringify(message),{realm:config.realm,executionMode:'simulation',siteId:config.siteId,authenticatedSource:h.source,
+      activeSource:h.source,capabilitiesRevision:config.revision,capabilities:configurationCapabilities(config,h.source.deviceId)});}catch{this.#observerFailures=Math.min(2147483647,this.#observerFailures+1);}
   }
   #write(input: unknown): boolean {
     const bytes = frame(input); const socket = this.#socket;
