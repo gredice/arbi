@@ -2,6 +2,7 @@
 #define ARBI_LOCAL_CONTROL_H
 #include "homing.h"
 #include "runtime.h"
+#include "diagnostics.h"
 #define LOCAL_COMMAND_CAPACITY 32
 #define LOCAL_LINK_TIMEOUT_MS 100
 #define LOCAL_SUPERVISOR_TIMEOUT_MS 20
@@ -23,7 +24,7 @@ typedef struct {
   uint64_t sequence, fence, expires_ms, recovery_generation;
 } LocalCommand;
 typedef struct {char boot[65];unsigned faults;uint64_t last_sequence;LocalResetCause cause;} LocalResetRecord;
-typedef struct {
+typedef struct LocalModel {
   Identity self, peer;
   MotionState motion;
   LocalCommand active_command, last_command;
@@ -36,6 +37,8 @@ typedef struct {
   LocalResetCause reset_cause;
   LocalResult last_result;
   LocalResetRecord previous_reset;
+  DiagnosticRing diagnostics;
+  uint64_t commanded_at_ms;
   bool previous_reset_available;
   bool configured, link_seen, lease_active, manual, simulated_only;
 } LocalModel;

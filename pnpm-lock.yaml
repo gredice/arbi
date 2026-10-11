@@ -33,6 +33,9 @@ importers:
       '@arbi/simulation-core':
         specifier: workspace:*
         version: link:../../packages/arbi-simulation-core
+      ajv:
+        specifier: 8.17.1
+        version: 8.17.1
 
   apps/arbi-dashboard:
     dependencies:

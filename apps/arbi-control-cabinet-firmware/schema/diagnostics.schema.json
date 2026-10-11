@@ -1,0 +1,1200 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "arbi.mcu-diagnostics/1.0",
+  "oneOf": [
+    {
+      "$ref": "#/definitions/snapshot"
+    },
+    {
+      "$ref": "#/definitions/record"
+    }
+  ],
+  "definitions": {
+    "snapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "origin",
+        "source",
+        "sampleMonotonicMs",
+        "phase",
+        "outputRequest",
+        "actuationInhibited",
+        "physicalAcceptance",
+        "faults",
+        "resetCause",
+        "configuration",
+        "commandedSteps",
+        "positionMm",
+        "encoderCounts",
+        "motorCurrentA",
+        "lineTensionN",
+        "inputs",
+        "activeCommand",
+        "counters",
+        "physicalTiming",
+        "deadlines"
+      ],
+      "properties": {
+        "version": {
+          "const": "arbi.mcu-diagnostics/1.0"
+        },
+        "origin": {
+          "const": "simulated"
+        },
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "deviceId",
+            "bootId",
+            "sessionId"
+          ],
+          "properties": {
+            "deviceId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+            },
+            "bootId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+            },
+            "sessionId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+            }
+          }
+        },
+        "sampleMonotonicMs": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "phase": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4
+        },
+        "outputRequest": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3
+        },
+        "actuationInhibited": {
+          "const": true
+        },
+        "physicalAcceptance": {
+          "const": false
+        },
+        "faults": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "resetCause": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "quality",
+                "value"
+              ],
+              "properties": {
+                "quality": {
+                  "const": "unavailable"
+                },
+                "value": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "quality",
+                "value"
+              ],
+              "properties": {
+                "quality": {
+                  "const": "estimated"
+                },
+                "value": {
+                  "enum": [
+                    "simulated-power",
+                    "simulated-watchdog",
+                    "simulated-brownout"
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "configuration": {
+          "anyOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "site",
+                "configuration",
+                "hardware",
+                "calibration",
+                "geometry",
+                "frame",
+                "binding"
+              ],
+              "properties": {
+                "site": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                },
+                "configuration": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                },
+                "hardware": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                },
+                "calibration": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                },
+                "geometry": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                },
+                "frame": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                },
+                "binding": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                }
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "commandedSteps": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "quality",
+            "value",
+            "sampleMonotonicMs",
+            "ageMs",
+            "unit"
+          ],
+          "properties": {
+            "quality": {
+              "enum": [
+                "commanded",
+                "stale",
+                "unavailable"
+              ]
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "minItems": 4,
+                  "maxItems": 4,
+                  "items": {
+                    "type": "integer",
+                    "minimum": -2147483648,
+                    "maximum": 2147483647
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "sampleMonotonicMs": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "ageMs": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "unit": {
+              "const": "microstep"
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "quality": {
+                    "const": "unavailable"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "null"
+                  },
+                  "sampleMonotonicMs": {
+                    "type": "null"
+                  },
+                  "ageMs": {
+                    "type": "null"
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "value": {
+                    "type": "array"
+                  },
+                  "sampleMonotonicMs": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "ageMs": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "positionMm": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "quality",
+            "value",
+            "sampleMonotonicMs",
+            "ageMs",
+            "unit",
+            "frameRevision"
+          ],
+          "properties": {
+            "quality": {
+              "enum": [
+                "estimated",
+                "stale",
+                "unavailable"
+              ]
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "minItems": 3,
+                  "maxItems": 3,
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "sampleMonotonicMs": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "ageMs": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "unit": {
+              "const": "mm"
+            },
+            "frameRevision": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "quality": {
+                    "const": "unavailable"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "null"
+                  },
+                  "sampleMonotonicMs": {
+                    "type": "null"
+                  },
+                  "ageMs": {
+                    "type": "null"
+                  },
+                  "frameRevision": {
+                    "type": "null"
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "value": {
+                    "type": "array"
+                  },
+                  "sampleMonotonicMs": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "ageMs": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "frameRevision": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "encoderCounts": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "quality",
+            "value",
+            "sampleMonotonicMs"
+          ],
+          "properties": {
+            "quality": {
+              "const": "unavailable"
+            },
+            "value": {
+              "type": "null"
+            },
+            "sampleMonotonicMs": {
+              "type": "null"
+            }
+          }
+        },
+        "motorCurrentA": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "quality",
+            "value",
+            "sampleMonotonicMs"
+          ],
+          "properties": {
+            "quality": {
+              "const": "unavailable"
+            },
+            "value": {
+              "type": "null"
+            },
+            "sampleMonotonicMs": {
+              "type": "null"
+            }
+          }
+        },
+        "lineTensionN": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "quality",
+            "value",
+            "sampleMonotonicMs"
+          ],
+          "properties": {
+            "quality": {
+              "const": "unavailable"
+            },
+            "value": {
+              "type": "null"
+            },
+            "sampleMonotonicMs": {
+              "type": "null"
+            }
+          }
+        },
+        "inputs": {
+          "type": "array",
+          "minItems": 14,
+          "maxItems": 14,
+          "items": [
+            {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/input"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "channel": {
+                      "const": 0
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/input"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "channel": {
+                      "const": 1
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/input"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "channel": {
+                      "const": 2
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/input"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "channel": {
+                      "const": 3
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/input"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "channel": {
+                      "const": 4
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/input"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "channel": {
+                      "const": 5
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/input"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "channel": {
+                      "const": 6
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/input"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "channel": {
+                      "const": 7
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/input"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "channel": {
+                      "const": 8
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/input"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "channel": {
+                      "const": 9
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/input"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "channel": {
+                      "const": 10
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/input"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "channel": {
+                      "const": 11
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/input"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "channel": {
+                      "const": 12
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/input"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "channel": {
+                      "const": 13
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "additionalItems": false
+        },
+        "activeCommand": {
+          "anyOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "commandId",
+                "correlationId",
+                "sequence",
+                "fence",
+                "expiresMonotonicMs"
+              ],
+              "properties": {
+                "commandId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                },
+                "correlationId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                },
+                "sequence": {
+                  "type": "string",
+                  "pattern": "^(0|[1-9][0-9]{0,19})$"
+                },
+                "fence": {
+                  "type": "string",
+                  "pattern": "^(0|[1-9][0-9]{0,19})$"
+                },
+                "expiresMonotonicMs": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                }
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "counters": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "eventSequence",
+            "droppedRecords",
+            "droppedThrough",
+            "decimatedSnapshots",
+            "normalQueued",
+            "faultQueued",
+            "sequenceExhausted"
+          ],
+          "properties": {
+            "eventSequence": {
+              "type": "string",
+              "pattern": "^(0|[1-9][0-9]{0,19})$"
+            },
+            "droppedRecords": {
+              "type": "string",
+              "pattern": "^(0|[1-9][0-9]{0,19})$"
+            },
+            "droppedThrough": {
+              "type": "string",
+              "pattern": "^(0|[1-9][0-9]{0,19})$"
+            },
+            "decimatedSnapshots": {
+              "type": "string",
+              "pattern": "^(0|[1-9][0-9]{0,19})$"
+            },
+            "normalQueued": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 16
+            },
+            "faultQueued": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4
+            },
+            "sequenceExhausted": {
+              "type": "boolean"
+            }
+          }
+        },
+        "physicalTiming": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "maximumFaultResponseMs",
+            "maximumInterruptDelayUs",
+            "queueDepth"
+          ],
+          "properties": {
+            "maximumFaultResponseMs": {
+              "type": "null"
+            },
+            "maximumInterruptDelayUs": {
+              "type": "null"
+            },
+            "queueDepth": {
+              "type": "null"
+            }
+          }
+        },
+        "deadlines": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "lastOwnerProgressMs",
+            "lastLinkObservationMs",
+            "manualLeaseExpiresMs"
+          ],
+          "properties": {
+            "lastOwnerProgressMs": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "lastLinkObservationMs": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "manualLeaseExpiresMs": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "configuration": {
+                "type": "null"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "commandedSteps": {
+                "properties": {
+                  "quality": {
+                    "const": "unavailable"
+                  }
+                },
+                "type": "object"
+              },
+              "positionMm": {
+                "properties": {
+                  "quality": {
+                    "const": "unavailable"
+                  }
+                },
+                "type": "object"
+              },
+              "activeCommand": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "origin",
+        "source",
+        "sequence",
+        "monotonicMs",
+        "kind",
+        "reason",
+        "faults",
+        "configuration",
+        "command"
+      ],
+      "properties": {
+        "version": {
+          "const": "arbi.mcu-record/1.0"
+        },
+        "origin": {
+          "const": "simulated"
+        },
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "deviceId",
+            "bootId",
+            "sessionId"
+          ],
+          "properties": {
+            "deviceId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+            },
+            "bootId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+            },
+            "sessionId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+            }
+          }
+        },
+        "sequence": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]{0,19})$"
+        },
+        "monotonicMs": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "kind": {
+          "enum": [
+            "accepted",
+            "rejected",
+            "completed",
+            "aborted",
+            "fault",
+            "reset"
+          ]
+        },
+        "reason": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "faults": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "configuration": {
+          "anyOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "site",
+                "configuration",
+                "hardware",
+                "calibration",
+                "geometry",
+                "frame",
+                "binding"
+              ],
+              "properties": {
+                "site": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                },
+                "configuration": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                },
+                "hardware": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                },
+                "calibration": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                },
+                "geometry": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                },
+                "frame": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                },
+                "binding": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                }
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "command": {
+          "anyOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "commandId",
+                "correlationId",
+                "sequence",
+                "fence",
+                "expiresMonotonicMs",
+                "requestSource"
+              ],
+              "properties": {
+                "commandId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                },
+                "correlationId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                },
+                "sequence": {
+                  "type": "string",
+                  "pattern": "^(0|[1-9][0-9]{0,19})$"
+                },
+                "fence": {
+                  "type": "string",
+                  "pattern": "^(0|[1-9][0-9]{0,19})$"
+                },
+                "expiresMonotonicMs": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "requestSource": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "deviceId",
+                    "bootId",
+                    "sessionId"
+                  ],
+                  "properties": {
+                    "deviceId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                    },
+                    "bootId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                    },
+                    "sessionId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "input": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "channel",
+        "realValue",
+        "realQuality",
+        "simulatedValue",
+        "simulatedQuality",
+        "sampleMonotonicMs"
+      ],
+      "properties": {
+        "channel": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 13
+        },
+        "realValue": {
+          "type": "null"
+        },
+        "realQuality": {
+          "const": "unavailable"
+        },
+        "simulatedValue": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "simulatedQuality": {
+          "enum": [
+            "estimated",
+            "unavailable"
+          ]
+        },
+        "sampleMonotonicMs": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "simulatedQuality": {
+                "const": "unavailable"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "simulatedValue": {
+                "type": "null"
+              },
+              "sampleMonotonicMs": {
+                "type": "null"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "simulatedValue": {
+                "type": "boolean"
+              },
+              "sampleMonotonicMs": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
