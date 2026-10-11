@@ -8,3 +8,4 @@ function run(mode){const r=spawnSync(binary,[mode],{encoding:'utf8',timeout:1000
 test('local command identity, fence, replay, expiry and finite commanded completion',()=>{for(const mode of ['nominal','replay','completion','capacity'])run(mode);});
 test('edge loss, manual expiry and trajectory expiry latch state-dependent model responses',()=>{for(const mode of ['link','lease','deadline','idle-loss'])run(mode);});
 test('atomic fault load, loop stall, clock reversal, revision, alarm and reset cannot restore movement',()=>{for(const mode of ['faults','stall','clock','revision','alarm','reset'])run(mode);});
+test('local installer reservation rejects moving, leased, stale and dependent protection and locks motion until new boot',()=>run('update'));

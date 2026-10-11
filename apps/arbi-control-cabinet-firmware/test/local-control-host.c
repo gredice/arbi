@@ -100,6 +100,34 @@ int main(int argc,char **argv) {
     assert(!model.configured&&!model.motion.active&&!model.lease_active&&!model.fence&&model.reset_cause==LOCAL_RESET_SIMULATED_BROWNOUT);
     assert(local_model_output(&model)==LOCAL_INHIBIT);assert(local_model_configure(&model,&motion_fixture,peer,10));
     c.expires_ms=100;MotionRequest r=request();assert(local_model_move(&model,&c,&r,false,&inputs,10,&limits,&plan)==LOCAL_REJECTED_ENVELOPE);
+  } else if(!strcmp(mode,"update")) {
+    LocalCommand c=command(2,5);
+    LocalUpdateEvidence e={.target=self,.record_id="restraint-fixture",.independent_owner="independent-fixture",.sampled_ms=5,
+      .simulated=true,.update_safe=true,.outputs_isolated=true,.restraint=true,.line_clearance=true,.stable_power=true};
+    e.update_safe=false;assert(local_model_update_begin(&model,&c,&e,5)==LOCAL_UPDATE_PROTECTION);e.update_safe=true;
+    e.sampled_ms=6;assert(local_model_update_begin(&model,&c,&e,5)==LOCAL_UPDATE_PROTECTION);e.sampled_ms=5;
+    assert(local_model_update_begin(&model,&c,&e,105)==LOCAL_UPDATE_PROTECTION);
+    strcpy(c.target.boot,"old-boot");assert(local_model_update_begin(&model,&c,&e,5)==LOCAL_UPDATE_ENVELOPE);c=command(2,5);
+    strcpy(e.independent_owner,self.device);assert(local_model_update_begin(&model,&c,&e,5)==LOCAL_UPDATE_PROTECTION);strcpy(e.independent_owner,"independent-fixture");
+    strcpy(e.target.boot,"old-boot");assert(local_model_update_begin(&model,&c,&e,5)==LOCAL_UPDATE_PROTECTION);e.target=self;
+    local_model_fault_signal(&model,LOCAL_FAULT_INPUT);assert(local_model_update_begin(&model,&c,&e,5)==LOCAL_UPDATE_STATE);prepare();c=command(2,5);
+    assert(local_model_update_begin(&model,&c,&e,5)==LOCAL_UPDATE_ACCEPTED);
+    assert(model.update_locked&&!model.configured&&!model.motion.ready&&!model.motion.active&&!model.motion.prepared&&!model.lease_active);
+    assert(local_model_output(&model)==LOCAL_INHIBIT);
+    assert(!local_model_configure(&model,&motion_fixture,peer,5));
+    assert(local_model_update_begin(&model,&c,&e,5)==LOCAL_UPDATE_STATE);
+    assert(local_model_recover(&model,&c,&home,(MotionPoint){1000,2000,2500},&inputs,5)!=LOCAL_ACCEPTED);
+    assert(local_model_grant_manual(&model,&c,255,&inputs,5)!=LOCAL_ACCEPTED);
+    MotionRequest r=request();assert(local_model_move(&model,&c,&r,false,&inputs,5,&limits,&plan)!=LOCAL_ACCEPTED&&plan.count==0);
+    prepare();LocalCommand lease=command(2,5);assert(local_model_grant_manual(&model,&lease,255,&inputs,5)==LOCAL_ACCEPTED);c=command(3,5);
+    assert(local_model_update_begin(&model,&c,&e,5)==LOCAL_UPDATE_LEASE);
+    prepare();start(false);c=command(3,5);assert(local_model_update_begin(&model,&c,&e,5)==LOCAL_UPDATE_MOVING);
+    assert(local_model_update_begin(&model,&c,&e,255)==LOCAL_UPDATE_MOVING);
+    prepare();MotionRequest pending=request();assert(motion_admit(&model.motion,&pending,&motion_fixture.identity,&limits)==MOTION_OK);
+    c=command(2,5);assert(local_model_update_begin(&model,&c,&e,5)==LOCAL_UPDATE_MOVING);
+    Identity fresh=self;strcpy(fresh.boot,"update-boot");local_model_reset(&model,fresh,LOCAL_RESET_UNKNOWN,5);
+    assert(!model.update_locked&&!model.configured&&!model.motion.ready&&!model.lease_active&&local_model_output(&model)==LOCAL_INHIBIT);
+    assert(local_model_configure(&model,&motion_fixture,peer,5));assert(local_model_recover(&model,&c,&home,(MotionPoint){1000,2000,2500},&inputs,5)!=LOCAL_ACCEPTED);
   } else if(!strcmp(mode,"idle-loss")) {
     for(uint64_t now=15;now<=105;now+=10){sample(now);local_model_tick(&model,&motion_fixture.identity,&inputs,now);}
     assert(model.phase==LOCAL_HELD&&local_model_output(&model)==LOCAL_INHIBIT);

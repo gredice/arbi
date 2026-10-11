@@ -75,7 +75,7 @@ static bool inputs_valid(const InputsModel *inputs,uint64_t now) {
   return true;
 }
 bool local_model_configure(LocalModel *m,const MotionProfile *profile,Identity peer,uint64_t now) {
-  if(!m)return false;
+  if(!m||m->update_locked)return false;
   // Copy before invalidating old intent; a caller may pass its owned profile.
   MotionProfile copy={0};bool valid=motion_profile_valid(profile);
   if(valid)copy=*profile;
@@ -110,7 +110,7 @@ static LocalResult result(LocalModel *m,const LocalCommand *c,LocalResult r) {
 }
 static LocalResult envelope(LocalModel *m,const LocalCommand *c,uint64_t now,uint64_t horizon,bool recovery) {
   if(!m||!c||!id(c->command_id)||!id(c->correlation_id)||!endpoint(c->source,m->peer)||!endpoint(c->target,m->self)
-    ||!m->configured||!revisions(&c->identity,&m->motion.profile.identity)||!c->sequence||now<m->last_ms
+    ||m->update_locked||!m->configured||!revisions(&c->identity,&m->motion.profile.identity)||!c->sequence||now<m->last_ms
     ||c->expires_ms<=now||c->expires_ms-now>horizon||c->recovery_generation!=m->recovery_generation)
     return result(m,c,LOCAL_REJECTED_ENVELOPE);
   if((recovery?c->fence<=m->fence:c->fence!=m->fence)||(!recovery&&c->sequence<=m->last_sequence))return result(m,c,LOCAL_REJECTED_REPLAY);
@@ -121,6 +121,23 @@ static LocalResult envelope(LocalModel *m,const LocalCommand *c,uint64_t now,uin
 static void remember(LocalModel *m,const LocalCommand *c) {
   strcpy(m->command_ids[m->command_count++],c->command_id);m->last_sequence=c->sequence;
   result(m,c,LOCAL_ACCEPTED);
+}
+LocalUpdateResult local_model_update_begin(LocalModel *m,const LocalCommand *c,const LocalUpdateEvidence *e,uint64_t now) {
+  if(!m||m->update_locked)return LOCAL_UPDATE_STATE;
+  // Check moving/lease state before any expiry tick could hide moving intent.
+  if(m->phase==LOCAL_RUNNING||m->motion.active||m->motion.prepared)return LOCAL_UPDATE_MOVING;
+  if(m->manual||m->lease_active)return LOCAL_UPDATE_LEASE;
+  if(envelope(m,c,now,LOCAL_LEASE_MAX_MS,false)!=LOCAL_ACCEPTED)return LOCAL_UPDATE_ENVELOPE;
+  if(!e||!e->simulated||!m->simulated_only||!endpoint(e->target,m->self)||!id(e->record_id)||!id(e->independent_owner)
+    ||!strncmp(e->independent_owner,m->self.device,65)||now<e->sampled_ms||now-e->sampled_ms>=100
+    ||!e->update_safe||!e->outputs_isolated||!e->restraint||!e->line_clearance||!e->stable_power)return LOCAL_UPDATE_PROTECTION;
+  if(local_model_output(m)!=LOCAL_INHIBIT||m->faults||atomic_load_explicit(&m->pending_faults,memory_order_acquire)
+    ||now<m->last_loop_ms||now-m->last_loop_ms>LOCAL_SUPERVISOR_TIMEOUT_MS
+    ||!m->link_seen||now<m->last_link_ms||now-m->last_link_ms>=LOCAL_LINK_TIMEOUT_MS)return LOCAL_UPDATE_STATE;
+  remember(m,c);m->update_locked=true;motion_inhibit(&m->motion);
+  memset(&m->active_command,0,sizeof m->active_command);m->lease_active=false;m->manual=false;
+  m->phase=LOCAL_RECOVERY_REQUIRED;m->output=LOCAL_INHIBIT;m->configured=false;m->link_seen=false;
+  return LOCAL_UPDATE_ACCEPTED;
 }
 LocalResult local_model_recover(LocalModel *m,const LocalCommand *c,const HomeModel *home,MotionPoint reference,const InputsModel *inputs,uint64_t now) {
   if(!m)return LOCAL_REJECTED_STATE;

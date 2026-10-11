@@ -40,8 +40,15 @@ typedef struct LocalModel {
   DiagnosticRing diagnostics;
   uint64_t commanded_at_ms;
   bool previous_reset_available;
-  bool configured, link_seen, lease_active, manual, simulated_only;
+  bool configured, link_seen, lease_active, manual, simulated_only, update_locked;
 } LocalModel;
+typedef struct {
+  Identity target;
+  char record_id[65], independent_owner[65];
+  uint64_t sampled_ms;
+  bool simulated, update_safe, outputs_isolated, restraint, line_clearance, stable_power;
+} LocalUpdateEvidence;
+typedef enum { LOCAL_UPDATE_ACCEPTED, LOCAL_UPDATE_ENVELOPE, LOCAL_UPDATE_MOVING, LOCAL_UPDATE_LEASE, LOCAL_UPDATE_PROTECTION, LOCAL_UPDATE_STATE } LocalUpdateResult;
 /* Trusted in-process synthetic adapter only. No wire command, GPIO, interrupt
  * installation, physical stop/disable or persistence authority is provided. */
 void local_model_reset(LocalModel *model,Identity self,LocalResetCause reset_cause,uint64_t now_ms);
@@ -57,4 +64,7 @@ LocalResult local_model_recover(LocalModel *model,const LocalCommand *command,co
 LocalResult local_model_grant_manual(LocalModel *model,const LocalCommand *command,uint64_t lease_expires_ms,const InputsModel *inputs,uint64_t now_ms);
 LocalResult local_model_move(LocalModel *model,const LocalCommand *command,const MotionRequest *request,bool manual,const InputsModel *inputs,uint64_t now_ms,const PulseLimits *limits,PulsePlan *owned_plan);
 bool local_model_complete(LocalModel *model,const MotionIdentity *current,uint64_t local_sequence,const int32_t commanded[4],const InputsModel *inputs,uint64_t now_ms);
+/* Trusted synthetic owner only. Admission locks this boot until reset, clears
+ * reference/queued intent and never authorizes physical flashing or outputs. */
+LocalUpdateResult local_model_update_begin(LocalModel *model,const LocalCommand *command,const LocalUpdateEvidence *evidence,uint64_t now_ms);
 #endif
