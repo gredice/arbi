@@ -22,6 +22,7 @@ static LocalCommand local_command;
 static DiagnosticPage diagnostic_page;
 static DiagnosticRecord diagnostic_record;
 static char diagnostic_output[DIAGNOSTIC_JSON_BYTES];
+static LocalUpdateEvidence update_evidence;
 int main(void) {
   const PulseLimits limits = {1000000, 5, 10, 10, 250000, 20000, 2000000};
   const PulseRequest request = {{1, -2, 3, 0}, 1000, 100000};
@@ -62,5 +63,6 @@ int main(void) {
   (void)diagnostics_outcome(&diagnostic_record,diagnostic_output);
   (void)diagnostics_snapshot(&local,&inputs,0,diagnostic_output);
   (void)arbi_update_physical_available();
+  (void)local_model_update_begin(&local,&local_command,&update_evidence,0);
   for (;;) tight_loop_contents();
 }

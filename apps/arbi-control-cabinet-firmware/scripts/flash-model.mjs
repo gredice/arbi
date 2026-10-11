@@ -108,8 +108,9 @@ export class SignedPicoFlashModel {
   }
   get identity(){return {deviceId:this.#options.moduleId,bootId:this.#boot,sessionId:this.#session};}
   get status(){const slot=this.#state.phase==='trial'?this.#state.candidateSlot:this.#state.confirmedSlot,m=this.#image(slot);return {origin:'simulated',phase:this.#state.phase,slot,confirmedSlot:this.#state.confirmedSlot,candidateSlot:this.#state.candidateSlot,
-    installed:{releaseId:m.releaseId,build:m.build,artifactDigest:m.artifact.sha256,provenance:'verified-host-slot'},identity:this.identity,reason:this.#resetReason,
-    localTrialDeadlineMs:this.#trialStart===null?null:this.#trialStart+layout.localTrialBudgetMs,configurationDigest:this.#state.configurationDigest,
+    installed:{releaseId:m.releaseId,build:m.build,artifactDigest:m.artifact.sha256,provenance:'verified-host-slot'},
+    staged:this.#state.candidateSlot===null?null:(()=>{const candidate=this.#image(this.#state.candidateSlot);return {releaseId:candidate.releaseId,build:candidate.build,artifactDigest:candidate.artifact.sha256,slot:this.#state.candidateSlot,provenance:'verified-host-slot'};})(),identity:this.identity,reason:this.#resetReason,
+    operationReason:this.#state.reason,localTrialDeadlineMs:this.#trialStart===null?null:this.#trialStart+layout.localTrialBudgetMs,configurationDigest:this.#state.configurationDigest,
     firmwareExecuted:false,actuationInhibited:true,physicalInstallationEnabled:false,remoteHardwareInstallationSupported:false,bootselRecoveryRehearsed:false,swdRecoveryRehearsed:false};}
   stage(envelope,manifest,bytes){this.#authorize(envelope,'stage',manifest);if(!['confirmed','rolled-back'].includes(this.#state.phase)||this.#state.confirmedSlot==='rescue')reject('INVALID_STATE');
     const m=this.#verify(manifest,bytes);if(compareReleaseVersions(m.build.version,this.#image(this.#state.confirmedSlot).build.version)<0)reject('DOWNGRADE_REQUIRES_REVIEWED_RECOVERY');
