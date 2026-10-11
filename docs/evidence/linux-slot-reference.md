@@ -25,7 +25,13 @@ trial, preserve the original operation and report one installation after explici
 recovery. These exercise kernel process/SQLite/file behavior. They do not model
 storage controller brownout or prove physical boot/reset or power-loss durability.
 
-Clean source validation results are recorded after the implementation checks.
+Clean source `445d9c50e1252aa7258091ae14600fee0446f051` on the merged issue #69
+main baseline passed 13 forced edge/dependency build, lint and typecheck tasks.
+All 34 update tests passed serially, including the 18 native Linux scenarios and
+existing range/budget/audit/trust/migration/recovery regressions. The four abrupt
+process cases passed after actual SIGKILL. Validation used Node 24.19.0 on the
+isolated Linux development host; fixture clocks and health remain declared test
+inputs. The evidence-only follow-up changes no tested implementation.
 Physical Pi 3A+/cabinet-edge storage/boot layout, OS architecture, complete kernel/
 root recovery, secure boot, real local health, watchdog and reimage acceptance
 remain unverified. Physical installation remains disabled.
