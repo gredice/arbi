@@ -12,6 +12,7 @@ interface DashboardRuntime { server: DashboardServer; login?: (code: string) => 
   controlTools?:{handle:(request:Request,siteId:string,action:string)=>Promise<Response>};
   updateTools?:{handle:(request:Request,siteId:string,action:string)=>Promise<Response>};
   telemetryTools?:{handle:(request:Request,siteId:string,action:string)=>Promise<Response>};
+  liveTools?:{handle:(request:Request,siteId:string,action:string)=>Promise<Response>};
   captureTools?:{handle:(request:Request,siteId:string,action:string)=>Promise<Response>}; }
 let configured: DashboardRuntime | undefined;
 let attempted = false;
@@ -75,3 +76,5 @@ export function dashboardTelemetryRoute(request:Request,siteId:string,action:str
 export function dashboardUpdateRoute(request:Request,siteId:string,action:string){return dashboardRuntime()?.updateTools?.handle(dashboardRequest(request),siteId,action)??Promise.resolve(unavailable());}
 
 export function dashboardCaptureRoute(request:Request,siteId:string,action:string){return dashboardRuntime()?.captureTools?.handle(dashboardRequest(request),siteId,action)??Promise.resolve(unavailable());}
+
+export function dashboardLiveRoute(request:Request,siteId:string,action:string){return dashboardRuntime()?.liveTools?.handle(dashboardRequest(request),siteId,action)??Promise.resolve(unavailable());}

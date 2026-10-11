@@ -9,6 +9,7 @@ import { AuditTimeline } from './audit-timeline';
 import { UpdateDashboard } from './updates';
 import { ControlPlayground } from './controls';
 import { CaptureDashboard } from './captures';
+import {LiveViewing} from './live-viewing';
 
 const sections = [{ id: "overview", name: "Overview", icon: "◫" }, { id: "devices", name: "Devices", icon: "◇" },
   { id: "controls", name: "Controls", icon: "⊕" }, { id: "images", name: "Images", icon: "▧" }, { id: "releases", name: "Releases", icon: "↓" }, { id: "usage", name: "Bandwidth", icon: "↕" }, { id: "activity", name: "Activity", icon: "≋" }, { id: "live", name: "Live readiness", icon: "○" }, { id: "diagnostics", name: "Diagnostics", icon: "⌁" }];
@@ -90,7 +91,7 @@ function reading(sample: NonNullable<DashboardContext["state"]["telemetry"]>["bo
   return <>{value.value === null ? "Unavailable" : `${Number(value.value.toFixed(1))} ${value.unit}`}<small className="quality">{value.quality}{value.originQuality ? ` (was ${value.originQuality})` : ""}</small></>;
 }
 function Section({ context, section, now }: { context: DashboardContext; section: string; now: number }) {
-  if(section==='images')return <CaptureDashboard context={context}/>;
+  if(section==='images')return <><LiveViewing context={context}/><CaptureDashboard context={context}/></>;
   if(section==='controls')return <ControlPlayground context={context}/>;
   if(section==='usage')return <Bandwidth context={context}/>;
   if(section==='activity')return <AuditTimeline context={context}/>;

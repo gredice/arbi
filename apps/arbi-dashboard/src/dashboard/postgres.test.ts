@@ -77,6 +77,25 @@ test("native PostgreSQL dashboard: independent instances share current directory
     assert.equal(intent.actor.id,'synthetic-engineer');assert.equal(intent.metadata.permission,'configure');
     for(const [feature,action] of [['usage','device'],['usage','correct'],['audit','retire'],['audit','hold']])assert.equal((await tool(a,feature,action,{})).status,404);
   });
+  await t.test('real live cookie BFF retains independent sessions, current transfer policy, revocation and unavailable delivery measurements',async()=>{
+    const live=(provider:typeof a,action:string,input:unknown,credential=token)=>provider.liveTools.handle(dashboardRequest(new Request('http://localhost:3000/api/sites/synthetic-site/dashboard-live/'+action,{method:'POST',headers:{cookie:SESSION_COOKIE+'='+credential,origin:'http://localhost:3000','x-arbi-request':'1','content-type':'application/json'},body:JSON.stringify(input)})),'synthetic-site',action);
+    const inventory=await live(a,'inventory',{});assert.equal(inventory.status,200);assert.equal((await inventory.json()).devices[0].id,'synthetic-usage-edge');
+    assert.equal((await pool.query('SELECT count(*)::int n FROM arbi_live_viewers')).rows[0].n,0);
+    const input={key:'live-cookie-1',deviceId:'synthetic-usage-edge',profileId:'low-reference'},first=await (await live(a,'start',input)).json(),second=await (await live(b,'start',input,viewer)).json();
+    assert.equal(first.admission,'granted');assert.equal(second.admission,'granted');assert.equal(first.producerId,second.producerId);assert.notEqual(first.id,second.id);
+    assert.equal(first.measured.viewerBytes,null);assert.equal(first.observedConnection,'unobserved');assert.equal(first.siteId,'synthetic-site');assert.equal(first.realm.namespaceId,realm.namespaceId);
+    assert.equal((await live(b,'state',{sessionId:first.id},viewer)).status,403);
+    assert.equal((await live(a,'start',{...input,key:'third-viewer'})).status,429);
+    assert.equal((await live(a,'end',{sessionId:first.id})).status,200);const revoked=await live(a,'revoke',{sessionId:second.id});assert.equal(revoked.status,200,(await revoked.json()).error);
+    assert.equal((await (await live(b,'state',{sessionId:second.id},viewer)).json()).endReason,'revoked');
+    assert.equal((await live(a,'start',{...input,key:'profile-denied',profileId:'standard-reference'})).status,403);
+    assert.equal((await tool(a,'usage','settings',{...settings,revision:'live-essential-policy',transferMode:'essential-only'})).status,200);
+    const denied=await live(a,'start',{...input,key:'budget-denied'});assert.equal(denied.status,403);assert.equal((await denied.json()).endReason,'policy-denied');
+    assert.equal((await tool(a,'usage','settings',{...settings,revision:'live-restored-policy'})).status,200);
+    const temporary=(await b.login(config.viewerCode))!,v=await (await live(b,'start',{...input,key:'lost-authority'},temporary)).json();await b.revoke(temporary);
+    assert.equal((await live(b,'state',{sessionId:v.id},temporary)).status,401);
+    await a.liveTools.live.store.jobs.audit.verify(realm,'synthetic-site');
+  });
   await t.test('audit BFF freezes bounded pages and redacted exports, distinguishes observations from policy end, and rechecks current authority',async()=>{
     const q={fromMs:now-86400000,toMs:now+86400000,limit:2,sessionId:'fixture-shared-view',actorId:'synthetic-engineer'};
     const search=(provider:typeof a,query:Record<string,string|number>,credential=token,site='synthetic-site')=>tool(provider,'audit',`search?${new URLSearchParams(Object.entries(query).map(([k,v])=>[k,String(v)]))}`,undefined,credential,site);

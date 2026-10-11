@@ -129,7 +129,7 @@ export class LiveStore{
     const v=await this.jobs.transaction(context.siteId,async tx=>{
       let viewer:LiveViewer,revokeIntent:AuditEvent|undefined;
       if(action==='revoke'){await this.jobs.authority(tx,context);const row=(await tx.sql.query<{record:LiveViewer}>('SELECT record FROM arbi_live_viewers WHERE id=$1 AND environment=$2 AND namespace_id=$3 AND site_id=$4',[input.sessionId,...scope(this.jobs.realm,context.siteId)])).rows[0];if(!row)throw new JobError('DENIED');viewer=row.record;
-        if(viewer.endedAtMs===null){revokeIntent=await this.jobs.event(tx,context,'live.revoke',viewer.intent.resource);revokeIntent.metadata.permission='configure';revokeIntent.record={kind:'local-record',id:viewer.id};await this.jobs.admit(tx,revokeIntent);}
+        if(viewer.endedAtMs===null){revokeIntent=await this.jobs.event(tx,context,'live.revoke',viewer.intent.resource);revokeIntent.metadata.permission='configure';await this.jobs.admit(tx,revokeIntent);}
       }else viewer=await this.#owned(tx,context,String(input.sessionId));
       const active=await this.#active(tx,viewer.target.deviceId);viewer=active.find(v=>v.id===viewer.id)??(await tx.sql.query<{record:LiveViewer}>('SELECT record FROM arbi_live_viewers WHERE id=$1',[viewer.id])).rows[0].record;
       if(action==='end'||action==='revoke')await this.#close(tx,viewer,action==='end'?'ended':'revoked');
