@@ -68,3 +68,8 @@ The explicit [capture composition](../../docs/software/capture-orchestration.md)
 ## Authorized commissioning
 
 [Local commissioning](../../docs/software/commissioning.md) adds authenticated technician enrollment, independent local maintenance authorization, exact-set review, multi-device staging/activation, readiness invalidation and deliberate restart recovery. [Host evidence](../../docs/evidence/commissioning.md) covers fictional site/bed/plant framing and SIGKILL after an independent device commit. Trusted `composeCommissioning` mounts protected loopback handlers and automatically binds its inhibit to local job policy. The dashboard can read its protected identity/block-reason projection. No default runtime or private settings file creates commissioning authority. Run the explicit simulation recipe with `pnpm --filter @arbi/edge-controller simulate:commissioning --directory /tmp/arbi-isolated-commissioning`. Hardware/physical validation remains disabled.
+
+[Isolated native Linux slots](../../docs/software/linux-slot-reference.md) provide
+an optional private A/B file adapter for the existing update owner. Signed native
+staging and process recovery remain separate from physical application/OS boot,
+storage reimage and secure-boot acceptance.
