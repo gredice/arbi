@@ -64,3 +64,10 @@ test('preview start/reconnect/expiry/stop hooks keep actor and grant distinct fr
   preview.start({...grant,generation:2});assert.equal(camera.owners,1);f.advance(1001);preview.tick();assert.equal(camera.owners,0);assert.deepEqual(hooks.map(e=>(e as {event:string}).event),['start','delivery','stop','reconnect','expiry']);assert.equal((hooks[0] as {bytes:null}).bytes,null);assert.equal((hooks[1] as {bytes:number}).bytes,f.bytes.length);
   preview.start({...grant,generation:3,expiresUtcMs:f.now()+1000});preview.stop();assert.equal(camera.owners,0);assert.equal(preview.status.recordingEnabled,false);assert.throws(()=>preview.start({...grant,generation:4,expiresUtcMs:f.now()+1000,bitrate:200001}),/STREAM_LIMIT/);assert.equal(camera.owners,0);
 });
+test('a failed preview audit still releases camera ownership and closes the discretionary uploader after local safety inhibition',async t=>{
+  const f=rig(t),root=mkdtempSync(join(tmpdir(),'arbi-capture-jobs-')),jobs=createJobReference(root);t.after(()=>{jobs.close();rmSync(root,{recursive:true,force:true});});let owners=0;
+  const preview=new CapturePreview({budget:f.budget,nowUtcMs:f.now,authorized:()=>true,acquireCamera:()=>{owners++;return ()=>{owners--;};},frame:async()=>f.bytes,append:e=>{if(e.event==='stop')throw new Error('AUDIT_UNAVAILABLE');}});
+  preview.start({id:'preview-stop-failure',generation:1,actor:{kind:'human',id:'viewer-1'},source:f.source,expiresUtcMs:f.now()+1000,bitrate:200000,expectedBytes:25000});
+  const uploader=new CaptureUploader({stage:f.stage,budget:f.budget,authorized:()=>true,nowUtcMs:f.now,higherPriorityPending:()=>false,port:{inspect:async()=>null,upload:async()=>{throw new Error('unexpected-send');}}});
+  const workflow=new CaptureWorkflow({jobs:jobs.consumer,receiver:f.receiver,stage:f.stage,processor:f.processor,uploader,budget:f.budget,preview,calibration:()=>null,nowUtcMs:f.now,priority:'raw-first'});await assert.rejects(workflow.stopAndDrain(),/AUDIT_UNAVAILABLE/);assert.equal(owners,0);assert.equal(uploader.status.closed,true);assert.equal(jobs.consumer.status.degraded,true);
+});

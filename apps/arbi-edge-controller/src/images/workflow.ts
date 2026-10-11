@@ -37,6 +37,11 @@ export class CaptureWorkflow {
     }finally{this.#busy=false;done();}
   }
   /** Safety inhibition comes first; storage/network draining follows it. */
-  async stopAndDrain(){this.#closed=true;this.options.jobs.localSafetyStop();this.options.preview?.stop();await this.options.uploader.stopAndDrain();await this.#drain;}
+  async stopAndDrain(){this.#closed=true;let failure:unknown;
+    try{this.options.jobs.localSafetyStop();}catch(e){failure=e;}
+    try{this.options.preview?.stop();}catch(e){failure??=e;}
+    try{await this.options.uploader.stopAndDrain();}finally{await this.#drain;}
+    if(failure)throw failure;
+  }
   get status(){return {jobs:this.options.jobs.status,images:this.options.stage.status(),upload:this.options.uploader.status,preview:this.options.preview?.status??null,closed:this.#closed,physicalActuationEnabled:false,recordingEnabled:false};}
 }
