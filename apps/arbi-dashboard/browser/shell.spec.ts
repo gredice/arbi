@@ -57,10 +57,14 @@ test('full inventory and selected diagnostics bound demand, bytes, hidden lifecy
   expect(requests).toBe(1);await expect.poll(()=>completed).toBe(1);await expect(page.getByRole('row',{name:/position.z/})).toContainText('estimated');
   // Run the refresh interval continuously so a newly started fetch gets its real I/O before its deadline.
   await page.clock.runFor(5000);await expect.poll(()=>requests).toBe(2);await expect.poll(()=>completed).toBe(2);
+  // Receipt of response bytes can precede React consuming the response and scheduling its next read.
+  await expect(page.getByText(/2\/60 observations/).first()).toBeVisible();
   expect(bytes).toBeLessThan(2*32768);
   await page.evaluate(()=>{Object.defineProperty(document,'visibilityState',{configurable:true,value:'hidden'});document.dispatchEvent(new Event('visibilitychange'));});
   await page.clock.fastForward(20000);expect(requests).toBe(2);await expect(page.getByText(/Detail paused/)).toBeVisible();
   await page.evaluate(()=>{Object.defineProperty(document,'visibilityState',{configurable:true,value:'visible'});document.dispatchEvent(new Event('visibilitychange'));});
+  // Resuming still respects the previous read's minimum period; drive the fake clock until one read starts.
+  for(let step=0;step<24&&requests<3;step++)await page.clock.runFor(250);
   await expect.poll(()=>requests).toBe(3);await expect.poll(()=>completed).toBe(3);await expect(page.getByText(/Selected detail active|Missing sequence|history reset/)).toBeVisible();
   await page.setViewportSize({width:390,height:844});await expect(page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).resolves.toBe(true);
   await page.screenshot({path:'test-results/assembly-diagnostics-mobile.png',fullPage:true});

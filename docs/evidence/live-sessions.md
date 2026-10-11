@@ -18,4 +18,6 @@ Run provenance: implementation revision `e8a95608bf9450d9893ff2bd67274adc9d474d8
 
 The review follow-up passed 64 native PostgreSQL checks, including admission after 16 leases on eight devices expire and native trigger updates against an empty legacy policy history. The permanent 4096 viewer/report ledger caps remain explicit capacity failures; expired grants are excluded from active-viewer limits without deleting immutable evidence.
 
+CI exposed concurrent reading of an in-progress private trace write and a fake-clock assumption on diagnostic resume. Trace snapshots now replace atomically within the owned directory. The diagnostic test waits for its rendered history and drives its fake clock through the remaining minimum refresh period. The affected diagnostic check passes after this change; exact-head CI remains the final combined regression record.
+
 Remaining gates include actual pod startup/camera readiness, Pi 3A+ CPU/memory/thermal and preview/capture concurrency, mobile NAT/direct/relay trials, provider credential rotation, observed first frames/intervals, measured WAN/relay/downstream byte reconciliation and installed review. Recording remains disabled under its existing policy. Full viewer/report ledgers are explicit capacity failures; no public destructive retention or automatic recovery endpoint exists.

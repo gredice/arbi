@@ -1,6 +1,6 @@
 import {createServer,type IncomingMessage,type ServerResponse} from 'node:http';
 import {once} from 'node:events';
-import {readFileSync,writeFileSync} from 'node:fs';
+import {readFileSync,writeFileSync,renameSync} from 'node:fs';
 import {randomUUID} from 'node:crypto';
 
 export type FaultMode='normal'|'drop-outcome-ack'|'delay-poll'|'reorder-telemetry'|'disconnect';
@@ -13,7 +13,9 @@ export async function createProtocolProxy(target:string,siteId:string,faultPath:
   let active=0,closed=false,revision='',consumed=false,held:{path:string;body:string;expires:number}|null=null;
   const facts:ProtocolFact[]=[],sockets=new Set<import('node:net').Socket>();
   const controllers=new Set<AbortController>();
-  const record=(fact:ProtocolFact)=>{facts.push(fact);while(facts.length>128||Buffer.byteLength(JSON.stringify(facts))>60000)facts.shift();writeFileSync(tracePath,JSON.stringify({version:'arbi.playground-protocol-trace/1.0',facts}),{mode:0o600});};
+  const record=(fact:ProtocolFact)=>{facts.push(fact);while(facts.length>128||Buffer.byteLength(JSON.stringify(facts))>60000)facts.shift();
+    // Readers in the browser process must see one complete bounded snapshot.
+    const temporary=`${tracePath}.next`;writeFileSync(temporary,JSON.stringify({version:'arbi.playground-protocol-trace/1.0',facts}),{mode:0o600});renameSync(temporary,tracePath);};
   const scenario=():ProtocolFault=>{
     const raw=readFileSync(faultPath,'utf8');if(Buffer.byteLength(raw)>1024)throw Error('INVALID_FAULT');
     const v=JSON.parse(raw);if(!v||Object.keys(v).sort().join(',')!=='mode,revision,untilMs,version'||v.version!=='arbi.playground-fault/1.0'||
