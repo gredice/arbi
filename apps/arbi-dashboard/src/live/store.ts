@@ -112,8 +112,10 @@ export class LiveStore{
       const decision=await this.#policy(tx,authority,device.id,p,active.length),viewerId=randomUUID();
       authority=await this.jobs.authority(tx,authority);
       const intent=await this.jobs.event(tx,authority,'live.grant',{kind:'live-session',id:viewerId,deviceId:device.id},{target:device.current!});intent.metadata.permission='view';intent.metadata.grantId=viewerId;
+      const sessionExpiry=authority.sessionExpiresAtMs??authority.expiresAtMs;
+      if(!Number.isSafeInteger(sessionExpiry)||sessionExpiry<authority.expiresAtMs)throw new JobError('DENIED');
       const v:LiveViewer={version:LIVE_VERSION,id:viewerId,producerId:producer.demand.id,authority,currentAuthority:authority,target:device.current!,configRevision:tx.registry.configRevision,profile:p,policy:decision,
-        createdAtMs:tx.now,expiresAtMs:Math.min(tx.now+LIVE_LEASE_MS,authority.expiresAtMs),absoluteExpiresAtMs:Math.min(tx.now+LIVE_MAX_LIFETIME_MS,authority.expiresAtMs),epoch:1,endedAtMs:decision.allow?null:tx.now,endReason:decision.allow?null:'policy-denied',intent,signal:null,
+        createdAtMs:tx.now,expiresAtMs:Math.min(tx.now+LIVE_LEASE_MS,authority.expiresAtMs),absoluteExpiresAtMs:Math.min(tx.now+LIVE_MAX_LIFETIME_MS,sessionExpiry),epoch:1,endedAtMs:decision.allow?null:tx.now,endReason:decision.allow?null:'policy-denied',intent,signal:null,
         policyHistory:[{epoch:1,atMs:tx.now,policy:structuredClone(decision),viewers:active.length+1,sharedUpstream:active.length>0}]};
       if(decision.allow){await this.jobs.admit(tx,intent);await this.#emit(tx,intent,'live.grant','access-grant','allow','authorized');}
       else{await this.jobs.audit.stage(tx.sql,intent,binding(intent));await this.#emit(tx,intent,'live.grant','authorization','deny','not-authorized');}
@@ -129,7 +131,7 @@ export class LiveStore{
     const v=await this.jobs.transaction(context.siteId,async tx=>{
       let viewer:LiveViewer,revokeIntent:AuditEvent|undefined;
       if(action==='revoke'){await this.jobs.authority(tx,context);const row=(await tx.sql.query<{record:LiveViewer}>('SELECT record FROM arbi_live_viewers WHERE id=$1 AND environment=$2 AND namespace_id=$3 AND site_id=$4',[input.sessionId,...scope(this.jobs.realm,context.siteId)])).rows[0];if(!row)throw new JobError('DENIED');viewer=row.record;
-        if(viewer.endedAtMs===null){revokeIntent=await this.jobs.event(tx,context,'live.revoke',viewer.intent.resource);revokeIntent.metadata.permission='configure';revokeIntent.record={kind:'local-record',id:viewer.id};await this.jobs.admit(tx,revokeIntent);}
+        if(viewer.endedAtMs===null){revokeIntent=await this.jobs.event(tx,context,'live.revoke',viewer.intent.resource);revokeIntent.metadata.permission='configure';await this.jobs.admit(tx,revokeIntent);}
       }else viewer=await this.#owned(tx,context,String(input.sessionId));
       const active=await this.#active(tx,viewer.target.deviceId);viewer=active.find(v=>v.id===viewer.id)??(await tx.sql.query<{record:LiveViewer}>('SELECT record FROM arbi_live_viewers WHERE id=$1',[viewer.id])).rows[0].record;
       if(action==='end'||action==='revoke')await this.#close(tx,viewer,action==='end'?'ended':'revoked');

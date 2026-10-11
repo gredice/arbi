@@ -57,6 +57,9 @@ export interface AuthorizedContext {
   capability: Capability;
   membershipRevision: string;
   expiresAtMs: number;
+  /** Original verified human/session deadline; never a permission grant.
+   * Renewable services must still enforce expiresAtMs and reauthorize every lease. */
+  sessionExpiresAtMs?: number;
 }
 export interface RequestPolicy {
   surface: Surface;

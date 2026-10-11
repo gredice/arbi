@@ -14,6 +14,10 @@ import {TelemetryStore} from '../telemetry/store';
 import {TelemetryHttp} from '../telemetry/http';
 import {dashboardTelemetryState} from './telemetry-state';
 
+import {LiveStore} from '../live/store';
+import {LiveHttp} from '../live/http';
+import {SimulatedLiveAdapter} from '../live/simulated-adapter';
+import {LiveDashboardTools} from './live-tools';
 export interface TestProviderConfig {
   realm: { environment: "test"; namespaceId: string };
   verificationKey: Uint8Array;
@@ -88,6 +92,15 @@ export function createDashboardTestProvider(config: TestProviderConfig) {
       if(!isResourceScope(scope)||signal.aborted)return null;
       try{return await identity.authorize(token,previous.capability,scope);}catch{return null;}
     }});
+  const liveAdapter=new SimulatedLiveAdapter(),liveStore=new LiveStore(jobs.store,liveAdapter,new Uint8Array(hkdfSync('sha256',config.verificationKey,realm.namespaceId,'arbi.dashboard.live-token/1.0',32)),
+    [{id:'low-reference',transport:'isolated-signaling',maxUpstreamBps:32000,maxDownstreamBps:64000,maxViewers:2},{id:'standard-reference',transport:'isolated-signaling',maxUpstreamBps:96000,maxDownstreamBps:192000,maxViewers:2}],
+    (registry,device)=>registry.siteId==='synthetic-site'&&device.id==='synthetic-usage-edge'&&device.softwareRevision==='isolated-fixture',
+    async query=>config.db.transaction(async sql=>{
+      const setting=(await sql.query<{record:{revision:string;transferMode:string}}>('SELECT record FROM arbi_usage_settings WHERE environment=$1 AND namespace_id=$2 AND site_id=$3 AND link_id=$4 ORDER BY ordinal DESC LIMIT 1',[realm.environment,realm.namespaceId,query.context.siteId,'sim-1'])).rows[0]?.record;
+      const essential=setting?.transferMode==='essential-only',max=setting?.transferMode==='low-data'?32000:96000;
+      return {allow:!essential&&query.profile.maxUpstreamBps<=max,reason:essential?'budget-exhausted':query.profile.maxUpstreamBps>max?'profile-denied':'within-budget',revision:setting?.revision??'declared-reference-policy',layer:'application-payload',remainingBytes:essential?'0':'1048576',maxUpstreamBps:max};
+    }));
+  const liveTools=new LiveDashboardTools(new LiveHttp(liveStore,jobs.humans),null);
   const telemetry=new TelemetryStore(jobs.store),telemetryHttp=new TelemetryHttp(telemetry,jobs.humans);
   let controlActive=false;
   const telemetryTools={async handle(request:Request,siteId:string,action:string){
@@ -110,7 +123,7 @@ export function createDashboardTestProvider(config: TestProviderConfig) {
     const a = Buffer.from(value), b = Buffer.from(expected);
     return a.length === b.length && timingSafeEqual(a, b);
   };
-  return { server,identity,resolveResource,historyTools,controlTools,telemetryTools, async login(code: string) {
+  return { server,identity,resolveResource,historyTools,controlTools,telemetryTools,liveTools, async login(code: string) {
     const actorId = equal(code, config.accessCode) ? "synthetic-engineer" : config.viewerCode && equal(code, config.viewerCode) ? "synthetic-viewer" :
       config.operatorCode&&equal(code,config.operatorCode)?'synthetic-operator':config.updateCode&&equal(code,config.updateCode)?'synthetic-updater':null;
     if (!actorId) return null;

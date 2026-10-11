@@ -22,6 +22,7 @@ test("executable human matrix covers each role and capability independently", as
         assert.equal(context.capability, capability);
         assert.equal(context.actor.id, "human-a");
         assert.equal(context.expiresAtMs, 2_005_000);
+        assert.equal(context.sessionExpiresAtMs, p.snapshot().session.expiresAtMs);
       } else await assert.rejects(operation, denial(matrix.disabled.includes(capability) ? "RECORDING_DISABLED" : "CAPABILITY_DENIED"));
     });
   }
