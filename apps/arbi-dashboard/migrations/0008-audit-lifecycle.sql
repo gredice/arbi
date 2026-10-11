@@ -20,7 +20,7 @@ INSERT INTO arbi_audit_query_index(origin,id,environment,namespace_id,site_id,re
 CREATE TABLE IF NOT EXISTS arbi_audit_retention_policies (
   environment text NOT NULL, namespace_id text NOT NULL, site_id text NOT NULL, class text NOT NULL,
   revision text NOT NULL, created_at_ms bigint NOT NULL, intent_id text NOT NULL REFERENCES arbi_audit_events,
-  record jsonb NOT NULL, PRIMARY KEY(environment,namespace_id,site_id,class,revision)
+  record jsonb NOT NULL, ordinal bigserial UNIQUE, PRIMARY KEY(environment,namespace_id,site_id,class,revision)
 );
 CREATE TABLE IF NOT EXISTS arbi_audit_holds (
   id text PRIMARY KEY, environment text NOT NULL, namespace_id text NOT NULL, site_id text NOT NULL,

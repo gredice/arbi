@@ -72,7 +72,7 @@ export class AuditQueryStore {
     const prior=(await tx.sql.query<{record:RetentionPolicy;intent_id:string}>('SELECT record,intent_id FROM arbi_audit_retention_policies WHERE environment=$1 AND namespace_id=$2 AND site_id=$3 AND class=$4 AND revision=$5',key)).rows[0];
     if(prior){if(digest(prior.record)!==digest(p))throw new JobError('CONFLICT');return {policy:p,intentId:prior.intent_id};}
     const count=Number((await tx.sql.query<{n:string}>('SELECT count(*)::text n FROM arbi_audit_retention_policies WHERE environment=$1 AND namespace_id=$2 AND site_id=$3',key.slice(0,3))).rows[0].n);if(count>=128)throw new JobError('CAPACITY');
-    const intentId=await this.#approval(this.jobs,tx,context,p.revision);await tx.sql.query('INSERT INTO arbi_audit_retention_policies VALUES($1,$2,$3,$4,$5,$6,$7,$8::jsonb)',[...key,tx.now,intentId,JSON.stringify(p)]);
+    const intentId=await this.#approval(this.jobs,tx,context,p.revision);await tx.sql.query('INSERT INTO arbi_audit_retention_policies(environment,namespace_id,site_id,class,revision,created_at_ms,intent_id,record) VALUES($1,$2,$3,$4,$5,$6,$7,$8::jsonb)',[...key,tx.now,intentId,JSON.stringify(p)]);
     await this.#steward(this.jobs,tx,context);return {policy:p,intentId};
   },1500);}
   hold(context:AuthorizedContext,input:{id:string;class:DataClass;targetId:string|null;expiresAtMs:number;reason:'investigation'|'incident'|'privacy-review'},release=false){return this.jobs.transaction(context.siteId,async tx=>{
@@ -84,7 +84,7 @@ export class AuditQueryStore {
       const intentId=await this.#approval(this.jobs,tx,context,input.id);await tx.sql.query('INSERT INTO arbi_audit_hold_releases VALUES($1,$2,$3)',[input.id,intentId,tx.now]);
       await this.#steward(this.jobs,tx,context);return {intent_id:intentId};}
     if(prior){if(digest(prior.record)!==digest(input))throw new JobError('CONFLICT');return {intent_id:prior.intent_id};}
-    const policy=(await tx.sql.query<{record:RetentionPolicy}>('SELECT record FROM arbi_audit_retention_policies WHERE environment=$1 AND namespace_id=$2 AND site_id=$3 AND class=$4 ORDER BY created_at_ms DESC,revision DESC LIMIT 1',[...scope(context.realm,context.siteId),input.class])).rows[0]?.record;
+    const policy=(await tx.sql.query<{record:RetentionPolicy}>('SELECT record FROM arbi_audit_retention_policies WHERE environment=$1 AND namespace_id=$2 AND site_id=$3 AND class=$4 ORDER BY ordinal DESC LIMIT 1',[...scope(context.realm,context.siteId),input.class])).rows[0]?.record;
     if(!policy || !Number.isSafeInteger(input.expiresAtMs) || input.expiresAtMs<=tx.now || input.expiresAtMs>tx.now+policy.maxHoldDays*86400000 ||
       input.targetId!==null && !/^[A-Za-z0-9._:-]{1,128}$/.test(input.targetId) || !['investigation','incident','privacy-review'].includes(input.reason))throw new JobError('INVALID_REQUEST');
     const count=Number((await tx.sql.query<{n:string}>('SELECT count(*)::text n FROM arbi_audit_holds WHERE environment=$1 AND namespace_id=$2 AND site_id=$3',scope(context.realm,context.siteId))).rows[0].n);if(count>=1024)throw new JobError('CAPACITY');
@@ -98,7 +98,7 @@ export class AuditQueryStore {
       const key=[input.origin,input.eventId,...scope(context.realm,context.siteId)];
       const retired=(await tx.sql.query<{id:string}>('SELECT id FROM arbi_audit_retirements WHERE origin=$1 AND event_id=$2 AND environment=$3 AND namespace_id=$4 AND site_id=$5',key)).rows[0];if(retired)return {receiptId:retired.id,retired:true};
       const row=(await tx.sql.query<Row>('SELECT i.*,i.ordinal::text,i.received_at::text,h.record FROM arbi_audit_query_index i JOIN arbi_audit_history h ON h.origin=i.origin AND h.id=i.id WHERE i.origin=$1 AND i.id=$2 AND i.environment=$3 AND i.namespace_id=$4 AND i.site_id=$5',key)).rows[0];if(!row?.record)throw new JobError('DENIED');
-      const policy=(await tx.sql.query<{record:RetentionPolicy}>('SELECT record FROM arbi_audit_retention_policies WHERE environment=$1 AND namespace_id=$2 AND site_id=$3 AND class=\'audit\' ORDER BY created_at_ms DESC,revision DESC LIMIT 1',scope(context.realm,context.siteId))).rows[0]?.record;
+      const policy=(await tx.sql.query<{record:RetentionPolicy}>('SELECT record FROM arbi_audit_retention_policies WHERE environment=$1 AND namespace_id=$2 AND site_id=$3 AND class=\'audit\' ORDER BY ordinal DESC LIMIT 1',scope(context.realm,context.siteId))).rows[0]?.record;
       if(!policy || input.reason==='retention-expired' && !retentionExpired(Date.parse(row.received_at),tx.now,policy.retainDays))throw new JobError('DENIED');
       const held=(await tx.sql.query<{n:string}>(`SELECT count(*)::text n FROM arbi_audit_holds h LEFT JOIN arbi_audit_hold_releases r ON r.hold_id=h.id
         WHERE h.environment=$1 AND h.namespace_id=$2 AND h.site_id=$3 AND h.class='audit' AND (h.target_id IS NULL OR h.target_id=$4) AND h.expires_at_ms>$5 AND r.hold_id IS NULL`,[...scope(context.realm,context.siteId),input.eventId,tx.now])).rows[0].n;
