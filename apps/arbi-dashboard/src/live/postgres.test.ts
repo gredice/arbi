@@ -195,26 +195,28 @@ test('native PostgreSQL live authority: shared producer, scoped leases, policy, 
     let native:Awaited<ReturnType<typeof liveProducerReference>>;
     const adapter:LiveAdapter={apply:(...args)=>native.adapter.apply(...args),signal:(...args)=>native.adapter.signal(...args)};
     const {a,b,one,two,start,f,report,usage}=await setup(adapter);
-    native=await liveProducerReference({realm,siteId:f.registry.siteId,source:f.registry.devices[0].current!,inspect:d=>a.store.inspectFrameRecipients(d)});t.after(()=>native.close());
+    native=await liveProducerReference({realm,siteId:f.registry.siteId,source:f.registry.devices[0].current!,inspect:d=>a.store.inspectFrameRecipients(d),observeLoopback:true});t.after(()=>native.close());
     assert.equal(native.camera,0);assert.equal(native.encoded,0);const first=await a.store.start(one.context,start),second=await b.store.start(two.context,start);
     for(const [context,view] of [[one.context,first],[two.context,second]] as const)await a.store.signal(context,{sessionId:view.id,token:view.token,sequence:1,message:{type:'offer',data:'native-reference'}});
     const begin=Date.now(),mono=Math.floor(performance.now());
     for(let n=0;n<6;n++){if(n)await new Promise(resolve=>setTimeout(resolve,230));assert.equal((await native.producer.step(new AbortController().signal)).state,'sent');}
-    const end=Date.now(),stopMono=Math.floor(performance.now()),interval={start:new Date(begin).toISOString(),end:new Date(end).toISOString()};
+    const stopMono=Math.floor(performance.now()),end=begin+stopMono-mono,interval={start:new Date(begin).toISOString(),end:new Date(end).toISOString()};assert.ok(Math.abs(Date.now()-end)<=10,'UTC/monotonic capture uncertainty');
     assert.equal(native.encoded,6);assert.equal(native.upstreamBytes,native.bytes.length*6);
     for(const view of [first,second]){assert.equal(native.viewers.get(view.id)!.bytes,native.upstreamBytes);assert.equal(native.viewers.get(view.id)!.frames,6);}
     assert.ok(native.upstreamWire>native.upstreamBytes);
+    const link=native.measureLoopback();assert.equal(link.observations.length,2);assert.equal(link.comparison.knownPayloadBytes,String(native.upstreamBytes*3));assert.equal(link.comparison.carrierBytes,null);t.diagnostic(JSON.stringify({scenario:'native-shared-two-viewer',...link.comparison}));
     const meter=new UsageStore(a.store.jobs),observation=(viewerId:string|null,bytes:number):UsageObservation=>({version:'arbi-accounting/1.0',kind:'usage',observationId:randomUUID(),realm,siteId:f.registry.siteId,executionMode:'simulation',
       source:f.registry.devices[0].current!,counterEpoch:'native-payload-reference',boundary:viewerId?'cloud-viewer':'garden-sim',layer:'application-payload',direction:viewerId?'download':'upload',linkId:viewerId?'native-viewer-'+viewerId:'native-shared',
       scope:'attributed',attributionRevision:'native-media-attribution',deviceId:'edge-1',category:'live-video',interval,bytes:String(bytes),
       evidence:{quality:'measured',coverage:'complete',includes:['payload'],observedAt:interval.end,maxAgeMs:15000,reason:null},media:{topology:'shared',sessionId:first.producerId,viewerId,viewerCount:2}});
     const up=observation(null,native.upstreamBytes),down1=observation(first.id,native.viewers.get(first.id)!.bytes),down2=observation(second.id,native.viewers.get(second.id)!.bytes);
-    await meter.ingest(f.registry.siteId,usage([up,down1,down2].map((observation,n)=>({sequence:String(n+1),observation}))));
+    await meter.ingest(f.registry.siteId,usage([up,down1,down2,...link.observations].map((observation,n)=>({sequence:String(n+1),observation}))));
     const demand=(await pool.query('SELECT record FROM arbi_live_producers WHERE id=$1',[first.producerId])).rows[0].record.demand;
     const grants=await a.store.inspectFrameRecipients(demand);assert.deepEqual(new Set(grants.recipients.map(v=>v.actor.id)),new Set([one.context.actor.id,two.context.actor.id]));
     for(const [view,down,seq] of [[first,down1,'1'],[second,down2,'2']] as const)await a.store.device(f.registry.siteId,report({sessionId:view.id,epoch:view.epoch,generation:demand.generation,eventId:randomUUID(),sequence:seq,kind:'delivery',
       sourceTime:{utc:interval.end,uncertaintyMs:10,monotonicMs:stopMono},summary:{viewerUsageId:down.observationId,upstreamUsageId:up.observationId,relayUsageId:null,startMonotonicMs:mono,endMonotonicMs:stopMono}}));
     const reader=await f.human('native-usage-reader','history.read'),totals=await meter.read(reader.context,{linkId:'native-shared',fromMs:begin,toMs:end});assert.equal(totals.totals[0].bytes,String(native.upstreamBytes));
+    const observedLink=await meter.read(reader.context,{linkId:'native-live-loopback',fromMs:Date.parse(link.observations[0].interval.start),toMs:Date.parse(link.observations[0].interval.end)});assert.ok(observedLink.totals.some(v=>v.layer==='interface-wan'&&v.boundary==='lan'));
     // Revoke one original session. The stale generation delivers no further
     // viewer payload, then explicit current-demand delivery serves the other.
     const previous=native.viewers.get(first.id)!.bytes;f.identity.revoke(one.sessionId);

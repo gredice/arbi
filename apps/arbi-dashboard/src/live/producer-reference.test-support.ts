@@ -4,6 +4,7 @@ import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {createServer,connect,type Server,type Socket} from 'node:net';
 import {once} from 'node:events';
+import {TrafficSpool,LinuxInterfaceCollector,type CounterConfig} from '../../../../packages/arbi-traffic/dist/index.js';
 import {payloadDigest} from '@arbi/protocol/capture-transfer';
 import type {Realm,Identity} from '@arbi/protocol';
 import type {LiveAdapter} from './contracts';
@@ -15,9 +16,13 @@ import {encodePng,decodePng} from '../../../arbi-edge-controller/dist/images/png
 type Frame=Parameters<ConstructorParameters<typeof IsolatedLiveProducer>[0]['send']>[0];
 /** Test-only localhost payload transport. No listener is mounted in the app.
  * Counters describe encoded PNG payload and this private packet envelope only. */
-export async function liveProducerReference(options:{realm:Realm;siteId:string;source:Identity;inspect:LiveStore['inspectFrameRecipients']}){
+export async function liveProducerReference(options:{realm:Realm;siteId:string;source:Identity;inspect:LiveStore['inspectFrameRecipients'];observeLoopback?:boolean}){
   const root=mkdtempSync(join(tmpdir(),'arbi-live-relay-')),servers:Server[]=[],sockets=new Set<Socket>(),viewers=new Map<string,{epoch:number;expiresAtMs:number;port:number;bytes:number;frames:number;wire:number}>();
   const bytes=encodePng({width:32,height:24,rgb:new Uint8Array(32*24*3).fill(120)});let camera=0,encoded=0,upstreamBytes=0,upstreamWire=0,currentFrame:Frame|null=null,currentSignal:AbortSignal|null=null;
+  const config:CounterConfig={key:'native-live-lo',scope:{realm:options.realm,executionMode:'simulation',siteId:options.siteId,source:options.source,boundary:'lan',linkId:'native-live-loopback'},layer:'interface-wan',collectionPoint:'linux-lo-sysfs',coverage:'partial',includes:['payload','retries','transport-overhead','non-arbi'],width:64,maxDeltaBytes:'1073741824',maxIntervalMs:15000,maxAgeMs:15000};
+  const counter=options.observeLoopback?new TrafficSpool({path:join(root,'loopback.sqlite'),binding:{realm:options.realm,siteId:options.siteId,executionMode:'simulation',deviceId:options.source.deviceId},maxRecords:16,maxBytes:131072,maxPages:128,maxCounters:1}):null;
+  const collector=counter?new LinuxInterfaceCollector(config,'lo','native-live-comparison',undefined,20):null;
+  if(counter){assert.equal(process.platform,'linux');counter.collect(config,collector!.read());}
   const tracked=(socket:Socket)=>{sockets.add(socket);socket.on('close',()=>sockets.delete(socket));socket.on('error',()=>{});socket.setTimeout(1000,()=>socket.destroy());return socket;};
   async function listen(receive:(body:Buffer,header:{id:string;sha256:string;bytes:number},wire:number)=>Promise<void>){
     const server=createServer({allowHalfOpen:true},socket=>{
@@ -67,5 +72,6 @@ export async function liveProducerReference(options:{realm:Realm;siteId:string;s
     return {type:'answer',data:'private-native-payload-reference'};
   }};
   return {producer,adapter,viewers,bytes,budget,get camera(){return camera;},get encoded(){return encoded;},get upstreamBytes(){return upstreamBytes;},get upstreamWire(){return upstreamWire;},
-    async close(){producer.close();budget.close();for(const socket of sockets)socket.destroy();await Promise.all(servers.map(server=>new Promise<void>(resolve=>server.close(()=>resolve()))));rmSync(root,{recursive:true,force:true});}};
+    measureLoopback(){if(!counter||!collector)throw Error('LOOPBACK_NOT_SELECTED');const observed=counter.collect(config,collector.read());assert.equal(observed.gap,null);assert.ok(observed.deltas);const known=BigInt(upstreamBytes+[...viewers.values()].reduce((sum,v)=>sum+v.bytes,0));const upload=BigInt(observed.deltas.upload),download=BigInt(observed.deltas.download);assert.ok(upload>=known&&download>=known);return {observations:observed.observations,comparison:{boundary:'linux-loopback',coverage:'partial',knownPayloadBytes:known.toString(),interfaceUploadBytes:upload.toString(),interfaceDownloadBytes:download.toString(),unexplainedUploadBytes:(upload-known).toString(),unexplainedDownloadBytes:(download-known).toString(),uncertaintyMs:20,carrierBytes:null,turnBytes:null}};},
+    async close(){producer.close();budget.close();counter?.close();for(const socket of sockets)socket.destroy();await Promise.all(servers.map(server=>new Promise<void>(resolve=>server.close(()=>resolve()))));rmSync(root,{recursive:true,force:true});}};
 }

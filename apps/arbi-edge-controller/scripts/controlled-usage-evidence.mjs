@@ -1,0 +1,15 @@
+import {writeFileSync,lstatSync,readFileSync} from 'node:fs';
+import {dirname,resolve} from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {execFileSync} from 'node:child_process';
+const [flag,output]=process.argv.slice(2);
+if(flag!=='--output'||!output||process.argv.length!==4)throw Error('EXPLICIT_OUTPUT_REQUIRED');
+const path=resolve(output),parent=lstatSync(dirname(path));if(!parent.isDirectory()||(parent.mode&0o077))throw Error('PRIVATE_OUTPUT_DIRECTORY_REQUIRED');
+const root=fileURLToPath(new URL('../../../',import.meta.url)),git=args=>execFileSync('git',args,{cwd:root,encoding:'utf8'}).trim();
+const sourceCommit=git(['rev-parse','HEAD']);if(git(['status','--porcelain']))throw Error('CLEAN_SOURCE_REQUIRED');
+execFileSync(process.execPath,[resolve(root,'node_modules/turbo/bin/turbo'),'build','--filter=@arbi/edge-controller','--force'],{cwd:root,stdio:'ignore',timeout:120000});
+const unchanged=()=>{if(git(['rev-parse','HEAD'])!==sourceCommit||git(['status','--porcelain']))throw Error('SOURCE_CHANGED_DURING_MEASUREMENT');};
+unchanged();const {runControlledUsageProbe}=await import('../dist/scenarios/usage-probe.js'),evidence=await runControlledUsageProbe();unchanged();
+const {sourceDigest}=JSON.parse(readFileSync(new URL('../dist/build-identity.json',import.meta.url),'utf8'));
+writeFileSync(path,JSON.stringify({...evidence,sourceCommit,sourceDigest,dirty:false},null,2)+'\n',{flag:'wx',mode:0o600});
+process.stdout.write('Controlled Linux-loopback evidence written; carrier and physical gates remain unmeasured.\n');
