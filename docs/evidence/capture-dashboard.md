@@ -49,3 +49,13 @@ PostgreSQL 18.4 and Chromium 145.0.7632.6 on an isolated Linux development host.
 The evidence-only follow-up changes no validated implementation. GitHub CI and
 review are additional PR merge gates; this record does not imply deployed or
 physical acceptance.
+
+After the audit inventory and mobile navigation expectations were updated, clean
+source `05eb63e2ef0376a9ae0478e973d178df3df94971` rebased onto the merged issue #43
+main passed 14 forced protocol/edge tasks and 11 forced dashboard/dependency
+build/lint/typecheck tasks. All 21 dashboard Chromium checks passed, followed by
+the actual local WebRTC candidate. The complete dashboard Node suite also passed
+92 tests with 18 native skips; the separate native suite above covers those
+PostgreSQL paths. The source implementation matches the earlier native and
+protocol record; later changes register audit coverage and update the replaced
+Images placeholder expectation.
