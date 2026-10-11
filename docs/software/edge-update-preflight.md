@@ -8,7 +8,9 @@ and an optional `CaptureWorkflow`. It is private, test-realm composition, with
 physical installation disabled and no normal startup selection.
 
 Attach its `check`/`prepare` methods as the update owner's `local` hooks, and its
-`admissionInhibit` to both job and manual admission. Use the same site/device
+`admissionInhibit` to both job and manual admission. Bind its boolean result to
+preview admission too, so a new camera grant cannot open during inhibition. Use
+the same site/device
 scope and actual trusted local authority. The existing available inventory,
 release-order compatibility, verified range cache, budget charges, intent/outcome
 audit and original operation identity remain their owners' records.

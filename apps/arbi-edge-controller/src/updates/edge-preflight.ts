@@ -57,6 +57,7 @@ export class EdgeUpdatePreflight {
     const jobs=o.jobs.status;
     if(o.manual?.status.degraded||jobs.journalDegraded||jobs.auditPending===null||jobs.auditPending>0||jobs.active===null||jobs.degraded&&!ownLock||jobs.recoveryRequired&&!ownLock)return 'LOCAL_JOB_RECOVERY_REQUIRED';
     if(jobs.active>0)return 'LOCAL_JOB_ACTIVE';
+    if(ownLock?.phase==='ready'){const media=o.capture?.status;if(media&&(!media.closed||media.busy||media.preview?.active||media.preview?.busy||media.preview?.quarantined))return 'MEDIA_DRAIN_UNCONFIRMED';}
     const safe=updateSafety(o.orchestrator().options.safety(target),target,o.orchestrator().options.store.readClock().utcMs);
     return safe.ok?null:safe.reason;
   }

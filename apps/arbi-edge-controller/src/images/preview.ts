@@ -8,9 +8,9 @@ export interface PreviewHook {event:'start'|'reconnect'|'expiry'|'stop'|'frame';
  * and audit; these required hooks distinguish local grants from actual bytes. */
 export class CapturePreview {
   #grant:PreviewGrant|null=null;#release:(()=>void)|null=null;#lastUtc=0;#frameActive=false;#abort:AbortController|null=null;#quarantined=false;
-  constructor(readonly options:{budget:TransferBudget;nowUtcMs:()=>number;authorized:(grant:PreviewGrant)=>boolean;acquireCamera:()=>()=>void;frame:(signal:AbortSignal)=>Promise<Uint8Array>;append:(event:PreviewHook)=>void}){}
+  constructor(readonly options:{budget:TransferBudget;nowUtcMs:()=>number;authorized:(grant:PreviewGrant)=>boolean;admissionInhibit?:()=>boolean;acquireCamera:()=>()=>void;frame:(signal:AbortSignal)=>Promise<Uint8Array>;append:(event:PreviewHook)=>void}){}
   #now(){const n=this.options.nowUtcMs();if(!Number.isSafeInteger(n)||n<0||n<this.#lastUtc){this.stop();transferFail('PREVIEW_CLOCK_INVALID');}this.#lastUtc=n;return n;}
-  #valid(g:PreviewGrant){transferIdentity(g.source);const now=this.#now();if(!transferId(g.id)||!transferId(g.actor.id)||!['human','service'].includes(g.actor.kind)||!Number.isInteger(g.generation)||g.generation<1||g.generation>32||!Number.isSafeInteger(g.expiresUtcMs)||g.expiresUtcMs<=now||g.expiresUtcMs-now>15000||!this.options.authorized(g))transferFail('PREVIEW_NOT_AUTHORIZED');}
+  #valid(g:PreviewGrant){transferIdentity(g.source);const now=this.#now();if(!transferId(g.id)||!transferId(g.actor.id)||!['human','service'].includes(g.actor.kind)||!Number.isInteger(g.generation)||g.generation<1||g.generation>32||!Number.isSafeInteger(g.expiresUtcMs)||g.expiresUtcMs<=now||g.expiresUtcMs-now>15000||!this.options.authorized(g)||this.options.admissionInhibit?.())transferFail('PREVIEW_NOT_AUTHORIZED');}
   #id(g:PreviewGrant){return `preview:${g.id}:${g.generation}`;}
   #hook(event:PreviewHook['event'],g:PreviewGrant,bytes:number|null=null){this.options.append({event,grant:structuredClone(g),basis:event==='frame'?'local-frame':'authorized-session',bytes,utcMs:this.#lastUtc,physicalMedia:false,observedDelivery:false});}
   start(input:PreviewGrant):void {
@@ -22,7 +22,7 @@ export class CapturePreview {
     try{this.options.budget.start({id:this.#id(g),class:'media',direction:'upload',expectedBytes:g.expectedBytes,artifactDigest:null,stream:true,bitrate:g.bitrate,overrideId:null});this.#hook(old?'reconnect':'start',g);this.#grant=g;this.#release=release;}
     catch(e){release();const t=this.options.budget.getTransfer(this.#id(g));if(t&&!t.pending)this.options.budget.finish(t.id,true);throw e;}
   }
-  tick():void {if(!this.#grant)return;const n=this.#now();if(n>=this.#grant.expiresUtcMs||!this.options.authorized(this.#grant))this.stop('expiry');}
+  tick():void {if(!this.#grant)return;const n=this.#now();if(n>=this.#grant.expiresUtcMs||!this.options.authorized(this.#grant)||this.options.admissionInhibit?.())this.stop('expiry');}
   async frame(signal:AbortSignal):Promise<Uint8Array> {
     this.tick();const g=this.#grant;if(!g||signal.aborted)transferFail('PREVIEW_EXPIRED');if(this.#frameActive||this.#quarantined)transferFail('PREVIEW_CAMERA_BUSY');this.#valid(g);this.#frameActive=true;
     const controller=new AbortController();this.#abort=controller;const abort=()=>controller.abort();signal.addEventListener('abort',abort,{once:true});let timer:ReturnType<typeof setTimeout>|undefined;
