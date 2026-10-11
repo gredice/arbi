@@ -116,3 +116,5 @@ Design decisions belong in ADRs. Work items and unresolved questions belong in G
 - [Lifecycle audit and bounded attempts](software/lifecycle-audit.md) — [software evidence](evidence/lifecycle-audit.md).
 
 - [Read-only incident replay](software/incident-replay.md) — [software evidence and physical gate](evidence/incident-replay.md).
+
+- [Audit completeness coverage](software/audit-completeness.md), [redacted software evidence](evidence/audit-completeness.md), and [ADR-0018](decisions/0018-audit-coverage-and-source-sequences.md)

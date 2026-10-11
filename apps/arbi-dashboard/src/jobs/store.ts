@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
 import { isDeepStrictEqual } from "node:util";
-import { digest } from "@arbi/audit";
+import { canonical, digest } from "@arbi/audit";
 import { bounded, isRealm, sameRealm } from "@arbi/gredice";
 import type { AuthorizationObservation, AuthorizedContext } from "@arbi/gredice";
 import { AUDIT_VERSION, MAX_COUNTER, auditFromProtocolOutcome, validateMessage } from "@arbi/protocol";
@@ -29,6 +29,7 @@ const stream = (e: Event) => JSON.stringify([e.realm,e.siteId,e.source,"job-even
 export class PostgresJobStore {
   readonly source: AuditSource = { module: "cloud",identity: { deviceId: "job-service",bootId: randomUUID(),sessionId: randomUUID() } };
   readonly startedAt = performance.now();
+  readonly #auditSequences = new WeakMap<Tx,bigint>();
   readonly audit: PostgresAuditStore;
   constructor(readonly db: SqlDatabase, readonly realm: Realm, readonly currentAuthority: CurrentAuthority,
     readonly receiverUncertaintyMs = 100) {
@@ -84,25 +85,36 @@ export class PostgresJobStore {
       [...scope(this.realm,tx.registry.siteId),String(MAX_COUNTER)])).rows[0];
     if (!row) throw new JobError("CAPACITY"); return row.value;
   }
+  /** Registry lock serializes this source/site stream. Reservations roll back with the transaction.
+   * Commands and other process epochs must never consume canonical audit sequence numbers. */
+  async nextAudit(tx: Tx): Promise<string> {
+    let last = this.#auditSequences.get(tx);
+    if (last === undefined) {
+      const key = canonical([this.realm,"simulation",tx.registry.siteId,this.source]);
+      last = BigInt((await tx.sql.query<{value:string}>("SELECT coalesce(max(sequence),0)::text AS value FROM arbi_audit_events WHERE stream=$1",[key])).rows[0].value);
+    }
+    if (last >= MAX_COUNTER) throw new JobError("CAPACITY");
+    this.#auditSequences.set(tx,last+1n);return String(last+1n);
+  }
   async event(tx: Tx, authority: AuthorizedContext, action: AuditAction, resource: AuditEvent["resource"],
     links: Partial<AuditEvent["links"]> = {}): Promise<AuditEvent> {
     const eventId = randomUUID();
     return { auditVersion: AUDIT_VERSION,eventId,realm: this.realm,executionMode: "simulation",siteId: tx.registry.siteId,
-      actor: authority.actor,source: this.source,sequence: await this.next(tx,"sequence"),
+      actor: authority.actor,source: this.source,sequence: await this.nextAudit(tx),
       sourceTime: { utc: null,uncertaintyMs: null,monotonicMs: Math.floor(performance.now()-this.startedAt) },ingestTime: null,
       resource,action,evidence: "intent",outcome: "requested",reason: "requested",effect: "none",
       links: { correlationId: eventId,intentEventId: eventId,causationEventId: null,jobId: null,sessionId: authority.sessionId,
         commandId: null,requestSource: null,target: null,...links },record: null,metadata: { configRevision: tx.registry.configRevision },change: null };
   }
   async admit(tx: Tx, intent: AuditEvent): Promise<void> {
-    const allow: AuditEvent = { ...structuredClone(intent),eventId: randomUUID(),sequence: await this.next(tx,"sequence"),
+    const allow: AuditEvent = { ...structuredClone(intent),eventId: randomUUID(),sequence: await this.nextAudit(tx),
       evidence: "authorization",outcome: "allow",reason: "authorized",links: { ...intent.links,causationEventId: intent.eventId } };
     await this.audit.stageAdmission(tx.sql,intent,allow,binding(intent),binding(allow));
   }
   async observation(tx: Tx, root: AuditEvent, reason: AuditEvent["reason"], action = root.action, code?: ErrorCode): Promise<void> {
     const lifecycle = action.startsWith("control.session.");
     const auditReason = !lifecycle ? "execution-failed" : reason === "observed" ? "completed" : reason === "source-restarted" ? "revoked" : reason;
-    const event: AuditEvent = { ...structuredClone(root),eventId: randomUUID(),sequence: await this.next(tx,"sequence"),source: this.source,
+    const event: AuditEvent = { ...structuredClone(root),eventId: randomUUID(),sequence: await this.nextAudit(tx),source: this.source,
       sourceTime: { utc: null,uncertaintyMs: null,monotonicMs: Math.floor(performance.now()-this.startedAt) },ingestTime: null,
       action,evidence: "service-outcome",outcome: lifecycle ? "succeeded" : "fail",reason: auditReason,effect: "none",
       links: { ...root.links,causationEventId: root.eventId } };
@@ -231,7 +243,7 @@ export class PostgresJobStore {
       if (prior) {
         if (prior.fingerprint !== fingerprint) throw new JobError("CONFLICT");
         await this.refresh(tx,prior.record);
-        const retry: AuditEvent = { ...structuredClone(prior.record.intent),eventId: randomUUID(),sequence: await this.next(tx,"sequence"),
+        const retry: AuditEvent = { ...structuredClone(prior.record.intent),eventId: randomUUID(),sequence: await this.nextAudit(tx),
           source: this.source,sourceTime: { utc: null,uncertaintyMs: null,monotonicMs: Math.floor(performance.now()-this.startedAt) },
           evidence: "authorization",outcome: "allow",reason: "authorized",
           links: { ...prior.record.intent.links,causationEventId: prior.record.intent.eventId } };

@@ -1,0 +1,479 @@
+{
+  "schemaVersion": "arbi.audit-coverage/1.0",
+  "scope": "committed isolated software entrypoints",
+  "http": [
+    {
+      "entrypoint": "apps/arbi-dashboard/src/app/api/dashboard/session/route.ts",
+      "actions": [
+        "login",
+        "logout"
+      ],
+      "requiredFacts": [
+        "authorization.check before isolated session cookie",
+        "provider identity.login when configured"
+      ],
+      "evidence": [
+        "apps/arbi-dashboard/src/dashboard/postgres.test.ts"
+      ],
+      "observability": "isolated login checks acknowledged protected authorization before cookie; provider identity.login/logout lifecycle instrumentation is not installed; ordinary/preview unavailable"
+    },
+    {
+      "entrypoint": "apps/arbi-dashboard/src/app/api/sites/[siteId]/enrollment/[action]/route.ts",
+      "actions": [
+        "challenge",
+        "complete",
+        "revoke",
+        "inventory",
+        "device",
+        "device connect",
+        "device state",
+        "device commands",
+        "device rotate",
+        "device delegate"
+      ],
+      "requiredFacts": [
+        "authorization.check",
+        "identity.login"
+      ],
+      "evidence": [
+        "apps/arbi-dashboard/src/enrollment/postgres.test.ts",
+        "apps/arbi-dashboard/src/enrollment/lifecycle.test.ts"
+      ],
+      "observability": "registry service outcomes; signed bootstrap/connect/health messages do not establish physical identity"
+    },
+    {
+      "entrypoint": "apps/arbi-dashboard/src/app/api/sites/[siteId]/media/[action]/route.ts",
+      "actions": [
+        "upload",
+        "complete",
+        "delete",
+        "revoke",
+        "cleanup"
+      ],
+      "requiredFacts": [
+        "authorization.check",
+        "capture request/storage service outcome",
+        "storage mutation intent/service outcome"
+      ],
+      "evidence": [
+        "apps/arbi-dashboard/src/media/postgres.test.ts",
+        "apps/arbi-dashboard/src/media/lifecycle.test.ts"
+      ],
+      "observability": "isolated adapter; physical/provider result requires separate evidence"
+    },
+    {
+      "entrypoint": "apps/arbi-dashboard/src/app/api/sites/[siteId]/images/[imageId]/[action]/route.ts",
+      "actions": [
+        "metadata",
+        "access"
+      ],
+      "requiredFacts": [
+        "authorization.check",
+        "still.view or media.download intent/authorization",
+        "access-grant and issued/failed signing observation"
+      ],
+      "evidence": [
+        "apps/arbi-dashboard/src/media/postgres.test.ts",
+        "apps/arbi-dashboard/src/media/media-audit.test.ts"
+      ],
+      "observability": "audit grant precedes URL signing; no proof of download, browser display or physical capture"
+    },
+    {
+      "entrypoint": "apps/arbi-dashboard/src/app/api/sites/[siteId]/audit/[action]/route.ts",
+      "actions": [
+        "search",
+        "export",
+        "policy",
+        "hold",
+        "release-hold",
+        "retire"
+      ],
+      "requiredFacts": [
+        "authorization.check",
+        "independent audit export authorization",
+        "configuration.change intent/authorization/service outcome",
+        "private retirement receipt"
+      ],
+      "evidence": [
+        "apps/arbi-dashboard/src/audit/query.postgres.test.ts"
+      ],
+      "observability": "isolated adapter; physical/provider result requires separate evidence"
+    },
+    {
+      "entrypoint": "apps/arbi-dashboard/src/app/api/sites/[siteId]/audit/ingest/route.ts",
+      "actions": [
+        "ingest"
+      ],
+      "requiredFacts": [
+        "source original facts",
+        "ingest receipt",
+        "gap diagnostics"
+      ],
+      "evidence": [
+        "apps/arbi-dashboard/src/audit/postgres.test.ts",
+        "apps/arbi-dashboard/src/audit/diagnostics.postgres.test.ts"
+      ],
+      "observability": "signed current upload of original retired-boot facts; missing ranges remain explicit, lost acknowledgements deduplicate"
+    },
+    {
+      "entrypoint": "apps/arbi-dashboard/src/app/api/sites/[siteId]/jobs/[action]/route.ts",
+      "actions": [
+        "submit",
+        "status",
+        "controls",
+        "attempts",
+        "timeline",
+        "cancel",
+        "acquire",
+        "renew",
+        "release",
+        "revoke",
+        "device",
+        "device snapshot",
+        "device poll",
+        "device outcome"
+      ],
+      "requiredFacts": [
+        "authorization.check",
+        "command intent",
+        "control.session lifecycle",
+        "device terminal outcome",
+        "immutable protocol reports"
+      ],
+      "evidence": [
+        "apps/arbi-dashboard/src/jobs/postgres.test.ts",
+        "apps/arbi-dashboard/src/jobs/http.test.ts"
+      ],
+      "observability": "accepted/running remain protocol reports; cloud dispositions cannot establish physical stop; malformed pre-auth requests have no verified actor"
+    },
+    {
+      "entrypoint": "apps/arbi-dashboard/src/app/api/sites/[siteId]/realtime/[action]/route.ts",
+      "actions": [
+        "attach",
+        "recover",
+        "device",
+        "device attach",
+        "device recover"
+      ],
+      "requiredFacts": [
+        "authorization.check",
+        "source epoch",
+        "scoped broker grant"
+      ],
+      "evidence": [
+        "apps/arbi-dashboard/src/realtime/postgres.test.ts",
+        "apps/arbi-dashboard/src/realtime/http.test.ts"
+      ],
+      "observability": "broker grant is authority evidence; transport delivery/cost unavailable without provider measurement"
+    },
+    {
+      "entrypoint": "apps/arbi-dashboard/src/app/api/sites/[siteId]/telemetry/[action]/route.ts",
+      "actions": [
+        "current",
+        "history",
+        "inventory",
+        "device ingest",
+        "device trace"
+      ],
+      "requiredFacts": [
+        "authorization.check",
+        "authenticated source observations"
+      ],
+      "evidence": [
+        "apps/arbi-dashboard/src/telemetry/postgres.test.ts",
+        "apps/arbi-dashboard/src/telemetry/http.test.ts"
+      ],
+      "observability": "source measurements retain units/quality/clocks; telemetry is not physical validation"
+    },
+    {
+      "entrypoint": "apps/arbi-dashboard/src/app/api/sites/[siteId]/usage/[action]/route.ts",
+      "actions": [
+        "history",
+        "period",
+        "correct",
+        "settings",
+        "report",
+        "export",
+        "alerts",
+        "device ingest"
+      ],
+      "requiredFacts": [
+        "authorization.check",
+        "usage correction",
+        "usage policy",
+        "source byte windows"
+      ],
+      "evidence": [
+        "apps/arbi-dashboard/src/usage/postgres.test.ts",
+        "apps/arbi-dashboard/src/usage/settings.postgres.test.ts"
+      ],
+      "observability": "byte boundaries remain separate; SIM/provider billing coverage can remain unknown"
+    },
+    {
+      "entrypoint": "apps/arbi-dashboard/src/app/api/sites/[siteId]/operations/[action]/route.ts",
+      "actions": [
+        "health"
+      ],
+      "requiredFacts": [
+        "authorization.check",
+        "current dependency probe"
+      ],
+      "evidence": [
+        "apps/arbi-dashboard/src/operations/postgres.test.ts",
+        "apps/arbi-dashboard/src/operations/operations.test.ts"
+      ],
+      "observability": "private historical operational counters/logs excluded; no provider availability guarantee"
+    },
+    {
+      "entrypoint": "apps/arbi-dashboard/src/app/api/sites/[siteId]/live/[action]/route.ts",
+      "actions": [
+        "start",
+        "state",
+        "renew",
+        "end",
+        "revoke",
+        "signal",
+        "advisory",
+        "device",
+        "device connected",
+        "device ended",
+        "device delivery"
+      ],
+      "requiredFacts": [
+        "authorization.check",
+        "live.grant intent/authorization/access-grant",
+        "live.end/revoke/timeout service outcome",
+        "live.start signed connection observation",
+        "live.heartbeat browser or delivery observation"
+      ],
+      "evidence": [
+        "apps/arbi-dashboard/src/live/postgres.test.ts"
+      ],
+      "observability": "connection/delivery are signed adapter observations; advisory browser state is distinct; expiry does not prove remote stop or watch duration"
+    },
+    {
+      "entrypoint": "apps/arbi-dashboard/src/app/api/sites/[siteId]/incidents/[action]/route.ts",
+      "actions": [
+        "read",
+        "export"
+      ],
+      "requiredFacts": [
+        "authorization.check",
+        "audit.export capability"
+      ],
+      "evidence": [
+        "apps/arbi-dashboard/src/incidents/http.test.ts"
+      ],
+      "observability": "declared unverified provenance/self-hash; boundary callbacks here do not establish native durability"
+    },
+    {
+      "entrypoint": "apps/arbi-dashboard/src/app/api/sites/[siteId]/dashboard/[view]/route.ts",
+      "actions": [
+        "context",
+        "state",
+        "diagnostics",
+        "detail",
+        "releases"
+      ],
+      "requiredFacts": [
+        "authorization.check",
+        "current protected read"
+      ],
+      "evidence": [
+        "apps/arbi-dashboard/src/dashboard/postgres.test.ts",
+        "apps/arbi-dashboard/src/dashboard/server.test.ts"
+      ],
+      "observability": "isolated adapter; physical/provider result requires separate evidence"
+    },
+    {
+      "entrypoint": "apps/arbi-dashboard/src/app/api/sites/[siteId]/dashboard-tools/[feature]/[action]/route.ts",
+      "actions": [
+        "usage settings",
+        "usage report",
+        "usage history",
+        "usage alerts",
+        "usage export",
+        "audit search",
+        "audit export"
+      ],
+      "requiredFacts": [
+        "delegated usage/audit facts"
+      ],
+      "evidence": [
+        "apps/arbi-dashboard/src/dashboard/postgres.test.ts",
+        "apps/arbi-dashboard/src/audit/query.postgres.test.ts",
+        "apps/arbi-dashboard/src/usage/settings.postgres.test.ts"
+      ],
+      "observability": "private bridge delegates to the same scoped API policy; no caller-selected endpoint"
+    },
+    {
+      "entrypoint": "apps/arbi-dashboard/src/app/api/sites/[siteId]/dashboard-control/[action]/route.ts",
+      "actions": [
+        "submit",
+        "status",
+        "controls",
+        "attempts",
+        "timeline",
+        "cancel",
+        "acquire",
+        "renew",
+        "release",
+        "revoke"
+      ],
+      "requiredFacts": [
+        "delegated job authorization and intent"
+      ],
+      "evidence": [
+        "apps/arbi-dashboard/src/dashboard/protocol-proxy.test.ts",
+        "apps/arbi-dashboard/src/jobs/postgres.test.ts"
+      ],
+      "observability": "isolated adapter; physical/provider result requires separate evidence"
+    },
+    {
+      "entrypoint": "apps/arbi-dashboard/src/app/api/sites/[siteId]/dashboard-telemetry/[action]/route.ts",
+      "actions": [
+        "current",
+        "history",
+        "inventory"
+      ],
+      "requiredFacts": [
+        "delegated telemetry authorization"
+      ],
+      "evidence": [
+        "apps/arbi-dashboard/src/dashboard/protocol-proxy.test.ts",
+        "apps/arbi-dashboard/src/telemetry/postgres.test.ts"
+      ],
+      "observability": "isolated adapter; physical/provider result requires separate evidence"
+    }
+  ],
+  "internal": [
+    {
+      "entrypoint": "apps/arbi-edge-controller/src/commissioning/server.ts",
+      "actions": [
+        "status",
+        "enroll",
+        "stage",
+        "activate",
+        "invalidate",
+        "recover",
+        "configuration/calibration commit",
+        "restart/reconcile"
+      ],
+      "requiredFacts": [
+        "configuration intent/service outcome",
+        "calibration intent/device outcome",
+        "fixed recovery policy"
+      ],
+      "evidence": [
+        "apps/arbi-edge-controller/src/commissioning/commissioning.test.ts"
+      ],
+      "observability": "actual isolated SQLite commits and simulated acknowledgement; physical wiring/calibration review remains required"
+    },
+    {
+      "entrypoint": "packages/arbi-protocol/src/lifecycle-audit.ts",
+      "actions": [
+        "update intent",
+        "confirmed boot",
+        "failed update",
+        "rolled-back boot"
+      ],
+      "requiredFacts": [
+        "original actor/authorization",
+        "sanitized release change",
+        "device-reported boot or interrupted unknown"
+      ],
+      "evidence": [
+        "packages/arbi-protocol/src/lifecycle-audit.test.ts"
+      ],
+      "observability": "isolated journal adapter; actual edge/MCU update installation wiring is pending #73/#71; no installation success inferred from staged bytes"
+    },
+    {
+      "entrypoint": "apps/arbi-dashboard/src/media/recording-hooks.ts",
+      "actions": [
+        "start",
+        "stop",
+        "failure",
+        "playback",
+        "export",
+        "delete"
+      ],
+      "requiredFacts": [
+        "denied authorization only"
+      ],
+      "evidence": [
+        "apps/arbi-dashboard/src/media/media-audit.test.ts"
+      ],
+      "observability": "recording disabled; reserved lifecycle actions cannot establish a recording session"
+    },
+    {
+      "entrypoint": "apps/arbi-edge-controller/src/jobs/orchestrator.ts",
+      "actions": [
+        "admit signed command",
+        "dispatch once",
+        "cancel",
+        "restart/reconcile",
+        "device outcome/audit spool"
+      ],
+      "requiredFacts": [
+        "original requesting actor/command intent",
+        "local dispatch reservation",
+        "durable terminal outcome or interrupted unknown",
+        "linked fixed recovery policy"
+      ],
+      "evidence": [
+        "apps/arbi-edge-controller/src/jobs/jobs.test.ts",
+        "apps/arbi-edge-controller/src/jobs/manual.test.ts"
+      ],
+      "observability": "simulated physical adapter; persistent dispatch reservation forbids repeated actuation; device report is not qualified physical validation"
+    },
+    {
+      "entrypoint": "apps/arbi-edge-controller/src/transfers/budget.ts",
+      "actions": [
+        "reserve/resume/pause/settle transfer",
+        "metered-link policy",
+        "authorized budget override"
+      ],
+      "requiredFacts": [
+        "measured attempted/accepted application bytes",
+        "scoped override intent/authorization",
+        "durable audit pending acknowledgement"
+      ],
+      "evidence": [
+        "apps/arbi-edge-controller/src/transfers/transfers.test.ts"
+      ],
+      "observability": "private SQLite budget/counter state; WAN/carrier coverage remains independent; authorized override cannot bypass local update/motion protection"
+    },
+    {
+      "entrypoint": "apps/arbi-edge-controller/src/cloud-realtime/http.ts",
+      "actions": [
+        "signed attach/recovery request",
+        "receive recovery page"
+      ],
+      "requiredFacts": [
+        "signed original source scope",
+        "attempted response/request byte accounting",
+        "cloud grant/recovery acknowledgement"
+      ],
+      "evidence": [
+        "apps/arbi-edge-controller/src/cloud-realtime/recovery.test.ts",
+        "apps/arbi-dashboard/src/realtime/postgres.test.ts"
+      ],
+      "observability": "cloud authorization evidence is owned by the mapped realtime entrypoint; local consumer preserves cursor/epoch without assuming command execution"
+    },
+    {
+      "entrypoint": "packages/arbi-protocol/src/release.ts",
+      "actions": [
+        "produce/verify artifact",
+        "validate mixed-version and rollback path"
+      ],
+      "requiredFacts": [
+        "immutable manifest/artifact signature and digest",
+        "explicit compatible ordering/recovery path"
+      ],
+      "evidence": [
+        "packages/arbi-protocol/src/release-updates.test.ts"
+      ],
+      "observability": "isolated ephemeral signing keys; durable release.publish/provider installation instrumentation remains pending #33/#73; immutable signature is not installation evidence"
+    }
+  ]
+}

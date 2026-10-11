@@ -74,6 +74,7 @@ export class PostgresAuditStore {
     const clockDisjoint = utc !== null && uncertainty !== null &&
       Math.abs(Date.parse(utc) - Date.parse(admitted.value.ingestTime!.utc)) > uncertainty + this.uncertaintyMs;
     await sql.query("INSERT INTO arbi_audit_evidence(event_id,detail) VALUES($1,$2::jsonb)", [event.eventId, JSON.stringify({
+      sequenceCoverage: event.record?.kind === "protocol-event" ? "selected-protocol-events" : "audit-source-stream",
       gaps: gaps.slice(0,32), gapsTruncated: gaps.length > 32, clockRegression, clockDisjoint, unsynchronized: utc === null, otherBootObserved: priorBoot,
     })]);
     return receipt(row);

@@ -24,7 +24,7 @@ export class LiveStore{
     this.profiles=profiles.map(profile);if(new Set(this.profiles.map(p=>p.id)).size!==profiles.length)throw new JobError('INVALID_REQUEST');this.tokens=new LiveTokens(jobs.realm,key);
   }
   async #emit(tx:Tx,root:AuditEvent,action:AuditAction,evidence:AuditEvent['evidence'],outcome:AuditEvent['outcome'],reason:AuditEvent['reason'],metadata:AuditEvent['metadata']={}){
-    const event:AuditEvent={...structuredClone(root),eventId:randomUUID(),sequence:await this.jobs.next(tx,'sequence'),action,evidence,outcome,reason,effect:'none',ingestTime:null,
+    const event:AuditEvent={...structuredClone(root),eventId:randomUUID(),sequence:await this.jobs.nextAudit(tx),source:this.jobs.source,action,evidence,outcome,reason,effect:'none',ingestTime:null,
       sourceTime:{utc:null,uncertaintyMs:null,monotonicMs:Math.floor(performance.now()-this.jobs.startedAt)},metadata:{...root.metadata,...metadata},links:{...root.links,causationEventId:root.eventId}};
     await this.jobs.audit.stage(tx.sql,event,binding(event));
   }

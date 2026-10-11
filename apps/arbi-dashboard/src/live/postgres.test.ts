@@ -179,4 +179,20 @@ test('native PostgreSQL live authority: shared producer, scoped leases, policy, 
     const closed=await b.store.action(two.context,'state',{sessionId:second.id});assert.equal(closed.endReason,'timeout');assert.equal(closed.closure?.deliveryCoverage,'partial');assert.equal(closed.closure?.playbackDurationMs,null);assert.equal(closed.closure?.remoteStopObserved,false);
     await a.store.jobs.audit.verify(realm,f.registry.siteId);
   });
+  await t.test('replacement media service uses its own audit clock epoch without changing the initiating actor',async()=>{
+    const {a,b,one,start,f}=await setup(),viewer=await a.store.start(one.context,start);
+    await b.store.action(one.context,'end',{sessionId:viewer.id});
+    const ended=(await pool.query("SELECT record FROM arbi_audit_events WHERE site_id=$1 AND record->>'action'='live.end'",[f.registry.siteId])).rows[0].record;
+    const original=(await pool.query('SELECT record FROM arbi_live_viewers WHERE id=$1',[viewer.id])).rows[0].record.intent;
+    assert.deepEqual(ended.source,b.store.jobs.source);assert.notDeepEqual(ended.source,original.source);
+    assert.deepEqual(ended.actor,original.actor);assert.equal(ended.links.intentEventId,original.eventId);
+    const bad=(await pool.query(`WITH numbered AS (
+      SELECT sequence,row_number() OVER(PARTITION BY stream ORDER BY sequence)::numeric AS expected
+      FROM arbi_audit_events WHERE record->'source'->'identity'->>'deviceId'='job-service'
+    ) SELECT * FROM numbered WHERE sequence<>expected`)).rows;assert.deepEqual(bad,[]);
+    const gaps=(await pool.query(`SELECT d.detail FROM arbi_audit_events e JOIN arbi_audit_evidence d ON d.event_id=e.id
+      WHERE e.record->'source'->'identity'->>'deviceId'='job-service' AND (d.detail->'gaps'<>'[]'::jsonb OR d.detail->>'clockRegression'='true')`)).rows;
+    assert.deepEqual(gaps,[]);
+  });
+
 });
