@@ -32,7 +32,15 @@ new WAN/carrier accounting. The group keeps the coordinator last and emits the
 existing update audit hooks. No new actuator dispatch or automatic continuation
 of a pre-update job is allowed.
 
-Validation revision, measured host timing and regression results are recorded
-after the clean test run. This report records host integration only; no approved
+Clean source ec62311c85cceb61099410bce30db1b91123567c on merged issue #44
+main passed 13 forced edge/dependency build, lint and typecheck tasks and all
+208 affected update, job and capture tests, including 22 new preflight scenarios.
+The serial regression run took 246.003 seconds on the isolated Linux development
+host with Node 24.19.0. The stalled-drain scenario uses a configured 50 ms
+deadline and measured the complete failed advance below its 1500 ms test bound;
+this is host integration timing, not actuator-stop or brownout timing. Software
+configuration, module identities and local health are the committed synthetic
+references; no hardware or bootloader revision was exercised. The evidence-only
+follow-up changes no tested implementation. This report records host integration only; no approved
 physical bench, hardware revisions, real OS boot or passive restraint evidence
 is available. All corresponding field gates remain blocked/unverified.
