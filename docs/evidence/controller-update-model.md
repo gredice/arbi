@@ -6,6 +6,8 @@ Actual shared C owner tests cover motion/prepared intent, active leases, wrong e
 
 Clean revision `4dc0ad989f9be89b4299fda8e6064c19f6fae17a` reports `ARBI_BUILD_DIRTY=0`. Linux x64/Node 24.19.0 passes all 33 groups normally and with five C host binaries under ASan/UBSan; the ten Node update groups retain native cryptographic/filesystem/SQLite coverage rather than C sanitizer coverage. Both pinned Pico SDK 2.2.0/ARM GCC 12.2.1 branches build. The normal image uses 59,832 text / 57,788 BSS bytes. The denied target link retains `local_model_update_begin` and the physical-denial gate, using 39,572 text / 39,956 BSS bytes. Lint, documentation, 25 planner/gate regressions and whitespace pass. No board was connected.
 
+Combined diagnostics/updater source `692ff988e881f2da7441159311030b9560193431` also reports `ARBI_BUILD_DIRTY=0` and passes all 36 groups normally and with six C binaries under ASan/UBSan. Both pinned target builds pass; the denied link retains diagnostics, reservation and denial gates together, using 55,784 text / 74,124 BSS bytes. Normal image size and physical unavailability remain unchanged.
+
 | Acceptance item | Source result / remaining gate |
 | --- | --- |
 | Current identities/compatibility/authentic image and no stale moving intent | C owner plus actual native signed flash tests; no connected MCU updater |
