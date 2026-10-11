@@ -26,8 +26,8 @@ bridge. Expired pending upload grants may renew that original identity under
 current service authority; deleting/deleted records cannot revive.
 
 Preview has one camera owner, short independently checked authority, bounded
-frame work and required attributable lifecycle hooks. Grants and returned frame
-bytes have different evidence. Existing cloud live-session audit and recording
+frame work and required attributable lifecycle hooks. Grants and returned local frame
+bytes have different evidence; neither fabricates viewer delivery. Existing cloud live-session audit and recording
 denial contracts remain their owners.
 
 ## Consequences

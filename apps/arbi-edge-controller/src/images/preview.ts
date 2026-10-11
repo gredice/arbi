@@ -3,7 +3,7 @@ import type { Actor,Identity } from '@arbi/protocol';
 import { transferFail,transferId,transferIdentity } from '@arbi/protocol/capture-transfer';
 import type { TransferBudget } from '../transfers/budget.js';
 export interface PreviewGrant {id:string;generation:number;actor:Actor;source:Identity;expiresUtcMs:number;bitrate:number;expectedBytes:number}
-export interface PreviewHook {event:'start'|'reconnect'|'expiry'|'stop'|'delivery';grant:PreviewGrant;basis:'authorized-session'|'application-payload';bytes:number|null;utcMs:number;physicalMedia:false}
+export interface PreviewHook {event:'start'|'reconnect'|'expiry'|'stop'|'frame';grant:PreviewGrant;basis:'authorized-session'|'local-frame';bytes:number|null;utcMs:number;physicalMedia:false;observedDelivery:false}
 /** Single camera preview owner. The cloud live service owns viewer authority
  * and audit; these required hooks distinguish local grants from actual bytes. */
 export class CapturePreview {
@@ -12,7 +12,7 @@ export class CapturePreview {
   #now(){const n=this.options.nowUtcMs();if(!Number.isSafeInteger(n)||n<0||n<this.#lastUtc){this.stop();transferFail('PREVIEW_CLOCK_INVALID');}this.#lastUtc=n;return n;}
   #valid(g:PreviewGrant){transferIdentity(g.source);const now=this.#now();if(!transferId(g.id)||!transferId(g.actor.id)||!['human','service'].includes(g.actor.kind)||!Number.isInteger(g.generation)||g.generation<1||g.generation>32||!Number.isSafeInteger(g.expiresUtcMs)||g.expiresUtcMs<=now||g.expiresUtcMs-now>15000||!this.options.authorized(g))transferFail('PREVIEW_NOT_AUTHORIZED');}
   #id(g:PreviewGrant){return `preview:${g.id}:${g.generation}`;}
-  #hook(event:PreviewHook['event'],g:PreviewGrant,bytes:number|null=null){this.options.append({event,grant:structuredClone(g),basis:event==='delivery'?'application-payload':'authorized-session',bytes,utcMs:this.#lastUtc,physicalMedia:false});}
+  #hook(event:PreviewHook['event'],g:PreviewGrant,bytes:number|null=null){this.options.append({event,grant:structuredClone(g),basis:event==='frame'?'local-frame':'authorized-session',bytes,utcMs:this.#lastUtc,physicalMedia:false,observedDelivery:false});}
   start(input:PreviewGrant):void {
     const g=structuredClone(input);this.#valid(g);if(this.#frameActive||this.#quarantined)transferFail('PREVIEW_CAMERA_BUSY');const old=this.#grant;
     if(old&&old.id===g.id&&old.generation===g.generation){if(configurationDigest(old)!==configurationDigest(g))transferFail('PREVIEW_ID_CONFLICT');return;}
@@ -30,11 +30,11 @@ export class CapturePreview {
     void operation.finally(()=>{this.#frameActive=false;if(!this.#grant){this.#release?.();this.#release=null;}}).catch(()=>{});
     try{const bytes=await Promise.race([operation,new Promise<never>((_,reject)=>{timer=setTimeout(()=>{this.#quarantined=true;controller.abort();this.stop('expiry');reject(new Error('PREVIEW_FRAME_TIMEOUT'));},1000);})]);
       this.tick();if(controller.signal.aborted||!this.#grant||configurationDigest(this.#grant)!==configurationDigest(g)||!(bytes instanceof Uint8Array)||bytes.length<1||bytes.length>65536)transferFail('PREVIEW_EXPIRED');
-      this.options.budget.intent(this.#id(g));const charge=this.options.budget.grant(this.#id(g),bytes.length);this.options.budget.settle(this.#id(g),charge.id,bytes.length,bytes.length);this.#hook('delivery',g,bytes.length);return bytes;
+      this.options.budget.intent(this.#id(g));const charge=this.options.budget.grant(this.#id(g),bytes.length);this.options.budget.settle(this.#id(g),charge.id,bytes.length,0);this.#hook('frame',g,bytes.length);return bytes;
     }finally{if(timer)clearTimeout(timer);signal.removeEventListener('abort',abort);controller.abort();this.#abort=null;}
   }
   stop(event:'stop'|'expiry'='stop'):void {const g=this.#grant;this.#grant=null;this.#abort?.abort();if(!this.#frameActive){this.#release?.();this.#release=null;}if(!g)return;try{const t=this.options.budget.getTransfer(this.#id(g));if(t&&!t.pending)this.options.budget.finish(t.id,true);}finally{this.#hook(event,g);}}
-  get status(){this.tick();return {active:this.#grant!==null,grant:this.#grant?structuredClone(this.#grant):null,recordingEnabled:false,physicalMedia:false};}
+  get status(){this.tick();return {active:this.#grant!==null,grant:this.#grant?structuredClone(this.#grant):null,recordingEnabled:false,physicalMedia:false,observedDelivery:false};}
 }
 /** LivePolicyEvaluator composition hook. This is a policy snapshot, not a
  * transport reservation or a viewer-delivery observation. */

@@ -102,7 +102,7 @@ and timestamps. Deletion/cleanup remains the media owner's separate policy.
 generation, bitrate, byte ceiling and expiry. It reserves the camera and the
 same transfer budget; a still capture and preview cannot share camera ownership.
 Start/reconnect/expiry/stop require lifecycle hooks; returned preview bytes have
-a separate application-payload delivery hook. Stale/reordered generations,
+a separate local-frame hook with observed delivery explicitly false. Frame extraction is conservatively debited; viewer/network delivery still requires the existing authenticated media/usage observations. Stale/reordered generations,
 revocation, clock regression, budget/bitrate limits and expiry fail closed.
 Frames are bounded to 64 KiB, one concurrent call and a one-second deadline.
 Uncertain frame work retains the camera lock until the adapter settles and
