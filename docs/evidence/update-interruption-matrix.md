@@ -36,7 +36,7 @@ clean source. Its native kill/recovery durations were 1769.85–1900.80 ms on
 this host; no physical timing is inferred. Documentation links and whole-tree
 whitespace pass. The evidence-only follow-up changes no tested source.
 
-These host records are unreviewed physical evidence and name no qualified
+These host records supply no physical evidence and name no qualified
 physical reviewer. Hardware, bootloader, electrical/structural and installed
 configuration acceptance remain missing. Canary halt is proven only for the
 one isolated ordered operation, not a fleet deployment.
