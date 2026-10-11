@@ -152,3 +152,5 @@ Design decisions belong in ADRs. Work items and unresolved questions belong in G
 - [Local WebRTC candidate experiment](software/live-transport-reference.md), [measured host evidence and outstanding transport gates](evidence/live-transport-reference.md), and [ADR-0038](decisions/0038-local-webrtc-candidate-evidence.md)
 
 - [Protected capture history, explicit media access and versioned framing review](software/capture-dashboard.md), [native/API/browser evidence](evidence/capture-dashboard.md), and [ADR-0037](decisions/0037-protected-capture-history-and-framing-review.md)
+
+- [Isolated native Linux slot reference](software/linux-slot-reference.md), [source/file/process recovery evidence](evidence/linux-slot-reference.md), and [ADR-0039](decisions/0039-isolated-native-linux-slots.md)

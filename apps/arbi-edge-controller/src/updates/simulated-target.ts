@@ -19,7 +19,7 @@ export class SimulatedUpdateTarget {
   close(){this.#journal.close();}
   #boot(m:ReleaseManifest,health:UpdateBootObservation['health'],version:string):UpdateBootObservation{return {schemaVersion:'arbi.update/1.0',source:{deviceId:this.options.deviceId,bootId:randomUUID(),sessionId:randomUUID()},observedAt:new Date(this.options.now()).toISOString(),provenance:'local-boot-observation',releaseId:m.releaseId,build:m.build,artifactDigest:m.artifact.sha256,configurationDataVersion:version,health,recordId:randomUUID()};}
   #state(records=this.#journal.verify()):Slot{for(const r of records){fields(r,['operationId','manifest','boot','installations','rollbacks']);if(!validateUpdateRecord('boot',r.boot).ok||!validateReleaseRecord('manifest',r.manifest).ok||!Number.isSafeInteger(r.installations)||Number(r.installations)<0||!Number.isSafeInteger(r.rollbacks)||Number(r.rollbacks)<0)reject('CORRUPT_JOURNAL');}const s=records.at(-1) as unknown as Slot;if(s.boot.source.deviceId!==this.options.deviceId||s.manifest.releaseId!==s.boot.releaseId)reject('CORRUPT_JOURNAL');return structuredClone(s);}
-  get status(){return {...this.#state(),provenance:'declared-isolated-target',physicalInstallationEnabled:false};}
+  get status(){return {...this.#state(),provenance:'declared-isolated-target',physicalInstallationEnabled:false as const};}
   install(journal:UpdateJournal,bytes:Uint8Array){const s=this.#state(),r=journal.request;
     if(s.operationId===r.operationId)return s.boot;
     if(!journal.events.some(e=>e.kind==='installation-reserved')||s.boot.releaseId!==r.expectedInstalledReleaseId)reject('INSTALLATION_NOT_RESERVED');

@@ -10,15 +10,16 @@ import { ArtifactCache } from '../transfers/artifacts.js';
 import { fields,plain,reject,UpdateSecurityError } from './journal.js';
 import { UpdateOperationStore,type OperationTarget,type UpdateOperation } from './operation-store.js';
 import { IsolatedRangeSource,type RangeReceipt } from './range-source.js';
-import { SimulatedUpdateTarget } from './simulated-target.js';
+import type { SimulatedUpdateTarget } from './simulated-target.js';
 import { updateSafety,type LocalUpdateSafety } from './safety.js';
 import { UpdateTrustStore } from './trust.js';
 const result=<T>(r:{ok:true;value:T}|{ok:false;error:{code:string}}):T=>{if(!r.ok)reject(r.error.code);return r.value;};
 const terminal=(o:UpdateOperation)=>['healthy','failed','rolled-back','cancelled'].includes(o.state);
+export interface UpdateTargetPort {readonly status:{manifest:SimulatedUpdateTarget['status']['manifest'];boot:SimulatedUpdateTarget['status']['boot'];physicalInstallationEnabled:false};install(journal:Parameters<SimulatedUpdateTarget['install']>[0],bytes:Uint8Array):unknown;observe(operationId:string):ReturnType<SimulatedUpdateTarget['observe']>;rollback(journal:Parameters<SimulatedUpdateTarget['rollback']>[0]):ReturnType<SimulatedUpdateTarget['rollback']>}
 export interface UpdateChoice {key:string;releaseSetId:string;targets:string[];allowMetered:boolean}
 export class UpdateOrchestrator {
   constructor(readonly options:{store:UpdateOperationStore;trust:UpdateTrustStore;inventory:ReleaseInventory;sets:ReleaseSet[];
-    targets:Map<string,SimulatedUpdateTarget>;budget:TransferBudget;cache:ArtifactCache;source:IsolatedRangeSource;
+    targets:Map<string,UpdateTargetPort>;budget:TransferBudget;cache:ArtifactCache;source:IsolatedRangeSource;
     metered:()=>boolean;safety:(target:string)=>LocalUpdateSafety|null;afterReservation?:()=>void}){
     if(options.budget.policy.maxAttempts>32)reject('UPDATE_RETRY_POLICY_LIMIT');
     const s=options.store.options;options.trust.assertScope(s.realm,s.siteId,s.source.deviceId);

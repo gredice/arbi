@@ -19,13 +19,14 @@ import { UpdateOrchestrator } from './orchestrator.js';
 import { UpdateServer } from './server.js';
 import type { LocalUpdateSafety } from './safety.js';
 /** Explicit private test recipe with ephemeral signing/provider secrets; ordinary startup never selects it. */
-export async function createUpdateReference(directory:string,options:{initialUtcMs?:number;realm?:Realm;siteId?:string;payloadBytes?:number;allowanceBytes?:number;afterReservation?:()=>void;storeFault?:('before-commit'|'after-commit')|null}={}){
+export async function createUpdateReference(directory:string,options:{initialUtcMs?:number;realm?:Realm;siteId?:string;payloadBytes?:number;linuxArtifactKind?:'application'|'os';allowanceBytes?:number;afterReservation?:()=>void;storeFault?:('before-commit'|'after-commit')|null}={}){
   mkdirSync(directory,{recursive:true,mode:0o700});
   const f=JSON.parse(readFileSync(new URL('../../../../packages/arbi-protocol/fixtures/releases.json',import.meta.url),'utf8')) as {inventory:ReleaseInventory;releaseSet:ReleaseSet};
   const realm=options.realm??{environment:'test' as const,namespaceId:'synthetic-update-operations'},siteId=options.siteId??'synthetic-site';if(realm.environment!=='test')throw Error('ISOLATED_REALM_REQUIRED');let now=options.initialUtcMs??Date.parse('2026-10-11T00:00:00.000Z');const clockStart=now;
   const root=generateKeyPairSync('ed25519'),key=generateKeyPairSync('ed25519');const bytes=new Map<string,Buffer>();
   const set=structuredClone(f.releaseSet);set.releaseSetId='synthetic-coordinator-last';set.manifests=set.manifests.map(input=>{const m=structuredClone(input);for(const d of m.dependencies)d.versions={min:'1.0.0',max:'1.1.0'};
     if(m.configuration.migration)m.configuration.migration.recordId='synthetic-reversible-migration';
+    if(options.linuxArtifactKind&&m.target.moduleId!=='pico')m.artifact.kind=options.linuxArtifactKind;
     m.artifact.signature.keyId='synthetic-release-key';
     const payload=Buffer.alloc(m.build.version==='1.0.0'?128:options.payloadBytes??70000,42);payload.write(`synthetic:${m.releaseId}:no-actuation`);const r=produceRelease(m,payload,{keyId:'synthetic-release-key',privateKey:key.privateKey});if(!r.ok)throw Error(r.error.code);bytes.set(r.value.artifact.sha256,payload);return r.value;});
   set.steps=['pico','pod','edge'].map(id=>set.desired.find(s=>s.moduleId===id)!);set.order=set.steps.map((s,i)=>({moduleId:s.moduleId,after:set.steps.slice(0,i).map(p=>p.moduleId)}));
