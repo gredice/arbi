@@ -120,3 +120,5 @@ Design decisions belong in ADRs. Work items and unresolved questions belong in G
 - [Audit completeness coverage](software/audit-completeness.md), [redacted software evidence](evidence/audit-completeness.md), and [ADR-0018](decisions/0018-audit-coverage-and-source-sequences.md)
 
 - [Signing trust and migration recovery](software/update-trust-migrations.md), [isolated software evidence](evidence/update-trust-migrations.md), and [ADR-0019](decisions/0019-isolated-trust-and-migration-recovery.md)
+
+- [Isolated update operation API](software/update-operations.md), [software evidence](evidence/update-operations.md), and [ADR-0020](decisions/0020-isolated-update-orchestration.md)

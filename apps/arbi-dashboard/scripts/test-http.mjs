@@ -52,6 +52,10 @@ try {
     const response=await fetch(`http://127.0.0.1:${port}/api/sites/synthetic-controls/dashboard-telemetry/${action}`,{method,signal:AbortSignal.timeout(5000),...(method==='POST'?{body:'{}'}:{})});
     assert.equal(response.status,503);assert.equal(response.headers.get('cache-control'),'private, no-store');assert.deepEqual(await response.json(),{error:'UNAVAILABLE'});
   }
+  for(const [method,action] of [['GET','available'],['GET','status?operationId=synthetic-operation'],['GET','audit'],['POST','request'],['POST','advance'],['POST','override'],['POST','cancel']]){
+    const response=await fetch(`http://127.0.0.1:${port}/api/sites/synthetic-site/updates/${action}`,{method,signal:AbortSignal.timeout(5000),...(method==='POST'?{body:'{}'}:{})});
+    assert.equal(response.status,503);assert.equal(response.headers.get('cache-control'),'private, no-store');assert.deepEqual(await response.json(),{error:'UNAVAILABLE'});
+  }
   const login = await fetch(`http://127.0.0.1:${port}/api/dashboard/session`, { method: "POST", headers: { origin: `http://127.0.0.1:${port}` }, body: "code=synthetic", signal: AbortSignal.timeout(5000) });
   assert.equal(login.status, 503); assert.equal(login.headers.get("set-cookie"), null);
   for (const path of ["/", "/sites/synthetic-site/engineering/overview"]) {

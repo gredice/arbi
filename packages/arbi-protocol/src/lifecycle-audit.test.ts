@@ -40,3 +40,12 @@ test('update failure after installation reservation retains unknown effect, orig
   assert.ok(result.ok,JSON.stringify(result));assert.equal(result.value.effect,'unknown');assert.equal(result.value.evidence,'connection-loss');
   assert.equal(result.value.outcome,'interrupted');assert.deepEqual(result.value.actor,root.value.actor);
 });
+
+test('composed update sessions remain joinable and progress facts cannot claim installation effects',()=>{
+  const j=journal(),source={module:'edge' as const,identity:j.request.source};
+  const root=updateIntentAudit(j,source,clock,'1','actual-sdk-session');assert.ok(root.ok);
+  const terminal=j.events.at(-1)!;const outcome=updateOutcomeAudit(root.value,j,terminal.eventId,{module:'motion',identity:terminal.source},clock,'2');assert.ok(outcome.ok);assert.equal(outcome.value.links.sessionId,'actual-sdk-session');
+  const progress={...root.value,eventId:'range-progress',sequence:'2',action:'update.install' as const,evidence:'update-observation' as const,outcome:'observed' as const,reason:'observed' as const,links:{...root.value.links,causationEventId:root.value.eventId},record:{kind:'local-record' as const,id:'actual-transfer-charge'},metadata:{...root.value.metadata,updatePhase:'downloading' as const,observation:'bytes-delivered' as const,byteCount:4096},change:null};
+  assert.equal(validateAuditEvent(progress).ok,true);
+  for(const invalid of [{...progress,effect:'device-reported'},{...progress,outcome:'succeeded'},{...progress,source:{...source,module:'browser'}},{...progress,record:null},{...progress,record:{kind:'protocol-event',id:'wrong-record'}},{...progress,metadata:{permission:'update'}},{...progress,evidence:'service-outcome'},{...root.value,metadata:{updatePhase:'downloading'}}])assert.equal(validateAuditEvent(invalid).ok,false);
+});

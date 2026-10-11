@@ -59,7 +59,8 @@ export function validateAuditEvent(input: unknown): Result<AuditEvent> {
   if ((metadata.attemptCount !== undefined || metadata.attemptClass !== undefined || metadata.aggregation !== undefined || metadata.attemptWindowStartUtc !== undefined) &&
     (event.action !== "authorization.check" || event.evidence !== "authorization" || event.outcome !== "deny" || event.effect !== "none" ||
       metadata.attemptCount === undefined || metadata.attemptClass === undefined || metadata.aggregation === undefined || metadata.attemptWindowStartUtc === undefined)) return fail("INVALID_MESSAGE", "/metadata");
-  const observational = ["media-observation", "access-observation", "browser-observation"].includes(event.evidence);
+  if (metadata.updatePhase !== undefined && event.evidence !== "update-observation") return fail("INVALID_MESSAGE", "/metadata/updatePhase");
+  const observational = ["media-observation", "access-observation", "browser-observation", "update-observation"].includes(event.evidence);
   if (!observational && (metadata.observation !== undefined || metadata.byteCount !== undefined || metadata.observedInterval !== undefined)) return fail("INVALID_MESSAGE", "/metadata");
   if (metadata.byteCount !== undefined && (metadata.observation !== "bytes-delivered" || event.outcome !== "observed")) return fail("INVALID_MESSAGE", "/metadata/byteCount");
   if (metadata.observation === "bytes-delivered" && (metadata.byteCount === undefined || metadata.byteCount === 0 || event.outcome !== "observed")) return fail("INVALID_MESSAGE", "/metadata/byteCount");

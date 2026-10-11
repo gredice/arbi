@@ -7,7 +7,7 @@ import type { SourceTime } from './messages.js';
 
 /** Instrument a trusted, already-admitted journal. This creates evidence, never update authority.
  * Producers still commit the event with their own journal and bind it at the receiving audit boundary. */
-export function updateIntentAudit(journal: unknown, source: AuditSource, sourceTime: SourceTime, sequence: string): Result<AuditEvent> {
+export function updateIntentAudit(journal: unknown, source: AuditSource, sourceTime: SourceTime, sequence: string, sessionId: string | null = null): Result<AuditEvent> {
   const parsed = recoverUpdate(journal);
   if(!parsed.ok) return fail('INVALID_MESSAGE');
   const r = parsed.value.journal.request;
@@ -18,7 +18,7 @@ export function updateIntentAudit(journal: unknown, source: AuditSource, sourceT
     resource: { kind: 'update',id: r.operationId,deviceId: r.manifest.target.moduleId },
     action: 'update.request',evidence: 'intent',outcome: 'requested',effect: 'none',reason: 'requested',
     links: { correlationId: r.auditContext.correlationId,intentEventId: id,causationEventId: null,
-      jobId: r.operationId,sessionId: null,commandId: r.operationId,requestSource: r.source,target: null },
+      jobId: r.operationId,sessionId,commandId: r.operationId,requestSource: r.source,target: null },
     record: null,metadata: { permission: 'update',releaseId: r.manifest.releaseId,authorizationId:r.auditContext.authorizationId },
     change: { fields: ['release-selection'],before: { revisionId: r.expectedInstalledReleaseId,state: 'installed' },
       after: { revisionId: r.manifest.releaseId,state: 'staged' } } });
@@ -29,7 +29,7 @@ export function updateOutcomeAudit(intent: AuditEvent,journal: unknown,eventId: 
   const parsed = recoverUpdate(journal);
   if(!parsed.ok) return fail('INVALID_MESSAGE');
   const j = parsed.value.journal,r = j.request,e = j.events.find(event=>event.eventId === eventId);
-  const expected = updateIntentAudit(j,intent.source,intent.sourceTime,intent.sequence);
+  const expected = updateIntentAudit(j,intent.source,intent.sourceTime,intent.sequence,intent.links.sessionId);
   if(!expected.ok || !isDeepStrictEqual(intent,expected.value)) return fail('NOT_AUTHORIZED');
   if(!e || !['confirmed','rolled-back','failed','recovery-required'].includes(e.kind)) return fail('UNSUPPORTED_CAPABILITY');
   if(!isDeepStrictEqual(source.identity,e.source) || !['edge','motion','pod'].includes(source.module)) return fail('SOURCE_MISMATCH');
