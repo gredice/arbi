@@ -7,7 +7,7 @@
     "dev": "next dev",
     "start": "next start",
     "build": "node ../../scripts/ci/production-gate.mjs && next build --webpack",
-    "lint": "tsc --noEmit",
+    "lint": "tsc --noEmit && node --check scripts/live-transport-reference.mjs",
     "typecheck": "tsc --noEmit",
     "test": "node --no-wasm-code-gc --import tsx --test --test-concurrency=1 src/enrollment/*.test.ts src/media/*.test.ts src/audit/*.test.ts src/jobs/*.test.ts src/realtime/*.test.ts src/dashboard/*.test.ts src/releases/*.test.ts src/telemetry/*.test.ts src/usage/*.test.ts src/operations/*.test.ts src/live/*.test.ts src/incidents/*.test.ts src/updates/*.test.ts",
     "test:postgres": "node scripts/test-postgres.mjs",
@@ -24,9 +24,10 @@
     "telemetry:maintain": "node --import tsx scripts/telemetry-worker.ts",
     "db:migrate:realtime": "node --import tsx scripts/migrate-realtime.ts",
     "realtime:maintain": "node --import tsx scripts/realtime-worker.ts",
-    "test:browser": "node scripts/test-shell.mjs",
+    "test:browser": "node scripts/test-shell.mjs && node scripts/live-transport-reference.mjs",
     "db:provision-dashboard-test": "node --import tsx scripts/provision-dashboard-test.ts",
-    "db:migrate:live": "node --import tsx scripts/migrate-live.ts"
+    "db:migrate:live": "node --import tsx scripts/migrate-live.ts",
+    "live:transport-reference": "node scripts/live-transport-reference.mjs"
   },
   "dependencies": {
     "@arbi/audit": "workspace:*",
