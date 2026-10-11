@@ -136,3 +136,6 @@ export * from "./plant-types.js";
 export * from "./plant-validation.js";
 export * from "./plant-adapters.js";
 export * from "./plant.js";
+
+export * from "./incident.js";
+export * from "./incident-comparison.js";

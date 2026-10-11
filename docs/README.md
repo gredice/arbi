@@ -114,3 +114,5 @@ Cross-discipline item types are not separate subsystems. A fastener used on a wi
 Design decisions belong in ADRs. Work items and unresolved questions belong in GitHub issues, with links back to the affected document. Procurement data belongs in the repository BOM rather than being copied into prose. Private notes, chats, external pages, spreadsheets, and dashboards are not project records.
 
 - [Lifecycle audit and bounded attempts](software/lifecycle-audit.md) — [software evidence](evidence/lifecycle-audit.md).
+
+- [Read-only incident replay](software/incident-replay.md) — [software evidence and physical gate](evidence/incident-replay.md).
