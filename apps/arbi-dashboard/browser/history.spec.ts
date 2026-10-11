@@ -1,0 +1,60 @@
+import { test, expect, type Page, type Download } from '@playwright/test';
+import { digest } from '@arbi/audit';
+const origin=process.env.ARBI_DASHBOARD_ORIGIN!;
+async function login(page:Page,viewer=false){
+  await page.goto('/');await page.getByLabel('Test access code').fill(process.env[viewer?'ARBI_DASHBOARD_TEST_VIEWER_CODE':'ARBI_DASHBOARD_TEST_ACCESS_CODE']!);
+  await page.getByRole('button',{name:'Open test dashboard'}).click();await expect(page.getByRole('heading',{name:'Overview',exact:true})).toBeVisible();
+}
+async function jsonDownload(file:Download){const stream=await file.createReadStream();let text='';for await(const chunk of stream!)text+=String(chunk);expect(Buffer.byteLength(text)).toBeLessThanOrEqual(8388608);return {text,payload:JSON.parse(text)};}
+test('real persisted usage, policy revisions, accounting gaps, resets and shared-session audit links survive page reload',async({page})=>{
+  await login(page);let reads=0;page.on('request',r=>{if(r.url().includes('/dashboard-tools/'))reads++;});
+  await page.getByRole('link',{name:'Bandwidth',exact:true}).click();await expect(page.getByRole('heading',{name:'Bandwidth',exact:true})).toBeVisible();expect(reads).toBe(0);
+  await page.getByRole('button',{name:'Read usage',exact:true}).click();await expect(page.getByText('No plan configured; counters remain available without an invented allowance')).toBeVisible();
+  await expect(page.getByRole('table',{name:'Transfer categories and source totals'})).toContainText('counter-reset-1, counter-reset-2');
+  await expect(page.getByRole('table',{name:'Transfer categories and source totals'})).toContainText('logs-audit');
+  await page.getByLabel('Allowance in bytes').fill('12000');await page.getByLabel('Billing timezone').fill('UTC');await page.getByLabel('Transfer mode',{exact:true}).selectOption('low-data');
+  await page.getByRole('button',{name:'Save policy',exact:true}).click();await expect(page.getByText(/Policy saved · audit/)).toBeVisible();
+  await page.getByRole('button',{name:'Read usage',exact:true}).click();await expect(page.getByRole('table',{name:'Independent accounting layers'})).toBeVisible();
+  const layers=page.getByRole('table',{name:'Independent accounting layers'});
+  await expect(layers.getByRole('row').filter({has:page.getByRole('rowheader',{name:'interface-wan',exact:true})})).toContainText('Unknown / Unknown');
+  const directional=page.getByRole('table',{name:'Billing-cycle upload and download'});
+  await expect(directional.getByRole('row').filter({has:page.getByRole('rowheader',{name:'interface-wan / upload',exact:true})})).toContainText('7,500 B');
+  await expect(directional.getByRole('row').filter({has:page.getByRole('rowheader',{name:'application-payload / upload',exact:true})})).toContainText('4,500 B');
+  await expect(directional.getByRole('row').filter({has:page.getByRole('rowheader',{name:'provider / upload',exact:true})})).toContainText('9,000 B');
+  await expect(page.getByText(/Configured mode low-data · edge application not-observed/)).toBeVisible();
+  await expect(page.getByText(/shared · viewers 5/)).toContainText('1,500 B');
+  const download=page.waitForEvent('download');await page.getByRole('button',{name:'Export usage',exact:true}).click();
+  const exported=await jsonDownload(await download),{integrity,...data}=exported.payload;expect(integrity.digest).toBe(digest(data));expect(exported.payload.report.carrierBillingTruth).toBe(false);
+  expect(exported.text).not.toMatch(/Bearer|privateKey|arbi_dashboard_session/);
+  await page.getByLabel('Billing timezone').fill('Europe/Zagreb');await page.getByLabel('Anchor day').fill('2');await page.getByLabel('WAN warning percent').fill('85');
+  await page.getByRole('button',{name:'Save policy',exact:true}).click();await expect(page.getByText(/Policy saved · audit/)).toBeVisible();
+  await page.reload();await page.getByRole('button',{name:'Read usage',exact:true}).click();await expect(page.getByText(/Europe\/Zagreb · settings/)).toBeVisible();
+  await expect(page.getByLabel('Anchor day')).toHaveValue('2');await expect(page.getByLabel('WAN warning percent')).toHaveValue('85');
+  const finished=reads;await page.evaluate(()=>{Object.defineProperty(document,'visibilityState',{configurable:true,value:'hidden'});document.dispatchEvent(new Event('visibilitychange'));});
+  await expect(page.getByRole('table',{name:'Independent accounting layers'})).toHaveCount(0);
+  await page.evaluate(()=>{Object.defineProperty(document,'visibilityState',{configurable:true,value:'visible'});document.dispatchEvent(new Event('visibilitychange'));});expect(reads).toBe(finished);
+  await page.getByRole('button',{name:'Read usage',exact:true}).click();await page.getByRole('link',{name:'Audit session fixture-shared-view',exact:true}).click();
+  await expect(page.getByLabel('Session ID',{exact:true})).toHaveValue('fixture-shared-view');await expect(page.getByRole('table',{name:'Audit evidence and correlation'})).toHaveCount(0);
+  await page.getByRole('button',{name:'Search audit',exact:true}).click();const trace=page.getByRole('table',{name:'Audit evidence and correlation'});await expect(trace.locator('tbody tr')).toHaveCount(7);
+  for(const evidence of ['access-grant','authorization','connection-established','bytes-delivered','connection-ended','Cloud policy end; media termination unobserved','UTC unknown'])await expect(trace).toContainText(evidence);
+  await page.setViewportSize({width:390,height:844});expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  await page.getByLabel('Original actor ID').fill('synthetic-engineer');await page.getByRole('button',{name:'Search audit',exact:true}).click();await expect(trace.locator('tbody tr')).toHaveCount(7);
+  const auditFile=page.waitForEvent('download');await page.getByRole('button',{name:'Export audit snapshot',exact:true}).click();const audit=await jsonDownload(await auditFile);
+  const {integrity:auditIntegrity,schema:_,redaction:__,...auditData}=audit.payload;expect(auditIntegrity.digest).toBe(digest(auditData));expect(audit.payload.events).toHaveLength(7);
+  expect(audit.text).not.toMatch(/Bearer|privateKey|credentialId|arbi_dashboard_session/);
+  await expect(page.getByText(/Future recording unavailable/)).toBeVisible();await page.screenshot({path:'test-results/audit-history-mobile.png',fullPage:true});
+});
+test('viewer read access cannot escalate audit, exports or bandwidth policy through browser mode or direct HTTP',async({page,context})=>{
+  await login(page,true);await page.getByRole('link',{name:'Bandwidth',exact:true}).click();await page.getByRole('button',{name:'Read usage',exact:true}).click();
+  await expect(page.getByRole('table',{name:'Independent accounting layers'})).toBeVisible();await expect(page.getByRole('button',{name:'Save policy',exact:true})).toBeDisabled();
+  await expect(page.getByRole('button',{name:'Export usage',exact:true})).toBeDisabled();
+  const endpoint=(feature:string,action:string,site='synthetic-site')=>`${origin}/api/sites/${site}/dashboard-tools/${feature}/${action}`;
+  const headers={origin,'x-arbi-request':'1'};
+  expect((await page.request.post(endpoint('usage','settings'),{headers,data:{actorId:'synthetic-engineer',mode:'engineering'}})).status()).toBe(403);
+  expect((await page.request.post(endpoint('usage','export'),{headers,data:{linkId:'sim-1',atMs:Date.now()}})).status()).toBe(403);
+  expect((await page.request.get(endpoint('usage','settings?linkId=sim-1','synthetic-offline'))).status()).toBe(403);
+  expect((await page.request.get(endpoint('audit',`search?fromMs=${Date.now()-86400000}&toMs=${Date.now()}&limit=40`))).status()).toBe(403);
+  await context.setOffline(true);await expect(page.getByRole('table',{name:'Independent accounting layers'})).toHaveCount(0);await context.setOffline(false);
+  await page.goto('/sites/synthetic-site/engineering/activity');await expect(page.getByRole('button',{name:'Search audit',exact:true})).toBeDisabled();
+  await expect(page.getByText('Current audit-read permission is required.')).toBeVisible();
+});

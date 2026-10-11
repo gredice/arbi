@@ -40,6 +40,10 @@ try {
     assert.equal(response.status, 503); assert.equal(response.headers.get("cache-control"), "private, no-store");
     assert.deepEqual(await response.json(), { error: "UNAVAILABLE" });
   }
+  for (const [method, path] of [['GET','usage/settings'],['GET','usage/history'],['GET','usage/alerts'],['POST','usage/report'],['POST','usage/export'],['POST','usage/settings'],['GET','audit/search'],['POST','audit/export']]) {
+    const response=await fetch(`http://127.0.0.1:${port}/api/sites/synthetic-site/dashboard-tools/${path}`,{method,signal:AbortSignal.timeout(5000),...(method==='POST'?{body:'{}'}:{})});
+    assert.equal(response.status,503);assert.equal(response.headers.get('cache-control'),'private, no-store');assert.deepEqual(await response.json(),{error:'UNAVAILABLE'});
+  }
   const login = await fetch(`http://127.0.0.1:${port}/api/dashboard/session`, { method: "POST", headers: { origin: `http://127.0.0.1:${port}` }, body: "code=synthetic", signal: AbortSignal.timeout(5000) });
   assert.equal(login.status, 503); assert.equal(login.headers.get("set-cookie"), null);
   for (const path of ["/", "/sites/synthetic-site/engineering/overview"]) {

@@ -1,6 +1,6 @@
 # Authenticated dashboard shell
 
-The [Next.js dashboard](../../apps/arbi-dashboard/README.md) implements the foundation in [#39](https://github.com/gredice/arbi/issues/39). Every operational screen retains site, realm/namespace, simulation or hardware origin, display mode, connection and observation freshness. User and engineering navigation share the same backend authorization. Overview, devices, images, activity, live readiness and engineering diagnostics have responsive, keyboard-accessible navigation. Missing image history, commands, camera streams and detailed telemetry are explicitly unavailable; recording remains disabled.
+The [Next.js dashboard](../../apps/arbi-dashboard/README.md) implements the foundation in [#39](https://github.com/gredice/arbi/issues/39). Every operational screen retains site, realm/namespace, simulation or hardware origin, display mode, connection and observation freshness. User and engineering navigation share the same backend authorization. Overview, devices, images, bandwidth, activity, live readiness and engineering diagnostics have responsive, keyboard-accessible navigation. Missing image history, commands, camera streams and detailed telemetry are explicitly unavailable; recording remains disabled.
 
 ## Protected read contract
 
@@ -42,6 +42,8 @@ Privately configure `ARBI_DASHBOARD_ORIGIN`, `ARBI_DASHBOARD_TEST_SIGNING_KEY` (
 
 ## Evidence and remaining gates
 
-The [dated shell evidence](../evidence/dashboard-shell.md) records local and hosted checks separately. CI, authenticated test deployment, real provider integration, real cloud-edge protocol, physical commissioning and safe installed operation are independent claims. Full assembly diagnostics, image history, audit timeline, command controls, realtime broker and camera viewing retain their own issue scope. This shell cannot clear ADR-0006 physical gates or enable recording.
+The [dated shell evidence](../evidence/dashboard-shell.md) records local and hosted checks separately. CI, authenticated test deployment, real provider integration, real cloud-edge protocol, physical commissioning and safe installed operation are independent claims. Assembly diagnostics and persisted usage/audit screens have separate linked implementation evidence. Image history, command controls, realtime broker and camera viewing retain their own issue scope. This shell cannot clear ADR-0006 physical gates or enable recording.
 
 For hosted test acceptance, place the test functions alongside the dedicated database so current directory checks fit the bounded authorization deadlines. Vercel environment pulls leave sensitive access codes empty; `scripts/check-hosted.ts` then reads the operator-created ignored `.vercel/ARBI_DASHBOARD_TEST_ACCESS_CODE.txt` file. It scopes the protection credential to the target deployment origin and never records authenticated traces or prints credentials.
+
+The [usage and audit screens](usage-audit-dashboard.md) now expose persisted reports, audited policy edits and bounded correlated history through an explicit cookie BFF. Their [native/browser evidence](../evidence/usage-audit-dashboard.md) is separate from this shell’s earlier hosted acceptance.
