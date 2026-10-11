@@ -27,7 +27,6 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfgen import canvas
 from reportlab.platypus import Paragraph, Table, TableStyle
 from pypdf import PdfReader
-import stand_instructions
 
 ROOT = Path(__file__).resolve().parents[2]
 LIB = ROOT / 'hardware/lib/corner-head-printed.scad'
@@ -179,6 +178,7 @@ def verify_block_equilibrium():
 
 
 def build(out):
+    import stand_instructions
     version = subprocess.run(['openscad', '--version'], capture_output=True, text=True, timeout=10, check=True)
     if (version.stdout+version.stderr).strip() != 'OpenSCAD version 2021.01':
         raise ValueError('OpenSCAD 2021.01 required.')
@@ -488,6 +488,7 @@ def build(out):
 
 
 def booklet(work, report):
+    import stand_instructions
     for name,file in [('ARBI','DejaVuSans.ttf'),('ARBI-Bold','DejaVuSans-Bold.ttf')]:
         pdfmetrics.registerFont(TTFont(name,str(ROOT/'scripts/winch-booklet/fonts'/file)))
     c=canvas.Canvas(str(work/PDF),pagesize=A4)
