@@ -1,0 +1,15 @@
+; Isolated diagnostic waveform engine. All eight STEP/DIR pins share one SM.
+; Word bits 0..7: rising pin state; 8..15: STEP-low state; 16..31: delay x.
+; At a 1 MHz state-machine clock: high is 5 ticks, rise-to-rise is x + 9.
+; Both high and low states are in the same OSR word. FIFO starvation occurs
+; only at pull, after STEP has been lowered. This is not mechanical restraint.
+.program arbi_pulse
+.wrap_target
+    pull block
+    out pins, 8
+    nop [3]
+    out pins, 8
+    out x, 16
+delay:
+    jmp x-- delay
+.wrap

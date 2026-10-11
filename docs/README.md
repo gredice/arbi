@@ -128,3 +128,5 @@ Design decisions belong in ADRs. Work items and unresolved questions belong in G
 - [Seeded service fault workflows](software/fault-workflows.md), [software evidence](evidence/fault-workflows.md), and [ADR-0022](decisions/0022-seeded-service-fault-workflows.md)
 
 - [Pico 2 W diagnostic firmware](software/pico-foundation.md), [source and hardware evidence boundaries](evidence/pico-foundation.md), and [ADR-0023](decisions/0023-pico-diagnostic-foundation.md)
+
+- [Synchronized PIO pulse scheduler](software/pulse-scheduler.md), [source versus physical timing evidence](evidence/pulse-scheduler.md), and [ADR-0024](decisions/0024-isolated-synchronized-pulse-engine.md)
