@@ -6,11 +6,13 @@ import { execFileSync } from 'node:child_process';
 import { performance } from 'node:perf_hooks';
 import { arch, platform, release, cpus } from 'node:os';
 import assert from 'node:assert/strict';
+if(platform()!=='linux'){const optional=process.argv.includes('--optional');process.stdout.write(`${JSON.stringify({version:'arbi.live-transport-reference/1.0',stage:'skipped',reason:'linux-resource-sampler-required',platform:platform(),physicalAcceptance:false})}\n`);process.exit(optional?0:2);}
+const hz=Number(execFileSync('getconf',['CLK_TCK'],{encoding:'utf8'}).trim());
 // Candidate experiment only: synthetic canvas, local host ICE, no camera, credentials or WAN.
 const deadline=setTimeout(()=>{process.stderr.write('TRANSPORT_REFERENCE_TIMEOUT\n');void launcher?.kill();},45000);deadline.unref();
 const server=createServer((_request,response)=>{response.writeHead(200,{'Content-Type':'text/html','Cache-Control':'no-store'});response.end('<!doctype html><title>ARBI synthetic transport</title><canvas width="320" height="240"></canvas><video muted autoplay playsinline></video>');});
 server.listen(0,'127.0.0.1');await once(server,'listening');
-let launcher,browser,context;const hz=Number(execFileSync('getconf',['CLK_TCK'],{encoding:'utf8'}).trim());
+let launcher,browser,context;
 function resources(pid){
   const records=new Map();let gaps=0;
   for(const name of readdirSync('/proc').filter(value=>/^[0-9]+$/.test(value))){

@@ -24,7 +24,7 @@
     "telemetry:maintain": "node --import tsx scripts/telemetry-worker.ts",
     "db:migrate:realtime": "node --import tsx scripts/migrate-realtime.ts",
     "realtime:maintain": "node --import tsx scripts/realtime-worker.ts",
-    "test:browser": "node scripts/test-shell.mjs && node scripts/live-transport-reference.mjs",
+    "test:browser": "node scripts/test-shell.mjs && node scripts/live-transport-reference.mjs --optional",
     "db:provision-dashboard-test": "node --import tsx scripts/provision-dashboard-test.ts",
     "db:migrate:live": "node --import tsx scripts/migrate-live.ts",
     "live:transport-reference": "node scripts/live-transport-reference.mjs"

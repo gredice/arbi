@@ -6,7 +6,9 @@ Work record: [#43](https://github.com/gredice/arbi/issues/43),
 
 From the dashboard workspace, after the pinned dependency install and
 `pnpm exec playwright install chromium`, run `pnpm live:transport-reference`.
-The existing `test:browser` command also runs it after the protected shell tests.
+The existing `test:browser` command also runs it after the protected shell tests
+on Linux; other platforms report an explicit skip. The direct command exits
+with a Linux requirement before opening any resources on unsupported platforms.
 It requires Linux `/proc` and `getconf CLK_TCK`; no PostgreSQL, app server,
 provider account or physical device is required by this standalone experiment.
 
