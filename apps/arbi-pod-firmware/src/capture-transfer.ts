@@ -25,6 +25,7 @@ export class CaptureTransfer {
     if(options.publicKey.type!=='public'||options.publicKey.asymmetricKeyType!=='ed25519')transferFail('TRANSFER_TRUST_INVALID');
     this.#policy={chunkBytes:65536,bytesPerSecond:262144,maxAttempts:512,backoffMs:100,timeoutMs:500,...options.policy};const p=this.#policy;
     if(!Number.isInteger(p.chunkBytes)||p.chunkBytes<1||p.chunkBytes>65536||!Number.isInteger(p.bytesPerSecond)||p.bytesPerSecond<p.chunkBytes||p.bytesPerSecond>1048576||!Number.isInteger(p.maxAttempts)||p.maxAttempts<1||p.maxAttempts>512||!Number.isInteger(p.backoffMs)||p.backoffMs<1||p.backoffMs>5000||!Number.isInteger(p.timeoutMs)||p.timeoutMs<1||p.timeoutMs>1000)transferFail('TRANSFER_POLICY_INVALID');
+    if(Math.ceil(options.store.maximumImageBytes/p.chunkBytes)>p.maxAttempts)transferFail('TRANSFER_POLICY_INVALID');
   }
   #clock():number {const now=this.options.now();if(!Number.isSafeInteger(now)||now<0||now<this.#last)transferFail('TRANSFER_CLOCK_INVALID');this.#last=now;return now;}
   #authority(edge:Identity):void {
@@ -50,6 +51,10 @@ export class CaptureTransfer {
       if(p.state==='failed'||p.attempts>=this.#policy.maxAttempts)return {state:'failed',reason:'TRANSFER_ATTEMPTS_EXHAUSTED',offset:p.offset,logicalBytes:0};
       if(this.options.higherPriorityPending()||now<p.nextRetryMs)return {state:'paused',reason:this.options.higherPriorityPending()?'HIGHER_PRIORITY_PENDING':'TRANSFER_BACKOFF',offset:p.offset,logicalBytes:0};
       const bytes=this.options.store.readImage(this.options.store.get(commandId)!);
+      // Rate deferral happens before reserving an attempt or contacting the peer.
+      // Use the largest possible next chunk: a resumed remote offset may differ.
+      const second=Math.floor(this.#clock()/1000);if(second!==this.#second){this.#second=second;this.#sent=0;}
+      if(this.#sent+Math.min(this.#policy.chunkBytes,m.image.bytes)>this.#policy.bytesPerSecond)return {state:'paused',reason:'LAN_RATE_LIMIT',offset:p.offset,logicalBytes:0};
       // Reserve an attempt durably before invoking even a control handshake.
       p.attempts++;p.state='transferring';this.options.store.saveTransferProgress(commandId,p);
       try {
@@ -59,8 +64,7 @@ export class CaptureTransfer {
         // transport; a missing final ownership receipt never permits retention.
         p.offset=remote.offset;
         if(p.offset<m.image.bytes) {
-          const length=Math.min(this.#policy.chunkBytes,m.image.bytes-p.offset),second=Math.floor(this.#clock()/1000);if(second!==this.#second){this.#second=second;this.#sent=0;}
-          if(this.#sent+length>this.#policy.bytesPerSecond){p.state='paused';p.nextRetryMs=(second+1)*1000;this.options.store.saveTransferProgress(commandId,p);return {state:'paused',reason:'LAN_RATE_LIMIT',offset:p.offset,logicalBytes:0};}
+          const length=Math.min(this.#policy.chunkBytes,m.image.bytes-p.offset);
           const chunk=bytes.subarray(p.offset,p.offset+length),offset=p.offset;this.#sent+=length;
           const spec:TransferSpec={scope:{realm:m.realm,siteId:m.siteId,executionMode:'simulation',source:this.options.source,boundary:'lan',linkId:'pod-edge-capture-model'},direction:'upload',category:'still',includes:['payload','retries'],maxAgeMs:60000,retryOf:null,media:null};
           let response:{offset:number;duplicate:boolean}|undefined;

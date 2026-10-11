@@ -22,7 +22,7 @@ const native=JSON.parse(readFileSync(new URL('../../arbi-edge-controller/fixture
 function fixture(t:TestContext,policy:{chunkBytes?:number;maxAttempts?:number;bytesPerSecond?:number;timeoutMs?:number;maxBytes?:number;maxRecords?:number}={}) {
   const podRoot=mkdtempSync(join(tmpdir(),'arbi-pod-capture-')),edgeRoot=mkdtempSync(join(tmpdir(),'arbi-edge-captures-')),receipt=structuredClone(native.receipt),key=generateKeyPairSync('ed25519');
   let source=structuredClone(receipt.metadata.source),edge={deviceId:'edge',bootId:'edge-recovery-1',sessionId:'edge-recovery-session'},now=0,allowed=true,priority=false,edgeCut:string|null=null,podCut:string|null=null;
-  const podOptions={root:podRoot,binding:{realm:receipt.metadata.realm,siteId:receipt.metadata.siteId,deviceId:source.deviceId},maxBytes:policy.maxBytes,maxRecords:policy.maxRecords,fault:(point:string)=>{if(podCut===point){podCut=null;throw new Error('SIMULATED_PROCESS_CUT');}}};let store=new CaptureStore(podOptions);
+  const podOptions={root:podRoot,binding:{realm:receipt.metadata.realm,siteId:receipt.metadata.siteId,deviceId:source.deviceId},maxBytes:policy.maxBytes??Buffer.from(native.pngBase64,'base64').length,maxRecords:policy.maxRecords,fault:(point:string)=>{if(podCut===point){podCut=null;throw new Error('SIMULATED_PROCESS_CUT');}}};let store=new CaptureStore(podOptions);
   const publish=(commandId=receipt.commandId)=>{const metadata=structuredClone(receipt.metadata);metadata.request.commandId=commandId;store.reserve({commandId,correlationId:receipt.correlationId,resourceId:receipt.resourceId,fingerprint:receipt.fingerprint});return store.publish(commandId,Buffer.from(native.pngBase64,'base64'),32,24,metadata);};const captured=publish();
   const edgeOptions={root:edgeRoot,realm:receipt.metadata.realm,siteId:receipt.metadata.siteId,podDeviceId:source.deviceId,edge,privateKey:key.privateKey,authorize:(pod:typeof source)=>allowed&&configurationDigest(pod)===configurationDigest(source),maxBytes:policy.maxBytes,maxRecords:policy.maxRecords,fault:(point:string)=>{if(edgeCut===point){edgeCut=null;throw new Error('SIMULATED_PROCESS_CUT');}}};let receiver=new CaptureReceiver(edgeOptions);
   const usage=new TrafficSpool({path:join(podRoot,'usage.sqlite'),binding:{...podOptions.binding,executionMode:'simulation'},maxRecords:512,maxBytes:4194304,maxPages:2048,maxCounters:1}),meter=new ApplicationMeter(usage,()=>stamp(source.bootId));
@@ -84,7 +84,7 @@ test('fresh pod/edge epochs resume the immutable image, while old peers/clock/re
 });
 test('priority, rate, backoff, finite attempts, single owner and timed-out transports bound retries',async t=>{
   const f=fixture(t,{bytesPerSecond:32});f.priority(true);assert.equal((await f.sender.step(f.captured.commandId)).reason,'HIGHER_PRIORITY_PENDING');assert.equal(f.store.transferProgress(f.captured.commandId),null);f.priority(false);await f.sender.step(f.captured.commandId);assert.equal((await f.sender.step(f.captured.commandId)).reason,'LAN_RATE_LIMIT');f.advance();assert.equal((await f.sender.step(f.captured.commandId)).reason,null);
-  const failed=fixture(t,{maxAttempts:1});failed.transport.begin=async()=>{throw new Error('LINK_DOWN');};assert.equal((await failed.sender.step(failed.captured.commandId)).state,'failed');assert.equal((await failed.sender.step(failed.captured.commandId)).reason,'TRANSFER_ATTEMPTS_EXHAUSTED');
+  const failed=fixture(t,{maxAttempts:1,chunkBytes:65536});failed.transport.begin=async()=>{throw new Error('LINK_DOWN');};assert.equal((await failed.sender.step(failed.captured.commandId)).state,'failed');assert.equal((await failed.sender.step(failed.captured.commandId)).reason,'TRANSFER_ATTEMPTS_EXHAUSTED');
   const slow=fixture(t,{timeoutMs:10});slow.transport.begin=async()=>new Promise(()=>{});const pending=slow.sender.step(slow.captured.commandId);await assert.rejects(slow.sender.step(slow.captured.commandId),{code:'TRANSFER_BUSY'});assert.equal((await pending).reason,'TRANSFER_TIMEOUT');await assert.rejects(slow.sender.step(slow.captured.commandId),{code:'TRANSFER_TRANSPORT_QUARANTINED'});assert.equal(slow.store.delivery(slow.captured.commandId),null);await slow.sender.stopAndDrain();assert.equal(slow.sender.status.closed,true);
 });
 test('native owner corruption cannot produce a fresh receipt or successful duplicate',async t=>{
@@ -128,4 +128,24 @@ test('SIGKILL after edge cursor commit preserves the pod prefix; fresh-epoch ret
   const diagnostics=new DiagnosticBuffer(join(f.podRoot,'diagnostics.sqlite')),m=f.store.manifest(f.captured.commandId),audit=new SqliteAuditSpool({path:join(f.podRoot,'audit.sqlite'),realm:m.realm,siteId:m.siteId,executionMode:'simulation',source:{module:'pod',identity:f.source()},maxEvents:32,maxBytes:262144,maxPages:256});assert.equal(diagnostics.status().buffered,1);assert.equal(f.receiver.cursorStatus().retained,1);
   const recovery=new PodCursorRecovery({source:f.source(),edge:f.edge,publicKey:f.key.publicKey,authorized:()=>true,audit,usage:f.usage,diagnostics});t.after(async()=>{await recovery.stopAndDrain();audit.close();diagnostics.close();});
   const r=await recovery.flush({send:async(kind,id,body,pod,signal)=>{signal.throwIfAborted();return f.receiver.acceptCursor(kind,id,body,pod);}});assert.equal(r.diagnostic,1);assert.equal(r.reason,null);assert.equal(f.receiver.cursorStatus().retained,1);assert.equal(diagnostics.status().buffered,0);assert.equal(r.cloudCommitted,false);assert.equal(f.store.delivery(f.captured.commandId),null);
+});
+
+test('policy rejects an impossible largest image; rate deferrals preserve cumulative attempts and equality completes',async t=>{
+  const large=fixture(t,{maxBytes:8388608,chunkBytes:65536,maxAttempts:512});
+  assert.throws(()=>new CaptureTransfer({...large.senderOptions(),policy:{chunkBytes:1024,maxAttempts:512}}),{code:'TRANSFER_POLICY_INVALID'});
+  const equality=new CaptureTransfer({...large.senderOptions(),policy:{chunkBytes:16384,bytesPerSecond:16384,maxAttempts:512}});await equality.stopAndDrain();
+  const f=fixture(t,{chunkBytes:32,bytesPerSecond:32,maxAttempts:4});
+  for(let n=0;n<3;n++){assert.equal((await f.sender.step(f.captured.commandId)).state,'paused');const before=f.store.transferProgress(f.captured.commandId)!.attempts;
+    for(let i=0;i<3;i++)assert.equal((await f.sender.step(f.captured.commandId)).reason,'LAN_RATE_LIMIT');
+    assert.equal(f.store.transferProgress(f.captured.commandId)!.attempts,before);f.advance();}
+  assert.equal((await f.sender.step(f.captured.commandId)).state,'owned');assert.equal(f.store.transferProgress(f.captured.commandId)!.attempts,4);
+});
+test('a healthy slow cursor batch yields without quarantining and the next flush resumes the durable prefix',async t=>{
+  const f=fixture(t),m=f.store.manifest(f.captured.commandId),source=f.source(),audit=new SqliteAuditSpool({path:join(f.podRoot,'audit.sqlite'),realm:m.realm,siteId:m.siteId,executionMode:'simulation',source:{module:'pod',identity:source},maxEvents:32,maxBytes:262144,maxPages:256}),diagnostics=new DiagnosticBuffer(join(f.podRoot,'diagnostics.sqlite'));
+  for(let n=0;n<8;n++)diagnostics.append({code:'COMMAND_REJECTED',atMs:n,bootId:source.bootId,connectionId:null,correlationId:m.correlationId,sequence:String(n+1)});
+  const recovery=new PodCursorRecovery({source,edge:f.edge,publicKey:f.key.publicKey,authorized:()=>true,audit,usage:f.usage,diagnostics,timeoutMs:500});
+  t.after(async()=>{await recovery.stopAndDrain();audit.close();diagnostics.close();});
+  const slow={send:async(kind:Parameters<CaptureReceiver['acceptCursor']>[0],id:string,body:unknown,pod:typeof source,signal:AbortSignal)=>{await new Promise(resolve=>setTimeout(resolve,220));signal.throwIfAborted();return f.receiver.acceptCursor(kind,id,body,pod);}};
+  const first=await recovery.flush(slow);assert.equal(first.reason,'CURSOR_RECOVERY_REQUIRED');assert.ok(first.diagnostic>0&&first.diagnostic<8);assert.equal(recovery.status().quarantined,false);
+  const second=await recovery.flush(slow);assert.equal(second.reason,null);assert.equal(first.diagnostic+second.diagnostic,8);assert.equal(diagnostics.status().buffered,0);assert.equal(recovery.status().quarantined,false);
 });

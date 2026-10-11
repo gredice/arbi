@@ -24,10 +24,10 @@ Only committed ownership earns an Ed25519 `arbi.capture-owner/1.0` receipt bindi
 | LAN step | One chunk, default 65,536 bytes; default 262,144 bytes/sec, maximum 1 MiB/sec |
 | Attempts/backoff | Durable maximum 512; initial 100 ms, exponential capped at 5,000 ms |
 | IO | Default 500 ms per boundary, maximum 1,000 ms; timeout quarantines owner |
-| Cursor flush | At most 8 audit + 8 usage + 8 diagnostics, overall maximum 1,000 ms |
+| Cursor flush | At most 8 audit + 8 usage + 8 diagnostics; 1,000 ms admission budget plus at most one per-send timeout (maximum 1,000 ms) |
 | Edge cursor retention | 512 rows/2 MiB bodies within the same database; full refuses custody |
 
-Payload, database and traffic spool budgets are separate; payload quota is not filesystem capacity. Receipt exhaustion requires a separately reviewed epoch/retention policy rather than deleting history. Higher priority work defers media without affecting local stops. `stopAndDrain` prevents retained IO racing store closure. A dishonest transport ignoring abort is quarantined; a fresh composition must invalidate old grants before retrying.
+Payload, database and traffic spool budgets are separate; payload quota is not filesystem capacity. Receipt exhaustion requires a separately reviewed epoch/retention policy rather than deleting history. Policies must allow the largest accepted store image to complete within the cumulative durable attempt bound. Rate deferrals precede handshake/attempt reservation and consume no attempt; actual progress never resets attempts. Higher priority work defers media without affecting local stops. `stopAndDrain` prevents retained IO racing store closure. A dishonest transport ignoring abort is quarantined; a fresh composition must invalidate old grants before retrying.
 
 Each submitted payload is a fresh LAN application usage attempt with retries included. Duplicate submitted payload remains counted while original identity/ownership remain deduplicated. Handshake/metadata/TLS/Wi-Fi/router/provider overhead is unavailable in this harness. LAN transfer never calls WAN `TransferBudget`, consumes mobile allowance or claims upload success. `logicalBytes` is returned once on new acknowledged custody; retry responses return zero. Durable receipt inspection recovers acknowledgement loss without another transfer debit.
 

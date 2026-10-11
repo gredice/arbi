@@ -21,10 +21,10 @@ export class PodCursorRecovery {
   async flush(transport:PodCursorTransport):Promise<{audit:number;usage:number;diagnostic:number;cloudCommitted:false;reason:string|null}> {
     if(this.#closed)transferFail('CURSOR_RECOVERY_CLOSED');if(this.#busy)transferFail('CURSOR_RECOVERY_BUSY');if(this.#quarantined)transferFail('CURSOR_TRANSPORT_QUARANTINED');
     const edge=structuredClone(this.options.edge());transferIdentity(edge);
-    this.#busy=true;this.#done=new Promise(resolve=>{this.#resolve=resolve;});const until=performance.now()+(this.options.timeoutMs??1000),result={audit:0,usage:0,diagnostic:0,cloudCommitted:false as const,reason:null as string|null};
+    this.#busy=true;this.#done=new Promise(resolve=>{this.#resolve=resolve;});const until=performance.now()+1000,result={audit:0,usage:0,diagnostic:0,cloudCommitted:false as const,reason:null as string|null};
     const send=async(kind:CaptureCursorKind,id:string,body:unknown,hash:string):Promise<CaptureCursorReceipt>=>{
-      this.#authority(edge);const remaining=until-performance.now();if(remaining<=0)transferFail('CURSOR_RECOVERY_BUDGET');const controller=new AbortController();this.#abort=controller;let timer:ReturnType<typeof setTimeout>|undefined;
-      try {const receipt=await Promise.race([Promise.resolve().then(()=>transport.send(kind,id,body,this.options.source,controller.signal)),new Promise<never>((_,reject)=>{timer=setTimeout(()=>{this.#quarantined=true;controller.abort();reject(new Error('CURSOR_RECOVERY_TIMEOUT'));},remaining);})]);this.#authority(edge);verifyCursorReceipt(receipt,kind,id,hash,edge,this.options.publicKey);return receipt;}
+      this.#authority(edge);if(performance.now()>=until)transferFail('CURSOR_RECOVERY_BUDGET');const controller=new AbortController();this.#abort=controller;let timer:ReturnType<typeof setTimeout>|undefined;
+      try {const receipt=await Promise.race([Promise.resolve().then(()=>transport.send(kind,id,body,this.options.source,controller.signal)),new Promise<never>((_,reject)=>{timer=setTimeout(()=>{this.#quarantined=true;controller.abort();reject(new Error('CURSOR_RECOVERY_TIMEOUT'));},this.options.timeoutMs??1000);})]);this.#authority(edge);verifyCursorReceipt(receipt,kind,id,hash,edge,this.options.publicKey);return receipt;}
       finally {if(timer)clearTimeout(timer);controller.abort();if(this.#abort===controller)this.#abort=null;}
     };
     try {

@@ -44,6 +44,7 @@ export class CaptureStore {
   }
   close(){if(this.#closed)return;this.#closed=true;this.#db?.close();try{this.#lock.exec('ROLLBACK');}catch{}this.#lock.close();}
   get bindingDigest(){return this.#bindingDigest;}
+  get maximumImageBytes(){return Math.min(8388608,this.#maxBytes);}
   #put(r:CaptureRecord){const text=JSON.stringify(r);if(Buffer.byteLength(text)>32768)reject('CAPTURE_METADATA_LIMIT');this.#parse(text);this.#db.prepare('INSERT INTO captures(id,record) VALUES(?,?) ON CONFLICT(id) DO UPDATE SET record=excluded.record').run(r.commandId,text);}
   #parse(text:string):CaptureRecord {
     if(Buffer.byteLength(text)>32768)reject('CORRUPT_CAPTURE_RECEIPT');const r=JSON.parse(text) as CaptureRecord;
