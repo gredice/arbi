@@ -9,7 +9,7 @@ import { provisionDashboardHistory } from './history-fixture';
 /** Operator-only setup of a dedicated empty synthetic database; never called on app startup. */
 export async function provisionDashboardTest(db: SqlDatabase, realm: Realm, options:{history?:boolean}={}) {
   if (realm.environment !== "test") throw new Error("DENIED");
-  for (const file of ["0001-enrollment.sql", "0002-media.sql", "0003-audit.sql", "0004-jobs.sql", "0006-dashboard.sql", "0007-usage.sql", "0008-audit-lifecycle.sql", "0009-usage-settings.sql", "0010-operations.sql"]) {
+  for (const file of ["0001-enrollment.sql", "0002-media.sql", "0003-audit.sql", "0004-jobs.sql", "0005-realtime.sql", "0006-telemetry.sql", "0006-dashboard.sql", "0007-usage.sql", "0008-audit-lifecycle.sql", "0009-usage-settings.sql", "0010-operations.sql"]) {
     const sql = await readFile(new URL(`../../migrations/${file}`, import.meta.url), "utf8");
     await db.transaction(async connection => { await connection.query(sql); });
   }

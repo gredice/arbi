@@ -59,6 +59,15 @@ import { proofBytes } from '../enrollment/crypto';
 function requireSign(value:unknown,key:KeyObject){return sign(null,proofBytes(value),key).toString('base64url');}
 
 export async function commonTests(t:TestContext,db:SqlDatabase,sql:SqlSession) {
+  await t.test('newer job snapshots retain the immutable admitted receiver stamp in telemetry projections',async()=>{
+    const f=await setup(db,sql);await f.ingest(f.snapshot(1));await f.ingest(f.sample(1));
+    const newest=f.snapshot(4),{signature:_signature,configRevision:_config,...unsigned}=f.signed(newest,'snapshot');
+    const wire={...unsigned,version:'arbi.jobs-device/1.0'};
+    await f.server.store.jobs.device(f.siteId,{...wire,signature:requireSign(wire,f.keys.privateKey)});
+    const current=await f.current(),head=current.states.find((state:{message:Telemetry|Event})=>state.message.kind==='telemetry');
+    const report=(await sql.query<{record:Event}>('SELECT record FROM arbi_job_reports WHERE id=$1',[newest.messageId])).rows[0].record;
+    assert.deepEqual(head.snapshot,report);assert.ok(head.snapshot.ingestTime);assert.equal(head.snapshotFresh,true);assert.notEqual(head.snapshotAgeUpperBoundMs,null);
+  });
   await t.test('boot/sequence identity, late messages, gaps and unavailable versus zero survive a new reader',async()=>{
     const f=await setup(db,sql);await f.ingest(f.snapshot());
     const zero=f.sample(10,'measured',0);await f.ingest(zero);

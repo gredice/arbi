@@ -47,8 +47,8 @@ test('full inventory and selected diagnostics bound demand, bytes, hidden lifecy
   await expect(page.getByRole('row',{name:/Motion Pico/})).toContainText('Driver encoder feedback');
   await page.getByRole('link',{name:'Engineering',exact:true}).click();await page.getByRole('link',{name:'Diagnostics',exact:true}).click();
   let requests=0,bytes=0,completed=0;page.on('request',r=>{if(r.url().includes('/dashboard/detail?'))requests++;});
-  page.on('requestfinished',r=>{if(r.url().includes('/dashboard/detail?'))void r.response().then(async response=>{
-    if(response?.ok()){bytes+=(await response.body()).length;completed++;}
+  page.on('response',response=>{if(response.url().includes('/dashboard/detail?')&&response.ok())void response.body().then(body=>{
+    bytes+=body.length;completed++;
   }).catch(()=>{/* Aborted/retired response is not a completed payload measurement. */});});
   await page.clock.fastForward(10000);expect(requests).toBe(0);
   await page.getByLabel('Detail demand').selectOption('pod');await expect(page.getByText(/Selected detail active/)).toBeVisible();
