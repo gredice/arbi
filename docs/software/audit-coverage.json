@@ -474,6 +474,42 @@
         "packages/arbi-protocol/src/release-updates.test.ts"
       ],
       "observability": "isolated ephemeral signing keys; durable release.publish/provider installation instrumentation remains pending #33/#73; immutable signature is not installation evidence"
+    },
+    {
+      "entrypoint": "apps/arbi-edge-controller/src/updates/trust.ts",
+      "actions": [
+        "root policy transition",
+        "reviewed-reference offline recovery",
+        "artifact acceptance",
+        "security/compatibility plan"
+      ],
+      "requiredFacts": [
+        "root-signed scoped public policy",
+        "monotonic policy/key/security-version binding",
+        "durable recovery reference and reliable-clock floor"
+      ],
+      "evidence": [
+        "apps/arbi-edge-controller/src/updates/security.test.ts"
+      ],
+      "observability": "isolated public-root test device; private operational journal, no Gredice/canonical human installation admission or physical provisioning"
+    },
+    {
+      "entrypoint": "apps/arbi-edge-controller/src/updates/migrations.ts",
+      "actions": [
+        "prepare snapshot",
+        "apply named fixture migration",
+        "restore prior data",
+        "restart/recovery"
+      ],
+      "requiredFacts": [
+        "immutable prior data and durable marker",
+        "current artifact trust and reverse compatibility",
+        "explicit recovery-required with no motion authority"
+      ],
+      "evidence": [
+        "apps/arbi-edge-controller/src/updates/security.test.ts"
+      ],
+      "observability": "representative test data only; canonical update operation audit and actual commissioning/installed boot wiring remain #73/#71/#44"
     }
   ]
 }
