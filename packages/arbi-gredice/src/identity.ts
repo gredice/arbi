@@ -139,7 +139,8 @@ export class GrediceIdentityAdapter {
     return Object.freeze({ actor: Object.freeze({ ...session.actor }), sessionId: session.sessionId,
       realm: Object.freeze({ ...this.realm }), siteId: scope.siteId, accountId: scope.accountId,
       resource: Object.freeze({ ...scope.resource }), capability, membershipRevision: member.revision,
-      expiresAtMs: Math.min(session.expiresAtMs, current.expiresAtMs, value.observedAtMs + this.maxDirectoryAgeMs) });
+      expiresAtMs: Math.min(session.expiresAtMs, current.expiresAtMs, value.observedAtMs + this.maxDirectoryAgeMs),
+      sessionExpiresAtMs: Math.min(session.expiresAtMs, current.expiresAtMs) });
   }
 }
 function isSnapshot(value: unknown): value is DirectorySnapshot {

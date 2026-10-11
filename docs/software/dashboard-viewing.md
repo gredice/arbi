@@ -9,10 +9,14 @@ no session or video. Changing quality requires stopping and a new explicit start
 The protected dashboard-live cookie bridge delegates to the original live
 service. Every viewer keeps its own server ID, original human session, token
 epoch and authorization/absolute deadline even when sharing a producer.
-A four-second heartbeat observes current authority; it renews conservatively
-before the last twelve seconds of a valid explicit
-session within its original absolute lifetime and re-establishes only that
+A heartbeat adapts to the remaining lease, with a 1.5-second maximum polling
+interval. It rechecks current authority and renews conservatively before the
+last twelve seconds of a valid explicit session within its original absolute
+lifetime and re-establishes only that
 session's isolated signaling. Error, denial, expiry or revoked state stops it.
+The original verified human-session expiry bounds that lifetime. A short
+directory-permission snapshot bounds each lease; it is rechecked on renewal
+and cannot authorize a viewer after its lease expires.
 
 Expected upstream/per-viewer bytes per minute are profile maximum payload
 estimates. Measured bytes read the existing signed usage windows referenced by

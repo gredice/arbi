@@ -112,8 +112,10 @@ export class LiveStore{
       const decision=await this.#policy(tx,authority,device.id,p,active.length),viewerId=randomUUID();
       authority=await this.jobs.authority(tx,authority);
       const intent=await this.jobs.event(tx,authority,'live.grant',{kind:'live-session',id:viewerId,deviceId:device.id},{target:device.current!});intent.metadata.permission='view';intent.metadata.grantId=viewerId;
+      const sessionExpiry=authority.sessionExpiresAtMs??authority.expiresAtMs;
+      if(!Number.isSafeInteger(sessionExpiry)||sessionExpiry<authority.expiresAtMs)throw new JobError('DENIED');
       const v:LiveViewer={version:LIVE_VERSION,id:viewerId,producerId:producer.demand.id,authority,currentAuthority:authority,target:device.current!,configRevision:tx.registry.configRevision,profile:p,policy:decision,
-        createdAtMs:tx.now,expiresAtMs:Math.min(tx.now+LIVE_LEASE_MS,authority.expiresAtMs),absoluteExpiresAtMs:Math.min(tx.now+LIVE_MAX_LIFETIME_MS,authority.expiresAtMs),epoch:1,endedAtMs:decision.allow?null:tx.now,endReason:decision.allow?null:'policy-denied',intent,signal:null,
+        createdAtMs:tx.now,expiresAtMs:Math.min(tx.now+LIVE_LEASE_MS,authority.expiresAtMs),absoluteExpiresAtMs:Math.min(tx.now+LIVE_MAX_LIFETIME_MS,sessionExpiry),epoch:1,endedAtMs:decision.allow?null:tx.now,endReason:decision.allow?null:'policy-denied',intent,signal:null,
         policyHistory:[{epoch:1,atMs:tx.now,policy:structuredClone(decision),viewers:active.length+1,sharedUpstream:active.length>0}]};
       if(decision.allow){await this.jobs.admit(tx,intent);await this.#emit(tx,intent,'live.grant','access-grant','allow','authorized');}
       else{await this.jobs.audit.stage(tx.sql,intent,binding(intent));await this.#emit(tx,intent,'live.grant','authorization','deny','not-authorized');}

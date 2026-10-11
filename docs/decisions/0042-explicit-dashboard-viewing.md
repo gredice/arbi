@@ -28,3 +28,10 @@ Production video remains unavailable pending the selected hardware transport
 and resource/timing decision. No fake video or browser playback observation is
 created. See the [guide](../software/dashboard-viewing.md) and
 [evidence](../evidence/dashboard-viewing.md).
+
+Preserve the verified original human-session deadline separately from the short
+Gredice permission snapshot. The former bounds the absolute viewing lifetime;
+the latter still bounds every lease and signaling token. Each renewal requires
+a valid unexpired viewer plus fresh current permission and policy. Legacy
+authority contexts without the session deadline retain their original grant
+ceiling. No client deadline can extend server authority.
