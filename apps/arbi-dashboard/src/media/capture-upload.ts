@@ -2,6 +2,7 @@ import { Readable } from 'node:stream';
 import { configurationDigest } from '@arbi/protocol';
 import { validateCaptureTrace,verifyCaptureUpload } from '@arbi/protocol/capture-upload';
 import type { CaptureTrace,CaptureUploadPort,CaptureUploadReceipt } from '@arbi/protocol/capture-upload';
+import type { CaptureManifest } from '@arbi/protocol/capture-transfer';
 import type { AuthorizedContext } from '@arbi/gredice';
 import { sameRealm } from '@arbi/gredice';
 import { MediaError,requireMedia,unavailableMetadata } from './contracts';
@@ -12,17 +13,22 @@ import { MediaService } from './service';
  * Current service identity is resolved on each boundary. No public route or
  * default provider credentials enable this composition. */
 export class CaptureMediaUpload implements CaptureUploadPort {
-  constructor(readonly options:{store:PostgresMediaStore;objects:PrivateObjectStore;authority:(signal:AbortSignal)=>Promise<AuthorizedContext>;request?:typeof fetch;now?:()=>number}){}
+  constructor(readonly options:{store:PostgresMediaStore;objects:PrivateObjectStore;authority:(signal:AbortSignal)=>Promise<AuthorizedContext>;request?:typeof fetch;now?:()=>number;
+    /** Trusted immutable historical configuration resolver; never a browser label. */
+    association?:(manifest:CaptureManifest,signal:AbortSignal)=>Promise<{bedId:string;plantId:string|null}|null>}){}
   async #prepare(trace:CaptureTrace,signal:AbortSignal){
     validateCaptureTrace(trace);const context=await this.options.authority(signal),now=(this.options.now??Date.now)();
     requireMedia(!signal.aborted&&context.actor.kind==='service'&&context.capability==='capture.request'&&context.expiresAtMs>now&&trace.manifest.realm.environment==='test'&&sameRealm(context.realm,trace.manifest.realm)&&context.siteId===trace.manifest.siteId,'DENIED');
     const m=trace.manifest,a=trace.artifact,metadata:CaptureMetadata={...unavailableMetadata(),capture:{status:'available',id:a.id},job:{status:'available',id:m.correlationId},provenance:'trusted-capture-record',trace:structuredClone(trace)};
     const config=m.metadata.configuration as {calibrationRevision:string},time=m.metadata.capturedAt as {utc:string|null;uncertaintyMs:number|null},pose=m.metadata.requestedPose as {frame:{name:string;revision:string}};
     metadata.calibration={status:'available',id:config.calibrationRevision};metadata.bed={status:'unavailable',reason:'not-associated'};metadata.plant={status:'unavailable',reason:'not-associated'};
+    const requestId=`capture-${configurationDigest([m.realm,m.siteId,a.id]).slice(0,48)}`,existing=await this.options.store.transact(context.realm,context.siteId,tx=>tx.replay(context,requestId));
+    if(existing){requireMedia(existing.metadata.trace&&configurationDigest(existing.metadata.trace)===configurationDigest(trace),'CONFLICT');metadata.bed=structuredClone(existing.metadata.bed);metadata.plant=structuredClone(existing.metadata.plant);}
+    else {const association=await this.options.association?.(structuredClone(m),signal);if(association){metadata.bed={status:'available',id:association.bedId};if(association.plantId)metadata.plant={status:'available',id:association.plantId};}}
     if(time.utc!==null)metadata.capturedAt={status:'available',utc:time.utc,uncertaintyMs:time.uncertaintyMs};
     metadata.framing={status:'available',frameId:pose.frame.name,revision:pose.frame.revision};
     const service=new MediaService(this.options.store,this.options.objects,async q=>({site:{realm:q.site.realm,siteId:q.site.siteId,accountId:q.site.accountId,executionMode:q.site.executionMode},metadata}),this.options.now??Date.now);
-    const request:UploadInput={requestId:`capture-${configurationDigest([m.realm,m.siteId,a.id]).slice(0,48)}`,variant:'full',imageId:null,captureId:a.id,size:a.bytes,contentType:a.contentType,sha256:a.sha256,width:a.widthPx,height:a.heightPx};
+    const request:UploadInput={requestId,variant:'full',imageId:null,captureId:a.id,size:a.bytes,contentType:a.contentType,sha256:a.sha256,width:a.widthPx,height:a.heightPx};
     const prepared=await service.upload(context,request);requireMedia(!signal.aborted,'UNAVAILABLE');return {context,service,prepared,request};
   }
   #receipt(trace:CaptureTrace,image:{id:string;metadata:CaptureMetadata;variants:Record<string,unknown>}):CaptureUploadReceipt {

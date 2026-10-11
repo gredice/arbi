@@ -8,6 +8,7 @@ import { Bandwidth } from './bandwidth';
 import { AuditTimeline } from './audit-timeline';
 import { UpdateDashboard } from './updates';
 import { ControlPlayground } from './controls';
+import { CaptureDashboard } from './captures';
 
 const sections = [{ id: "overview", name: "Overview", icon: "◫" }, { id: "devices", name: "Devices", icon: "◇" },
   { id: "controls", name: "Controls", icon: "⊕" }, { id: "images", name: "Images", icon: "▧" }, { id: "releases", name: "Releases", icon: "↓" }, { id: "usage", name: "Bandwidth", icon: "↕" }, { id: "activity", name: "Activity", icon: "≋" }, { id: "live", name: "Live readiness", icon: "○" }, { id: "diagnostics", name: "Diagnostics", icon: "⌁" }];
@@ -64,7 +65,7 @@ export function DashboardShell({ siteId, mode, section, initial }: { siteId: str
       <main id="content" tabIndex={-1}><div className="page-heading"><div><p className="eyebrow">Garden observatory / {mode}</p><h1>{sections.find(s => s.id === section)?.name}</h1><p>{visible?.site.name ?? "Current site access must be confirmed."}</p></div><button className="quiet refresh" disabled={loading} onClick={refresh}>{loading ? "Checking access…" : "Refresh status"}</button></div>
         {!visible ? <Failure status={expired ? 401 : result.ok ? 503 : result.status} error={expired ? "EXPIRED_SESSION" : result.ok ? "UNAVAILABLE" : result.error} /> : <>
           <div className="status-strip"><span><span className={`dot ${visible.state.connection === "connected" && status === "fresh" ? "" : "muted"}`} />{visible.state.connection === "no-device" ? "No device enrolled" : visible.state.connection === "offline" ? "Device offline" : "HTTPS snapshot connected"}</span><span>Observation: {status}{visible.state.snapshot ? ` · ${new Date(visible.state.observedAtMs).toISOString().slice(11, 19)} UTC` : ""}</span><span>Config {visible.configuration?.revision ?? "unavailable"}</span></div>
-          {["diagnostics","usage","activity","releases"].includes(section) ? <Section context={visible} section={section} now={now} /> : visible.state.connection === "no-device" ? <div className="panel empty"><h2>No device is enrolled</h2><p>This site has no current device state. Enrollment and commissioning need an authorized backend workflow.</p></div> : section === "overview" ? <Overview context={visible} now={now} /> : <Section context={visible} section={section} now={now} />}
+          {["diagnostics","usage","activity","releases","images"].includes(section) ? <Section context={visible} section={section} now={now} /> : visible.state.connection === "no-device" ? <div className="panel empty"><h2>No device is enrolled</h2><p>This site has no current device state. Enrollment and commissioning need an authorized backend workflow.</p></div> : section === "overview" ? <Overview context={visible} now={now} /> : <Section context={visible} section={section} now={now} />}
           <div className="permission-note"><strong>Current access</strong><span>{visible.capabilities.join(" · ")}</span><p>Display mode changes presentation. Every API read and action checks current membership and permissions.</p></div>
         </>}
       </main><footer>ARBI / {visible?.executionMode === "hardware" ? "Physical acceptance remains a separate gate" : "Synthetic software evidence only"}<span>Recording disabled · No automatic media or command replay</span></footer>
@@ -89,6 +90,7 @@ function reading(sample: NonNullable<DashboardContext["state"]["telemetry"]>["bo
   return <>{value.value === null ? "Unavailable" : `${Number(value.value.toFixed(1))} ${value.unit}`}<small className="quality">{value.quality}{value.originQuality ? ` (was ${value.originQuality})` : ""}</small></>;
 }
 function Section({ context, section, now }: { context: DashboardContext; section: string; now: number }) {
+  if(section==='images')return <CaptureDashboard context={context}/>;
   if(section==='controls')return <ControlPlayground context={context}/>;
   if(section==='usage')return <Bandwidth context={context}/>;
   if(section==='activity')return <AuditTimeline context={context}/>;

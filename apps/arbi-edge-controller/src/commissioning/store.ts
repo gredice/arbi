@@ -87,6 +87,13 @@ export class CommissioningStore {
     return row ? JSON.parse(String(row.body)) as CommissioningState : empty();
   }
   history(): CommissioningState[] { return this.#db.prepare('SELECT body FROM records ORDER BY ordinal').all().map(r => JSON.parse(String(r.body))); }
+  /** Current source plus bounded historical identities, never device journals. */
+  review(){
+    this.verify();const state=this.state();
+    const revisions=this.#db.prepare('SELECT body,record_id,reason_code FROM records ORDER BY ordinal DESC LIMIT 32').all().map(r=>{const s=JSON.parse(String(r.body)) as CommissioningState;return {recordId:String(r.record_id),reason:String(r.reason_code),active:s.active?setIdentity(s.active):null,staged:s.staged?setIdentity(s.staged):null,phase:s.phase,correlationId:s.activationId};});
+    const audit=this.#db.prepare('SELECT body FROM audit ORDER BY ordinal DESC LIMIT 32').all().map(r=>checked(JSON.parse(String(r.body))));
+    return {active:state.active,staged:state.staged,revisions,audit};
+  }
   #transaction(work: () => void) {
     try {
       this.#db.exec('BEGIN IMMEDIATE');

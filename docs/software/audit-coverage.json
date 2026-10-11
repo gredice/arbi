@@ -368,6 +368,27 @@
         "apps/arbi-dashboard/src/updates/runtime.test.ts"
       ],
       "observability": "actual HTTP Range application-body bytes and native SQLite synthetic slots only; uncertain receipts expose coverage gaps, pending grants retain upper bounds; no wire/carrier or physical installation evidence; default/preview unavailable"
+    },
+    {
+      "entrypoint": "apps/arbi-dashboard/src/app/api/sites/[siteId]/dashboard-captures/[action]/route.ts",
+      "actions": [
+        "history",
+        "latest",
+        "review",
+        "access",
+        "stage",
+        "activate"
+      ],
+      "requiredFacts": [
+        "authorization.check with current human site/resource permissions",
+        "still.view or media.download intent and issued access-grant observation",
+        "local commissioning stage/activation intent and canonical audit correlation"
+      ],
+      "evidence": [
+        "apps/arbi-dashboard/src/dashboard/capture-workflows.postgres.test.ts",
+        "apps/arbi-edge-controller/src/images/history.test.ts"
+      ],
+      "observability": "bounded metadata reads create no media grant or delivery claim; native cloud access intent precedes signing; local commissioning owner records staging/activation with source correlation and no asserted cloud delivery; browser/provider/hardware availability remains distinct"
     }
   ],
   "internal": [
