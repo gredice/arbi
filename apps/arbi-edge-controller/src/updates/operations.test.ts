@@ -88,3 +88,15 @@ test('update composition explicitly rejects a retry policy beyond its bounded re
   const c=extended.options.clock(),end=c.utcMs+1000;extended.checkpoint({period:'synthetic-day',startUtcMs:c.utcMs-1000,endUtcMs:end,revision:2,usedBytes:0,coverage:'complete',observedUtcMs:c.utcMs,maxAgeMs:10000,coveredCharges:[]});
   const grant=extended.override({id:'period-edge-override',class:'artifact',bytes:256,expiresUtcMs:end+10000,actor:f.actor});f.advanceClock(1001);assert.equal(extended.overrideStatus(grant.override.id)!.effectiveRemainingBytes,null);assert.equal(extended.status.coverage,'unknown');}finally{extended.close();}
 });
+test('dashboard projections preserve manifest provenance and corrupt payload policy without reporting installed success',async t=>{
+  const f=await fixture(t,{payloadBytes:256});
+  const manifest=f.composition.sets[0]!.manifests.find(m=>m.releaseId==='pico-1.1.0')!,signature=manifest.artifact.signature.value;
+  manifest.artifact.signature.value='0'.repeat(128);
+  const incompatible=await (await f.request('available')).json();assert.equal(incompatible.version,'arbi.update-view/1.0');assert.equal(incompatible.metered,true);
+  assert.equal(incompatible.releases[0].reason,'INVALID_SIGNATURE');assert.equal((await f.request('request',choice(f,'bad-signature',['pico']))).status,409);assert.equal(f.store.list().length,0);
+  manifest.artifact.signature.value=signature;const a=await admit(f,choice(f,'corrupt-payload',['pico']));f.sourceMode('corrupt-once');
+  const corrupt=await step(f,a.operationId);assert.equal(corrupt.reason,'DIGEST_MISMATCH');assert.equal(corrupt.targets[0]!.usageCharges.reduce((sum,c)=>sum+c.bytes,0),256);
+  assert.equal(corrupt.targets[0]!.status.installed.releaseId,'pico-1.0.0');assert.equal(corrupt.targets[0]!.status.confirmed.releaseId,'pico-1.0.0');assert.equal(f.targets.get('pico')!.status.installations,0);
+  assert.equal(f.store.audit().some(e=>e.evidence==='device-outcome'),false);
+  const view=await (await f.request('available')).json();assert.equal(view.releases[0].targets[0].manifest.build.commit,manifest.build.commit);assert.equal(view.operations[0].key,'corrupt-payload');assert.deepEqual(view.operations[0].actor,f.actor);
+});

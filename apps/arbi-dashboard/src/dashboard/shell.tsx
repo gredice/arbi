@@ -6,6 +6,7 @@ import { Brand } from "./brand";
 import { AssemblyDiagnostics, AssemblyInventory } from './diagnostics';
 import { Bandwidth } from './bandwidth';
 import { AuditTimeline } from './audit-timeline';
+import { UpdateDashboard } from './updates';
 import { ControlPlayground } from './controls';
 
 const sections = [{ id: "overview", name: "Overview", icon: "◫" }, { id: "devices", name: "Devices", icon: "◇" },
@@ -38,7 +39,7 @@ export function DashboardShell({ siteId, mode, section, initial }: { siteId: str
     setResult({ ok: false, status: 0, error: "LOADING" }); setLoading(true);
     const timeout = setTimeout(() => controller.abort(), 5000);
     try {
-      const response = await fetch(`/api/sites/${encodeURIComponent(siteId)}/dashboard/${["diagnostics", "releases"].includes(section) ? section : "context"}`, { cache: "no-store", signal: controller.signal });
+      const response = await fetch(`/api/sites/${encodeURIComponent(siteId)}/dashboard/${["diagnostics"].includes(section) ? section : "context"}`, { cache: "no-store", signal: controller.signal });
       const body = await response.json();
       if (controller.signal.aborted) return;
       if (response.ok && (body.version !== DASHBOARD_VERSION || body.site?.id !== siteId ||
@@ -63,7 +64,7 @@ export function DashboardShell({ siteId, mode, section, initial }: { siteId: str
       <main id="content" tabIndex={-1}><div className="page-heading"><div><p className="eyebrow">Garden observatory / {mode}</p><h1>{sections.find(s => s.id === section)?.name}</h1><p>{visible?.site.name ?? "Current site access must be confirmed."}</p></div><button className="quiet refresh" disabled={loading} onClick={refresh}>{loading ? "Checking access…" : "Refresh status"}</button></div>
         {!visible ? <Failure status={expired ? 401 : result.ok ? 503 : result.status} error={expired ? "EXPIRED_SESSION" : result.ok ? "UNAVAILABLE" : result.error} /> : <>
           <div className="status-strip"><span><span className={`dot ${visible.state.connection === "connected" && status === "fresh" ? "" : "muted"}`} />{visible.state.connection === "no-device" ? "No device enrolled" : visible.state.connection === "offline" ? "Device offline" : "HTTPS snapshot connected"}</span><span>Observation: {status}{visible.state.snapshot ? ` · ${new Date(visible.state.observedAtMs).toISOString().slice(11, 19)} UTC` : ""}</span><span>Config {visible.configuration?.revision ?? "unavailable"}</span></div>
-          {["diagnostics","usage","activity"].includes(section) ? <Section context={visible} section={section} now={now} /> : visible.state.connection === "no-device" ? <div className="panel empty"><h2>No device is enrolled</h2><p>This site has no current device state. Enrollment and commissioning need an authorized backend workflow.</p></div> : section === "overview" ? <Overview context={visible} now={now} /> : <Section context={visible} section={section} now={now} />}
+          {["diagnostics","usage","activity","releases"].includes(section) ? <Section context={visible} section={section} now={now} /> : visible.state.connection === "no-device" ? <div className="panel empty"><h2>No device is enrolled</h2><p>This site has no current device state. Enrollment and commissioning need an authorized backend workflow.</p></div> : section === "overview" ? <Overview context={visible} now={now} /> : <Section context={visible} section={section} now={now} />}
           <div className="permission-note"><strong>Current access</strong><span>{visible.capabilities.join(" · ")}</span><p>Display mode changes presentation. Every API read and action checks current membership and permissions.</p></div>
         </>}
       </main><footer>ARBI / {visible?.executionMode === "hardware" ? "Physical acceptance remains a separate gate" : "Synthetic software evidence only"}<span>Recording disabled · No automatic media or command replay</span></footer>
@@ -92,8 +93,7 @@ function Section({ context, section, now }: { context: DashboardContext; section
   if(section==='usage')return <Bandwidth context={context}/>;
   if(section==='activity')return <AuditTimeline context={context}/>;
   if(section==='devices')return <AssemblyInventory context={context}/>;
-  if (section === "releases") return <div className="panel"><h2>Available releases</h2><p>Publishing makes a release available. Devices keep their installed versions until a separately authorized update.</p>
-    {!context.releases?.length ? <p>No verified releases are available.</p> : <div className="table-wrap"><table><caption>Verified simulation application releases</caption><thead><tr><th>Target</th><th>Version</th><th>Commit</th><th>Status</th></tr></thead><tbody>{context.releases.map(release => <tr key={release.manifest.releaseId}><th scope="row">{release.manifest.target.moduleId}</th><td>{release.manifest.build.version}</td><td><code>{release.manifest.build.commit.slice(0, 12)}</code></td><td>Available · Simulation only</td></tr>)}</tbody></table></div>}</div>;
+  if(section==='releases')return <UpdateDashboard context={context}/>;
   if (section === "diagnostics") return <div className="panel"><p className="eyebrow">Engineering context</p><h2>Commissioning</h2>
     {context.commissioning ? <><p>{context.commissioning.ready ? "Configuration reconciled" : `Blocked: ${context.commissioning.blockedReason}`}</p><dl>
       <dt>Active configuration</dt><dd>{context.commissioning.active?.revision ?? "None"}</dd>

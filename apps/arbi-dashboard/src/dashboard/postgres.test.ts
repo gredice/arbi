@@ -19,8 +19,8 @@ test("native PostgreSQL dashboard: independent instances share current directory
   const other = new pg.Pool({ host: root, user: "arbi_test", port: 54321, database: "arbi_dashboard_test", max: 2 });
   t.after(async () => { await pool.end(); await other.end(); });
   const realm = { environment: "test" as const, namespaceId: "synthetic-dashboard" };
-  await provisionDashboardTest(postgresDatabase(pool), realm, {history:true});
-  const config = { realm, verificationKey: randomBytes(32), accessCode: "s".repeat(48), viewerCode: "v".repeat(48), browserOrigins: ["http://localhost:3000"] };
+  await provisionDashboardTest(postgresDatabase(pool), realm, {history:true,updater:true});
+  const config = { realm, verificationKey: randomBytes(32), accessCode: "s".repeat(48), viewerCode: "v".repeat(48), updateCode:"u".repeat(48), browserOrigins: ["http://localhost:3000"] };
   const a = createDashboardTestProvider({ ...config, db: postgresDatabase(pool) });
   const b = createDashboardTestProvider({ ...config, db: postgresDatabase(other) });
   const token = (await a.login(config.accessCode))!;
@@ -28,6 +28,18 @@ test("native PostgreSQL dashboard: independent instances share current directory
   const response = await b.server.handle(request, "synthetic-site"); assert.equal(response.status, 200);
   const context = await response.json(); assert.equal(context.identity.actorId, "synthetic-engineer");
   const viewer = (await a.login(config.viewerCode))!;
+  await t.test('private updater profile has site-bound update authority independently of engineer display and rechecks current membership',async()=>{
+    const updater=(await a.login(config.updateCode))!;
+    const request=new Request('http://localhost:3000/',{headers:{authorization:`Bearer ${updater}`}});
+    const response=await b.server.handle(request,'synthetic-site');assert.equal(response.status,200);
+    const context=await response.json();assert.equal(context.identity.actorId,'synthetic-updater');
+    assert.deepEqual(context.sites.map((s:{id:string})=>s.id),['synthetic-site']);
+    assert.ok(context.capabilities.includes('update.request'));assert.ok(context.capabilities.includes('configuration.write'));
+    assert.ok(!context.capabilities.includes('motion.request'));
+    await pool.query("UPDATE arbi_dashboard_memberships SET active=false,revision='membership-2' WHERE actor_id='synthetic-updater'");
+    assert.equal((await b.server.handle(request,'synthetic-site')).status,403);
+    await a.revoke(updater);assert.equal((await b.server.handle(request,'synthetic-site')).status,401);
+  });
   const tool = (provider: typeof a, feature: string, action: string, input?: unknown, credential = token, site = 'synthetic-site', origin = 'http://localhost:3000') => {
     const post = input !== undefined;
     const req = new Request(`http://localhost:3000/api/sites/${site}/dashboard-tools/${feature}/${action}`, {

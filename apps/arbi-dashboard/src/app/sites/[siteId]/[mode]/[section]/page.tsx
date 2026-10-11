@@ -9,7 +9,7 @@ export default async function Page({ params }: { params: Promise<{ siteId: strin
   if (!["user", "engineering"].includes(mode) || !["overview", "devices", "controls", "images", "releases", "usage", "activity", "diagnostics", "live"].includes(section)) notFound();
   const incoming = await headers();
   // URL is an internal composition address, never an outgoing fetch or user-selected upstream.
-  const response = await dashboardRoute(new Request(`http://localhost/api/sites/${encodeURIComponent(siteId)}/dashboard/context`, { headers: incoming }), siteId, ["diagnostics", "releases"].includes(section) ? section : "context");
+  const response = await dashboardRoute(new Request(`http://localhost/api/sites/${encodeURIComponent(siteId)}/dashboard/context`, { headers: incoming }), siteId, ["diagnostics"].includes(section) ? section : "context");
   const body = await response.json();
   const result: DashboardResult = response.ok ? { ok: true, context: body as DashboardContext } : { ok: false, status: response.status, error: body.error };
   return <DashboardShell key={`${siteId}:${mode}:${section}`} siteId={siteId} mode={mode as DashboardMode} section={section} initial={result} />;

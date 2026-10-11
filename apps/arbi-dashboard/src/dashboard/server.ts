@@ -4,6 +4,7 @@ import { validateCommissioningStatus, validateConfigurationRecord, validateMessa
 import type { CommissioningStatus, Configuration, Event } from "@arbi/protocol";
 import { DASHBOARD_VERSION } from "./contracts";
 import type { DashboardContext, DashboardSite, DashboardState } from "./contracts";
+import { webDeploymentIdentity } from './web-identity';
 import type { AvailableRelease } from "../releases/catalog";
 import { assemblyInventory, detailObservation, projectDiagnosticEvent } from './assemblies';
 
@@ -110,7 +111,7 @@ export class DashboardServer {
         }
         const context: DashboardContext = { version: DASHBOARD_VERSION, realm: authorized.realm, executionMode: scope.executionMode, site, sites,assemblies,
           identity: { actorId: authorized.actor.id, accountId: authorized.accountId, sessionId: authorized.sessionId, expiresAtMs: principal.expiresAtMs },
-          capabilities: allowed, state, configuration: configuration ? { revision: configuration.revision, schemaVersion: configuration.schemaVersion } : null,
+          capabilities: allowed, state, webDeployment:webDeploymentIdentity(), configuration: configuration ? { revision: configuration.revision, schemaVersion: configuration.schemaVersion } : null,
           ...(releases ? { releases } : {}),
           ...(view === "diagnostics" ? { commissioning } : {}) };
         return Response.json(context);

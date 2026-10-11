@@ -122,3 +122,5 @@ Design decisions belong in ADRs. Work items and unresolved questions belong in G
 - [Signing trust and migration recovery](software/update-trust-migrations.md), [isolated software evidence](evidence/update-trust-migrations.md), and [ADR-0019](decisions/0019-isolated-trust-and-migration-recovery.md)
 
 - [Isolated update operation API](software/update-operations.md), [software evidence](evidence/update-operations.md), and [ADR-0020](decisions/0020-isolated-update-orchestration.md)
+
+- [Device release and update dashboard](software/update-dashboard.md), [browser/software evidence](evidence/update-dashboard.md), and [ADR-0021](decisions/0021-isolated-update-dashboard.md)

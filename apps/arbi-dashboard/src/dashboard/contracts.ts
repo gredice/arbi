@@ -23,6 +23,7 @@ export interface DashboardContext {
   capabilities: Capability[];
   state: DashboardState;
   configuration: { revision: string; schemaVersion: string } | null;
+  webDeployment?:{revision:string|null;dirty:boolean|null;builtAt:string|null;environment:string;provenance:'web-build-manifest'};
   releases?: AvailableRelease[];
   commissioning?: CommissioningStatus | null;
   assemblies:Assembly[];
