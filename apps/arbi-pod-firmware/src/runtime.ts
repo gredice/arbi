@@ -70,12 +70,14 @@ export class PodRuntime {
         } catch {this.#audit?.close();this.#usage?.close();this.#buffer?.close();this.#audit=undefined;this.#usage=undefined;this.#buffer=undefined;this.#failure('STORAGE_UNAVAILABLE');}
         let cameraTimer:NodeJS.Timeout|undefined;
         try{const result=await Promise.race([this.#camera.initialize(),new Promise<never>((_,reject)=>{cameraTimer=setTimeout(()=>reject(new Error('CAMERA_TIMEOUT')),1000);})]);this.#cameraStatus=result.ready && result.origin==='simulated'?{ready:true,origin:'simulated'}:{ready:false,origin:'unavailable'};}catch{this.#cameraStatus={ready:false,origin:'unavailable'};}finally{clearTimeout(cameraTimer);}
+        if(this.#stopped)throw new Error('STARTUP_CANCELLED');
         this.#tls=tlsServer({ca:readBounded(s.tls.caFile,16384),cert:readBounded(s.tls.certFile,16384),key:readBounded(s.tls.keyFile,16384),
           requestCert:true,rejectUnauthorized:true,minVersion:'TLSv1.3',maxVersion:'TLSv1.3',ALPNProtocols:[TRANSPORT_VERSION],handshakeTimeout:1500},socket=>this.#connected(socket));
         this.#tls.maxConnections=2;this.#tls.on('tlsClientError',()=>this.#failure('AUTHENTICATION_FAILED'));
         await this.#listen(this.#tls,s.modulePort);
       }
       await this.#refresh();this.#poll=setInterval(()=>void this.#refresh(),1000);
+      if(this.#stopped){clearInterval(this.#poll);throw new Error('STARTUP_CANCELLED');}
       const h=httpServer({maxHeaderSize:4096,requestTimeout:2000,headersTimeout:2000},(request,response)=>{
         response.setHeader('Cache-Control','no-store');response.setHeader('Content-Type','application/json');
         if(request.method!=='GET'||request.url!=='/health'){response.writeHead(404);response.end('{"error":"NOT_FOUND"}');return;}
@@ -85,7 +87,8 @@ export class PodRuntime {
       return {healthPort:(h.address() as {port:number}).port,modulePort:this.#tls?(this.#tls.address() as {port:number}).port:null};
     } catch {await this.stop();throw new Error('STARTUP_FAILED');}
   }
-  #listen(server:HTTPServer|TLSServer,port:number):Promise<void>{return new Promise((resolve,reject)=>{server.once('error',reject);server.listen(port,'127.0.0.1',()=>{server.off('error',reject);resolve();});});}
+  #listen(server:HTTPServer|TLSServer,port:number):Promise<void>{return new Promise((resolve,reject)=>{server.once('error',reject);server.listen(port,'127.0.0.1',()=>{server.off('error',reject);
+    if(this.#stopped){server.close(()=>reject(new Error('STARTUP_CANCELLED')));return;}resolve();});});}
   #connected(socket:TLSSocket):void {
     const s=this.#settings!,raw=socket.getPeerCertificate().raw;
     if(this.#peer || !socket.authorized || socket.alpnProtocol!==TRANSPORT_VERSION || !raw || createHash('sha256').update(raw).digest('hex')!==s.tls.edgeCertificateSha256){this.#failure('AUTHENTICATION_FAILED');socket.destroy();return;}

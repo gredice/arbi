@@ -50,6 +50,17 @@ test('unconfigured executable exposes not-ready health without secrets or a came
     assert.equal(h.configurationDigest,null);assert.equal(h.camera.captureEnabled,false);assert.equal(h.resetReason.quality,'unavailable');assert.equal(ports.modulePort,null);
   }finally{await runtime.stop();}
 });
+test('shutdown during pending camera initialization cancels startup without opening a listener',async()=>{
+  const f=fixture();let release;
+  f.adapters.camera.initialize=()=>new Promise(resolve=>{release=()=>resolve({ready:true,origin:'simulated'});});
+  const runtime=new PodRuntime(f.settings,f.adapters,io);
+  try{
+    const starting=runtime.start();const rejected=assert.rejects(starting,/STARTUP_FAILED/u);
+    await waitFor(()=>typeof release==='function');await runtime.stop();release();await rejected;
+    assert.equal(runtime.status.ready,false);assert.equal(runtime.status.actuationInhibited,true);
+    await assert.rejects(runtime.start(),/INVALID_LIFECYCLE/u);
+  }finally{await runtime.stop();f.remove();}
+});
 test('real edge adapter negotiates actual pod TLS listener and durable correlated diagnostic records',async()=>{
   const f=fixture(),runtime=new PodRuntime(f.settings,f.adapters,io);let edge;
   try {
