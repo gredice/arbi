@@ -1,5 +1,6 @@
 import { DatabaseSync } from 'node:sqlite';
 import type { LogRecord } from './bounded.js';
+import { configurationDigest } from '@arbi/protocol';
 /** Informational local diagnostics, not shared AuditEvent authorization or device-effect evidence. */
 export class DiagnosticBuffer {
   #db:DatabaseSync;#degraded=false;
@@ -24,6 +25,11 @@ export class DiagnosticBuffer {
     }catch{try{this.#db.exec('ROLLBACK');}catch{}this.#degraded=true;return false;}
   }
   pending(){return this.#db.prepare('SELECT body FROM diagnostics ORDER BY ordinal LIMIT 128').all().map(v=>JSON.parse(String(v.body)) as LogRecord);}
+  pendingBounded(limit=8){if(!Number.isInteger(limit)||limit<1||limit>8)throw new Error('DIAGNOSTIC_LIMIT');return this.#db.prepare('SELECT body FROM diagnostics ORDER BY ordinal LIMIT ?').all(limit).map(v=>JSON.parse(String(v.body)) as LogRecord);}
+  acknowledge(id:string,hash:string):void {
+    const row=this.#db.prepare('SELECT ordinal,body FROM diagnostics ORDER BY ordinal LIMIT 1').get();if(!row)throw new Error('DIAGNOSTIC_RECEIPT_CONFLICT');const r=JSON.parse(String(row.body)) as LogRecord;
+    if(id!==`${r.bootId}:${r.sequence}`||configurationDigest(r)!==hash)throw new Error('DIAGNOSTIC_RECEIPT_CONFLICT');this.#db.prepare('DELETE FROM diagnostics WHERE ordinal=?').run(row.ordinal);
+  }
   status(){try{return {buffered:Number(this.#db.prepare('SELECT count(*) n FROM diagnostics').get()!.n),dropped:Number(this.#db.prepare('SELECT dropped FROM diagnostic_state WHERE id=1').get()!.dropped),durable:true,degraded:this.#degraded};}catch{return {buffered:null,dropped:null,durable:false,degraded:true};}}
   close(){if(this.#db.isOpen)this.#db.close();}
 }

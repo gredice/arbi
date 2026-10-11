@@ -1,5 +1,7 @@
 # Pod service foundation
 
+The explicit [capture custody/recovery adapter](../../docs/software/capture-transfer.md) adds resumable native chunks, verified signed edge ownership, acknowledged retention and historical cursor handoff. [Evidence](../../docs/evidence/capture-transfer.md) separates native SIGKILL/signature/filesystem checks from physical power/Wi-Fi and cloud acceptance. Trusted runtime attachment drains owners on stop; ordinary startup gains no camera/transfer or actuator endpoint.
+
 The trusted [gimbal source model](../../docs/software/gimbal-model.md) consumes actual configuration/command admission and stopped-motion evidence. It bounds axis/PWM/velocity policy and synthetic settling without hardware activation. See [source and physical evidence](../../docs/evidence/gimbal-model.md).
 
 The [capture source sequence](../../docs/software/capture-sequencing.md) consumes that model, actual command admission and a synthetic camera, with native bounded raw-image/metadata receipts and interrupted-write/process recovery. Capture, processing and upload retain separate states. The normal runtime still opens no camera/servo. See [camera bench gates](../../docs/evidence/capture-sequencing.md).

@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc -p tsconfig.build.json && node scripts/build-identity.mjs",
-    "lint": "tsc -p tsconfig.json --noEmit && node --check scripts/build-identity.mjs && node --check scripts/benchmark.mjs && node --check scripts/runtime.test.mjs",
+    "lint": "tsc -p tsconfig.json --noEmit && node --check scripts/build-identity.mjs && node --check scripts/benchmark.mjs && node --check scripts/runtime.test.mjs && node --check scripts/export-capture-fixture.mjs && node --check scripts/capture-transfer-reference.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "pnpm build && node --test --test-concurrency=1 dist/*.test.js scripts/*.test.mjs",
     "start": "node dist/cli.js",
