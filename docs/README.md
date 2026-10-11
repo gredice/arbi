@@ -135,6 +135,7 @@ Design decisions belong in ADRs. Work items and unresolved questions belong in G
 
 - [Inhibited pod service runtime](software/pod-runtime.md), [native source versus Pi bench evidence](evidence/pod-runtime.md), and [ADR-0026](decisions/0026-inhibited-pod-service.md)
 - [Calibrated gimbal and motion/settling interlocks](software/gimbal-model.md), [source checks and physical gates](evidence/gimbal-model.md), and [ADR-0032](decisions/0032-simulation-only-calibrated-gimbal.md)
+- [Traceable autofocus/still capture source sequence](software/capture-sequencing.md), [native source versus camera bench evidence](evidence/capture-sequencing.md), and [ADR-0033](decisions/0033-traceable-synthetic-capture-sequencing.md)
 
 - [Input and bounded homing model](software/input-homing-model.md), [real interface review requirements](system/input-enable-interface-requirements.md), [source versus wiring/rig evidence](evidence/input-homing-model.md), and [ADR-0027](decisions/0027-unavailable-real-inputs-and-homing-model.md)
 
