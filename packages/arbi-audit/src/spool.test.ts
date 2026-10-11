@@ -10,6 +10,19 @@ import { SqliteAuditSpool } from "./spool.js";
 import type { SpoolOptions } from "./spool.js";
 import { checked, contentHash, missingRanges } from "./integrity.js";
 
+test('bounded replay verifies each prefix, rejects wrong receipts and detects corrupt future evidence when reached',t=>{
+  const root=mkdtempSync(join(tmpdir(),'arbi-spool-prefix-'));t.after(()=>rmSync(root,{recursive:true,force:true}));
+  const first=event('prefix-1','1'),second=event('prefix-2','2');
+  const s=new SqliteAuditSpool({path:join(root,'spool.sqlite'),realm:first.realm,siteId:first.siteId,executionMode:first.executionMode,source:first.source,maxEvents:8,maxBytes:16384,maxPages:64});
+  t.after(()=>s.close());s.append(first);s.append(second);assert.deepEqual(s.pendingBounded(1),[first]);
+  const ingestTime={utc:'2026-10-07T12:00:00.000Z',uncertaintyMs:1,deviceId:'cloud'};
+  assert.throws(()=>s.acknowledgeBounded({durable:true,eventId:second.eventId,contentHash:contentHash(second),ingestTime}),{code:'CONFLICT'});
+  const db=new DatabaseSync(join(root,'spool.sqlite'));t.after(()=>db.close());db.exec("DROP TRIGGER spool_no_update;UPDATE spool_events SET hash='tampered' WHERE ordinal=2");
+  assert.deepEqual(s.pendingBounded(1),[first]);s.acknowledgeBounded({durable:true,eventId:first.eventId,contentHash:contentHash(first),ingestTime});
+  assert.throws(()=>s.pendingBounded(1),{code:'TAMPER'});assert.throws(()=>s.acknowledgeBounded({durable:true,eventId:second.eventId,contentHash:contentHash(second),ingestTime}),{code:'TAMPER'});
+  assert.throws(()=>s.pendingBounded(9),{code:'INVALID_REQUEST'});
+});
+
 const fixtures = JSON.parse(readFileSync(new URL("../../arbi-protocol/fixtures/audit-events.json",import.meta.url),"utf8"));
 function event(id = "local-intent", sequence = "1"): AuditEvent {
   const value: AuditEvent = structuredClone(fixtures.valid["capture-intent"]);

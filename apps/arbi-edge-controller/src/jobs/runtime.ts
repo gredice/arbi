@@ -23,6 +23,7 @@ export class EdgeJobs {
       this.#journal = new JobJournal({ path: options.journalFile, realm: config.realm, siteId: config.siteId, deviceId: identity.deviceId,
         maxJobs: options.maxJobs, maxBytes: options.maxBytes, maxPages: options.maxPages, minFreeBytes: options.minFreeBytes });
       this.#relay = new JobAuditRelay(options.auditDirectory);
+      this.#relay.pendingSpools(); // Verify historical files during inhibited startup, before any consumer can run.
       this.#journal.recover(); this.#journal.latch(); this.#journal.flushAudit(this.#relay.spool);
     } catch { this.#degraded = true; }
   }
@@ -33,6 +34,8 @@ export class EdgeJobs {
     return this.#consumer = new LocalJobConsumer({ journal: this.#journal, adapter, authority:read,manual:this.#manual, auditSpool: this.#relay.spool });
   }
   get manual():ManualControl|undefined{return this.#manual;}
+  /** Trusted reconnect composition; no transport or upload authority is supplied by settings or TLS enrollment. */
+  get auditRelay():JobAuditRelay|undefined{return this.#relay;}
   requireCommissioning(read: NonNullable<LocalAuthority['commissioning']>) { this.#commissioning = read; }
   get status() {
     const stored = this.#consumer?.status ?? this.#journal?.status();

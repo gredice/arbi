@@ -10,6 +10,8 @@ import { EdgeTraffic } from './metering.js';
 import { EdgeJobs } from './jobs/runtime.js';
 import type { CommissioningServer } from './commissioning/server.js';
 import type { TransferBudget } from './transfers/budget.js';
+import type { DiagnosticPipeline } from './diagnostics/pipeline.js';
+import type { DiagnosticUplink } from './diagnostics/uplink.js';
 
 export class EdgeRuntime {
   readonly identity: Identity;
@@ -23,6 +25,8 @@ export class EdgeRuntime {
   readonly jobs: EdgeJobs;
   #commissioning?: CommissioningServer;
   #transfers?:TransferBudget;
+  #diagnostics?:DiagnosticPipeline;
+  #uplink?:DiagnosticUplink;
   constructor(input: Settings) {
     this.#settings = validateSettings(input);
     this.identity = Object.freeze({ deviceId: this.#settings.serviceId, bootId: randomUUID(), sessionId: randomUUID() });
@@ -33,6 +37,12 @@ export class EdgeRuntime {
     this.#adapters = this.#settings.modules.map((m) => new ModuleAdapter(this.#settings, m, this.identity, tls, this.traffic));
   }
   get adapters(): readonly ModuleAdapter[] { return this.#adapters.slice(); }
+  composeDiagnostics(pipeline:DiagnosticPipeline,uplink?:DiagnosticUplink){
+    const c=this.#settings.applied.request.configuration,o=pipeline.store.options;
+    if(this.#server||this.#diagnostics||o.siteId!==c.siteId||!isDeepStrictEqual(o.realm,c.realm)||!isDeepStrictEqual(o.source,this.identity)||
+      uplink&&(uplink.options.pipeline!==pipeline||uplink.options.budget!==this.#transfers))throw new Error('INVALID_DIAGNOSTIC_COMPOSITION');
+    this.#diagnostics=pipeline;this.#uplink=uplink;for(const adapter of this.#adapters)adapter.observeDiagnostics((frame,context)=>{pipeline.observe(frame,context);});
+  }
   /** Trusted optional WAN composition. Existing local stopping/transport never waits on transfer policy. */
   composeTransfers(budget:TransferBudget){
     const c=this.#settings.applied.request.configuration;
@@ -56,6 +66,7 @@ export class EdgeRuntime {
       protocol: PROTOCOL_VERSION, source: this.identity, executionMode: 'simulation', actuationEnabled: false, updateEnabled: false, recordingEnabled: false,
       metering: this.traffic.status,
       transfers:this.#transfers?.status??{configured:false,coverage:'unknown',remainingBytes:null},
+      diagnostics:this.#diagnostics?{...this.#diagnostics.status,uplink:this.#uplink?.status??null}:{configured:false,retained:null},
       jobs: this.jobs.status,
       appliedConfiguration: { revision: this.#settings.applied.request.configuration.revision, digest: this.#settings.applied.configurationDigest,
         calibrationRevision: this.#settings.applied.request.configuration.calibration!.revision, appliedBy: this.#settings.applied.appliedBy }, modules };
@@ -91,6 +102,8 @@ export class EdgeRuntime {
     this.#stopping = true; for (const adapter of this.adapters) adapter.stop();
     this.jobs.stop();
     this.#commissioning?.coordinator.stop();
+    this.#uplink?.stop();
+    try{this.#diagnostics?.close();}catch{/* Local stopping already ran before diagnostic cleanup. */}
     // Local socket inhibition happens before accounting cleanup, even on failed storage.
     this.traffic.stop();
     try{this.#transfers?.close();}catch{ /* transfer degradation remains visible; local stop already ran */ }
