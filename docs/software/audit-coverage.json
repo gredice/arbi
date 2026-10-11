@@ -344,6 +344,30 @@
         "apps/arbi-dashboard/src/telemetry/postgres.test.ts"
       ],
       "observability": "isolated adapter; physical/provider result requires separate evidence"
+    },
+    {
+      "entrypoint": "apps/arbi-dashboard/src/app/api/sites/[siteId]/updates/[action]/route.ts",
+      "actions": [
+        "available",
+        "status",
+        "audit",
+        "request",
+        "advance",
+        "override",
+        "cancel"
+      ],
+      "requiredFacts": [
+        "durable authorization.check at edge SDK before handler and current approval before activation",
+        "immutable per-target update.request linked to original actor/session and release",
+        "update-observation links durable ranges/charges/staging/reservation without installation success",
+        "device-outcome only after authoritative isolated boot/health or rollback",
+        "explicit dual-role budget override and original budget audit producer"
+      ],
+      "evidence": [
+        "apps/arbi-edge-controller/src/updates/operations.test.ts",
+        "apps/arbi-dashboard/src/updates/runtime.test.ts"
+      ],
+      "observability": "actual HTTP Range application-body bytes and native SQLite synthetic slots only; uncertain receipts expose coverage gaps, pending grants retain upper bounds; no wire/carrier or physical installation evidence; default/preview unavailable"
     }
   ],
   "internal": [
@@ -510,6 +534,25 @@
         "apps/arbi-edge-controller/src/updates/security.test.ts"
       ],
       "observability": "representative test data only; canonical update operation audit and actual commissioning/installed boot wiring remain #73/#71/#44"
+    },
+    {
+      "entrypoint": "apps/arbi-edge-controller/src/updates/orchestrator.ts",
+      "actions": [
+        "download ranges",
+        "reserve installation",
+        "observe trial/health",
+        "rollback",
+        "budget override"
+      ],
+      "requiredFacts": [
+        "acknowledged reservation before sole dispatch",
+        "current SDK approval and private local preflight",
+        "exact original charge IDs and immutable audit deltas"
+      ],
+      "evidence": [
+        "apps/arbi-edge-controller/src/updates/operations.test.ts"
+      ],
+      "observability": "isolated synthetic target slots and representative data; no hardware actuation, flash, reboot or field gate; missing reserved boot is recovery-required without resend"
     }
   ]
 }

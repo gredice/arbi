@@ -20,7 +20,7 @@ export interface TransferRequest {
   id:string;class:TransferClass;direction:'upload'|'download';expectedBytes:number;
   artifactDigest:string|null;stream:boolean;bitrate:number|null;overrideId:string|null;
 }
-interface Transfer extends TransferRequest {
+export interface Transfer extends TransferRequest {
   period:string;state:'active'|'paused'|'complete'|'cancelled';remaining:number;offset:number;attempts:number;
   startedUtcMs:number;lastIntentUtcMs:number;pending:{id:string;bytes:number;offset:number}|null;
 }
@@ -132,6 +132,8 @@ export class TransferBudget {
   });}
   #override(s:Ledger,c:TransferClock,r:TransferRequest){if(r.overrideId===null)return 0;const o=s.overrides.find(x=>x.id===r.overrideId);
     if(!o || o.class!==r.class || c.utcMs>=o.expiresUtcMs || !this.options.authorize(o.actor))fail('OVERRIDE_EXPIRED');return o.bytes;}
+  /** Attach an already-authorized, current override without changing bytes, offsets or pending receipts. */
+  attachOverride(transferId:string,overrideId:string){return this.#mutate((s,c)=>{const t=s.transfers[transferId];if(!t||t.class==='essential'||!['active','paused'].includes(t.state)||t.pending||!id(overrideId))fail('INVALID_STATE');this.#override(s,c,{...t,overrideId});t.overrideId=overrideId;return t;});}
   resume(transferId:string){return this.#mutate((s,c)=>{
     const t=s.transfers[transferId];if(!t || t.state!=='paused')fail('INVALID_STATE');this.#gate(s,c,t);
     if(t.period!==s.usage!.period || t.stream)fail('RESTART_REQUIRED');this.#override(s,c,t);
@@ -178,6 +180,9 @@ export class TransferBudget {
   pendingAudit(){const s=this.#read();return s.audit.filter(e=>!s.copied.includes(e.eventId)).map(e=>structuredClone(e));}
   copyAudit(append:(event:AuditEvent)=>void){for(const e of this.pendingAudit()){append(e);this.#mutate(s=>{if(!s.copied.includes(e.eventId))s.copied.push(e.eventId);});}}
   getTransfer(transferId:string){return structuredClone(this.#read().transfers[transferId]??null);}
+  /** The existing charge ledger is authoritative; projections must not invent a second usage counter. */
+  overrideStatus(overrideId:string|null){if(overrideId===null)return null;const s=this.#read(),c=this.options.clock();this.#validateClock(c);const o=s.overrides.find(x=>x.id===overrideId);if(!o)return null;const current=c.utcMs>=s.clock.utcMs&&c.utcMs<o.expiresUtcMs&&this.options.authorize(o.actor),u=s.usage;return {id:o.id,bytes:o.bytes,expiresUtcMs:o.expiresUtcMs,current,effectiveRemainingBytes:current&&u&&this.#fresh(s,c)?Math.max(0,s.policy.allowanceBytes+o.bytes-u.usedBytes-this.#spent(s,u.period)-this.#reserved(s,u.period)):null};}
+  charges(transferId:string){return this.#read().charges.filter(c=>c.transferId===transferId).map(c=>structuredClone(c));}
   #status(s:Ledger,c:TransferClock){const u=s.usage;return {policyRevision:s.policy.revision,period:u?.period??null,coverage:u && c.utcMs>=u.startUtcMs && c.utcMs<u.endUtcMs && this.#fresh(s,c)?'complete':'unknown',
     measuredUsedBytes:u?.usedBytes??null,unreconciledAttemptBytes:u?this.#spent(s,u.period):null,reservedBytes:u?this.#reserved(s,u.period):null,
     remainingBytes:u?Math.max(0,s.policy.allowanceBytes-u.usedBytes-this.#spent(s,u.period)-this.#reserved(s,u.period)):null,

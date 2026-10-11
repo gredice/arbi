@@ -13,7 +13,8 @@
     "supervise": "node dist/supervisor.js",
     "recover:cloud": "node dist/cloud-realtime/cli.js",
     "simulate:jobs": "node dist/jobs/reference.js",
-    "simulate:commissioning": "node dist/commissioning/reference.js"
+    "simulate:commissioning": "node dist/commissioning/reference.js",
+    "simulate:updates": "node dist/updates/reference.js"
   },
   "dependencies": {
     "@arbi/protocol": "workspace:*",

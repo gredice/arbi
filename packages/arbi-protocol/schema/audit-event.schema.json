@@ -52,6 +52,7 @@
         "access-grant",
         "device-outcome",
         "service-outcome",
+        "update-observation",
         "media-observation",
         "access-observation",
         "browser-observation",
@@ -177,7 +178,8 @@
         "attemptWindowStartUtc": {"type":"string","format":"date-time"},
         "attemptClass": {"enum":["authorization-denied","stale-command","invalid-command","unavailable","other-denied"]},
         "attemptCount": {"type":"integer","minimum":1,"maximum":1000000000},
-        "aggregation": {"enum":["first-attempt","closed-window-summary","mixed-actors-summary"]}
+        "aggregation": {"enum":["first-attempt","closed-window-summary","mixed-actors-summary"]},
+        "updatePhase": {"enum":["pending","downloading","staged","trial","healthy","rolled-back","failed","recovery-required"]}
       },
       "required": []
     },
@@ -381,7 +383,7 @@
           }
         },
         {
-          "if": {"properties":{"evidence":{"not":{"const":"device-outcome"}}},"required":["evidence"]},
+          "if": {"properties":{"evidence":{"not":{"enum":["device-outcome","update-observation"]}}},"required":["evidence"]},
           "then": {"properties":{"record":{"type":"null"}}}
         },
         {
@@ -414,6 +416,18 @@
         {
           "if": {"properties":{"outcome":{"const":"fail"}},"required":["outcome"]},
           "then": {"properties":{"reason":{"enum":["execution-failed","storage-failed","delivery-failed","local-inhibit"]}}}
+        },
+        {
+          "if": {"properties":{"evidence":{"const":"update-observation"}},"required":["evidence"]},
+          "then": {"properties": {
+            "action": {"enum":["update.request","update.install","update.rollback"]},
+            "resource": {"properties":{"kind":{"const":"update"}}},
+            "outcome": {"const":"observed"},"effect": {"const":"none"},
+            "reason": {"enum":["observed","local-inhibit","cancelled","interrupted"]},
+            "source": {"properties":{"module":{"const":"edge"}}},
+            "record": {"$ref":"#/$defs/AuditRecordReference","properties":{"kind":{"const":"local-record"}}},
+            "metadata": {"required":["updatePhase"],"properties":{"updatePhase":{}}},"change": {"type":"null"}
+          }}
         },
         {
           "if": {"properties":{"evidence":{"const":"media-observation"}},"required":["evidence"]},
