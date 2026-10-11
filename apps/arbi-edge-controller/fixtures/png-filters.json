@@ -1,0 +1,39 @@
+{
+  "producer": "Python 3 standard zlib/binascii; RGB8 PNG filters 0 through 4",
+  "expectedRgb": [
+    21,
+    38,
+    55,
+    72,
+    89,
+    106,
+    123,
+    140,
+    157,
+    174,
+    191,
+    208,
+    225,
+    242,
+    3,
+    20,
+    37,
+    54,
+    71,
+    88,
+    105,
+    122,
+    139,
+    156,
+    173,
+    190,
+    207
+  ],
+  "pngBase64": [
+    "iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAIAAADZSiLoAAAAJ0lEQVR4nGMQVTP3iMyq7pnLsG7/hYefmEVUzRjcIzKruues3XceAKhwDIcQYmbIAAAAAElFTkSuQmCC",
+    "iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAIAAADZSiLoAAAAGUlEQVR4nGMUVTM3BgPGdfsvQFnuEZkQFgBtXwdRHKgOBgAAAABJRU5ErkJggg==",
+    "iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAIAAADZSiLoAAAAF0lEQVR4nGMSVTP3iMyq7pnLNBMGECwAtmcN6hQY3t8AAAAASUVORK5CYII=",
+    "iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAIAAADZSiLoAAAAIklEQVR4nGMWVTO3c/MPT8hgXrJmaxoIPGP+8JPx2TMQEwCidwylhmCALwAAAABJRU5ErkJggg==",
+    "iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAIAAADZSiLoAAAAFklEQVR4nGMRVTM3BgOWmTNnIrNABABwAQjdnJL+aQAAAABJRU5ErkJggg=="
+  ]
+}

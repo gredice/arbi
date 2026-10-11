@@ -59,6 +59,10 @@ Authenticated module socket frames are tapped through [@arbi/traffic](../../pack
 
 Optional bounded SQLite job storage, transactional audit intent, current local policy and an explicit bounded simulator consumer are documented in [local jobs](../../docs/software/local-jobs.md) with [host evidence](../../docs/evidence/local-jobs.md). Normal TLS enrollment remains diagnostic-only. Run the isolated reference with `pnpm --filter @arbi/edge-controller simulate:jobs --directory /tmp/arbi-isolated-jobs` after building its dependencies. Physical motion, firmware, image bytes and updates remain inhibited/unimplemented.
 
+## Calibrated image processing
+
+The [image-processing source adapter](../../docs/software/image-processing.md) separately consumes raw capture fixtures and revision-bound simulation calibration. It returns derivative lineage or raw fallback with independent capture/processing/upload states, bounded workers and pure byte selection. [Evidence](../../docs/evidence/image-processing.md) keeps physical accuracy, outdoor thresholds and selected-host acceptance unavailable. Runtime/supervisor startup does not enable it; #66 owns full composition.
+
 ## Authorized commissioning
 
 [Local commissioning](../../docs/software/commissioning.md) adds authenticated technician enrollment, independent local maintenance authorization, exact-set review, multi-device staging/activation, readiness invalidation and deliberate restart recovery. [Host evidence](../../docs/evidence/commissioning.md) covers fictional site/bed/plant framing and SIGKILL after an independent device commit. Trusted `composeCommissioning` mounts protected loopback handlers and automatically binds its inhibit to local job policy. The dashboard can read its protected identity/block-reason projection. No default runtime or private settings file creates commissioning authority. Run the explicit simulation recipe with `pnpm --filter @arbi/edge-controller simulate:commissioning --directory /tmp/arbi-isolated-commissioning`. Hardware/physical validation remains disabled.
