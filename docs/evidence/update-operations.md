@@ -15,3 +15,5 @@ This is source/integration evidence only. Socket and acknowledgement injection a
 Local verification passes 464 protocol checks; 179 focused audit/update/security/transfer checks including ten orchestration scenarios; 89 dashboard source checks (15 native-only skips); 67 native PostgreSQL checks; dashboard/edge builds and lint; ordinary/preview HTTP guards; and 288 documentation link checks. The issue PR records the tested code revision and exact-head CI/review. No browser or installed-system acceptance is claimed by this API issue.
 
 Tested software revision: `d3105a2207304c0ab9cc683cfc063f1aa9bde0cd`. Documentation updates only identify this tested code snapshot; exact-head automation is recorded by the issue PR.
+
+Review follow-up: 28 update/security/transfer checks pass after enforcing the 32-attempt composition limit, preserving unknown allowance at a period boundary, recording recovery-required on an uncertain target reply, and keeping handler failures separate from SDK authorization denial.

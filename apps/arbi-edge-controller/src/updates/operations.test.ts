@@ -5,6 +5,8 @@ import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { canonical,missingRanges } from '@arbi/audit';
 import { correlateAuditEvent,recoverUpdate } from '@arbi/protocol';
+import { TransferBudget } from '../transfers/budget.js';
+import { UpdateOrchestrator as Orchestrator } from './orchestrator.js';
 import { createUpdateReference } from './reference.js';
 import type { UpdateOrchestrator } from './orchestrator.js';
 import type { LocalUpdateSafety } from './safety.js';
@@ -53,7 +55,7 @@ test('authorization is rechecked after real download and before activation; engi
   const a=await admit(f,choice(f,'revocation',['pico']));f.onRange(()=>f.provider.revoke(f.credential.sessionId));assert.equal((await f.request('advance',{operationId:a.operationId})).status,401);assert.equal(f.targets.get('pico')!.status.installations,0);assert.equal(f.store.get(a.operationId).reason,'CURRENT_APPROVAL_REQUIRED');assert.equal(f.store.audit().some(e=>e.actor.id===f.actor.id&&e.outcome==='deny'),true);
 });
 test('lost acknowledgement at reservation never resends; lost slot acknowledgement recovers one actual simulated boot',async t=>{
-  let interrupted=true;const f=await fixture(t,{payloadBytes:256,afterReservation:()=>{if(interrupted){interrupted=false;throw Error('synthetic reservation reply lost');}}});const a=await admit(f,choice(f,'reservation-lost',['pico']));assert.equal((await f.request('advance',{operationId:a.operationId})).status,503);assert.equal(f.targets.get('pico')!.status.installations,0);const j=f.store.get(a.operationId).targets[0]!.journal;const state=recoverUpdate(j);assert.ok(state.ok);assert.equal(state.value.status.installationReserved,true);
+  let interrupted=true;const f=await fixture(t,{payloadBytes:256,afterReservation:()=>{if(interrupted){interrupted=false;throw Error('synthetic reservation reply lost');}}});const a=await admit(f,choice(f,'reservation-lost',['pico']));assert.equal((await f.request('advance',{operationId:a.operationId})).status,503);assert.equal(f.targets.get('pico')!.status.installations,0);assert.equal(f.store.get(a.operationId).state,'recovery-required');assert.equal(f.store.get(a.operationId).reason,'INSTALLATION_RESULT_UNAVAILABLE');assert.equal(f.store.audit().some(e=>e.evidence==='authorization'&&e.outcome==='deny'),false);const j=f.store.get(a.operationId).targets[0]!.journal;const state=recoverUpdate(j);assert.ok(state.ok);assert.equal(state.value.status.installationReserved,true);
   f.restart();const unknown=await step(f,a.operationId);assert.equal(unknown.reason,'RESERVED_INSTALLATION_UNOBSERVED_NO_RESEND');assert.equal(f.targets.get('pico')!.status.installations,0);assert.equal((await f.request('request',choice(f,'unsafe-second',['pico']))).status,409);
   const g=await fixture(t,{payloadBytes:256});g.slotFault('pico','after-commit');const b=await admit(g,choice(g,'slot-reply-lost',['pico']));assert.equal((await g.request('advance',{operationId:b.operationId})).status,503);assert.equal(g.targets.get('pico')!.status.installations,1);g.slotFault('pico',null);g.restart();assert.equal((await step(g,b.operationId)).state,'healthy');assert.equal(g.targets.get('pico')!.status.installations,1);
 });
@@ -78,4 +80,11 @@ test('audit pages retain one immutable snapshot while new authorization facts ap
   assert.equal(events.length,page.through);assert.equal(new Set(events.map(e=>e.eventId)).size,page.through);
   assert.throws(()=>f.store.update(a.operationId,op=>{op.deadlineMs--;return [];}),{code:'IDEMPOTENCY_CONFLICT'});
   assert.throws(()=>f.store.update(a.operationId,op=>{op.targets[0]!.journal.events=[];return [];}),{code:'IDEMPOTENCY_CONFLICT'});
+});
+
+test('update composition explicitly rejects a retry policy beyond its bounded receipt capacity and expired periods remain readable',async t=>{
+  const f=await fixture(t,{payloadBytes:256});const extended=new TransferBudget({...f.budget.options,path:join(f.dir,'extended-budget.sqlite'),policy:{...f.budget.policy,maxAttempts:128}});try{
+  assert.throws(()=>new Orchestrator({...f.composition,budget:extended}),{code:'UPDATE_RETRY_POLICY_LIMIT'});
+  const c=extended.options.clock(),end=c.utcMs+1000;extended.checkpoint({period:'synthetic-day',startUtcMs:c.utcMs-1000,endUtcMs:end,revision:2,usedBytes:0,coverage:'complete',observedUtcMs:c.utcMs,maxAgeMs:10000,coveredCharges:[]});
+  const grant=extended.override({id:'period-edge-override',class:'artifact',bytes:256,expiresUtcMs:end+10000,actor:f.actor});f.advanceClock(1001);assert.equal(extended.overrideStatus(grant.override.id)!.effectiveRemainingBytes,null);assert.equal(extended.status.coverage,'unknown');}finally{extended.close();}
 });

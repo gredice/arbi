@@ -33,7 +33,7 @@ export class UpdateServer {
         if(action==='override'||existing.overrideId)return fresh('configuration.write',async()=>execute());
         return execute();
       });
-    }catch(e){const code=updateError(e);try{this.orchestrator.options.store.authorization({correlationId:crypto.randomUUID(),observedAtMs:this.config.identity.now(),realm:context.realm,siteId,actor:context.actor as {kind:'human';id:string},sessionId:context.sessionId,capability,surface:capability==='audit.read'?'audit':'http',resource:context.resource,decision:'denied',reason:'INVALID_REQUEST',membershipRevision:context.membershipRevision});}catch{}
+    }catch(e){const code=updateError(e);
       return Response.json({error:code},{status:code==='UPDATE_UNAVAILABLE'||code==='RESOURCE_LIMIT'?503:['INVALID_REQUEST','INVALID_RECORD'].includes(code)?400:code==='NOT_AUTHORIZED'?403:409});}
     });
   }
