@@ -25,6 +25,12 @@ importers:
         specifier: 7.0.2
         version: 7.0.2
 
+  apps/arbi-control-cabinet-firmware:
+    devDependencies:
+      '@arbi/protocol':
+        specifier: workspace:*
+        version: link:../../packages/arbi-protocol
+
   apps/arbi-dashboard:
     dependencies:
       '@arbi/audit':

@@ -95,7 +95,7 @@ test('reverse dependency graph includes consumers, never unrelated packages', ()
     assert.deepEqual(names(select('packages/arbi-traffic/src/index.ts')), ['@arbi/dashboard', '@arbi/edge-controller', '@arbi/traffic']);
     assert.deepEqual(names(select('packages/arbi-audit/src/index.ts')), ['@arbi/audit', '@arbi/dashboard', '@arbi/edge-controller']);
     assert.deepEqual(names(select('packages/arbi-simulation-core/src/index.ts')), ['@arbi/dashboard', '@arbi/edge-controller', '@arbi/simulation-core']);
-    assert.deepEqual(names(select('packages/arbi-protocol/schema/message.schema.json')), ['@arbi/audit', '@arbi/dashboard', '@arbi/edge-controller', '@arbi/gredice', '@arbi/protocol', '@arbi/simulation-core', '@arbi/traffic']);
+    assert.deepEqual(names(select('packages/arbi-protocol/schema/message.schema.json')), ['@arbi/audit', '@arbi/control-cabinet-firmware', '@arbi/dashboard', '@arbi/edge-controller', '@arbi/gredice', '@arbi/protocol', '@arbi/simulation-core', '@arbi/traffic']);
 });
 
 test('dashboard native integration retains the independent edge consumer boundary', () => {

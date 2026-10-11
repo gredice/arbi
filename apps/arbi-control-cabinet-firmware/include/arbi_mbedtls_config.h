@@ -1,0 +1,4 @@
+#ifndef ARBI_MBEDTLS_CONFIG_H
+#define ARBI_MBEDTLS_CONFIG_H
+#define MBEDTLS_SHA256_C
+#endif

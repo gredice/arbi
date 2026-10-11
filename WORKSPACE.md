@@ -9,6 +9,7 @@ Use this guide for repository layout, toolchains, commands, package boundaries, 
 - `bom`: canonical procurement and assembly inputs plus deterministic generated reports.
 - `packages/arbi-bom`: implemented BOM schemas, calculations, generators, and tests.
 - `packages/arbi-protocol`: [implemented versioned message and configuration/calibration contracts](packages/arbi-protocol/README.md), runtime validation, consumed TypeScript bindings and reference fixtures; device adapters and physical calibration remain follow-up work.
+- `apps/arbi-control-cabinet-firmware`: [Pico 2 W C11 diagnostic foundation](apps/arbi-control-cabinet-firmware/README.md), pinned ARM build and shared-core host checks; target boot is unconfigured, unenrolled and inhibited, without actuator outputs.
 - `packages/arbi-simulation-core`: [implemented offline scenario runner and adapter seams](packages/arbi-simulation-core/README.md), bounded virtual time, seeded disturbances, analytical references and [bounded plant/module model 1.0](docs/software/bounded-plant-model.md); physical fidelity and runtime integration remain follow-up work.
 - `packages/arbi-gredice`: [implemented signed identity, current account/site permissions and server request boundary](packages/arbi-gredice/README.md), with an isolated simulation identity provider; live Gredice provisioning and resource implementations remain separate work.
 - `packages/arbi-traffic`: [implemented application taps, bounded SQLite traffic spool, Linux interface collector and optional router snapshot adapter](packages/arbi-traffic/README.md), consumed by edge/pod diagnostics; actual cellular/router/provider coverage remains separate.
@@ -192,7 +193,6 @@ The following paths are reserved but should not exist until implementation begin
 - `apps/arbi-simulator`: executable simulator or simulator UI;
 - `apps/arbi-cloud`: reserved only if a later reviewed decision requires an independent backend; the initial API belongs to `apps/arbi-dashboard`;
 - `apps/arbi-pod-firmware`: pod camera, gimbal, power-health, and local service target;
-- `apps/arbi-control-cabinet-firmware`: motion/safety controller target if it remains separate;
 - `packages/arbi-gredice`: implemented identity/site authorization; bed/plant target integration remains future work in this adapter;
 - `packages/arbi-control`: pure control and geometry logic when shared;
 - `packages/arbi-simulation-core`: implemented deterministic scenarios and bounded plant/module references described above; measured physical fidelity remains separate work.
@@ -206,7 +206,7 @@ The simulator and real adapters must consume the same versioned contracts and un
 [Software publication](docs/software/software-publication.md) adds an affected
 Linux application artifact matrix, protected signing/sealing after `[CI] OK`,
 and a read-only dashboard availability catalog. Only the implemented simulated
-edge runtime is packaged; Pico/pod firmware and physical installers remain absent.
+edge runtime is packaged; Pico foundation output is not yet a signed release target, and pod firmware and physical installers remain absent.
 Both web app production build commands check the exact main commit's required
 gate, and branch previews display their nonproduction status. Operator signing,
 immutable-release and credential-scoping setup must complete before live publication.
