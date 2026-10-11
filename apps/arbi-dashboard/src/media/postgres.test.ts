@@ -78,4 +78,11 @@ test("host PostgreSQL preserves enrollment and serializes independent media proc
   await assert.rejects(restarted.read({ ...realm, namespaceId: "wrong" }, site.siteId, complete.imageId), { code: "DENIED" });
   assert.deepEqual((await pool.query("SELECT * FROM arbi_device_registry ORDER BY site_id")).rows, priorEnrollment);
   assert.deepEqual((await pool.query("SELECT * FROM arbi_device_audit ORDER BY id")).rows, priorHistory);
+  const viewer={...context,actor:{kind:'human' as const,id:'viewer'},capability:'still.read' as const,resource:{kind:'still' as const,id:complete.imageId}};
+  const access=await serviceA.access(viewer,{variant:'full',operation:'view'}),grant=(await pool.query('SELECT record FROM arbi_media_grants WHERE id=$1',[access.grantId])).rows[0].record;
+  assert.equal(grant.issuance,'issued');assert.equal(grant.actor.id,'viewer');
+  await assert.rejects(pool.query("UPDATE arbi_media_grants SET record=jsonb_set(record,'{actor,id}','\"forged\"') WHERE id=$1",[access.grantId]),{code:'42501'});
+  await assert.rejects(pool.query('DELETE FROM arbi_media_grants WHERE id=$1',[access.grantId]),{code:'42501'});
+  await serviceB.revoke(engineer,{imageId:complete.imageId,grantId:access.grantId});
+  await assert.rejects(pool.query("UPDATE arbi_media_grants SET record=jsonb_set(record,'{revoked}','false') WHERE id=$1",[access.grantId]),{code:'42501'});
 });

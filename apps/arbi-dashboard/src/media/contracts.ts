@@ -90,6 +90,7 @@ export interface MediaImage {
 export interface AccessGrant {
   id: string; imageId: string; variant: VariantName; actor: AuthorizedContext["actor"]; sessionId: string;
   membershipRevision: string; operation: "view" | "download"; expiresAtMs: number; revoked: boolean;
+  intentEventId?:string; issuance?:'prepared'|'issued'|'failed';
 }
 /** Object length is a storage observation, not a transfer/WAN/provider meter. */
 export interface MediaUsage {

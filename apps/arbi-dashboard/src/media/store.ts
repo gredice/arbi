@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import { isId, sameRealm } from "@arbi/gredice";
+import { isId,isRealm, sameRealm } from "@arbi/gredice";
 import type { AuthorizationObservation, AuthorizedContext, ResourceScope } from "@arbi/gredice";
 import { AUDIT_VERSION, MAX_COUNTER, parseAuditEvent } from "@arbi/protocol";
 import type { AuditEvent, AuditSource, Realm } from "@arbi/protocol";
@@ -10,11 +10,12 @@ import type { AccessGrant, MediaImage, MediaSite, MediaUsage } from "./contracts
 export interface MediaDetail {
   operation: string; imageId?: string; uploadId?: string; variant?: "full" | "thumbnail"; grantId?: string;
   expiresAtMs?: number; membershipRevision?: string; result?: string; usage?: MediaUsage;
+  grantIntentEventId?:string;
 }
 export class MediaTransaction {
   constructor(readonly sql: SqlSession, readonly site: MediaSite,
     readonly append: (sql: SqlSession, site: MediaSite, context: Pick<AuthorizedContext, "actor" | "sessionId">,
-      detail: MediaDetail, grant?: AccessGrant, failed?: boolean) => Promise<void>) {}
+      detail: MediaDetail, grant?: AccessGrant, failed?: boolean,root?:AuditEvent) => Promise<void>) {}
   key() { return [this.site.realm.environment, this.site.realm.namespaceId, this.site.siteId]; }
   async image(id: string): Promise<MediaImage> {
     requireMedia(isId(id));
@@ -39,6 +40,9 @@ export class MediaTransaction {
       [...this.key(), image.id, JSON.stringify(image)]);
   }
   async grant(grant: AccessGrant): Promise<void> {
+    const count=Number((await this.sql.query<{n:string}>(`SELECT count(*)::text n FROM arbi_media_grants g JOIN arbi_media_images i ON i.id=g.image_id
+      WHERE i.environment=$1 AND i.namespace_id=$2 AND i.site_id=$3`,this.key())).rows[0].n);
+    requireMedia(count<4096,'CAPACITY');
     await this.sql.query("INSERT INTO arbi_media_grants (id,image_id,record) VALUES ($1,$2,$3::jsonb)",
       [grant.id, grant.imageId, JSON.stringify(grant)]);
   }
@@ -49,6 +53,13 @@ export class MediaTransaction {
   record(context: Pick<AuthorizedContext, "actor" | "sessionId">, detail: MediaDetail, grant?: AccessGrant, failed = false) {
     return this.append(this.sql, this.site, context, detail, grant, failed);
   }
+  async grantResult(grant:AccessGrant,detail:MediaDetail,failed=false){
+    requireMedia(grant.intentEventId&&isId(grant.intentEventId),'UNAVAILABLE');
+    const {rows}=await this.sql.query<{record:AuditEvent}>('SELECT record FROM arbi_media_audit WHERE id::text=$1 AND environment=$2 AND namespace_id=$3 AND site_id=$4',[grant.intentEventId,...this.key()]);
+    const root=rows[0]?.record;requireMedia(root?.evidence==='intent'&&root.metadata.grantId===grant.id,'UNAVAILABLE');
+    // The original grant actor/session owns this result even when a separate instance resumes issuance.
+    return this.append(this.sql,this.site,{actor:grant.actor,sessionId:grant.sessionId},{...detail,grantId:grant.id},undefined,failed,root);
+  }
 }
 
 /** Per-site row lock serializes independent cloud processes; object I/O always occurs outside the transaction. */
@@ -56,7 +67,9 @@ export class PostgresMediaStore {
   readonly #source: AuditSource = { module: "cloud", identity: { deviceId: "media-service", bootId: randomUUID(), sessionId: randomUUID() } };
   readonly #startedAt = performance.now();
   readonly #sequences = new Map<string, bigint>();
-  constructor(readonly db: SqlDatabase) {}
+  constructor(readonly db: SqlDatabase,readonly schemaOnlyTestRealm?:Realm) {
+    requireMedia(schemaOnlyTestRealm===undefined||isRealm(schemaOnlyTestRealm)&&schemaOnlyTestRealm.environment==='test','DENIED');
+  }
   async provision(site: MediaSite): Promise<void> {
     requireMedia(validSite(site), "DENIED");
     await this.#safe(() => this.db.transaction(async (sql) => {
@@ -77,8 +90,8 @@ export class PostgresMediaStore {
             "SELECT site FROM arbi_media_sites WHERE environment=$1 AND namespace_id=$2 AND site_id=$3 FOR UPDATE", [realm.environment, realm.namespaceId, siteId]);
           const site = rows[0]?.site;
           requireMedia(site && validSite(site) && sameRealm(site.realm, realm) && site.siteId === siteId, "DENIED");
-          return await work(new MediaTransaction(sql, site, (connection, scope, context, detail, grant, failed) =>
-            this.#append(connection, scope, context, detail, grant, failed)));
+          return await work(new MediaTransaction(sql, site, (connection, scope, context, detail, grant, failed,root) =>
+            this.#append(connection, scope, context, detail, grant, failed,root)));
         } catch (error) { if (error instanceof MediaError) domain = error; throw error; }
       }));
     } catch (error) { throw domain ?? error; }
@@ -93,6 +106,9 @@ export class PostgresMediaStore {
     } catch (error) { if (error instanceof MediaError && error.code === "DENIED") return null; throw error; }
   }
   async #insert(sql: SqlSession, site: MediaSite, record: AuditEvent, detail: MediaDetail) {
+    await sql.query('SET LOCAL synchronous_commit = on');
+    const schemaOnly=this.schemaOnlyTestRealm&&sameRealm(site.realm,this.schemaOnlyTestRealm)&&site.executionMode==='simulation';
+    requireMedia(schemaOnly||(await sql.query<{fsync:string}>('SHOW fsync')).rows[0]?.fsync==='on','UNAVAILABLE');
     requireMedia(parseAuditEvent(JSON.stringify(record)).ok, "UNAVAILABLE");
     await sql.query("INSERT INTO arbi_media_audit (id,environment,namespace_id,site_id,record,detail) VALUES ($1,$2,$3,$4,$5::jsonb,$6::jsonb)",
       [record.eventId, site.realm.environment, site.realm.namespaceId, site.siteId, JSON.stringify(record), JSON.stringify(detail)]);
@@ -110,12 +126,21 @@ export class PostgresMediaStore {
       record: null, metadata: {}, change: null };
   }
   async #append(sql: SqlSession, site: MediaSite, context: Pick<AuthorizedContext, "actor" | "sessionId">,
-    detail: MediaDetail, grant?: AccessGrant, failed = false) {
+    detail: MediaDetail, grant?: AccessGrant, failed = false,root?:AuditEvent) {
+    if(root){
+      // Audit 1.0 reserves still.view for authority/observations, not successful service work.
+      // Signing preparation has its own service intent, with an explicit pointer to the grant intent in detail.
+      await this.#append(sql,site,context,{...detail,grantIntentEventId:root.eventId},undefined,failed);return;
+    }
     const intent = this.#event(site, context);
-    intent.metadata.permission = grant ? "view" : detail.operation.startsWith("upload") ? "capture" : "configure";
+    intent.metadata.permission = grant||detail.operation.startsWith('access.') ? "view" : detail.operation.startsWith("upload") ? "capture" : "configure";
+    if(detail.grantId)intent.metadata.grantId=detail.grantId;
     if (grant) {
+      if(grant.intentEventId){intent.eventId=grant.intentEventId;intent.links={...intent.links,correlationId:intent.eventId,intentEventId:intent.eventId};}
       intent.action = grant.operation === "view" ? "still.view" : "media.download";
       intent.resource = { kind: "still", id: grant.imageId, deviceId: null }; intent.metadata.grantId = grant.id;
+    }else if(failed&&detail.operation.startsWith('access.')&&detail.imageId){
+      intent.action='still.view';intent.metadata.permission='view';intent.resource={kind:'still',id:detail.imageId,deviceId:null};
     }
     await this.#insert(sql, site, intent, { ...detail, result: "requested" });
     const result = this.#event(site, context);
@@ -125,10 +150,6 @@ export class PostgresMediaStore {
     result.outcome = failed ? "fail" : grant ? "allow" : "succeeded";
     result.reason = failed ? "storage-failed" : grant ? "authorized" : "completed";
     await this.#insert(sql, site, result, detail);
-    if (grant) {
-      // Separate result for preparing the grant, never a bytes-delivered/view observation.
-      await this.#append(sql, site, context, { ...detail, operation: "access.issue-result", result: "prepared-response-delivery-unknown" });
-    }
   }
   async authorization(observation: AuthorizationObservation, signal: AbortSignal): Promise<boolean> {
     if (!observation.siteId || signal.aborted) return false;

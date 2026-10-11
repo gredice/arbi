@@ -229,11 +229,14 @@ test("audit and metadata transaction failures return no capability, leave retrya
   const grantFault: SqlDatabase = { transaction: (work) => h.sql.transaction((sql) => work({ query: async (query, parameters) => {
     if (query.startsWith("INSERT INTO arbi_media_grants")) throw new Error("synthetic-private-error-marker"); return sql.query(query, parameters);
   } })) };
+  const originalAccess=h.blob.adapter.accessGrant.bind(h.blob.adapter);let accessSignings=0;
+  h.blob.adapter.accessGrant=async(path,expires)=>{accessSignings++;return originalAccess(path,expires);};
   const failed = await h.call("access", { variant: "full", operation: "view" }, ready.imageId, undefined, "site-a", h.compose(grantFault));
   assert.equal(failed.status, 503); assert.equal(Object.hasOwn(failed.value, "url"), false);
   assert.equal((await h.db.query("SELECT * FROM arbi_media_grants")).rows.length, 0);
+  assert.equal(accessSignings,0);
   const grantAuditFault: SqlDatabase = { transaction: (work) => h.sql.transaction((sql) => work({ query: async (query, parameters) => {
-    if (query.startsWith("INSERT INTO arbi_media_audit") && JSON.parse(String(parameters?.[5])).result === "issued-access-not-observed") {
+    if (query.startsWith("INSERT INTO arbi_media_audit") && JSON.parse(String(parameters?.[5])).result === "authorized-signing-pending") {
       throw new Error("synthetic-private-error-marker");
     }
     return sql.query(query, parameters);
@@ -242,6 +245,7 @@ test("audit and metadata transaction failures return no capability, leave retrya
   assert.equal(auditFailed.status, 503); assert.equal(Object.hasOwn(auditFailed.value, "url"), false);
   assert.equal((await h.db.query("SELECT * FROM arbi_media_grants")).rows.length, 0);
   assert.equal((await h.db.query("SELECT * FROM arbi_media_audit WHERE record->>'evidence'='access-grant'")).rows.length, 0);
+  assert.equal(accessSignings,0);
   h.blob.controls.failIssue = true;
   const providerFailure = await h.call("upload", h.upload("provider-failure"));
   assert.equal(providerFailure.status, 503); assert.equal(Object.hasOwn(providerFailure.value, "putUrl"), false);

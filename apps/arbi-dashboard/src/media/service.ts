@@ -151,13 +151,12 @@ export class MediaService {
     requireMedia(initial.variants.full.state === "ready" && variant?.state === "ready" && variant.etag, "MISSING_OBJECT");
     const grant: AccessGrant = { id: randomUUID(), imageId, variant: variantName, actor: context.actor,
       sessionId: context.sessionId, membershipRevision: context.membershipRevision, operation: input.operation as "view" | "download",
-      expiresAtMs: Math.min(context.expiresAtMs, this.now() + ACCESS_TTL_MS), revoked: false };
-    let url: string;
+      expiresAtMs: Math.min(context.expiresAtMs, this.now() + ACCESS_TTL_MS), revoked: false,intentEventId:randomUUID(),issuance:'prepared' };
     try {
       requireMedia(await this.objects.exists(expectation(variant), variant.etag), "MISSING_OBJECT");
-      url = await this.objects.accessGrant(variant.path, grant.expiresAtMs);
     } catch (error) { await this.#failed(context, imageId, "access.issue", variantName, error); throw error; }
-    return this.store.transact(context.realm, context.siteId, async (tx) => {
+    // Durable authority and required audit precede capability signing. Object I/O remains outside SQL locks.
+    await this.store.transact(context.realm, context.siteId, async (tx) => {
       this.#context(context, tx, "still.read");
       const current = await tx.image(imageId);
       requireMedia(current.variants.full.state === "ready" && current.variants[variantName]?.state === "ready" &&
@@ -165,8 +164,29 @@ export class MediaService {
       requireMedia(grant.expiresAtMs > this.now(), "EXPIRED");
       await tx.grant(grant);
       await tx.record(context, { operation: "access.issue", imageId, variant: variantName, grantId: grant.id,
-        expiresAtMs: grant.expiresAtMs, membershipRevision: grant.membershipRevision, result: "issued-access-not-observed", usage: usage(variant, false) }, grant);
+        expiresAtMs: grant.expiresAtMs, membershipRevision: grant.membershipRevision, result: "authorized-signing-pending", usage: usage(variant, false) }, grant);
+    });
+    let url:string;
+    try{url=await this.objects.accessGrant(variant.path,grant.expiresAtMs);}
+    catch(error){await this.#grantFailed(context,grant,'signing-failed-no-response');throw error;}
+    try{return await this.store.transact(context.realm,context.siteId,async tx=>{
+      this.#context(context,tx,'still.read');const current=await tx.image(imageId);
+      const stored=(await tx.sql.query<{record:AccessGrant}>('SELECT record FROM arbi_media_grants WHERE id=$1',[grant.id])).rows[0]?.record;
+      requireMedia(stored&&!stored.revoked&&current.variants.full.state==='ready'&&current.variants[variantName]?.id===variant.id&&current.variants[variantName]?.state==='ready','DENIED');
+      requireMedia(grant.expiresAtMs>this.now(),'EXPIRED');grant.issuance='issued';
+      await tx.sql.query('UPDATE arbi_media_grants SET record=$2::jsonb WHERE id=$1',[grant.id,JSON.stringify(grant)]);
+      await tx.grantResult(grant,{operation:'access.issue-result',imageId,variant:variantName,result:'signed-response-prepared-delivery-unknown'});
       return { grantId: grant.id, expiresAtMs: grant.expiresAtMs, url, operation: grant.operation, variant: variantName };
+    });}catch(error){await this.#grantFailed(context,grant,'signed-response-withheld');throw error;}
+  }
+  async #grantFailed(context:AuthorizedContext,grant:AccessGrant,result:string){
+    await this.store.transact(context.realm,context.siteId,async tx=>{
+      const stored=(await tx.sql.query<{record:AccessGrant}>('SELECT record FROM arbi_media_grants WHERE id=$1 AND image_id=$2',[grant.id,grant.imageId])).rows[0]?.record;
+      requireMedia(stored&&stored.intentEventId===grant.intentEventId,'UNAVAILABLE');
+      // A lost final COMMIT acknowledgement may leave issued authority: retain that fact and revoke it.
+      stored.revoked=true;stored.issuance=stored.issuance==='issued'?'issued':'failed';
+      await tx.sql.query('UPDATE arbi_media_grants SET record=$2::jsonb WHERE id=$1',[stored.id,JSON.stringify(stored)]);
+      await tx.grantResult(stored,{operation:'access.issue-result',imageId:stored.imageId,variant:stored.variant,result},true);
     });
   }
   async revoke(context: AuthorizedContext, input: unknown) {

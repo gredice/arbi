@@ -16,7 +16,7 @@ import { createMediaServer } from "./server";
 
 export const realm = { environment: "test" as const, namespaceId: "media-fixture" };
 export const site = { realm, siteId: "site-a", accountId: "account-a", executionMode: "simulation" as const };
-export const migration = await readFile(new URL("../../migrations/0002-media.sql", import.meta.url), "utf8");
+export const migration = (await Promise.all(['0002-media','0012-media-audit'].map(file=>readFile(new URL(`../../migrations/${file}.sql`,import.meta.url),'utf8')))).join('\n');
 export function database(db: PGlite): SqlDatabase {
   return { transaction: (work) => db.transaction((tx) => work({ query: async (sql, parameters) => tx.query(sql, parameters) })) };
 }
@@ -100,7 +100,7 @@ export async function setup(t: { after: (work: () => Promise<void>) => void }) {
   let clockOffsetMs = 0;
   const now = () => Date.now() + clockOffsetMs;
   const db = new PGlite(); t.after(() => db.close()); await db.exec(migration);
-  const sql = database(db); const store = new PostgresMediaStore(sql); await store.provision(site);
+  const sql = database(db); const store = new PostgresMediaStore(sql,realm); await store.provision(site);
   await store.provision({ ...site, siteId: "site-b", accountId: "account-b" });
   const provider = createIsolatedIdentityProvider(realm, now);
   provider.putSite("site-a", "account-a"); provider.putSite("site-b", "account-b");
@@ -116,7 +116,7 @@ export async function setup(t: { after: (work: () => Promise<void>) => void }) {
   const blob = await blobFixture(t, now);
   const compose = (db = sql, resolveCapture?: Parameters<typeof createMediaServer>[0]["resolveCapture"]) => createMediaServer({ realm,
     identity: provider.adapter, resolveSite: provider.resolveResource, browserOrigins: ["https://fixture.invalid"], db, objects: blob.adapter,
-    now, ...(resolveCapture ? { resolveCapture } : {}) });
+    now,schemaOnlyTestRealm:realm, ...(resolveCapture ? { resolveCapture } : {}) });
   const http = compose();
   const bytes = await sharp({ create: { width: 32, height: 24, channels: 3, background: "#808080" } }).png().toBuffer();
   const upload = (requestId: string, variant: "full" | "thumbnail" = "full", imageId: string | null = null): UploadInput => ({
