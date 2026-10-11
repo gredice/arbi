@@ -10,6 +10,11 @@ drilling them or loading the small top thread. Use this first for unloaded fit,
 line routing and hand-rotation checks. Physical fit and retention have not yet
 been demonstrated. It is not an accepted anchor for tensioned cable tests.
 
+Use the [WT-806 mounting assembly guide](../../../docs/assemblies/corner-station/stand-assembly.md)
+for labeled part identification, reused/omitted parts, mounting order and the
+blank trial record. Its illustrated insert is pages 9–14 of the corner support
+assembly PDF; the same source pack includes the four adapter print meshes.
+
 ## Stand identification and measurements
 
 The owner supplied [Amazon ASIN B000LWEA0I](https://www.amazon.de/dp/B000LWEA0I).

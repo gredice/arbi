@@ -19,6 +19,10 @@ IDS = ['corner-head-printed-left', 'corner-head-printed-right', 'corner-head-pri
        'corner-head-printed-front-cover', 'corner-head-printed-rear-cover', 'corner-head-printed-template']
 VARIANTS = {'round-100-printed-line-1.5', 'round-120-printed-line-1.5', 'round-140-printed-line-1.5',
             'round-120-printed-line-4.5', 'square-100-printed-line-1.5'}
+STAND_IDS = ['corner-stand-head-front', 'corner-stand-head-rear',
+             'corner-stand-winch-front', 'corner-stand-winch-rear']
+STAND_FIGURES = ['stand-inventory', 'stand-clamp', 'stand-head', 'stand-winch', 'stand-alignment']
+PAGE_COUNT = 14
 
 
 def check(output):
@@ -81,7 +85,7 @@ def check(output):
         assert np.allclose(equilibrium['rejected_vertical_10N_moment_Nmm'],[0,-400,0])
         assert report['service_paths_mm']==dict(front_cover=[[0,0,-190],[0,100,-190]],rear_cover=[[-80,0,0]])
         figures=json.loads(pack.read(PREFIX+'figure-manifest.json'))
-        assert {'covered','open','exploded','print-left','template'}==set(figures)
+        assert {'covered','open','exploded','print-left','template',*STAND_FIGURES}==set(figures)
         for name, figure in figures.items():
             assert figure['render_style']=='assembly-line-art-v1'
             with Image.open(output/'figures'/(name+'.png')) as image:
@@ -93,13 +97,51 @@ def check(output):
                     assert not any(old in part['file'] for old in ['bracket','backing','saddle','connector'])
         pads = [part for part in figures['covered']['parts'] if models['corner-head-printed-rear-pad']['output'] in part['file']]
         assert len(pads)==2 and sorted(part['matrix'][2][3] for part in pads)==[45,155]
+        stand=report['stand_instructions']
+        assert stand['status']=='concept-unvalidated' and stand['revision']=='0.1.0'
+        assert (stand['head_tube_mm'],stand['winch_tube_mm'])==(26,35)
+        assert (stand['head_pitch_mm'],stand['winch_pitch_mm'])==(110,120)
+        assert set(stand['print_parts'])==set(STAND_IDS)
+        assert {Path(name).name for name in report['mesh_sha256'] if name.startswith('models/stand/print/')}=={models[mid]['output'] for mid in STAND_IDS}
+        for mid,data in stand['print_parts'].items():
+            assert data['quantity_per_stand']==2 and data['quantity_two_stands']==4
+            mesh=trimesh.load_mesh(io.BytesIO(pack.read(PREFIX+data['file'])),file_type='stl')
+            assert mesh.is_watertight and mesh.is_winding_consistent and mesh.body_count==1 and mesh.volume>0
+            assert np.allclose(mesh.bounds[0],[0,0,0],atol=.002)
+            assert np.allclose(mesh.extents,data['extents_mm'],atol=.002)
+            matrix=np.array(data['print_to_installed'])
+            assert np.allclose(matrix[:3,:3].T@matrix[:3,:3],np.eye(3)) and np.linalg.det(matrix[:3,:3])>0
+            mesh.apply_transform(matrix)
+            # Independently recover the installed clamp row and split plane.
+            assert np.allclose(mesh.bounds[:,2],[-25,25],atol=.002)
+            assert np.allclose(mesh.bounds[:,1],[-51,51],atol=.002)
+            assert abs((mesh.bounds[0,0] if mid.endswith('front') else mesh.bounds[1,0])-(.4 if mid.endswith('front') else -.4))<.002
+            name='stand-head' if 'head' in mid else 'stand-winch'
+            parts=[p for p in figures[name]['parts'] if p['file']==data['file']]
+            assert len(parts)==2, (mid,'one half per row')
+            installed=[np.array(p['matrix'])@np.linalg.inv(matrix) for p in parts]
+            assert sorted(round(m[2,3],3) for m in installed)==([45,155] if 'head' in mid else [-60,60])
+            assert all(np.allclose(m[:3,:3],np.eye(3)) and np.allclose(m[:2,3],[0,0]) for m in installed)
+        for name in STAND_FIGURES:
+            assert figures[name]['anchors'], name
+            assert all(0<=v<=1 for xy in figures[name]['anchors'].values() for v in xy), name
+            assert not any('rear-pad' in p['file'] or 'cover' in p['file'] for p in figures[name]['parts'])
+        nominal=json.loads(pack.read(PREFIX+'stand-adapter-check.json'))
+        assert nominal['revision']=='0.1.0' and nominal['evidence']=='nominal CAD only; unprinted/unloaded'
+        assert len(nominal['checks'])>250 and nominal['checkCount']==len(nominal['checks'])
+        for name,expected in nominal['sourceSha256'].items():
+            assert hashlib.sha256((ROOT/name).read_bytes()).hexdigest()==expected
+            assert hashlib.sha256(pack.read(PREFIX+'source/repository/'+name)).hexdigest()==expected
     pages=PdfReader(output/(ARTIFACT+'-assembly-STL.pdf')).pages
-    assert len(pages)==8
+    assert len(pages)==PAGE_COUNT
     for i,page in enumerate(pages,1):
         text=page.extract_text()
-        assert f'{i} / 8' in text and 'CONCEPT - UNVALIDATED' in text
+        assert f'{i} / {PAGE_COUNT}' in text and 'CONCEPT - UNVALIDATED' in text
         assert abs(float(page.mediabox.width)-595.276)<1 and abs(float(page.mediabox.height)-841.890)<1
-    print(f'Checked corner support: 8 A4 pages, {len(report["mesh_sha256"])} meshes, {report["checks"]} nominal checks and current source/ZIP hashes.')
+    indoor='\n'.join(page.extract_text() for page in pages[8:])
+    for value in ['WT-806','M6 x 60','M6 x 70','M12 x 90','M8 x 40','110 mm','120 mm','253.3 mm','locking nut']:
+        assert value in indoor,value
+    print(f'Checked corner support: {PAGE_COUNT} A4 pages including WT-806, {len(report["mesh_sha256"])} meshes, {report["checks"]} nominal checks and current source/ZIP hashes.')
 
 
 if __name__=='__main__':

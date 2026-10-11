@@ -166,6 +166,8 @@ registered CAD, check meshes and nominal assembly geometry, render white-face
 line illustrations and package A4 PDFs with portable STL/source ZIPs. The five
 configurations are the winch, dry camera pod bench, camera pod rain enclosure and
 proposed corner head and supported-dummy dock.
+The corner head booklet also includes an illustrated WT-806 indoor mounting
+insert and adapter print meshes for unloaded development trials.
 
 [Booklet CI](.github/workflows/ci.yml) builds affected variants on PRs and
 all five on release runs or manual dispatches. [CAD release CI](.github/workflows/ci.yml) includes
