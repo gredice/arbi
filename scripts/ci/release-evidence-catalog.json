@@ -360,6 +360,20 @@
       "recordingOnly": false
     },
     {
+      "id": "recording-event-contract",
+      "stage": "unit-contract",
+      "requirements": [
+        "recording"
+      ],
+      "target": "cloud",
+      "ownerRole": "media-owner",
+      "reviewerRole": "software-reviewer",
+      "definition": "packages/arbi-protocol/src/accounting.test.ts",
+      "name": "recording is reserved and disabled; upstream has no per-viewer multiplier",
+      "measurements": [],
+      "recordingOnly": false
+    },
+    {
       "id": "local-fault-simulation",
       "stage": "simulation",
       "requirements": [

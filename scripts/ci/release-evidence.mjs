@@ -80,8 +80,8 @@ export function evaluateReleaseEvidence(input,{readArtifact=()=>{throw Error('RA
     }catch(error){row.status=record.status==='failed'?'failed':'missing';row.reasons.push(error.message);}
     return row;
   });
-  const disabled=rows.find(r=>r.testId==='recording-disabled');for(const row of rows.filter(r=>catalog.tests.find(t=>t.id===r.testId).recordingOnly)){
-    if(!release.recordingEnabled&&disabled.status==='passed'&&row.status==='missing'&&(!records.has(row.testId)||records.get(row.testId).status==='not-applicable'&&row.reasons.length===0)){row.status='not-applicable';row.reasons=[];}
+  const disabled=['recording-disabled','recording-event-contract'].every(id=>rows.find(r=>r.testId===id)?.status==='passed');for(const row of rows.filter(r=>catalog.tests.find(t=>t.id===r.testId).recordingOnly)){
+    if(!release.recordingEnabled&&disabled&&row.status==='missing'&&(!records.has(row.testId)||records.get(row.testId).status==='not-applicable'&&row.reasons.length===0)){row.status='not-applicable';row.reasons=[];}
     else if(row.status==='missing'&&!release.recordingEnabled)row.reasons.push('recording-disabled-proof-missing');
   }
   const accepted=row=>['passed','not-applicable'].includes(row.status);

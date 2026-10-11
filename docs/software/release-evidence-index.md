@@ -5,7 +5,7 @@ separate field gates in [ADR-0045](../decisions/0045-staged-release-evidence-ind
 and the [safety case](../system/safety-case.md).
 
 The pinned [catalogue](../../scripts/ci/release-evidence-catalog.json) maps 20
-requirements and nine known hazard classes to 23 named tests and evidence-owner
+requirements and nine known hazard classes to 24 named tests and evidence-owner
 roles. It includes identity/realm, command expiry/replay, local fault stopping,
 reset, viewing/capture/privacy, accounting/audit, updates, dock/clearance/loads,
 guards/electrical/environment, maintenance, recording and installed recovery.
@@ -51,7 +51,7 @@ the exact closed shapes; synthetic validator fixtures supply no physical proof.
 The result shows passed, failed, missing and not-applicable tests, requirement
 coverage, named-owner gaps, stage eligibility and blockers. Recording acceptance
 is not applicable only when recording is disabled and the disabled capability/
-event-contract evidence passed for this release. Enabling recording requires its
+reserved accounting-event contract evidence passed for this release. Enabling recording requires its
 physical acceptance again.
 
 `complete` means that every pinned requirement has accepted reported coverage
