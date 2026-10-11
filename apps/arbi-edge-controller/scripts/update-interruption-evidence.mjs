@@ -1,0 +1,10 @@
+import {writeFileSync,lstatSync} from 'node:fs';
+import {dirname,resolve} from 'node:path';
+import {execFileSync} from 'node:child_process';
+import {runUpdateInterruptionMatrix} from '../dist/updates/interruption-matrix.js';
+const [flag,output]=process.argv.slice(2);
+if(flag!=='--output'||!output||process.argv.length!==4)throw Error('EXPLICIT_OUTPUT_REQUIRED');
+const path=resolve(output),parent=lstatSync(dirname(path));if(!parent.isDirectory()||(parent.mode&0o077))throw Error('PRIVATE_OUTPUT_DIRECTORY_REQUIRED');
+const sourceCommit=execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),dirty=execFileSync('git',['status','--porcelain'],{encoding:'utf8'}).length>0;
+const evidence=await runUpdateInterruptionMatrix();writeFileSync(path,JSON.stringify({...evidence,sourceCommit,dirty},null,2)+'\n',{flag:'wx',mode:0o600});
+process.stdout.write('Isolated host interruption evidence written; physical gates remain blocked.\n');
