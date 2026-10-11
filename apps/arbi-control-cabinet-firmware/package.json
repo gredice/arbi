@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "node scripts/build.mjs && node scripts/build.mjs --bench-code-check",
-    "lint": "node --check scripts/build.mjs && node --check scripts/toolchain.mjs && node --check scripts/prepare.mjs && node --check scripts/firmware.test.mjs && node --check scripts/pulse.test.mjs && node --check scripts/motion.test.mjs",
+    "lint": "node --check scripts/build.mjs && node --check scripts/toolchain.mjs && node --check scripts/prepare.mjs && node --check scripts/firmware.test.mjs && node --check scripts/pulse.test.mjs && node --check scripts/motion.test.mjs && node --check scripts/homing.test.mjs",
     "typecheck": "node scripts/build.mjs --host-only",
     "test": "node scripts/build.mjs && node --test scripts/*.test.mjs",
     "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\""

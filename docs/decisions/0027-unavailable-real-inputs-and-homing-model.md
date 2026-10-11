@@ -1,0 +1,13 @@
+# ADR-0027: Unavailable real inputs and bounded homing model
+
+Status: accepted when the issue PR merges. Work record: [#59](https://github.com/gredice/arbi/issues/59).
+
+The [wiring baseline](../assemblies/winch/wiring.md#unresolved-connections-and-verification) leaves home, independent limits, driver alarm/enable and dock/latch circuits unresolved. Keep every real input/output unavailable. Do not assign GPIO or treat a reserved conductor, raw Boolean, software disable or fixture record as a completed safety circuit. The [interface requirements](../system/input-enable-interface-requirements.md) identify what a later qualified circuit/interface review must supply; this source change supplies no such sign-off.
+
+Implement a fixed-memory, explicitly simulated digital-input model. Four axes each have separate home, limit and alarm channels; dock and latch are separate channels. Unavailable, disconnected, contradictory, stale and unstable states remain distinct from a valid inactive state. Fixture debounce is five milliseconds with a hundred-millisecond freshness bound and at most eight changes per hundred milliseconds. Simulated alarm/limit assertion is immediate; release is debounced. These are test parameters, not reviewed physical filtering/response limits. Faults latch until deliberate model reset.
+
+Select a synthetic coordinated homing sequence: one axis at a time, release an initially active home switch, seek, back off, seek slowly and compare the second reference against the first. Only one finite one-step plan can be pending. A copied test policy bounds axis order/direction, total command-relative travel, per-axis/total time, rates, acceleration and repeatability. Configuration/hardware/calibration/frame/model identity is checked on every tick. Missing required inputs, alarm/limit assertion, bounce/failure, time/sequence bounds, implausible references or scheduler/completion mismatch discard pending intent and invalidate all references.
+
+Completion means simulated command-relative references only. It does not promote configuration/calibration, establish measured HOME, assert `Ready` or infer `Parked` from pose. Dock/latch observations remain independent evidence for the reviewed state owner. No tension/encoder data is fabricated; prerequisites requiring real alarm/limit/tension evidence remain unavailable. The model has no GPIO, adapter dispatch, interrupt handler or stopping claim. Both target branches compile its functions, while ordinary startup and commands remain inhibited.
+
+[Tests and evidence](../evidence/input-homing-model.md) exercise source behavior. A named secured single-axis/rig homing and exact as-built wiring record remains required before any physical capability can use these inputs or homing results.
