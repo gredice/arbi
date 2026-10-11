@@ -30,7 +30,7 @@ bool local_model_reset_record(const LocalModel *m,LocalResetRecord *record) {
 }
 bool local_model_reset_history(LocalModel *m,const LocalResetRecord *record) {
   if(!m||!record||m->configured||m->phase!=LOCAL_RECOVERY_REQUIRED||!id(record->boot)||!strncmp(record->boot,m->self.boot,65)
-    ||record->cause<LOCAL_RESET_UNKNOWN||record->cause>LOCAL_RESET_SIMULATED_BROWNOUT)return false;
+    ||(unsigned)record->cause>LOCAL_RESET_SIMULATED_BROWNOUT)return false;
   m->previous_reset=*record;m->previous_reset_available=true;return true;
 }
 static void latch(LocalModel *m,unsigned faults,uint64_t now) {
