@@ -64,6 +64,7 @@ The committed material is a **design baseline**, not proof of a built or safe in
 - [Mobile data accounting 1.0 contracts, boundary rules and executable worked fixtures](software/mobile-data-accounting.md)
 - [Device transfer instrumentation, durable raw counters and explicit Linux/router coverage](software/device-traffic-metering.md), with [host evidence](evidence/device-traffic-metering.md)
 - [Durable usage ingestion, billing-period rollups and explicit accounting uncertainty](software/usage-rollups.md), with [host evidence](evidence/usage-rollups.md)
+- [Cloud health, least privilege and isolated recovery quarantine](software/cloud-operations.md), with [native restore evidence](evidence/cloud-operations.md) and [ADR-0011](decisions/0011-cloud-recovery-quarantine.md)
 - [Usage, billing policy and correlated audit dashboard](software/usage-audit-dashboard.md), with [native/browser evidence](evidence/usage-audit-dashboard.md)
 - [Configurable usage reports, forecast assumptions and durable budget alerts](software/usage-settings-alerts.md), with [host evidence](evidence/usage-settings-alerts.md)
 - [Edge transfer budgets, essential traffic bounds and verified artifact recovery](software/transfer-budgets.md), with [host evidence](evidence/transfer-budgets.md)
