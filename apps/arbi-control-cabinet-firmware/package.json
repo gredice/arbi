@@ -1,0 +1,15 @@
+{
+  "name": "@arbi/control-cabinet-firmware",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "lint": "node --check scripts/build.mjs && node --check scripts/toolchain.mjs && node --check scripts/prepare.mjs && node --check scripts/firmware.test.mjs",
+    "typecheck": "node scripts/build.mjs --host-only",
+    "test": "node scripts/build.mjs --host-only && node --test scripts/firmware.test.mjs",
+    "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\""
+  },
+  "devDependencies": { "@arbi/protocol": "workspace:*" },
+  "engines": { "node": ">=24" }
+}
