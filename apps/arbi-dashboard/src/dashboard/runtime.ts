@@ -11,7 +11,8 @@ interface DashboardRuntime { server: DashboardServer; login?: (code: string) => 
   historyTools?:{handle:(request:Request,siteId:string,feature:string,action:string)=>Promise<Response>};
   controlTools?:{handle:(request:Request,siteId:string,action:string)=>Promise<Response>};
   updateTools?:{handle:(request:Request,siteId:string,action:string)=>Promise<Response>};
-  telemetryTools?:{handle:(request:Request,siteId:string,action:string)=>Promise<Response>}; }
+  telemetryTools?:{handle:(request:Request,siteId:string,action:string)=>Promise<Response>};
+  captureTools?:{handle:(request:Request,siteId:string,action:string)=>Promise<Response>}; }
 let configured: DashboardRuntime | undefined;
 let attempted = false;
 /** Live composition supplies the existing trusted provider; it never uses fixture identity. */
@@ -72,3 +73,5 @@ export function dashboardTelemetryRoute(request:Request,siteId:string,action:str
 }
 
 export function dashboardUpdateRoute(request:Request,siteId:string,action:string){return dashboardRuntime()?.updateTools?.handle(dashboardRequest(request),siteId,action)??Promise.resolve(unavailable());}
+
+export function dashboardCaptureRoute(request:Request,siteId:string,action:string){return dashboardRuntime()?.captureTools?.handle(dashboardRequest(request),siteId,action)??Promise.resolve(unavailable());}

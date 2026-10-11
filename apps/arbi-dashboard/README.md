@@ -74,3 +74,7 @@ The [usage adapter](src/usage/server.ts) mounts `/api/sites/:siteId/usage/:actio
 [Local WebRTC candidate reference](../../docs/software/live-transport-reference.md)
 adds an explicit synthetic VP8 experiment to the browser checks. Its local RTP and
 host resource measurements do not select a physical camera or NAT/relay transport.
+
+## Capture history and framing
+
+[Capture dashboard](../../docs/software/capture-dashboard.md) provides explicit protected metadata/history, independently verified cloud delivery and on-demand private image access. Framing review/editing uses actual local commissioning records, independent review and current compatibility. Ordinary startup remains unconfigured; [evidence](../../docs/evidence/capture-dashboard.md) distinguishes native API tests, renderer fixtures and physical/provider acceptance.

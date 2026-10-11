@@ -150,3 +150,5 @@ Design decisions belong in ADRs. Work items and unresolved questions belong in G
 - [Controller-specific update interlocks and service inventory](software/controller-update-model.md), [source and bench acceptance matrix](evidence/controller-update-model.md), and [ADR-0031](decisions/0031-controller-update-owner-interlocks.md)
 
 - [Local WebRTC candidate experiment](software/live-transport-reference.md), [measured host evidence and outstanding transport gates](evidence/live-transport-reference.md), and [ADR-0038](decisions/0038-local-webrtc-candidate-evidence.md)
+
+- [Protected capture history, explicit media access and versioned framing review](software/capture-dashboard.md), [native/API/browser evidence](evidence/capture-dashboard.md), and [ADR-0037](decisions/0037-protected-capture-history-and-framing-review.md)

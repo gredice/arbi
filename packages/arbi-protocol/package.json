@@ -26,6 +26,10 @@
     "./capture-upload": {
       "types": "./dist/capture-upload.d.ts",
       "import": "./dist/capture-upload.js"
+    },
+    "./capture-history": {
+      "types": "./dist/capture-history.d.ts",
+      "import": "./dist/capture-history.js"
     }
   },
   "scripts": {

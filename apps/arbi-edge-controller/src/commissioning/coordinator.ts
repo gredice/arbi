@@ -118,6 +118,7 @@ export class CommissioningCoordinator {
       if (state.staged && ['activating', 'blocked'].includes(state.phase)) throw new CommissioningError('RECOVERY_REQUIRED');
       for (const historical of this.#o.store.history()) for (const old of [historical.active, historical.staged]) {
         if (old?.configuration.revision === set.configuration.revision && configurationDigest(old) !== configurationDigest(set)) throw new CommissioningError('REVISION_CONFLICT');
+        if(old?.configuration.calibration?.revision===set.configuration.calibration!.revision&&configurationDigest(old.configuration.calibration)!==configurationDigest(set.configuration.calibration))throw new CommissioningError('CALIBRATION_REVISION_CONFLICT');
       }
       if (state.active && (set.configuration.previousRevision !== state.active.configuration.revision || set.configuration.revision === state.active.configuration.revision)) throw new CommissioningError('STALE_CONFIGURATION');
       this.#stop();

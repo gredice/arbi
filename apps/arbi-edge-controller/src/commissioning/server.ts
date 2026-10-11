@@ -14,12 +14,12 @@ export class CommissioningServer {
     } });
   }
   async handle(request: Request, siteId: string, action: string): Promise<Response> {
-    const read = action === 'status';
+    const read = ['status','review'].includes(action);
     return this.boundary.run(request, { surface: 'http', siteId, capability: read ? 'configuration.read' : 'configuration.write' }, async context => {
       try {
         if (siteId !== this.coordinator.status.siteId || request.method !== (read ? 'GET' : 'POST')
-          || !['status', 'enroll', 'stage', 'activate', 'invalidate', 'recover'].includes(action)) throw new CommissioningError('INVALID_REQUEST');
-        if (read) return Response.json(this.coordinator.status);
+          || !['status', 'review', 'enroll', 'stage', 'activate', 'invalidate', 'recover'].includes(action)) throw new CommissioningError('INVALID_REQUEST');
+        if (read){const value=action==='review'?{status:this.coordinator.status,...this.store.review()}:this.coordinator.status;if(Buffer.byteLength(JSON.stringify(value))>262144)throw new CommissioningError('REVIEW_CAPACITY');return this.boundary.run(request,{surface:'http',siteId,capability:'configuration.read'},async()=>Response.json(value));}
         const input = await body(request);
         const fields = action === 'enroll' ? ['reason', 'deviceId'] : action === 'stage' ? ['reason', 'set'] : ['reason'];
         if (!input || typeof input !== 'object' || Array.isArray(input) || Object.keys(input).sort().join() !== fields.sort().join()

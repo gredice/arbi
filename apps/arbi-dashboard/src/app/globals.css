@@ -9,3 +9,5 @@
 .control-playground p,.control-playground dd{overflow-wrap:anywhere}.control-playground select{display:block;max-width:100%;margin:8px 0}.control-actions{display:flex;flex-wrap:wrap;gap:12px;margin:18px 0}.control-actions button{min-height:44px;white-space:normal}.control-playground dl{display:grid;grid-template-columns:minmax(100px,1fr) minmax(0,2fr);gap:8px}.control-playground dd{margin:0}
 
 .update-stack code { overflow-wrap: anywhere; }
+
+.capture-dashboard{display:grid;gap:1.25rem}.capture-dashboard label{display:block;margin:1rem 0}.capture-dashboard input,.capture-dashboard textarea{display:block;width:100%;max-width:100%;margin-top:.4rem}.capture-dashboard textarea{font-family:var(--font-mono,monospace)}.capture-entry{border-top:1px solid var(--line);margin-top:1.25rem;padding-top:1rem}.capture-entry code{white-space:pre-wrap;overflow-wrap:anywhere}.capture-entry dd,.capture-entry p{overflow-wrap:anywhere}.capture-entry img{max-width:100%;max-height:24rem}.capture-dashboard button{margin:.25rem .5rem .25rem 0}

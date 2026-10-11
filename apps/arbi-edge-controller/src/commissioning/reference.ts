@@ -49,8 +49,8 @@ export async function createCommissioningReference(directory: string, options: {
   const coordinator = new CommissioningCoordinator(composition);
   const server = new CommissioningServer({ identity: provider.adapter, resolveResource: provider.resolveResource, browserOrigins: ['http://localhost'] }, coordinator, store, now);
   const request = (action: string, input?: unknown, token = credential.token, siteId = c.siteId) => server.handle(new Request(`http://localhost/sites/${siteId}/commissioning/${action}`, {
-    method: action === 'status' ? 'GET' : 'POST', headers: { authorization: `Bearer ${token}`, origin: 'http://localhost', 'x-arbi-request': '1', 'content-type': 'application/json' },
-    ...(action === 'status' ? {} : { body: JSON.stringify(input ?? { reason: 'fixture-inspection' }) }),
+    method: ['status','review'].includes(action) ? 'GET' : 'POST', headers: { authorization: `Bearer ${token}`, origin: 'http://localhost', 'x-arbi-request': '1', 'content-type': 'application/json' },
+    ...(['status','review'].includes(action) ? {} : { body: JSON.stringify(input ?? { reason: 'fixture-inspection' }) }),
   }), siteId, action);
   return { set, identity, provider, credential, devices, observations, composition, coordinator, server, store, approved, calibrationApprovals, now, request,
     get stops() { return stops; }, advance(ms: number) { time += ms; }, local(grant: LocalCommissioningAuthorization | null) { localGrant = grant; }, get grant() { return localGrant; },
