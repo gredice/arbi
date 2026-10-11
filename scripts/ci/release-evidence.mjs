@@ -1,5 +1,5 @@
 import {createHash} from 'node:crypto';
-import {readFileSync,lstatSync,writeFileSync,existsSync} from 'node:fs';
+import {readFileSync,lstatSync,writeFileSync,existsSync,realpathSync} from 'node:fs';
 import {dirname,resolve,relative,isAbsolute} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {execFileSync} from 'node:child_process';
@@ -13,7 +13,7 @@ function exact(v,keys){if(!object(v)||Object.keys(v).length!==keys.length||Objec
 function bounded(v,max=256){if(!Array.isArray(v)||v.length>max)throw Error('EVIDENCE_CAPACITY');}
 const unique=values=>new Set(values).size===values.length;
 const canonical=v=>Array.isArray(v)?'['+v.map(canonical).join(',')+']':object(v)?'{'+Object.keys(v).sort().map(k=>JSON.stringify(k)+':'+canonical(v[k])).join(',')+'}':JSON.stringify(v);
-export const procedureDigest=procedure=>createHash('sha256').update(canonical({id:procedure.id,reviewerId:procedure.reviewerId,limits:procedure.limits})).digest('hex');
+export const procedureDigest=procedure=>createHash('sha256').update(canonical({id:procedure.id,reviewerId:procedure.reviewerId,approvedAtMs:procedure.approvedAtMs,validUntilMs:procedure.validUntilMs,limits:procedure.limits})).digest('hex');
 export function validateCatalog(){
   if(catalog.version!=='arbi.release-evidence-catalog/1.0'||!unique(catalog.tests.map(t=>t.id))||!unique(catalog.requirements.map(r=>r.id)))throw Error('INVALID_CATALOG');
   for(const requirement of catalog.requirements)if(!text(requirement.ownerRole)||!catalog.hazards.includes(requirement.hazard)||!catalog.tests.some(t=>t.requirements.includes(requirement.id)))throw Error('UNCOVERED_REQUIREMENT');
@@ -25,8 +25,8 @@ function artifactPath(file){if(!text(file)||isAbsolute(file)||file.split(/[\\/]/
 function checkedArtifact(record,readArtifact){
   exact(record.artifact,['file','sha256']);if(!sha(record.artifact.sha256))throw Error('INVALID_ARTIFACT_IDENTITY');
   const bytes=readArtifact(artifactPath(record.artifact.file));if(!Buffer.isBuffer(bytes)||bytes.length>524288||createHash('sha256').update(bytes).digest('hex')!==record.artifact.sha256)throw Error('RAW_ARTIFACT_MISMATCH');
-  const raw=JSON.parse(bytes.toString('utf8'));exact(raw,['version','testId','sourceCommit','configurationDigest','provenance','targetRevision','realFirmware','controlledSubstitutes','stopConditionsRespected','modelComparisonDigest','measurements']);
-  if(raw.version!=='arbi.release-test-evidence/1.0'||raw.testId!==record.testId||raw.sourceCommit!==record.sourceCommit||raw.configurationDigest!==record.configurationDigest||!['source','simulation','physical-measurement'].includes(raw.provenance)||typeof raw.realFirmware!=='boolean'||typeof raw.controlledSubstitutes!=='boolean'||typeof raw.stopConditionsRespected!=='boolean')throw Error('RAW_ARTIFACT_IDENTITY');
+  const raw=JSON.parse(bytes.toString('utf8'));exact(raw,['version','testId','sourceCommit','configurationDigest','provenance','targetRevision','realFirmware','controlledSubstitutes','stopConditionsRespected','modelComparisonDigest','startedAtMs','finishedAtMs','outcome','measurements']);
+  if(raw.version!=='arbi.release-test-evidence/1.0'||raw.testId!==record.testId||raw.sourceCommit!==record.sourceCommit||raw.configurationDigest!==record.configurationDigest||raw.outcome!==record.status||!Number.isSafeInteger(raw.startedAtMs)||!Number.isSafeInteger(raw.finishedAtMs)||raw.startedAtMs<=0||raw.finishedAtMs<raw.startedAtMs||!['source','simulation','physical-measurement'].includes(raw.provenance)||typeof raw.realFirmware!=='boolean'||typeof raw.controlledSubstitutes!=='boolean'||typeof raw.stopConditionsRespected!=='boolean')throw Error('RAW_ARTIFACT_IDENTITY');
   bounded(raw.measurements,64);return raw;
 }
 /** Evidence inventory only: never deploys, enables motion, or grants field authority. */
@@ -38,8 +38,8 @@ export function evaluateReleaseEvidence(input,{readArtifact=()=>{throw Error('RA
   const roles=new Set(catalog.requirements.map(r=>r.ownerRole));for(const [role,id] of Object.entries(release.ownerAssignments))if(!roles.has(role)||!text(id))throw Error('INVALID_OWNER_ASSIGNMENT');
   const targets=new Set(catalog.tests.map(t=>t.target));for(const [target,revision] of Object.entries(release.hardwareRevisions))if(!targets.has(target)||!text(revision))throw Error('INVALID_TARGET_REVISION');
   for(const [stage,procedure] of Object.entries(release.procedures)){
-    if(!catalog.stages.slice(2).some(s=>s.id===stage))throw Error('INVALID_STAGE_PROCEDURE');exact(procedure,['id','sha256','reviewerId','limits']);
-    if(!text(procedure.id)||!sha(procedure.sha256)||!text(procedure.reviewerId)||!object(procedure.limits)||Object.keys(procedure.limits).length>64)throw Error('INVALID_STAGE_PROCEDURE');
+    if(!catalog.stages.slice(2).some(s=>s.id===stage))throw Error('INVALID_STAGE_PROCEDURE');exact(procedure,['id','sha256','reviewerId','approvedAtMs','validUntilMs','limits']);
+    if(!text(procedure.id)||!sha(procedure.sha256)||!text(procedure.reviewerId)||!Number.isSafeInteger(procedure.approvedAtMs)||!Number.isSafeInteger(procedure.validUntilMs)||procedure.approvedAtMs<=0||procedure.validUntilMs<=procedure.approvedAtMs||!object(procedure.limits)||Object.keys(procedure.limits).length>64)throw Error('INVALID_STAGE_PROCEDURE');
     if(procedure.sha256!==procedureDigest(procedure))throw Error('PROCEDURE_DIGEST_MISMATCH');
     for(const limit of Object.values(procedure.limits)){exact(limit,['minimum','maximum','unit']);if(!Number.isFinite(limit.minimum)||!Number.isFinite(limit.maximum)||limit.minimum>limit.maximum||!text(limit.unit))throw Error('INVALID_MEASUREMENT_LIMIT');}
   }
@@ -69,6 +69,7 @@ export function evaluateReleaseEvidence(input,{readArtifact=()=>{throw Error('RA
         const procedure=release.procedures[test.stage],revision=release.hardwareRevisions[test.target];
         if(!sha(release.configurationDigest)||!revision||raw.targetRevision!==revision||raw.provenance!=='physical-measurement')throw Error('PHYSICAL_IDENTITY_MISSING');
         if(!procedure||record.procedureSha256!==procedure.sha256||procedure.reviewerId===ownerId||record.review.reviewerId===ownerId)throw Error('INDEPENDENT_PROCEDURE_REVIEW_MISSING');
+        if(raw.startedAtMs<procedure.approvedAtMs||raw.finishedAtMs>procedure.validUntilMs)throw Error('PROCEDURE_NOT_CURRENT_AT_TEST');
         if(!raw.stopConditionsRespected||(['secured-frame','installed-site'].includes(test.stage)&&raw.controlledSubstitutes)||(['pico','pod','edge','site'].includes(test.target)&&!raw.realFirmware))throw Error('PHYSICAL_SETUP_NOT_ACCEPTED');
         if(test.stage==='hardware-in-loop'&&!sha(raw.modelComparisonDigest))throw Error('MODEL_COMPARISON_MISSING');
         if(!unique(raw.measurements.map(m=>m.name)))throw Error('DUPLICATE_MEASUREMENT');
@@ -96,6 +97,6 @@ if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){
   const draft=inputPath==='--draft';let input,base;
   if(draft){const git=args=>execFileSync('git',args,{cwd:root,encoding:'utf8'}).trim();if(git(['status','--porcelain']))throw Error('CLEAN_SOURCE_REQUIRED');input=draftInput(git(['rev-parse','HEAD']));base=root;}
   else{const path=resolve(inputPath),bytes=readFileSync(path);if(bytes.length>1048576)throw Error('INPUT_CAPACITY');input=JSON.parse(bytes.toString('utf8'));base=dirname(path);}
-  const report=evaluateReleaseEvidence(input,{readArtifact:file=>{const path=resolve(base,artifactPath(file));if(relative(base,path).startsWith('..'))throw Error('INVALID_ARTIFACT_PATH');const stat=lstatSync(path);if(!stat.isFile()||stat.size>524288)throw Error('RAW_ARTIFACT_UNAVAILABLE');return readFileSync(path);}});
+  const report=evaluateReleaseEvidence(input,{readArtifact:file=>{const path=resolve(base,artifactPath(file));if(relative(realpathSync(base),realpathSync(path)).startsWith('..'))throw Error('INVALID_ARTIFACT_PATH');const stat=lstatSync(path);if(!stat.isFile()||stat.size>524288)throw Error('RAW_ARTIFACT_UNAVAILABLE');return readFileSync(path);}});
   writeFileSync(out,JSON.stringify(report,null,2)+'\n',{flag:'wx',mode:0o600});console.log(JSON.stringify({complete:report.complete,publicOperationReady:false,blockers:report.blockers.length}));if(!draft&&!report.complete)process.exitCode=1;
 }

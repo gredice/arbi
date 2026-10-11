@@ -14,7 +14,8 @@ satisfy physical tests. Hardware-in-loop requires real firmware, measurements
 and a trace-comparison digest; loaded/installed stages reject controlled
 substitutes. Measurements include instrument identity and uncertainty and must
 fit previously declared procedure limits. Procedure digests bind the reviewed
-limits. Independent physical review and named owners are mandatory.
+limits and approval/validity interval; test execution must fall within it.
+Independent physical review and named owners are mandatory.
 
 Every missing/failed mandatory record blocks reported completion and later-stage
 entry eligibility. Deferred recording is not applicable only while disabled

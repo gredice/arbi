@@ -35,16 +35,17 @@ The parent directory must already exist with mode 0700; output is exclusive and
 mode 0600. For reviewed records, replace `--draft` with an input JSON path. The
 input version is `arbi.release-evidence-input/1.0`; its release binds a full source
 commit, configuration digest, hardware revisions, named owner assignments,
-reviewed stage procedures/limits and recording state. Tests use their pinned IDs;
+reviewed stage procedures/limits with approval/validity times and recording state. Tests use their pinned IDs;
 records cannot remove or rename mandatory gates. Incomplete non-draft input writes
 the index and exits nonzero.
 
 Each passed/failed record names a bounded relative raw JSON file and SHA-256,
 matching source/configuration identity and accepted reviewer role. Raw files use
 `arbi.release-test-evidence/1.0`; they include test/target identity, provenance,
-real-firmware/substitute flags, stop-condition outcome and measurements with
+real-firmware/substitute flags, test interval/result, stop-condition outcome and measurements with
 instrument, unit and uncertainty. Physical values and uncertainty must fit the
-limits in the release's digest-bound stage procedure. HIL also references its
+limits in the release's digest-bound stage procedure, approved before test
+start and still valid at completion. HIL also references its
 reviewed simulator comparison digest. The implementation and test fixture define
 the exact closed shapes; synthetic validator fixtures supply no physical proof.
 
