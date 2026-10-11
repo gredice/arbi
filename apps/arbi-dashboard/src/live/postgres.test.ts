@@ -53,6 +53,21 @@ test('native PostgreSQL live authority: shared producer, scoped leases, policy, 
     const raw=JSON.stringify((await pool.query('SELECT record FROM arbi_audit_events WHERE site_id=$1',[one.context.siteId])).rows);
     assert.doesNotMatch(raw,/private-synthetic-offer|contradictory|arbi-live\+jwt/);
   });
+  await t.test('expired viewers on other devices cannot exhaust active capacity; empty legacy policy history stays appendable',async()=>{
+    const {a,one,start,f,sync}=await setup(),original=f.registry.devices[0];
+    for(let n=2;n<=8;n++)f.registry.devices.push({...structuredClone(original),id:`edge-${n}`,current:{...original.current!,deviceId:`edge-${n}`}});await sync();
+    for(let n=1;n<=8;n++)for(let viewer=1;viewer<=2;viewer++)await a.store.start(one.context,{...start,key:`capacity-${n}-${viewer}`,deviceId:`edge-${n}`});
+    await assert.rejects(a.store.start(one.context,{...start,key:'full'}),{code:'CAPACITY'});
+    await pool.query("UPDATE arbi_live_viewers SET record=jsonb_set(record,'{expiresAtMs}',to_jsonb($2::bigint)) WHERE site_id=$1",[f.registry.siteId,Date.now()-1]);
+    const admitted=await a.store.start(one.context,{...start,key:'after-expiry'});assert.equal(admitted.admission,'granted');
+    const client=await pool.connect();try{
+      await client.query('CREATE TEMP TABLE live_legacy_fixture (LIKE arbi_live_viewers)');
+      await client.query('CREATE TRIGGER live_legacy_fixture_guard BEFORE UPDATE ON live_legacy_fixture FOR EACH ROW EXECUTE FUNCTION arbi_live_guard()');
+      await client.query("INSERT INTO live_legacy_fixture SELECT id,environment,namespace_id,site_id,device_id,actor_id,request_key,fingerprint,intent_id,producer_id,ended_at_ms,jsonb_set(record,'{policyHistory}','[]') FROM arbi_live_viewers WHERE id=$1",[admitted.id]);
+      await client.query("UPDATE live_legacy_fixture SET record=jsonb_set(record,'{epoch}','2')");
+      assert.deepEqual((await client.query('SELECT record FROM live_legacy_fixture')).rows[0].record.policyHistory,[]);
+    }finally{await client.query('DROP TABLE IF EXISTS live_legacy_fixture');client.release();}
+  });
   await t.test('explicit end and expired/crashed viewers stop demand; closed tokens cannot resurrect the producer',async()=>{
     const {a,b,one,start,f,adapter}=await setup();const first=await a.store.start(one.context,start);await a.store.synchronize(f.registry.siteId,'edge-1');
     await pool.query("UPDATE arbi_live_viewers SET record=jsonb_set(record,'{expiresAtMs}',to_jsonb($2::bigint)) WHERE id=$1",[first.id,Date.now()-1]);

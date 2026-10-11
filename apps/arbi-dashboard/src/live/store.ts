@@ -74,7 +74,8 @@ export class LiveStore{
       const active=await this.#active(tx,device.id);
       const duplicate=(await tx.sql.query<{fingerprint:string;record:LiveViewer}>('SELECT fingerprint,record FROM arbi_live_viewers WHERE environment=$1 AND namespace_id=$2 AND site_id=$3 AND actor_id=$4 AND request_key=$5',[...scope(this.jobs.realm,context.siteId),context.actor.id,input.key])).rows[0];
       if(duplicate){if(duplicate.fingerprint!==fingerprint)throw new JobError('CONFLICT');return duplicate.record;}
-      const counts=(await tx.sql.query<{total:string;active:string}>('SELECT count(*)::text total,count(*) FILTER(WHERE ended_at_ms IS NULL)::text active FROM arbi_live_viewers WHERE environment=$1 AND namespace_id=$2 AND site_id=$3',scope(this.jobs.realm,context.siteId))).rows[0];
+      const counts=(await tx.sql.query<{total:string;active:string}>(`SELECT count(*)::text total,count(*) FILTER(WHERE ended_at_ms IS NULL AND (record->>'expiresAtMs')::bigint>$4 AND
+        (record->>'absoluteExpiresAtMs')::bigint>$4)::text active FROM arbi_live_viewers WHERE environment=$1 AND namespace_id=$2 AND site_id=$3`,[...scope(this.jobs.realm,context.siteId),tx.now])).rows[0];
       if(Number(counts.total)>=4096||Number(counts.active)>=16||active.length>=p.maxViewers)throw new JobError('CAPACITY');
       if(active.some(v=>v.profile.id!==p.id))throw new JobError('CONFLICT');
       let producer=(await tx.sql.query<{record:Producer}>('SELECT record FROM arbi_live_producers WHERE environment=$1 AND namespace_id=$2 AND site_id=$3 AND device_id=$4',[...scope(this.jobs.realm,context.siteId),device.id])).rows[0]?.record;

@@ -26,7 +26,7 @@ BEGIN
     OR NEW.record->'createdAtMs' IS DISTINCT FROM OLD.record->'createdAtMs'
     OR NEW.record->'absoluteExpiresAtMs' IS DISTINCT FROM OLD.record->'absoluteExpiresAtMs'
     OR (OLD.ended_at_ms IS NOT NULL AND NEW IS DISTINCT FROM OLD) THEN RAISE EXCEPTION 'immutable live viewer identity or closed session' USING ERRCODE='42501'; END IF;
-  IF OLD.record ? 'policyHistory' AND (SELECT jsonb_agg(value ORDER BY ordinality) FROM jsonb_array_elements(NEW.record->'policyHistory') WITH ORDINALITY WHERE ordinality<=jsonb_array_length(OLD.record->'policyHistory')) IS DISTINCT FROM OLD.record->'policyHistory' THEN
+  IF OLD.record ? 'policyHistory' AND COALESCE((SELECT jsonb_agg(value ORDER BY ordinality) FROM jsonb_array_elements(NEW.record->'policyHistory') WITH ORDINALITY WHERE ordinality<=jsonb_array_length(OLD.record->'policyHistory')),'[]'::jsonb) IS DISTINCT FROM OLD.record->'policyHistory' THEN
     RAISE EXCEPTION 'immutable live policy decision history' USING ERRCODE='42501';
   END IF;
   RETURN NEW;
