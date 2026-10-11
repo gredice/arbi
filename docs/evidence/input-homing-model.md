@@ -6,7 +6,7 @@ Codex-executed host checks exercise the same C input/homing/pulse core as the pi
 
 Three groups exercise stable/bouncing/stale/out-of-order input, immediate simulated critical assertion and debounced release, persistent input faults, independent dock/latch values, invalid policies and rejection of a real-hardware record; nominal and initially-active coordinated four-axis release/seek/backoff/slow-seek with bounded one-step plans; and stuck-on/off, disconnected, contradictory, alarm, limit, missing, stale, timed-out, changed-revision and implausible-reference refusal. Simulated completion never asserts Ready or Parked. Existing diagnostic, pulse and geometry suites remain regressions.
 
-The clean tested revision, normal/sanitizer counts and both target-link branches are recorded after the implementation commit. Target linking and fixture success are source evidence only.
+Clean implementation revision `78f4bb9f026ab34f9daf26d33d46b41f0af6d2db` (`ARBI_BUILD_DIRTY=0`) passed all 19 firmware groups in ordinary host and AddressSanitizer/UndefinedBehaviorSanitizer runs across all four host binaries. The pinned Pico SDK 2.2.0 / ARM GCC 12.2.1 toolchain built both ordinary and isolated-code-check branches. The ordinary diagnostic image uses 59,832 text bytes and 57,788 BSS bytes; the separate denied-permission link-check image retains the actual input and homing functions with 32,428 text bytes and 30,644 BSS bytes. Source lint, the 25 CI planner/gate checks, documentation links and whitespace passed. Target linking and fixture success are source evidence only.
 
 | Required gate | Current evidence |
 | --- | --- |
