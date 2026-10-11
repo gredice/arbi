@@ -15,7 +15,7 @@ function boundedReport<T>(result:T):T {
 
 export class UsageStore {
   constructor(readonly jobs:PostgresJobStore) {}
-  private async budget(tx:Tx,kind:'read'|'ingest') {
+  async budget(tx:Tx,kind:'read'|'ingest') {
     const minute=Math.floor(tx.now/60_000)*60_000;
     const row=(await tx.sql.query<{attempts:number}>(`INSERT INTO arbi_usage_budgets VALUES($1,$2,$3,$4,$5,1)
       ON CONFLICT(environment,namespace_id,site_id,kind) DO UPDATE SET minute_ms=EXCLUDED.minute_ms,
@@ -62,7 +62,7 @@ export class UsageStore {
       return {durable:true,results};
     },1500);
   }
-  private async rows(tx:Tx,q:Query) {
+  async rows(tx:Tx,q:Query) {
     const rows=(await tx.sql.query<{record:UsageObservation;received_at_ms:string;sequence:string;stream:string}>(`SELECT w.record,w.received_at_ms,w.sequence::text,w.stream FROM arbi_usage_windows w
       WHERE w.environment=$1 AND w.namespace_id=$2 AND w.site_id=$3 AND w.link_id=$4 AND w.start_ms<$6 AND w.end_ms>$5
       AND NOT EXISTS(SELECT 1 FROM arbi_usage_corrections c WHERE c.environment=w.environment AND c.namespace_id=w.namespace_id
