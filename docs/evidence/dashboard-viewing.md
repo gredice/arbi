@@ -25,5 +25,9 @@ server-owned 15-second lease is the fallback for lost browser closure or an
 unknown start result. This records prototype source checks, not production video,
 physical resource/timing measurements or public operation acceptance.
 
-Validation results and clean source identity are recorded after the checks
-complete. #65 remains open for its hardware-dependent media validation.
+Clean source 71347f6 passed 16 forced build/lint/typecheck tasks,
+138 Gredice identity/boundary checks, 75 native PostgreSQL checks in
+46.805 seconds and all 23 Chromium browser checks in 1.5 minutes. The browser
+checks renew through epoch five beyond the initial directory grant, preserve
+two original viewer identities, revoke one, and close on hidden/offline/reload.
+Documentation links and whole-tree whitespace pass. #65 remains open for its hardware-dependent media validation.
