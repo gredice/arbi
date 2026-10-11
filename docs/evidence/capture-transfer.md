@@ -22,3 +22,5 @@ Pod files total 475,136 bytes and edge files 302,592 bytes, including databases/
 | LAN/WAN/provider bytes | Submitted LAN payload measured; wireless/TLS/router/carrier overhead unavailable |
 
 #61 remains open for named sustained/power/wireless/eventual-cloud acceptance. No real camera, private site data, public media grant, WAN upload or update trust change is enabled.
+
+Review hardening at clean source `fdebe23e06482b2a0a7f76ce835167c71a3e7954` passes all 44 pod tests and all 16 selected build/lint/typecheck tasks. Two additional regressions reject chunk policies unable to finish the largest accepted store image within cumulative attempts, verify rate pauses consume no attempts (including equality at the final successful attempt), and send a healthy 220-ms cursor sequence across the one-second admission deadline without quarantining it. Transport timeouts remain independently bounded and quarantined; a flush may finish its already admitted final send after the batch deadline. This is source/native-process evidence, not physical link timing.
