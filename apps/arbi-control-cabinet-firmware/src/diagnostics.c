@@ -4,6 +4,12 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <string.h>
+#ifndef PRIu64
+// The pinned ARM compiler's stdint wrapper does not set newlib's 64-bit
+// feature guard. Check the actual ABI before supplying its missing macro.
+_Static_assert(_Generic((uint64_t)0,unsigned long long:1,default:0),"uint64 format requires an unsigned long long ABI");
+#define PRIu64 "llu"
+#endif
 #define SAFE_TIME UINT64_C(9007199254740991)
 static bool id(const char text[65]) {
   for(unsigned i=0;i<65;i++){unsigned char c=(unsigned char)text[i];if(!c)return i>0;
