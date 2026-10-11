@@ -1,0 +1,940 @@
+{
+  "version": "arbi.release-evidence-index/1.0",
+  "release": {
+    "sourceCommit": "80caa5e7b397ff5f318cd6d9d2c878d282b33b25",
+    "configurationDigest": null,
+    "hardwareRevisions": {},
+    "ownerAssignments": {},
+    "procedures": {},
+    "recordingEnabled": false
+  },
+  "tests": [
+    {
+      "testId": "identity-contract",
+      "name": "executable human matrix covers each role and capability independently",
+      "stage": "unit-contract",
+      "target": "cloud",
+      "ownerRole": "software-owner",
+      "ownerId": null,
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ],
+      "artifactSha256": null
+    },
+    {
+      "testId": "command-contract",
+      "name": "journal admission, stopping and recovery contract",
+      "stage": "unit-contract",
+      "target": "edge",
+      "ownerRole": "software-owner",
+      "ownerId": null,
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ],
+      "artifactSha256": null
+    },
+    {
+      "testId": "media-contract",
+      "name": "native PostgreSQL live authority: shared producer, scoped leases, policy, reconnect and atomic audit",
+      "stage": "unit-contract",
+      "target": "cloud",
+      "ownerRole": "media-owner",
+      "ownerId": null,
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ],
+      "artifactSha256": null
+    },
+    {
+      "testId": "usage-contract",
+      "name": "application accounting and interrupted attempt lineage",
+      "stage": "unit-contract",
+      "target": "edge",
+      "ownerRole": "data-owner",
+      "ownerId": null,
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ],
+      "artifactSha256": null
+    },
+    {
+      "testId": "audit-contract",
+      "name": "immutable audit persistence and gap behavior",
+      "stage": "unit-contract",
+      "target": "cloud",
+      "ownerRole": "data-owner",
+      "ownerId": null,
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ],
+      "artifactSha256": null
+    },
+    {
+      "testId": "update-contract",
+      "name": "native target files and SIGKILL recovery",
+      "stage": "unit-contract",
+      "target": "edge",
+      "ownerRole": "software-owner",
+      "ownerId": null,
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ],
+      "artifactSha256": null
+    },
+    {
+      "testId": "recording-disabled",
+      "name": "disabled recording capability and event contract",
+      "stage": "unit-contract",
+      "target": "cloud",
+      "ownerRole": "media-owner",
+      "ownerId": null,
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ],
+      "artifactSha256": null
+    },
+    {
+      "testId": "recording-event-contract",
+      "name": "recording is reserved and disabled; upstream has no per-viewer multiplier",
+      "stage": "unit-contract",
+      "target": "cloud",
+      "ownerRole": "media-owner",
+      "ownerId": null,
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ],
+      "artifactSha256": null
+    },
+    {
+      "testId": "local-fault-simulation",
+      "name": "seeded actual local-service fault workflows retain replayable semantic traces, original audit attribution and essential traffic",
+      "stage": "simulation",
+      "target": "edge",
+      "ownerRole": "software-owner",
+      "ownerId": null,
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ],
+      "artifactSha256": null
+    },
+    {
+      "testId": "geometry-simulation",
+      "name": "workspace, load and restraint model checks",
+      "stage": "simulation",
+      "target": "mechanical",
+      "ownerRole": "mechanical-owner",
+      "ownerId": null,
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ],
+      "artifactSha256": null
+    },
+    {
+      "testId": "mobile-bench",
+      "name": "24-hour idle, reconnect/loss, one/two viewers, direct/TURN and router/carrier comparison",
+      "stage": "component-bench",
+      "target": "edge",
+      "ownerRole": "data-owner",
+      "ownerId": null,
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ],
+      "artifactSha256": null
+    },
+    {
+      "testId": "target-update-bench",
+      "name": "actual selected firmware/bootloader power-cut and interface recovery",
+      "stage": "component-bench",
+      "target": "pico",
+      "ownerRole": "software-owner",
+      "ownerId": null,
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ],
+      "artifactSha256": null
+    },
+    {
+      "testId": "dock-bench",
+      "name": "retention without motor torque and power-loss release behavior",
+      "stage": "component-bench",
+      "target": "dock",
+      "ownerRole": "mechanical-owner",
+      "ownerId": null,
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ],
+      "artifactSha256": null
+    },
+    {
+      "testId": "electrical-bench",
+      "name": "selected electrical protection and isolation measurements",
+      "stage": "component-bench",
+      "target": "electrical",
+      "ownerRole": "electrical-owner",
+      "ownerId": null,
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ],
+      "artifactSha256": null
+    },
+    {
+      "testId": "hil-local-stop",
+      "name": "real firmware/interfaces against controlled substitutes and simulator trace comparison",
+      "stage": "hardware-in-loop",
+      "target": "pico",
+      "ownerRole": "local-safety-owner",
+      "ownerId": null,
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ],
+      "artifactSha256": null
+    },
+    {
+      "testId": "hil-camera",
+      "name": "selected camera, settling, resource contention and transport shutdown",
+      "stage": "hardware-in-loop",
+      "target": "pod",
+      "ownerRole": "media-owner",
+      "ownerId": null,
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ],
+      "artifactSha256": null
+    },
+    {
+      "testId": "hil-update",
+      "name": "actual target revisions and interrupted staged recovery against substitutes",
+      "stage": "hardware-in-loop",
+      "target": "edge",
+      "ownerRole": "software-owner",
+      "ownerId": null,
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ],
+      "artifactSha256": null
+    },
+    {
+      "testId": "frame-end-to-end",
+      "name": "restrained frame remote user/engineer flow, camera, mobile data, audit and interrupted update",
+      "stage": "secured-frame",
+      "target": "site",
+      "ownerRole": "software-owner",
+      "ownerId": null,
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ],
+      "artifactSha256": null
+    },
+    {
+      "testId": "frame-retention",
+      "name": "secured configured load and independent loss-of-power restraint/clearance",
+      "stage": "secured-frame",
+      "target": "mechanical",
+      "ownerRole": "mechanical-owner",
+      "ownerId": null,
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ],
+      "artifactSha256": null
+    },
+    {
+      "testId": "installed-electrical",
+      "name": "qualified inspection of actual fixed/overhead electrical installation",
+      "stage": "installed-site",
+      "target": "electrical",
+      "ownerRole": "electrical-owner",
+      "ownerId": null,
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ],
+      "artifactSha256": null
+    },
+    {
+      "testId": "installed-envelope",
+      "name": "accepted site loads, anchors and weather operating envelope",
+      "stage": "installed-site",
+      "target": "site",
+      "ownerRole": "commissioning-owner",
+      "ownerId": null,
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ],
+      "artifactSha256": null
+    },
+    {
+      "testId": "installed-service",
+      "name": "guarding, lockout, capture zones, area-clearance and explicit operation review",
+      "stage": "installed-site",
+      "target": "site",
+      "ownerRole": "mechanical-owner",
+      "ownerId": null,
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ],
+      "artifactSha256": null
+    },
+    {
+      "testId": "installed-recovery",
+      "name": "site-specific loss-of-power/interruption and offline recovery",
+      "stage": "installed-site",
+      "target": "site",
+      "ownerRole": "software-owner",
+      "ownerId": null,
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ],
+      "artifactSha256": null
+    },
+    {
+      "testId": "recording-acceptance",
+      "name": "future recording capacity, privacy, usage and failure acceptance",
+      "stage": "secured-frame",
+      "target": "pod",
+      "ownerRole": "media-owner",
+      "ownerId": null,
+      "status": "missing",
+      "reasons": [
+        "evidence-missing",
+        "recording-disabled-proof-missing"
+      ],
+      "artifactSha256": null
+    }
+  ],
+  "requirements": [
+    {
+      "id": "identity",
+      "description": "Current original human/device authority",
+      "hazard": "privacy",
+      "ownerRole": "software-owner",
+      "ownerId": null,
+      "tests": [
+        "identity-contract",
+        "frame-end-to-end"
+      ],
+      "complete": false
+    },
+    {
+      "id": "realm",
+      "description": "Environment/site isolation",
+      "hazard": "privacy",
+      "ownerRole": "software-owner",
+      "ownerId": null,
+      "tests": [
+        "identity-contract",
+        "frame-end-to-end"
+      ],
+      "complete": false
+    },
+    {
+      "id": "command",
+      "description": "Expired/replayed commands cannot restart motion",
+      "hazard": "unexpected-motion",
+      "ownerRole": "software-owner",
+      "ownerId": null,
+      "tests": [
+        "command-contract",
+        "local-fault-simulation",
+        "hil-local-stop",
+        "frame-end-to-end"
+      ],
+      "complete": false
+    },
+    {
+      "id": "local-stop",
+      "description": "Independent local fault stopping",
+      "hazard": "unexpected-motion",
+      "ownerRole": "local-safety-owner",
+      "ownerId": null,
+      "tests": [
+        "command-contract",
+        "local-fault-simulation",
+        "hil-local-stop",
+        "frame-end-to-end",
+        "installed-recovery"
+      ],
+      "complete": false
+    },
+    {
+      "id": "reset",
+      "description": "Reset/brownout requires explicit reconciled recovery",
+      "hazard": "unexpected-motion",
+      "ownerRole": "local-safety-owner",
+      "ownerId": null,
+      "tests": [
+        "command-contract",
+        "local-fault-simulation",
+        "target-update-bench",
+        "hil-local-stop",
+        "hil-update",
+        "installed-recovery"
+      ],
+      "complete": false
+    },
+    {
+      "id": "media",
+      "description": "Explicit bounded viewing and camera-control permission",
+      "hazard": "privacy",
+      "ownerRole": "media-owner",
+      "ownerId": null,
+      "tests": [
+        "media-contract",
+        "mobile-bench",
+        "hil-camera",
+        "frame-end-to-end"
+      ],
+      "complete": false
+    },
+    {
+      "id": "capture",
+      "description": "Immutable attributable capture lifecycle",
+      "hazard": "privacy",
+      "ownerRole": "media-owner",
+      "ownerId": null,
+      "tests": [
+        "media-contract",
+        "hil-camera",
+        "frame-end-to-end"
+      ],
+      "complete": false
+    },
+    {
+      "id": "accounting",
+      "description": "Measured mobile accounting with unknown residuals",
+      "hazard": "privacy",
+      "ownerRole": "data-owner",
+      "ownerId": null,
+      "tests": [
+        "usage-contract",
+        "mobile-bench",
+        "frame-end-to-end"
+      ],
+      "complete": false
+    },
+    {
+      "id": "audit",
+      "description": "Original actor and complete failure-aware audit",
+      "hazard": "privacy",
+      "ownerRole": "data-owner",
+      "ownerId": null,
+      "tests": [
+        "audit-contract",
+        "local-fault-simulation",
+        "frame-end-to-end"
+      ],
+      "complete": false
+    },
+    {
+      "id": "update",
+      "description": "Signed ordered update and interruption recovery",
+      "hazard": "unexpected-motion",
+      "ownerRole": "software-owner",
+      "ownerId": null,
+      "tests": [
+        "update-contract",
+        "local-fault-simulation",
+        "target-update-bench",
+        "hil-update",
+        "frame-end-to-end",
+        "installed-recovery"
+      ],
+      "complete": false
+    },
+    {
+      "id": "dock",
+      "description": "Independent dock retention under loss of power",
+      "hazard": "falling-hardware",
+      "ownerRole": "mechanical-owner",
+      "ownerId": null,
+      "tests": [
+        "geometry-simulation",
+        "dock-bench",
+        "frame-retention"
+      ],
+      "complete": false
+    },
+    {
+      "id": "clearance",
+      "description": "Line clearance under faults and power loss",
+      "hazard": "line-clearance",
+      "ownerRole": "mechanical-owner",
+      "ownerId": null,
+      "tests": [
+        "geometry-simulation",
+        "frame-retention",
+        "installed-envelope"
+      ],
+      "complete": false
+    },
+    {
+      "id": "structure",
+      "description": "Accepted configured loads, anchors and retention",
+      "hazard": "overload-collapse",
+      "ownerRole": "mechanical-owner",
+      "ownerId": null,
+      "tests": [
+        "geometry-simulation",
+        "frame-retention",
+        "installed-envelope"
+      ],
+      "complete": false
+    },
+    {
+      "id": "guards",
+      "description": "Winch/line guards and isolation",
+      "hazard": "pinch-entanglement",
+      "ownerRole": "mechanical-owner",
+      "ownerId": null,
+      "tests": [
+        "frame-retention",
+        "installed-service"
+      ],
+      "complete": false
+    },
+    {
+      "id": "electrical",
+      "description": "Qualified electrical protection and installation",
+      "hazard": "electrical-fire",
+      "ownerRole": "electrical-owner",
+      "ownerId": null,
+      "tests": [
+        "electrical-bench",
+        "installed-electrical"
+      ],
+      "complete": false
+    },
+    {
+      "id": "weather",
+      "description": "Accepted environmental operating envelope",
+      "hazard": "weather",
+      "ownerRole": "commissioning-owner",
+      "ownerId": null,
+      "tests": [
+        "installed-envelope"
+      ],
+      "complete": false
+    },
+    {
+      "id": "privacy",
+      "description": "Accepted capture zones and data access",
+      "hazard": "privacy",
+      "ownerRole": "media-owner",
+      "ownerId": null,
+      "tests": [
+        "media-contract",
+        "hil-camera",
+        "installed-service"
+      ],
+      "complete": false
+    },
+    {
+      "id": "maintenance",
+      "description": "Area clearance and lockout before service",
+      "hazard": "maintenance",
+      "ownerRole": "commissioning-owner",
+      "ownerId": null,
+      "tests": [
+        "installed-service"
+      ],
+      "complete": false
+    },
+    {
+      "id": "recording",
+      "description": "Recording disabled until separately accepted",
+      "hazard": "privacy",
+      "ownerRole": "media-owner",
+      "ownerId": null,
+      "tests": [
+        "recording-disabled",
+        "recording-event-contract",
+        "recording-acceptance"
+      ],
+      "complete": false
+    },
+    {
+      "id": "installed",
+      "description": "Site-specific end-to-end commissioning",
+      "hazard": "unexpected-motion",
+      "ownerRole": "commissioning-owner",
+      "ownerId": null,
+      "tests": [
+        "installed-envelope",
+        "installed-service",
+        "installed-recovery"
+      ],
+      "complete": false
+    }
+  ],
+  "stages": [
+    {
+      "id": "unit-contract",
+      "entryEligible": false,
+      "complete": false,
+      "criteria": {
+        "id": "unit-contract",
+        "entry": [
+          "Exact source revision and named evidence owners"
+        ],
+        "exit": [
+          "All mandatory stage tests passed with reviewed raw evidence",
+          "No unresolved mandatory failure or missing record"
+        ],
+        "instruments": [
+          "Pinned toolchain, fresh native fixtures and reproducible test logs"
+        ],
+        "stopConditions": [
+          "Stop reporting passed on test failure, stale source/configuration or unknown provenance"
+        ],
+        "acceptedConfiguration": "Exact source commit; fixture configuration stated",
+        "reviewer": "Source/contract reviewer"
+      }
+    },
+    {
+      "id": "simulation",
+      "entryEligible": false,
+      "complete": false,
+      "criteria": {
+        "id": "simulation",
+        "entry": [
+          "Exact source revision and named evidence owners"
+        ],
+        "exit": [
+          "All mandatory stage tests passed with reviewed raw evidence",
+          "No unresolved mandatory failure or missing record"
+        ],
+        "instruments": [
+          "Pinned toolchain, fresh native fixtures and reproducible test logs"
+        ],
+        "stopConditions": [
+          "Stop reporting passed on test failure, stale source/configuration or unknown provenance"
+        ],
+        "acceptedConfiguration": "Exact source commit; fixture configuration stated",
+        "reviewer": "Source/contract reviewer"
+      }
+    },
+    {
+      "id": "component-bench",
+      "entryEligible": false,
+      "complete": false,
+      "criteria": {
+        "id": "component-bench",
+        "entry": [
+          "All earlier mandatory stage records accepted for identical source/configuration",
+          "Named evidence owners and approved stage procedure"
+        ],
+        "exit": [
+          "All mandatory stage tests passed with reviewed raw evidence",
+          "No unresolved mandatory failure or missing record"
+        ],
+        "instruments": [
+          "Calibrated target/interface timestamps and named instruments",
+          "Actual target revision readback",
+          "Independent power/clearance/load measurement as declared"
+        ],
+        "stopConditions": [
+          "Stop on independent-protection loss, unexpected motion, power instability, exceeded configured load/clearance/timing limits, or missing evidence"
+        ],
+        "acceptedConfiguration": "Exact reviewed configuration digest and target revisions",
+        "reviewer": "Independent qualified stage/target reviewer"
+      }
+    },
+    {
+      "id": "hardware-in-loop",
+      "entryEligible": false,
+      "complete": false,
+      "criteria": {
+        "id": "hardware-in-loop",
+        "entry": [
+          "All earlier mandatory stage records accepted for identical source/configuration",
+          "Named evidence owners and approved stage procedure"
+        ],
+        "exit": [
+          "All mandatory stage tests passed with reviewed raw evidence",
+          "No unresolved mandatory failure or missing record"
+        ],
+        "instruments": [
+          "Calibrated target/interface timestamps and named instruments",
+          "Actual target revision readback",
+          "Independent power/clearance/load measurement as declared"
+        ],
+        "stopConditions": [
+          "Stop on independent-protection loss, unexpected motion, power instability, exceeded configured load/clearance/timing limits, or missing evidence"
+        ],
+        "acceptedConfiguration": "Exact reviewed configuration digest and target revisions",
+        "reviewer": "Independent qualified stage/target reviewer"
+      }
+    },
+    {
+      "id": "secured-frame",
+      "entryEligible": false,
+      "complete": false,
+      "criteria": {
+        "id": "secured-frame",
+        "entry": [
+          "All earlier mandatory stage records accepted for identical source/configuration",
+          "Named evidence owners and approved stage procedure"
+        ],
+        "exit": [
+          "All mandatory stage tests passed with reviewed raw evidence",
+          "No unresolved mandatory failure or missing record"
+        ],
+        "instruments": [
+          "Calibrated target/interface timestamps and named instruments",
+          "Actual target revision readback",
+          "Independent power/clearance/load measurement as declared"
+        ],
+        "stopConditions": [
+          "Stop on independent-protection loss, unexpected motion, power instability, exceeded configured load/clearance/timing limits, or missing evidence"
+        ],
+        "acceptedConfiguration": "Exact reviewed configuration digest and target revisions",
+        "reviewer": "Independent qualified stage/target reviewer"
+      }
+    },
+    {
+      "id": "installed-site",
+      "entryEligible": false,
+      "complete": false,
+      "criteria": {
+        "id": "installed-site",
+        "entry": [
+          "All earlier mandatory stage records accepted for identical source/configuration",
+          "Named evidence owners and approved stage procedure"
+        ],
+        "exit": [
+          "All mandatory stage tests passed with reviewed raw evidence",
+          "No unresolved mandatory failure or missing record"
+        ],
+        "instruments": [
+          "Calibrated target/interface timestamps and named instruments",
+          "Actual target revision readback",
+          "Independent power/clearance/load measurement as declared"
+        ],
+        "stopConditions": [
+          "Stop on independent-protection loss, unexpected motion, power instability, exceeded configured load/clearance/timing limits, or missing evidence"
+        ],
+        "acceptedConfiguration": "Exact reviewed configuration digest and target revisions",
+        "reviewer": "Independent qualified stage/target reviewer"
+      }
+    }
+  ],
+  "complete": false,
+  "publicOperationReady": false,
+  "authorization": "separate-qualified-physical-and-site-authorization-required",
+  "blockers": [
+    {
+      "testId": "identity-contract",
+      "stage": "unit-contract",
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ]
+    },
+    {
+      "testId": "command-contract",
+      "stage": "unit-contract",
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ]
+    },
+    {
+      "testId": "media-contract",
+      "stage": "unit-contract",
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ]
+    },
+    {
+      "testId": "usage-contract",
+      "stage": "unit-contract",
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ]
+    },
+    {
+      "testId": "audit-contract",
+      "stage": "unit-contract",
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ]
+    },
+    {
+      "testId": "update-contract",
+      "stage": "unit-contract",
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ]
+    },
+    {
+      "testId": "recording-disabled",
+      "stage": "unit-contract",
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ]
+    },
+    {
+      "testId": "recording-event-contract",
+      "stage": "unit-contract",
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ]
+    },
+    {
+      "testId": "local-fault-simulation",
+      "stage": "simulation",
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ]
+    },
+    {
+      "testId": "geometry-simulation",
+      "stage": "simulation",
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ]
+    },
+    {
+      "testId": "mobile-bench",
+      "stage": "component-bench",
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ]
+    },
+    {
+      "testId": "target-update-bench",
+      "stage": "component-bench",
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ]
+    },
+    {
+      "testId": "dock-bench",
+      "stage": "component-bench",
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ]
+    },
+    {
+      "testId": "electrical-bench",
+      "stage": "component-bench",
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ]
+    },
+    {
+      "testId": "hil-local-stop",
+      "stage": "hardware-in-loop",
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ]
+    },
+    {
+      "testId": "hil-camera",
+      "stage": "hardware-in-loop",
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ]
+    },
+    {
+      "testId": "hil-update",
+      "stage": "hardware-in-loop",
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ]
+    },
+    {
+      "testId": "frame-end-to-end",
+      "stage": "secured-frame",
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ]
+    },
+    {
+      "testId": "frame-retention",
+      "stage": "secured-frame",
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ]
+    },
+    {
+      "testId": "installed-electrical",
+      "stage": "installed-site",
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ]
+    },
+    {
+      "testId": "installed-envelope",
+      "stage": "installed-site",
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ]
+    },
+    {
+      "testId": "installed-service",
+      "stage": "installed-site",
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ]
+    },
+    {
+      "testId": "installed-recovery",
+      "stage": "installed-site",
+      "status": "missing",
+      "reasons": [
+        "evidence-missing"
+      ]
+    },
+    {
+      "testId": "recording-acceptance",
+      "stage": "secured-frame",
+      "status": "missing",
+      "reasons": [
+        "evidence-missing",
+        "recording-disabled-proof-missing"
+      ]
+    }
+  ]
+}
