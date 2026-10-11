@@ -139,3 +139,4 @@ export * from "./plant.js";
 
 export * from "./incident.js";
 export * from "./incident-comparison.js";
+export * from "./motion-geometry.js";
