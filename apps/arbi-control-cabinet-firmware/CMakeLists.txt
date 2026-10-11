@@ -9,7 +9,7 @@ pico_sdk_init()
 # The application is C11. Do not pull the SDK's optional C++ allocation wrapper.
 set_property(TARGET pico_cxx_options PROPERTY INTERFACE_SOURCES "")
 option(ARBI_ISOLATED_PULSE_BENCH "Compile the separately authorized unloaded pulse-fixture adapter" OFF)
-add_executable(arbi_control src/main.c src/json.c src/auth.c src/runtime.c src/pulse.c src/pulse_pio.c src/motion.c
+add_executable(arbi_control src/main.c src/json.c src/auth.c src/runtime.c src/pulse.c src/pulse_pio.c src/motion.c src/inputs.c src/homing.c
   ${PICO_SDK_PATH}/lib/mbedtls/library/sha256.c
   ${PICO_SDK_PATH}/lib/mbedtls/library/platform_util.c)
 set_target_properties(arbi_control PROPERTIES LINKER_LANGUAGE C)
@@ -27,7 +27,7 @@ pico_add_extra_outputs(arbi_control)
 if(ARBI_ISOLATED_PULSE_BENCH)
   # Retain the actual planner/queue/DMA functions through the target linker.
   # The normal diagnostic main intentionally has no call into these adapters.
-  add_executable(arbi_pulse_link_check test/target-link.c src/pulse.c src/pulse_pio.c src/motion.c)
+  add_executable(arbi_pulse_link_check test/target-link.c src/pulse.c src/pulse_pio.c src/motion.c src/inputs.c src/homing.c)
   set_target_properties(arbi_pulse_link_check PROPERTIES LINKER_LANGUAGE C)
   target_include_directories(arbi_pulse_link_check PRIVATE include)
   target_compile_definitions(arbi_pulse_link_check PRIVATE ARBI_ISOLATED_PULSE_BENCH=1)

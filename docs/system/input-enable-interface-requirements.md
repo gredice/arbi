@@ -1,0 +1,18 @@
+# Home, limit, alarm, dock and enable interface requirements
+
+Work record: [#59](https://github.com/gredice/arbi/issues/59). This is a proposed review checklist and source adapter boundary, not a reviewed/as-built electrical design. [ADR-0006](../decisions/0006-local-safety-authority-and-instrumentation.md), the [local safety interface matrix](local-safety-interface-matrix.md) and [wiring gaps](../assemblies/winch/wiring.md#unresolved-connections-and-verification) remain controlling references. **No real interface is enabled by this record.**
+
+Each future enabled real channel needs an exact named circuit/terminal/firmware/hardware revision, manufacturer data, signed review/evidence record and declared test stage. The adapter must reject missing, changed or incompatible records. A label such as `home`, a reserved cable core or a software Boolean cannot substitute for those facts.
+
+| Interface | Required circuit and behavioral facts before enablement | Current adapter |
+| --- | --- | --- |
+| Per-axis home | Sensor type/placement, GPIO/terminal map, supply and voltage/isolation, active/inactive polarity, startup bias, open/short/power-loss detectability, debounce, permitted axis order/direction/rate/travel/time and reference plausibility/repeatability | Unavailable; synthetic channel only |
+| Independent hard limits | Distinct locations/channels, wiring/polarity/failure detection, direct independent stopping/interlock path, fault priority and worst-case latency, reset/manual recovery behavior | Unavailable; software fixture is not a hard limit |
+| CL57Y alarm | Exact delivered driver/manual revision and output characteristics, isolation/level translation, alarm polarity and boot/transient behavior, cable failure semantics, fault persistence and reset procedure | Unavailable; encoder/current/following error are not exposed |
+| Driver enable / pulse permissions | Exact driver terminals/selector/interface, GPIO reset/default/brownout state, independent isolation and restraint, state-dependent response and electrical/mechanical timing | Unavailable; no enable GPIO assigned |
+| Dock and latch | Separate physical sensors, polarity and cable-failure behavior, geometry/alignment versus positive engagement, contact bounce, loss/contradiction and local state-owner interpretation | Unavailable; no coordinate-only Parked inference |
+| Tension/position | Actual fitted sensor/interface, calibrated units/frame/uncertainty/freshness, failure detection and capability prerequisites | Unavailable; commanded/estimated values are not protection evidence |
+
+The review must distinguish sampled software debounce from independent hard-limit/emergency-isolation paths. Single-channel GPIO readings do not inherently distinguish an inactive switch from a broken cable. `RAW_DISCONNECTED` is an injected source fixture until an approved circuit can detect that condition. Define startup, loss of sensor power, stuck-on/off, noise, connector removal and contradictory-channel behavior for the actual installation. No generic enable-off command proves braking or line restraint.
+
+Before a secured physical test, record as-built continuity/polarity inspection, exact sensor/driver/cabinet revisions, isolation/signal thresholds and timing, mechanical restraint, permitted axis order, relative travel/time/rate envelope, stop/isolation access and recovery procedure. Record repeatability and fault outcomes on that setup. Loaded and installed acceptance remains governed by the [commissioning gates](../operations/prototype-and-commissioning.md#local-safety-and-update-gates). This source checklist clears none of them.
