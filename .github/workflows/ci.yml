@@ -107,6 +107,9 @@ jobs:
           restore-keys: |
             ci-v1-${{ runner.os }}-${{ runner.arch }}-node24.15.0-${{ matrix.name }}-${{ hashFiles('pnpm-lock.yaml', 'turbo.json') }}-
             ci-v1-${{ runner.os }}-${{ runner.arch }}-node24.15.0-${{ matrix.name }}-
+      - name: Build independent edge consumer for dashboard native recovery tests
+        if: matrix.name == '@arbi/dashboard'
+        run: pnpm build --filter @arbi/edge-controller --concurrency=1
       - name: Build, lint and typecheck the selected workspace
         env:
           WORKSPACE: ${{ matrix.name }}
@@ -119,9 +122,6 @@ jobs:
           pnpm build --filter "$WORKSPACE" --concurrency=1
           pnpm lint --filter "$WORKSPACE" --concurrency=1
           pnpm typecheck --filter "$WORKSPACE" --concurrency=1
-      - name: Build independent edge consumer for dashboard native recovery tests
-        if: matrix.name == '@arbi/dashboard'
-        run: pnpm build --filter @arbi/edge-controller --concurrency=1
       - name: Stage pinned Node for edge Linux service verification
         if: matrix.name == '@arbi/edge-controller'
         run: |
