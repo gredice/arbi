@@ -61,9 +61,11 @@ bool arbi_load_configuration(Runtime *r, const unsigned char *bytes, size_t leng
   if (!json_parse(j, bytes, length) || !TEXT(j, 0, "schemaVersion", "arbi.configuration/1.0")
     || !TEXT(j, 0, "executionMode", "simulation") || !TEXT(j, 0, "revision", profile->revision)) { r->reason = "CONFIG_INCOMPATIBLE"; return false; }
   int realm = FIELD(j, 0, "realm");
+  char revision[65], site[65], namespace_id[65];
   if (!KEYS(j, realm, "environment", "namespaceId") || !TEXT(j, realm, "environment", "test")
-    || !json_id(j, FIELD(j, 0, "revision"), r->revision) || !json_id(j, FIELD(j, 0, "siteId"), r->site)
-    || !json_id(j, FIELD(j, realm, "namespaceId"), r->namespace_id)) return false;
+    || !json_id(j, FIELD(j, 0, "revision"), revision) || !json_id(j, FIELD(j, 0, "siteId"), site)
+    || !json_id(j, FIELD(j, realm, "namespaceId"), namespace_id)) { r->reason = "CONFIG_INCOMPATIBLE"; return false; }
+  strcpy(r->revision, revision); strcpy(r->site, site); strcpy(r->namespace_id, namespace_id);
   strcpy(r->mode, "simulation"); strcpy(r->environment, "test"); strcpy(r->digest, hex);
   r->configured = true; r->reason = "HARDWARE_READINESS_UNVERIFIED";
   return true;

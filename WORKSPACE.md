@@ -193,7 +193,6 @@ The following paths are reserved but should not exist until implementation begin
 - `apps/arbi-simulator`: executable simulator or simulator UI;
 - `apps/arbi-cloud`: reserved only if a later reviewed decision requires an independent backend; the initial API belongs to `apps/arbi-dashboard`;
 - `apps/arbi-pod-firmware`: pod camera, gimbal, power-health, and local service target;
-- `apps/arbi-control-cabinet-firmware`: diagnostic foundation implemented; physical motion/safety controller and isolated-board evidence remain follow-up work;
 - `packages/arbi-gredice`: implemented identity/site authorization; bed/plant target integration remains future work in this adapter;
 - `packages/arbi-control`: pure control and geometry logic when shared;
 - `packages/arbi-simulation-core`: implemented deterministic scenarios and bounded plant/module references described above; measured physical fidelity remains separate work.

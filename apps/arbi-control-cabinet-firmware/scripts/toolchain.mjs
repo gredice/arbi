@@ -1,6 +1,6 @@
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { existsSync, mkdirSync, readFileSync, renameSync, symlinkSync } from 'node:fs';
+import { existsSync, lstatSync, mkdirSync, readFileSync, readlinkSync, renameSync, symlinkSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -21,7 +21,11 @@ export async function toolchain() {
   }
   const root = resolve(process.env.PICO_TOOLCHAIN_PATH ?? join(directory, 'sysroot/usr'));
   const compiler = join(root, 'bin/arm-none-eabi-gcc');
-  if (!existsSync(compiler)) {
+  const external = process.env.PICO_TOOLCHAIN_PATH !== undefined;
+  const marker = join(dirname(root), '.arbi-toolchain');
+  const identity = createHash('sha256').update(JSON.stringify(pins.packages)).digest('hex');
+  if (external && !existsSync(compiler)) throw new Error('External toolchain is missing the pinned compiler');
+  if (!external && (!existsSync(compiler) || !existsSync(marker) || readFileSync(marker, 'utf8') !== identity)) {
     if (process.platform !== 'linux' || process.arch !== 'x64') throw new Error('Automatic bootstrap requires Linux x64; supply the pinned external toolchain');
     for (const packagePin of pins.packages) {
       const path = join(directory, new URL(packagePin.url).pathname.split('/').at(-1));
@@ -32,9 +36,17 @@ export async function toolchain() {
       if (createHash('sha256').update(readFileSync(path)).digest('hex') !== packagePin.sha256) throw new Error('Toolchain package digest mismatch');
       run('dpkg-deb', ['-x', path, dirname(root)]);
     }
-    // Debian's postinstall creates these links; extraction never runs that script.
-    symlinkSync('newlib', join(root, 'lib/arm-none-eabi/lib'));
-    symlinkSync('../../include/newlib', join(root, 'lib/arm-none-eabi/include'));
+    writeFileSync(marker, identity);
+  }
+  if (!external) {
+    // Repair interrupted post-extraction setup without changing external tools.
+    for (const [target, path] of [['newlib', 'lib/arm-none-eabi/lib'], ['../../include/newlib', 'lib/arm-none-eabi/include']]) {
+      const link = join(root, path);
+      let existing;
+      try { existing = lstatSync(link); } catch (error) { if (error.code !== 'ENOENT') throw error; }
+      if (!existing) symlinkSync(target, link);
+      else if (!existing.isSymbolicLink() || readlinkSync(link) !== target) throw new Error('Unexpected internal sysroot link');
+    }
   }
   if (output(compiler, ['-dumpfullversion']) !== pins.compiler) throw new Error('ARM compiler pin mismatch');
   const python = resolve(process.env.ARBI_PICO_PYTHON_TOOLS ?? join(directory, 'python'));

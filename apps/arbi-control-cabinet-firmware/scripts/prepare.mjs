@@ -5,6 +5,14 @@ import { configurationDigest, validateConfigurationRecord } from '@arbi/protocol
 import { app } from './toolchain.mjs';
 
 const canonical = value => Array.isArray(value) ? `[${value.map(canonical).join(',')}]` : value !== null && typeof value === 'object' ? `{${Object.keys(value).sort().map(key => `${JSON.stringify(key)}:${canonical(value[key])}`).join(',')}}` : JSON.stringify(value);
+export function sourceIdentity(directory = app) {
+  try {
+    const options = { cwd: directory, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] };
+    const sha = execFileSync('git', ['rev-parse', 'HEAD'], options).trim();
+    if (!/^[a-f0-9]{40}$/u.test(sha)) throw new Error('Unknown source revision');
+    return { sha, dirty: execFileSync('git', ['status', '--porcelain', '--untracked-files=normal'], options).trim().length > 0 };
+  } catch { return { sha: 'unknown', dirty: true }; }
+}
 export function prepare() {
   const output = join(app, 'dist/generated');
   mkdirSync(output, { recursive: true });
@@ -16,7 +24,6 @@ export function prepare() {
   writeFileSync(join(output, 'configuration.json'), text);
   // This is an immutable, test-only admitted profile. The target has no profile.
   writeFileSync(join(output, 'fixture.h'), `static const char fixture_config[] = {${[...Buffer.from(text), 0].join(',')}};\n#define FIXTURE_CONFIG fixture_config\n#define FIXTURE_DIGEST "${configurationDigest(configuration)}"\n#define FIXTURE_REVISION "${configuration.revision}"\n`);
-  const sha = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: app, encoding: 'utf8' }).trim();
-  const dirty = execFileSync('git', ['status', '--porcelain', '--untracked-files=normal'], { cwd: app, encoding: 'utf8' }).trim().length > 0;
+  const { sha, dirty } = sourceIdentity();
   writeFileSync(join(output, 'build_identity.h'), `#define ARBI_BUILD_SHA "${sha}"\n#define ARBI_BUILD_DIRTY ${dirty ? 1 : 0}\n#define ARBI_FIRMWARE_VERSION "0.1.0"\n`);
 }

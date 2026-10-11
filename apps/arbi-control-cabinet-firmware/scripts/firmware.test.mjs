@@ -29,7 +29,8 @@ function run(mode, input = Buffer.alloc(0)) {
   assert.deepEqual(observed.status.snapshot.body.capabilities, []);
   assert.deepEqual(observed.status.snapshot.body.supportedCommands, ['state.resync']);
   assert.deepEqual(validateMessage(observed.status.snapshot).ok, true, JSON.stringify(observed.status.snapshot));
-  assert.match(observed.status.firmware.revision, /^[a-f0-9]{40}$/u);
+  assert.match(observed.status.firmware.revision, /^(?:[a-f0-9]{40}|unknown)$/u);
+  if (observed.status.firmware.revision === 'unknown') assert.equal(observed.status.firmware.dirty, true);
   assert.ok(observed.memoryBytes < 65536, `Fixed core memory ${observed.memoryBytes}`);
   return observed;
 }
@@ -56,6 +57,13 @@ test('immutable canonical configuration has shared schema/semantic validation an
   assert.equal(observed.status.snapshot.body.configRevision, value.revision);
   for (const changed of [Buffer.alloc(0), configuration.subarray(0, -1), Buffer.concat([configuration, Buffer.from(' ')]), Buffer.alloc(16385), Buffer.from(JSON.stringify({ ...value, schemaVersion: 'arbi.configuration/2.0' })), Buffer.from(configuration.toString().replace('config-1', 'config-2')), Buffer.from('{}')]) {
     const rejected = run('config', changed); assert.equal(rejected.status.configured, false); assert.equal(rejected.status.configurationDigest, null);
+  }
+  for (const invalid of [{ ...value, siteId: 'invalid site' }, { ...value, realm: { ...value.realm, namespaceId: 'invalid namespace' } }]) {
+    const rejected = run('config-admitted', Buffer.from(JSON.stringify(invalid)));
+    assert.equal(rejected.status.configured, false); assert.equal(rejected.status.lastResult, 'CONFIG_INCOMPATIBLE');
+    assert.equal(rejected.status.snapshot.body.configRevision, 'unconfigured');
+    assert.equal(rejected.status.snapshot.siteId, 'unenrolled');
+    assert.equal(rejected.status.snapshot.realm.namespaceId, 'unenrolled');
   }
 });
 test('authenticated shared resync command negotiates bounded diagnostic capabilities', () => {

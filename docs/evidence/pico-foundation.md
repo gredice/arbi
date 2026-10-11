@@ -2,6 +2,8 @@
 
 Work record: [#31](https://github.com/gredice/arbi/issues/31). Decision: [ADR-0023](../decisions/0023-pico-diagnostic-foundation.md). Application: [build commands](../../apps/arbi-control-cabinet-firmware/README.md).
 
+These are Codex-executed source/host checks, with automated PR review linked in the work record. No qualified human or physical reviewer sign-off is claimed; the issue link identifies proposed work, not acceptance evidence.
+
 Source checks ran on Linux x64 without production credentials. Pinned cross-compilation produced real RP2350 ARM ELF/BIN/UF2 output. The same C core/parser/loader and SDK-pinned mbedTLS implementation compiled as a strict C11 host executable. Build identity records the actual checkout and dirty status.
 
 Eight host test groups cover missing configuration, shared configuration schema/semantics and exact digest, independent HMAC vectors, authenticated diagnostic requests, maximum-size input, corrupt/unauthenticated/version/session frames, truncation/oversize, idle/total timeout, rate overflow, replay/reconnect, duplicate fields, token/depth limits, uint64 encoding, source/target/realm/site/mode/deadline mismatches and unsupported actuator operations. Emitted snapshots pass the shared protocol validator. Every observed state remains inhibited without measurement capability; physical acceptance remains false.

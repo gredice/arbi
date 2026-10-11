@@ -15,9 +15,19 @@ int main(int argc, char **argv) {
   arbi_reset(&runtime, self, nonce);
   const AdmittedProfile profile = {FIXTURE_CONFIG, FIXTURE_DIGEST, FIXTURE_REVISION};
   const char *result = "BOOT";
-  if (!strcmp(argv[1], "config")) {
+  if (!strcmp(argv[1], "config") || !strcmp(argv[1], "config-admitted")) {
     size_t length = fread(input, 1, sizeof input, stdin);
-    bool loaded = arbi_load_configuration(&runtime, input, length, &profile);
+    if (length == sizeof input) return 2;
+    AdmittedProfile selected = profile; char hex[65];
+    if (!strcmp(argv[1], "config-admitted")) {
+      // Trusted-profile fault substitute tests identifier validation after an
+      // exact digest match. This mode exists only in the host executable.
+      unsigned char digest[32]; input[length] = 0;
+      if (!arbi_sha256(input, length, digest)) return 2;
+      for (size_t i = 0; i < 32; i++) snprintf(hex + 2*i, 3, "%02x", digest[i]);
+      selected.canonical = (const char *)input; selected.digest = hex;
+    }
+    bool loaded = arbi_load_configuration(&runtime, input, length, &selected);
     result = loaded ? "CONFIG_LOADED" : runtime.reason;
   } else if (!strcmp(argv[1], "mac")) {
     size_t length = fread(input, 1, sizeof input, stdin); unsigned char mac[32];
