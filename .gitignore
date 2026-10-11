@@ -43,3 +43,6 @@ __pycache__/
 *.pyc
 .venv/
 .vercel
+
+# Redacted generated fault-workflow test traces
+fault-results/

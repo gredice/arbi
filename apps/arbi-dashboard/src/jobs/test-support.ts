@@ -8,7 +8,7 @@ import { proofBytes } from "../enrollment/crypto";
 import type { CurrentAuthority } from "./contracts";
 
 export const realm: Realm = { environment: "test",namespaceId: "synthetic-jobs" };
-export async function fixture(siteId = randomUUID()) {
+export async function fixture(siteId: string = randomUUID()) {
   const identity = createIsolatedIdentityProvider(realm), keys = generateKeyPairSync("ed25519"), now = Date.now();
   const target = { deviceId: "edge-1",bootId: "boot-1",sessionId: "link-1" };
   const registry: Registry = { version: VERSION,realm,siteId,accountId: "account-1",configRevision: "config-1",hardwareDigest: "synthetic-digest",
