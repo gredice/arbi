@@ -129,6 +129,19 @@ test("native PostgreSQL jobs: independent connections, fences, crash/replay, sig
   const httpInput = { ...input,key: "http-submit",leaseId: httpLease.id,fence: httpLease.fence };
   response = await http.handle(req("submit",httpInput),{ siteId: h.f.registry.siteId,action: "submit" });assert.equal(response.status,202);
   const httpJob = await response.json();assert.equal(httpJob.deviceStatus,null);assert.equal(httpJob.terminal,null);
+  h.f.identity.putPrincipal({actor:{kind:"human",id:"direct-viewer"},accountId:"account-1",member:true,
+    sites:{[h.f.registry.siteId]:{roles:["viewer"],serviceScopes:[],active:true,revision:"viewer-1"}}});
+  const viewer = await h.f.identity.issue({kind:"human",id:"direct-viewer"});
+  assert.equal((await http.handle(req("submit",{...httpInput,key:"viewer-bypass"},viewer.token),{siteId:h.f.registry.siteId,action:"submit"})).status,403);
+  assert.equal((await pool.query("SELECT count(*) FROM arbi_command_jobs WHERE site_id=$1",[h.f.registry.siteId])).rows[0].count,"1");
+  const deniedViewer = (await pool.query("SELECT record FROM arbi_audit_events WHERE site_id=$1 AND record->'actor'->>'id'='direct-viewer'",[h.f.registry.siteId])).rows;
+  assert.equal(deniedViewer.length,1);assert.equal(deniedViewer[0].record.outcome,"deny");
+  // Direct API admission must fail before an executable job when required audit storage fails.
+  await pool.query("ALTER TABLE arbi_audit_outbox ADD CONSTRAINT coverage_inject_failure CHECK (false) NOT VALID");
+  try {
+    assert.equal((await http.handle(req("submit",{...httpInput,key:"audit-outage"}),{siteId:h.f.registry.siteId,action:"submit"})).status,503);
+    assert.equal((await pool.query("SELECT count(*) FROM arbi_command_jobs WHERE site_id=$1",[h.f.registry.siteId])).rows[0].count,"1");
+  } finally { await pool.query("ALTER TABLE arbi_audit_outbox DROP CONSTRAINT coverage_inject_failure"); }
   const traceResponse = await http.handle(new Request(`https://synthetic.test/jobs/timeline?jobId=${httpJob.id}`,{headers:{authorization:`Bearer ${h.one.token}`,origin:"https://synthetic.test"}}),{siteId:h.f.registry.siteId,action:"timeline"});
   assert.equal(traceResponse.status,200);assert.ok(Buffer.byteLength(await traceResponse.clone().text()) <= 65536);
   const directTrace = await traceResponse.json();assert.equal(directTrace.deviceStatus,null);assert.equal(directTrace.terminal,null);
@@ -277,4 +290,21 @@ test("native PostgreSQL jobs: independent connections, fences, crash/replay, sig
   assert.deepEqual((await c.b.device(csite,c.f.upload("poll",{})) as { commands: Command[] }).commands,[recovered.command]);
   assert.equal((await pool.query("SELECT count(*) FROM arbi_command_jobs WHERE site_id=$1",[csite])).rows[0].count,"1");
   await c.a.audit.verify(realm,csite);
+  await t.test("cloud audit coverage stays dense across command allocations, competing sources and rolled-back admissions",async()=>{
+    const holes = await pool.query(`WITH numbered AS (
+      SELECT stream,sequence,row_number() OVER(PARTITION BY stream ORDER BY sequence)::numeric AS expected
+      FROM arbi_audit_events WHERE record->'source'->'identity'->>'deviceId'='job-service'
+    ) SELECT * FROM numbered WHERE sequence<>expected`);
+    assert.deepEqual(holes.rows,[]);
+    const falseGaps = await pool.query(`SELECT e.id,d.detail FROM arbi_audit_events e JOIN arbi_audit_evidence d ON d.event_id=e.id
+      WHERE e.record->'source'->'identity'->>'deviceId'='job-service' AND d.detail->'gaps'<>'[]'::jsonb`);
+    assert.deepEqual(falseGaps.rows,[]);
+    const protocolCoverage = (await pool.query(`SELECT d.detail FROM arbi_audit_events e JOIN arbi_audit_evidence d ON d.event_id=e.id
+      WHERE e.record->'record'->>'kind'='protocol-event'`)).rows;
+    assert.ok(protocolCoverage.length>0);assert.ok(protocolCoverage.every(r=>r.detail.sequenceCoverage==='selected-protocol-events'));
+    for(const row of (await pool.query("SELECT DISTINCT site_id FROM arbi_command_jobs")).rows)
+      assert.ok((await a.audit.verify(realm,row.site_id)).ordinal>0);
+    t.diagnostic("redacted audit coverage: viewer denied before job; required audit outage returns 503 with no job; cloud audit streams dense across separate process epochs and rollback");
+  });
+
 });
