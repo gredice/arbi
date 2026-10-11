@@ -34,3 +34,18 @@ Source/native/browser validation does not establish physical camera focus,
 selected-device timing, carrier/WAN bytes, real provider tenancy or installed
 commissioning. No production/live capture provider, hardware output or accepted
 physical configuration is enabled.
+
+## Reproducible source validation
+
+Clean source `752ad9644307df33929b15c961a2b16c8dc5fbd4` on the merged issue #66
+main baseline passed 14 protocol/edge build, lint and typecheck tasks and five
+full offline preview dashboard build, lint and typecheck tasks. The affected
+edge image/commissioning suite passed all 46 tests serially; the full native
+PostgreSQL suite passed all 72 tests. The protocol suite passed all 464 tests,
+including independent TypeScript, Python and host C reference consumers. Both
+capture Chromium browser checks passed. These results use Node 24.19.0,
+PostgreSQL 18.4 and Chromium 145.0.7632.6 on an isolated Linux development host.
+
+The evidence-only follow-up changes no validated implementation. GitHub CI and
+review are additional PR merge gates; this record does not imply deployed or
+physical acceptance.
