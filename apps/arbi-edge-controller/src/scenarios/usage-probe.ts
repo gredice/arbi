@@ -7,10 +7,11 @@ import {once} from 'node:events';
 import {ApplicationMeter,LinuxInterfaceCollector,TrafficSpool,stamp,type CounterConfig,type TransferSpec} from '@arbi/traffic';
 import {TransferBudget} from '../transfers/budget.js';
 import {createJobReference} from '../jobs/reference.js';
+import {syntheticAppliedConfiguration} from '../simulation.js';
 const ids=['idle-short-sample','bounded-reconnect','still-interrupted-retry','diagnostic-export','artifact-download','optional-exhaustion-essential-stop'] as const;
 export type UsageProbeCase=typeof ids[number];
 async function probe(id:UsageProbeCase){
-  const began=performance.now(),root=mkdtempSync(join(tmpdir(),'arbi-usage-probe-')),source={deviceId:'native-usage-probe',bootId:'native-linux-probe',sessionId:id},realm={environment:'test' as const,namespaceId:'native-controlled-usage'};
+  const began=performance.now(),root=mkdtempSync(join(tmpdir(),'arbi-usage-probe-')),source={deviceId:syntheticAppliedConfiguration().appliedBy.deviceId,bootId:'native-linux-probe',sessionId:id},realm={environment:'test' as const,namespaceId:'native-controlled-usage'};
   const scope={realm,executionMode:'simulation' as const,siteId:'synthetic-site',source,boundary:'lan' as const,linkId:'controlled-loopback'},spool=new TrafficSpool({path:join(root,'usage.sqlite'),binding:{realm,siteId:scope.siteId,executionMode:'simulation',deviceId:source.deviceId},maxRecords:64,maxBytes:524288,maxPages:512,maxCounters:1}),meter=new ApplicationMeter(spool,()=>stamp('native-controlled-clock',20));
   const config:CounterConfig={key:'native-lo',scope,layer:'interface-wan',collectionPoint:'linux-lo-sysfs',coverage:'partial',includes:['payload','retries','transport-overhead','non-arbi'],width:64,maxDeltaBytes:'1073741824',maxIntervalMs:15000,maxAgeMs:15000};
   const collector=new LinuxInterfaceCollector(config,'lo','native-controlled-reference',undefined,20);spool.collect(config,collector.read());
