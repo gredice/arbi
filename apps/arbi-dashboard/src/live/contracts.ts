@@ -13,7 +13,9 @@ export interface LiveViewer {version:typeof LIVE_VERSION;id:string;producerId:st
   epoch:number;endedAtMs:number|null;endReason:string|null;intent:AuditEvent;signal:{sequence:number;fingerprint:string;reply:LiveSignal|null}|null;
   observedConnection?:'device-reported-connected'|'device-reported-ended';observationEventId?:string;
   policyHistory?:{epoch:number;atMs:number;policy:LivePolicy;viewers:number;sharedUpstream:boolean}[];
-  browserAdvisory?:{sequence:number;receivedAtMs:number;state:'playing'|'ended';reports:number}}
+  browserAdvisory?:{sequence:number;receivedAtMs:number;state:'playing'|'ended';reports:number};
+  delivery?:{receivedAtMs:number;startMonotonicMs:number;endMonotonicMs:number;reports:number;lastReportId:string;viewerUsageId:string;upstreamUsageId:string|null;relayUsageId:string|null};
+  closure?:{authorityDurationUpperBoundMs:number;deliveryCoverage:'partial'|'unknown';playbackDurationMs:null;remoteStopObserved:false}}
 export interface ProducerDemand {version:typeof LIVE_VERSION;realm:Realm;siteId:string;id:string;generation:string;target:Identity;configRevision:string;
   profile:LiveProfile;viewers:number;issuedAtMs:number;expiresAtMs:number;sharedUpstream:true}
 export interface LiveSignal {type:'offer'|'answer'|'candidate';data:string}

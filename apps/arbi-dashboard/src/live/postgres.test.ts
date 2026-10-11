@@ -11,12 +11,14 @@ import {createLiveServer} from './server';
 import {SimulatedLiveAdapter} from './simulated-adapter';
 import type {LivePolicy,LiveAdapter} from './contracts';
 import {proofBytes} from '../enrollment/crypto';
+import {UsageStore} from '../usage/store';
+import type {UsageObservation} from '@arbi/protocol';
 const socket=process.env.ARBI_ENROLLMENT_TEST_SOCKET;
 test('native PostgreSQL live authority: shared producer, scoped leases, policy, reconnect and atomic audit',{skip:!socket,timeout:15000},async t=>{
   const root=realpathSync(socket!);assert.ok(root.startsWith(`${realpathSync(tmpdir())}/arbi-enrollment-pg-`));
   const base={host:root,user:'arbi_test',port:54321,max:4},admin=new pg.Pool({...base,database:'postgres',max:1});await admin.query('CREATE DATABASE arbi_live_test');await admin.end();
   const pool=new pg.Pool({...base,database:'arbi_live_test'}),other=new pg.Pool({...base,database:'arbi_live_test'});t.after(async()=>{await other.end();await pool.end();});
-  for(const file of ['0001-enrollment','0002-media','0003-audit','0004-jobs','0011-live','0011-live'])await pool.query(await readFile(new URL(`../../migrations/${file}.sql`,import.meta.url),'utf8'));
+  for(const file of ['0001-enrollment','0002-media','0003-audit','0004-jobs','0007-usage','0011-live','0011-live'])await pool.query(await readFile(new URL(`../../migrations/${file}.sql`,import.meta.url),'utf8'));
   async function setup(adapter:LiveAdapter=new SimulatedLiveAdapter()){
     const f=await fixture(),keys=generateKeyPairSync('ed25519');f.registry.devices[0].credentials[0].publicKey=keys.publicKey.export({format:'der',type:'spki'}).toString('base64url');
     await pool.query('INSERT INTO arbi_device_registry VALUES($1,$2,$3,$4::jsonb)',[realm.environment,realm.namespaceId,f.registry.siteId,JSON.stringify(f.registry)]);
@@ -28,7 +30,8 @@ test('native PostgreSQL live authority: shared producer, scoped leases, policy, 
     t.after(()=>{if(adapter instanceof SimulatedLiveAdapter)adapter.close();});
     const sync=()=>pool.query('UPDATE arbi_device_registry SET state=$1::jsonb WHERE site_id=$2',[JSON.stringify(f.registry),f.registry.siteId]);
     const report=(payload:unknown)=>{const issuedAtMs=Date.now(),unsigned={version:'arbi.live-device/1.0',realm,siteId:f.registry.siteId,deviceId:'edge-1',credentialId:'credential-1',identity:f.registry.devices[0].current,configRevision:f.registry.configRevision,issuedAtMs,expiresAtMs:issuedAtMs+2000,payload};return {...unsigned,signature:sign(null,proofBytes(unsigned),keys.privateKey).toString('base64url')};};
-    return {f,a,b,one,two,start,adapter,options,sync,report,deny:()=>{decision={...decision,allow:false,reason:'budget-exhausted',remainingBytes:'0'};}};
+    const usage=(payload:unknown)=>{const issuedAtMs=Date.now(),unsigned={version:'arbi.usage-device/1.0',realm,siteId:f.registry.siteId,deviceId:'edge-1',credentialId:'credential-1',identity:f.registry.devices[0].current,issuedAtMs,expiresAtMs:issuedAtMs+2000,action:'ingest',payload};return {...unsigned,signature:sign(null,proofBytes(unsigned),keys.privateKey).toString('base64url')};};
+    return {f,a,b,one,two,start,adapter,options,sync,report,usage,deny:()=>{decision={...decision,allow:false,reason:'budget-exhausted',remainingBytes:'0'};}};
   }
   await t.test('independent concurrent admissions share one producer while retaining individual actor/session grants and hard viewer limit',async()=>{
     const {a,b,f,one,two,start,adapter}=await setup();const [first,second]=await Promise.all([a.store.start(one.context,start),b.store.start(two.context,start)]);
@@ -149,5 +152,31 @@ test('native PostgreSQL live authority: shared producer, scoped leases, policy, 
     const state=await a.store.action(one.context,'state',{sessionId:view.id});assert.equal(state.expiresAtMs,view.expiresAtMs);assert.equal(state.observedConnection,'unobserved');assert.equal(state.browserAdvisory?.state,'playing');
     await assert.rejects(a.store.advisory(one.context,{...input,sequence:2,state:'ended'}),{code:'CAPACITY'});
     const event=(await pool.query('SELECT record FROM arbi_audit_events WHERE id=$1',[result.eventId])).rows[0].record;assert.equal(event.evidence,'browser-observation');assert.equal(event.effect,'none');
+  });
+  await t.test('two viewers reference separate delivered intervals and one shared upstream without duplicating garden usage',async()=>{
+    const {a,b,one,two,start,f,report,usage}=await setup(),first=await a.store.start(one.context,start),second=await b.store.start(two.context,start);
+    await new Promise(resolve=>setTimeout(resolve,1200));const end=Date.now(),interval={start:new Date(end-1000).toISOString(),end:new Date(end).toISOString()},meter=new UsageStore(a.store.jobs);
+    const observation=(boundary:UsageObservation['boundary'],viewerId:string|null,bytes:string):UsageObservation=>({version:'arbi-accounting/1.0',kind:'usage',observationId:randomUUID(),realm,siteId:f.registry.siteId,executionMode:'simulation',
+      source:f.registry.devices[0].current!,counterEpoch:'media-counter',boundary,layer:'application-payload',direction:boundary==='garden-sim'?'upload':'download',linkId:viewerId?`viewer-${viewerId}`:'sim-shared',
+      scope:'attributed',attributionRevision:'media-attribution',deviceId:'edge-1',category:boundary==='cloud-relay'?'turn':'live-video',interval,bytes,
+      evidence:{quality:'measured',coverage:'complete',includes:['payload'],observedAt:interval.end,maxAgeMs:15000,reason:null},media:{topology:'shared',sessionId:first.producerId,viewerId,viewerCount:2}});
+    const upstream=observation('garden-sim',null,'100'),down1=observation('cloud-viewer',first.id,'120'),down2=observation('cloud-viewer',second.id,'130'),relay=observation('cloud-relay',null,'20');
+    const unknown={...observation('cloud-viewer',first.id,'0'),linkId:'unknown-viewer-counter',bytes:null,evidence:{quality:'unavailable' as const,coverage:'unknown' as const,includes:[],observedAt:null,maxAgeMs:15000,reason:'not-reported' as const}};
+    await meter.ingest(f.registry.siteId,usage([upstream,down1,down2,relay,unknown].map((observation,n)=>({sequence:String(n+1),observation}))));
+    const generation=(await pool.query('SELECT record FROM arbi_live_producers WHERE id=$1',[first.producerId])).rows[0].record.demand.generation;
+    const payload=(view:typeof first,viewerUsageId:string,sequence:string,relayUsageId:string|null=null)=>({sessionId:view.id,epoch:view.epoch,generation,eventId:randomUUID(),sequence,kind:'delivery',
+      sourceTime:{utc:interval.end,uncertaintyMs:10,monotonicMs:2000},summary:{viewerUsageId,upstreamUsageId:upstream.observationId,relayUsageId,startMonotonicMs:1000,endMonotonicMs:2000}});
+    await assert.rejects(a.store.device(f.registry.siteId,report(payload(second,down1.observationId,'1'))),{code:'DENIED'});
+    await assert.rejects(a.store.device(f.registry.siteId,report(payload(first,unknown.observationId,'1'))),{code:'DENIED'});
+    const reported=payload(first,down1.observationId,'1',relay.observationId);await a.store.device(f.registry.siteId,report(reported));
+    assert.equal((await b.store.device(f.registry.siteId,report(reported))).decision,'duplicate');await b.store.device(f.registry.siteId,report(payload(second,down2.observationId,'2')));
+    assert.equal((await pool.query('SELECT count(*)::int n FROM arbi_usage_windows WHERE site_id=$1',[f.registry.siteId])).rows[0].n,5);
+    const events=(await pool.query("SELECT record FROM arbi_audit_events WHERE site_id=$1 AND record->'metadata'->>'observation'='bytes-delivered'",[f.registry.siteId])).rows;
+    assert.deepEqual(new Set(events.map(r=>r.record.actor.id)),new Set([one.context.actor.id,two.context.actor.id]));assert.equal(events.reduce((n,r)=>n+r.record.metadata.byteCount,0),250);
+    const state=await a.store.action(one.context,'state',{sessionId:first.id});assert.equal(state.observedConnection,'unobserved');assert.equal(state.delivery?.upstreamUsageId,upstream.observationId);
+    const engineer=await f.human('usage-reader','history.read'),totals=await meter.read(engineer.context,{linkId:'sim-shared',fromMs:end-1000,toMs:end});assert.equal(totals.totals[0].bytes,'100');
+    await a.store.action(one.context,'end',{sessionId:first.id});await pool.query("UPDATE arbi_live_viewers SET record=jsonb_set(record,'{expiresAtMs}',to_jsonb($2::bigint)) WHERE id=$1",[second.id,Date.now()-1]);
+    const closed=await b.store.action(two.context,'state',{sessionId:second.id});assert.equal(closed.endReason,'timeout');assert.equal(closed.closure?.deliveryCoverage,'partial');assert.equal(closed.closure?.playbackDurationMs,null);assert.equal(closed.closure?.remoteStopObserved,false);
+    await a.store.jobs.audit.verify(realm,f.registry.siteId);
   });
 });

@@ -12,9 +12,11 @@ import { PostgresMediaStore } from "./store";
 export function createMediaServer(config: {
   realm: Realm; identity: GrediceIdentityAdapter; resolveSite: ResourceResolver; browserOrigins: readonly string[];
   db: SqlDatabase; objects: PrivateObjectStore; resolveCapture?: CaptureResolver; now?: () => number;
+  /** Explicit in-memory schema fixture only; never evidence of durable admission. */
+  schemaOnlyTestRealm?:Realm;
 }): MediaHttp {
   if (!sameRealm(config.realm, config.identity.realm)) throw new MediaError("DENIED");
-  const store = new PostgresMediaStore(config.db);
+  const store = new PostgresMediaStore(config.db,config.schemaOnlyTestRealm);
   return new MediaHttp(new MediaService(store, config.objects, config.resolveCapture, config.now), new SiteRequestBoundary({
     identity: config.identity, browserOrigins: config.browserOrigins,
     resolveResource: async (query) => {

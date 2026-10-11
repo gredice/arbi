@@ -11,6 +11,7 @@ import type {PostgresJobStore} from '../jobs/store';
 import {LIVE_VERSION,LIVE_LEASE_MS,LIVE_MAX_LIFETIME_MS,liveSignal,policy,profile} from './contracts';
 import type {LiveAdapter,LivePolicyEvaluator,LiveProfile,LiveViewer,MediaDeviceApproval,ProducerDemand,LiveSignal} from './contracts';
 import {LiveTokens} from './tokens';
+import {deliverySummary} from './delivery';
 type Tx=Parameters<Parameters<PostgresJobStore['transaction']>[1]>[0];
 interface Producer {demand:ProducerDemand;deliveredGeneration:string|null;observedState:'leased'|'stopped'|null}
 const binding=(e:AuditEvent):TrustedBinding=>({realm:e.realm,siteId:e.siteId,executionMode:e.executionMode,authenticatedSource:e.source,actor:e.actor,
@@ -31,7 +32,8 @@ export class LiveStore{
     if(!device?.current||!this.approveDevice(structuredClone(tx.registry),structuredClone(device)))throw new JobError('DENIED');return device;}
   async #save(tx:Tx,v:LiveViewer){await tx.sql.query('UPDATE arbi_live_viewers SET ended_at_ms=$2,record=$3::jsonb WHERE id=$1',[v.id,v.endedAtMs,JSON.stringify(v)]);}
   async #close(tx:Tx,v:LiveViewer,reason:'timeout'|'ended'|'revoked'|'source-restarted'){
-    if(v.endedAtMs!==null)return;v.endedAtMs=tx.now;v.endReason=reason;await this.#save(tx,v);
+    if(v.endedAtMs!==null)return;v.endedAtMs=tx.now;v.endReason=reason;
+    v.closure={authorityDurationUpperBoundMs:Math.max(0,Math.min(tx.now,v.expiresAtMs)-v.createdAtMs),deliveryCoverage:v.delivery?'partial':'unknown',playbackDurationMs:null,remoteStopObserved:false};await this.#save(tx,v);
     await this.#emit(tx,v.intent,reason==='timeout'?'live.timeout':reason==='ended'?'live.end':'live.revoke','service-outcome','succeeded',reason==='source-restarted'?'revoked':reason);
   }
   async #active(tx:Tx,deviceId:string){
@@ -96,7 +98,7 @@ export class LiveStore{
     });return this.#view(viewer);
   }
   async #view(v:LiveViewer){return {version:LIVE_VERSION,id:v.id,deviceId:v.target.deviceId,configRevision:v.configRevision,producerId:v.producerId,profile:v.profile,policy:v.policy,expiresAtMs:v.expiresAtMs,absoluteExpiresAtMs:v.absoluteExpiresAtMs,
-    endedAtMs:v.endedAtMs,endReason:v.endReason,epoch:v.epoch,admission:v.endedAtMs===null?'granted':'closed',observedConnection:v.observedConnection??'unobserved',observationEventId:v.observationEventId??null,browserAdvisory:v.browserAdvisory??null,token:v.endedAtMs===null&&v.expiresAtMs>Date.now()?await this.tokens.issue(v):null};}
+    endedAtMs:v.endedAtMs,endReason:v.endReason,epoch:v.epoch,admission:v.endedAtMs===null?'granted':'closed',observedConnection:v.observedConnection??'unobserved',observationEventId:v.observationEventId??null,browserAdvisory:v.browserAdvisory??null,delivery:v.delivery??null,closure:v.closure??null,token:v.endedAtMs===null&&v.expiresAtMs>Date.now()?await this.tokens.issue(v):null};}
   async action(context:AuthorizedContext,action:'state'|'renew'|'end'|'revoke',input:unknown){
     exact(input,action==='renew'?['sessionId','token']:['sessionId']);id(input.sessionId);
     if(context.actor.kind!=='human'||context.capability!==(action==='revoke'?'configuration.write':'live.view'))throw new JobError('DENIED');
@@ -150,9 +152,9 @@ export class LiveStore{
     exact(input,['version','realm','siteId','deviceId','credentialId','identity','configRevision','issuedAtMs','expiresAtMs','payload','signature']);
     if(input.version!=='arbi.live-device/1.0'||!isDeepStrictEqual(input.realm,this.jobs.realm)||input.siteId!==siteId)throw new JobError('DENIED');
     id(input.deviceId);id(input.credentialId);id(input.configRevision);milliseconds(input.issuedAtMs,0,Number.MAX_SAFE_INTEGER);milliseconds(input.expiresAtMs,0,Number.MAX_SAFE_INTEGER);
-    exact(input.payload,['sessionId','epoch','generation','eventId','sequence','kind','sourceTime']);const payload=input.payload;
+    exact(input.payload,['sessionId','epoch','generation','eventId','sequence','kind','sourceTime',...(typeof input.payload==='object'&&input.payload!==null&&'kind' in input.payload&&input.payload.kind==='delivery'?['summary']:[])]);const payload=input.payload;
     for(const field of ['sessionId','generation','eventId','sequence'])id(payload[field]);milliseconds(payload.epoch,1,10000);
-    if(!['connected','ended'].includes(String(payload.kind)))throw new JobError('INVALID_REQUEST');
+    if(!['connected','ended','delivery'].includes(String(payload.kind)))throw new JobError('INVALID_REQUEST');
     return this.jobs.transaction(siteId,async tx=>{
       const device=this.#device(tx,String(input.deviceId)),credential=device.credentials.find(c=>c.id===input.credentialId&&c.revokedAtMs===null&&c.createdAtMs<=tx.now&&c.expiresAtMs>tx.now);
       if(!credential||!isDeepStrictEqual(device.current,input.identity)||input.configRevision!==tx.registry.configRevision||Number(input.issuedAtMs)>tx.now+100||Number(input.expiresAtMs)<=tx.now||
@@ -168,14 +170,21 @@ export class LiveStore{
       if(producer.demand.generation!==payload.generation)throw new JobError('STALE_FENCE');
       await this.jobs.authority(tx,viewer.currentAuthority);
       if(viewer.endedAtMs!==null||viewer.expiresAtMs<=tx.now)throw new JobError('EXPIRED');
+      const delivering=payload.kind==='delivery';let delivery:Awaited<ReturnType<typeof deliverySummary>>|undefined;
+      if(delivering){if(viewer.delivery&&(tx.now-viewer.delivery.receivedAtMs<5000||viewer.delivery.reports>=32))throw new JobError('CAPACITY');
+        delivery=await deliverySummary(tx.sql,viewer,payload.summary,payload.sourceTime as AuditEvent['sourceTime']);}
       const connected=payload.kind==='connected',event:AuditEvent={...structuredClone(viewer.intent),eventId:String(payload.eventId),sequence:String(payload.sequence),
         source:{module:'media',identity:device.current!},sourceTime:payload.sourceTime as AuditEvent['sourceTime'],ingestTime:null,action:connected?'live.start':'live.end',evidence:'media-observation',
-        outcome:'observed',reason:connected?'observed':'ended',effect:'none',metadata:{...viewer.intent.metadata,observation:connected?'connection-established':'connection-ended'},
+        outcome:'observed',reason:connected||delivering?'observed':'ended',effect:'none',metadata:{...viewer.intent.metadata,observation:delivering?'bytes-delivered':connected?'connection-established':'connection-ended',
+          ...(delivery?{byteCount:delivery.viewerBytes,observedInterval:{startMonotonicMs:delivery.summary.startMonotonicMs,endMonotonicMs:delivery.summary.endMonotonicMs}}:{})},
         links:{...viewer.intent.links,causationEventId:viewer.intent.eventId}};
+      if(delivering)event.action='live.start';
       if(!validateAuditEvent(event).ok)throw new JobError('INVALID_REQUEST');
-      await this.jobs.audit.stage(tx.sql,event,binding(event));viewer.observedConnection=connected?'device-reported-connected':'device-reported-ended';viewer.observationEventId=event.eventId;await this.#save(tx,viewer);
+      await this.jobs.audit.stage(tx.sql,event,binding(event));
+      if(delivery)viewer.delivery={receivedAtMs:tx.now,reports:(viewer.delivery?.reports??0)+1,lastReportId:event.eventId,...delivery.summary};
+      else{viewer.observedConnection=connected?'device-reported-connected':'device-reported-ended';viewer.observationEventId=event.eventId;}await this.#save(tx,viewer);
       await tx.sql.query('INSERT INTO arbi_live_reports VALUES($1,$2,$3,$4,$5,$6,$7::jsonb)',[event.eventId,...scope(this.jobs.realm,siteId),device.id,fingerprint,JSON.stringify({payload,identity:device.current,configRevision:input.configRevision,receivedAtMs:tx.now})]);
-      if(!connected){await this.#close(tx,viewer,'ended');await this.#demand(tx,producer,await this.#active(tx,device.id));}
+      if(!connected&&!delivering){await this.#close(tx,viewer,'ended');await this.#demand(tx,producer,await this.#active(tx,device.id));}
       return {decision:'recorded',durable:true,eventId:event.eventId};
     });
   }

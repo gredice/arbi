@@ -56,7 +56,7 @@ export async function restoreIsolatedDatabase(input:Target,sql:SqlSession,backup
   command('pg_restore',['--no-owner','--no-privileges','--exit-on-error','--single-transaction',backup.archive],input);
   // Dumps omit deployment ACLs. Reapply the additive owner migrations to
   // restore closed PUBLIC privileges before any application role is granted.
-  for(const file of ['0001-enrollment','0002-media','0003-audit','0004-jobs','0005-realtime','0006-telemetry','0006-dashboard','0007-usage','0008-audit-lifecycle','0009-usage-settings','0010-operations','0011-live'])
+  for(const file of ['0001-enrollment','0002-media','0003-audit','0004-jobs','0005-realtime','0006-telemetry','0006-dashboard','0007-usage','0008-audit-lifecycle','0009-usage-settings','0010-operations','0011-live','0012-media-audit'])
     await sql.query(await readFile(new URL(`../../migrations/${file}.sql`,import.meta.url),'utf8'));
   const restored=await isolatedDatabaseDigest(sql,input.realm);
   for(const [table,reference] of Object.entries(backup.manifest.reference))if(JSON.stringify(restored[table])!==JSON.stringify(reference))throw new OperationsError('TAMPER');
