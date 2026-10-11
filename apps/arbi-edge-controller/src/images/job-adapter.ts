@@ -2,7 +2,7 @@ import { configurationDigest } from '@arbi/protocol';
 import type { Command } from '@arbi/protocol';
 import { JobError } from '../jobs/types.js';
 import type { JobAdapter,Operation,Proof } from '../jobs/types.js';
-import { originalFromCapture } from './contracts.js';
+import { originalFromCapture,record } from './contracts.js';
 export interface CapturePodPort {
   gimbal(command:Command):void;settled():boolean;
   capture(command:Command,gimbal:Command):Promise<unknown>;localStop():void;
@@ -30,7 +30,10 @@ export class CaptureJobAdapter implements JobAdapter {
         // Retain the true failed result too; a transport outcome cannot rewrite it.
         this.results.set(o.commandId,structuredClone(result));
         if(generation!==this.#generation)return;
-        try{const original=originalFromCapture(result);if(original.jobId!==c.command.correlationId)throw new Error('CAPTURE_JOB_MISMATCH');this.#result=result;}catch{this.#error=true;}
+        try{const original=originalFromCapture(result);
+          if(c.body.type!=='camera.capture'||!record(result)||result.commandId!==c.command.commandId||result.correlationId!==c.command.correlationId||result.resourceId!==c.body.resourceId||original.jobId!==c.command.correlationId||original.targetId!==c.body.resourceId||original.configurationDigest!==o.epoch.configurationDigest||original.captureCalibrationRevision!==o.epoch.calibrationRevision||!record(result.metadata)||!record(result.metadata.request)||configurationDigest(result.metadata.request.actor)!==configurationDigest(c.command.actor)||configurationDigest(result.metadata.request.source)!==configurationDigest(c.source)||configurationDigest(result.metadata.source)!==configurationDigest(c.command.target)||configurationDigest(result.metadata.realm)!==configurationDigest(c.realm)||result.metadata.siteId!==c.siteId)throw new Error('CAPTURE_JOB_MISMATCH');
+          this.#result=result;
+        }catch{this.#error=true;}
       },()=>{if(generation===this.#generation)this.#error=true;});
     }
   }
