@@ -1,6 +1,6 @@
 {
   "version": "arbi.update-interruption-evidence/1.0",
-  "sourceDigest": "b85ef708f42fa06cb01ec74d1079c51313991553306389e30c0cb3361e314fad",
+  "sourceDigest": "b9e9f5b1cb0f930471e3cf6e97e1175148b526a774563dd67c6c51756f6fafd5",
   "setup": {
     "node": "v24.19.0",
     "platform": "linux",
@@ -13,7 +13,7 @@
     {
       "id": "ordered-success",
       "result": "passed",
-      "durationMs": 2421.515533,
+      "durationMs": 2588.5637000000006,
       "state": "healthy",
       "reason": null,
       "targets": [
@@ -80,7 +80,7 @@
     {
       "id": "truncated-download",
       "result": "passed",
-      "durationMs": 432.6138369999999,
+      "durationMs": 404.45044400000006,
       "state": "healthy",
       "reason": null,
       "targets": [
@@ -121,7 +121,7 @@
     {
       "id": "rejected-retry",
       "result": "passed",
-      "durationMs": 352.6100000000001,
+      "durationMs": 471.0874249999997,
       "state": "healthy",
       "reason": null,
       "targets": [
@@ -162,7 +162,7 @@
     {
       "id": "corrupt-artifact",
       "result": "passed",
-      "durationMs": 84.51832699999977,
+      "durationMs": 107.73626299999887,
       "state": "paused",
       "reason": "DIGEST_MISMATCH",
       "targets": [
@@ -203,7 +203,7 @@
     {
       "id": "lost-target-ack",
       "result": "passed",
-      "durationMs": 255.82090700000026,
+      "durationMs": 356.7028470000005,
       "state": "healthy",
       "reason": null,
       "targets": [
@@ -244,7 +244,7 @@
     {
       "id": "unobserved-reservation",
       "result": "passed",
-      "durationMs": 233.68978199999947,
+      "durationMs": 274.06390699999974,
       "state": "recovery-required",
       "reason": "RESERVED_INSTALLATION_UNOBSERVED_NO_RESEND",
       "targets": [
@@ -285,7 +285,7 @@
     {
       "id": "failed-pod-canary",
       "result": "passed",
-      "durationMs": 925.0516349999998,
+      "durationMs": 1112.3021690000005,
       "state": "rolled-back",
       "reason": "CANARY_FAILED_ROLLED_BACK",
       "targets": [
@@ -352,7 +352,7 @@
     {
       "id": "mixed-version-floor",
       "result": "passed",
-      "durationMs": 316.3485869999995,
+      "durationMs": 342.79652499999975,
       "state": "recovery-required",
       "reason": "SECURITY_DOWNGRADE_BLOCKED",
       "targets": [
@@ -393,7 +393,7 @@
     {
       "id": "operation-write-interruption",
       "result": "passed",
-      "durationMs": 166.96173399999952,
+      "durationMs": 191.0264640000005,
       "state": "healthy",
       "reason": null,
       "targets": [
@@ -435,7 +435,7 @@
   "crashes": [
     {
       "point": "image-fsync",
-      "durationMs": 1769.84879,
+      "durationMs": 1830.063252,
       "signal": "SIGKILL",
       "installations": 1,
       "releaseId": "pod-1.1.0",
@@ -445,7 +445,7 @@
     },
     {
       "point": "image-rename",
-      "durationMs": 1882.4299539999993,
+      "durationMs": 2197.793887,
       "signal": "SIGKILL",
       "installations": 1,
       "releaseId": "pod-1.1.0",
@@ -455,7 +455,7 @@
     },
     {
       "point": "trial",
-      "durationMs": 1754.5393179999992,
+      "durationMs": 2259.9174920000005,
       "signal": "SIGKILL",
       "installations": 1,
       "releaseId": "pod-1.1.0",
@@ -465,7 +465,7 @@
     },
     {
       "point": "confirmed",
-      "durationMs": 1900.8031179999998,
+      "durationMs": 4637.9574710000015,
       "signal": "SIGKILL",
       "installations": 1,
       "releaseId": "pod-1.1.0",
@@ -508,6 +508,6 @@
   ],
   "physicalAcceptance": false,
   "publicOperationReady": false,
-  "sourceCommit": "968a53cd671cb7e6ce3b4b808092f73dc437af19",
+  "sourceCommit": "fa8914df42a5dd5a17d16320f53ab9c5fbdfab0b",
   "dirty": false
 }

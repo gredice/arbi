@@ -21,8 +21,8 @@ Mandatory physical gates remain blocked under #44, #71, #76 and #79. The
 source matrix cannot authorize field updates or close the hardware-dependent issue.
 
 The [generated clean-source report](update-interruption-matrix.json) identifies
-968a53cd671cb7e6ce3b4b808092f73dc437af19, dirty false, Node 24.19/x64 Linux
-and compiled source digest b85ef708f42fa06cb01ec74d1079c51313991553306389e30c0cb3361e314fad.
+fa8914df42a5dd5a17d16320f53ab9c5fbdfab0b, dirty false, Node 24.19/x64 Linux
+and compiled source digest b9e9f5b1cb0f930471e3cf6e97e1175148b526a774563dd67c6c51756f6fafd5.
 It records 70000 bytes for truncated download/recovery and 78192 bytes for a
 rejected 8192-byte attempt plus the 70000-byte retry. All reported charges match
 independent HTTP response payload and audit counts; receipts and sequence gaps
@@ -32,9 +32,11 @@ The clean source passed 13 forced build/lint/typecheck tasks and all 58 update
 tests serially in 75.994 seconds, including the new matrix and the existing
 preflight, trust/migration, range/budget/audit, native Linux and SIGKILL tests.
 A separate report generation ran all nine cases and four kills on the same
-clean source. Its native kill/recovery durations were 1754.54–1900.80 ms on
-this host; no physical timing is inferred. Documentation links and whole-tree
-whitespace pass. The evidence-only follow-up changes no tested source.
+clean source. The individual native kill/recovery durations are recorded in the JSON; no physical timing is inferred. Documentation links and whole-tree
+whitespace pass. The source-binding follow-up passed 13 forced build/lint/typecheck tasks,
+19 matrix/native-target tests in 50.079 seconds, and separate report generation
+on clean source. The runner rebuilds before importing measured modules and
+rejects dirty source or changes during measurement.
 
 These host records supply no physical evidence and name no qualified
 physical reviewer. Hardware, bootloader, electrical/structural and installed
