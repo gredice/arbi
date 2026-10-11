@@ -61,7 +61,9 @@ Optional bounded SQLite job storage, transactional audit intent, current local p
 
 ## Calibrated image processing
 
-The [image-processing source adapter](../../docs/software/image-processing.md) separately consumes raw capture fixtures and revision-bound simulation calibration. It returns derivative lineage or raw fallback with independent capture/processing/upload states, bounded workers and pure byte selection. [Evidence](../../docs/evidence/image-processing.md) keeps physical accuracy, outdoor thresholds and selected-host acceptance unavailable. Runtime/supervisor startup does not enable it; #66 owns full composition.
+The [image-processing source adapter](../../docs/software/image-processing.md) separately consumes raw capture fixtures and revision-bound simulation calibration. It returns derivative lineage or raw fallback with independent capture/processing/upload states, bounded workers and pure byte selection. [Evidence](../../docs/evidence/image-processing.md) keeps physical accuracy, outdoor thresholds and selected-host acceptance unavailable.
+
+The explicit [capture composition](../../docs/software/capture-orchestration.md) connects actual pod capture to the local job adapter, native offline raw/derived stage, independently scheduled cloud uploader and preview/budget hooks. [Native simulation evidence](../../docs/evidence/capture-orchestration.md) covers stopped motion, durable identities, original provenance, restart/expiry, one verified cloud object, pressure and disabled recording. Normal runtime/supervisor startup enables none of these adapters.
 
 ## Authorized commissioning
 

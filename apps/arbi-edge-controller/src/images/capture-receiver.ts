@@ -83,6 +83,8 @@ export class CaptureReceiver {
     this.#verifyFile(r);return ownerReceipt(r.manifest,this.#edge,this.#storageId,this.options.privateKey);
   }
   readOwned(imageId:string):{manifest:CaptureManifest;bytes:Buffer} {if(this.#closed)transferFail('TRANSFER_RECEIVER_CLOSED');const r=this.#get(imageId);if(!r||r.state!=='owned')transferFail('TRANSFER_INCOMPLETE');return {manifest:structuredClone(r.manifest),bytes:this.#verifyFile(r)};}
+  /** Privileged bounded scheduler enumeration; never an unauthenticated route. */
+  ownedIds(limit=128):string[] {if(this.#closed||!Number.isInteger(limit)||limit<1||limit>128)transferFail('TRANSFER_INVALID');return this.#rows().filter(r=>r.state==='owned').slice(0,limit).map(r=>r.manifest.image.id);}
   acceptCursor(kind:CaptureCursorKind,id:string,body:unknown,pod:Identity):CaptureCursorReceipt {
     this.#peer(pod);if(!['audit','usage','diagnostic'].includes(kind)||!transferId(id))transferFail('TRANSFER_CURSOR_INVALID');boundedTransferMetadata(body);
     const data=body as Record<string,unknown>,json=JSON.stringify(data);let hash:string;

@@ -22,6 +22,10 @@
     "./local": {
       "types": "./dist/local.d.ts",
       "import": "./dist/local.js"
+    },
+    "./capture-upload": {
+      "types": "./dist/capture-upload.d.ts",
+      "import": "./dist/capture-upload.js"
     }
   },
   "scripts": {

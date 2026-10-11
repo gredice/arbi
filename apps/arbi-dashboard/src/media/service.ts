@@ -42,6 +42,9 @@ export class MediaService {
         validMetadata(capture.metadata) && capture.metadata.provenance === "trusted-capture-record" &&
         capture.metadata.capture.status === "available" && capture.metadata.capture.id === request.captureId, "DENIED");
       metadata = structuredClone(capture.metadata);
+      if(metadata.trace){const a=metadata.trace.artifact;
+        requireMedia(context.actor.kind==='service'&&context.realm.environment==='test'&&metadata.trace.manifest.siteId===context.siteId&&sameRealm(metadata.trace.manifest.realm,context.realm)&&
+          request.variant==='full'&&a.sha256===request.sha256&&a.bytes===request.size&&a.widthPx===request.width&&a.heightPx===request.height&&a.contentType===request.contentType,'DENIED');}
     }
     const prepared = await this.store.transact(context.realm, context.siteId, async (tx) => {
       this.#context(context, tx, "capture.request");
@@ -49,7 +52,10 @@ export class MediaService {
       if (request.variant === "full") {
         const existing = await tx.replay(context, request.requestId);
         if (existing) {
-          requireMedia(isDeepStrictEqual(existing.variants.full.request, request), "CONFLICT"); return existing;
+          requireMedia(isDeepStrictEqual(existing.variants.full.request, request), "CONFLICT");
+          if(metadata.trace){requireMedia(isDeepStrictEqual(existing.metadata,metadata),'CONFLICT');const v=existing.variants.full;
+            if(v.state==='pending'&&v.expiresAtMs<=this.now()){v.expiresAtMs=this.now()+UPLOAD_TTL_MS;await tx.save(existing);await tx.record(context,{operation:'upload.renew',imageId:existing.id,uploadId:v.id,variant:'full',result:'current-service-authority-original-identity'});}}
+          return existing;
         }
         const { rows } = await tx.sql.query<{ count: string }>("SELECT count(*)::text AS count FROM arbi_media_images WHERE environment=$1 AND namespace_id=$2 AND site_id=$3", tx.key());
         requireMedia(Number(rows[0].count) < 10_000, "CAPACITY");

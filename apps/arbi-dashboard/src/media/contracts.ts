@@ -1,6 +1,8 @@
 import { isId, isObject, isRealm } from "@arbi/gredice";
 import type { AuthorizedContext } from "@arbi/gredice";
 import type { Realm, TrafficCategory, UsageLayer } from "@arbi/protocol";
+import {validateCaptureTrace} from '@arbi/protocol/capture-upload';
+import type {CaptureTrace} from '@arbi/protocol/capture-upload';
 
 export const MEDIA_VERSION = "arbi.media/1.0";
 export const UPLOAD_TTL_MS = 300_000;
@@ -34,6 +36,8 @@ export interface CaptureMetadata {
   capturedAt: { status: "available"; utc: string; uncertaintyMs: number | null } | { status: "unavailable" };
   framing: { status: "available"; frameId: string; revision: string } | { status: "unavailable" };
   provenance: "trusted-capture-record" | "unassociated-upload";
+  /** Supplied only by the protected service capture resolver, never the browser. */
+  trace?:CaptureTrace;
 }
 /** Server adapter must resolve protected capture/job/catalog/config records in one consistent snapshot. */
 export type CaptureResolver = (query: {
@@ -45,7 +49,9 @@ export function unavailableMetadata(): CaptureMetadata {
     capturedAt: { status: "unavailable" }, framing: { status: "unavailable" }, provenance: "unassociated-upload" };
 }
 export function validMetadata(value: unknown): value is CaptureMetadata {
-  if (!isObject(value) || Object.keys(value).length !== 8) return false;
+  if (!isObject(value) || ![8,9].includes(Object.keys(value).length)) return false;
+  if(Object.keys(value).length===9){if(!Object.hasOwn(value,'trace'))return false;try{validateCaptureTrace(value.trace as CaptureTrace);}catch{return false;}
+    const t=value.trace as CaptureTrace;if(value.provenance!=='trusted-capture-record'||!isObject(value.capture)||value.capture.id!==t.artifact.id)return false;}
   for (const field of ["capture", "job", "bed", "plant", "calibration"]) {
     const item = value[field];
     if (!isObject(item) || Object.keys(item).length !== 2 || !(item.status === "available" ? isId(item.id) :

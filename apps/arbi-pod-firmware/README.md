@@ -1,5 +1,7 @@
 # Pod service foundation
 
+The [capture job integration](../../docs/software/capture-orchestration.md) consumes the actual local job journal, bounded motion adapter, pod gimbal/sequencer and native edge stage. Failed focus/capture remain separate from processing/upload; retries preserve the original image. These are explicit simulation fixtures, with [source evidence](../../docs/evidence/capture-orchestration.md) separate from hardware acceptance.
+
 The explicit [capture custody/recovery adapter](../../docs/software/capture-transfer.md) adds resumable native chunks, verified signed edge ownership, acknowledged retention and historical cursor handoff. [Evidence](../../docs/evidence/capture-transfer.md) separates native SIGKILL/signature/filesystem checks from physical power/Wi-Fi and cloud acceptance. Trusted runtime attachment drains owners on stop; ordinary startup gains no camera/transfer or actuator endpoint.
 
 The trusted [gimbal source model](../../docs/software/gimbal-model.md) consumes actual configuration/command admission and stopped-motion evidence. It bounds axis/PWM/velocity policy and synthetic settling without hardware activation. See [source and physical evidence](../../docs/evidence/gimbal-model.md).

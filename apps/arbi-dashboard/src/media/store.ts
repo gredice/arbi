@@ -35,7 +35,7 @@ export class MediaTransaction {
       [image.id, ...this.key(), upload.creator.kind, upload.creator.id, upload.request.requestId, JSON.stringify(image)]);
   }
   async save(image: MediaImage): Promise<void> {
-    requireMedia(JSON.stringify(image).length <= 16_384, "CAPACITY");
+    requireMedia(JSON.stringify(image).length <= 65_536, "CAPACITY");
     await this.sql.query("UPDATE arbi_media_images SET record=$5::jsonb WHERE environment=$1 AND namespace_id=$2 AND site_id=$3 AND id=$4",
       [...this.key(), image.id, JSON.stringify(image)]);
   }
