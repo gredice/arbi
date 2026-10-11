@@ -1,0 +1,23 @@
+# Local controller recovery model
+
+The cabinet [C core](../../apps/arbi-control-cabinet-firmware/include/local_control.h) composes the [input/homing](input-homing-model.md) and [geometry](motion-geometry.md) models under [ADR-0028](../decisions/0028-simulation-only-local-controller-recovery.md). Its adapter is explicitly synthetic and in-process. It never calls PIO, enables a driver, measures a stop, installs a real interrupt or accepts motion over USB. Ordinary firmware status remains Fault and physically inhibited.
+
+The owner resets the model with a fresh self boot/session, installs a trusted copied profile/current edge epoch, observes a fresh local link and presents valid simulated inputs. Reset/configuration activation leaves recovery required. `local_model_recover` checks the command's target/source epochs, all seven motion identities, monotonic expiry, recovery generation, strictly newer fence, unique ID and sequence; it also requires a recent completed reference fixture begun after the fault and a valid synthetic reconciliation pose. Caller reference structs are trusted test fixtures, not remotely accepted evidence. Recovery enters model Idle with output inhibited, without a lease or restored trajectory.
+
+Every move owns a copied finite `PulsePlan`, a command/correlation ID and sequence, deadline and fencing epoch. One active plan is allowed. A manual plan additionally needs a current explicitly granted lease that covers its entire deadline. Completion supplies exactly the expected final commanded counts and local plan sequence; partial or mismatched completion faults rather than inventing remaining steps. Counts and inverse pose remain commanded/estimated, never measured. Caller scratch buffers must not alias an active DMA/PIO buffer; this model has no output consumer.
+
+| Synthetic event/state | Latched model request | Recovery |
+| --- | --- | --- |
+| Edge loss or authority/trajectory expiry while running | Abort/hold; discard plan and reference readiness | Deliberate new fence/generation with fresh reconciliation |
+| Edge/authority loss while idle | Inhibit | Same explicit recovery; reconnect clears nothing |
+| Alarm, limit, missing/unstable required input, scheduler failure, revision or clock change | Disable request; invalidate references | Clear underlying fixture failure, new reconciliation and authorization |
+| Owner-loop gap over 20 ms | Supervisor fault, disable request, watchdog feed ineligible | Explicit recovery; no network heartbeat substitutes for progress |
+| Boot/watchdog/brownout simulation | Inhibited, unconfigured and no plan/lease | Fresh configuration, reference and deliberate recovery |
+
+`local_model_tick` is called before admission, recovery, lease grants and completion, and at most every 20 virtual milliseconds while active. Edge freshness is 100 ms, manual lifetime at most 1,000 ms, finite trajectory lifetime at most 250 ms. All times belong to this model's monotonic clock; no edge/browser UTC or unrelated clock subtraction is used. Exact boundaries expire, and clock reversal latches a fault. These limits are source fixtures, not qualified hardware timing.
+
+`local_model_fault_signal` uses a lock-free atomic word suitable for fixed cause signals; only the owner touches other fields. Pending faults inhibit `local_model_output` immediately. The caller must consult that getter at output use; a previously returned plan is not an enduring permission. No actual interrupt is installed. `local_model_watchdog_feed_eligible` consults owner progress and latched supervisor/clock/capacity faults; link traffic does not refresh progress. It does not feed the hardware watchdog.
+
+The fixed 32-ID ledger does not evict admitted IDs; exhaustion faults. A fresh model boot clears it and requires configuration/recovery again. `local_model_reset_record` captures bounded previous-boot diagnostics, and `local_model_reset_history` accepts only a different boot before configuration. It restores diagnostic faults/sequence/reset cause only. Unknown actual reset cause remains unknown; the simulated watchdog/brownout labels cannot become physical observations. There is no retained-RAM/flash or power-loss durability adapter.
+
+The [independent safety matrix](../system/local-safety-interface-matrix.md) still requires real emergency isolation, hard limits, load-dependent response, reset output circuitry and four-line restraint. Generic disable, stopped STEP, software watchdog or normal heartbeat satisfies none of those requirements. [Source evidence and remaining physical gates](../evidence/local-controller-recovery.md) keep #67 open.
