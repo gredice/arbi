@@ -9,11 +9,14 @@
       "limits": "Drawing located through official portal; direct file download failed with HTTP 403. Simplified connector/component envelopes, not a supplier STEP model or close-fitting enclosure reference. Verify hole centres and clearances against received board."
     },
     {
-      "component": "Camera Module 3 Standard",
-      "url": "https://datasheets.raspberrypi.com/camera/camera-module-3-standard-mechanical-drawing.pdf",
+      "component": "Camera Module 3 Wide",
+      "url": "https://pip-assets.raspberrypi.com/categories/1207-design-files/documents/RP-008155-DS-1-camera-module-3-wide-mechanical-drawing.pdf",
       "design_files": "https://pip.raspberrypi.com/categories/1207-design-files",
-      "model": "25 x 23.862 mm board, 1.12 mm PCB; nominal 21 x 12.5 mm mounting pattern, 2.2 mm holes; simplified 11.3 mm total depth",
-      "limits": "Drawing dimensions retrieved as text; official STEP download unavailable locally. Lens/connector geometry is simplified. The open hood and connector relief clear these nominal envelopes; inspect the received board and the image for obstruction."
+      "model": "25 x 23.862 x 1.12 mm carrier; 21 x 12.5 mm hole pitch; larger STEP-derived rear CSI socket and square autofocus body; 12.4 mm product envelope.",
+      "limits": "Owner confirmed received Wide variant and reported old-hood interference on 2026-10-12. PDF and STEP dimensions differ; primitives use conservative occupied space, not a production mesh. PCB insertion, latch/cable, optics and printed fit need physical acceptance.",
+      "step": "https://pip-assets.raspberrypi.com/categories/1207-design-files/documents/RP-008154-DS-1-camera-module-3-step.zip",
+      "step_model": "Camera_module_3_wide_model_simple.stp",
+      "observed_date": "2026-10-12"
     },
     {
       "component": "CSI connection procedure",
@@ -47,6 +50,6 @@
     "revision": "0.1.0",
     "state": "unbuilt bench prototype",
     "basis": "Canonical parametric mounts designed for the stated nominal references; actual supplier dimensions require measurement",
-    "camera_optical_check": "66 degree horizontal / 41 degree vertical from official Standard mechanical drawing; checked near-field to 80 mm"
+    "camera_optical_check": "102 degree horizontal / 67 degree vertical from official Wide drawing; checked near-field to 80 mm. Earlier Standard records are historical."
   }
 }

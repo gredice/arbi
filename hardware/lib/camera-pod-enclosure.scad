@@ -223,24 +223,30 @@ module camera_pod_camera_cowl() {
     }
 }
 
-// Integrated optical face: a rounded eye centred on the nominal lens axis.
-// The rear cavity and clamp axes retain the board/hardware clearances.
+// Integrated optical face r0.1.2: shortened, open rear board-loading seat.
+// Wide-camera drawing/STEP footprint; same four M2 axes and clamp stack.
+// PCB rests ON the rear lands; do not tuck its corners under printed tabs.
 module camera_pod_integrated_camera_hood() {
     difference() {
         union() {
             difference() {
-                pe_round_xy([34,36],9,2,8,[0,-2.469]);
-                pm_box([26.6,25.6,8],[0,0],3.4);
-                pm_cyl(14,2,[0,-2.469,1.99]);
+                pe_round_xy([34,36],9,2,6,[0,-2.469]);
+                // 1.2+ mm per side around the rounded 25 × 24 product PCB.
+                pm_box([27.8,26.6,8],[0,0],3.1);
+                // Clear the complete 10.8 ±0.15 square autofocus footprint,
+                // including its corners, instead of only a Ø5.75 lens barrel.
+                pe_round_xy([12.2,12.2],.6,1.99,2,[0,-2.469]);
             }
             for(x=[-10.5,10.5],y=[9.931,-2.569]) {
-                pm_cyl(4.8,1.4,[x,y,10]);
-                pm_link([x,y],[x<0?-14.8:14.8,y],4.8,1.4,10);
+                // Short exposed seating lands; no roof over the incoming PCB.
+                pm_cyl(4.8,1.4,[x,y,8]);
+                pm_link([x,y],[x<0?-14.8:14.8,y],4.8,1.4,8);
             }
         }
-        for(x=[-10.5,10.5],y=[9.931,-2.569])pm_cyl(2.3,3,[x,y,9.5]);
+        for(x=[-10.5,10.5],y=[9.931,-2.569])pm_cyl(2.3,3,[x,y,7.5]);
         // Recessed access tunnels admit the M2 head and 5 mm washer as well as its
-        // driver. Keep the original clamp tabs at Z=10..11.4 intact.
-        for(x=[-10.5,10.5],y=[9.931,-2.569])pm_cyl(5.4,7.71,[x,y,1.99]);
+        // driver. The clamp lands now occupy Z=8..9.4; their installed plane
+        // is unchanged because the assembled hood translates 2 mm rearward.
+        for(x=[-10.5,10.5],y=[9.931,-2.569])pm_cyl(5.4,5.71,[x,y,1.99]);
     }
 }

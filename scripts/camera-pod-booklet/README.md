@@ -61,3 +61,15 @@ hashes, non-empty figures and paired PDF/ZIP contents. Visually inspect every PD
 page before updating repository snapshots with `--publish`.
 
 See [mount interfaces and quantities](../../hardware/assemblies/camera-pod/camera-pod-mounts.md) and [geometry evidence](../../hardware/assemblies/camera-pod/camera-pod-geometry-check.md).
+
+## Wide camera and open rear hood
+
+The selected module is Camera Module 3 Wide, confirmed by the owner on
+12 October 2026. Reprint P09 integrated hood r0.1.2 and use assembly r0.3.8.
+Camera r0.1.1 and the booklet share `hardware/lib/raspberry-pi-camera-module-3.scad`.
+`check_camera_fit.py` independently checks camera-to-hood rear insertion with
+a PCB allowance, full-square front clearance and old-hood collision controls.
+`check_service.py` now checks 102° ×67° Wide optics. Load the PCB onto the exposed
+rear lands rather than bending it below tabs; existing four M2 ×12 bolts, four
+nuts and eight washers remain. Bench booklet revision 6 and enclosure revision 7
+replace their earlier Standard reference; source/physical evidence remain separate.

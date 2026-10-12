@@ -53,7 +53,7 @@ def overview_ex(p):
  return T(x,y,z)
 
 def main():
- for name,kind in [('raspberry-pi-3a-plus-reference','pi'),('camera-module-3-standard-reference','camera'),('buck-converter-measured-reference','buck')]:tint(name,kind)
+ for name,kind in [('raspberry-pi-3a-plus-reference','pi'),('camera-module-3-wide-reference','camera'),('buck-converter-measured-reference','buck')]:tint(name,kind)
  allparts=assembly();openparts=assembly(cover=False)
  if ENCLOSURE:
   openparts=[p for p in openparts if p['name'] not in ['enclosure-base','gimbal-head'] and not p['name'].startswith('head-')]

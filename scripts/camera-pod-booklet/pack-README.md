@@ -33,7 +33,7 @@ Countersunk screws at servo ears and horn retainers are essential: ordinary prou
 - Exported STLs reopened: closed, consistent winding, positive volume, one connected body per fabrication/hardware part.
 - 555 rigid poses at 5-degree steps: pan -90..90, tilt 0..70.
 - Mechanical stop contact outside nominal travel.
-- Nominal insertion/removal paths, selected short-driver access, and 66 x 41 degree camera viewing volume to 80 mm.
+- Nominal insertion/removal paths, selected short-driver access, and 102 x 67 degree Wide-camera viewing volume to 80 mm.
 - A deliberately proud screw-head control must reproduce a collision.
 
 The JSON reports specify every tested pose range, exclusion, tool envelope and assumption. Servo spline and original centre-screw engagement are intentional exclusions. This is sampled rigid-geometry checking, not continuous collision proof or a flexible-ribbon simulation.

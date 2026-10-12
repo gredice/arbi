@@ -39,7 +39,7 @@ These values are published or class-typical starting points, not received-unit m
 | --- | --- | --- |
 | Raspberry Pi 3A+ board / holes | 65 × 56 mm / 58 × 49 mm centres | Raspberry Pi mechanical drawing RPI-3A+_V1-0 |
 | Pi fasteners | M2.5 through, 3.2 mm clearance | Drawing hole class; nylon hardware is a procurement allowance |
-| Camera Module 3 board / holes | 25 × 24 × 11.5 mm / 21 × 12.5 mm centres, Ø2.2 | Product brief plus Camera Module 2 hole identity |
+| Camera Module 3 Wide / holes | Product envelope 25 × 24 × 12.4 mm; drawing PCB 25 × 23.862 × 1.12 mm / 21 × 12.5 mm centres, Ø2.2 | [Official drawing, STEP and schematic review](raspberry-pi-camera-module-3/README.md); actual fit, focus travel and ribbon remain unverified |
 | 3.7 g servo body | 20 × 8.75 × 16 mm pocket, 23.5 mm tab-hole span | GH-S37D-style listings; inspect the purchased servo |
 | Converter pocket | 52 × 28 mm | Module-dependent starting cage |
 | Capacitor saddles | Ø12.5 mm, two places | Module-dependent starting cage |
@@ -59,7 +59,7 @@ Registry ID and design revision: `camera-pod-envelope` `0.1.1`, role `reference`
 
 [camera-pod-assembly.scad](camera-pod-assembly.scad) defaults to the integrated enclosure. Set `show_legacy=true` to show the separate historical printed kit; `show_context` applies only to that layout. Set `show_hood=false` to expose the integrated core. Both views use the shared white-shell/black-core palette. It does not prove clearances, mass properties, centre of gravity, or dock capture.
 
-Registry ID and design revision: `camera-pod-assembly` `0.3.7`, role `reference`, status `concept-unvalidated`.
+Registry ID and design revision: `camera-pod-assembly` `0.3.8`, role `reference`, status `concept-unvalidated`.
 
 This is the canonical public assembled reference. The former `payload-assembly` and `payload-rain-assembly` public IDs redirect here.
 The enclosed geometry now lives in this single entrypoint; the distinct dry bench
@@ -81,9 +81,9 @@ All remain concept-unvalidated. The [7 October CAD checks](camera-pod-geometry-c
 
 ## Integrated rain enclosure
 
-The [compact enclosure configuration](camera-pod-enclosure.md) retains the integrated electronics deck r0.1.1, white optical hood r0.1.1, upper rain hood r0.2.1 and uses tray r0.2.3 with a rolled underside shoulder. The compact gimbal uses outer head r0.1.3 with a circular neck, carrier r0.1.1 and `camera-pod-integrated-camera-cradle` r0.1.1 / `camera-pod-integrated-tilt-pivot-support` r0.1.0. A horizontal tilt servo moves the driven interface 2 mm inboard to X=-19.8; the camera tilt axis moves to Y=3, Z=-45. The one-piece outer housing narrows downward around this arrangement; its Ø100 mm upper neck overlaps the fixed Ø103 mm throat with a nominal 1.5 mm radial seam. Reprint the matched tray and outer head; retain the compact carrier and support, reprint cradle r0.1.1, and omit the earlier cowl/secondary nuts, retaining four M2 × 12 camera screws, four primary nuts and eight washers. The kit has 13 fabrication models including the optional coupon and 16 installed prints from 12 model types. [camera-pod-assembly.scad](camera-pod-assembly.scad) r0.3.7 is its non-printing reference CSG; [ADR-0009](../../../docs/decisions/0009-compact-integrated-camera-pod.md) records the design direction accepted on merge, with physical validation pending.
+The [compact enclosure configuration](camera-pod-enclosure.md) retains the integrated electronics deck r0.1.1, white optical hood r0.1.2, upper rain hood r0.2.1 and uses tray r0.2.3 with a rolled underside shoulder. The compact gimbal uses outer head r0.1.4 with a circular neck, carrier r0.1.1 and `camera-pod-integrated-camera-cradle` r0.1.1 / `camera-pod-integrated-tilt-pivot-support` r0.1.0. A horizontal tilt servo moves the driven interface 2 mm inboard to X=-19.8; the camera tilt axis moves to Y=3, Z=-45. The one-piece outer housing narrows downward around this arrangement; its Ø100 mm upper neck overlaps the fixed Ø103 mm throat with a nominal 1.5 mm radial seam. Reprint the matched tray and outer head; retain the compact carrier and support, reprint cradle r0.1.1, and omit the earlier cowl/secondary nuts, retaining four M2 × 12 camera screws, four primary nuts and eight washers. The kit has 13 fabrication models including the optional coupon and 16 installed prints from 12 model types. [camera-pod-assembly.scad](camera-pod-assembly.scad) r0.3.8 is its non-printing reference CSG; [ADR-0009](../../../docs/decisions/0009-compact-integrated-camera-pod.md) records the design direction accepted on merge, with physical validation pending.
 
-The enclosure document owns print counts, colours, captive head clamps, supported assembly/service sequence, harness passages and unresolved fit/rain/thermal/mass acceptance. The [current cradle CAD record](camera-pod-camera-cradle-check.md) and [machine-readable results](camera-pod-camera-cradle-check.json) identify passing nominal compact-gimbal motion, taper, service, optical and routing checks. Its 16 installed prints total 253.622 g as a solid-volume PETG estimate at 1.27 g/cm³, before hardware and electronics. Sliced and measured mass, servo torque/settling, received-part fit and rain protection around the camera/CSI loops remain unverified. The shell has no ingress rating; CAD checks do not establish the 170 g complete-pod ceiling or flying operation.
+The enclosure document owns print counts, colours, captive head clamps, supported assembly/service sequence, harness passages and unresolved fit/rain/thermal/mass acceptance. The [current cradle CAD record](camera-pod-camera-cradle-check.md) and [machine-readable results](camera-pod-camera-cradle-check.json) identify passing nominal compact-gimbal motion, taper, service, optical and routing checks. That earlier configuration totals 253.622 g; the [current Wide record](../../../docs/evidence/camera-module-3-wide-2026-10-12.md) gives 250.820 g for sixteen installed prints as a solid-volume PETG estimate at 1.27 g/cm³, before hardware and electronics. Sliced and measured mass, servo torque/settling, received-part fit and rain protection around the camera/CSI loops remain unverified. The shell has no ingress rating; CAD checks do not establish the 170 g complete-pod ceiling or flying operation.
 
 The [reinforced cradle record](camera-pod-camera-cradle-check.md) covers r0.1.1: wider horn/frame joints and sloped bracing inside the original envelope. Reprint the cradle using the [orientation and starting settings](camera-pod-enclosure.md#reinforced-cradle-and-print-orientation), then inspect support removal and physical durability. The 8 October enclosure record predates that reinforcement.
 
@@ -98,4 +98,18 @@ These `visualization` models show catalog items in the Parts inventory. They are
 | [microsd-card-32gb](microsd-card-32gb.scad) · [BOM](../../../bom/generated/parts/microsd-card-32gb.md) | microsd | Uses the existing booklet nominal 11 × 15 × 0.8 mm outline; notch and contact details simplified. |
 | [pod-buck-converter-48v-5v](pod-buck-converter-48v-5v.scad) · [BOM](../../../bom/generated/parts/pod-buck-converter-48v-5v.md) | board | Received fixed-5 V module: measured 50 × 30 × 17 mm envelope, Ø3 mm holes at 45 × 24 mm pitch; [receipt record](../../../docs/evidence/buck-converter-2026-10-12.md), photo-derived component detail. |
 | [raspberry-pi-3a-plus](raspberry-pi-3a-plus.scad) · [BOM](../../../bom/generated/parts/raspberry-pi-3a-plus.md) | pi | Existing payload booklet nominal 65 × 56 mm PCB and 58 × 49 mm mounting pitch; connectors simplified. |
-| [raspberry-pi-camera-module-3](raspberry-pi-camera-module-3.scad) · [BOM](../../../bom/generated/parts/raspberry-pi-camera-module-3.md) | camera | Existing payload booklet nominal 25 × 23.862 mm PCB and 21 × 12.5 mm hole pitch; lens/connector approximate. |
+| [raspberry-pi-camera-module-3](raspberry-pi-camera-module-3.scad) · [BOM](../../../bom/generated/parts/raspberry-pi-camera-module-3.md) | camera | [Official Wide drawing, STEP and schematic](raspberry-pi-camera-module-3/README.md), reviewed 12 October 2026: 25 × 23.862 mm PCB and 21 × 12.5 mm Ø2.2 hole pattern; shared supplier-derived camera geometry; component/focus envelopes conservative, physical fit unverified. |
+
+## Received Wide camera and revised optical hood
+
+The owner confirmed Wide (120°) and reported the former hood interference on
+12 October 2026. [The official source review](raspberry-pi-camera-module-3/README.md)
+selects the Wide STEP and records PDF/STEP conflicts. Camera r0.1.1 uses the
+same canonical reference as the booklet. Reprint integrated hood r0.1.2; its
+27.8 × 26.6 mm rear cavity, shorter seat and 12.2 mm rounded-square front opening admit the full
+square autofocus body. Load the PCB from the rear onto the exposed lands; do
+not tuck it under the screw tabs. Assembly r0.3.8 preserves the four M2 axes and
+existing clamp stack. [Dated Wide evidence](../../../docs/evidence/camera-module-3-wide-2026-10-12.md)
+owns new fit, service, optical and motion results; earlier Standard reports
+remain historical. Physical reprint, ribbon, calibration and rain acceptance
+remain unverified.

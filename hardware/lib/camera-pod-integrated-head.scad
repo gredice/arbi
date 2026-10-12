@@ -1,4 +1,4 @@
-// ARBI one-piece moving camera pod head r0.1.3, millimetres.
+// ARBI one-piece moving camera pod head r0.1.4, millimetres.
 // Concept-unvalidated: the outer enclosure pans with the separate inner carrier.
 include <camera-pod-enclosure.scad>
 include <camera-pod-integrated-gimbal.scad>
@@ -55,7 +55,9 @@ module ph_eye_opening() {
     // with them, so no fixed side-looking windows are required.
     translate([0,pg_tilt_y,pg_tilt_z-11.5])rotate([-90,0,0])linear_extrude(90)
         offset(r=10)square([22,24],center=true);
-    pe_round_xy([42,48],10,pg_tilt_z-51,46,[0,pg_tilt_y-7]);
+    // Wide 102° ×67° rays clip the old chin at tilt 0° and 35°. Keep the
+    // upper/front opening and mounting stack; widen only this lower aperture.
+    pe_round_xy([48,54],10,pg_tilt_z-51,46,[0,pg_tilt_y-7]);
 }
 
 module camera_pod_integrated_gimbal_head() {

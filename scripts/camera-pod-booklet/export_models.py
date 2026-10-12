@@ -8,7 +8,7 @@ from model_selection import selected_models
 ROOT=Path(__file__).resolve().parents[1]
 CONFIG=json.loads((ROOT/'configuration.json').read_text()) if (ROOT/'configuration.json').exists() else {'variant':'bench'}
 ENCLOSURE=CONFIG['variant']=='enclosure'
-NAMES=['raspberry-pi-3a-plus-reference','camera-module-3-standard-reference',
+NAMES=['raspberry-pi-3a-plus-reference','camera-module-3-wide-reference',
  'micro-servo-3p7g-UNVERIFIED','servo-horn-UNVERIFIED','buck-converter-measured-reference',
  'capacitor-1000uf-UNVERIFIED','microsd-reference','csi-15pin-flat-reference',
  'nut-M2-reference','nut-M2p5-reference','nut-M4-reference',

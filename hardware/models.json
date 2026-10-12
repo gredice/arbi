@@ -32,13 +32,13 @@
         },
         {
             "id": "camera-pod-assembly",
-            "revision": "0.3.7",
+            "revision": "0.3.8",
             "status": "concept-unvalidated",
             "artifactRole": "reference",
             "bomPartIds": [],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/camera-pod-assembly.scad",
-            "output": "camera-pod-assembly-r0.3.7.csg",
+            "output": "camera-pod-assembly-r0.3.8.csg",
             "documentation": "hardware/assemblies/camera-pod/README.md",
             "description": "Integrated rain-camera pod reference by default; show_legacy=true retains the historical separate concept layout."
         },
@@ -766,7 +766,7 @@
         },
         {
             "id": "camera-pod-integrated-gimbal-head",
-            "revision": "0.1.3",
+            "revision": "0.1.4",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
             "bomPartIds": [
@@ -774,9 +774,9 @@
             ],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/camera-pod-integrated-gimbal-head.scad",
-            "output": "camera-pod-integrated-gimbal-head-r0.1.3.stl",
+            "output": "camera-pod-integrated-gimbal-head-r0.1.4.stl",
             "documentation": "hardware/assemblies/camera-pod/README.md",
-            "description": "One-piece pan-moving outer head with a circular neck blending into the tapered lower skin; a clearance seam visually joins the fixed tray shoulder, and four M2 clamps retain the separate internal carrier."
+            "description": "One-piece tapered moving head with preserved circular neck and clamps; widened lower optical opening clears the selected Wide camera rays. Physical fit/rain performance unverified."
         },
         {
             "id": "camera-pod-integrated-gimbal-carrier",
@@ -836,7 +836,7 @@
         },
         {
             "id": "camera-pod-integrated-camera-hood",
-            "revision": "0.1.1",
+            "revision": "0.1.2",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
             "bomPartIds": [
@@ -844,9 +844,9 @@
             ],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/camera-pod-integrated-camera-hood.scad",
-            "output": "camera-pod-integrated-camera-hood-r0.1.1.stl",
+            "output": "camera-pod-integrated-camera-hood-r0.1.2.stl",
             "documentation": "hardware/assemblies/camera-pod/README.md",
-            "description": "Rounded white optical eye surround with a circular front aperture, preserved rear camera cavity and mounting axes, and front fastener-access tunnels; physical and imaging performance unverified."
+            "description": "Short open-rear Wide-camera seating rim with a wider cavity, 12.2 mm rounded-square full-module opening and unchanged M2 clamp stack; requires reprint and physical fit inspection."
         },
         {
             "id": "corner-head-printed-left",
@@ -1575,7 +1575,7 @@
         },
         {
             "id": "raspberry-pi-camera-module-3",
-            "revision": "0.1.0",
+            "revision": "0.1.1",
             "status": "concept-unvalidated",
             "artifactRole": "visualization",
             "bomPartIds": [
@@ -1583,13 +1583,13 @@
             ],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/raspberry-pi-camera-module-3.scad",
-            "output": "raspberry-pi-camera-module-3-r0.1.0.stl",
-            "documentation": "hardware/assemblies/camera-pod/README.md",
-            "description": "Approximate visualization of Raspberry Pi Camera Module 3 Standard. Existing payload booklet nominal 25 × 23.862 mm PCB and 21 × 12.5 mm hole pitch; lens/connector approximate.",
+            "output": "raspberry-pi-camera-module-3-r0.1.1.stl",
+            "documentation": "hardware/assemblies/camera-pod/raspberry-pi-camera-module-3/README.md",
+            "description": "Supplier-derived Camera Module 3 Wide reference shared with the booklet: rounded PCB, square autofocus assembly and wider rear CSI socket. Conservatively bounded for focus; physical fit unverified.",
             "geometry": {
                 "status": "approximate",
-                "basis": "Existing payload booklet nominal 25 × 23.862 mm PCB and 21 × 12.5 mm hole pitch; lens/connector approximate.",
-                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+                "basis": "Official Wide drawing RP-008155-DS-1 and STEP RP-008154-DS-1 inspected 2026-10-12: 25 × 23.862 × 1.12 mm PCB, Ø2.2 holes at 21 × 12.5 mm pitch, lens Y=2.469, square autofocus body and 22.92 × 6.54 mm rear CSI socket. Product-envelope allowance: 12.4 mm; Wide FOV 102° × 67°.",
+                "rework": "Primitive component envelopes reconcile differing PDF/STEP dimensions conservatively. Inspect the received module, focus extremes, connector latch, installed cable and printed mounting fit before fabrication or operation."
             }
         },
         {

@@ -6,7 +6,7 @@
   "destinationId": "hr-zagreb",
   "destinationName": "Zagreb, Croatia",
   "quoteSnapshotId": "hr-zagreb-2026-10-08-coupling",
-  "inputDigest": "sha256:75e9e3b3cad3bcaed50833bd60e6a520fee747a3ea606aab21bc7c3c337e2642",
+  "inputDigest": "sha256:5a68ed9b977c4f6946b116cf016a3079e98daf78cbfcc72994cb71da79b9acf9",
   "reportCurrency": "EUR",
   "complete": false,
   "completeLandedTotal": null,
@@ -38,8 +38,8 @@
   ],
   "knownShippingSubtotal": "43.38",
   "knownSubtotal": "858.05",
-  "estimatedMaterialSubtotal": "402.3",
-  "estimatedPartialSubtotal": "1260.35",
+  "estimatedMaterialSubtotal": "402.27",
+  "estimatedPartialSubtotal": "1260.32",
   "fabrication": [
     {
       "partId": "camera-gimbal",
@@ -51,8 +51,8 @@
         {
           "materialId": "petg-matte",
           "name": "Bambu Lab PETG Matte",
-          "weightGrams": "30.259",
-          "materialCost": "0.34",
+          "weightGrams": "29.097",
+          "materialCost": "0.33",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte?id=775952393450868774",
@@ -65,8 +65,8 @@
         {
           "materialId": "petg-matte",
           "name": "Bambu Lab PETG Matte",
-          "weightGrams": "6.286",
-          "materialCost": "0.07",
+          "weightGrams": "4.426",
+          "materialCost": "0.05",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte?id=775952393450868758",
@@ -111,8 +111,8 @@
         {
           "materialId": "petg-matte",
           "name": "Bambu Lab PETG Matte",
-          "weightGrams": "30.259",
-          "materialCost": "0.3447",
+          "weightGrams": "29.097",
+          "materialCost": "0.3314",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte?id=775952393450868774",
@@ -175,8 +175,8 @@
         {
           "materialId": "petg-matte",
           "name": "Bambu Lab PETG Matte",
-          "weightGrams": "6.286",
-          "materialCost": "0.0716",
+          "weightGrams": "4.426",
+          "materialCost": "0.0504",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte?id=775952393450868758",
@@ -189,16 +189,16 @@
           "color": "white"
         }
       ],
-      "weightGrams": "54.004",
-      "materialCost": "0.61",
+      "weightGrams": "50.981",
+      "materialCost": "0.58",
       "currency": "EUR",
       "note": "Current compact rain-enclosure gimbal; excludes earlier gimbal and dry-bench alternatives. Cosmetic shell surfaces use PETG Matte White (35100) or Black (35101) as listed per component; functional parts retain their existing material assumptions. Material and colour selections require physical fit, retention, weather and thermal checks. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
       "alternatives": [
         {
           "materialId": "pla",
           "name": "Bambu Lab PLA Basic",
-          "weightGrams": "50.396",
-          "materialCost": "0.6",
+          "weightGrams": "47.66",
+          "materialCost": "0.57",
           "spoolPrice": "11.99",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
@@ -210,8 +210,8 @@
         {
           "materialId": "petg",
           "name": "Bambu Lab PETG Basic",
-          "weightGrams": "50.802",
-          "materialCost": "0.58",
+          "weightGrams": "48.044",
+          "materialCost": "0.55",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
@@ -223,8 +223,8 @@
         {
           "materialId": "petg-matte",
           "name": "Bambu Lab PETG Matte",
-          "weightGrams": "55.679",
-          "materialCost": "0.63",
+          "weightGrams": "52.657",
+          "materialCost": "0.6",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte",
@@ -236,8 +236,8 @@
         {
           "materialId": "asa",
           "name": "Bambu Lab ASA",
-          "weightGrams": "42.674",
-          "materialCost": "1.07",
+          "weightGrams": "40.357",
+          "materialCost": "1.01",
           "spoolPrice": "24.99",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
@@ -2169,8 +2169,8 @@
         {
           "materialId": "petg-matte",
           "name": "Bambu Lab PETG Matte",
-          "weightGrams": "30.259",
-          "materialCost": "0.34",
+          "weightGrams": "29.097",
+          "materialCost": "0.33",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte?id=775952393450868774",
@@ -2183,8 +2183,8 @@
         {
           "materialId": "petg-matte",
           "name": "Bambu Lab PETG Matte",
-          "weightGrams": "6.286",
-          "materialCost": "0.07",
+          "weightGrams": "4.426",
+          "materialCost": "0.05",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte?id=775952393450868758",
@@ -2229,8 +2229,8 @@
         {
           "materialId": "petg-matte",
           "name": "Bambu Lab PETG Matte",
-          "weightGrams": "30.259",
-          "materialCost": "0.3447",
+          "weightGrams": "29.097",
+          "materialCost": "0.3314",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte?id=775952393450868774",
@@ -2293,8 +2293,8 @@
         {
           "materialId": "petg-matte",
           "name": "Bambu Lab PETG Matte",
-          "weightGrams": "6.286",
-          "materialCost": "0.0716",
+          "weightGrams": "4.426",
+          "materialCost": "0.0504",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte?id=775952393450868758",
@@ -2307,16 +2307,16 @@
           "color": "white"
         }
       ],
-      "weightGrams": "54.004",
-      "materialCost": "0.61",
+      "weightGrams": "50.981",
+      "materialCost": "0.58",
       "currency": "EUR",
       "note": "Current compact rain-enclosure gimbal; excludes earlier gimbal and dry-bench alternatives. Cosmetic shell surfaces use PETG Matte White (35100) or Black (35101) as listed per component; functional parts retain their existing material assumptions. Material and colour selections require physical fit, retention, weather and thermal checks. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
       "alternatives": [
         {
           "materialId": "pla",
           "name": "Bambu Lab PLA Basic",
-          "weightGrams": "50.396",
-          "materialCost": "0.6",
+          "weightGrams": "47.66",
+          "materialCost": "0.57",
           "spoolPrice": "11.99",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
@@ -2328,8 +2328,8 @@
         {
           "materialId": "petg",
           "name": "Bambu Lab PETG Basic",
-          "weightGrams": "50.802",
-          "materialCost": "0.58",
+          "weightGrams": "48.044",
+          "materialCost": "0.55",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
@@ -2341,8 +2341,8 @@
         {
           "materialId": "petg-matte",
           "name": "Bambu Lab PETG Matte",
-          "weightGrams": "55.679",
-          "materialCost": "0.63",
+          "weightGrams": "52.657",
+          "materialCost": "0.6",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte",
@@ -2354,8 +2354,8 @@
         {
           "materialId": "asa",
           "name": "Bambu Lab ASA",
-          "weightGrams": "42.674",
-          "materialCost": "1.07",
+          "weightGrams": "40.357",
+          "materialCost": "1.01",
           "spoolPrice": "24.99",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
@@ -4785,7 +4785,7 @@
   "assemblyEstimatedMaterials": [
     {
       "assemblyId": "camera-pod",
-      "amount": "2.97"
+      "amount": "2.94"
     },
     {
       "assemblyId": "corner-support-set",
@@ -4803,7 +4803,7 @@
   "assemblyPartialGoods": [
     {
       "assemblyId": "camera-pod",
-      "amount": "118.04"
+      "amount": "118.01"
     },
     {
       "assemblyId": "control-cabinet",

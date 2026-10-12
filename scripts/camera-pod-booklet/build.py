@@ -37,8 +37,9 @@ def write_evidence(root,publish=False):
       'integration':integration,'service':service,
       'mesh_hashes':{e['model_id']:e['stl_sha256'] for e in meshes},
       'checker_sources':{name:hashlib.sha256((root/'source'/name).read_bytes()).hexdigest()
-         for name in ['integration.py','check_integration.py','check_service.py','check_converter.py','reference-parts.scad']+(['check_cradle.py'] if enclosure else [])}}
+         for name in ['integration.py','check_integration.py','check_service.py','check_converter.py','check_camera_fit.py','reference-parts.scad']+(['check_cradle.py'] if enclosure else [])}}
     if enclosure:evidence['cradle']=cradle
+    evidence['camera_fit']=json.loads((root/'camera-fit-check.json').read_text())
     relative=Path('assemblies/camera-pod')/('camera-pod-enclosure-check.json' if enclosure else 'camera-pod-geometry-check.json')
     (root/'source/arbi-hardware'/relative).write_text(json.dumps(evidence,indent=2)+'\n')
     (root/relative.name).write_text(json.dumps(evidence,indent=2)+'\n')
@@ -81,7 +82,7 @@ def main():
     selected=selected_models(registry,args.enclosure)
     config['fabrication_models']=[{'id':m['id'],'revision':m['revision'],'output':m['output']} for m in selected]
     artifact='ARBI-camera-pod-enclosure' if args.enclosure else 'ARBI-camera-pod-bench'
-    inputs=list((REPO/'hardware/assemblies/camera-pod').glob('*.scad'))+[REPO/'hardware/lib/arbi.scad',REPO/'hardware/lib/camera-pod.scad',REPO/'hardware/lib/buck-converter-48v-5v.scad',REPO/'hardware/lib/camera-pod-mounts.scad',REPO/'hardware/lib/camera-pod-enclosure.scad',REPO/'hardware/lib/camera-pod-integrated-deck.scad',REPO/'hardware/lib/camera-pod-integrated-head.scad',REPO/'hardware/lib/camera-pod-integrated-gimbal.scad',REPO/'hardware/models.json',HERE/'reference-parts.scad',HERE/'export_models.py',HERE/'model_selection.py']
+    inputs=list((REPO/'hardware/assemblies/camera-pod').glob('*.scad'))+[REPO/'hardware/lib/arbi.scad',REPO/'hardware/lib/camera-pod.scad',REPO/'hardware/lib/buck-converter-48v-5v.scad',REPO/'hardware/lib/raspberry-pi-camera-module-3.scad',REPO/'hardware/lib/camera-pod-mounts.scad',REPO/'hardware/lib/camera-pod-enclosure.scad',REPO/'hardware/lib/camera-pod-integrated-deck.scad',REPO/'hardware/lib/camera-pod-integrated-head.scad',REPO/'hardware/lib/camera-pod-integrated-gimbal.scad',REPO/'hardware/models.json',HERE/'reference-parts.scad',HERE/'export_models.py',HERE/'model_selection.py']
     inputs += [p for p in (REPO/'hardware/vendor').rglob('*') if p.is_file()]
     hashes={str(p.relative_to(REPO)):hashlib.sha256(p.read_bytes()).hexdigest() for p in inputs}
     hashes['hardware/model-aliases.json']=hashlib.sha256((REPO/'hardware/model-aliases.json').read_bytes()).hexdigest()
@@ -99,8 +100,9 @@ def main():
     shutil.copytree(REPO/'scripts/winch-booklet/fonts',root/'source/fonts',dirs_exist_ok=True)
     shutil.copy2(REPO/'scripts/winch-booklet/requirements.txt',root/'source/requirements.txt')
     shutil.copy2(REPO/'LICENSE',root/'source/LICENSE-ARBI')
-    for name in ['reference-parts.scad','export_models.py','model_selection.py','render_figures.py','render_preview.py','build_booklet.py','integration.py','check_integration.py','check_service.py','check_converter.py','check_cradle.py']:
+    for name in ['reference-parts.scad','export_models.py','model_selection.py','render_figures.py','render_preview.py','build_booklet.py','integration.py','check_integration.py','check_service.py','check_converter.py','check_cradle.py','check_camera_fit.py']:
         shutil.copy2(HERE/name,root/'source'/name)
+    shutil.copytree(HERE/'fixtures',root/'source/fixtures')
     shutil.copy2(HERE/'pack-README.md',root/'README.md')
     shutil.copy2(HERE/'sources.json',root/'sources.json')
     # Reuse existing winch rendering and typography helpers, not its assembly data.
@@ -113,11 +115,11 @@ def main():
     assert 'def begin(' in style and 'C.save()' not in style,'Review upstream page-style extraction'
     style=style.replace('ARBI-winch-assembly-STL.pdf',artifact+'-assembly-STL.pdf').replace('ARBI winch and drum - STL-based assembly booklet','ARBI camera pod - printed mount assembly booklet')
     style=style.replace('WINCH & DRUM','CAMERA POD').replace("text(153,15,'PASSIVE / COVER KIT'", "text(141,15,'"+('RAIN / SPLASH EDITION' if args.enclosure else 'MOUNT SET / BENCH EDITION')+"'")
-    style=re.sub(r'Mechanical bench assembly \| Revision [^\']+',('Camera pod rain enclosure | Revision 6 | ' if args.enclosure else 'Camera pod bench assembly | Revision 5 | ')+date.today().strftime('%d %b %Y'),style)
+    style=re.sub(r'Mechanical bench assembly \| Revision [^\']+',('Camera pod rain enclosure | Revision 7 | ' if args.enclosure else 'Camera pod bench assembly | Revision 6 | ')+date.today().strftime('%d %b %Y'),style)
     style=re.sub(r'\{PAGE:02d\} / \d+', '{PAGE:02d} / '+('16' if args.enclosure else '14'),style)
     (root/'source/page_style.py').write_text(style)
     provenance={'repository':'https://github.com/gredice/arbi','base_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=REPO,text=True).strip(),
-      'booklet_revision':6 if args.enclosure else 5,'render_style':'assembly-line-art-v1','configuration':config,'scope':'Nominal rain/splash enclosure assembly; ingress, servo/capacitor dimensions and physical fits unverified; converter envelope/holes measured.' if args.enclosure else 'Complete nominal bench mount assembly; servo/capacitor dimensions and physical fits unverified; converter envelope/holes measured.',
+      'booklet_revision':7 if args.enclosure else 6,'render_style':'assembly-line-art-v1','configuration':config,'scope':'Nominal rain/splash enclosure assembly; ingress, servo/capacitor dimensions and physical fits unverified; converter envelope/holes measured.' if args.enclosure else 'Complete nominal bench mount assembly; servo/capacitor dimensions and physical fits unverified; converter envelope/holes measured.',
       'source_hashes':{str(p.relative_to(root)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted((root/'source').rglob('*')) if p.is_file() and '__pycache__' not in p.parts}}
     (root/'source-provenance.json').write_text(json.dumps(provenance,indent=2)+'\n')
     if not args.reuse_models:
@@ -125,7 +127,7 @@ def main():
         subprocess.run([sys.executable,str(root/'source/export_models.py')],check=True)
         (root/'build-input-hashes.json').write_text(json.dumps(hashes,indent=2)+'\n')
     if (root/'figures').exists():shutil.rmtree(root/'figures')
-    checks=[('check_cradle.py',[]),('check_integration.py',['--quick']),('check_service.py',[]),('check_converter.py',[]),('check_integration.py',[])] if args.enclosure else [('check_integration.py',[]),('check_service.py',[]),('check_converter.py',[])]
+    checks=[('check_camera_fit.py',[]),('check_cradle.py',[]),('check_integration.py',['--quick']),('check_service.py',[]),('check_converter.py',[]),('check_integration.py',[])] if args.enclosure else [('check_camera_fit.py',[]),('check_integration.py',[]),('check_service.py',[]),('check_converter.py',[])]
     for name,options in checks:
         subprocess.run([sys.executable,str(root/'source'/name),*options],check=True)
     write_evidence(root)
@@ -146,7 +148,7 @@ def main():
     readme+='\n## Check the actual parts first'+(HERE/'pack-README.md').read_text().split('## Check the actual parts first')[1]
     readme=readme.replace('- ARBI-camera-pod-bench-assembled.glb:', '- '+artifact+'-assembled.glb:')
     if args.enclosure:
-        readme+='\n## Enclosure interfaces\n\nWhite rain hood and optical camera hood; black base, one-piece outer gimbal head, separate compact internal carrier. The rolled fixed tray overlaps the circular moving neck with a nominal 1.5 mm radial clearance seam; reprint tray r0.2.3 and head r0.1.3 together. Open-bottom arm reliefs, recessed access and through-drains retain structure and service. The head and carrier move together in pan; four M2 x 10 clamps retain the removable outer head. The separate legacy pan yoke, fixed fairing, servo boot and internal camera cowl are omitted from this enclosed kit. The tilt servo lies sideways and 2 mm inboard; the camera axis sits at Y=3, Z=-45. Camera fasteners return to M2 x 12 with four nuts and eight washers. Product previews use pan 0 / tilt 70 degrees, while the line-art covered view uses tilt 55; the inspection GLB and assembled-neutral figure retain pan 0 / tilt 0 with the camera looking down. The compact enclosure has its own electronics deck with the Pi shifted inward, converter rotated 90 degrees and capacitor alongside it. Bottom-up M3 x 35 screws retain the closed roof using side-loaded plain nuts. The lower outlets use nominal 6 mm power lead, 16 x 0.3 mm CSI ribbon and 4 x 2 mm servo leads. Follow the configuration-specific assembly/service sequence in the booklet and service-check.json. Flexible loops, grommets, received connectors, drip loops, heat and rain performance require bench inspection. This is an ordinary-rain/splash concept, with no IP rating.\n'
+        readme+='\n## Enclosure interfaces\n\nWhite rain hood and optical camera hood; black base, one-piece outer gimbal head, separate compact internal carrier. The rolled fixed tray overlaps the circular moving neck with a nominal 1.5 mm radial clearance seam; retain tray r0.2.3; reprint head r0.1.4 and optical hood r0.1.2 for Wide. Open-bottom arm reliefs, recessed access and through-drains retain structure and service. The head and carrier move together in pan; four M2 x 10 clamps retain the removable outer head. The separate legacy pan yoke, fixed fairing, servo boot and internal camera cowl are omitted from this enclosed kit. The tilt servo lies sideways and 2 mm inboard; the camera axis sits at Y=3, Z=-45. Camera fasteners return to M2 x 12 with four nuts and eight washers. Product previews use pan 0 / tilt 70 degrees, while the line-art covered view uses tilt 55; the inspection GLB and assembled-neutral figure retain pan 0 / tilt 0 with the camera looking down. The compact enclosure has its own electronics deck with the Pi shifted inward, converter rotated 90 degrees and capacitor alongside it. Bottom-up M3 x 35 screws retain the closed roof using side-loaded plain nuts. The lower outlets use nominal 6 mm power lead, 16 x 0.3 mm CSI ribbon and 4 x 2 mm servo leads. Follow the configuration-specific assembly/service sequence in the booklet and service-check.json. Flexible loops, grommets, received connectors, drip loops, heat and rain performance require bench inspection. This is an ordinary-rain/splash concept, with no IP rating.\n'
     (root/'README.md').write_text(readme)
     finalize_package(root,args.publish)
     print('Ready:',root)

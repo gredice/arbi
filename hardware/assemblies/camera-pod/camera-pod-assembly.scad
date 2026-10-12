@@ -1,4 +1,4 @@
-// ARBI camera-pod-assembly r0.3.7 — concept-unvalidated reference. Do not print.
+// ARBI camera-pod-assembly r0.3.8 — concept-unvalidated reference. Do not print.
 include <../../lib/camera-pod.scad>
 include <../../lib/camera-pod-enclosure.scad>
 include <../../lib/camera-pod-integrated-gimbal.scad>
@@ -34,7 +34,7 @@ module camera_pod_assembly(pan=0,tilt=0,show_hood=true) {
                 camera_pod_integrated_camera_cradle();
                 translate([-21.8+pg_drive_shift,pg_tilt_y,pg_tilt_z])rotate([0,-90,0])camera_pod_horn_retainer();
             }
-            color(ARBI_SHELL)translate([0,pg_tilt_y-5,pg_tilt_z-17.52])camera_pod_integrated_camera_hood();
+            color(ARBI_SHELL)translate([0,pg_tilt_y-5,pg_tilt_z-15.52])camera_pod_integrated_camera_hood();
         }
     }
 }
