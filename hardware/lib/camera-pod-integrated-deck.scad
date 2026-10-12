@@ -1,4 +1,4 @@
-// ARBI compact integrated camera pod deck r0.1.0, millimetres.
+// ARBI compact integrated camera pod deck r0.1.1, millimetres.
 // Appearance-led rearrangement; concept-unvalidated. The dry bench deck is separate.
 // Assembly frame: spider mid-plane Z=0, fixed electronics above the spider.
 include <camera-pod-mounts.scad>
@@ -9,7 +9,7 @@ pi_deck_top = pi_deck_z + pi_deck_thickness;
 pi_board_center = [-22,0];
 pi_board_mount_x = [pi_board_center[0]-29,pi_board_center[0]+29];
 pi_board_mount_y = [-24.5,24.5];
-pi_converter_center = [32,0];
+pi_converter_center = [35,0];
 pi_converter_rotation = 90;
 pi_capacitor_center = [32,-34];
 pi_cover_x = [-22,22];
@@ -20,8 +20,7 @@ pi_servo_port = [-40,-15];
 
 // Keep the electronics at their existing assembly heights. The four M4 frame
 // axes stay at +/-22/sqrt(2); the board's nominal SD socket underside is Z=29.4.
-// Converter ties use the old reference rotated 90 degrees about [32,0], placing
-// their centre lines at Y=8 and +22, with side slots at X=16 and 48.
+// Received converter rotated 90 degrees: four screws at X=23/47, Y=+/-22.5.
 module camera_pod_integrated_deck() {
     difference() {
         union() {
@@ -33,13 +32,13 @@ module camera_pod_integrated_deck() {
             for(x=pi_board_mount_x,y=pi_board_mount_y)
                 pm_cyl(6,10,[x,y,pi_deck_top]);
 
-            // Rotated 45 x 25 mm provisional converter envelope. Four pads lift
-            // its underside to Z=22.5; there are no assumed converter PCB holes.
+            // Rotated 50 x 30 mm received converter. Four screw pads lift its
+            // underside to Z=22.5; no retention crosses populated PCB areas.
             for(x=[16,48])
                 pm_link([x,-24.5],[x,25],6,pi_deck_thickness,pi_deck_z);
             for(y=[-24.5,25])
                 pm_link([16,y],[48,y],6,pi_deck_thickness,pi_deck_z);
-            for(x=[22,42],y=[-20,20]) {
+            for(p=bc_holes()) let(x=pi_converter_center[0]-p[1],y=p[0]) {
                 pm_link([x,y],[x,y<0?-24.5:25],5,pi_deck_thickness,pi_deck_z);
                 pm_cyl(5,2,[x,y,pi_deck_top]);
             }
@@ -85,8 +84,8 @@ module camera_pod_integrated_deck() {
         for(x=pi_cover_x,y=pi_cover_y)
             pm_hole(3.3,pi_deck_thickness+2*PM_EPS,[x,y,pi_deck_z-PM_EPS]);
 
-        for(x=[16,48],y=[8,22])
-            pm_box([2,3.2,pi_deck_thickness+2*PM_EPS],[x,y],pi_deck_z-PM_EPS);
+        for(p=bc_holes()) let(x=pi_converter_center[0]-p[1],y=p[0])
+            pm_hole(2.9,pi_deck_thickness+2+2*PM_EPS,[x,y,pi_deck_z-PM_EPS]);
         pm_cyl(10.6,6+PM_EPS,[pi_capacitor_center[0],pi_capacitor_center[1],23.5]);
         pm_cyl(6.2,6+2*PM_EPS,[pi_capacitor_center[0],pi_capacitor_center[1],pi_deck_z-PM_EPS]);
         for(x=[23,41])

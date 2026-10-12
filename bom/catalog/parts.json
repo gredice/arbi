@@ -159,7 +159,7 @@
       "requirements": [
         "ASA/PETG lightweight cable spider and electronics chassis sized for Raspberry Pi 3A+, 48 V → 5 V converter and bulk capacitor fixed on the pod. Complete flying pod target ~100–120 g; hard design limit 170 g."
       ],
-      "notes": "Current compact ordinary-rain/splash chassis uses camera-pod-spider, camera-pod-integrated-deck r0.1.0, spacers, pan-servo mount, camera-pod-rain-hood r0.2.1 and camera-pod-enclosure-base r0.2.3. Historical concept parts, the dry bench deck/cover and fixed fairing are archived and excluded from this BOM. Select the current print quantities in hardware/assemblies/camera-pod/camera-pod-enclosure.md; the dry bench configuration remains an explicit alternative in camera-pod-mounts.md. Docking and line-termination interfaces, physical fit, rain/thermal behavior and complete flying mass remain unverified.",
+      "notes": "Current compact ordinary-rain/splash chassis uses camera-pod-spider, camera-pod-integrated-deck r0.1.1, spacers, pan-servo mount, camera-pod-rain-hood r0.2.1 and camera-pod-enclosure-base r0.2.3. Historical concept parts, the dry bench deck/cover and fixed fairing are archived and excluded from this BOM. Select the current print quantities in hardware/assemblies/camera-pod/camera-pod-enclosure.md; the dry bench configuration remains an explicit alternative in camera-pod-mounts.md. Docking and line-termination interfaces, physical fit, rain/thermal behavior and complete flying mass remain unverified.",
       "fabrication": {
         "process": "openscad",
         "modelStatus": "concept-unvalidated",
@@ -198,7 +198,7 @@
             "path": "hardware/assemblies/camera-pod/camera-pod-integrated-deck.scad",
             "module": "camera_pod_integrated_deck",
             "modelId": "camera-pod-integrated-deck",
-            "revision": "0.1.0"
+            "revision": "0.1.1"
           }
         ]
       },
@@ -206,7 +206,7 @@
         {
           "severity": "critical",
           "code": "temporary-cable-tie",
-          "message": "The current deck retains the converter, capacitor and harness with cable ties. Replace these with dedicated removable mounts and strain relief; cable ties are temporary bench workarounds only, never the final assembly solution."
+          "message": "The current deck screw-mounts the converter, but retains the capacitor and harness with cable ties. Replace those ties with dedicated removable mounts and strain relief; cable ties are temporary bench workarounds only, never the final assembly solution."
         }
       ]
     },
@@ -275,8 +275,10 @@
         "off-the-shelf"
       ],
       "requirements": [
-        "Input rating ≥60 V; 5 V output with sufficient current for Pico 2 W and cabinet auxiliaries."
-      ]
+        "Input rating ≥60 V; 5 V output with sufficient current for Pico 2 W and cabinet auxiliaries.",
+        "Fixed 5 V received variant; 50 x 30 x 17 mm envelope, four diameter-3 mm holes at 45 x 24 mm centre pitch, solder-pad input and output."
+      ],
+      "notes": "Received fixed-5 V variant of AliExpress item 1005007014032926, confirmed by the owner on 2026-10-12. Measured envelope 50 x 30 x 17 mm; four diameter-3 mm mounting holes at 45 x 24 mm centre pitch. Input/output use solder pads, not terminal blocks. Geometry/evidence: docs/evidence/buck-converter-2026-10-12.md. Same selected module is used for pod and cabinet. Receipt and dimensions do not verify input limits, continuous current, efficiency, cooling or electrical suitability; PCB thickness and component geometry remain nominal. No new price, stock or commercial observation is claimed."
     },
     {
       "id": "corner-post-treated-timber",
@@ -720,15 +722,10 @@
         "off-the-shelf"
       ],
       "requirements": [
-        "Input rating ≥60 V; 48 V nominal input; regulated 5 V output; ≥3 A. One active + one spare."
+        "Input rating ≥60 V; 48 V nominal input; regulated 5 V output; ≥3 A. One active + one spare.",
+        "Fixed 5 V received variant; 50 x 30 x 17 mm envelope, four diameter-3 mm holes at 45 x 24 mm centre pitch, solder-pad input and output."
       ],
-      "designWarnings": [
-        {
-          "severity": "critical",
-          "code": "temporary-cable-tie",
-          "message": "Two cable ties currently retain the pod converter. Replace them with a dedicated insulated removable mounting method; cable ties are temporary bench workarounds only, never final retention."
-        }
-      ]
+      "notes": "Received fixed-5 V variant of AliExpress item 1005007014032926, confirmed by the owner on 2026-10-12. Measured envelope 50 x 30 x 17 mm; four diameter-3 mm mounting holes at 45 x 24 mm centre pitch. Input/output use solder pads, not terminal blocks. Geometry/evidence: docs/evidence/buck-converter-2026-10-12.md. Same selected module is used for pod and cabinet. Receipt and dimensions do not verify input limits, continuous current, efficiency, cooling or electrical suitability; PCB thickness and component geometry remain nominal. No new price, stock or commercial observation is claimed."
     },
     {
       "id": "pod-power-wire-black-awg26",
@@ -2157,6 +2154,7 @@
       "requirements": [
         "4 M4 x 35 frame bolts, 8 M4 washers, 4 plain M4 nuts.",
         "4 M2.5 x 20 Pi bolts, 8 M2.5 washers, 4 plain M2.5 nuts.",
+        "4 M2.5 x 10 converter bolts, 8 M2.5 washers and 4 plain M2.5 nuts; nominal 1.6 mm PCB and 2 mm printed support stack. Confirm actual stack and electrical isolation.",
         "4 M1.6 x 6 countersunk servo-ear screws and 4 plain M1.6 nuts.",
         "2 M2 x 10 countersunk pan-retainer screws; 2 M2 x 8 countersunk tilt-retainer screws. Each retainer screw has one lower M2 washer and one plain M2 nut; no washer beneath a countersunk head.",
         "6 M2 x 12 screws (4 camera, 2 pivot support), 12 M2 washers, 6 plain M2 nuts.",
@@ -2184,7 +2182,7 @@
       "requirements": [
         "One 15-pin CSI ribbon between Pi 3A+ and Camera Module 3; final length, end stiffeners, bend radius and fatigue behaviour must match the compact pan/tilt route. Check whether the selected camera supply includes a usable ribbon.",
         "Fixed 5 V/ground distribution and two servo power/signal leads, capacitor connections and insulated incoming power termination. Connector types, conductor gauges and cut lengths remain unselected.",
-        "One soft incoming-lead sleeve/grommet and separate soft retention for power, CSI and servo service loops; two converter ties and one capacitor tie shown by the assembly source are temporary bench workarounds only. Final dedicated mounts and strain relief remain unresolved.",
+        "One soft incoming-lead sleeve/grommet and separate soft retention for power, CSI and servo service loops. The converter uses four screw stacks; the remaining capacitor tie and harness retention are temporary bench workarounds only. Final dedicated capacitor retention and strain relief remain unresolved.",
         "Independent positioning-line tensile termination belongs to the winch line interface; internal conductors and connectors must carry no positioning load."
       ],
       "notes": "One required assembly set per pod; component selection and exact cut lengths remain unresolved. No supplier or price selected. The long powered positioning-line conductors stay owned by winch-set; this kit covers only the pod internal terminations/harness. CSI ribbon and OEM servo leads must be reconciled with supplied accessories before purchasing.",
@@ -2195,7 +2193,7 @@
         {
           "severity": "critical",
           "code": "temporary-cable-tie",
-          "message": "Converter, capacitor and harness ties are shown without a complete procurement specification or quantity. Record the missing hardware data and replace tie-based retention with dedicated mounts and strain relief; cable ties are temporary bench workarounds only."
+          "message": "The capacitor tie and harness retention are shown without a complete procurement specification or quantity. Record the missing hardware data and replace those ties with dedicated mounts and strain relief; cable ties are temporary bench workarounds only."
         }
       ]
     },
@@ -2213,7 +2211,8 @@
       "requirements": [
         "DIN rails and supports, backplate fastening, wiring ducts and end fittings for the proposed cabinet layout. Cut lengths and actual enclosure mounting interfaces remain unselected.",
         "Protective-earth bar/bonding conductors and field/DC terminal blocks, wire, ferrules, lugs and labels sized by the reviewed electrical design.",
-        "Cable entries use the existing shared cable-gland procurement assortment; reconcile the required size-level allocation before ordering. Glands are not duplicated in this set."
+        "Cable entries use the existing shared cable-gland procurement assortment; reconcile the required size-level allocation before ordering. Glands are not duplicated in this set.",
+        "Converter: 4 M2.5 x 16 screws, 8 M2.5 washers, 4 plain M2.5 nuts and 4 insulating sleeves (7 mm long, nominal OD5.5/ID2.9 mm), at 45 x 24 mm pitch through the proposed 2 mm plate. Inspect real plate, PCB stack and insulation before drilling or buying lengths."
       ],
       "notes": "One required installation set per cabinet; the layout already shows nominal rails, ducts, PE bar and terminal spaces. Previously those shapes had no BOM identity. No selected products, quote, electrical rating or installation approval is asserted.",
       "baseUnit": "each",

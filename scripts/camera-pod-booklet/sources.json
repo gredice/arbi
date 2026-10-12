@@ -30,9 +30,10 @@
     {
       "component": "Buck converter",
       "url": "https://www.aliexpress.com/item/1005007014032926.html",
-      "basis": "Existing BOM listing, unable to verify dimensions or delivered variant",
-      "model": "UNVERIFIED 45 x 25 mm board, 15 mm overall height, no claimed mounting holes",
-      "limits": "Illustrative terminal blocks have no pinout. Geometry does not establish the repository's >=60 V input / 5 V approximately 3 A target."
+      "basis": "Owner-reported received fixed-5 V variant, measurements and three photographs; docs/evidence/buck-converter-2026-10-12.md",
+      "model": "Measured 50 x 30 x 17 mm envelope, four diameter-3 mm holes at 45 x 24 mm centre pitch; solder-pad connections",
+      "limits": "1.6 mm PCB thickness and individual component/pad envelopes are nominal/photo-derived. Source listing could not be inspected. Input/current/cooling ratings and assembled physical fit remain unverified.",
+      "observed_date": "2026-10-12"
     },
     {
       "component": "1000 uF capacitor",

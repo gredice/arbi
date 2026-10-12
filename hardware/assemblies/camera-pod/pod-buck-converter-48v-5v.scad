@@ -1,9 +1,4 @@
-// pod-buck-converter-48v-5v — r0.1.0, concept-unvalidated.
-// Approximate visualization only; not a manufacturing source. Units: mm.
-// Existing payload booklet assumption of a 45 × 25 × 15 mm converter envelope; no SKU dimensions verified.
-// Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication.
-include <../../lib/catalog-visualizations.scad>
-
-shape = "board";
-dimensions = [45, 25, 15];
-arbi_catalog_visualization(shape, dimensions);
+// pod-buck-converter-48v-5v — r0.1.1, concept-unvalidated.
+// Received 50 x 30 x 17 mm module; 45 x 24 mm pitch, four diameter-3 holes.
+include <../../lib/buck-converter-48v-5v.scad>
+buck_converter_48v_5v();

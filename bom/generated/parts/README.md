@@ -56,7 +56,7 @@ One stable page per catalog part, including optional and deferred items. Usage q
 | [3.0 Nm NEMA 23 closed-loop motor](nema23-closed-loop-motor.md) | nema23-closed-loop-motor | None recorded |
 | [Outdoor Cat5e signal cable](outdoor-cat5e-signal-cable.md) | outdoor-cat5e-signal-cable | None recorded |
 | [52Pi EP-0145 Screw Terminal Expansion Board](pico-terminal-expansion-board.md) | pico-terminal-expansion-board | None recorded |
-| [48 V → 5 V pod buck converter](pod-buck-converter-48v-5v.md) | pod-buck-converter-48v-5v | 1 critical |
+| [48 V → 5 V pod buck converter](pod-buck-converter-48v-5v.md) | pod-buck-converter-48v-5v | None recorded |
 | [AWG26 flexible silicone wire — black](pod-power-wire-black-awg26.md) | pod-power-wire-black-awg26 | None recorded |
 | [AWG26 flexible silicone wire — red](pod-power-wire-red-awg26.md) | pod-power-wire-red-awg26 | None recorded |
 | [Round-pole split-clamp pulley mount concept pair](pole-pulley-mount-concept.md) | pole-pulley-mount-concept | 2 warning |

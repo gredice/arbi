@@ -37,6 +37,10 @@ test('shared geometry, registry, rendering helpers and licenses cover every book
     }
     assert.deepEqual(variants(select('scripts/check-winch-pole-meshes.py')), ['winch']);
     assert.deepEqual(variants(select('scripts/camera-pod-booklet/check_service.py')), ['bench', 'enclosure']);
+    const converter = select('scripts/check-buck-converter.py');
+    assert.deepEqual(variants(converter), ['bench', 'enclosure']);
+    assert.deepEqual(names(converter), []);
+    assert.equal(converter.software, false);
 });
 
 test('vendor sources, version manifest and license select every CAD consumer', () => {

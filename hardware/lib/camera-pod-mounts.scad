@@ -2,6 +2,7 @@
 // Assembly frame: spider mid-plane Z=0; camera looks -Z at pan=tilt=0.
 // Servo nominal dimensions are provisional; measure before a full print.
 include <arbi.scad>
+include <buck-converter-48v-5v.scad>
 
 PM_EPS = 0.02;
 PM_FN = 64;
@@ -45,8 +46,8 @@ module camera_pod_electronics_deck() {
             }
             // Pi standoffs, 10 mm board underside clearance above the deck.
             for(x=[-66,-8],y=[-24.5,24.5]) pm_cyl(6,10,[x,y,20.5]);
-            // Converter supports: 2 mm below-board air space, no assumed PCB holes.
-            for(x=[20,60],y=[-10,10]) {
+            // Received converter: four screw supports at its 45 x 24 mm pitch.
+            for(p=bc_holes()) let(x=46+p[0],y=p[1]) {
                 pm_link([x,y],[x,y<0?-16:16],5,3,17.5);
                 pm_cyl(5,2,[x,y,20.5]);
             }
@@ -67,8 +68,7 @@ module camera_pod_electronics_deck() {
         for(x=[-pm_mount_xy,pm_mount_xy],y=[-pm_mount_xy,pm_mount_xy])pm_hole(4.5,4,[x,y,17.49]);
         for(x=[-66,-8],y=[-24.5,24.5])pm_hole(2.9,15,[x,y,17.49]);
         for(x=pm_cover_x,y=pm_cover_y)pm_hole(3.3,4,[x,y,17.49]);
-        // Two 2.5 mm wide ties cross clear strips on the illustrative converter PCB.
-        for(x=[28,62],y=[-16,16])pm_box([3.2,2.0,4],[x,y],17.49);
+        for(p=bc_holes()) let(x=46+p[0],y=p[1])pm_hole(2.9,6,[x,y,17.49]);
         pm_cyl(10.6,7,[48,26,23.5]);
         pm_cyl(6.2,7,[48,26,17.49]);
         for(x=[39,57])pm_box([1.8,3.2,4],[x,26],17.49);

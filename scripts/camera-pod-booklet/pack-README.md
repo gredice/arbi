@@ -24,7 +24,7 @@ Eleven printable files; fourteen installed printed pieces including the existing
 
 The provisional servo is 20 x 8.5 x 18 mm, ear span 27 mm, hole pitch 24 mm, shaft offset 5 mm and output tip 22 mm above its case bottom. The stock horn reference has an 8 mm hub and one 12 mm arm, 2 mm hub thickness / 1.5 mm arm thickness. Measure the real case, lug heights, shaft, horn and lead exit. Print the coupon before the complete set. No supplier model, spline or OEM screw thread has been verified.
 
-Converter: 45 x 25 x 15 mm reference; capacitor: 10 x 16 mm can. The tiedown method is only usable if the actual components leave the represented clear strap strips. The camera/Pi board mounting patterns follow their cited drawings; connector/component envelopes remain simplified. All source URLs and assumptions are in sources.json.
+Converter: received 50 x 30 x 17 mm envelope; four diameter-3 mm holes at 45 x 24 mm pitch, four M2.5 x 10 screw stacks. PCB thickness is nominal 1.6 mm. Capacitor: provisional 10 x 16 mm can with separate strap. The camera/Pi board mounting patterns follow their cited drawings; connector/component envelopes remain simplified. All source URLs and assumptions are in sources.json.
 
 Countersunk screws at servo ears and horn retainers are essential: ordinary proud screw heads collide during rotation. The pivot support is detachable to let the cradle slide onto its stock horn. Install servo ear screws before closing the gimbal; install the tilt centre screw before the camera board. Full screw counts and stack order are in the PDF.
 
@@ -60,3 +60,5 @@ python3 source/build_booklet.py
 ```
 
 The complete repository wrapper is scripts/camera-pod-booklet/build.py in https://github.com/gredice/arbi. Bench concepts remain concept-unvalidated; no physical test is claimed.
+
+The converter uses received-unit measurements from 12 October 2026: 50 × 30 × 17 mm, four Ø3 mm holes at 45 × 24 mm pitch. Four M2.5 × 10 screw stacks replace ties. PCB thickness and component/pad detail remain nominal. See converter-check.json for CAD access checks and sources.json for receipt provenance; physical/electrical/thermal acceptance is pending.

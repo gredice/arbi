@@ -141,3 +141,7 @@ The cabinet design must establish:
 - Whether direct STEP/DIR remains adequate or needs differential signaling.
 - Final emergency isolation, independent limit, and driver enable/alarm architecture.
 - Lightning/surge protection and fixed field-cable routing for the actual site.
+
+## Received converter dimensions
+
+The [12 October 2026 receipt and measurement record](../../evidence/buck-converter-2026-10-12.md) identifies the fixed-5 V unit shared by the camera pod and cabinet. Its 50 × 30 × 17 mm envelope and four Ø3 mm holes at 45 × 24 mm pitch replace the former 45 × 25 × 15 mm assumption. Component detail, PCB thickness, electrical/thermal suitability and installed physical fit remain unverified.

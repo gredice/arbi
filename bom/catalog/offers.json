@@ -127,7 +127,7 @@
         "marketRegion": "World"
       },
       "purchaseUnit": {
-        "label": "single unit",
+        "label": "single fixed-5 V module",
         "packagingKnown": true,
         "minimum": "1",
         "increment": "1",
@@ -266,7 +266,7 @@
         "marketRegion": "World"
       },
       "purchaseUnit": {
-        "label": "single unit",
+        "label": "single fixed-5 V module",
         "packagingKnown": true,
         "minimum": "1",
         "increment": "1",

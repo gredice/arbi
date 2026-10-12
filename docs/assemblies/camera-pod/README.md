@@ -139,9 +139,13 @@ Do not reposition the gimbal during a normal Skycam move.
 
 ## Open questions
 
-- Exact servo, converter, capacitor, connector, and wiring choices.
+- Exact servo, capacitor, connector and wiring choices; the converter's received fixed-5 V variant and envelope are recorded, while its ratings, cooling and fitted screw/wire stack remain unverified.
 - Final mass budget and whether an IMU adds enough value to justify its mass and complexity.
 - Final pan/tilt geometry, optical hood, rain cap, and CSI routing.
 - Required lighting after daylight-only image trials.
 - Pod privacy indicators, local image retention, update security, and credential storage.
 - Whether any heavier part needs an independent secondary tether compatible with imaging and docking.
+
+## Received converter dimensions
+
+The [12 October 2026 receipt and measurement record](../../evidence/buck-converter-2026-10-12.md) identifies the fixed-5 V unit shared by the camera pod and cabinet. Its 50 × 30 × 17 mm envelope and four Ø3 mm holes at 45 × 24 mm pitch replace the former 45 × 25 × 15 mm assumption. Component detail, PCB thickness, electrical/thermal suitability and installed physical fit remain unverified.

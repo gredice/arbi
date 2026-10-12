@@ -4,7 +4,7 @@ See the [owning assembly or procurement policy](../../../docs/assemblies/control
 
 ## Proposed assembled reference
 
-[control-cabinet-assembly.scad](control-cabinet-assembly.scad), r0.1.1, is a
+[control-cabinet-assembly.scad](control-cabinet-assembly.scad), r0.1.2, is a
 `reference` with released CSG output, **concept-unvalidated**. It arranges the two
 supplies, Pico/terminal-board stack, controller converter, signal-ground block,
 door E-stop, provisional shell/plate/ducts and unselected protection/edge reserves.
@@ -28,7 +28,7 @@ These `visualization` models show catalog items in the Parts inventory. They are
 | BOM item / source | Shape | Dimension basis and remaining uncertainty |
 | --- | --- | --- |
 | [control-panel-enclosure](control-panel-enclosure.scad) · [BOM](../../../bom/generated/parts/control-panel-enclosure.md) | enclosure | 400 × 300 × 200 mm starting cabinet envelope from catalog; walls, door and mounting details assumed. |
-| [controller-buck-converter-48v-5v](controller-buck-converter-48v-5v.scad) · [BOM](../../../bom/generated/parts/controller-buck-converter-48v-5v.md) | board | Assumed 45 × 25 × 15 mm occupied envelope; no converter package drawing is recorded. |
+| [controller-buck-converter-48v-5v](controller-buck-converter-48v-5v.scad) · [BOM](../../../bom/generated/parts/controller-buck-converter-48v-5v.md) | board | Same received 5 V module as the pod: measured 50 × 30 × 17 mm envelope and Ø3 mm holes at 45 × 24 mm pitch; [receipt record](../../../docs/evidence/buck-converter-2026-10-12.md). |
 | [din-rail-ground-distribution-block](din-rail-ground-distribution-block.scad) · [BOM](../../../bom/generated/parts/din-rail-ground-distribution-block.md) | terminal | Assumed 80 × 35 × 45 mm block with representative terminals; terminal count and DIN clip unknown. |
 | [emergency-stop-switch](emergency-stop-switch.scad) · [BOM](../../../bom/generated/parts/emergency-stop-switch.md) | switch | Catalog 22 mm panel stem with an assumed Ø40 mm mushroom; contacts and panel fit unspecified. |
 | [pico-terminal-expansion-board](pico-terminal-expansion-board.scad) · [BOM](../../../bom/generated/parts/pico-terminal-expansion-board.md) | terminal board | Assumed 90 × 60 × 18 mm terminal-board envelope; EP-0145 mounting and terminal geometry unverified. |

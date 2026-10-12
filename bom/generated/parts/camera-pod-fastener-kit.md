@@ -15,6 +15,7 @@
 
 - 4 M4 x 35 frame bolts, 8 M4 washers, 4 plain M4 nuts.
 - 4 M2.5 x 20 Pi bolts, 8 M2.5 washers, 4 plain M2.5 nuts.
+- 4 M2.5 x 10 converter bolts, 8 M2.5 washers and 4 plain M2.5 nuts; nominal 1.6 mm PCB and 2 mm printed support stack. Confirm actual stack and electrical isolation.
 - 4 M1.6 x 6 countersunk servo-ear screws and 4 plain M1.6 nuts.
 - 2 M2 x 10 countersunk pan-retainer screws; 2 M2 x 8 countersunk tilt-retainer screws. Each retainer screw has one lower M2 washer and one plain M2 nut; no washer beneath a countersunk head.
 - 6 M2 x 12 screws (4 camera, 2 pivot support), 12 M2 washers, 6 plain M2 nuts.

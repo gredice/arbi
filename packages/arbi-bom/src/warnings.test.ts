@@ -10,9 +10,10 @@ const root = fileURLToPath(new URL("../../../", import.meta.url));
 
 test("temporary cable-tie retention is critical on the owning parts and included BOM", async () => {
   const result = calculateBom(await loadBomRepository(root));
-  for (const id of ["camera-pod-chassis", "pod-buck-converter-48v-5v", "bulk-capacitor-1000uf", "camera-pod-wiring-kit", "winch-round-pole-covers", "winch-round-pole-hardware"]) {
+  for (const id of ["camera-pod-chassis", "bulk-capacitor-1000uf", "camera-pod-wiring-kit", "winch-round-pole-covers", "winch-round-pole-hardware"]) {
     assert.ok(result.partWarnings[id]?.some((warning) => warning.code === "temporary-cable-tie" && warning.severity === "critical"), id);
   }
+  assert.ok(!result.partWarnings["pod-buck-converter-48v-5v"]?.some((warning) => warning.code === "temporary-cable-tie"), "received converter uses screw mounts");
   assert.ok(result.warningDetails.some((warning) => warning.code === "temporary-cable-tie" && warning.assemblyIds.includes("camera-pod")));
   assert.equal(result.complete, false);
 });

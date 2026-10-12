@@ -151,7 +151,7 @@
                     ],
                     "properties": {
                         "status": {
-                            "const": "approximate"
+                            "enum": ["approximate", "measured-envelope"]
                         },
                         "basis": {
                             "type": "string",

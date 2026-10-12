@@ -228,7 +228,9 @@ export function catalogInventory(ids: string[]): InventoryItem[] {
         return {
             id, name: entry.name, count: null,
             figure: entry.modelIds.map(figureFor).find(Boolean) ?? figureFor(id),
-            note: models.some((model) => model.geometry) ? "Approximate · needs rework" : undefined,
+            note: models.some((model) => model.geometry?.status === "measured-envelope")
+                ? "Measured envelope · simplified details"
+                : models.some((model) => model.geometry) ? "Approximate · needs rework" : undefined,
             warningCounts: warningCounts(warningsFor(id)),
         };
     });

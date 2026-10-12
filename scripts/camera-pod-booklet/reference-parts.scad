@@ -1,6 +1,7 @@
 // ARBI camera pod illustration references, millimetres. Not replacement hardware.
 // Pi/camera board interfaces follow the cited drawings; component detail is simplified.
-// Servo, horn, buck and capacitor are explicitly UNVERIFIED placeholders.
+// Servo/horn/capacitor remain provisional. Converter envelope/holes are measured.
+include <arbi-hardware/lib/buck-converter-48v-5v.scad>
 part = "raspberry-pi-3a-plus-reference";
 $fn = 64;
 eps = 0.02;
@@ -9,8 +10,6 @@ servo_body = [20, 8.5, 18];
 servo_lug_span = 27;
 servo_hole_pitch = 24;
 servo_shaft_offset = 5;
-buck_board = [45, 25, 1.6];
-buck_height = 15;
 capacitor_diameter = 10;
 capacitor_height = 16;
 
@@ -82,15 +81,7 @@ module horn() {
         for(x=[6,9,12]) translate([x,0,-eps]) cylinder(d=1.2,h=2);
     }
 }
-module buck() {
-    // No SKU or real dimensions verified: adjustable occupied-volume reference.
-    translate([-buck_board[0]/2,-buck_board[1]/2,0]) union() {
-        rounded_plate(buck_board[0],buck_board[1],buck_board[2],1.5);
-        translate([12,6,1.5]) cube([15,13,buck_height-1.5]);
-        translate([2,4,1.5]) cube([7,17,7]);
-        translate([36,4,1.5]) cube([7,17,7]);
-    }
-}
+module buck() {buck_converter_48v_5v();}
 module capacitor() {
     union() {
         cylinder(d=capacitor_diameter,h=capacitor_height);
@@ -121,7 +112,7 @@ if(part=="raspberry-pi-3a-plus-reference") pi_board();
 else if(part=="camera-module-3-standard-reference") camera();
 else if(part=="micro-servo-3p7g-UNVERIFIED") servo();
 else if(part=="servo-horn-UNVERIFIED") horn();
-else if(part=="buck-converter-UNVERIFIED") buck();
+else if(part=="buck-converter-measured-reference") buck();
 else if(part=="capacitor-1000uf-UNVERIFIED") capacitor();
 else if(part=="microsd-reference") microsd();
 else if(part=="csi-15pin-flat-reference") cube([16,60,.3]);
@@ -138,6 +129,7 @@ else if(part=="spacer-M2x3-reference") ring(4,2.2,3);
 else if(part=="spacer-M2p5x6-reference") ring(5,2.7,6);
 else if(part=="bolt-M4x35-reference") bolt(4,35);
 else if(part=="bolt-M2p5x20-reference") bolt(2.5,20);
+else if(part=="bolt-M2p5x10-reference") bolt(2.5,10);
 else if(part=="bolt-M1p6x6-reference") bolt(1.6,6);
 else if(part=="bolt-M2x10-reference") bolt(2,10);
 else if(part=="bolt-M2x12-reference") bolt(2,12);
@@ -150,10 +142,6 @@ else if(part=="nut-M3-reference") nut(3);
 else if(part=="washer-M3-reference") ring(7,3.2,.5);
 else if(part=="washer-M3x0p7-reference") ring(7,3.2,.7);
 else if(part=="bolt-OEM-horn-UNVERIFIED") bolt(1.4,4);
-else if(part=="converter-tie-reference") difference() {
-    translate([-1.25,-16.4,16.7])cube([2.5,32.8,8.2]);
-    translate([-1.3,-15.6,17.5])cube([2.6,31.2,6.6]);
-}
 else if(part=="capacitor-tie-reference") difference() {
     translate([-9.4,-1.25,16.7])cube([18.8,2.5,23.6]);
     translate([-8.6,-1.3,17.5])cube([17.2,2.6,22]);

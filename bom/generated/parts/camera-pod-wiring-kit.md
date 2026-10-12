@@ -15,12 +15,12 @@
 
 - One 15-pin CSI ribbon between Pi 3A+ and Camera Module 3; final length, end stiffeners, bend radius and fatigue behaviour must match the compact pan/tilt route. Check whether the selected camera supply includes a usable ribbon.
 - Fixed 5 V/ground distribution and two servo power/signal leads, capacitor connections and insulated incoming power termination. Connector types, conductor gauges and cut lengths remain unselected.
-- One soft incoming-lead sleeve/grommet and separate soft retention for power, CSI and servo service loops; two converter ties and one capacitor tie shown by the assembly source are temporary bench workarounds only. Final dedicated mounts and strain relief remain unresolved.
+- One soft incoming-lead sleeve/grommet and separate soft retention for power, CSI and servo service loops. The converter uses four screw stacks; the remaining capacitor tie and harness retention are temporary bench workarounds only. Final dedicated capacitor retention and strain relief remain unresolved.
 - Independent positioning-line tensile termination belongs to the winch line interface; internal conductors and connectors must carry no positioning load.
 
 ## Design warnings
 
-- **Critical:** Converter, capacitor and harness ties are shown without a complete procurement specification or quantity. Record the missing hardware data and replace tie-based retention with dedicated mounts and strain relief; cable ties are temporary bench workarounds only.
+- **Critical:** The capacitor tie and harness retention are shown without a complete procurement specification or quantity. Record the missing hardware data and replace those ties with dedicated mounts and strain relief; cable ties are temporary bench workarounds only.
 - **Warning:** This part is planned; confirm its specification and selection with committed evidence.
 
 ## Notes

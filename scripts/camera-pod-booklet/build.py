@@ -37,7 +37,7 @@ def write_evidence(root,publish=False):
       'integration':integration,'service':service,
       'mesh_hashes':{e['model_id']:e['stl_sha256'] for e in meshes},
       'checker_sources':{name:hashlib.sha256((root/'source'/name).read_bytes()).hexdigest()
-         for name in ['integration.py','check_integration.py','check_service.py','reference-parts.scad']+(['check_cradle.py'] if enclosure else [])}}
+         for name in ['integration.py','check_integration.py','check_service.py','check_converter.py','reference-parts.scad']+(['check_cradle.py'] if enclosure else [])}}
     if enclosure:evidence['cradle']=cradle
     relative=Path('assemblies/camera-pod')/('camera-pod-enclosure-check.json' if enclosure else 'camera-pod-geometry-check.json')
     (root/'source/arbi-hardware'/relative).write_text(json.dumps(evidence,indent=2)+'\n')
@@ -76,12 +76,12 @@ def main():
     assert not (args.checks_only and args.publish),'--checks-only cannot publish a booklet'
     root=args.output.resolve();(root/'source').mkdir(parents=True,exist_ok=True)
     config={'variant':'enclosure' if args.enclosure else 'bench','units':'mm','pan_deg':[-90,90,5],'tilt_deg':[0,70,5],
-      'hardware_basis':'declared nominal references; supplier dimensions unverified','evidence_date':date.today().isoformat()}
+      'hardware_basis':'received converter envelope/holes measured; other hardware and component detail nominal','evidence_date':date.today().isoformat()}
     registry=json.loads((REPO/'hardware/models.json').read_text())
     selected=selected_models(registry,args.enclosure)
     config['fabrication_models']=[{'id':m['id'],'revision':m['revision'],'output':m['output']} for m in selected]
     artifact='ARBI-camera-pod-enclosure' if args.enclosure else 'ARBI-camera-pod-bench'
-    inputs=list((REPO/'hardware/assemblies/camera-pod').glob('*.scad'))+[REPO/'hardware/lib/arbi.scad',REPO/'hardware/lib/camera-pod.scad',REPO/'hardware/lib/camera-pod-mounts.scad',REPO/'hardware/lib/camera-pod-enclosure.scad',REPO/'hardware/lib/camera-pod-integrated-deck.scad',REPO/'hardware/lib/camera-pod-integrated-head.scad',REPO/'hardware/lib/camera-pod-integrated-gimbal.scad',REPO/'hardware/models.json',HERE/'reference-parts.scad',HERE/'export_models.py',HERE/'model_selection.py']
+    inputs=list((REPO/'hardware/assemblies/camera-pod').glob('*.scad'))+[REPO/'hardware/lib/arbi.scad',REPO/'hardware/lib/camera-pod.scad',REPO/'hardware/lib/buck-converter-48v-5v.scad',REPO/'hardware/lib/camera-pod-mounts.scad',REPO/'hardware/lib/camera-pod-enclosure.scad',REPO/'hardware/lib/camera-pod-integrated-deck.scad',REPO/'hardware/lib/camera-pod-integrated-head.scad',REPO/'hardware/lib/camera-pod-integrated-gimbal.scad',REPO/'hardware/models.json',HERE/'reference-parts.scad',HERE/'export_models.py',HERE/'model_selection.py']
     inputs += [p for p in (REPO/'hardware/vendor').rglob('*') if p.is_file()]
     hashes={str(p.relative_to(REPO)):hashlib.sha256(p.read_bytes()).hexdigest() for p in inputs}
     hashes['hardware/model-aliases.json']=hashlib.sha256((REPO/'hardware/model-aliases.json').read_bytes()).hexdigest()
@@ -99,7 +99,7 @@ def main():
     shutil.copytree(REPO/'scripts/winch-booklet/fonts',root/'source/fonts',dirs_exist_ok=True)
     shutil.copy2(REPO/'scripts/winch-booklet/requirements.txt',root/'source/requirements.txt')
     shutil.copy2(REPO/'LICENSE',root/'source/LICENSE-ARBI')
-    for name in ['reference-parts.scad','export_models.py','model_selection.py','render_figures.py','render_preview.py','build_booklet.py','integration.py','check_integration.py','check_service.py','check_cradle.py']:
+    for name in ['reference-parts.scad','export_models.py','model_selection.py','render_figures.py','render_preview.py','build_booklet.py','integration.py','check_integration.py','check_service.py','check_converter.py','check_cradle.py']:
         shutil.copy2(HERE/name,root/'source'/name)
     shutil.copy2(HERE/'pack-README.md',root/'README.md')
     shutil.copy2(HERE/'sources.json',root/'sources.json')
@@ -113,11 +113,11 @@ def main():
     assert 'def begin(' in style and 'C.save()' not in style,'Review upstream page-style extraction'
     style=style.replace('ARBI-winch-assembly-STL.pdf',artifact+'-assembly-STL.pdf').replace('ARBI winch and drum - STL-based assembly booklet','ARBI camera pod - printed mount assembly booklet')
     style=style.replace('WINCH & DRUM','CAMERA POD').replace("text(153,15,'PASSIVE / COVER KIT'", "text(141,15,'"+('RAIN / SPLASH EDITION' if args.enclosure else 'MOUNT SET / BENCH EDITION')+"'")
-    style=re.sub(r'Mechanical bench assembly \| Revision [^\']+',('Camera pod rain enclosure | Revision 5 | ' if args.enclosure else 'Camera pod bench assembly | Revision 4 | ')+date.today().strftime('%d %b %Y'),style)
+    style=re.sub(r'Mechanical bench assembly \| Revision [^\']+',('Camera pod rain enclosure | Revision 6 | ' if args.enclosure else 'Camera pod bench assembly | Revision 5 | ')+date.today().strftime('%d %b %Y'),style)
     style=re.sub(r'\{PAGE:02d\} / \d+', '{PAGE:02d} / '+('16' if args.enclosure else '14'),style)
     (root/'source/page_style.py').write_text(style)
     provenance={'repository':'https://github.com/gredice/arbi','base_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=REPO,text=True).strip(),
-      'booklet_revision':5 if args.enclosure else 4,'render_style':'assembly-line-art-v1','configuration':config,'scope':'Nominal rain/splash enclosure assembly; ingress, servo/power dimensions and physical fits unverified.' if args.enclosure else 'Complete nominal bench mount assembly; servo/power dimensions and physical fits unverified.',
+      'booklet_revision':6 if args.enclosure else 5,'render_style':'assembly-line-art-v1','configuration':config,'scope':'Nominal rain/splash enclosure assembly; ingress, servo/capacitor dimensions and physical fits unverified; converter envelope/holes measured.' if args.enclosure else 'Complete nominal bench mount assembly; servo/capacitor dimensions and physical fits unverified; converter envelope/holes measured.',
       'source_hashes':{str(p.relative_to(root)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted((root/'source').rglob('*')) if p.is_file() and '__pycache__' not in p.parts}}
     (root/'source-provenance.json').write_text(json.dumps(provenance,indent=2)+'\n')
     if not args.reuse_models:
@@ -125,7 +125,7 @@ def main():
         subprocess.run([sys.executable,str(root/'source/export_models.py')],check=True)
         (root/'build-input-hashes.json').write_text(json.dumps(hashes,indent=2)+'\n')
     if (root/'figures').exists():shutil.rmtree(root/'figures')
-    checks=[('check_cradle.py',[]),('check_integration.py',['--quick']),('check_service.py',[]),('check_integration.py',[])] if args.enclosure else [('check_integration.py',[]),('check_service.py',[])]
+    checks=[('check_cradle.py',[]),('check_integration.py',['--quick']),('check_service.py',[]),('check_converter.py',[]),('check_integration.py',[])] if args.enclosure else [('check_integration.py',[]),('check_service.py',[]),('check_converter.py',[])]
     for name,options in checks:
         subprocess.run([sys.executable,str(root/'source'/name),*options],check=True)
     write_evidence(root)

@@ -11,7 +11,7 @@
 - Build: arbi-v1
 - Destination: hr-zagreb
 - Quote snapshot: hr-zagreb-2026-10-08-coupling
-- Input digest: sha256:f21a45c69321970cdb8bd871c50f2fe3603dcee3574ab8aa8d919ac077388839
+- Input digest: sha256:217d59d7c7284106dd19d9a02e8c20be2e71675e6240672f9a724bf92a8daada
 - Complete landed total: **unavailable**
 - Known quoted goods subtotal: **EUR 943.84**
 - Known checkout-group shipping subtotal: **EUR 43.38**
@@ -44,7 +44,7 @@ Solid CAD volume × each component's material density × observed roll price / r
 | Part | Required | Material | Estimated weight | Estimated material cost |
 | --- | ---: | --- | ---: | ---: |
 | [camera-gimbal](parts/camera-gimbal.md) | 1 | PETG Matte + PETG Basic | 54.004 g | EUR 0.61 |
-| [camera-pod-chassis](parts/camera-pod-chassis.md) | 1 | PETG Matte + PETG Basic | 207.265 g | EUR 2.36 |
+| [camera-pod-chassis](parts/camera-pod-chassis.md) | 1 | PETG Matte + PETG Basic | 206.965 g | EUR 2.36 |
 | [dock-funnel](parts/dock-funnel.md) | 1 | PETG Basic | 149.073 g | EUR 1.70 |
 | [dock-latch-hardware](parts/dock-latch-hardware.md) | 1 | PETG Basic | 126.828 g | EUR 1.44 |
 | [dock-nest](parts/dock-nest.md) | 1 | PETG Basic | 216.782 g | EUR 2.47 |
@@ -219,12 +219,11 @@ aliexpress-hr: EUR 3.00 per item type (not per piece), order goods strictly belo
 
 Critical warnings identify temporary workarounds or missing information. Warnings identify concepts and selections awaiting confirmation. These priorities do not establish physical acceptance.
 
-### Critical (196)
+### Critical (195)
 
 - **Critical:** bulk-capacitor-1000uf: A cable tie currently retains the pod capacitor. Replace it with a dedicated insulated removable holder; cable ties are temporary bench workarounds only, never final retention.
-- **Critical:** camera-pod-chassis: The current deck retains the converter, capacitor and harness with cable ties. Replace these with dedicated removable mounts and strain relief; cable ties are temporary bench workarounds only, never the final assembly solution.
-- **Critical:** camera-pod-wiring-kit: Converter, capacitor and harness ties are shown without a complete procurement specification or quantity. Record the missing hardware data and replace tie-based retention with dedicated mounts and strain relief; cable ties are temporary bench workarounds only.
-- **Critical:** pod-buck-converter-48v-5v: Two cable ties currently retain the pod converter. Replace them with a dedicated insulated removable mounting method; cable ties are temporary bench workarounds only, never final retention.
+- **Critical:** camera-pod-chassis: The current deck screw-mounts the converter, but retains the capacitor and harness with cable ties. Replace those ties with dedicated removable mounts and strain relief; cable ties are temporary bench workarounds only, never the final assembly solution.
+- **Critical:** camera-pod-wiring-kit: The capacitor tie and harness retention are shown without a complete procurement specification or quantity. Record the missing hardware data and replace those ties with dedicated mounts and strain relief; cable ties are temporary bench workarounds only.
 - **Critical:** aliexpress-bearing-608-2rs: Availability is unknown.
 - **Critical:** aliexpress-bearing-608-2rs: Price and availability observation date is unknown; quote capture time is not verification time.
 - **Critical:** aliexpress-bearing-608-2rs: Tax/VAT treatment is unknown.

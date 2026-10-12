@@ -196,6 +196,21 @@ test('every BOM item has geometry and visualization assumptions cannot become fa
     assert.throws(() => validateRegistry(current, manufactured), /not a fabrication model/);
 });
 
+test('received converter dimensions remain purchased reference evidence', () => {
+    const current = validateRegistry();
+    for (const id of ['pod-buck-converter-48v-5v', 'controller-buck-converter-48v-5v']) {
+        const model = current.models.find(model => model.id === id);
+        assert.equal(model.geometry.status, 'measured-envelope');
+        assert.equal(model.artifactRole, 'visualization');
+        assert.equal(model.status, 'concept-unvalidated');
+        assert.match(model.geometry.basis, /50 x 30 x 17/);
+        assert.match(model.geometry.basis, /12 October 2026/);
+        const broken = structuredClone(current);
+        broken.models.find(model => model.id === id).geometry.status = 'electrically-validated';
+        assert.throws(() => validateRegistry(broken), /does not match/);
+    }
+});
+
 
 test('superseded dock visualizations remain archived without current BOM claims', () => {
     const current = validateRegistry();

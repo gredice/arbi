@@ -19,3 +19,11 @@ test('approximate geometry has a lighter rework warning; validated geometry has 
   assert.ok(modelWarnings(model, []).some((warning) => warning.code === 'approximate-geometry' && warning.severity === 'warning' && warning.message.includes('Measure')));
   assert.deepEqual(modelWarnings({ ...model, status: 'validated', geometry: undefined }, []), []);
 });
+
+test('measured envelopes retain detail and physical-acceptance warnings without claiming approximate sizing', () => {
+    const model = { id: 'converter', status: 'concept-unvalidated', bomPartIds: ['converter'], assembly: 'pod', geometry: { status: 'measured-envelope', rework: 'Confirm PCB thickness and component detail.' } };
+    const warnings = modelWarnings(model, []);
+    assert.ok(warnings.some((warning) => warning.code === 'simplified-details' && warning.severity === 'warning' && warning.message.startsWith('Measured envelope; simplified details:')));
+    assert.ok(warnings.some((warning) => warning.code === 'unconfirmed-concept'));
+    assert.ok(!warnings.some((warning) => warning.code === 'approximate-geometry'));
+});

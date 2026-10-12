@@ -1,10 +1,10 @@
 # Camera pod bench mount family
 
-> **Critical — temporary cable-tie retention.** Converter, capacitor and harness ties are bench workarounds only and must be replaced with dedicated removable mounts and strain relief for the final assembly. See the [prioritized BOM warnings](../../../bom/README.md#warning-priorities).
+> **Critical — temporary cable-tie retention.** The converter now uses four screw stacks. Capacitor and harness ties remain bench workarounds only and must be replaced with dedicated removable retention and strain relief for the final assembly. See the [prioritized BOM warnings](../../../bom/README.md#warning-priorities).
 
 This is an explicit dry bench alternative. Its six exclusive models (electronics deck/cover, pan yoke, camera cradle/hood and tilt-pivot support) are archived from the current compact enclosure inventory and BOM. They remain available through this configuration's source and bench booklet; use the [integrated enclosure](camera-pod-enclosure.md) for the current pod print kit. Shared spider, spacers, pan mount and horn retainers remain active.
 
-This is a proposed, unbuilt mount set for the existing r0.1.0 spider. The stock Pi 3A+, Camera Module 3 Standard, and two 3.7 g servo architecture is unchanged. All models remain `concept-unvalidated`. The current deck and pan yoke are r0.1.1; the other fabrication models retain r0.1.0. The [integrated rain enclosure](camera-pod-enclosure.md) is an optional configuration of this family with its own print list, cable routing, fastener changes and evidence boundary.
+This is a proposed, unbuilt mount set for the existing r0.1.0 spider. The stock Pi 3A+, Camera Module 3 Standard, and two 3.7 g servo architecture is unchanged. All models remain `concept-unvalidated`. The current deck is r0.1.2 and pan yoke r0.1.1; the other fabrication models retain r0.1.0. The [integrated rain enclosure](camera-pod-enclosure.md) is an optional configuration of this family with its own print list, cable routing, fastener changes and evidence boundary.
 
 The dry bench set adds a Pi/power deck, four removable spider spacers, a pan servo mount, pan yoke, supported camera cradle, two stock-horn retainers, camera hood, and removable electronics cover. The enclosure replaces that cover and requires the revised deck's CSI passage and yoke's servo-boot attachment ears. A separate servo fit coupon checks the assumed 20 x 8.5 mm body and 24 mm lug-hole pitch before the full print. It does not test output-axis position or horn geometry; those must also be measured.
 
@@ -16,9 +16,9 @@ The dry bench set adds a Pi/power deck, four removable spider spacers, a pan ser
 - Servos: provisional body 20 x 8.5 x 18 mm, mounting ears 27 mm long, 24 mm screw pitch, output axis offset 5 mm. Body windows add 0.4 mm clearance per side. Body-window dimensions are parameters; a different case/lug/shaft height also needs revised stack coordinates in the CAD and assembly definition, not just a wider window. Use two M1.6 x 6 countersunk through bolts and nuts per servo; heads seat flush in the lug plate and nuts sit on the outer side of the ears. Pan screws enter upward from below, with nuts above the ears; tilt screws enter from the inner face, with nuts outside the ears. Do not force the bolts into a smaller supplier ear hole.
 - Stock horns: provisional 8 mm round hub, one 12 mm arm, 2 mm hub / 1.5 mm arm thickness. Pockets are 8.6 mm / 4 mm wide, 2.2 mm deep. Retainer rib captures the arm; use the servo's original center screw. Never print a spline. Rework the parametric pocket if the supplied horn differs; it must have no perceptible free play.
 - Tilt pivot: M3 through bolt, 0.7 mm shim in the 0.7 mm side gap, plain nut in an open-top capture slot. The opposite support is removable so the cradle can slide onto the stock horn. Adjust for free rotation and retain the nut with suitable thread locking; clamp-up/creep and wear require physical testing.
-- Converter: provisional 45 x 25 mm PCB, 2 mm support pads; two insulated ties across clear PCB strips, not solder joints. Capacitor: provisional 10 mm can, loose 10.6 mm cup with a lead opening. Add an insulating sleeve and secondary tie to the can.
+- Converter: received 50 × 30 × 17 mm module; four Ø3 mm holes at 45 × 24 mm pitch, centred at [46,0] to clear frame clamps. Deck r0.1.2 uses 2 mm screw supports and four M2.5 × 10 stacks (eight washers/four nuts), replacing converter ties. PCB thickness remains nominal 1.6 mm; see the [received-unit record](../../../docs/evidence/buck-converter-2026-10-12.md). Capacitor: provisional 10 mm can, loose 10.6 mm cup with a lead opening. Add an insulating sleeve and secondary tie to the can.
 - Incoming wire: two tie slots on the deck secure an insulating sleeve. This does not replace an independent line tensile termination.
-- CSI: the r0.1.1 deck has an 18.8 × 4.8 mm passage at [0, -27] and separate soft-wrap tie anchors; compare the actual ribbon end and minimum bend radius before assembly.
+- CSI: the r0.1.2 deck retains an 18.8 × 4.8 mm passage at [0, -27] and separate soft-wrap tie anchors; compare the actual ribbon end and minimum bend radius before assembly.
 - Nominal software travel: pan -90..90 degrees, tilt 0..70 degrees. Printed stops are designed for pan +/-95 and tilt -5..75. Do not drive powered servos against the stops.
 
 ## Dry bench print quantities
@@ -26,7 +26,7 @@ The dry bench set adds a Pi/power deck, four removable spider spacers, a pan ser
 | Model | Quantity |
 | --- | ---: |
 | Existing camera-pod-spider r0.1.0 | 1 |
-| camera-pod-electronics-deck r0.1.1 | 1 |
+| camera-pod-electronics-deck r0.1.2 | 1 |
 | camera-pod-spider-spacer | 4 |
 | camera-pod-pan-servo-mount | 1 |
 | camera-pod-pan-yoke r0.1.1 | 1 |
