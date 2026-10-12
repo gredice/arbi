@@ -18,6 +18,12 @@ test("passive and powered inventories and poses match their own canonical bookle
             stdio: "pipe",
         });
         const bom = JSON.parse(readFileSync(join(output, "site.json"), "utf8")).bom;
+        assert.equal(bom.archivedParts.length, 14);
+        const archivedIds = new Set(bom.archivedParts.map((part) => part.id));
+        assert.ok(bom.archivedParts.every((part) => part.required === null && part.usedIn.length === 0));
+        assert.ok(bom.parts.every((part) => !archivedIds.has(part.id)));
+        assert.ok(bom.summary.warningDetails.every((warning) => !warning.partIds.some((id) => archivedIds.has(id))));
+        assert.equal(bom.parts.find((part) => part.id === "corner-head-printed-kit").required, "4");
         const driver = bom.parts.find((part) => part.id === "cl57y-v20-driver");
         assert.equal(driver.bundle, true);
         assert.equal(driver.goodsAllocationBasis, "part-count");
@@ -26,7 +32,7 @@ test("passive and powered inventories and poses match their own canonical bookle
         assert.equal(bom.parts.find((part) => part.id === "power-supply-48v-350w").knownGoods, "36.67");
         assert.equal(bom.parts.find((part) => part.id === "dock-funnel").knownGoods, null);
         assert.equal(bom.summary.assemblyKnownGoods.find((item) => item.assemblyId === "winch-set").amount, "390.85");
-        assert.equal(bom.summary.knownSubtotal, "987.22");
+        assert.equal(bom.summary.knownSubtotal, "858.05");
         const files = unzipSync(readFileSync(join(app, "../../docs/assemblies/winch/booklet/ARBI-winch-STL-pack.zip")));
         const manifest = JSON.parse(new TextDecoder().decode(files[Object.keys(files).find((n) => n.endsWith("/figure-manifest.json"))]));
         const read = (slug) => JSON.parse(readFileSync(join(output, `scenes/${slug}.json`), "utf8"));

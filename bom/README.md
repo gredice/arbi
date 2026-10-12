@@ -28,6 +28,8 @@ Fasteners, cables, electronics, electrical parts, mechanical parts, optics, and 
 
 Browse the [BOM item index](generated/parts/README.md) for a separate Markdown page for every catalog part, including optional and deferred items. Link directly to `bom/generated/parts/<part-id>.md` from other documents using a relative path. Stable part IDs keep these links usable when display names change.
 
+Archived parts use `lifecycle: archived` and a required `archiveReason`. Their stable item pages, supplier offers, quotes and SCAD sources preserve historical evidence. Current assembly usages cannot reference archived items; the website excludes them and their warnings from current Parts/BOM inventories and purchasing totals. Their CAD entries live in `archivedModels` and have no current fabrication downloads. The selected printed corner-head kits, bought hardware and shared marking tool replace the archived metal and split-clamp selections; all remain subject to physical acceptance.
+
 Each page shows canonical requirements and notes, assembly usage quantities and inclusion status, links to the owning assembly documentation and BOM reports, and fabrication sources where recorded. Assembly `documentation` links are repository-relative paths in `assemblies/assemblies.json`. Quantities shown on item pages are per assembly definition; scenario reports apply build multipliers and inclusion policy.
 
 ### Warning priorities

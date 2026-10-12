@@ -6,11 +6,11 @@
   "destinationId": "hr-zagreb",
   "destinationName": "Zagreb, Croatia",
   "quoteSnapshotId": "hr-zagreb-2026-10-08-coupling",
-  "inputDigest": "sha256:217d59d7c7284106dd19d9a02e8c20be2e71675e6240672f9a724bf92a8daada",
+  "inputDigest": "sha256:0250c6a4d216286410f3be98b7604bee3837ead9c1818f4c12db3abc7d368149",
   "reportCurrency": "EUR",
   "complete": false,
   "completeLandedTotal": null,
-  "knownGoodsSubtotal": "943.84",
+  "knownGoodsSubtotal": "814.67",
   "knownCustomsSubtotal": "0",
   "customs": [
     {
@@ -37,9 +37,9 @@
     }
   ],
   "knownShippingSubtotal": "43.38",
-  "knownSubtotal": "987.22",
-  "estimatedMaterialSubtotal": "254.03",
-  "estimatedPartialSubtotal": "1241.25",
+  "knownSubtotal": "858.05",
+  "estimatedMaterialSubtotal": "402.3",
+  "estimatedPartialSubtotal": "1260.35",
   "fabrication": [
     {
       "partId": "camera-gimbal",
@@ -445,6 +445,282 @@
           "name": "Bambu Lab ASA",
           "weightGrams": "167.014",
           "materialCost": "4.17",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z",
+          "priceBasis": "single-spool",
+          "minimumBulkRolls": null,
+          "bulkSourceUrl": null
+        }
+      ]
+    },
+    {
+      "partId": "corner-head-printed-kit",
+      "required": "4",
+      "basis": "solid-volume-estimate",
+      "materialId": "asa",
+      "materialName": "ASA + PETG Matte",
+      "materialUsages": [
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "5377.944",
+          "materialCost": "134.39",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z",
+          "priceBasis": "single-spool",
+          "minimumBulkRolls": null,
+          "bulkSourceUrl": null,
+          "color": "black"
+        },
+        {
+          "materialId": "petg-matte",
+          "name": "Bambu Lab PETG Matte",
+          "weightGrams": "1198.637",
+          "materialCost": "13.65",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte?id=775952393450868758",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
+          "color": "white"
+        }
+      ],
+      "components": [
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "2352.543",
+          "materialCost": "58.79",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z",
+          "priceBasis": "single-spool",
+          "minimumBulkRolls": null,
+          "bulkSourceUrl": null,
+          "modelId": "corner-head-printed-left",
+          "quantity": "4",
+          "color": "black"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "2352.543",
+          "materialCost": "58.79",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z",
+          "priceBasis": "single-spool",
+          "minimumBulkRolls": null,
+          "bulkSourceUrl": null,
+          "modelId": "corner-head-printed-right",
+          "quantity": "4",
+          "color": "black"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "672.859",
+          "materialCost": "16.8147",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z",
+          "priceBasis": "single-spool",
+          "minimumBulkRolls": null,
+          "bulkSourceUrl": null,
+          "modelId": "corner-head-printed-rear-pad",
+          "quantity": "8",
+          "color": "black"
+        },
+        {
+          "materialId": "petg-matte",
+          "name": "Bambu Lab PETG Matte",
+          "weightGrams": "570.625",
+          "materialCost": "6.4994",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte?id=775952393450868758",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
+          "modelId": "corner-head-printed-front-cover",
+          "quantity": "4",
+          "color": "white"
+        },
+        {
+          "materialId": "petg-matte",
+          "name": "Bambu Lab PETG Matte",
+          "weightGrams": "628.012",
+          "materialCost": "7.1531",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte?id=775952393450868758",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
+          "modelId": "corner-head-printed-rear-cover",
+          "quantity": "4",
+          "color": "white"
+        }
+      ],
+      "weightGrams": "6576.581",
+      "materialCost": "148.04",
+      "currency": "EUR",
+      "note": "Selected printed-head development configuration in the current BOM. ASA is a costing assumption using the recorded single-spool rate, not a qualified structural material or print process. Fully dense CAD consumption only; physical fit, load, creep and manufacturing labour remain unresolved. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "alternatives": [
+        {
+          "materialId": "pla",
+          "name": "Bambu Lab PLA Basic",
+          "weightGrams": "7435.993",
+          "materialCost": "89.16",
+          "spoolPrice": "11.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "7495.961",
+          "materialCost": "85.38",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg-matte",
+          "name": "Bambu Lab PETG Matte",
+          "weightGrams": "8215.573",
+          "materialCost": "93.58",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "6296.607",
+          "materialCost": "157.35",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z",
+          "priceBasis": "single-spool",
+          "minimumBulkRolls": null,
+          "bulkSourceUrl": null
+        }
+      ]
+    },
+    {
+      "partId": "corner-head-printed-marking-template",
+      "required": "1",
+      "basis": "solid-volume-estimate",
+      "materialId": "asa",
+      "materialName": "ASA",
+      "materialUsages": [
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "42.909",
+          "materialCost": "1.07",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z",
+          "priceBasis": "single-spool",
+          "minimumBulkRolls": null,
+          "bulkSourceUrl": null,
+          "color": "black"
+        }
+      ],
+      "components": [
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "42.909",
+          "materialCost": "1.0723",
+          "spoolPrice": "24.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
+          "observedAt": "2026-10-08T18:06:00Z",
+          "priceBasis": "single-spool",
+          "minimumBulkRolls": null,
+          "bulkSourceUrl": null,
+          "modelId": "corner-head-printed-template",
+          "quantity": "1",
+          "color": "black"
+        }
+      ],
+      "weightGrams": "42.909",
+      "materialCost": "1.07",
+      "currency": "EUR",
+      "note": "Selected printed-head development configuration in the current BOM. ASA is a costing assumption using the recorded single-spool rate, not a qualified structural material or print process. Fully dense CAD consumption only; physical fit, load, creep and manufacturing labour remain unresolved. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "alternatives": [
+        {
+          "materialId": "pla",
+          "name": "Bambu Lab PLA Basic",
+          "weightGrams": "50.674",
+          "materialCost": "0.61",
+          "spoolPrice": "11.99",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "51.082",
+          "materialCost": "0.58",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "petg-matte",
+          "name": "Bambu Lab PETG Matte",
+          "weightGrams": "55.986",
+          "materialCost": "0.64",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
+        },
+        {
+          "materialId": "asa",
+          "name": "Bambu Lab ASA",
+          "weightGrams": "42.909",
+          "materialCost": "1.07",
           "spoolPrice": "24.99",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
@@ -1050,105 +1326,6 @@
           "name": "Bambu Lab ASA",
           "weightGrams": "251.599",
           "materialCost": "6.29",
-          "spoolPrice": "24.99",
-          "spoolWeightGrams": "1000",
-          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
-          "observedAt": "2026-10-08T18:06:00Z",
-          "priceBasis": "single-spool",
-          "minimumBulkRolls": null,
-          "bulkSourceUrl": null
-        }
-      ]
-    },
-    {
-      "partId": "top-pulley-keeper",
-      "required": "4",
-      "basis": "solid-volume-estimate",
-      "materialId": "petg",
-      "materialName": "PETG Basic",
-      "materialUsages": [
-        {
-          "materialId": "petg",
-          "name": "Bambu Lab PETG Basic",
-          "weightGrams": "73.507",
-          "materialCost": "0.84",
-          "spoolPrice": "11.39",
-          "spoolWeightGrams": "1000",
-          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
-          "observedAt": "2026-10-08T19:56:19Z",
-          "priceBasis": "bulk-spool",
-          "minimumBulkRolls": 10,
-          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
-          "color": "black"
-        }
-      ],
-      "components": [
-        {
-          "materialId": "petg",
-          "name": "Bambu Lab PETG Basic",
-          "weightGrams": "73.507",
-          "materialCost": "0.8372",
-          "spoolPrice": "11.39",
-          "spoolWeightGrams": "1000",
-          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
-          "observedAt": "2026-10-08T19:56:19Z",
-          "priceBasis": "bulk-spool",
-          "minimumBulkRolls": 10,
-          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
-          "modelId": "top-pulley-keeper",
-          "quantity": "4",
-          "color": "black"
-        }
-      ],
-      "weightGrams": "73.507",
-      "materialCost": "0.84",
-      "currency": "EUR",
-      "note": "One line keeper per corner pulley. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
-      "alternatives": [
-        {
-          "materialId": "pla",
-          "name": "Bambu Lab PLA Basic",
-          "weightGrams": "72.919",
-          "materialCost": "0.87",
-          "spoolPrice": "11.99",
-          "spoolWeightGrams": "1000",
-          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
-          "observedAt": "2026-10-08T19:56:19Z",
-          "priceBasis": "bulk-spool",
-          "minimumBulkRolls": 10,
-          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
-        },
-        {
-          "materialId": "petg",
-          "name": "Bambu Lab PETG Basic",
-          "weightGrams": "73.507",
-          "materialCost": "0.84",
-          "spoolPrice": "11.39",
-          "spoolWeightGrams": "1000",
-          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
-          "observedAt": "2026-10-08T19:56:19Z",
-          "priceBasis": "bulk-spool",
-          "minimumBulkRolls": 10,
-          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
-        },
-        {
-          "materialId": "petg-matte",
-          "name": "Bambu Lab PETG Matte",
-          "weightGrams": "80.564",
-          "materialCost": "0.92",
-          "spoolPrice": "11.39",
-          "spoolWeightGrams": "1000",
-          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte",
-          "observedAt": "2026-10-08T19:56:19Z",
-          "priceBasis": "bulk-spool",
-          "minimumBulkRolls": 10,
-          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
-        },
-        {
-          "materialId": "asa",
-          "name": "Bambu Lab ASA",
-          "weightGrams": "61.746",
-          "materialCost": "1.54",
           "spoolPrice": "24.99",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
@@ -2397,105 +2574,6 @@
       ]
     },
     {
-      "partId": "corner-head-marking-template",
-      "required": "1",
-      "basis": "solid-volume-estimate",
-      "materialId": "asa",
-      "materialName": "ASA",
-      "materialUsages": [
-        {
-          "materialId": "asa",
-          "name": "Bambu Lab ASA",
-          "weightGrams": "41.135",
-          "materialCost": "1.03",
-          "spoolPrice": "24.99",
-          "spoolWeightGrams": "1000",
-          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
-          "observedAt": "2026-10-08T18:06:00Z",
-          "priceBasis": "single-spool",
-          "minimumBulkRolls": null,
-          "bulkSourceUrl": null,
-          "color": "black"
-        }
-      ],
-      "components": [
-        {
-          "materialId": "asa",
-          "name": "Bambu Lab ASA",
-          "weightGrams": "41.135",
-          "materialCost": "1.028",
-          "spoolPrice": "24.99",
-          "spoolWeightGrams": "1000",
-          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
-          "observedAt": "2026-10-08T18:06:00Z",
-          "priceBasis": "single-spool",
-          "minimumBulkRolls": null,
-          "bulkSourceUrl": null,
-          "modelId": "corner-head-marking-template",
-          "quantity": "1",
-          "color": "black"
-        }
-      ],
-      "weightGrams": "41.135",
-      "materialCost": "1.03",
-      "currency": "EUR",
-      "note": "Optional concept set; excluded from the purchasing baseline. ASA is a costing assumption using the recorded single-spool rate, not a qualified structural material or chosen print process. Fully dense CAD consumption only; physical fit, load, creep and manufacturing labour remain unresolved. Historical metal-head shields, printed carriers and stand adapters are separate alternatives. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
-      "alternatives": [
-        {
-          "materialId": "pla",
-          "name": "Bambu Lab PLA Basic",
-          "weightGrams": "48.579",
-          "materialCost": "0.58",
-          "spoolPrice": "11.99",
-          "spoolWeightGrams": "1000",
-          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
-          "observedAt": "2026-10-08T19:56:19Z",
-          "priceBasis": "bulk-spool",
-          "minimumBulkRolls": 10,
-          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
-        },
-        {
-          "materialId": "petg",
-          "name": "Bambu Lab PETG Basic",
-          "weightGrams": "48.971",
-          "materialCost": "0.56",
-          "spoolPrice": "11.39",
-          "spoolWeightGrams": "1000",
-          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
-          "observedAt": "2026-10-08T19:56:19Z",
-          "priceBasis": "bulk-spool",
-          "minimumBulkRolls": 10,
-          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
-        },
-        {
-          "materialId": "petg-matte",
-          "name": "Bambu Lab PETG Matte",
-          "weightGrams": "53.672",
-          "materialCost": "0.61",
-          "spoolPrice": "11.39",
-          "spoolWeightGrams": "1000",
-          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte",
-          "observedAt": "2026-10-08T19:56:19Z",
-          "priceBasis": "bulk-spool",
-          "minimumBulkRolls": 10,
-          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
-        },
-        {
-          "materialId": "asa",
-          "name": "Bambu Lab ASA",
-          "weightGrams": "41.135",
-          "materialCost": "1.03",
-          "spoolPrice": "24.99",
-          "spoolWeightGrams": "1000",
-          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
-          "observedAt": "2026-10-08T18:06:00Z",
-          "priceBasis": "single-spool",
-          "minimumBulkRolls": null,
-          "bulkSourceUrl": null
-        }
-      ]
-    },
-    {
       "partId": "corner-head-printed-kit",
       "required": "1",
       "basis": "solid-volume-estimate",
@@ -2616,7 +2694,7 @@
       "weightGrams": "1644.145",
       "materialCost": "37.01",
       "currency": "EUR",
-      "note": "Optional concept set; excluded from the purchasing baseline. ASA is a costing assumption using the recorded single-spool rate, not a qualified structural material or chosen print process. Fully dense CAD consumption only; physical fit, load, creep and manufacturing labour remain unresolved. Historical metal-head shields, printed carriers and stand adapters are separate alternatives. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "note": "Selected printed-head development configuration in the current BOM. ASA is a costing assumption using the recorded single-spool rate, not a qualified structural material or print process. Fully dense CAD consumption only; physical fit, load, creep and manufacturing labour remain unresolved. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
       "alternatives": [
         {
           "materialId": "pla",
@@ -2715,7 +2793,7 @@
       "weightGrams": "42.909",
       "materialCost": "1.07",
       "currency": "EUR",
-      "note": "Optional concept set; excluded from the purchasing baseline. ASA is a costing assumption using the recorded single-spool rate, not a qualified structural material or chosen print process. Fully dense CAD consumption only; physical fit, load, creep and manufacturing labour remain unresolved. Historical metal-head shields, printed carriers and stand adapters are separate alternatives. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
+      "note": "Selected printed-head development configuration in the current BOM. ASA is a costing assumption using the recorded single-spool rate, not a qualified structural material or print process. Fully dense CAD consumption only; physical fit, load, creep and manufacturing labour remain unresolved. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
       "alternatives": [
         {
           "materialId": "pla",
@@ -2761,137 +2839,6 @@
           "name": "Bambu Lab ASA",
           "weightGrams": "42.909",
           "materialCost": "1.07",
-          "spoolPrice": "24.99",
-          "spoolWeightGrams": "1000",
-          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
-          "observedAt": "2026-10-08T18:06:00Z",
-          "priceBasis": "single-spool",
-          "minimumBulkRolls": null,
-          "bulkSourceUrl": null
-        }
-      ]
-    },
-    {
-      "partId": "corner-head-weather-kit",
-      "required": "1",
-      "basis": "solid-volume-estimate",
-      "materialId": "petg-matte",
-      "materialName": "PETG Matte",
-      "materialUsages": [
-        {
-          "materialId": "petg-matte",
-          "name": "Bambu Lab PETG Matte",
-          "weightGrams": "401.591",
-          "materialCost": "4.57",
-          "spoolPrice": "11.39",
-          "spoolWeightGrams": "1000",
-          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte?id=775952393450868758",
-          "observedAt": "2026-10-08T19:56:19Z",
-          "priceBasis": "bulk-spool",
-          "minimumBulkRolls": 10,
-          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
-          "color": "white"
-        }
-      ],
-      "components": [
-        {
-          "materialId": "petg-matte",
-          "name": "Bambu Lab PETG Matte",
-          "weightGrams": "115.963",
-          "materialCost": "1.3208",
-          "spoolPrice": "11.39",
-          "spoolWeightGrams": "1000",
-          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte?id=775952393450868758",
-          "observedAt": "2026-10-08T19:56:19Z",
-          "priceBasis": "bulk-spool",
-          "minimumBulkRolls": 10,
-          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
-          "modelId": "corner-head-hood",
-          "quantity": "1",
-          "color": "white"
-        },
-        {
-          "materialId": "petg-matte",
-          "name": "Bambu Lab PETG Matte",
-          "weightGrams": "85.978",
-          "materialCost": "0.9793",
-          "spoolPrice": "11.39",
-          "spoolWeightGrams": "1000",
-          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte?id=775952393450868758",
-          "observedAt": "2026-10-08T19:56:19Z",
-          "priceBasis": "bulk-spool",
-          "minimumBulkRolls": 10,
-          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
-          "modelId": "corner-head-roof",
-          "quantity": "1",
-          "color": "white"
-        },
-        {
-          "materialId": "petg-matte",
-          "name": "Bambu Lab PETG Matte",
-          "weightGrams": "199.649",
-          "materialCost": "2.274",
-          "spoolPrice": "11.39",
-          "spoolWeightGrams": "1000",
-          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte?id=775952393450868758",
-          "observedAt": "2026-10-08T19:56:19Z",
-          "priceBasis": "bulk-spool",
-          "minimumBulkRolls": 10,
-          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
-          "modelId": "corner-head-rear-cover",
-          "quantity": "1",
-          "color": "white"
-        }
-      ],
-      "weightGrams": "401.591",
-      "materialCost": "4.57",
-      "currency": "EUR",
-      "note": "Optional historical metal-head shield set; excluded from the purchasing baseline. PETG Matte White is the material consumption costing assumption using the recorded bulk rate, not a qualified weather material or chosen print process. Fully dense CAD consumption only; physical fit, weather performance and manufacturing labour remain unresolved. Printed carriers and stand adapters are separate alternatives. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
-      "alternatives": [
-        {
-          "materialId": "pla",
-          "name": "Bambu Lab PLA Basic",
-          "weightGrams": "363.484",
-          "materialCost": "4.36",
-          "spoolPrice": "11.99",
-          "spoolWeightGrams": "1000",
-          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
-          "observedAt": "2026-10-08T19:56:19Z",
-          "priceBasis": "bulk-spool",
-          "minimumBulkRolls": 10,
-          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
-        },
-        {
-          "materialId": "petg",
-          "name": "Bambu Lab PETG Basic",
-          "weightGrams": "366.415",
-          "materialCost": "4.17",
-          "spoolPrice": "11.39",
-          "spoolWeightGrams": "1000",
-          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
-          "observedAt": "2026-10-08T19:56:19Z",
-          "priceBasis": "bulk-spool",
-          "minimumBulkRolls": 10,
-          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
-        },
-        {
-          "materialId": "petg-matte",
-          "name": "Bambu Lab PETG Matte",
-          "weightGrams": "401.591",
-          "materialCost": "4.57",
-          "spoolPrice": "11.39",
-          "spoolWeightGrams": "1000",
-          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte",
-          "observedAt": "2026-10-08T19:56:19Z",
-          "priceBasis": "bulk-spool",
-          "minimumBulkRolls": 10,
-          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
-        },
-        {
-          "materialId": "asa",
-          "name": "Bambu Lab ASA",
-          "weightGrams": "307.789",
-          "materialCost": "7.69",
           "spoolPrice": "24.99",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
@@ -3644,121 +3591,6 @@
           "name": "Bambu Lab ASA",
           "weightGrams": "251.599",
           "materialCost": "6.29",
-          "spoolPrice": "24.99",
-          "spoolWeightGrams": "1000",
-          "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
-          "observedAt": "2026-10-08T18:06:00Z",
-          "priceBasis": "single-spool",
-          "minimumBulkRolls": null,
-          "bulkSourceUrl": null
-        }
-      ]
-    },
-    {
-      "partId": "pole-pulley-mount-concept",
-      "required": "1",
-      "basis": "solid-volume-estimate",
-      "materialId": "petg",
-      "materialName": "PETG Basic",
-      "materialUsages": [
-        {
-          "materialId": "petg",
-          "name": "Bambu Lab PETG Basic",
-          "weightGrams": "756.338",
-          "materialCost": "8.61",
-          "spoolPrice": "11.39",
-          "spoolWeightGrams": "1000",
-          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
-          "observedAt": "2026-10-08T19:56:19Z",
-          "priceBasis": "bulk-spool",
-          "minimumBulkRolls": 10,
-          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
-          "color": "black"
-        }
-      ],
-      "components": [
-        {
-          "materialId": "petg",
-          "name": "Bambu Lab PETG Basic",
-          "weightGrams": "425.946",
-          "materialCost": "4.8515",
-          "spoolPrice": "11.39",
-          "spoolWeightGrams": "1000",
-          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
-          "observedAt": "2026-10-08T19:56:19Z",
-          "priceBasis": "bulk-spool",
-          "minimumBulkRolls": 10,
-          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
-          "modelId": "pole-pulley-mount-front",
-          "quantity": "1",
-          "color": "black"
-        },
-        {
-          "materialId": "petg",
-          "name": "Bambu Lab PETG Basic",
-          "weightGrams": "330.392",
-          "materialCost": "3.7632",
-          "spoolPrice": "11.39",
-          "spoolWeightGrams": "1000",
-          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
-          "observedAt": "2026-10-08T19:56:19Z",
-          "priceBasis": "bulk-spool",
-          "minimumBulkRolls": 10,
-          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
-          "modelId": "pole-pulley-mount-rear",
-          "quantity": "1",
-          "color": "black"
-        }
-      ],
-      "weightGrams": "756.338",
-      "materialCost": "8.61",
-      "currency": "EUR",
-      "note": "Deferred concept clamp pair; excluded from the base build. Pricing does not qualify its load-bearing use. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
-      "alternatives": [
-        {
-          "materialId": "pla",
-          "name": "Bambu Lab PLA Basic",
-          "weightGrams": "750.288",
-          "materialCost": "9",
-          "spoolPrice": "11.99",
-          "spoolWeightGrams": "1000",
-          "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
-          "observedAt": "2026-10-08T19:56:19Z",
-          "priceBasis": "bulk-spool",
-          "minimumBulkRolls": 10,
-          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
-        },
-        {
-          "materialId": "petg",
-          "name": "Bambu Lab PETG Basic",
-          "weightGrams": "756.338",
-          "materialCost": "8.61",
-          "spoolPrice": "11.39",
-          "spoolWeightGrams": "1000",
-          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
-          "observedAt": "2026-10-08T19:56:19Z",
-          "priceBasis": "bulk-spool",
-          "minimumBulkRolls": 10,
-          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
-        },
-        {
-          "materialId": "petg-matte",
-          "name": "Bambu Lab PETG Matte",
-          "weightGrams": "828.947",
-          "materialCost": "9.44",
-          "spoolPrice": "11.39",
-          "spoolWeightGrams": "1000",
-          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte",
-          "observedAt": "2026-10-08T19:56:19Z",
-          "priceBasis": "bulk-spool",
-          "minimumBulkRolls": 10,
-          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale"
-        },
-        {
-          "materialId": "asa",
-          "name": "Bambu Lab ASA",
-          "weightGrams": "635.324",
-          "materialCost": "15.88",
           "spoolPrice": "24.99",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
@@ -4957,7 +4789,7 @@
     },
     {
       "assemblyId": "corner-support-set",
-      "amount": "0.84"
+      "amount": "149.11"
     },
     {
       "assemblyId": "dock",
@@ -4979,7 +4811,7 @@
     },
     {
       "assemblyId": "corner-support-set",
-      "amount": "186.81"
+      "amount": "205.91"
     },
     {
       "assemblyId": "dock",
@@ -5180,6 +5012,48 @@
         }
       ],
       "selectedOfferId": "aliexpress-controller-buck-converter-48v-5v"
+    },
+    {
+      "partId": "corner-head-printed-hardware",
+      "required": "4",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "corner-support-set",
+          "kind": "physical",
+          "quantity": "4",
+          "knownGoodsAmount": null
+        }
+      ],
+      "selectedOfferId": null
+    },
+    {
+      "partId": "corner-head-printed-kit",
+      "required": "4",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "corner-support-set",
+          "kind": "physical",
+          "quantity": "4",
+          "knownGoodsAmount": null
+        }
+      ],
+      "selectedOfferId": null
+    },
+    {
+      "partId": "corner-head-printed-marking-template",
+      "required": "1",
+      "unit": "each",
+      "assemblies": [
+        {
+          "assemblyId": "corner-support-set",
+          "kind": "physical",
+          "quantity": "1",
+          "knownGoodsAmount": null
+        }
+      ],
+      "selectedOfferId": null
     },
     {
       "partId": "corner-post-treated-timber",
@@ -5574,76 +5448,6 @@
       "selectedOfferId": "stepperonline-4-axis-v2-kit"
     },
     {
-      "partId": "pulley-bracket-backing-plate",
-      "required": "8",
-      "unit": "each",
-      "assemblies": [
-        {
-          "assemblyId": "corner-support-set",
-          "kind": "physical",
-          "quantity": "8",
-          "knownGoodsAmount": "28.4"
-        }
-      ],
-      "selectedOfferId": "bauhaus-pulley-bracket-backing-plate"
-    },
-    {
-      "partId": "pulley-bracket-locknut-m12",
-      "required": "8",
-      "unit": "each",
-      "assemblies": [
-        {
-          "assemblyId": "corner-support-set",
-          "kind": "physical",
-          "quantity": "8",
-          "knownGoodsAmount": "9"
-        }
-      ],
-      "selectedOfferId": "bauhaus-pulley-bracket-locknut-m12"
-    },
-    {
-      "partId": "pulley-bracket-shackle-m8",
-      "required": "4",
-      "unit": "each",
-      "assemblies": [
-        {
-          "assemblyId": "corner-support-set",
-          "kind": "physical",
-          "quantity": "4",
-          "knownGoodsAmount": "14.28"
-        }
-      ],
-      "selectedOfferId": "bauhaus-pulley-bracket-shackle-m8"
-    },
-    {
-      "partId": "pulley-bracket-through-bolt-m12x160",
-      "required": "8",
-      "unit": "each",
-      "assemblies": [
-        {
-          "assemblyId": "corner-support-set",
-          "kind": "physical",
-          "quantity": "8",
-          "knownGoodsAmount": "33.2"
-        }
-      ],
-      "selectedOfferId": "bauhaus-pulley-bracket-through-bolt-m12x160"
-    },
-    {
-      "partId": "pulley-bracket-washer-m12",
-      "required": "16",
-      "unit": "each",
-      "assemblies": [
-        {
-          "assemblyId": "corner-support-set",
-          "kind": "physical",
-          "quantity": "16",
-          "knownGoodsAmount": "16"
-        }
-      ],
-      "selectedOfferId": "bauhaus-pulley-bracket-washer-m12"
-    },
-    {
       "partId": "raspberry-pi-3a-plus",
       "required": "1",
       "unit": "each",
@@ -5746,34 +5550,6 @@
         }
       ],
       "selectedOfferId": "wasi-barton-30mm"
-    },
-    {
-      "partId": "top-pulley-bracket",
-      "required": "4",
-      "unit": "each",
-      "assemblies": [
-        {
-          "assemblyId": "corner-support-set",
-          "kind": "physical",
-          "quantity": "4",
-          "knownGoodsAmount": "16.6"
-        }
-      ],
-      "selectedOfferId": "bauhaus-top-pulley-bracket"
-    },
-    {
-      "partId": "top-pulley-keeper",
-      "required": "4",
-      "unit": "each",
-      "assemblies": [
-        {
-          "assemblyId": "corner-support-set",
-          "kind": "physical",
-          "quantity": "4",
-          "knownGoodsAmount": null
-        }
-      ],
-      "selectedOfferId": "in-house-fabrication-top-pulley-keeper"
     },
     {
       "partId": "winch-drum",
@@ -5900,20 +5676,6 @@
         }
       ],
       "selectedOfferId": "bauhaus-wire-rope-thimble-3mm"
-    },
-    {
-      "partId": "zinc-spray",
-      "required": "1",
-      "unit": "each",
-      "assemblies": [
-        {
-          "assemblyId": "corner-support-set",
-          "kind": "physical",
-          "quantity": "1",
-          "knownGoodsAmount": "11.69"
-        }
-      ],
-      "selectedOfferId": "bauhaus-zinc-spray"
     }
   ],
   "selections": [
@@ -6440,162 +6202,6 @@
       ]
     },
     {
-      "offerId": "bauhaus-pulley-bracket-backing-plate",
-      "supplierId": "bauhaus",
-      "checkoutGroupId": "bauhaus-hr",
-      "qualification": "baseline-selected",
-      "purchaseUnits": "8",
-      "knownGoodsAmount": "28.4",
-      "currency": "EUR",
-      "goodsAllocationBasis": "single-part",
-      "coverage": [
-        {
-          "partId": "pulley-bracket-backing-plate",
-          "required": "8",
-          "purchased": "8",
-          "surplus": "0",
-          "unit": "each",
-          "knownGoodsAmount": "28.4"
-        }
-      ],
-      "warnings": [
-        "Availability is unknown.",
-        "Price and availability observation date is unknown; quote capture time is not verification time.",
-        "Qualification is baseline-selected; the recorded selection is not engineering approval.",
-        "Tax/VAT treatment is unknown."
-      ]
-    },
-    {
-      "offerId": "bauhaus-pulley-bracket-locknut-m12",
-      "supplierId": "bauhaus",
-      "checkoutGroupId": "bauhaus-hr",
-      "qualification": "baseline-selected",
-      "purchaseUnits": "1",
-      "knownGoodsAmount": "9",
-      "currency": "EUR",
-      "goodsAllocationBasis": "single-part",
-      "coverage": [
-        {
-          "partId": "pulley-bracket-locknut-m12",
-          "required": "8",
-          "purchased": "50",
-          "surplus": "42",
-          "unit": "each",
-          "knownGoodsAmount": "9"
-        }
-      ],
-      "warnings": [
-        "Availability is unknown.",
-        "Price and availability observation date is unknown; quote capture time is not verification time.",
-        "Qualification is baseline-selected; the recorded selection is not engineering approval.",
-        "Tax/VAT treatment is unknown."
-      ]
-    },
-    {
-      "offerId": "bauhaus-pulley-bracket-shackle-m8",
-      "supplierId": "bauhaus",
-      "checkoutGroupId": "bauhaus-hr",
-      "qualification": "baseline-selected",
-      "purchaseUnits": "4",
-      "knownGoodsAmount": "14.28",
-      "currency": "EUR",
-      "goodsAllocationBasis": "single-part",
-      "coverage": [
-        {
-          "partId": "pulley-bracket-shackle-m8",
-          "required": "4",
-          "purchased": "4",
-          "surplus": "0",
-          "unit": "each",
-          "knownGoodsAmount": "14.28"
-        }
-      ],
-      "warnings": [
-        "Availability is unknown.",
-        "Price and availability observation date is unknown; quote capture time is not verification time.",
-        "Qualification is baseline-selected; the recorded selection is not engineering approval.",
-        "Tax/VAT treatment is unknown."
-      ]
-    },
-    {
-      "offerId": "bauhaus-pulley-bracket-through-bolt-m12x160",
-      "supplierId": "bauhaus",
-      "checkoutGroupId": "bauhaus-hr",
-      "qualification": "baseline-selected",
-      "purchaseUnits": "1",
-      "knownGoodsAmount": "33.2",
-      "currency": "EUR",
-      "goodsAllocationBasis": "single-part",
-      "coverage": [
-        {
-          "partId": "pulley-bracket-through-bolt-m12x160",
-          "required": "8",
-          "purchased": "40",
-          "surplus": "32",
-          "unit": "each",
-          "knownGoodsAmount": "33.2"
-        }
-      ],
-      "warnings": [
-        "Availability is unknown.",
-        "Price and availability observation date is unknown; quote capture time is not verification time.",
-        "Qualification is baseline-selected; the recorded selection is not engineering approval.",
-        "Tax/VAT treatment is unknown."
-      ]
-    },
-    {
-      "offerId": "bauhaus-pulley-bracket-washer-m12",
-      "supplierId": "bauhaus",
-      "checkoutGroupId": "bauhaus-hr",
-      "qualification": "baseline-selected",
-      "purchaseUnits": "1",
-      "knownGoodsAmount": "16",
-      "currency": "EUR",
-      "goodsAllocationBasis": "single-part",
-      "coverage": [
-        {
-          "partId": "pulley-bracket-washer-m12",
-          "required": "16",
-          "purchased": "100",
-          "surplus": "84",
-          "unit": "each",
-          "knownGoodsAmount": "16"
-        }
-      ],
-      "warnings": [
-        "Availability is unknown.",
-        "Price and availability observation date is unknown; quote capture time is not verification time.",
-        "Qualification is baseline-selected; the recorded selection is not engineering approval.",
-        "Tax/VAT treatment is unknown."
-      ]
-    },
-    {
-      "offerId": "bauhaus-top-pulley-bracket",
-      "supplierId": "bauhaus",
-      "checkoutGroupId": "bauhaus-hr",
-      "qualification": "baseline-selected",
-      "purchaseUnits": "4",
-      "knownGoodsAmount": "16.6",
-      "currency": "EUR",
-      "goodsAllocationBasis": "single-part",
-      "coverage": [
-        {
-          "partId": "top-pulley-bracket",
-          "required": "4",
-          "purchased": "4",
-          "surplus": "0",
-          "unit": "each",
-          "knownGoodsAmount": "16.6"
-        }
-      ],
-      "warnings": [
-        "Availability is unknown.",
-        "Price and availability observation date is unknown; quote capture time is not verification time.",
-        "Qualification is baseline-selected; the recorded selection is not engineering approval.",
-        "Tax/VAT treatment is unknown."
-      ]
-    },
-    {
       "offerId": "bauhaus-winch-drum-shaft-8mm",
       "supplierId": "bauhaus",
       "checkoutGroupId": "bauhaus-hr",
@@ -6671,32 +6277,6 @@
         "Package size/MOQ is unknown.",
         "Price and availability observation date is unknown; quote capture time is not verification time.",
         "Qualification is baseline-selected; the recorded selection is not engineering approval."
-      ]
-    },
-    {
-      "offerId": "bauhaus-zinc-spray",
-      "supplierId": "bauhaus",
-      "checkoutGroupId": "bauhaus-hr",
-      "qualification": "baseline-selected",
-      "purchaseUnits": "1",
-      "knownGoodsAmount": "11.69",
-      "currency": "EUR",
-      "goodsAllocationBasis": "single-part",
-      "coverage": [
-        {
-          "partId": "zinc-spray",
-          "required": "1",
-          "purchased": "1",
-          "surplus": "0",
-          "unit": "each",
-          "knownGoodsAmount": "11.69"
-        }
-      ],
-      "warnings": [
-        "Availability is unknown.",
-        "Price and availability observation date is unknown; quote capture time is not verification time.",
-        "Qualification is baseline-selected; the recorded selection is not engineering approval.",
-        "Tax/VAT treatment is unknown."
       ]
     },
     {
@@ -6873,31 +6453,6 @@
           "partId": "dock-weather-hood",
           "required": "1",
           "purchased": "1",
-          "surplus": "0",
-          "unit": "each",
-          "knownGoodsAmount": null
-        }
-      ],
-      "warnings": [
-        "Price and availability observation date is unknown; quote capture time is not verification time.",
-        "Price is unknown.",
-        "Qualification is baseline-selected; the recorded selection is not engineering approval."
-      ]
-    },
-    {
-      "offerId": "in-house-fabrication-top-pulley-keeper",
-      "supplierId": "in-house-fabrication",
-      "checkoutGroupId": "in-house-fabrication-hr",
-      "qualification": "baseline-selected",
-      "purchaseUnits": "4",
-      "knownGoodsAmount": null,
-      "currency": null,
-      "goodsAllocationBasis": null,
-      "coverage": [
-        {
-          "partId": "top-pulley-keeper",
-          "required": "4",
-          "purchased": "4",
           "surplus": "0",
           "unit": "each",
           "knownGoodsAmount": null
@@ -7483,7 +7038,7 @@
     },
     {
       "assemblyId": "corner-support-set",
-      "amount": "185.97"
+      "amount": "56.8"
     },
     {
       "assemblyId": "dock",
@@ -7506,6 +7061,9 @@
     "Required part cabinet-protection-kit has no pinned offer.",
     "Required part camera-pod-fastener-kit has no pinned offer.",
     "Required part camera-pod-wiring-kit has no pinned offer.",
+    "Required part corner-head-printed-hardware has no pinned offer.",
+    "Required part corner-head-printed-kit has no pinned offer.",
+    "Required part corner-head-printed-marking-template has no pinned offer.",
     "Required part dock-bench-hardware has no pinned offer.",
     "Required part dock-support-arm has no pinned offer.",
     "Required part extension-spring-assortment has no pinned offer.",
@@ -7598,30 +7156,6 @@
     "bauhaus-post-electronics-enclosure: Package size/MOQ is unknown.",
     "bauhaus-post-electronics-enclosure: Price and availability observation date is unknown; quote capture time is not verification time.",
     "bauhaus-post-electronics-enclosure: Qualification is baseline-selected; the recorded selection is not engineering approval.",
-    "bauhaus-pulley-bracket-backing-plate: Availability is unknown.",
-    "bauhaus-pulley-bracket-backing-plate: Price and availability observation date is unknown; quote capture time is not verification time.",
-    "bauhaus-pulley-bracket-backing-plate: Qualification is baseline-selected; the recorded selection is not engineering approval.",
-    "bauhaus-pulley-bracket-backing-plate: Tax/VAT treatment is unknown.",
-    "bauhaus-pulley-bracket-locknut-m12: Availability is unknown.",
-    "bauhaus-pulley-bracket-locknut-m12: Price and availability observation date is unknown; quote capture time is not verification time.",
-    "bauhaus-pulley-bracket-locknut-m12: Qualification is baseline-selected; the recorded selection is not engineering approval.",
-    "bauhaus-pulley-bracket-locknut-m12: Tax/VAT treatment is unknown.",
-    "bauhaus-pulley-bracket-shackle-m8: Availability is unknown.",
-    "bauhaus-pulley-bracket-shackle-m8: Price and availability observation date is unknown; quote capture time is not verification time.",
-    "bauhaus-pulley-bracket-shackle-m8: Qualification is baseline-selected; the recorded selection is not engineering approval.",
-    "bauhaus-pulley-bracket-shackle-m8: Tax/VAT treatment is unknown.",
-    "bauhaus-pulley-bracket-through-bolt-m12x160: Availability is unknown.",
-    "bauhaus-pulley-bracket-through-bolt-m12x160: Price and availability observation date is unknown; quote capture time is not verification time.",
-    "bauhaus-pulley-bracket-through-bolt-m12x160: Qualification is baseline-selected; the recorded selection is not engineering approval.",
-    "bauhaus-pulley-bracket-through-bolt-m12x160: Tax/VAT treatment is unknown.",
-    "bauhaus-pulley-bracket-washer-m12: Availability is unknown.",
-    "bauhaus-pulley-bracket-washer-m12: Price and availability observation date is unknown; quote capture time is not verification time.",
-    "bauhaus-pulley-bracket-washer-m12: Qualification is baseline-selected; the recorded selection is not engineering approval.",
-    "bauhaus-pulley-bracket-washer-m12: Tax/VAT treatment is unknown.",
-    "bauhaus-top-pulley-bracket: Availability is unknown.",
-    "bauhaus-top-pulley-bracket: Price and availability observation date is unknown; quote capture time is not verification time.",
-    "bauhaus-top-pulley-bracket: Qualification is baseline-selected; the recorded selection is not engineering approval.",
-    "bauhaus-top-pulley-bracket: Tax/VAT treatment is unknown.",
     "bauhaus-winch-drum-shaft-8mm: Availability is unknown.",
     "bauhaus-winch-drum-shaft-8mm: Qualification is baseline-selected; the recorded selection is not engineering approval.",
     "bauhaus-wire-rope-clamp-3mm: A quoted price cannot be extended without package data.",
@@ -7634,10 +7168,6 @@
     "bauhaus-wire-rope-thimble-3mm: Package size/MOQ is unknown.",
     "bauhaus-wire-rope-thimble-3mm: Price and availability observation date is unknown; quote capture time is not verification time.",
     "bauhaus-wire-rope-thimble-3mm: Qualification is baseline-selected; the recorded selection is not engineering approval.",
-    "bauhaus-zinc-spray: Availability is unknown.",
-    "bauhaus-zinc-spray: Price and availability observation date is unknown; quote capture time is not verification time.",
-    "bauhaus-zinc-spray: Qualification is baseline-selected; the recorded selection is not engineering approval.",
-    "bauhaus-zinc-spray: Tax/VAT treatment is unknown.",
     "bulk-capacitor-1000uf: A cable tie currently retains the pod capacitor. Replace it with a dedicated insulated removable holder; cable ties are temporary bench workarounds only, never final retention.",
     "cabinet-installation-kit: This part is planned; confirm its specification and selection with committed evidence.",
     "cabinet-protection-kit: This part is planned; confirm its specification and selection with committed evidence.",
@@ -7649,6 +7179,13 @@
     "camera-pod-fastener-kit: This part is planned; confirm its specification and selection with committed evidence.",
     "camera-pod-wiring-kit: The capacitor tie and harness retention are shown without a complete procurement specification or quantity. Record the missing hardware data and replace those ties with dedicated mounts and strain relief; cable ties are temporary bench workarounds only.",
     "camera-pod-wiring-kit: This part is planned; confirm its specification and selection with committed evidence.",
+    "corner-head-printed-hardware: This part is planned; confirm its specification and selection with committed evidence.",
+    "corner-head-printed-kit: Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.",
+    "corner-head-printed-kit: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.",
+    "corner-head-printed-kit: This part is planned; confirm its specification and selection with committed evidence.",
+    "corner-head-printed-marking-template: Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.",
+    "corner-head-printed-marking-template: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.",
+    "corner-head-printed-marking-template: This part is planned; confirm its specification and selection with committed evidence.",
     "cotra-zagreb-corner-post-treated-timber: Availability is unknown.",
     "cotra-zagreb-corner-post-treated-timber: Package size/MOQ is unknown.",
     "cotra-zagreb-corner-post-treated-timber: Price and availability observation date is unknown; quote capture time is not verification time.",
@@ -7687,9 +7224,6 @@
     "in-house-fabrication-dock-weather-hood: Price is unknown.",
     "in-house-fabrication-dock-weather-hood: Qualification is baseline-selected; the recorded selection is not engineering approval.",
     "in-house-fabrication-hr: Shipping observation date is unknown; quote capture time is not verification time.",
-    "in-house-fabrication-top-pulley-keeper: Price and availability observation date is unknown; quote capture time is not verification time.",
-    "in-house-fabrication-top-pulley-keeper: Price is unknown.",
-    "in-house-fabrication-top-pulley-keeper: Qualification is baseline-selected; the recorded selection is not engineering approval.",
     "in-house-fabrication-winch-drum: Price and availability observation date is unknown; quote capture time is not verification time.",
     "in-house-fabrication-winch-drum: Price is unknown.",
     "in-house-fabrication-winch-drum: Qualification is baseline-selected; the recorded selection is not engineering approval.",
@@ -7746,8 +7280,6 @@
     "tme-raspberry-pi-pico-2-w: Price and availability observation date is unknown; quote capture time is not verification time.",
     "tme-raspberry-pi-pico-2-w: Qualification is baseline-selected; the recorded selection is not engineering approval.",
     "tme-raspberry-pi-pico-2-w: Tax/VAT treatment is unknown.",
-    "top-pulley-keeper: Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.",
-    "top-pulley-keeper: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.",
     "unresolved-winch-drum-joining-hardware: Destination quote row is missing.",
     "unresolved-winch-drum-joining-hardware: Package size/MOQ is unknown.",
     "unresolved-winch-drum-joining-hardware: Price is unknown.",
@@ -8033,72 +7565,6 @@
       ]
     },
     {
-      "message": "bauhaus-pulley-bracket-backing-plate: Qualification is baseline-selected; the recorded selection is not engineering approval.",
-      "severity": "warning",
-      "code": "unconfirmed-selection",
-      "partIds": [
-        "pulley-bracket-backing-plate"
-      ],
-      "assemblyIds": [
-        "corner-support-set"
-      ]
-    },
-    {
-      "message": "bauhaus-pulley-bracket-locknut-m12: Qualification is baseline-selected; the recorded selection is not engineering approval.",
-      "severity": "warning",
-      "code": "unconfirmed-selection",
-      "partIds": [
-        "pulley-bracket-locknut-m12"
-      ],
-      "assemblyIds": [
-        "corner-support-set"
-      ]
-    },
-    {
-      "message": "bauhaus-pulley-bracket-shackle-m8: Qualification is baseline-selected; the recorded selection is not engineering approval.",
-      "severity": "warning",
-      "code": "unconfirmed-selection",
-      "partIds": [
-        "pulley-bracket-shackle-m8"
-      ],
-      "assemblyIds": [
-        "corner-support-set"
-      ]
-    },
-    {
-      "message": "bauhaus-pulley-bracket-through-bolt-m12x160: Qualification is baseline-selected; the recorded selection is not engineering approval.",
-      "severity": "warning",
-      "code": "unconfirmed-selection",
-      "partIds": [
-        "pulley-bracket-through-bolt-m12x160"
-      ],
-      "assemblyIds": [
-        "corner-support-set"
-      ]
-    },
-    {
-      "message": "bauhaus-pulley-bracket-washer-m12: Qualification is baseline-selected; the recorded selection is not engineering approval.",
-      "severity": "warning",
-      "code": "unconfirmed-selection",
-      "partIds": [
-        "pulley-bracket-washer-m12"
-      ],
-      "assemblyIds": [
-        "corner-support-set"
-      ]
-    },
-    {
-      "message": "bauhaus-top-pulley-bracket: Qualification is baseline-selected; the recorded selection is not engineering approval.",
-      "severity": "warning",
-      "code": "unconfirmed-selection",
-      "partIds": [
-        "top-pulley-bracket"
-      ],
-      "assemblyIds": [
-        "corner-support-set"
-      ]
-    },
-    {
       "message": "bauhaus-winch-drum-shaft-8mm: Qualification is baseline-selected; the recorded selection is not engineering approval.",
       "severity": "warning",
       "code": "unconfirmed-selection",
@@ -8126,17 +7592,6 @@
       "code": "unconfirmed-selection",
       "partIds": [
         "wire-rope-thimble-3mm"
-      ],
-      "assemblyIds": [
-        "corner-support-set"
-      ]
-    },
-    {
-      "message": "bauhaus-zinc-spray: Qualification is baseline-selected; the recorded selection is not engineering approval.",
-      "severity": "warning",
-      "code": "unconfirmed-selection",
-      "partIds": [
-        "zinc-spray"
       ],
       "assemblyIds": [
         "corner-support-set"
@@ -8206,6 +7661,61 @@
       ],
       "assemblyIds": [
         "camera-pod"
+      ]
+    },
+    {
+      "message": "corner-head-printed-hardware: This part is planned; confirm its specification and selection with committed evidence.",
+      "severity": "warning",
+      "code": "unconfirmed-concept",
+      "partIds": [
+        "corner-head-printed-hardware"
+      ],
+      "assemblyIds": [
+        "corner-support-set"
+      ]
+    },
+    {
+      "message": "corner-head-printed-kit: Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.",
+      "severity": "warning",
+      "code": "unconfirmed-concept",
+      "partIds": [
+        "corner-head-printed-kit"
+      ],
+      "assemblyIds": [
+        "corner-support-set"
+      ]
+    },
+    {
+      "message": "corner-head-printed-kit: This part is planned; confirm its specification and selection with committed evidence.",
+      "severity": "warning",
+      "code": "unconfirmed-concept",
+      "partIds": [
+        "corner-head-printed-kit"
+      ],
+      "assemblyIds": [
+        "corner-support-set"
+      ]
+    },
+    {
+      "message": "corner-head-printed-marking-template: Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.",
+      "severity": "warning",
+      "code": "unconfirmed-concept",
+      "partIds": [
+        "corner-head-printed-marking-template"
+      ],
+      "assemblyIds": [
+        "corner-support-set"
+      ]
+    },
+    {
+      "message": "corner-head-printed-marking-template: This part is planned; confirm its specification and selection with committed evidence.",
+      "severity": "warning",
+      "code": "unconfirmed-concept",
+      "partIds": [
+        "corner-head-printed-marking-template"
+      ],
+      "assemblyIds": [
+        "corner-support-set"
       ]
     },
     {
@@ -8342,17 +7852,6 @@
       ]
     },
     {
-      "message": "in-house-fabrication-top-pulley-keeper: Qualification is baseline-selected; the recorded selection is not engineering approval.",
-      "severity": "warning",
-      "code": "unconfirmed-selection",
-      "partIds": [
-        "top-pulley-keeper"
-      ],
-      "assemblyIds": [
-        "corner-support-set"
-      ]
-    },
-    {
       "message": "in-house-fabrication-winch-drum: Qualification is baseline-selected; the recorded selection is not engineering approval.",
       "severity": "warning",
       "code": "unconfirmed-selection",
@@ -8475,17 +7974,6 @@
       ],
       "assemblyIds": [
         "control-cabinet"
-      ]
-    },
-    {
-      "message": "top-pulley-keeper: Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.",
-      "severity": "warning",
-      "code": "unconfirmed-concept",
-      "partIds": [
-        "top-pulley-keeper"
-      ],
-      "assemblyIds": [
-        "corner-support-set"
       ]
     },
     {
@@ -9259,18 +8747,11 @@
         "guy-wire-3mm",
         "motor-power-branch-cable",
         "post-electronics-enclosure",
-        "pulley-bracket-backing-plate",
-        "pulley-bracket-locknut-m12",
-        "pulley-bracket-shackle-m8",
-        "pulley-bracket-through-bolt-m12x160",
-        "pulley-bracket-washer-m12",
-        "top-pulley-bracket",
         "winch-drum-joining-hardware",
         "winch-drum-shaft-8mm",
         "winch-mount-hardware",
         "wire-rope-clamp-3mm",
-        "wire-rope-thimble-3mm",
-        "zinc-spray"
+        "wire-rope-thimble-3mm"
       ],
       "assemblyIds": [
         "control-cabinet",
@@ -9289,18 +8770,11 @@
         "guy-wire-3mm",
         "motor-power-branch-cable",
         "post-electronics-enclosure",
-        "pulley-bracket-backing-plate",
-        "pulley-bracket-locknut-m12",
-        "pulley-bracket-shackle-m8",
-        "pulley-bracket-through-bolt-m12x160",
-        "pulley-bracket-washer-m12",
-        "top-pulley-bracket",
         "winch-drum-joining-hardware",
         "winch-drum-shaft-8mm",
         "winch-mount-hardware",
         "wire-rope-clamp-3mm",
-        "wire-rope-thimble-3mm",
-        "zinc-spray"
+        "wire-rope-thimble-3mm"
       ],
       "assemblyIds": [
         "control-cabinet",
@@ -9384,204 +8858,6 @@
       ],
       "assemblyIds": [
         "winch-set"
-      ]
-    },
-    {
-      "message": "bauhaus-pulley-bracket-backing-plate: Availability is unknown.",
-      "severity": "issue",
-      "code": "procurement-information",
-      "partIds": [
-        "pulley-bracket-backing-plate"
-      ],
-      "assemblyIds": [
-        "corner-support-set"
-      ]
-    },
-    {
-      "message": "bauhaus-pulley-bracket-backing-plate: Price and availability observation date is unknown; quote capture time is not verification time.",
-      "severity": "issue",
-      "code": "procurement-information",
-      "partIds": [
-        "pulley-bracket-backing-plate"
-      ],
-      "assemblyIds": [
-        "corner-support-set"
-      ]
-    },
-    {
-      "message": "bauhaus-pulley-bracket-backing-plate: Tax/VAT treatment is unknown.",
-      "severity": "issue",
-      "code": "procurement-information",
-      "partIds": [
-        "pulley-bracket-backing-plate"
-      ],
-      "assemblyIds": [
-        "corner-support-set"
-      ]
-    },
-    {
-      "message": "bauhaus-pulley-bracket-locknut-m12: Availability is unknown.",
-      "severity": "issue",
-      "code": "procurement-information",
-      "partIds": [
-        "pulley-bracket-locknut-m12"
-      ],
-      "assemblyIds": [
-        "corner-support-set"
-      ]
-    },
-    {
-      "message": "bauhaus-pulley-bracket-locknut-m12: Price and availability observation date is unknown; quote capture time is not verification time.",
-      "severity": "issue",
-      "code": "procurement-information",
-      "partIds": [
-        "pulley-bracket-locknut-m12"
-      ],
-      "assemblyIds": [
-        "corner-support-set"
-      ]
-    },
-    {
-      "message": "bauhaus-pulley-bracket-locknut-m12: Tax/VAT treatment is unknown.",
-      "severity": "issue",
-      "code": "procurement-information",
-      "partIds": [
-        "pulley-bracket-locknut-m12"
-      ],
-      "assemblyIds": [
-        "corner-support-set"
-      ]
-    },
-    {
-      "message": "bauhaus-pulley-bracket-shackle-m8: Availability is unknown.",
-      "severity": "issue",
-      "code": "procurement-information",
-      "partIds": [
-        "pulley-bracket-shackle-m8"
-      ],
-      "assemblyIds": [
-        "corner-support-set"
-      ]
-    },
-    {
-      "message": "bauhaus-pulley-bracket-shackle-m8: Price and availability observation date is unknown; quote capture time is not verification time.",
-      "severity": "issue",
-      "code": "procurement-information",
-      "partIds": [
-        "pulley-bracket-shackle-m8"
-      ],
-      "assemblyIds": [
-        "corner-support-set"
-      ]
-    },
-    {
-      "message": "bauhaus-pulley-bracket-shackle-m8: Tax/VAT treatment is unknown.",
-      "severity": "issue",
-      "code": "procurement-information",
-      "partIds": [
-        "pulley-bracket-shackle-m8"
-      ],
-      "assemblyIds": [
-        "corner-support-set"
-      ]
-    },
-    {
-      "message": "bauhaus-pulley-bracket-through-bolt-m12x160: Availability is unknown.",
-      "severity": "issue",
-      "code": "procurement-information",
-      "partIds": [
-        "pulley-bracket-through-bolt-m12x160"
-      ],
-      "assemblyIds": [
-        "corner-support-set"
-      ]
-    },
-    {
-      "message": "bauhaus-pulley-bracket-through-bolt-m12x160: Price and availability observation date is unknown; quote capture time is not verification time.",
-      "severity": "issue",
-      "code": "procurement-information",
-      "partIds": [
-        "pulley-bracket-through-bolt-m12x160"
-      ],
-      "assemblyIds": [
-        "corner-support-set"
-      ]
-    },
-    {
-      "message": "bauhaus-pulley-bracket-through-bolt-m12x160: Tax/VAT treatment is unknown.",
-      "severity": "issue",
-      "code": "procurement-information",
-      "partIds": [
-        "pulley-bracket-through-bolt-m12x160"
-      ],
-      "assemblyIds": [
-        "corner-support-set"
-      ]
-    },
-    {
-      "message": "bauhaus-pulley-bracket-washer-m12: Availability is unknown.",
-      "severity": "issue",
-      "code": "procurement-information",
-      "partIds": [
-        "pulley-bracket-washer-m12"
-      ],
-      "assemblyIds": [
-        "corner-support-set"
-      ]
-    },
-    {
-      "message": "bauhaus-pulley-bracket-washer-m12: Price and availability observation date is unknown; quote capture time is not verification time.",
-      "severity": "issue",
-      "code": "procurement-information",
-      "partIds": [
-        "pulley-bracket-washer-m12"
-      ],
-      "assemblyIds": [
-        "corner-support-set"
-      ]
-    },
-    {
-      "message": "bauhaus-pulley-bracket-washer-m12: Tax/VAT treatment is unknown.",
-      "severity": "issue",
-      "code": "procurement-information",
-      "partIds": [
-        "pulley-bracket-washer-m12"
-      ],
-      "assemblyIds": [
-        "corner-support-set"
-      ]
-    },
-    {
-      "message": "bauhaus-top-pulley-bracket: Availability is unknown.",
-      "severity": "issue",
-      "code": "procurement-information",
-      "partIds": [
-        "top-pulley-bracket"
-      ],
-      "assemblyIds": [
-        "corner-support-set"
-      ]
-    },
-    {
-      "message": "bauhaus-top-pulley-bracket: Price and availability observation date is unknown; quote capture time is not verification time.",
-      "severity": "issue",
-      "code": "procurement-information",
-      "partIds": [
-        "top-pulley-bracket"
-      ],
-      "assemblyIds": [
-        "corner-support-set"
-      ]
-    },
-    {
-      "message": "bauhaus-top-pulley-bracket: Tax/VAT treatment is unknown.",
-      "severity": "issue",
-      "code": "procurement-information",
-      "partIds": [
-        "top-pulley-bracket"
-      ],
-      "assemblyIds": [
-        "corner-support-set"
       ]
     },
     {
@@ -9684,39 +8960,6 @@
       ]
     },
     {
-      "message": "bauhaus-zinc-spray: Availability is unknown.",
-      "severity": "issue",
-      "code": "procurement-information",
-      "partIds": [
-        "zinc-spray"
-      ],
-      "assemblyIds": [
-        "corner-support-set"
-      ]
-    },
-    {
-      "message": "bauhaus-zinc-spray: Price and availability observation date is unknown; quote capture time is not verification time.",
-      "severity": "issue",
-      "code": "procurement-information",
-      "partIds": [
-        "zinc-spray"
-      ],
-      "assemblyIds": [
-        "corner-support-set"
-      ]
-    },
-    {
-      "message": "bauhaus-zinc-spray: Tax/VAT treatment is unknown.",
-      "severity": "issue",
-      "code": "procurement-information",
-      "partIds": [
-        "zinc-spray"
-      ],
-      "assemblyIds": [
-        "corner-support-set"
-      ]
-    },
-    {
       "message": "camera-gimbal: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.",
       "severity": "issue",
       "code": "procurement-information",
@@ -9736,6 +8979,28 @@
       ],
       "assemblyIds": [
         "camera-pod"
+      ]
+    },
+    {
+      "message": "corner-head-printed-kit: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.",
+      "severity": "issue",
+      "code": "procurement-information",
+      "partIds": [
+        "corner-head-printed-kit"
+      ],
+      "assemblyIds": [
+        "corner-support-set"
+      ]
+    },
+    {
+      "message": "corner-head-printed-marking-template: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.",
+      "severity": "issue",
+      "code": "procurement-information",
+      "partIds": [
+        "corner-head-printed-marking-template"
+      ],
+      "assemblyIds": [
+        "corner-support-set"
       ]
     },
     {
@@ -10022,37 +9287,13 @@
         "dock-latch-hardware",
         "dock-nest",
         "dock-weather-hood",
-        "top-pulley-keeper",
         "winch-drum",
         "winch-mount-and-guard"
       ],
       "assemblyIds": [
         "camera-pod",
-        "corner-support-set",
         "dock",
         "winch-set"
-      ]
-    },
-    {
-      "message": "in-house-fabrication-top-pulley-keeper: Price and availability observation date is unknown; quote capture time is not verification time.",
-      "severity": "issue",
-      "code": "procurement-information",
-      "partIds": [
-        "top-pulley-keeper"
-      ],
-      "assemblyIds": [
-        "corner-support-set"
-      ]
-    },
-    {
-      "message": "in-house-fabrication-top-pulley-keeper: Price is unknown.",
-      "severity": "issue",
-      "code": "procurement-information",
-      "partIds": [
-        "top-pulley-keeper"
-      ],
-      "assemblyIds": [
-        "corner-support-set"
       ]
     },
     {
@@ -10328,6 +9569,39 @@
       ],
       "assemblyIds": [
         "camera-pod"
+      ]
+    },
+    {
+      "message": "Required part corner-head-printed-hardware has no pinned offer.",
+      "severity": "issue",
+      "code": "procurement-information",
+      "partIds": [
+        "corner-head-printed-hardware"
+      ],
+      "assemblyIds": [
+        "corner-support-set"
+      ]
+    },
+    {
+      "message": "Required part corner-head-printed-kit has no pinned offer.",
+      "severity": "issue",
+      "code": "procurement-information",
+      "partIds": [
+        "corner-head-printed-kit"
+      ],
+      "assemblyIds": [
+        "corner-support-set"
+      ]
+    },
+    {
+      "message": "Required part corner-head-printed-marking-template has no pinned offer.",
+      "severity": "issue",
+      "code": "procurement-information",
+      "partIds": [
+        "corner-head-printed-marking-template"
+      ],
+      "assemblyIds": [
+        "corner-support-set"
       ]
     },
     {
@@ -10676,17 +9950,6 @@
       ],
       "assemblyIds": [
         "control-cabinet"
-      ]
-    },
-    {
-      "message": "top-pulley-keeper: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.",
-      "severity": "issue",
-      "code": "procurement-information",
-      "partIds": [
-        "top-pulley-keeper"
-      ],
-      "assemblyIds": [
-        "corner-support-set"
       ]
     },
     {
@@ -11291,13 +10554,11 @@
           "dock-latch-hardware",
           "dock-nest",
           "dock-weather-hood",
-          "top-pulley-keeper",
           "winch-drum",
           "winch-mount-and-guard"
         ],
         "assemblyIds": [
           "camera-pod",
-          "corner-support-set",
           "dock",
           "winch-set"
         ]
@@ -11381,13 +10642,11 @@
           "dock-latch-hardware",
           "dock-nest",
           "dock-weather-hood",
-          "top-pulley-keeper",
           "winch-drum",
           "winch-mount-and-guard"
         ],
         "assemblyIds": [
           "camera-pod",
-          "corner-support-set",
           "dock",
           "winch-set"
         ]
@@ -11964,18 +11223,11 @@
           "guy-wire-3mm",
           "motor-power-branch-cable",
           "post-electronics-enclosure",
-          "pulley-bracket-backing-plate",
-          "pulley-bracket-locknut-m12",
-          "pulley-bracket-shackle-m8",
-          "pulley-bracket-through-bolt-m12x160",
-          "pulley-bracket-washer-m12",
-          "top-pulley-bracket",
           "winch-drum-joining-hardware",
           "winch-drum-shaft-8mm",
           "winch-mount-hardware",
           "wire-rope-clamp-3mm",
-          "wire-rope-thimble-3mm",
-          "zinc-spray"
+          "wire-rope-thimble-3mm"
         ],
         "assemblyIds": [
           "control-cabinet",
@@ -11994,18 +11246,11 @@
           "guy-wire-3mm",
           "motor-power-branch-cable",
           "post-electronics-enclosure",
-          "pulley-bracket-backing-plate",
-          "pulley-bracket-locknut-m12",
-          "pulley-bracket-shackle-m8",
-          "pulley-bracket-through-bolt-m12x160",
-          "pulley-bracket-washer-m12",
-          "top-pulley-bracket",
           "winch-drum-joining-hardware",
           "winch-drum-shaft-8mm",
           "winch-mount-hardware",
           "wire-rope-clamp-3mm",
-          "wire-rope-thimble-3mm",
-          "zinc-spray"
+          "wire-rope-thimble-3mm"
         ],
         "assemblyIds": [
           "control-cabinet",
@@ -12085,13 +11330,11 @@
           "dock-latch-hardware",
           "dock-nest",
           "dock-weather-hood",
-          "top-pulley-keeper",
           "winch-drum",
           "winch-mount-and-guard"
         ],
         "assemblyIds": [
           "camera-pod",
-          "corner-support-set",
           "dock",
           "winch-set"
         ]
@@ -12167,13 +11410,11 @@
           "dock-latch-hardware",
           "dock-nest",
           "dock-weather-hood",
-          "top-pulley-keeper",
           "winch-drum",
           "winch-mount-and-guard"
         ],
         "assemblyIds": [
           "camera-pod",
-          "corner-support-set",
           "dock",
           "winch-set"
         ]
@@ -12246,13 +11487,11 @@
           "dock-latch-hardware",
           "dock-nest",
           "dock-weather-hood",
-          "top-pulley-keeper",
           "winch-drum",
           "winch-mount-and-guard"
         ],
         "assemblyIds": [
           "camera-pod",
-          "corner-support-set",
           "dock",
           "winch-set"
         ]
@@ -12325,13 +11564,11 @@
           "dock-latch-hardware",
           "dock-nest",
           "dock-weather-hood",
-          "top-pulley-keeper",
           "winch-drum",
           "winch-mount-and-guard"
         ],
         "assemblyIds": [
           "camera-pod",
-          "corner-support-set",
           "dock",
           "winch-set"
         ]
@@ -12797,18 +12034,11 @@
           "guy-wire-3mm",
           "motor-power-branch-cable",
           "post-electronics-enclosure",
-          "pulley-bracket-backing-plate",
-          "pulley-bracket-locknut-m12",
-          "pulley-bracket-shackle-m8",
-          "pulley-bracket-through-bolt-m12x160",
-          "pulley-bracket-washer-m12",
-          "top-pulley-bracket",
           "winch-drum-joining-hardware",
           "winch-drum-shaft-8mm",
           "winch-mount-hardware",
           "wire-rope-clamp-3mm",
-          "wire-rope-thimble-3mm",
-          "zinc-spray"
+          "wire-rope-thimble-3mm"
         ],
         "assemblyIds": [
           "control-cabinet",
@@ -12827,18 +12057,11 @@
           "guy-wire-3mm",
           "motor-power-branch-cable",
           "post-electronics-enclosure",
-          "pulley-bracket-backing-plate",
-          "pulley-bracket-locknut-m12",
-          "pulley-bracket-shackle-m8",
-          "pulley-bracket-through-bolt-m12x160",
-          "pulley-bracket-washer-m12",
-          "top-pulley-bracket",
           "winch-drum-joining-hardware",
           "winch-drum-shaft-8mm",
           "winch-mount-hardware",
           "wire-rope-clamp-3mm",
-          "wire-rope-thimble-3mm",
-          "zinc-spray"
+          "wire-rope-thimble-3mm"
         ],
         "assemblyIds": [
           "control-cabinet",
@@ -12914,18 +12137,11 @@
           "guy-wire-3mm",
           "motor-power-branch-cable",
           "post-electronics-enclosure",
-          "pulley-bracket-backing-plate",
-          "pulley-bracket-locknut-m12",
-          "pulley-bracket-shackle-m8",
-          "pulley-bracket-through-bolt-m12x160",
-          "pulley-bracket-washer-m12",
-          "top-pulley-bracket",
           "winch-drum-joining-hardware",
           "winch-drum-shaft-8mm",
           "winch-mount-hardware",
           "wire-rope-clamp-3mm",
-          "wire-rope-thimble-3mm",
-          "zinc-spray"
+          "wire-rope-thimble-3mm"
         ],
         "assemblyIds": [
           "control-cabinet",
@@ -12944,18 +12160,11 @@
           "guy-wire-3mm",
           "motor-power-branch-cable",
           "post-electronics-enclosure",
-          "pulley-bracket-backing-plate",
-          "pulley-bracket-locknut-m12",
-          "pulley-bracket-shackle-m8",
-          "pulley-bracket-through-bolt-m12x160",
-          "pulley-bracket-washer-m12",
-          "top-pulley-bracket",
           "winch-drum-joining-hardware",
           "winch-drum-shaft-8mm",
           "winch-mount-hardware",
           "wire-rope-clamp-3mm",
-          "wire-rope-thimble-3mm",
-          "zinc-spray"
+          "wire-rope-thimble-3mm"
         ],
         "assemblyIds": [
           "control-cabinet",
@@ -13421,18 +12630,11 @@
           "guy-wire-3mm",
           "motor-power-branch-cable",
           "post-electronics-enclosure",
-          "pulley-bracket-backing-plate",
-          "pulley-bracket-locknut-m12",
-          "pulley-bracket-shackle-m8",
-          "pulley-bracket-through-bolt-m12x160",
-          "pulley-bracket-washer-m12",
-          "top-pulley-bracket",
           "winch-drum-joining-hardware",
           "winch-drum-shaft-8mm",
           "winch-mount-hardware",
           "wire-rope-clamp-3mm",
-          "wire-rope-thimble-3mm",
-          "zinc-spray"
+          "wire-rope-thimble-3mm"
         ],
         "assemblyIds": [
           "control-cabinet",
@@ -13451,18 +12653,11 @@
           "guy-wire-3mm",
           "motor-power-branch-cable",
           "post-electronics-enclosure",
-          "pulley-bracket-backing-plate",
-          "pulley-bracket-locknut-m12",
-          "pulley-bracket-shackle-m8",
-          "pulley-bracket-through-bolt-m12x160",
-          "pulley-bracket-washer-m12",
-          "top-pulley-bracket",
           "winch-drum-joining-hardware",
           "winch-drum-shaft-8mm",
           "winch-mount-hardware",
           "wire-rope-clamp-3mm",
-          "wire-rope-thimble-3mm",
-          "zinc-spray"
+          "wire-rope-thimble-3mm"
         ],
         "assemblyIds": [
           "control-cabinet",
@@ -14162,18 +13357,11 @@
           "guy-wire-3mm",
           "motor-power-branch-cable",
           "post-electronics-enclosure",
-          "pulley-bracket-backing-plate",
-          "pulley-bracket-locknut-m12",
-          "pulley-bracket-shackle-m8",
-          "pulley-bracket-through-bolt-m12x160",
-          "pulley-bracket-washer-m12",
-          "top-pulley-bracket",
           "winch-drum-joining-hardware",
           "winch-drum-shaft-8mm",
           "winch-mount-hardware",
           "wire-rope-clamp-3mm",
-          "wire-rope-thimble-3mm",
-          "zinc-spray"
+          "wire-rope-thimble-3mm"
         ],
         "assemblyIds": [
           "control-cabinet",
@@ -14192,18 +13380,11 @@
           "guy-wire-3mm",
           "motor-power-branch-cable",
           "post-electronics-enclosure",
-          "pulley-bracket-backing-plate",
-          "pulley-bracket-locknut-m12",
-          "pulley-bracket-shackle-m8",
-          "pulley-bracket-through-bolt-m12x160",
-          "pulley-bracket-washer-m12",
-          "top-pulley-bracket",
           "winch-drum-joining-hardware",
           "winch-drum-shaft-8mm",
           "winch-mount-hardware",
           "wire-rope-clamp-3mm",
-          "wire-rope-thimble-3mm",
-          "zinc-spray"
+          "wire-rope-thimble-3mm"
         ],
         "assemblyIds": [
           "control-cabinet",
@@ -14358,547 +13539,13 @@
           "pole-pulley-mount-concept"
         ],
         "assemblyIds": []
-      },
-      {
-        "severity": "warning",
-        "code": "unconfirmed-concept",
-        "message": "This part is planned; confirm its specification and selection with committed evidence.",
-        "partIds": [
-          "pole-pulley-mount-concept"
-        ],
-        "assemblyIds": []
       }
     ],
-    "pulley-bracket-backing-plate": [
-      {
-        "message": "bauhaus-pulley-bracket-backing-plate: Qualification is baseline-selected; the recorded selection is not engineering approval.",
-        "severity": "warning",
-        "code": "unconfirmed-selection",
-        "partIds": [
-          "pulley-bracket-backing-plate"
-        ],
-        "assemblyIds": [
-          "corner-support-set"
-        ]
-      },
-      {
-        "message": "bauhaus-hr: Shipping is unknown; null is not treated as free.",
-        "severity": "issue",
-        "code": "procurement-information",
-        "partIds": [
-          "din-rail-ground-distribution-block",
-          "guy-turnbuckle-m12",
-          "guy-wire-3mm",
-          "motor-power-branch-cable",
-          "post-electronics-enclosure",
-          "pulley-bracket-backing-plate",
-          "pulley-bracket-locknut-m12",
-          "pulley-bracket-shackle-m8",
-          "pulley-bracket-through-bolt-m12x160",
-          "pulley-bracket-washer-m12",
-          "top-pulley-bracket",
-          "winch-drum-joining-hardware",
-          "winch-drum-shaft-8mm",
-          "winch-mount-hardware",
-          "wire-rope-clamp-3mm",
-          "wire-rope-thimble-3mm",
-          "zinc-spray"
-        ],
-        "assemblyIds": [
-          "control-cabinet",
-          "corner-support-set",
-          "site-installation",
-          "winch-set"
-        ]
-      },
-      {
-        "message": "bauhaus-hr: Shipping observation date is unknown; quote capture time is not verification time.",
-        "severity": "issue",
-        "code": "procurement-information",
-        "partIds": [
-          "din-rail-ground-distribution-block",
-          "guy-turnbuckle-m12",
-          "guy-wire-3mm",
-          "motor-power-branch-cable",
-          "post-electronics-enclosure",
-          "pulley-bracket-backing-plate",
-          "pulley-bracket-locknut-m12",
-          "pulley-bracket-shackle-m8",
-          "pulley-bracket-through-bolt-m12x160",
-          "pulley-bracket-washer-m12",
-          "top-pulley-bracket",
-          "winch-drum-joining-hardware",
-          "winch-drum-shaft-8mm",
-          "winch-mount-hardware",
-          "wire-rope-clamp-3mm",
-          "wire-rope-thimble-3mm",
-          "zinc-spray"
-        ],
-        "assemblyIds": [
-          "control-cabinet",
-          "corner-support-set",
-          "site-installation",
-          "winch-set"
-        ]
-      },
-      {
-        "message": "bauhaus-pulley-bracket-backing-plate: Availability is unknown.",
-        "severity": "issue",
-        "code": "procurement-information",
-        "partIds": [
-          "pulley-bracket-backing-plate"
-        ],
-        "assemblyIds": [
-          "corner-support-set"
-        ]
-      },
-      {
-        "message": "bauhaus-pulley-bracket-backing-plate: Price and availability observation date is unknown; quote capture time is not verification time.",
-        "severity": "issue",
-        "code": "procurement-information",
-        "partIds": [
-          "pulley-bracket-backing-plate"
-        ],
-        "assemblyIds": [
-          "corner-support-set"
-        ]
-      },
-      {
-        "message": "bauhaus-pulley-bracket-backing-plate: Tax/VAT treatment is unknown.",
-        "severity": "issue",
-        "code": "procurement-information",
-        "partIds": [
-          "pulley-bracket-backing-plate"
-        ],
-        "assemblyIds": [
-          "corner-support-set"
-        ]
-      }
-    ],
-    "pulley-bracket-locknut-m12": [
-      {
-        "message": "bauhaus-pulley-bracket-locknut-m12: Qualification is baseline-selected; the recorded selection is not engineering approval.",
-        "severity": "warning",
-        "code": "unconfirmed-selection",
-        "partIds": [
-          "pulley-bracket-locknut-m12"
-        ],
-        "assemblyIds": [
-          "corner-support-set"
-        ]
-      },
-      {
-        "message": "bauhaus-hr: Shipping is unknown; null is not treated as free.",
-        "severity": "issue",
-        "code": "procurement-information",
-        "partIds": [
-          "din-rail-ground-distribution-block",
-          "guy-turnbuckle-m12",
-          "guy-wire-3mm",
-          "motor-power-branch-cable",
-          "post-electronics-enclosure",
-          "pulley-bracket-backing-plate",
-          "pulley-bracket-locknut-m12",
-          "pulley-bracket-shackle-m8",
-          "pulley-bracket-through-bolt-m12x160",
-          "pulley-bracket-washer-m12",
-          "top-pulley-bracket",
-          "winch-drum-joining-hardware",
-          "winch-drum-shaft-8mm",
-          "winch-mount-hardware",
-          "wire-rope-clamp-3mm",
-          "wire-rope-thimble-3mm",
-          "zinc-spray"
-        ],
-        "assemblyIds": [
-          "control-cabinet",
-          "corner-support-set",
-          "site-installation",
-          "winch-set"
-        ]
-      },
-      {
-        "message": "bauhaus-hr: Shipping observation date is unknown; quote capture time is not verification time.",
-        "severity": "issue",
-        "code": "procurement-information",
-        "partIds": [
-          "din-rail-ground-distribution-block",
-          "guy-turnbuckle-m12",
-          "guy-wire-3mm",
-          "motor-power-branch-cable",
-          "post-electronics-enclosure",
-          "pulley-bracket-backing-plate",
-          "pulley-bracket-locknut-m12",
-          "pulley-bracket-shackle-m8",
-          "pulley-bracket-through-bolt-m12x160",
-          "pulley-bracket-washer-m12",
-          "top-pulley-bracket",
-          "winch-drum-joining-hardware",
-          "winch-drum-shaft-8mm",
-          "winch-mount-hardware",
-          "wire-rope-clamp-3mm",
-          "wire-rope-thimble-3mm",
-          "zinc-spray"
-        ],
-        "assemblyIds": [
-          "control-cabinet",
-          "corner-support-set",
-          "site-installation",
-          "winch-set"
-        ]
-      },
-      {
-        "message": "bauhaus-pulley-bracket-locknut-m12: Availability is unknown.",
-        "severity": "issue",
-        "code": "procurement-information",
-        "partIds": [
-          "pulley-bracket-locknut-m12"
-        ],
-        "assemblyIds": [
-          "corner-support-set"
-        ]
-      },
-      {
-        "message": "bauhaus-pulley-bracket-locknut-m12: Price and availability observation date is unknown; quote capture time is not verification time.",
-        "severity": "issue",
-        "code": "procurement-information",
-        "partIds": [
-          "pulley-bracket-locknut-m12"
-        ],
-        "assemblyIds": [
-          "corner-support-set"
-        ]
-      },
-      {
-        "message": "bauhaus-pulley-bracket-locknut-m12: Tax/VAT treatment is unknown.",
-        "severity": "issue",
-        "code": "procurement-information",
-        "partIds": [
-          "pulley-bracket-locknut-m12"
-        ],
-        "assemblyIds": [
-          "corner-support-set"
-        ]
-      }
-    ],
-    "pulley-bracket-shackle-m8": [
-      {
-        "message": "bauhaus-pulley-bracket-shackle-m8: Qualification is baseline-selected; the recorded selection is not engineering approval.",
-        "severity": "warning",
-        "code": "unconfirmed-selection",
-        "partIds": [
-          "pulley-bracket-shackle-m8"
-        ],
-        "assemblyIds": [
-          "corner-support-set"
-        ]
-      },
-      {
-        "message": "bauhaus-hr: Shipping is unknown; null is not treated as free.",
-        "severity": "issue",
-        "code": "procurement-information",
-        "partIds": [
-          "din-rail-ground-distribution-block",
-          "guy-turnbuckle-m12",
-          "guy-wire-3mm",
-          "motor-power-branch-cable",
-          "post-electronics-enclosure",
-          "pulley-bracket-backing-plate",
-          "pulley-bracket-locknut-m12",
-          "pulley-bracket-shackle-m8",
-          "pulley-bracket-through-bolt-m12x160",
-          "pulley-bracket-washer-m12",
-          "top-pulley-bracket",
-          "winch-drum-joining-hardware",
-          "winch-drum-shaft-8mm",
-          "winch-mount-hardware",
-          "wire-rope-clamp-3mm",
-          "wire-rope-thimble-3mm",
-          "zinc-spray"
-        ],
-        "assemblyIds": [
-          "control-cabinet",
-          "corner-support-set",
-          "site-installation",
-          "winch-set"
-        ]
-      },
-      {
-        "message": "bauhaus-hr: Shipping observation date is unknown; quote capture time is not verification time.",
-        "severity": "issue",
-        "code": "procurement-information",
-        "partIds": [
-          "din-rail-ground-distribution-block",
-          "guy-turnbuckle-m12",
-          "guy-wire-3mm",
-          "motor-power-branch-cable",
-          "post-electronics-enclosure",
-          "pulley-bracket-backing-plate",
-          "pulley-bracket-locknut-m12",
-          "pulley-bracket-shackle-m8",
-          "pulley-bracket-through-bolt-m12x160",
-          "pulley-bracket-washer-m12",
-          "top-pulley-bracket",
-          "winch-drum-joining-hardware",
-          "winch-drum-shaft-8mm",
-          "winch-mount-hardware",
-          "wire-rope-clamp-3mm",
-          "wire-rope-thimble-3mm",
-          "zinc-spray"
-        ],
-        "assemblyIds": [
-          "control-cabinet",
-          "corner-support-set",
-          "site-installation",
-          "winch-set"
-        ]
-      },
-      {
-        "message": "bauhaus-pulley-bracket-shackle-m8: Availability is unknown.",
-        "severity": "issue",
-        "code": "procurement-information",
-        "partIds": [
-          "pulley-bracket-shackle-m8"
-        ],
-        "assemblyIds": [
-          "corner-support-set"
-        ]
-      },
-      {
-        "message": "bauhaus-pulley-bracket-shackle-m8: Price and availability observation date is unknown; quote capture time is not verification time.",
-        "severity": "issue",
-        "code": "procurement-information",
-        "partIds": [
-          "pulley-bracket-shackle-m8"
-        ],
-        "assemblyIds": [
-          "corner-support-set"
-        ]
-      },
-      {
-        "message": "bauhaus-pulley-bracket-shackle-m8: Tax/VAT treatment is unknown.",
-        "severity": "issue",
-        "code": "procurement-information",
-        "partIds": [
-          "pulley-bracket-shackle-m8"
-        ],
-        "assemblyIds": [
-          "corner-support-set"
-        ]
-      }
-    ],
-    "pulley-bracket-through-bolt-m12x160": [
-      {
-        "message": "bauhaus-pulley-bracket-through-bolt-m12x160: Qualification is baseline-selected; the recorded selection is not engineering approval.",
-        "severity": "warning",
-        "code": "unconfirmed-selection",
-        "partIds": [
-          "pulley-bracket-through-bolt-m12x160"
-        ],
-        "assemblyIds": [
-          "corner-support-set"
-        ]
-      },
-      {
-        "message": "bauhaus-hr: Shipping is unknown; null is not treated as free.",
-        "severity": "issue",
-        "code": "procurement-information",
-        "partIds": [
-          "din-rail-ground-distribution-block",
-          "guy-turnbuckle-m12",
-          "guy-wire-3mm",
-          "motor-power-branch-cable",
-          "post-electronics-enclosure",
-          "pulley-bracket-backing-plate",
-          "pulley-bracket-locknut-m12",
-          "pulley-bracket-shackle-m8",
-          "pulley-bracket-through-bolt-m12x160",
-          "pulley-bracket-washer-m12",
-          "top-pulley-bracket",
-          "winch-drum-joining-hardware",
-          "winch-drum-shaft-8mm",
-          "winch-mount-hardware",
-          "wire-rope-clamp-3mm",
-          "wire-rope-thimble-3mm",
-          "zinc-spray"
-        ],
-        "assemblyIds": [
-          "control-cabinet",
-          "corner-support-set",
-          "site-installation",
-          "winch-set"
-        ]
-      },
-      {
-        "message": "bauhaus-hr: Shipping observation date is unknown; quote capture time is not verification time.",
-        "severity": "issue",
-        "code": "procurement-information",
-        "partIds": [
-          "din-rail-ground-distribution-block",
-          "guy-turnbuckle-m12",
-          "guy-wire-3mm",
-          "motor-power-branch-cable",
-          "post-electronics-enclosure",
-          "pulley-bracket-backing-plate",
-          "pulley-bracket-locknut-m12",
-          "pulley-bracket-shackle-m8",
-          "pulley-bracket-through-bolt-m12x160",
-          "pulley-bracket-washer-m12",
-          "top-pulley-bracket",
-          "winch-drum-joining-hardware",
-          "winch-drum-shaft-8mm",
-          "winch-mount-hardware",
-          "wire-rope-clamp-3mm",
-          "wire-rope-thimble-3mm",
-          "zinc-spray"
-        ],
-        "assemblyIds": [
-          "control-cabinet",
-          "corner-support-set",
-          "site-installation",
-          "winch-set"
-        ]
-      },
-      {
-        "message": "bauhaus-pulley-bracket-through-bolt-m12x160: Availability is unknown.",
-        "severity": "issue",
-        "code": "procurement-information",
-        "partIds": [
-          "pulley-bracket-through-bolt-m12x160"
-        ],
-        "assemblyIds": [
-          "corner-support-set"
-        ]
-      },
-      {
-        "message": "bauhaus-pulley-bracket-through-bolt-m12x160: Price and availability observation date is unknown; quote capture time is not verification time.",
-        "severity": "issue",
-        "code": "procurement-information",
-        "partIds": [
-          "pulley-bracket-through-bolt-m12x160"
-        ],
-        "assemblyIds": [
-          "corner-support-set"
-        ]
-      },
-      {
-        "message": "bauhaus-pulley-bracket-through-bolt-m12x160: Tax/VAT treatment is unknown.",
-        "severity": "issue",
-        "code": "procurement-information",
-        "partIds": [
-          "pulley-bracket-through-bolt-m12x160"
-        ],
-        "assemblyIds": [
-          "corner-support-set"
-        ]
-      }
-    ],
-    "pulley-bracket-washer-m12": [
-      {
-        "message": "bauhaus-pulley-bracket-washer-m12: Qualification is baseline-selected; the recorded selection is not engineering approval.",
-        "severity": "warning",
-        "code": "unconfirmed-selection",
-        "partIds": [
-          "pulley-bracket-washer-m12"
-        ],
-        "assemblyIds": [
-          "corner-support-set"
-        ]
-      },
-      {
-        "message": "bauhaus-hr: Shipping is unknown; null is not treated as free.",
-        "severity": "issue",
-        "code": "procurement-information",
-        "partIds": [
-          "din-rail-ground-distribution-block",
-          "guy-turnbuckle-m12",
-          "guy-wire-3mm",
-          "motor-power-branch-cable",
-          "post-electronics-enclosure",
-          "pulley-bracket-backing-plate",
-          "pulley-bracket-locknut-m12",
-          "pulley-bracket-shackle-m8",
-          "pulley-bracket-through-bolt-m12x160",
-          "pulley-bracket-washer-m12",
-          "top-pulley-bracket",
-          "winch-drum-joining-hardware",
-          "winch-drum-shaft-8mm",
-          "winch-mount-hardware",
-          "wire-rope-clamp-3mm",
-          "wire-rope-thimble-3mm",
-          "zinc-spray"
-        ],
-        "assemblyIds": [
-          "control-cabinet",
-          "corner-support-set",
-          "site-installation",
-          "winch-set"
-        ]
-      },
-      {
-        "message": "bauhaus-hr: Shipping observation date is unknown; quote capture time is not verification time.",
-        "severity": "issue",
-        "code": "procurement-information",
-        "partIds": [
-          "din-rail-ground-distribution-block",
-          "guy-turnbuckle-m12",
-          "guy-wire-3mm",
-          "motor-power-branch-cable",
-          "post-electronics-enclosure",
-          "pulley-bracket-backing-plate",
-          "pulley-bracket-locknut-m12",
-          "pulley-bracket-shackle-m8",
-          "pulley-bracket-through-bolt-m12x160",
-          "pulley-bracket-washer-m12",
-          "top-pulley-bracket",
-          "winch-drum-joining-hardware",
-          "winch-drum-shaft-8mm",
-          "winch-mount-hardware",
-          "wire-rope-clamp-3mm",
-          "wire-rope-thimble-3mm",
-          "zinc-spray"
-        ],
-        "assemblyIds": [
-          "control-cabinet",
-          "corner-support-set",
-          "site-installation",
-          "winch-set"
-        ]
-      },
-      {
-        "message": "bauhaus-pulley-bracket-washer-m12: Availability is unknown.",
-        "severity": "issue",
-        "code": "procurement-information",
-        "partIds": [
-          "pulley-bracket-washer-m12"
-        ],
-        "assemblyIds": [
-          "corner-support-set"
-        ]
-      },
-      {
-        "message": "bauhaus-pulley-bracket-washer-m12: Price and availability observation date is unknown; quote capture time is not verification time.",
-        "severity": "issue",
-        "code": "procurement-information",
-        "partIds": [
-          "pulley-bracket-washer-m12"
-        ],
-        "assemblyIds": [
-          "corner-support-set"
-        ]
-      },
-      {
-        "message": "bauhaus-pulley-bracket-washer-m12: Tax/VAT treatment is unknown.",
-        "severity": "issue",
-        "code": "procurement-information",
-        "partIds": [
-          "pulley-bracket-washer-m12"
-        ],
-        "assemblyIds": [
-          "corner-support-set"
-        ]
-      }
-    ],
+    "pulley-bracket-backing-plate": [],
+    "pulley-bracket-locknut-m12": [],
+    "pulley-bracket-shackle-m8": [],
+    "pulley-bracket-through-bolt-m12x160": [],
+    "pulley-bracket-washer-m12": [],
     "raspberry-pi-3a-plus": [
       {
         "message": "pimoroni-raspberry-pi-3a-plus: Qualification is baseline-selected; the recorded selection is not engineering approval.",
@@ -15546,183 +14193,12 @@
         ]
       }
     ],
-    "top-pulley-bracket": [
-      {
-        "message": "bauhaus-top-pulley-bracket: Qualification is baseline-selected; the recorded selection is not engineering approval.",
-        "severity": "warning",
-        "code": "unconfirmed-selection",
-        "partIds": [
-          "top-pulley-bracket"
-        ],
-        "assemblyIds": [
-          "corner-support-set"
-        ]
-      },
-      {
-        "message": "bauhaus-hr: Shipping is unknown; null is not treated as free.",
-        "severity": "issue",
-        "code": "procurement-information",
-        "partIds": [
-          "din-rail-ground-distribution-block",
-          "guy-turnbuckle-m12",
-          "guy-wire-3mm",
-          "motor-power-branch-cable",
-          "post-electronics-enclosure",
-          "pulley-bracket-backing-plate",
-          "pulley-bracket-locknut-m12",
-          "pulley-bracket-shackle-m8",
-          "pulley-bracket-through-bolt-m12x160",
-          "pulley-bracket-washer-m12",
-          "top-pulley-bracket",
-          "winch-drum-joining-hardware",
-          "winch-drum-shaft-8mm",
-          "winch-mount-hardware",
-          "wire-rope-clamp-3mm",
-          "wire-rope-thimble-3mm",
-          "zinc-spray"
-        ],
-        "assemblyIds": [
-          "control-cabinet",
-          "corner-support-set",
-          "site-installation",
-          "winch-set"
-        ]
-      },
-      {
-        "message": "bauhaus-hr: Shipping observation date is unknown; quote capture time is not verification time.",
-        "severity": "issue",
-        "code": "procurement-information",
-        "partIds": [
-          "din-rail-ground-distribution-block",
-          "guy-turnbuckle-m12",
-          "guy-wire-3mm",
-          "motor-power-branch-cable",
-          "post-electronics-enclosure",
-          "pulley-bracket-backing-plate",
-          "pulley-bracket-locknut-m12",
-          "pulley-bracket-shackle-m8",
-          "pulley-bracket-through-bolt-m12x160",
-          "pulley-bracket-washer-m12",
-          "top-pulley-bracket",
-          "winch-drum-joining-hardware",
-          "winch-drum-shaft-8mm",
-          "winch-mount-hardware",
-          "wire-rope-clamp-3mm",
-          "wire-rope-thimble-3mm",
-          "zinc-spray"
-        ],
-        "assemblyIds": [
-          "control-cabinet",
-          "corner-support-set",
-          "site-installation",
-          "winch-set"
-        ]
-      },
-      {
-        "message": "bauhaus-top-pulley-bracket: Availability is unknown.",
-        "severity": "issue",
-        "code": "procurement-information",
-        "partIds": [
-          "top-pulley-bracket"
-        ],
-        "assemblyIds": [
-          "corner-support-set"
-        ]
-      },
-      {
-        "message": "bauhaus-top-pulley-bracket: Price and availability observation date is unknown; quote capture time is not verification time.",
-        "severity": "issue",
-        "code": "procurement-information",
-        "partIds": [
-          "top-pulley-bracket"
-        ],
-        "assemblyIds": [
-          "corner-support-set"
-        ]
-      },
-      {
-        "message": "bauhaus-top-pulley-bracket: Tax/VAT treatment is unknown.",
-        "severity": "issue",
-        "code": "procurement-information",
-        "partIds": [
-          "top-pulley-bracket"
-        ],
-        "assemblyIds": [
-          "corner-support-set"
-        ]
-      }
-    ],
+    "top-pulley-bracket": [],
     "top-pulley-keeper": [
       {
         "severity": "warning",
         "code": "unconfirmed-concept",
         "message": "Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.",
-        "partIds": [
-          "top-pulley-keeper"
-        ],
-        "assemblyIds": [
-          "corner-support-set"
-        ]
-      },
-      {
-        "message": "in-house-fabrication-top-pulley-keeper: Qualification is baseline-selected; the recorded selection is not engineering approval.",
-        "severity": "warning",
-        "code": "unconfirmed-selection",
-        "partIds": [
-          "top-pulley-keeper"
-        ],
-        "assemblyIds": [
-          "corner-support-set"
-        ]
-      },
-      {
-        "message": "in-house-fabrication-hr: Shipping observation date is unknown; quote capture time is not verification time.",
-        "severity": "issue",
-        "code": "procurement-information",
-        "partIds": [
-          "camera-gimbal",
-          "camera-pod-chassis",
-          "dock-funnel",
-          "dock-latch-hardware",
-          "dock-nest",
-          "dock-weather-hood",
-          "top-pulley-keeper",
-          "winch-drum",
-          "winch-mount-and-guard"
-        ],
-        "assemblyIds": [
-          "camera-pod",
-          "corner-support-set",
-          "dock",
-          "winch-set"
-        ]
-      },
-      {
-        "message": "in-house-fabrication-top-pulley-keeper: Price and availability observation date is unknown; quote capture time is not verification time.",
-        "severity": "issue",
-        "code": "procurement-information",
-        "partIds": [
-          "top-pulley-keeper"
-        ],
-        "assemblyIds": [
-          "corner-support-set"
-        ]
-      },
-      {
-        "message": "in-house-fabrication-top-pulley-keeper: Price is unknown.",
-        "severity": "issue",
-        "code": "procurement-information",
-        "partIds": [
-          "top-pulley-keeper"
-        ],
-        "assemblyIds": [
-          "corner-support-set"
-        ]
-      },
-      {
-        "message": "top-pulley-keeper: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.",
-        "severity": "issue",
-        "code": "procurement-information",
         "partIds": [
           "top-pulley-keeper"
         ],
@@ -15766,13 +14242,11 @@
           "dock-latch-hardware",
           "dock-nest",
           "dock-weather-hood",
-          "top-pulley-keeper",
           "winch-drum",
           "winch-mount-and-guard"
         ],
         "assemblyIds": [
           "camera-pod",
-          "corner-support-set",
           "dock",
           "winch-set"
         ]
@@ -15833,18 +14307,11 @@
           "guy-wire-3mm",
           "motor-power-branch-cable",
           "post-electronics-enclosure",
-          "pulley-bracket-backing-plate",
-          "pulley-bracket-locknut-m12",
-          "pulley-bracket-shackle-m8",
-          "pulley-bracket-through-bolt-m12x160",
-          "pulley-bracket-washer-m12",
-          "top-pulley-bracket",
           "winch-drum-joining-hardware",
           "winch-drum-shaft-8mm",
           "winch-mount-hardware",
           "wire-rope-clamp-3mm",
-          "wire-rope-thimble-3mm",
-          "zinc-spray"
+          "wire-rope-thimble-3mm"
         ],
         "assemblyIds": [
           "control-cabinet",
@@ -15863,18 +14330,11 @@
           "guy-wire-3mm",
           "motor-power-branch-cable",
           "post-electronics-enclosure",
-          "pulley-bracket-backing-plate",
-          "pulley-bracket-locknut-m12",
-          "pulley-bracket-shackle-m8",
-          "pulley-bracket-through-bolt-m12x160",
-          "pulley-bracket-washer-m12",
-          "top-pulley-bracket",
           "winch-drum-joining-hardware",
           "winch-drum-shaft-8mm",
           "winch-mount-hardware",
           "wire-rope-clamp-3mm",
-          "wire-rope-thimble-3mm",
-          "zinc-spray"
+          "wire-rope-thimble-3mm"
         ],
         "assemblyIds": [
           "control-cabinet",
@@ -15964,13 +14424,11 @@
           "dock-latch-hardware",
           "dock-nest",
           "dock-weather-hood",
-          "top-pulley-keeper",
           "winch-drum",
           "winch-mount-and-guard"
         ],
         "assemblyIds": [
           "camera-pod",
-          "corner-support-set",
           "dock",
           "winch-set"
         ]
@@ -16057,18 +14515,11 @@
           "guy-wire-3mm",
           "motor-power-branch-cable",
           "post-electronics-enclosure",
-          "pulley-bracket-backing-plate",
-          "pulley-bracket-locknut-m12",
-          "pulley-bracket-shackle-m8",
-          "pulley-bracket-through-bolt-m12x160",
-          "pulley-bracket-washer-m12",
-          "top-pulley-bracket",
           "winch-drum-joining-hardware",
           "winch-drum-shaft-8mm",
           "winch-mount-hardware",
           "wire-rope-clamp-3mm",
-          "wire-rope-thimble-3mm",
-          "zinc-spray"
+          "wire-rope-thimble-3mm"
         ],
         "assemblyIds": [
           "control-cabinet",
@@ -16087,18 +14538,11 @@
           "guy-wire-3mm",
           "motor-power-branch-cable",
           "post-electronics-enclosure",
-          "pulley-bracket-backing-plate",
-          "pulley-bracket-locknut-m12",
-          "pulley-bracket-shackle-m8",
-          "pulley-bracket-through-bolt-m12x160",
-          "pulley-bracket-washer-m12",
-          "top-pulley-bracket",
           "winch-drum-joining-hardware",
           "winch-drum-shaft-8mm",
           "winch-mount-hardware",
           "wire-rope-clamp-3mm",
-          "wire-rope-thimble-3mm",
-          "zinc-spray"
+          "wire-rope-thimble-3mm"
         ],
         "assemblyIds": [
           "control-cabinet",
@@ -16185,18 +14629,11 @@
           "guy-wire-3mm",
           "motor-power-branch-cable",
           "post-electronics-enclosure",
-          "pulley-bracket-backing-plate",
-          "pulley-bracket-locknut-m12",
-          "pulley-bracket-shackle-m8",
-          "pulley-bracket-through-bolt-m12x160",
-          "pulley-bracket-washer-m12",
-          "top-pulley-bracket",
           "winch-drum-joining-hardware",
           "winch-drum-shaft-8mm",
           "winch-mount-hardware",
           "wire-rope-clamp-3mm",
-          "wire-rope-thimble-3mm",
-          "zinc-spray"
+          "wire-rope-thimble-3mm"
         ],
         "assemblyIds": [
           "control-cabinet",
@@ -16215,18 +14652,11 @@
           "guy-wire-3mm",
           "motor-power-branch-cable",
           "post-electronics-enclosure",
-          "pulley-bracket-backing-plate",
-          "pulley-bracket-locknut-m12",
-          "pulley-bracket-shackle-m8",
-          "pulley-bracket-through-bolt-m12x160",
-          "pulley-bracket-washer-m12",
-          "top-pulley-bracket",
           "winch-drum-joining-hardware",
           "winch-drum-shaft-8mm",
           "winch-mount-hardware",
           "wire-rope-clamp-3mm",
-          "wire-rope-thimble-3mm",
-          "zinc-spray"
+          "wire-rope-thimble-3mm"
         ],
         "assemblyIds": [
           "control-cabinet",
@@ -16280,112 +14710,7 @@
         ]
       }
     ],
-    "zinc-spray": [
-      {
-        "message": "bauhaus-zinc-spray: Qualification is baseline-selected; the recorded selection is not engineering approval.",
-        "severity": "warning",
-        "code": "unconfirmed-selection",
-        "partIds": [
-          "zinc-spray"
-        ],
-        "assemblyIds": [
-          "corner-support-set"
-        ]
-      },
-      {
-        "message": "bauhaus-hr: Shipping is unknown; null is not treated as free.",
-        "severity": "issue",
-        "code": "procurement-information",
-        "partIds": [
-          "din-rail-ground-distribution-block",
-          "guy-turnbuckle-m12",
-          "guy-wire-3mm",
-          "motor-power-branch-cable",
-          "post-electronics-enclosure",
-          "pulley-bracket-backing-plate",
-          "pulley-bracket-locknut-m12",
-          "pulley-bracket-shackle-m8",
-          "pulley-bracket-through-bolt-m12x160",
-          "pulley-bracket-washer-m12",
-          "top-pulley-bracket",
-          "winch-drum-joining-hardware",
-          "winch-drum-shaft-8mm",
-          "winch-mount-hardware",
-          "wire-rope-clamp-3mm",
-          "wire-rope-thimble-3mm",
-          "zinc-spray"
-        ],
-        "assemblyIds": [
-          "control-cabinet",
-          "corner-support-set",
-          "site-installation",
-          "winch-set"
-        ]
-      },
-      {
-        "message": "bauhaus-hr: Shipping observation date is unknown; quote capture time is not verification time.",
-        "severity": "issue",
-        "code": "procurement-information",
-        "partIds": [
-          "din-rail-ground-distribution-block",
-          "guy-turnbuckle-m12",
-          "guy-wire-3mm",
-          "motor-power-branch-cable",
-          "post-electronics-enclosure",
-          "pulley-bracket-backing-plate",
-          "pulley-bracket-locknut-m12",
-          "pulley-bracket-shackle-m8",
-          "pulley-bracket-through-bolt-m12x160",
-          "pulley-bracket-washer-m12",
-          "top-pulley-bracket",
-          "winch-drum-joining-hardware",
-          "winch-drum-shaft-8mm",
-          "winch-mount-hardware",
-          "wire-rope-clamp-3mm",
-          "wire-rope-thimble-3mm",
-          "zinc-spray"
-        ],
-        "assemblyIds": [
-          "control-cabinet",
-          "corner-support-set",
-          "site-installation",
-          "winch-set"
-        ]
-      },
-      {
-        "message": "bauhaus-zinc-spray: Availability is unknown.",
-        "severity": "issue",
-        "code": "procurement-information",
-        "partIds": [
-          "zinc-spray"
-        ],
-        "assemblyIds": [
-          "corner-support-set"
-        ]
-      },
-      {
-        "message": "bauhaus-zinc-spray: Price and availability observation date is unknown; quote capture time is not verification time.",
-        "severity": "issue",
-        "code": "procurement-information",
-        "partIds": [
-          "zinc-spray"
-        ],
-        "assemblyIds": [
-          "corner-support-set"
-        ]
-      },
-      {
-        "message": "bauhaus-zinc-spray: Tax/VAT treatment is unknown.",
-        "severity": "issue",
-        "code": "procurement-information",
-        "partIds": [
-          "zinc-spray"
-        ],
-        "assemblyIds": [
-          "corner-support-set"
-        ]
-      }
-    ],
+    "zinc-spray": [],
     "winch-drum-joining-hardware": [
       {
         "message": "unresolved-winch-drum-joining-hardware: Qualification is unresolved; the recorded selection is not engineering approval.",
@@ -16408,18 +14733,11 @@
           "guy-wire-3mm",
           "motor-power-branch-cable",
           "post-electronics-enclosure",
-          "pulley-bracket-backing-plate",
-          "pulley-bracket-locknut-m12",
-          "pulley-bracket-shackle-m8",
-          "pulley-bracket-through-bolt-m12x160",
-          "pulley-bracket-washer-m12",
-          "top-pulley-bracket",
           "winch-drum-joining-hardware",
           "winch-drum-shaft-8mm",
           "winch-mount-hardware",
           "wire-rope-clamp-3mm",
-          "wire-rope-thimble-3mm",
-          "zinc-spray"
+          "wire-rope-thimble-3mm"
         ],
         "assemblyIds": [
           "control-cabinet",
@@ -16438,18 +14756,11 @@
           "guy-wire-3mm",
           "motor-power-branch-cable",
           "post-electronics-enclosure",
-          "pulley-bracket-backing-plate",
-          "pulley-bracket-locknut-m12",
-          "pulley-bracket-shackle-m8",
-          "pulley-bracket-through-bolt-m12x160",
-          "pulley-bracket-washer-m12",
-          "top-pulley-bracket",
           "winch-drum-joining-hardware",
           "winch-drum-shaft-8mm",
           "winch-mount-hardware",
           "wire-rope-clamp-3mm",
-          "wire-rope-thimble-3mm",
-          "zinc-spray"
+          "wire-rope-thimble-3mm"
         ],
         "assemblyIds": [
           "control-cabinet",
@@ -16514,18 +14825,11 @@
           "guy-wire-3mm",
           "motor-power-branch-cable",
           "post-electronics-enclosure",
-          "pulley-bracket-backing-plate",
-          "pulley-bracket-locknut-m12",
-          "pulley-bracket-shackle-m8",
-          "pulley-bracket-through-bolt-m12x160",
-          "pulley-bracket-washer-m12",
-          "top-pulley-bracket",
           "winch-drum-joining-hardware",
           "winch-drum-shaft-8mm",
           "winch-mount-hardware",
           "wire-rope-clamp-3mm",
-          "wire-rope-thimble-3mm",
-          "zinc-spray"
+          "wire-rope-thimble-3mm"
         ],
         "assemblyIds": [
           "control-cabinet",
@@ -16544,18 +14848,11 @@
           "guy-wire-3mm",
           "motor-power-branch-cable",
           "post-electronics-enclosure",
-          "pulley-bracket-backing-plate",
-          "pulley-bracket-locknut-m12",
-          "pulley-bracket-shackle-m8",
-          "pulley-bracket-through-bolt-m12x160",
-          "pulley-bracket-washer-m12",
-          "top-pulley-bracket",
           "winch-drum-joining-hardware",
           "winch-drum-shaft-8mm",
           "winch-mount-hardware",
           "wire-rope-clamp-3mm",
-          "wire-rope-thimble-3mm",
-          "zinc-spray"
+          "wire-rope-thimble-3mm"
         ],
         "assemblyIds": [
           "control-cabinet",
@@ -16715,20 +15012,7 @@
         "partIds": [
           "corner-head-weather-kit"
         ],
-        "assemblyIds": [
-          "corner-support-set"
-        ]
-      },
-      {
-        "severity": "warning",
-        "code": "unconfirmed-concept",
-        "message": "This part is planned; confirm its specification and selection with committed evidence.",
-        "partIds": [
-          "corner-head-weather-kit"
-        ],
-        "assemblyIds": [
-          "corner-support-set"
-        ]
+        "assemblyIds": []
       }
     ],
     "corner-head-round-saddles": [
@@ -16739,20 +15023,7 @@
         "partIds": [
           "corner-head-round-saddles"
         ],
-        "assemblyIds": [
-          "corner-support-set"
-        ]
-      },
-      {
-        "severity": "warning",
-        "code": "unconfirmed-concept",
-        "message": "This part is planned; confirm its specification and selection with committed evidence.",
-        "partIds": [
-          "corner-head-round-saddles"
-        ],
-        "assemblyIds": [
-          "corner-support-set"
-        ]
+        "assemblyIds": []
       }
     ],
     "corner-head-marking-template": [
@@ -16763,61 +15034,12 @@
         "partIds": [
           "corner-head-marking-template"
         ],
-        "assemblyIds": [
-          "corner-support-set"
-        ]
-      },
-      {
-        "severity": "warning",
-        "code": "unconfirmed-concept",
-        "message": "This part is planned; confirm its specification and selection with committed evidence.",
-        "partIds": [
-          "corner-head-marking-template"
-        ],
-        "assemblyIds": [
-          "corner-support-set"
-        ]
+        "assemblyIds": []
       }
     ],
-    "corner-head-retention-straps": [
-      {
-        "severity": "warning",
-        "code": "unconfirmed-concept",
-        "message": "This part is planned; confirm its specification and selection with committed evidence.",
-        "partIds": [
-          "corner-head-retention-straps"
-        ],
-        "assemblyIds": [
-          "corner-support-set"
-        ]
-      }
-    ],
-    "corner-head-angle-200": [
-      {
-        "severity": "warning",
-        "code": "unconfirmed-concept",
-        "message": "This part is planned; confirm its specification and selection with committed evidence.",
-        "partIds": [
-          "corner-head-angle-200"
-        ],
-        "assemblyIds": [
-          "corner-support-set"
-        ]
-      }
-    ],
-    "corner-head-through-bolts": [
-      {
-        "severity": "warning",
-        "code": "unconfirmed-concept",
-        "message": "This part is planned; confirm its specification and selection with committed evidence.",
-        "partIds": [
-          "corner-head-through-bolts"
-        ],
-        "assemblyIds": [
-          "corner-support-set"
-        ]
-      }
-    ],
+    "corner-head-retention-straps": [],
+    "corner-head-angle-200": [],
+    "corner-head-through-bolts": [],
     "corner-guy-post-connection": [
       {
         "severity": "warning",
@@ -16853,6 +15075,28 @@
         "assemblyIds": [
           "corner-support-set"
         ]
+      },
+      {
+        "message": "corner-head-printed-kit: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.",
+        "severity": "issue",
+        "code": "procurement-information",
+        "partIds": [
+          "corner-head-printed-kit"
+        ],
+        "assemblyIds": [
+          "corner-support-set"
+        ]
+      },
+      {
+        "message": "Required part corner-head-printed-kit has no pinned offer.",
+        "severity": "issue",
+        "code": "procurement-information",
+        "partIds": [
+          "corner-head-printed-kit"
+        ],
+        "assemblyIds": [
+          "corner-support-set"
+        ]
       }
     ],
     "corner-head-printed-hardware": [
@@ -16860,6 +15104,17 @@
         "severity": "warning",
         "code": "unconfirmed-concept",
         "message": "This part is planned; confirm its specification and selection with committed evidence.",
+        "partIds": [
+          "corner-head-printed-hardware"
+        ],
+        "assemblyIds": [
+          "corner-support-set"
+        ]
+      },
+      {
+        "message": "Required part corner-head-printed-hardware has no pinned offer.",
+        "severity": "issue",
+        "code": "procurement-information",
         "partIds": [
           "corner-head-printed-hardware"
         ],
@@ -16884,6 +15139,28 @@
         "severity": "warning",
         "code": "unconfirmed-concept",
         "message": "This part is planned; confirm its specification and selection with committed evidence.",
+        "partIds": [
+          "corner-head-printed-marking-template"
+        ],
+        "assemblyIds": [
+          "corner-support-set"
+        ]
+      },
+      {
+        "message": "corner-head-printed-marking-template: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.",
+        "severity": "issue",
+        "code": "procurement-information",
+        "partIds": [
+          "corner-head-printed-marking-template"
+        ],
+        "assemblyIds": [
+          "corner-support-set"
+        ]
+      },
+      {
+        "message": "Required part corner-head-printed-marking-template has no pinned offer.",
+        "severity": "issue",
+        "code": "procurement-information",
         "partIds": [
           "corner-head-printed-marking-template"
         ],

@@ -204,10 +204,12 @@ settings or synthetic CAD/statics calculation substitute for this evidence.
 
 ## Quantities and alternative selection
 
-The canonical [assembly BOM](../../../bom/assemblies/assemblies.json) preserves
-the historical purchasing baseline. The new printed kit and bought-hardware
-set are optional alternatives while this proposal is under review. Do not
-enable every optional item as a build selection. No prices or supplier offers
+The canonical [assembly BOM](../../../bom/assemblies/assemblies.json) selects
+four printed-head kits, four bought-hardware sets and one shared marking tool
+for the current development configuration. Superseded steel-angle, backing-plate,
+metal-saddle and split-clamp items and models are archived; their stable source
+and purchasing records remain available. This selection does not qualify the
+load-bearing prints or authorize installation. No prices or supplier offers
 are invented for the new items.
 
 | Item | One printed head | Four printed heads |
@@ -222,11 +224,11 @@ are invented for the new items.
 | Cosmetic cover straps | 2 | 8 |
 | Shared printed marking tool | — | 1 |
 
-Selecting the printed head replaces the baseline steel angle, two backing
+The selected printed head replaces the historical steel angle, two backing
 plates, M12 × 160 bolt pair and generic shackle with the printed kit and its
 hardware set. Existing measured M12 washers/nuts can be reused; count them once.
 Do not select the 200 mm steel angle, metal saddles, metal-head shields/straps,
-historical keeper or split collar as additional parts of the printed head.
+separate keeper candidate or split collar as additional installed parts of the printed head.
 The received pulley, timber post, guy, anchor and turnbuckle remain required.
 The fitted keeper and four reviewed bought guy-to-post attachments remain
 unresolved interfaces, not completed parts supplied by this print kit.

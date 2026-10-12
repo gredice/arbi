@@ -10,7 +10,7 @@ import { fmt } from "@/lib/format";
 import { data, inventory, modelsForBomPart } from "@/lib/site";
 
 export const dynamicParams = false;
-export const generateStaticParams = () => data().site.bom.parts.map((p) => ({ id: p.id }));
+export const generateStaticParams = () => [...data().site.bom.parts, ...data().site.bom.archivedParts].map((p) => ({ id: p.id }));
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
     const p = data().bomById.get((await params).id);
@@ -20,6 +20,19 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 export default async function BomItem({ params }: { params: Promise<{ id: string }> }) {
     const p = data().bomById.get((await params).id);
     if (!p) notFound();
+    if (p.lifecycle === "archived") return (
+        <>
+            <Crumb left={`Bill of materials / ${p.id}`} right="Archived" />
+            <section className="px-4 py-8 sm:px-6">
+                <h1 className="cond text-[44px] leading-none">{p.name}</h1>
+                <p className="mt-4 max-w-[70ch]">{p.archiveReason}</p>
+                <p className="mt-3">Excluded from current assembly quantities and purchasing totals. Historical specifications and offers remain in the repository.</p>
+                <Link href={`/parts/${p.id}`} className="mt-6 block underline">Historical part and current replacements →</Link>
+                <a href={`https://github.com/gredice/arbi/blob/main/bom/generated/parts/${p.id}.md`} className="mt-3 block underline">Historical BOM source record ↗</a>
+                <Link href="/parts/archive" className="mt-6 block underline">← Archived parts and models</Link>
+            </section>
+        </>
+    );
     const models = modelsForBomPart(p.id);
     const fab = models.filter((model) => model.artifactRole === "fabrication");
     const print = p.printEstimate ?? p.printReference;

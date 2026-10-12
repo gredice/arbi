@@ -7,7 +7,7 @@
 - Part ID: `corner-head-angle-200`
 - Unit: each
 - Kind: component
-- Lifecycle: planned
+- Lifecycle: archived
 - Disciplines: mechanical
 - Traits: off-the-shelf
 
@@ -15,9 +15,11 @@
 
 - 200 x 40 x 200 mm, 5 mm galvanized steel angle. Replace the 150 mm angle; two 13 mm centres at 45/155 mm, terminal 9 mm hole 167.55 mm from front seat for passive line, 166.65 mm for powered. Existing factory holes/bend require inspection before drilling.
 
-## Design warnings
+## Archived item
 
-- **Warning:** This part is planned; confirm its specification and selection with committed evidence.
+Superseded by the selected printed corner head. Retained only for historical source and purchasing evidence; excluded from current assemblies, purchasing totals and fabrication downloads.
+
+Excluded from current assembly quantities and purchasing totals. Sources and offers are historical evidence only.
 
 ## Notes
 
@@ -29,7 +31,8 @@ Quantities are per assembly definition, before build multipliers. Optional and d
 
 | Assembly or purchasing bucket | Quantity | Inclusion | Usage note |
 | --- | ---: | --- | --- |
-| [Corner support set](../../../docs/assemblies/corner-station/README.md) | 4 each | optional | Historical metal alternative replaces baseline 150 mm angles; omit both for printed-head selection. |
+
+No assembly usage recorded.
 
 [Canonical assembly quantities](../../assemblies/assemblies.json)
 

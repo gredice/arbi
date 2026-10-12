@@ -22,7 +22,7 @@
 
 ## Notes
 
-New printed-head proposal; excluded from the purchasing baseline. Select instead of steel angle/plates, metal saddles and their covers. See docs/assemblies/corner-station/design-package.md. No supplier offer, full fabrication quote or physical qualification asserted. An optional ASA solid-volume material estimate is recorded separately; it is only a costing assumption.
+Selected printed-head development configuration in the current BOM. Historical steel-angle, backing-plate, metal-saddle and split-clamp alternatives are archived. See docs/assemblies/corner-station/design-package.md. No supplier offer, full fabrication quote or physical qualification asserted. ASA solid-volume material consumption is a costing assumption, not a qualified process.
 
 ## Used in
 
@@ -30,13 +30,13 @@ Quantities are per assembly definition, before build multipliers. Optional and d
 
 | Assembly or purchasing bucket | Quantity | Inclusion | Usage note |
 | --- | ---: | --- | --- |
-| [Corner support set](../../../docs/assemblies/corner-station/README.md) | 1 each | optional | One shared 205 mm printed-head marking tool, not four installed components. |
+| [Corner support set](../../../docs/assemblies/corner-station/README.md) | 1 each | base | One shared 205 mm printed-head marking tool for four heads; not an installed structural part. |
 
 [Canonical assembly quantities](../../assemblies/assemblies.json)
 
 ## BOM reports
 
-- [ARBI V1 — Zagreb repository baseline](../arbi-v1-hr-zagreb.md) — not included by this build/inclusion policy.
+- [ARBI V1 — Zagreb repository baseline](../arbi-v1-hr-zagreb.md#required-parts-by-physical-owner-or-procurement-bucket) — included.
 
 ## Fabrication
 
@@ -46,7 +46,7 @@ Quantities are per assembly definition, before build multipliers. Optional and d
 
 ### Print material estimate
 
-Build arbi-v1; batch represents 1 BOM unit(s). Optional concept set; excluded from the purchasing baseline. ASA is a costing assumption using the recorded single-spool rate, not a qualified structural material or chosen print process. Fully dense CAD consumption only; physical fit, load, creep and manufacturing labour remain unresolved. Historical metal-head shields, printed carriers and stand adapters are separate alternatives.
+Build arbi-v1; batch represents 1 BOM unit(s). Selected printed-head development configuration in the current BOM. ASA is a costing assumption using the recorded single-spool rate, not a qualified structural material or print process. Fully dense CAD consumption only; physical fit, load, creep and manufacturing labour remain unresolved.
 
 | Model | Copies in batch | Material / colour | Solid volume per copy |
 | --- | ---: | --- | ---: |

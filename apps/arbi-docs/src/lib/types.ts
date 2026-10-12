@@ -92,6 +92,8 @@ export type PrintMaterialCost = {
 };
 
 export type BomPart = {
+    archiveReason?: string;
+    fabrication?: { sources: { modelId?: string }[] };
     id: string;
     name: string;
     baseUnit: string;

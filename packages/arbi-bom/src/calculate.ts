@@ -622,7 +622,8 @@ export function calculateBom(
     estimatedMaterialSubtotal: estimatedMaterials.toString(),
     estimatedPartialSubtotal: knownSubtotal.add(estimatedMaterials).toString(),
     fabrication: fabrication.sort((a, b) => a.partId.localeCompare(b.partId)),
-    printReferences: repository.fabrication.recipes.filter((recipe) => recipe.buildId === build.id)
+    printReferences: repository.fabrication.recipes.filter((recipe) => recipe.buildId === build.id &&
+      repository.parts.parts.find((part) => part.id === recipe.partId)?.lifecycle !== "archived")
       .map((recipe) => estimatePrintMaterials(repository, recipe, "1", scenario.reportCurrency))
       .sort((a, b) => a.partId.localeCompare(b.partId)),
     assemblyEstimatedMaterials: [...assemblyMaterials.entries()].sort(([a], [b]) => a.localeCompare(b))

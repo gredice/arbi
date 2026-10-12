@@ -15,14 +15,15 @@ export function renderPartPages(repository: BomRepository): Map<string, string> 
   const index = ["# BOM item pages", "", notice, "",
     "[Back to the BOM](../../README.md)", "",
     "One stable page per catalog part, including optional and deferred items. Usage quantities belong to the named assembly definition; scenario reports apply build quantities and inclusion policy.", "",
-    "| Item | Part ID | Design warnings |", "| --- | --- | --- |"];
+    "Archived items retain their stable pages and purchasing evidence, but are excluded from current assembly quantities.", "",
+    "| Item | Part ID | Lifecycle | Design warnings |", "| --- | --- | --- | --- |"];
   for (const part of parts) {
     const warnings = designWarnings(part).sort(compareWarnings);
     const priorities = warningPriorities.map((severity) => {
       const count = warnings.filter((warning) => warning.severity === severity).length;
       return count ? `${count} ${severity}` : null;
     }).filter(Boolean).join("; ");
-    index.push(`| [${text(part.name)}](${part.id}.md) | ${part.id} | ${priorities || "None recorded"} |`);
+    index.push(`| [${text(part.name)}](${part.id}.md) | ${part.id} | ${part.lifecycle} | ${priorities || "None recorded"} |`);
     const lines = [`# ${text(part.name)}`, "", notice, "",
       "[BOM](../../README.md) · [All items](README.md) · [Canonical part catalog](../../catalog/parts.json)", "",
       `- Part ID: \`${part.id}\``, `- Unit: ${part.baseUnit}`, `- Kind: ${part.kind}`,
@@ -31,6 +32,8 @@ export function renderPartPages(repository: BomRepository): Map<string, string> 
       ...part.requirements.map((requirement) => "- " + text(requirement))];
     if (warnings.length) lines.push("", "## Design warnings", "",
       ...warnings.map((warning) => `- **${warningLabels[warning.severity]}:** ${text(warning.message)}`));
+    if (part.archiveReason) lines.push("", "## Archived item", "", text(part.archiveReason), "",
+      "Excluded from current assembly quantities and purchasing totals. Sources and offers are historical evidence only.");
     if (part.notes) lines.push("", "## Notes", "", text(part.notes));
     lines.push("", "## Used in", "",
       "Quantities are per assembly definition, before build multipliers. Optional and deferred usages are shown even when excluded from a scenario. Procurement stock is not an installed physical owner.", "",

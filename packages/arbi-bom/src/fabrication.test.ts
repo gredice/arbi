@@ -59,9 +59,9 @@ test("base print kits exclude alternatives and multiply repeated pieces and vari
 test("dock bundle costs are attributed once and print estimates do not turn unknown costs into zero", async () => {
   const repository = await loadBomRepository(root);
   const base = calculateBom(repository);
-  assert.equal(base.knownSubtotal, "987.22");
-  assert.equal(base.estimatedMaterialSubtotal, "254.03");
-  assert.equal(base.estimatedPartialSubtotal, "1241.25");
+  assert.equal(base.knownSubtotal, "858.05");
+  assert.equal(base.estimatedMaterialSubtotal, "402.3");
+  assert.equal(base.estimatedPartialSubtotal, "1260.35");
   assert.equal(base.completeLandedTotal, null);
   const allocated = base.assemblyEstimatedMaterials.reduce((sum, row) => sum.add(Decimal.parse(row.amount)), Decimal.zero());
   assert.equal(allocated.toString(), base.estimatedMaterialSubtotal);
@@ -121,7 +121,7 @@ test("a full fabrication quote supersedes the material allowance", async () => {
   repository.quote.offerPrices.find((item) => item.offerId === "in-house-fabrication-dock-capture-set")!.price = { basis: "purchase-unit", amount: "60", currency: "EUR" };
   const result = calculateBom(repository);
   assert.ok(!result.fabrication.some((item) => ["dock-funnel", "dock-nest"].includes(item.partId)));
-  assert.equal(result.knownGoodsSubtotal, "1003.84");
+  assert.equal(result.knownGoodsSubtotal, "874.67");
 });
 
 test("unknown materials, zero spool weights, foreign model ownership and stale revisions fail validation", async () => {

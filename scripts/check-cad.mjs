@@ -165,7 +165,7 @@ export function validateRegistry(registryOverride, bomPartsOverride, aliasesOver
     assert(Array.isArray(registry.models) && registry.models.length > 0, 'CAD registry must contain models.');
     assert(Array.isArray(bomParts.parts), 'bom/catalog/parts.json must contain a parts array.');
 
-    const knownBomPartIds = new Set(bomParts.parts.map((part) => part.id));
+    const knownBomPartIds = new Set(bomParts.parts.filter((part) => part.lifecycle !== 'archived').map((part) => part.id));
 
     const ids = new Set();
     const modelsById = new Map();
@@ -303,7 +303,8 @@ export function validateRegistry(registryOverride, bomPartsOverride, aliasesOver
             const model = modelsById.get(source.modelId);
 
             assert(model, `${label} references an unknown CAD model: ${source.modelId}`);
-            assert(!archivedIds.has(model.id), `${label} references archived CAD model: ${model.id}`);
+            assert(part.lifecycle === 'archived' ? archivedIds.has(model.id) : !archivedIds.has(model.id),
+                `${label} references ${part.lifecycle === 'archived' ? 'active' : 'archived'} CAD model: ${model.id}`);
             assert(
                 model.artifactRole === 'fabrication',
                 `${label} references ${model.id}, which is not a fabrication model.`,
@@ -321,7 +322,7 @@ export function validateRegistry(registryOverride, bomPartsOverride, aliasesOver
                 `${label} status ${part.fabrication.modelStatus} does not match ${model.id} status ${model.status}.`,
             );
             assert(
-                model.bomPartIds.includes(part.id),
+                part.lifecycle === 'archived' || model.bomPartIds.includes(part.id),
                 `${label} is not back-referenced by ${model.id} bomPartIds.`,
             );
 
@@ -343,6 +344,11 @@ export function validateRegistry(registryOverride, bomPartsOverride, aliasesOver
     }
 
     for (const part of bomParts.parts) {
+        if (part.lifecycle === 'archived') {
+            assert(archivedModels.some((model) => model.id === part.id || part.fabrication?.sources.some((source) => source.modelId === model.id)),
+                `Archived BOM part ${part.id} has no archived CAD source.`);
+            continue;
+        }
         assert(registry.models.some((model) => model.bomPartIds.includes(part.id)),
             `BOM part ${part.id} has no active CAD model; add an approximate visualization with rework notes when geometry is unknown.`);
     }

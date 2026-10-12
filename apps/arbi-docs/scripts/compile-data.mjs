@@ -341,10 +341,11 @@ function bom(models) {
   // Use their owned design messages once; scenario messages have a part-ID prefix.
   // Keep global procurement issues without changing financial completeness/totals.
   summary.warningDetails = uniqueWarnings([...report.warningDetails.filter((warning) => warning.partIds.length === 0),
-    ...parts.flatMap((part) => part.warningDetails)]);
+    ...parts.filter((part) => part.lifecycle !== 'archived').flatMap((part) => part.warningDetails)]);
   summary.warningCount = summary.warningDetails.length;
   summary.warningCounts = warningCounts(summary.warningDetails);
-  return { summary, parts, assemblies };
+  return { summary, parts: parts.filter((part) => part.lifecycle !== 'archived'),
+    archivedParts: parts.filter((part) => part.lifecycle === 'archived'), assemblies };
 }
 
 // ------------------------------------------------------------------ main

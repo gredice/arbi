@@ -7,13 +7,19 @@
 - Part ID: `pulley-bracket-through-bolt-m12x160`
 - Unit: each
 - Kind: component
-- Lifecycle: active
+- Lifecycle: archived
 - Disciplines: mechanical
 - Traits: fastener, off-the-shelf
 
 ## Requirements
 
 - DIN 931, class 8.8, galvanized M12 × 160 mm hex through-bolt; two per post. Length suits 100–120 mm timber plus 5 mm angle, two 2 mm backing plates, washers and locking nut; confirm against actual stack before purchase.
+
+## Archived item
+
+Superseded by the selected printed corner head. Retained only for historical source and purchasing evidence; excluded from current assemblies, purchasing totals and fabrication downloads.
+
+Excluded from current assembly quantities and purchasing totals. Sources and offers are historical evidence only.
 
 ## Notes
 
@@ -25,12 +31,13 @@ Quantities are per assembly definition, before build multipliers. Optional and d
 
 | Assembly or purchasing bucket | Quantity | Inclusion | Usage note |
 | --- | ---: | --- | --- |
-| [Corner support set](../../../docs/assemblies/corner-station/README.md) | 8 each | base | — |
+
+No assembly usage recorded.
 
 [Canonical assembly quantities](../../assemblies/assemblies.json)
 
 ## BOM reports
 
-- [ARBI V1 — Zagreb repository baseline](../arbi-v1-hr-zagreb.md#required-parts-by-physical-owner-or-procurement-bucket) — included.
+- [ARBI V1 — Zagreb repository baseline](../arbi-v1-hr-zagreb.md) — not included by this build/inclusion policy.
 
 Catalog lifecycle, procurement, and generated documentation do not establish physical validation. See the owning assembly for evidence and acceptance requirements.

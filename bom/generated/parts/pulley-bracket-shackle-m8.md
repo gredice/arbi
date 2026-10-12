@@ -7,13 +7,19 @@
 - Part ID: `pulley-bracket-shackle-m8`
 - Unit: each
 - Kind: component
-- Lifecycle: active
+- Lifecycle: archived
 - Disciplines: mechanical
 - Traits: fastener, off-the-shelf
 
 ## Requirements
 
 - Marinetech short round A4 stainless shackle with 8 mm bracket-side pin through the bracket Ø9 mm hole. The received Barton double tang uses its own 4.7 mm retained pin through a compatible link body; do not pass an 8 mm pin through factory tang holes. Actual link-body size, pin locking and articulation remain unqualified.
+
+## Archived item
+
+Superseded by the selected printed corner head. Retained only for historical source and purchasing evidence; excluded from current assemblies, purchasing totals and fabrication downloads.
+
+Excluded from current assembly quantities and purchasing totals. Sources and offers are historical evidence only.
 
 ## Notes
 
@@ -25,12 +31,13 @@ Quantities are per assembly definition, before build multipliers. Optional and d
 
 | Assembly or purchasing bucket | Quantity | Inclusion | Usage note |
 | --- | ---: | --- | --- |
-| [Corner support set](../../../docs/assemblies/corner-station/README.md) | 4 each | base | — |
+
+No assembly usage recorded.
 
 [Canonical assembly quantities](../../assemblies/assemblies.json)
 
 ## BOM reports
 
-- [ARBI V1 — Zagreb repository baseline](../arbi-v1-hr-zagreb.md#required-parts-by-physical-owner-or-procurement-bucket) — included.
+- [ARBI V1 — Zagreb repository baseline](../arbi-v1-hr-zagreb.md) — not included by this build/inclusion policy.
 
 Catalog lifecycle, procurement, and generated documentation do not establish physical validation. See the owning assembly for evidence and acceptance requirements.

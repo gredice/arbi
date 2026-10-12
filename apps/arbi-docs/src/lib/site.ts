@@ -49,6 +49,7 @@ type RawSite = {
             warningCounts: WarningCounts;
         };
         parts: BomPart[];
+        archivedParts: BomPart[];
         assemblies: Assembly[];
     };
     docs: DocEntry[];
@@ -80,7 +81,7 @@ function load() {
     const models = site.registry.models;
     const archivedModels = site.registry.archivedModels ?? [];
     const modelById = new Map([...models, ...archivedModels].map((m) => [m.id, m]));
-    const bomById = new Map(site.bom.parts.map((p) => [p.id, p]));
+    const bomById = new Map([...site.bom.parts, ...site.bom.archivedParts].map((p) => [p.id, p]));
     const goods = new Map(site.bom.summary.assemblyKnownGoods.map((g) => [g.assemblyId, g.amount]));
     const slugOf = (path: string) => path.match(/assemblies\/([^/]+)\//)?.[1] ?? path;
     const assemblies: System[] = numberAssemblies(site.bom.assemblies)
