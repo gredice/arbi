@@ -29,7 +29,7 @@ The machine-readable registry is [models.json](models.json). It declares stable 
 
 Fabrication models identify their canonical BOM part IDs in the registry. The winch-drum assembly, winch-mount, camera-pod envelope, and camera-pod assembly are `reference` artifacts with no BOM part IDs and export CSG. Individual drum, mount, camera-pod chassis, and gimbal components export fabrication STL and map to their BOM parts. All models remain concept-unvalidated.
 
-Every BOM catalog item has at least one active model. Purchased items, materials,
+Every current BOM catalog item has at least one active model. Purchased items, materials,
 consumables and custom items without manufacturing sources have `visualization`
 STLs. These carry explicit `geometry.status: approximate`, dimension assumptions
 and rework requirements in the registry, source header and assembly README. Their
@@ -79,7 +79,7 @@ reference. Metal base stock is a drilling proposal, not a printed release part.
 
 ## Archived models
 
-`models.json` separates active `models` from `archivedModels`. Archived entries retain stable IDs, revisions, evidence status, source paths, an archive reason and current replacement IDs. They have no BOM ownership, active inventory count, individual release mesh, preview or fabrication download. CAD validation still checks their source/includes so historical references cannot silently break.
+`models.json` separates active `models` from `archivedModels`. Archived entries retain stable IDs, revisions, evidence status, source paths, an archive reason and current replacement IDs. They have no BOM ownership, active inventory count, individual release mesh, preview or fabrication download. Archived BOM items may retain historical fabrication-source traces to these entries, but no active part may use them. CAD validation still checks their source/includes so historical references cannot silently break.
 
 The camera-pod archive covers the original concept kit and keep-out, six dry bench-only alternatives, and the retired fixed fairing, tilt-servo boot and rear camera cowl. The compact `camera-pod-integrated-deck` is current; `camera-pod-electronics-deck` is the dry bench alternative. The shared spider, spacers, pan mount and horn retainers remain active. Docking-stud and line-termination concepts have no selected replacement; archiving them does not resolve those interfaces.
 

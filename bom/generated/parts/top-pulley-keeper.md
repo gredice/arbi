@@ -29,13 +29,13 @@ Quantities are per assembly definition, before build multipliers. Optional and d
 
 | Assembly or purchasing bucket | Quantity | Inclusion | Usage note |
 | --- | ---: | --- | --- |
-| [Corner support set](../../../docs/assemblies/corner-station/README.md) | 4 each | base | — |
+| [Corner support set](../../../docs/assemblies/corner-station/README.md) | 4 each | deferred | Current received-block keeper candidate; fitted attachment and thin-line retention remain unresolved. Not installed in the selected printed-head package. |
 
 [Canonical assembly quantities](../../assemblies/assemblies.json)
 
 ## BOM reports
 
-- [ARBI V1 — Zagreb repository baseline](../arbi-v1-hr-zagreb.md#required-parts-by-physical-owner-or-procurement-bucket) — included.
+- [ARBI V1 — Zagreb repository baseline](../arbi-v1-hr-zagreb.md) — not included by this build/inclusion policy.
 
 ## Fabrication
 

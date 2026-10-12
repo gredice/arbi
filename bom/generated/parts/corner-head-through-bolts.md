@@ -7,7 +7,7 @@
 - Part ID: `corner-head-through-bolts`
 - Unit: each
 - Kind: component
-- Lifecycle: planned
+- Lifecycle: archived
 - Disciplines: mechanical
 - Traits: fastener, off-the-shelf
 
@@ -15,9 +15,11 @@
 
 - Two M12 galvanized 8.8 bolts per round head: nominal 160/180/200 mm lengths for 100/120/140 mm timber with two 10 mm saddles. Check full nut/locking engagement and >=2 protruding threads on received stack. Replaces the baseline M12 x 160 pair.
 
-## Design warnings
+## Archived item
 
-- **Warning:** This part is planned; confirm its specification and selection with committed evidence.
+Superseded by the selected printed corner head. Retained only for historical source and purchasing evidence; excluded from current assemblies, purchasing totals and fabrication downloads.
+
+Excluded from current assembly quantities and purchasing totals. Sources and offers are historical evidence only.
 
 ## Notes
 
@@ -29,7 +31,8 @@ Quantities are per assembly definition, before build multipliers. Optional and d
 
 | Assembly or purchasing bucket | Quantity | Inclusion | Usage note |
 | --- | ---: | --- | --- |
-| [Corner support set](../../../docs/assemblies/corner-station/README.md) | 4 each | optional | Historical round metal alternative: four pairs replace baseline M12 x 160 bolts. Printed head has a distinct stack/hardware set. |
+
+No assembly usage recorded.
 
 [Canonical assembly quantities](../../assemblies/assemblies.json)
 

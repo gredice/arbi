@@ -19,7 +19,10 @@ angle, machined saddles or backing plates. The new load-bearing prints remain
 `concept-unvalidated`; print-process, creep, load and site acceptance are recorded
 in the [acceptance form](acceptance-record.md) and
 [load-study note](printed-load-study.md). Historical 150/200 mm steel arrangements
-remain separate alternatives and preserve their purchasing records.
+are archived with their sources and purchasing records. The current BOM selects
+four printed kits and hardware sets, plus one shared template; this development
+selection does not establish physical qualification. The separate keeper is
+deferred until attachment and thin-line retention are resolved.
 
 ## V1 starting geometry
 
@@ -90,7 +93,7 @@ define their measured envelope and native pin interface.
 Inspect their tang/pin geometry and thin-line retention before selection for
 loaded operation. Supplier offers and receipt do not prove engineering fit.
 
-## Drill-only bracket baseline
+## Historical drill-only bracket
 
 The historical, unvalidated per-post metal assembly uses:
 
@@ -102,7 +105,7 @@ The historical, unvalidated per-post metal assembly uses:
 - 1 × M8 A4 stainless shackle between angle and pulley;
 - zinc-rich protection on deburred drilled edges.
 
-Baseline drilling:
+Historical drilling:
 
 1. Two 13 mm holes through the vertical angle leg, timber, and both backing plates, vertically separated and centered across the 40 mm width.
 2. One 9 mm shackle hole centered in the horizontal 40 mm arm, approximately 25 mm inboard from the outer end.
@@ -179,7 +182,7 @@ No cable or enclosure may compromise the structural load path, inspection access
 
 - Inspect timber for cracks, decay, treatment condition, knots at holes, and dimensions.
 - Drill with a controlled jig and protect exposed metal and timber as specified.
-- Confirm backing-plate seating and prevent local crushing.
+- Confirm printed carrier/rear-pad seating and prevent local crushing.
 - Check pulley freedom, shackle/pin fit, line groove, keeper clearance, and drainage.
 - Align the winch only after the station geometry is fixed.
 - Mark witness lines or equivalent indicators for movement where useful.

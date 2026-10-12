@@ -87,6 +87,10 @@ keeper. See the [load-study note](../../../docs/assemblies/corner-station/printe
 
 ## Historical steel-angle head alternatives
 
+These models and their dedicated BOM items are archived. Sources and earlier
+evidence remain traceable, but current parts, quantities and fabrication downloads
+use the printed head above.
+
 The six metal-head fabrication models remain r0.1.0; the assembly reference is
 r1.0.0 with the measured block. These `concept-unvalidated` alternatives remain
 separate from the printed selection. They are not parts of the printed selection:
@@ -109,6 +113,10 @@ The new `corner-head-printed-*` sources define their own printed geometry,
 fastener stack, covers and print poses; never substitute the old saddle STLs.
 
 ## Round-pole split-collar alternative
+
+This alternative and its BOM concept pair are archived in favor of the selected
+through-bolted printed head. It is excluded from the current parts inventory,
+BOM quantities and fabrication downloads.
 
 The [split-clamp proposal and dimensions](pole-pulley-mount.md) define an adjustable
 round-pole mount with two removable collar halves and a gusseted pulley clevis.
@@ -168,7 +176,7 @@ wear and drainage visible and accessible when covers are removed.
 
 ## Approximate BOM visualizations
 
-These `visualization` models show catalog items in the Parts inventory. They are **Unverified** and are not manufacturing sources. Shape is not yet fully defined and needs rework against the selected supplier drawing or measured item before fit or clearance decisions. Nominal dimensions recorded in the catalog remain requirements, not measurement evidence. Threads, connectors, internal construction and fine detail are simplified. Kits and assortments show representative samples, not quantities; cable loops and lengths show samples, not installed routing.
+These `visualization` models retain catalog references, including archived metal-head items. Only current items appear in the active Parts inventory. They are **Unverified** and are not manufacturing sources. Shape is not yet fully defined and needs rework against the selected supplier drawing or measured item before fit or clearance decisions. Nominal dimensions recorded in the catalog remain requirements, not measurement evidence. Threads, connectors, internal construction and fine detail are simplified. Kits and assortments show representative samples, not quantities; cable loops and lengths show samples, not installed routing.
 
 | BOM item / source | Shape | Dimension basis and remaining uncertainty |
 | --- | --- | --- |

@@ -7,7 +7,7 @@
 - Part ID: `corner-head-round-saddles`
 - Unit: each
 - Kind: component
-- Lifecycle: planned
+- Lifecycle: archived
 - Disciplines: mechanical
 - Traits: fabricated
 
@@ -18,7 +18,12 @@
 ## Design warnings
 
 - **Warning:** Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
-- **Warning:** This part is planned; confirm its specification and selection with committed evidence.
+
+## Archived item
+
+Superseded by the selected printed corner head. Retained only for historical source and purchasing evidence; excluded from current assemblies, purchasing totals and fabrication downloads.
+
+Excluded from current assembly quantities and purchasing totals. Sources and offers are historical evidence only.
 
 ## Notes
 
@@ -30,7 +35,8 @@ Quantities are per assembly definition, before build multipliers. Optional and d
 
 | Assembly or purchasing bucket | Quantity | Inclusion | Usage note |
 | --- | ---: | --- | --- |
-| [Corner support set](../../../docs/assemblies/corner-station/README.md) | 4 each | optional | Historical round metal head only: four pairs (eight machined metal parts); omit for printed-head selection. |
+
+No assembly usage recorded.
 
 [Canonical assembly quantities](../../assemblies/assemblies.json)
 

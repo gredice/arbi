@@ -19,6 +19,30 @@ async function result(): Promise<CalculationResult> {
   return calculateBom(repository);
 }
 
+test("selected printed heads replace archived hardware without duplicate quantities or costs", async () => {
+  const repository = await loadBomRepository(repositoryRoot);
+  const calculated = calculateBom(repository);
+  const archived = repository.parts.parts.filter((part) => part.lifecycle === "archived");
+  assert.equal(archived.length, 14);
+  assert.ok(repository.offers.offers.some((offer) => offer.purchaseUnit.contents.some((item) => item.partId === "top-pulley-bracket")));
+  for (const part of archived) {
+    assert.ok(part.archiveReason);
+    assert.ok(!calculated.requirements.some((item) => item.partId === part.id));
+    assert.ok(!calculated.printReferences.some((item) => item.partId === part.id));
+  }
+  for (const [id, quantity] of [["corner-head-printed-kit", "4"], ["corner-head-printed-hardware", "4"], ["corner-head-printed-marking-template", "1"]]) {
+    assert.equal(calculated.requirements.find((item) => item.partId === id)?.required, quantity);
+  }
+  assert.ok(!calculated.requirements.some((item) => item.partId === "top-pulley-keeper"));
+  const prints = calculated.fabrication.find((item) => item.partId === "corner-head-printed-kit")!;
+  assert.deepEqual(prints.components.map((item) => [item.modelId, item.quantity]), [
+    ["corner-head-printed-left", "4"], ["corner-head-printed-right", "4"], ["corner-head-printed-rear-pad", "8"],
+    ["corner-head-printed-front-cover", "4"], ["corner-head-printed-rear-cover", "4"],
+  ]);
+  repository.assemblies.assemblies[0]!.usages.push({ partId: "top-pulley-bracket", quantity: "4", inclusion: "optional" });
+  assert.match(validateRepository(repository).errors.join("\n"), /references archived part top-pulley-bracket/);
+});
+
 function selection(
   calculation: CalculationResult,
   offerId: string,
@@ -96,16 +120,8 @@ test("85 m requirement rounds to one 100 m Cat5e reel", async () => {
   assert.equal(covered.surplus, "15");
 });
 
-test("washer box and servo pack expose procurement surplus", async () => {
+test("servo pack exposes procurement surplus", async () => {
   const calculated = await result();
-  const washer = coverage(
-    calculated,
-    "bauhaus-pulley-bracket-washer-m12",
-    "pulley-bracket-washer-m12",
-  );
-  assert.equal(washer.purchased, "100");
-  assert.equal(washer.surplus, "84");
-
   const servoSelection = selection(
     calculated,
     "aliexpress-micro-pan-tilt-servo",
@@ -242,8 +258,8 @@ test("bundle part-count shares reconcile to goods and physical assembly totals",
   ).add(Decimal.parse(calculated.sharedProcurementStockKnownGoods))
     .add(Decimal.parse(calculated.sharedBundleGoods));
   assert.equal(owners.toString(), calculated.knownGoodsSubtotal);
-  assert.equal(calculated.knownGoodsSubtotal, "943.84");
-  assert.equal(calculated.knownSubtotal, "987.22");
+  assert.equal(calculated.knownGoodsSubtotal, "814.67");
+  assert.equal(calculated.knownSubtotal, "858.05");
   assert.match(renderMarkdown(calculated), /73\.34/);
   assert.match(renderMarkdown(calculated), /part-count/);
 });

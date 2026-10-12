@@ -165,6 +165,9 @@ export function validateRepository(repository: BomRepository): ValidationResult 
       );
     }
     for (const usage of assembly.usages) {
+      if (repository.parts.parts.find((part) => part.id === usage.partId)?.lifecycle === "archived") {
+        result.errors.push(`Assembly ${assembly.id} references archived part ${usage.partId}`);
+      }
       if (!partSet.has(usage.partId)) {
         result.errors.push(
           `Assembly ${assembly.id} references unknown part ${usage.partId}`,
@@ -180,6 +183,9 @@ export function validateRepository(repository: BomRepository): ValidationResult 
   }
 
   for (const part of repository.parts.parts) {
+    if (part.lifecycle === "archived" && !part.archiveReason?.trim()) {
+      result.errors.push(`Archived part ${part.id} needs an archive reason`);
+    }
     if (part.fabrication?.modelStatus === "planned" && part.fabrication.sources.length > 0) {
       result.errors.push(
         `Planned fabrication part ${part.id} must not claim an implemented manufacturing source`,

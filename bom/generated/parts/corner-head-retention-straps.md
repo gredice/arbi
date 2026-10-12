@@ -7,7 +7,7 @@
 - Part ID: `corner-head-retention-straps`
 - Unit: each
 - Kind: component
-- Lifecycle: planned
+- Lifecycle: archived
 - Disciplines: mechanical
 - Traits: off-the-shelf
 
@@ -15,9 +15,11 @@
 
 - Three independent outdoor UV-rated straps per head, <=2.5 mm wide and <=1 mm thick; starting length 800 mm. Two pass through stem/rear shields; one wraps the roof and steel arm; no structural retention role. Physical strength, creep, weather and retention qualification required.
 
-## Design warnings
+## Archived item
 
-- **Warning:** This part is planned; confirm its specification and selection with committed evidence.
+Superseded by the selected printed corner head. Retained only for historical source and purchasing evidence; excluded from current assemblies, purchasing totals and fabrication downloads.
+
+Excluded from current assembly quantities and purchasing totals. Sources and offers are historical evidence only.
 
 ## Notes
 
@@ -29,7 +31,8 @@ Quantities are per assembly definition, before build multipliers. Optional and d
 
 | Assembly or purchasing bucket | Quantity | Inclusion | Usage note |
 | --- | ---: | --- | --- |
-| [Corner support set](../../../docs/assemblies/corner-station/README.md) | 12 each | optional | Historical metal head only: three per shield kit; printed-head hardware set includes two per head instead. |
+
+No assembly usage recorded.
 
 [Canonical assembly quantities](../../assemblies/assemblies.json)
 

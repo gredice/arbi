@@ -11,13 +11,13 @@
 - Build: arbi-v1
 - Destination: hr-zagreb
 - Quote snapshot: hr-zagreb-2026-10-08-coupling
-- Input digest: sha256:217d59d7c7284106dd19d9a02e8c20be2e71675e6240672f9a724bf92a8daada
+- Input digest: sha256:0250c6a4d216286410f3be98b7604bee3837ead9c1818f4c12db3abc7d368149
 - Complete landed total: **unavailable**
-- Known quoted goods subtotal: **EUR 943.84**
+- Known quoted goods subtotal: **EUR 814.67**
 - Known checkout-group shipping subtotal: **EUR 43.38**
-- Known partial subtotal: **EUR 987.22**
-- Estimated print materials: **EUR 254.03**
-- Estimated partial subtotal (known amounts + print materials): **EUR 1241.25**
+- Known partial subtotal: **EUR 858.05**
+- Estimated print materials: **EUR 402.30**
+- Estimated partial subtotal (known amounts + print materials): **EUR 1260.35**
 
 The known partial subtotal is evidence about recorded values only. It excludes every unresolved amount and must not be presented as the project cost.
 
@@ -27,7 +27,7 @@ The known partial subtotal is evidence about recorded values only. It excludes e
 | --- | ---: |
 | camera-pod | EUR 115.07 |
 | control-cabinet | EUR 66.16 |
-| corner-support-set | EUR 185.97 |
+| corner-support-set | EUR 56.80 |
 | dock | EUR 1.60 |
 | site-installation | EUR 141.00 |
 | winch-set | EUR 390.85 |
@@ -45,12 +45,13 @@ Solid CAD volume × each component's material density × observed roll price / r
 | --- | ---: | --- | ---: | ---: |
 | [camera-gimbal](parts/camera-gimbal.md) | 1 | PETG Matte + PETG Basic | 54.004 g | EUR 0.61 |
 | [camera-pod-chassis](parts/camera-pod-chassis.md) | 1 | PETG Matte + PETG Basic | 206.965 g | EUR 2.36 |
+| [corner-head-printed-kit](parts/corner-head-printed-kit.md) | 4 | ASA + PETG Matte | 6576.581 g | EUR 148.04 |
+| [corner-head-printed-marking-template](parts/corner-head-printed-marking-template.md) | 1 | ASA | 42.909 g | EUR 1.07 |
 | [dock-funnel](parts/dock-funnel.md) | 1 | PETG Basic | 149.073 g | EUR 1.70 |
 | [dock-latch-hardware](parts/dock-latch-hardware.md) | 1 | PETG Basic | 126.828 g | EUR 1.44 |
 | [dock-nest](parts/dock-nest.md) | 1 | PETG Basic | 216.782 g | EUR 2.47 |
 | [dock-support-arm](parts/dock-support-arm.md) | 1 | PETG Basic | 1602.762 g | EUR 18.26 |
 | [dock-weather-hood](parts/dock-weather-hood.md) | 1 | PETG Basic | 299.523 g | EUR 3.41 |
-| [top-pulley-keeper](parts/top-pulley-keeper.md) | 4 | PETG Basic | 73.507 g | EUR 0.84 |
 | [winch-drum](parts/winch-drum.md) | 4 | PETG Basic | 4980.607 g | EUR 56.73 |
 | [winch-full-cover](parts/winch-full-cover.md) | 4 | ASA + PETG Matte | 12527.69 g | EUR 147.84 |
 | [winch-mount-and-guard](parts/winch-mount-and-guard.md) | 4 | PETG Matte + PETG Basic | 1613.452 g | EUR 18.37 |
@@ -112,16 +113,9 @@ aliexpress-hr: EUR 3.00 per item type (not per piece), order goods strictly belo
 | bauhaus-guy-wire-3mm | baseline-selected | unknown | [guy-wire-3mm](parts/guy-wire-3mm.md): 16 m required, unknown purchase quantity; goods unknown | unknown | unallocated |
 | bauhaus-motor-power-branch-cable | baseline-selected | 1 | [motor-power-branch-cable](parts/motor-power-branch-cable.md): 50 m required, 50 m purchased; 0 surplus; goods EUR 89.00 | EUR 89.00 | single-part |
 | bauhaus-post-electronics-enclosure | baseline-selected | unknown | [post-electronics-enclosure](parts/post-electronics-enclosure.md): 4 each required, unknown purchase quantity; goods unknown | unknown | unallocated |
-| bauhaus-pulley-bracket-backing-plate | baseline-selected | 8 | [pulley-bracket-backing-plate](parts/pulley-bracket-backing-plate.md): 8 each required, 8 each purchased; 0 surplus; goods EUR 28.40 | EUR 28.40 | single-part |
-| bauhaus-pulley-bracket-locknut-m12 | baseline-selected | 1 | [pulley-bracket-locknut-m12](parts/pulley-bracket-locknut-m12.md): 8 each required, 50 each purchased; 42 surplus; goods EUR 9.00 | EUR 9.00 | single-part |
-| bauhaus-pulley-bracket-shackle-m8 | baseline-selected | 4 | [pulley-bracket-shackle-m8](parts/pulley-bracket-shackle-m8.md): 4 each required, 4 each purchased; 0 surplus; goods EUR 14.28 | EUR 14.28 | single-part |
-| bauhaus-pulley-bracket-through-bolt-m12x160 | baseline-selected | 1 | [pulley-bracket-through-bolt-m12x160](parts/pulley-bracket-through-bolt-m12x160.md): 8 each required, 40 each purchased; 32 surplus; goods EUR 33.20 | EUR 33.20 | single-part |
-| bauhaus-pulley-bracket-washer-m12 | baseline-selected | 1 | [pulley-bracket-washer-m12](parts/pulley-bracket-washer-m12.md): 16 each required, 100 each purchased; 84 surplus; goods EUR 16.00 | EUR 16.00 | single-part |
-| bauhaus-top-pulley-bracket | baseline-selected | 4 | [top-pulley-bracket](parts/top-pulley-bracket.md): 4 each required, 4 each purchased; 0 surplus; goods EUR 16.60 | EUR 16.60 | single-part |
 | bauhaus-winch-drum-shaft-8mm | baseline-selected | 1 | [winch-drum-shaft-8mm](parts/winch-drum-shaft-8mm.md): 4 each required, 4 each purchased; 0 surplus; goods EUR 6.95 | EUR 6.95 | single-part |
 | bauhaus-wire-rope-clamp-3mm | baseline-selected | unknown | [wire-rope-clamp-3mm](parts/wire-rope-clamp-3mm.md): 16 each required, unknown purchase quantity; goods unknown | unknown | unallocated |
 | bauhaus-wire-rope-thimble-3mm | baseline-selected | unknown | [wire-rope-thimble-3mm](parts/wire-rope-thimble-3mm.md): 8 each required, unknown purchase quantity; goods unknown | unknown | unallocated |
-| bauhaus-zinc-spray | baseline-selected | 1 | [zinc-spray](parts/zinc-spray.md): 1 each required, 1 each purchased; 0 surplus; goods EUR 11.69 | EUR 11.69 | single-part |
 | cotra-zagreb-corner-post-treated-timber | baseline-selected | unknown | [corner-post-treated-timber](parts/corner-post-treated-timber.md): 4 each required, unknown purchase quantity; goods unknown | unknown | unallocated |
 | dive-store-dyneema-positioning-line | baseline-selected | 4 | [dyneema-positioning-line](parts/dyneema-positioning-line.md): 180 m required, 200 m purchased; 20 surplus; goods EUR 73.52 | EUR 73.52 | single-part |
 | in-house-fabrication-camera-gimbal | baseline-selected | 1 | [camera-gimbal](parts/camera-gimbal.md): 1 each required, 1 each purchased; 0 surplus; goods unknown | unknown | unallocated |
@@ -129,7 +123,6 @@ aliexpress-hr: EUR 3.00 per item type (not per piece), order goods strictly belo
 | in-house-fabrication-dock-capture-set | baseline-selected | 1 | [dock-funnel](parts/dock-funnel.md): 1 each required, 1 each purchased; 0 surplus; goods unknown; [dock-nest](parts/dock-nest.md): 1 each required, 1 each purchased; 0 surplus; goods unknown | unknown | unallocated |
 | in-house-fabrication-dock-latch-hardware | baseline-selected | 1 | [dock-latch-hardware](parts/dock-latch-hardware.md): 1 each required, 1 each purchased; 0 surplus; goods unknown | unknown | unallocated |
 | in-house-fabrication-dock-weather-hood | baseline-selected | 1 | [dock-weather-hood](parts/dock-weather-hood.md): 1 each required, 1 each purchased; 0 surplus; goods unknown | unknown | unallocated |
-| in-house-fabrication-top-pulley-keeper | baseline-selected | 4 | [top-pulley-keeper](parts/top-pulley-keeper.md): 4 each required, 4 each purchased; 0 surplus; goods unknown | unknown | unallocated |
 | in-house-fabrication-winch-drum | baseline-selected | 4 | [winch-drum](parts/winch-drum.md): 4 each required, 4 each purchased; 0 surplus; goods unknown | unknown | unallocated |
 | in-house-fabrication-winch-mount-and-guard | baseline-selected | 4 | [winch-mount-and-guard](parts/winch-mount-and-guard.md): 4 each required, 4 each purchased; 0 surplus; goods unknown | unknown | unallocated |
 | kabel24-control-panel-enclosure | baseline-selected | unknown | [control-panel-enclosure](parts/control-panel-enclosure.md): 1 each required, unknown purchase quantity; goods unknown | unknown | unallocated |
@@ -162,6 +155,9 @@ aliexpress-hr: EUR 3.00 per item type (not per piece), order goods strictly belo
 | [cl57y-v20-driver](parts/cl57y-v20-driver.md) | 4 each | winch-set (4 each) | stepperonline-4-axis-v2-kit |
 | [control-panel-enclosure](parts/control-panel-enclosure.md) | 1 each | control-cabinet (1 each) | kabel24-control-panel-enclosure |
 | [controller-buck-converter-48v-5v](parts/controller-buck-converter-48v-5v.md) | 1 each | control-cabinet (1 each) | aliexpress-controller-buck-converter-48v-5v |
+| [corner-head-printed-hardware](parts/corner-head-printed-hardware.md) | 4 each | corner-support-set (4 each) | unresolved |
+| [corner-head-printed-kit](parts/corner-head-printed-kit.md) | 4 each | corner-support-set (4 each) | unresolved |
+| [corner-head-printed-marking-template](parts/corner-head-printed-marking-template.md) | 1 each | corner-support-set (1 each) | unresolved |
 | [corner-post-treated-timber](parts/corner-post-treated-timber.md) | 4 each | corner-support-set (4 each) | cotra-zagreb-corner-post-treated-timber |
 | [din-rail-ground-distribution-block](parts/din-rail-ground-distribution-block.md) | 1 each | control-cabinet (1 each) | bauhaus-din-rail-ground-distribution-block |
 | [dock-bench-hardware](parts/dock-bench-hardware.md) | 1 each | dock (1 each) | unresolved |
@@ -190,11 +186,6 @@ aliexpress-hr: EUR 3.00 per item type (not per piece), order goods strictly belo
 | [pod-power-wire-red-awg26](parts/pod-power-wire-red-awg26.md) | 50 m | winch-set (50 m) | aliexpress-pod-power-wire-red-awg26 |
 | [post-electronics-enclosure](parts/post-electronics-enclosure.md) | 4 each | winch-set (4 each) | bauhaus-post-electronics-enclosure |
 | [power-supply-48v-350w](parts/power-supply-48v-350w.md) | 2 each | control-cabinet (2 each) | stepperonline-4-axis-v2-kit |
-| [pulley-bracket-backing-plate](parts/pulley-bracket-backing-plate.md) | 8 each | corner-support-set (8 each) | bauhaus-pulley-bracket-backing-plate |
-| [pulley-bracket-locknut-m12](parts/pulley-bracket-locknut-m12.md) | 8 each | corner-support-set (8 each) | bauhaus-pulley-bracket-locknut-m12 |
-| [pulley-bracket-shackle-m8](parts/pulley-bracket-shackle-m8.md) | 4 each | corner-support-set (4 each) | bauhaus-pulley-bracket-shackle-m8 |
-| [pulley-bracket-through-bolt-m12x160](parts/pulley-bracket-through-bolt-m12x160.md) | 8 each | corner-support-set (8 each) | bauhaus-pulley-bracket-through-bolt-m12x160 |
-| [pulley-bracket-washer-m12](parts/pulley-bracket-washer-m12.md) | 16 each | corner-support-set (16 each) | bauhaus-pulley-bracket-washer-m12 |
 | [raspberry-pi-3a-plus](parts/raspberry-pi-3a-plus.md) | 1 each | camera-pod (1 each) | pimoroni-raspberry-pi-3a-plus |
 | [raspberry-pi-camera-module-3](parts/raspberry-pi-camera-module-3.md) | 1 each | camera-pod (1 each) | tme-raspberry-pi-camera-module-3 |
 | [raspberry-pi-pico-2-w](parts/raspberry-pi-pico-2-w.md) | 1 each | control-cabinet (1 each) | tme-raspberry-pi-pico-2-w |
@@ -202,8 +193,6 @@ aliexpress-hr: EUR 3.00 per item type (not per piece), order goods strictly belo
 | [shaft-collar-8mm](parts/shaft-collar-8mm.md) | 8 each | winch-set (8 each) | aliexpress-shaft-collar-8mm |
 | [stainless-fastener-assortment](parts/stainless-fastener-assortment.md) | 1 each | shared-procurement-stock [non-physical] (1 each) | aliexpress-stainless-fastener-assortment |
 | [top-positioning-line-pulley](parts/top-positioning-line-pulley.md) | 4 each | corner-support-set (4 each) | wasi-barton-30mm |
-| [top-pulley-bracket](parts/top-pulley-bracket.md) | 4 each | corner-support-set (4 each) | bauhaus-top-pulley-bracket |
-| [top-pulley-keeper](parts/top-pulley-keeper.md) | 4 each | corner-support-set (4 each) | in-house-fabrication-top-pulley-keeper |
 | [winch-drum](parts/winch-drum.md) | 4 each | winch-set (4 each) | in-house-fabrication-winch-drum |
 | [winch-drum-joining-hardware](parts/winch-drum-joining-hardware.md) | 1 each | winch-set (1 each) | unresolved-winch-drum-joining-hardware |
 | [winch-drum-shaft-8mm](parts/winch-drum-shaft-8mm.md) | 4 each | winch-set (4 each) | bauhaus-winch-drum-shaft-8mm |
@@ -213,7 +202,6 @@ aliexpress-hr: EUR 3.00 per item type (not per piece), order goods strictly belo
 | [winch-mount-hardware](parts/winch-mount-hardware.md) | 1 each | winch-set (1 each) | unresolved-winch-mount-hardware |
 | [wire-rope-clamp-3mm](parts/wire-rope-clamp-3mm.md) | 16 each | corner-support-set (16 each) | bauhaus-wire-rope-clamp-3mm |
 | [wire-rope-thimble-3mm](parts/wire-rope-thimble-3mm.md) | 8 each | corner-support-set (8 each) | bauhaus-wire-rope-thimble-3mm |
-| [zinc-spray](parts/zinc-spray.md) | 1 each | corner-support-set (1 each) | bauhaus-zinc-spray |
 
 ## Prioritized warnings
 
@@ -226,7 +214,7 @@ Critical warnings identify unknown dimensions, approximate geometry, missing man
 - **Critical:** camera-pod-wiring-kit: The capacitor tie and harness retention are shown without a complete procurement specification or quantity. Record the missing hardware data and replace those ties with dedicated mounts and strain relief; cable ties are temporary bench workarounds only.
 - **Critical:** wire-rope-thimble-3mm: Part requirements are missing; record the specification before selecting or building this part.
 
-### Warning (67)
+### Warning (63)
 
 - **Warning:** aliexpress-bearing-608-2rs: Qualification is baseline-selected; the recorded selection is not engineering approval.
 - **Warning:** aliexpress-bulk-capacitor-1000uf: Qualification is baseline-selected; the recorded selection is not engineering approval.
@@ -248,22 +236,20 @@ Critical warnings identify unknown dimensions, approximate geometry, missing man
 - **Warning:** bauhaus-guy-wire-3mm: Qualification is baseline-selected; the recorded selection is not engineering approval.
 - **Warning:** bauhaus-motor-power-branch-cable: Qualification is baseline-selected; the recorded selection is not engineering approval.
 - **Warning:** bauhaus-post-electronics-enclosure: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- **Warning:** bauhaus-pulley-bracket-backing-plate: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- **Warning:** bauhaus-pulley-bracket-locknut-m12: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- **Warning:** bauhaus-pulley-bracket-shackle-m8: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- **Warning:** bauhaus-pulley-bracket-through-bolt-m12x160: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- **Warning:** bauhaus-pulley-bracket-washer-m12: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- **Warning:** bauhaus-top-pulley-bracket: Qualification is baseline-selected; the recorded selection is not engineering approval.
 - **Warning:** bauhaus-winch-drum-shaft-8mm: Qualification is baseline-selected; the recorded selection is not engineering approval.
 - **Warning:** bauhaus-wire-rope-clamp-3mm: Qualification is baseline-selected; the recorded selection is not engineering approval.
 - **Warning:** bauhaus-wire-rope-thimble-3mm: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- **Warning:** bauhaus-zinc-spray: Qualification is baseline-selected; the recorded selection is not engineering approval.
 - **Warning:** cabinet-installation-kit: This part is planned; confirm its specification and selection with committed evidence.
 - **Warning:** cabinet-protection-kit: This part is planned; confirm its specification and selection with committed evidence.
 - **Warning:** camera-gimbal: Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
 - **Warning:** camera-pod-chassis: Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
 - **Warning:** camera-pod-fastener-kit: This part is planned; confirm its specification and selection with committed evidence.
 - **Warning:** camera-pod-wiring-kit: This part is planned; confirm its specification and selection with committed evidence.
+- **Warning:** corner-head-printed-hardware: This part is planned; confirm its specification and selection with committed evidence.
+- **Warning:** corner-head-printed-kit: Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
+- **Warning:** corner-head-printed-kit: This part is planned; confirm its specification and selection with committed evidence.
+- **Warning:** corner-head-printed-marking-template: Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
+- **Warning:** corner-head-printed-marking-template: This part is planned; confirm its specification and selection with committed evidence.
 - **Warning:** cotra-zagreb-corner-post-treated-timber: Qualification is baseline-selected; the recorded selection is not engineering approval.
 - **Warning:** dive-store-dyneema-positioning-line: Qualification is baseline-selected; the recorded selection is not engineering approval.
 - **Warning:** dock-funnel: Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
@@ -276,7 +262,6 @@ Critical warnings identify unknown dimensions, approximate geometry, missing man
 - **Warning:** in-house-fabrication-dock-capture-set: Qualification is baseline-selected; the recorded selection is not engineering approval.
 - **Warning:** in-house-fabrication-dock-latch-hardware: Qualification is baseline-selected; the recorded selection is not engineering approval.
 - **Warning:** in-house-fabrication-dock-weather-hood: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- **Warning:** in-house-fabrication-top-pulley-keeper: Qualification is baseline-selected; the recorded selection is not engineering approval.
 - **Warning:** in-house-fabrication-winch-drum: Qualification is baseline-selected; the recorded selection is not engineering approval.
 - **Warning:** in-house-fabrication-winch-mount-and-guard: Qualification is baseline-selected; the recorded selection is not engineering approval.
 - **Warning:** kabel24-control-panel-enclosure: Qualification is baseline-selected; the recorded selection is not engineering approval.
@@ -288,7 +273,6 @@ Critical warnings identify unknown dimensions, approximate geometry, missing man
 - **Warning:** tme-pico-terminal-expansion-board: Qualification is baseline-selected; the recorded selection is not engineering approval.
 - **Warning:** tme-raspberry-pi-camera-module-3: Qualification is unresolved; the recorded selection is not engineering approval.
 - **Warning:** tme-raspberry-pi-pico-2-w: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- **Warning:** top-pulley-keeper: Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
 - **Warning:** unresolved-winch-drum-joining-hardware: Qualification is unresolved; the recorded selection is not engineering approval.
 - **Warning:** unresolved-winch-mount-hardware: Qualification is unresolved; the recorded selection is not engineering approval.
 - **Warning:** wasi-barton-30mm: Qualification is baseline-selected; the recorded selection is not engineering approval.
@@ -296,7 +280,7 @@ Critical warnings identify unknown dimensions, approximate geometry, missing man
 - **Warning:** winch-full-cover: Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
 - **Warning:** winch-mount-and-guard: Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
 
-### Issues (192)
+### Issues (173)
 
 - **Issues:** aliexpress-bearing-608-2rs: Availability is unknown.
 - **Issues:** aliexpress-bearing-608-2rs: Price and availability observation date is unknown; quote capture time is not verification time.
@@ -365,24 +349,6 @@ Critical warnings identify unknown dimensions, approximate geometry, missing man
 - **Issues:** bauhaus-post-electronics-enclosure: Availability is unknown.
 - **Issues:** bauhaus-post-electronics-enclosure: Package size/MOQ is unknown.
 - **Issues:** bauhaus-post-electronics-enclosure: Price and availability observation date is unknown; quote capture time is not verification time.
-- **Issues:** bauhaus-pulley-bracket-backing-plate: Availability is unknown.
-- **Issues:** bauhaus-pulley-bracket-backing-plate: Price and availability observation date is unknown; quote capture time is not verification time.
-- **Issues:** bauhaus-pulley-bracket-backing-plate: Tax/VAT treatment is unknown.
-- **Issues:** bauhaus-pulley-bracket-locknut-m12: Availability is unknown.
-- **Issues:** bauhaus-pulley-bracket-locknut-m12: Price and availability observation date is unknown; quote capture time is not verification time.
-- **Issues:** bauhaus-pulley-bracket-locknut-m12: Tax/VAT treatment is unknown.
-- **Issues:** bauhaus-pulley-bracket-shackle-m8: Availability is unknown.
-- **Issues:** bauhaus-pulley-bracket-shackle-m8: Price and availability observation date is unknown; quote capture time is not verification time.
-- **Issues:** bauhaus-pulley-bracket-shackle-m8: Tax/VAT treatment is unknown.
-- **Issues:** bauhaus-pulley-bracket-through-bolt-m12x160: Availability is unknown.
-- **Issues:** bauhaus-pulley-bracket-through-bolt-m12x160: Price and availability observation date is unknown; quote capture time is not verification time.
-- **Issues:** bauhaus-pulley-bracket-through-bolt-m12x160: Tax/VAT treatment is unknown.
-- **Issues:** bauhaus-pulley-bracket-washer-m12: Availability is unknown.
-- **Issues:** bauhaus-pulley-bracket-washer-m12: Price and availability observation date is unknown; quote capture time is not verification time.
-- **Issues:** bauhaus-pulley-bracket-washer-m12: Tax/VAT treatment is unknown.
-- **Issues:** bauhaus-top-pulley-bracket: Availability is unknown.
-- **Issues:** bauhaus-top-pulley-bracket: Price and availability observation date is unknown; quote capture time is not verification time.
-- **Issues:** bauhaus-top-pulley-bracket: Tax/VAT treatment is unknown.
 - **Issues:** bauhaus-winch-drum-shaft-8mm: Availability is unknown.
 - **Issues:** bauhaus-wire-rope-clamp-3mm: A quoted price cannot be extended without package data.
 - **Issues:** bauhaus-wire-rope-clamp-3mm: Availability is unknown.
@@ -392,11 +358,10 @@ Critical warnings identify unknown dimensions, approximate geometry, missing man
 - **Issues:** bauhaus-wire-rope-thimble-3mm: Availability is unknown.
 - **Issues:** bauhaus-wire-rope-thimble-3mm: Package size/MOQ is unknown.
 - **Issues:** bauhaus-wire-rope-thimble-3mm: Price and availability observation date is unknown; quote capture time is not verification time.
-- **Issues:** bauhaus-zinc-spray: Availability is unknown.
-- **Issues:** bauhaus-zinc-spray: Price and availability observation date is unknown; quote capture time is not verification time.
-- **Issues:** bauhaus-zinc-spray: Tax/VAT treatment is unknown.
 - **Issues:** camera-gimbal: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
 - **Issues:** camera-pod-chassis: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
+- **Issues:** corner-head-printed-kit: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
+- **Issues:** corner-head-printed-marking-template: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
 - **Issues:** cotra-zagreb-corner-post-treated-timber: Availability is unknown.
 - **Issues:** cotra-zagreb-corner-post-treated-timber: Package size/MOQ is unknown.
 - **Issues:** cotra-zagreb-corner-post-treated-timber: Price and availability observation date is unknown; quote capture time is not verification time.
@@ -423,8 +388,6 @@ Critical warnings identify unknown dimensions, approximate geometry, missing man
 - **Issues:** in-house-fabrication-dock-weather-hood: Price and availability observation date is unknown; quote capture time is not verification time.
 - **Issues:** in-house-fabrication-dock-weather-hood: Price is unknown.
 - **Issues:** in-house-fabrication-hr: Shipping observation date is unknown; quote capture time is not verification time.
-- **Issues:** in-house-fabrication-top-pulley-keeper: Price and availability observation date is unknown; quote capture time is not verification time.
-- **Issues:** in-house-fabrication-top-pulley-keeper: Price is unknown.
 - **Issues:** in-house-fabrication-winch-drum: Price and availability observation date is unknown; quote capture time is not verification time.
 - **Issues:** in-house-fabrication-winch-drum: Price is unknown.
 - **Issues:** in-house-fabrication-winch-mount-and-guard: Price and availability observation date is unknown; quote capture time is not verification time.
@@ -450,6 +413,9 @@ Critical warnings identify unknown dimensions, approximate geometry, missing man
 - **Issues:** Required part cabinet-protection-kit has no pinned offer.
 - **Issues:** Required part camera-pod-fastener-kit has no pinned offer.
 - **Issues:** Required part camera-pod-wiring-kit has no pinned offer.
+- **Issues:** Required part corner-head-printed-hardware has no pinned offer.
+- **Issues:** Required part corner-head-printed-kit has no pinned offer.
+- **Issues:** Required part corner-head-printed-marking-template has no pinned offer.
 - **Issues:** Required part dock-bench-hardware has no pinned offer.
 - **Issues:** Required part dock-support-arm has no pinned offer.
 - **Issues:** Required part extension-spring-assortment has no pinned offer.
@@ -479,7 +445,6 @@ Critical warnings identify unknown dimensions, approximate geometry, missing man
 - **Issues:** tme-raspberry-pi-pico-2-w: Availability is unknown.
 - **Issues:** tme-raspberry-pi-pico-2-w: Price and availability observation date is unknown; quote capture time is not verification time.
 - **Issues:** tme-raspberry-pi-pico-2-w: Tax/VAT treatment is unknown.
-- **Issues:** top-pulley-keeper: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
 - **Issues:** unresolved-winch-drum-joining-hardware: Destination quote row is missing.
 - **Issues:** unresolved-winch-drum-joining-hardware: Package size/MOQ is unknown.
 - **Issues:** unresolved-winch-drum-joining-hardware: Price is unknown.

@@ -801,7 +801,7 @@
       "name": "Round-pole split-clamp pulley mount concept pair",
       "baseUnit": "each",
       "kind": "component",
-      "lifecycle": "planned",
+      "lifecycle": "archived",
       "disciplines": [
         "mechanical"
       ],
@@ -830,14 +830,15 @@
             "revision": "0.1.0"
           }
         ]
-      }
+      },
+      "archiveReason": "Superseded by the selected printed corner head. Retained only for historical source and purchasing evidence; excluded from current assemblies, purchasing totals and fabrication downloads."
     },
     {
       "id": "pulley-bracket-backing-plate",
       "name": "Rear backing plate for top-pulley bracket — stacked BAUHAUS plates",
       "baseUnit": "each",
       "kind": "component",
-      "lifecycle": "active",
+      "lifecycle": "archived",
       "disciplines": [
         "mechanical"
       ],
@@ -847,14 +848,15 @@
       "requirements": [
         "Stabilit 100 × 200 × 2 mm galvanized perforated steel plate. Stack two plates per post to make an approximately 4 mm rear backing plate; drill two aligned Ø13 mm holes for M12 through-bolts."
       ],
-      "notes": "Eight plates total: two per post. Spreads cyclic pulley load across the timber and reduces local crushing."
+      "notes": "Eight plates total: two per post. Spreads cyclic pulley load across the timber and reduces local crushing.",
+      "archiveReason": "Superseded by the selected printed corner head. Retained only for historical source and purchasing evidence; excluded from current assemblies, purchasing totals and fabrication downloads."
     },
     {
       "id": "pulley-bracket-locknut-m12",
       "name": "M12 galvanized locking nut for pulley bracket",
       "baseUnit": "each",
       "kind": "component",
-      "lifecycle": "active",
+      "lifecycle": "archived",
       "disciplines": [
         "mechanical"
       ],
@@ -865,14 +867,15 @@
       "requirements": [
         "Galvanized M12 DIN 985 nylon-insert locking nut; one per through-bolt, two per post and eight total."
       ],
-      "notes": "Linked BAUHAUS product is sold as a 50-piece box. Re-check clamp after timber settlement; replace the nut if the nylon insert is damaged or repeatedly removed."
+      "notes": "Linked BAUHAUS product is sold as a 50-piece box. Re-check clamp after timber settlement; replace the nut if the nylon insert is damaged or repeatedly removed.",
+      "archiveReason": "Superseded by the selected printed corner head. Retained only for historical source and purchasing evidence; excluded from current assemblies, purchasing totals and fabrication downloads."
     },
     {
       "id": "pulley-bracket-shackle-m8",
       "name": "M8 A4 shackle for pulley-to-bracket connection",
       "baseUnit": "each",
       "kind": "component",
-      "lifecycle": "active",
+      "lifecycle": "archived",
       "disciplines": [
         "mechanical"
       ],
@@ -883,14 +886,15 @@
       "requirements": [
         "Marinetech short round A4 stainless shackle with 8 mm bracket-side pin through the bracket Ø9 mm hole. The received Barton double tang uses its own 4.7 mm retained pin through a compatible link body; do not pass an 8 mm pin through factory tang holes. Actual link-body size, pin locking and articulation remain unqualified."
       ],
-      "notes": "Historical steel-head connector only; omitted from the printed central-lug alternative. The CAD two-axis loop is an unqualified envelope, not the received shackle. Its body must fit the 15.8 mm tang gap and supplied 4.7 mm pin. No M8 pulley-pin substitution or factory-hole modification is permitted. See bom/sourcing/barton-n01090-2026-10-11.md."
+      "notes": "Historical steel-head connector only; omitted from the printed central-lug alternative. The CAD two-axis loop is an unqualified envelope, not the received shackle. Its body must fit the 15.8 mm tang gap and supplied 4.7 mm pin. No M8 pulley-pin substitution or factory-hole modification is permitted. See bom/sourcing/barton-n01090-2026-10-11.md.",
+      "archiveReason": "Superseded by the selected printed corner head. Retained only for historical source and purchasing evidence; excluded from current assemblies, purchasing totals and fabrication downloads."
     },
     {
       "id": "pulley-bracket-through-bolt-m12x160",
       "name": "M12 × 160 galvanized 8.8 through-bolt for pulley bracket",
       "baseUnit": "each",
       "kind": "component",
-      "lifecycle": "active",
+      "lifecycle": "archived",
       "disciplines": [
         "mechanical"
       ],
@@ -901,14 +905,15 @@
       "requirements": [
         "DIN 931, class 8.8, galvanized M12 × 160 mm hex through-bolt; two per post. Length suits 100–120 mm timber plus 5 mm angle, two 2 mm backing plates, washers and locking nut; confirm against actual stack before purchase."
       ],
-      "notes": "Historical metal baseline uses eight; linked BAUHAUS product is sold as a 40-piece box. Do not use DIN 571 wood/coach screws. M12 x 160 does not cover the round metal-saddle alternative or any proposed printed-head stack; select the distinct replacement hardware set and verify the received stack."
+      "notes": "Historical metal baseline uses eight; linked BAUHAUS product is sold as a 40-piece box. Do not use DIN 571 wood/coach screws. M12 x 160 does not cover the round metal-saddle alternative or any proposed printed-head stack; select the distinct replacement hardware set and verify the received stack.",
+      "archiveReason": "Superseded by the selected printed corner head. Retained only for historical source and purchasing evidence; excluded from current assemblies, purchasing totals and fabrication downloads."
     },
     {
       "id": "pulley-bracket-washer-m12",
       "name": "M12 DIN 9021 large washer for pulley bracket",
       "baseUnit": "each",
       "kind": "component",
-      "lifecycle": "active",
+      "lifecycle": "archived",
       "disciplines": [
         "mechanical"
       ],
@@ -919,7 +924,8 @@
       "requirements": [
         "Galvanized DIN 9021 washer, 13 mm ID × 37 mm OD × 3 mm thick. Use one under every M12 bolt head and one under every locking nut: four per post, 16 total."
       ],
-      "notes": "Linked BAUHAUS product is sold as a 100-piece box."
+      "notes": "Linked BAUHAUS product is sold as a 100-piece box.",
+      "archiveReason": "Superseded by the selected printed corner head. Retained only for historical source and purchasing evidence; excluded from current assemblies, purchasing totals and fabrication downloads."
     },
     {
       "id": "raspberry-pi-3a-plus",
@@ -1045,7 +1051,7 @@
       "name": "Top-pulley offset steel mounting bracket — BAUHAUS Stabilit solid angle",
       "baseUnit": "each",
       "kind": "component",
-      "lifecycle": "active",
+      "lifecycle": "archived",
       "disciplines": [
         "mechanical"
       ],
@@ -1055,7 +1061,8 @@
       "requirements": [
         "150 × 40 × 150 mm equal-leg solid angle, 5 mm galvanized steel. One per post: vertical leg through-bolted to timber; horizontal leg projects inward. Drill/enlarge two Ø13 mm mounting holes and one centred Ø9 mm shackle hole ~25 mm from the outer end for ~125 mm pulley offset."
       ],
-      "notes": "Drill-only V1 solution; no welding. Deburr and recoat new holes with zinc-rich spray. Controlled proof-load required before overhead use."
+      "notes": "Drill-only V1 solution; no welding. Deburr and recoat new holes with zinc-rich spray. Controlled proof-load required before overhead use.",
+      "archiveReason": "Superseded by the selected printed corner head. Retained only for historical source and purchasing evidence; excluded from current assemblies, purchasing totals and fabrication downloads."
     },
     {
       "id": "top-pulley-keeper",
@@ -1347,7 +1354,7 @@
       "name": "Zinc-rich spray for drilled pulley-bracket edges",
       "baseUnit": "each",
       "kind": "consumable",
-      "lifecycle": "active",
+      "lifecycle": "archived",
       "disciplines": [
         "mechanical"
       ],
@@ -1357,7 +1364,8 @@
       "requirements": [
         "Dupli-Color Basic zinc spray, 400 ml. Deburr, clean and coat every hole drilled through galvanized bracket/backing plates before outdoor assembly."
       ],
-      "notes": "Protects exposed steel where drilling removes the factory zinc coating."
+      "notes": "Protects exposed steel where drilling removes the factory zinc coating.",
+      "archiveReason": "Superseded by the selected printed corner head. Retained only for historical source and purchasing evidence; excluded from current assemblies, purchasing totals and fabrication downloads."
     },
     {
       "id": "winch-drum-joining-hardware",
@@ -1735,7 +1743,7 @@
       "name": "Corner head removable weather shield kit",
       "baseUnit": "each",
       "kind": "component",
-      "lifecycle": "planned",
+      "lifecycle": "archived",
       "disciplines": [
         "mechanical"
       ],
@@ -1770,14 +1778,15 @@
             "revision": "0.1.0"
           }
         ]
-      }
+      },
+      "archiveReason": "Superseded by the selected printed corner head. Retained only for historical source and purchasing evidence; excluded from current assemblies, purchasing totals and fabrication downloads."
     },
     {
       "id": "corner-head-round-saddles",
       "name": "Corner head round-timber metal saddle pair",
       "baseUnit": "each",
       "kind": "component",
-      "lifecycle": "planned",
+      "lifecycle": "archived",
       "disciplines": [
         "mechanical"
       ],
@@ -1805,14 +1814,15 @@
             "revision": "0.1.0"
           }
         ]
-      }
+      },
+      "archiveReason": "Superseded by the selected printed corner head. Retained only for historical source and purchasing evidence; excluded from current assemblies, purchasing totals and fabrication downloads."
     },
     {
       "id": "corner-head-marking-template",
       "name": "Corner head reusable centre marking template",
       "baseUnit": "each",
       "kind": "component",
-      "lifecycle": "planned",
+      "lifecycle": "archived",
       "disciplines": [
         "mechanical"
       ],
@@ -1835,14 +1845,15 @@
             "revision": "0.1.0"
           }
         ]
-      }
+      },
+      "archiveReason": "Superseded by the selected printed corner head. Retained only for historical source and purchasing evidence; excluded from current assemblies, purchasing totals and fabrication downloads."
     },
     {
       "id": "corner-head-retention-straps",
       "name": "Corner head replaceable shield retention straps",
       "baseUnit": "each",
       "kind": "component",
-      "lifecycle": "planned",
+      "lifecycle": "archived",
       "disciplines": [
         "mechanical"
       ],
@@ -1852,14 +1863,15 @@
       "requirements": [
         "Three independent outdoor UV-rated straps per head, <=2.5 mm wide and <=1 mm thick; starting length 800 mm. Two pass through stem/rear shields; one wraps the roof and steel arm; no structural retention role. Physical strength, creep, weather and retention qualification required."
       ],
-      "notes": "Historical metal-head alternative; excluded from baseline and printed-head selection. Do not combine its geometry or hardware stack with the printed carrier. See docs/assemblies/corner-station/design-package.md#historical-metal-alternatives. No price or engineering qualification asserted."
+      "notes": "Historical metal-head alternative; excluded from baseline and printed-head selection. Do not combine its geometry or hardware stack with the printed carrier. See docs/assemblies/corner-station/design-package.md#historical-metal-alternatives. No price or engineering qualification asserted.",
+      "archiveReason": "Superseded by the selected printed corner head. Retained only for historical source and purchasing evidence; excluded from current assemblies, purchasing totals and fabrication downloads."
     },
     {
       "id": "corner-head-angle-200",
       "name": "Proposed 200 mm top-pulley steel angle",
       "baseUnit": "each",
       "kind": "component",
-      "lifecycle": "planned",
+      "lifecycle": "archived",
       "disciplines": [
         "mechanical"
       ],
@@ -1869,14 +1881,15 @@
       "requirements": [
         "200 x 40 x 200 mm, 5 mm galvanized steel angle. Replace the 150 mm angle; two 13 mm centres at 45/155 mm, terminal 9 mm hole 167.55 mm from front seat for passive line, 166.65 mm for powered. Existing factory holes/bend require inspection before drilling."
       ],
-      "notes": "Historical metal-head alternative; excluded from baseline and printed-head selection. Do not combine its geometry or hardware stack with the printed carrier. See docs/assemblies/corner-station/design-package.md#historical-metal-alternatives. No price or engineering qualification asserted."
+      "notes": "Historical metal-head alternative; excluded from baseline and printed-head selection. Do not combine its geometry or hardware stack with the printed carrier. See docs/assemblies/corner-station/design-package.md#historical-metal-alternatives. No price or engineering qualification asserted.",
+      "archiveReason": "Superseded by the selected printed corner head. Retained only for historical source and purchasing evidence; excluded from current assemblies, purchasing totals and fabrication downloads."
     },
     {
       "id": "corner-head-through-bolts",
       "name": "Proposed round-head M12 through-bolt pair",
       "baseUnit": "each",
       "kind": "component",
-      "lifecycle": "planned",
+      "lifecycle": "archived",
       "disciplines": [
         "mechanical"
       ],
@@ -1887,7 +1900,8 @@
       "requirements": [
         "Two M12 galvanized 8.8 bolts per round head: nominal 160/180/200 mm lengths for 100/120/140 mm timber with two 10 mm saddles. Check full nut/locking engagement and >=2 protruding threads on received stack. Replaces the baseline M12 x 160 pair."
       ],
-      "notes": "Historical metal-head alternative; excluded from baseline and printed-head selection. Do not combine its geometry or hardware stack with the printed carrier. See docs/assemblies/corner-station/design-package.md#historical-metal-alternatives. No price or engineering qualification asserted."
+      "notes": "Historical metal-head alternative; excluded from baseline and printed-head selection. Do not combine its geometry or hardware stack with the printed carrier. See docs/assemblies/corner-station/design-package.md#historical-metal-alternatives. No price or engineering qualification asserted.",
+      "archiveReason": "Superseded by the selected printed corner head. Retained only for historical source and purchasing evidence; excluded from current assemblies, purchasing totals and fabrication downloads."
     },
     {
       "id": "corner-guy-post-connection",
@@ -1924,7 +1938,7 @@
         "Primary carriers and rear pads are load-bearing printed concepts. PAHT-CF or tested ASA are candidates, not qualified materials; orientation, printer/slicer process, conditioning, hole finishing, bolt-seat pressure, creep, cycles, weather and complete-head proof tests remain required. Cosmetic cover straps carry no line or guy load.",
         "Two M12 through-bolts at Z45/155 and two M8 cross-bolts at X=post radius+50, Z100/190 join the selected kit. Measured Barton interface: 14.8 mm rounded central lug inside 15.8 mm clear tang gap, 5.2 mm bore for the supplied 4.7 mm retained pin. Equal-tension horizontal-span pose rotates -45 degrees about Y with measured 42 mm pin-to-sheave centres: pin X=post radius+147.8515 passive /146.9515 powered, Z165; sheave X=post radius+177.55/176.65, Z135.3015. These allowances and pose require physical inspection. Groove seating, thin-line keeper, guy connection, other angles and unequal tension remain unresolved."
       ],
-      "notes": "New printed-head proposal; excluded from the purchasing baseline. Select instead of steel angle/plates, metal saddles and their covers. See docs/assemblies/corner-station/design-package.md. No supplier offer, full fabrication quote or physical qualification asserted. An optional ASA solid-volume material estimate is recorded separately; it is only a costing assumption.",
+      "notes": "Selected printed-head development configuration in the current BOM. Historical steel-angle, backing-plate, metal-saddle and split-clamp alternatives are archived. See docs/assemblies/corner-station/design-package.md. No supplier offer, full fabrication quote or physical qualification asserted. ASA solid-volume material consumption is a costing assumption, not a qualified process.",
       "fabrication": {
         "process": "openscad",
         "modelStatus": "concept-unvalidated",
@@ -1979,9 +1993,9 @@
         "Two bought M12 bolts, four 37 x 13 x 3 mm large washers and two nominal 12 mm locking nuts per station. Bolt starting lengths 170/190/210 mm for round 100/120/140; square 100 uses 170 mm. Represented stack is post + 66 mm with 4 mm projection; verify full locking-zone engagement and at least two protruding coarse threads on every received stack. Select longer bought bolts and regenerate cover clearance if needed.",
         "Two M8 x 100 cross-bolts, four nominal 16 OD x 8.4 bore x 1.6 mm washers and two 6.5 mm locking nuts per station. Represented 80 mm carrier width gives 10.3 mm projection. Actual fastener grade, locking, tool/cover clearance, clamp process and printed contact pressure remain unqualified.",
         "Use the one supplied 4.7 mm Barton clevis pin and its positive locking ring per block; inspect usable length, seating and locking engagement on the actual 14.8 mm lug. Do not substitute an M8 pin or enlarge factory tang holes. Two independent outdoor UV-rated cosmetic straps per head, <=2.5 mm wide and <=1 mm thick, starting length 800 mm; replace after service.",
-        "This set replaces baseline bolt/washer/nut/shackle quantities when choosing the printed head. Measured suitable baseline M12 washers/nuts may be reused and counted once. Does not include the received pulley, fitted keeper, guy hardware or steel-head optional sets."
+        "This set owns the M12/M8 fasteners and cosmetic retention straps for the selected printed head. Suitable received M12 washers/nuts may be reused and counted once within this set. Does not include the received pulley, fitted keeper, guy hardware or archived metal-head sets."
       ],
-      "notes": "New printed-head proposal; excluded from the purchasing baseline. Select instead of steel angle/plates, metal saddles and their covers. See docs/assemblies/corner-station/design-package.md. No supplier offer, cost or physical qualification asserted."
+      "notes": "Selected printed-head bought hardware set in the current BOM. Replaces the archived steel-head bolt/washer/nut/shackle quantities; received suitable washers/nuts may be reused once. Supplier selection, received stack and physical qualification remain unresolved; no price is invented."
     },
     {
       "id": "corner-head-printed-marking-template",
@@ -1999,7 +2013,7 @@
       "requirements": [
         "One shared 205 x 50 x 4 mm printed marking tool for the four-station set, with 3 mm centre marks at 45/155 mm. Check scale and selected print dimensions; remove before drilling controlled coaxial 13 mm timber holes. Not a drill bush or installed structural part."
       ],
-      "notes": "New printed-head proposal; excluded from the purchasing baseline. Select instead of steel angle/plates, metal saddles and their covers. See docs/assemblies/corner-station/design-package.md. No supplier offer, full fabrication quote or physical qualification asserted. An optional ASA solid-volume material estimate is recorded separately; it is only a costing assumption.",
+      "notes": "Selected printed-head development configuration in the current BOM. Historical steel-angle, backing-plate, metal-saddle and split-clamp alternatives are archived. See docs/assemblies/corner-station/design-package.md. No supplier offer, full fabrication quote or physical qualification asserted. ASA solid-volume material consumption is a costing assumption, not a qualified process.",
       "fabrication": {
         "process": "openscad",
         "modelStatus": "concept-unvalidated",

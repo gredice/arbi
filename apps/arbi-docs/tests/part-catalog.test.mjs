@@ -11,7 +11,7 @@ const owners = read('bom/assemblies/assemblies.json').assemblies;
 test('Parts covers the entire BOM and retains individual CAD pages with unique routes', () => {
   const entries = partCatalog(parts, registry.models, owners);
   assert.equal(new Set(entries.map((entry) => entry.id)).size, entries.length);
-  for (const part of parts) {
+  for (const part of parts.filter((part) => part.lifecycle !== 'archived')) {
     const entry = entries.find((item) => item.id === part.id);
     assert.equal(entry.bomPartId, part.id);
     assert.equal(entry.name, part.name);
@@ -38,14 +38,23 @@ test('purchased, optional, planned and unallocated items retain geometry and own
     assert.ok(model.entrypoint.startsWith('hardware/assemblies/winch/'));
   }
   assert.equal(entries.find((entry) => entry.id === 'cable-gland-assortment').assembly, 'shared-procurement-stock');
-  for (const id of ['as5600-angle-sensor', 'wind-speed-sensor', 'pole-pulley-mount-concept']) {
+  for (const id of ['as5600-angle-sensor', 'wind-speed-sensor', 'corner-head-printed-kit']) {
     assert.ok(entries.find((entry) => entry.id === id)?.modelIds.length);
   }
-  for (const part of parts.filter((part) => !part.fabrication?.sources.length)) {
+  for (const part of parts.filter((part) => part.lifecycle !== 'archived' && !part.fabrication?.sources.length)) {
     const model = registry.models.find((model) => model.bomPartIds.includes(part.id));
     assert.equal(model.artifactRole, 'visualization');
     assert.ok(['approximate', 'measured-envelope'].includes(model.geometry.status));
     assert.ok(model.geometry.basis && model.geometry.rework);
     assert.ok(model.output.endsWith('.stl'));
   }
+});
+
+test('archived corner BOM items cannot return to the current inventory through stable BOM slugs', () => {
+  const entries = partCatalog(parts, registry.models, owners);
+  const archived = parts.filter((part) => part.lifecycle === 'archived');
+  assert.equal(archived.length, 14);
+  for (const part of archived) assert.ok(!entries.some((entry) => entry.id === part.id), part.id);
+  assert.ok(entries.some((entry) => entry.id === 'corner-head-printed-kit'));
+  assert.ok(entries.some((entry) => entry.id === 'top-positioning-line-pulley'));
 });

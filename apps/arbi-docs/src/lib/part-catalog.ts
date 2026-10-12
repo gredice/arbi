@@ -4,7 +4,8 @@ type Owner = { id: string; kind: string; documentation?: string; usages: { partI
 export type PartEntry = { id: string; name: string; assembly: string; bomPartId?: string; modelIds: string[] };
 
 /** BOM identities own colliding slugs; individual CAD components retain their routes. */
-export function partCatalog(parts: Pick<BomPart, "id" | "name">[], models: Model[], owners: Owner[]): PartEntry[] {
+export function partCatalog(parts: Pick<BomPart, "id" | "name" | "lifecycle">[], models: Model[], owners: Owner[]): PartEntry[] {
+    parts = parts.filter((part) => part.lifecycle !== "archived");
     const entries = parts.map((part) => {
         const linked = models.filter((model) => model.bomPartIds.includes(part.id));
         const owner = owners.find((assembly) => assembly.kind === "physical" && assembly.usages.some((usage) => usage.partId === part.id));

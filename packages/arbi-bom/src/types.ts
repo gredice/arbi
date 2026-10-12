@@ -17,7 +17,8 @@ export interface Part {
   name: string;
   baseUnit: BaseUnit;
   kind: "component" | "material" | "consumable";
-  lifecycle: "active" | "planned";
+  lifecycle: "active" | "planned" | "archived";
+  archiveReason?: string;
   disciplines: string[];
   traits: string[];
   requirements: string[];

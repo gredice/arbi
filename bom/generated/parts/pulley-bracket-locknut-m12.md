@@ -7,13 +7,19 @@
 - Part ID: `pulley-bracket-locknut-m12`
 - Unit: each
 - Kind: component
-- Lifecycle: active
+- Lifecycle: archived
 - Disciplines: mechanical
 - Traits: fastener, off-the-shelf
 
 ## Requirements
 
 - Galvanized M12 DIN 985 nylon-insert locking nut; one per through-bolt, two per post and eight total.
+
+## Archived item
+
+Superseded by the selected printed corner head. Retained only for historical source and purchasing evidence; excluded from current assemblies, purchasing totals and fabrication downloads.
+
+Excluded from current assembly quantities and purchasing totals. Sources and offers are historical evidence only.
 
 ## Notes
 
@@ -25,12 +31,13 @@ Quantities are per assembly definition, before build multipliers. Optional and d
 
 | Assembly or purchasing bucket | Quantity | Inclusion | Usage note |
 | --- | ---: | --- | --- |
-| [Corner support set](../../../docs/assemblies/corner-station/README.md) | 8 each | base | — |
+
+No assembly usage recorded.
 
 [Canonical assembly quantities](../../assemblies/assemblies.json)
 
 ## BOM reports
 
-- [ARBI V1 — Zagreb repository baseline](../arbi-v1-hr-zagreb.md#required-parts-by-physical-owner-or-procurement-bucket) — included.
+- [ARBI V1 — Zagreb repository baseline](../arbi-v1-hr-zagreb.md) — not included by this build/inclusion policy.
 
 Catalog lifecycle, procurement, and generated documentation do not establish physical validation. See the owning assembly for evidence and acceptance requirements.

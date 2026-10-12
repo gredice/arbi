@@ -173,7 +173,7 @@ test('CLI validates the full current registry before exporting every declared ar
 test('every BOM item has geometry and visualization assumptions cannot become fabrication evidence', () => {
     const current = validateRegistry();
     const parts = JSON.parse(readFileSync('bom/catalog/parts.json', 'utf8'));
-    for (const part of parts.parts) {
+    for (const part of parts.parts.filter((part) => part.lifecycle !== 'archived')) {
         assert.ok(current.models.some(model => model.bomPartIds.includes(part.id)), part.id);
     }
     const card = current.models.find(model => model.id === 'microsd-card-32gb');
@@ -223,4 +223,18 @@ test('superseded dock visualizations remain archived without current BOM claims'
     const unowned = structuredClone(current);
     unowned.models.find(m => m.id === 'dock-bench-hardware').bomPartIds = [];
     assert.throws(() => validateRegistry(unowned), /does not match/);
+});
+
+test('archived corner parts retain source traces but cannot claim active fabrication', () => {
+    const current = validateRegistry();
+    const parts = JSON.parse(readFileSync('bom/catalog/parts.json', 'utf8'));
+    for (const id of ['top-pulley-bracket', 'pulley-bracket-backing-plate', 'pole-pulley-mount-assembly', 'corner-head-assembly']) {
+        assert.ok(current.archivedModels.some((model) => model.id === id));
+        assert.ok(!current.models.some((model) => model.id === id));
+    }
+    const broken = structuredClone(parts);
+    const archived = broken.parts.find((part) => part.id === 'corner-head-weather-kit');
+    const active = current.models.find((model) => model.id === 'corner-head-printed-front-cover');
+    archived.fabrication.sources = [{ modelId: active.id, path: active.entrypoint, revision: active.revision, module: 'corner_head_printed_front_cover' }];
+    assert.throws(() => validateRegistry(current, broken), /references active CAD model/);
 });

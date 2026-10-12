@@ -56,7 +56,8 @@
           "lifecycle": {
             "enum": [
               "active",
-              "planned"
+              "planned",
+              "archived"
             ]
           },
           "disciplines": {
@@ -182,9 +183,40 @@
                 }
               ]
             }
+          },
+          "archiveReason": {
+            "type": "string",
+            "minLength": 1
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "lifecycle": {
+                  "const": "archived"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "archiveReason"
+              ],
+              "properties": {
+                "archiveReason": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "archiveReason": false
+              }
+            }
+          }
+        ]
       }
     }
   },

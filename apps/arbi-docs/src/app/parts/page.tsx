@@ -32,7 +32,7 @@ export default function Parts() {
                         </section>
                     );
                 })}
-                <Link href="/parts/archive" className="mt-10 block underline">Archived models · excluded from current fabrication</Link>
+                <Link href="/parts/archive" className="mt-10 block underline">Archived parts and models · excluded from current assemblies</Link>
             </div>
         </>
     );

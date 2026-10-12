@@ -11,7 +11,7 @@ import { bomForModel, data, docHref, download, figureFor, installedCount, meshFo
 import type { Vec3 } from "@/lib/types";
 
 export const dynamicParams = false;
-export const generateStaticParams = () => [...new Set([...data().parts, ...data().archivedModels].map((part) => part.id))].map((id) => ({ id }));
+export const generateStaticParams = () => [...new Set([...data().parts, ...data().archivedModels, ...data().site.bom.archivedParts].map((part) => part.id))].map((id) => ({ id }));
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
     const id = (await params).id;
@@ -23,14 +23,14 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 export default async function PartPage({ params }: { params: Promise<{ id: string }> }) {
     const id = (await params).id;
     const part = data().bomById.get(id);
-    if (part) return <CatalogPart part={part} />;
-    const m = data().modelById.get(id);
+    if (part && part.lifecycle !== "archived") return <CatalogPart part={part} />;
+    const m = data().modelById.get(id) ?? data().modelById.get(part?.fabrication?.sources[0]?.modelId ?? "");
     if (!m) notFound();
     if (m.archiveReason) return (
         <>
-            <Crumb left={`Archived parts / ${m.id}`} right="Archived · do not print for current assembly" />
+            <Crumb left={`Archived parts / ${id}`} right="Archived · excluded from current assembly" />
             <section className="px-4 py-8 sm:px-6">
-                <h1 className="cond text-[44px] leading-none">{m.id}</h1>
+                <h1 className="cond text-[44px] leading-none">{part?.name ?? m.id}</h1>
                 <p className="mt-4 max-w-[70ch]">{m.archiveReason}</p>
                 <p className="mt-3">Revision {m.revision} · {fmt.status(m.status)}. Excluded from the current BOM, installed quantities and model downloads.</p>
                 <div className="mt-6">
@@ -41,6 +41,7 @@ export default async function PartPage({ params }: { params: Promise<{ id: strin
                 </div>
                 {m.alternativeConfiguration && <p className="mt-6">Retained in the explicit dry bench alternative booklet. Use the integrated enclosure kit for the current pod.</p>}
                 <a href={links.source(m.entrypoint)} target="_blank" rel="noreferrer" className="mt-6 block underline">Historical SCAD source</a>
+                {part && <Link href={`/bom/${part.id}`} className="mt-3 block underline">Historical BOM record</Link>}
                 <Link href="/parts/archive" className="mt-6 block underline">← Archived models</Link>
             </section>
         </>
