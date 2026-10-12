@@ -16,6 +16,15 @@ A4 PDF with six additional WT-806 indoor mounting pages (14 pages total), GLB,
 hash reports and verified portable source/STL ZIP. Working outputs
 go to ignored `hardware/generated/corner-support`; `--output` overrides it.
 
+The owning build also runs `check-legacy-adapter.py` against a checksum-pinned
+text copy of the original r0.1.0 carrier source, so shallow CI and portable
+source packs can reproduce the interface comparison. The optional temporary
+kit is shipped under `legacy-pulley-adapter/` with two print STLs, an inspection
+scene, nominal check report and installation notes. It does not change the
+r1.0.0 booklet's installed quantities. See the
+[adapter instructions](../../hardware/assemblies/corner-station/legacy-pulley-adapter.md)
+for the 35 mm height change and unloaded-trial boundary.
+
 The default printed head replaces the angle, machined saddles and stacked backing
 plates. It retains ordinary metal through-bolts, washers, locking nuts,
 cross-bolts and the received pulley/pin. Historical metal geometry remains in

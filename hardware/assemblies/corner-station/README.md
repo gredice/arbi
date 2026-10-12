@@ -2,6 +2,17 @@
 
 System context: [Corner station assembly documentation](../../../docs/assemblies/corner-station/README.md).
 
+## Already printed r0.1.0 heads
+
+The [temporary Barton adapter](legacy-pulley-adapter.md) reuses both old
+carrier halves with two small socket prints and an extra M8 bolt. Its separate
+rounded lug takes the received block's supplied pin, without drilling the
+pulley or carrier. The [inspection assembly](corner-head-legacy-adapter-assembly.scad)
+shows the old interface and lower pulley position. It is an optional
+`concept-unvalidated` fit/hand-routing trial while r1.0.0 halves are fabricated;
+see the instructions for revision identification, print poses, hardware,
+35 mm height change and physical test limits.
+
 ## Indoor WT-806 stand fixture
 
 The [print and assembly instructions](stand-adapter.md) define removable tube

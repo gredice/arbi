@@ -84,6 +84,12 @@
           "quantity": "2",
           "inclusion": "optional",
           "note": "Two owned WT-806 stands for indoor development; sixteen adapter prints total. Excluded from installed baseline. Bought short bolts, washers and nuts are separate; see fixture instructions."
+        },
+        {
+          "partId": "corner-head-legacy-adapter-kit",
+          "quantity": "1",
+          "inclusion": "optional",
+          "note": "One temporary two-print kit for a single existing r0.1.0 head fit trial; scale to the number of old heads tested. Excluded from V1 and replacement r1.0.0 kits. Extra M8 x 30 hardware is separate."
         }
       ],
       "documentation": "docs/assemblies/corner-station/README.md"
