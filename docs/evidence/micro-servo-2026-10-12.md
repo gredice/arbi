@@ -99,7 +99,7 @@ model revisions, source/mesh hashes, both assembly checks and the coupon probes.
 Reproduce with pinned OpenSCAD on PATH and the booklet Python dependencies:
 
 ```sh
-python3 scripts/check-micro-servo.py
+python3 scripts/camera-pod-booklet/check-servo-fit.py
 python3 scripts/camera-pod-booklet/build.py --enclosure --checks-only --output hardware/generated/servo-enclosure
 python3 scripts/camera-pod-booklet/build.py --checks-only --output hardware/generated/servo-bench
 ```

@@ -113,11 +113,11 @@ def main():
     assert 'def begin(' in style and 'C.save()' not in style,'Review upstream page-style extraction'
     style=style.replace('ARBI-winch-assembly-STL.pdf',artifact+'-assembly-STL.pdf').replace('ARBI winch and drum - STL-based assembly booklet','ARBI camera pod - printed mount assembly booklet')
     style=style.replace('WINCH & DRUM','CAMERA POD').replace("text(153,15,'PASSIVE / COVER KIT'", "text(141,15,'"+('RAIN / SPLASH EDITION' if args.enclosure else 'MOUNT SET / BENCH EDITION')+"'")
-    style=re.sub(r'Mechanical bench assembly \| Revision [^\']+',('Camera pod rain enclosure | Revision 6 | ' if args.enclosure else 'Camera pod bench assembly | Revision 5 | ')+date.today().strftime('%d %b %Y'),style)
+    style=re.sub(r'Mechanical bench assembly \| Revision [^\']+',('Camera pod rain enclosure | Revision 7 | ' if args.enclosure else 'Camera pod bench assembly | Revision 6 | ')+date.today().strftime('%d %b %Y'),style)
     style=re.sub(r'\{PAGE:02d\} / \d+', '{PAGE:02d} / '+('16' if args.enclosure else '14'),style)
     (root/'source/page_style.py').write_text(style)
     provenance={'repository':'https://github.com/gredice/arbi','base_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=REPO,text=True).strip(),
-      'booklet_revision':6 if args.enclosure else 5,'render_style':'assembly-line-art-v1','configuration':config,'scope':'Nominal rain/splash enclosure assembly; ingress, servo fine interfaces/capacitor dimensions and revised physical fits unverified; servo and converter envelopes/holes measured.' if args.enclosure else 'Complete nominal bench mount assembly; servo fine interfaces/capacitor dimensions and revised physical fits unverified; servo and converter envelopes/holes measured.',
+      'booklet_revision':7 if args.enclosure else 6,'render_style':'assembly-line-art-v1','configuration':config,'scope':'Nominal rain/splash enclosure assembly; ingress, servo fine interfaces/capacitor dimensions and complete physical assembly unverified; revised servo fit owner-accepted, servo and converter envelopes/holes measured.' if args.enclosure else 'Complete nominal bench mount assembly; servo fine interfaces/capacitor dimensions and complete physical assembly unverified; revised servo fit owner-accepted, servo and converter envelopes/holes measured.',
       'source_hashes':{str(p.relative_to(root)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted((root/'source').rglob('*')) if p.is_file() and '__pycache__' not in p.parts}}
     (root/'source-provenance.json').write_text(json.dumps(provenance,indent=2)+'\n')
     if not args.reuse_models:

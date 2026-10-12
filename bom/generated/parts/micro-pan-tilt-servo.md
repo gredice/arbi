@@ -17,7 +17,7 @@
 
 ## Notes
 
-Owner-reported 12 October 2026: 31.8 × 9 × 24.5 mm including shaft, 25 mm end-hole pitch and 145 mm white/red/black leads exiting the shaft end of a translucent blue case. Body opening fits; corrected mounting pitch needs a repeat print/fit test. See docs/evidence/micro-servo-2026-10-12.md. Mass, pinout, horn, spline and detailed interfaces remain unverified.
+Owner-reported 12 October 2026: 31.8 × 9 × 24.5 mm including shaft, 25 mm end-hole pitch and 145 mm white/red/black leads exiting the shaft end of a translucent blue case. Owner checked and accepted the revised body/mounting fit for continued use. See docs/evidence/micro-servo-2026-10-12.md. Mass, pinout, horn, spline and detailed interfaces remain unverified.
 
 ## Used in
 

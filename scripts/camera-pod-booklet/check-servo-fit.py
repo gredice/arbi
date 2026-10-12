@@ -11,7 +11,7 @@ import manifold3d as mf
 import numpy as np
 import trimesh
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 
 
 def solid(mesh):
@@ -72,7 +72,7 @@ def main():
     report = {'status': 'CAD-only; physical fit evidence recorded separately', 'rigid_envelope_mm': mesh.extents.tolist(),
               'preserved_body_window_mm': [20.8, 9.3], 'screw_checks': tests, 'lead_lengths_mm': lengths,
               'meshes': exported, 'source_hashes': {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
-                  for p in [library, mounts, ROOT / 'scripts/check-micro-servo.py']}}
+                  for p in [library, mounts, ROOT / 'scripts/camera-pod-booklet/check-servo-fit.py']}}
     (out / 'check.json').write_text(json.dumps(report, indent=2) + '\n')
     print('Measured envelope, preserved opening, 25 mm screw axes and 24 mm regression pass.')
 
