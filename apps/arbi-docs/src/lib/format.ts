@@ -14,6 +14,8 @@ export const fmt = {
             candidate: "Candidate",
         })[s ?? ""] ?? s ?? "—",
     ext: (file: string) => file.split(".").pop() ?? "",
+    geometry: (status: string | undefined) => status === "measured-envelope"
+        ? "Measured envelope · simplified details" : "Approximate · needs rework",
 };
 
 export const links = {

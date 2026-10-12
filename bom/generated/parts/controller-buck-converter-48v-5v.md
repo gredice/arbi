@@ -14,6 +14,11 @@
 ## Requirements
 
 - Input rating ≥60 V; 5 V output with sufficient current for Pico 2 W and cabinet auxiliaries.
+- Fixed 5 V received variant; 50 x 30 x 17 mm envelope, four diameter-3 mm holes at 45 x 24 mm centre pitch, solder-pad input and output.
+
+## Notes
+
+Received fixed-5 V variant of AliExpress item 1005007014032926, confirmed by the owner on 2026-10-12. Measured envelope 50 x 30 x 17 mm; four diameter-3 mm mounting holes at 45 x 24 mm centre pitch. Input/output use solder pads, not terminal blocks. Geometry/evidence: docs/evidence/buck-converter-2026-10-12.md. Same selected module is used for pod and cabinet. Receipt and dimensions do not verify input limits, continuous current, efficiency, cooling or electrical suitability; PCB thickness and component geometry remain nominal. No new price, stock or commercial observation is claimed.
 
 ## Used in
 

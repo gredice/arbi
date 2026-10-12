@@ -55,6 +55,10 @@ The committed material is a **design baseline**, not proof of a built or safe in
 - [ADR-0009: Compact integrated camera pod packaging](decisions/0009-compact-integrated-camera-pod.md)
 - [ADR-0010: Corner support and winch-line ownership](decisions/0010-corner-support-and-winch-line-ownership.md)
 
+## Received hardware evidence
+
+- [Fixed-5 V converter: receipt, photographs, measured envelope and mounting pattern](evidence/buck-converter-2026-10-12.md)
+
 ## Software evidence
 
 - [Transport capability review and bounded local recovery experiment](evidence/software-transport-feasibility.md)

@@ -32,13 +32,13 @@
         },
         {
             "id": "camera-pod-assembly",
-            "revision": "0.3.6",
+            "revision": "0.3.7",
             "status": "concept-unvalidated",
             "artifactRole": "reference",
             "bomPartIds": [],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/camera-pod-assembly.scad",
-            "output": "camera-pod-assembly-r0.3.6.csg",
+            "output": "camera-pod-assembly-r0.3.7.csg",
             "documentation": "hardware/assemblies/camera-pod/README.md",
             "description": "Integrated rain-camera pod reference by default; show_legacy=true retains the historical separate concept layout."
         },
@@ -862,7 +862,7 @@
         },
         {
             "id": "camera-pod-integrated-deck",
-            "revision": "0.1.0",
+            "revision": "0.1.1",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
             "bomPartIds": [
@@ -870,9 +870,9 @@
             ],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/camera-pod-integrated-deck.scad",
-            "output": "camera-pod-integrated-deck-r0.1.0.stl",
+            "output": "camera-pod-integrated-deck-r0.1.1.stl",
             "documentation": "hardware/assemblies/camera-pod/README.md",
-            "description": "Compact integrated electronics carrier; dedicated Pi, rotated converter, capacitor and shell mounts. Alternative to the dry bench deck."
+            "description": "Compact Pi, received converter and capacitor carrier; four converter screw supports at the measured 45 x 24 mm pitch. Alternative to the dry bench deck."
         },
         {
             "id": "camera-pod-integrated-camera-hood",
@@ -1215,7 +1215,7 @@
         },
         {
             "id": "controller-buck-converter-48v-5v",
-            "revision": "0.1.0",
+            "revision": "0.1.1",
             "status": "concept-unvalidated",
             "artifactRole": "visualization",
             "bomPartIds": [
@@ -1223,13 +1223,13 @@
             ],
             "assembly": "control-cabinet",
             "entrypoint": "hardware/assemblies/control-cabinet/controller-buck-converter-48v-5v.scad",
-            "output": "controller-buck-converter-48v-5v-r0.1.0.stl",
+            "output": "controller-buck-converter-48v-5v-r0.1.1.stl",
             "documentation": "hardware/assemblies/control-cabinet/README.md",
-            "description": "Approximate visualization of 48 V \u2192 5 V controller buck converter. Assumed 45 \u00d7 25 \u00d7 15 mm occupied envelope; no converter package drawing is recorded.",
+            "description": "Received fixed-5 V converter: measured 50 x 30 x 17 mm envelope and four diameter-3 mm holes at 45 x 24 mm pitch; photo-derived component detail.",
             "geometry": {
-                "status": "approximate",
-                "basis": "Assumed 45 \u00d7 25 \u00d7 15 mm occupied envelope; no converter package drawing is recorded.",
-                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+                "status": "measured-envelope",
+                "basis": "Owner measurements and three received-unit photographs, 12 October 2026: 50 x 30 x 17 mm, four diameter-3 mm holes at 45 x 24 mm centre pitch. Same selected 5 V variant in the pod and cabinet.",
+                "rework": "PCB thickness (nominal 1.6 mm), component dimensions and solder-pad positions are simplified. Inspect the received board, screw stack and installed wiring before fit acceptance; electrical ratings, heat and physical assembly remain unverified."
             }
         },
         {
@@ -1557,7 +1557,7 @@
         },
         {
             "id": "pod-buck-converter-48v-5v",
-            "revision": "0.1.0",
+            "revision": "0.1.1",
             "status": "concept-unvalidated",
             "artifactRole": "visualization",
             "bomPartIds": [
@@ -1565,13 +1565,13 @@
             ],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/pod-buck-converter-48v-5v.scad",
-            "output": "pod-buck-converter-48v-5v-r0.1.0.stl",
+            "output": "pod-buck-converter-48v-5v-r0.1.1.stl",
             "documentation": "hardware/assemblies/camera-pod/README.md",
-            "description": "Approximate visualization of 48 V \u2192 5 V pod buck converter. Existing payload booklet assumption of a 45 \u00d7 25 \u00d7 15 mm converter envelope; no SKU dimensions verified.",
+            "description": "Received fixed-5 V converter: measured 50 x 30 x 17 mm envelope and four diameter-3 mm holes at 45 x 24 mm pitch; photo-derived component detail.",
             "geometry": {
-                "status": "approximate",
-                "basis": "Existing payload booklet assumption of a 45 \u00d7 25 \u00d7 15 mm converter envelope; no SKU dimensions verified.",
-                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+                "status": "measured-envelope",
+                "basis": "Owner measurements and three received-unit photographs, 12 October 2026: 50 x 30 x 17 mm, four diameter-3 mm holes at 45 x 24 mm centre pitch. Same selected 5 V variant in the pod and cabinet.",
+                "rework": "PCB thickness (nominal 1.6 mm), component dimensions and solder-pad positions are simplified. Inspect the received board, screw stack and installed wiring before fit acceptance; electrical ratings, heat and physical assembly remain unverified."
             }
         },
         {
@@ -2407,13 +2407,13 @@
         },
         {
             "id": "control-cabinet-assembly",
-            "revision": "0.1.1",
+            "revision": "0.1.2",
             "status": "concept-unvalidated",
             "artifactRole": "reference",
             "bomPartIds": [],
             "assembly": "control-cabinet",
             "entrypoint": "hardware/assemblies/control-cabinet/control-cabinet-assembly.scad",
-            "output": "control-cabinet-assembly-r0.1.1.csg",
+            "output": "control-cabinet-assembly-r0.1.2.csg",
             "documentation": "hardware/assemblies/control-cabinet/README.md",
             "description": "Proposed 500 W x 600 H x 250 D mm control cabinet with open service door, two power supplies, Pico stack and unselected protection/edge reserves; inspection only."
         },
@@ -2718,13 +2718,13 @@
         },
         {
             "id": "camera-pod-electronics-deck",
-            "revision": "0.1.1",
+            "revision": "0.1.2",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
             "bomPartIds": [],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/camera-pod-electronics-deck.scad",
-            "output": "camera-pod-electronics-deck-r0.1.1.stl",
+            "output": "camera-pod-electronics-deck-r0.1.2.stl",
             "documentation": "hardware/assemblies/camera-pod/README.md",
             "description": "Fixed Pi/power deck r0.1.1 with aligned CSI passage and separate soft-wrap/power tie anchors; provisional received-hardware fit.",
             "archiveReason": "Dry bench alternative; excluded from the current compact enclosure print kit and BOM.",

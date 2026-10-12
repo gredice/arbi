@@ -16,6 +16,7 @@
 - DIN rails and supports, backplate fastening, wiring ducts and end fittings for the proposed cabinet layout. Cut lengths and actual enclosure mounting interfaces remain unselected.
 - Protective-earth bar/bonding conductors and field/DC terminal blocks, wire, ferrules, lugs and labels sized by the reviewed electrical design.
 - Cable entries use the existing shared cable-gland procurement assortment; reconcile the required size-level allocation before ordering. Glands are not duplicated in this set.
+- Converter: 4 M2.5 x 16 screws, 8 M2.5 washers, 4 plain M2.5 nuts and 4 insulating sleeves (7 mm long, nominal OD5.5/ID2.9 mm), at 45 x 24 mm pitch through the proposed 2 mm plate. Inspect real plate, PCB stack and insulation before drilling or buying lengths.
 
 ## Design warnings
 

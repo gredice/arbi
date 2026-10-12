@@ -6,7 +6,7 @@
   "destinationId": "hr-zagreb",
   "destinationName": "Zagreb, Croatia",
   "quoteSnapshotId": "hr-zagreb-2026-10-08-coupling",
-  "inputDigest": "sha256:f21a45c69321970cdb8bd871c50f2fe3603dcee3574ab8aa8d919ac077388839",
+  "inputDigest": "sha256:217d59d7c7284106dd19d9a02e8c20be2e71675e6240672f9a724bf92a8daada",
   "reportCurrency": "EUR",
   "complete": false,
   "completeLandedTotal": null,
@@ -286,7 +286,7 @@
         {
           "materialId": "petg",
           "name": "Bambu Lab PETG Basic",
-          "weightGrams": "114.345",
+          "weightGrams": "114.045",
           "materialCost": "1.3",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
@@ -318,8 +318,8 @@
         {
           "materialId": "petg",
           "name": "Bambu Lab PETG Basic",
-          "weightGrams": "16.802",
-          "materialCost": "0.1914",
+          "weightGrams": "16.502",
+          "materialCost": "0.188",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
@@ -396,7 +396,7 @@
           "color": "black"
         }
       ],
-      "weightGrams": "207.265",
+      "weightGrams": "206.965",
       "materialCost": "2.36",
       "currency": "EUR",
       "note": "Current rain-enclosure kit from camera-pod-enclosure.md; excludes dry-bench alternatives and test coupons. Cosmetic shell surfaces use PETG Matte White (35100) or Black (35101) as listed per component; functional parts retain their existing material assumptions. Material and colour selections require physical fit, retention, weather and thermal checks. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
@@ -404,8 +404,8 @@
         {
           "materialId": "pla",
           "name": "Bambu Lab PLA Basic",
-          "weightGrams": "197.533",
-          "materialCost": "2.37",
+          "weightGrams": "197.235",
+          "materialCost": "2.36",
           "spoolPrice": "11.99",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
@@ -417,8 +417,8 @@
         {
           "materialId": "petg",
           "name": "Bambu Lab PETG Basic",
-          "weightGrams": "199.126",
-          "materialCost": "2.27",
+          "weightGrams": "198.826",
+          "materialCost": "2.26",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
@@ -430,8 +430,8 @@
         {
           "materialId": "petg-matte",
           "name": "Bambu Lab PETG Matte",
-          "weightGrams": "218.242",
-          "materialCost": "2.49",
+          "weightGrams": "217.913",
+          "materialCost": "2.48",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte",
@@ -443,8 +443,8 @@
         {
           "materialId": "asa",
           "name": "Bambu Lab ASA",
-          "weightGrams": "167.265",
-          "materialCost": "4.18",
+          "weightGrams": "167.014",
+          "materialCost": "4.17",
           "spoolPrice": "24.99",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
@@ -2227,7 +2227,7 @@
         {
           "materialId": "petg",
           "name": "Bambu Lab PETG Basic",
-          "weightGrams": "114.345",
+          "weightGrams": "114.045",
           "materialCost": "1.3",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
@@ -2259,8 +2259,8 @@
         {
           "materialId": "petg",
           "name": "Bambu Lab PETG Basic",
-          "weightGrams": "16.802",
-          "materialCost": "0.1914",
+          "weightGrams": "16.502",
+          "materialCost": "0.188",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
@@ -2337,7 +2337,7 @@
           "color": "black"
         }
       ],
-      "weightGrams": "207.265",
+      "weightGrams": "206.965",
       "materialCost": "2.36",
       "currency": "EUR",
       "note": "Current rain-enclosure kit from camera-pod-enclosure.md; excludes dry-bench alternatives and test coupons. Cosmetic shell surfaces use PETG Matte White (35100) or Black (35101) as listed per component; functional parts retain their existing material assumptions. Material and colour selections require physical fit, retention, weather and thermal checks. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
@@ -2345,8 +2345,8 @@
         {
           "materialId": "pla",
           "name": "Bambu Lab PLA Basic",
-          "weightGrams": "197.533",
-          "materialCost": "2.37",
+          "weightGrams": "197.235",
+          "materialCost": "2.36",
           "spoolPrice": "11.99",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
@@ -2358,8 +2358,8 @@
         {
           "materialId": "petg",
           "name": "Bambu Lab PETG Basic",
-          "weightGrams": "199.126",
-          "materialCost": "2.27",
+          "weightGrams": "198.826",
+          "materialCost": "2.26",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
@@ -2371,8 +2371,8 @@
         {
           "materialId": "petg-matte",
           "name": "Bambu Lab PETG Matte",
-          "weightGrams": "218.242",
-          "materialCost": "2.49",
+          "weightGrams": "217.913",
+          "materialCost": "2.48",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte",
@@ -2384,8 +2384,8 @@
         {
           "materialId": "asa",
           "name": "Bambu Lab ASA",
-          "weightGrams": "167.265",
-          "materialCost": "4.18",
+          "weightGrams": "167.014",
+          "materialCost": "4.17",
           "spoolPrice": "24.99",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
@@ -7645,9 +7645,9 @@
     "camera-gimbal: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.",
     "camera-pod-chassis: Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.",
     "camera-pod-chassis: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.",
-    "camera-pod-chassis: The current deck retains the converter, capacitor and harness with cable ties. Replace these with dedicated removable mounts and strain relief; cable ties are temporary bench workarounds only, never the final assembly solution.",
+    "camera-pod-chassis: The current deck screw-mounts the converter, but retains the capacitor and harness with cable ties. Replace those ties with dedicated removable mounts and strain relief; cable ties are temporary bench workarounds only, never the final assembly solution.",
     "camera-pod-fastener-kit: This part is planned; confirm its specification and selection with committed evidence.",
-    "camera-pod-wiring-kit: Converter, capacitor and harness ties are shown without a complete procurement specification or quantity. Record the missing hardware data and replace tie-based retention with dedicated mounts and strain relief; cable ties are temporary bench workarounds only.",
+    "camera-pod-wiring-kit: The capacitor tie and harness retention are shown without a complete procurement specification or quantity. Record the missing hardware data and replace those ties with dedicated mounts and strain relief; cable ties are temporary bench workarounds only.",
     "camera-pod-wiring-kit: This part is planned; confirm its specification and selection with committed evidence.",
     "cotra-zagreb-corner-post-treated-timber: Availability is unknown.",
     "cotra-zagreb-corner-post-treated-timber: Package size/MOQ is unknown.",
@@ -7716,7 +7716,6 @@
     "pimoroni-raspberry-pi-3a-plus: Price and availability observation date is unknown; quote capture time is not verification time.",
     "pimoroni-raspberry-pi-3a-plus: Qualification is baseline-selected; the recorded selection is not engineering approval.",
     "pimoroni-raspberry-pi-3a-plus: Tax/VAT treatment is unknown.",
-    "pod-buck-converter-48v-5v: Two cable ties currently retain the pod converter. Replace them with a dedicated insulated removable mounting method; cable ties are temporary bench workarounds only, never final retention.",
     "ronis-hr: Shipping is unknown; null is not treated as free.",
     "ronis-hr: Shipping observation date is unknown; quote capture time is not verification time.",
     "ronis-outdoor-cat5e-signal-cable: Availability is unknown.",
@@ -7780,7 +7779,7 @@
       ]
     },
     {
-      "message": "camera-pod-chassis: The current deck retains the converter, capacitor and harness with cable ties. Replace these with dedicated removable mounts and strain relief; cable ties are temporary bench workarounds only, never the final assembly solution.",
+      "message": "camera-pod-chassis: The current deck screw-mounts the converter, but retains the capacitor and harness with cable ties. Replace those ties with dedicated removable mounts and strain relief; cable ties are temporary bench workarounds only, never the final assembly solution.",
       "severity": "critical",
       "code": "temporary-cable-tie",
       "partIds": [
@@ -7791,22 +7790,11 @@
       ]
     },
     {
-      "message": "camera-pod-wiring-kit: Converter, capacitor and harness ties are shown without a complete procurement specification or quantity. Record the missing hardware data and replace tie-based retention with dedicated mounts and strain relief; cable ties are temporary bench workarounds only.",
+      "message": "camera-pod-wiring-kit: The capacitor tie and harness retention are shown without a complete procurement specification or quantity. Record the missing hardware data and replace those ties with dedicated mounts and strain relief; cable ties are temporary bench workarounds only.",
       "severity": "critical",
       "code": "temporary-cable-tie",
       "partIds": [
         "camera-pod-wiring-kit"
-      ],
-      "assemblyIds": [
-        "camera-pod"
-      ]
-    },
-    {
-      "message": "pod-buck-converter-48v-5v: Two cable ties currently retain the pod converter. Replace them with a dedicated insulated removable mounting method; cable ties are temporary bench workarounds only, never final retention.",
-      "severity": "critical",
-      "code": "temporary-cable-tie",
-      "partIds": [
-        "pod-buck-converter-48v-5v"
       ],
       "assemblyIds": [
         "camera-pod"
@@ -11319,7 +11307,7 @@
       {
         "severity": "critical",
         "code": "temporary-cable-tie",
-        "message": "The current deck retains the converter, capacitor and harness with cable ties. Replace these with dedicated removable mounts and strain relief; cable ties are temporary bench workarounds only, never the final assembly solution.",
+        "message": "The current deck screw-mounts the converter, but retains the capacitor and harness with cable ties. Replace those ties with dedicated removable mounts and strain relief; cable ties are temporary bench workarounds only, never the final assembly solution.",
         "partIds": [
           "camera-pod-chassis"
         ],
@@ -13754,17 +13742,6 @@
       }
     ],
     "pod-buck-converter-48v-5v": [
-      {
-        "severity": "critical",
-        "code": "temporary-cable-tie",
-        "message": "Two cable ties currently retain the pod converter. Replace them with a dedicated insulated removable mounting method; cable ties are temporary bench workarounds only, never final retention.",
-        "partIds": [
-          "pod-buck-converter-48v-5v"
-        ],
-        "assemblyIds": [
-          "camera-pod"
-        ]
-      },
       {
         "message": "aliexpress-pod-buck-converter-48v-5v: Qualification is baseline-selected; the recorded selection is not engineering approval.",
         "severity": "warning",
@@ -17004,7 +16981,7 @@
       {
         "severity": "critical",
         "code": "temporary-cable-tie",
-        "message": "Converter, capacitor and harness ties are shown without a complete procurement specification or quantity. Record the missing hardware data and replace tie-based retention with dedicated mounts and strain relief; cable ties are temporary bench workarounds only.",
+        "message": "The capacitor tie and harness retention are shown without a complete procurement specification or quantity. Record the missing hardware data and replace those ties with dedicated mounts and strain relief; cable ties are temporary bench workarounds only.",
         "partIds": [
           "camera-pod-wiring-kit"
         ],

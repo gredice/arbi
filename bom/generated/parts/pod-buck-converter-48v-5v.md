@@ -14,10 +14,11 @@
 ## Requirements
 
 - Input rating ≥60 V; 48 V nominal input; regulated 5 V output; ≥3 A. One active + one spare.
+- Fixed 5 V received variant; 50 x 30 x 17 mm envelope, four diameter-3 mm holes at 45 x 24 mm centre pitch, solder-pad input and output.
 
-## Design warnings
+## Notes
 
-- **Critical:** Two cable ties currently retain the pod converter. Replace them with a dedicated insulated removable mounting method; cable ties are temporary bench workarounds only, never final retention.
+Received fixed-5 V variant of AliExpress item 1005007014032926, confirmed by the owner on 2026-10-12. Measured envelope 50 x 30 x 17 mm; four diameter-3 mm mounting holes at 45 x 24 mm centre pitch. Input/output use solder pads, not terminal blocks. Geometry/evidence: docs/evidence/buck-converter-2026-10-12.md. Same selected module is used for pod and cabinet. Receipt and dimensions do not verify input limits, continuous current, efficiency, cooling or electrical suitability; PCB thickness and component geometry remain nominal. No new price, stock or commercial observation is claimed.
 
 ## Used in
 

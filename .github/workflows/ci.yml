@@ -424,6 +424,11 @@ jobs:
         run: python -m pip install -r scripts/winch-booklet/requirements.txt
       - name: Test portable source dependency controls
         run: python scripts/winch-booklet/test-source-packs.py
+      - name: Check received converter aliases and cabinet screw mounts
+        if: matrix.variant == 'enclosure'
+        env:
+          CONVERTER_OUTPUT: ${{ runner.temp }}/booklet/converter-cabinet
+        run: python scripts/check-buck-converter.py --output "$CONVERTER_OUTPUT"
       - name: Build current meshes, geometry checks, illustrations and PDF/ZIP
         env:
           BUILD_SCRIPT: ${{ matrix.script }}
@@ -447,6 +452,7 @@ jobs:
           path: |
             ${{ runner.temp }}/booklet/${{ matrix.artifact }}-assembly-STL.pdf
             ${{ runner.temp }}/booklet/${{ matrix.artifact }}-STL-pack.zip
+            ${{ runner.temp }}/booklet/converter-cabinet/*.json
           if-no-files-found: error
           compression-level: 0
           retention-days: 14

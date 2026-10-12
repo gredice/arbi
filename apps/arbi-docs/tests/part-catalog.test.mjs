@@ -44,7 +44,7 @@ test('purchased, optional, planned and unallocated items retain geometry and own
   for (const part of parts.filter((part) => !part.fabrication?.sources.length)) {
     const model = registry.models.find((model) => model.bomPartIds.includes(part.id));
     assert.equal(model.artifactRole, 'visualization');
-    assert.equal(model.geometry.status, 'approximate');
+    assert.ok(['approximate', 'measured-envelope'].includes(model.geometry.status));
     assert.ok(model.geometry.basis && model.geometry.rework);
     assert.ok(model.output.endsWith('.stl'));
   }

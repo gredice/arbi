@@ -248,7 +248,7 @@ export function validateRegistry(registryOverride, bomPartsOverride, aliasesOver
         } else if (model.artifactRole === 'visualization') {
             assert(outputExtension === '.stl', `${model.id} visualization output must be STL.`);
             assert(archivedIds.has(model.id) || model.bomPartIds.length > 0, `${model.id} visualization needs a BOM part ID.`);
-            assert(model.geometry?.status === 'approximate', `${model.id} needs explicit approximate geometry evidence.`);
+            assert(['approximate', 'measured-envelope'].includes(model.geometry?.status), `${model.id} needs explicit reference geometry evidence.`);
         } else {
             assert(outputExtension === '.csg', `${model.id} reference output must be CSG, not a printable mesh.`);
             assert(model.bomPartIds.length === 0, `${model.id} reference model must not claim a BOM part ID.`);

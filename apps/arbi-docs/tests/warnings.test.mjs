@@ -2,6 +2,14 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { modelWarnings, uniqueWarnings, warningCounts } from '../src/lib/warnings.ts';
 
+test('measured envelopes retain detail and physical-acceptance warnings without claiming approximate sizing', () => {
+  const model = { id: 'converter', status: 'concept-unvalidated', bomPartIds: ['converter'], assembly: 'pod', geometry: { status: 'measured-envelope', rework: 'Confirm PCB thickness and component detail.' } };
+  const warnings = modelWarnings(model, []);
+  assert.ok(warnings.some((warning) => warning.code === 'simplified-details' && warning.severity === 'warning' && warning.message.startsWith('Measured envelope; simplified details:')));
+  assert.ok(warnings.some((warning) => warning.code === 'unconfirmed-concept'));
+  assert.ok(!warnings.some((warning) => warning.code === 'approximate-geometry'));
+});
+
 test('individual CAD pages inherit critical BOM issues without duplicate entries', () => {
   const warning = { severity: 'critical', code: 'temporary-cable-tie', message: 'Replace temporary ties.', partIds: ['kit'], assemblyIds: ['pod'] };
   const model = { id: 'deck', status: 'concept-unvalidated', bomPartIds: ['kit'], assembly: 'pod' };

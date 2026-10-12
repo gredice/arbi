@@ -9,14 +9,14 @@ ROOT=Path(__file__).resolve().parents[1]
 CONFIG=json.loads((ROOT/'configuration.json').read_text()) if (ROOT/'configuration.json').exists() else {'variant':'bench'}
 ENCLOSURE=CONFIG['variant']=='enclosure'
 NAMES=['raspberry-pi-3a-plus-reference','camera-module-3-standard-reference',
- 'micro-servo-3p7g-UNVERIFIED','servo-horn-UNVERIFIED','buck-converter-UNVERIFIED',
+ 'micro-servo-3p7g-UNVERIFIED','servo-horn-UNVERIFIED','buck-converter-measured-reference',
  'capacitor-1000uf-UNVERIFIED','microsd-reference','csi-15pin-flat-reference',
  'nut-M2-reference','nut-M2p5-reference','nut-M4-reference',
  'washer-M2-reference','washer-M2p5-reference','washer-M4-reference',
  'bolt-M4x35-reference','bolt-M2p5x20-reference','bolt-M2x12-reference',
  'bolt-M3x12-reference','bolt-M3x35-reference','nut-M1p6-reference','nut-M3-reference',
  'washer-M3-reference','washer-M3x0p7-reference','bolt-OEM-horn-UNVERIFIED',
- 'converter-tie-reference','capacitor-tie-reference','csk-M1p6x6-reference',
+ 'bolt-M2p5x10-reference','capacitor-tie-reference','csk-M1p6x6-reference',
  'csk-M2x8-reference','csk-M2x10-reference']
 
 def export(job):

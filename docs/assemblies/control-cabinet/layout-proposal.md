@@ -45,7 +45,7 @@ reserves. No reference component is a printable part or adds a purchase line.
 | DC protection row | DIN-rail centre Z=225; five 18 mm branch envelopes | Space for four motor branches and one pod branch; actual fuse/holder sizes, controller protection and supply grouping unresolved |
 | Independent stop interface | Lower right of DC row; 85 × 85 × 65 mm open reserve | Reviewed hardwired stopping/supervision devices; no safety relay, contactor or circuit selected |
 | Motion control | Terminal-board centre X=-95, Z=115; 90 × 83 × 19.5 mm reference including terminal/rail proxies; Pico stacked 18 mm forward | Header/connector keep-outs, support heights, mounting holes and wiring access require received-unit measurements |
-| Controller converter and signal ground | Z=55, below Pico | Existing 48 V→5 V converter and signal-return block; protective earth is a distinct function |
+| Controller converter and signal ground | Converter centre X=−150, Z=55; 50 × 30 × 17 mm | Received 5 V converter, four Ø3 mm holes at 45 × 24 mm pitch; four 7 mm insulating sleeves and nominal M2.5 × 16 stacks through the 2 mm plate. [Receipt/mounting record](../../evidence/buck-converter-2026-10-12.md). Signal-return block remains separate from protective earth |
 | Edge-computer reserve | X=100, Z=115; 140 × 110 × 55 mm open reserve | Provisional occupied space only; host, mounts, supply, cooling, network and recovery access unselected |
 | Field terminals | Lower front, Z=35 | Generic power/control terminal envelopes; terminal count, separation, wire sizes and shields unresolved |
 | Wiring ducts | 28 mm wide × 35 mm deep side channels | Routing placeholders; actual duct capacity and mains/control segregation unresolved |

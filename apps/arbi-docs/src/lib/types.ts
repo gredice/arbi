@@ -18,7 +18,7 @@ export type Model = {
     revision: string;
     status: string;
     artifactRole: "fabrication" | "reference" | "visualization";
-    geometry?: { status: "approximate"; basis: string; rework: string };
+    geometry?: { status: "approximate" | "measured-envelope"; basis: string; rework: string };
     bomPartIds: string[];
     assembly: string;
     entrypoint: string;

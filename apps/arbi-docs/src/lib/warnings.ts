@@ -26,6 +26,9 @@ export function modelWarnings(model: Model, bomWarnings: BomWarning[]): BomWarni
     if (["planned", "concept-unvalidated", "prototype"].includes(model.status) && !warnings.some((warning) => warning.code === "unconfirmed-concept")) {
         warnings.push({ severity: "warning", code: "unconfirmed-concept", message: `Model status is ${model.status}; physical acceptance still needs committed evidence.`, partIds: model.bomPartIds, assemblyIds: [model.assembly] });
     }
-    if (model.geometry) warnings.push({ severity: "critical", code: "approximate-geometry", message: `Approximate geometry · needs rework (${model.id}): ${model.geometry.rework} Resolve dimensions and interfaces before dependent assembly design.`, partIds: model.bomPartIds, assemblyIds: [model.assembly] });
+    if (model.geometry) {
+        const measured = model.geometry.status === "measured-envelope";
+        warnings.push({ severity: measured ? "warning" : "critical", code: measured ? "simplified-details" : "approximate-geometry", message: measured ? `Measured envelope; simplified details: ${model.geometry.rework}` : `Approximate geometry · needs rework (${model.id}): ${model.geometry.rework} Resolve dimensions and interfaces before dependent assembly design.`, partIds: model.bomPartIds, assemblyIds: [model.assembly] });
+    }
     return uniqueWarnings(warnings);
 }

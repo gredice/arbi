@@ -1,7 +1,8 @@
-// control-cabinet-assembly — r0.1.1, concept-unvalidated. Units: mm.
+// control-cabinet-assembly — r0.1.2, concept-unvalidated. Units: mm.
 // Proposed packaging reference; not a cabinet fabrication or wiring drawing.
 // ARBI_ASSEMBLY_SCENE metadata and individually selected solids share this source.
 include <../../lib/catalog-visualizations.scad>
+include <../../lib/buck-converter-48v-5v.scad>
 use <controller-buck-converter-48v-5v.scad>
 use <din-rail-ground-distribution-block.scad>
 use <emergency-stop-switch.scad>
@@ -101,9 +102,32 @@ module cc_reserve(size,center) {
     }
 }
 
+module cc_converter_mount() {
+    // Existing board underside is 7 mm forward of the plate's front surface.
+    // Four insulating sleeves and M2.5x16 stacks are nominal bought hardware.
+    cabinet_controller_converter();
+    for(p=bc_holes()) translate([p[0],p[1],0]) {
+        color(ARBI_CORE) translate([0,0,-7]) arbi_tube(5.5,2.9,7,facets=32);
+        color(ARBI_METAL) {
+            translate([0,0,1.6]) arbi_tube(6,2.7,.5,facets=32);
+            translate([0,0,2.1]) rotate([180,0,0]) cylinder(d=2.5,h=16,$fn=32);
+            translate([0,0,2.1]) cylinder(d=4.5,h=2.5,$fn=32);
+            translate([0,0,-9.5]) arbi_tube(6,2.7,.5,facets=32);
+            translate([0,0,-11.5]) difference() {
+                cylinder(d=5.2,h=2,$fn=6);
+                translate([0,0,-.02]) cylinder(d=2.7,h=2.04,$fn=32);
+            }
+        }
+    }
+}
+
 module cc_geometry(index) {
     if(index==0) cc_shell();
-    else if(index==1) cc_box([cabinet_width-40,2,cabinet_height-40],[0,cc_backplate_y,cabinet_height/2]);
+    else if(index==1) difference() {
+        cc_box([cabinet_width-40,2,cabinet_height-40],[0,cc_backplate_y,cabinet_height/2]);
+        for(p=bc_holes()) translate([-150+p[0],cc_backplate_y-2,55+p[1]])
+            rotate([-90,0,0]) cylinder(d=2.9,h=4,$fn=32);
+    }
     else if(index==2 || index==3) {
         x = (index==2?-1:1)*(cabinet_width/2-36);
         difference() {
@@ -126,7 +150,7 @@ module cc_geometry(index) {
     else if(index==13) cc_reserve([85,65,85],[90,cc_backplate_y-40,225]);
     else if(index==14) cc_board_at(-95,115) cabinet_pico_terminal_board();
     else if(index==15) cc_board_at(-95,115,18) cabinet_pico();
-    else if(index==16) cc_board_at(-150,55) cabinet_controller_converter();
+    else if(index==16) cc_board_at(-150,55) cc_converter_mount();
     else if(index==17) cc_board_at(-55,55) cabinet_signal_ground();
     else if(index==18) cc_reserve([140,55,110],[100,cc_backplate_y-38,115]);
     else if(index==19) for(x=[-160:20:160]) cc_box([16,30,28],[x,-65,35]);

@@ -65,7 +65,7 @@ export function plan(changes, { workspaces = readWorkspaces(), eventName = 'pull
     const under = (prefix) => paths.some((path) => path.startsWith(prefix));
     const has = (...names) => paths.some((path) => names.includes(path));
     const releaseTooling = has('scripts/cad-release-data.mjs', 'scripts/publish-cad-release.mjs', 'scripts/check-site-release.mjs');
-    const ownedScripts = ['scripts/check-docs.mjs', 'scripts/check-cad.mjs', 'scripts/check-cad.test.mjs', 'scripts/check-booklet.py', 'scripts/check-winch-cover-meshes.py', 'scripts/check-winch-pole-meshes.py', 'scripts/cad-release-data.mjs', 'scripts/publish-cad-release.mjs', 'scripts/check-site-release.mjs'];
+    const ownedScripts = ['scripts/check-docs.mjs', 'scripts/check-cad.mjs', 'scripts/check-cad.test.mjs', 'scripts/check-booklet.py', 'scripts/check-buck-converter.py', 'scripts/check-winch-cover-meshes.py', 'scripts/check-winch-pole-meshes.py', 'scripts/cad-release-data.mjs', 'scripts/publish-cad-release.mjs', 'scripts/check-site-release.mjs'];
     const unknownWorkspace = paths.some((path) => /^(apps|packages)\//u.test(path) && !workspaces.some((workspace) => path.startsWith(`${workspace.path}/`)));
     const unknownScript = paths.some((path) => path.startsWith('scripts/') && !ownedScripts.includes(path) && !/^scripts\/(ci|spikes|cad-previews|winch-booklet|camera-pod-booklet|corner-support|dock-booklet)\//u.test(path));
     const full = changes === null || unknownWorkspace || unknownScript || under('.github/workflows/') || under('.github/actions/') || under('scripts/ci/') || under('scripts/software-release/');
@@ -93,7 +93,7 @@ export function plan(changes, { workspaces = readWorkspaces(), eventName = 'pull
     let cad = cadToolchain || previews || has('bom/catalog/parts.json') || deleted.some((path) => path.startsWith('hardware/') || modelDocs.includes(path));
     const sharedBooklets = full || releaseTooling || under('hardware/lib/') || under('hardware/vendor/') || has('hardware/models.json', 'hardware/models.schema.json', 'hardware/model-aliases.json', 'scripts/check-booklet.py', 'docs/project/industrial-design.md', 'LICENSE') || under('scripts/winch-booklet/');
     const winch = sharedBooklets || under('hardware/assemblies/winch/') || has('hardware/assemblies/camera-pod/camera-pod-spider.scad', 'scripts/check-winch-cover-meshes.py', 'scripts/check-winch-pole-meshes.py');
-    const pod = sharedBooklets || under('hardware/assemblies/camera-pod/') || under('scripts/camera-pod-booklet/');
+    const pod = sharedBooklets || under('hardware/assemblies/camera-pod/') || under('scripts/camera-pod-booklet/') || has('scripts/check-buck-converter.py');
     const corner = sharedBooklets || under('hardware/assemblies/corner-station/') || under('docs/assemblies/corner-station/') || under('scripts/corner-support/');
     const dock = sharedBooklets || has('scripts/cad-previews/csg.py', 'bom/catalog/parts.json', 'bom/catalog/fabrication.json', 'bom/assemblies/assemblies.json') || under('scripts/corner-support/') || under('hardware/assemblies/dock/') || under('hardware/assemblies/camera-pod/') || under('docs/assemblies/dock/') || under('scripts/dock-booklet/');
     // Every main release contains all five packs from this commit. PRs can build

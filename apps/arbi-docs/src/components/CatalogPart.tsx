@@ -20,7 +20,7 @@ export function CatalogPart({ part }: { part: BomPart }) {
             <section className="grid border-b-2 border-ink lg:grid-cols-12">
                 <div className="lg:col-span-7">
                     <PartViewer mesh={meshFor(model.id)} model={model.id} color={partColor(model.id) as Vec3}
-                        output={model.output} approximate={Boolean(model.geometry)} missing="Model source is registered; its mesh is awaiting a current CAD release" />
+                        output={model.output} geometryStatus={model.geometry?.status} missing="Model source is registered; its mesh is awaiting a current CAD release" />
                 </div>
                 <div className="px-4 py-6 sm:px-6 lg:col-span-5">
                     <div className="tag">{[part.kind, ...part.traits].join(" · ")}</div>

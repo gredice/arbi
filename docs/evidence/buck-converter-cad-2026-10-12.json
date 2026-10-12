@@ -1,0 +1,1244 @@
+{
+  "date": "2026-10-12",
+  "status": "CAD-only; concept-unvalidated",
+  "reviewer": "Codex source, mesh and PDF review; no independent physical acceptance",
+  "measurement_record": "docs/evidence/buck-converter-2026-10-12.md",
+  "measurement_basis": "Owner-reported received fixed-5 V variant, 50 x 30 x 17 mm envelope and four diameter-3 mm holes at 45 x 24 mm pitch; PCB thickness/component detail nominal.",
+  "toolchain": {
+    "openscad": "2021.01",
+    "vtk": "9.5.2"
+  },
+  "variants": {
+    "enclosure": {
+      "configuration": {
+        "variant": "enclosure",
+        "units": "mm",
+        "pan_deg": [
+          -90,
+          90,
+          5
+        ],
+        "tilt_deg": [
+          0,
+          70,
+          5
+        ],
+        "hardware_basis": "received converter envelope/holes measured; other hardware and component detail nominal",
+        "evidence_date": "2026-10-12",
+        "fabrication_models": [
+          {
+            "id": "camera-pod-spider",
+            "revision": "0.1.0",
+            "output": "camera-pod-spider-r0.1.0.stl"
+          },
+          {
+            "id": "camera-pod-pan-servo-mount",
+            "revision": "0.1.0",
+            "output": "camera-pod-pan-servo-mount-r0.1.0.stl"
+          },
+          {
+            "id": "camera-pod-horn-retainer",
+            "revision": "0.1.0",
+            "output": "camera-pod-horn-retainer-r0.1.0.stl"
+          },
+          {
+            "id": "camera-pod-servo-fit-coupon",
+            "revision": "0.1.0",
+            "output": "camera-pod-servo-fit-coupon-r0.1.0.stl"
+          },
+          {
+            "id": "camera-pod-spider-spacer",
+            "revision": "0.1.0",
+            "output": "camera-pod-spider-spacer-r0.1.0.stl"
+          },
+          {
+            "id": "camera-pod-rain-hood",
+            "revision": "0.2.1",
+            "output": "camera-pod-rain-hood-r0.2.1.stl"
+          },
+          {
+            "id": "camera-pod-enclosure-base",
+            "revision": "0.2.3",
+            "output": "camera-pod-enclosure-base-r0.2.3.stl"
+          },
+          {
+            "id": "camera-pod-integrated-gimbal-head",
+            "revision": "0.1.3",
+            "output": "camera-pod-integrated-gimbal-head-r0.1.3.stl"
+          },
+          {
+            "id": "camera-pod-integrated-gimbal-carrier",
+            "revision": "0.1.1",
+            "output": "camera-pod-integrated-gimbal-carrier-r0.1.1.stl"
+          },
+          {
+            "id": "camera-pod-integrated-camera-cradle",
+            "revision": "0.1.1",
+            "output": "camera-pod-integrated-camera-cradle-r0.1.1.stl"
+          },
+          {
+            "id": "camera-pod-integrated-tilt-pivot-support",
+            "revision": "0.1.0",
+            "output": "camera-pod-integrated-tilt-pivot-support-r0.1.0.stl"
+          },
+          {
+            "id": "camera-pod-integrated-deck",
+            "revision": "0.1.1",
+            "output": "camera-pod-integrated-deck-r0.1.1.stl"
+          },
+          {
+            "id": "camera-pod-integrated-camera-hood",
+            "revision": "0.1.1",
+            "output": "camera-pod-integrated-camera-hood-r0.1.1.stl"
+          }
+        ]
+      },
+      "source_hashes": {
+        "hardware/assemblies/camera-pod/bulk-capacitor-1000uf.scad": "b7125e5371d0aa55110fbcae7300b3a98bd4a3474341a0fed3bf199a6fb4a92e",
+        "hardware/assemblies/camera-pod/camera-gimbal-base.scad": "aaa44f020ea99055c07d5aeb165f76da34c90562f1bccd29fe6ab8a746ccde2f",
+        "hardware/assemblies/camera-pod/camera-gimbal-camera-plate.scad": "ee46401f166414b9c65f8b361e84a9694128b8a04de4aab8f35e343f69d9c535",
+        "hardware/assemblies/camera-pod/camera-gimbal-optical-hood.scad": "b812f413d9efba9c156083b4508f15647e3fc5cfa1589a2950fd3d8d9b34df3d",
+        "hardware/assemblies/camera-pod/camera-gimbal-rain-cap.scad": "c3ef78aa8d602f0fb6621b47292bf39f197de453b9877a244dce3897605343fd",
+        "hardware/assemblies/camera-pod/camera-gimbal-yoke.scad": "bf82f067e8ebdcda99cdda1c68a08512a23c3c7d34670df5974624140d5a0177",
+        "hardware/assemblies/camera-pod/camera-pod-assembly.scad": "3ac4e0b51f62025bd1402b94e4ec619a2df4cfaa3e2135c2c45c422a49cf0eb2",
+        "hardware/assemblies/camera-pod/camera-pod-camera-cowl.scad": "3161c4e209eb3db5769ca5a9f6be6ddac760159e0b1d2a78c7e4634acf79fcc3",
+        "hardware/assemblies/camera-pod/camera-pod-camera-cradle.scad": "0b8757bfd228a84930b1da61a0571e73984065b31bd1de5f8249f7bdfcb91c5f",
+        "hardware/assemblies/camera-pod/camera-pod-camera-hood.scad": "9916f9a8709aaff701d527a095bbbb684e2213fcdaee68222ebdf0cd1c23b2f3",
+        "hardware/assemblies/camera-pod/camera-pod-docking-stud.scad": "b4d26a0e2d8914c77383e1556db1f9e86b6c2dc92ff6a8e3d9744c9ee59bfc1f",
+        "hardware/assemblies/camera-pod/camera-pod-electronics-cover.scad": "1b1168c3b693086d83cb622eb85428d0e3800d1cb8897c5eee868ffd487337e5",
+        "hardware/assemblies/camera-pod/camera-pod-electronics-deck.scad": "e6ccda242c2016d99796a737f07e27bff4fdb4dff38d61d809bc55afae151407",
+        "hardware/assemblies/camera-pod/camera-pod-electronics-mount.scad": "20c726ac047aaa26ad2e81d58ec9e2f9cf82692490e8a06135bc9595639e779b",
+        "hardware/assemblies/camera-pod/camera-pod-enclosure-base.scad": "e2453cdb1790a8fef1d0f97e9e1372d8e694c31d5a8c04f0a4601e9f152da3d9",
+        "hardware/assemblies/camera-pod/camera-pod-envelope.scad": "8e4502a70290ffdaf4e82f8bb886ab6d259d8060fd502076da6d6da8c1ac7d08",
+        "hardware/assemblies/camera-pod/camera-pod-fastener-kit.scad": "5c37b24b3f5ac84431e28de2075a9a37796560f777d940a072710a4148bdf289",
+        "hardware/assemblies/camera-pod/camera-pod-horn-retainer.scad": "0c6a9971cd3cdda6a8ba103afcc75b506a2b9cb995b842ef74621f68ae912132",
+        "hardware/assemblies/camera-pod/camera-pod-integrated-camera-cradle.scad": "7eddaad7e89e98a49712478ac704821bc7a72ce28c6bf937ca7a8e5eea7184bc",
+        "hardware/assemblies/camera-pod/camera-pod-integrated-camera-hood.scad": "ee340666bd4d288d3f2393da573885cfd46735d94adf600fe872a6679f9f2eb0",
+        "hardware/assemblies/camera-pod/camera-pod-integrated-deck.scad": "48d5e3c367f03c72135dc639b191c3bc40b10be47a3d6957dd53a353e4bfe84d",
+        "hardware/assemblies/camera-pod/camera-pod-integrated-gimbal-carrier.scad": "16356cc0b48ae58708b77b3a2054a7395d273652cd6aa82f0dae9bf249fb3d74",
+        "hardware/assemblies/camera-pod/camera-pod-integrated-gimbal-head.scad": "e371057df9b491e4cd0ddbb0da6dd0aadf49b6bbfa4e835e6bbe9b5dc4a09dff",
+        "hardware/assemblies/camera-pod/camera-pod-integrated-tilt-pivot-support.scad": "ef760c8d21cacfa7398126a6f07e812eb312535e7ddee2f1b8b9e7cfc0a38b75",
+        "hardware/assemblies/camera-pod/camera-pod-line-strain-relief.scad": "55ebe149da5f2025f8a46e056c47cb866a63d8f9016b7bd20ef45ae3e1aa1fba",
+        "hardware/assemblies/camera-pod/camera-pod-pan-fairing.scad": "98237953189f5ef08e620b7dec1d0798d685b9cc8e831a0d5ad609e206024f2e",
+        "hardware/assemblies/camera-pod/camera-pod-pan-servo-mount.scad": "91260d01aa01c176ff664b13bbd85d993fbd08cd183d03b1f5a0d2d33c2e93b8",
+        "hardware/assemblies/camera-pod/camera-pod-pan-yoke.scad": "1a2a3f08dd079b6e11b057fdcc7732884215c7438172f95a12076443fac84f75",
+        "hardware/assemblies/camera-pod/camera-pod-rain-hood.scad": "9bee57ae2bd54765c16a36887d4cccd7ea4fdf098e5d6248bd44b4d35d93e6cc",
+        "hardware/assemblies/camera-pod/camera-pod-servo-fit-coupon.scad": "f9aa507dda7c4a32897902eeea7ea9743ce901a58a2299f27b4a395d1bb0db50",
+        "hardware/assemblies/camera-pod/camera-pod-spider-spacer.scad": "beb0f81506bc5462ed1eb4d540316b0dfb06c532dadbaee40ff6624175c3c52d",
+        "hardware/assemblies/camera-pod/camera-pod-spider.scad": "6e914f806f9acdd605b2ff17b37b572d2591a1aa0b5d5d7044c818b7bcde7a29",
+        "hardware/assemblies/camera-pod/camera-pod-tilt-pivot-support.scad": "196b588cef28d6e18fde50da65027479ca921865707a43f4e84b81278439fc21",
+        "hardware/assemblies/camera-pod/camera-pod-tilt-servo-boot.scad": "32868fe27039dd7c6ba78ddf8d245da770196c20662a40ebfd871cb5c3bf8d9c",
+        "hardware/assemblies/camera-pod/camera-pod-wiring-kit.scad": "ac8c237975d0810e853d445cadf9d8e767b9c8b06a1caeb417068a48b41c5f26",
+        "hardware/assemblies/camera-pod/micro-pan-tilt-servo.scad": "f62faccebf2c51b265eae5a66b7f4d1749527c66e027d54129ba76343c5f76bb",
+        "hardware/assemblies/camera-pod/microsd-card-32gb.scad": "08c5bb8f6126486b012e08cd9f872d7914b660de4699eb43e74bd4757e7184bc",
+        "hardware/assemblies/camera-pod/pod-buck-converter-48v-5v.scad": "88f81f13d0eafe0c49ca6118f3e04be92536655b3d4c2560904b7746b6ac0a0b",
+        "hardware/assemblies/camera-pod/raspberry-pi-3a-plus.scad": "de59d5ec6d4f7f6d6f748622175e2d474bc5effcea7cf4d902a5773ff8fb1d58",
+        "hardware/assemblies/camera-pod/raspberry-pi-camera-module-3.scad": "67f9234705a6905e5954f90d56ff252b89b2d10881db52f77cdc79e843828700",
+        "hardware/lib/arbi.scad": "285964a38a24304ca0f6e6ada12d1de341df9673a31d14dc366abacd83d345c3",
+        "hardware/lib/barton-size-1-block.scad": "e5b15f468a246e4f4141803a9c6f3ac3cce1cd59ee4042f9a75d64eee3219a32",
+        "hardware/lib/buck-converter-48v-5v.scad": "c89c321660f3b606c2da9ff196d35b8da707ea403ea62cb9db783696dff4fa29",
+        "hardware/lib/camera-pod-bench-assembly.scad": "f679ab2f24374013718adb1a2b8414437610d8f4c43a0bc4fb1355193bb28153",
+        "hardware/lib/camera-pod-enclosure.scad": "59cf7bc658fa69879aedac41980a50ca3a6681bfaa8efa6d6f904d6c6771b25c",
+        "hardware/lib/camera-pod-integrated-deck.scad": "75ba88360d3de72bb4c737943ce609742b308d59eec5787e52267e1329b9ad60",
+        "hardware/lib/camera-pod-integrated-gimbal.scad": "70f41ec01272776715b4208461a7da8682059c2f18720817365a2e8291a2dc2c",
+        "hardware/lib/camera-pod-integrated-head.scad": "3743aa69ca69ffbf8e2ff133625ca3660bc82a10f06fd6dcbf2aa577fa2a5196",
+        "hardware/lib/camera-pod-mounts.scad": "f48e9f52dc568c081647940cd1797835c4882e1349ebff74514aace7087e1322",
+        "hardware/lib/camera-pod.scad": "324d1d886ddb52fd9b5545e9ba2116e1c6c42fac7b026951d18bbbb090d85379",
+        "hardware/lib/catalog-visualizations.scad": "0096868d2fb11867d8b6e6c5fea332f8d8010d74b8c437bf4549ff01b465f59d",
+        "hardware/lib/corner-head-printed.scad": "c83323cb77e0b2c3f9475fb20499a121563203170ead05e57c1ac072a5edcefa",
+        "hardware/lib/corner-head.scad": "0fff8dae1a356d48c14612e0299cb5c454fac3f5b1e94d5694d8a2a38ddf7d8a",
+        "hardware/lib/corner-stand-adapter.scad": "4b584e47664635aa005300186557913dda0f063a7eb2c6456cc227ea6b65c75c",
+        "hardware/lib/dock.scad": "3acbcac95dbe0b436a9d89f41570606f21ddd665fb72f540e26dfcf6cc9f9563",
+        "hardware/lib/pole-pulley-mount.scad": "193957b370e09d75e78dbe486654bab723ed0b591fe53dd3bc156cb8e0867ac0",
+        "hardware/lib/winch-cover.scad": "031432beed19425d6c29f5cb9fcf6a8cf26e84a362023b0c5b11533aeb575381",
+        "hardware/lib/winch-desk-feet.scad": "06a551dbe77420599590dc3f8a3bd9b66cd5d647d94bd75fa9e852dcdd4dd719",
+        "hardware/lib/winch-drum.scad": "0684c28615d398d1b7a2beb7d15a4fa4e27d62382b8a8bde1470367f5de1e837",
+        "hardware/lib/winch-mount.scad": "05bb92d3955500a3a52914c01f7f530bf3a243f60bef69f7d4a7af7a461e231e",
+        "hardware/lib/winch-pole.scad": "58e2f446a74cb8d38e31c332727ae31ab6e10ec49ce38ba16dcd88a20ba8fc85",
+        "hardware/models.json": "abbebd04a88e16271598362df343d8e9f82fdec095e9c42cbd2e5d58540f4134",
+        "hardware/vendor/BOSL2/affine.scad": "035629bc49574b7b745afd2cb493efb1ff8d7bdf6f7fa7cf0abe92d6f99b76c8",
+        "hardware/vendor/BOSL2/attachments.scad": "d7eb1f2d0ec74b713ceb14532bcb2b3ec7bc04c28ff0ef12eaf1c886562cc8cb",
+        "hardware/vendor/BOSL2/ball_bearings.scad": "6db8a93775a4e7ee222df949a73bf181b065094b4ac1e9cf44706201ebd614bb",
+        "hardware/vendor/BOSL2/beziers.scad": "54b6f1938c10b59c9998dce97a163d5482dcb2f4f002019872ee1d93ab90b96c",
+        "hardware/vendor/BOSL2/bosl1compat.scad": "70536a6f12f1cf774ad61d6b95bb71c72cf2f9f073e92c292a987b5e7ef1a440",
+        "hardware/vendor/BOSL2/bottlecaps.scad": "6082f6ac9750aeb9be30489a4028f118476b30319c8a7eaae56e4df62c2fe9bd",
+        "hardware/vendor/BOSL2/builtins.scad": "8e3b0aacadb648d143348ba19e3f07997f06d5bc3edfd85c4d9d7fc03f417f1f",
+        "hardware/vendor/BOSL2/color.scad": "052e3d3e6f422a31dd6af38f52f23ba0cee3f29b2f157e2b20f998e5dd2a4d99",
+        "hardware/vendor/BOSL2/comparisons.scad": "7df1cb0a72bd1eb0d416165101e48b7de66e02e94d5e5ba10693c0e87ee882d0",
+        "hardware/vendor/BOSL2/constants.scad": "b2012b882a41be9d127904989e1b4be5fa627a3971aae17681613d7f39981392",
+        "hardware/vendor/BOSL2/coords.scad": "f0af54b84722a447cb0d34390962cd0913cb213fe14d479a014bc5a0cd02d116",
+        "hardware/vendor/BOSL2/cubetruss.scad": "c28dd1565c899fe727eded0c0f3bb2c631d82ebc74fad501cce6cb8205fc9e45",
+        "hardware/vendor/BOSL2/distributors.scad": "636ada5a6b2f9259415d9b1256629a8f3326697d84ecbf0ebfaeda5ed72b204c",
+        "hardware/vendor/BOSL2/drawing.scad": "b0f01f1dca062bf8ddb1ea37768fc4252ec15b493ce113d4e358d8a8385bc92e",
+        "hardware/vendor/BOSL2/fnliterals.scad": "71dae8ebdab28ad1d6bb5bcb3b8fa87de72088755433e8345ebb87ee799089b5",
+        "hardware/vendor/BOSL2/gears.scad": "1251bb976351b42d1b2b262cdd8fcf2ba13123c71298ef7175e9a2681c8a11b8",
+        "hardware/vendor/BOSL2/geometry.scad": "c6afef6a9e4e21052235f5eab7c370bffceafc2e47eb3ef8d58ab0281335dddb",
+        "hardware/vendor/BOSL2/hinges.scad": "1837749fea85e77f28735a5668a8216fefd89b104ef34875a8854b92fbddf005",
+        "hardware/vendor/BOSL2/hooks.scad": "e0e26cb6498a295f15176db5925f75195814c291abaf120de9d24000e057ae06",
+        "hardware/vendor/BOSL2/isosurface.scad": "531f7c01d616d77bc71c425d1707023dc3fb0f4bf180b0c27d228c9798b5788d",
+        "hardware/vendor/BOSL2/joiners.scad": "949f94dd53d203132c509a461524d51f43677d87e86620723fe70579f28db62a",
+        "hardware/vendor/BOSL2/linalg.scad": "89541cd77089ca9cde978957ee18c3fbadc18b731fdf8ac0a290f7c7692337bd",
+        "hardware/vendor/BOSL2/linear_bearings.scad": "6d0cbda9b90980873f1e5e8e43dd70d35ad11a1427aa138a8155b807f51e12fd",
+        "hardware/vendor/BOSL2/lists.scad": "2a48070fb8c326429d99539256c8f435fd1ac633ac34b8a2e783f4cbebd997c8",
+        "hardware/vendor/BOSL2/masks.scad": "b30f6b069d5847561a4febff958e55d78bb7c0ac8e32288b150bcb37257c1a2e",
+        "hardware/vendor/BOSL2/math.scad": "e86863ba2314abcaa4f7add60d56006be9c6f96928d00115b83fcc362b4a8f98",
+        "hardware/vendor/BOSL2/metric_screws.scad": "9f5502e53b928c099cab4ab4f7a7615374f0013b41587b684de12ccfafaf0dd9",
+        "hardware/vendor/BOSL2/miscellaneous.scad": "696ad3f5939dd7f30bb257f1e057a230578d5912aa1be3a67a20bd83133e52d9",
+        "hardware/vendor/BOSL2/modular_hose.scad": "061859ed109b5a3c38eca9bea32ee92b9589c484b085f763f3a09787a433912f",
+        "hardware/vendor/BOSL2/nema_steppers.scad": "ca8902ff3d138701e32f2710d0b3ac72bb4faec4c0c81894433108a233a516f0",
+        "hardware/vendor/BOSL2/nurbs.scad": "16fe02bbb515eb30db184304657cb185496b923f3a9f1c59f6a397f88bff2ae8",
+        "hardware/vendor/BOSL2/partitions.scad": "044fa31c38c46b98035ec467f9959a5797295b66eb160987a6172805d7db718b",
+        "hardware/vendor/BOSL2/paths.scad": "7221787a912f35bd719a579c1d20a063a384077b623a75a5ddc4e86d34bea34f",
+        "hardware/vendor/BOSL2/polyhedra.scad": "4bcbe3c5b0f3e982bdfbd32029ac9f5639a7c55aab9c03684195e4e2b065cf08",
+        "hardware/vendor/BOSL2/regions.scad": "8693307de69a28645bfacbfd9329e995940103f101956739a5607aaba1f12cf1",
+        "hardware/vendor/BOSL2/rounding.scad": "b6a70c5a50842619734b749a4b9a88b5de5d74999faa2228a70732fdf08e7ce9",
+        "hardware/vendor/BOSL2/screw_drive.scad": "e7c301d928f7061616de59935aaffacc57eea22b55448d829b7a2779b3c1fcec",
+        "hardware/vendor/BOSL2/screws.scad": "e35cdacf7f9eec1ffdf4ec4d6ec0b0cb38878e5457b3d0b0e468203c4f0613e9",
+        "hardware/vendor/BOSL2/shapes2d.scad": "7c80e65adef8a88a91846ae6d6a171e506aab2ce3a90bac00f8abf4ca3b1daf7",
+        "hardware/vendor/BOSL2/shapes3d.scad": "8f46a6c845ae4799f781e2a9bb78f336998df41407e3c341051664cb8c180326",
+        "hardware/vendor/BOSL2/skin.scad": "0669c768eab0cdba10e35a251e8ef78aa85692a3d3b0b28837e7aaf4dd8a0085",
+        "hardware/vendor/BOSL2/sliders.scad": "42f605a33dafeea413560cc9d11f2160b90bcb0dd463f0d3a70f2f9c50b2c573",
+        "hardware/vendor/BOSL2/std.scad": "bcddc3093863ab322cd8503f4f784a67a6c706423a27669e64ddeb13e4d355a2",
+        "hardware/vendor/BOSL2/strings.scad": "b5ea8ba57b13a0a2d9c68a880d16f533a3063776f42709e69024cf410a449278",
+        "hardware/vendor/BOSL2/structs.scad": "62638486c7e10c54c92784c6858c1ed1ccfa25be657973b8a901ae52762cc41a",
+        "hardware/vendor/BOSL2/threading.scad": "895481e465754412f29ffe32113d20debc74aef735eb44c77a9565ff276fa253",
+        "hardware/vendor/BOSL2/transforms.scad": "6e0f58ac40a52fe3d4ed202746cbe26a293487e7b47b50e9d661b9d51ef9c810",
+        "hardware/vendor/BOSL2/trigonometry.scad": "63553ca2a297c633ed6a8aca99bae9b6db91a335c720a92d529b433955b3ac7e",
+        "hardware/vendor/BOSL2/tripod_mounts.scad": "1a2013e5cc9082399e6e62b95d9fb40a888ebca0c01809fa2b14c990ed14aaa9",
+        "hardware/vendor/BOSL2/turtle3d.scad": "c334cbb9d11516d89049e88db2305430749113a1ee2558f51a60aca257651c0f",
+        "hardware/vendor/BOSL2/utility.scad": "1ee2f63d4f8eca1be1612c36042896334f2f01ba0314ef870c95513dadf606db",
+        "hardware/vendor/BOSL2/vectors.scad": "ef1fcd02b7d5cce86719d25d3fd1b2f57683180d002c585f44994cc6198fd7cb",
+        "hardware/vendor/BOSL2/version.scad": "5919420c6986908eacc3ccea21fb0a6e0dfdb82af5323c733b314ef5272b6edd",
+        "hardware/vendor/BOSL2/vnf.scad": "f4bae873b2d9c85f3bf1d45ad286f43d99891b71a09b04e75406b55959f94566",
+        "hardware/vendor/BOSL2/walls.scad": "4d4b314c55417124adef666df31d0ede21db6b1622fdd76cc993faf4dcc827a7",
+        "hardware/vendor/BOSL2/wiring.scad": "d443504bb350883a7c1e7d5cf1a7edaeb810de682b7465f68fce78e911552574",
+        "scripts/camera-pod-booklet/build_booklet.py": "6de4fb5a7174a5f07c3bb6990e52d22d2818594633d593235b44a075edab5d1d",
+        "scripts/camera-pod-booklet/check_converter.py": "1590a82f0cf96110d821b2b887b3ec4ab39314116c8caee51d15e9251ece0483",
+        "scripts/camera-pod-booklet/check_cradle.py": "23b6a5d0dfcffd7b5673cfd445799d25c77d44ced85469a6234dc0099753b680",
+        "scripts/camera-pod-booklet/check_integration.py": "da3941298bcd962a81dd5b6ec69b53ccbd450fa92dae85bbc99205ce8c9609d3",
+        "scripts/camera-pod-booklet/check_service.py": "80e4c9c9fd1f6a48f1f0f682d4f9d2d4aa959590385a893992426802a4fd1a55",
+        "scripts/camera-pod-booklet/export_models.py": "dda7b59c2493db2d6b22ff05e93979d02442a82f33f8b7e93ee08ff4de528aa3",
+        "scripts/camera-pod-booklet/integration.py": "31e7a75dedbfc99622ce4e46dcda05bb8aa599116105d6fefc17d8c2c415a392",
+        "scripts/camera-pod-booklet/model_selection.py": "f745a7b72348e1193ab52e3932dc53ec5ebbb6fce56b48b66d078a452a5eb61a",
+        "scripts/camera-pod-booklet/render_figures.py": "6d5cf67ba50ad2f32b48ab460ce5aa0920cd9fb1512d4fa59b2c701b2459a1e8",
+        "scripts/camera-pod-booklet/render_preview.py": "c8b0c36652ab5d41b86edd035313e165b0cdafd616bc7bbeebf01cfa3c186554"
+      },
+      "neutral_collisions": [],
+      "motion_poses": 555,
+      "motion_failures": [],
+      "hard_stop_controls": {
+        "pan-negative": true,
+        "pan-positive": true,
+        "tilt-negative": true,
+        "tilt-positive": true
+      },
+      "assembly_paths": 30,
+      "path_failures": 0,
+      "tool_envelopes": 22,
+      "tool_hits": 0,
+      "converter": {
+        "configuration": "enclosure",
+        "status": "nominal CAD only",
+        "measured_envelope_mm": [
+          50,
+          30,
+          17
+        ],
+        "mounting_pitch_mm": [
+          45,
+          24
+        ],
+        "hole_diameter_mm": 3,
+        "full_measured_envelope_hits": [],
+        "board_and_support_probes": [
+          {
+            "name": "measured PCB hole",
+            "hole": 0,
+            "hits": []
+          },
+          {
+            "name": "printed support bore",
+            "hole": 0,
+            "hits": []
+          },
+          {
+            "name": "measured PCB hole",
+            "hole": 1,
+            "hits": []
+          },
+          {
+            "name": "printed support bore",
+            "hole": 1,
+            "hits": []
+          },
+          {
+            "name": "measured PCB hole",
+            "hole": 2,
+            "hits": []
+          },
+          {
+            "name": "printed support bore",
+            "hole": 2,
+            "hits": []
+          },
+          {
+            "name": "measured PCB hole",
+            "hole": 3,
+            "hits": []
+          },
+          {
+            "name": "printed support bore",
+            "hole": 3,
+            "hits": []
+          }
+        ],
+        "shifted_hole_controls": [
+          {
+            "hole": 0,
+            "shift_mm": [
+              1,
+              0,
+              0
+            ],
+            "collision_detected": true
+          },
+          {
+            "hole": 1,
+            "shift_mm": [
+              1,
+              0,
+              0
+            ],
+            "collision_detected": true
+          },
+          {
+            "hole": 2,
+            "shift_mm": [
+              1,
+              0,
+              0
+            ],
+            "collision_detected": true
+          },
+          {
+            "hole": 3,
+            "shift_mm": [
+              1,
+              0,
+              0
+            ],
+            "collision_detected": true
+          }
+        ],
+        "driver_access": [
+          {
+            "hole": 0,
+            "diameter_mm": 2.5,
+            "length_mm": 15,
+            "hits": []
+          },
+          {
+            "hole": 1,
+            "diameter_mm": 2.5,
+            "length_mm": 15,
+            "hits": []
+          },
+          {
+            "hole": 2,
+            "diameter_mm": 2.5,
+            "length_mm": 15,
+            "hits": []
+          },
+          {
+            "hole": 3,
+            "diameter_mm": 2.5,
+            "length_mm": 15,
+            "hits": []
+          }
+        ],
+        "bolt_paths": [
+          {
+            "name": "converter bolt 0 inserted from above with cover removed",
+            "positions": 16,
+            "failures": []
+          },
+          {
+            "name": "converter bolt 1 inserted from above with cover removed",
+            "positions": 16,
+            "failures": []
+          },
+          {
+            "name": "converter bolt 2 inserted from above with cover removed",
+            "positions": 16,
+            "failures": []
+          },
+          {
+            "name": "converter bolt 3 inserted from above with cover removed",
+            "positions": 16,
+            "failures": []
+          }
+        ],
+        "removal": {
+          "name": "received converter lifts vertically after four screws/top washers are removed",
+          "positions": 31,
+          "failures": []
+        },
+        "solder_pad_access": [
+          {
+            "local_xy_mm": [
+              -22,
+              5
+            ],
+            "diameter_mm": 3,
+            "length_mm": 12,
+            "hits": []
+          },
+          {
+            "local_xy_mm": [
+              -22,
+              -5
+            ],
+            "diameter_mm": 3,
+            "length_mm": 12,
+            "hits": []
+          },
+          {
+            "local_xy_mm": [
+              22,
+              5
+            ],
+            "diameter_mm": 3,
+            "length_mm": 12,
+            "hits": []
+          },
+          {
+            "local_xy_mm": [
+              22,
+              -5
+            ],
+            "diameter_mm": 3,
+            "length_mm": 12,
+            "hits": []
+          }
+        ],
+        "original_position_control": {
+          "centre_xy_mm": [
+            32,
+            0
+          ],
+          "collision_detected": true,
+          "hits": [
+            {
+              "part": "frame-nut-2",
+              "volume_mm3": 16.705067542708694
+            },
+            {
+              "part": "frame-nut-3",
+              "volume_mm3": 15.516273635485552
+            }
+          ]
+        },
+        "limits": "PCB thickness, fasteners, component detail and pad positions nominal; no physical fit, wiring, electrical or thermal acceptance."
+      },
+      "mesh_sha256": {
+        "raspberry-pi-3a-plus-reference": "df87f33c0fafa6112d318c37e906dac45a227fbd9d4fc50d4afc5f90ed3842ca",
+        "camera-module-3-standard-reference": "1948747dade20b53e8f4f91cba593fa5be901ba3a887d584ff7be48208b8ca3b",
+        "micro-servo-3p7g-UNVERIFIED": "525685d1f18d1003e6d61d30c38fcf323fff42fc933b64144797ee729e6d9ad5",
+        "servo-horn-UNVERIFIED": "3416db50cff93a089f75b00e7a5afe043cdd87d4d98ac211b0f7977a5585c5cf",
+        "buck-converter-measured-reference": "52415f68705ffd7ff1c16339b435f3b07fbb3f7491fe1da3944eb156816dc56d",
+        "capacitor-1000uf-UNVERIFIED": "1c60ea790e7640d71058b225c3b015dea1b0ae427574c9bb8527f01dfa2de9e0",
+        "microsd-reference": "f2c07472383626694fa8f2a3428a6a45be6b602a14fc838458e10a40ade18ac0",
+        "csi-15pin-flat-reference": "3e62a5870e394e21035180878391079bee325c3a849bbb8a376000b56a8c30a0",
+        "nut-M2-reference": "7c4be6177b442a34e25e9a516c6be9a41ae4ca2d728b9908c49e020e570b99ee",
+        "nut-M2p5-reference": "eaba79b43e848ca18e9e98cccef1d62247d120b555d11c7a7ce514febc66577c",
+        "nut-M4-reference": "74eab40369ce9fac2cb8a75d9de2825eff6b7a116982dad1c8ec3f998ce710e0",
+        "washer-M2-reference": "961962be80ac67fbd95a75d6ae6fdb5aec80894f6e17f56bef594f45c010ebe6",
+        "washer-M2p5-reference": "2bf35c3cfe8b8e0bb8354b0079f9a495040f52905bb5e464894cbafa4035bc64",
+        "washer-M4-reference": "98ab1af71c36f56b5ef50fdaea86576a766f48afd1f2445d15481ed88dd9de9c",
+        "bolt-M4x35-reference": "dd1334d4a30c76fcb7386bd34138740aacf51a9419749e8bbff979f8d2299268",
+        "bolt-M2p5x20-reference": "a92b3c7506fb9983d9decbdb7b132e4e8f6907d36707172fddf2078b28aa6535",
+        "bolt-M2x12-reference": "21d4b088fb5bd2435545ef78d4820325fe8d5eedeeee505f9944bbad89ac941c",
+        "bolt-M3x12-reference": "286f4aa66f74562edd6d36660dd2430b3446db9ea2f4e6fbbe17894e71e61814",
+        "bolt-M3x35-reference": "222d723d5c1bc388adafa5f81a0cf297ae9646361e595476d99770badf3b5607",
+        "nut-M1p6-reference": "208b0a8097348267143fcc288e1e04c5f17ad81d2f3d3535264e06e764506d3d",
+        "nut-M3-reference": "e5b3fe86cf1a19e9937effb696ff76c20951e0f55f1c2a098698c68ce235007e",
+        "washer-M3-reference": "7025e0381dc2bb35e7cac126396ade929949d70f71973ae6d17bddbe1e30767d",
+        "washer-M3x0p7-reference": "9a3468dd40fb72862386dd8a144268b2e1013fc6b336919a9beba0535873439a",
+        "bolt-OEM-horn-UNVERIFIED": "d5f683e8a0a6606cdb863e000aef2eb0234a1be51bc54685e652824e36b76ee0",
+        "bolt-M2p5x10-reference": "730d4e1c154346faffc67f066bae63f731d474771bff9909058e01f37ff72ebc",
+        "capacitor-tie-reference": "22e411439b72115e23873c4b7de4338dc732223a45b086edf78f033c505a245a",
+        "csk-M1p6x6-reference": "7437cf0e73099832495a5112b4dd5bf35d516d57ccdb4eb0816ecf41d75f0cac",
+        "csk-M2x8-reference": "8875bf3045881c95c66d45b06134e531297af0360edc69b2ab36984f8b255735",
+        "csk-M2x10-reference": "ef8f955c8c4b976ce12ed0de9dd0b371c5ec79eb83fcaecaff8598d6b8ba8a42",
+        "bolt-M2x10-reference": "203c779ac8c5e2263068f2402734b34658d58c998030104bb6200f0dffda72e0",
+        "camera-pod-spider": "d05a5b535d804c8d79e08c073b42b813808bcf9abdfc6012bbbacfc41b3e5321",
+        "camera-pod-pan-servo-mount": "1d749870b138e478c5d41db0c98869167e2a2f0d3e06cc0b3addbd397c9366ad",
+        "camera-pod-horn-retainer": "a7794cd7ccc25621154cbbb8ca8821939178bddc2db6c09d54aa77465b83f5e9",
+        "camera-pod-servo-fit-coupon": "295edf1b9ec65c0ed99caa7ec58063f5136013aa2e271e625310275e4749d57e",
+        "camera-pod-spider-spacer": "9936f06b5a2fbab8a5fe41a08cb54a120c53cf654db67c7fb1b06bda0dedafa6",
+        "camera-pod-rain-hood": "acf1148c2c09d58291729f1288bd47b2657fd6f3ff0a18d11d125c54c91eb259",
+        "camera-pod-enclosure-base": "946eb0973d4089942c3547fbb8997a29d20a33dee8e2338a208cc33b0a9268ed",
+        "camera-pod-integrated-gimbal-head": "d586832b3336bfe7b2ddc1096e080934388f821a3098085002ac18aa004adaf7",
+        "camera-pod-integrated-gimbal-carrier": "efcea2189e4a589e4ffd0cef16626926b234e65e7dc4c8a092235d9f8ecc40ae",
+        "camera-pod-integrated-camera-cradle": "6f64be08334a77a75841fc0c95bd841996ddb9b655804b8e181c09dcf595848a",
+        "camera-pod-integrated-tilt-pivot-support": "478a2155f6cb91f25fa7c2d2655f7846d31a7040e7dd3201c5cf666889b9e3ff",
+        "camera-pod-integrated-deck": "08072194f78f74e5273eccd9ad01f65f7430601b6b05621c2385734693686ca8",
+        "camera-pod-integrated-camera-hood": "3fa974488623852c89e47800b4ef1a72b8c7e18a12bd12ab82be28eb9ee451c2",
+        "fixed-power-route-6mm-NOMINAL": "63dedc46aae2a92430d49dd574236eb8ed922e5fb5e6fc5291f1983459241bc7"
+      },
+      "solid_PETG_print_estimate_g": 253.62225145327136,
+      "pdf_revision": 6,
+      "pdf_pages": 16,
+      "limits": "Nominal CAD and owner-reported envelope only; PCB thickness, component/pad geometry and fasteners remain nominal. No printed fit, wire-bend, electrical, thermal, strength or flying-mass acceptance."
+    },
+    "bench": {
+      "configuration": {
+        "variant": "bench",
+        "units": "mm",
+        "pan_deg": [
+          -90,
+          90,
+          5
+        ],
+        "tilt_deg": [
+          0,
+          70,
+          5
+        ],
+        "hardware_basis": "received converter envelope/holes measured; other hardware and component detail nominal",
+        "evidence_date": "2026-10-12",
+        "fabrication_models": [
+          {
+            "id": "camera-pod-spider",
+            "revision": "0.1.0",
+            "output": "camera-pod-spider-r0.1.0.stl"
+          },
+          {
+            "id": "camera-pod-pan-servo-mount",
+            "revision": "0.1.0",
+            "output": "camera-pod-pan-servo-mount-r0.1.0.stl"
+          },
+          {
+            "id": "camera-pod-horn-retainer",
+            "revision": "0.1.0",
+            "output": "camera-pod-horn-retainer-r0.1.0.stl"
+          },
+          {
+            "id": "camera-pod-servo-fit-coupon",
+            "revision": "0.1.0",
+            "output": "camera-pod-servo-fit-coupon-r0.1.0.stl"
+          },
+          {
+            "id": "camera-pod-spider-spacer",
+            "revision": "0.1.0",
+            "output": "camera-pod-spider-spacer-r0.1.0.stl"
+          },
+          {
+            "id": "camera-pod-electronics-deck",
+            "revision": "0.1.2",
+            "output": "camera-pod-electronics-deck-r0.1.2.stl"
+          },
+          {
+            "id": "camera-pod-pan-yoke",
+            "revision": "0.1.1",
+            "output": "camera-pod-pan-yoke-r0.1.1.stl"
+          },
+          {
+            "id": "camera-pod-camera-cradle",
+            "revision": "0.1.0",
+            "output": "camera-pod-camera-cradle-r0.1.0.stl"
+          },
+          {
+            "id": "camera-pod-camera-hood",
+            "revision": "0.1.0",
+            "output": "camera-pod-camera-hood-r0.1.0.stl"
+          },
+          {
+            "id": "camera-pod-electronics-cover",
+            "revision": "0.1.0",
+            "output": "camera-pod-electronics-cover-r0.1.0.stl"
+          },
+          {
+            "id": "camera-pod-tilt-pivot-support",
+            "revision": "0.1.0",
+            "output": "camera-pod-tilt-pivot-support-r0.1.0.stl"
+          }
+        ]
+      },
+      "source_hashes": {
+        "hardware/assemblies/camera-pod/bulk-capacitor-1000uf.scad": "b7125e5371d0aa55110fbcae7300b3a98bd4a3474341a0fed3bf199a6fb4a92e",
+        "hardware/assemblies/camera-pod/camera-gimbal-base.scad": "aaa44f020ea99055c07d5aeb165f76da34c90562f1bccd29fe6ab8a746ccde2f",
+        "hardware/assemblies/camera-pod/camera-gimbal-camera-plate.scad": "ee46401f166414b9c65f8b361e84a9694128b8a04de4aab8f35e343f69d9c535",
+        "hardware/assemblies/camera-pod/camera-gimbal-optical-hood.scad": "b812f413d9efba9c156083b4508f15647e3fc5cfa1589a2950fd3d8d9b34df3d",
+        "hardware/assemblies/camera-pod/camera-gimbal-rain-cap.scad": "c3ef78aa8d602f0fb6621b47292bf39f197de453b9877a244dce3897605343fd",
+        "hardware/assemblies/camera-pod/camera-gimbal-yoke.scad": "bf82f067e8ebdcda99cdda1c68a08512a23c3c7d34670df5974624140d5a0177",
+        "hardware/assemblies/camera-pod/camera-pod-assembly.scad": "3ac4e0b51f62025bd1402b94e4ec619a2df4cfaa3e2135c2c45c422a49cf0eb2",
+        "hardware/assemblies/camera-pod/camera-pod-camera-cowl.scad": "3161c4e209eb3db5769ca5a9f6be6ddac760159e0b1d2a78c7e4634acf79fcc3",
+        "hardware/assemblies/camera-pod/camera-pod-camera-cradle.scad": "0b8757bfd228a84930b1da61a0571e73984065b31bd1de5f8249f7bdfcb91c5f",
+        "hardware/assemblies/camera-pod/camera-pod-camera-hood.scad": "9916f9a8709aaff701d527a095bbbb684e2213fcdaee68222ebdf0cd1c23b2f3",
+        "hardware/assemblies/camera-pod/camera-pod-docking-stud.scad": "b4d26a0e2d8914c77383e1556db1f9e86b6c2dc92ff6a8e3d9744c9ee59bfc1f",
+        "hardware/assemblies/camera-pod/camera-pod-electronics-cover.scad": "1b1168c3b693086d83cb622eb85428d0e3800d1cb8897c5eee868ffd487337e5",
+        "hardware/assemblies/camera-pod/camera-pod-electronics-deck.scad": "e6ccda242c2016d99796a737f07e27bff4fdb4dff38d61d809bc55afae151407",
+        "hardware/assemblies/camera-pod/camera-pod-electronics-mount.scad": "20c726ac047aaa26ad2e81d58ec9e2f9cf82692490e8a06135bc9595639e779b",
+        "hardware/assemblies/camera-pod/camera-pod-enclosure-base.scad": "e2453cdb1790a8fef1d0f97e9e1372d8e694c31d5a8c04f0a4601e9f152da3d9",
+        "hardware/assemblies/camera-pod/camera-pod-envelope.scad": "8e4502a70290ffdaf4e82f8bb886ab6d259d8060fd502076da6d6da8c1ac7d08",
+        "hardware/assemblies/camera-pod/camera-pod-fastener-kit.scad": "5c37b24b3f5ac84431e28de2075a9a37796560f777d940a072710a4148bdf289",
+        "hardware/assemblies/camera-pod/camera-pod-horn-retainer.scad": "0c6a9971cd3cdda6a8ba103afcc75b506a2b9cb995b842ef74621f68ae912132",
+        "hardware/assemblies/camera-pod/camera-pod-integrated-camera-cradle.scad": "7eddaad7e89e98a49712478ac704821bc7a72ce28c6bf937ca7a8e5eea7184bc",
+        "hardware/assemblies/camera-pod/camera-pod-integrated-camera-hood.scad": "ee340666bd4d288d3f2393da573885cfd46735d94adf600fe872a6679f9f2eb0",
+        "hardware/assemblies/camera-pod/camera-pod-integrated-deck.scad": "48d5e3c367f03c72135dc639b191c3bc40b10be47a3d6957dd53a353e4bfe84d",
+        "hardware/assemblies/camera-pod/camera-pod-integrated-gimbal-carrier.scad": "16356cc0b48ae58708b77b3a2054a7395d273652cd6aa82f0dae9bf249fb3d74",
+        "hardware/assemblies/camera-pod/camera-pod-integrated-gimbal-head.scad": "e371057df9b491e4cd0ddbb0da6dd0aadf49b6bbfa4e835e6bbe9b5dc4a09dff",
+        "hardware/assemblies/camera-pod/camera-pod-integrated-tilt-pivot-support.scad": "ef760c8d21cacfa7398126a6f07e812eb312535e7ddee2f1b8b9e7cfc0a38b75",
+        "hardware/assemblies/camera-pod/camera-pod-line-strain-relief.scad": "55ebe149da5f2025f8a46e056c47cb866a63d8f9016b7bd20ef45ae3e1aa1fba",
+        "hardware/assemblies/camera-pod/camera-pod-pan-fairing.scad": "98237953189f5ef08e620b7dec1d0798d685b9cc8e831a0d5ad609e206024f2e",
+        "hardware/assemblies/camera-pod/camera-pod-pan-servo-mount.scad": "91260d01aa01c176ff664b13bbd85d993fbd08cd183d03b1f5a0d2d33c2e93b8",
+        "hardware/assemblies/camera-pod/camera-pod-pan-yoke.scad": "1a2a3f08dd079b6e11b057fdcc7732884215c7438172f95a12076443fac84f75",
+        "hardware/assemblies/camera-pod/camera-pod-rain-hood.scad": "9bee57ae2bd54765c16a36887d4cccd7ea4fdf098e5d6248bd44b4d35d93e6cc",
+        "hardware/assemblies/camera-pod/camera-pod-servo-fit-coupon.scad": "f9aa507dda7c4a32897902eeea7ea9743ce901a58a2299f27b4a395d1bb0db50",
+        "hardware/assemblies/camera-pod/camera-pod-spider-spacer.scad": "beb0f81506bc5462ed1eb4d540316b0dfb06c532dadbaee40ff6624175c3c52d",
+        "hardware/assemblies/camera-pod/camera-pod-spider.scad": "6e914f806f9acdd605b2ff17b37b572d2591a1aa0b5d5d7044c818b7bcde7a29",
+        "hardware/assemblies/camera-pod/camera-pod-tilt-pivot-support.scad": "196b588cef28d6e18fde50da65027479ca921865707a43f4e84b81278439fc21",
+        "hardware/assemblies/camera-pod/camera-pod-tilt-servo-boot.scad": "32868fe27039dd7c6ba78ddf8d245da770196c20662a40ebfd871cb5c3bf8d9c",
+        "hardware/assemblies/camera-pod/camera-pod-wiring-kit.scad": "ac8c237975d0810e853d445cadf9d8e767b9c8b06a1caeb417068a48b41c5f26",
+        "hardware/assemblies/camera-pod/micro-pan-tilt-servo.scad": "f62faccebf2c51b265eae5a66b7f4d1749527c66e027d54129ba76343c5f76bb",
+        "hardware/assemblies/camera-pod/microsd-card-32gb.scad": "08c5bb8f6126486b012e08cd9f872d7914b660de4699eb43e74bd4757e7184bc",
+        "hardware/assemblies/camera-pod/pod-buck-converter-48v-5v.scad": "88f81f13d0eafe0c49ca6118f3e04be92536655b3d4c2560904b7746b6ac0a0b",
+        "hardware/assemblies/camera-pod/raspberry-pi-3a-plus.scad": "de59d5ec6d4f7f6d6f748622175e2d474bc5effcea7cf4d902a5773ff8fb1d58",
+        "hardware/assemblies/camera-pod/raspberry-pi-camera-module-3.scad": "67f9234705a6905e5954f90d56ff252b89b2d10881db52f77cdc79e843828700",
+        "hardware/lib/arbi.scad": "285964a38a24304ca0f6e6ada12d1de341df9673a31d14dc366abacd83d345c3",
+        "hardware/lib/barton-size-1-block.scad": "e5b15f468a246e4f4141803a9c6f3ac3cce1cd59ee4042f9a75d64eee3219a32",
+        "hardware/lib/buck-converter-48v-5v.scad": "c89c321660f3b606c2da9ff196d35b8da707ea403ea62cb9db783696dff4fa29",
+        "hardware/lib/camera-pod-bench-assembly.scad": "f679ab2f24374013718adb1a2b8414437610d8f4c43a0bc4fb1355193bb28153",
+        "hardware/lib/camera-pod-enclosure.scad": "59cf7bc658fa69879aedac41980a50ca3a6681bfaa8efa6d6f904d6c6771b25c",
+        "hardware/lib/camera-pod-integrated-deck.scad": "75ba88360d3de72bb4c737943ce609742b308d59eec5787e52267e1329b9ad60",
+        "hardware/lib/camera-pod-integrated-gimbal.scad": "70f41ec01272776715b4208461a7da8682059c2f18720817365a2e8291a2dc2c",
+        "hardware/lib/camera-pod-integrated-head.scad": "3743aa69ca69ffbf8e2ff133625ca3660bc82a10f06fd6dcbf2aa577fa2a5196",
+        "hardware/lib/camera-pod-mounts.scad": "f48e9f52dc568c081647940cd1797835c4882e1349ebff74514aace7087e1322",
+        "hardware/lib/camera-pod.scad": "324d1d886ddb52fd9b5545e9ba2116e1c6c42fac7b026951d18bbbb090d85379",
+        "hardware/lib/catalog-visualizations.scad": "0096868d2fb11867d8b6e6c5fea332f8d8010d74b8c437bf4549ff01b465f59d",
+        "hardware/lib/corner-head-printed.scad": "c83323cb77e0b2c3f9475fb20499a121563203170ead05e57c1ac072a5edcefa",
+        "hardware/lib/corner-head.scad": "0fff8dae1a356d48c14612e0299cb5c454fac3f5b1e94d5694d8a2a38ddf7d8a",
+        "hardware/lib/corner-stand-adapter.scad": "4b584e47664635aa005300186557913dda0f063a7eb2c6456cc227ea6b65c75c",
+        "hardware/lib/dock.scad": "3acbcac95dbe0b436a9d89f41570606f21ddd665fb72f540e26dfcf6cc9f9563",
+        "hardware/lib/pole-pulley-mount.scad": "193957b370e09d75e78dbe486654bab723ed0b591fe53dd3bc156cb8e0867ac0",
+        "hardware/lib/winch-cover.scad": "031432beed19425d6c29f5cb9fcf6a8cf26e84a362023b0c5b11533aeb575381",
+        "hardware/lib/winch-desk-feet.scad": "06a551dbe77420599590dc3f8a3bd9b66cd5d647d94bd75fa9e852dcdd4dd719",
+        "hardware/lib/winch-drum.scad": "0684c28615d398d1b7a2beb7d15a4fa4e27d62382b8a8bde1470367f5de1e837",
+        "hardware/lib/winch-mount.scad": "05bb92d3955500a3a52914c01f7f530bf3a243f60bef69f7d4a7af7a461e231e",
+        "hardware/lib/winch-pole.scad": "58e2f446a74cb8d38e31c332727ae31ab6e10ec49ce38ba16dcd88a20ba8fc85",
+        "hardware/models.json": "abbebd04a88e16271598362df343d8e9f82fdec095e9c42cbd2e5d58540f4134",
+        "hardware/vendor/BOSL2/affine.scad": "035629bc49574b7b745afd2cb493efb1ff8d7bdf6f7fa7cf0abe92d6f99b76c8",
+        "hardware/vendor/BOSL2/attachments.scad": "d7eb1f2d0ec74b713ceb14532bcb2b3ec7bc04c28ff0ef12eaf1c886562cc8cb",
+        "hardware/vendor/BOSL2/ball_bearings.scad": "6db8a93775a4e7ee222df949a73bf181b065094b4ac1e9cf44706201ebd614bb",
+        "hardware/vendor/BOSL2/beziers.scad": "54b6f1938c10b59c9998dce97a163d5482dcb2f4f002019872ee1d93ab90b96c",
+        "hardware/vendor/BOSL2/bosl1compat.scad": "70536a6f12f1cf774ad61d6b95bb71c72cf2f9f073e92c292a987b5e7ef1a440",
+        "hardware/vendor/BOSL2/bottlecaps.scad": "6082f6ac9750aeb9be30489a4028f118476b30319c8a7eaae56e4df62c2fe9bd",
+        "hardware/vendor/BOSL2/builtins.scad": "8e3b0aacadb648d143348ba19e3f07997f06d5bc3edfd85c4d9d7fc03f417f1f",
+        "hardware/vendor/BOSL2/color.scad": "052e3d3e6f422a31dd6af38f52f23ba0cee3f29b2f157e2b20f998e5dd2a4d99",
+        "hardware/vendor/BOSL2/comparisons.scad": "7df1cb0a72bd1eb0d416165101e48b7de66e02e94d5e5ba10693c0e87ee882d0",
+        "hardware/vendor/BOSL2/constants.scad": "b2012b882a41be9d127904989e1b4be5fa627a3971aae17681613d7f39981392",
+        "hardware/vendor/BOSL2/coords.scad": "f0af54b84722a447cb0d34390962cd0913cb213fe14d479a014bc5a0cd02d116",
+        "hardware/vendor/BOSL2/cubetruss.scad": "c28dd1565c899fe727eded0c0f3bb2c631d82ebc74fad501cce6cb8205fc9e45",
+        "hardware/vendor/BOSL2/distributors.scad": "636ada5a6b2f9259415d9b1256629a8f3326697d84ecbf0ebfaeda5ed72b204c",
+        "hardware/vendor/BOSL2/drawing.scad": "b0f01f1dca062bf8ddb1ea37768fc4252ec15b493ce113d4e358d8a8385bc92e",
+        "hardware/vendor/BOSL2/fnliterals.scad": "71dae8ebdab28ad1d6bb5bcb3b8fa87de72088755433e8345ebb87ee799089b5",
+        "hardware/vendor/BOSL2/gears.scad": "1251bb976351b42d1b2b262cdd8fcf2ba13123c71298ef7175e9a2681c8a11b8",
+        "hardware/vendor/BOSL2/geometry.scad": "c6afef6a9e4e21052235f5eab7c370bffceafc2e47eb3ef8d58ab0281335dddb",
+        "hardware/vendor/BOSL2/hinges.scad": "1837749fea85e77f28735a5668a8216fefd89b104ef34875a8854b92fbddf005",
+        "hardware/vendor/BOSL2/hooks.scad": "e0e26cb6498a295f15176db5925f75195814c291abaf120de9d24000e057ae06",
+        "hardware/vendor/BOSL2/isosurface.scad": "531f7c01d616d77bc71c425d1707023dc3fb0f4bf180b0c27d228c9798b5788d",
+        "hardware/vendor/BOSL2/joiners.scad": "949f94dd53d203132c509a461524d51f43677d87e86620723fe70579f28db62a",
+        "hardware/vendor/BOSL2/linalg.scad": "89541cd77089ca9cde978957ee18c3fbadc18b731fdf8ac0a290f7c7692337bd",
+        "hardware/vendor/BOSL2/linear_bearings.scad": "6d0cbda9b90980873f1e5e8e43dd70d35ad11a1427aa138a8155b807f51e12fd",
+        "hardware/vendor/BOSL2/lists.scad": "2a48070fb8c326429d99539256c8f435fd1ac633ac34b8a2e783f4cbebd997c8",
+        "hardware/vendor/BOSL2/masks.scad": "b30f6b069d5847561a4febff958e55d78bb7c0ac8e32288b150bcb37257c1a2e",
+        "hardware/vendor/BOSL2/math.scad": "e86863ba2314abcaa4f7add60d56006be9c6f96928d00115b83fcc362b4a8f98",
+        "hardware/vendor/BOSL2/metric_screws.scad": "9f5502e53b928c099cab4ab4f7a7615374f0013b41587b684de12ccfafaf0dd9",
+        "hardware/vendor/BOSL2/miscellaneous.scad": "696ad3f5939dd7f30bb257f1e057a230578d5912aa1be3a67a20bd83133e52d9",
+        "hardware/vendor/BOSL2/modular_hose.scad": "061859ed109b5a3c38eca9bea32ee92b9589c484b085f763f3a09787a433912f",
+        "hardware/vendor/BOSL2/nema_steppers.scad": "ca8902ff3d138701e32f2710d0b3ac72bb4faec4c0c81894433108a233a516f0",
+        "hardware/vendor/BOSL2/nurbs.scad": "16fe02bbb515eb30db184304657cb185496b923f3a9f1c59f6a397f88bff2ae8",
+        "hardware/vendor/BOSL2/partitions.scad": "044fa31c38c46b98035ec467f9959a5797295b66eb160987a6172805d7db718b",
+        "hardware/vendor/BOSL2/paths.scad": "7221787a912f35bd719a579c1d20a063a384077b623a75a5ddc4e86d34bea34f",
+        "hardware/vendor/BOSL2/polyhedra.scad": "4bcbe3c5b0f3e982bdfbd32029ac9f5639a7c55aab9c03684195e4e2b065cf08",
+        "hardware/vendor/BOSL2/regions.scad": "8693307de69a28645bfacbfd9329e995940103f101956739a5607aaba1f12cf1",
+        "hardware/vendor/BOSL2/rounding.scad": "b6a70c5a50842619734b749a4b9a88b5de5d74999faa2228a70732fdf08e7ce9",
+        "hardware/vendor/BOSL2/screw_drive.scad": "e7c301d928f7061616de59935aaffacc57eea22b55448d829b7a2779b3c1fcec",
+        "hardware/vendor/BOSL2/screws.scad": "e35cdacf7f9eec1ffdf4ec4d6ec0b0cb38878e5457b3d0b0e468203c4f0613e9",
+        "hardware/vendor/BOSL2/shapes2d.scad": "7c80e65adef8a88a91846ae6d6a171e506aab2ce3a90bac00f8abf4ca3b1daf7",
+        "hardware/vendor/BOSL2/shapes3d.scad": "8f46a6c845ae4799f781e2a9bb78f336998df41407e3c341051664cb8c180326",
+        "hardware/vendor/BOSL2/skin.scad": "0669c768eab0cdba10e35a251e8ef78aa85692a3d3b0b28837e7aaf4dd8a0085",
+        "hardware/vendor/BOSL2/sliders.scad": "42f605a33dafeea413560cc9d11f2160b90bcb0dd463f0d3a70f2f9c50b2c573",
+        "hardware/vendor/BOSL2/std.scad": "bcddc3093863ab322cd8503f4f784a67a6c706423a27669e64ddeb13e4d355a2",
+        "hardware/vendor/BOSL2/strings.scad": "b5ea8ba57b13a0a2d9c68a880d16f533a3063776f42709e69024cf410a449278",
+        "hardware/vendor/BOSL2/structs.scad": "62638486c7e10c54c92784c6858c1ed1ccfa25be657973b8a901ae52762cc41a",
+        "hardware/vendor/BOSL2/threading.scad": "895481e465754412f29ffe32113d20debc74aef735eb44c77a9565ff276fa253",
+        "hardware/vendor/BOSL2/transforms.scad": "6e0f58ac40a52fe3d4ed202746cbe26a293487e7b47b50e9d661b9d51ef9c810",
+        "hardware/vendor/BOSL2/trigonometry.scad": "63553ca2a297c633ed6a8aca99bae9b6db91a335c720a92d529b433955b3ac7e",
+        "hardware/vendor/BOSL2/tripod_mounts.scad": "1a2013e5cc9082399e6e62b95d9fb40a888ebca0c01809fa2b14c990ed14aaa9",
+        "hardware/vendor/BOSL2/turtle3d.scad": "c334cbb9d11516d89049e88db2305430749113a1ee2558f51a60aca257651c0f",
+        "hardware/vendor/BOSL2/utility.scad": "1ee2f63d4f8eca1be1612c36042896334f2f01ba0314ef870c95513dadf606db",
+        "hardware/vendor/BOSL2/vectors.scad": "ef1fcd02b7d5cce86719d25d3fd1b2f57683180d002c585f44994cc6198fd7cb",
+        "hardware/vendor/BOSL2/version.scad": "5919420c6986908eacc3ccea21fb0a6e0dfdb82af5323c733b314ef5272b6edd",
+        "hardware/vendor/BOSL2/vnf.scad": "f4bae873b2d9c85f3bf1d45ad286f43d99891b71a09b04e75406b55959f94566",
+        "hardware/vendor/BOSL2/walls.scad": "4d4b314c55417124adef666df31d0ede21db6b1622fdd76cc993faf4dcc827a7",
+        "hardware/vendor/BOSL2/wiring.scad": "d443504bb350883a7c1e7d5cf1a7edaeb810de682b7465f68fce78e911552574",
+        "scripts/camera-pod-booklet/build_booklet.py": "6de4fb5a7174a5f07c3bb6990e52d22d2818594633d593235b44a075edab5d1d",
+        "scripts/camera-pod-booklet/check_converter.py": "1590a82f0cf96110d821b2b887b3ec4ab39314116c8caee51d15e9251ece0483",
+        "scripts/camera-pod-booklet/check_cradle.py": "23b6a5d0dfcffd7b5673cfd445799d25c77d44ced85469a6234dc0099753b680",
+        "scripts/camera-pod-booklet/check_integration.py": "da3941298bcd962a81dd5b6ec69b53ccbd450fa92dae85bbc99205ce8c9609d3",
+        "scripts/camera-pod-booklet/check_service.py": "80e4c9c9fd1f6a48f1f0f682d4f9d2d4aa959590385a893992426802a4fd1a55",
+        "scripts/camera-pod-booklet/export_models.py": "dda7b59c2493db2d6b22ff05e93979d02442a82f33f8b7e93ee08ff4de528aa3",
+        "scripts/camera-pod-booklet/integration.py": "31e7a75dedbfc99622ce4e46dcda05bb8aa599116105d6fefc17d8c2c415a392",
+        "scripts/camera-pod-booklet/model_selection.py": "f745a7b72348e1193ab52e3932dc53ec5ebbb6fce56b48b66d078a452a5eb61a",
+        "scripts/camera-pod-booklet/render_figures.py": "6d5cf67ba50ad2f32b48ab460ce5aa0920cd9fb1512d4fa59b2c701b2459a1e8",
+        "scripts/camera-pod-booklet/render_preview.py": "c8b0c36652ab5d41b86edd035313e165b0cdafd616bc7bbeebf01cfa3c186554"
+      },
+      "neutral_collisions": [],
+      "motion_poses": 555,
+      "motion_failures": [],
+      "hard_stop_controls": {
+        "pan-negative": true,
+        "pan-positive": true,
+        "tilt-negative": true,
+        "tilt-positive": true
+      },
+      "assembly_paths": 8,
+      "path_failures": 0,
+      "tool_envelopes": 10,
+      "tool_hits": 0,
+      "converter": {
+        "configuration": "bench",
+        "status": "nominal CAD only",
+        "measured_envelope_mm": [
+          50,
+          30,
+          17
+        ],
+        "mounting_pitch_mm": [
+          45,
+          24
+        ],
+        "hole_diameter_mm": 3,
+        "full_measured_envelope_hits": [],
+        "board_and_support_probes": [
+          {
+            "name": "measured PCB hole",
+            "hole": 0,
+            "hits": []
+          },
+          {
+            "name": "printed support bore",
+            "hole": 0,
+            "hits": []
+          },
+          {
+            "name": "measured PCB hole",
+            "hole": 1,
+            "hits": []
+          },
+          {
+            "name": "printed support bore",
+            "hole": 1,
+            "hits": []
+          },
+          {
+            "name": "measured PCB hole",
+            "hole": 2,
+            "hits": []
+          },
+          {
+            "name": "printed support bore",
+            "hole": 2,
+            "hits": []
+          },
+          {
+            "name": "measured PCB hole",
+            "hole": 3,
+            "hits": []
+          },
+          {
+            "name": "printed support bore",
+            "hole": 3,
+            "hits": []
+          }
+        ],
+        "shifted_hole_controls": [
+          {
+            "hole": 0,
+            "shift_mm": [
+              1,
+              0,
+              0
+            ],
+            "collision_detected": true
+          },
+          {
+            "hole": 1,
+            "shift_mm": [
+              1,
+              0,
+              0
+            ],
+            "collision_detected": true
+          },
+          {
+            "hole": 2,
+            "shift_mm": [
+              1,
+              0,
+              0
+            ],
+            "collision_detected": true
+          },
+          {
+            "hole": 3,
+            "shift_mm": [
+              1,
+              0,
+              0
+            ],
+            "collision_detected": true
+          }
+        ],
+        "driver_access": [
+          {
+            "hole": 0,
+            "diameter_mm": 2.5,
+            "length_mm": 15,
+            "hits": []
+          },
+          {
+            "hole": 1,
+            "diameter_mm": 2.5,
+            "length_mm": 15,
+            "hits": []
+          },
+          {
+            "hole": 2,
+            "diameter_mm": 2.5,
+            "length_mm": 15,
+            "hits": []
+          },
+          {
+            "hole": 3,
+            "diameter_mm": 2.5,
+            "length_mm": 15,
+            "hits": []
+          }
+        ],
+        "bolt_paths": [
+          {
+            "name": "converter bolt 0 inserted from above with cover removed",
+            "positions": 16,
+            "failures": []
+          },
+          {
+            "name": "converter bolt 1 inserted from above with cover removed",
+            "positions": 16,
+            "failures": []
+          },
+          {
+            "name": "converter bolt 2 inserted from above with cover removed",
+            "positions": 16,
+            "failures": []
+          },
+          {
+            "name": "converter bolt 3 inserted from above with cover removed",
+            "positions": 16,
+            "failures": []
+          }
+        ],
+        "removal": {
+          "name": "received converter lifts vertically after four screws/top washers are removed",
+          "positions": 31,
+          "failures": []
+        },
+        "solder_pad_access": [
+          {
+            "local_xy_mm": [
+              -22,
+              5
+            ],
+            "diameter_mm": 3,
+            "length_mm": 12,
+            "hits": []
+          },
+          {
+            "local_xy_mm": [
+              -22,
+              -5
+            ],
+            "diameter_mm": 3,
+            "length_mm": 12,
+            "hits": []
+          },
+          {
+            "local_xy_mm": [
+              22,
+              5
+            ],
+            "diameter_mm": 3,
+            "length_mm": 12,
+            "hits": []
+          },
+          {
+            "local_xy_mm": [
+              22,
+              -5
+            ],
+            "diameter_mm": 3,
+            "length_mm": 12,
+            "hits": []
+          }
+        ],
+        "original_position_control": {
+          "centre_xy_mm": [
+            40,
+            0
+          ],
+          "collision_detected": true,
+          "hits": [
+            {
+              "part": "frame-nut-2",
+              "volume_mm3": 7.901526412366082
+            },
+            {
+              "part": "frame-nut-3",
+              "volume_mm3": 7.901526412366082
+            }
+          ]
+        },
+        "limits": "PCB thickness, fasteners, component detail and pad positions nominal; no physical fit, wiring, electrical or thermal acceptance."
+      },
+      "mesh_sha256": {
+        "raspberry-pi-3a-plus-reference": "9e0819797194f3a4c90af9a7c4eb9c6d097ac84cb8c381f72d8f4cb8f28ffde9",
+        "camera-module-3-standard-reference": "1790608428ae85b1a72f4b4dbfc4ab504192f77411961aa61a39b18e9b64071a",
+        "micro-servo-3p7g-UNVERIFIED": "be4b3cb63eee37a175d0482df9bf25db5d98d03d1d873e1f8ae5df38b7e2162c",
+        "servo-horn-UNVERIFIED": "89a883985bc17de5f3cea2b107dec045ff2c75a804bd74717b1ae03f806e5b67",
+        "buck-converter-measured-reference": "64df14969afd9983dedf84251a927420c85a9dcc353d0de5567c937937ae5e18",
+        "capacitor-1000uf-UNVERIFIED": "edfca9199cd914bfd5501b22c08de1c657d69da792293db67fb8632091a6a270",
+        "microsd-reference": "f2c07472383626694fa8f2a3428a6a45be6b602a14fc838458e10a40ade18ac0",
+        "csi-15pin-flat-reference": "3e62a5870e394e21035180878391079bee325c3a849bbb8a376000b56a8c30a0",
+        "nut-M2-reference": "5afc663bd6956c4de763685f2e84597ca112f32cd43f333d13dac17a4a8bc0ab",
+        "nut-M2p5-reference": "1ba1d3342b61ed80004bc73c11537aa9c41748a64e3fc68b93bada9e3601c092",
+        "nut-M4-reference": "e12e85f2fa16ca6d701e996fd101dc428c9c339a0f1e446852dda3bc46034801",
+        "washer-M2-reference": "1bf391e1f50e95bd493c8354785a2b259e0c1e28e8877700923a055539c50008",
+        "washer-M2p5-reference": "38d8654a31bd41853cf069f0b8304b6570f40e11f010d8f9667c5e856d1411c7",
+        "washer-M4-reference": "b7204dae956f0ba43d028815cecf7f77e81295f52adfd28953dffe4781894490",
+        "bolt-M4x35-reference": "332a8da0f5646aaecadcb4f879c8ba319482471b2329c9de57518d6de20e914e",
+        "bolt-M2p5x20-reference": "2c0b3115bc103d400c74f87ac8791f60ba62a5e45de74a9d4719524fad862706",
+        "bolt-M2x12-reference": "ba9f74a0a359bcef4a9c880bdfe01db253cbf12852f05d4a3dbacd14592e694b",
+        "bolt-M3x12-reference": "85cfd7cfac6ef4cf9cd7e02e8285aead3cc358705d63ca0257ffc7a0d5fd106b",
+        "bolt-M3x35-reference": "0fb0f5c1b6844fc1c2b955fc5621579b86ca1e6bd6ef0b7d0d6116519e4c6ec5",
+        "nut-M1p6-reference": "9abb1adcfa140b7c443208bff5689ee51263913c2b0bf729853e50b15dcb2fbb",
+        "nut-M3-reference": "e79d75d93ef41fce3c550223a4f2dace4f368e0db5418cd71f54d3f126f57a67",
+        "washer-M3-reference": "126ad1cf2f5d0ee7a73ebda150378d8298dd9a986a5b0d4b4d227c106d6955f8",
+        "washer-M3x0p7-reference": "662458ba309f80569aa3212c8c97c250d3eabeaadb5e22372c0afd55ab602989",
+        "bolt-OEM-horn-UNVERIFIED": "435e1c3a6eb5a8cc6004b0277b90385e61155374748876d14f150c5f67ed0821",
+        "bolt-M2p5x10-reference": "7fa960559605d7699d90049d7e5898e034b0290c711c51aa6ce925bad8deef71",
+        "capacitor-tie-reference": "22e411439b72115e23873c4b7de4338dc732223a45b086edf78f033c505a245a",
+        "csk-M1p6x6-reference": "16c660867a0cc727271c2d9ecedd0abede4293eb04a09e4c5bb9c144c9cac05b",
+        "csk-M2x8-reference": "276042f0ee789a311d09a04cdac5998506aea5aeef2057f46a30888fe61f3094",
+        "csk-M2x10-reference": "f9ce78e8ad75cc607f8068ffb51be01e499081def646629e9e2d5cba15308d00",
+        "camera-pod-spider": "221fc21447d6fb8e7cb4c07484c45af2359902b19c964b15ca36384f3e9fb617",
+        "camera-pod-pan-servo-mount": "1bb652284418b2ae51aacd4d39d47b822d33aaffa49594ffa13c6e5c2c0d6f61",
+        "camera-pod-horn-retainer": "e7017d9f7cf5d81372f10b10e8294238ec1d42d05a00c651651504faacf7acb5",
+        "camera-pod-servo-fit-coupon": "90b39ea230f64fa40b75d9cbcd78d7a5364c920c1b9886980241e8980c515087",
+        "camera-pod-spider-spacer": "631906f32f80ff4862e1959307f0d10477a12adaf74c81665068963531030647",
+        "camera-pod-electronics-deck": "b48807182563e9994b1871f694500fac814d1e5021aaa30a683ee5a39a332193",
+        "camera-pod-pan-yoke": "ee6a8980868d01fb4f480c220a3c184a6f814e233fcea326ae675fb0630e9000",
+        "camera-pod-camera-cradle": "ae1c5035627c02c4410afb706c75443d55030bc4e74627bcaef9d6295658f521",
+        "camera-pod-camera-hood": "352ab75fd71c47ea0b49874510baf248ad3dc2558644ac05c5d1ea9a0440e5b4",
+        "camera-pod-electronics-cover": "9ec5ec8bf760a18dee53a4f69a6eba5742742abf10dd28cf318419a38bf965d4",
+        "camera-pod-tilt-pivot-support": "ef54e8b5667e4b88a657b8009399b61d4c94adc25f72871bc08a8793b817505f",
+        "camera-pod-envelope": "519858cef0785d20e56d6fe0a3953d0b778ac9262672742d3f72e21eff945f86"
+      },
+      "solid_PETG_print_estimate_g": 163.22212227026634,
+      "pdf_revision": 5,
+      "pdf_pages": 14,
+      "limits": "Nominal CAD and owner-reported envelope only; PCB thickness, component/pad geometry and fasteners remain nominal. No printed fit, wire-bend, electrical, thermal, strength or flying-mass acceptance."
+    }
+  },
+  "cabinet": {
+    "status": "nominal CAD only",
+    "model_revisions": {
+      "controller-buck-converter-48v-5v": "0.1.1",
+      "pod-buck-converter-48v-5v": "0.1.1",
+      "control-cabinet-assembly": "0.1.2"
+    },
+    "source_hashes": {
+      "hardware/models.json": "abbebd04a88e16271598362df343d8e9f82fdec095e9c42cbd2e5d58540f4134",
+      "hardware/lib/buck-converter-48v-5v.scad": "c89c321660f3b606c2da9ff196d35b8da707ea403ea62cb9db783696dff4fa29",
+      "hardware/lib/catalog-visualizations.scad": "0096868d2fb11867d8b6e6c5fea332f8d8010d74b8c437bf4549ff01b465f59d",
+      "hardware/lib/arbi.scad": "285964a38a24304ca0f6e6ada12d1de341df9673a31d14dc366abacd83d345c3",
+      "hardware/assemblies/control-cabinet/cabinet-installation-kit.scad": "416f1f3c7a30906a2d04c05dae71a05047fa7ac1652e47a95cd673d2e3bf831f",
+      "hardware/assemblies/control-cabinet/control-panel-enclosure.scad": "4e27ba7ce1259470233b849a716de345bc77d0ac48dbaa3d23508abf232143fa",
+      "hardware/assemblies/control-cabinet/control-cabinet-assembly.scad": "66ebec2ab7b7643a38615a8e6ed2e64a3c98d9a78e40d15f2d15928283e4983c",
+      "hardware/assemblies/control-cabinet/raspberry-pi-pico-2-w.scad": "fa983cb251a806cb47d54e07c91e314bd43caf1501e8d6a28e63411ffaf0338a",
+      "hardware/assemblies/control-cabinet/din-rail-ground-distribution-block.scad": "35e5291235cab1ddf2a87f39e3a0a79549c5f21e4d5d2bc24eebe8cc9658b7e2",
+      "hardware/assemblies/control-cabinet/controller-buck-converter-48v-5v.scad": "f670e43ddeeeea71a0b390b4af92aa195a17e34e897c67067845aedb27d36cee",
+      "hardware/assemblies/control-cabinet/pico-terminal-expansion-board.scad": "ce0a8b9c87f1f7a376bb003c3c7cccb9d1d8c55999412d38c698029d36a711cc",
+      "hardware/assemblies/control-cabinet/cabinet-protection-kit.scad": "bec082a099c6df87056dfde1e3016caadaea86e3cdc42e409521989db13d98d5",
+      "hardware/assemblies/control-cabinet/power-supply-48v-350w.scad": "68634f35be5e5f164434a2a4844dbb672efdd75e792b7323cd590595bc8e757e",
+      "hardware/assemblies/control-cabinet/emergency-stop-switch.scad": "08a9756e0f2406b296c3ee0c099457868b2596aa0aba63d8f12581db615d847b",
+      "hardware/assemblies/camera-pod/pod-buck-converter-48v-5v.scad": "88f81f13d0eafe0c49ca6118f3e04be92536655b3d4c2560904b7746b6ac0a0b",
+      "scripts/check-buck-converter.py": "4be7f0615ec43521ef17d0d08bd23980a4dd4c40c8b3298e382dfc720dfc8947"
+    },
+    "meshes": {
+      "pod-converter": {
+        "file": "pod-converter.stl",
+        "bounds_mm": [
+          [
+            -25.0,
+            -15.0,
+            0.0
+          ],
+          [
+            25.0,
+            15.0,
+            17.0
+          ]
+        ],
+        "triangles": 6006,
+        "body_count": 1,
+        "stl_sha256": "ab0fd69f6b2aa5ee1f1bb18f80818bf981ad465b391f8847ad4e7817fc27d67a"
+      },
+      "cabinet-converter": {
+        "file": "cabinet-converter.stl",
+        "bounds_mm": [
+          [
+            -25.0,
+            -15.0,
+            0.0
+          ],
+          [
+            25.0,
+            15.0,
+            17.0
+          ]
+        ],
+        "triangles": 6006,
+        "body_count": 1,
+        "stl_sha256": "d8f7f2d434dd0d26e1cc86d12acb9fa1a3186a8582a11a98e054c28f7e3bbd57"
+      },
+      "cabinet-mounted-converter": {
+        "file": "cabinet-mounted-converter.stl",
+        "bounds_mm": [
+          [
+            -175.5,
+            80.0,
+            40.0
+          ],
+          [
+            -124.5,
+            110.9000015258789,
+            70.0
+          ]
+        ],
+        "triangles": 10198,
+        "body_count": 9,
+        "stl_sha256": "ce7824574f3383299e7451f03927075c4a111bcf24ab55236d18eaa29445398f"
+      },
+      "cabinet-mounting-plate": {
+        "file": "cabinet-mounting-plate.stl",
+        "bounds_mm": [
+          [
+            -230.0,
+            104.0,
+            20.0
+          ],
+          [
+            230.0,
+            106.0,
+            580.0
+          ]
+        ],
+        "triangles": 540,
+        "body_count": 1,
+        "stl_sha256": "90cc9314a119c04e42dab01ac4ba5bbcc1fa1df5b4ca3f6462e28d30dedfcce2"
+      },
+      "cabinet-pico-terminal-board": {
+        "file": "cabinet-pico-terminal-board.stl",
+        "bounds_mm": [
+          [
+            -140.0,
+            79.0,
+            73.5
+          ],
+          [
+            -50.0,
+            98.5,
+            156.5
+          ]
+        ],
+        "triangles": 2380,
+        "body_count": 1,
+        "stl_sha256": "c9de68fd412e18fc2e51fc7a32e8d32d58c2626170ead465f175360aacb9fc5b"
+      },
+      "cabinet-pico": {
+        "file": "cabinet-pico.stl",
+        "bounds_mm": [
+          [
+            -120.5,
+            69.5,
+            104.5
+          ],
+          [
+            -67.5,
+            79.0,
+            125.5
+          ]
+        ],
+        "triangles": 116,
+        "body_count": 1,
+        "stl_sha256": "e4d5d35f204b216e77a33f36813b717c44df7f81688853b6b97cdd82a5daa30d"
+      },
+      "cabinet-signal-ground": {
+        "file": "cabinet-signal-ground.stl",
+        "bounds_mm": [
+          [
+            -95.0,
+            50.02000045776367,
+            37.5
+          ],
+          [
+            -15.0,
+            100.0,
+            72.5
+          ]
+        ],
+        "triangles": 1148,
+        "body_count": 1,
+        "stl_sha256": "8950a6ec5507268b2a8c19b5d92232ac5c467b233dbdd6e7d833068b4aa74c1a"
+      },
+      "cabinet-field-terminals": {
+        "file": "cabinet-field-terminals.stl",
+        "bounds_mm": [
+          [
+            -168.0,
+            -80.0,
+            21.0
+          ],
+          [
+            168.0,
+            -50.0,
+            49.0
+          ]
+        ],
+        "triangles": 204,
+        "body_count": 17,
+        "stl_sha256": "bb06fbdbad523dcc7ca59eefea39b882f657104d3e9360f422040dea35ef0615"
+      }
+    },
+    "measured_hole_probes": [
+      {
+        "centre_xy_mm": [
+          -22.5,
+          -12
+        ],
+        "intersection_mm3": 0.0
+      },
+      {
+        "centre_xy_mm": [
+          -22.5,
+          12
+        ],
+        "intersection_mm3": 0.0
+      },
+      {
+        "centre_xy_mm": [
+          22.5,
+          -12
+        ],
+        "intersection_mm3": 0.0
+      },
+      {
+        "centre_xy_mm": [
+          22.5,
+          12
+        ],
+        "intersection_mm3": 0.0
+      }
+    ],
+    "cabinet_intersections": [
+      {
+        "part": "mounting-plate",
+        "intersection_mm3": 2.78162909372881e-15
+      },
+      {
+        "part": "pico-terminal-board",
+        "intersection_mm3": 0.0
+      },
+      {
+        "part": "pico",
+        "intersection_mm3": 0.0
+      },
+      {
+        "part": "signal-ground",
+        "intersection_mm3": 0.0
+      },
+      {
+        "part": "field-terminals",
+        "intersection_mm3": 0.0
+      }
+    ],
+    "misplaced_screw_controls": [
+      {
+        "centre_xy_mm": [
+          -22.5,
+          -12
+        ],
+        "shift_mm": [
+          1,
+          0,
+          0
+        ],
+        "collision_mm3": 3.7106527986348956
+      },
+      {
+        "centre_xy_mm": [
+          -22.5,
+          12
+        ],
+        "shift_mm": [
+          1,
+          0,
+          0
+        ],
+        "collision_mm3": 3.7106527117470316
+      },
+      {
+        "centre_xy_mm": [
+          22.5,
+          -12
+        ],
+        "shift_mm": [
+          1,
+          0,
+          0
+        ],
+        "collision_mm3": 3.71063731326235
+      },
+      {
+        "centre_xy_mm": [
+          22.5,
+          12
+        ],
+        "shift_mm": [
+          1,
+          0,
+          0
+        ],
+        "collision_mm3": 3.710637226533606
+      }
+    ],
+    "limits": "Owner-reported dimensions; component/PCB/fastener detail nominal. No physical fit, electrical, cooling or installation acceptance."
+  },
+  "receipt_photo_sha256": {
+    "docs/assets/buck-converter-2026-10-12/side.jpg": "1602d7d4d22784c2096a697c539de3477d3af34fe2d7d88e734daf7c10db3f75",
+    "docs/assets/buck-converter-2026-10-12/top.jpg": "9e104011072fccd90efa7b7dc58ca8e9e4c9882667173147ceb0f14e4f88a37c",
+    "docs/assets/buck-converter-2026-10-12/underside.jpg": "f6e84e5b6d11c20eee409bcbdc1c9b92ac7e7f92d8e58856d940ed731ecb781d"
+  }
+}

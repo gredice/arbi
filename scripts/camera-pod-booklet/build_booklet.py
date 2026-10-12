@@ -25,7 +25,7 @@ def enclosure_booklet():
  fig('assembled-covered',13,53,184,142)
  text(16,201,'CURRENT CAD, COMPLETE ASSEMBLY',11,True,BLUE)
  para(16,209,178,'Every illustration uses the checked STL meshes. The one-piece black head tapers from its broad shoulder to a narrow chin around the camera. It conceals the sideways servo and compact internal carrier. This presentation uses pan 0 / tilt 55 degrees; neutral points down.',max_h=23)
- note(240,'Measure the received servo, horn, converter and connectors first. These are nominal references, with no physical fit or rain test and no claimed ingress rating.')
+ note(240,'Inspect the received converter screw stack; measure servo, horn and connectors. Component detail is nominal, with no physical fit or rain test and no claimed ingress rating.')
  para(16,266,178,'Build unpowered on a supported bench fixture. Complete mass, cable movement, heat, electrical performance and suspended operation require separate checks.',small=True,max_h=15)
 
  begin('01  Chassis and gimbal prints','Print quantities below. White-face line drawings show every part; IDs identify prints. Boards and metal are nominal references.')
@@ -46,10 +46,10 @@ def enclosure_booklet():
  text(41,250,'COMPACT MECHANISM WITH OUTER HEAD REMOVED',8,True,BLUE)
  note(261,'Reprint P11 r0.2.3 and P12 r0.1.3 together. Keep their clearance seam free of support scars. Drainage, prints, outdoor exposure and complete mass need physical inspection.')
 
- begin('03  Measure actual hardware','The Pi/camera mounting patterns follow cited drawings. Servo, horn, converter, capacitor and connectors remain provisional.')
+ begin('03  Measure actual hardware','The Pi/camera mounting patterns follow cited drawings. Converter envelope/holes are measured; servo, horn, capacitor and connectors remain provisional.')
  fig('part-camera-pod-servo-fit-coupon',16,54,73,51)
  para(102,57,92,'<b>Test both servos</b><br/>Check case fit and both lug holes, then measure shaft offset, output height, supplied horn and the lead exit. The coupon tests only the first two.',small=True,max_h=35)
- table([['<b>Interface</b>','<b>Nominal envelope / required check</b>'],['Servo','20 x 8.5 x 18 mm; 27 mm ears, 24 mm hole pitch, 1.7 mm holes'],['Output / horn','5 mm shaft offset; tip 22 mm above case; 8 mm horn hub, one 12 mm arm'],['Converter / capacitor','45 x 25 x 15 mm / 10 mm can diameter, 16 mm height'],['Pi / camera','58 x 49 mm M2.5 pattern / 21 x 12.5 mm M2 pattern'],['Incoming lead','6 mm diameter through 8 mm base outlet; fit an actual soft sleeve or grommet'],['CSI / servo outlets','16 x 0.3 mm ribbon; 4 x 2 mm fixed servo lead reference']],117,[53,125])
+ table([['<b>Interface</b>','<b>Nominal envelope / required check</b>'],['Servo','20 x 8.5 x 18 mm; 27 mm ears, 24 mm hole pitch, 1.7 mm holes'],['Output / horn','5 mm shaft offset; tip 22 mm above case; 8 mm horn hub, one 12 mm arm'],['Converter / capacitor','50 x 30 x 17 mm; 45 x 24 hole pitch / 10 mm can diameter, 16 mm height'],['Pi / camera','58 x 49 mm M2.5 pattern / 21 x 12.5 mm M2 pattern'],['Incoming lead','6 mm diameter through 8 mm base outlet; fit an actual soft sleeve or grommet'],['CSI / servo outlets','16 x 0.3 mm ribbon; 4 x 2 mm fixed servo lead reference']],117,[53,125])
  note(258,'Connector plugs stay inside the enclosure. Fit leads before closing the tray/roof. Do not assume a plug fits through a bare-wire outlet or use a tie as a positioning-line tensile termination.')
 
  begin('04  Install the pan servo','Fit the servo before attaching its mount to the spider. The upper opening passes the case and ears.')
@@ -85,7 +85,7 @@ def enclosure_booklet():
  begin('09  Preassemble compute and power','Prepare P02 outside the tray so its underside fasteners remain accessible. Work with power disconnected.')
  fig('deck-loaded',16,52,178,93)
  step(1,16,151,'Mount the Pi on four posts','Before lowering P02 into the tray, fit the Pi at X=-22, Y=0 with 4 x M2.5 x 20 screws, eight washers and four nuts. Seat the underside washers/nuts now; fit the microSD and CSI cable.')
- step(2,16,190,'Tie the converter to its pads','Centre the converter at X=32, Y=0, rotated 90 degrees. Two 2.5 mm ties run over clear PCB strips at Y=8 and Y=22. Check the received components beneath each strip.')
+ step(2,16,190,'Screw-mount the received converter','Centre the 50 x 30 mm module at X=35, Y=0, rotated 90 degrees. Fit 4 x M2.5 x 10 screws, eight washers and four nuts at X=23/47, Y=+/-22.5. Inspect PCB thickness and the 2 mm supports.')
  step(3,16,231,'Retain the capacitor','Insulate its leads and seat it at X=32, Y=-34. Fit the separate tie. Preserve polarity and separation.')
  para(16,270,178,'Verify regulated 5 V and polarity before connecting the Pi. GPIO carries servo signals; the regulated supply powers the motors.',small=True,max_h=12)
 
@@ -108,8 +108,8 @@ def enclosure_booklet():
  note(259,'For service, remove the four lower bolts and lift the roof vertically with its captured nuts. Confirm drain slots stay open; test seals, drip paths and internal temperatures before outdoor use.')
 
  begin('13  Hardware for one assembly','Counts follow the actual assembly definition. Plain nuts and nominal heads are checked; supplied servo-centre hardware remains provisional.')
- table([['<b>Location</b>','<b>Screws</b>','<b>Nuts / washers</b>'],['Spider / deck','4 x M4 x 35','4 nuts; 8 washers'],['Pi','4 x M2.5 x 20','4 nuts; 8 washers'],['Servo ears','4 x M1.6 x 6 countersunk','4 nuts; no head washers'],['Pan retainer','2 x M2 x 10 countersunk','2 nuts; 2 washers'],['Tilt retainer','2 x M2 x 8 countersunk','2 nuts; 2 washers'],['Camera / optical hood','4 x M2 x 12','4 nuts; 8 washers'],['Pivot support','2 x M2 x 12','2 nuts; 4 washers'],['Tilt pivot','1 x M3 x 12','1 nut; 0.5 washer + 0.7 shim'],['Rain hood / tray','4 x M3 x 35','4 captive nuts; 4 lower washers'],['Outer head / carrier','4 x M2 x 10','4 nuts; 8 washers'],['Servo centres','2 x original horn screws','Verify actual thread / length']],53,[47,68,63])
- para(16,252,178,'Also: two converter ties, one capacitor tie, and soft sleeves/ties for lead anchoring. The pack includes simplified hardware references to show the complete retained assembly.',small=True,max_h=22)
+ table([['<b>Location</b>','<b>Screws</b>','<b>Nuts / washers</b>'],['Spider / deck','4 x M4 x 35','4 nuts; 8 washers'],['Pi','4 x M2.5 x 20','4 nuts; 8 washers'],['Converter','4 x M2.5 x 10','4 nuts; 8 washers'],['Servo ears','4 x M1.6 x 6 countersunk','4 nuts; no head washers'],['Pan retainer','2 x M2 x 10 countersunk','2 nuts; 2 washers'],['Tilt retainer','2 x M2 x 8 countersunk','2 nuts; 2 washers'],['Camera / optical hood','4 x M2 x 12','4 nuts; 8 washers'],['Pivot support','2 x M2 x 12','2 nuts; 4 washers'],['Tilt pivot','1 x M3 x 12','1 nut; 0.5 washer + 0.7 shim'],['Rain hood / tray','4 x M3 x 35','4 captive nuts; 4 lower washers'],['Outer head / carrier','4 x M2 x 10','4 nuts; 8 washers'],['Servo centres','2 x original horn screws','Verify actual thread / length']],53,[47,68,63])
+ para(16,252,178,'Also: one capacitor tie, and soft sleeves/ties for lead anchoring. The pack includes simplified hardware references to show the complete retained assembly.',small=True,max_h=22)
 
  begin('14  CAD evidence and limits','Geometry checks use final exported meshes and the same assembly transforms as these figures. Physical fit, load and rain performance remain unverified.')
  for i,n in enumerate(['motion-left','motion-down','motion-right']):fig(n,16+61*i,54,56,62)
@@ -149,7 +149,7 @@ note(261,'All STLs are in mm and shifted onto Z=0. Brackets need support plannin
 begin('02  Measure before printing','The stock Pi/camera hole patterns are documented. The servo, horn, converter and capacitor must be checked against received hardware.')
 fig('part-camera-pod-servo-fit-coupon',16,54,73,55)
 para(102,57,92,'<b>Test both servos</b><br/>The body should pass the coupon without force; both lug holes must align. Also measure the shaft offset and height: the coupon cannot check either.',small=True,max_h=36)
-table([['<b>Interface</b>','<b>Nominal model / required check</b>'],['Servo body','20 x 8.5 x 18 mm; window 20.8 x 9.3 mm'],['Servo ears','27 mm span; 24 mm hole pitch; 1.7 mm holes'],['Output shaft','5 mm off body centre; tip 22 mm above case bottom'],['Stock horn','8 mm hub; one 12 mm arm; hub 2 mm / arm 1.5 mm thick'],['Converter / capacitor','45 x 25 x 15 mm / 10 mm diameter x 16 mm can'],['Pi / camera holes','58 x 49 mm, M2.5 / 21 x 12.5 mm, M2']],120,[55,123])
+table([['<b>Interface</b>','<b>Nominal model / required check</b>'],['Servo body','20 x 8.5 x 18 mm; window 20.8 x 9.3 mm'],['Servo ears','27 mm span; 24 mm hole pitch; 1.7 mm holes'],['Output shaft','5 mm off body centre; tip 22 mm above case bottom'],['Stock horn','8 mm hub; one 12 mm arm; hub 2 mm / arm 1.5 mm thick'],['Converter / capacitor','50 x 30 x 17 mm; 45 x 24 hole pitch / 10 mm diameter x 16 mm can'],['Pi / camera holes','58 x 49 mm, M2.5 / 21 x 12.5 mm, M2']],120,[55,123])
 para(16,223,178,'Edit hardware/lib/camera-pod-mounts.scad and the matching reference models if the parts differ, then rebuild and repeat the checks. Use the original servo horns and centre screws; there is no printed spline.',small=True,max_h=21)
 note(255,'The countersunk servo and horn-retainer screws are intentional. Proud socket heads interfere during rotation. Check the real head diameter and recess seating; no washers go under countersunk heads.')
 
@@ -192,7 +192,7 @@ para(16,269,178,'The Pi is installed later. Its underside clears the represented
 begin('09  Mount compute and power','All heavy electronics stay on the fixed deck. Disconnect power while mounting boards and connecting the camera ribbon.')
 fig('deck-loaded',16,52,178,94)
 step(1,16,152,'Mount the Pi on four posts','Use 4 x M2.5 x 20 screws, eight M2.5 washers and four nuts. Insert the microSD card and connect the CSI cable while the cover is off.')
-step(2,16,190,'Retain the converter','Seat the board on its four pads. Two 2.5 mm insulated ties pass through the deck slots and over clear PCB strips. Confirm the real module has no components or terminals under those strips.')
+step(2,16,190,'Screw-mount the converter','Seat the received 50 x 30 mm module at X=46, Y=0. Fit 4 x M2.5 x 10 screws, eight washers and four nuts at X=23.5/68.5, Y=+/-12. Inspect the nominal PCB stack and solder-pad wire clearance.')
 step(3,16,234,'Fit the capacitor','Put an insulating sleeve on the leads, seat the can in its loose cup, and loop a tie over the can through the two side slots. Keep polarity visible and leads separated.')
 para(16,270,178,'Validate regulated 5 V and polarity before connecting electronics. Servo supply comes from the regulated rail; GPIO provides signals, not motor power.',small=True,max_h=12)
 
@@ -203,8 +203,8 @@ para(16,225,178,'Hand-check all four pan/tilt corner poses with the actual ribbo
 note(257,'Fit P10 last: 4 x M3 x 35, eight M3 washers and four nuts. The cover lifts straight off after its bolts are removed. It is a splash shield; the exposed gimbal and electronics are not waterproof.')
 
 begin('11  Hardware for one assembly','Counts below follow the illustrated assembly. Plain nuts are used in the checked envelopes. Confirm actual screw heads and supplied servo hardware.')
-table([['<b>Location</b>','<b>Screws</b>','<b>Nuts / washers</b>'],['Spider / deck','4 x M4 x 35','4 M4 nuts; 8 M4 washers'],['Pi','4 x M2.5 x 20','4 M2.5 nuts; 8 M2.5 washers'],['Servo ears','4 x M1.6 x 6 COUNTERSUNK','4 M1.6 nuts; no head washers'],['Pan horn retainer','2 x M2 x 10 COUNTERSUNK','2 M2 nuts; 2 lower washers'],['Tilt horn retainer','2 x M2 x 8 COUNTERSUNK','2 M2 nuts; 2 rear washers'],['Camera / hood','4 x M2 x 12','4 M2 nuts; 8 M2 washers'],['Pivot support','2 x M2 x 12','2 M2 nuts; 4 M2 washers'],['Tilt pivot','1 x M3 x 12','1 M3 nut; 0.5 mm washer + 0.7 mm shim'],['Electronics cover','4 x M3 x 35','4 M3 nuts; 8 M3 washers'],['Servo centres','2 x original horn screws','Thread and length depend on servo']],54,[47,70,61])
-para(16,249,178,'Also: two converter ties, one capacitor tie, and ties/soft sleeves for the incoming wire and CSI anchor pads. Do not use a cable tie as the independent tensile termination of a positioning line.',small=True,max_h=21)
+table([['<b>Location</b>','<b>Screws</b>','<b>Nuts / washers</b>'],['Spider / deck','4 x M4 x 35','4 M4 nuts; 8 M4 washers'],['Pi','4 x M2.5 x 20','4 M2.5 nuts; 8 M2.5 washers'],['Converter','4 x M2.5 x 10','4 M2.5 nuts; 8 M2.5 washers'],['Servo ears','4 x M1.6 x 6 COUNTERSUNK','4 M1.6 nuts; no head washers'],['Pan horn retainer','2 x M2 x 10 COUNTERSUNK','2 M2 nuts; 2 lower washers'],['Tilt horn retainer','2 x M2 x 8 COUNTERSUNK','2 M2 nuts; 2 rear washers'],['Camera / hood','4 x M2 x 12','4 M2 nuts; 8 M2 washers'],['Pivot support','2 x M2 x 12','2 M2 nuts; 4 M2 washers'],['Tilt pivot','1 x M3 x 12','1 M3 nut; 0.5 mm washer + 0.7 mm shim'],['Electronics cover','4 x M3 x 35','4 M3 nuts; 8 M3 washers'],['Servo centres','2 x original horn screws','Thread and length depend on servo']],54,[47,70,61])
+para(16,249,178,'Also: one capacitor tie, and ties/soft sleeves for the incoming wire and CSI anchor pads. Do not use a cable tie as the independent tensile termination of a positioning line.',small=True,max_h=21)
 
 begin('12  What the CAD check proves','Checked against the declared nominal hardware. Real parts, print shrinkage, bolt tolerances and cable behaviour still need inspection.')
 for i,n in enumerate(['motion-left','motion-down','motion-right']):fig(n,16+61*i,55,56,66)

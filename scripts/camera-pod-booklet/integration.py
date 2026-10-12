@@ -65,7 +65,8 @@ def assembly(pan=0,tilt=0,cover=True,hardware=True,enclosure=None):
    parts[-1]['color']=WHITE
  elif cover:add('electronics-cover','camera-pod-electronics-cover',T(0,0,46)@R('x',180),color=(.94,.94,.92))
  add('pi','raspberry-pi-3a-plus-reference',T(-22 if enclosure else -37,0,30.5),color=GREEN)
- add('converter','buck-converter-UNVERIFIED',T(32,0,22.5)@R('z',90) if enclosure else T(40,0,22.5),color=GREEN)
+ add('converter','buck-converter-measured-reference',T(35,0,22.5)@R('z',90) if enclosure else T(46,0,22.5),color=GREEN)
+ parts[-1]['bomPartId']='pod-buck-converter-48v-5v'
  add('capacitor','capacitor-1000uf-UNVERIFIED',T(32,-34,23.5) if enclosure else T(48,26,23.5),color=DARK)
  add('pan-servo','micro-servo-3p7g-UNVERIFIED',T(-5,0,-7)@R('x',180),color=DARK)
  add('tilt-servo','micro-servo-3p7g-UNVERIFIED',T(-42+ENCLOSURE_DRIVE_SHIFT_X,axis_y-5,axis_z)@R('x',90)@R('y',90) if enclosure else T(-42,0,-54)@R('y',90),group='pan',color=DARK)
@@ -73,12 +74,18 @@ def assembly(pan=0,tilt=0,cover=True,hardware=True,enclosure=None):
  add('tilt-horn','servo-horn-UNVERIFIED',H@T(0,0,-2.2),group='tilt',color=GRAY)
  add('camera','camera-module-3-standard-reference',compact@T(0,-5,-64)@R('x',180),group='tilt',color=GREEN)
  if not hardware:return parts
- add('converter-tie-0','converter-tie-reference',T(32,8,0)@R('z',90) if enclosure else T(28,0,0),color=DARK)
- add('converter-tie-1','converter-tie-reference',T(32,22,0)@R('z',90) if enclosure else T(62,0,0),color=DARK)
  add('capacitor-tie','capacitor-tie-reference',T(32,-34,0) if enclosure else T(48,26,0),color=DARK)
  add('pan-horn-center-screw','bolt-OEM-horn-UNVERIFIED',T(0,0,-29.4),group='pan',color=GRAY)
  add('tilt-horn-center-screw','bolt-OEM-horn-UNVERIFIED',H@T(0,0,-2.2),group='tilt',color=GRAY)
  def hw(n,model,mat,group='fixed'):add(n,model,mat,group,GRAY)
+ # M2.5x10: PCB1.6 + top washer.5 + support2 + deck3 + washer.5 + nut2 = 9.6.
+ # Converter dimensions other than its envelope/hole pattern remain nominal.
+ for i,(x,y) in enumerate([(x,y) for x in ([23,47] if enclosure else [23.5,68.5]) for y in ([-22.5,22.5] if enclosure else [-12,12])]):
+  hw(f'converter-bolt-{i}','bolt-M2p5x10-reference',T(x,y,24.6)@R('x',180))
+  hw(f'converter-top-washer-{i}','washer-M2p5-reference',T(x,y,24.1))
+  hw(f'converter-bottom-washer-{i}','washer-M2p5-reference',T(x,y,17))
+  hw(f'converter-nut-{i}','nut-M2p5-reference',T(x,y,15))
+  for p in parts[-4:]:p['bomPartId']='camera-pod-fastener-kit'
  # Screw reference shank +Z, head below Z=0. Washer reference +Z.
  for i,(x,y) in enumerate([(x,y) for x in [-u,u] for y in [-u,u]]):
   hw(f'frame-bolt-{i}','bolt-M4x35-reference',T(x,y,-7.3)@(R('z',30) if enclosure else np.eye(4)))
