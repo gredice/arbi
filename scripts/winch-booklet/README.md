@@ -35,9 +35,11 @@ grid. Product colors remain in the figure/assembly manifests and camera pod GLB.
 
 In exploded cover views, the disconnected stationary loom references move with
 the lower fascia that carries their exit holes. This preserves cable-to-port
-alignment throughout the website's exploded-view animation. Their inner ends
-extend under the rear of the nominal motor body in both poses; it illustrates
-disassembly, not a flexible-cable deformation or service procedure.
+alignment throughout the website's exploded-view animation. Their installed inner
+ends reach the motor body. In service poses they are disconnected rigid routing
+references and may leave the body; the supplier's flexible tails and their
+deformation are omitted. This illustrates disassembly, not a cable service sweep
+or a service procedure.
 
 Bought meshes record their owning `bomPartId` in the figure manifest. Motor,
 drum joining/clamp, mount and cover hardware open their existing BOM pages in

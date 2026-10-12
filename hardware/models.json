@@ -1404,7 +1404,7 @@
         },
         {
             "id": "nema23-closed-loop-motor",
-            "revision": "0.1.0",
+            "revision": "1.0.0",
             "status": "concept-unvalidated",
             "artifactRole": "visualization",
             "bomPartIds": [
@@ -1412,13 +1412,14 @@
             ],
             "assembly": "winch",
             "entrypoint": "hardware/assemblies/winch/nema23-closed-loop-motor.scad",
-            "output": "nema23-closed-loop-motor-r0.1.0.stl",
+            "output": "nema23-closed-loop-motor-r1.0.0.stl",
             "documentation": "hardware/assemblies/winch/README.md",
-            "description": "Approximate visualization of 3.0 Nm NEMA 23 closed-loop motor. Existing winch booklet nominal 57 mm face, 122 mm body and 8 mm shaft; confirm supplied kit motor.",
+            "description": "StepperOnline 23HS40-5004D-E1000 supplier-drawing reference: 57.3 mm maximum frame, 122 mm body including encoder, Ø8 × 22 mm D-shaft and four Ø5.1 mm mounting holes.",
             "geometry": {
-                "status": "approximate",
-                "basis": "Existing winch booklet nominal 57 mm face, 122 mm body and 8 mm shaft; confirm supplied kit motor.",
-                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+                "status": "drawing-derived",
+                "basis": "StepperOnline 23HS40-5004D-E1000 dimensional SVG inspected 2026-10-12; dimensions, tolerances, datum and nominal mesh checks are recorded in hardware/assemblies/winch/motor-drawing-check.md.",
+                "rework": "Supplier dimensions define the frame, pilot, shaft, mounting pitch and rear outlet envelope. Undimensioned flange thickness, housing contours and outlet width are simplified; 300 mm flexible leads and connectors are omitted. Confirm the received kit model, fastener stack and installed cable routing before physical fit or clearance acceptance.",
+                "evidence": "hardware/assemblies/winch/nema23-closed-loop-motor-cad-check.json"
             }
         },
         {

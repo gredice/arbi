@@ -138,7 +138,7 @@ def canonical_inputs(root):
             if not p.is_relative_to(hardware / 'generated'))]
 
 
-def capture_current():
+def capture_current(export_timeout_seconds=120):
     """Export fresh current geometry when no matching release exists yet."""
     catalog_path = ROOT / 'bom/catalog/fabrication.json'
     catalog = json.loads(catalog_path.read_text())
@@ -160,7 +160,7 @@ def capture_current():
                 raise ValueError(f'Not a fabrication mesh: {model["id"]}')
             target = Path(temp) / model['output']
             result = subprocess.run(['openscad', '-o', str(target), str(ROOT / model['entrypoint'])],
-                                    capture_output=True, text=True, timeout=120)
+                                    capture_output=True, text=True, timeout=export_timeout_seconds)
             if result.returncode or 'ERROR:' in result.stderr or 'WARNING:' in result.stderr:
                 raise ValueError(f'OpenSCAD export failed: {model["id"]}\n{result.stderr}')
             raw = target.read_bytes()
@@ -180,8 +180,12 @@ def capture_current():
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('release_directory', type=Path, nargs='?', help='Verified release assets; omit to export current CAD with pinned OpenSCAD')
+    parser.add_argument('--export-timeout-seconds', type=int, default=120,
+                        help='Bound each local OpenSCAD export; default 120 seconds')
     args = parser.parse_args()
+    if args.export_timeout_seconds <= 0:
+        parser.error('--export-timeout-seconds must be positive')
     if args.release_directory is None:
-        capture_current()
+        capture_current(args.export_timeout_seconds)
     else:
         capture(args.release_directory)

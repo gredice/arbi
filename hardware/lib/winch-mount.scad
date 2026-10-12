@@ -1,6 +1,7 @@
 // ARBI winch-mount reference/cover 0.1.1; other mounts 0.1.0 — concept-unvalidated.
 // X = shaft axis; Y = transverse; Z = outward from mounting plane.
 include <winch-drum.scad>
+include <nema23-motor.scad>
 
 mount_axis_height = 80;
 bearing_outer_diameter = 22;
@@ -9,10 +10,10 @@ bearing_width = 7;
 bearing_axial_clearance = 0.2;
 bearing_lip = 1.5;
 bearing_split_gap = 0.4;
-motor_hole_pitch = 47.14; // NEMA23 starting interface; inspect received motor.
+motor_hole_pitch = nema23_mount_pitch_mm; // Supplier drawing; inspect received motor.
 motor_pilot_clearance = 38.6;
-motor_shaft_length = 22; // Current kit specification.
-motor_body_length = 122;
+motor_shaft_length = nema23_shaft_length_mm;
+motor_body_length = nema23_body_length_mm;
 motor_adjustment = 2;
 mount_m4_hole = 4.5;
 mount_m5_hole = 5.5;
@@ -166,8 +167,8 @@ module wm_assembly(powered=false,show_drum=true,show_guard=true,show_base=true) 
         }
         if(show_drum) translate([0,0,mount_axis_height]) rotate([0,90,0]) rotate([0,0,180]) wd_assembly(powered);
         if(show_guard) color(ARBI_SHELL) translate([m,0,0]) wm_guard_installed();
-        color("dimgray") translate([m,-28.5,mount_axis_height-28.5]) cube([motor_body_length,57,57]);
-        color("silver") translate([m-motor_shaft_length/2,0,mount_axis_height]) wm_xhole(8,motor_shaft_length);
+        color("dimgray") translate([m,0,mount_axis_height]) rotate([0,90,0])
+            arbi_nema23_motor(body_length_mm=motor_body_length,shaft_length_mm=motor_shaft_length);
         echo(bearing_centers=[-5.5,w+37.5],motor_face=m,base_length=wm_base_length(powered),shaft_axis_height=mount_axis_height);
     }
 }

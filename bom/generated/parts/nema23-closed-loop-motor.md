@@ -13,7 +13,7 @@
 
 ## Requirements
 
-- Provided by the selected StepperOnline 4-axis V2.0 kit; exact included model must match the captured kit specification.
+- Provided by the selected StepperOnline 4-axis V2.0 kit; confirm the received motor is 23HS40-5004D-E1000. Supplier dimensional SVG inspected 2026-10-12: 57.3 mm maximum square frame, 122 ±1 mm body including 22 ±1 mm encoder housing, Ø8 mm shaft with 22 ±0.5 mm projection and 15 ±0.2 mm D-flat; four Ø5.1 mm through mounting holes on 47.14 ±0.2 mm square pitch and Ø38.1 mm pilot projecting 1.6 ±0.2 mm. Drawing and CAD evidence: hardware/assemblies/winch/motor-drawing-check.md.
 
 ## Used in
 

@@ -54,6 +54,7 @@ def build():
     shutil.copy2(REPO / 'LICENSE', root / 'source/LICENSE-ARBI')
     for name in ['export_arbi.py', 'export_reference.py', 'render_figures.py', 'build_booklet.py', 'reference-parts.scad', 'requirements.txt']:
         shutil.copy2(HERE / name, root / 'source' / name)
+    shutil.copy2(REPO / 'scripts/check-nema23-motor-mesh.py', root / 'source/check-nema23-motor-mesh.py')
     shutil.copy2(REPO / 'scripts/check-winch-cover-meshes.py', root / 'source/check-winch-cover-meshes.py')
     shutil.copy2(REPO / 'scripts/check-winch-pole-meshes.py', root / 'source/check-winch-pole-meshes.py')
     shutil.copytree(HERE / 'fonts', root / 'source/fonts', dirs_exist_ok=True)
@@ -67,6 +68,8 @@ def build():
         for name in ['export_arbi.py', 'export_reference.py']:
             subprocess.run([sys.executable, str(root / 'source' / name)], check=True)
         (root / 'build-input-hashes.json').write_text(json.dumps(current_hashes, indent=2)+'\n')
+    subprocess.run([sys.executable, str(root / 'source/check-nema23-motor-mesh.py'),
+                    str(root / 'models/reference/motor-23HS40-reference.stl')], check=True)
     subprocess.run([sys.executable, str(root / 'source/check-winch-cover-meshes.py'),
                     str(root / 'models/arbi'), '--record', str(root / 'full-cover-check.json')], check=True)
     subprocess.run([sys.executable, str(root / 'source/check-winch-pole-meshes.py'),

@@ -46,6 +46,25 @@ def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def with_scad_dependencies(sources):
+    """Keep the portable source pack closed over relative SCAD includes."""
+    complete = {path.resolve() for path in sources}
+    pending = list(complete)
+    while pending:
+        path = pending.pop()
+        if path.suffix != '.scad':
+            continue
+        text = re.sub(r'/\*.*?\*/|//[^\n]*', '', path.read_text(), flags=re.S)
+        for reference in re.findall(r'\b(?:include|use)\s*<([^>]+)>', text):
+            dependency = (path.parent / reference).resolve()
+            if not dependency.is_relative_to(ROOT) or not dependency.is_file():
+                raise ValueError(f'Unresolved portable SCAD dependency: {path}: {reference}')
+            if dependency not in complete:
+                complete.add(dependency)
+                pending.append(dependency)
+    return sorted(complete)
+
+
 def export(source, target, defines=()):
     target.parent.mkdir(parents=True, exist_ok=True)
     command = ['openscad', '-o', str(target)]
@@ -235,6 +254,7 @@ def build(out):
                    ROOT/'hardware/assemblies/corner-station/stand-adapter-check.md',
                    *sorted(p for p in (ROOT/'hardware/vendor').rglob('*') if p.is_file()),
                    *sorted((ROOT/'scripts/winch-booklet/fonts').glob('*'))]
+        sources = with_scad_dependencies(sources)
         report['sources_sha256'] = {p.relative_to(ROOT).as_posix(): digest(p) for p in sources}
         for source in sources:
             target = work/'source/repository'/source.relative_to(ROOT)
