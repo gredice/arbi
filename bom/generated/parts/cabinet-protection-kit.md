@@ -17,6 +17,10 @@
 - DC branch protection for four corner branches and the pod branch; fuse/breaker type, ratings and coordination remain unselected.
 - Hardwired emergency-stop power interface and required switching/contactor/relay components to be defined by the reviewed stop circuit. The existing emergency-stop switch is a separate BOM item.
 
+## Design warnings
+
+- **Warning:** This part is planned; confirm its specification and selection with committed evidence.
+
 ## Notes
 
 One required design/procurement set per cabinet, representing the unselected protection and hardwired-stop reserves already shown in the layout. This is not a specified circuit, approved component selection or construction instruction. No supplier or price selected.

@@ -14,6 +14,10 @@
 ## Requirements
 
 
+## Design warnings
+
+- **Critical:** Part requirements are missing; record the specification before selecting or building this part.
+
 ## Used in
 
 Quantities are per assembly definition, before build multipliers. Optional and deferred usages are shown even when excluded from a scenario. Procurement stock is not an installed physical owner.

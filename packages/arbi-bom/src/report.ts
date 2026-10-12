@@ -226,12 +226,14 @@ export function renderMarkdown(result: CalculationResult): string {
         " |",
     );
   }
-  lines.push("", "## Incompleteness warnings", "");
-  for (const warning of result.warnings) {
-    lines.push("- " + warning);
-  }
-  if (result.warnings.length === 0) {
-    lines.push("None.");
+  lines.push("", "## Prioritized warnings", "",
+    "Critical warnings identify temporary workarounds or missing information. Warnings identify concepts and selections awaiting confirmation. These priorities do not establish physical acceptance.", "");
+  for (const severity of ["critical", "warning"] as const) {
+    const warnings = result.warningDetails.filter((warning) => warning.severity === severity);
+    lines.push(`### ${severity === "critical" ? "Critical" : "Warning"} (${warnings.length})`, "");
+    for (const warning of warnings) lines.push("- **" + (severity === "critical" ? "Critical" : "Warning") + ":** " + warning.message);
+    if (warnings.length === 0) lines.push("None.");
+    lines.push("");
   }
   lines.push(
     "",

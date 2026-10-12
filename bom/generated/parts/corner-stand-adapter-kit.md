@@ -19,6 +19,10 @@
 - Per stand, buy separately: four M6 x 60 and four M6 x 70 bolts, sixteen M6 washers, eight M6 locking nuts; two M12 x 90 bolts, four large M12 washers, two M12 locking nuts; four M8 x 40 bolts, eight M8 washers, four M8 locking nuts.
 - Unloaded indoor fit/rotation development only. No validated clamp strength, tube-crush limit, creep, side-load or tipping capacity. Actual assembled mass and independent retention must be checked.
 
+## Design warnings
+
+- **Warning:** Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
+
 ## Notes
 
 The owner has two WT-806 stands (ASIN B000LWEA0I). Two optional kits produce sixteen prints. Reuse existing carrier cross-bolts, pulley and compatible pin; omit timber rear pads, long through-bolts and rear cosmetic cover. Hardware/printing/acceptance: hardware/assemblies/corner-station/stand-adapter.md. No supplier offer or sliced-material estimate is assigned.

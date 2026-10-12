@@ -16,6 +16,11 @@
 - Alternative concept for a measured 100–140 mm round pole. One front collar/clevis plus one rear collar, with four nominal M8 clamp bolts and a separate supplied 4.7 mm Barton pulley pin.
 - STLs support fit and appearance mock-ups only. Structural material, manufacturing process, friction/slip resistance, timber movement and allowable loads are unverified.
 
+## Design warnings
+
+- **Warning:** Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
+- **Warning:** This part is planned; confirm its specification and selection with committed evidence.
+
 ## Notes
 
 Not included in any build or purchasing quantity; does not replace the through-bolted top-pulley-bracket baseline. Nominal hardware and measured block reference details are not supplied fabrication parts. r1.0.0 front has a 14.8 mm central lug and 5.2 mm bore for received BA01090 double tang; native pin replaces the old M8 eye/spacer stack. Collar clamping and structural/creep acceptance remain unqualified.

@@ -15,6 +15,11 @@
 
 - ASA/PETG lightweight cable spider and electronics chassis sized for Raspberry Pi 3A+, 48 V → 5 V converter and bulk capacitor fixed on the pod. Complete flying pod target ~100–120 g; hard design limit 170 g.
 
+## Design warnings
+
+- **Critical:** The current deck retains the converter, capacitor and harness with cable ties. Replace these with dedicated removable mounts and strain relief; cable ties are temporary bench workarounds only, never the final assembly solution.
+- **Warning:** Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
+
 ## Notes
 
 Current compact ordinary-rain/splash chassis uses camera-pod-spider, camera-pod-integrated-deck r0.1.0, spacers, pan-servo mount, camera-pod-rain-hood r0.2.1 and camera-pod-enclosure-base r0.2.3. Historical concept parts, the dry bench deck/cover and fixed fairing are archived and excluded from this BOM. Select the current print quantities in hardware/assemblies/camera-pod/camera-pod-enclosure.md; the dry bench configuration remains an explicit alternative in camera-pod-mounts.md. Docking and line-termination interfaces, physical fit, rain/thermal behavior and complete flying mass remain unverified.

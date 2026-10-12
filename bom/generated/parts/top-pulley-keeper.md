@@ -15,6 +15,10 @@
 
 - ASA preferred; PETG acceptable for prototype. Close side gaps around 1.5 mm Dyneema, keep line centred, prevent jump-off, shield direct rain/UV, drain below and remain removable for inspection.
 
+## Design warnings
+
+- **Warning:** Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
+
 ## Notes
 
 Non-structural candidate reworked around the measured 36 mm cheek width and 24 mm block thickness with 1 mm nominal radial/side allowance. Side bridges leave the clevis neck open. No fitted attachment or 1.5 mm line-retention acceptance; not installed in the printed-head package. See bom/sourcing/barton-n01090-2026-10-11.md.

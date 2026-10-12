@@ -1,5 +1,7 @@
 # Camera pod assembly booklets
 
+> **Critical — temporary cable-tie retention.** These historical/generated instructions show converter, capacitor and harness ties. They are temporary bench workarounds only, never the final retention solution. Dedicated mounts and strain relief remain unresolved; see the [prioritized BOM warnings](../../../../bom/README.md#warning-priorities).
+
 The checked-in publications below are the earlier enclosure r0.1.0 and unchanged dry bench snapshots. The current `camera-pod-assembly` r0.3.5 uses booklet revision 5. Rebuild it locally from CAD with the [build command](../../../../scripts/camera-pod-booklet/README.md), or use CI artifacts or releases matching the selected commit when available. It uses head r0.1.3 and tray r0.2.3, carrier r0.1.1 and new integrated cradle/pivot-support r0.1.0. Its camera axis is 14 mm higher; the tilt servo is horizontal and 2 mm inboard. The separate rear camera cowl and four secondary nuts are omitted, and camera screws return to M2 × 12. Use this compact kit’s print list and hardware rather than the earlier enclosure pack.
 
 Reproduce the current enclosure build from the repository root:

@@ -1,5 +1,7 @@
 # Camera pod bench mount family
 
+> **Critical — temporary cable-tie retention.** Converter, capacitor and harness ties are bench workarounds only and must be replaced with dedicated removable mounts and strain relief for the final assembly. See the [prioritized BOM warnings](../../../bom/README.md#warning-priorities).
+
 This is an explicit dry bench alternative. Its six exclusive models (electronics deck/cover, pan yoke, camera cradle/hood and tilt-pivot support) are archived from the current compact enclosure inventory and BOM. They remain available through this configuration's source and bench booklet; use the [integrated enclosure](camera-pod-enclosure.md) for the current pod print kit. Shared spider, spacers, pan mount and horn retainers remain active.
 
 This is a proposed, unbuilt mount set for the existing r0.1.0 spider. The stock Pi 3A+, Camera Module 3 Standard, and two 3.7 g servo architecture is unchanged. All models remain `concept-unvalidated`. The current deck and pan yoke are r0.1.1; the other fabrication models retain r0.1.0. The [integrated rain enclosure](camera-pod-enclosure.md) is an optional configuration of this family with its own print list, cable routing, fastener changes and evidence boundary.

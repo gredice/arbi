@@ -5,8 +5,9 @@ import type { ReactNode } from "react";
 import { Crumb } from "@/components/Crumb";
 import { CatalogPart } from "@/components/CatalogPart";
 import { PartViewer } from "@/components/PartViewer";
+import { WarningList } from "@/components/Warnings";
 import { fmt, links } from "@/lib/format";
-import { bomForModel, data, docHref, download, figureFor, installedCount, meshFor, partColor, systemBySlug } from "@/lib/site";
+import { bomForModel, data, docHref, download, figureFor, installedCount, meshFor, partColor, systemBySlug, warningsFor } from "@/lib/site";
 import type { Vec3 } from "@/lib/types";
 
 export const dynamicParams = false;
@@ -104,6 +105,7 @@ export default async function PartPage({ params }: { params: Promise<{ id: strin
                         </div>
                     </div>
                     <p className="mt-4 text-[15px] leading-snug">{m.description}</p>
+                    <WarningList warnings={warningsFor(m.id)} />
                     <table className="mt-6 w-full border-t-2 border-ink text-[13px]">
                         <tbody>
                             {rows.map(([k, v]) => (

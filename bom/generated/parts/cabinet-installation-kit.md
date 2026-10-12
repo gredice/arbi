@@ -17,6 +17,10 @@
 - Protective-earth bar/bonding conductors and field/DC terminal blocks, wire, ferrules, lugs and labels sized by the reviewed electrical design.
 - Cable entries use the existing shared cable-gland procurement assortment; reconcile the required size-level allocation before ordering. Glands are not duplicated in this set.
 
+## Design warnings
+
+- **Warning:** This part is planned; confirm its specification and selection with committed evidence.
+
 ## Notes
 
 One required installation set per cabinet; the layout already shows nominal rails, ducts, PE bar and terminal spaces. Previously those shapes had no BOM identity. No selected products, quote, electrical rating or installation approval is asserted.

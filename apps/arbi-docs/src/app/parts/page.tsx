@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Crumb } from "@/components/Crumb";
 import { InventoryGrid } from "@/components/InventoryGrid";
-import { catalogInventory, data, systemBySlug } from "@/lib/site";
+import { WarningOverview } from "@/components/Warnings";
+import { catalogInventory, data, systemBySlug, warningsFor } from "@/lib/site";
+import { uniqueWarnings } from "@/lib/warnings";
 
 export const metadata: Metadata = { title: "Parts" };
 
@@ -13,6 +15,7 @@ export default function Parts() {
         <>
             <Crumb left="Parts" right={`${site.bom.parts.length} BOM items · CAD components and references`} />
             <div className="px-4 pb-20 sm:px-6">
+                <WarningOverview warnings={uniqueWarnings(parts.flatMap((part) => warningsFor(part.id)))} linkTo="parts" />
                 {[...groups].sort(([a], [b]) =>
                     (systemBySlug(a)?.number ?? "99").localeCompare(systemBySlug(b)?.number ?? "99") || a.localeCompare(b)
                 ).map(([slug, list]) => {

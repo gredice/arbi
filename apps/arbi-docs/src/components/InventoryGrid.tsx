@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import type { InventoryItem } from "@/lib/types";
+import { WarningBadges } from "./Warnings";
 
 type Props = {
     items: InventoryItem[];
@@ -34,6 +35,7 @@ export function InventoryGrid({ items, numbered = false, active = null, onHover 
                     </div>
                     <div className={`tag leading-tight break-words underline-offset-2 group-hover:underline group-focus-visible:underline ${active === item.id ? "underline" : ""}`}>{item.name ?? item.id}</div>
                     {item.note && <div className="mt-2 text-xs text-grey">{item.note}</div>}
+                    {item.warningCounts && <WarningBadges counts={item.warningCounts} />}
                 </Link>
             ))}
         </div>

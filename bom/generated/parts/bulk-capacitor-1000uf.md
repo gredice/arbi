@@ -15,6 +15,10 @@
 
 - Low-ESR capacitor sized/rated appropriately above 5 V; one installed + spare; buffers servo-current spikes.
 
+## Design warnings
+
+- **Critical:** A cable tie currently retains the pod capacitor. Replace it with a dedicated insulated removable holder; cable ties are temporary bench workarounds only, never final retention.
+
 ## Used in
 
 Quantities are per assembly definition, before build multipliers. Optional and deferred usages are shown even when excluded from a scenario. Procurement stock is not an installed physical owner.

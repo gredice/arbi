@@ -11,7 +11,7 @@
 - Build: arbi-v1
 - Destination: hr-zagreb
 - Quote snapshot: hr-zagreb-2026-10-08-coupling
-- Input digest: sha256:8b6605bd9a46116da9d6ab58137cac784265b0f5599b8f55d4a42a4f08f024e7
+- Input digest: sha256:f21a45c69321970cdb8bd871c50f2fe3603dcee3574ab8aa8d919ac077388839
 - Complete landed total: **unavailable**
 - Known quoted goods subtotal: **EUR 943.84**
 - Known checkout-group shipping subtotal: **EUR 43.38**
@@ -215,252 +215,280 @@ aliexpress-hr: EUR 3.00 per item type (not per piece), order goods strictly belo
 | [wire-rope-thimble-3mm](parts/wire-rope-thimble-3mm.md) | 8 each | corner-support-set (8 each) | bauhaus-wire-rope-thimble-3mm |
 | [zinc-spray](parts/zinc-spray.md) | 1 each | corner-support-set (1 each) | bauhaus-zinc-spray |
 
-## Incompleteness warnings
+## Prioritized warnings
 
-- Required part cabinet-installation-kit has no pinned offer.
-- Required part cabinet-protection-kit has no pinned offer.
-- Required part camera-pod-fastener-kit has no pinned offer.
-- Required part camera-pod-wiring-kit has no pinned offer.
-- Required part dock-bench-hardware has no pinned offer.
-- Required part dock-support-arm has no pinned offer.
-- Required part extension-spring-assortment has no pinned offer.
-- Required part winch-full-cover has no pinned offer.
-- Required part winch-full-cover-hardware has no pinned offer.
-- aliexpress-bearing-608-2rs: Availability is unknown.
-- aliexpress-bearing-608-2rs: Price and availability observation date is unknown; quote capture time is not verification time.
-- aliexpress-bearing-608-2rs: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- aliexpress-bearing-608-2rs: Tax/VAT treatment is unknown.
-- aliexpress-bulk-capacitor-1000uf: Availability is unknown.
-- aliexpress-bulk-capacitor-1000uf: Price and availability observation date is unknown; quote capture time is not verification time.
-- aliexpress-bulk-capacitor-1000uf: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- aliexpress-bulk-capacitor-1000uf: Tax/VAT treatment is unknown.
-- aliexpress-cable-gland-assortment: Availability is unknown.
-- aliexpress-cable-gland-assortment: Price and availability observation date is unknown; quote capture time is not verification time.
-- aliexpress-cable-gland-assortment: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- aliexpress-cable-gland-assortment: Tax/VAT treatment is unknown.
-- aliexpress-capsule-slip-ring-6x2a: Availability is unknown.
-- aliexpress-capsule-slip-ring-6x2a: Price and availability observation date is unknown; quote capture time is not verification time.
-- aliexpress-capsule-slip-ring-6x2a: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- aliexpress-capsule-slip-ring-6x2a: Tax/VAT treatment is unknown.
-- aliexpress-controller-buck-converter-48v-5v: Availability is unknown.
-- aliexpress-controller-buck-converter-48v-5v: Price and availability observation date is unknown; quote capture time is not verification time.
-- aliexpress-controller-buck-converter-48v-5v: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- aliexpress-controller-buck-converter-48v-5v: Tax/VAT treatment is unknown.
-- aliexpress-emergency-stop-switch: A quoted price cannot be extended without package data.
-- aliexpress-emergency-stop-switch: Availability is unknown.
-- aliexpress-emergency-stop-switch: Package size/MOQ is unknown.
-- aliexpress-emergency-stop-switch: Price and availability observation date is unknown; quote capture time is not verification time.
-- aliexpress-emergency-stop-switch: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- aliexpress-flexible-jaw-coupling-8mm: Availability is unknown.
-- aliexpress-flexible-jaw-coupling-8mm: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- aliexpress-heat-set-insert-assortment: Availability is unknown.
-- aliexpress-heat-set-insert-assortment: Price and availability observation date is unknown; quote capture time is not verification time.
-- aliexpress-heat-set-insert-assortment: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- aliexpress-heat-set-insert-assortment: Tax/VAT treatment is unknown.
-- aliexpress-hr: Customs is conditional: total order goods value is unknown; split orders are not assumed.
-- aliexpress-hr: One selected offer approximates one declared item type; actual customs grouping is unconfirmed.
-- aliexpress-hr: Shipping is unknown; null is not treated as free.
-- aliexpress-micro-pan-tilt-servo: Availability is unknown.
-- aliexpress-micro-pan-tilt-servo: Price and availability observation date is unknown; quote capture time is not verification time.
-- aliexpress-micro-pan-tilt-servo: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- aliexpress-micro-pan-tilt-servo: Tax/VAT treatment is unknown.
-- aliexpress-pod-buck-converter-48v-5v: Availability is unknown.
-- aliexpress-pod-buck-converter-48v-5v: Price and availability observation date is unknown; quote capture time is not verification time.
-- aliexpress-pod-buck-converter-48v-5v: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- aliexpress-pod-buck-converter-48v-5v: Tax/VAT treatment is unknown.
-- aliexpress-pod-power-wire-black-awg26: Availability is unknown.
-- aliexpress-pod-power-wire-black-awg26: Price and availability observation date is unknown; quote capture time is not verification time.
-- aliexpress-pod-power-wire-black-awg26: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- aliexpress-pod-power-wire-black-awg26: Tax/VAT treatment is unknown.
-- aliexpress-pod-power-wire-red-awg26: Availability is unknown.
-- aliexpress-pod-power-wire-red-awg26: Price and availability observation date is unknown; quote capture time is not verification time.
-- aliexpress-pod-power-wire-red-awg26: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- aliexpress-pod-power-wire-red-awg26: Tax/VAT treatment is unknown.
-- aliexpress-roller-lever-microswitch: Availability is unknown.
-- aliexpress-roller-lever-microswitch: Price and availability observation date is unknown; quote capture time is not verification time.
-- aliexpress-roller-lever-microswitch: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- aliexpress-roller-lever-microswitch: Tax/VAT treatment is unknown.
-- aliexpress-shaft-collar-8mm: Availability is unknown.
-- aliexpress-shaft-collar-8mm: Price and availability observation date is unknown; quote capture time is not verification time.
-- aliexpress-shaft-collar-8mm: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- aliexpress-shaft-collar-8mm: Tax/VAT treatment is unknown.
-- aliexpress-stainless-fastener-assortment: Availability is unknown.
-- aliexpress-stainless-fastener-assortment: Price and availability observation date is unknown; quote capture time is not verification time.
-- aliexpress-stainless-fastener-assortment: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- aliexpress-stainless-fastener-assortment: Tax/VAT treatment is unknown.
-- bauhaus-din-rail-ground-distribution-block: Availability is unknown.
-- bauhaus-din-rail-ground-distribution-block: Price and availability observation date is unknown; quote capture time is not verification time.
-- bauhaus-din-rail-ground-distribution-block: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- bauhaus-din-rail-ground-distribution-block: Tax/VAT treatment is unknown.
-- bauhaus-guy-turnbuckle-m12: A quoted price cannot be extended without package data.
-- bauhaus-guy-turnbuckle-m12: Availability is unknown.
-- bauhaus-guy-turnbuckle-m12: Package size/MOQ is unknown.
-- bauhaus-guy-turnbuckle-m12: Price and availability observation date is unknown; quote capture time is not verification time.
-- bauhaus-guy-turnbuckle-m12: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- bauhaus-guy-wire-3mm: A quoted price cannot be extended without package data.
-- bauhaus-guy-wire-3mm: Availability is unknown.
-- bauhaus-guy-wire-3mm: Package size/MOQ is unknown.
-- bauhaus-guy-wire-3mm: Price and availability observation date is unknown; quote capture time is not verification time.
-- bauhaus-guy-wire-3mm: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- bauhaus-hr: Shipping is unknown; null is not treated as free.
-- bauhaus-hr: Shipping observation date is unknown; quote capture time is not verification time.
-- bauhaus-motor-power-branch-cable: Availability is unknown.
-- bauhaus-motor-power-branch-cable: Price and availability observation date is unknown; quote capture time is not verification time.
-- bauhaus-motor-power-branch-cable: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- bauhaus-motor-power-branch-cable: Tax/VAT treatment is unknown.
-- bauhaus-post-electronics-enclosure: A quoted price cannot be extended without package data.
-- bauhaus-post-electronics-enclosure: Availability is unknown.
-- bauhaus-post-electronics-enclosure: Package size/MOQ is unknown.
-- bauhaus-post-electronics-enclosure: Price and availability observation date is unknown; quote capture time is not verification time.
-- bauhaus-post-electronics-enclosure: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- bauhaus-pulley-bracket-backing-plate: Availability is unknown.
-- bauhaus-pulley-bracket-backing-plate: Price and availability observation date is unknown; quote capture time is not verification time.
-- bauhaus-pulley-bracket-backing-plate: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- bauhaus-pulley-bracket-backing-plate: Tax/VAT treatment is unknown.
-- bauhaus-pulley-bracket-locknut-m12: Availability is unknown.
-- bauhaus-pulley-bracket-locknut-m12: Price and availability observation date is unknown; quote capture time is not verification time.
-- bauhaus-pulley-bracket-locknut-m12: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- bauhaus-pulley-bracket-locknut-m12: Tax/VAT treatment is unknown.
-- bauhaus-pulley-bracket-shackle-m8: Availability is unknown.
-- bauhaus-pulley-bracket-shackle-m8: Price and availability observation date is unknown; quote capture time is not verification time.
-- bauhaus-pulley-bracket-shackle-m8: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- bauhaus-pulley-bracket-shackle-m8: Tax/VAT treatment is unknown.
-- bauhaus-pulley-bracket-through-bolt-m12x160: Availability is unknown.
-- bauhaus-pulley-bracket-through-bolt-m12x160: Price and availability observation date is unknown; quote capture time is not verification time.
-- bauhaus-pulley-bracket-through-bolt-m12x160: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- bauhaus-pulley-bracket-through-bolt-m12x160: Tax/VAT treatment is unknown.
-- bauhaus-pulley-bracket-washer-m12: Availability is unknown.
-- bauhaus-pulley-bracket-washer-m12: Price and availability observation date is unknown; quote capture time is not verification time.
-- bauhaus-pulley-bracket-washer-m12: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- bauhaus-pulley-bracket-washer-m12: Tax/VAT treatment is unknown.
-- bauhaus-top-pulley-bracket: Availability is unknown.
-- bauhaus-top-pulley-bracket: Price and availability observation date is unknown; quote capture time is not verification time.
-- bauhaus-top-pulley-bracket: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- bauhaus-top-pulley-bracket: Tax/VAT treatment is unknown.
-- bauhaus-winch-drum-shaft-8mm: Availability is unknown.
-- bauhaus-winch-drum-shaft-8mm: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- bauhaus-wire-rope-clamp-3mm: A quoted price cannot be extended without package data.
-- bauhaus-wire-rope-clamp-3mm: Availability is unknown.
-- bauhaus-wire-rope-clamp-3mm: Package size/MOQ is unknown.
-- bauhaus-wire-rope-clamp-3mm: Price and availability observation date is unknown; quote capture time is not verification time.
-- bauhaus-wire-rope-clamp-3mm: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- bauhaus-wire-rope-thimble-3mm: A quoted price cannot be extended without package data.
-- bauhaus-wire-rope-thimble-3mm: Availability is unknown.
-- bauhaus-wire-rope-thimble-3mm: Package size/MOQ is unknown.
-- bauhaus-wire-rope-thimble-3mm: Price and availability observation date is unknown; quote capture time is not verification time.
-- bauhaus-wire-rope-thimble-3mm: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- bauhaus-zinc-spray: Availability is unknown.
-- bauhaus-zinc-spray: Price and availability observation date is unknown; quote capture time is not verification time.
-- bauhaus-zinc-spray: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- bauhaus-zinc-spray: Tax/VAT treatment is unknown.
-- camera-gimbal: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
-- camera-pod-chassis: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
-- cotra-zagreb-corner-post-treated-timber: Availability is unknown.
-- cotra-zagreb-corner-post-treated-timber: Package size/MOQ is unknown.
-- cotra-zagreb-corner-post-treated-timber: Price and availability observation date is unknown; quote capture time is not verification time.
-- cotra-zagreb-corner-post-treated-timber: Price is unknown.
-- cotra-zagreb-corner-post-treated-timber: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- cotra-zagreb-hr: Shipping is unknown; null is not treated as free.
-- cotra-zagreb-hr: Shipping observation date is unknown; quote capture time is not verification time.
-- dive-store-dyneema-positioning-line: Availability is unknown.
-- dive-store-dyneema-positioning-line: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- dive-store-dyneema-positioning-line: Tax/VAT treatment is unknown.
-- dive-store-hr: Shipping tax/VAT treatment is unknown.
-- dock-funnel: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
-- dock-latch-hardware: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
-- dock-nest: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
-- dock-support-arm: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
-- dock-weather-hood: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
-- hr-zagreb: Destination tax/VAT status is unknown and blocks a complete landed total.
-- in-house-fabrication-camera-gimbal: Price and availability observation date is unknown; quote capture time is not verification time.
-- in-house-fabrication-camera-gimbal: Price is unknown.
-- in-house-fabrication-camera-gimbal: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- in-house-fabrication-camera-pod-chassis: Price and availability observation date is unknown; quote capture time is not verification time.
-- in-house-fabrication-camera-pod-chassis: Price is unknown.
-- in-house-fabrication-camera-pod-chassis: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- in-house-fabrication-dock-capture-set: Price and availability observation date is unknown; quote capture time is not verification time.
-- in-house-fabrication-dock-capture-set: Price is unknown.
-- in-house-fabrication-dock-capture-set: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- in-house-fabrication-dock-latch-hardware: Price and availability observation date is unknown; quote capture time is not verification time.
-- in-house-fabrication-dock-latch-hardware: Price is unknown.
-- in-house-fabrication-dock-latch-hardware: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- in-house-fabrication-dock-weather-hood: Price and availability observation date is unknown; quote capture time is not verification time.
-- in-house-fabrication-dock-weather-hood: Price is unknown.
-- in-house-fabrication-dock-weather-hood: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- in-house-fabrication-hr: Shipping observation date is unknown; quote capture time is not verification time.
-- in-house-fabrication-top-pulley-keeper: Price and availability observation date is unknown; quote capture time is not verification time.
-- in-house-fabrication-top-pulley-keeper: Price is unknown.
-- in-house-fabrication-top-pulley-keeper: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- in-house-fabrication-winch-drum: Price and availability observation date is unknown; quote capture time is not verification time.
-- in-house-fabrication-winch-drum: Price is unknown.
-- in-house-fabrication-winch-drum: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- in-house-fabrication-winch-mount-and-guard: Price and availability observation date is unknown; quote capture time is not verification time.
-- in-house-fabrication-winch-mount-and-guard: Price is unknown.
-- in-house-fabrication-winch-mount-and-guard: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- kabel24-control-panel-enclosure: A quoted price cannot be extended without package data.
-- kabel24-control-panel-enclosure: Availability is unknown.
-- kabel24-control-panel-enclosure: Package size/MOQ is unknown.
-- kabel24-control-panel-enclosure: Price and availability observation date is unknown; quote capture time is not verification time.
-- kabel24-control-panel-enclosure: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- kabel24-hr: Shipping is unknown; null is not treated as free.
-- kabel24-hr: Shipping observation date is unknown; quote capture time is not verification time.
-- njuskalo-guy-ground-anchor: A quoted price cannot be extended without package data.
-- njuskalo-guy-ground-anchor: Availability is unknown.
-- njuskalo-guy-ground-anchor: Package size/MOQ is unknown.
-- njuskalo-guy-ground-anchor: Price and availability observation date is unknown; quote capture time is not verification time.
-- njuskalo-guy-ground-anchor: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- njuskalo-hr: Shipping is unknown; null is not treated as free.
-- njuskalo-hr: Shipping observation date is unknown; quote capture time is not verification time.
-- pimoroni-hr: Shipping is unknown; null is not treated as free.
-- pimoroni-hr: Shipping observation date is unknown; quote capture time is not verification time.
-- pimoroni-raspberry-pi-3a-plus: Availability is unknown.
-- pimoroni-raspberry-pi-3a-plus: Price and availability observation date is unknown; quote capture time is not verification time.
-- pimoroni-raspberry-pi-3a-plus: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- pimoroni-raspberry-pi-3a-plus: Tax/VAT treatment is unknown.
-- ronis-hr: Shipping is unknown; null is not treated as free.
-- ronis-hr: Shipping observation date is unknown; quote capture time is not verification time.
-- ronis-outdoor-cat5e-signal-cable: Availability is unknown.
-- ronis-outdoor-cat5e-signal-cable: Price and availability observation date is unknown; quote capture time is not verification time.
-- ronis-outdoor-cat5e-signal-cable: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- ronis-outdoor-cat5e-signal-cable: Tax/VAT treatment is unknown.
-- stepperonline-4-axis-v2-kit: Availability is unknown.
-- stepperonline-4-axis-v2-kit: Price and availability observation date is unknown; quote capture time is not verification time.
-- stepperonline-4-axis-v2-kit: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- stepperonline-4-axis-v2-kit: Tax/VAT treatment is unknown.
-- stepperonline-hr: Shipping observation date is unknown; quote capture time is not verification time.
-- stepperonline-hr: Shipping tax/VAT treatment is unknown.
-- tme-hr: Shipping observation date is unknown; quote capture time is not verification time.
-- tme-hr: Shipping tax/VAT treatment is unknown.
-- tme-microsd-card-32gb: Availability is unknown.
-- tme-microsd-card-32gb: Price and availability observation date is unknown; quote capture time is not verification time.
-- tme-microsd-card-32gb: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- tme-microsd-card-32gb: Tax/VAT treatment is unknown.
-- tme-pico-terminal-expansion-board: Availability is unknown.
-- tme-pico-terminal-expansion-board: Price and availability observation date is unknown; quote capture time is not verification time.
-- tme-pico-terminal-expansion-board: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- tme-pico-terminal-expansion-board: Tax/VAT treatment is unknown.
-- tme-raspberry-pi-camera-module-3: Availability is unknown.
-- tme-raspberry-pi-camera-module-3: Price and availability observation date is unknown; quote capture time is not verification time.
-- tme-raspberry-pi-camera-module-3: Qualification is unresolved; the recorded selection is not engineering approval.
-- tme-raspberry-pi-camera-module-3: Tax/VAT treatment is unknown.
-- tme-raspberry-pi-pico-2-w: Availability is unknown.
-- tme-raspberry-pi-pico-2-w: Price and availability observation date is unknown; quote capture time is not verification time.
-- tme-raspberry-pi-pico-2-w: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- tme-raspberry-pi-pico-2-w: Tax/VAT treatment is unknown.
-- top-pulley-keeper: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
-- unresolved-winch-drum-joining-hardware: Destination quote row is missing.
-- unresolved-winch-drum-joining-hardware: Package size/MOQ is unknown.
-- unresolved-winch-drum-joining-hardware: Price is unknown.
-- unresolved-winch-drum-joining-hardware: Qualification is unresolved; the recorded selection is not engineering approval.
-- unresolved-winch-mount-hardware: Destination quote row is missing.
-- unresolved-winch-mount-hardware: Package size/MOQ is unknown.
-- unresolved-winch-mount-hardware: Price is unknown.
-- unresolved-winch-mount-hardware: Qualification is unresolved; the recorded selection is not engineering approval.
-- wasi-barton-30mm: Qualification is baseline-selected; the recorded selection is not engineering approval.
-- wasi-barton-30mm: Tax/VAT treatment is unknown.
-- winch-drum: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
-- winch-full-cover: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
-- winch-mount-and-guard: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
+Critical warnings identify temporary workarounds or missing information. Warnings identify concepts and selections awaiting confirmation. These priorities do not establish physical acceptance.
+
+### Critical (196)
+
+- **Critical:** bulk-capacitor-1000uf: A cable tie currently retains the pod capacitor. Replace it with a dedicated insulated removable holder; cable ties are temporary bench workarounds only, never final retention.
+- **Critical:** camera-pod-chassis: The current deck retains the converter, capacitor and harness with cable ties. Replace these with dedicated removable mounts and strain relief; cable ties are temporary bench workarounds only, never the final assembly solution.
+- **Critical:** camera-pod-wiring-kit: Converter, capacitor and harness ties are shown without a complete procurement specification or quantity. Record the missing hardware data and replace tie-based retention with dedicated mounts and strain relief; cable ties are temporary bench workarounds only.
+- **Critical:** pod-buck-converter-48v-5v: Two cable ties currently retain the pod converter. Replace them with a dedicated insulated removable mounting method; cable ties are temporary bench workarounds only, never final retention.
+- **Critical:** aliexpress-bearing-608-2rs: Availability is unknown.
+- **Critical:** aliexpress-bearing-608-2rs: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** aliexpress-bearing-608-2rs: Tax/VAT treatment is unknown.
+- **Critical:** aliexpress-bulk-capacitor-1000uf: Availability is unknown.
+- **Critical:** aliexpress-bulk-capacitor-1000uf: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** aliexpress-bulk-capacitor-1000uf: Tax/VAT treatment is unknown.
+- **Critical:** aliexpress-cable-gland-assortment: Availability is unknown.
+- **Critical:** aliexpress-cable-gland-assortment: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** aliexpress-cable-gland-assortment: Tax/VAT treatment is unknown.
+- **Critical:** aliexpress-capsule-slip-ring-6x2a: Availability is unknown.
+- **Critical:** aliexpress-capsule-slip-ring-6x2a: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** aliexpress-capsule-slip-ring-6x2a: Tax/VAT treatment is unknown.
+- **Critical:** aliexpress-controller-buck-converter-48v-5v: Availability is unknown.
+- **Critical:** aliexpress-controller-buck-converter-48v-5v: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** aliexpress-controller-buck-converter-48v-5v: Tax/VAT treatment is unknown.
+- **Critical:** aliexpress-emergency-stop-switch: A quoted price cannot be extended without package data.
+- **Critical:** aliexpress-emergency-stop-switch: Availability is unknown.
+- **Critical:** aliexpress-emergency-stop-switch: Package size/MOQ is unknown.
+- **Critical:** aliexpress-emergency-stop-switch: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** aliexpress-flexible-jaw-coupling-8mm: Availability is unknown.
+- **Critical:** aliexpress-heat-set-insert-assortment: Availability is unknown.
+- **Critical:** aliexpress-heat-set-insert-assortment: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** aliexpress-heat-set-insert-assortment: Tax/VAT treatment is unknown.
+- **Critical:** aliexpress-hr: Customs is conditional: total order goods value is unknown; split orders are not assumed.
+- **Critical:** aliexpress-hr: Shipping is unknown; null is not treated as free.
+- **Critical:** aliexpress-micro-pan-tilt-servo: Availability is unknown.
+- **Critical:** aliexpress-micro-pan-tilt-servo: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** aliexpress-micro-pan-tilt-servo: Tax/VAT treatment is unknown.
+- **Critical:** aliexpress-pod-buck-converter-48v-5v: Availability is unknown.
+- **Critical:** aliexpress-pod-buck-converter-48v-5v: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** aliexpress-pod-buck-converter-48v-5v: Tax/VAT treatment is unknown.
+- **Critical:** aliexpress-pod-power-wire-black-awg26: Availability is unknown.
+- **Critical:** aliexpress-pod-power-wire-black-awg26: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** aliexpress-pod-power-wire-black-awg26: Tax/VAT treatment is unknown.
+- **Critical:** aliexpress-pod-power-wire-red-awg26: Availability is unknown.
+- **Critical:** aliexpress-pod-power-wire-red-awg26: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** aliexpress-pod-power-wire-red-awg26: Tax/VAT treatment is unknown.
+- **Critical:** aliexpress-roller-lever-microswitch: Availability is unknown.
+- **Critical:** aliexpress-roller-lever-microswitch: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** aliexpress-roller-lever-microswitch: Tax/VAT treatment is unknown.
+- **Critical:** aliexpress-shaft-collar-8mm: Availability is unknown.
+- **Critical:** aliexpress-shaft-collar-8mm: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** aliexpress-shaft-collar-8mm: Tax/VAT treatment is unknown.
+- **Critical:** aliexpress-stainless-fastener-assortment: Availability is unknown.
+- **Critical:** aliexpress-stainless-fastener-assortment: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** aliexpress-stainless-fastener-assortment: Tax/VAT treatment is unknown.
+- **Critical:** bauhaus-din-rail-ground-distribution-block: Availability is unknown.
+- **Critical:** bauhaus-din-rail-ground-distribution-block: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** bauhaus-din-rail-ground-distribution-block: Tax/VAT treatment is unknown.
+- **Critical:** bauhaus-guy-turnbuckle-m12: A quoted price cannot be extended without package data.
+- **Critical:** bauhaus-guy-turnbuckle-m12: Availability is unknown.
+- **Critical:** bauhaus-guy-turnbuckle-m12: Package size/MOQ is unknown.
+- **Critical:** bauhaus-guy-turnbuckle-m12: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** bauhaus-guy-wire-3mm: A quoted price cannot be extended without package data.
+- **Critical:** bauhaus-guy-wire-3mm: Availability is unknown.
+- **Critical:** bauhaus-guy-wire-3mm: Package size/MOQ is unknown.
+- **Critical:** bauhaus-guy-wire-3mm: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** bauhaus-hr: Shipping is unknown; null is not treated as free.
+- **Critical:** bauhaus-hr: Shipping observation date is unknown; quote capture time is not verification time.
+- **Critical:** bauhaus-motor-power-branch-cable: Availability is unknown.
+- **Critical:** bauhaus-motor-power-branch-cable: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** bauhaus-motor-power-branch-cable: Tax/VAT treatment is unknown.
+- **Critical:** bauhaus-post-electronics-enclosure: A quoted price cannot be extended without package data.
+- **Critical:** bauhaus-post-electronics-enclosure: Availability is unknown.
+- **Critical:** bauhaus-post-electronics-enclosure: Package size/MOQ is unknown.
+- **Critical:** bauhaus-post-electronics-enclosure: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** bauhaus-pulley-bracket-backing-plate: Availability is unknown.
+- **Critical:** bauhaus-pulley-bracket-backing-plate: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** bauhaus-pulley-bracket-backing-plate: Tax/VAT treatment is unknown.
+- **Critical:** bauhaus-pulley-bracket-locknut-m12: Availability is unknown.
+- **Critical:** bauhaus-pulley-bracket-locknut-m12: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** bauhaus-pulley-bracket-locknut-m12: Tax/VAT treatment is unknown.
+- **Critical:** bauhaus-pulley-bracket-shackle-m8: Availability is unknown.
+- **Critical:** bauhaus-pulley-bracket-shackle-m8: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** bauhaus-pulley-bracket-shackle-m8: Tax/VAT treatment is unknown.
+- **Critical:** bauhaus-pulley-bracket-through-bolt-m12x160: Availability is unknown.
+- **Critical:** bauhaus-pulley-bracket-through-bolt-m12x160: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** bauhaus-pulley-bracket-through-bolt-m12x160: Tax/VAT treatment is unknown.
+- **Critical:** bauhaus-pulley-bracket-washer-m12: Availability is unknown.
+- **Critical:** bauhaus-pulley-bracket-washer-m12: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** bauhaus-pulley-bracket-washer-m12: Tax/VAT treatment is unknown.
+- **Critical:** bauhaus-top-pulley-bracket: Availability is unknown.
+- **Critical:** bauhaus-top-pulley-bracket: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** bauhaus-top-pulley-bracket: Tax/VAT treatment is unknown.
+- **Critical:** bauhaus-winch-drum-shaft-8mm: Availability is unknown.
+- **Critical:** bauhaus-wire-rope-clamp-3mm: A quoted price cannot be extended without package data.
+- **Critical:** bauhaus-wire-rope-clamp-3mm: Availability is unknown.
+- **Critical:** bauhaus-wire-rope-clamp-3mm: Package size/MOQ is unknown.
+- **Critical:** bauhaus-wire-rope-clamp-3mm: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** bauhaus-wire-rope-thimble-3mm: A quoted price cannot be extended without package data.
+- **Critical:** bauhaus-wire-rope-thimble-3mm: Availability is unknown.
+- **Critical:** bauhaus-wire-rope-thimble-3mm: Package size/MOQ is unknown.
+- **Critical:** bauhaus-wire-rope-thimble-3mm: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** bauhaus-zinc-spray: Availability is unknown.
+- **Critical:** bauhaus-zinc-spray: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** bauhaus-zinc-spray: Tax/VAT treatment is unknown.
+- **Critical:** camera-gimbal: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
+- **Critical:** camera-pod-chassis: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
+- **Critical:** cotra-zagreb-corner-post-treated-timber: Availability is unknown.
+- **Critical:** cotra-zagreb-corner-post-treated-timber: Package size/MOQ is unknown.
+- **Critical:** cotra-zagreb-corner-post-treated-timber: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** cotra-zagreb-corner-post-treated-timber: Price is unknown.
+- **Critical:** cotra-zagreb-hr: Shipping is unknown; null is not treated as free.
+- **Critical:** cotra-zagreb-hr: Shipping observation date is unknown; quote capture time is not verification time.
+- **Critical:** dive-store-dyneema-positioning-line: Availability is unknown.
+- **Critical:** dive-store-dyneema-positioning-line: Tax/VAT treatment is unknown.
+- **Critical:** dive-store-hr: Shipping tax/VAT treatment is unknown.
+- **Critical:** dock-funnel: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
+- **Critical:** dock-latch-hardware: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
+- **Critical:** dock-nest: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
+- **Critical:** dock-support-arm: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
+- **Critical:** dock-weather-hood: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
+- **Critical:** hr-zagreb: Destination tax/VAT status is unknown and blocks a complete landed total.
+- **Critical:** in-house-fabrication-camera-gimbal: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** in-house-fabrication-camera-gimbal: Price is unknown.
+- **Critical:** in-house-fabrication-camera-pod-chassis: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** in-house-fabrication-camera-pod-chassis: Price is unknown.
+- **Critical:** in-house-fabrication-dock-capture-set: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** in-house-fabrication-dock-capture-set: Price is unknown.
+- **Critical:** in-house-fabrication-dock-latch-hardware: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** in-house-fabrication-dock-latch-hardware: Price is unknown.
+- **Critical:** in-house-fabrication-dock-weather-hood: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** in-house-fabrication-dock-weather-hood: Price is unknown.
+- **Critical:** in-house-fabrication-hr: Shipping observation date is unknown; quote capture time is not verification time.
+- **Critical:** in-house-fabrication-top-pulley-keeper: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** in-house-fabrication-top-pulley-keeper: Price is unknown.
+- **Critical:** in-house-fabrication-winch-drum: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** in-house-fabrication-winch-drum: Price is unknown.
+- **Critical:** in-house-fabrication-winch-mount-and-guard: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** in-house-fabrication-winch-mount-and-guard: Price is unknown.
+- **Critical:** kabel24-control-panel-enclosure: A quoted price cannot be extended without package data.
+- **Critical:** kabel24-control-panel-enclosure: Availability is unknown.
+- **Critical:** kabel24-control-panel-enclosure: Package size/MOQ is unknown.
+- **Critical:** kabel24-control-panel-enclosure: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** kabel24-hr: Shipping is unknown; null is not treated as free.
+- **Critical:** kabel24-hr: Shipping observation date is unknown; quote capture time is not verification time.
+- **Critical:** njuskalo-guy-ground-anchor: A quoted price cannot be extended without package data.
+- **Critical:** njuskalo-guy-ground-anchor: Availability is unknown.
+- **Critical:** njuskalo-guy-ground-anchor: Package size/MOQ is unknown.
+- **Critical:** njuskalo-guy-ground-anchor: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** njuskalo-hr: Shipping is unknown; null is not treated as free.
+- **Critical:** njuskalo-hr: Shipping observation date is unknown; quote capture time is not verification time.
+- **Critical:** pimoroni-hr: Shipping is unknown; null is not treated as free.
+- **Critical:** pimoroni-hr: Shipping observation date is unknown; quote capture time is not verification time.
+- **Critical:** pimoroni-raspberry-pi-3a-plus: Availability is unknown.
+- **Critical:** pimoroni-raspberry-pi-3a-plus: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** pimoroni-raspberry-pi-3a-plus: Tax/VAT treatment is unknown.
+- **Critical:** Required part cabinet-installation-kit has no pinned offer.
+- **Critical:** Required part cabinet-protection-kit has no pinned offer.
+- **Critical:** Required part camera-pod-fastener-kit has no pinned offer.
+- **Critical:** Required part camera-pod-wiring-kit has no pinned offer.
+- **Critical:** Required part dock-bench-hardware has no pinned offer.
+- **Critical:** Required part dock-support-arm has no pinned offer.
+- **Critical:** Required part extension-spring-assortment has no pinned offer.
+- **Critical:** Required part winch-full-cover has no pinned offer.
+- **Critical:** Required part winch-full-cover-hardware has no pinned offer.
+- **Critical:** ronis-hr: Shipping is unknown; null is not treated as free.
+- **Critical:** ronis-hr: Shipping observation date is unknown; quote capture time is not verification time.
+- **Critical:** ronis-outdoor-cat5e-signal-cable: Availability is unknown.
+- **Critical:** ronis-outdoor-cat5e-signal-cable: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** ronis-outdoor-cat5e-signal-cable: Tax/VAT treatment is unknown.
+- **Critical:** stepperonline-4-axis-v2-kit: Availability is unknown.
+- **Critical:** stepperonline-4-axis-v2-kit: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** stepperonline-4-axis-v2-kit: Tax/VAT treatment is unknown.
+- **Critical:** stepperonline-hr: Shipping observation date is unknown; quote capture time is not verification time.
+- **Critical:** stepperonline-hr: Shipping tax/VAT treatment is unknown.
+- **Critical:** tme-hr: Shipping observation date is unknown; quote capture time is not verification time.
+- **Critical:** tme-hr: Shipping tax/VAT treatment is unknown.
+- **Critical:** tme-microsd-card-32gb: Availability is unknown.
+- **Critical:** tme-microsd-card-32gb: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** tme-microsd-card-32gb: Tax/VAT treatment is unknown.
+- **Critical:** tme-pico-terminal-expansion-board: Availability is unknown.
+- **Critical:** tme-pico-terminal-expansion-board: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** tme-pico-terminal-expansion-board: Tax/VAT treatment is unknown.
+- **Critical:** tme-raspberry-pi-camera-module-3: Availability is unknown.
+- **Critical:** tme-raspberry-pi-camera-module-3: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** tme-raspberry-pi-camera-module-3: Tax/VAT treatment is unknown.
+- **Critical:** tme-raspberry-pi-pico-2-w: Availability is unknown.
+- **Critical:** tme-raspberry-pi-pico-2-w: Price and availability observation date is unknown; quote capture time is not verification time.
+- **Critical:** tme-raspberry-pi-pico-2-w: Tax/VAT treatment is unknown.
+- **Critical:** top-pulley-keeper: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
+- **Critical:** unresolved-winch-drum-joining-hardware: Destination quote row is missing.
+- **Critical:** unresolved-winch-drum-joining-hardware: Package size/MOQ is unknown.
+- **Critical:** unresolved-winch-drum-joining-hardware: Price is unknown.
+- **Critical:** unresolved-winch-mount-hardware: Destination quote row is missing.
+- **Critical:** unresolved-winch-mount-hardware: Package size/MOQ is unknown.
+- **Critical:** unresolved-winch-mount-hardware: Price is unknown.
+- **Critical:** wasi-barton-30mm: Tax/VAT treatment is unknown.
+- **Critical:** winch-drum: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
+- **Critical:** winch-full-cover: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
+- **Critical:** winch-mount-and-guard: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
+- **Critical:** wire-rope-thimble-3mm: Part requirements are missing; record the specification before selecting or building this part.
+
+### Warning (68)
+
+- **Warning:** aliexpress-bearing-608-2rs: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** aliexpress-bulk-capacitor-1000uf: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** aliexpress-cable-gland-assortment: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** aliexpress-capsule-slip-ring-6x2a: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** aliexpress-controller-buck-converter-48v-5v: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** aliexpress-emergency-stop-switch: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** aliexpress-flexible-jaw-coupling-8mm: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** aliexpress-heat-set-insert-assortment: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** aliexpress-hr: One selected offer approximates one declared item type; actual customs grouping is unconfirmed.
+- **Warning:** aliexpress-micro-pan-tilt-servo: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** aliexpress-pod-buck-converter-48v-5v: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** aliexpress-pod-power-wire-black-awg26: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** aliexpress-pod-power-wire-red-awg26: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** aliexpress-roller-lever-microswitch: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** aliexpress-shaft-collar-8mm: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** aliexpress-stainless-fastener-assortment: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** bauhaus-din-rail-ground-distribution-block: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** bauhaus-guy-turnbuckle-m12: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** bauhaus-guy-wire-3mm: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** bauhaus-motor-power-branch-cable: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** bauhaus-post-electronics-enclosure: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** bauhaus-pulley-bracket-backing-plate: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** bauhaus-pulley-bracket-locknut-m12: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** bauhaus-pulley-bracket-shackle-m8: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** bauhaus-pulley-bracket-through-bolt-m12x160: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** bauhaus-pulley-bracket-washer-m12: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** bauhaus-top-pulley-bracket: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** bauhaus-winch-drum-shaft-8mm: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** bauhaus-wire-rope-clamp-3mm: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** bauhaus-wire-rope-thimble-3mm: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** bauhaus-zinc-spray: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** cabinet-installation-kit: This part is planned; confirm its specification and selection with committed evidence.
+- **Warning:** cabinet-protection-kit: This part is planned; confirm its specification and selection with committed evidence.
+- **Warning:** camera-gimbal: Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
+- **Warning:** camera-pod-chassis: Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
+- **Warning:** camera-pod-fastener-kit: This part is planned; confirm its specification and selection with committed evidence.
+- **Warning:** camera-pod-wiring-kit: This part is planned; confirm its specification and selection with committed evidence.
+- **Warning:** cotra-zagreb-corner-post-treated-timber: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** dive-store-dyneema-positioning-line: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** dock-funnel: Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
+- **Warning:** dock-latch-hardware: Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
+- **Warning:** dock-nest: Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
+- **Warning:** dock-support-arm: Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
+- **Warning:** dock-weather-hood: Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
+- **Warning:** in-house-fabrication-camera-gimbal: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** in-house-fabrication-camera-pod-chassis: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** in-house-fabrication-dock-capture-set: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** in-house-fabrication-dock-latch-hardware: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** in-house-fabrication-dock-weather-hood: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** in-house-fabrication-top-pulley-keeper: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** in-house-fabrication-winch-drum: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** in-house-fabrication-winch-mount-and-guard: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** kabel24-control-panel-enclosure: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** njuskalo-guy-ground-anchor: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** pimoroni-raspberry-pi-3a-plus: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** ronis-outdoor-cat5e-signal-cable: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** stepperonline-4-axis-v2-kit: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** tme-microsd-card-32gb: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** tme-pico-terminal-expansion-board: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** tme-raspberry-pi-camera-module-3: Qualification is unresolved; the recorded selection is not engineering approval.
+- **Warning:** tme-raspberry-pi-pico-2-w: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** top-pulley-keeper: Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
+- **Warning:** unresolved-winch-drum-joining-hardware: Qualification is unresolved; the recorded selection is not engineering approval.
+- **Warning:** unresolved-winch-mount-hardware: Qualification is unresolved; the recorded selection is not engineering approval.
+- **Warning:** wasi-barton-30mm: Qualification is baseline-selected; the recorded selection is not engineering approval.
+- **Warning:** winch-drum: Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
+- **Warning:** winch-full-cover: Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
+- **Warning:** winch-mount-and-guard: Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
+
 
 ## Evidence boundary
 

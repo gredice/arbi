@@ -13,8 +13,13 @@
 
 ## Requirements
 
-- Two white sliding rear nut covers, two snug underside closures and one dark two-loom cable guide per winch. Covers use metal saddle rails; remove underside closures before lifting caps. Guide tied to the pole independently of winch load.
+- Two white sliding rear nut covers, two snug underside closures and one dark two-loom cable guide per winch. Covers use metal saddle rails; remove underside closures before lifting caps. Guide ties are a temporary bench workaround independently of winch load; a final removable fastening method remains unresolved.
 - Concept-unvalidated: print fit, underside closure/gravity-stop retention, vibration, UV and cable-clipping force require physical acceptance.
+
+## Design warnings
+
+- **Critical:** The round-pole cable guide currently relies on ties around the post. Replace tie-based retention with a dedicated removable fastening method; cable ties are temporary bench workarounds only, never the final assembly solution.
+- **Warning:** Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
 
 ## Notes
 

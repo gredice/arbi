@@ -17,6 +17,11 @@
 - Primary carriers and rear pads are load-bearing printed concepts. PAHT-CF or tested ASA are candidates, not qualified materials; orientation, printer/slicer process, conditioning, hole finishing, bolt-seat pressure, creep, cycles, weather and complete-head proof tests remain required. Cosmetic cover straps carry no line or guy load.
 - Two M12 through-bolts at Z45/155 and two M8 cross-bolts at X=post radius+50, Z100/190 join the selected kit. Measured Barton interface: 14.8 mm rounded central lug inside 15.8 mm clear tang gap, 5.2 mm bore for the supplied 4.7 mm retained pin. Equal-tension horizontal-span pose rotates -45 degrees about Y with measured 42 mm pin-to-sheave centres: pin X=post radius+147.8515 passive /146.9515 powered, Z165; sheave X=post radius+177.55/176.65, Z135.3015. These allowances and pose require physical inspection. Groove seating, thin-line keeper, guy connection, other angles and unequal tension remain unresolved.
 
+## Design warnings
+
+- **Warning:** Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
+- **Warning:** This part is planned; confirm its specification and selection with committed evidence.
+
 ## Notes
 
 New printed-head proposal; excluded from the purchasing baseline. Select instead of steel angle/plates, metal saddles and their covers. See docs/assemblies/corner-station/design-package.md. No supplier offer, full fabrication quote or physical qualification asserted. An optional ASA solid-volume material estimate is recorded separately; it is only a costing assumption.

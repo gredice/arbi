@@ -15,6 +15,10 @@
 
 - One independently reviewed bought guy-to-post attachment set per station. Product, availability and capacity remain unselected. Must define height, direction, timber attachment, connection sizes, rating and corrosion compatibility. Independent of printed pulley head; do not substitute cosmetic straps, wood screws or an unqualified printed carrier.
 
+## Design warnings
+
+- **Warning:** This part is planned; confirm its specification and selection with committed evidence.
+
 ## Notes
 
 Proposed package; excluded from the baseline scenario. See docs/assemblies/corner-station/design-package.md. No supplier price or engineering qualification asserted.

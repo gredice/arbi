@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { Crumb } from "@/components/Crumb";
 import { InventoryGrid } from "@/components/InventoryGrid";
 import { GeometryNotice } from "@/components/GeometryNotice";
+import { WarningList } from "@/components/Warnings";
 import { fmt } from "@/lib/format";
 import { data, inventory, modelsForBomPart } from "@/lib/site";
 
@@ -64,6 +65,7 @@ export default async function BomItem({ params }: { params: Promise<{ id: string
                     <div className="lg:col-span-7">
                         <div className="tag">{[p.kind, ...p.disciplines, ...p.traits].join(" · ")}</div>
                         <h1 className="cond mt-3 text-[60px] leading-[0.88]">{p.name}</h1>
+                        <WarningList warnings={p.warningDetails} />
                         <ol className="mt-8 border-t-2 border-ink">
                             {p.requirements.map((r, i) => (
                                 <li key={i} className="grid grid-cols-[40px_1fr] border-b border-ink py-3">
@@ -89,16 +91,6 @@ export default async function BomItem({ params }: { params: Promise<{ id: string
                                 ))}
                             </tbody>
                         </table>
-                        {p.warnings.length > 0 && (
-                            <div className="mt-6 border-2 border-ink p-4">
-                                <div className="cond text-[18px]">Evidence gaps</div>
-                                <ul className="mt-2 grid list-[square] gap-1 pl-5 text-[12.5px]">
-                                    {p.warnings.map((w) => (
-                                        <li key={w}>{w}</li>
-                                    ))}
-                                </ul>
-                            </div>
-                        )}
                     </div>
                 </section>
                 {print && (

@@ -107,6 +107,8 @@ These labels are used throughout the documentation:
 
 Do not change a claim to **Validated** in prose alone. Link the evidence and record the tested revision, configuration, conditions, equipment, result, and reviewer.
 
+Design and procurement issues use two [BOM warning priorities](../bom/README.md#warning-priorities): **Critical** for temporary workarounds or missing information, and **Warning** for concepts or selections awaiting confirmation. Cable ties are temporary workarounds only and must produce a critical warning on every affected part; the final assembly needs a dedicated fastening or retention solution.
+
 ## Documentation ownership
 
 Cross-discipline item types are not separate subsystems. A fastener used on a winch belongs to the winch assembly; a cable from the cabinet to a corner has named endpoints and an owning interface. Shared standards may describe conventions, but the assembly documentation owns quantities, fit, routing, acceptance, and maintenance.

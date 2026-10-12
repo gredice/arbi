@@ -14,8 +14,12 @@
 ## Requirements
 
 - Four M8 through-bolts, eight <=24 mm OD x 1.6 mm washers, four 8 mm high locking nuts. Nominal lengths 160 / 180 / 200 mm for 100 / 120 / 140 mm timber; confirm received stack and engagement.
-- Two non-structural outdoor soft ties through the guide paired 3x9 mm full-depth slots, <=2.5 mm wide and <=1 mm thick. Wrap the pole circumferentially and bridge the guide face at local Y=±3 mm; protect timber and loom jackets.
+- Temporary bench workaround only: two non-structural soft cable ties through the guide paired 3x9 mm full-depth slots, <=2.5 mm wide and <=1 mm thick. Protect timber and loom jackets. Replace ties with a dedicated removable fastening method for the final assembly.
 - Replace the flat-post through-bolts/backing stack when selecting this round-pole alternative; structural/bolt-bending qualification remains open.
+
+## Design warnings
+
+- **Critical:** Two soft ties currently fasten the cable guide to the post. Define and procure a dedicated removable guide fastening method; cable ties are temporary bench workarounds only, never final retention.
 
 ## Notes
 

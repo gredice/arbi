@@ -15,6 +15,10 @@
 
 - MAX3485/SP3485-class 3.3 V UART↔RS485 module; one active + one spare. This is only for weather sensor, not motor control.
 
+## Design warnings
+
+- **Warning:** This part is planned; confirm its specification and selection with committed evidence.
+
 ## Used in
 
 Quantities are per assembly definition, before build multipliers. Optional and deferred usages are shown even when excluded from a scenario. Procurement stock is not an installed physical owner.

@@ -3,8 +3,9 @@ import { Crumb } from "./Crumb";
 import { GeometryNotice } from "./GeometryNotice";
 import { InventoryGrid } from "./InventoryGrid";
 import { PartViewer } from "./PartViewer";
+import { WarningList } from "./Warnings";
 import { fmt, links } from "@/lib/format";
-import { docHref, download, inventory, meshFor, modelsForBomPart, partColor } from "@/lib/site";
+import { docHref, download, inventory, meshFor, modelsForBomPart, partColor, warningsFor } from "@/lib/site";
 import type { BomPart, Vec3 } from "@/lib/types";
 
 export function CatalogPart({ part }: { part: BomPart }) {
@@ -26,6 +27,7 @@ export function CatalogPart({ part }: { part: BomPart }) {
                     <h1 className="cond mt-3 text-[44px] leading-none">{part.name}</h1>
                     <p className="mt-4">{part.required !== null ? `${part.required} ${part.unit} required in the current BOM build.` : "Not included in the current BOM build."}</p>
                     <Link href={`/bom/${part.id}`} className="key-line mt-5">BOM, procurement and usage details</Link>
+                    <WarningList warnings={warningsFor(part.id)} />
                     <GeometryNotice model={model} />
                     {models.length > 1 && <p className="mt-4 text-sm">This item contains {models.length} CAD components. The viewer shows {model.id}; browse the component models below.</p>}
                     <dl className="mt-6 grid grid-cols-[100px_1fr] gap-x-4 gap-y-2 border-t-2 border-ink pt-3 text-sm">

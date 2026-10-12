@@ -698,10 +698,12 @@ test("report status banner follows calculation completeness", async () => {
   complete.complete = true;
   complete.completeLandedTotal = complete.knownSubtotal;
   complete.warnings = [];
+  complete.warningDetails = [];
   const markdown = renderMarkdown(complete);
   assert.match(markdown, /Status: COMPLETE/);
   assert.doesNotMatch(markdown, /Status: INCOMPLETE/);
-  assert.match(markdown, /Incompleteness warnings\n\nNone\./);
+  assert.match(markdown, /Critical \(0\)\n\nNone\./);
+  assert.match(markdown, /Warning \(0\)\n\nNone\./);
 });
 
 test("unknown evidence prevents a trustworthy complete total", async () => {

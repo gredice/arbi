@@ -15,6 +15,11 @@
 
 - One shared 200 x 50 x 4 mm marking template, 45/155 mm centre pattern. Mark with 3 mm punch; remove before drilling. Check scale and actual bought angle holes.
 
+## Design warnings
+
+- **Warning:** Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
+- **Warning:** This part is planned; confirm its specification and selection with committed evidence.
+
 ## Notes
 
 Historical metal-head alternative; excluded from baseline and printed-head selection. Do not combine its geometry or hardware stack with the printed carrier. See docs/assemblies/corner-station/design-package.md#historical-metal-alternatives. No full fabrication price or engineering qualification asserted. Optional ASA material consumption is estimated separately, without selecting a qualified print process.

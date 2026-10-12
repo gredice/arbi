@@ -15,6 +15,10 @@
 
 - Four quadrants form a nominal 275 mm mouth and 60 mm throat; tabs attach through the support platform to the locator flange.
 
+## Design warnings
+
+- **Warning:** Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
+
 ## Notes
 
 DOCK-IF-01 bench-development kit, not accepted for suspended installation. Bought hardware is counted separately.

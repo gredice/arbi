@@ -15,6 +15,10 @@
 
 - Optional dancer/tension sensing for cable-compliance mechanism; not required to block first V1 motion prototype.
 
+## Design warnings
+
+- **Warning:** This part is planned; confirm its specification and selection with committed evidence.
+
 ## Used in
 
 Quantities are per assembly definition, before build multipliers. Optional and deferred usages are shown even when excluded from a scenario. Procurement stock is not an installed physical owner.
