@@ -1,5 +1,7 @@
 # Continuous payload underside CAD check — 8 October 2026
 
+**Camera selection superseded, 12 October 2026:** this snapshot used Standard optics. The [received Wide camera and hood/head update](../../../docs/evidence/camera-module-3-wide-2026-10-12.md) records the current reference, insertion and 102° ×67° optical checks.
+
 **Converter mounting superseded, 12 October 2026:** this record retains its original model revisions and nominal converter. The [received-unit update](../../../docs/evidence/buck-converter-2026-10-12.md) uses a measured 50 × 30 × 17 mm board, screw mounting and revised deck. Regenerate the current configuration before using these historical figures or mass values.
 
 This inspection record retains the model IDs, filenames and hashes observed at the recorded date. The [model alias map](../../model-aliases.json) maps earlier `payload-*` names to current `camera-pod-*` names; this naming change does not establish new physical evidence.
