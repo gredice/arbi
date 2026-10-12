@@ -21,6 +21,7 @@ import { CAD_TAG } from '../../../scripts/cad-release-data.mjs';
 import { packIsCurrent, parseChecksums, validateReleaseManifest } from './cad-data.mjs';
 import { previewAssets } from './cad-previews.mjs';
 import { sceneHref } from './scene-links.mjs';
+import { modelWarnings, uniqueWarnings, warningCounts } from '../src/lib/warnings.ts';
 
 const APP = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const REPO = resolve(APP, '../..');
@@ -294,7 +295,7 @@ function docs() {
   return entries;
 }
 
-function bom() {
+function bom(models) {
   const fabrication = readJson('bom/catalog/fabrication.json');
   for (const [path, expected] of Object.entries(fabrication.geometry.sourceHashes)) {
     if (createHash('sha256').update(readFileSync(join(REPO, path))).digest('hex') !== expected) {
@@ -318,6 +319,9 @@ function bom() {
     const price = quote.offerPrices.find((item) => item.offerId === r.selectedOfferId);
     const group = quote.checkoutGroups.find((item) => item.checkoutGroupId === sel?.checkoutGroupId);
     const customsPolicy = policies.find((item) => item.id === group?.customsPolicyId) ?? null;
+    const warnings = report.partWarnings[part.id];
+    const warningDetails = uniqueWarnings([...warnings, ...models.filter((model) => model.bomPartIds.includes(part.id))
+      .flatMap((model) => modelWarnings(model, warnings))]);
     return { ...part, required: r.required ?? null, unit: r.unit ?? part.baseUnit, usedIn: r.assemblies ?? [], offerId: r.selectedOfferId ?? null,
       supplierId: sel?.supplierId ?? null, qualification: sel?.qualification ?? null, purchaseUnits: sel?.purchaseUnits ?? null, bundle,
       actualDelivered: price?.actualDelivered ?? null,
@@ -326,19 +330,20 @@ function bom() {
       goodsAllocationBasis: sel?.goodsAllocationBasis ?? null, offerUrl: offers[r.selectedOfferId]?.listing?.url ?? null,
       printEstimate: prints[part.id] ?? null,
       printReference: printReferences[part.id] ?? null,
-      warnings: sel?.warnings ?? [], warningDetails: report.partWarnings[part.id], page: `bom/generated/parts/${part.id}.md` };
+      warnings: sel?.warnings ?? [], warningDetails, page: `bom/generated/parts/${part.id}.md` };
   });
   const keys = ['scenarioId', 'scenarioName', 'buildId', 'destinationName', 'quoteSnapshotId', 'inputDigest', 'reportCurrency', 'complete',
     'completeLandedTotal', 'knownGoodsSubtotal', 'knownShippingSubtotal', 'knownSubtotal', 'assemblyKnownGoods',
     'sharedProcurementStockKnownGoods', 'sharedBundleGoods', 'sharedShipping', 'shipping', 'knownCustomsSubtotal', 'customs',
     'estimatedMaterialSubtotal', 'estimatedPartialSubtotal', 'assemblyEstimatedMaterials', 'assemblyPartialGoods'];
   const summary = Object.fromEntries(keys.map((k) => [k, report[k]]));
-  // The page also lists excluded alternatives: retain their design work in the
-  // overview without changing the scenario's financial completeness or totals.
-  summary.warningDetails = [...report.warningDetails, ...parts.filter((part) => part.required === null).flatMap((part) => part.warningDetails)];
+  // Part lists include scenario issues, excluded alternatives and CAD geometry.
+  // Use their owned design messages once; scenario messages have a part-ID prefix.
+  // Keep global procurement issues without changing financial completeness/totals.
+  summary.warningDetails = uniqueWarnings([...report.warningDetails.filter((warning) => warning.partIds.length === 0),
+    ...parts.flatMap((part) => part.warningDetails)]);
   summary.warningCount = summary.warningDetails.length;
-  summary.warningCounts = Object.fromEntries(['critical', 'warning'].map((severity) =>
-    [severity, summary.warningDetails.filter((warning) => warning.severity === severity).length]));
+  summary.warningCounts = warningCounts(summary.warningDetails);
   return { summary, parts, assemblies };
 }
 
@@ -487,7 +492,7 @@ const site = {
   commitDate: process.env.ARBI_SOURCE_DATE || git('log', '-1', '--format=%cs') || 'unknown',
   readme: { title: mdTitle(readme, 'ARBI'), summary: mdSummary(readme) },
   registry,
-  bom: bom(),
+  bom: bom(registry.models),
   docs: docs(),
   release: release && { tag: release.tag, commit: release.commit, url: release.url, assetCount: Object.keys(release.assets).length, missingOutputs: missing,
     booklets: Object.keys(release.assets).filter((n) => /\.(pdf|zip)$/.test(n)).map((n) => ({ name: n, url: release.base + n, sha256: release.assets[n] })) },

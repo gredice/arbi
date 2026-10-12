@@ -7,7 +7,7 @@ import { numberAssemblies } from "./assembly-hierarchy";
 import { partCatalog } from "./part-catalog";
 import { isPulleyHeadPart, pulleyHeadModels } from "./corner-overview";
 import { modelWarnings, uniqueWarnings, warningCounts } from "./warnings";
-import type { BomPart, BomWarning, Download, InventoryItem, MeshRef, Model, Scene, SceneMeta, ScenePart } from "./types";
+import type { BomPart, BomWarning, Download, InventoryItem, MeshRef, Model, Scene, SceneMeta, ScenePart, WarningCounts } from "./types";
 
 const DATA = join(process.cwd(), "public/data");
 const readJson = <T,>(path: string): T => JSON.parse(readFileSync(join(DATA, path), "utf8")) as T;
@@ -46,7 +46,7 @@ type RawSite = {
             sharedProcurementStockKnownGoods: string;
             warningCount: number;
             warningDetails: BomWarning[];
-            warningCounts: { critical: number; warning: number };
+            warningCounts: WarningCounts;
         };
         parts: BomPart[];
         assemblies: Assembly[];

@@ -97,7 +97,10 @@ the displayed geometry never substitutes for the assembly quantity record.
 
 Purchased parts and items without fabrication sources have approximate
 `visualization` models in the canonical CAD registry. Parts and BOM pages expose
-their dimension basis and explicit rework requirements. Visualizations cannot
+their dimension basis and explicit rework requirements as Critical work, including
+in BOM rows and summaries. Resolve dimensions and interfaces before dependent
+assembly design. Unconfirmed designs remain Warning; price, tax/VAT, shipping,
+availability and observation dates are separate Issues. Visualizations cannot
 be used as fabrication sources or added to installed assembly counts by a parts
 lineup. The CAD preview pack includes their STL meshes with checksums and full
 source hashes, so local preview and production consume the same verified geometry.

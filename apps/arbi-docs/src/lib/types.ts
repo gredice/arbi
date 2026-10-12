@@ -3,7 +3,7 @@
 export type Vec3 = [number, number, number];
 
 export type BomWarning = {
-    severity: "critical" | "warning";
+    severity: "critical" | "warning" | "issue";
     code: string;
     message: string;
     partIds: string[];
@@ -125,4 +125,5 @@ export type BomPart = {
 
 export type Download = { url: string; label: string; sha256: string | null; verified: boolean };
 
-export type InventoryItem = { id: string; name?: string; note?: string; figure: string | null; count: number | null; warningCounts?: { critical: number; warning: number } };
+export type WarningCounts = Record<BomWarning["severity"], number>;
+export type InventoryItem = { id: string; name?: string; note?: string; figure: string | null; count: number | null; warningCounts?: WarningCounts };

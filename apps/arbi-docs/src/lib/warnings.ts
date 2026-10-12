@@ -1,19 +1,24 @@
-import type { BomWarning, Model } from "./types.ts";
+import type { BomWarning, Model, WarningCounts } from "./types.ts";
+
+export const warningPriorities = ["critical", "warning", "issue"] as const;
+export const warningLabels = { critical: "Critical", warning: "Warning", issue: "Issues" };
 
 export function uniqueWarnings(warnings: BomWarning[]): BomWarning[] {
     const entries = new Map<string, BomWarning>();
     for (const warning of warnings) {
         const key = JSON.stringify([warning.code, warning.message, warning.partIds]);
-        if (entries.get(key)?.severity !== "critical") entries.set(key, warning);
+        const existing = entries.get(key);
+        if (!existing || warningPriorities.indexOf(warning.severity) < warningPriorities.indexOf(existing.severity)) entries.set(key, warning);
     }
     return [...entries.values()]
-        .sort((a, b) => Number(b.severity === "critical") - Number(a.severity === "critical") ||
+        .sort((a, b) => warningPriorities.indexOf(a.severity) - warningPriorities.indexOf(b.severity) ||
             Number(b.code === "temporary-cable-tie") - Number(a.code === "temporary-cable-tie") || a.message.localeCompare(b.message, "en"));
 }
 
-export function warningCounts(warnings: BomWarning[]): { critical: number; warning: number } {
+export function warningCounts(warnings: BomWarning[]): WarningCounts {
     return { critical: warnings.filter((warning) => warning.severity === "critical").length,
-        warning: warnings.filter((warning) => warning.severity === "warning").length };
+        warning: warnings.filter((warning) => warning.severity === "warning").length,
+        issue: warnings.filter((warning) => warning.severity === "issue").length };
 }
 
 export function modelWarnings(model: Model, bomWarnings: BomWarning[]): BomWarning[] {
@@ -23,7 +28,7 @@ export function modelWarnings(model: Model, bomWarnings: BomWarning[]): BomWarni
     }
     if (model.geometry) {
         const measured = model.geometry.status === "measured-envelope";
-        warnings.push({ severity: "warning", code: measured ? "simplified-details" : "approximate-geometry", message: `${measured ? "Measured envelope; simplified details" : "Approximate geometry"}: ${model.geometry.rework}`, partIds: model.bomPartIds, assemblyIds: [model.assembly] });
+        warnings.push({ severity: measured ? "warning" : "critical", code: measured ? "simplified-details" : "approximate-geometry", message: measured ? `Measured envelope; simplified details: ${model.geometry.rework}` : `Approximate geometry · needs rework (${model.id}): ${model.geometry.rework} Resolve dimensions and interfaces before dependent assembly design.`, partIds: model.bomPartIds, assemblyIds: [model.assembly] });
     }
     return uniqueWarnings(warnings);
 }
