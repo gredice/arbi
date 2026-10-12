@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Crumb } from "@/components/Crumb";
+import { WarningBadges, WarningOverview } from "@/components/Warnings";
 import { fmt } from "@/lib/format";
 import { data } from "@/lib/site";
 
@@ -17,7 +18,7 @@ export default function Bom() {
         [fmt.eur(sum.estimatedPartialSubtotal), "Estimated partial subtotal"],
         ["Unavailable", "Complete landed total"],
         [fmt.eur(sum.estimatedMaterialSubtotal), "Estimated print materials"],
-        [String(sum.warningCount), "Open warnings"],
+        [`${sum.warningCounts.critical} / ${sum.warningCounts.warning}`, "Critical / warning"],
     ];
     return (
         <>
@@ -47,6 +48,7 @@ export default function Bom() {
                     Supports, purge, failed prints, energy, machine time, labour, filament shipping and destination VAT adjustments remain unresolved.
                     Bundle goods are allocated by purchased part count, including surplus. Allocated shares are not individual supplier prices; shipping stays separate.
                 </p>
+                <WarningOverview warnings={sum.warningDetails} linkTo="bom" />
                 {[...groups].map(([group, list]) => (
                     <section key={group} className="mt-10">
                         <div className="flex items-end justify-between">
@@ -75,6 +77,7 @@ export default function Bom() {
                                             <Link href={`/bom/${p.id}`} className="hover:underline">
                                                 {p.name}
                                             </Link>
+                                            <WarningBadges warnings={p.warningDetails} />
                                             {p.printEstimate && (
                                                 <div className="tag mt-1 mb-2 text-[10px]">
                                                     {p.printEstimate.materialName} · {p.printEstimate.weightGrams} g total · solid-volume estimate

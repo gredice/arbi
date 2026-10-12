@@ -15,6 +15,10 @@
 
 - 200 x 40 x 200 mm, 5 mm galvanized steel angle. Replace the 150 mm angle; two 13 mm centres at 45/155 mm, terminal 9 mm hole 167.55 mm from front seat for passive line, 166.65 mm for powered. Existing factory holes/bend require inspection before drilling.
 
+## Design warnings
+
+- **Warning:** This part is planned; confirm its specification and selection with committed evidence.
+
 ## Notes
 
 Historical metal-head alternative; excluded from baseline and printed-head selection. Do not combine its geometry or hardware stack with the printed carrier. See docs/assemblies/corner-station/design-package.md#historical-metal-alternatives. No price or engineering qualification asserted.

@@ -18,6 +18,10 @@
 - Concept-unvalidated: drilling, fit, full-travel abrasion, ventilation, heat, rain, strength and safe guarding require physical acceptance.
 - r0.3.0 bottom-loom layout: two 14 mm apertures near the pole; right-end ports closed. Provisional motor/encoder looms <=10 mm OD, routed under the drum. Independent anchor moves to X=W/2+60, Y=-60; add its revised base holes.
 
+## Design warnings
+
+- **Warning:** Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
+
 ## Notes
 
 Three passive plus one powered kit retains 14 hoods, 10 shutters, 56 clips, four anchors, 28 fascia strips and 14 rear shields. Replace passive left/right and powered right at r0.3.0; add the powered pole middle and one pole fascia per winch. Reuse unchanged drivetrain, clips, shutters and common fascia. Round-pole saddles/caps are separate alternative kits. Physical fit, cable bend/strain relief and support acceptance remain open. See hardware/assemblies/winch/full-cover.md.

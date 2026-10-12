@@ -15,6 +15,10 @@
 
 - Nominal 26 mm final bore, stem slot and upward head stop; current compact pod bench interface.
 
+## Design warnings
+
+- **Warning:** Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
+
 ## Notes
 
 DOCK-IF-01 bench-development kit, not accepted for suspended installation. Bought hardware is counted separately.

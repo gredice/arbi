@@ -30,6 +30,17 @@ Browse the [BOM item index](generated/parts/README.md) for a separate Markdown p
 
 Each page shows canonical requirements and notes, assembly usage quantities and inclusion status, links to the owning assembly documentation and BOM reports, and fabrication sources where recorded. Assembly `documentation` links are repository-relative paths in `assemblies/assemblies.json`. Quantities shown on item pages are per assembly definition; scenario reports apply build multipliers and inclusion policy.
 
+### Warning priorities
+
+- **Critical**: temporary workarounds and missing requirements, fabrication sources, package quantities, prices, observation dates, availability, tax or shipping information. Resolve the named issue before accepting the final assembly or relying on complete procurement data.
+- **Warning**: concepts, prototypes, approximate geometry and supplier selections awaiting confirmation. Record the review, measurements or physical acceptance evidence before advancing their status.
+
+**Cable ties are temporary workarounds only, never a final retention or fastening solution.** The affected catalog parts carry a critical `temporary-cable-tie` design warning with the replacement work described. Current geometry and historical booklets may still show ties; these interfaces remain unresolved until dedicated removable mounts, fasteners or strain relief are designed and reviewed. Ties must never carry positioning-line tension.
+
+Part-specific `designWarnings` belong to the canonical catalog. The schema prevents downgrading a cable-tie warning. The calculator adds structured `warningDetails` with priority and part/assembly ownership while retaining its existing text `warnings` list. `partWarnings` includes optional and deferred parts, even when excluded from the scenario. Generated item pages show design warnings; scenario reports and website Parts/BOM pages also show procurement warnings. The website uses red critical badges and amber warning badges, with expandable work lists and links to affected items.
+
+Calculation `complete` continues to describe procurement cost completeness; engineering warnings do not grant physical acceptance or establish that a design is ready to build.
+
 Item pages and their index are generated: change canonical inputs and run `pnpm bom:generate`. `pnpm bom:check` detects missing, stale, and orphaned item pages. Both commands handle the complete item catalog even when a single scenario is requested.
 
 ## Physical ownership

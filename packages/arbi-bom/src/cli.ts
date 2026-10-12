@@ -168,7 +168,7 @@ async function check(): Promise<void> {
   console.log(
     "BOM inputs are valid and generated reports are current (" +
       warningCount +
-      " visible incompleteness warnings).",
+      " visible prioritized warnings).",
   );
 }
 

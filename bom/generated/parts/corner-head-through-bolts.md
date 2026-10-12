@@ -15,6 +15,10 @@
 
 - Two M12 galvanized 8.8 bolts per round head: nominal 160/180/200 mm lengths for 100/120/140 mm timber with two 10 mm saddles. Check full nut/locking engagement and >=2 protruding threads on received stack. Replaces the baseline M12 x 160 pair.
 
+## Design warnings
+
+- **Warning:** This part is planned; confirm its specification and selection with committed evidence.
+
 ## Notes
 
 Historical metal-head alternative; excluded from baseline and printed-head selection. Do not combine its geometry or hardware stack with the printed carrier. See docs/assemblies/corner-station/design-package.md#historical-metal-alternatives. No price or engineering qualification asserted.

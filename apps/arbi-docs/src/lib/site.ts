@@ -6,7 +6,8 @@ import { links } from "./format";
 import { numberAssemblies } from "./assembly-hierarchy";
 import { partCatalog } from "./part-catalog";
 import { isPulleyHeadPart, pulleyHeadModels } from "./corner-overview";
-import type { BomPart, Download, InventoryItem, MeshRef, Model, Scene, SceneMeta, ScenePart } from "./types";
+import { modelWarnings, uniqueWarnings, warningCounts } from "./warnings";
+import type { BomPart, BomWarning, Download, InventoryItem, MeshRef, Model, Scene, SceneMeta, ScenePart } from "./types";
 
 const DATA = join(process.cwd(), "public/data");
 const readJson = <T,>(path: string): T => JSON.parse(readFileSync(join(DATA, path), "utf8")) as T;
@@ -44,6 +45,8 @@ type RawSite = {
             assemblyKnownGoods: { assemblyId: string; amount: string }[];
             sharedProcurementStockKnownGoods: string;
             warningCount: number;
+            warningDetails: BomWarning[];
+            warningCounts: { critical: number; warning: number };
         };
         parts: BomPart[];
         assemblies: Assembly[];
@@ -208,7 +211,15 @@ export function sceneModels(slug: string): string[] {
 }
 
 export const inventory = (ids: string[], counted = true, slug?: string): InventoryItem[] =>
-    ids.map((id) => ({ id, figure: figureFor(id), count: counted ? installedCount(id, slug) : null }));
+    ids.map((id) => ({ id, figure: figureFor(id), count: counted ? installedCount(id, slug) : null, warningCounts: warningCounts(warningsFor(id)) }));
+
+export function warningsFor(id: string): BomWarning[] {
+    const { bomById, modelById } = data();
+    const part = bomById.get(id);
+    if (part) return uniqueWarnings([...part.warningDetails, ...modelsForBomPart(id).flatMap((model) => modelWarnings(model, part.warningDetails))]);
+    const model = modelById.get(id);
+    return model ? modelWarnings(model, uniqueWarnings(model.bomPartIds.flatMap((partId) => bomById.get(partId)?.warningDetails ?? []))) : [];
+}
 
 export function catalogInventory(ids: string[]): InventoryItem[] {
     return ids.map((id) => {
@@ -218,6 +229,7 @@ export function catalogInventory(ids: string[]): InventoryItem[] {
             id, name: entry.name, count: null,
             figure: entry.modelIds.map(figureFor).find(Boolean) ?? figureFor(id),
             note: models.some((model) => model.geometry) ? "Approximate · needs rework" : undefined,
+            warningCounts: warningCounts(warningsFor(id)),
         };
     });
 }

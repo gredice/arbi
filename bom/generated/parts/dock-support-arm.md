@@ -15,6 +15,10 @@
 
 - Bench candidate on non-powered corner; use shared round-post dimensions and dedicated mounting rows.
 
+## Design warnings
+
+- **Warning:** Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
+
 ## Notes
 
 DOCK-IF-01 bench-development kit, not accepted for suspended installation. Bought hardware is counted separately.

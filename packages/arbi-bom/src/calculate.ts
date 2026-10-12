@@ -1,3 +1,4 @@
+import { BomWarnings, designWarnings, compareWarnings } from "./warnings.js";
 import {
   ceilRatio,
   Decimal,
@@ -180,7 +181,8 @@ export function calculateBom(
   const priceByOffer = new Map(
     repository.quote.offerPrices.map((price) => [price.offerId, price]),
   );
-  const globalWarnings = new Set<string>(validation.warnings);
+  const globalWarnings = new BomWarnings(repository);
+  for (const warning of validation.warnings) globalWarnings.add(warning);
   const destination = repository.locations.locations.find(
     (location) => location.id === scenario.destinationId,
   );
@@ -193,7 +195,7 @@ export function calculateBom(
 
   for (const partId of requirements.keys()) {
     if (scenario.selection.pins[partId] === undefined) {
-      globalWarnings.add("Required part " + partId + " has no pinned offer.");
+      globalWarnings.add("Required part " + partId + " has no pinned offer.", [partId]);
     }
   }
 
@@ -214,13 +216,8 @@ export function calculateBom(
     }
     const warnings: string[] = [];
     const coveredContents = selectedContents(offer, requirements, scenario);
-    if (offer.qualification !== "approved") {
-      warnings.push(
-        "Qualification is " +
-          offer.qualification +
-          "; the recorded selection is not engineering approval.",
-      );
-    }
+    const qualificationWarning = "Qualification is " + offer.qualification + "; the recorded selection is not engineering approval.";
+    if (offer.qualification !== "approved") warnings.push(qualificationWarning);
 
     let purchaseUnits: bigint | null = null;
     const coverage: CoverageResult[] = [];
@@ -369,7 +366,9 @@ export function calculateBom(
     }
     warnings.sort();
     for (const warning of warnings) {
-      globalWarnings.add(offer.id + ": " + warning);
+      globalWarnings.add(offer.id + ": " + warning, coveredContents.map((content) => content.partId),
+        warning === qualificationWarning ? "warning" : "critical",
+        warning === qualificationWarning ? "unconfirmed-selection" : "missing-information");
     }
     selections.push({
       offerId: offer.id,
@@ -402,8 +401,9 @@ export function calculateBom(
       (candidate) => candidate.checkoutGroupId === checkoutGroupId,
     );
     const warnings: string[] = [];
+    const groupPartIds = selections.filter((selection) => selection.checkoutGroupId === checkoutGroupId).flatMap((selection) => selection.coverage.map((coverage) => coverage.partId));
     if (quote === undefined) {
-      globalWarnings.add(checkoutGroupId + ": Shipping policy is missing.");
+      globalWarnings.add(checkoutGroupId + ": Shipping policy is missing.", groupPartIds);
       continue;
     }
     if (quote.customsPolicyId !== undefined) {
@@ -422,7 +422,10 @@ export function calculateBom(
       else customsAmount = convertMoney(repository, Decimal.parse(policy.amount).multiplyInteger(BigInt(groupSelections.length)), policy.currency, scenario.reportCurrency);
       if (customsAmount !== null) knownCustoms = knownCustoms.add(customsAmount);
       if (active) customsWarnings.push("One selected offer approximates one declared item type; actual customs grouping is unconfirmed.");
-      for (const warning of customsWarnings) globalWarnings.add(checkoutGroupId + ": " + warning);
+      for (const warning of customsWarnings) {
+        const unconfirmedGrouping = warning === "One selected offer approximates one declared item type; actual customs grouping is unconfirmed.";
+        globalWarnings.add(checkoutGroupId + ": " + warning, groupPartIds, unconfirmedGrouping ? "warning" : "critical", unconfirmedGrouping ? "unconfirmed-selection" : "missing-information");
+      }
       customs.push({ checkoutGroupId, policy, chargeCount: active ? groupSelections.length : 0, orderGoodsAmount: orderGoods?.toString() ?? null, knownAmount: customsAmount?.toString() ?? null, warnings: customsWarnings });
     }
     const basis = quote.basis ?? "checkout-group";
@@ -471,7 +474,7 @@ export function calculateBom(
     }
     warnings.sort();
     for (const warning of warnings) {
-      globalWarnings.add(checkoutGroupId + ": " + warning);
+      globalWarnings.add(checkoutGroupId + ": " + warning, groupPartIds);
     }
     shipping.push({
       basis,
@@ -562,14 +565,14 @@ export function calculateBom(
     // supersedes the consumption estimate, so the same part is never charged twice.
     if (offerId && (offerById.get(offerId)?.supplierId !== "in-house-fabrication" || knownGoodsByOffer.has(offerId))) continue;
     if (repository.fabrication.destinationId !== scenario.destinationId) {
-      globalWarnings.add(`${recipe.partId}: No filament price evidence for this destination.`);
+      globalWarnings.add(`${recipe.partId}: No filament price evidence for this destination.`, [recipe.partId]);
       continue;
     }
     const estimate = estimatePrintMaterials(repository, recipe, requirement.quantity.toString(), scenario.reportCurrency);
     fabrication.push(estimate);
-    globalWarnings.add(`${recipe.partId}: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.`);
+    globalWarnings.add(`${recipe.partId}: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.`, [recipe.partId]);
     if (estimate.materialCost === null) {
-      globalWarnings.add(`${recipe.partId}: Filament price or currency conversion is unknown.`);
+      globalWarnings.add(`${recipe.partId}: Filament price or currency conversion is unknown.`, [recipe.partId]);
       continue;
     }
     const amount = Decimal.parse(estimate.materialCost);
@@ -578,8 +581,27 @@ export function calculateBom(
       assemblyMaterials.set(allocation.id, (assemblyMaterials.get(allocation.id) ?? Decimal.zero()).add(allocation.amount));
     }
   }
-  const warnings = [...globalWarnings].sort();
-  const complete = warnings.length === 0;
+  // Cost completeness retains its existing meaning; engineering warnings are
+  // independent of whether a landed price can be computed.
+  const costComplete = globalWarnings.texts().length === 0;
+  const partWarnings = Object.fromEntries(repository.parts.parts.map((part) => {
+    const owned = designWarnings(part).map((warning) => ({ ...warning, partIds: [part.id],
+      assemblyIds: repository.assemblies.assemblies.filter((assembly) => assembly.usages.some((usage) => usage.partId === part.id)).map((assembly) => assembly.id).sort(),
+    }));
+    if (requirements.has(part.id)) for (const warning of owned) {
+      globalWarnings.add(`${part.id}: ${warning.message}`, [part.id], warning.severity, warning.code);
+    }
+    return [part.id, owned];
+  }));
+  const warningDetails = globalWarnings.details();
+  for (const part of repository.parts.parts) {
+    const messages = new Set(partWarnings[part.id]!.map((warning) => warning.message));
+    partWarnings[part.id]!.push(...warningDetails.filter((warning) => warning.partIds.includes(part.id) &&
+      !messages.has(warning.message.replace(`${part.id}: `, ""))));
+    partWarnings[part.id]!.sort(compareWarnings);
+  }
+  const warnings = globalWarnings.texts();
+  const complete = costComplete;
   const knownSubtotal = knownGoods.add(knownShipping).add(knownCustoms);
   return {
     schemaVersion: 1,
@@ -630,5 +652,7 @@ export function calculateBom(
     sharedBundleGoods: sharedBundleGoods.toString(),
     sharedShipping: knownShipping.toString(),
     warnings,
+    warningDetails,
+    partWarnings,
   };
 }

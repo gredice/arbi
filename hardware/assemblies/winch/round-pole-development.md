@@ -1,5 +1,7 @@
 # Round-pole and bottom-cable development proposal
 
+> **Critical — temporary cable-tie retention.** The cable-guide ties around the post are a bench workaround only. The final guide needs a dedicated removable fastening method; see the [prioritized BOM warnings](../../../bom/README.md#warning-priorities). Existing nominal geometry and historical checks do not close this issue.
+
 The owner requested a circular pole interface and cable exits at the bottom beside the pole on 7 October 2026. [Issue #104](https://github.com/gredice/arbi/issues/104) records the proposal before physical-interface work. The default study is 120 mm timber, with matching parametric 100–140 mm saddle cases.
 
 Preserve the original drivetrain, plate dimensions, four M8 hole positions and 25 mm front mounting offset. Add two metal front saddles, two rear saddles, removable nut covers and a non-structural cable guide. Move fixed motor/encoder ports and the independent anchor to the bottom/pole area. Keep upward positioning-line payout and the separate driver/slip-ring work boundaries.

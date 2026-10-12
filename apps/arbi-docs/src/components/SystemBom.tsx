@@ -2,6 +2,7 @@ import Link from "next/link";
 import { data, modelsForBomPart, type System } from "@/lib/site";
 import { fmt } from "@/lib/format";
 import { descendantIds } from "@/lib/corner-overview";
+import { WarningBadges, WarningList } from "./Warnings";
 
 /** Direct owners and descendants share one deduplicated BOM, including kit contents. */
 export function SystemBom({ system }: { system: System }) {
@@ -29,11 +30,12 @@ export function SystemBom({ system }: { system: System }) {
                     return (
                         <details key={part.id} className="group border-b border-ink">
                             <summary className="grid cursor-pointer gap-2 py-4 sm:grid-cols-[1fr_120px_220px]">
-                                <span><span className="cond text-[21px]">{part.name}</span><span className="tag ml-2" aria-hidden="true"><span className="group-open:hidden">+</span><span className="hidden group-open:inline">−</span></span></span>
+                                <span><span className="cond text-[21px]">{part.name}</span><span className="tag ml-2" aria-hidden="true"><span className="group-open:hidden">+</span><span className="hidden group-open:inline">−</span></span><WarningBadges warnings={part.warningDetails} /></span>
                                 <span className="tag">{optional ? "Excluded from V1" : `${part.required} ${part.unit} in V1`}</span>
                                 <span className="mono text-[12px] sm:text-right">{price}</span>
                             </summary>
                             <div className="pb-5 text-[13px]">
+                                <WarningList warnings={part.warningDetails} />
                                 <Link href={`/bom/${part.id}`} className="underline">Requirements, sourcing and price evidence →</Link>
                                 {part.notes && <p className="mt-3 max-w-4xl text-grey">{part.notes}</p>}
                                 {components.length > 0 ? (

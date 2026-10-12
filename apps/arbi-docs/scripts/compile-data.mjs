@@ -326,14 +326,19 @@ function bom() {
       goodsAllocationBasis: sel?.goodsAllocationBasis ?? null, offerUrl: offers[r.selectedOfferId]?.listing?.url ?? null,
       printEstimate: prints[part.id] ?? null,
       printReference: printReferences[part.id] ?? null,
-      warnings: sel?.warnings ?? [], page: `bom/generated/parts/${part.id}.md` };
+      warnings: sel?.warnings ?? [], warningDetails: report.partWarnings[part.id], page: `bom/generated/parts/${part.id}.md` };
   });
   const keys = ['scenarioId', 'scenarioName', 'buildId', 'destinationName', 'quoteSnapshotId', 'inputDigest', 'reportCurrency', 'complete',
     'completeLandedTotal', 'knownGoodsSubtotal', 'knownShippingSubtotal', 'knownSubtotal', 'assemblyKnownGoods',
     'sharedProcurementStockKnownGoods', 'sharedBundleGoods', 'sharedShipping', 'shipping', 'knownCustomsSubtotal', 'customs',
     'estimatedMaterialSubtotal', 'estimatedPartialSubtotal', 'assemblyEstimatedMaterials', 'assemblyPartialGoods'];
   const summary = Object.fromEntries(keys.map((k) => [k, report[k]]));
-  summary.warningCount = report.warnings.length;
+  // The page also lists excluded alternatives: retain their design work in the
+  // overview without changing the scenario's financial completeness or totals.
+  summary.warningDetails = [...report.warningDetails, ...parts.filter((part) => part.required === null).flatMap((part) => part.warningDetails)];
+  summary.warningCount = summary.warningDetails.length;
+  summary.warningCounts = Object.fromEntries(['critical', 'warning'].map((severity) =>
+    [severity, summary.warningDetails.filter((warning) => warning.severity === severity).length]));
   return { summary, parts, assemblies };
 }
 

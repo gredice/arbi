@@ -125,6 +125,14 @@ test('the offline compiler consumes a current preview pack and writes its refere
     assert.equal(coupling.customsPolicy.startsOn, '2026-07-01');
     assert.equal(coupling.customsPolicy.endsOn, null);
     assert.ok(!coupling.warnings.some((warning) => warning.includes('Tax/VAT')));
+    assert.ok(site.bom.summary.warningCounts.critical > 0);
+    assert.ok(site.bom.summary.warningCounts.warning > 0);
+    assert.equal(site.bom.summary.warningCounts.critical + site.bom.summary.warningCounts.warning, site.bom.summary.warningCount);
+    for (const id of ['camera-pod-chassis', 'winch-round-pole-covers']) {
+      const part = site.bom.parts.find((part) => part.id === id);
+      assert.ok(part.warningDetails.some((warning) => warning.severity === 'critical' && warning.code === 'temporary-cable-tie'));
+      assert.ok(site.bom.summary.warningDetails.some((warning) => warning.severity === 'critical' && warning.code === 'temporary-cable-tie' && warning.partIds.includes(id)));
+    }
     assert.equal(site.figures[model.id], `figures/${model.id}.png`);
     assert.ok(existsSync(join(data, site.figures[model.id])));
     assert.deepEqual(readFileSync(join(data, site.figures[model.id])), figure);

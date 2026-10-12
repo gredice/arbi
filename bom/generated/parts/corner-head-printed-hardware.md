@@ -18,6 +18,10 @@
 - Use the one supplied 4.7 mm Barton clevis pin and its positive locking ring per block; inspect usable length, seating and locking engagement on the actual 14.8 mm lug. Do not substitute an M8 pin or enlarge factory tang holes. Two independent outdoor UV-rated cosmetic straps per head, <=2.5 mm wide and <=1 mm thick, starting length 800 mm; replace after service.
 - This set replaces baseline bolt/washer/nut/shackle quantities when choosing the printed head. Measured suitable baseline M12 washers/nuts may be reused and counted once. Does not include the received pulley, fitted keeper, guy hardware or steel-head optional sets.
 
+## Design warnings
+
+- **Warning:** This part is planned; confirm its specification and selection with committed evidence.
+
 ## Notes
 
 New printed-head proposal; excluded from the purchasing baseline. Select instead of steel angle/plates, metal saddles and their covers. See docs/assemblies/corner-station/design-package.md. No supplier offer, cost or physical qualification asserted.

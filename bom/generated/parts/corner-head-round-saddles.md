@@ -15,6 +15,11 @@
 
 - One front and one rear machined METAL saddle per round-pole station. Nominal 100/120/140 mm studies; measure taper/ovality. Material, contact, corrosion, tolerance and capacity require review. Do not print for structural use.
 
+## Design warnings
+
+- **Warning:** Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
+- **Warning:** This part is planned; confirm its specification and selection with committed evidence.
+
 ## Notes
 
 Historical metal-head alternative; excluded from baseline and printed-head selection. Sources remain metal machining/fit envelopes. See docs/assemblies/corner-station/design-package.md#historical-metal-alternatives. No price or engineering qualification asserted.

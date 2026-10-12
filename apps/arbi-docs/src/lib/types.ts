@@ -2,6 +2,14 @@
 
 export type Vec3 = [number, number, number];
 
+export type BomWarning = {
+    severity: "critical" | "warning";
+    code: string;
+    message: string;
+    partIds: string[];
+    assemblyIds: string[];
+};
+
 export type Model = {
     archiveReason?: string;
     supersededBy?: string[];
@@ -112,8 +120,9 @@ export type BomPart = {
     printReference: PrintEstimate | null;
     offerUrl: string | null;
     warnings: string[];
+    warningDetails: BomWarning[];
 };
 
 export type Download = { url: string; label: string; sha256: string | null; verified: boolean };
 
-export type InventoryItem = { id: string; name?: string; note?: string; figure: string | null; count: number | null };
+export type InventoryItem = { id: string; name?: string; note?: string; figure: string | null; count: number | null; warningCounts?: { critical: number; warning: number } };

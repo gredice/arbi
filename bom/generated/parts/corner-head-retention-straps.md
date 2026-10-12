@@ -15,6 +15,10 @@
 
 - Three independent outdoor UV-rated straps per head, <=2.5 mm wide and <=1 mm thick; starting length 800 mm. Two pass through stem/rear shields; one wraps the roof and steel arm; no structural retention role. Physical strength, creep, weather and retention qualification required.
 
+## Design warnings
+
+- **Warning:** This part is planned; confirm its specification and selection with committed evidence.
+
 ## Notes
 
 Historical metal-head alternative; excluded from baseline and printed-head selection. Do not combine its geometry or hardware stack with the printed carrier. See docs/assemblies/corner-station/design-package.md#historical-metal-alternatives. No price or engineering qualification asserted.

@@ -1,5 +1,7 @@
 # Round timber-pole winch mount
 
+> **Critical — temporary cable-tie retention.** Cable-guide ties are bench workarounds only. A dedicated removable fastening method is required for the final assembly; see the [prioritized BOM warnings](../../../bom/README.md#warning-priorities).
+
 Status: **concept-unvalidated**, revision r0.1.0. [Proposal and acceptance](https://github.com/gredice/arbi/issues/104). This is the round-timber alternative to the flat-post spacer/backing-plate stack; do not combine both stacks. No installation or load rating is established.
 
 ## Interface and fabrication

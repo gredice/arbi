@@ -15,6 +15,11 @@
 
 - One shared 205 x 50 x 4 mm printed marking tool for the four-station set, with 3 mm centre marks at 45/155 mm. Check scale and selected print dimensions; remove before drilling controlled coaxial 13 mm timber holes. Not a drill bush or installed structural part.
 
+## Design warnings
+
+- **Warning:** Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
+- **Warning:** This part is planned; confirm its specification and selection with committed evidence.
+
 ## Notes
 
 New printed-head proposal; excluded from the purchasing baseline. Select instead of steel angle/plates, metal saddles and their covers. See docs/assemblies/corner-station/design-package.md. No supplier offer, full fabrication quote or physical qualification asserted. An optional ASA solid-volume material estimate is recorded separately; it is only a costing assumption.

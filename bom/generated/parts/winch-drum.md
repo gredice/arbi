@@ -15,6 +15,10 @@
 
 - Direct-drive, single-layer grooved drum on independent 8 mm shaft. No GT2 pulley, belt or gearbox in V1.
 
+## Design warnings
+
+- **Warning:** Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
+
 ## Notes
 
 One assembled drum per BOM unit. Print three passive kits and one powered kit using hardware/assemblies/winch/README.md; source list is a variant/component library, not one copy of every source per drum. PLA first prototype; later ASA requires separate fit/process qualification. Full-travel powered drum is substantially wider and its shaft deflection is unvalidated.

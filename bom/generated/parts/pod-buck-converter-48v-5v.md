@@ -15,6 +15,10 @@
 
 - Input rating ≥60 V; 48 V nominal input; regulated 5 V output; ≥3 A. One active + one spare.
 
+## Design warnings
+
+- **Critical:** Two cable ties currently retain the pod converter. Replace them with a dedicated insulated removable mounting method; cable ties are temporary bench workarounds only, never final retention.
+
 ## Used in
 
 Quantities are per assembly definition, before build multipliers. Optional and deferred usages are shown even when excluded from a scenario. Procurement stock is not an installed physical owner.

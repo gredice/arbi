@@ -18,6 +18,10 @@
 - Attach with four M8 x 35 bolts, eight standard M8 washers and four M8 nuts; these are separate from the printed parts.
 - Unloaded desk assembly and rotation checks only; physical fit and stability are unverified.
 
+## Design warnings
+
+- **Warning:** Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
+
 ## Notes
 
 Optional bench fixture, excluded from installed-system assembly quantities and procurement totals. Print settings and installation: hardware/assemblies/winch/desk-feet.md. No structural or loaded-line qualification.

@@ -1,6 +1,17 @@
 export type Inclusion = "base" | "optional" | "deferred";
 export type BaseUnit = "each" | "m";
 
+export interface DesignWarning {
+  severity: "critical" | "warning";
+  code: string;
+  message: string;
+}
+
+export interface BomWarning extends DesignWarning {
+  partIds: string[];
+  assemblyIds: string[];
+}
+
 export interface Part {
   id: string;
   name: string;
@@ -11,6 +22,7 @@ export interface Part {
   traits: string[];
   requirements: string[];
   notes?: string;
+  designWarnings?: DesignWarning[];
   fabrication?: {
     process: "openscad";
     modelStatus:
@@ -387,4 +399,6 @@ export interface CalculationResult {
   sharedBundleGoods: string;
   sharedShipping: string;
   warnings: string[];
+  warningDetails: BomWarning[];
+  partWarnings: Record<string, BomWarning[]>;
 }

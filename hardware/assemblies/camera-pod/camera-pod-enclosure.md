@@ -1,5 +1,7 @@
 # Compact integrated camera pod rain enclosure r0.3.6
 
+> **Critical — temporary cable-tie retention.** The converter, capacitor and harness retention shown here is a bench workaround only. Cable ties must not be the final assembly solution. Dedicated removable mounts and strain relief remain unresolved; see the [prioritized BOM warnings](../../../bom/README.md#warning-priorities). Historical CAD/check records preserve the inspected tie-based configuration, not final acceptance.
+
 This is the compact rounded black/white appearance configuration for the [camera pod mount family](camera-pod-mounts.md). It is designed to reduce ordinary rain and splash exposure of the fixed Pi/power electronics, both servo bodies, and the camera rear connector. All models remain **concept-unvalidated**. The shell has downward openings, drainage, an open gimbal aperture and exposed moving interfaces; it has no ingress rating. It does not change the [weather operating policy](../../../docs/operations/weather-parking-and-maintenance.md), dock shelter requirement or physical flight acceptance gates.
 
 ![Selected integrated black/white appearance concept](../../../docs/assemblies/camera-pod/enclosure/integrated-concept.png)

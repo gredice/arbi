@@ -16,6 +16,10 @@
 - Two front and two rear machined metal saddles per winch. Nominal pole diameter 120 mm, parameter study 100–140 mm. Existing four-hole 50x120 mm M8 pattern and 25 mm front offset retained. DO NOT print these load-bearing parts.
 - Material grade, stock, machining, corrosion treatment, contact fit, pole capacity and proof load require qualified review.
 
+## Design warnings
+
+- **Warning:** Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
+
 ## Notes
 
 Optional round-timber interface; replace the flat-post standoffs/backing plate, do not combine both mounting stacks. No supplier quote or qualified material assertion. See hardware/assemblies/winch/round-pole.md.

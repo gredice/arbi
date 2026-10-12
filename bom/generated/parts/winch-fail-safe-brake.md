@@ -15,6 +15,12 @@
 
 - Normally-engaged drum lock/brake for future revision; explicitly deferred after V1.
 
+## Design warnings
+
+- **Critical:** Fabrication sources are missing; record the manufacturing definition.
+- **Warning:** Fabrication status is planned; fit, materials and physical acceptance still need committed evidence.
+- **Warning:** This part is planned; confirm its specification and selection with committed evidence.
+
 ## Used in
 
 Quantities are per assembly definition, before build multipliers. Optional and deferred usages are shown even when excluded from a scenario. Procurement stock is not an installed physical owner.
