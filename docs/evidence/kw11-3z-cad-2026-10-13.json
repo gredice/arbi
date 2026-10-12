@@ -4,7 +4,7 @@
   "source_hashes": {
     "hardware/assemblies/winch/roller-lever-microswitch.scad": "db91d414085ad0bd4aa1f9ded60a61aea3f6cb4cca6db2d952e4d83c356d3167",
     "hardware/lib/arbi.scad": "285964a38a24304ca0f6e6ada12d1de341df9673a31d14dc366abacd83d345c3",
-    "hardware/models.json": "428c4a8b1f4311970447e8e84828e602a24627e3aac7f35c3bf0a9a9c2668020",
+    "hardware/models.json": "e601244ae4a1afe51920a26dc686565733fc10402b64b2c1f568cbcc64d97b02",
     "scripts/check-microswitch.py": "6ce0ed3f975dd80977312d36f96614b4d5e4a7e3846a3043e21f215b2657ddac"
   },
   "meshes": {
@@ -22,7 +22,7 @@
         ]
       ],
       "triangles": 1084,
-      "stl_sha256": "f306f9c27e67ce8977bb7592327b987a477104f3c1e530201978df293756ee3e"
+      "stl_sha256": "8c7bd8ecb7bb22a7ff5e36406f92de62c7505e8e9b4779bc9146cfb626530e27"
     },
     "released-roller": {
       "bounds_mm": [
@@ -38,7 +38,7 @@
         ]
       ],
       "triangles": 380,
-      "stl_sha256": "cbc3ea99948a56d7d0181737a4d7ff81fcca0911cb9d0cf2b4bf3e7f4035f719"
+      "stl_sha256": "24596d67ca4b1a40c1d15bc76ec3926f736d8a432b21d98a0851f73f6974bacd"
     },
     "released": {
       "bounds_mm": [
@@ -54,7 +54,7 @@
         ]
       ],
       "triangles": 4616,
-      "stl_sha256": "f2b1a91a8e3c57898c107b0ee11fc024ade1bb7922b86f9eaf7433ee18c087a2"
+      "stl_sha256": "3f899838df4abb74d4ed99cd2709b867ec661fd4c3ee8731c82e6a47250dfd4d"
     },
     "clicked-roller": {
       "bounds_mm": [
@@ -70,7 +70,7 @@
         ]
       ],
       "triangles": 380,
-      "stl_sha256": "3416eed5a66e629aaf18a9a94b696dac35d913e71e33eaefcb8e27ccf7fe176b"
+      "stl_sha256": "109b44a43626f2d4547d58a87596eeea8d5f4f30b115db3f617a8248637bbe36"
     },
     "clicked": {
       "bounds_mm": [
@@ -86,7 +86,7 @@
         ]
       ],
       "triangles": 4616,
-      "stl_sha256": "180b6a5d88652808cfb30204d1615dfb32a407231fc52978e29baad9dbf81fcd"
+      "stl_sha256": "0539fb88258189f22e65726fc72585e4c487925e79e37cc9c7197677a80e8704"
     },
     "fully-pressed-roller": {
       "bounds_mm": [
@@ -102,7 +102,7 @@
         ]
       ],
       "triangles": 380,
-      "stl_sha256": "90edac1a8a6e64d1ddfc6330c3cc4f41721994fb3f26a929c1a8e85ecd18b4b7"
+      "stl_sha256": "b84fdf694a115e7537ecf0b359808036e2efc9af3a60f2cb4fc99e38cd3183e4"
     },
     "fully-pressed": {
       "bounds_mm": [
@@ -118,7 +118,7 @@
         ]
       ],
       "triangles": 4616,
-      "stl_sha256": "cafff5fe524ef3511b061530205d7758bfc27e1f5113692924a667e6d9892c95"
+      "stl_sha256": "28e0a746a85aed4c4e2e9dda9cb75ad518a2fafc3401bf106faf96eab84b5227"
     }
   },
   "hole_probes": [
