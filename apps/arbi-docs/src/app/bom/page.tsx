@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Crumb } from "@/components/Crumb";
-import { WarningBadges, WarningOverview } from "@/components/Warnings";
+import { WarningBadges, WarningList } from "@/components/Warnings";
 import { fmt } from "@/lib/format";
 import { data } from "@/lib/site";
+import { uniqueWarnings, warningLabels, warningPriorities } from "@/lib/warnings";
 
 export const metadata: Metadata = { title: "Bill of materials" };
 
@@ -14,18 +15,19 @@ export default function Bom() {
         ? p.usedIn.map((u) => ({ ...p, group: u.assemblyId, required: u.quantity, knownGoods: u.knownGoodsAmount }))
         : [{ ...p, group: "not in v1 build" }]);
     const groups = Map.groupBy(lines, (p) => p.group);
+    const buildWarnings = sum.warningDetails.filter((warning) => warning.partIds.length === 0 && warning.assemblyIds.length === 0);
     const head: [string, string][] = [
         [fmt.eur(sum.estimatedPartialSubtotal), "Estimated partial subtotal"],
         ["Unavailable", "Complete landed total"],
         [fmt.eur(sum.estimatedMaterialSubtotal), "Estimated print materials"],
-        [`${sum.warningCounts.critical} / ${sum.warningCounts.warning}`, "Critical / warning"],
+        [warningPriorities.map((severity) => sum.warningCounts[severity]).join(" / "), warningPriorities.map((severity) => warningLabels[severity]).join(" / ")],
     ];
     return (
         <>
             <Crumb left="Bill of materials" right={sum.scenarioId} />
             <div className="px-4 pb-20 sm:px-6">
                 <section className="grid gap-6 border-b-2 border-ink py-8 lg:grid-cols-12">
-                    <h1 className="cond text-[88px] leading-[0.85] lg:col-span-6">
+                    <h1 className="cond text-[60px] leading-[0.85] sm:text-[88px] lg:col-span-6">
                         Bill of
                         <br />
                         materials
@@ -33,7 +35,7 @@ export default function Bom() {
                     <div className="grid grid-cols-2 self-end border-t-2 border-ink lg:col-span-6">
                         {head.map(([n, l], i) => (
                             <div key={l} className={`border-b border-ink py-3 ${i % 2 ? "border-l pl-4" : ""}`}>
-                                <div className="cond text-[34px] leading-none">{n}</div>
+                                <div className="cond text-[clamp(22px,6.2vw,34px)] leading-none sm:text-[34px]">{n}</div>
                                 <div className="tag mt-1">{l}</div>
                             </div>
                         ))}
@@ -48,11 +50,21 @@ export default function Bom() {
                     Supports, purge, failed prints, energy, machine time, labour, filament shipping and destination VAT adjustments remain unresolved.
                     Bundle goods are allocated by purchased part count, including surplus. Allocated shares are not individual supplier prices; shipping stays separate.
                 </p>
-                <WarningOverview warnings={sum.warningDetails} linkTo="bom" />
-                {[...groups].map(([group, list]) => (
-                    <section key={group} className="mt-10">
+                <p className="mt-4 max-w-4xl text-sm">
+                    <strong>Critical:</strong> unknown dimensions, approximate geometry, missing manufacturing specifications and temporary workarounds. Resolve these before dependent assembly design; cable ties must be replaced for the final assembly.
+                    {" "}<strong>Warning:</strong> unconfirmed designs, concepts and selections awaiting review.
+                    {" "}<strong>Issues:</strong> price, tax/VAT, shipping, availability and observation dates; resolve procurement details when the design and parts are confirmed. Expand the priorities below each table to review that system.
+                </p>
+                {[...groups].map(([group, list]) => {
+                    const name = site.bom.assemblies.find((a) => a.id === group)?.name ?? group;
+                    const partIds = new Set(list.map((part) => part.id));
+                    const warnings = uniqueWarnings([
+                        ...list.flatMap((part) => part.warningDetails),
+                        ...sum.warningDetails.filter((warning) => warning.partIds.length === 0 && warning.assemblyIds.includes(group)),
+                    ]).map((warning) => ({ ...warning, partIds: warning.partIds.filter((id) => partIds.has(id)) }));
+                    return <section key={group} className="mt-10" aria-label={name}>
                         <div className="flex items-end justify-between">
-                            <h2 className="cond text-[30px] leading-none">{site.bom.assemblies.find((a) => a.id === group)?.name ?? group}</h2>
+                            <h2 className="cond text-[30px] leading-none">{name}</h2>
                             <span className="tag">
                                 {list.length} items · {fmt.eur(sum.assemblyPartialGoods.find((x) => x.assemblyId === group)?.amount)}
                                 {sum.assemblyEstimatedMaterials.some((x) => x.assemblyId === group) ? " incl. estimates" : ""}
@@ -63,9 +75,10 @@ export default function Bom() {
                                 <tr className="tag border-b border-ink text-left">
                                     <th className="w-10 py-2">#</th>
                                     <th>Item</th>
+                                    <th className="hidden lg:table-cell lg:w-56 xl:w-80">Priorities</th>
                                     <th className="w-14 text-right">Qty</th>
-                                    <th className="hidden pl-6 md:table-cell md:w-[18%]">Supplier</th>
-                                    <th className="hidden md:table-cell md:w-[20%]">Qualification</th>
+                                    <th className="hidden pl-6 md:table-cell md:w-[16%]">Supplier</th>
+                                    <th className="hidden md:table-cell md:w-[17%]">Qualification</th>
                                     <th className="w-24 text-right">Cost</th>
                                 </tr>
                             </thead>
@@ -73,16 +86,14 @@ export default function Bom() {
                                 {list.map((p, i) => (
                                     <tr key={p.id} className="border-b border-hair hover:bg-sheet">
                                         <td className="mono py-2">{fmt.pad(i + 1)}</td>
-                                        <td className="pr-4 [overflow-wrap:anywhere]">
+                                        <td className="py-3 pr-4 [overflow-wrap:anywhere]">
                                             <Link href={`/bom/${p.id}`} className="hover:underline">
                                                 {p.name}
                                             </Link>
-                                            <WarningBadges warnings={p.warningDetails} />
-                                            {p.printEstimate && (
-                                                <div className="tag mt-1 mb-2 text-[10px]">
-                                                    {p.printEstimate.materialName} · {p.printEstimate.weightGrams} g total · solid-volume estimate
-                                                </div>
-                                            )}
+                                            <span className="lg:hidden"><WarningBadges warnings={p.warningDetails} /></span>
+                                        </td>
+                                        <td className="hidden pr-4 [&>span]:mt-0 lg:table-cell">
+                                            {p.warningDetails.length > 0 ? <WarningBadges warnings={p.warningDetails} /> : <span aria-label="No issues">—</span>}
                                         </td>
                                         <td className="mono text-right">
                                             {p.required ?? "—"}
@@ -99,8 +110,15 @@ export default function Bom() {
                                 ))}
                             </tbody>
                         </table>
-                    </section>
-                ))}
+                        <div aria-label={`${name} issues`}>
+                            <WarningList warnings={warnings} linkTo="bom" />
+                        </div>
+                    </section>;
+                })}
+                {buildWarnings.length > 0 && <section className="mt-10" aria-label="Build-wide issues">
+                    <h2 className="cond text-[30px] leading-none">Build-wide issues</h2>
+                    <WarningList warnings={buildWarnings} linkTo="bom" />
+                </section>}
             </div>
         </>
     );
