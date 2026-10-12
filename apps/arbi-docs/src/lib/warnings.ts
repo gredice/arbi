@@ -28,7 +28,8 @@ export function modelWarnings(model: Model, bomWarnings: BomWarning[]): BomWarni
     }
     if (model.geometry) {
         const measured = model.geometry.status === "measured-envelope";
-        warnings.push({ severity: measured ? "warning" : "critical", code: measured ? "simplified-details" : "approximate-geometry", message: measured ? `Measured envelope; simplified details: ${model.geometry.rework}` : `Approximate geometry · needs rework (${model.id}): ${model.geometry.rework} Resolve dimensions and interfaces before dependent assembly design.`, partIds: model.bomPartIds, assemblyIds: [model.assembly] });
+        const drawing = model.geometry.status === "drawing-derived";
+        warnings.push({ severity: measured || drawing ? "warning" : "critical", code: measured ? "simplified-details" : drawing ? "drawing-reference-limits" : "approximate-geometry", message: measured ? `Measured envelope; simplified details: ${model.geometry.rework}` : drawing ? `Official drawing reference; fit unverified: ${model.geometry.rework}` : `Approximate geometry · needs rework (${model.id}): ${model.geometry.rework} Resolve dimensions and interfaces before dependent assembly design.`, partIds: model.bomPartIds, assemblyIds: [model.assembly] });
     }
     return uniqueWarnings(warnings);
 }

@@ -248,7 +248,16 @@ export function validateRegistry(registryOverride, bomPartsOverride, aliasesOver
         } else if (model.artifactRole === 'visualization') {
             assert(outputExtension === '.stl', `${model.id} visualization output must be STL.`);
             assert(archivedIds.has(model.id) || model.bomPartIds.length > 0, `${model.id} visualization needs a BOM part ID.`);
-            assert(['approximate', 'measured-envelope'].includes(model.geometry?.status), `${model.id} needs explicit reference geometry evidence.`);
+            assert(['approximate', 'measured-envelope', 'drawing-derived'].includes(model.geometry?.status), `${model.id} needs explicit reference geometry evidence.`);
+            if (model.geometry.status === 'drawing-derived') {
+                const evidence = readJson(resolveRepositoryPath(model.geometry.evidence, `${model.id} geometry evidence`), `${model.id} geometry evidence`);
+                assert(evidence.model_revision === model.revision, `${model.id} drawing evidence revision is stale.`);
+                assert(Object.hasOwn(evidence.source_hashes ?? {}, model.entrypoint), `${model.id} drawing evidence must pin its entrypoint.`);
+                for (const [path, expected] of Object.entries(evidence.source_hashes)) {
+                    const source = resolveRepositoryPath(path, `${model.id} evidence source`);
+                    assert(createHash('sha256').update(readFileSync(source)).digest('hex') === expected, `${model.id} drawing evidence source is stale: ${path}`);
+                }
+            }
         } else {
             assert(outputExtension === '.csg', `${model.id} reference output must be CSG, not a printable mesh.`);
             assert(model.bomPartIds.length === 0, `${model.id} reference model must not claim a BOM part ID.`);

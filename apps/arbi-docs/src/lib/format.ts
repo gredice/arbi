@@ -15,7 +15,8 @@ export const fmt = {
         })[s ?? ""] ?? s ?? "—",
     ext: (file: string) => file.split(".").pop() ?? "",
     geometry: (status: string | undefined) => status === "measured-envelope"
-        ? "Measured envelope · simplified details" : "Approximate · needs rework",
+        ? "Measured envelope · simplified details"
+        : status === "drawing-derived" ? "Official drawing reference · fit unverified" : "Approximate · needs rework",
 };
 
 export const links = {

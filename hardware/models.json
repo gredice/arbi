@@ -1556,7 +1556,7 @@
         },
         {
             "id": "raspberry-pi-3a-plus",
-            "revision": "0.1.0",
+            "revision": "0.2.0",
             "status": "concept-unvalidated",
             "artifactRole": "visualization",
             "bomPartIds": [
@@ -1564,13 +1564,14 @@
             ],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/raspberry-pi-3a-plus.scad",
-            "output": "raspberry-pi-3a-plus-r0.1.0.stl",
-            "documentation": "hardware/assemblies/camera-pod/README.md",
-            "description": "Approximate visualization of Raspberry Pi 3A+. Existing payload booklet nominal 65 × 56 mm PCB and 58 × 49 mm mounting pitch; connectors simplified.",
+            "output": "raspberry-pi-3a-plus-r0.2.0.stl",
+            "documentation": "hardware/assemblies/camera-pod/raspberry-pi-3a-plus/README.md",
+            "description": "Raspberry Pi 3 Model A+ reference rebuilt from official mechanical drawings and revision 1.0 connector schematic. Rounded PCB, GPIO pins and all major ports share one checked model with the camera-pod booklet.",
             "geometry": {
-                "status": "approximate",
-                "basis": "Existing payload booklet nominal 65 × 56 mm PCB and 58 × 49 mm mounting pitch; connectors simplified.",
-                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+                "status": "drawing-derived",
+                "basis": "Official 65 × 56 mm PCB, R3 corners and 58 × 49 mm mounting pitch; connector plan outlines traced from RP-008330 and published connector heights. Source comparison and mesh inspection are committed in the linked review.",
+                "rework": "Inspect nominal Ø2.75 mm holes, 1.6 mm PCB thickness, underside socket and mating details against the received board. USB uses the larger published 7.1 mm height; model heights use an explicit PCB-top datum. Physical fit and plugged-cable access remain unverified.",
+                "evidence": "hardware/assemblies/camera-pod/raspberry-pi-3a-plus/cad-check.json"
             }
         },
         {

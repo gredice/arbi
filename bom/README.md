@@ -113,6 +113,13 @@ pnpm bom:check
 
 The capture script verifies source and release/STL checksums, closed consistently oriented mesh edges and positive signed volume before updating canonical evidence. It commits no generated meshes. The recipe lists select installed variants explicitly rather than totaling every linked fabrication source.
 
+Release reuse pins the registry and every transitive `include`/`use` dependency
+of the costed fabrication entrypoints. A changed purchased-part visualization
+does not invalidate unchanged print volumes. Changed print identities, shared
+dependencies, missing release dependencies and altered mesh/source checksums
+still reject reuse; registry metadata changes require comparison with the
+checksum-verified original registry in the release source archive.
+
 The capture tool and its independent mesh-volume tests use Python 3's standard library. Package tests include ASCII/binary volume-unit and invalid-mesh controls alongside the TypeScript costing regressions.
 
 For changed CAD awaiting a release, omit the directory argument to export the current recipes with the registry-pinned OpenSCAD version. This uses temporary meshes, checks source hashes before/after export and records local evidence with `releaseTag: null`; `sourceCommit` is the base commit, while source hashes identify the exact geometry. The website compiler also rejects stale geometry evidence.

@@ -31,11 +31,15 @@ Fabrication models identify their canonical BOM part IDs in the registry. The wi
 
 Every current BOM catalog item has at least one active model. Purchased items, materials,
 consumables and custom items without manufacturing sources have `visualization`
-STLs. These carry explicit `geometry.status: approximate`, dimension assumptions
-and rework requirements in the registry, source header and assembly README. Their
-shape is not yet fully defined. They need supplier drawings or measurements and
-model rework before fit, clearance or fabrication decisions. Visualization STL
-does not establish a manufacturing source, even for a planned custom item.
+STLs. Their geometry provenance is explicit: `approximate` identifies incomplete
+shapes needing rework, `measured-envelope` identifies a received-item envelope
+with nominal detail, and `drawing-derived` identifies an official drawing
+reference with a committed, source-matched CAD inspection. Drawing references
+must retain the unspecified dimensions and physical-fit limits; they do not
+become measured or physically validated through CAD compilation. The
+[Pi 3A+ reference](assemblies/camera-pod/raspberry-pi-3a-plus/README.md) records
+its official plan trace and nominal details. Visualization STL does not establish
+a manufacturing source, even for a planned custom item.
 Assortments show samples rather than pack contents; cables show samples rather
 than installed length or routing. Shared purchasing samples live in
 [shared procurement stock](assemblies/shared-procurement-stock/README.md).
