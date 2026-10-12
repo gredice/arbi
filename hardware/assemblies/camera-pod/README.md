@@ -37,8 +37,8 @@ These values are published or class-typical starting points, not received-unit m
 
 | Interface | Starting value | Source / limit |
 | --- | --- | --- |
-| Raspberry Pi 3A+ board / holes | 65 × 56 mm / 58 × 49 mm centres | Raspberry Pi mechanical drawing RPI-3A+_V1-0 |
-| Pi fasteners | M2.5 through, 3.2 mm clearance | Drawing hole class; nylon hardware is a procurement allowance |
+| Raspberry Pi 3A+ board / holes | 65 × 56 mm / 58 × 49 mm centres | [Official drawings, schematic and source review](raspberry-pi-3a-plus/README.md); Ø2.75 mm board holes and 1.6 mm PCB thickness remain assumptions |
+| Pi fasteners | M2.5 through, 3.2 mm clearance | Mount clearance is an ARBI design allowance; board-hole diameter is not dimensioned in the reviewed official PDFs |
 | Camera Module 3 board / holes | 25 × 24 × 11.5 mm / 21 × 12.5 mm centres, Ø2.2 | Product brief plus Camera Module 2 hole identity |
 | 3.7 g servo body | 20 × 8.75 × 16 mm pocket, 23.5 mm tab-hole span | GH-S37D-style listings; inspect the purchased servo |
 | Converter pocket | 52 × 28 mm | Module-dependent starting cage |
@@ -87,9 +87,9 @@ The enclosure document owns print counts, colours, captive head clamps, supporte
 
 The [reinforced cradle record](camera-pod-camera-cradle-check.md) covers r0.1.1: wider horn/frame joints and sloped bracing inside the original envelope. Reprint the cradle using the [orientation and starting settings](camera-pod-enclosure.md#reinforced-cradle-and-print-orientation), then inspect support removal and physical durability. The 8 October enclosure record predates that reinforcement.
 
-## Approximate BOM visualizations
+## Purchased references and approximate BOM visualizations
 
-These `visualization` models show catalog items in the Parts inventory. They are **Unverified** and are not manufacturing sources. Shape is not yet fully defined and needs rework against the selected supplier drawing or measured item before fit or clearance decisions. Nominal dimensions recorded in the catalog remain requirements, not measurement evidence. Threads, connectors, internal construction and fine detail are simplified. Kits and assortments show representative samples, not quantities; cable loops and lengths show samples, not installed routing.
+These `visualization` models show catalog items in the Parts inventory. The Pi uses a drawing-derived reference and the converter uses a measured envelope; their linked evidence defines the remaining nominal details. The other approximate shapes need supplier confirmation and rework before fit or clearance decisions. Physical acceptance remains **Unverified**, and none is a manufacturing source. Nominal dimensions recorded in the catalog remain requirements, not measurement evidence. Threads, connector interiors and fine detail are simplified. Kits and assortments show representative samples, not quantities; cable loops and lengths show samples, not installed routing.
 
 | BOM item / source | Shape | Dimension basis and remaining uncertainty |
 | --- | --- | --- |
@@ -97,5 +97,5 @@ These `visualization` models show catalog items in the Parts inventory. They are
 | [micro-pan-tilt-servo](micro-pan-tilt-servo.scad) · [BOM](../../../bom/generated/parts/micro-pan-tilt-servo.md) | servo | Measured 31.8 × 9 × 24.5 mm including shaft, 25 mm end-hole pitch and 145 mm leads; [owner opening-fit report](../../../docs/evidence/micro-servo-2026-10-12.md). Shaft/lug detail remains nominal. |
 | [microsd-card-32gb](microsd-card-32gb.scad) · [BOM](../../../bom/generated/parts/microsd-card-32gb.md) | microsd | Uses the existing booklet nominal 11 × 15 × 0.8 mm outline; notch and contact details simplified. |
 | [pod-buck-converter-48v-5v](pod-buck-converter-48v-5v.scad) · [BOM](../../../bom/generated/parts/pod-buck-converter-48v-5v.md) | board | Received fixed-5 V module: measured 50 × 30 × 17 mm envelope, Ø3 mm holes at 45 × 24 mm pitch; [receipt record](../../../docs/evidence/buck-converter-2026-10-12.md), photo-derived component detail. |
-| [raspberry-pi-3a-plus](raspberry-pi-3a-plus.scad) · [BOM](../../../bom/generated/parts/raspberry-pi-3a-plus.md) | pi | Existing payload booklet nominal 65 × 56 mm PCB and 58 × 49 mm mounting pitch; connectors simplified. |
+| [raspberry-pi-3a-plus](raspberry-pi-3a-plus.scad) · [BOM](../../../bom/generated/parts/raspberry-pi-3a-plus.md) | drawing-derived Pi | [Official reference r0.2.0 and CAD inspection](raspberry-pi-3a-plus/README.md): R3 65 × 56 mm PCB, 58 × 49 mm mounting pitch, traced ports and 40 GPIO pins; nominal hole diameter/thickness and mating details, physical fit unverified. |
 | [raspberry-pi-camera-module-3](raspberry-pi-camera-module-3.scad) · [BOM](../../../bom/generated/parts/raspberry-pi-camera-module-3.md) | camera | Existing payload booklet nominal 25 × 23.862 mm PCB and 21 × 12.5 mm hole pitch; lens/connector approximate. |

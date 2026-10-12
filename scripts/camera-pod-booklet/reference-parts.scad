@@ -1,8 +1,9 @@
 // ARBI camera pod illustration references, millimetres. Not replacement hardware.
 // Pi/camera board interfaces follow the cited drawings; component detail is simplified.
-// Servo/horn/capacitor remain provisional. Converter envelope/holes are measured.
+// Servo envelope/pitch and converter envelope/holes are measured; horn/capacitor detail remains provisional.
 include <arbi-hardware/lib/buck-converter-48v-5v.scad>
 include <arbi-hardware/lib/micro-pan-tilt-servo.scad>
+include <arbi-hardware/lib/raspberry-pi-3a-plus.scad>
 part = "raspberry-pi-3a-plus-reference";
 $fn = 64;
 eps = 0.02;
@@ -21,26 +22,7 @@ module ring(od,id,h) {
     }
 }
 module pi_board() {
-    // Local XY: 65 x 56 PCB. Four nominal 2.75 holes, 58 x 49 pitch.
-    // USB/HDMI/CSI/header envelopes are illustrative, not connector-fit CAD.
-    translate([-32.5,-28,0]) difference() {
-        union() {
-            rounded_plate(65,56,1.6,3);
-            translate([50,22,1.5]) cube([17,14,7.5]); // USB overhang
-            translate([24,-1.5,1.5]) cube([16,12,6.5]); // HDMI
-            translate([7,-1,1.5]) cube([8,5.5,3]); // power
-            translate([48,-1.5,1.5]) cube([7,12,6]); // AV jack
-            translate([6.8,49.5,1.5]) cube([51,5.4,2.7]);
-            for(x=[0:19],y=[0:1])
-                translate([8.1+2.54*x,50.8+2.54*y,4.1]) cube([.64,.64,5.7]);
-            translate([23,24,1.5]) cube([14,14,2]); // processor envelope
-            translate([42,4,1.5]) cube([3,21,4]); // CSI connector
-            translate([.2,20,-1.1]) cube([13.5,15,1.2]); // SD socket
-        }
-        for(x=[3.5,61.5],y=[3.5,52.5])
-            translate([x,y,-2]) cylinder(d=2.75,h=15);
-        translate([55,24,3]) cube([13,10,4.3]); // USB opening
-    }
+    raspberry_pi_3a_plus();
 }
 module camera() {
     // Simplified Standard camera: 25 x 23.862 PCB; 21 x 12.5 hole pitch.

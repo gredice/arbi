@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import type { MeshRef, Vec3 } from "@/lib/types";
+import type { MeshRef, Model, Vec3 } from "@/lib/types";
 import { fmt } from "@/lib/format";
 import { Viewer, type ViewerStyle } from "./three/viewer";
 
 /** CAD part or reference assembly with line art or the shaded product palette. */
-export function PartViewer({ mesh, model, color, output, missing, figure, geometryStatus }: { mesh: MeshRef | null; model: string; color: Vec3; output: string; missing: string; figure?: string | null; geometryStatus?: "approximate" | "measured-envelope" }) {
+export function PartViewer({ mesh, model, color, output, missing, figure, geometryStatus }: { mesh: MeshRef | null; model: string; color: Vec3; output: string; missing: string; figure?: string | null; geometryStatus?: NonNullable<Model["geometry"]>["status"] }) {
     const stage = useRef<HTMLDivElement>(null);
     const [style, setStyle] = useState<ViewerStyle>("line");
     const [dims, setDims] = useState<string>(mesh ? "" : missing);
@@ -16,7 +16,10 @@ export function PartViewer({ mesh, model, color, output, missing, figure, geomet
         const viewer = new Viewer(stage.current!, { style, autoRotate: true });
         let alive = true;
         viewer.loadModel(mesh, model, color).then((size) => {
-            if (alive) setDims(`${geometryStatus === "measured-envelope" ? mesh.kind === "components" ? "Measured rigid envelope" : "Measured envelope" : geometryStatus ? "Illustrative envelope" : "Envelope"} ${size.x.toFixed(1)} × ${size.y.toFixed(1)} × ${size.z.toFixed(1)} mm`);
+            const label = geometryStatus === "measured-envelope"
+                ? mesh.kind === "components" ? "Measured rigid envelope" : "Measured envelope"
+                : geometryStatus === "drawing-derived" ? "Reference model bounds" : geometryStatus ? "Illustrative envelope" : "Envelope";
+            if (alive) setDims(`${label} ${size.x.toFixed(1)} × ${size.y.toFixed(1)} × ${size.z.toFixed(1)} mm`);
         }).catch(() => {
             if (alive) setDims("Model could not be loaded");
         });

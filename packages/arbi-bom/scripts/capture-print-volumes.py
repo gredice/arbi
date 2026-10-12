@@ -8,6 +8,7 @@ import argparse
 import hashlib
 import json
 import math
+import re
 import struct
 import subprocess
 import tempfile
@@ -54,6 +55,29 @@ def volume_cm3(raw):
     return f'{volume:.6f}'
 
 
+def recipe_inputs(root, registry, ids):
+    """Pin every transitive source of costed meshes, excluding unrelated references."""
+    root = root.resolve()
+    hardware = root / 'hardware'
+    models = {m['id']: m for m in registry['models']}
+    pending = [root / models[id]['entrypoint'] for id in ids]
+    sources = set()
+    while pending:
+        path = pending.pop().resolve()
+        if not path.is_relative_to(hardware) or path.is_relative_to(hardware / 'generated'):
+            raise ValueError(f'Noncanonical fabrication dependency: {path}')
+        if path in sources:
+            continue
+        sources.add(path)
+        text = re.sub(r'/\*.*?\*/|//[^\n]*', '', path.read_text(), flags=re.S)
+        for reference in re.findall(r'\b(?:include|use)\s*<([^>]+)>', text):
+            dependency = (path.parent / reference).resolve()
+            if not dependency.is_file():
+                raise ValueError(f'Unresolved fabrication dependency: {path}: {reference}')
+            pending.append(dependency)
+    return [hardware / 'models.json', *sorted(sources)]
+
+
 def capture(directory):
     catalog_path = ROOT / 'bom/catalog/fabrication.json'
     catalog = json.loads(catalog_path.read_text())
@@ -63,9 +87,12 @@ def capture(directory):
                      for line in (directory / 'SHA256SUMS.txt').read_text().splitlines() if line.strip())
     if hashlib.sha256((directory / 'cad-release.json').read_bytes()).hexdigest() != checksums['cad-release.json']:
         raise ValueError('Release manifest checksum mismatch')
-    sources = {p: h for p, h in release['inputs'].items()
-               if p.startswith('hardware/') and (p.endswith('.scad') or p == 'hardware/models.json')}
     ids = {component['modelId'] for recipe in catalog['recipes'] for component in recipe['components']}
+    required = [str(p.relative_to(ROOT)) for p in recipe_inputs(ROOT, registry, ids)]
+    missing = set(required) - release['inputs'].keys()
+    if missing:
+        raise ValueError(f'Release lacks fabrication dependencies: {sorted(missing)}')
+    sources = {p: release['inputs'][p] for p in required}
     for path, expected in sources.items():
         actual = hashlib.sha256((ROOT / path).read_bytes()).hexdigest()
         if path == 'hardware/models.json' and actual != expected:

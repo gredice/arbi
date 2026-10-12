@@ -1,6 +1,7 @@
 """Build and check the camera pod bench assembly booklet and STL pack from current CAD."""
 from pathlib import Path
 import argparse,ast,re,hashlib,json,shutil,subprocess,sys,zipfile
+import tempfile
 from datetime import date
 from collections import Counter
 from model_selection import selected_models
@@ -76,13 +77,14 @@ def main():
     assert not (args.checks_only and args.publish),'--checks-only cannot publish a booklet'
     root=args.output.resolve();(root/'source').mkdir(parents=True,exist_ok=True)
     config={'variant':'enclosure' if args.enclosure else 'bench','units':'mm','pan_deg':[-90,90,5],'tilt_deg':[0,70,5],
-      'hardware_basis':'received converter envelope/holes measured; other hardware and component detail nominal','evidence_date':date.today().isoformat()}
+      'hardware_basis':'received servo/converter envelopes measured; Pi reference drawing-derived; remaining hardware detail nominal','evidence_date':date.today().isoformat()}
     registry=json.loads((REPO/'hardware/models.json').read_text())
     selected=selected_models(registry,args.enclosure)
     config['fabrication_models']=[{'id':m['id'],'revision':m['revision'],'output':m['output']} for m in selected]
     artifact='ARBI-camera-pod-enclosure' if args.enclosure else 'ARBI-camera-pod-bench'
-    inputs=list((REPO/'hardware/assemblies/camera-pod').glob('*.scad'))+[REPO/'hardware/lib/arbi.scad',REPO/'hardware/lib/camera-pod.scad',REPO/'hardware/lib/buck-converter-48v-5v.scad',REPO/'hardware/lib/micro-pan-tilt-servo.scad',REPO/'hardware/lib/camera-pod-mounts.scad',REPO/'hardware/lib/camera-pod-enclosure.scad',REPO/'hardware/lib/camera-pod-integrated-deck.scad',REPO/'hardware/lib/camera-pod-integrated-head.scad',REPO/'hardware/lib/camera-pod-integrated-gimbal.scad',REPO/'hardware/models.json',HERE/'reference-parts.scad',HERE/'export_models.py',HERE/'model_selection.py']
+    inputs=list((REPO/'hardware/assemblies/camera-pod').glob('*.scad'))+[REPO/'hardware/lib/arbi.scad',REPO/'hardware/lib/camera-pod.scad',REPO/'hardware/lib/buck-converter-48v-5v.scad',REPO/'hardware/lib/micro-pan-tilt-servo.scad',REPO/'hardware/lib/raspberry-pi-3a-plus.scad',REPO/'hardware/lib/camera-pod-mounts.scad',REPO/'hardware/lib/camera-pod-enclosure.scad',REPO/'hardware/lib/camera-pod-integrated-deck.scad',REPO/'hardware/lib/camera-pod-integrated-head.scad',REPO/'hardware/lib/camera-pod-integrated-gimbal.scad',REPO/'hardware/models.json',HERE/'reference-parts.scad',HERE/'export_models.py',HERE/'model_selection.py']
     inputs += [p for p in (REPO/'hardware/vendor').rglob('*') if p.is_file()]
+    inputs += [REPO/'scripts/camera-pod-booklet/check_pi_reference.py', REPO/'hardware/assemblies/camera-pod/raspberry-pi-3a-plus/drawing-trace.json']
     hashes={str(p.relative_to(REPO)):hashlib.sha256(p.read_bytes()).hexdigest() for p in inputs}
     hashes['hardware/model-aliases.json']=hashlib.sha256((REPO/'hardware/model-aliases.json').read_bytes()).hexdigest()
     if args.reuse_models:
@@ -125,6 +127,9 @@ def main():
         subprocess.run([sys.executable,str(root/'source/export_models.py')],check=True)
         (root/'build-input-hashes.json').write_text(json.dumps(hashes,indent=2)+'\n')
     if (root/'figures').exists():shutil.rmtree(root/'figures')
+    with tempfile.TemporaryDirectory(prefix='arbi-pi-reference-check-') as temp:
+        subprocess.run([sys.executable,str(REPO/'scripts/camera-pod-booklet/check_pi_reference.py'),'--output',temp],check=True)
+        shutil.copy2(Path(temp)/'cad-check.json',root/'pi-reference-check.json')
     checks=[('check_cradle.py',[]),('check_integration.py',['--quick']),('check_service.py',[]),('check_converter.py',[]),('check_integration.py',[])] if args.enclosure else [('check_integration.py',[]),('check_service.py',[]),('check_converter.py',[])]
     for name,options in checks:
         subprocess.run([sys.executable,str(root/'source'/name),*options],check=True)
