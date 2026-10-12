@@ -46,7 +46,7 @@ def enclosure_booklet():
  text(41,250,'COMPACT MECHANISM WITH OUTER HEAD REMOVED',8,True,BLUE)
  note(261,'Reprint P11 r0.2.3 and P12 r0.1.4 together. Keep their clearance seam free of support scars. Drainage, prints, outdoor exposure and complete mass need physical inspection.')
 
- begin('03  Measure actual hardware','The Pi/camera mounting patterns follow cited drawings. Converter envelope/holes are measured; servo, horn, capacitor and connectors remain provisional.')
+ begin('03  Measure actual hardware','The Pi/camera mounting patterns follow cited drawings. Servo/converter envelopes and hole pitches are measured; shaft, horn, capacitor and connector details remain nominal.')
  fig('part-camera-pod-servo-fit-coupon',16,54,73,51)
  para(102,57,92,'<b>Test both servos</b><br/>Check case fit and both lug holes, then measure shaft offset, output height, supplied horn and the lead exit. The coupon tests only the first two.',small=True,max_h=35)
  table([['<b>Interface</b>','<b>Nominal envelope / required check</b>'],['Servo','31.8 x 9 x 24.5 mm overall; 25 mm hole pitch; nominal 1.7 mm holes'],['Output / horn','5 mm shaft offset nominal; 24.5 mm overall including shaft; 8 mm horn hub, one 12 mm arm'],['Converter / capacitor','50 x 30 x 17 mm; 45 x 24 hole pitch / 10 mm can diameter, 16 mm height'],['Pi / camera','58 x 49 mm M2.5 pattern / 21 x 12.5 mm M2 pattern'],['Incoming lead','6 mm diameter through 8 mm base outlet; fit an actual soft sleeve or grommet'],['CSI / servo outlets','16 x 0.3 mm ribbon; 4 x 2 mm fixed servo lead reference']],117,[53,125])

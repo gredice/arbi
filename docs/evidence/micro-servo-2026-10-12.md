@@ -81,8 +81,12 @@ textures and material groups; line drawings retain the manual's white-face style
 
 ## Local CAD verification
 
-The [machine-readable CAD record](micro-servo-cad-2026-10-12.json) identifies
-model revisions, source/mesh hashes, both assembly checks and the coupon probes.
+The [13 October CAD revalidation record](micro-servo-cad-2026-10-13.json) identifies
+model revisions, source/mesh hashes, both assembly checks and the coupon probes
+after integrating the drawing-derived Pi reference from PR #216. Both manuals
+were rebuilt and all 30 final pages reviewed. The
+[original 12 October record](micro-servo-cad-2026-10-12.json) remains historical;
+the owner's fit acceptance still applies to the unchanged revised servo interface.
 
 | Check | Result |
 | --- | --- |
