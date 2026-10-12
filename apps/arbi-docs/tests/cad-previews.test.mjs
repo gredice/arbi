@@ -33,6 +33,35 @@ function pack(overrides = {}, input = sources, image = figure, style = 'cad-line
   });
 }
 
+// Two valid, disconnected triangles in millimetres for the compiler/browser asset boundary.
+const referenceStl = Buffer.from('solid reference\n' + [0, 20].map((x) =>
+  `facet normal 0 0 1\nouter loop\nvertex ${x} 0 0\nvertex ${x + 1} 0 0\nvertex ${x} 1 0\nendloop\nendfacet\n`).join('') + 'endsolid reference\n');
+function referencePack(overrides = {}, input = sources) {
+  const files = unzipSync(pack({ referenceMesh: `references/${model.id}.stl`, referenceMeshSha256: digest(referenceStl), ...overrides }, input));
+  files[`ARBI-CAD-previews/references/${model.id}.stl`] = referenceStl;
+  return zipSync(files);
+}
+
+test('CSG inspection meshes require intact checksums and complete current source evidence', () => {
+  const read = (path) => sources[path];
+  const assets = previewAssets(referencePack(), [model], read);
+  assert.deepEqual(Buffer.from(assets.referenceMeshes[model.id]), referenceStl);
+  assert.deepEqual(assets.meshes, {}, 'reference surfaces never enter the individual part mesh inventory');
+  for (const overrides of [{ referenceMesh: '../unexpected.stl' }, { referenceMeshSha256: 'invalid' }, { revision: '0.0.0' }]) {
+    assert.deepEqual(previewAssets(referencePack(overrides), [model], read).referenceMeshes, {});
+  }
+  const missing = unzipSync(referencePack());
+  delete missing[`ARBI-CAD-previews/references/${model.id}.stl`];
+  assert.deepEqual(previewAssets(zipSync(missing), [model], read).referenceMeshes, {});
+  const corrupt = unzipSync(referencePack());
+  corrupt[`ARBI-CAD-previews/references/${model.id}.stl`] = strToU8('corrupt');
+  assert.deepEqual(previewAssets(zipSync(corrupt), [model], read).referenceMeshes, {});
+  assert.deepEqual(previewAssets(referencePack(), [model], () => Buffer.from('changed')).referenceMeshes, {});
+  assert.deepEqual(previewAssets(referencePack({}, { [model.entrypoint]: sources[model.entrypoint] }), [model], read).referenceMeshes, {});
+  assert.deepEqual(previewAssets(referencePack(), [{ ...model, artifactRole: 'fabrication' }], read).referenceMeshes, {});
+  assert.deepEqual(previewAssets(pack(), [model], read).referenceMeshes, {}, 'older packs still supply the static figure');
+});
+
 test('a CSG reference receives a figure without needing a booklet drawing or fabrication mesh', () => {
   assert.ok(model.output.endsWith('.csg'));
   const result = previewFigures(pack(), [model], (path) => sources[path]);
@@ -92,7 +121,7 @@ test('the offline compiler consumes a current preview pack and writes its refere
     };
     visit(model.entrypoint);
     const archive = join(output, 'previews.zip');
-    writeFileSync(archive, pack({}, input));
+    writeFileSync(archive, referencePack({}, input));
     const data = join(output, 'data');
     execFileSync(process.execPath, ['scripts/compile-data.mjs'], {
       cwd: app,
@@ -112,6 +141,7 @@ test('the offline compiler consumes a current preview pack and writes its refere
       assert.equal(site.downloads[id], undefined);
       assert.equal(site.meshes[id], undefined);
       assert.equal(site.figures[id], undefined);
+      assert.equal(site.referenceMeshes[id], undefined);
     }
     for (const p of site.bom.parts) {
       for (const source of p.fabrication?.sources ?? []) assert.ok(!archivedIds.has(source.modelId));
@@ -143,6 +173,9 @@ test('the offline compiler consumes a current preview pack and writes its refere
     assert.ok(existsSync(join(data, site.figures[model.id])));
     assert.deepEqual(readFileSync(join(data, site.figures[model.id])), figure);
     assert.equal(site.meshes[model.id], undefined, 'a reference preview must not become a fabrication mesh');
+    assert.deepEqual(site.referenceMeshes[model.id], { kind: 'stl', url: `inspection/references/${model.id}.stl` });
+    assert.deepEqual(readFileSync(join(data, site.referenceMeshes[model.id].url)), referenceStl);
+    assert.deepEqual(site.downloads[model.id], { release: null, packs: [] }, 'inspection STL never replaces the declared CSG download');
   } finally {
     rmSync(output, { recursive: true, force: true });
   }

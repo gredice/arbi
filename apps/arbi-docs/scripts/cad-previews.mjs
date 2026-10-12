@@ -11,6 +11,7 @@ export function previewAssets(bytes, models, readSource) {
   if (manifest.schemaVersion !== 1 || manifest.style !== 'cad-line-art-v2') throw new Error('Unsupported CAD preview manifest; current line-art figures required');
   const figures = {};
   const meshes = {};
+  const referenceMeshes = {};
   const scenes = {};
   const sources = new Map();
   for (const model of models) {
@@ -38,6 +39,12 @@ export function previewAssets(bytes, models, readSource) {
     const header = new DataView(png.buffer, png.byteOffset, png.byteLength);
     if (png.byteLength < 24 || header.getUint32(16) !== 480 || header.getUint32(20) !== 360) continue;
     figures[model.id] = png;
+    // CSG surfaces are for inspection only, separate from downloadable part meshes.
+    if (model.artifactRole === 'reference' && model.output.endsWith('.csg') &&
+      entry.referenceMesh === `references/${model.id}.stl`) {
+      const stl = files[root + entry.referenceMesh];
+      if (stl?.length && digest(stl) === entry.referenceMeshSha256) referenceMeshes[model.id] = stl;
+    }
     // Visualization meshes share the figure's checked source dependency closure.
     // Assembly CSG previews must never become downloadable fabrication meshes.
     if (model.artifactRole === 'visualization' && entry.mesh === `meshes/${model.output}`) {
@@ -66,7 +73,7 @@ export function previewAssets(bytes, models, readSource) {
       if (valid) scenes[scene.slug] = { ...scene, parts: scene.parts.map((part) => ({ ...part, bytes: files[root + part.mesh] })) };
     }
   }
-  return { figures, meshes, scenes };
+  return { figures, meshes, referenceMeshes, scenes };
 }
 
 export const previewFigures = (bytes, models, readSource) => previewAssets(bytes, models, readSource).figures;

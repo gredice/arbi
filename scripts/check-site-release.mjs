@@ -17,7 +17,8 @@ do {
       || !site.scenes['corner-station']?.source.current || !site.scenes.dock?.source.current
       || site.scenes.dock.layout !== 'assembly'
       || !site.scenes['control-cabinet']?.source.current || site.scenes['control-cabinet'].layout !== 'assembly'
-      || Object.keys(site.figures ?? {}).length !== site.registry.models.length) throw new Error('Site still has incomplete or archived CAD data');
+      || Object.keys(site.figures ?? {}).length !== site.registry.models.length
+      || site.registry.models.some((model) => model.artifactRole === 'reference' && !site.referenceMeshes?.[model.id])) throw new Error('Site still has incomplete or archived CAD data');
     if (site.release.tag !== tag) {
       const relation = execFileSync('gh', ['api', `repos/gredice/arbi/compare/${commit}...${site.release.commit}`, '--jq', '.status'], { encoding: 'utf8' }).trim();
       if (relation !== 'ahead') throw new Error('Site still uses a preceding CAD release');

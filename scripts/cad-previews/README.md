@@ -3,9 +3,9 @@
 Generate one 480 × 360 PNG for every model in
 [the registry](../../hardware/models.json). Every model uses opaque white
 faces with visible feature edges and silhouettes, fitted to its own frame.
-CSG references are meshed temporarily by additive component for the same line-art renderer; those
-inspection meshes are deleted after rendering unless a reference explicitly
-declares an assembly inspection scene. References retain their released CSG format and
+CSG references are meshed by additive component for the same line-art renderer.
+Their surfaces are combined without a boolean union into a binary inspection STL
+under `references/`, preserving world placement. References retain their released CSG format and
 engineering evidence status.
 
 ```bash
@@ -27,6 +27,14 @@ entrypoint, every transitively included source hash, and the image SHA-256.
 The CAD release publishes the pack with its checksum. Generated figures and
 temporary meshes stay outside Git.
 
+Each CSG entry records `referenceMesh` and `referenceMeshSha256`. The site checks
+these inspection surfaces against the same identity and complete source hashes
+as the figure, then writes them into a separate `referenceMeshes` inventory.
+Assembly detail pages use them for rotation, zoom, and line/shaded views.
+They never enter the part mesh or download inventory; the download remains CSG.
+Production requires a current inspection mesh for every registered reference.
+Local/preview builds with older packs show the static CAD figure in the viewer.
+
 For `visualization` models, the pack also includes the registered STL under
 `meshes/`, with its path and SHA-256 in the same source-checked manifest entry.
 The site uses these approximate meshes for BOM item detail pages. They remain
@@ -42,14 +50,14 @@ The builder stores these STL meshes separately under `assemblies/` with
 checksums, covered by the reference's complete source hashes. The site accepts
 the scene only when every constituent mesh is intact and registered component
 ownership matches the catalog. These assets never populate the fabrication or
-individual downloadable-mesh inventory. Other reference inspection meshes
-remain temporary and excluded.
+individual downloadable-mesh inventory. The combined reference preview remains
+available independently of a selectable assembly scene.
 
 Reference meshing keeps subtraction, intersections and hulls intact and preserves
 each component's world transforms. Components are drawn together with depth
 occlusion, without an expensive assembly-wide boolean union. A temporary cache
-shares identical component meshes across references; only explicitly declared
-assembly inspection assets are included in the pack.
+shares identical component meshes across references. The pack includes combined
+reference previews and any explicitly declared selectable assembly assets.
 Unique components are exported with a bounded pool of OpenSCAD processes before
 VTK draws figures serially. The default worker count is the available CPU count
 capped at four; `--jobs N` overrides this, and `--jobs 1` runs serially. Every

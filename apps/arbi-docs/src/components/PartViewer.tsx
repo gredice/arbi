@@ -5,8 +5,8 @@ import type { MeshRef, Vec3 } from "@/lib/types";
 import { fmt } from "@/lib/format";
 import { Viewer, type ViewerStyle } from "./three/viewer";
 
-/** Single-part 3D view with booklet line art or the shaded product palette. */
-export function PartViewer({ mesh, model, color, output, missing, geometryStatus }: { mesh: MeshRef | null; model: string; color: Vec3; output: string; missing: string; geometryStatus?: "approximate" | "measured-envelope" }) {
+/** CAD part or reference assembly with line art or the shaded product palette. */
+export function PartViewer({ mesh, model, color, output, missing, figure, geometryStatus }: { mesh: MeshRef | null; model: string; color: Vec3; output: string; missing: string; figure?: string | null; geometryStatus?: "approximate" | "measured-envelope" }) {
     const stage = useRef<HTMLDivElement>(null);
     const [style, setStyle] = useState<ViewerStyle>("line");
     const [dims, setDims] = useState<string>(mesh ? "" : missing);
@@ -28,6 +28,7 @@ export function PartViewer({ mesh, model, color, output, missing, geometryStatus
 
     return (
         <div ref={stage} className="part-viewer relative h-[72vh] min-h-[460px] border-ink lg:border-r-2">
+            {!mesh && figure && <img src={figure} alt={`CAD figure of ${model}`} className="absolute inset-0 h-full w-full object-contain p-12" />}
             <div className="tag absolute top-3 left-4 right-4 z-10 break-words">{geometryStatus ? fmt.geometry(geometryStatus) : "Fig."} — {output}</div>
             <div className="tag absolute bottom-16 left-4 right-4 z-10 sm:bottom-3 sm:right-auto">{dims}</div>
             {mesh && (
