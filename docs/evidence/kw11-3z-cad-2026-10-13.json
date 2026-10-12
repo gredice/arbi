@@ -4,7 +4,7 @@
   "source_hashes": {
     "hardware/assemblies/winch/roller-lever-microswitch.scad": "db91d414085ad0bd4aa1f9ded60a61aea3f6cb4cca6db2d952e4d83c356d3167",
     "hardware/lib/arbi.scad": "285964a38a24304ca0f6e6ada12d1de341df9673a31d14dc366abacd83d345c3",
-    "hardware/models.json": "e601244ae4a1afe51920a26dc686565733fc10402b64b2c1f568cbcc64d97b02",
+    "hardware/models.json": "b45bb87d50c4cd7441669e9db70a97bae3222382a18ab075a99646b85c59a999",
     "scripts/check-microswitch.py": "6ce0ed3f975dd80977312d36f96614b4d5e4a7e3846a3043e21f215b2657ddac"
   },
   "meshes": {
@@ -22,7 +22,7 @@
         ]
       ],
       "triangles": 1084,
-      "stl_sha256": "8c7bd8ecb7bb22a7ff5e36406f92de62c7505e8e9b4779bc9146cfb626530e27"
+      "stl_sha256": "96b3c8efbb960a8b13a7aaec79d221ea7f191d2066875800512fd89a7cc3dea2"
     },
     "released-roller": {
       "bounds_mm": [
@@ -54,7 +54,7 @@
         ]
       ],
       "triangles": 4616,
-      "stl_sha256": "3f899838df4abb74d4ed99cd2709b867ec661fd4c3ee8731c82e6a47250dfd4d"
+      "stl_sha256": "1779404b680cac2458627fba837cd4d2b8095adba957cfdb179302f284ae3565"
     },
     "clicked-roller": {
       "bounds_mm": [
@@ -86,7 +86,7 @@
         ]
       ],
       "triangles": 4616,
-      "stl_sha256": "0539fb88258189f22e65726fc72585e4c487925e79e37cc9c7197677a80e8704"
+      "stl_sha256": "d495a33036e0767a42be3c4360735962bd0fc46ac662f58b8bd72a1df95fff15"
     },
     "fully-pressed-roller": {
       "bounds_mm": [
@@ -118,7 +118,7 @@
         ]
       ],
       "triangles": 4616,
-      "stl_sha256": "28e0a746a85aed4c4e2e9dda9cb75ad518a2fafc3401bf106faf96eab84b5227"
+      "stl_sha256": "4abf0b8f01bcb7644c12b67af84f88ee96e00dcd3c7a0211db25fd0ccdc806f8"
     }
   },
   "hole_probes": [
