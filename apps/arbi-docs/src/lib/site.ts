@@ -2,7 +2,7 @@
 // Server components only: it reads the filesystem.
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { links } from "./format";
+import { fmt, links } from "./format";
 import { numberAssemblies } from "./assembly-hierarchy";
 import { partCatalog } from "./part-catalog";
 import { isPulleyHeadPart, pulleyHeadModels } from "./corner-overview";
@@ -230,9 +230,10 @@ export function catalogInventory(ids: string[]): InventoryItem[] {
         return {
             id, name: entry.name, count: null,
             figure: entry.modelIds.map(figureFor).find(Boolean) ?? figureFor(id),
-            note: models.some((model) => model.geometry?.status === "measured-envelope")
-                ? "Measured envelope · simplified details"
-                : models.some((model) => model.geometry) ? "Approximate · needs rework" : undefined,
+            note: models.some((model) => model.geometry?.status === "approximate")
+                ? fmt.geometry("approximate")
+                : models.some((model) => model.geometry?.status === "drawing-derived") ? fmt.geometry("drawing-derived")
+                : models.some((model) => model.geometry?.status === "measured-envelope") ? fmt.geometry("measured-envelope") : undefined,
             warningCounts: warningCounts(warningsFor(id)),
         };
     });

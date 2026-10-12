@@ -211,6 +211,27 @@ test('received converter dimensions remain purchased reference evidence', () => 
     }
 });
 
+test('Pi drawing-derived geometry remains a purchased reference with a committed inspection record', () => {
+    const current = validateRegistry();
+    const model = current.models.find(model => model.id === 'raspberry-pi-3a-plus');
+    assert.equal(model.geometry.status, 'drawing-derived');
+    assert.equal(model.revision, '0.2.0');
+    assert.equal(model.artifactRole, 'visualization');
+    assert.equal(model.status, 'concept-unvalidated');
+    const record = JSON.parse(readFileSync('hardware/assemblies/camera-pod/raspberry-pi-3a-plus/cad-check.json', 'utf8'));
+    assert.equal(record.model_revision, model.revision);
+    assert.equal(record.evidence, 'drawing-derived nominal CAD; physical fit unverified');
+    assert.equal(record.checks.booklet_matches_public_reference, true);
+    const missing = structuredClone(current);
+    delete missing.models.find(model => model.id === 'raspberry-pi-3a-plus').geometry.evidence;
+    assert.throws(() => validateRegistry(missing), /does not match/);
+    const stale = structuredClone(current);
+    const changed = stale.models.find(model => model.id === 'raspberry-pi-3a-plus');
+    changed.revision = '0.2.1';
+    changed.output = 'raspberry-pi-3a-plus-r0.2.1.stl';
+    assert.throws(() => validateRegistry(stale), /drawing evidence revision is stale/);
+});
+
 
 test('superseded dock visualizations remain archived without current BOM claims', () => {
     const current = validateRegistry();

@@ -1,8 +1,11 @@
 """Independent 1 cm³ tetrahedron and invalid-mesh controls for volume capture."""
 import importlib.util
+import hashlib
+import json
 import struct
 import tempfile
 import unittest
+import zipfile
 from pathlib import Path
 
 spec = importlib.util.spec_from_file_location('capture', Path(__file__).with_name('capture-print-volumes.py'))
@@ -21,6 +24,54 @@ def ascii_stl(faces):
 
 
 class VolumeTests(unittest.TestCase):
+    def test_release_reuse_pins_transitive_print_sources_and_ignores_unrelated_purchased_geometry(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp).resolve()
+            previous_root = capture.ROOT
+            capture.ROOT = root
+            self.addCleanup(setattr, capture, 'ROOT', previous_root)
+            print_model = dict(id='print', revision='1.0.0', entrypoint='hardware/print.scad',
+                               output='print-r1.0.0.stl', artifactRole='fabrication')
+            bought_model = dict(id='bought', revision='1.0.0', entrypoint='hardware/bought.scad',
+                                output='bought-r1.0.0.stl', artifactRole='visualization')
+            old_registry = {'models': [print_model, bought_model]}
+            new_registry = {'models': [print_model, {**bought_model, 'revision': '2.0.0'}]}
+            files = {'hardware/models.json': json.dumps(old_registry).encode(),
+                     'hardware/print.scad': b'include <lib/common.scad>\npart();',
+                     'hardware/lib/common.scad': b'use <nested.scad>\nmodule part() {cube(1);}',
+                     'hardware/lib/nested.scad': b'module helper() {}',
+                     'hardware/bought.scad': b'old_reference();'}
+            inputs = {p: hashlib.sha256(raw).hexdigest() for p, raw in files.items()}
+            for p, raw in files.items():
+                path = root / p
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_bytes(raw)
+            (root / 'hardware/models.json').write_text(json.dumps(new_registry))
+            (root / 'hardware/bought.scad').write_text('changed_reference();')
+            catalog = root / 'bom/catalog/fabrication.json'
+            catalog.parent.mkdir(parents=True)
+            catalog.write_text(json.dumps({'recipes': [{'components': [{'modelId': 'print'}]}]}))
+            release_dir = root / 'release'
+            release_dir.mkdir()
+            commit = 'a' * 40
+            release = dict(version='0.1.0', commit=commit, inputs=inputs)
+            (release_dir / 'cad-release.json').write_text(json.dumps(release))
+            (release_dir / print_model['output']).write_bytes(ascii_stl(triangles))
+            archive = release_dir / f'cad-sources-{commit}.zip'
+            with zipfile.ZipFile(archive, 'w') as source:
+                source.writestr('hardware/models.json', files['hardware/models.json'])
+            assets = [release_dir / 'cad-release.json', release_dir / print_model['output'], archive]
+            (release_dir / 'SHA256SUMS.txt').write_text(''.join(hashlib.sha256(p.read_bytes()).hexdigest() + '  ' + p.name + '\n' for p in assets))
+            capture.capture(release_dir)
+            geometry = json.loads(catalog.read_text())['geometry']
+            self.assertEqual(geometry['models'][0]['volumeCm3'], '1.000000')
+            self.assertEqual(set(geometry['sourceHashes']), set(inputs) - {'hardware/bought.scad'})
+            original = catalog.read_bytes()
+            (root / 'hardware/lib/nested.scad').write_text('changed_helper();')
+            with self.assertRaisesRegex(ValueError, 'Release does not match current CAD'):
+                capture.capture(release_dir)
+            self.assertEqual(catalog.read_bytes(), original)
+
     def test_local_booklet_source_copies_are_not_canonical_geometry_inputs(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)

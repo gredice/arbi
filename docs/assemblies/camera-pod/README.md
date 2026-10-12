@@ -54,6 +54,12 @@ A 360-degree camera is excluded from V1 because most pixels would cover irreleva
 
 ## Pod power and electronics
 
+The [Raspberry Pi 3A+ source and geometry review](../../../hardware/assemblies/camera-pod/raspberry-pi-3a-plus/README.md)
+links the official board drawings, revision 1.0 reduced schematic and product
+brief. The 65 × 56 mm board and 58 × 49 mm mounting pitch have published
+provenance; board-hole diameter, thickness, full connector envelopes and actual
+pod fit remain unverified.
+
 The repository baseline feeds nominal 48 V through the powered positioning line and converts locally to 5 V:
 
 ```mermaid

@@ -1,0 +1,71 @@
+{
+  "source_url": "https://pip-assets.raspberrypi.com/categories/512-raspberry-pi-3-model-a/documents/RP-008330-DS-1-raspberry-pi-3-a-plus-mechanical-drawing.pdf",
+  "source_sha256": "3a57851b81c319005ed04ef3bd303a66857cee65226e54d9f89a73f60d141923",
+  "observed_date": "2026-10-12",
+  "method": "PDF vector paths rotated into page coordinates; X calibrated to published 65 mm and Y to published 56 mm; source coordinates rounded to 0.01 PDF point. Traced dimensions are not supplier tolerances.",
+  "pcb_pdf_bounds_points": [
+    127.67,
+    284.34,
+    300.11,
+    432.96
+  ],
+  "features_pdf_bounds_points": {
+    "gpio": [
+      146.51,
+      287.04,
+      281.27,
+      300.3
+    ],
+    "usb": [
+      269.09,
+      329.91,
+      306.77,
+      368.88
+    ],
+    "hdmi": [
+      193.31,
+      404.7,
+      231.77,
+      436.92
+    ],
+    "power": [
+      145.13,
+      420.42,
+      166.43,
+      436.14
+    ],
+    "audio": [
+      260.33,
+      399.78,
+      278.87,
+      439.56
+    ],
+    "dsi": [
+      131.63,
+      328.92,
+      142.13,
+      388.38
+    ],
+    "csi": [
+      243.23,
+      372.72,
+      253.67,
+      432.12
+    ],
+    "soc": [
+      180.65,
+      330.72,
+      217.79,
+      367.86
+    ]
+  },
+  "published_above_pcb_height_mm": {
+    "gpio": 8.5,
+    "usb": 7.1,
+    "hdmi": 6.5,
+    "audio": 6,
+    "dsi": 5.5,
+    "csi": 5.5
+  },
+  "height_datum": "Model convention: heights above nominal populated PCB face; original board drawings do not specify a Z datum. USB chooses larger 2018 7.1 mm label."
+}

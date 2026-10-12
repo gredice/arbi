@@ -5,8 +5,22 @@
       "component": "Raspberry Pi 3 Model A+",
       "url": "https://pip.raspberrypi.com/categories/512-raspberry-pi-3-model-a",
       "drawing": "https://pip-assets.raspberrypi.com/categories/512-raspberry-pi-3-model-a/documents/RP-008330-DS-1-raspberry-pi-3-a-plus-mechanical-drawing.pdf",
-      "model": "65 x 56 mm board; nominal 58 x 49 mm mounting pattern and 2.75 mm holes",
-      "limits": "Drawing located through official portal; direct file download failed with HTTP 403. Simplified connector/component envelopes, not a supplier STEP model or close-fitting enclosure reference. Verify hole centres and clearances against received board."
+      "dimensioned_drawing": "https://pip-assets.raspberrypi.com/categories/512-raspberry-pi-3-model-a/documents/RP-008328-DS-1-raspberry-pi-3-a-mechanical-drawing.pdf",
+      "schematic": "https://pip-assets.raspberrypi.com/categories/512-raspberry-pi-3-model-a/documents/RP-008332-DS-1-raspberry-pi-3-a-plus-reduced-schematics.pdf",
+      "product_brief": "https://pip-assets.raspberrypi.com/categories/512-raspberry-pi-3-model-a/documents/RP-008331-DS-1-raspberry-pi-3-a-plus-product-brief.pdf",
+      "case_drawing": "https://pip-assets.raspberrypi.com/categories/512-raspberry-pi-3-model-a/documents/RP-008329-DS-1-raspberry-pi-3-a-plus-case-mechanical-drawing.pdf",
+      "observed_date": "2026-10-12",
+      "review": "hardware/assemblies/camera-pod/raspberry-pi-3a-plus/README.md",
+      "basis": "All five official PDFs downloaded and relevant drawing pages visually inspected. Dimensioned board drawing RPI-3A+_V1-0 dated 2018-07-13; reduced schematic RPI-3A+ revision 1.0 dated 2019-02-06; product brief published April 2024.",
+      "sha256": {
+        "drawing": "3a57851b81c319005ed04ef3bd303a66857cee65226e54d9f89a73f60d141923",
+        "dimensioned_drawing": "2ce125eb83818f94b0f472d64a2acd1459d987ddf67ff346eedc298c0d5b7fe5",
+        "schematic": "5b32434672ec5f6d726914d905377430f2b033abf7aa0de9f8bfd94756dc94d0",
+        "product_brief": "d253dcedae53f055ac2f08240ee7d8240f6d9001fd391c6437eefe6c56c18904",
+        "case_drawing": "21b63ed8f7ea1d8569bcf724932b9cea4b031f3756fe0f5d299573b7ef32798f"
+      },
+      "model": "Shared raspberry_pi_3a_plus r0.2.0: drawing-derived R3 65 x 56 mm PCB, 58 x 49 mm mounting pitch, traced connector plan outlines and published heights, 40 GPIO pins; nominal 2.75 mm holes and 1.6 mm PCB thickness",
+      "limits": "Drawing-derived reference, not a supplier-certified STEP model. USB uses the larger published 7.1 mm height. Heights use an explicit model PCB-top datum; original sheets do not specify one. Hole diameter, thickness, underside, micro-USB height and mating detail remain nominal; plugged-cable and physical fit require inspection. Source and mesh checks: hardware/assemblies/camera-pod/raspberry-pi-3a-plus/cad-check.json."
     },
     {
       "component": "Camera Module 3 Standard",
