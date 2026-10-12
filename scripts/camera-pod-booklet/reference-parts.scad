@@ -2,14 +2,11 @@
 // Pi/camera board interfaces follow the cited drawings; component detail is simplified.
 // Servo/horn/capacitor remain provisional. Converter envelope/holes are measured.
 include <arbi-hardware/lib/buck-converter-48v-5v.scad>
+include <arbi-hardware/lib/micro-pan-tilt-servo.scad>
 part = "raspberry-pi-3a-plus-reference";
 $fn = 64;
 eps = 0.02;
 
-servo_body = [20, 8.5, 18];
-servo_lug_span = 27;
-servo_hole_pitch = 24;
-servo_shaft_offset = 5;
 capacitor_diameter = 10;
 capacitor_height = 16;
 
@@ -60,16 +57,8 @@ module camera() {
     }
 }
 module servo() {
-    difference() {
-        union() {
-            translate([-servo_body[0]/2,-servo_body[1]/2,0]) cube(servo_body);
-            translate([-servo_lug_span/2,-servo_body[1]/2,13.5]) cube([servo_lug_span,servo_body[1],2]);
-            translate([servo_shaft_offset,0,17.9]) cylinder(d=7,h=1.8);
-            translate([servo_shaft_offset,0,19.5]) cylinder(d=3.6,h=2.5);
-        }
-        for(x=[-servo_hole_pitch/2,servo_hole_pitch/2])
-            translate([x,0,13]) cylinder(d=1.7,h=3);
-    }
+    // Flexible display leads are excluded from the rigid collision proxy.
+    micro_pan_tilt_servo(leads=false,solid=true);
 }
 module horn() {
     difference() {

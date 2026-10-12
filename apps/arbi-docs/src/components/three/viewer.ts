@@ -17,6 +17,7 @@ import { configurePageControls } from "./page-controls";
 import { StudioLighting } from "./studio-lighting";
 import { loadParts } from "./progressive-load";
 import { LoadingStatus } from "./loading-status";
+import { fadeMaterial, shadedMaterial, surfaceMaterial } from "./materials";
 
 const DATA = "/data/";
 
@@ -59,15 +60,7 @@ function partMaterial(color: Vec3, style: ViewerStyle): THREE.MeshBasicMaterial 
             polygonOffsetUnits: 1,
             transparent: true,
         });
-    const metal = color[0] > 0.6 && color[0] < 0.75;
-    return new THREE.MeshPhysicalMaterial({
-        color: new THREE.Color().setRGB(...color, THREE.SRGBColorSpace),
-        roughness: metal ? 0.28 : 0.48,
-        metalness: metal ? 0.8 : 0,
-        clearcoat: metal ? 0 : 0.16,
-        clearcoatRoughness: 0.4,
-        transparent: true,
-    });
+    return surfaceMaterial({ color, roughness: 0.48, metalness: 0, transmission: 0, thickness: 0, ior: 1.5 });
 }
 
 // trimesh GLBs carry no normals; crease at 30° so flat faces stay crisp.
@@ -196,7 +189,7 @@ export class Viewer {
         this.suspension?.lines.geometry.dispose();
         this.suspension?.lines.material.dispose();
         for (const e of this.parts) for (const m of e.meshes) {
-            (m.material as THREE.Material).dispose();
+            for (const material of Array.isArray(m.material) ? m.material : [m.material]) material.dispose();
             const line = m.children[0] as THREE.LineSegments<OutlineGeometry, THREE.LineBasicMaterial> | undefined;
             if (line?.geometry instanceof OutlineGeometry) {
                 line.geometry.dispose();
@@ -271,7 +264,12 @@ export class Viewer {
         });
         for (const m of meshes) {
             m.geometry = withNormals(m.geometry);
-            m.material = partMaterial(part.color, style);
+            const source = Array.isArray(m.material) ? m.material : [m.material];
+            const materials = source.map((material) => style === "light"
+                ? shadedMaterial(material, part.color, Boolean(m.userData.authoredMaterial))
+                : partMaterial(part.color, style));
+            m.material = Array.isArray(m.material) ? materials : materials[0];
+            if (m.userData.ownedSourceMaterial) source.forEach((material) => material.dispose());
             m.castShadow = m.receiveShadow = style === "light";
             if (style !== "light") {
                 const d = drawing(part.color, style);
@@ -301,9 +299,11 @@ export class Viewer {
                 const wrap = new THREE.Group();
                 wrap.scale.setScalar(1000); // GLB nodes carry metres; manifests use mm.
                 wrap.add(node.clone(true));
+                wrap.traverse((o) => { if ((o as THREE.Mesh).isMesh) o.userData.authoredMaterial = true; });
                 return wrap;
             }
             const mesh = new THREE.Mesh(await loadSTL(part.url!));
+            mesh.userData.ownedSourceMaterial = true;
             mesh.applyMatrix4(new THREE.Matrix4().set(...(part.matrix!.flat() as Parameters<THREE.Matrix4["set"]>)));
             return mesh;
         }, (object, part) => {
@@ -331,18 +331,36 @@ export class Viewer {
                 obj = new THREE.Group();
                 obj.scale.setScalar(1000);
                 obj.add(node);
+                obj.traverse((o) => { if ((o as THREE.Mesh).isMesh) o.userData.authoredMaterial = true; });
+            } else if (mesh.kind === "components") {
+                const group = new THREE.Group();
+                // Load all geometry first so a failed component leaves no owned GPU materials.
+                const geometries = await Promise.all(mesh.parts.map((part) => loadSTL(part.url)));
+                mesh.parts.forEach((part, i) => {
+                    const object = new THREE.Mesh(geometries[i], surfaceMaterial(part.material));
+                    object.name = part.node;
+                    object.userData.authoredMaterial = object.userData.ownedSourceMaterial = true;
+                    group.add(object);
+                });
+                obj = group;
             } else {
                 obj = new THREE.Mesh(await loadSTL(mesh.url));
+                obj.userData.ownedSourceMaterial = true;
             }
             const box = new THREE.Box3().setFromObject(obj);
-            if (!this.running) return box.getSize(new THREE.Vector3());
+            if (!this.running) {
+                obj.traverse((o) => {
+                    if (o.userData.ownedSourceMaterial) ((o as THREE.Mesh).material as THREE.Material).dispose();
+                });
+                return box.getSize(new THREE.Vector3());
+            }
             obj.position.sub(box.getCenter(new THREE.Vector3()));
             const holder = new THREE.Group();
             holder.add(obj);
             this.addPart(holder, { node: model, model, color, registered: true, href: `/parts/${model}`, group: "fixed", explode: [0, 0, 0] });
             this.frame({ distance: 1.04 });
             this.loading.update({ loaded: 1, failed: 0, total: 1 });
-            return box.getSize(new THREE.Vector3());
+            return mesh.kind === "components" ? new THREE.Vector3(...mesh.envelope) : box.getSize(new THREE.Vector3());
         } catch (error) {
             if (this.running) this.loading.unavailable();
             throw error;
@@ -481,12 +499,17 @@ export class Viewer {
             const on = !active || e.part.model === active;
             const hot = this.hovered === e;
             for (const m of e.meshes) {
-                const mat = m.material as THREE.MeshBasicMaterial | THREE.MeshStandardMaterial;
-                mat.opacity += ((on ? 1 : 0.16) - mat.opacity) * 0.2;
-                mat.depthWrite = mat.opacity > 0.9;
+                const materials = (Array.isArray(m.material) ? m.material : [m.material]) as (THREE.MeshBasicMaterial | THREE.MeshStandardMaterial)[];
+                const mat = materials[0];
                 const d = m.userData.draw as Drawing | undefined;
-                if (d) mat.color.setHex(hot ? d.hoverFace : d.face);
-                else if ("emissive" in mat) mat.emissive.setHex(this.hovered && e.part.model === this.hovered.part.model ? 0x111111 : 0x000000);
+                for (const material of materials) {
+                    fadeMaterial(material, on);
+                    if (d) material.color.setHex(hot ? d.hoverFace : d.face);
+                    else if ("emissive" in material) {
+                        material.emissive.fromArray(material.userData.baseEmissive ?? [0, 0, 0]);
+                        if (this.hovered && e.part.model === this.hovered.part.model) material.emissive.add(new THREE.Color(0x111111));
+                    }
+                }
                 const line = m.children[0] as THREE.LineSegments<OutlineGeometry, THREE.LineBasicMaterial> | undefined;
                 if (line && d) {
                     this.localCamera.copy(this.camera.position).applyMatrix4(this.inverseWorld.copy(m.matrixWorld).invert());

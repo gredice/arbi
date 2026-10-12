@@ -89,6 +89,56 @@ test('legacy packs with shaded reference figures cannot enter the line-art inven
   assert.throws(() => previewFigures(pack({}, sources, figure, 'cad-preview-v1'), [model], (path) => sources[path]), /line-art figures required/);
 });
 
+test('material components are source-checked, atomic, and survive the site compiler', () => {
+  const servo = JSON.parse(readFileSync(join(repo, 'hardware/models.json'))).models.find((m) => m.id === 'micro-pan-tilt-servo');
+  const input = {};
+  const visit = (path) => {
+    if (input[path]) return;
+    input[path] = readFileSync(join(repo, path));
+    for (const match of input[path].toString().matchAll(/^\s*(?:include|use)\s*<([^>]+)>/gm))
+      visit(new URL(match[1], `file:///${path}`).pathname.slice(1));
+  };
+  visit(servo.entrypoint);
+  const stl = strToU8('solid sample\nfacet normal 0 0 1\nouter loop\nvertex 0 0 0\nvertex 1 0 0\nvertex 0 1 1\nendloop\nendfacet\nendsolid sample');
+  const makePack = (change = () => {}) => {
+    const part = { node: 'blue-case', mesh: `appearances/${servo.id}/blue-case.stl`, sha256: digest(stl),
+      material: { color: [0.08, 0.32, 0.86], roughness: 0.22, metalness: 0, transmission: 0.65, thickness: 0.75, ior: 1.46 } };
+    const entry = { ...servo, figure: `figures/${servo.id}.png`, sha256: digest(figure),
+      sourceHashes: Object.fromEntries(Object.entries(input).map(([p, b]) => [p, digest(b)])),
+      appearance: { envelope: [31.8, 9, 24.5], parts: [part] } };
+    const files = { [`ARBI-CAD-previews/${entry.figure}`]: figure, [`ARBI-CAD-previews/${part.mesh}`]: stl };
+    change(entry, files);
+    files['ARBI-CAD-previews/manifest.json'] = strToU8(JSON.stringify({ schemaVersion: 1, style: 'cad-line-art-v2', models: { [servo.id]: entry } }));
+    return zipSync(files);
+  };
+  const appearance = previewAssets(makePack(), [servo], (p) => input[p]).appearances[servo.id];
+  assert.deepEqual(appearance.envelope, [31.8, 9, 24.5]);
+  assert.equal(appearance.parts[0].material.transmission, 0.65);
+  for (const change of [
+    (e, f) => { delete f[`ARBI-CAD-previews/${e.appearance.parts[0].mesh}`]; },
+    (e) => { e.appearance.parts[0].sha256 = 'corrupt'; },
+    (e) => { e.appearance.parts[0].mesh = '../outside.stl'; },
+    (e) => { e.appearance.parts.push(e.appearance.parts[0]); },
+    (e) => { e.appearance.parts[0].material.transmission = 2; },
+    (e) => { e.appearance.envelope = [31.8, -9, 24.5]; },
+  ]) assert.deepEqual(previewAssets(makePack(change), [servo], (p) => input[p]).appearances, {});
+  assert.deepEqual(previewAssets(makePack(), [servo], () => Buffer.from('changed')).appearances, {});
+  const output = mkdtempSync(join(tmpdir(), 'arbi-materials-test-'));
+  try {
+    const archive = join(output, 'previews.zip');
+    writeFileSync(archive, makePack());
+    const data = join(output, 'data');
+    execFileSync(process.execPath, ['scripts/compile-data.mjs'], {
+      cwd: app, env: { ...process.env, ARBI_OFFLINE: '1', ARBI_CAD_PREVIEW_PACK: archive, ARBI_DATA_DIR: data }, stdio: 'pipe',
+    });
+    const mesh = JSON.parse(readFileSync(join(data, 'site.json'))).meshes[servo.id];
+    assert.equal(mesh.kind, 'components');
+    assert.equal(mesh.parts[0].material.transmission, 0.65);
+    assert.deepEqual(mesh.envelope, [31.8, 9, 24.5]);
+    assert.deepEqual(readFileSync(join(data, mesh.parts[0].url)), Buffer.from(stl));
+  } finally { rmSync(output, { recursive: true, force: true }); }
+});
+
 test('changed revision, entrypoint or shared geometry and omitted includes reject stale previews', () => {
   for (const overrides of [{ revision: '0.0.0' }, { output: 'old.csg' }, { entrypoint: 'hardware/old.scad' }]) {
     assert.deepEqual(previewFigures(pack(overrides), [model], (path) => sources[path]), {});

@@ -118,7 +118,7 @@
             "path": "hardware/assemblies/camera-pod/camera-pod-servo-fit-coupon.scad",
             "module": "camera_pod_servo_fit_coupon",
             "modelId": "camera-pod-servo-fit-coupon",
-            "revision": "0.1.0"
+            "revision": "0.1.1"
           },
           {
             "path": "hardware/assemblies/camera-pod/camera-pod-integrated-camera-hood.scad",
@@ -130,13 +130,13 @@
             "path": "hardware/assemblies/camera-pod/camera-pod-integrated-gimbal-head.scad",
             "module": "camera_pod_integrated_gimbal_head",
             "modelId": "camera-pod-integrated-gimbal-head",
-            "revision": "0.1.3"
+            "revision": "0.1.4"
           },
           {
             "path": "hardware/assemblies/camera-pod/camera-pod-integrated-gimbal-carrier.scad",
             "module": "camera_pod_integrated_gimbal_carrier",
             "modelId": "camera-pod-integrated-gimbal-carrier",
-            "revision": "0.1.1"
+            "revision": "0.1.2"
           }
         ]
       },
@@ -174,7 +174,7 @@
             "path": "hardware/assemblies/camera-pod/camera-pod-pan-servo-mount.scad",
             "module": "camera_pod_pan_servo_mount",
             "modelId": "camera-pod-pan-servo-mount",
-            "revision": "0.1.0"
+            "revision": "0.1.1"
           },
           {
             "path": "hardware/assemblies/camera-pod/camera-pod-spider-spacer.scad",
@@ -623,7 +623,8 @@
       ],
       "requirements": [
         "~3.7 g digital micro servo; two-axis camera gimbal only, Pi/power stage remain fixed to pod."
-      ]
+      ],
+      "notes": "Owner-reported 12 October 2026: 31.8 × 9 × 24.5 mm including shaft, 25 mm end-hole pitch and 145 mm white/red/black leads exiting the shaft end of a translucent blue case. Owner checked and accepted the revised body/mounting fit for continued use. See docs/evidence/micro-servo-2026-10-12.md. Mass, pinout, horn, spline and detailed interfaces remain unverified."
     },
     {
       "id": "microsd-card-32gb",

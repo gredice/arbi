@@ -1,4 +1,4 @@
-// ARBI camera-pod-assembly r0.3.7 — concept-unvalidated reference. Do not print.
+// ARBI camera-pod-assembly r0.3.8 — concept-unvalidated reference. Do not print.
 include <../../lib/camera-pod.scad>
 include <../../lib/camera-pod-enclosure.scad>
 include <../../lib/camera-pod-integrated-gimbal.scad>

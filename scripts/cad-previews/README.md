@@ -79,3 +79,14 @@ ARBI_CAD_PREVIEW_PACK=/tmp/arbi-previews/ARBI-CAD-previews.zip pnpm --filter @ar
 
 Renders establish nominal source geometry only; physical acceptance remains
 separate.
+
+Models may declare `ARBI_MODEL_APPEARANCE` and export each material component
+with `appearance_part=N`. The pack stores these meshes under `appearances/`,
+with source and mesh checksums, an explicit rigid envelope excluding flexible
+display leads, and sRGB colour, roughness, metalness, transmission, thickness
+(mm) and IOR. The site accepts the complete component set atomically and uses
+it for shaded and line views. The servo is the first such model; future
+multi-material models can use the same path. These assets supplement the
+ordinary release STL; they do not change engineering status or create new
+fabrication entrypoints. Authored GLTF materials are also preserved in shaded
+views instead of being replaced with a single colour.

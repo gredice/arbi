@@ -24,7 +24,7 @@ module camera_pod_integrated_gimbal_carrier() {
                 pm_cyl(7,2.5,[x,-30.5,-31.7]);
             }
             // The servo is rolled 90 degrees about its X output axis: its
-            // 20 mm body length and 24 mm ear-hole pitch now run along Y.
+            // 20 mm nominal body length and measured 25 mm ear-hole pitch run along Y.
             pm_box([2.5,33,14],[pg_lug_inner_x-1.25,pg_servo_y],pg_tilt_z-7);
             for(side=[-1,1])let(y=pg_servo_y+14*side,wrap_y=pg_tilt_y+18*side) {
                 pm_box([3,5,-27.2-(pg_tilt_z+5.5)],
@@ -40,8 +40,8 @@ module camera_pod_integrated_gimbal_carrier() {
         // Extend its inner edge 3 mm for the cradle/horn spline seating path.
         pm_box([10.2,28,12],[-18.9+pg_drive_shift,pg_tilt_y],-31.71);
         for(x=[-8,8],y=[-30.5,30.5])pm_cyl(2.3,7,[x,y,-32]);
-        pm_box([4,pm_servo_body[0]+pm_servo_fit,pm_servo_body[1]+pm_servo_fit],
-            [pg_lug_inner_x-1.25,pg_servo_y],pg_tilt_z-(pm_servo_body[1]+pm_servo_fit)/2);
+        pm_box([4,pm_servo_window[0],pm_servo_window[1]],
+            [pg_lug_inner_x-1.25,pg_servo_y],pg_tilt_z-pm_servo_window[1]/2);
         for(y=[pg_servo_y-pm_servo_lug_pitch/2,pg_servo_y+pm_servo_lug_pitch/2]) {
             pm_xcyl(1.9,4,[pg_lug_inner_x-3,y,pg_tilt_z]);
             translate([pg_lug_inner_x+.01,y,pg_tilt_z])rotate([0,-90,0])

@@ -70,7 +70,10 @@ export type SceneMeta = {
 };
 
 /** A mesh for one model: a node of the pod GLB or an STL path, both under /data. */
-export type MeshRef = { kind: "glb"; node: string; glb: string } | { kind: "stl"; url: string };
+export type SurfaceMaterial = { color: Vec3; roughness: number; metalness: number; transmission: number; thickness: number; ior: number };
+export type MaterialComponent = { node: string; url: string; material: SurfaceMaterial };
+export type MeshRef = { kind: "glb"; node: string; glb: string } | { kind: "stl"; url: string } |
+    { kind: "components"; parts: MaterialComponent[]; envelope: Vec3 };
 
 export type PrintEstimate = {
     basis: string;
