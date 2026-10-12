@@ -390,6 +390,7 @@ const corner = cornerPack && assemblyPackScene(cornerPack, modelsByOutput, 'corn
 // A local pack is useful for offline rendering checks before its release is published.
 const figures = {};
 const visualizationMeshes = {};
+const referenceMeshes = {};
 const inspectionScenes = {};
 try {
   if (PRODUCTION && process.env.ARBI_CAD_PREVIEW_PACK) throw new Error('Production requires the verified release preview pack');
@@ -399,6 +400,11 @@ try {
   if (bytes) {
     const assets = previewAssets(bytes, registry.models, (path) => readFileSync(join(REPO, path)));
     Object.assign(visualizationMeshes, assets.meshes);
+    for (const [id, bytes] of Object.entries(assets.referenceMeshes)) {
+      const url = `inspection/references/${id}.stl`;
+      write(join(OUT, url), bytes);
+      referenceMeshes[id] = { kind: 'stl', url };
+    }
     for (const [slug, assembly] of Object.entries(assets.scenes)) {
       const parts = assembly.parts.map(({ bytes, mesh, sha256: _checksum, bomPartId, ...part }) => {
         const url = `inspection/${mesh}`;
@@ -421,6 +427,9 @@ try {
   console.warn(`CAD previews unavailable, using booklet figures: ${error.message}`);
 }
 if (PRODUCTION && Object.keys(figures).length !== registry.models.length) throw new Error('Production requires current figures for every registered model');
+if (PRODUCTION && registry.models.some((model) => model.artifactRole === 'reference' && !referenceMeshes[model.id])) {
+  throw new Error('Production requires current inspection meshes for every CSG reference');
+}
 if (PRODUCTION && registry.models.some((model) => model.artifactRole === 'reference' &&
   readFileSync(join(REPO, model.entrypoint), 'utf8').includes('ARBI_ASSEMBLY_SCENE') && !inspectionScenes[model.assembly])) {
   throw new Error('Production requires complete current inspection assets for declared assembly scenes');
@@ -501,6 +510,7 @@ const site = {
     hero: s.hero ? `${s.figureDir}/figures/${s.hero}.png` : figures[`${slug}-assembly`] ?? null,
     exploded: s.pose && s.figureDir ? `${s.figureDir}/figures/${s.pose}.png` : null, parts: s.parts.length }])),
   meshes: Object.fromEntries(Object.entries(meshes).map(([id, m]) => [id, { kind: m.kind, node: m.node, url: m.url }])),
+  referenceMeshes,
   downloads,
   figures,
   snapshots: snapshotFiles.map((path) => ({ path: rel(path), name: basename(path), bytes: statSync(path).size, url: `${GITHUB}/raw/${ref}/${rel(path)}`,

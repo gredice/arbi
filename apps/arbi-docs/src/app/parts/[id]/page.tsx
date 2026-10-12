@@ -94,7 +94,8 @@ export default async function PartPage({ params }: { params: Promise<{ id: strin
                         model={m.id}
                         color={partColor(m.id) as Vec3}
                         output={m.output}
-                        missing={m.output.endsWith(".csg") ? "CSG reference assembly · open the system view for its meshes" : "No mesh in the CAD release or booklet packs"}
+                        figure={fig}
+                        missing={m.output.endsWith(".csg") ? "CSG reference · interactive preview unavailable in this build" : "No mesh in the CAD release or booklet packs"}
                     />
                 </div>
                 <div className="flex flex-col px-4 py-6 sm:px-6 lg:col-span-5">

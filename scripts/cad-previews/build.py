@@ -41,8 +41,10 @@ def source_hashes(entrypoint):
     return hashes
 
 
-def render(mesh, output):
+def mesh_data(mesh):
     meshes = [mesh] if isinstance(mesh, Path) else mesh
+    if not meshes:
+        raise ValueError("Reference has no visible geometry")
     combined = vtk.vtkAppendPolyData()
     for path in meshes:
         reader = vtk.vtkSTLReader()
@@ -56,6 +58,22 @@ def render(mesh, output):
     data = combined.GetOutput()
     if data.GetNumberOfCells() == 0:
         raise ValueError("Reference has no visible geometry")
+    return data
+
+
+def write_reference_mesh(meshes, output):
+    """Keep the exact preview surfaces and world placement without a boolean union."""
+    output.parent.mkdir(parents=True, exist_ok=True)
+    writer = vtk.vtkSTLWriter()
+    writer.SetFileName(str(output))
+    writer.SetFileTypeToBinary()
+    writer.SetInputData(mesh_data(meshes))
+    if not writer.Write() or not output.is_file() or not output.stat().st_size:
+        raise ValueError(f"Missing reference inspection mesh: {output}")
+
+
+def render(mesh, output):
+    data = mesh_data(mesh)
 
     renderer = vtk.vtkRenderer()
     renderer.SetBackground(1, 1, 1)
@@ -162,6 +180,11 @@ def build(cad, output, jobs):
                 "entrypoint": model["entrypoint"], "revision": model["revision"], "output": model["output"],
                 "sourceHashes": source_hashes(model["entrypoint"]), "figure": figure, "sha256": digest(image),
             }
+            if mesh.suffix == ".csg":
+                target = work / "references" / f"{model['id']}.stl"
+                write_reference_mesh(references[mesh], target)
+                manifest["models"][model["id"]].update(
+                    referenceMesh=f"references/{model['id']}.stl", referenceMeshSha256=digest(target))
             scene = assembly_scene(model, REPO, work, jobs)
             if scene:
                 manifest["models"][model["id"]]["scene"] = scene
@@ -173,7 +196,7 @@ def build(cad, output, jobs):
             print(f"Rendered {model['id']}", flush=True)
         (work / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
         with zipfile.ZipFile(output / ASSET, "w", zipfile.ZIP_DEFLATED) as archive:
-            for path in sorted(work.rglob("*.png")) + sorted((work / "meshes").glob("*.stl")) + sorted((work / "assemblies").rglob("*.stl")) + [work / "manifest.json"]:
+            for path in sorted(work.rglob("*.png")) + sorted((work / "meshes").glob("*.stl")) + sorted((work / "references").glob("*.stl")) + sorted((work / "assemblies").rglob("*.stl")) + [work / "manifest.json"]:
                 archive.write(path, "ARBI-CAD-previews/" + path.relative_to(work).as_posix())
     print(f"Packaged {len(manifest['models'])} figures in {output / ASSET}", flush=True)
 
