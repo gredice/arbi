@@ -1,6 +1,7 @@
 // Illustration reference geometry, millimetres. NOT manufacturing files.
 // Bought parts use nominal repository/catalog dimensions; inspect real hardware.
 // Internal bearing details, fastener threads and coupling teeth are simplified.
+include <arbi-hardware/lib/nema23-motor.scad>
 part="bearing-608";
 $fn=96;
 e=0.02;
@@ -44,21 +45,7 @@ module chamfered_square(side,ch,h) {
     linear_extrude(h)polygon([[-s+ch,-s],[s-ch,-s],[s,-s+ch],[s,s-ch],
       [s-ch,s],[-s+ch,s],[-s,s-ch],[-s,-s+ch]]);
 }
-module motor() {
-    difference() {
-        union() {
-            chamfered_square(57,4,122);
-            translate([0,0,-1.6])cylinder(d=38.1,h=1.7);
-            translate([0,0,-22])cylinder(d=8,h=22.1);
-        }
-        for(x=[-23.57,23.57],y=[-23.57,23.57])translate([x,y,-e])cylinder(d=4.5,h=8.2);
-        translate([-5,3.5,-22-e])cube([10,2,15]);
-        for(z=[8,104])translate([0,0,z])difference(){
-            translate([-30,-30,0])cube([60,60,0.7]);
-            chamfered_square(55.8,4,1);
-        }
-    }
-}
+module motor() { arbi_nema23_motor(); }
 module bolt(d,L) {
     hd=d==4?7:d==5?8.5:d==6?10:13;
     key=d==4?3:d==5?4:d==6?5:6;

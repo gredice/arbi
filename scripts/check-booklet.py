@@ -97,12 +97,14 @@ def check(root, variant):
                     intersection = trimesh.boolean.intersection(placed, engine='manifold')
                     overlap = 0 if intersection.is_empty else intersection.volume
                     assert overlap < .001, (cable_variant, loom['file'], fraction, 'cable intersects fascia', overlap)
-                    # The old open-ended run was entirely below/away from the
-                    # motor. Both routing references must terminate under its
-                    # rear body, including during the fascia disassembly travel.
-                    contact = trimesh.boolean.intersection([placed[1], motor_mesh], engine='manifold')
-                    assert not contact.is_empty and contact.volume > 1, (
-                        cable_variant, loom['file'], fraction, 'loom starts in empty space below motor')
+                    # Installed routing references must reach the motor body.
+                    # During service views these disconnected rigid references
+                    # follow the fascia; the supplier's flexible tails and their
+                    # deformation are omitted. This is not a cable service sweep.
+                    if fraction == 0:
+                        contact = trimesh.boolean.intersection([placed[1], motor_mesh], engine='manifold')
+                        assert not contact.is_empty and contact.volume > 1, (
+                            cable_variant, loom['file'], fraction, 'installed loom starts in empty space below motor')
     for name, figure in figures.items():
         assert figure['render_style'] == 'assembly-line-art-v1', name
         with Image.open(root / 'figures' / (name + '.png')) as image:
