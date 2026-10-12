@@ -73,4 +73,15 @@ supplied.
 
 Aleks confirmed **EUR 16.12 actual delivered total for four couplings** linked to `aliexpress-flexible-jaw-coupling-8mm`, including all charges. The quoted price is EUR 3.09 per piece with free delivery. The EUR 15.36 goods-plus-customs estimate is not the actual total; actual import charges were **EUR 3.76**, giving EUR 12.36 goods + EUR 0 delivery + EUR 3.76 import charges = EUR 16.12. Do not add VAT or customs again to EUR 16.12. This clarifies the existing four-coupling order, not an additional order. Receipt status and exact order/delivery dates were not supplied. See [coupling price evidence](sourcing/coupling-2026-10-08.md).
 
+## KW11-3Z receipt confirmed on 2026-10-12
+
+Aleks confirmed receiving **KW11-3Z roller-lever microswitches** ordered from
+AliExpress and supplied the [supplier drawing and physical measurements](../docs/evidence/kw11-3z-2026-10-12.md).
+This updates receipt/variant evidence for `aliexpress-roller-lever-microswitch`
+and `roller-lever-microswitch`; it is not an additional order. The historical
+order above is ten switches, but the received count and actual delivery date
+were not reconfirmed. The approximately 18 mm electrical click observation does
+not establish rated overtravel, electrical release, operating force, weather
+resistance or installed fit. No purchase total, stock or price was refreshed.
+
 Append future orders and deliveries with their confirmation date, evidence, stable offer ID, and actual quantity when known. When incoming items arrive, record receipt separately so the order history remains traceable. Do not infer receipt for unlisted items. This manual log is not included in generated cost reports.
