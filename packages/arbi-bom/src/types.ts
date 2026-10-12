@@ -2,7 +2,7 @@ export type Inclusion = "base" | "optional" | "deferred";
 export type BaseUnit = "each" | "m";
 
 export interface DesignWarning {
-  severity: "critical" | "warning";
+  severity: "critical" | "warning" | "issue";
   code: string;
   message: string;
 }

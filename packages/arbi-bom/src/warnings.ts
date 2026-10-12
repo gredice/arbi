@@ -1,5 +1,8 @@
 import type { BomRepository, BomWarning, DesignWarning, Part } from "./types.js";
 
+export const warningPriorities = ["critical", "warning", "issue"] as const;
+export const warningLabels = { critical: "Critical", warning: "Warning", issue: "Issues" };
+
 export function designWarnings(part: Part): DesignWarning[] {
   const warnings = [...(part.designWarnings ?? [])];
   if (part.requirements.length === 0) warnings.push({
@@ -20,7 +23,7 @@ export function designWarnings(part: Part): DesignWarning[] {
 }
 
 export function compareWarnings(a: DesignWarning, b: DesignWarning): number {
-  return Number(b.severity === "critical") - Number(a.severity === "critical") ||
+  return warningPriorities.indexOf(a.severity) - warningPriorities.indexOf(b.severity) ||
     Number(b.code === "temporary-cable-tie") - Number(a.code === "temporary-cable-tie") || a.message.localeCompare(b.message, "en");
 }
 
@@ -29,7 +32,7 @@ export class BomWarnings {
   private readonly entries = new Map<string, BomWarning>();
   constructor(private readonly repository: BomRepository) {}
 
-  add(message: string, partIds: string[] = [], severity: DesignWarning["severity"] = "critical", code = "missing-information"): void {
+  add(message: string, partIds: string[] = [], severity: DesignWarning["severity"] = "issue", code = "procurement-information"): void {
     const ids = [...new Set(partIds)].sort();
     this.entries.set(message, { message, severity, code, partIds: ids,
       assemblyIds: this.repository.assemblies.assemblies.filter((assembly) => assembly.usages.some((usage) => ids.includes(usage.partId))).map((assembly) => assembly.id).sort(),

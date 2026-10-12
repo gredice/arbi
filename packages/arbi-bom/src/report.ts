@@ -1,5 +1,6 @@
 import { Decimal } from "./decimal.js";
 import type { CalculationResult } from "./types.js";
+import { warningLabels, warningPriorities } from "./warnings.js";
 
 function money(value: string, currency: string): string {
   return currency + " " + Decimal.parse(value).toFixed(2);
@@ -227,11 +228,11 @@ export function renderMarkdown(result: CalculationResult): string {
     );
   }
   lines.push("", "## Prioritized warnings", "",
-    "Critical warnings identify temporary workarounds or missing information. Warnings identify concepts and selections awaiting confirmation. These priorities do not establish physical acceptance.", "");
-  for (const severity of ["critical", "warning"] as const) {
+    "Critical warnings identify unknown dimensions, approximate geometry, missing manufacturing specifications and temporary workarounds. Warnings identify unconfirmed designs, concepts and selections awaiting review. Issues identify procurement details such as price, tax/VAT, shipping, availability and observation dates. Resolve geometry before dependent assembly design and procurement details when the design and parts are confirmed. These priorities do not establish physical acceptance.", "");
+  for (const severity of warningPriorities) {
     const warnings = result.warningDetails.filter((warning) => warning.severity === severity);
-    lines.push(`### ${severity === "critical" ? "Critical" : "Warning"} (${warnings.length})`, "");
-    for (const warning of warnings) lines.push("- **" + (severity === "critical" ? "Critical" : "Warning") + ":** " + warning.message);
+    lines.push(`### ${warningLabels[severity]} (${warnings.length})`, "");
+    for (const warning of warnings) lines.push("- **" + warningLabels[severity] + ":** " + warning.message);
     if (warnings.length === 0) lines.push("None.");
     lines.push("");
   }

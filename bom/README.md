@@ -32,12 +32,13 @@ Each page shows canonical requirements and notes, assembly usage quantities and 
 
 ### Warning priorities
 
-- **Critical**: temporary workarounds and missing requirements, fabrication sources, package quantities, prices, observation dates, availability, tax or shipping information. Resolve the named issue before accepting the final assembly or relying on complete procurement data.
-- **Warning**: concepts, prototypes, approximate geometry and supplier selections awaiting confirmation. Record the review, measurements or physical acceptance evidence before advancing their status.
+- **Critical**: unknown dimensions, approximate geometry, missing requirements or fabrication sources, and temporary workarounds. Resolve dimensions and interfaces before dependent assembly design or accepting the final assembly.
+- **Warning**: unconfirmed designs, concepts, prototypes and supplier selections awaiting review. Record the design review or physical acceptance evidence before advancing their status.
+- **Issues**: procurement details such as package quantities, price, tax/VAT, shipping, availability, customs and observation dates. Resolve these when the design and parts are confirmed; they still prevent a complete landed cost when evidence is missing.
 
 **Cable ties are temporary workarounds only, never a final retention or fastening solution.** The affected catalog parts carry a critical `temporary-cable-tie` design warning with the replacement work described. Current geometry and historical booklets may still show ties; these interfaces remain unresolved until dedicated removable mounts, fasteners or strain relief are designed and reviewed. Ties must never carry positioning-line tension.
 
-Part-specific `designWarnings` belong to the canonical catalog. The schema prevents downgrading a cable-tie warning. The calculator adds structured `warningDetails` with priority and part/assembly ownership while retaining its existing text `warnings` list. `partWarnings` includes optional and deferred parts, even when excluded from the scenario. Generated item pages show design warnings; scenario reports and website Parts/BOM pages also show procurement warnings. The website uses red critical badges and amber warning badges, with expandable work lists and links to affected items.
+Part-specific `designWarnings` belong to the canonical catalog. The schema prevents downgrading a cable-tie warning or an explicit approximate-geometry warning. The calculator adds structured `warningDetails` with priority and part/assembly ownership while retaining its existing text `warnings` list. `partWarnings` includes optional and deferred parts, even when excluded from the scenario. Generated item pages show design warnings; scenario reports and website Parts/BOM pages also show procurement issues. The website adds critical geometry warnings from the active CAD registry to affected part rows and summaries. It uses red Critical, amber Warning and neutral Issues badges, with expandable work lists and links to affected items.
 
 Calculation `complete` continues to describe procurement cost completeness; engineering warnings do not grant physical acceptance or establish that a design is ready to build.
 

@@ -146,7 +146,8 @@
                 "severity": {
                   "enum": [
                     "critical",
-                    "warning"
+                    "warning",
+                    "issue"
                   ]
                 },
                 "code": {
@@ -165,7 +166,8 @@
                       "code": {
                         "enum": [
                           "temporary-cable-tie",
-                          "missing-information"
+                          "missing-information",
+                          "approximate-geometry"
                         ]
                       }
                     }

@@ -127,11 +127,17 @@ test('the offline compiler consumes a current preview pack and writes its refere
     assert.ok(!coupling.warnings.some((warning) => warning.includes('Tax/VAT')));
     assert.ok(site.bom.summary.warningCounts.critical > 0);
     assert.ok(site.bom.summary.warningCounts.warning > 0);
-    assert.equal(site.bom.summary.warningCounts.critical + site.bom.summary.warningCounts.warning, site.bom.summary.warningCount);
+    assert.ok(site.bom.summary.warningCounts.issue > 0);
+    assert.equal(Object.values(site.bom.summary.warningCounts).reduce((sum, count) => sum + count, 0), site.bom.summary.warningCount);
+    const pulley = site.bom.parts.find((part) => part.id === 'top-positioning-line-pulley');
+    assert.ok(pulley.warningDetails.some((warning) => warning.code === 'approximate-geometry' && warning.severity === 'critical'));
+    assert.ok(pulley.warningDetails.some((warning) => warning.message.includes('Tax/VAT') && warning.severity === 'issue'));
+    assert.ok(site.bom.summary.warningDetails.some((warning) => warning.code === 'approximate-geometry' && warning.severity === 'critical' && warning.partIds.includes(pulley.id)));
     for (const id of ['camera-pod-chassis', 'winch-round-pole-covers']) {
       const part = site.bom.parts.find((part) => part.id === id);
       assert.ok(part.warningDetails.some((warning) => warning.severity === 'critical' && warning.code === 'temporary-cable-tie'));
       assert.ok(site.bom.summary.warningDetails.some((warning) => warning.severity === 'critical' && warning.code === 'temporary-cable-tie' && warning.partIds.includes(id)));
+      assert.equal(site.bom.summary.warningDetails.filter((warning) => warning.code === 'temporary-cable-tie' && warning.partIds.includes(id)).length, 1);
     }
     assert.equal(site.figures[model.id], `figures/${model.id}.png`);
     assert.ok(existsSync(join(data, site.figures[model.id])));
