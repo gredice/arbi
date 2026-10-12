@@ -60,6 +60,7 @@ The committed material is a **design baseline**, not proof of a built or safe in
 - [Micro servo: measured envelope, corrected 25 mm screw pitch and owner opening-fit report](evidence/micro-servo-2026-10-12.md)
 
 - [Fixed-5 V converter: receipt, photographs, measured envelope and mounting pattern](evidence/buck-converter-2026-10-12.md)
+- [KW11-3Z microswitch: receipt, supplier drawing, measured holes, roller, lever and pose heights](evidence/kw11-3z-2026-10-12.md)
 
 ## Software evidence
 

@@ -1614,7 +1614,7 @@
         },
         {
             "id": "roller-lever-microswitch",
-            "revision": "0.1.0",
+            "revision": "1.0.0",
             "status": "concept-unvalidated",
             "artifactRole": "visualization",
             "bomPartIds": [
@@ -1622,13 +1622,13 @@
             ],
             "assembly": "winch",
             "entrypoint": "hardware/assemblies/winch/roller-lever-microswitch.scad",
-            "output": "roller-lever-microswitch-r0.1.0.stl",
+            "output": "roller-lever-microswitch-r1.0.0.stl",
             "documentation": "hardware/assemblies/winch/README.md",
-            "description": "Approximate visualization of Winch home/reference and docked position roller microswitch. Assumed KW12-class 20 × 10 × 6 mm body with lever and roller; mounting and travel unspecified.",
+            "description": "Received KW11-3Z reference: drawing-based 20 x 10.7 x 6.7 mm case and two diameter-2.5 mm bores at 9.5 mm pitch; owner-measured bore offset, roller, lever and three roller-top heights. Attachment and motion geometry remain approximate.",
             "geometry": {
                 "status": "approximate",
-                "basis": "Assumed KW12-class 20 × 10 × 6 mm body with lever and roller; mounting and travel unspecified.",
-                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+                "basis": "Received KW11-3Z, owner-confirmed 2026-10-12: first hole 5.5 mm from the left edge, roller diameter 4.8 mm / width 4 mm / axle span 7.2 mm, lever 4 x 0.3 mm. Roller top above case bottom: released 21.0 mm, click approximately 18 mm, fully pressed 16 mm. Drawing case 20 x 10.7 x 6.7 mm, two diameter-2.5 mm holes at 9.5 mm pitch and 2.8 mm height. Evidence: docs/evidence/kw11-3z-2026-10-12.md.",
+                "rework": "Lever attachment, horizontal roller positions, spring flex, bends and terminal offsets remain approximate. Measure these before final cam, target or bracket design. Fully pressed height does not establish allowable overtravel; electrical release position, force, rated stroke and physical fit remain unverified."
             }
         },
         {
