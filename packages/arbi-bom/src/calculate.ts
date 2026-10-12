@@ -367,8 +367,8 @@ export function calculateBom(
     warnings.sort();
     for (const warning of warnings) {
       globalWarnings.add(offer.id + ": " + warning, coveredContents.map((content) => content.partId),
-        warning === qualificationWarning ? "warning" : "critical",
-        warning === qualificationWarning ? "unconfirmed-selection" : "missing-information");
+        warning === qualificationWarning ? "warning" : "issue",
+        warning === qualificationWarning ? "unconfirmed-selection" : "procurement-information");
     }
     selections.push({
       offerId: offer.id,
@@ -423,8 +423,7 @@ export function calculateBom(
       if (customsAmount !== null) knownCustoms = knownCustoms.add(customsAmount);
       if (active) customsWarnings.push("One selected offer approximates one declared item type; actual customs grouping is unconfirmed.");
       for (const warning of customsWarnings) {
-        const unconfirmedGrouping = warning === "One selected offer approximates one declared item type; actual customs grouping is unconfirmed.";
-        globalWarnings.add(checkoutGroupId + ": " + warning, groupPartIds, unconfirmedGrouping ? "warning" : "critical", unconfirmedGrouping ? "unconfirmed-selection" : "missing-information");
+        globalWarnings.add(checkoutGroupId + ": " + warning, groupPartIds);
       }
       customs.push({ checkoutGroupId, policy, chargeCount: active ? groupSelections.length : 0, orderGoodsAmount: orderGoods?.toString() ?? null, knownAmount: customsAmount?.toString() ?? null, warnings: customsWarnings });
     }

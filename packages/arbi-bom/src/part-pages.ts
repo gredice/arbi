@@ -1,6 +1,6 @@
 import type { BomRepository } from "./types.js";
 import { estimatePrintMaterials } from "./fabrication.js";
-import { compareWarnings, designWarnings } from "./warnings.js";
+import { compareWarnings, designWarnings, warningLabels, warningPriorities } from "./warnings.js";
 
 function text(value: string): string {
   return value.replaceAll("\\", "\\\\").replaceAll("|", "\\|")
@@ -18,7 +18,7 @@ export function renderPartPages(repository: BomRepository): Map<string, string> 
     "| Item | Part ID | Design warnings |", "| --- | --- | --- |"];
   for (const part of parts) {
     const warnings = designWarnings(part).sort(compareWarnings);
-    const priorities = ["critical", "warning"].map((severity) => {
+    const priorities = warningPriorities.map((severity) => {
       const count = warnings.filter((warning) => warning.severity === severity).length;
       return count ? `${count} ${severity}` : null;
     }).filter(Boolean).join("; ");
@@ -30,7 +30,7 @@ export function renderPartPages(repository: BomRepository): Map<string, string> 
       `- Traits: ${part.traits.map(text).join(", ") || "None"}`, "", "## Requirements", "",
       ...part.requirements.map((requirement) => "- " + text(requirement))];
     if (warnings.length) lines.push("", "## Design warnings", "",
-      ...warnings.map((warning) => `- **${warning.severity === "critical" ? "Critical" : "Warning"}:** ${text(warning.message)}`));
+      ...warnings.map((warning) => `- **${warningLabels[warning.severity]}:** ${text(warning.message)}`));
     if (part.notes) lines.push("", "## Notes", "", text(part.notes));
     lines.push("", "## Used in", "",
       "Quantities are per assembly definition, before build multipliers. Optional and deferred usages are shown even when excluded from a scenario. Procurement stock is not an installed physical owner.", "",
