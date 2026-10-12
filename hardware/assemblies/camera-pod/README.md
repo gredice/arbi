@@ -59,7 +59,7 @@ Registry ID and design revision: `camera-pod-envelope` `0.1.1`, role `reference`
 
 [camera-pod-assembly.scad](camera-pod-assembly.scad) defaults to the integrated enclosure. Set `show_legacy=true` to show the separate historical printed kit; `show_context` applies only to that layout. Set `show_hood=false` to expose the integrated core. Both views use the shared white-shell/black-core palette. It does not prove clearances, mass properties, centre of gravity, or dock capture.
 
-Registry ID and design revision: `camera-pod-assembly` `0.3.7`, role `reference`, status `concept-unvalidated`.
+Registry ID and design revision: `camera-pod-assembly` `0.3.8`, role `reference`, status `concept-unvalidated`.
 
 This is the canonical public assembled reference. The former `payload-assembly` and `payload-rain-assembly` public IDs redirect here.
 The enclosed geometry now lives in this single entrypoint; the distinct dry bench

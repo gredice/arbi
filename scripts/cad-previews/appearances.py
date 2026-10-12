@@ -3,7 +3,7 @@ import hashlib
 import json
 import math
 import re
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from assembly_scenes import checked_export
 
 
@@ -42,6 +42,11 @@ def model_appearance(model, repo, work, jobs):
         checked_export(["openscad", "-o", str(target), "-D", f"appearance_part={index}", str(entrypoint)], target)
         part["sha256"] = hashlib.sha256(target.read_bytes()).hexdigest()
 
-    with ThreadPoolExecutor(max_workers=jobs) as executor:
-        list(executor.map(export, range(len(parts))))
+    executor = ThreadPoolExecutor(max_workers=jobs)
+    try:
+        futures = [executor.submit(export, index) for index in range(len(parts))]
+        for future in as_completed(futures):
+            future.result()
+    finally:
+        executor.shutdown(wait=True, cancel_futures=True)
     return {"envelope": envelope, "parts": parts}

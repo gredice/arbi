@@ -21,7 +21,7 @@
 
 ## Notes
 
-Current compact enclosure uses camera-pod-integrated-gimbal-head r0.1.3, camera-pod-integrated-gimbal-carrier r0.1.1, reinforced integrated cradle r0.1.1 and pivot support r0.1.0, horn retainers and camera-pod-integrated-camera-hood r0.1.1. Historical concept and dry bench gimbal parts, fixed fairing, tilt-servo boot and rear camera cowl are archived and excluded from this BOM. Four M2 x 10 clamp stacks join head and carrier; four M2 x 12 camera screws retain four primary nuts and eight washers. The selected kit exports 13 fabrication models including the optional coupon and installs 16 printed pieces. See hardware/assemblies/camera-pod/camera-pod-enclosure.md for quantities and service routes. Servo/connector dimensions, physical fit, rain protection and complete flying mass remain unverified.
+Current compact enclosure uses camera-pod-integrated-gimbal-head r0.1.4, camera-pod-integrated-gimbal-carrier r0.1.2, reinforced integrated cradle r0.1.1 and pivot support r0.1.0, horn retainers and camera-pod-integrated-camera-hood r0.1.1. Historical concept and dry bench gimbal parts, fixed fairing, tilt-servo boot and rear camera cowl are archived and excluded from this BOM. Four M2 x 10 clamp stacks join head and carrier; four M2 x 12 camera screws retain four primary nuts and eight washers. The selected kit exports 13 fabrication models including the optional coupon and installs 16 printed pieces. See hardware/assemblies/camera-pod/camera-pod-enclosure.md for quantities and service routes. Servo/connector dimensions, complete assembly fit, rain protection and complete flying mass remain unverified. The owner accepted the revised servo body/mounting fit on 12 October 2026; see docs/evidence/micro-servo-2026-10-12.md.
 
 ## Used in
 
