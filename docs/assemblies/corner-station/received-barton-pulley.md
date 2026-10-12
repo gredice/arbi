@@ -50,9 +50,16 @@ rivets, usable pin length and retaining ring are reconstructed surfaces.
 Both r1.0.0 printed carrier halves use a rounded **14.8 mm central lug** with
 **5.2 mm bore**, leaving provisional 0.5 mm each-side /0.5 mm diametral allowance.
 Use the native **4.7 mm pin and locking ring** after checking printed fit and
-positive engagement. Reprint both carrier halves; pads, covers, template and
+positive engagement. For direct mounting, reprint both carrier halves; pads, covers, template and
 WT-806 clamp solids retain their existing fabrication geometry. Do not substitute
 an M8 pulley pin or enlarge factory holes.
+
+Already fabricated r0.1.0 halves can use the proposed
+[temporary socket adapter](../../../hardware/assemblies/corner-station/legacy-pulley-adapter.md)
+for unloaded fit and hand-routing trials while replacements are made. It uses
+an M8 bolt only at the old carrier and the supplied pin at a separate lower
+lug; its 35 mm lower sheave position and unqualified physical behavior are
+documented separately.
 
 Measured 42 mm spacing changes the nominal 45° equal-tension pose while retaining
 the winch tangent: pin offset from post surface 147.8515 mm passive /146.9515 mm

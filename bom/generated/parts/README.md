@@ -26,6 +26,7 @@ Archived items retain their stable pages and purchasing evidence, but are exclud
 | [48 V → 5 V controller buck converter](controller-buck-converter-48v-5v.md) | controller-buck-converter-48v-5v | active | None recorded |
 | [Reviewed bought guy-to-post attachment set](corner-guy-post-connection.md) | corner-guy-post-connection | planned | 1 warning |
 | [Proposed 200 mm top-pulley steel angle](corner-head-angle-200.md) | corner-head-angle-200 | archived | None recorded |
+| [Temporary Barton adapter for r0.1.0 printed corner head](corner-head-legacy-adapter-kit.md) | corner-head-legacy-adapter-kit | planned | 2 warning |
 | [Corner head reusable centre marking template](corner-head-marking-template.md) | corner-head-marking-template | archived | 1 warning |
 | [Printed corner-head bought fastener and retention set](corner-head-printed-hardware.md) | corner-head-printed-hardware | planned | 1 warning |
 | [Printed corner-head carrier, pads and covers kit](corner-head-printed-kit.md) | corner-head-printed-kit | planned | 2 warning |

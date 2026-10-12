@@ -6,7 +6,7 @@
   "destinationId": "hr-zagreb",
   "destinationName": "Zagreb, Croatia",
   "quoteSnapshotId": "hr-zagreb-2026-10-08-coupling",
-  "inputDigest": "sha256:0250c6a4d216286410f3be98b7604bee3837ead9c1818f4c12db3abc7d368149",
+  "inputDigest": "sha256:75e9e3b3cad3bcaed50833bd60e6a520fee747a3ea606aab21bc7c3c337e2642",
   "reportCurrency": "EUR",
   "complete": false,
   "completeLandedTotal": null,
@@ -15093,6 +15093,30 @@
         "code": "procurement-information",
         "partIds": [
           "corner-head-printed-kit"
+        ],
+        "assemblyIds": [
+          "corner-support-set"
+        ]
+      }
+    ],
+    "corner-head-legacy-adapter-kit": [
+      {
+        "severity": "warning",
+        "code": "unconfirmed-concept",
+        "message": "Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.",
+        "partIds": [
+          "corner-head-legacy-adapter-kit"
+        ],
+        "assemblyIds": [
+          "corner-support-set"
+        ]
+      },
+      {
+        "severity": "warning",
+        "code": "unconfirmed-concept",
+        "message": "This part is planned; confirm its specification and selection with committed evidence.",
+        "partIds": [
+          "corner-head-legacy-adapter-kit"
         ],
         "assemblyIds": [
           "corner-support-set"

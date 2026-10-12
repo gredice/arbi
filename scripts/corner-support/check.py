@@ -52,6 +52,20 @@ def check(output):
         for name, expected in barton['sources_sha256'].items():
             assert hashlib.sha256((ROOT/name).read_bytes()).hexdigest()==expected, name
             assert hashlib.sha256(pack.read(PREFIX+'source/repository/'+name)).hexdigest()==expected, name
+        legacy = json.loads(pack.read(PREFIX+'legacy-pulley-adapter/geometry-check.json'))
+        assert legacy['revision']=='0.1.0' and legacy['status']=='concept-unvalidated'
+        assert len(legacy['variants'])==5 and legacy['rejected_bushing_only_collision_mm3']>1
+        assert set(legacy['articulation'])=={'0','15','30','45','60','75','90'}
+        assert all(result['adapter_collision_mm3']<.002 for result in legacy['articulation'].values())
+        for name, expected in legacy['source_sha256'].items():
+            assert hashlib.sha256((ROOT/name).read_bytes()).hexdigest()==expected, name
+            assert hashlib.sha256(pack.read(PREFIX+'source/repository/'+name)).hexdigest()==expected, name
+        for side in ['left','right']:
+            output_name = models['corner-head-legacy-adapter-'+side]['output']
+            mesh = trimesh.load_mesh(io.BytesIO(pack.read(PREFIX+'legacy-pulley-adapter/'+output_name)),file_type='stl')
+            assert mesh.is_watertight and mesh.is_winding_consistent and mesh.body_count==1 and mesh.volume>0
+            assert np.allclose(mesh.bounds,[[0,0,0],[40.6,57,7.4]],atol=.002), side
+        assert 'source/repository/hardware/assemblies/corner-station/legacy-pulley-adapter.md' in pack.read(PREFIX+'legacy-pulley-adapter/INSTALLATION.md').decode()
         assert report['fabrication_ids']==IDS and report['printed_model_ids']==IDS
         assert report['configuration']=='Printed round 120 / passive line; concept-unvalidated'
         assert set(report['variants'])==VARIANTS and report['checks']>400

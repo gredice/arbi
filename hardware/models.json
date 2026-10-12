@@ -945,6 +945,46 @@
             "description": "Mostly printed through-bolted corner head with purchased pulley and standard metal fasteners; concept-unvalidated."
         },
         {
+            "id": "corner-head-legacy-adapter-left",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "corner-head-legacy-adapter-kit"
+            ],
+            "assembly": "corner-station",
+            "entrypoint": "hardware/assemblies/corner-station/corner-head-legacy-adapter-left.scad",
+            "output": "corner-head-legacy-adapter-left-r0.1.0.stl",
+            "documentation": "hardware/assemblies/corner-station/README.md",
+            "description": "Temporary socket adapter left half, outside-face-down print pose, for the old r0.1.0 8 mm tongue and native Barton pin; fit trials only."
+        },
+        {
+            "id": "corner-head-legacy-adapter-right",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "corner-head-legacy-adapter-kit"
+            ],
+            "assembly": "corner-station",
+            "entrypoint": "hardware/assemblies/corner-station/corner-head-legacy-adapter-right.scad",
+            "output": "corner-head-legacy-adapter-right-r0.1.0.stl",
+            "documentation": "hardware/assemblies/corner-station/README.md",
+            "description": "Temporary socket adapter right half, outside-face-down print pose, for the old r0.1.0 8 mm tongue and native Barton pin; fit trials only."
+        },
+        {
+            "id": "corner-head-legacy-adapter-assembly",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "reference",
+            "bomPartIds": [],
+            "assembly": "corner-station",
+            "entrypoint": "hardware/assemblies/corner-station/corner-head-legacy-adapter-assembly.scad",
+            "output": "corner-head-legacy-adapter-assembly-r0.1.0.csg",
+            "documentation": "hardware/assemblies/corner-station/README.md",
+            "description": "Temporary Barton N01090 adapter on the existing r0.1.0 carrier; unloaded fit and hand-routing reference."
+        },
+        {
             "id": "as5600-angle-sensor",
             "revision": "0.1.0",
             "status": "concept-unvalidated",

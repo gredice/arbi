@@ -1977,6 +1977,44 @@
       }
     },
     {
+      "id": "corner-head-legacy-adapter-kit",
+      "name": "Temporary Barton adapter for r0.1.0 printed corner head",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "planned",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "fabricated",
+        "printed"
+      ],
+      "requirements": [
+        "One left and one right r0.1.0 adapter print per existing r0.1.0 carrier. Captures the old 32 x 8 mm tongue and uses its existing 8.6 mm bore; incompatible with r1.0.0 carrier halves.",
+        "Separate M8 x 30 bolt, two M8 washers (16 x 8.4 x 1.6 mm nominal) and an M8 locknut retain the socket. The received Barton N01090 uses its supplied 4.7 mm pin and locking ring through the separate 5.2 mm bore and 14.8 mm printed lug. Verify actual fastener stack and retention; never substitute M8 through the bought tangs.",
+        "Temporary unloaded fit/hand-routing trial only. Native pin is 35 mm below the old hole, with -1.4142 mm X correction; nominal 45-degree vertical winch tangent is retained but horizontal span/sheave height is 35 mm below r1.0.0. Strength, process, creep, printed clearance and installed articulation remain unqualified."
+      ],
+      "notes": "Optional temporary reuse kit proposed in issue #209; excluded from installed V1 and r1.0.0 manufacturing kits. Contains two prints only; bought fasteners and the already-owned pulley are separate. No supplier offer or material qualification. See hardware/assemblies/corner-station/legacy-pulley-adapter.md.",
+      "fabrication": {
+        "process": "openscad",
+        "modelStatus": "concept-unvalidated",
+        "sources": [
+          {
+            "path": "hardware/assemblies/corner-station/corner-head-legacy-adapter-left.scad",
+            "module": "lpa_print_left",
+            "modelId": "corner-head-legacy-adapter-left",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/corner-station/corner-head-legacy-adapter-right.scad",
+            "module": "lpa_print_right",
+            "modelId": "corner-head-legacy-adapter-right",
+            "revision": "0.1.0"
+          }
+        ]
+      }
+    },
+    {
       "id": "corner-head-printed-hardware",
       "name": "Printed corner-head bought fastener and retention set",
       "baseUnit": "each",

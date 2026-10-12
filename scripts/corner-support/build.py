@@ -189,6 +189,10 @@ def build(out):
     # Keep its independent nominal checks in the owning corner CI build.
     subprocess.run([sys.executable, str(ROOT/'scripts/corner-support/check-stand-adapter.py'),
                     '--record', str(out/'stand-adapter-check.json')], check=True)
+    # The temporary old-head adapter is checked and shipped separately from the
+    # r1.0.0 booklet's installed print quantities and assembly illustrations.
+    subprocess.run([sys.executable, str(ROOT/'scripts/corner-support/check-legacy-adapter.py'),
+                    '--output', str(out/'legacy-pulley-adapter')], check=True)
     # Build in an empty directory, then copy a complete fresh snapshot. Stale
     # meshes in an existing output directory cannot enter the archive.
     registry = json.loads((ROOT/'hardware/models.json').read_text())
@@ -207,6 +211,11 @@ def build(out):
         references = work/'models/reference'
         sources = [ROOT/'hardware/models.json', ROOT/'bom/catalog/parts.json', ROOT/'bom/assemblies/assemblies.json',
                    ROOT/'hardware/lib/arbi.scad', ROOT/'hardware/lib/barton-size-1-block.scad', LIB, ROOT/'hardware/lib/corner-head.scad',
+                   ROOT/'hardware/lib/corner-head-legacy-adapter.scad', ROOT/'hardware/lib/corner-head-legacy-interface.scad',
+                   ROOT/'scripts/corner-support/check-legacy-adapter.py',
+                   ROOT/'scripts/corner-support/fixtures/corner-head-printed-r0.1.0.scad.txt',
+                   ROOT/'hardware/assemblies/corner-station/legacy-pulley-adapter.md',
+                   ROOT/'hardware/assemblies/corner-station/legacy-pulley-adapter-check.md',
                    ROOT/'hardware/lib/catalog-visualizations.scad', ROOT/'hardware/lib/pole-pulley-mount.scad',
                    ROOT/'hardware/assemblies/corner-station/top-pulley-keeper.scad',
                    ROOT/'hardware/assemblies/corner-station/top-positioning-line-pulley.scad',
@@ -445,6 +454,19 @@ def build(out):
         stand_instructions.build(work, models, renderer, export, report)
         shutil.copy2(out/'stand-adapter-check.json',work/'stand-adapter-check.json')
         shutil.copy2(out/'barton-block-check.json',work/'barton-block-check.json')
+        shutil.copytree(out/'legacy-pulley-adapter', work/'legacy-pulley-adapter')
+        (work/'legacy-pulley-adapter/INSTALLATION.md').write_text(
+            '# Temporary adapter for old r0.1.0 carrier halves\n\n'
+            'Print one corner-head-legacy-adapter-left-r0.1.0.stl and one '
+            'corner-head-legacy-adapter-right-r0.1.0.stl. Other meshes in this '
+            'folder and the GLB are inspection references only.\n\n'
+            'Use an M8 x 30 bolt, two M8 washers and an M8 locknut at the old hole; '
+            'use the supplied Barton 4.7 mm pin and locking ring at the new lug. '
+            'The pulley is 35 mm lower. Concept-unvalidated: unloaded fit and '
+            'hand-routing trials only.\n\n'
+            'Read the complete [installation instructions]'
+            '(../source/repository/hardware/assemblies/corner-station/legacy-pulley-adapter.md) '
+            'before assembly.\n')
         (work/'figure-manifest.json').write_text(json.dumps(renderer.manifest,indent=2)+'\n')
         scene = trimesh.Scene()
         for i,part in enumerate(parts+shields+straps):
