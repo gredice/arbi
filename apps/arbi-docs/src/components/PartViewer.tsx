@@ -16,7 +16,9 @@ export function PartViewer({ mesh, model, color, output, missing, figure, geomet
         const viewer = new Viewer(stage.current!, { style, autoRotate: true });
         let alive = true;
         viewer.loadModel(mesh, model, color).then((size) => {
-            const label = geometryStatus === "measured-envelope" ? "Measured envelope" : geometryStatus === "drawing-derived" ? "Reference model bounds" : geometryStatus ? "Illustrative envelope" : "Envelope";
+            const label = geometryStatus === "measured-envelope"
+                ? mesh.kind === "components" ? "Measured rigid envelope" : "Measured envelope"
+                : geometryStatus === "drawing-derived" ? "Reference model bounds" : geometryStatus ? "Illustrative envelope" : "Envelope";
             if (alive) setDims(`${label} ${size.x.toFixed(1)} × ${size.y.toFixed(1)} × ${size.z.toFixed(1)} mm`);
         }).catch(() => {
             if (alive) setDims("Model could not be loaded");

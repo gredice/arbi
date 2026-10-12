@@ -1,4 +1,4 @@
-// ARBI one-piece moving camera pod head r0.1.3, millimetres.
+// ARBI one-piece moving camera pod head r0.1.4, millimetres.
 // Concept-unvalidated: the outer enclosure pans with the separate inner carrier.
 include <camera-pod-enclosure.scad>
 include <camera-pod-integrated-gimbal.scad>
@@ -9,7 +9,7 @@ ph_mount_y = [-30.5,30.5];
 // A superelliptic front outline narrows continuously from the wide shoulder
 // to the chin. The elliptical side outline preserves camera/rear-cowl room.
 // No local belly or straight-to-steep kink is introduced by stacked sections.
-ph_x_radius = 47;
+ph_x_radius = 49.5; // measured servo rear envelope; remains inside the unchanged Ø100 neck
 ph_y_radius = 38;
 ph_x_height = 75;
 ph_y_height = 75;

@@ -55,7 +55,7 @@ type RawSite = {
     docs: DocEntry[];
     release: ReleaseInfo | null;
     scenes: Record<string, SceneMeta>;
-    meshes: Record<string, { kind: "glb" | "stl"; node?: string; url?: string }>;
+    meshes: Record<string, MeshRef | { kind: "glb"; node: string }>;
     referenceMeshes: Record<string, { kind: "stl"; url: string }>;
     figures: Record<string, string>;
     downloads: Record<string, { release: { url: string; sha256: string; tag: string } | null; packs: { path: string; name: string; url: string }[] }>;
@@ -187,6 +187,7 @@ export function figureFor(id: string): string | null {
 export function meshFor(id: string): MeshRef | null {
     const m = data().site.meshes[id] ?? data().site.referenceMeshes?.[id];
     if (!m) return null;
+    if (m.kind === "components") return m;
     if (m.kind === "glb") return { kind: "glb", node: m.node!, glb: data().scenes["camera-pod"].glb! };
     return { kind: "stl", url: m.url! };
 }

@@ -3,47 +3,149 @@
   "destinationId": "hr-zagreb",
   "note": "Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
   "geometry": {
-    "releaseTag": "cad-v0.1.28",
-    "sourceCommit": "0b1ba8aeb99bfecd94e3ee4f672d62b77e1624b0",
+    "releaseTag": null,
+    "sourceCommit": "37b3666c68377f94674226187e93d786117b7bbe",
     "sourceHashes": {
-      "hardware/models.json": "d4565e5fe337aed5e1d0b4e27123ac18554aaf31640d45d35a1edd36aee5dc6c",
+      "hardware/models.json": "94f59f4e99d7b1612c7bfbf3fe971a8e56351b295a0f9cefe073937f4dc0f304",
+      "hardware/assemblies/camera-pod/bulk-capacitor-1000uf.scad": "b7125e5371d0aa55110fbcae7300b3a98bd4a3474341a0fed3bf199a6fb4a92e",
+      "hardware/assemblies/camera-pod/camera-gimbal-base.scad": "aaa44f020ea99055c07d5aeb165f76da34c90562f1bccd29fe6ab8a746ccde2f",
+      "hardware/assemblies/camera-pod/camera-gimbal-camera-plate.scad": "ee46401f166414b9c65f8b361e84a9694128b8a04de4aab8f35e343f69d9c535",
+      "hardware/assemblies/camera-pod/camera-gimbal-optical-hood.scad": "b812f413d9efba9c156083b4508f15647e3fc5cfa1589a2950fd3d8d9b34df3d",
+      "hardware/assemblies/camera-pod/camera-gimbal-rain-cap.scad": "c3ef78aa8d602f0fb6621b47292bf39f197de453b9877a244dce3897605343fd",
+      "hardware/assemblies/camera-pod/camera-gimbal-yoke.scad": "bf82f067e8ebdcda99cdda1c68a08512a23c3c7d34670df5974624140d5a0177",
+      "hardware/assemblies/camera-pod/camera-pod-assembly.scad": "e0f9c03aa96bddd391b16a51daf388a620b84442e079f5052795cde38e950390",
+      "hardware/assemblies/camera-pod/camera-pod-camera-cowl.scad": "3161c4e209eb3db5769ca5a9f6be6ddac760159e0b1d2a78c7e4634acf79fcc3",
+      "hardware/assemblies/camera-pod/camera-pod-camera-cradle.scad": "0b8757bfd228a84930b1da61a0571e73984065b31bd1de5f8249f7bdfcb91c5f",
+      "hardware/assemblies/camera-pod/camera-pod-camera-hood.scad": "9916f9a8709aaff701d527a095bbbb684e2213fcdaee68222ebdf0cd1c23b2f3",
+      "hardware/assemblies/camera-pod/camera-pod-docking-stud.scad": "b4d26a0e2d8914c77383e1556db1f9e86b6c2dc92ff6a8e3d9744c9ee59bfc1f",
+      "hardware/assemblies/camera-pod/camera-pod-electronics-cover.scad": "1b1168c3b693086d83cb622eb85428d0e3800d1cb8897c5eee868ffd487337e5",
+      "hardware/assemblies/camera-pod/camera-pod-electronics-deck.scad": "e6ccda242c2016d99796a737f07e27bff4fdb4dff38d61d809bc55afae151407",
+      "hardware/assemblies/camera-pod/camera-pod-electronics-mount.scad": "20c726ac047aaa26ad2e81d58ec9e2f9cf82692490e8a06135bc9595639e779b",
       "hardware/assemblies/camera-pod/camera-pod-enclosure-base.scad": "e2453cdb1790a8fef1d0f97e9e1372d8e694c31d5a8c04f0a4601e9f152da3d9",
+      "hardware/assemblies/camera-pod/camera-pod-envelope.scad": "8e4502a70290ffdaf4e82f8bb886ab6d259d8060fd502076da6d6da8c1ac7d08",
+      "hardware/assemblies/camera-pod/camera-pod-fastener-kit.scad": "5c37b24b3f5ac84431e28de2075a9a37796560f777d940a072710a4148bdf289",
       "hardware/assemblies/camera-pod/camera-pod-horn-retainer.scad": "0c6a9971cd3cdda6a8ba103afcc75b506a2b9cb995b842ef74621f68ae912132",
       "hardware/assemblies/camera-pod/camera-pod-integrated-camera-cradle.scad": "7eddaad7e89e98a49712478ac704821bc7a72ce28c6bf937ca7a8e5eea7184bc",
       "hardware/assemblies/camera-pod/camera-pod-integrated-camera-hood.scad": "ee340666bd4d288d3f2393da573885cfd46735d94adf600fe872a6679f9f2eb0",
       "hardware/assemblies/camera-pod/camera-pod-integrated-deck.scad": "48d5e3c367f03c72135dc639b191c3bc40b10be47a3d6957dd53a353e4bfe84d",
-      "hardware/assemblies/camera-pod/camera-pod-integrated-gimbal-carrier.scad": "16356cc0b48ae58708b77b3a2054a7395d273652cd6aa82f0dae9bf249fb3d74",
-      "hardware/assemblies/camera-pod/camera-pod-integrated-gimbal-head.scad": "e371057df9b491e4cd0ddbb0da6dd0aadf49b6bbfa4e835e6bbe9b5dc4a09dff",
+      "hardware/assemblies/camera-pod/camera-pod-integrated-gimbal-carrier.scad": "5079424d91743ec0460ce53883159ae1a00e529d6ac771e8707265ab9364c8b5",
+      "hardware/assemblies/camera-pod/camera-pod-integrated-gimbal-head.scad": "1a0665b6e2e7551edfcb6562dd07802a89a2960adad7b0344091a65c724c2ccd",
       "hardware/assemblies/camera-pod/camera-pod-integrated-tilt-pivot-support.scad": "ef760c8d21cacfa7398126a6f07e812eb312535e7ddee2f1b8b9e7cfc0a38b75",
-      "hardware/assemblies/camera-pod/camera-pod-pan-servo-mount.scad": "91260d01aa01c176ff664b13bbd85d993fbd08cd183d03b1f5a0d2d33c2e93b8",
+      "hardware/assemblies/camera-pod/camera-pod-line-strain-relief.scad": "55ebe149da5f2025f8a46e056c47cb866a63d8f9016b7bd20ef45ae3e1aa1fba",
+      "hardware/assemblies/camera-pod/camera-pod-pan-fairing.scad": "98237953189f5ef08e620b7dec1d0798d685b9cc8e831a0d5ad609e206024f2e",
+      "hardware/assemblies/camera-pod/camera-pod-pan-servo-mount.scad": "029e77b09d205f2a80d3972bf97c02a4178f1dc85936c63956dbdfab69b16336",
+      "hardware/assemblies/camera-pod/camera-pod-pan-yoke.scad": "535de9f0abc1140e64e2da8ea59d2717fafb4728a134d18ee29663a2b236e6be",
       "hardware/assemblies/camera-pod/camera-pod-rain-hood.scad": "9bee57ae2bd54765c16a36887d4cccd7ea4fdf098e5d6248bd44b4d35d93e6cc",
+      "hardware/assemblies/camera-pod/camera-pod-servo-fit-coupon.scad": "c10c409eddad6232eb125ca3511578a517656d973479fac8bd21c4112ff1d840",
       "hardware/assemblies/camera-pod/camera-pod-spider-spacer.scad": "beb0f81506bc5462ed1eb4d540316b0dfb06c532dadbaee40ff6624175c3c52d",
       "hardware/assemblies/camera-pod/camera-pod-spider.scad": "6e914f806f9acdd605b2ff17b37b572d2591a1aa0b5d5d7044c818b7bcde7a29",
+      "hardware/assemblies/camera-pod/camera-pod-tilt-pivot-support.scad": "196b588cef28d6e18fde50da65027479ca921865707a43f4e84b81278439fc21",
+      "hardware/assemblies/camera-pod/camera-pod-tilt-servo-boot.scad": "32868fe27039dd7c6ba78ddf8d245da770196c20662a40ebfd871cb5c3bf8d9c",
+      "hardware/assemblies/camera-pod/camera-pod-wiring-kit.scad": "ac8c237975d0810e853d445cadf9d8e767b9c8b06a1caeb417068a48b41c5f26",
+      "hardware/assemblies/camera-pod/micro-pan-tilt-servo.scad": "ff8da7ac09ae74fa4ef891a51ebb442d145f6a6fad495e1092f37bb9bc59aaaf",
+      "hardware/assemblies/camera-pod/microsd-card-32gb.scad": "08c5bb8f6126486b012e08cd9f872d7914b660de4699eb43e74bd4757e7184bc",
+      "hardware/assemblies/camera-pod/pod-buck-converter-48v-5v.scad": "88f81f13d0eafe0c49ca6118f3e04be92536655b3d4c2560904b7746b6ac0a0b",
+      "hardware/assemblies/camera-pod/raspberry-pi-3a-plus.scad": "d9eb7e1595cb6097e7e6a06ff19502becbfd877f8148b7e6e216eeda5c9a8942",
+      "hardware/assemblies/camera-pod/raspberry-pi-camera-module-3.scad": "67f9234705a6905e5954f90d56ff252b89b2d10881db52f77cdc79e843828700",
+      "hardware/assemblies/control-cabinet/cabinet-installation-kit.scad": "416f1f3c7a30906a2d04c05dae71a05047fa7ac1652e47a95cd673d2e3bf831f",
+      "hardware/assemblies/control-cabinet/cabinet-protection-kit.scad": "bec082a099c6df87056dfde1e3016caadaea86e3cdc42e409521989db13d98d5",
+      "hardware/assemblies/control-cabinet/control-cabinet-assembly.scad": "66ebec2ab7b7643a38615a8e6ed2e64a3c98d9a78e40d15f2d15928283e4983c",
+      "hardware/assemblies/control-cabinet/control-panel-enclosure.scad": "4e27ba7ce1259470233b849a716de345bc77d0ac48dbaa3d23508abf232143fa",
+      "hardware/assemblies/control-cabinet/controller-buck-converter-48v-5v.scad": "f670e43ddeeeea71a0b390b4af92aa195a17e34e897c67067845aedb27d36cee",
+      "hardware/assemblies/control-cabinet/din-rail-ground-distribution-block.scad": "35e5291235cab1ddf2a87f39e3a0a79549c5f21e4d5d2bc24eebe8cc9658b7e2",
+      "hardware/assemblies/control-cabinet/emergency-stop-switch.scad": "08a9756e0f2406b296c3ee0c099457868b2596aa0aba63d8f12581db615d847b",
+      "hardware/assemblies/control-cabinet/pico-terminal-expansion-board.scad": "ce0a8b9c87f1f7a376bb003c3c7cccb9d1d8c55999412d38c698029d36a711cc",
+      "hardware/assemblies/control-cabinet/power-supply-48v-350w.scad": "68634f35be5e5f164434a2a4844dbb672efdd75e792b7323cd590595bc8e757e",
+      "hardware/assemblies/control-cabinet/raspberry-pi-pico-2-w.scad": "fa983cb251a806cb47d54e07c91e314bd43caf1501e8d6a28e63411ffaf0338a",
+      "hardware/assemblies/corner-station/corner-guy-post-connection.scad": "11b70135623213116721a4107b3746a9d8224dbb6ad6669d53c11bae4cf147bb",
+      "hardware/assemblies/corner-station/corner-head-angle-200.scad": "4aa627eb810a8f627710e64585966ef6d91c48ebfaa11f2186237b12fc126e18",
+      "hardware/assemblies/corner-station/corner-head-assembly.scad": "4233ebfb5a06cdfb79c569b9b56f368ea43e63e8428f1a675c95aebf598dec8b",
+      "hardware/assemblies/corner-station/corner-head-front-saddle.scad": "4803540e7f938ed7067e51101683c1c7b9879baf7750331d3f278ab6961995d9",
+      "hardware/assemblies/corner-station/corner-head-hood.scad": "db39080392b047cf33c254bbeae4b7c9dd716433fdbb9d08c6c0270cf4886191",
+      "hardware/assemblies/corner-station/corner-head-legacy-adapter-assembly.scad": "5b29ea404fe586dfcc765211bb9f0ed495e495972fcb40f0208e5f65976867ae",
+      "hardware/assemblies/corner-station/corner-head-legacy-adapter-left.scad": "3881eefbff80b82da04dd74d8a4b063f5bb1c658a1198a8f6d6455e9d75c550a",
+      "hardware/assemblies/corner-station/corner-head-legacy-adapter-right.scad": "5b93a252e02aa90edc614fe4ca5b4879602478d34841e3e10c1e2deaa95a0688",
+      "hardware/assemblies/corner-station/corner-head-marking-template.scad": "77eaa8242e709249b28f506544aff659be9e53b169cf172483ee0dd68b8760b1",
+      "hardware/assemblies/corner-station/corner-head-printed-assembly.scad": "d8a132db92bcd2101b345b2ecbfac6bb6ac6d721c4736926ead457f80280bf15",
       "hardware/assemblies/corner-station/corner-head-printed-front-cover.scad": "4b692c2016fe73d600d91457ee93e54674c21682acc9e759afb9a4cd094dce72",
+      "hardware/assemblies/corner-station/corner-head-printed-hardware.scad": "8263e54ff734a33b4fddffbecb4f0135a9bd17260aaf7c9fe4534f17fd06c9f5",
       "hardware/assemblies/corner-station/corner-head-printed-left.scad": "a7d51fd6273ef13bd0d07737a239d54a4a154d1b1742421ef154968711c9646e",
       "hardware/assemblies/corner-station/corner-head-printed-rear-cover.scad": "00d7ffa22dc6c6476a0a01fd4891c67a9bf1a9e2bd43c704451be7bd099363e8",
       "hardware/assemblies/corner-station/corner-head-printed-rear-pad.scad": "56e534384338f4c49eac181dc9d3bd9ac9a22e0c14800e8f71fe27948d070450",
       "hardware/assemblies/corner-station/corner-head-printed-right.scad": "e2b0723ec6ae767355642b5a2b3fb236419eae35313f74072965101bc570597f",
       "hardware/assemblies/corner-station/corner-head-printed-template.scad": "75d4fe1a5ef3938a4405a4d4857ad8af8e48994ceefaa35ddd6d992b3d69a162",
+      "hardware/assemblies/corner-station/corner-head-rear-cover.scad": "7313be0ca7f787f2fe086298cf7f7b52ffa8b3ead574d820a11350b4ad331ee0",
+      "hardware/assemblies/corner-station/corner-head-rear-saddle.scad": "5254fe048f76dfd285aa58c4fd1b299a16f5d81ac60ac96db175e976ab64f730",
+      "hardware/assemblies/corner-station/corner-head-retention-straps.scad": "476c3addd8638eb23c0502da71ee9b1979429a7236479f9e0bcf2d960d78f646",
+      "hardware/assemblies/corner-station/corner-head-roof.scad": "b91e02f3e900d75fa47ed8ae081287a14ae91a67da5f55c303489497042ac3fa",
+      "hardware/assemblies/corner-station/corner-head-through-bolts.scad": "ee54adcbd713368e1eaadf1b17d2b1781369424b9b236668c813d461ddd4bdbc",
+      "hardware/assemblies/corner-station/corner-post-treated-timber.scad": "2ac96d3a6330730ec116a3e202b1c4b4862a2bc2ae3b740fd35bf731c65a858b",
+      "hardware/assemblies/corner-station/corner-stand-assembly.scad": "1d9fcbe1efc075fd1629c4af8bf0da84a1b2e6954bd59a9adbc4fa2e850ebbe2",
       "hardware/assemblies/corner-station/corner-stand-head-front.scad": "0e81720f428404ba624c50bfc1e6d24915f57901292e7307712c8b921b16525f",
       "hardware/assemblies/corner-station/corner-stand-head-rear.scad": "ddb623ee7b205cf48a631f8011cab99dcaa7b5419fad67bd65ebbcd8fbd379dd",
       "hardware/assemblies/corner-station/corner-stand-winch-front.scad": "c2b99e4bc1e31739940f6b3623f056a15108da3567a7885cfe7ad4089f2bb9c2",
       "hardware/assemblies/corner-station/corner-stand-winch-rear.scad": "c9cd599e6ff9b1bc6d014c89056a333d2e4edb1f4ff1e64e6292b031b13653ec",
+      "hardware/assemblies/corner-station/corner-station-assembly.scad": "09e0b012f95f994f1b3fd8e1fdd301d0e235f9a77ca2b778fcef0c529271d045",
+      "hardware/assemblies/corner-station/guy-ground-anchor.scad": "56c935ca68c9464316bf77775f717da2d261ef61db09eda6e7e663bccb695fbb",
+      "hardware/assemblies/corner-station/guy-turnbuckle-m12.scad": "c8f1a26d38187a2f562eb043b53eb52e6e1d32024f0faf028c919ffcc36cb321",
+      "hardware/assemblies/corner-station/guy-wire-3mm.scad": "cb11160d4b662273e4c8d216550d40461fdb21b170e6f6ac19c5fbc057fa6501",
+      "hardware/assemblies/corner-station/pole-pulley-mount-assembly.scad": "d36a71c6612fc02529b771a452a4c4dc7268245dd8f9e297148e91539373a972",
+      "hardware/assemblies/corner-station/pole-pulley-mount-front.scad": "f5cadf05940f8bda3e154fe3f83dd460563864044f60345f03c3e01ec3e6a930",
+      "hardware/assemblies/corner-station/pole-pulley-mount-rear.scad": "77699bed6cc4672f8cb03fe3f4843834a2b9c276b210ba1448574dadb86b9c59",
+      "hardware/assemblies/corner-station/pulley-bracket-backing-plate.scad": "5705c0fca264a5027240535faf294411f6a4aa84921f858aa0ed346cd25aadb8",
+      "hardware/assemblies/corner-station/pulley-bracket-locknut-m12.scad": "2cefcb3db47838bedbfed85d2ae989715da9651ac2daa64ea15d2b1ec60a9d07",
+      "hardware/assemblies/corner-station/pulley-bracket-shackle-m8.scad": "9aceb8cc3f09432ab78229f2050b76711d19a8492b5cc01241ce9d87f73ee096",
+      "hardware/assemblies/corner-station/pulley-bracket-through-bolt-m12x160.scad": "e28729b6a2fa8b368846e680206f545520c4257cca12db49e95415045c80f97c",
+      "hardware/assemblies/corner-station/pulley-bracket-washer-m12.scad": "44e8bf6e256e950d8dc6d304a2a698dd0589fd2ca01fd61eebb3689a07ef5c65",
+      "hardware/assemblies/corner-station/top-positioning-line-pulley.scad": "7b42fb5622f1219c1ca6a299c42f943e0c320516d8ccf2022fbb061947ce25c9",
+      "hardware/assemblies/corner-station/top-pulley-bracket.scad": "838d683df52891a8d42b69d2cc5455022ac885bb4fe52115b74f4619ef45b8bf",
       "hardware/assemblies/corner-station/top-pulley-keeper.scad": "1412538e666f3cacd33988f75096d776cde13f3cc8a7abdae67b18fa0c3d0f0c",
+      "hardware/assemblies/corner-station/wire-rope-clamp-3mm.scad": "b614f4ecf44cdbe106b8ffeedac9c7b93da61de8276ca27c864d3995e4761dae",
+      "hardware/assemblies/corner-station/wire-rope-thimble-3mm.scad": "dd605396abe23db93d73085351303ba4e13d26fe09bed56e001e4e526de24399",
+      "hardware/assemblies/corner-station/zinc-spray.scad": "5473851bd125496d6f3a4383e033a14e38d18f928bcd541516cfcd42dc9e5335",
       "hardware/assemblies/dock/dock-arm-extension.scad": "8b7d1a115235d65e03a72d178a5ffca6f9c8aaab55f1c0b4b96b2f61215ba0e0",
       "hardware/assemblies/dock/dock-arm-root.scad": "882d8870dbd4e185daf2c780bfff0a341423f5c31ea011508cc3b830be6e1da5",
+      "hardware/assemblies/dock/dock-assembly.scad": "b96c7bb60e34633522251858d29165c73bc3a86caa34a85db99c53c3073c3a9b",
+      "hardware/assemblies/dock/dock-bench-hardware.scad": "ab5a31b326b7b01ff46c2017782cd576c94bd68f6effc1419f82c8fb8d492d17",
+      "hardware/assemblies/dock/dock-funnel.scad": "14422530ce7c18eb583ff01628531af8a4a84d7617b02ab58bccb6744bade2cd",
       "hardware/assemblies/dock/dock-guide-quarter.scad": "b79bc90dc1cbc6ed6c9b4d2c2486ff3eac323c39fcac0feac2b06a42948fcfae",
       "hardware/assemblies/dock/dock-latch-fork.scad": "d7bd9d89fde7f0069bb88490f42abb90594dc455eabd8f97f4fca3dbc7eb1db8",
+      "hardware/assemblies/dock/dock-latch-hardware.scad": "ae40037a882580b15367b47d39c0fff30361cf6f1457313020b26dde8fa0400f",
       "hardware/assemblies/dock/dock-locator-carrier.scad": "1cedd0cd765b28652ce211d9314f31bb521c123f1ef0d13bfe6030d5ed94acf1",
+      "hardware/assemblies/dock/dock-nest.scad": "af355c65ac3b4ec2f8dc1435e0e42c8c74fd656e911fa21ee9ab15aa1034eb56",
       "hardware/assemblies/dock/dock-pod-bridge-shoe.scad": "3893a0e707e787848fcf292fec332a51cbdcca4f5fc3bc7d50c733b5532b48c6",
       "hardware/assemblies/dock/dock-pod-bridge.scad": "7e469cdda009682aef6bf9828eb96f73d7cbf9d74124a662b74d5c762fc1dc35",
       "hardware/assemblies/dock/dock-pod-stud.scad": "b423af5bc68fe4ba5debb9ccabd96497e4643ce149a759fd7906be87aaeed3f3",
       "hardware/assemblies/dock/dock-post-rear-pad.scad": "22193b3204340ea03ad5d1f9de6fc220282e2d3d5113ebbce23a08bcc45b399e",
       "hardware/assemblies/dock/dock-roof-quarter.scad": "58fcf02d45c101bdf80b986765a790272b0777ecb0a5acaf9cdaf3abaaf15b7f",
       "hardware/assemblies/dock/dock-roof-spacer.scad": "a44be8708e8b8f4355164fa29561e7691171df5ba6f3a59329a6c802aa9c9707",
+      "hardware/assemblies/dock/dock-weather-hood.scad": "cc5c8d12501f3a417ed75c6232d7ecd68090fc50fc22f0bdb401c00d8a20ea0a",
+      "hardware/assemblies/shared-procurement-stock/cable-gland-assortment.scad": "dd54eead338fc19bd285d50058e1fae48195cc994c7dcc85bf113c7b70bf4200",
+      "hardware/assemblies/shared-procurement-stock/heat-set-insert-assortment.scad": "17e6320d4710b9f5475d6242a3744c6bfc2662eceae6e7a3b90f93cb123b60c3",
+      "hardware/assemblies/shared-procurement-stock/stainless-fastener-assortment.scad": "afcea9eaddcab7d1bb1d7dc9f58485a2355dd00dbae3eb2c4c6e3db01382075e",
+      "hardware/assemblies/site-installation/motor-power-branch-cable.scad": "9c5f02700d5149df17d094425c431c240960c30ed062179e422889775d838f62",
+      "hardware/assemblies/site-installation/outdoor-cat5e-signal-cable.scad": "23c30b74bcd4219ecc502542229f90a25401b0b358fe5630f6b6cc3b506d6c53",
+      "hardware/assemblies/site-installation/underground-cable-sleeve.scad": "aa8ad2c3f870e51939f615c35b10e3dc88470f9d6f967346ba185b3a2e317b51",
+      "hardware/assemblies/site-installation/wind-sensor-rs485-transceiver.scad": "1e5e940c51f726658d5e285670bb5c2f8f587891f0a310558d181eef2d0b2507",
+      "hardware/assemblies/site-installation/wind-speed-sensor.scad": "ab5cfb825ad7cded7d286108779737eea59ecda1439b7fafdc38ee7c98191f77",
+      "hardware/assemblies/winch/as5600-angle-sensor.scad": "4998075fa2c6412aac397865a6fb28778aa105350064bc7440de5ce9196c0508",
+      "hardware/assemblies/winch/bearing-608-2rs.scad": "c3a4a2ee7ccf3161117a3cc578ec155b65d25a88b5af18df48d9302ec2c38434",
+      "hardware/assemblies/winch/capsule-slip-ring-6x2a.scad": "5a069473dd8673a023ad1f04bbea25d98e18d22a3504e5a67e9771eb7757e6d3",
+      "hardware/assemblies/winch/cl57y-v20-driver.scad": "ee8e99151cbd15f909ab1e98b143260c2f9c4eea72287d342504bddc83cc7a2e",
+      "hardware/assemblies/winch/dyneema-positioning-line.scad": "062b21f0103dd3c27e9d8bd1f3deb794147b67185d764abb947b94a96702cfeb",
+      "hardware/assemblies/winch/extension-spring-assortment.scad": "82027292bf43aae06cf421ab3c18d62e6bc93d1e40f24632385d6a98c1b98504",
+      "hardware/assemblies/winch/flexible-jaw-coupling-8mm.scad": "0fdb869a5142690a5b72c6802785734cd10a08f5d1c544fe9bd1c8443894deef",
+      "hardware/assemblies/winch/matched-motor-cable.scad": "7d8cfd66888047d4b38f4bef64718dfbb2061630edc2b68fd77801f202636c5e",
+      "hardware/assemblies/winch/nema23-closed-loop-motor.scad": "9703e90151e9553a714fbee485116e1b4023fbd9889961922453ebf8154f94d6",
+      "hardware/assemblies/winch/pod-power-wire-black-awg26.scad": "8badc1dc7c350750874137f7576c438f18d9bf348283deeb34e58942bd7fb6e2",
+      "hardware/assemblies/winch/pod-power-wire-red-awg26.scad": "5eb613824e7f9fc196fb391b365a50e5cae04ca9c82772e7d4e23e521b663af0",
+      "hardware/assemblies/winch/post-electronics-enclosure.scad": "2337104160d9a3b6ff093da76fb579154ff3fabaaed277633bf9ef0f2c7a4357",
+      "hardware/assemblies/winch/roller-lever-microswitch.scad": "256c0bd98fe2ceb475ecf4d1874acea59dd43ea8cb9795aec0431d78a7a615de",
+      "hardware/assemblies/winch/shaft-collar-8mm.scad": "e0b5659a489d4ce4a9b78b8bf7ccc806219e92b6b15fefd0dfcc8c2166e90716",
       "hardware/assemblies/winch/winch-bearing-cap.scad": "ee3968b765fddeb281b84baf13cce71eb241592a3c1ac3f787438b023dbe0060",
       "hardware/assemblies/winch/winch-bearing-lower.scad": "3da56cced498b8644e6bc6c44501f8bef00eb525e48104c6504f72eb50071ce2",
       "hardware/assemblies/winch/winch-coupling-guard.scad": "980836d50357f93b6b916062df4b72a98f777b3bb8b16060eab7b69508451eb5",
+      "hardware/assemblies/winch/winch-cover-assembly.scad": "83f527667197dbc9b123c694ecb8441a35c2de7a657b270d2ccab7130ea86157",
       "hardware/assemblies/winch/winch-cover-cable-anchor.scad": "ec8c7197e193fd9923197fe1d5c9fc0ce38f3001d95459529fddd2db8b1fbcfe",
       "hardware/assemblies/winch/winch-cover-clip.scad": "dac86a1f503d42185ff02a31056b9fd1f8c50573f039ee9483cef44682588c7c",
       "hardware/assemblies/winch/winch-cover-passive-fascia.scad": "b532979b5ce0ce0712022c98b04b7c0d9a397e11273d4159691f59cbaa043403",
@@ -64,35 +166,54 @@
       "hardware/assemblies/winch/winch-cover-powered-right.scad": "db782441e55f94c5d2fbc566be475b9d6c7c6dcc8ed12e1bdae79a781ac1b78f",
       "hardware/assemblies/winch/winch-cover-powered-shutter.scad": "d949bc9b25354d4cfdfe42ba8e5c41ca0e66e22cde16bb47ccbf57d02e6411d0",
       "hardware/assemblies/winch/winch-cover-powered-transition.scad": "60bbcea2fcff11d94c48c4e59b8bdf10bf0b8634e0fb48a8b48a33d0ea817023",
+      "hardware/assemblies/winch/winch-cover-rear-blank.scad": "23de96625279b40af279d74a2586a0def89311f4f403821821a39e2b3356045c",
       "hardware/assemblies/winch/winch-desk-foot-long.scad": "24c643f4a4bbc355b54fe7eebb6f8a1e335bcdb34881ffb8badaffea8e4768e7",
       "hardware/assemblies/winch/winch-desk-foot-short.scad": "ec4c98ca963e42956e29a1e7d4d03cbac65dcc8bca7a718a9611a8fb0e68f138",
       "hardware/assemblies/winch/winch-drum-alignment-pin.scad": "adf83c9c9686ef667b3090cef8018defe53637419fd0379bd3db7dc47101b2b8",
       "hardware/assemblies/winch/winch-drum-clamp-half.scad": "a97b451ae1861d0b1f798387e5d17c5b8738883defd8a0376c0638596f350dd7",
       "hardware/assemblies/winch/winch-drum-flange-right.scad": "f8963600231a63cde299fd541038590cbe929ddbb6e9ca07ef1f84da500bf1b4",
       "hardware/assemblies/winch/winch-drum-flange.scad": "f75ffdd009ea4f7f3c2081509167f0f793fa518a3174c57e5f1a3b4f8183c83d",
+      "hardware/assemblies/winch/winch-drum-joining-hardware.scad": "e32d08a3d71767ab3dd2097824019aefc2e84cc7432e064be26932c48b79d771",
       "hardware/assemblies/winch/winch-drum-passive-1.scad": "05f4da0c306b7f28b6cbb0892aa6077492a718a1dd92e73f6147ec2a67e69d48",
       "hardware/assemblies/winch/winch-drum-passive-2.scad": "2ddcff6c8e33cf4a49ee9eb5f9c16464e80282699c32c6d9898cb217ee0be2ae",
       "hardware/assemblies/winch/winch-drum-powered-1.scad": "2740e6fe707fdf99709c3cb5f0d191cdbba3f99037fedce6ee8fae4c5a5b06c2",
       "hardware/assemblies/winch/winch-drum-powered-2.scad": "0c6621de35d65fb0e791547773ee819dafc3b49f9c1083625590ad2d7232ebce",
       "hardware/assemblies/winch/winch-drum-powered-3.scad": "e31351649898a9afaac8c3b2c2f6af3f3686c4a6ee985ff5b790f9139ff0a247",
+      "hardware/assemblies/winch/winch-drum-shaft-8mm.scad": "ca4a6275dad5109dbf6bef3ca01779b543762e1dbb8f07432addc5128ca0b88e",
       "hardware/assemblies/winch/winch-drum-tail-clamp.scad": "eb4c30af128974a8402d64319d3ff320b0d70dd7c1f35ec461bfd604c698e027",
+      "hardware/assemblies/winch/winch-drum.scad": "4cefc906adb1085f83af59e883cc6ab4dcaf125e77e6ad579e05a8b7d42b3b9e",
+      "hardware/assemblies/winch/winch-fail-safe-brake.scad": "d44b52cc875d1f8a2932d5d052ac2a7006e4718ce6bfdf57d98c385c43a8774b",
+      "hardware/assemblies/winch/winch-full-cover-hardware.scad": "46c554e5872ac5cff771c9680c0cbcc135f5a71b526354e00eedbedd833ca0ef",
       "hardware/assemblies/winch/winch-motor-stand.scad": "49d830ffab4c3aa590bca08d56d7934cec78ab1f19e641316d7268feb54fb020",
+      "hardware/assemblies/winch/winch-mount-hardware.scad": "5646fea98c37cf53e3c8172c8c7b6ce06aff5c5be5cb32d5c045389a7311ccca",
+      "hardware/assemblies/winch/winch-mount.scad": "8ef15e702a72672b354c5325876f007a78e65a6c0a54b8ae9c5e487859027843",
+      "hardware/assemblies/winch/winch-pole-assembly.scad": "f85463ecd5926160822032703abf41b1c8be4fe52317048717f9e18c026546bd",
       "hardware/assemblies/winch/winch-pole-cable-guide.scad": "2bd78e897e3c9c294767c6017bfa28716a9b6e546eccbd9d3d7c5573fb8c0273",
+      "hardware/assemblies/winch/winch-pole-front-saddle.scad": "f0f63e9925cb9f39e782d143adfdd1c210b425cdb992e79868780a9335600bf7",
       "hardware/assemblies/winch/winch-pole-nut-cover-bottom.scad": "b221beee4fd50733560f379b382348fccd51e727bf8730b4be732a093bb2d19f",
       "hardware/assemblies/winch/winch-pole-nut-cover.scad": "1c74d56a34fa29851462d65ef506394f13ed951290246e60f2cdc3c0c9946d1c",
+      "hardware/assemblies/winch/winch-pole-rear-saddle.scad": "8f5b5a94b027c7ed1b34e0540502a6b017a0278454daa70a5025409cbbb0bfc5",
+      "hardware/assemblies/winch/winch-round-pole-hardware.scad": "dc784ff6888eeeeeeded49d15cb788eafe0563f6dd3055e5a6a12816501f3f63",
       "hardware/lib/arbi.scad": "285964a38a24304ca0f6e6ada12d1de341df9673a31d14dc366abacd83d345c3",
       "hardware/lib/barton-size-1-block.scad": "e5b15f468a246e4f4141803a9c6f3ac3cce1cd59ee4042f9a75d64eee3219a32",
       "hardware/lib/buck-converter-48v-5v.scad": "c89c321660f3b606c2da9ff196d35b8da707ea403ea62cb9db783696dff4fa29",
+      "hardware/lib/camera-pod-bench-assembly.scad": "f679ab2f24374013718adb1a2b8414437610d8f4c43a0bc4fb1355193bb28153",
       "hardware/lib/camera-pod-enclosure.scad": "59cf7bc658fa69879aedac41980a50ca3a6681bfaa8efa6d6f904d6c6771b25c",
       "hardware/lib/camera-pod-integrated-deck.scad": "75ba88360d3de72bb4c737943ce609742b308d59eec5787e52267e1329b9ad60",
-      "hardware/lib/camera-pod-integrated-gimbal.scad": "70f41ec01272776715b4208461a7da8682059c2f18720817365a2e8291a2dc2c",
-      "hardware/lib/camera-pod-integrated-head.scad": "3743aa69ca69ffbf8e2ff133625ca3660bc82a10f06fd6dcbf2aa577fa2a5196",
-      "hardware/lib/camera-pod-mounts.scad": "f48e9f52dc568c081647940cd1797835c4882e1349ebff74514aace7087e1322",
+      "hardware/lib/camera-pod-integrated-gimbal.scad": "cd8463e8153ce5bb74f00bd6609c0fbd701ac6eaac33771bfb6399c89e06562d",
+      "hardware/lib/camera-pod-integrated-head.scad": "2ed5cf02f23215b641e70907bc768f5474d06ab88ecbc63f80197eeb4dcfe370",
+      "hardware/lib/camera-pod-mounts.scad": "76ea60a17d98febac514d01ddacb19af5219dc813cd5faf94446e03f5e88e240",
       "hardware/lib/camera-pod.scad": "324d1d886ddb52fd9b5545e9ba2116e1c6c42fac7b026951d18bbbb090d85379",
+      "hardware/lib/catalog-visualizations.scad": "0096868d2fb11867d8b6e6c5fea332f8d8010d74b8c437bf4549ff01b465f59d",
+      "hardware/lib/corner-head-legacy-adapter.scad": "dde9807da8a80f99a4de31928c1c2b4bca98091c5759da2501bcfd6d0931d652",
+      "hardware/lib/corner-head-legacy-interface.scad": "654c5c456695128af8f7997bafedc5dfee75c8df1745ad6f114f7820dd18d0d4",
       "hardware/lib/corner-head-printed.scad": "c83323cb77e0b2c3f9475fb20499a121563203170ead05e57c1ac072a5edcefa",
       "hardware/lib/corner-head.scad": "0fff8dae1a356d48c14612e0299cb5c454fac3f5b1e94d5694d8a2a38ddf7d8a",
       "hardware/lib/corner-stand-adapter.scad": "4b584e47664635aa005300186557913dda0f063a7eb2c6456cc227ea6b65c75c",
       "hardware/lib/dock.scad": "3acbcac95dbe0b436a9d89f41570606f21ddd665fb72f540e26dfcf6cc9f9563",
+      "hardware/lib/micro-pan-tilt-servo.scad": "8e796df6e933291bc5d8ef3a6ee3caf3fc9f81626d6e2d16ee22da2fac3f6e1b",
+      "hardware/lib/pole-pulley-mount.scad": "193957b370e09d75e78dbe486654bab723ed0b591fe53dd3bc156cb8e0867ac0",
+      "hardware/lib/raspberry-pi-3a-plus.scad": "b39d15f5ba17f6f477d323d730ff1b096b43bd6a2dd6197ea00455552505d1e3",
       "hardware/lib/winch-cover.scad": "031432beed19425d6c29f5cb9fcf6a8cf26e84a362023b0c5b11533aeb575381",
       "hardware/lib/winch-desk-feet.scad": "06a551dbe77420599590dc3f8a3bd9b66cd5d647d94bd75fa9e852dcdd4dd719",
       "hardware/lib/winch-drum.scad": "0684c28615d398d1b7a2beb7d15a4fa4e27d62382b8a8bde1470367f5de1e837",
@@ -100,271 +221,295 @@
       "hardware/lib/winch-pole.scad": "58e2f446a74cb8d38e31c332727ae31ab6e10ec49ce38ba16dcd88a20ba8fc85",
       "hardware/vendor/BOSL2/affine.scad": "035629bc49574b7b745afd2cb493efb1ff8d7bdf6f7fa7cf0abe92d6f99b76c8",
       "hardware/vendor/BOSL2/attachments.scad": "d7eb1f2d0ec74b713ceb14532bcb2b3ec7bc04c28ff0ef12eaf1c886562cc8cb",
+      "hardware/vendor/BOSL2/ball_bearings.scad": "6db8a93775a4e7ee222df949a73bf181b065094b4ac1e9cf44706201ebd614bb",
       "hardware/vendor/BOSL2/beziers.scad": "54b6f1938c10b59c9998dce97a163d5482dcb2f4f002019872ee1d93ab90b96c",
+      "hardware/vendor/BOSL2/bosl1compat.scad": "70536a6f12f1cf774ad61d6b95bb71c72cf2f9f073e92c292a987b5e7ef1a440",
+      "hardware/vendor/BOSL2/bottlecaps.scad": "6082f6ac9750aeb9be30489a4028f118476b30319c8a7eaae56e4df62c2fe9bd",
       "hardware/vendor/BOSL2/builtins.scad": "8e3b0aacadb648d143348ba19e3f07997f06d5bc3edfd85c4d9d7fc03f417f1f",
       "hardware/vendor/BOSL2/color.scad": "052e3d3e6f422a31dd6af38f52f23ba0cee3f29b2f157e2b20f998e5dd2a4d99",
       "hardware/vendor/BOSL2/comparisons.scad": "7df1cb0a72bd1eb0d416165101e48b7de66e02e94d5e5ba10693c0e87ee882d0",
       "hardware/vendor/BOSL2/constants.scad": "b2012b882a41be9d127904989e1b4be5fa627a3971aae17681613d7f39981392",
       "hardware/vendor/BOSL2/coords.scad": "f0af54b84722a447cb0d34390962cd0913cb213fe14d479a014bc5a0cd02d116",
+      "hardware/vendor/BOSL2/cubetruss.scad": "c28dd1565c899fe727eded0c0f3bb2c631d82ebc74fad501cce6cb8205fc9e45",
       "hardware/vendor/BOSL2/distributors.scad": "636ada5a6b2f9259415d9b1256629a8f3326697d84ecbf0ebfaeda5ed72b204c",
       "hardware/vendor/BOSL2/drawing.scad": "b0f01f1dca062bf8ddb1ea37768fc4252ec15b493ce113d4e358d8a8385bc92e",
+      "hardware/vendor/BOSL2/fnliterals.scad": "71dae8ebdab28ad1d6bb5bcb3b8fa87de72088755433e8345ebb87ee799089b5",
+      "hardware/vendor/BOSL2/gears.scad": "1251bb976351b42d1b2b262cdd8fcf2ba13123c71298ef7175e9a2681c8a11b8",
       "hardware/vendor/BOSL2/geometry.scad": "c6afef6a9e4e21052235f5eab7c370bffceafc2e47eb3ef8d58ab0281335dddb",
+      "hardware/vendor/BOSL2/hinges.scad": "1837749fea85e77f28735a5668a8216fefd89b104ef34875a8854b92fbddf005",
+      "hardware/vendor/BOSL2/hooks.scad": "e0e26cb6498a295f15176db5925f75195814c291abaf120de9d24000e057ae06",
+      "hardware/vendor/BOSL2/isosurface.scad": "531f7c01d616d77bc71c425d1707023dc3fb0f4bf180b0c27d228c9798b5788d",
+      "hardware/vendor/BOSL2/joiners.scad": "949f94dd53d203132c509a461524d51f43677d87e86620723fe70579f28db62a",
       "hardware/vendor/BOSL2/linalg.scad": "89541cd77089ca9cde978957ee18c3fbadc18b731fdf8ac0a290f7c7692337bd",
+      "hardware/vendor/BOSL2/linear_bearings.scad": "6d0cbda9b90980873f1e5e8e43dd70d35ad11a1427aa138a8155b807f51e12fd",
       "hardware/vendor/BOSL2/lists.scad": "2a48070fb8c326429d99539256c8f435fd1ac633ac34b8a2e783f4cbebd997c8",
       "hardware/vendor/BOSL2/masks.scad": "b30f6b069d5847561a4febff958e55d78bb7c0ac8e32288b150bcb37257c1a2e",
       "hardware/vendor/BOSL2/math.scad": "e86863ba2314abcaa4f7add60d56006be9c6f96928d00115b83fcc362b4a8f98",
+      "hardware/vendor/BOSL2/metric_screws.scad": "9f5502e53b928c099cab4ab4f7a7615374f0013b41587b684de12ccfafaf0dd9",
       "hardware/vendor/BOSL2/miscellaneous.scad": "696ad3f5939dd7f30bb257f1e057a230578d5912aa1be3a67a20bd83133e52d9",
+      "hardware/vendor/BOSL2/modular_hose.scad": "061859ed109b5a3c38eca9bea32ee92b9589c484b085f763f3a09787a433912f",
+      "hardware/vendor/BOSL2/nema_steppers.scad": "ca8902ff3d138701e32f2710d0b3ac72bb4faec4c0c81894433108a233a516f0",
+      "hardware/vendor/BOSL2/nurbs.scad": "16fe02bbb515eb30db184304657cb185496b923f3a9f1c59f6a397f88bff2ae8",
       "hardware/vendor/BOSL2/partitions.scad": "044fa31c38c46b98035ec467f9959a5797295b66eb160987a6172805d7db718b",
       "hardware/vendor/BOSL2/paths.scad": "7221787a912f35bd719a579c1d20a063a384077b623a75a5ddc4e86d34bea34f",
+      "hardware/vendor/BOSL2/polyhedra.scad": "4bcbe3c5b0f3e982bdfbd32029ac9f5639a7c55aab9c03684195e4e2b065cf08",
       "hardware/vendor/BOSL2/regions.scad": "8693307de69a28645bfacbfd9329e995940103f101956739a5607aaba1f12cf1",
       "hardware/vendor/BOSL2/rounding.scad": "b6a70c5a50842619734b749a4b9a88b5de5d74999faa2228a70732fdf08e7ce9",
+      "hardware/vendor/BOSL2/screw_drive.scad": "e7c301d928f7061616de59935aaffacc57eea22b55448d829b7a2779b3c1fcec",
+      "hardware/vendor/BOSL2/screws.scad": "e35cdacf7f9eec1ffdf4ec4d6ec0b0cb38878e5457b3d0b0e468203c4f0613e9",
       "hardware/vendor/BOSL2/shapes2d.scad": "7c80e65adef8a88a91846ae6d6a171e506aab2ce3a90bac00f8abf4ca3b1daf7",
       "hardware/vendor/BOSL2/shapes3d.scad": "8f46a6c845ae4799f781e2a9bb78f336998df41407e3c341051664cb8c180326",
       "hardware/vendor/BOSL2/skin.scad": "0669c768eab0cdba10e35a251e8ef78aa85692a3d3b0b28837e7aaf4dd8a0085",
+      "hardware/vendor/BOSL2/sliders.scad": "42f605a33dafeea413560cc9d11f2160b90bcb0dd463f0d3a70f2f9c50b2c573",
       "hardware/vendor/BOSL2/std.scad": "bcddc3093863ab322cd8503f4f784a67a6c706423a27669e64ddeb13e4d355a2",
       "hardware/vendor/BOSL2/strings.scad": "b5ea8ba57b13a0a2d9c68a880d16f533a3063776f42709e69024cf410a449278",
       "hardware/vendor/BOSL2/structs.scad": "62638486c7e10c54c92784c6858c1ed1ccfa25be657973b8a901ae52762cc41a",
+      "hardware/vendor/BOSL2/threading.scad": "895481e465754412f29ffe32113d20debc74aef735eb44c77a9565ff276fa253",
       "hardware/vendor/BOSL2/transforms.scad": "6e0f58ac40a52fe3d4ed202746cbe26a293487e7b47b50e9d661b9d51ef9c810",
       "hardware/vendor/BOSL2/trigonometry.scad": "63553ca2a297c633ed6a8aca99bae9b6db91a335c720a92d529b433955b3ac7e",
+      "hardware/vendor/BOSL2/tripod_mounts.scad": "1a2013e5cc9082399e6e62b95d9fb40a888ebca0c01809fa2b14c990ed14aaa9",
+      "hardware/vendor/BOSL2/turtle3d.scad": "c334cbb9d11516d89049e88db2305430749113a1ee2558f51a60aca257651c0f",
       "hardware/vendor/BOSL2/utility.scad": "1ee2f63d4f8eca1be1612c36042896334f2f01ba0314ef870c95513dadf606db",
       "hardware/vendor/BOSL2/vectors.scad": "ef1fcd02b7d5cce86719d25d3fd1b2f57683180d002c585f44994cc6198fd7cb",
       "hardware/vendor/BOSL2/version.scad": "5919420c6986908eacc3ccea21fb0a6e0dfdb82af5323c733b314ef5272b6edd",
-      "hardware/vendor/BOSL2/vnf.scad": "f4bae873b2d9c85f3bf1d45ad286f43d99891b71a09b04e75406b55959f94566"
+      "hardware/vendor/BOSL2/vnf.scad": "f4bae873b2d9c85f3bf1d45ad286f43d99891b71a09b04e75406b55959f94566",
+      "hardware/vendor/BOSL2/walls.scad": "4d4b314c55417124adef666df31d0ede21db6b1622fdd76cc993faf4dcc827a7",
+      "hardware/vendor/BOSL2/wiring.scad": "d443504bb350883a7c1e7d5cf1a7edaeb810de682b7465f68fce78e911552574"
     },
     "models": [
       {
         "modelId": "camera-pod-enclosure-base",
         "revision": "0.2.3",
         "volumeCm3": "31.381263",
-        "stlSha256": "ea0ebc3693bb96bc913b513b378990bb1560475674fe96a24730f772ccd99e71"
+        "stlSha256": "9dea29e8665b1b8156cacd93401224bbbbc460792611bfa20765341df511a9af"
       },
       {
         "modelId": "camera-pod-horn-retainer",
         "revision": "0.1.0",
         "volumeCm3": "0.545253",
-        "stlSha256": "d6f083922543a6fcbc4566913b139b59f372b234a2599834812017e07601eb75"
+        "stlSha256": "2746a6917ba09879bb637201e59afe4bd65ba9472cfa1a1e98f2f54ed23ef570"
       },
       {
         "modelId": "camera-pod-integrated-camera-cradle",
         "revision": "0.1.1",
         "volumeCm3": "3.328265",
-        "stlSha256": "db7ca473f138213442f3eb776f52d49ab8c4e18b839a1287afba18bc0cf03496"
+        "stlSha256": "9493321da3255d1e179c3d8310a0e4aaa05b5fcb60668f1b1dcd3029b5fa8f28"
       },
       {
         "modelId": "camera-pod-integrated-camera-hood",
         "revision": "0.1.1",
         "volumeCm3": "4.588465",
-        "stlSha256": "b65e69e139dd978682f028e01a0751de06b1b0f5be2cf39f9c5d6c1520117b6b"
+        "stlSha256": "76d73391f99ea1866a1473c012b47e5956f38e31f5f867cd0441aa1add723aa4"
       },
       {
         "modelId": "camera-pod-integrated-deck",
         "revision": "0.1.1",
         "volumeCm3": "13.201997",
-        "stlSha256": "0036ae6f60d3afbd7c103a6e9e2cbb586acabebf74d390acae7d56f5b72aa484"
+        "stlSha256": "2dd595e52db81c4a96fbfe43367bad5889ebd9d0840fb2028ee338ffdd8b2ed0"
       },
       {
         "modelId": "camera-pod-integrated-gimbal-carrier",
-        "revision": "0.1.1",
-        "volumeCm3": "8.458834",
-        "stlSha256": "76b1337d9579eefb51e5399e8defb684d52a04817ed36dcdf983d757d8bf0095"
+        "revision": "0.1.2",
+        "volumeCm3": "8.458814",
+        "stlSha256": "4a965dfac26521bd571ed9e0b6afd20370a00c44277ec54799dbf04403dd72af"
       },
       {
         "modelId": "camera-pod-integrated-gimbal-head",
-        "revision": "0.1.3",
-        "volumeCm3": "22.087140",
-        "stlSha256": "78fb7d0af6bad1b03e33c72fcc5634779b34b1f1fc3b4aa4a7eceb48c66e9974"
+        "revision": "0.1.4",
+        "volumeCm3": "22.816494",
+        "stlSha256": "dff11dd4083e59213ecb2074149d44855e22ffbe4d90c3d4427d18ea3fab3e37"
       },
       {
         "modelId": "camera-pod-integrated-tilt-pivot-support",
         "revision": "0.1.0",
         "volumeCm3": "1.088757",
-        "stlSha256": "edf8e498bef065d40fa7edf74a094853e36c96d1ef37cea483257fe9077f0b57"
+        "stlSha256": "11c53e46ffeb155750792b801a252da8a663d3280bca52492f3ba9460ef46f3b"
       },
       {
         "modelId": "camera-pod-pan-servo-mount",
-        "revision": "0.1.0",
-        "volumeCm3": "8.299465",
-        "stlSha256": "272b48ee0c7ff5ee566365b4b405deff33b8706258039edf0967cc605de6d85e"
+        "revision": "0.1.1",
+        "volumeCm3": "8.273944",
+        "stlSha256": "68cfdd999101b0b217296e5f39237994df9b7b03b5cd97d62de338b72fa45a61"
       },
       {
         "modelId": "camera-pod-rain-hood",
         "revision": "0.2.1",
         "volumeCm3": "36.443415",
-        "stlSha256": "d87e4b12fe7bc8bd263beacafcabaf38cede155354a87674e232d733f67edc6a"
+        "stlSha256": "3760833f51de2f2aec9719c1e4d0706a000b3f9302e560efcfb6bb66fbd13bf5"
       },
       {
         "modelId": "camera-pod-spider",
         "revision": "0.1.0",
         "volumeCm3": "66.232475",
-        "stlSha256": "5d32de58b05a7c58e885a5e6cca3b8800e99a2f68453bf783c032d6338de3c4d"
+        "stlSha256": "4043bed7dc8dddf412453383ef2c6f19b2b261e1ac21e17385562b79f009a991"
       },
       {
         "modelId": "camera-pod-spider-spacer",
         "revision": "0.1.0",
         "volumeCm3": "0.875489",
-        "stlSha256": "f9712da0da266f9b802f95c046ca5e3ae6b047feeb8b8cedda9d47abc4d9c2ef"
+        "stlSha256": "1b49a1857849326d9d5b3c9d3da69247e2ee1d6a11fae7cd55cf7dcf91f39e59"
       },
       {
         "modelId": "corner-head-printed-front-cover",
         "revision": "0.1.0",
         "volumeCm3": "104.128616",
-        "stlSha256": "8244f89851448a34b530eb8c4411471b23470278ae0f0aac3bebb1b92d10d567"
+        "stlSha256": "a4953971f68951e22f2ea777ce1cb1c4d1313e35c30b812637ffeef577e7e1bb"
       },
       {
         "modelId": "corner-head-printed-left",
         "revision": "1.0.0",
         "volumeCm3": "560.129193",
-        "stlSha256": "5f3c3242579ce0146bfdbb53edbac752dd82d08d03d91df2b68c1a632de4a256"
+        "stlSha256": "a88d5ac119003459591655a976b0a11fb49c65227ae5a76bd3a86ff11c2eed2c"
       },
       {
         "modelId": "corner-head-printed-rear-cover",
         "revision": "0.1.0",
         "volumeCm3": "114.600742",
-        "stlSha256": "dc1e8ce62ffd346f6d445135c57a0e1447895b681a1b0afa3c609c06417fac13"
+        "stlSha256": "3953a749c0efbafe03b27b20ddd969cb6429dca90c3dff191a9bfd0bd564e0cf"
       },
       {
         "modelId": "corner-head-printed-rear-pad",
         "revision": "0.1.0",
         "volumeCm3": "80.102232",
-        "stlSha256": "035eeb7c89317f1d2568a1488f782047c92c30abce738542102f25b9ebb46ef7"
+        "stlSha256": "2dae448e08e45e30462149be165c66cb951d942963b26ff0c0e9db53bb1b33db"
       },
       {
         "modelId": "corner-head-printed-right",
         "revision": "1.0.0",
         "volumeCm3": "560.129192",
-        "stlSha256": "0bd22a698cbdc401f9b3f0af42ac0bd1554d894784408799460cf9b869474a20"
+        "stlSha256": "8ad0ae16ac5b89e89d7a1088fbf14006fd70aa833ef2968c3c36ed05a0257a0f"
       },
       {
         "modelId": "corner-head-printed-template",
         "revision": "0.1.0",
         "volumeCm3": "40.865757",
-        "stlSha256": "a8d95583b338a5c0fdbeca3637c181a4041d2b1e97812cedc593dac1eee101cc"
+        "stlSha256": "08c40f662e547b4fdd44b4a2bd85638e9d766fc73f77489e18819e13c2f83f60"
       },
       {
         "modelId": "corner-stand-head-front",
         "revision": "0.1.0",
         "volumeCm3": "260.280311",
-        "stlSha256": "0bc532fa78b5c57a28cfdbcde5f1b6d33d78539418fdf9cc5d68fe4a5fdb28ba"
+        "stlSha256": "6843ca332c4473dbdfd2b3ec5342104a61a13d2d422af2e92803d7e13bb0e616"
       },
       {
         "modelId": "corner-stand-head-rear",
         "revision": "0.1.0",
         "volumeCm3": "100.468360",
-        "stlSha256": "cf6bc1cd3f97ac40dcfeeea91d7ec852137237e0e3287e6406bdef021d463d33"
+        "stlSha256": "b7c4ff9a774b5c739bd598140a1083aefbcd7ce6c345e1b787f58ea3e4e96562"
       },
       {
         "modelId": "corner-stand-winch-front",
         "revision": "0.1.0",
         "volumeCm3": "218.332513",
-        "stlSha256": "58d99251fca1def6e8abab3ba405001c70ebc895f28705ae574297c234f809cd"
+        "stlSha256": "dd2d67882f3ae18ed0faf0da48629fb49690dc0bc1712f52ad322096052eb178"
       },
       {
         "modelId": "corner-stand-winch-rear",
         "revision": "0.1.0",
         "volumeCm3": "112.409719",
-        "stlSha256": "2490b17e30736428aa369aa31aba55d6c6f8935651f0aeb5df0be8c83a51ac71"
+        "stlSha256": "987da89d48b8e913e0b7a4b10ce20ecc3e6daaccde451f0a5f684396e12463ec"
       },
       {
         "modelId": "dock-arm-extension",
         "revision": "0.1.0",
         "volumeCm3": "354.842933",
-        "stlSha256": "158dd1cd487ce1e6d9758aec3e613007de6e9554ac89b17b3d65e1034db681e3"
+        "stlSha256": "5c65581efca88b9a40b6c2e586e5ea01777649202fa8924548e51c287b16cb91"
       },
       {
         "modelId": "dock-arm-root",
         "revision": "0.1.0",
         "volumeCm3": "832.680301",
-        "stlSha256": "8b9aa46570e423de390a3ca436926f88d241dae5761e7f210fe88b45adca7889"
+        "stlSha256": "73a27eff8ad81c58fc1f725fe60b5fe42df9f3a5324d08310aad50697e640f3a"
       },
       {
         "modelId": "dock-guide-quarter",
         "revision": "0.1.0",
         "volumeCm3": "29.814653",
-        "stlSha256": "5b1742ab56c3afcf93e5da1e1e7227877f5909548c20a81b0b404691ed39122f"
+        "stlSha256": "06ebb85882e58a1b2c3aa31a07616715a0cfb708926f0eb1db7218bbe004fe89"
       },
       {
         "modelId": "dock-latch-fork",
         "revision": "0.1.0",
         "volumeCm3": "7.021294",
-        "stlSha256": "6828488e0bcdb4e9cc5b99c3deac16a0ee1da99783487d302cca54ce75ce1a0b"
+        "stlSha256": "b4f08996eee5dc509d01a481449989a097e7dc59cda7a0583dee0ec57d0e365d"
       },
       {
         "modelId": "dock-locator-carrier",
         "revision": "0.1.0",
         "volumeCm3": "173.425490",
-        "stlSha256": "2f126b6d74f564aad2ccfc55d2a3a96cc101d171751366ed520b3b56cc99be71"
+        "stlSha256": "ce2c413d20387fe8d9d5cc8991746b57e0b618c2f2b6bfdcab601e7b61d4ea39"
       },
       {
         "modelId": "dock-pod-bridge",
         "revision": "0.1.0",
         "volumeCm3": "50.561306",
-        "stlSha256": "ab769bcc1b2c5c58c570c44ba9e572c0809f8fd6406d2728c9c75aec6ca3dcbb"
+        "stlSha256": "6247f9cc053760e3d83c5ab277bc2502d3f9e17265b29e93e8119ea68d00410c"
       },
       {
         "modelId": "dock-pod-bridge-shoe",
         "revision": "0.1.0",
         "volumeCm3": "6.747810",
-        "stlSha256": "c06c783ee1f219bde320d18371c08877c5f07f76e48101947f0d28b88721443f"
+        "stlSha256": "1c8a1587d305005c3cbcc856d7f142a67ba6d6c609d52abcf8885885847bf06a"
       },
       {
         "modelId": "dock-pod-stud",
         "revision": "0.1.0",
         "volumeCm3": "16.888763",
-        "stlSha256": "2d28151381395833954f422ee41a83e8f734a6a2a7e7bf35c1172b9865c8fb38"
+        "stlSha256": "18e73cf00e8e720180fec0d722d80215115ab980b3d959bf611b08644f674225"
       },
       {
         "modelId": "dock-post-rear-pad",
         "revision": "0.1.0",
         "volumeCm3": "47.343064",
-        "stlSha256": "c48d1ab54dc0136e6abc8d18aa224d38a9e592128ae09e96fbbc5416cdec2a3a"
+        "stlSha256": "4defe30041cb2405eae8f6b5a9286f2cdc7b8a4c9d7917125fb5b7d03cb8c685"
       },
       {
         "modelId": "dock-roof-quarter",
         "revision": "0.1.0",
         "volumeCm3": "56.840319",
-        "stlSha256": "eb40c25b81d2f5f7554955121d72ebd46f5e414ea2027ae31a72ef81c1206c54"
+        "stlSha256": "7e4faf1f1cad5291ceb67ea78627d42e280fd752891e6b3f60b9e44b2b9264cb"
       },
       {
         "modelId": "dock-roof-spacer",
         "revision": "0.1.0",
         "volumeCm3": "3.064212",
-        "stlSha256": "56f44fed9a3cb1d954bce1423026189519232b929053816ffcf8db11063d4c56"
+        "stlSha256": "cad56c865b15e15ba4cf4604ddae1f5b57d7c459605efd19c0a69285521a5fbb"
       },
       {
         "modelId": "top-pulley-keeper",
         "revision": "1.0.0",
         "volumeCm3": "14.701475",
-        "stlSha256": "143680e334bc4e1eed322ef031d5261121b4cdafd380aa1380936b6dae1680da"
+        "stlSha256": "c324c69d98938153a49fd27684ab52062e471c19fb46a76ac9332ea9e26b7061"
       },
       {
         "modelId": "winch-bearing-cap",
         "revision": "0.1.0",
         "volumeCm3": "5.243271",
-        "stlSha256": "3fc845a0a3a2a4ecf7bd59d2fa1bf18848fb9e3964f29c62c0a2abbf6ae283b6"
+        "stlSha256": "0bd8fbf22f11d9bea32f8b5f95188d4c3bc0e60356646e0796500af46d3d4c47"
       },
       {
         "modelId": "winch-bearing-lower",
         "revision": "0.1.0",
         "volumeCm3": "60.812971",
-        "stlSha256": "66f91e827900122796d5e4a0b068bf1273ffabf5bea445044c8e5667b9037327"
+        "stlSha256": "ad31ff7daa30e592716387171f8ce0e870c87e21be30c716357120fc9877f30f"
       },
       {
         "modelId": "winch-coupling-guard",
         "revision": "0.1.1",
         "volumeCm3": "30.825830",
-        "stlSha256": "c4bdfc0515daff818ea467fb0c5338de9cade7e6a8e345ff9f3f03564f631e0e"
+        "stlSha256": "0b94edc7fefae014e464127b6262f786a1260a6a32fd5885153ecdea7d9639de"
       },
       {
         "modelId": "winch-cover-cable-anchor",
         "revision": "0.1.0",
         "volumeCm3": "4.514930",
-        "stlSha256": "f4ac1fdd0bd5bf8570d6cb734474e037377cc8e61c909afd740f127fe267963d"
+        "stlSha256": "ff9b9fc325a5132c81ac55dd3de248993bb1cdceb421e5adb2dbc2fa317c2b3c"
       },
       {
         "modelId": "winch-cover-clip",
         "revision": "0.2.0",
         "volumeCm3": "6.118286",
-        "stlSha256": "2f6e371f7cba20a77a521dec3a944c893e515147a01b47b552aeb57f052b8e60"
+        "stlSha256": "a9243bbfbbe6e8dbba4658fef9bfc0b3e8bb1c3ad1d616a5bb61dcb2a4e3508d"
       },
       {
         "modelId": "winch-cover-passive-fascia",
@@ -376,19 +521,19 @@
         "modelId": "winch-cover-passive-left",
         "revision": "0.3.0",
         "volumeCm3": "374.072990",
-        "stlSha256": "f363293609d64294962656a3a26b9ffde4641acea2400781bde64aadd560dc70"
+        "stlSha256": "0a0d89eec6df87fa1899e77d159be4abfd29ffb17de35d581119555d3866d6c3"
       },
       {
         "modelId": "winch-cover-passive-middle",
         "revision": "0.2.0",
         "volumeCm3": "250.605223",
-        "stlSha256": "0f22488c62b46aee5dcd2a2b6640707a71f72c9fa061b50ec2cdd3d08b16ab1d"
+        "stlSha256": "b82196e219ad4fe0422fd43f536c7d4ad1ad092d88a32eaca95941dcf65d3a01"
       },
       {
         "modelId": "winch-cover-passive-pole-fascia",
         "revision": "0.1.0",
         "volumeCm3": "76.231311",
-        "stlSha256": "747ce93b81bc3eecb8978eeb69c100014780aeab153cdde4fd937a78de419679"
+        "stlSha256": "a6d5e29770d5e1b1e2514f99b04255f6b6089b1241292c93a9b64a5a922084b9"
       },
       {
         "modelId": "winch-cover-passive-rear-left",
@@ -406,13 +551,13 @@
         "modelId": "winch-cover-passive-right",
         "revision": "0.3.0",
         "volumeCm3": "449.144055",
-        "stlSha256": "589a8dcd74b736f5122d38c5822fce8fefae1e5983a684b47753dc295eb70531"
+        "stlSha256": "ce4f204ea945493112ddb668403fe0c8118344d0b0726faa9d0351d2d766ec92"
       },
       {
         "modelId": "winch-cover-passive-shutter",
         "revision": "0.2.0",
         "volumeCm3": "79.436506",
-        "stlSha256": "ae6d24b1845ede53c335bbfd16bca49c6044adb4f1dc743a065033078a804893"
+        "stlSha256": "423fe2ec216a57756f94bb4822aba5a99bd4c2098cf1c804fb270f700584efa3"
       },
       {
         "modelId": "winch-cover-powered-fascia",
@@ -424,25 +569,25 @@
         "modelId": "winch-cover-powered-left",
         "revision": "0.2.0",
         "volumeCm3": "367.652286",
-        "stlSha256": "3b3f2ac009d07721d0e76d1dc34c13d65423a83612af6f1a75659ef03f219543"
+        "stlSha256": "7d47710aad3c69feefc07df80d46514c625f5dd0accf7538966f7511b2003093"
       },
       {
         "modelId": "winch-cover-powered-middle",
         "revision": "0.2.0",
         "volumeCm3": "242.744073",
-        "stlSha256": "7884ec42df1abcc400cfc4a8b3efe3dff0b1c7420c5820e630f7cb021a0890c4"
+        "stlSha256": "6ba2c6049ad76e0bd38514b5504d517f316a6f2163812dcba015388024ca0515"
       },
       {
         "modelId": "winch-cover-powered-pole-fascia",
         "revision": "0.1.0",
         "volumeCm3": "73.701924",
-        "stlSha256": "70fd2475cf5f078ddbb524c6705302d4f51d727e34a69a53aefd60c2b4117d58"
+        "stlSha256": "b18180e7efa7e63cea7ef89978351d2e8df0fc490b0451e2456d209fc4894c4f"
       },
       {
         "modelId": "winch-cover-powered-pole-middle",
         "revision": "0.1.0",
         "volumeCm3": "240.640072",
-        "stlSha256": "bc71cf2c6acbefb3479977f4524ba0af2b922eb91fc3c527e5ac994844eff7bc"
+        "stlSha256": "d648e2d693e5089b85340a0034d94438e206115f665e33664b0b0d01929154d3"
       },
       {
         "modelId": "winch-cover-powered-rear-left",
@@ -460,109 +605,109 @@
         "modelId": "winch-cover-powered-right",
         "revision": "0.3.0",
         "volumeCm3": "437.959117",
-        "stlSha256": "80e327f03e1335e69fca1150e9e21e650cea03686a996ed4a156723a002b0cea"
+        "stlSha256": "addbd2a7b7f1741d1e38a1355f0c5119f2a1fef366877eb26983fa41689c73ae"
       },
       {
         "modelId": "winch-cover-powered-shutter",
         "revision": "0.2.0",
         "volumeCm3": "76.694057",
-        "stlSha256": "2fe2956e6f85c1ca0006e2afb1067baa2eca31ed1a205d9f31395d24c30bb353"
+        "stlSha256": "50b5bfb7d76bc7f957526536c2861f950cd6ff69c3d19c6a98ab7a6fab6ba999"
       },
       {
         "modelId": "winch-cover-powered-transition",
         "revision": "0.2.0",
         "volumeCm3": "241.880800",
-        "stlSha256": "5439fccf24c68cf45f0652866d66d3e93bf7d09439283723c05296c568bc1f34"
+        "stlSha256": "8b1c9e14df2f45f371a4ebfcb83532a5934556fa9027ccb56185b9597b83964c"
       },
       {
         "modelId": "winch-desk-foot-long",
         "revision": "0.1.0",
         "volumeCm3": "105.802227",
-        "stlSha256": "f47166d89d9cb771e0ed5668fd7f680571fdbad68bd4570bbfca27241094a309"
+        "stlSha256": "1c1fd79a800a40fa108c35f62a934709ab2998912f0f7d09826d63d63cbd700e"
       },
       {
         "modelId": "winch-desk-foot-short",
         "revision": "0.1.0",
         "volumeCm3": "74.282202",
-        "stlSha256": "0b2819aa1544f48a9fa1bfe82ef1c0b8e3e679f798ed47cfaaf503b3310d51d2"
+        "stlSha256": "bcdb278d56efa6b1adbc3cba7c5ff8dd2300aa6d9c7b1ec3235a551bcb09d5da"
       },
       {
         "modelId": "winch-drum-alignment-pin",
         "revision": "0.1.0",
         "volumeCm3": "0.156072",
-        "stlSha256": "649aadb851451960e13b8ebb8bf280791fb1bbd01358454150eeb84dc1e3503e"
+        "stlSha256": "345910578ba29a61b1b8265c22bc1e0206f17c5c0289330dbae70d447bffc034"
       },
       {
         "modelId": "winch-drum-clamp-half",
         "revision": "0.1.0",
         "volumeCm3": "13.614323",
-        "stlSha256": "f050f96c30415175e0d61f016f7ec70a58a315d4477e319540cd8b674d8c7c0e"
+        "stlSha256": "72b98b9f185486c3d833c92537e39e5d962dd5a5f85b24abb0c89c0f2b6e8d14"
       },
       {
         "modelId": "winch-drum-flange",
         "revision": "0.1.0",
         "volumeCm3": "75.053615",
-        "stlSha256": "50d0fad8eddee9e0c59afbe2a9d14487e792737e0fdb13426ab9d3f99c9dd9a2"
+        "stlSha256": "33f61424111b53df13ab39d26586d821a87a6af84a20d2fb90d6ba7e1d8b9984"
       },
       {
         "modelId": "winch-drum-flange-right",
         "revision": "0.1.0",
         "volumeCm3": "75.053615",
-        "stlSha256": "136e39cb48237f17ff565f5dbe0fc916d03f2210f9329c3089e76d0b3cd1abe5"
+        "stlSha256": "a3cece70d4bc0da354ad9311cd19f045d5572389ffafd85a2dc45d2443b57c87"
       },
       {
         "modelId": "winch-drum-passive-1",
         "revision": "0.1.0",
         "volumeCm3": "316.427023",
-        "stlSha256": "7b7e6887e1e5a728350405687546b37434ff6c014a36c40f8a14a4b0d2ae5354"
+        "stlSha256": "fb25d9d32fef5dbbd95e2ad828ecf0135979460ca6df753832a9f982dff026cc"
       },
       {
         "modelId": "winch-drum-passive-2",
         "revision": "0.1.0",
         "volumeCm3": "316.426147",
-        "stlSha256": "7e3fe5df591e7182cdf7ee3fe08a8c5421014892c0731a6dbd21aad04ce4ad0b"
+        "stlSha256": "f68a13ed5fcab927dca3f653a7eb52bb617acefa461e4eb96e4d563f7c41d48e"
       },
       {
         "modelId": "winch-drum-powered-1",
         "revision": "0.1.0",
         "volumeCm3": "456.629544",
-        "stlSha256": "dd6b5593ce25cd48d2c3472955e876c73aa80f74f03a8f421b90c2afcbe08abe"
+        "stlSha256": "2ffb69d46d4e3907b11956f81fe73fdfc44b79ace332a9c1a7f06d11a7aa12c2"
       },
       {
         "modelId": "winch-drum-powered-2",
         "revision": "0.1.0",
         "volumeCm3": "454.324400",
-        "stlSha256": "aa04c22cc24c8a667182fa04a269ce3393bcd5d45b86b3340b234c4d98e32f06"
+        "stlSha256": "01c39baee838d9bde705abbf4c0494c9e3bdf94b0c31cc28cb61e1cad806e307"
       },
       {
         "modelId": "winch-drum-powered-3",
         "revision": "0.1.0",
         "volumeCm3": "456.627803",
-        "stlSha256": "e681bddb01637aa7f2731fed5d3b79bc199782225872c60e79a68b19d43e45fd"
+        "stlSha256": "d348c6eb4adc528de4e2977dd0e92927328c93db24de1bc702d73a2eb1b12fef"
       },
       {
         "modelId": "winch-drum-tail-clamp",
         "revision": "0.1.0",
         "volumeCm3": "1.742897",
-        "stlSha256": "30ec5b63862c838e5a842fddcc08c743ffbe332904e152f65749b8a1b2cf3359"
+        "stlSha256": "214c18ac8cae79335159a67b04f5d380ebce4886903d98b6e2ae8f81255f92ad"
       },
       {
         "modelId": "winch-motor-stand",
         "revision": "0.1.0",
         "volumeCm3": "156.792774",
-        "stlSha256": "574978e275cac0e72a96c8723c76bedc1f17784803705297dac1d6fe5e825267"
+        "stlSha256": "76e4b86e241c3dbc68cd96944103b67b6761f57f78698d179b43ff29fd93bab2"
       },
       {
         "modelId": "winch-pole-cable-guide",
         "revision": "0.1.0",
         "volumeCm3": "9.881733",
-        "stlSha256": "61f64a6b29ccd69e35addbacfb4fe0170492924c9f972dad20765842159542e0"
+        "stlSha256": "a2d6abbd856af61967518581e88bcd21adc2f50769e446e834198ef62ac84262"
       },
       {
         "modelId": "winch-pole-nut-cover",
         "revision": "0.1.0",
         "volumeCm3": "44.800316",
-        "stlSha256": "145743c05307fbbb274cde593e40203b46602511ae9976b7b0c59f30749d2f5b"
+        "stlSha256": "72abbc849be513457b63a83484da8621136c08b8811f91c28cbeea1ebcc6a6b2"
       },
       {
         "modelId": "winch-pole-nut-cover-bottom",

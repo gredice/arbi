@@ -14,6 +14,7 @@ from PIL import Image, ImageChops
 import vtk
 from reference_meshes import default_jobs, positive_jobs, prepare_references
 from assembly_scenes import assembly_scene
+from appearances import model_appearance
 
 REPO = Path(__file__).resolve().parents[2]
 SIZE = (480, 360)
@@ -188,6 +189,9 @@ def build(cad, output, jobs):
             scene = assembly_scene(model, REPO, work, jobs)
             if scene:
                 manifest["models"][model["id"]]["scene"] = scene
+            appearance = model_appearance(model, REPO, work, jobs)
+            if appearance:
+                manifest["models"][model["id"]]["appearance"] = appearance
             if model["artifactRole"] == "visualization":
                 target = work / "meshes" / model["output"]
                 target.parent.mkdir(exist_ok=True)
@@ -196,7 +200,7 @@ def build(cad, output, jobs):
             print(f"Rendered {model['id']}", flush=True)
         (work / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
         with zipfile.ZipFile(output / ASSET, "w", zipfile.ZIP_DEFLATED) as archive:
-            for path in sorted(work.rglob("*.png")) + sorted((work / "meshes").glob("*.stl")) + sorted((work / "references").glob("*.stl")) + sorted((work / "assemblies").rglob("*.stl")) + [work / "manifest.json"]:
+            for path in sorted(work.rglob("*.png")) + sorted((work / "meshes").glob("*.stl")) + sorted((work / "references").glob("*.stl")) + sorted((work / "assemblies").rglob("*.stl")) + sorted((work / "appearances").rglob("*.stl")) + [work / "manifest.json"]:
                 archive.write(path, "ARBI-CAD-previews/" + path.relative_to(work).as_posix())
     print(f"Packaged {len(manifest['models'])} figures in {output / ASSET}", flush=True)
 

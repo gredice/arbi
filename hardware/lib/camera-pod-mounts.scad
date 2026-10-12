@@ -1,15 +1,17 @@
 // ARBI camera pod mount set — concept-unvalidated, millimetres.
 // Assembly frame: spider mid-plane Z=0; camera looks -Z at pan=tilt=0.
-// Servo nominal dimensions are provisional; measure before a full print.
+// Servo opening owner-fit-tested; 25 mm ear pitch from 12 October measurements.
 include <arbi.scad>
 include <buck-converter-48v-5v.scad>
+include <micro-pan-tilt-servo.scad>
 
 PM_EPS = 0.02;
 PM_FN = 64;
-pm_servo_body = [20,8.5,18];
-pm_servo_lug_pitch = 24;
-pm_servo_lug_span = 27;
-pm_servo_fit = 0.8; // total body clearance, 0.4 per side
+pm_servo_body = ms_body;
+pm_servo_window = [20.8,9.3]; // preserve the opening the owner reported fits
+pm_servo_lug_pitch = ms_hole_pitch;
+pm_servo_lug_span = ms_envelope[0];
+pm_servo_fit = 0.8; // historical length clearance
 pm_mount_xy = 22/sqrt(2);
 pm_pi_center = [-37,0];
 pm_pi_pitch = [58,49];
@@ -84,8 +86,8 @@ module camera_pod_pan_servo_mount() {
         union() {
             pm_cyl(54,3,[0,0,-6.5]);
             // End columns keep servo sides and horn-retainer screws accessible.
-            for(x=[-21,11])pm_box([3,14,18.5],[x,0],-25);
-            pm_box([35,14,2.5],[-5,0],-25);
+            for(x=[-5-(pm_servo_lug_span/2+2.1),-5+(pm_servo_lug_span/2+2.1)])pm_box([3,14,18.5],[x,0],-25);
+            pm_box([pm_servo_lug_span+8,14,2.5],[-5,0],-25);
             for(a=[-pm_pan_stop_angle,pm_pan_stop_angle]) {
                 p=[-30*sin(a),30*cos(a)];
                 pm_link([p[0],p[1]],[p[0]*.65,p[1]*.65],5,3,-6.5);
@@ -94,7 +96,7 @@ module camera_pod_pan_servo_mount() {
         }
         // Upper insertion opening clears the entire servo including mounting ears.
         pm_box([pm_servo_lug_span+1.2,pm_servo_body[1]+1.5,4],[-5,0],-6.51);
-        pm_box([pm_servo_body[0]+pm_servo_fit,pm_servo_body[1]+pm_servo_fit,3],[-5,0],-25.01);
+        pm_box([pm_servo_window[0],pm_servo_window[1],3],[-5,0],-25.01);
         for(x=[-5-pm_servo_lug_pitch/2,-5+pm_servo_lug_pitch/2]) {
             pm_cyl(1.9,4,[x,0,-25.01]);
             translate([x,0,-25.01])cylinder(d1=3.5,d2=1.9,h=1.11,$fn=PM_FN);
@@ -148,7 +150,9 @@ module camera_pod_pan_yoke() {
         for(y=[-10,10])pm_cyl(2.3,6,[0,y,-32]);
         for(x=[-9,9])pm_box([1.8,3.2,4],[x,-23],-32);
         // Body crosses the plate along X, its 20 mm length is vertical here.
-        pm_box([4,pm_servo_body[1]+pm_servo_fit,pm_servo_body[0]+pm_servo_fit],[-25.5,0],-54-(pm_servo_body[0]+pm_servo_fit)/2);
+        pm_box([4,pm_servo_window[1],pm_servo_window[0]],[-25.5,0],-54-pm_servo_window[0]/2);
+        // Longer received ears must clear the rear face of the upper reinforcing web.
+        pm_box([2.3,9.4,pm_servo_lug_span+.4],[-27.55,0],-54-(pm_servo_lug_span+.4)/2);
         for(z=[-54-pm_servo_lug_pitch/2,-54+pm_servo_lug_pitch/2]) {
             pm_xcyl(1.9,4,[-27,0,z]);
             translate([-23.99,0,z])rotate([0,-90,0])cylinder(d1=3.5,d2=1.9,h=1.11,$fn=PM_FN);
@@ -221,11 +225,11 @@ module camera_pod_electronics_cover() {
     }
 }
 
-// Isolated fit coupon: same nominal body window and 24 mm ear spacing.
+// Isolated fit coupon: preserved 20.8 x 9.3 window and corrected 25 mm ear pitch.
 module camera_pod_servo_fit_coupon() {
     difference() {
-        pm_box([34,15,2.5]);
-        pm_box([pm_servo_body[0]+pm_servo_fit,pm_servo_body[1]+pm_servo_fit,3],[0,0],-.01);
+        pm_box([ms_envelope[0]+4,15,2.5]);
+        pm_box([pm_servo_window[0],pm_servo_window[1],3],[0,0],-.01);
         for(x=[-pm_servo_lug_pitch/2,pm_servo_lug_pitch/2])pm_cyl(1.9,3,[x,0,-.01]);
     }
 }

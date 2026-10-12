@@ -16,6 +16,25 @@ def solid(p):
     s,m=cache[key];mat=np.array(p['matrix']);v=trimesh.transform_points(m.vertices,mat)
     return s.transform(mat[:3,:]),np.array([v.min(0),v.max(0)])
 def overlaps(a,b):return np.all(np.minimum(a[1],b[1])-np.maximum(a[0],b[0])>1e-5)
+
+def measured_servo_fit():
+    """Check received dimensions independently of the CAD's parameter values."""
+    manifest={e['model_id']:e for e in json.loads((ROOT/'mesh-manifest.json').read_text())}
+    servo=trimesh.load_mesh(ROOT/manifest['micro-servo-3p7g-UNVERIFIED']['file'])
+    assert np.allclose(servo.extents,[31.8,9,24.5],atol=.001),'Received servo envelope changed'
+    coupon=trimesh.load_mesh(ROOT/manifest['camera-pod-servo-fit-coupon']['file'])
+    host=mf.Manifold(mf.Mesh(np.asarray(coupon.vertices,dtype=np.float32),np.asarray(coupon.faces,dtype=np.uint32)))
+    case=mf.Manifold.cube([20,9,5],True).translate([0,0,1.25])
+    assert (case^host).volume()<EPS_VOLUME,'Accepted servo case no longer passes coupon'
+    probes=[]
+    for pitch in [25,24]:
+        hits=[float((mf.Manifold.cylinder(4,.8,.8,64).translate([x,0,-.5])^host).volume())
+              for x in [-pitch/2,pitch/2]]
+        probes.append({'pitch_mm':pitch,'screw_intersections_mm3':hits})
+        assert max(hits)<EPS_VOLUME if pitch==25 else min(hits)>EPS_VOLUME,'Measured screw-pitch regression failed'
+    return {'rigid_envelope_mm':servo.extents.tolist(),'case_passage_clear':True,'screw_checks':probes,
+            'physical_evidence':'Owner accepted the revised fit on 12 October 2026; full assembly qualification is separate.'}
+
 def paircheck(parts,mode='all'):
     solids=[solid(p) for p in parts];bad=[]
     for i,j in itertools.combinations(range(len(parts)),2):
@@ -111,6 +130,7 @@ def main():
     print('Neutral pose collisions:',len(bad),flush=True)
     for b in bad:print(b,flush=True)
     report={'configuration':CONFIG,'variant':'enclosure' if ENCLOSURE else 'bench','units':'mm','neutral_collisions':bad,
+      'received_servo_fit':measured_servo_fit(),
       'intersection_tolerance_mm3':EPS_VOLUME,'intended_exclusions':['servo-shaft / stock-horn spline engagement','OEM servo-centre screw / servo threaded engagement'],
       'source_hashes':{str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in [ROOT/'source/integration.py',ROOT/'source/check_integration.py',ROOT/'source/arbi-hardware/lib/camera-pod-mounts.scad']+([ROOT/'source/arbi-hardware/lib/camera-pod-enclosure.scad',ROOT/'source/arbi-hardware/lib/camera-pod-integrated-deck.scad',ROOT/'source/arbi-hardware/lib/camera-pod-integrated-head.scad',ROOT/'source/arbi-hardware/lib/camera-pod-integrated-gimbal.scad'] if ENCLOSURE else [])}}
     if ENCLOSURE:
