@@ -85,7 +85,7 @@ with `appearance_part=N`. The pack stores these meshes under `appearances/`,
 with source and mesh checksums, an explicit rigid envelope excluding flexible
 display leads, and sRGB colour, roughness, metalness, transmission, thickness
 (mm) and IOR. The site accepts the complete component set atomically and uses
-it for shaded and line views. The servo is the first such model; future
+it for shaded and line views. The servo and Camera Module 3 Wide use this path; future
 multi-material models can use the same path. These assets supplement the
 ordinary release STL; they do not change engineering status or create new
 fabrication entrypoints. Authored GLTF materials are also preserved in shaded

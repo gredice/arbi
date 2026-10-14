@@ -39,7 +39,17 @@ The compact revision links its [nominal CAD evidence](../../hardware/assemblies/
 
 The integrated rain kit remains the preferred public pod preview. `camera-pod-assembly` is its canonical public assembled reference. Select `show_legacy=true` for the historical camera-pod layout or use [the dry bench source](../../hardware/lib/camera-pod-bench-assembly.scad) for the bench kit. `show_hood=false` opens the integrated reference for service; `show_cover=false` opens the dry bench variant. Keep open, exploded and alternative views labelled by configuration. Include neutral and tilted views with their pose angles, so the optical face is visible without hiding the housing proportions. Retain historical fabrication sources for traceability; they are alternatives rather than a combined print list. Do not add the dry deck, cover, optical hood or pan yoke, or the earlier fixed fairing, boot or rear cowl, to the compact kit.
 
-Apply the role palette to winch drum/mount previews and all published booklets. The existing coupling guard is white, while drum, bearing supports and motor stand are dark. Its dimensions are unchanged. Dock protection, corner-station housings and the control-cabinet outer enclosure should use white rounded protective surfaces over dark fixtures when their housing geometry is designed. Existing dock/funnel load and capture surfaces retain their committed dimensions.
+Apply the role palette to winch drum/mount previews and all published booklets. The existing coupling guard is white, while drum, bearing supports and motor stand are dark. Its dimensions are unchanged. Corner-station housings and the control-cabinet outer enclosure should use white rounded protective surfaces over dark fixtures when their housing geometry is designed.
+
+The owner selected the [dock appearance board](../assets/dock/concept-board-2026-10-14.png)
+on 14 October 2026. Its [rounded-shelter design record](../assemblies/dock/rounded-shelter.md)
+applies a broad removable warm-white crown over the charcoal guide, locator,
+fork and arm. Four printed quadrants retain restrained service seams, neutral
+hardware and open line corridors. The artwork's proportions are illustrative;
+the canonical dock sources govern dimensions. Pod-retention loads continue
+through the structural bridge/stud and fork/locator/arm, with no load carried by
+the cosmetic pod hood or shelter. Physical and automatic-docking acceptance
+remain pending.
 
 The [full winch cover r0.3.0](../../hardware/assemblies/winch/full-cover.md) adds
 three/five removable white panels with fascia, rear shields and concealed enclosure fasteners over the existing dark drivetrain, with

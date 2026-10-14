@@ -225,28 +225,47 @@ module camera_pod_camera_cowl() {
 
 // Integrated optical face r0.1.2: shortened, open rear board-loading seat.
 // Wide-camera drawing/STEP footprint; same four M2 axes and clamp stack.
-// PCB rests ON the rear lands; do not tuck its corners under printed tabs.
+// r0.1.3: low, flared walls leave the PCB edges visible during rear loading.
+// PCB rests ON the four lands; no flexing or threading it under tabs is needed.
 module camera_pod_integrated_camera_hood() {
     difference() {
         union() {
             difference() {
-                pe_round_xy([34,36],9,2,6,[0,-2.469]);
-                // 1.2+ mm per side around the rounded 25 × 24 product PCB.
-                pm_box([27.8,26.6,8],[0,0],3.1);
-                // Clear the complete 10.8 ±0.15 square autofocus footprint,
-                // including its corners, instead of only a Ø5.75 lens barrel.
-                pe_round_xy([12.2,12.2],.6,1.99,2,[0,-2.469]);
+                pe_round_xy([34,36],9,2,4,[0,-2.469]);
+                // 29.4 × 28.2 cavity, flared to 31 × 30 at the low rear rim.
+                // The walls end 3.4 mm below the PCB seat, so a tilted board
+                // cannot become trapped inside a deep pocket.
+                pm_box([29.4,28.2,8],[0,0],3.1);
+                hull() {
+                    pm_box([29.4,28.2,.02],[0,0],5);
+                    pm_box([31,30,.02],[0,0],6);
+                }
+                // Extra clearance for the complete autofocus body and hand
+                // alignment. Keep 1 mm webs beside the Ø5.4 screw tunnels.
+                pe_round_xy([13.6,13.6],.6,1.99,2,[0,-2.469]);
+                // Open rear CSI edge: cable/latch access above the front rim.
+                // Reach beyond the shell's Y=-20.469 outer edge; a shorter
+                // cut leaves a thin closing lip despite clearing the cavity.
+                pm_box([25,14,8],[0,-17],3.1);
             }
             for(x=[-10.5,10.5],y=[9.931,-2.569]) {
                 // Short exposed seating lands; no roof over the incoming PCB.
                 pm_cyl(4.8,1.4,[x,y,8]);
                 pm_link([x,y],[x<0?-14.8:14.8,y],4.8,1.4,8);
+                // Outside gusset joins each unchanged clamp land to the low
+                // shell without adding an inward lip over the camera PCB.
+                hull() {
+                    pm_cyl(4.8,.2,[x<0?-14.8:14.8,y,5.6]);
+                    pm_cyl(4.8,.2,[x<0?-14.8:14.8,y,8]);
+                }
             }
         }
         for(x=[-10.5,10.5],y=[9.931,-2.569])pm_cyl(2.3,3,[x,y,7.5]);
         // Recessed access tunnels admit the M2 head and 5 mm washer as well as its
         // driver. The clamp lands now occupy Z=8..9.4; their installed plane
         // is unchanged because the assembled hood translates 2 mm rearward.
-        for(x=[-10.5,10.5],y=[9.931,-2.569])pm_cyl(5.4,5.71,[x,y,1.99]);
+        // Clear the complete front washer up to the Z=8 land underside,
+        // including the outside gusset's overlap with the tunnel wall.
+        for(x=[-10.5,10.5],y=[9.931,-2.569])pm_cyl(5.4,6.01,[x,y,1.99]);
     }
 }

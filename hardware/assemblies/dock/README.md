@@ -1,6 +1,9 @@
 # Dock OpenSCAD sources
 
-DOCK-IF-01 r0.1.0 is a supported-dummy bench kit, **concept-unvalidated**.
+DOCK-IF-01 is a supported-dummy bench kit, **concept-unvalidated**. Roof/guide
+quadrants and the assembled reference are revision `0.2.0`; the flat-shoulder
+stud is revision `0.1.1`. Locator/fork and bridge interfaces retain revision
+`0.1.0`.
 Canonical dimensions and geometry are in [dock.scad](../../lib/dock.scad).
 The [design package](../../../docs/assemblies/dock/design-package.md),
 [assembly guide](../../../docs/assemblies/dock/assembly-guide.md) and
@@ -11,21 +14,27 @@ and remaining acceptance work.
 
 | Model | One dock quantity | Function |
 | --- | ---: | --- |
-| [dock-guide-quarter.scad](dock-guide-quarter.scad) | 4 | Ø275 mouth / Ø60 throat split guide, nominal vertical line corridor |
+| [dock-guide-quarter.scad](dock-guide-quarter.scad) | 4 | Ø275 mouth / Ø60 throat split guide, edge-open radial line passage |
 | [dock-locator-carrier.scad](dock-locator-carrier.scad) | 1 | Ø26 final bore, head stop and fork guide |
 | [dock-latch-fork.scad](dock-latch-fork.scad) | 1 | Ø17 stem slot, 40 mm manual release |
 | [dock-pod-bridge.scad](dock-pod-bridge.scad) | 1 | Fixed-spider attachment above hood |
 | [dock-pod-bridge-shoe.scad](dock-pod-bridge-shoe.scad) | 4 | Lower arm-width captive clamp shoe |
-| [dock-pod-stud.scad](dock-pod-stud.scad) | 1 | Ø14 stem / Ø24 head, axial M4 through-bolt |
+| [dock-pod-stud.scad](dock-pod-stud.scad) | 1 | Ø14 stem / Ø24 × 11 mm flat-shoulder head, axial M4 through-bolt |
 | [dock-arm-root.scad](dock-arm-root.scad) | 1 | Shared round-post interface and lap tongue |
 | [dock-arm-extension.scad](dock-arm-extension.scad) | 1 | Arm lap and locator platform |
 | [dock-post-rear-pad.scad](dock-post-rear-pad.scad) | 2 | Dedicated dock mounting-row rear seats |
-| [dock-roof-quarter.scad](dock-roof-quarter.scad) | 4 | Quarter of sloping 300 mm roof with seam flanges |
+| [dock-roof-quarter.scad](dock-roof-quarter.scad) | 4 | Hollow rounded 300 × 300 mm R40 crown with removable seams and edge-open line passage |
 | [dock-roof-spacer.scad](dock-roof-spacer.scad) | 4 | 49 mm roof stand-off |
 
 [dock-assembly.scad](dock-assembly.scad) registers the assembled reference pose;
 `dock_assembly(true)` shows the manually opened fork. Charcoal mechanical parts
-and a white protective roof follow the existing industrial design conventions.
+and a white protective crown implement the [owner-selected dock appearance](../../../docs/assemblies/dock/rounded-shelter.md).
+The hollow roof skin is nominally 2.8 mm, skirt Z175 and apex Z220; it preserves
+49 mm spacers, M4 × 100 stack bolts and M3 seam hardware. Print roof quadrants
+rim down and review supports for the skin/bosses before slicing.
+Print the stud head down and plan supports under the elevated Ø32 flange;
+inspect the bearing face, axial bore and washer seat. Its flat underside at
+Z149.8 has a nominal 0.2 mm gap to fork top Z149.6 before supported settling.
 The default post is the corner set's round-120 (radius 60 mm), on a non-powered
 corner. Shared 100–140 mm round parameters adjust root, joint and projection;
 the published pack checks only the round-120 nominal configuration.
@@ -33,7 +42,11 @@ the published pack checks only the round-120 nominal configuration.
 The kit's bridge/shoes/stud belong to the dock BOM but install on the pod. They
 are not duplicated in the compact camera-pod BOM. Their added mass and radial
 clamp friction remain unresolved; nominal fit is not structural acceptance.
-The guide and roof corridors check only synthetic vertical 1.5 mm lines.
+The guide and roof passages are 18 mm wide and open radially from radius 95 mm
+to their edges around the radius 104 mm line axes. Synthetic vertical 1.5 mm
+lines are a nominal checked pose, not installed routing evidence. Shelter
+service requires an unloaded supported fixture because roof bolts share the
+locator/arm stack.
 
 ## Artifacts and checks
 

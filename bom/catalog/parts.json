@@ -124,7 +124,7 @@
             "path": "hardware/assemblies/camera-pod/camera-pod-integrated-camera-hood.scad",
             "module": "camera_pod_integrated_camera_hood",
             "modelId": "camera-pod-integrated-camera-hood",
-            "revision": "0.1.2"
+            "revision": "0.1.3"
           },
           {
             "path": "hardware/assemblies/camera-pod/camera-pod-integrated-gimbal-head.scad",
@@ -140,7 +140,7 @@
           }
         ]
       },
-      "notes": "Current compact enclosure uses camera-pod-integrated-gimbal-head r0.1.5 (Wide optical opening and measured-servo clearance; reprint), camera-pod-integrated-gimbal-carrier r0.1.2, reinforced integrated cradle r0.1.1 and pivot support r0.1.0, horn retainers and camera-pod-integrated-camera-hood r0.1.2 (open rear seat and full-square module clearance; reprint). Historical concept and dry bench gimbal parts, fixed fairing, tilt-servo boot and rear camera cowl are archived and excluded from this BOM. Four M2 x 10 clamp stacks join head and carrier; four M2 x 12 camera screws retain four primary nuts and eight washers. The selected kit exports 13 fabrication models including the optional coupon and installs 16 printed pieces. See hardware/assemblies/camera-pod/camera-pod-enclosure.md for quantities and service routes. Servo/connector dimensions, complete assembly fit, rain protection and complete flying mass remain unverified. The owner accepted the revised servo body/mounting fit on 12 October 2026; see docs/evidence/micro-servo-2026-10-12.md."
+      "notes": "Current compact enclosure uses camera-pod-integrated-gimbal-head r0.1.5 (Wide optical opening and measured-servo clearance; reprint), camera-pod-integrated-gimbal-carrier r0.1.2, reinforced integrated cradle r0.1.1 and pivot support r0.1.0, horn retainers and camera-pod-integrated-camera-hood r0.1.3 (low flared rear entrance, open CSI edge and enlarged square module clearance; reprint). Historical concept and dry bench gimbal parts, fixed fairing, tilt-servo boot and rear camera cowl are archived and excluded from this BOM. Four M2 x 10 clamp stacks join head and carrier; four M2 x 12 camera screws retain four primary nuts and eight washers. The selected kit exports 13 fabrication models including the optional coupon and installs 16 printed pieces. See hardware/assemblies/camera-pod/camera-pod-enclosure.md for quantities and service routes. Servo/connector dimensions, complete assembly fit, rain protection and complete flying mass remain unverified. The owner accepted the revised servo body/mounting fit on 12 October 2026; see docs/evidence/micro-servo-2026-10-12.md."
     },
     {
       "id": "camera-pod-chassis",
@@ -328,7 +328,7 @@
         "printed"
       ],
       "requirements": [
-        "Four quadrants form a nominal 275 mm mouth and 60 mm throat; tabs attach through the support platform to the locator flange."
+        "Four quadrants form a nominal 275 mm mouth and 60 mm throat with edge-open 18 mm line slots; tabs attach through the support platform to the locator flange. Slots do not establish surveyed line routing."
       ],
       "fabrication": {
         "process": "openscad",
@@ -338,7 +338,7 @@
             "path": "hardware/assemblies/dock/dock-guide-quarter.scad",
             "module": "dock_guide_quarter_tapered",
             "modelId": "dock-guide-quarter",
-            "revision": "0.1.0"
+            "revision": "0.2.0"
           }
         ]
       },
@@ -416,7 +416,7 @@
             "path": "hardware/assemblies/dock/dock-pod-stud.scad",
             "module": "dock_pod_stud",
             "modelId": "dock-pod-stud",
-            "revision": "0.1.0"
+            "revision": "0.1.1"
           }
         ]
       },
@@ -436,7 +436,7 @@
         "printed"
       ],
       "requirements": [
-        "Four roof quadrants form a 300 x 300 mm sloped cover on four spacers. Seams, drainage and ingress remain unqualified."
+        "Four rounded warm-white crown quadrants form a 300 x 300 mm R40 cover, open below Z175 with a Z220 crown, nominal 2.8 mm skin and edge-open 18 mm line slots. Recessed roof bolts retain the existing Z205 spacer / Z215 washer seats; seam, drainage, print process and ingress remain unqualified."
       ],
       "fabrication": {
         "process": "openscad",
@@ -446,7 +446,7 @@
             "path": "hardware/assemblies/dock/dock-roof-quarter.scad",
             "module": "dock_roof_quarter",
             "modelId": "dock-roof-quarter",
-            "revision": "0.1.0"
+            "revision": "0.2.0"
           },
           {
             "path": "hardware/assemblies/dock/dock-roof-spacer.scad",
@@ -962,7 +962,7 @@
         "Published Wide product envelope 25 × 24 × 12.4 mm; official Wide drawing gives a 25 × 23.862 mm PCB, 1.12 mm PCB thickness and four Ø2.2 mm holes at 21 × 12.5 mm pitch.",
         "15-contact, 1 mm pitch CSI connector; use a Standard-Standard camera ribbon with the Pi 3A+. Inspect focus travel, connector access and actual ribbon clearance through the full gimbal range."
       ],
-      "notes": "Owner confirmed Wide (120°) on 2026-10-12 and reported interference with the prior Standard hood. Official Wide drawing RP-008155-DS-1, Standard/Wide STEP archive RP-008154-DS-1 and reference schematic RP-008969-SD R1 reviewed. Sources, hashes, pinout and conservative model limits: hardware/assemblies/camera-pod/raspberry-pi-camera-module-3/README.md. Hood r0.1.2 needs reprinting and physical acceptance."
+      "notes": "Owner confirmed Wide (120°) on 2026-10-12 and reported interference with the prior Standard hood. Official Wide drawing RP-008155-DS-1, Standard/Wide STEP archive RP-008154-DS-1 and reference schematic RP-008969-SD R1 reviewed. Sources, hashes, pinout and conservative model limits: hardware/assemblies/camera-pod/raspberry-pi-camera-module-3/README.md. Hood r0.1.3 needs reprinting and physical acceptance."
     },
     {
       "id": "raspberry-pi-pico-2-w",

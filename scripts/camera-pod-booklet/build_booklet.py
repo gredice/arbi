@@ -44,7 +44,7 @@ def enclosure_booklet():
   fig('part-'+name,x,y,56,60);para(x,y+61,57,'<b>'+title+'</b>',small=True,max_h=10);para(x,y+70,57,body,small=True,max_h=24)
  fig('gimbal-front',39,151,132,92)
  text(41,250,'COMPACT MECHANISM WITH OUTER HEAD REMOVED',8,True,BLUE)
- note(261,'Retain P11 r0.2.3; reprint P09 r0.1.2 and P12 r0.1.5 for Wide. Keep the existing neck seam free of support scars. Printed fit, rain and complete mass need physical inspection.')
+ note(261,'Reprint P09 r0.1.3 only. Retain P11 r0.2.3 and Wide P12 r0.1.5. Keep the neck seam free of support scars. Printed fit, rain and complete mass need physical inspection.')
 
  begin('03  Measure actual hardware','The Pi/camera mounting patterns follow cited drawings. Servo/converter envelopes and hole pitches are measured; shaft, horn, capacitor and connector details remain nominal.')
  fig('part-camera-pod-servo-fit-coupon',16,54,73,51)
@@ -65,22 +65,23 @@ def enclosure_booklet():
  note(257,'The original centre screw thread and length are supplier dependent. A 65 mm pan-centre driver shaft is checked with the camera removed. Retainer access uses local tips; handles and wrench turning need a bench trial.')
 
  begin('06  Populate the compact carrier','The tilt servo lies sideways and 2 mm inboard. Its shaft is at Y=3, Z=-45, 14 mm above the earlier layout. Leave the opposite support, camera and outer body off while fitting it.')
- fig('tilt-servo-insertion',16,52,88,91);fig('head-open-top',108,52,86,91)
- step(1,16,151,'Fit the internal tilt servo','With P12 off, slide the servo inward from the left into P05. The case length runs front-to-back; the shaft faces the camera. Keep the opposite support and camera out during insertion.')
- step(2,16,197,'Retain the servo directly','Use 2 x M1.6 x 6 countersunk ear screws from the inner lug face and two nuts outside the lug plate. P12 covers the servo after carrier assembly; there is no separate servo boot.')
+ fig('tilt-servo-insertion',16,52,88,78);fig('head-open-top',108,52,86,78)
+ step(1,16,139,'Fit the internal tilt servo','With P12 off, slide the servo inward from the left into P05. The case length runs front-to-back; the shaft faces the camera. Keep the opposite support and camera out during insertion.')
+ step(2,16,177,'Retain the servo directly','Use 2 x M1.6 x 6 countersunk ear screws from the inner lug face and two nuts outside the lug plate. P12 covers the servo after carrier assembly; there is no separate servo boot.')
+ step(3,16,215,'Attach the tilt horn before the camera','On separate P07, secure the stock tilt horn with P08, 2 x M2 x 8 countersunk screws, two rear washers and two nuts. With P06 off, engage the spline and fit the OEM centre screw before adding the camera.')
  note(256,'Populate P05 on a supported bench with P12 removed. Servo, stock horn, fasteners and leads stay accessible before the body encloses the carrier. Inspect actual hardware before fitting the camera.')
 
- begin('07  Fit the Wide camera','Reprint P09 r0.1.2. Rear-load the camera lens-first onto the exposed lands; do not bend the PCB beneath plastic. Secure the horn centre screw first.')
- fig('camera-exploded',16,52,88,97);fig('camera-rear',107,52,87,97)
- step(1,16,158,'Capture the horn before engaging it','On the separate cradle, fasten P08 with 2 x M2 x 8 countersunk screws, two rear washers and two nuts. Then slide onto the servo spline with P06 removed and fit the original centre screw.')
- step(2,16,204,'Retain the camera directly','Insert each M2 x 12 screw with its front washer through the 5.4 mm P09 tunnel, PCB and cradle. Fit four rear washers and four nuts. Inspect the thin webs beside the lens opening.')
- note(261,'The camera uses four nuts and eight washers. The earlier M2 x 18 screws and four second nuts are omitted. For service, support the pan mount, remove the upper stack and lower the outer head before releasing the four rear camera nuts.')
-
- begin('08  Close the supported pivot','Fit the opposite support after spline engagement. The pivot must rotate freely without squeezing the cradle.')
+ begin('07  Close the supported pivot','Fit the opposite support after spline engagement, before mounting the camera. The pivot must rotate freely without squeezing the cradle.')
  fig('pivot-exploded',16,52,178,104)
  step(1,16,163,'Drop in the M3 pivot nut','Insert the plain M3 nut through the open-top cradle pocket. Slide the short P06 inward from the right; its stop pins face the cradle tab.')
  step(2,16,199,'Fasten the removable support','Use 2 x M2 x 12 screws, four M2 washers and two nuts at the yoke top pad.')
  step(3,16,235,'Fit the pivot and shim','Use M3 x 12 with a 0.5 mm outer washer and 0.7 mm gap shim. Adjust for free motion and retain the joint without locking the pivot.')
+
+ begin('08  Fit the Wide camera','Reprint P09 r0.1.3. Its low, flared walls leave the PCB visible. Prepare the loose hood and camera on the bench before fitting them to the cradle.')
+ fig('camera-exploded',16,52,88,97);fig('camera-seat-loading',107,52,87,97)
+ step(1,16,158,'Seat the camera in the loose hood','Disconnect power. Support P09 by its rim, rear up, with 3 mm free space below the lens opening. Lower the camera lens-first and align it flat on all four seats. Keep the CSI connector at the open edge; connect the ribbon while accessible.')
+ step(2,16,204,'Clamp the seated camera to the cradle','With the horn centre screw and opposite pivot support secured, offer the camera and P09 to P07 together. Insert four M2 x 12 screws and front washers through the 5.4 mm tunnels. Add four rear washers and nuts; tighten evenly without bending the PCB.')
+ note(261,'Check all four seats before tightening. No PCB corner goes underneath plastic. Keep the ribbon relaxed and lens free. For service, remove the upper stack and lower the outer head before releasing the four rear camera nuts.')
 
  begin('09  Preassemble compute and power','Prepare P02 outside the tray so its underside fasteners remain accessible. Work with power disconnected.')
  fig('deck-loaded',16,52,178,93)

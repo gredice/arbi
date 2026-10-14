@@ -32,13 +32,13 @@
         },
         {
             "id": "camera-pod-assembly",
-            "revision": "0.3.9",
+            "revision": "0.3.10",
             "status": "concept-unvalidated",
             "artifactRole": "reference",
             "bomPartIds": [],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/camera-pod-assembly.scad",
-            "output": "camera-pod-assembly-r0.3.9.csg",
+            "output": "camera-pod-assembly-r0.3.10.csg",
             "documentation": "hardware/assemblies/camera-pod/README.md",
             "description": "Integrated rain-camera pod reference by default; show_legacy=true retains the historical separate concept layout."
         },
@@ -836,7 +836,7 @@
         },
         {
             "id": "camera-pod-integrated-camera-hood",
-            "revision": "0.1.2",
+            "revision": "0.1.3",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
             "bomPartIds": [
@@ -844,9 +844,9 @@
             ],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/camera-pod-integrated-camera-hood.scad",
-            "output": "camera-pod-integrated-camera-hood-r0.1.2.stl",
+            "output": "camera-pod-integrated-camera-hood-r0.1.3.stl",
             "documentation": "hardware/assemblies/camera-pod/README.md",
-            "description": "Short open-rear Wide-camera seating rim with a wider cavity, 12.2 mm rounded-square full-module opening and unchanged M2 clamp stack; requires reprint and physical fit inspection."
+            "description": "Low-wall Wide camera hood with flared rear entrance, exposed PCB seats, open CSI edge and 13.6 mm square optical clearance; nominal fit unvalidated."
         },
         {
             "id": "corner-head-printed-left",
@@ -1577,7 +1577,7 @@
         },
         {
             "id": "raspberry-pi-camera-module-3",
-            "revision": "0.1.1",
+            "revision": "0.2.0",
             "status": "concept-unvalidated",
             "artifactRole": "visualization",
             "bomPartIds": [
@@ -1585,13 +1585,14 @@
             ],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/raspberry-pi-camera-module-3.scad",
-            "output": "raspberry-pi-camera-module-3-r0.1.1.stl",
+            "output": "raspberry-pi-camera-module-3-r0.2.0.stl",
             "documentation": "hardware/assemblies/camera-pod/raspberry-pi-camera-module-3/README.md",
-            "description": "Supplier-derived Camera Module 3 Wide reference shared with the booklet: rounded PCB, square autofocus assembly and wider rear CSI socket. Conservatively bounded for focus; physical fit unverified.",
+            "description": "Camera Module 3 Wide reference with folded sensor flex, plated PCB bores, metal autofocus can, stepped lens barrel, recessed glass and rear CSI latch. Eight material groups approximate the IR-cut hardware; fit remains unverified.",
             "geometry": {
                 "status": "approximate",
-                "basis": "Official Wide drawing RP-008155-DS-1 and STEP RP-008154-DS-1 inspected 2026-10-12: 25 × 23.862 × 1.12 mm PCB, Ø2.2 holes at 21 × 12.5 mm pitch, lens Y=2.469, square autofocus body and 22.92 × 6.54 mm rear CSI socket. Product-envelope allowance: 12.4 mm; Wide FOV 102° × 67°.",
-                "rework": "Primitive component envelopes reconcile differing PDF/STEP dimensions conservatively. Inspect the received module, focus extremes, connector latch, installed cable and printed mounting fit before fabrication or operation."
+                "basis": "Official Wide drawing RP-008155-DS-1, STEP RP-008154-DS-1 and sensor drawing TNBA2004; official IR-cut Wide product photograph reviewed 2026-10-14. PCB 25 × 23.862 × 1.12 mm, Ø2.2 bores at 21 × 12.5 mm, lens Y=2.469; conservative 12.4 mm focus envelope. Detailed reference and eight physical material groups; small features and finish are illustrative.",
+                "rework": "Published PDF, STEP and focus envelopes differ. Inspect the received module, autofocus extremes, CSI latch, installed cable and printed mounting fit. Appearance materials and small details are visual references, not measured manufacturing geometry.",
+                "evidence": "hardware/assemblies/camera-pod/raspberry-pi-camera-module-3/cad-check.json"
             }
         },
         {
@@ -1938,7 +1939,7 @@
         },
         {
             "id": "dock-guide-quarter",
-            "revision": "0.1.0",
+            "revision": "0.2.0",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
             "bomPartIds": [
@@ -1946,9 +1947,9 @@
             ],
             "assembly": "dock",
             "entrypoint": "hardware/assemblies/dock/dock-guide-quarter.scad",
-            "output": "dock-guide-quarter-r0.1.0.stl",
+            "output": "dock-guide-quarter-r0.2.0.stl",
             "documentation": "hardware/assemblies/dock/README.md",
-            "description": "DOCK-IF-01 bench candidate: guide quarter. No load or fit qualification."
+            "description": "DOCK-IF-01 guide quadrant with edge-open line passage; 275 mm mouth / 60 mm throat. No load or installed routing qualification."
         },
         {
             "id": "dock-locator-carrier",
@@ -2008,7 +2009,7 @@
         },
         {
             "id": "dock-pod-stud",
-            "revision": "0.1.0",
+            "revision": "0.1.1",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
             "bomPartIds": [
@@ -2016,13 +2017,13 @@
             ],
             "assembly": "dock",
             "entrypoint": "hardware/assemblies/dock/dock-pod-stud.scad",
-            "output": "dock-pod-stud-r0.1.0.stl",
+            "output": "dock-pod-stud-r0.1.1.stl",
             "documentation": "hardware/assemblies/dock/README.md",
-            "description": "DOCK-IF-01 bench candidate: pod stud. No load or fit qualification."
+            "description": "DOCK-IF-01 flat mushroom shoulder with 0.2 mm nominal fork settle gap; supported-dummy bench only, no retained-load qualification."
         },
         {
             "id": "dock-roof-quarter",
-            "revision": "0.1.0",
+            "revision": "0.2.0",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
             "bomPartIds": [
@@ -2030,9 +2031,9 @@
             ],
             "assembly": "dock",
             "entrypoint": "hardware/assemblies/dock/dock-roof-quarter.scad",
-            "output": "dock-roof-quarter-r0.1.0.stl",
+            "output": "dock-roof-quarter-r0.2.0.stl",
             "documentation": "hardware/assemblies/dock/README.md",
-            "description": "DOCK-IF-01 bench candidate: roof quarter. No load or fit qualification."
+            "description": "Rounded warm-white removable crown quadrant with edge-open cable passage and recessed existing bolt stack; supported-dummy bench only."
         },
         {
             "id": "dock-roof-spacer",
@@ -2092,15 +2093,15 @@
         },
         {
             "id": "dock-assembly",
-            "revision": "0.1.0",
+            "revision": "0.2.0",
             "status": "concept-unvalidated",
             "artifactRole": "reference",
             "bomPartIds": [],
             "assembly": "dock",
             "entrypoint": "hardware/assemblies/dock/dock-assembly.scad",
-            "output": "dock-assembly-r0.1.0.csg",
+            "output": "dock-assembly-r0.2.0.csg",
             "documentation": "hardware/assemblies/dock/README.md",
-            "description": "DOCK-IF-01 assembled nominal bench mechanics; electronics, spring and structural acceptance unresolved."
+            "description": "DOCK-IF-01 r0.2.0 rounded-shelter bench reference; manual fork, unchanged structural interfaces and unresolved physical acceptance."
         },
         {
             "id": "dock-bench-hardware",

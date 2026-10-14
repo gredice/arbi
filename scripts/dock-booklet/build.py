@@ -26,6 +26,10 @@ ARTIFACT = 'ARBI-dock'
 PDF = ARTIFACT+'-assembly-STL.pdf'
 KIT = json.loads((Path(__file__).parent/'kit.json').read_text())
 IDS = [mid for items in KIT.values() for mid, _, _ in items]
+REVISION = '0.2.0'
+ROOF_LIFT_MM = 60
+ROOF_INWARD_MM = 100
+SKIN_PROBES = [(2,[20,20]),(2,[80,20]),(2,[120,20]),(2,[20,120]),(2,[100,130]),(0,[50,180]),(1,[50,180])]
 
 
 def digest(path):
@@ -46,6 +50,22 @@ def pose(x=0, y=0, z=0, angle=0):
     matrix = trimesh.transformations.rotation_matrix(math.radians(angle), [0,0,1])
     matrix[:3,3] = [x,y,z]
     return matrix
+
+
+def section_crossings(mesh, axis, at):
+    """Intersect an axis line with written mesh triangles without optional ray libraries."""
+    other=[i for i in range(3) if i!=axis]
+    triangles=mesh.triangles
+    a=triangles[:,0,other];b=triangles[:,1,other]-a;c=triangles[:,2,other]-a
+    point=np.asarray(at)-a
+    denominator=b[:,0]*c[:,1]-b[:,1]*c[:,0]
+    valid=np.abs(denominator)>1e-9
+    v=(point[valid,0]*c[valid,1]-point[valid,1]*c[valid,0])/denominator[valid]
+    w=(b[valid,0]*point[valid,1]-b[valid,1]*point[valid,0])/denominator[valid]
+    hit=(v>=-1e-6)&(w>=-1e-6)&(v+w<=1+1e-6)
+    coordinates=triangles[valid,:,axis]
+    intersections=coordinates[:,0]+v*(coordinates[:,1]-coordinates[:,0])+w*(coordinates[:,2]-coordinates[:,0])
+    return np.unique(np.round(intersections[hit],4))
 
 
 def instances(models):
@@ -78,7 +98,7 @@ def booklet(work, report):
     style = ParagraphStyle('body',fontName='ARBI',fontSize=10,leading=14,textColor=colors.HexColor('#1f2426'))
     def page(number,title,paragraphs,figure):
         c.setFillColor(colors.HexColor('#1f2426'));c.setFont('ARBI-Bold',18);c.drawString(44,height-55,title)
-        c.setFont('ARBI',9);c.drawString(44,height-77,'ARBI / DOCK-IF-01 / r0.1.0 / 9 OCTOBER 2026')
+        c.setFont('ARBI',9);c.drawString(44,height-77,f'ARBI / DOCK-IF-01 / r{REVISION} / 14 OCTOBER 2026')
         y=height-101
         for value in paragraphs:
             p=Paragraph(value,style);_,h=p.wrap(width-88,height);p.drawOn(c,44,y-h);y-=h+10
@@ -103,7 +123,7 @@ def booklet(work, report):
         printed+'. One example per model is numbered below.',
         'Use <b>models/print</b> for one-part printing, <b>models/arbi</b> for installed coordinates, and <b>models/reference</b> only for context. Never print the camera-pod context STL as a dock component. Quantities describe one bench dock; the kit does not duplicate the pod BOM.',
         'Each print bounds fits the nominal 256 mm cube with 5 mm XY edge reserve. This excludes supports, brim, purge and printer exclusions. Record filament/lot, drying, orientation, walls/infill, supports, printer and slice settings; inspect the slice before fabrication.',
-        'Root lies on its wide web face; roof lies on its sloping exterior face. Inspect support for guide overhangs, bridge top links, locator flange/channel and all bolt bores. Mesh fit is not a print-process or structural acceptance.'], 'inventory')
+        'Root lies on its wide web face; the roof prints upright on its skirt rim. Print the revised stud head-down so its retaining shoulder faces upward; review supports beneath the upper 32 mm flange. Review internal crown/boss, seam, guide, bridge and locator supports. These are not support-free poses.'], 'inventory')
     hw=json.loads((Path(__file__).parent/'hardware.json').read_text())
     page(3,'Bought hardware and inspection',[
         '; '.join(f'{q} {name}' for name,q in hw)+'.',
@@ -118,6 +138,7 @@ def booklet(work, report):
     page(5,'Guide, fork and manual sequence',[
         'Install four guide quadrants rotated 0/90/180/270 degrees. At each (+/-30,+/-30), stack guide tab 5 + arm platform 30 + locator flange 6 mm; use M4 x 50 with two washers and locking nut. Inspect the throat join and quadrant seams.',
         'Insert the fork from -X into the 5.2 mm guide channel. Closed 17 mm slot clears the 14 mm stem; the 24 mm head overlaps the slot by 3.5 mm per side nominally. At 1 mm center offset the smaller nominal overlap is 2.5 mm. Those values do not qualify bearing area, tolerance, wear or strength.',
+        'The revised 11 mm head has a flat underside at Z149.8, 0.2 mm above the fork top. Unloading permits manual sliding; downward load engages the flat shoulder after the gap closes. This nominal contact geometry does not establish release force or retention strength.',
         'For supported manual insertion: retract fork 40 mm, raise the stud into the final bore until its head reaches the upper stop, then close the fork while retaining external support. Release only after supporting/unloading the dummy; retract 40 mm and lower it.',
         'The illustration sections the actual locator at Y=0 to expose the head stop, fork and axial bolt; print the whole carrier STL. Do not expect automatic push-in capture. Spring return, anti-backdrive, release force under preload, sensors and recovery remain physical development tasks.'], 'latch')
     page(6,'Pod bridge and through-bolt',[
@@ -125,10 +146,10 @@ def booklet(work, report):
         'Verify the nominal 0.5 mm shoe-cheek gap to the upper foot so preload reaches the spider. Shoes constrain across the arm; radial retention depends on clamping friction. Mark and test for slip, plate crushing, layer separation and creep. Do not represent this as a positive radial structural lock.',
         'Attach the stud flange to the bridge at Z=75 mm with one M4 x 100 axial bolt, two washers and locking nut. Verify the underside bolt tip clears the actual hood and electronics; never carry capture load through the hood.',
         f'Added solid CAD print volume is {report["pod_attachment_volume_cm3"]:.2f} cm3 before metal hardware. Complete-pod mass must include every attachment and remain under 170 g. Weigh actual sliced parts and complete pod; the kit is restricted to supported dummy testing while that budget and joint strength remain unresolved.'], 'pod')
-    page(7,'Roof and line corridors',[
+    page(7,'Rounded shelter and line slots',[
         'Place four 49 mm roof spacers on locator flange at (+/-40,+/-40). Fit four roof quadrants rotated 0/90/180/270 degrees over them. Four M4 x 100 bolts pass through roof boss, spacer, locator flange and arm; put lower washers in the platform recesses at Z124-125 and locking nuts at Z120-124.',
-        'Join four roof seams using four M3 x 16 bolts, eight washers and four nuts. The 300 x 300 mm sloping cover has nominal vertical 18 mm line corridors at the four radius 104 mm spider attachment axes. The guide has matching corridors.',
-        'These corridors check one synthetic vertical line pose, not surveyed sloping spans, moving approach, powered-line wiring, bend radius, swing or installation clearance. Regenerate/review the actual swept line envelopes before any suspended use.',
+        'Join seams with four M3 x 16 bolts, eight washers and four nuts. The warm-white crown has a 300 mm rounded-square plan, 40 mm outer corners and skirt at Z175 mm; the core stays charcoal. Roof and guide have 18 mm open radial line slots. Roof M4 heads sit in 11 mm wells on the existing Z215 mm washer floors.',
+        'For nominal roof service, independently support dummy and carrier, remove roof-stack and seam fasteners, lift one quarter 60 mm, then slide it inward 100 mm along its diagonal so the line exits the outer slot. Reverse to install. Checks cover all four long vertical probes; actual sloping lines, harness and hand clearance still need review.',
         'Seams, exposed corridors and lack of seals do not establish rain protection or an IP rating. Bench-check runoff, accumulation, splash and optical access without live electronics.'], 'roof')
     page(8,'Bench checks and acceptance',[
         'Use bench-test-plan.md DT01-DT12 and acceptance-record.md. Record source hashes, configured post, printer/process, received hardware, dummy mass, clearances and measured geometry. Keep real site details out of public records.',
@@ -136,7 +157,7 @@ def booklet(work, report):
         'Separate physical seating from fork engagement and released-clear observations. Select and test switch targets/circuit diagnostics before feeding a controller. A command receipt, HOME or software Parked state does not establish retention.',
         'Accept all-line restraint through driver disable and total/partial power loss separately (LS16-LS18). A captured pod does not prove the four lines remain above the accessible zone.'], 'open')
     page(9,'Evidence and next development',[
-        f'{report["checks"]} nominal mesh checks: watertight connected print parts, rigid bed poses, sampled fork travel and supported release, current pod context, post/part interference and a synthetic vertical-line pose. Independent collision controls demonstrate rejection of the old closed-fork descent and missing line corridor.',
+        f'{report["checks"]} nominal mesh checks: connected print parts, rigid bed poses, full-pod supported release, installed interference, sampled crown skin, local roof tools and four-line quarter removal. Controls reject closed-fork descent, an uncut guide and a roof with a closed line hole. These are geometric checks, not continuous-flight or physical acceptance.',
         'Exploded figures separate print parts; remove fasteners before disassembly. They are not checked removal trajectories. geometry-report.json records bounds, volumes, transforms and source/STL hashes. manifest.json verifies the complete PDF/STL/source pack. Canonical hardware/**/*.scad remains authoritative; context and fabricated sources are separated.',
         'Remaining gates: measured corner/printer, complete pod mass and center of gravity, current harness/line sweep, structural clamp and arm load/creep, passive latch return and release actuator/circuit, observations, outdoor weather/wear, and power-loss all-line restraint.',
         'Update acceptance-record.md with actual results and reviewer. No CAD, PDF, CI or simulation check changes concept-unvalidated into physical acceptance.'], 'exploded')
@@ -157,14 +178,20 @@ def build(out):
         assert {s['modelId'] for s in part['fabrication']['sources']}=={mid for mid,_,_ in items},pid
     hardware=json.loads((Path(__file__).parent/'hardware.json').read_text())
     assert next(p for p in catalog['parts'] if p['id']=='dock-bench-hardware')['requirements']==[f'{q} {name}' for name,q in hardware]
-    report=dict(revision='0.1.0',status='concept-unvalidated',configuration='DOCK-IF-01 / non-powered round 120 / supported dummy bench',
+    report=dict(revision=REVISION,status='concept-unvalidated',configuration='DOCK-IF-01 / non-powered round 120 / supported dummy bench',
         fabrication_ids=IDS,printed_model_ids=IDS,openscad='2021.01',checks=0,printer_envelope_mm=[256]*3,bed_edge_reserve_mm=5,print_parts={},meshes={})
+    style_directory=ROOT/'docs/assets/dock'
+    style_sources=[p for p in style_directory.glob('*') if p.is_file()]
+    for reference in json.loads((style_directory/'generation.json').read_text())['references']:
+        path=(style_directory/reference['path']).resolve()
+        assert path.is_relative_to(ROOT) and path.is_file(),('Missing style reference',path)
+        style_sources.append(path)
     with tempfile.TemporaryDirectory(prefix='arbi-dock-build-',dir='/tmp') as temporary:
         work=Path(temporary)
         sources=sorted(set([ROOT/'hardware/models.json',ROOT/'bom/catalog/parts.json',ROOT/'bom/assemblies/assemblies.json',ROOT/'bom/catalog/fabrication.json',
             *ROOT.glob('hardware/lib/*.scad'),*ROOT.glob('hardware/assemblies/camera-pod/*.scad'),*ROOT.glob('hardware/assemblies/dock/*.scad'),
             *(p for p in (ROOT/'hardware/vendor').rglob('*') if p.is_file()),
-            *ROOT.glob('docs/assemblies/dock/**/*.md'),*ROOT.glob('scripts/dock-booklet/*.*'),ROOT/'scripts/corner-support/build.py',
+            *ROOT.glob('docs/assemblies/dock/**/*.md'),*style_sources,*ROOT.glob('scripts/dock-booklet/*.*'),ROOT/'scripts/corner-support/build.py',
             ROOT/'scripts/cad-previews/csg.py',ROOT/'scripts/winch-booklet/render_figures.py',ROOT/'scripts/winch-booklet/requirements.txt',*ROOT.glob('scripts/winch-booklet/fonts/*'),ROOT/'LICENSE']))
         report['sources_sha256']={p.relative_to(ROOT).as_posix():digest(p) for p in sources}
         for p in sources:
@@ -179,13 +206,25 @@ def build(out):
             assert mesh.body_count==1,(mid,'disconnected')
             matrix=np.eye(4)
             if mid=='dock-arm-root':matrix=trimesh.transformations.rotation_matrix(math.pi/2,[1,0,0])
-            if mid=='dock-roof-quarter':matrix=trimesh.geometry.align_vectors([1/12,1/12,1],[0,0,-1])
+            if mid=='dock-pod-stud':matrix=trimesh.transformations.rotation_matrix(math.pi,[1,0,0])
             printed=mesh.copy();printed.apply_transform(matrix);shift=-printed.bounds[0];matrix[:3,3]=shift;printed.apply_translation(shift)
             assert np.all(printed.extents[:2]<=246.002) and printed.extents[2]<=256.002,(mid,printed.extents)
             path=work/'models/print'/models[mid]['output'];path.parent.mkdir(exist_ok=True);printed.export(path)
             report['print_parts'][mid]=dict(file=path.relative_to(work).as_posix(),installed_to_print=matrix.tolist(),extents_mm=printed.extents.round(3).tolist(),bed_fits=True)
             report['meshes'][mid]=dict(volume_cm3=round(mesh.volume/1000,6),bounds_mm=mesh.bounds.round(3).tolist(),bodies=1)
             report['checks']+=4
+        roof=meshes['dock-roof-quarter']
+        assert np.allclose(roof.bounds,[[0,0,175],[150,150,220]],atol=.002)
+        skin=[]
+        for axis,at in SKIN_PROBES:
+            crossings=section_crossings(roof,axis,at)
+            assert len(crossings)==2,(axis,at,crossings)
+            thickness=float(np.ptp(crossings))
+            assert 2.6<=thickness<=3.3,(axis,at,thickness)
+            skin.append(dict(axis=axis,at_mm=at,crossings_mm=crossings.tolist(),thickness_mm=round(thickness,4)))
+            report['checks']+=1
+        report['roof_skin_sections']=skin
+        report['roof_shell_volume_cm3']=round(roof.volume/1000*4,3)
         report['pod_attachment_volume_cm3']=sum(meshes[mid].volume/1000*q for mid,q in [('dock-pod-bridge',1),('dock-pod-bridge-shoe',4),('dock-pod-stud',1)])
         references=work/'models/reference';references.mkdir()
         print('Meshing the current pod CSG components...',flush=True)
@@ -241,15 +280,77 @@ def build(out):
             clear(mesh,post,label+'/post');clear(mesh,lines,label+'/nominal-lines')
             for j,component in enumerate(pod_components):clear(mesh,component,label+f'/pod-{j}')
         fork=meshes['dock-latch-fork'];stud=meshes['dock-pod-stud']
+        bearings=[]
+        for at in [[-5,10],[0,10],[-5,-10],[0,-10]]:
+            head_section=section_crossings(stud,2,at);fork_section=section_crossings(fork,2,at)
+            head_section=head_section[head_section>100] # Exclude the separate bridge flange at Z75-79.
+            assert len(head_section)==2 and np.allclose(head_section,[149.8,160.8],atol=.002),(at,head_section)
+            assert len(fork_section)==2 and abs(fork_section[-1]-149.6)<.002,(at,fork_section)
+            bearings.append(dict(at_mm=at,head_lower_z_mm=float(head_section[0]),fork_top_z_mm=float(fork_section[-1])))
+            report['checks']+=2
+        contact_volume=helpers.overlap(fork,helpers.translated(stud,[0,0,-.2]));assert contact_volume<.015
+        bearing_blocked=helpers.overlap(fork,helpers.translated(stud,[0,0,-1]));assert bearing_blocked>1
+        stem_section=section_crossings(stud,0,[0,149])
+        assert np.allclose(stem_section,[-7,-2.25,2.25,7],atol=.002),stem_section
+        report['retaining_shoulder']=dict(head_lower_z_mm=149.8,head_upper_z_mm=160.8,head_height_mm=11,
+            fork_top_z_mm=149.6,unloaded_gap_mm=.2,sections=bearings,stem_section_at_z149_mm=stem_section.tolist(),
+            contact_descent_mm=.2,contact_overlap_mm3=round(contact_volume,4),
+            blocked_descent_mm=1,blocked_overlap_mm3=round(bearing_blocked,4),scope='nominal planar contact; no load or release qualification')
         for travel in [0,5,10,20,30,40]:
             moving=helpers.translated(fork,[-travel,0,0])
             for label,m in placed:
                 if label!='dock-latch-fork':clear(moving,m,f'fork-{travel}/'+label)
         opened=helpers.translated(fork,[-40,0,0])
+        pod_attached=[m for label,m in placed if label in ['dock-pod-bridge','dock-pod-stud'] or label.startswith('shoe-')]
         fixed=[m for label,m in placed if label not in ['dock-pod-bridge','dock-pod-stud'] and not label.startswith('shoe-') and label!='dock-latch-fork']
+        moving_pod=trimesh.util.concatenate([*pod_components,*pod_attached,*bought_components[60:105]])
+        release_fixed=[*fixed,*bought_components[:60],*bought_components[105:],post,opened]
         for down in [1,5,10,20,40,80,120,170]:
             moved=helpers.translated(stud,[0,0,-down]);clear(moved,opened,f'released-stud-down-{down}')
             for j,m in enumerate(fixed):clear(moved,m,f'released-stud-down-{down}/fixed-{j}')
+            moved_pod=helpers.translated(moving_pod,[0,0,-down])
+            for j,m in enumerate(release_fixed):clear(moved_pod,m,f'released-full-pod-down-{down}/fixed-{j}')
+        report['full_pod_release_mm']=[1,5,10,20,40,80,120,170]
+        # Full-height probes prevent a lifted roof from escaping a short line
+        # model before it has actually exited the outward-open slot.
+        service_lines=[]
+        for a in [45,135,225,315]:
+            line=trimesh.creation.cylinder(radius=.75,height=1000,sections=24)
+            line.apply_translation([104*math.cos(math.radians(a)),104*math.sin(math.radians(a)),300])
+            service_lines.append(line)
+        long_lines=trimesh.util.concatenate(service_lines)
+        long_lines.export(references/'roof-service-lines.stl')
+        service_hardware=[*bought_components[:20],*bought_components[40:105]]
+        for a in [0,90,180,270]:
+            label=f'roof-{a}'
+            installed=next(m for name,m in placed if name==label)
+            obstacles=[m for name,m in placed if name!=label]+service_hardware+pod_components+[post,long_lines]
+            path=[(lift,0) for lift in [0,5,10,20,40,ROOF_LIFT_MM]]
+            path += [(ROOF_LIFT_MM,inward) for inward in range(10,ROOF_INWARD_MM+1,10)]
+            angle=math.radians(a+45)
+            for lift,inward in path:
+                moving=helpers.translated(installed,[-inward*math.cos(angle),-inward*math.sin(angle),lift])
+                for j,obstacle in enumerate(obstacles):clear(moving,obstacle,f'{label}/service-{lift}-{inward}/fixed-{j}')
+        report['roof_service']=dict(lift_mm=ROOF_LIFT_MM,inward_mm=ROOF_INWARD_MM,
+            line_diameter_mm=1.5,line_bounds_z_mm=[-200,800],quarters=4,
+            vertical_samples_mm=[0,5,10,20,40,ROOF_LIFT_MM],inward_samples_mm=list(range(10,ROOF_INWARD_MM+1,10)),
+            removed_hardware='four roof/carrier/arm bolts with washers/nuts and four seam bolts with washers/nuts',
+            scope='sampled nominal rigid geometry; vertical lines; independently supported dummy and carrier')
+        # Local socket envelopes at crown wells and under the open skirt.
+        # These do not model a human hand or the complete approach of a tool.
+        tool_probes=[]
+        for x in [-40,40]:
+            for y in [-40,40]:
+                tool=trimesh.creation.cylinder(radius=5,height=80,sections=32)
+                tool.apply_translation([x,y,259.02]);tool_probes.append(tool)
+        for a in [0,90,180,270]:
+            for x in [15.52,-15.92]:
+                tool=helpers.cylinder(10,20,[x,80,203]);tool.apply_transform(pose(angle=a));tool_probes.append(tool)
+        for i,tool in enumerate(tool_probes):
+            for label,m in placed:clear(tool,m,f'roof-tool-{i}/'+label)
+            clear(tool,long_lines,f'roof-tool-{i}/lines')
+        report['roof_tool_envelopes']=dict(crown_socket_diameter_mm=10,crown_socket_length_mm=80,
+            seam_socket_diameter_mm=10,seam_socket_length_mm=20,scope='local socket clearance; full tool/hand access unvalidated')
         assert not collisions,('Nominal interference',collisions)
         closed_collision=helpers.overlap(fork,helpers.translated(stud,[0,0,-10]));assert closed_collision>1
         # Independent uncut conical wall control crosses the synthetic vertical line.
@@ -257,7 +358,14 @@ def build(out):
         uncut=helpers.export(probe,work/'models/controls/uncut-guide.stl');uncut.apply_translation([0,0,65])
         line_collision=helpers.overlap(uncut,lines);assert line_collision>1
         probe.unlink()
-        report['negative_controls']=dict(closed_fork_descent_mm3=round(closed_collision,3),uncut_guide_line_collision_mm3=round(line_collision,3))
+        closed_roof_source=work/'closed-roof-slot.scad'
+        closed_roof_source.write_text('include <'+str(ROOT/'hardware/lib/dock.scad')+'>\ndock_roof_quarter(open_lines=false);\n')
+        closed_roof=helpers.export(closed_roof_source,work/'models/controls/closed-roof-slot.stl')
+        moved_closed_roof=helpers.translated(closed_roof,[-50/math.sqrt(2),-50/math.sqrt(2),ROOF_LIFT_MM])
+        closed_roof_collision=helpers.overlap(moved_closed_roof,long_lines);assert closed_roof_collision>1
+        closed_roof_source.unlink()
+        report['negative_controls']=dict(closed_fork_descent_mm3=round(closed_collision,3),uncut_guide_line_collision_mm3=round(line_collision,3),
+            closed_roof_service_line_collision_mm3=round(closed_roof_collision,3))
         context=[dict(file='models/reference/bought-hardware.stl',matrix=np.eye(4).tolist(),color=[.66,.70,.73],bomPartId='dock-bench-hardware'),
                  dict(file='models/reference/current-pod.stl',matrix=np.eye(4).tolist(),color=[.65]*3,fit=True),
                  dict(file='models/reference/post.stl',matrix=np.eye(4).tolist(),color=[.63,.53,.39],bomPartId='corner-post-treated-timber'),
@@ -298,7 +406,7 @@ def build(out):
         (work/'figure-manifest.json').write_text(json.dumps(renderer.manifest,indent=2)+'\n')
         report['mesh_sha256']={p.relative_to(work).as_posix():digest(p) for p in sorted(work.rglob('*.stl'))}
         (work/'geometry-report.json').write_text(json.dumps(report,indent=2)+'\n');booklet(work,report)
-        (work/'README.txt').write_text('DOCK-IF-01 r0.1.0: supported dummy bench only. See PDF, source docs, geometry-report.json. Print models/print, not context. No physical acceptance.\n')
+        (work/'README.txt').write_text(f'DOCK-IF-01 r{REVISION}: supported dummy bench only. See PDF, source docs, geometry-report.json. Print models/print, not context. No physical acceptance.\n')
         (work/'manifest.json').write_text(json.dumps(dict(files_sha256={p.relative_to(work).as_posix():digest(p) for p in sorted(work.rglob('*')) if p.is_file()}),indent=2)+'\n')
         with zipfile.ZipFile(out/(ARTIFACT+'-STL-pack.zip'),'w',zipfile.ZIP_DEFLATED) as pack:
             for path in sorted(work.rglob('*')):

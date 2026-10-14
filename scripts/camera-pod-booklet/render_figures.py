@@ -94,6 +94,9 @@ def main():
   render('tilt-servo-insertion',tilt,direction=(-.7,-.7,1.2),size=(1400,1000))
  else:render('tilt-servo-insertion',shift(tilt,lambda p:T() if p['name']=='pan-yoke' else T(10 if 'bolt' in p['name'] else -20)),direction=(-1,-.7,.4),size=(1400,1000))
  camera=[p for p in assembly(cover=False) if p['group']=='tilt' and p['name']!='tilt-horn-center-screw' and not p['name'].startswith('tilt-retainer') and p['name'] not in ['tilt-horn','tilt-horn-retainer','pivot-nut'] and not p['name'].startswith('pivot-')]
+ if ENCLOSURE:
+  seat=[p for p in camera if p['name'] in ['camera','camera-hood']]
+  render('camera-seat-loading',shift(seat,lambda p:T(0,0,9) if p['name']=='camera' else T()),direction=(.55,-.9,1.4),size=(1100,1100))
  def cam_ex(p):
   n=p['name']
   if n=='camera':return T(0,0,-12)
