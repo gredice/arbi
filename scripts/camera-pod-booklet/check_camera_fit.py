@@ -53,7 +53,7 @@ def main():
         'camera_in_hood_matrix':hc.tolist(),'installed_intersection_mm3':initial,
         'rear_loading':{'poses':len(offsets),'step_mm':.25,'PCB_allowance_mm':[25.4,24.4,1.52],'failures':failures},
         'source_sha256':{p['file']:hashlib.sha256((ROOT/p['file']).read_bytes()).hexdigest() for p in [cp,hp]},
-        'limits':'Supplier-derived conservative primitives; PCB/STEP differ. Printed fit, lens calibration, latch/cable movement and rain performance require physical inspection.'}
+        'limits':'Detailed supplier-derived reference with conservative overall allowances; PCB/STEP differ. Printed fit, lens calibration, latch/cable movement and rain performance require physical inspection.'}
     if ENCLOSURE:
         # The complete 10.8 ±0.15 square module must clear the front region,
         # including its corners, even when its body approaches the face.

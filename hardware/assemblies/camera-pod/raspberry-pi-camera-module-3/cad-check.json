@@ -1,0 +1,204 @@
+{
+  "model": "raspberry-pi-camera-module-3",
+  "revision": "0.2.0",
+  "date": "2026-10-14",
+  "status": "Nominal CAD/material consistency only; physical acceptance unverified",
+  "openScadVersion": "2021.01",
+  "boundsMm": [
+    [
+      -12.5,
+      -11.931,
+      -2.75
+    ],
+    [
+      12.5,
+      11.931,
+      9.65
+    ]
+  ],
+  "watertight": true,
+  "connectedBodies": 1,
+  "volumeMm3": 1871.6266127497784,
+  "probes": [
+    {
+      "name": "Mounting bore -10.5,-9.931",
+      "intersectionMm3": 0.0
+    },
+    {
+      "name": "Mounting bore -10.5,2.569",
+      "intersectionMm3": 0.0
+    },
+    {
+      "name": "Mounting bore 10.5,-9.931",
+      "intersectionMm3": 0.0
+    },
+    {
+      "name": "Mounting bore 10.5,2.569",
+      "intersectionMm3": 0.0
+    },
+    {
+      "name": "Air above flex tail",
+      "intersectionMm3": 0.0
+    },
+    {
+      "name": "Round upper barrel corner",
+      "intersectionMm3": 0.0
+    },
+    {
+      "name": "Recess in front of glass",
+      "intersectionMm3": 0.0
+    },
+    {
+      "name": "Rear CSI cable entry",
+      "intersectionMm3": 0.0
+    }
+  ],
+  "appearanceDifferenceMm3": [
+    2.568846165758609e-08,
+    9.308764599684561e-07
+  ],
+  "materials": [
+    {
+      "node": "green-pcb",
+      "mesh": "appearances/raspberry-pi-camera-module-3/green-pcb.stl",
+      "material": {
+        "color": [
+          0.025,
+          0.43,
+          0.2
+        ],
+        "roughness": 0.45,
+        "metalness": 0,
+        "transmission": 0,
+        "thickness": 0,
+        "ior": 1.5
+      },
+      "sha256": "72c8975f6cbb8ed2dbeed5e95fcb45164871564809cc3fe7007dbadd8b7c9dde"
+    },
+    {
+      "node": "gold-pads",
+      "mesh": "appearances/raspberry-pi-camera-module-3/gold-pads.stl",
+      "material": {
+        "color": [
+          0.82,
+          0.62,
+          0.16
+        ],
+        "roughness": 0.28,
+        "metalness": 0.75,
+        "transmission": 0,
+        "thickness": 0,
+        "ior": 1.5
+      },
+      "sha256": "fc9f9ec401335ff287b914e544e535cbe24c5655eb8a33dd9ae4c852af95436f"
+    },
+    {
+      "node": "amber-flex",
+      "mesh": "appearances/raspberry-pi-camera-module-3/amber-flex.stl",
+      "material": {
+        "color": [
+          0.61,
+          0.29,
+          0.065
+        ],
+        "roughness": 0.42,
+        "metalness": 0,
+        "transmission": 0,
+        "thickness": 0,
+        "ior": 1.5
+      },
+      "sha256": "05d291cb4a2923df2cb088a8a609adeab7484cb1d1e43c58855d898280243465"
+    },
+    {
+      "node": "black-components",
+      "mesh": "appearances/raspberry-pi-camera-module-3/black-components.stl",
+      "material": {
+        "color": [
+          0.035,
+          0.04,
+          0.045
+        ],
+        "roughness": 0.31,
+        "metalness": 0,
+        "transmission": 0,
+        "thickness": 0,
+        "ior": 1.5
+      },
+      "sha256": "34f4074accb65f1d88ed6d2db539f49e5caacfa18fb791b75c79350415deabb0"
+    },
+    {
+      "node": "autofocus-shield",
+      "mesh": "appearances/raspberry-pi-camera-module-3/autofocus-shield.stl",
+      "material": {
+        "color": [
+          0.68,
+          0.7,
+          0.71
+        ],
+        "roughness": 0.25,
+        "metalness": 0.85,
+        "transmission": 0,
+        "thickness": 0,
+        "ior": 1.5
+      },
+      "sha256": "827878bb214125d8a4f1590887b9602bcf32ff71269b8abf6b59d1cf56182435"
+    },
+    {
+      "node": "connector-latch",
+      "mesh": "appearances/raspberry-pi-camera-module-3/connector-latch.stl",
+      "material": {
+        "color": [
+          0.2,
+          0.21,
+          0.22
+        ],
+        "roughness": 0.48,
+        "metalness": 0,
+        "transmission": 0,
+        "thickness": 0,
+        "ior": 1.5
+      },
+      "sha256": "53bbaf0ad615585255f1235e659be4f1c53256c2d21f8d98a6963d946060ae44"
+    },
+    {
+      "node": "lens-glass",
+      "mesh": "appearances/raspberry-pi-camera-module-3/lens-glass.stl",
+      "material": {
+        "color": [
+          0.055,
+          0.09,
+          0.12
+        ],
+        "roughness": 0.08,
+        "metalness": 0.05,
+        "transmission": 0.25,
+        "thickness": 0.16,
+        "ior": 1.52
+      },
+      "sha256": "4f5e3c652789fd1689086b1d406a6c851db052f99e483fc20d9ac80d148c73ff"
+    },
+    {
+      "node": "white-silkscreen",
+      "mesh": "appearances/raspberry-pi-camera-module-3/white-silkscreen.stl",
+      "material": {
+        "color": [
+          0.91,
+          0.93,
+          0.87
+        ],
+        "roughness": 0.7,
+        "metalness": 0,
+        "transmission": 0,
+        "thickness": 0,
+        "ior": 1.5
+      },
+      "sha256": "cc38bb829e1556211e2e55047da993190d274b963bcfb7e69374fd92d489ab6a"
+    }
+  ],
+  "sourceHashes": {
+    "hardware/assemblies/camera-pod/raspberry-pi-camera-module-3.scad": "57f00524ba48c63e5df9ee650bf5bf9c67515a67b9ef230fe260238d8e4338dd",
+    "hardware/lib/raspberry-pi-camera-module-3.scad": "01e8d40c072826f1bc7950883a32b5db0e16ec59e4813fa7d87af72404f5f300"
+  },
+  "checkerSha256": "127a19b99cd91719493be6aa82981b3d215c24d2d21b3ae554117a15ded5f657",
+  "limits": "Conservative focus envelope; illustrative fine detail and materials. No physical fit, flexible cable, focus or optical validation."
+}

@@ -10,8 +10,37 @@ See the [camera pod](../../../../docs/assemblies/camera-pod/README.md) and
 
 This review identifies published nominal geometry, not measured received-unit
 sizes. The [canonical camera reference](../../../lib/raspberry-pi-camera-module-3.scad)
-is shared by the Parts illustration r0.1.1 and assembly/booklet. It uses
-conservative primitive envelopes; it remains `concept-unvalidated`.
+is shared by the Parts illustration r0.2.0 and assembly/booklet. It uses
+detailed, re-authored reference geometry with conservative overall allowances; it remains `concept-unvalidated`.
+
+## Detailed geometry and shading, r0.2.0
+
+The [official IR-cut Wide front photograph](https://www.raspberrypi.com/app/uploads/2023/01/Screenshot-2023-01-06-at-12.50.18.png)
+from Raspberry Pi's [launch article](https://www.raspberrypi.com/news/new-autofocus-camera-modules/)
+was inspected on **14 October 2026**, alongside the Wide STEP and TNBA2004
+sensor drawing. The previous solid flex block and stacked square lens blocks
+are replaced by a thin folded flex with its stiffened tail, a folded metal
+autofocus can with an octagonal opening, a stepped round lens barrel and
+recessed front glass. The rear socket has an entry slot and separate latch;
+plated mounting lands and identity silkscreen make the carrier recognizable.
+The STEP's 631 solids were inspected for the carrier, sensor and rear socket
+footprints. Upstream geometry and photographs are linked, not redistributed.
+
+Eight source-declared material groups travel through the checked CAD preview
+pack to the site's Shaded view: green solder mask, gold plated lands/contacts,
+amber flex, black components/barrel, silver autofocus shield, dark CSI latch,
+blue-black optical glass and white silkscreen. Colors, roughness, metalness and
+glass transmission are approximate visual choices, not measured material data.
+No external ribbon pose, real serial/QR code or optical prescription is invented.
+Line view, combined STL and booklet camera use these same source components.
+
+PCB thickness, mounting pitch/bores, lens datum and the overall 12.4 mm Wide
+focus allowance are retained. Cosmetic folds, cavity walls, plating, markings
+and connector detail are simplified; the clearance allowance is deliberately
+larger than some published dimensions. [Nominal geometry/material check](cad-check.json)
+is reproduced by `scripts/camera-pod-booklet/check_camera_reference.py`.
+This change adds no physical fit or focus-travel acceptance and requires no new
+printed-part revision. Hood/head reprint and acceptance requirements below remain.
 
 ## Official sources
 
