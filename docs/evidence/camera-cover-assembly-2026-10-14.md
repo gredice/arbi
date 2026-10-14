@@ -60,9 +60,11 @@ installed intersections; all 555 pan/tilt positions, four overtravel controls,
 poses pass. The current sixteen-print full-solid PETG estimate is 249.886 g at
 1.27 g/cm³, excluding hardware/electronics; it is not sliced or measured mass.
 
-The final local pack uses a complete source export with its camera fit,
-assembly/service, motion and source-pack checks rerun after extending the rear
-exit through the outer wall. CI must perform a clean source rebuild and
+The final local pack uses a complete source export with accepted camera
+reference r0.2.0 from PR #220. Its nominal overall envelope and bores are
+unchanged; the detailed camera reference, camera fit, assembly/service, motion
+and source-pack checks pass again after reconciliation. The rear exit extends
+through the outer wall. CI must perform a clean source rebuild and
 package check before merge.
 OpenSCAD 2021.01 and the pinned booklet dependencies generate the meshes,
 service/motion checks, illustrated PDF and portable source/STL pack. Generated

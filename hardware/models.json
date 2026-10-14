@@ -1577,7 +1577,7 @@
         },
         {
             "id": "raspberry-pi-camera-module-3",
-            "revision": "0.1.1",
+            "revision": "0.2.0",
             "status": "concept-unvalidated",
             "artifactRole": "visualization",
             "bomPartIds": [
@@ -1585,13 +1585,14 @@
             ],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/raspberry-pi-camera-module-3.scad",
-            "output": "raspberry-pi-camera-module-3-r0.1.1.stl",
+            "output": "raspberry-pi-camera-module-3-r0.2.0.stl",
             "documentation": "hardware/assemblies/camera-pod/raspberry-pi-camera-module-3/README.md",
-            "description": "Supplier-derived Camera Module 3 Wide reference shared with the booklet: rounded PCB, square autofocus assembly and wider rear CSI socket. Conservatively bounded for focus; physical fit unverified.",
+            "description": "Camera Module 3 Wide reference with folded sensor flex, plated PCB bores, metal autofocus can, stepped lens barrel, recessed glass and rear CSI latch. Eight material groups approximate the IR-cut hardware; fit remains unverified.",
             "geometry": {
                 "status": "approximate",
-                "basis": "Official Wide drawing RP-008155-DS-1 and STEP RP-008154-DS-1 inspected 2026-10-12: 25 × 23.862 × 1.12 mm PCB, Ø2.2 holes at 21 × 12.5 mm pitch, lens Y=2.469, square autofocus body and 22.92 × 6.54 mm rear CSI socket. Product-envelope allowance: 12.4 mm; Wide FOV 102° × 67°.",
-                "rework": "Primitive component envelopes reconcile differing PDF/STEP dimensions conservatively. Inspect the received module, focus extremes, connector latch, installed cable and printed mounting fit before fabrication or operation."
+                "basis": "Official Wide drawing RP-008155-DS-1, STEP RP-008154-DS-1 and sensor drawing TNBA2004; official IR-cut Wide product photograph reviewed 2026-10-14. PCB 25 × 23.862 × 1.12 mm, Ø2.2 bores at 21 × 12.5 mm, lens Y=2.469; conservative 12.4 mm focus envelope. Detailed reference and eight physical material groups; small features and finish are illustrative.",
+                "rework": "Published PDF, STEP and focus envelopes differ. Inspect the received module, autofocus extremes, CSI latch, installed cable and printed mounting fit. Appearance materials and small details are visual references, not measured manufacturing geometry.",
+                "evidence": "hardware/assemblies/camera-pod/raspberry-pi-camera-module-3/cad-check.json"
             }
         },
         {

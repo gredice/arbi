@@ -129,6 +129,10 @@ def main():
         subprocess.run([sys.executable,str(root/'source/export_models.py')],check=True)
         (root/'build-input-hashes.json').write_text(json.dumps(hashes,indent=2)+'\n')
     if (root/'figures').exists():shutil.rmtree(root/'figures')
+    if args.enclosure:
+        with tempfile.TemporaryDirectory(prefix='arbi-camera-reference-check-') as temp:
+            subprocess.run([sys.executable,str(REPO/'scripts/camera-pod-booklet/check_camera_reference.py'),'--output',temp],check=True)
+            shutil.copy2(Path(temp)/'cad-check.json',root/'camera-reference-check.json')
     with tempfile.TemporaryDirectory(prefix='arbi-pi-reference-check-') as temp:
         subprocess.run([sys.executable,str(REPO/'scripts/camera-pod-booklet/check_pi_reference.py'),'--output',temp],check=True)
         shutil.copy2(Path(temp)/'cad-check.json',root/'pi-reference-check.json')

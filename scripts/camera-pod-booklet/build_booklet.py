@@ -44,7 +44,7 @@ def enclosure_booklet():
   fig('part-'+name,x,y,56,60);para(x,y+61,57,'<b>'+title+'</b>',small=True,max_h=10);para(x,y+70,57,body,small=True,max_h=24)
  fig('gimbal-front',39,151,132,92)
  text(41,250,'COMPACT MECHANISM WITH OUTER HEAD REMOVED',8,True,BLUE)
- note(261,'Retain P11 r0.2.3; reprint P09 r0.1.2 and P12 r0.1.5 for Wide. Keep the existing neck seam free of support scars. Printed fit, rain and complete mass need physical inspection.')
+ note(261,'Reprint P09 r0.1.3 only. Retain P11 r0.2.3 and Wide P12 r0.1.5. Keep the neck seam free of support scars. Printed fit, rain and complete mass need physical inspection.')
 
  begin('03  Measure actual hardware','The Pi/camera mounting patterns follow cited drawings. Servo/converter envelopes and hole pitches are measured; shaft, horn, capacitor and connector details remain nominal.')
  fig('part-camera-pod-servo-fit-coupon',16,54,73,51)

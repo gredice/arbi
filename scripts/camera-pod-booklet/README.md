@@ -67,7 +67,7 @@ See [mount interfaces and quantities](../../hardware/assemblies/camera-pod/camer
 The selected module is Camera Module 3 Wide, confirmed by the owner on
 12 October 2026. Reprint only P09 integrated hood r0.1.3 and use assembly r0.3.10.
 Its low flared walls, 13.6 mm optical opening and open CSI edge give more room
-for the repeat insertion failure reported on 14 October. Camera r0.1.1 and the
+for the repeat insertion failure reported on 14 October. Camera r0.2.0 and the
 booklet share `hardware/lib/raspberry-pi-camera-module-3.scad`.
 
 `check_camera_fit.py` checks the installed fit, padded PCB, four guided loading
