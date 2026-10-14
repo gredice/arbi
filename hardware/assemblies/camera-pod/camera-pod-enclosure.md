@@ -31,7 +31,7 @@ Choose either the dry bench arrangement or the compact enclosure arrangement bel
 | `camera-pod-integrated-camera-cradle` | 0.1.1 | 1 | Black | Reprint reinforced horn/frame junction; same envelope and interfaces |
 | `camera-pod-integrated-tilt-pivot-support` | 0.1.0 | 1 | Black | New compact pivot support; replaces the dry support |
 | `camera-pod-horn-retainer` | 0.1.0 | 2 | Black | Reuse |
-| `camera-pod-integrated-camera-hood` | 0.1.1 | 1 | White | New rounded optical surround; replaces dry hood |
+| `camera-pod-integrated-camera-hood` | 0.1.2 | 1 | White | Reprint open-rear Wide seat with 12.2 mm rounded-square opening; replaces dry hood |
 | `camera-pod-rain-hood` | 0.2.1 | 1 | White | Reprint compact shell with broad rounded crown |
 | `camera-pod-enclosure-base` | 0.2.3 | 1 | Black | Reprint rolled underside shoulder with a circular clearance throat |
 
