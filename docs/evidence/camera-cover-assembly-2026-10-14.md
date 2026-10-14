@@ -47,18 +47,23 @@ from ±20° about X/Y with a 0.8 mm lateral start offset; and a larger
 ±0.8 mm front-clearance probe detects the previous r0.1.2 aperture's reduced
 margin while clearing r0.1.3. This reproduces a bounded clearance deficit,
 not an exact reconstruction of the photograph. The old r0.1.1 interference
-controls are retained too.
+controls are retained too. A 24 ×18 ×5 mm rear-access envelope crosses the
+complete shell edge (Y=−27..−9), independently of the cutter dimensions. It
+clears the revised exit and detects both the previous closed edge and an
+unreleased short-cut fixture which leaves a thin closing lip. The notch must
+reach beyond the outer Y=−20.469 shell edge.
 
 The [machine-readable inspection record](camera-cover-assembly-2026-10-14.json)
 pins the source hashes and nominal results. The corrected hood has zero
 installed intersections; all 555 pan/tilt positions, four overtravel controls,
 30 service paths, 22 tool envelopes, 15 Wide optical poses and 111 fixed-route
-poses pass. The current sixteen-print full-solid PETG estimate is 249.920 g at
+poses pass. The current sixteen-print full-solid PETG estimate is 249.886 g at
 1.27 g/cm³, excluding hardware/electronics; it is not sliced or measured mass.
 
-The local export refreshed the hood after correcting its washer recess and
-retained unchanged meshes from the initial complete export. CI must perform
-a clean source rebuild and package check before merge.
+The final local pack uses a complete source export with its camera fit,
+assembly/service, motion and source-pack checks rerun after extending the rear
+exit through the outer wall. CI must perform a clean source rebuild and
+package check before merge.
 OpenSCAD 2021.01 and the pinned booklet dependencies generate the meshes,
 service/motion checks, illustrated PDF and portable source/STL pack. Generated
 STLs, PDFs, ZIPs and bulk figures stay outside Git.

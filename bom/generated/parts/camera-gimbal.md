@@ -60,25 +60,25 @@ Build arbi-v1; batch represents 1 BOM unit(s). Current compact rain-enclosure gi
 | camera-pod-integrated-camera-cradle r0.1.1 | 1 | Bambu Lab PETG Basic / black | 3.328265 cm³ |
 | camera-pod-integrated-tilt-pivot-support r0.1.0 | 1 | Bambu Lab PETG Basic / black | 1.088757 cm³ |
 | camera-pod-horn-retainer r0.1.0 | 2 | Bambu Lab PETG Basic / black | 0.545253 cm³ |
-| camera-pod-integrated-camera-hood r0.1.3 | 1 | Bambu Lab PETG Matte / white | 1.801764 cm³ |
+| camera-pod-integrated-camera-hood r0.1.3 | 1 | Bambu Lab PETG Matte / white | 1.774893 cm³ |
 
 Selected recipe consumption:
 
 | Material / colour | Roll price basis | Estimated batch weight | Estimated batch cost |
 | --- | --- | ---: | ---: |
 | [Bambu Lab PETG Matte](https://eu.store.bambulab.com/products/petg-matte?id=775952393450868774) / black | 11.39 EUR / 1000 g; 10+ eligible mixed rolls | 30.118 g | 0.34 EUR |
-| [Bambu Lab PETG Matte](https://eu.store.bambulab.com/products/petg-matte?id=775952393450868758) / white | 11.39 EUR / 1000 g; 10+ eligible mixed rolls | 2.468 g | 0.03 EUR |
+| [Bambu Lab PETG Matte](https://eu.store.bambulab.com/products/petg-matte?id=775952393450868758) / white | 11.39 EUR / 1000 g; 10+ eligible mixed rolls | 2.432 g | 0.03 EUR |
 | [Bambu Lab PETG Basic](https://eu.store.bambulab.com/products/petg-basic) / black | 11.39 EUR / 1000 g; 10+ eligible mixed rolls | 17.458 g | 0.2 EUR |
-| **Selected recipe total** | | **50.044 g** | **0.57 EUR** |
+| **Selected recipe total** | | **50.008 g** | **0.57 EUR** |
 
 Comparisons below assume every component uses the same material; the selected mixed recipe above is costed separately.
 
 | Material | Density | Roll price | Estimated batch weight | Estimated batch cost |
 | --- | ---: | ---: | ---: | ---: |
-| [Bambu Lab PLA Basic](https://eu.store.bambulab.com/products/pla-basic-filament) | [1.24 g/cm³](https://store.bblcdn.com/s1/default/58b85d0f3db94878854a28fdb8a0006e/Bambu_PLA_Basic_Technical_Data_Sheet.pdf) | 11.99 EUR / 1000 g; 10+ eligible mixed rolls | 46.813 g | 0.56 EUR |
-| [Bambu Lab PETG Basic](https://eu.store.bambulab.com/products/petg-basic) | [1.25 g/cm³](https://store.bblcdn.com/s1/default/cb94589bf7994fdcbfa833badefae9cd/Bambu_PETG_Basic_Technical_Data_Sheet.pdf) | 11.39 EUR / 1000 g; 10+ eligible mixed rolls | 47.19 g | 0.54 EUR |
-| [Bambu Lab PETG Matte](https://eu.store.bambulab.com/products/petg-matte) | [1.37 g/cm³](https://store.bblcdn.eu/s8/default/240fb0c791fb4903a9d72934895e9a16/PETG_Matte.pdf) | 11.39 EUR / 1000 g; 10+ eligible mixed rolls | 51.72 g | 0.59 EUR |
-| [Bambu Lab ASA](https://eu.store.bambulab.com/products/asa-filament) | [1.05 g/cm³](https://store.bblcdn.com/ad7b08230c164e72856cffbe06bb7dc9.pdf) | 24.99 EUR / 1000 g; single spool | 39.64 g | 0.99 EUR |
+| [Bambu Lab PLA Basic](https://eu.store.bambulab.com/products/pla-basic-filament) | [1.24 g/cm³](https://store.bblcdn.com/s1/default/58b85d0f3db94878854a28fdb8a0006e/Bambu_PLA_Basic_Technical_Data_Sheet.pdf) | 11.99 EUR / 1000 g; 10+ eligible mixed rolls | 46.779 g | 0.56 EUR |
+| [Bambu Lab PETG Basic](https://eu.store.bambulab.com/products/petg-basic) | [1.25 g/cm³](https://store.bblcdn.com/s1/default/cb94589bf7994fdcbfa833badefae9cd/Bambu_PETG_Basic_Technical_Data_Sheet.pdf) | 11.39 EUR / 1000 g; 10+ eligible mixed rolls | 47.156 g | 0.54 EUR |
+| [Bambu Lab PETG Matte](https://eu.store.bambulab.com/products/petg-matte) | [1.37 g/cm³](https://store.bblcdn.eu/s8/default/240fb0c791fb4903a9d72934895e9a16/PETG_Matte.pdf) | 11.39 EUR / 1000 g; 10+ eligible mixed rolls | 51.683 g | 0.59 EUR |
+| [Bambu Lab ASA](https://eu.store.bambulab.com/products/asa-filament) | [1.05 g/cm³](https://store.bblcdn.com/ad7b08230c164e72856cffbe06bb7dc9.pdf) | 24.99 EUR / 1000 g; single spool | 39.611 g | 0.99 EUR |
 
 Volume evidence: current local OpenSCAD exports; [canonical recipes, mesh checksums and source hashes](../../catalog/fabrication.json).
 

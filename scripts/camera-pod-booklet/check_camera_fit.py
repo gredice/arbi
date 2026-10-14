@@ -111,9 +111,18 @@ def main():
         # No roof/lip above any PCB corner or over the rear CSI cable edge.
         rear=trimesh.creation.box([26,25,3]);rear.apply_translation([0,0,10.9])
         rear_volume=float((solid(rear)^solid(raw_hood)).volume());assert rear_volume<EPS,rear_volume
-        cable=trimesh.creation.box([24,8,5]);cable.apply_translation([0,-16,6.5])
+        # Span from the inner cavity to well outside the complete shell,
+        # independently of the notch dimensions. This catches a closing lip
+        # left beyond a cutter which only clears the inside of the pocket.
+        cable=trimesh.creation.box([24,18,5]);cable.apply_translation([0,-18,6.5])
         cable_volume=float((solid(cable)^solid(raw_hood)).volume());assert cable_volume<EPS,cable_volume
-        report['rear_access']={'above_PCB_seat_intersection_mm3':rear_volume,'CSI_edge_intersection_mm3':cable_volume}
+        old_cable_volume=float((solid(cable)^solid(previous)).volume());assert old_cable_volume>EPS,old_cable_volume
+        short_exit,short_exit_hash=fixture_mesh('camera-hood-short-exit.scad')
+        lip_volume=float((solid(cable)^solid(short_exit)).volume());assert lip_volume>EPS,lip_volume
+        report['rear_access']={'above_PCB_seat_intersection_mm3':rear_volume,
+            'CSI_edge_envelope_mm':[24,18,5],'CSI_edge_y_mm':[-27,-9],
+            'CSI_edge_intersection_mm3':cable_volume,'previous_CSI_edge_intersection_mm3':old_cable_volume,
+            'short_exit_fixture_sha256':short_exit_hash,'closing_lip_control_intersection_mm3':lip_volume}
         legacy,legacy_hash=fixture_mesh('camera-hood-r0.1.1.scad')
         old=solid(legacy);corner_collision=float((solid(face)^old).volume())
         # Reproduce the reported attempt to put the PCB beneath the old lands.

@@ -2,7 +2,7 @@
   "date": "2026-10-14",
   "reviewer": "Codex source, mesh and assembly-path inspection",
   "status": "CAD-only; concept-unvalidated",
-  "base_commit": "7370779c0b9b19c47ae53cb630217a55dc13b4a9",
+  "base_commit": "a7ac3bffec737fda54cfcf1fc7c8221fedff1d9d",
   "model_revisions": {
     "camera-pod-integrated-camera-hood": "0.1.3",
     "camera-pod-assembly": "0.3.10",
@@ -92,8 +92,8 @@
       "failures": []
     },
     "source_sha256": {
-      "models/reference/camera-module-3-wide-reference.stl": "be4af4365ecaee688292895710e53ada0a37aa366a0447c5cd7ace60d739fe0f",
-      "models/printable/camera-pod-integrated-camera-hood-r0.1.3.stl": "201a6ce95a1df45df6a69293e69d9cd205c0514536309898d97ded8e3d70c58d"
+      "models/reference/camera-module-3-wide-reference.stl": "340619f9c1d22011038ea36df74fe9cc8bce2e78272b0065eca13ee4b605e12f",
+      "models/printable/camera-pod-integrated-camera-hood-r0.1.3.stl": "e40cbdf5e60006b5b7c8add7a592fa7b5718ae77f0ed7b63da0e72cec1f8e057"
     },
     "limits": "Supplier-derived conservative primitives; PCB/STEP differ. Printed fit, lens calibration, latch/cable movement and rain performance require physical inspection.",
     "full_square_front_clearance": {
@@ -158,7 +158,19 @@
     },
     "rear_access": {
       "above_PCB_seat_intersection_mm3": 0.0,
-      "CSI_edge_intersection_mm3": 0.0
+      "CSI_edge_envelope_mm": [
+        24,
+        18,
+        5
+      ],
+      "CSI_edge_y_mm": [
+        -27,
+        -9
+      ],
+      "CSI_edge_intersection_mm3": 0.0,
+      "previous_CSI_edge_intersection_mm3": 678.1962725592797,
+      "short_exit_fixture_sha256": "4e59bbe991c7abf7b6720d51ec7eeab9c3d6a93f86e6ecd1962538fec38231c9",
+      "closing_lip_control_intersection_mm3": 18.531874257092575
     },
     "old_hood_controls": {
       "fixture_sha256": "b758a60e1d5f84bf4379fb932e25e6ea8a230f0ba9cdc751560edf4333ac78e4",
@@ -234,7 +246,7 @@
         ]
       }
     },
-    "solid_total_PETG_g": 249.9196337550078
+    "solid_total_PETG_g": 249.88550733935813
   },
   "service": {
     "assembly_paths": 30,
@@ -246,15 +258,15 @@
     "fixed_route_poses": 111
   },
   "source_hashes": {
-    "hardware/lib/camera-pod-enclosure.scad": "eb69c0172eedfb8f6874eebe4d1093b4aab01abc413efd9bb3b4395b7f548435",
+    "hardware/lib/camera-pod-enclosure.scad": "7322f8ca0ec763c89b7ae5f93ab8d85fea9ccf8d4548ed783a0aabac62130cd3",
     "hardware/assemblies/camera-pod/camera-pod-integrated-camera-hood.scad": "8682d88a991fdd5a3fe7d9a0f19558802288dfd1526aad7950d047f9d76449b9",
     "hardware/assemblies/camera-pod/camera-pod-assembly.scad": "22eaf90055fc8fef571a24366f77cc1454b60f456f298ecccc6105e57bec9101",
-    "hardware/models.json": "4b9b423c1c08a104c6473dbe3904f15accea969812accb4e3624197e8b582389",
-    "scripts/camera-pod-booklet/check_camera_fit.py": "ce273719aa8ec6f67d815785673c0d376837ec6caea8bdac411af57f94c94ae9",
+    "hardware/models.json": "cce25464b9cce3feb18675555daf92d4ba6ead969e673b89038fa250b6ec46ce",
+    "scripts/camera-pod-booklet/check_camera_fit.py": "519034c333e908196b98a287630dc21b1cc14b58d86f067b5327571b0da0b044",
     "scripts/camera-pod-booklet/build_booklet.py": "5fc49d83e4ad92bf262e1c3cc99b428a4a341023db8c5dcae5aab722496ace6b",
     "scripts/camera-pod-booklet/render_figures.py": "9246aac255c80369b5bcecc973406a67414a3de3afac1e7def541686d3c50f53"
   },
-  "local_export_scope": "Complete initial 43-mesh export, then re-exported the hood after extending its washer recess; unchanged modules retained. Full clean source rebuild is required in CI.",
+  "local_export_scope": "Clean source export of all camera-pod meshes; final checker/source snapshot refreshed with validated CAD/STL hashes and all assembly/service checks rerun.",
   "limits": [
     "The photo does not identify the printed revision or interference dimensions.",
     "Allowance dimensions are ARBI design choices, not received-camera measurements.",

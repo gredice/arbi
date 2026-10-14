@@ -244,7 +244,9 @@ module camera_pod_integrated_camera_hood() {
                 // alignment. Keep 1 mm webs beside the Ø5.4 screw tunnels.
                 pe_round_xy([13.6,13.6],.6,1.99,2,[0,-2.469]);
                 // Open rear CSI edge: cable/latch access above the front rim.
-                pm_box([25,8,8],[0,-16],3.1);
+                // Reach beyond the shell's Y=-20.469 outer edge; a shorter
+                // cut leaves a thin closing lip despite clearing the cavity.
+                pm_box([25,14,8],[0,-17],3.1);
             }
             for(x=[-10.5,10.5],y=[9.931,-2.569]) {
                 // Short exposed seating lands; no roof over the incoming PCB.
