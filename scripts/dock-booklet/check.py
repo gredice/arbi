@@ -138,7 +138,13 @@ def check(output):
         closed_overlap=overlap(closed,line);assert closed_overlap>1
         assert abs(closed_overlap-report['negative_controls']['closed_roof_service_line_collision_mm3'])<.002
         is_pod=lambda p:p['file']=='models/reference/current-pod.stl' or p.get('label','').startswith(('dock-pod','shoe-'))
-        moving_pod=trimesh.util.concatenate([*[placed(p) for p in installed if is_pod(p)],*bought[60:105]])
+        # The combined context STL intentionally contains touching component
+        # surfaces. Reloading it merges contact vertices into a non-manifold
+        # display mesh, so boolean evidence must use the written solid components.
+        pod_components=[mesh(name) for name in report['mesh_sha256'] if name.startswith('models/reference/pod-components/')]
+        assert pod_components and all(m.is_watertight and m.is_winding_consistent and m.volume>0 for m in pod_components)
+        moving_pod=trimesh.util.concatenate([*[placed(p) for p in installed if is_pod(p) and p['file']!='models/reference/current-pod.stl'],
+            *pod_components,*bought[60:105]])
         fixed=[placed(p) for p in installed if not is_pod(p) and p['file']!='models/reference/bought-hardware.stl' and p.get('label')!='dock-latch-fork']
         fixed += [*bought[:60],*bought[105:],fork]
         assert report['full_pod_release_mm']==[1,5,10,20,40,80,120,170]
