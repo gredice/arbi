@@ -18,7 +18,7 @@ import { basename, dirname, join, relative, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { unzipSync } from 'fflate';
 import { CAD_TAG } from '../../../scripts/cad-release-data.mjs';
-import { packIsCurrent, parseChecksums, validateReleaseManifest } from './cad-data.mjs';
+import { packIsCurrent, parseChecksums, sourcePlacement, validateReleaseManifest } from './cad-data.mjs';
 import { previewAssets } from './cad-previews.mjs';
 import { sceneHref } from './scene-links.mjs';
 import { modelWarnings, uniqueWarnings, warningCounts } from '../src/lib/warnings.ts';
@@ -182,7 +182,7 @@ function poseFigure(figures, names) {
   return name ? { name, parts: figures[name].parts } : null;
 }
 
-function podScene({ files, source }, modelsByOutput) {
+function podScene({ files, source }, modelsByOutput, appearances) {
   for (const [name, bytes] of Object.entries(files))
     if (name.startsWith('models/') && name.endsWith('.stl')) write(join(OUT, 'pod', name), bytes);
   const figures = parse(files['figure-manifest.json']);
@@ -194,7 +194,8 @@ function podScene({ files, source }, modelsByOutput) {
   const parts = assembly.parts.map((p, i) => ({
     node: p.name, model: modelsByOutput[basename(p.file)]?.id ?? p.model, registered: Boolean(modelsByOutput[basename(p.file)]),
     href: sceneHref(modelsByOutput[basename(p.file)]?.id ?? p.model, Boolean(modelsByOutput[basename(p.file)]), p.bomPartId, catalogIds), group: p.group, color: p.color,
-    url: `pod/${p.file}`, matrix: p.matrix,
+    url: `pod/${p.file}`, matrix: appearances[modelsByOutput[basename(p.file)]?.id]
+      ? sourcePlacement(p.matrix, meshes[p.model]) : p.matrix,
     explode: offsetOf(p.matrix, exploded[i]), kind: meshes[p.model]?.kind ?? null,
   }));
   return { kind: 'stl', layout: 'assembly', figureDir: 'pod', hero: 'assembled-covered', source, pose: pose?.name ?? null,
@@ -379,7 +380,6 @@ const packListings = Object.fromEntries(snapshotFiles.filter((p) => p.endsWith('
 }));
 
 const podPack = await choosePack('pod', release, outputs);
-const pod = podPack && podScene(podPack, modelsByOutput);
 const winchPack = await choosePack('winch', release, outputs);
 const winch = winchPack && winchScene(winchPack, modelsByOutput);
 const poweredWinch = winchPack && winchScene(winchPack, modelsByOutput, 'powered');
@@ -447,6 +447,7 @@ try {
   if (PRODUCTION) throw error;
   console.warn(`CAD previews unavailable, using booklet figures: ${error.message}`);
 }
+const pod = podPack && podScene(podPack, modelsByOutput, modelAppearances);
 if (PRODUCTION && Object.keys(figures).length !== registry.models.length) throw new Error('Production requires current figures for every registered model');
 if (PRODUCTION && registry.models.some((model) => model.artifactRole === 'reference' && !referenceMeshes[model.id])) {
   throw new Error('Production requires current inspection meshes for every CSG reference');
@@ -498,8 +499,8 @@ for (const slug of [...new Set(registry.models.map((m) => m.assembly))]) {
 for (const [slug, scene] of Object.entries(scenes)) {
   const min = [Infinity, Infinity, Infinity], max = [-Infinity, -Infinity, -Infinity];
   for (const part of scene.parts) {
-    // Booklet meshes carry local coordinates; reuse the registered model's
-    // checked surfaces with the booklet's original placement and explosion.
+    // Reuse checked canonical surfaces. The pod compiler compensates for its
+    // print-bed export frame; other booklet meshes retain source coordinates.
     // Explicit inspection scenes already contain world-placed component meshes.
     if (scene !== inspectionScenes[slug] && part.registered && modelAppearances[part.model]) {
       part.components = modelAppearances[part.model].parts;

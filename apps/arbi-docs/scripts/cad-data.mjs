@@ -4,6 +4,15 @@ import { CAD_TAG, inputsMatch, releaseInputs, sha256 } from '../../../scripts/ca
 
 const parse = (bytes) => JSON.parse(new TextDecoder().decode(bytes));
 
+// Booklet poses undo their mesh export frame. Canonical appearance surfaces
+// have not had that export applied, so restore it before using the same pose.
+export function sourcePlacement(installed, mesh) {
+  const [x, y, z] = mesh.export_translation_mm ?? [0, 0, 0];
+  const exported = mesh.export_matrix ?? [[1, 0, 0, x], [0, 1, 0, y], [0, 0, 1, z], [0, 0, 0, 1]];
+  return installed.map((row) => [0, 1, 2, 3].map((column) =>
+    row.reduce((sum, value, i) => sum + value * exported[i][column], 0)));
+}
+
 export function parseChecksums(text) {
   const assets = {};
   for (const line of text.trim().split('\n')) {
