@@ -4,9 +4,9 @@
   "note": "Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
   "geometry": {
     "releaseTag": null,
-    "sourceCommit": "7370779c0b9b19c47ae53cb630217a55dc13b4a9",
+    "sourceCommit": "bc2da7df5de6c021acd96d0cf506c26e8fbd4542",
     "sourceHashes": {
-      "hardware/models.json": "038ba797a1e26ece82db0769391d35a44b9c7fa56cc48a568dedc38ca3069d1f",
+      "hardware/models.json": "3fdcc04287c54abfd6f22fcaffa6ce89672ec28cbcd5b35d76f6e60a7ccff53a",
       "hardware/assemblies/camera-pod/bulk-capacitor-1000uf.scad": "b7125e5371d0aa55110fbcae7300b3a98bd4a3474341a0fed3bf199a6fb4a92e",
       "hardware/assemblies/camera-pod/camera-gimbal-base.scad": "aaa44f020ea99055c07d5aeb165f76da34c90562f1bccd29fe6ab8a746ccde2f",
       "hardware/assemblies/camera-pod/camera-gimbal-camera-plate.scad": "ee46401f166414b9c65f8b361e84a9694128b8a04de4aab8f35e343f69d9c535",
@@ -46,7 +46,7 @@
       "hardware/assemblies/camera-pod/microsd-card-32gb.scad": "08c5bb8f6126486b012e08cd9f872d7914b660de4699eb43e74bd4757e7184bc",
       "hardware/assemblies/camera-pod/pod-buck-converter-48v-5v.scad": "88f81f13d0eafe0c49ca6118f3e04be92536655b3d4c2560904b7746b6ac0a0b",
       "hardware/assemblies/camera-pod/raspberry-pi-3a-plus.scad": "d9eb7e1595cb6097e7e6a06ff19502becbfd877f8148b7e6e216eeda5c9a8942",
-      "hardware/assemblies/camera-pod/raspberry-pi-camera-module-3.scad": "f57c129b90d0c3ee6ffbcb50aa97f34ad48670f1f39452b33073b8a924efc4f9",
+      "hardware/assemblies/camera-pod/raspberry-pi-camera-module-3.scad": "57f00524ba48c63e5df9ee650bf5bf9c67515a67b9ef230fe260238d8e4338dd",
       "hardware/assemblies/control-cabinet/cabinet-installation-kit.scad": "416f1f3c7a30906a2d04c05dae71a05047fa7ac1652e47a95cd673d2e3bf831f",
       "hardware/assemblies/control-cabinet/cabinet-protection-kit.scad": "bec082a099c6df87056dfde1e3016caadaea86e3cdc42e409521989db13d98d5",
       "hardware/assemblies/control-cabinet/control-cabinet-assembly.scad": "66ebec2ab7b7643a38615a8e6ed2e64a3c98d9a78e40d15f2d15928283e4983c",
@@ -215,7 +215,7 @@
       "hardware/lib/nema23-motor.scad": "876aadaeb7b70367ad9ccfdc4a8f1311f3127cbca6f7216bf5b48b7a057fe620",
       "hardware/lib/pole-pulley-mount.scad": "193957b370e09d75e78dbe486654bab723ed0b591fe53dd3bc156cb8e0867ac0",
       "hardware/lib/raspberry-pi-3a-plus.scad": "b39d15f5ba17f6f477d323d730ff1b096b43bd6a2dd6197ea00455552505d1e3",
-      "hardware/lib/raspberry-pi-camera-module-3.scad": "6c2471dab80110d5efca6149fd7ce40e8363c0790b12830ca75da06d07248f78",
+      "hardware/lib/raspberry-pi-camera-module-3.scad": "e46136b47d93b250d2cea465e0b8ee4f77d3cd38a69ebcc24614d1b6444089a8",
       "hardware/lib/winch-cover.scad": "031432beed19425d6c29f5cb9fcf6a8cf26e84a362023b0c5b11533aeb575381",
       "hardware/lib/winch-desk-feet.scad": "06a551dbe77420599590dc3f8a3bd9b66cd5d647d94bd75fa9e852dcdd4dd719",
       "hardware/lib/winch-drum.scad": "0684c28615d398d1b7a2beb7d15a4fa4e27d62382b8a8bde1470367f5de1e837",
@@ -283,91 +283,91 @@
         "modelId": "camera-pod-enclosure-base",
         "revision": "0.2.3",
         "volumeCm3": "31.381263",
-        "stlSha256": "f037a4d4eaef176e75627728b475c3b61217222584ef6b3b63d9a7958d780527"
+        "stlSha256": "c250975e3602aa12bef1a653853a3a2ec529647f7124d7940008fc764659c929"
       },
       {
         "modelId": "camera-pod-horn-retainer",
         "revision": "0.1.0",
         "volumeCm3": "0.545253",
-        "stlSha256": "cf0326da2018a01cb6fbd5d7b819ef0d6fef15d1060b1abe5381e042da01c9e5"
+        "stlSha256": "dd07fa13416136c7feb14cad6b473e0f18c8ff3cbb6515d06d8f05bb52362f54"
       },
       {
         "modelId": "camera-pod-integrated-camera-cradle",
         "revision": "0.1.1",
         "volumeCm3": "3.328265",
-        "stlSha256": "1e5d3d30d4b8c18e67283553c27ac595931786f964a773ac1cb5c05767f18b09"
+        "stlSha256": "34b1e49187e7303c0cdc953d07a8da2975d38d26f27ff0bb95bbda8803bc0009"
       },
       {
         "modelId": "camera-pod-integrated-camera-hood",
         "revision": "0.1.2",
         "volumeCm3": "3.230451",
-        "stlSha256": "7103ee63bc26bdd76a5ab7ad3449cd90b0115d0fd984229b77ee0f1dbdcc741d"
+        "stlSha256": "edc5c00ac49a567fa997160614feb4c2440fcfcd137764047ed42d8b734e1ff0"
       },
       {
         "modelId": "camera-pod-integrated-deck",
         "revision": "0.1.1",
         "volumeCm3": "13.201997",
-        "stlSha256": "8383d6c4a7ed0e151122b43d7903d1dcb13f6692ad36289e78a97dc4dfbac847"
+        "stlSha256": "93544bd5ac2b2c30ede01729e392f1a12b4b5bf549c9712b3cdeeccee9be6b63"
       },
       {
         "modelId": "camera-pod-integrated-gimbal-carrier",
         "revision": "0.1.2",
         "volumeCm3": "8.458814",
-        "stlSha256": "b763e65e983e113054e66773e5b06a8f82d8ef749aef5de25c74c9820ad564a8"
+        "stlSha256": "7c0405b7cfb6e3f7d2ce70b4779240e8fc3b26e599321ff8a6609e59e9b6f726"
       },
       {
         "modelId": "camera-pod-integrated-gimbal-head",
         "revision": "0.1.5",
         "volumeCm3": "21.983934",
-        "stlSha256": "cd7805a6490926c122349b36b6889ae3f7d288e1a9328aa9d817fcae2958294c"
+        "stlSha256": "e78ba0adae2b082a696442c44fb1c267b8602238127f8d5d48b24f64738af5a8"
       },
       {
         "modelId": "camera-pod-integrated-tilt-pivot-support",
         "revision": "0.1.0",
         "volumeCm3": "1.088757",
-        "stlSha256": "4e25c7738ac1df79d1d5da42cfc34e9e0971240d12c9dded64c86788c9514a93"
+        "stlSha256": "0b1316e99e7b6f9b728621a3b9bff8b41fc4392a391d67ceff6ee17b99561d98"
       },
       {
         "modelId": "camera-pod-pan-servo-mount",
         "revision": "0.1.1",
         "volumeCm3": "8.273944",
-        "stlSha256": "4c5c770ab60ad9fd26b84e03533650377b99b5c06596900cb1508a07c7c8ee6a"
+        "stlSha256": "d75eac1f2864c99681c6dfad94966b24f196bd41c45052770ac1bae33f4b47bf"
       },
       {
         "modelId": "camera-pod-rain-hood",
         "revision": "0.2.1",
         "volumeCm3": "36.443415",
-        "stlSha256": "10d412306a619cca0648c9e37c04261cc2e98f09e9d853870d2af40e09514f26"
+        "stlSha256": "411b890da368b733b63512555b8283fb342eb07f485435668bff3a5d6616112e"
       },
       {
         "modelId": "camera-pod-spider",
         "revision": "0.1.0",
         "volumeCm3": "66.232475",
-        "stlSha256": "33c7cb4f65a079b74d88feee4db64fcce42954cd10536fda80ff0356a10efb7b"
+        "stlSha256": "877d09b6933fbf5d2584f3a8d93d9cabab683c6adc6ff48575fe985f8469f5b8"
       },
       {
         "modelId": "camera-pod-spider-spacer",
         "revision": "0.1.0",
         "volumeCm3": "0.875489",
-        "stlSha256": "f269816d54482b0566b426061107039ee2b744885eb08f4128a697d284b636ea"
+        "stlSha256": "3fff7f320ae216eda4aae7346728df0f0013cd1474c537bb6bbfa3a77f0db95b"
       },
       {
         "modelId": "corner-head-printed-front-cover",
         "revision": "0.1.0",
         "volumeCm3": "104.128616",
-        "stlSha256": "47b8c6706856b5dbace2bbac6f65387f67d2ea854ce3472e7821caaa54cdab0d"
+        "stlSha256": "4d553aaea4df0e7102c3e28289721b79241a5094a8da0981f13cb18387e39114"
       },
       {
         "modelId": "corner-head-printed-left",
         "revision": "1.0.0",
         "volumeCm3": "560.129193",
-        "stlSha256": "e0634754265db29098bde3f7d78bc1f7de779f7338e069c9e298e3f7f31cf0e3"
+        "stlSha256": "3cccb6f2a2b104824407c0a27ac830eada94b9da39c918cb53971f2d216f5b67"
       },
       {
         "modelId": "corner-head-printed-rear-cover",
         "revision": "0.1.0",
         "volumeCm3": "114.600742",
-        "stlSha256": "c7ae028096642ae865f7cb141ce6a687e37727b3effa78cfdf129620491cae2c"
+        "stlSha256": "15ecc447614286759008d76b24e9434d117363c855191c45f6e2c271e256a949"
       },
       {
         "modelId": "corner-head-printed-rear-pad",
@@ -379,139 +379,139 @@
         "modelId": "corner-head-printed-right",
         "revision": "1.0.0",
         "volumeCm3": "560.129192",
-        "stlSha256": "93f15efe636bc46561a2f3a6654036e71893786049d14f6a1a216b769b71a1de"
+        "stlSha256": "e248e94e781fef28337c956754e78dd7cc9b1917a298a96778c4bfa30cf2e984"
       },
       {
         "modelId": "corner-head-printed-template",
         "revision": "0.1.0",
         "volumeCm3": "40.865757",
-        "stlSha256": "414e307f8f9d93c806153f9117a4ad1feb325eb5dcbf569d998f446f296bae35"
+        "stlSha256": "044810fb94b02c28252d3348f199060e9c815a911980db3c3d00ab15626ba5cc"
       },
       {
         "modelId": "corner-stand-head-front",
         "revision": "0.1.0",
         "volumeCm3": "260.280311",
-        "stlSha256": "dcdd9ef6a4c9de21909f6331c6e426c1ce17b4010a4985f6c7be7c467bf85d10"
+        "stlSha256": "e95232a071ec8e6d5bbef618b5f32de0cd71e7921602ef690773cc5438026b60"
       },
       {
         "modelId": "corner-stand-head-rear",
         "revision": "0.1.0",
         "volumeCm3": "100.468360",
-        "stlSha256": "8a977fe0489b744858bfc3ccce99ba0b8566ac19880dafc3faaa6f9e60c378a3"
+        "stlSha256": "f73367a575b30375ed41535c8275692c84674a034e7729f0c3654dbfec808399"
       },
       {
         "modelId": "corner-stand-winch-front",
         "revision": "0.1.0",
         "volumeCm3": "218.332513",
-        "stlSha256": "9b231000506b9a0d0818a2198009f8341fcd43bc852ce61bfebd9132ec2de85e"
+        "stlSha256": "2a78a111350df048d1e150e89c74f701365115a63d1acfea868c1599bd54a976"
       },
       {
         "modelId": "corner-stand-winch-rear",
         "revision": "0.1.0",
         "volumeCm3": "112.409719",
-        "stlSha256": "2bce84caa1fe3eca1175963d4218d3a20783d5f9543cd98e05d0eaf86113160d"
+        "stlSha256": "6bafcca13b6b5452211fe9b3f1b55c1cf6330441e40763f530f44a0c805af9cf"
       },
       {
         "modelId": "dock-arm-extension",
         "revision": "0.1.0",
         "volumeCm3": "354.842933",
-        "stlSha256": "7552eeed035e07e1a00d20c9e154c7e12d9e6207e117b1632aab64152626d2da"
+        "stlSha256": "5db746813468eac24018f2dc0ac4524a001396a365a664d8f90e879360046acd"
       },
       {
         "modelId": "dock-arm-root",
         "revision": "0.1.0",
         "volumeCm3": "832.680301",
-        "stlSha256": "3187dddf4aeacbdb6c7ec0ed348721dce2e487eb7c9cd15eb7edad5dfdf0ee72"
+        "stlSha256": "f46605f980250d4cab0ffc8288376653f576d9928ec392f02dcb2d38d89ab330"
       },
       {
         "modelId": "dock-guide-quarter",
         "revision": "0.2.0",
         "volumeCm3": "28.764236",
-        "stlSha256": "1271dd837eeb8b2ef0fc80ef2bba876e756dc469e41df85518c34d9a448e064c"
+        "stlSha256": "9f66d48f2d943fabda26b1551501119465c410821016f547d20f02c49958900e"
       },
       {
         "modelId": "dock-latch-fork",
         "revision": "0.1.0",
         "volumeCm3": "7.021294",
-        "stlSha256": "0b6314f7af0e5945386d056fcf8a925a8f120509def110a93206c041345db035"
+        "stlSha256": "562a98efc81688a4e4368f3d8c7ad33a873f60453cac1ba247ca468d478c8b09"
       },
       {
         "modelId": "dock-locator-carrier",
         "revision": "0.1.0",
         "volumeCm3": "173.425490",
-        "stlSha256": "6ef61646947e43120b7c9f8c7dfce33d993ad1aad2d8204eeae536cca12fad87"
+        "stlSha256": "3c2e05d8cb99f22b2d6c8596ea79126445742ca75226af78333e84f6904ec26c"
       },
       {
         "modelId": "dock-pod-bridge",
         "revision": "0.1.0",
         "volumeCm3": "50.561306",
-        "stlSha256": "ab5dd26ffaf5d5cf2af1bf611d11041c3b28e2e9cbadaef13c5e0c5c628161e6"
+        "stlSha256": "137376f5617734dfcd81884113c5c3be577c9f7ed971d0a15fdb5b3291cecde4"
       },
       {
         "modelId": "dock-pod-bridge-shoe",
         "revision": "0.1.0",
         "volumeCm3": "6.747810",
-        "stlSha256": "1143483d7401358b4dba04973606e4a006781e095e49f23461aeec2e33b88907"
+        "stlSha256": "d259d3eaed614df5f99605e001eb49e83b827d86f5a12a8ef64f007a8521a904"
       },
       {
         "modelId": "dock-pod-stud",
         "revision": "0.1.1",
         "volumeCm3": "17.699039",
-        "stlSha256": "9dd42b03234638e483741bfb657c5b7728f5ebde545ed376956efae529468056"
+        "stlSha256": "bfaa686dc59f5dad34b0fb454713987f3cfae0029929647430a9348d3f07f9d3"
       },
       {
         "modelId": "dock-post-rear-pad",
         "revision": "0.1.0",
         "volumeCm3": "47.343064",
-        "stlSha256": "a0a0a694195a71924a341e7cfe9a860db2c9e9cc7a581bdc9eed322f9ce13d9c"
+        "stlSha256": "dac482c1227e7343f073bfa61f23a1d2165ab33c5468b069f0ecbc06e25f6b6f"
       },
       {
         "modelId": "dock-roof-quarter",
         "revision": "0.2.0",
         "volumeCm3": "91.782998",
-        "stlSha256": "fea1a72c9c1b0f4c958a36927997628b86877f036410cf7774f3ad4e1edb6e6a"
+        "stlSha256": "13d6e4b886a60e1881e3db8d9489db691dfc526a79e54aaa29058c7278728eff"
       },
       {
         "modelId": "dock-roof-spacer",
         "revision": "0.1.0",
         "volumeCm3": "3.064212",
-        "stlSha256": "d35b08d097659f9826de9ca8d630b453477e29dc763bf7b624c4d4791f8bc1b2"
+        "stlSha256": "20636a39736d0250d869ab15c60e28c1fff29d679b8c9c1276beb7e49c6a4f17"
       },
       {
         "modelId": "top-pulley-keeper",
         "revision": "1.0.0",
         "volumeCm3": "14.701475",
-        "stlSha256": "f6e8863ea312b6c5ff6bccb35694f64e40040adacf270a9001919c97dddd3483"
+        "stlSha256": "bafe87b0d3cf6a8b6aa73aeec535216793b58bfbab106b68c919f9b765c7e7eb"
       },
       {
         "modelId": "winch-bearing-cap",
         "revision": "0.1.0",
         "volumeCm3": "5.243271",
-        "stlSha256": "a28f9a555c5e9977dec0bca527064243c9e80a9b6397f0b3609fa2ae4d04be60"
+        "stlSha256": "9437f3a5d044e287683326c843631c6ba1586ba35b7821ac61196df04423daca"
       },
       {
         "modelId": "winch-bearing-lower",
         "revision": "0.1.0",
         "volumeCm3": "60.812971",
-        "stlSha256": "af1a1a63a74747976950e7831ece6ec94ddab5f1421c805a9a1bd8d071c863ff"
+        "stlSha256": "bf8ac17dfd44a5ec1982cfa5c8e469b657dc567af51240b0566b44b1aabf0af2"
       },
       {
         "modelId": "winch-coupling-guard",
         "revision": "0.1.1",
         "volumeCm3": "30.825830",
-        "stlSha256": "0cf679f4ad9f76bf3f448d5e5d7ddefb71bf6786bdd3da4bfa03cb1d9003e4db"
+        "stlSha256": "552463b47f3c5aa31f938540c833725e722f0238bec2b34fe05f56df2fa5f0ac"
       },
       {
         "modelId": "winch-cover-cable-anchor",
         "revision": "0.1.0",
         "volumeCm3": "4.514930",
-        "stlSha256": "be199f3b432f9dbdecb3fcc469db77e3fa49e0b5e467f0d4b7ce841187ea6538"
+        "stlSha256": "e1c14c4cc5fa6d3105ddec95ba3526fec8d13a65b09c3549edd700ad77c3069b"
       },
       {
         "modelId": "winch-cover-clip",
         "revision": "0.2.0",
         "volumeCm3": "6.118286",
-        "stlSha256": "da6ddd285b3eeb13d1951c88ef149f675691a9a15f9cc913ac2d2c56778a6d9f"
+        "stlSha256": "c3445b3dc90a166355f60adf0b292026f8adb140a9c83f4f035b74ff28801dea"
       },
       {
         "modelId": "winch-cover-passive-fascia",
@@ -523,19 +523,19 @@
         "modelId": "winch-cover-passive-left",
         "revision": "0.3.0",
         "volumeCm3": "374.072990",
-        "stlSha256": "df539e63d218cb7583c1de198d5c0276087974d5d922b46f4245e083760c4af1"
+        "stlSha256": "7defee8952b7ed3bd3b294b4c654e8accaf6d760221434cc0d9045ef083ffe83"
       },
       {
         "modelId": "winch-cover-passive-middle",
         "revision": "0.2.0",
         "volumeCm3": "250.605223",
-        "stlSha256": "bb72ec1a59ea4ee269359fc871413ef38a52bd528e3838ef37f9ae35bad565d3"
+        "stlSha256": "997b848c76d8b210afebec4c39fc47743353edcf3872fb6ce84ff84114f9a5b3"
       },
       {
         "modelId": "winch-cover-passive-pole-fascia",
         "revision": "0.1.0",
         "volumeCm3": "76.231311",
-        "stlSha256": "42ab76ac9ec2fa12bc7fc571dc54634f88ce0a89495ad31471015f5450504b01"
+        "stlSha256": "a705111c53c34c098ee7c559f79cf6bfe611e5fba0d5011d0da2800197df21d6"
       },
       {
         "modelId": "winch-cover-passive-rear-left",
@@ -553,7 +553,7 @@
         "modelId": "winch-cover-passive-right",
         "revision": "0.3.0",
         "volumeCm3": "449.144055",
-        "stlSha256": "5d3c44b5addf4fe265f6f43d03587c96510f88e21277540adb6e5fa9c321744a"
+        "stlSha256": "ebcb2484d03ecb34ebb7a91539e41dde6f0d06c55d43daf2e19bc818363334f8"
       },
       {
         "modelId": "winch-cover-passive-shutter",
@@ -571,25 +571,25 @@
         "modelId": "winch-cover-powered-left",
         "revision": "0.2.0",
         "volumeCm3": "367.652286",
-        "stlSha256": "f984fb91af92875791f74e9a7dbfa692ee6dfc7977c35f31354539685fb81870"
+        "stlSha256": "c852ae865ba3b929124c739b95fa744e82fdce14b3103cf3b49127a8dc55af68"
       },
       {
         "modelId": "winch-cover-powered-middle",
         "revision": "0.2.0",
         "volumeCm3": "242.744073",
-        "stlSha256": "6ddac8903f30015247fd83bb7816f09da508bd5fe268951515a07cdb40309484"
+        "stlSha256": "62e1a8c01ae16d3b2d642492feeaff0fc9a42ab1f0f00a04adfe1a8a77b4fc72"
       },
       {
         "modelId": "winch-cover-powered-pole-fascia",
         "revision": "0.1.0",
         "volumeCm3": "73.701924",
-        "stlSha256": "c78589b089095ac41b2ed614c45e5f22315b2a07e14a97078abd9b2a24d4a381"
+        "stlSha256": "9c35ebd4df7b7791454318be7d3f9deb62fa744800b69e51b63b9b2a75f5e135"
       },
       {
         "modelId": "winch-cover-powered-pole-middle",
         "revision": "0.1.0",
         "volumeCm3": "240.640072",
-        "stlSha256": "b93c0ee213ccd576912a38da7d47f84583d0fe626e1ac3049c0337819bb26e87"
+        "stlSha256": "8e3400961a8b466f0040b4bf528e58067ce765c18b72ce15d6b00abede45ceb3"
       },
       {
         "modelId": "winch-cover-powered-rear-left",
@@ -607,31 +607,31 @@
         "modelId": "winch-cover-powered-right",
         "revision": "0.3.0",
         "volumeCm3": "437.959117",
-        "stlSha256": "ee38bc7cec33642f217091249b01b22dca25e1a1c3f8dd0b8019ba4e2d13c12b"
+        "stlSha256": "b8b9e8f8ebe4d253480480beeeb131a479a30645768d3f75f59fca9173f3ef85"
       },
       {
         "modelId": "winch-cover-powered-shutter",
         "revision": "0.2.0",
         "volumeCm3": "76.694057",
-        "stlSha256": "dcca2fab3af17afe30b6aedb5706d9a533e60a3a67c708ddc42c611683c8469a"
+        "stlSha256": "2588b662b157bf6465ce25aba90654f539df3adeef2dab9b60e8a7d1b70cacba"
       },
       {
         "modelId": "winch-cover-powered-transition",
         "revision": "0.2.0",
         "volumeCm3": "241.880800",
-        "stlSha256": "a312729a8982118fb13bc313b24d06e5cbec84b72ff69796ce85fc2acbc704ec"
+        "stlSha256": "a1459396efd753fcc5ddf43300b544b10008fe66d858308963adaae5caada20f"
       },
       {
         "modelId": "winch-desk-foot-long",
         "revision": "0.1.0",
         "volumeCm3": "105.802227",
-        "stlSha256": "7ea534abc9126a7dcfc6da739b02c179f4b95d3d9c0cee1b7f4088d2b708f0a2"
+        "stlSha256": "4c20b1847cd098560983d7c00fc6b418322b246c89b07a841d81aef8b744fed8"
       },
       {
         "modelId": "winch-desk-foot-short",
         "revision": "0.1.0",
         "volumeCm3": "74.282202",
-        "stlSha256": "934b0b88c5b11c3d2b14d3ef67b996514daebb75b1d6fdb937859d2a89f3d49d"
+        "stlSha256": "eddfd489221e6bcf1b39b2c5308821f0a116def0594cbdc7edab765f196669d3"
       },
       {
         "modelId": "winch-drum-alignment-pin",
@@ -643,73 +643,73 @@
         "modelId": "winch-drum-clamp-half",
         "revision": "0.1.0",
         "volumeCm3": "13.614323",
-        "stlSha256": "48240794888ae33e039d92901e8e60ea914b4f6d45e640d2258821f8c42577db"
+        "stlSha256": "d46872262af52116f557ff2b7158b415821972d32d2d5b4befae08b042c66e17"
       },
       {
         "modelId": "winch-drum-flange",
         "revision": "0.1.0",
         "volumeCm3": "75.053615",
-        "stlSha256": "be0d059f30f7415919f69232dbc511157a9c21dfff40842d052145e72f9e9a0f"
+        "stlSha256": "33852aa2e9839c65383b9827c317e96a28457b926aa7050ed484faf97b038e6e"
       },
       {
         "modelId": "winch-drum-flange-right",
         "revision": "0.1.0",
         "volumeCm3": "75.053615",
-        "stlSha256": "898c0287fd649ed9d2bf564ceef52fcf12d2b0e4e782c84fe88d7971c7988c83"
+        "stlSha256": "0d002770e6df499cf9b547fa1b08fc94eb07228c5876d5a686798dee094cf35e"
       },
       {
         "modelId": "winch-drum-passive-1",
         "revision": "0.1.0",
         "volumeCm3": "316.427023",
-        "stlSha256": "0cf2217ae88ded855a9fc80a688e5f55ab20f9503d21034573ea204daafab6d1"
+        "stlSha256": "1d37d2fb5c06d82806ed706af8da94e3bd6c28b01cb580536e92fdf9fc41385b"
       },
       {
         "modelId": "winch-drum-passive-2",
         "revision": "0.1.0",
         "volumeCm3": "316.426147",
-        "stlSha256": "28bf591a9376d931df1d17637175d1d36deac6e91e3308523e58a257a3c50d92"
+        "stlSha256": "1d41bcaa1b1e8f0ad0bfec2b9e5c3db9b6f9e645314d2666db5f611afc074a93"
       },
       {
         "modelId": "winch-drum-powered-1",
         "revision": "0.1.0",
         "volumeCm3": "456.629544",
-        "stlSha256": "c68b256309bc1c848ac92abb301010ea9cf784939675b0672121076b9269cce5"
+        "stlSha256": "a48f08d8778267863c272dbe418d3cc9501a65fc3ac3c2f67fdf690d63a828ea"
       },
       {
         "modelId": "winch-drum-powered-2",
         "revision": "0.1.0",
         "volumeCm3": "454.324400",
-        "stlSha256": "ab7b46502f086acb93bc21c777ebed12d22514c0814ef5bf0147955fe7af82a5"
+        "stlSha256": "c92ed526be238d3b93e7eb33d569f0fac0ebfaa354eb8ab12e52ae91369bc98e"
       },
       {
         "modelId": "winch-drum-powered-3",
         "revision": "0.1.0",
         "volumeCm3": "456.627803",
-        "stlSha256": "8a7e51c12b3e1dcaf732a206c9b2a41cde6657bc47fbc58e5bf97d7cd072ffbd"
+        "stlSha256": "dac589d80b7520923f3d85f429aabaee49a557b108148d8bf78802bfd2c96fda"
       },
       {
         "modelId": "winch-drum-tail-clamp",
         "revision": "0.1.0",
         "volumeCm3": "1.742897",
-        "stlSha256": "15f06d9f9e694cf4267140bd6f19e36491fa8033af0e5b8a7432a2feb8b3643c"
+        "stlSha256": "f866439a1b98a6d5ba76f2f6b6551be880bdaccef3dad77a458c3dd6192a717e"
       },
       {
         "modelId": "winch-motor-stand",
         "revision": "0.1.0",
         "volumeCm3": "156.792774",
-        "stlSha256": "9fc6d0a4a0ba1f113153f4fe7c1dd5c37bd9f897afcce41c4f08e5178384081c"
+        "stlSha256": "a2e89fce255f024e8c02b6d052d15acc1eff3958454388d6efd541db8359391b"
       },
       {
         "modelId": "winch-pole-cable-guide",
         "revision": "0.1.0",
         "volumeCm3": "9.881733",
-        "stlSha256": "92718ec5727d2f88af9bd55266172f7ef4cfbac1edecf4f0ace015e9bfbf827b"
+        "stlSha256": "898c2218fd85da5076c373965e8783a576ad3d96a3336e9073f1017cf2b428db"
       },
       {
         "modelId": "winch-pole-nut-cover",
         "revision": "0.1.0",
         "volumeCm3": "44.800316",
-        "stlSha256": "15a13676e4034257acf45f10a831ef992c5329e2018e31ef1edcbf14a010d0b9"
+        "stlSha256": "a66a70152cfad2e3e44559175e4fae1fd03ae590b5c5c0a7e3d708ad8ce07786"
       },
       {
         "modelId": "winch-pole-nut-cover-bottom",
