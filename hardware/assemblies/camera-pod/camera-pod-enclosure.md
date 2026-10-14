@@ -1,4 +1,4 @@
-# Compact integrated camera pod rain enclosure r0.3.9
+# Compact integrated camera pod rain enclosure r0.3.10
 
 > **Critical — temporary cable-tie retention.** The converter now uses four screw stacks; remaining capacitor and harness ties are bench workarounds only. Dedicated capacitor retention and harness strain relief remain unresolved; see the [prioritized BOM warnings](../../../bom/README.md#warning-priorities). Historical CAD/check records preserve the inspected tie-based configuration, not final acceptance.
 
@@ -6,10 +6,10 @@ This is the compact rounded black/white appearance configuration for the [camera
 
 ![Selected integrated black/white appearance concept](../../../docs/assemblies/camera-pod/enclosure/integrated-concept.png)
 
-The selected illustration records the appearance direction: one rounded white upper body, a black lower core, and a small white moving optical surround. [ADR-0009](../../../docs/decisions/0009-compact-integrated-camera-pod.md) records the compact packaging decision and its preserved interfaces, accepted as the design direction on merge with physical validation pending. The illustration is an appearance reference, not a dimensioned CAD render or proof of clearance. The [earlier alternatives](../../../docs/assemblies/camera-pod/enclosure/concepts.png) are retained for design history. The canonical fixed-shell geometry is [camera-pod-enclosure.scad](../../lib/camera-pod-enclosure.scad); [camera-pod-integrated-head.scad](../../lib/camera-pod-integrated-head.scad) defines the one-piece moving outer head, and [camera-pod-integrated-gimbal.scad](../../lib/camera-pod-integrated-gimbal.scad) defines its compact internal carrier, camera cradle and opposite pivot support. [camera-pod-assembly.scad](camera-pod-assembly.scad) r0.3.9 is their assembled reference. The fixed electronics use the separate [integrated deck](../../lib/camera-pod-integrated-deck.scad).
+The selected illustration records the appearance direction: one rounded white upper body, a black lower core, and a small white moving optical surround. [ADR-0009](../../../docs/decisions/0009-compact-integrated-camera-pod.md) records the compact packaging decision and its preserved interfaces, accepted as the design direction on merge with physical validation pending. The illustration is an appearance reference, not a dimensioned CAD render or proof of clearance. The [earlier alternatives](../../../docs/assemblies/camera-pod/enclosure/concepts.png) are retained for design history. The canonical fixed-shell geometry is [camera-pod-enclosure.scad](../../lib/camera-pod-enclosure.scad); [camera-pod-integrated-head.scad](../../lib/camera-pod-integrated-head.scad) defines the one-piece moving outer head, and [camera-pod-integrated-gimbal.scad](../../lib/camera-pod-integrated-gimbal.scad) defines its compact internal carrier, camera cradle and opposite pivot support. [camera-pod-assembly.scad](camera-pod-assembly.scad) r0.3.10 is their assembled reference. The fixed electronics use the separate [integrated deck](../../lib/camera-pod-integrated-deck.scad).
 
 The following committed images show the earlier r0.3.7 appearance and Standard
-camera reference. Use the current release/booklet for Wide and hood r0.1.2;
+camera reference. Use the current release/booklet for Wide and hood r0.1.3;
 these images do not establish its fit.
 
 ![Earlier assembled CAD preview](../../../docs/assemblies/camera-pod/enclosure/assembled-cad.png)
@@ -31,13 +31,13 @@ Choose either the dry bench arrangement or the compact enclosure arrangement bel
 | `camera-pod-integrated-camera-cradle` | 0.1.1 | 1 | Black | Reprint reinforced horn/frame junction; same envelope and interfaces |
 | `camera-pod-integrated-tilt-pivot-support` | 0.1.0 | 1 | Black | New compact pivot support; replaces the dry support |
 | `camera-pod-horn-retainer` | 0.1.0 | 2 | Black | Reuse |
-| `camera-pod-integrated-camera-hood` | 0.1.2 | 1 | White | Reprint open-rear Wide seat with 12.2 mm rounded-square opening; replaces dry hood |
+| `camera-pod-integrated-camera-hood` | 0.1.3 | 1 | White | Reprint open-rear Wide seat with 13.6 mm rounded-square opening; replaces dry hood |
 | `camera-pod-rain-hood` | 0.2.1 | 1 | White | Reprint compact shell with broad rounded crown |
 | `camera-pod-enclosure-base` | 0.2.3 | 1 | Black | Reprint rolled underside shoulder with a circular clearance throat |
 
 This is 16 installed printed pieces from 12 installed model types. The 13th exported fabrication model, `camera-pod-servo-fit-coupon`, is an optional test print and is not installed. `camera-pod-assembly` is a reference CSG, not a print part. The stable BOM owners remain [camera-pod-chassis](../../../bom/generated/parts/camera-pod-chassis.md) and [camera-gimbal](../../../bom/generated/parts/camera-gimbal.md); their fabrication-source lists include only the current compact kit. Superseded concept parts, dry bench alternatives and retired shields are archived separately in the registry and excluded from current BOM mappings and individual fabrication downloads.
 
-When upgrading from the earlier large tapered-head configuration, fit the compact carrier and integrated cradle/pivot support listed above. Remove the separate rear camera cowl and its four secondary nuts. Return to four M2 × 12 camera screws, retaining four primary M2 nuts and eight washers. The underside refinement replaces tray r0.2.2 with r0.2.3 and outer head r0.1.2 with r0.1.3 as a matched pair. Reprint cradle r0.1.1 for the reinforced horn/frame junction. The received converter also requires reprinting electronics deck r0.1.1. The white hood, optical hood, carrier, pivot support and remaining compatible prints keep their revisions. The assembled reference is `camera-pod-assembly` r0.3.9.
+When upgrading from the earlier large tapered-head configuration, fit the compact carrier and integrated cradle/pivot support listed above. Remove the separate rear camera cowl and its four secondary nuts. Return to four M2 × 12 camera screws, retaining four primary M2 nuts and eight washers. The underside refinement replaces tray r0.2.2 with r0.2.3 and outer head r0.1.2 with r0.1.3 as a matched pair. Reprint cradle r0.1.1 for the reinforced horn/frame junction. The received converter also requires reprinting electronics deck r0.1.1. The white hood, optical hood, carrier, pivot support and remaining compatible prints keep their revisions. The assembled reference is `camera-pod-assembly` r0.3.10.
 
 The new shell walls start at 1.2 mm. ASA remains the preferred exposed-release material and PETG is a prototype starting point; neither material/colour choice establishes UV resistance, creep performance, water resistance or thermal acceptance. Slice the complete chosen quantities with the intended nozzle, walls, layers and supports, inspect thin walls and bridging, and weigh the printed assembly. Keep support scars away from mating lips, nut pockets, horn pockets and pivot bores. Print orientation and removable-support access need slicer review before manufacture.
 
@@ -69,7 +69,9 @@ The [service record](camera-pod-enclosure-check.md) owns the tested staged paths
 
 The compact camera stack uses **four M2 × 12 screws, eight M2 washers and four primary M2 nuts**. It omits the earlier separate rear cowl, M2 × 18 screws and four secondary nuts. Measure screw-tip clearance, thread engagement and washer seating at the optical hood/board/cradle stack; avoid loading the camera PCB or pinching its CSI connector. The outer head now provides the proposed rear-camera shielding. Inspect the rear connector, ribbon loops and wet paths with the complete moving assembly; removing the separate cowl requires new physical rain/splash evidence.
 
-The white `camera-pod-integrated-camera-hood` r0.1.2 retains the 34 ×36 mm eye outline and four M2 axes. Its 27.8 ×26.6 rear cavity, 2 mm shorter body and 12.2 mm rounded-square opening clear the complete Wide autofocus footprint. The square opening retains material between the nearest Ø5.4 fastener tunnels; a larger circular opening would merge those voids. Rear lands occupy local Z=8..9.4 and the assembly moves the hood 2 mm rearward, preserving the installed clamp plane. Load the PCB onto the lands from the rear, without bending it below tabs. Reprint and inspect washer seating and printed lands before tightening.
+The white `camera-pod-integrated-camera-hood` r0.1.3 retains the 34 ×36 mm eye outline, four M2 axes and installed PCB plane. The cavity is 29.4 ×28.2 mm, flaring to 31 ×30 mm at its rear rim. The walls end at local Z=6, 3.4 mm below the exposed PCB seating lands at Z=9.4; outside gussets support the unchanged clamp stack. A 13.6 mm rounded-square front opening leaves nominal 1 mm webs beside the Ø5.4 screw/washer tunnels. The CSI edge is open above the front rim for cable/latch access. These are ARBI handling/print allowances, not measured camera tolerances.
+
+Reprint only P09 for this update. With power disconnected, support the loose hood by its rim with the rear facing up and at least 3 mm free space below the lens opening, lower the camera lens-first from its open rear, and align the board flat before it reaches the four seats. Keep the CSI connector at the open edge. Check that all four PCB holes rest on their lands and connect the ribbon while accessible. Then offer the seated camera/hood to the cradle and fit the existing four M2 ×12 screws, four nuts and eight washers. Tighten evenly without bending the board. No PCB corner belongs beneath a land. See the [new photo-driven fit record](../../../docs/evidence/camera-cover-assembly-2026-10-14.md) and enclosure booklet revision 9.
 
 Nominal software travel remains pan ±90° and tilt 0–70°; the mechanical range used for checks is pan ±95° and tilt -5–75°. Establish physical limits inside the measured cable and collision envelope. The outer head now adds mass and inertia to the pan group. Recheck servo torque, horn/fastener loads, current, backlash and settling with the complete printed assembly; a clear CAD sweep does not establish those physical limits.
 
@@ -111,22 +113,18 @@ Thermal acceptance needs temperatures with the upper shell fitted, at representa
 
 ## Wide camera fit revision
 
-The [12 October Wide-camera record](../../../docs/evidence/camera-module-3-wide-2026-10-12.md)
-supersedes Standard camera/optical assumptions for this configuration. Reprint
-`camera-pod-integrated-camera-hood` r0.1.2. Its 27.8 × 26.6 rear cavity and 12.2 mm rounded-square
-front aperture accommodate the larger square autofocus assembly. The hood is
-2 mm shallower and moves 2 mm rearward in assembly r0.3.9, retaining the camera
-PCB/cradle and four M2 ×12 clamp stacks. Insert the camera lens-first from the
-open rear; seat the PCB on the lands without bending it below the tabs.
+The [12 October record](../../../docs/evidence/camera-module-3-wide-2026-10-12.md)
+selects Wide: 120° diagonal, 102° horizontal and 67° vertical FOV. Earlier
+Standard optical reports and mass figures apply to their stated revisions.
+[The reconciliation](../../../docs/evidence/camera-module-3-wide-2026-10-14.md)
+tested hood r0.1.2 and assembly r0.3.9. It reported 251.734 g for sixteen prints
+as a full-solid PETG estimate, excluding electronics and metal.
 
-The selected camera is Wide with 120° diagonal, 102° horizontal and 67° vertical
-FOV, not Standard. Earlier 66° ×41° optical reports and mass figures in this
-document apply to their stated earlier source revisions. The reconciled Wide record
-owns the new sampled clearances and mass estimate. Physical camera fit, focal
-calibration, ribbon/latch service and rain protection still require inspection.
-
-The current Wide check samples 1,545 head taper sections and retains 1.423 mm
-minimum radial neck clearance. Sixteen installed prints total 251.734 g of
-fully dense PETG at 1.27 g/cm³, before electronics and metal; this is neither
-sliced nor measured mass. [The reconciled Wide record](../../../docs/evidence/camera-module-3-wide-2026-10-14.md)
-owns these outcomes.
+The owner reported repeat insertion failure on 14 October 2026. Reprint only
+P09 r0.1.3 for the new low-wall, flared entrance and open CSI edge. Assembly
+r0.3.10 retains the previous installed camera and hood placement. Prepare the
+camera in the loose hood as described above before mounting it to the cradle.
+[The new assembly-fit record](../../../docs/evidence/camera-cover-assembly-2026-10-14.md)
+owns the padded/guided-loading, fastener, service and motion checks for this
+revision. Physical camera seating, focal calibration, ribbon/latch service and
+rain protection still require a reprint inspection.

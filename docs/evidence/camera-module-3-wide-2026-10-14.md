@@ -1,5 +1,9 @@
 # Wide camera and current-main fit reconciliation — 14 October 2026
 
+> **Historical hood r0.1.2 inspection.** The owner subsequently reported repeat
+> insertion failure. [The new assembly correction](camera-cover-assembly-2026-10-14.md)
+> selects hood r0.1.3 and preserves this report for its original configuration.
+
 This source-derived inspection reconciles PR #218 with main
 `61c46d57bf39db5fdcb4fe7c2795d64f0f8744f0`. It retains the received-servo
 mounts and drawing-derived Pi reference accepted on main, alongside the

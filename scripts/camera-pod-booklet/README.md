@@ -20,13 +20,13 @@ Populate the carrier outside the body and fit the pan OEM centre screw before in
 
 The 6 mm fixed-power proxy runs from `[10,40,24]` down to `[10,40,1]`, outward above the head to `[10,60,1]`, then down to `[10,60,-61]` and out to `[10,70,-61]`. The nominal route clears the upper tray skirt and moving head in the current sampled checks; actual bend radius, sleeves and flexible loops require physical inspection.
 
-Converter envelope and mounting holes use the [12 October received-unit measurements](../../docs/evidence/buck-converter-2026-10-12.md). PCB thickness, component/pad details, fasteners, servo and capacitor geometry remain nominal. `check_converter.py` checks four mounting bores, screw insertion, board removal, driver/pad access and deliberately shifted hole probes. The current 16-print solid-volume PETG estimate is 254.516 g at 1.27 g/cm³, excluding electronics and hardware. Inspect the slicer output and weigh the complete assembly against the original flying mass ceiling; this estimate is not sliced or measured mass. Omitting the cowl requires new physical rain checks around the camera connector and CSI loops. The booklet is a supported bench assembly guide. Ingress, temperature, flexible-cable movement and suspended operation remain unverified.
+Converter envelope and mounting holes use the [12 October received-unit measurements](../../docs/evidence/buck-converter-2026-10-12.md). PCB thickness, component/pad details, fasteners, servo and capacitor geometry remain nominal. `check_converter.py` checks four mounting bores, screw insertion, board removal, driver/pad access and deliberately shifted hole probes. The historical Standard-camera 16-print solid-volume PETG estimate was 254.516 g at 1.27 g/cm³, excluding electronics and hardware. Inspect the slicer output and weigh the complete assembly against the original flying mass ceiling; this estimate is not sliced or measured mass. Omitting the cowl requires new physical rain checks around the camera connector and CSI loops. The booklet is a supported bench assembly guide. Ingress, temperature, flexible-cable movement and suspended operation remain unverified.
 
 Each build records its variant in `configuration.json`, resolves STL revision filenames from the registry, and includes source/STL hashes, mesh/assembly/figure manifests and geometry/service results. Enclosure artifacts use the `ARBI-camera-pod-enclosure` prefix; `--publish` stores separate enclosure snapshots and `camera-pod-enclosure-check.json` alongside the refreshed bench publication. Earlier r0.1.0 bench evidence is retained in dated files and its revision 2 pack remains in Git history. The current palette is documented in [industrial design conventions](../../docs/project/industrial-design.md).
 
 ## CI and drawing style
 
-Bench revision 6 and enclosure revision 7 use the shared white-face line-art
+Bench revision 7 and enclosure revision 9 use the shared white-face line-art
 renderer. Visible silhouettes and feature edges make dark cores, small brackets
 and hardware readable; the GLB and manifests keep the product palette. Each
 configuration has its own header and page total (14 bench, 16 enclosure).
@@ -65,11 +65,19 @@ See [mount interfaces and quantities](../../hardware/assemblies/camera-pod/camer
 ## Wide camera and open rear hood
 
 The selected module is Camera Module 3 Wide, confirmed by the owner on
-12 October 2026. Reprint P09 integrated hood r0.1.2 and use assembly r0.3.9.
-Camera r0.1.1 and the booklet share `hardware/lib/raspberry-pi-camera-module-3.scad`.
-`check_camera_fit.py` independently checks camera-to-hood rear insertion with
-a PCB allowance, full-square front clearance and old-hood collision controls.
-`check_service.py` now checks 102° ×67° Wide optics. Load the PCB onto the exposed
-rear lands rather than bending it below tabs; existing four M2 ×12 bolts, four
-nuts and eight washers remain. Bench booklet revision 7 and enclosure revision 8
-replace their earlier Standard reference; source/physical evidence remain separate.
+12 October 2026. Reprint only P09 integrated hood r0.1.3 and use assembly r0.3.10.
+Its low flared walls, 13.6 mm optical opening and open CSI edge give more room
+for the repeat insertion failure reported on 14 October. Camera r0.1.1 and the
+booklet share `hardware/lib/raspberry-pi-camera-module-3.scad`.
+
+`check_camera_fit.py` checks the installed fit, padded PCB, four guided loading
+paths from ±20 degrees, a larger autofocus allowance, front alignment margin,
+rear access and previous-hood collision controls. The guided path aligns over
+the final 12 mm before seating; it does not certify arbitrary tilted insertion.
+`check_service.py` checks camera bolts/washers, cradle insertion and 102° ×67°
+Wide optics. Prepare the camera in the loose hood lens-first on the bench,
+align the PCB flat on all four seats, connect the ribbon at the open edge,
+then clamp the pair to the cradle. Retain four M2 ×12 bolts, four nuts and eight
+washers. Enclosure revision 9 illustrates this sequence; bench revision 7 is
+unchanged. [The current fit record](../../docs/evidence/camera-cover-assembly-2026-10-14.md)
+distinguishes these nominal checks from the required reprint/received-unit trial.
