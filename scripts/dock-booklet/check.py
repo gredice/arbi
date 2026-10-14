@@ -17,6 +17,23 @@ ARTIFACT='ARBI-dock'
 PREFIX=ARTIFACT+'-STL-pack/'
 
 
+def overlap(a,b):
+    if np.any(a.bounds[1]<b.bounds[0]-.001) or np.any(b.bounds[1]<a.bounds[0]-.001):return 0
+    intersection=trimesh.boolean.intersection([a,b],engine='manifold')
+    return 0 if intersection.is_empty else abs(intersection.volume)
+
+
+def section_crossings(mesh,axis,at):
+    other=[i for i in range(3) if i!=axis];tri=mesh.triangles
+    a=tri[:,0,other];u=tri[:,1,other]-a;v=tri[:,2,other]-a;p=np.asarray(at)-a
+    den=u[:,0]*v[:,1]-u[:,1]*v[:,0];valid=np.abs(den)>1e-9
+    b=(p[valid,0]*v[valid,1]-p[valid,1]*v[valid,0])/den[valid]
+    c=(u[valid,0]*p[valid,1]-u[valid,1]*p[valid,0])/den[valid]
+    selected=(b>=-1e-6)&(c>=-1e-6)&(b+c<=1+1e-6)
+    xyz=tri[valid,:,axis]
+    return np.unique(np.round((xyz[:,0]+b*(xyz[:,1]-xyz[:,0])+c*(xyz[:,2]-xyz[:,0]))[selected],4))
+
+
 def check(output):
     kit=json.loads((Path(__file__).parent/'kit.json').read_text())
     ids=[mid for items in kit.values() for mid,_,_ in items]
@@ -31,9 +48,12 @@ def check(output):
         for name,digest in report['sources_sha256'].items():
             assert hashlib.sha256((ROOT/name).read_bytes()).hexdigest()==digest,'Stale source '+name
             assert hashlib.sha256(pack.read(PREFIX+'source/repository/'+name)).hexdigest()==digest
+        assert {'docs/assets/dock/concept-board-2026-10-14.png','docs/assets/dock/generation.json',
+            'docs/project/industrial-design.md'}<=set(report['sources_sha256'])
         registry=json.loads((ROOT/'hardware/models.json').read_text());models={m['id']:m for m in registry['models']}
         assert report['fabrication_ids']==ids and report['printed_model_ids']==ids
         assert report['bought_solid_components']==125
+        assert report['revision']=='0.2.0'
         assert report['status']=='concept-unvalidated' and report['checks']>500
         assert report['printer_envelope_mm']==[256]*3 and report['bed_edge_reserve_mm']==5
         def mesh(name):return trimesh.load_mesh(io.BytesIO(pack.read(PREFIX+name)),file_type='stl')
@@ -52,8 +72,19 @@ def check(output):
             assert np.all(printed.bounds[0]>=-.002) and abs(printed.bounds[0,2])<.002
             assert np.all(printed.extents[:2]<=246.002) and printed.extents[2]<=256.002
             assert np.allclose(record['extents_mm'],printed.extents,atol=.002) and record['bed_fits']
+        roof=mesh('models/arbi/'+models['dock-roof-quarter']['output'])
+        assert np.allclose(roof.bounds,[[0,0,175],[150,150,220]],atol=.002)
+        assert np.allclose(report['print_parts']['dock-roof-quarter']['installed_to_print'],
+            [[1,0,0,0],[0,1,0,0],[0,0,1,-175],[0,0,0,1]],atol=.002)
+        assert len(report['roof_skin_sections'])==7
+        for sample in report['roof_skin_sections']:
+            crossings=section_crossings(roof,sample['axis'],sample['at_mm'])
+            assert len(crossings)==2 and 2.6<=np.ptp(crossings)<=3.3
+            assert np.allclose(crossings,sample['crossings_mm'],atol=.0002)
+            assert abs(np.ptp(crossings)-sample['thickness_mm'])<.0002
         assert report['negative_controls']['closed_fork_descent_mm3']>1
         assert report['negative_controls']['uncut_guide_line_collision_mm3']>1
+        assert report['negative_controls']['closed_roof_service_line_collision_mm3']>1
         figures=json.loads(pack.read(PREFIX+'figure-manifest.json'))
         assert set(figures)=={'covered','open','exploded','arm','latch','pod','roof','inventory'}
         for name,figure in figures.items():
@@ -71,10 +102,54 @@ def check(output):
         fork=mesh('models/arbi/'+models['dock-latch-fork']['output']);stud=mesh('models/arbi/'+models['dock-pod-stud']['output']);stud.apply_translation([0,0,-10])
         trapped=trimesh.boolean.intersection([fork,stud],engine='manifold');assert not trapped.is_empty and trapped.volume>1
         fork.apply_translation([-40,0,0]);free=trimesh.boolean.intersection([fork,stud],engine='manifold');assert free.is_empty or free.volume<.015
+        unloaded_stud=mesh('models/arbi/'+models['dock-pod-stud']['output'])
+        closed_fork=mesh('models/arbi/'+models['dock-latch-fork']['output'])
+        shoulder=report['retaining_shoulder'];assert shoulder['unloaded_gap_mm']==.2 and shoulder['head_height_mm']==11
+        assert len(shoulder['sections'])==4
+        for sample in shoulder['sections']:
+            head=section_crossings(unloaded_stud,2,sample['at_mm'])
+            head=head[head>100]
+            support=section_crossings(closed_fork,2,sample['at_mm'])
+            assert len(head)==2 and np.allclose(head,[149.8,160.8],atol=.002)
+            assert abs(support[-1]-149.6)<.002
+        assert np.allclose(section_crossings(unloaded_stud,0,[0,149]),[-7,-2.25,2.25,7],atol=.002)
+        seated=unloaded_stud.copy();seated.apply_translation([0,0,-.2]);assert overlap(seated,closed_fork)<.015
+        seated.apply_translation([0,0,-.8]);assert overlap(seated,closed_fork)>1
+        assert overlap(seated,fork)<.015
+        # Independently repeat service and complete-pod release from the packed
+        # meshes, including the other three lines and retained bought hardware.
+        def placed(part):
+            result=mesh(part['file']);result.apply_transform(np.asarray(part['matrix']));return result
+        line=mesh('models/reference/roof-service-lines.stl')
+        assert np.allclose(line.bounds[:,2],[-200,800])
+        service=report['roof_service'];assert service['lift_mm']==60 and service['inward_mm']==100 and service['quarters']==4
+        bought=[mesh(f'models/reference/bought-components/{i}.stl') for i in range(125)]
+        service_fixed=[p for p in installed if p['file'] not in ['models/reference/bought-hardware.stl','models/reference/nominal-lines.stl']]
+        retained=[*bought[:20],*bought[40:105],line]
+        path=[(h,0) for h in [0,5,10,20,40,60]]+[(60,s) for s in range(10,101,10)]
+        for angle in [0,90,180,270]:
+            part=next(p for p in service_fixed if p.get('label')==f'roof-{angle}')
+            obstacles=[placed(p) for p in service_fixed if p is not part]+retained
+            radians=np.deg2rad(angle+45)
+            for height,inward in path:
+                moving=placed(part);moving.apply_translation([-inward*np.cos(radians),-inward*np.sin(radians),height])
+                for obstacle in obstacles:assert overlap(moving,obstacle)<.015,(angle,height,inward,'roof service')
+        closed=mesh('models/controls/closed-roof-slot.stl');closed.apply_translation([-50/np.sqrt(2),-50/np.sqrt(2),60])
+        closed_overlap=overlap(closed,line);assert closed_overlap>1
+        assert abs(closed_overlap-report['negative_controls']['closed_roof_service_line_collision_mm3'])<.002
+        is_pod=lambda p:p['file']=='models/reference/current-pod.stl' or p.get('label','').startswith(('dock-pod','shoe-'))
+        moving_pod=trimesh.util.concatenate([*[placed(p) for p in installed if is_pod(p)],*bought[60:105]])
+        fixed=[placed(p) for p in installed if not is_pod(p) and p['file']!='models/reference/bought-hardware.stl' and p.get('label')!='dock-latch-fork']
+        fixed += [*bought[:60],*bought[105:],fork]
+        assert report['full_pod_release_mm']==[1,5,10,20,40,80,120,170]
+        for down in report['full_pod_release_mm']:
+            moving=moving_pod.copy();moving.apply_translation([0,0,-down])
+            for obstacle in fixed:assert overlap(moving,obstacle)<.015,(down,'full pod release')
     pages=PdfReader(output/(ARTIFACT+'-assembly-STL.pdf')).pages
     assert len(pages)==9
     for i,page in enumerate(pages,1):
         content=page.extract_text();assert f'{i} / 9' in content and 'CONCEPT - UNVALIDATED' in content
+        assert 'r0.2.0' in content
         assert abs(float(page.mediabox.width)-595.276)<1 and abs(float(page.mediabox.height)-841.890)<1
     print(f'Checked dock: 9 A4 pages, {len(ids)} fabrication models, {report["checks"]} nominal checks, current complete source/STL pack.')
 

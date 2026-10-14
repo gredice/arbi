@@ -21,12 +21,21 @@ post/pulley geometry and printer build volume remain open.
   weather, recovery and separate four-line/installed acceptance.
 - [Blank acceptance record](acceptance-record.md): exact configuration, reviewed
   limits, raw evidence and stage authorization; all results remain pending.
+- [Rounded-shelter design record](rounded-shelter.md): owner-selected dock
+  appearance, removable crown, service/manufacture and evidence boundaries.
 
-The current DOCK-IF-01 r0.1.0 sources define a **supported-dummy bench kit**:
+The current DOCK-IF-01 sources define a **supported-dummy bench kit**:
 four guide quadrants, final locator and manually released fork, structural
 spider bridge/stud, split support arm and four roof quadrants. The old funnel,
 nest, latch sample and hood sample are archived. Use the
 [assembly guide](assembly-guide.md) and [PDF/STL publication](booklet/README.md).
+
+The owner-selected rounded shelter uses a hollow warm-white 300 × 300 mm R40
+crown above the charcoal mechanical core. Roof and guide quadrants and the
+assembled reference are revision `0.2.0`; four edge-open radial line passages
+preserve a removable cover. The stud is revision `0.1.1`, with a flat retained
+shoulder instead of a wedging flare. The locator, manual fork and bridge
+interfaces remain as documented in the design package.
 
 Automatic spring capture, release actuator/circuit, accepted sensors, complete-pod
 mass, line sweep and structural/weather acceptance remain unresolved. The kit's
@@ -91,7 +100,13 @@ Printed latch structure cannot be accepted without creep, UV, temperature, cycli
 
 ## Shelter and drainage
 
-The starting roof size is approximately 300 × 300 mm. It should shield the Camera Module 3, servos, Pi, and power electronics from direct rain and sun while leaving the downward optical opening unobstructed. Printed parts must drain and must not direct water into the pod.
+The rounded crown is nominally 300 × 300 mm, built from four removable quadrants.
+It should shield the Camera Module 3, servos, Pi, and power electronics from
+direct rain and sun while leaving the downward optical opening unobstructed.
+Its seams and open line passages have no accepted ingress rating. Printed
+parts must drain and must not direct water into the pod. The shell is separate
+from the pod-retention load path; roof service requires an unloaded supported
+fixture because its bolts share the carrier/arm stack.
 
 The dock is the primary storage shelter because the pod is parked most of its life. It still needs evidence for wind-driven rain, splash, condensation, UV, heat, insects/debris, freezing/icing if applicable, and wind load. A passive optical cleaning pad or wiper is a deferred option.
 
