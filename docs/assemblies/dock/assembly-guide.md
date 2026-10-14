@@ -1,7 +1,10 @@
 # Dock bench assembly guide
 
-DOCK-IF-01 r0.1.0 assembles the split guide, locator/fork, structural pod attachment,
-support arm and roof on a restrained bench fixture with a supported dummy.
+DOCK-IF-01 assembles the split guide, locator/fork, structural pod attachment,
+support arm and rounded shelter on a restrained bench fixture with a supported
+dummy. Roof/guide quadrants and the assembled reference are revision `0.2.0`;
+the flat-shoulder stud is revision `0.1.1`. Locator/fork and bridge interfaces
+retain their current revisions.
 **Concept-unvalidated; no suspended or automatic operation.**
 
 The illustrated nine-page PDF and matching print/source ZIP are published as
@@ -10,6 +13,12 @@ The illustrated nine-page PDF and matching print/source ZIP are published as
 [acceptance record](acceptance-record.md) before testing. The BOM owns quantities;
 [hardware sources](../../../hardware/assemblies/dock/README.md) identify every
 current entrypoint. Historical funnel/nest and pod-stud files are excluded.
+
+Replace four roof and four guide quadrants with revision `0.2.0`, and the
+stud with revision `0.1.1`. Existing arm, rear pad, locator, fork, bridge,
+shoe and spacer prints remain revision
+`0.1.0`; inspect fit, damage and hardware stacks before reuse. The changed
+crown dead load and wind area require a renewed LC-05 arm/post review.
 
 ## Select the configuration and print files
 
@@ -25,9 +34,15 @@ never print that context as a dock part. Each part individually fits a nominal
 256 mm cube with 5 mm XY edge reserve. Brim, supports, purge and exclusions are
 outside that bound. Confirm the user's actual printer and the full sliced preview.
 
-The arm root lies on a wide web face; each roof lies on its sloping exterior
-face. Review supports for the guide overhangs, bridge top links and locator
-flange/fork channel. These print poses do not assert support-free manufacture.
+The arm root lies on a wide web face; each roof quadrant prints rim down from
+its Z175 underside datum. The hollow rounded crown and integral bosses need
+support planning. Review supports for the guide overhangs, bridge top links and
+locator flange/fork channel too. Inspect support contact/removal without
+damaging the 2.8 mm skin, access pockets or seam tabs. These print poses do not
+assert support-free manufacture.
+The stud prints head down on its Ø24 face; plan supports beneath the elevated
+Ø32 flange and inspect the flat head bearing face, Ø4.5 axial bore and washer
+seat after support removal.
 
 Record material/lot, drying, printer, nozzle, plate, enclosure, orientation,
 walls/infill, supports, layer height and temperatures. Inspect layers, flatness,
@@ -98,7 +113,10 @@ no torque is invented here. The clamp cannot establish post/arm strength.
    nominal dimension calculation, not qualified retention area or strength.
 4. With independent dummy support, retract 40 mm toward the post, raise the
    stud until the head reaches the Z=160.8 mm upper stop, then close the fork. Keep
-   the dummy supported. For release, support/unload first, retract 40 mm and lower.
+   the dummy supported. The flat stud underside at Z149.8 has a nominal 0.2 mm
+   unloaded gap to fork top Z149.6; controlled seating closes that gap. This is
+   nominal geometry, not a qualified bearing/contact or load result. For release,
+   support/unload first, retract 40 mm and lower.
 
 Do not push a suspended head through a closed fork or assume spring return,
 anti-backdrive or automatic capture. Test these as separate mechanism development.
@@ -117,7 +135,7 @@ anti-backdrive or automatic capture. Test these as separate mechanism developmen
    and locking nut. Measure bolt-tip/head envelopes and verify the underside
    tip clears the real hood/electronics. Dock loads must bypass the cosmetic hood.
 4. Weigh bridge, four shoes, stud, all added fasteners and complete configured pod;
-   record center of gravity. The solid CAD attachment alone is about 94 cm³ / 118 g
+   record center of gravity. The solid CAD attachment alone is about 95 cm³ / 119 g
    at the costing PETG density, before metal hardware. Actual slicing may reduce
    that estimate but does not establish mass. The complete pod's 170 g ceiling
    remains a gate; this candidate is restricted to a supported dummy.
@@ -135,14 +153,27 @@ own measurements. Nominal bridge clearance does not qualify the structural joint
    locking nuts at Z120–124; do not place the washer below the platform face.
    Verify engagement against the received roof/head/washer/nut stack.
 3. Join the four seams with four M3 × 16 bolts, two washers and locking nut each.
-   Check seam alignment, roof bosses and drainage without live electronics.
-4. Guide and roof have nominal 18 mm vertical corridors at the four radius 104 mm
-   line axes. They clear a synthetic vertical 1.5 mm pose only. Surveyed sloping
+   Check the Z203 seam axes, extended tabs and crown alignment, roof bosses
+   and drainage without live electronics. The Ø11 upper pockets put roof-bolt
+   washers at Z215 and bolt heads at Z216; inspect actual tool access and stacks.
+4. Guide and roof have nominal 18 mm radial passages at the four radius 104 mm
+   line axes, open to the outer edges from radius 95 mm. They clear a synthetic
+   vertical 1.5 mm pose only. Surveyed sloping
    lines, approach motion, powered-line conductors and wind/pendulum movement
    can require different openings; review those swept envelopes before integration.
 
-The 300 mm roof, exposed line corridors and seams have no accepted weather/IP
+The 300 × 300 mm R40 crown has a nominal 2.8 mm hollow skin, skirt bottom
+Z175 and apex Z220. Open passages and seams have no accepted weather/IP
 rating. Preserve inspection access, optical access and runoff away from the pod.
+
+For roof service, independently support the dummy and locator before removing
+all four seam and all four roof-stack bolts with their washers/nuts. Keep
+guide/carrier fasteners fitted. Lift one quarter 60 mm, then slide it 100 mm
+inward along that quarter's diagonal so the line exits its outer slot. Reverse
+to install. Recheck every fastener stack and the complete assembled pose
+afterward. The builder samples this path against all four full-height vertical
+line probes; it does not model continuous motion, sloping lines, the harness or
+hands. This is an unloaded bench procedure requiring physical acceptance.
 
 ## 5. Record supported bench results
 

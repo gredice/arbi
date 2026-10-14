@@ -5,10 +5,15 @@ actuator for the compact camera pod at a non-powered corner. Physical validation
 remains pending.
 
 9 October 2026. **Proposed design direction; physical validation pending.**
-The DOCK-IF-01 r0.1.0 bench kit implements the split guide, locator/fork,
+The DOCK-IF-01 bench kit implements the split guide, locator/fork,
 spider bridge, arm and roof as unvalidated fabrication sources. It leaves
 actuator interfaces and operating permissions unresolved. Acceptance of a proposed interface requires
 normal repository review and merge; physical acceptance requires its own record.
+The [14 October rounded-shelter record](rounded-shelter.md) applies the
+owner-selected appearance through roof/guide quadrants and an assembled
+reference at revision `0.2.0`; it retains the current capture/retention interfaces.
+The stud revision `0.1.1` replaces the flared retained edge with a flat shoulder;
+nominal bearing geometry and physical retention acceptance remain separate.
 
 ## Problem and affected boundaries
 

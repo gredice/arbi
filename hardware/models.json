@@ -1938,7 +1938,7 @@
         },
         {
             "id": "dock-guide-quarter",
-            "revision": "0.1.0",
+            "revision": "0.2.0",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
             "bomPartIds": [
@@ -1946,9 +1946,9 @@
             ],
             "assembly": "dock",
             "entrypoint": "hardware/assemblies/dock/dock-guide-quarter.scad",
-            "output": "dock-guide-quarter-r0.1.0.stl",
+            "output": "dock-guide-quarter-r0.2.0.stl",
             "documentation": "hardware/assemblies/dock/README.md",
-            "description": "DOCK-IF-01 bench candidate: guide quarter. No load or fit qualification."
+            "description": "DOCK-IF-01 guide quadrant with edge-open line passage; 275 mm mouth / 60 mm throat. No load or installed routing qualification."
         },
         {
             "id": "dock-locator-carrier",
@@ -2008,7 +2008,7 @@
         },
         {
             "id": "dock-pod-stud",
-            "revision": "0.1.0",
+            "revision": "0.1.1",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
             "bomPartIds": [
@@ -2016,13 +2016,13 @@
             ],
             "assembly": "dock",
             "entrypoint": "hardware/assemblies/dock/dock-pod-stud.scad",
-            "output": "dock-pod-stud-r0.1.0.stl",
+            "output": "dock-pod-stud-r0.1.1.stl",
             "documentation": "hardware/assemblies/dock/README.md",
-            "description": "DOCK-IF-01 bench candidate: pod stud. No load or fit qualification."
+            "description": "DOCK-IF-01 flat mushroom shoulder with 0.2 mm nominal fork settle gap; supported-dummy bench only, no retained-load qualification."
         },
         {
             "id": "dock-roof-quarter",
-            "revision": "0.1.0",
+            "revision": "0.2.0",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
             "bomPartIds": [
@@ -2030,9 +2030,9 @@
             ],
             "assembly": "dock",
             "entrypoint": "hardware/assemblies/dock/dock-roof-quarter.scad",
-            "output": "dock-roof-quarter-r0.1.0.stl",
+            "output": "dock-roof-quarter-r0.2.0.stl",
             "documentation": "hardware/assemblies/dock/README.md",
-            "description": "DOCK-IF-01 bench candidate: roof quarter. No load or fit qualification."
+            "description": "Rounded warm-white removable crown quadrant with edge-open cable passage and recessed existing bolt stack; supported-dummy bench only."
         },
         {
             "id": "dock-roof-spacer",
@@ -2092,15 +2092,15 @@
         },
         {
             "id": "dock-assembly",
-            "revision": "0.1.0",
+            "revision": "0.2.0",
             "status": "concept-unvalidated",
             "artifactRole": "reference",
             "bomPartIds": [],
             "assembly": "dock",
             "entrypoint": "hardware/assemblies/dock/dock-assembly.scad",
-            "output": "dock-assembly-r0.1.0.csg",
+            "output": "dock-assembly-r0.2.0.csg",
             "documentation": "hardware/assemblies/dock/README.md",
-            "description": "DOCK-IF-01 assembled nominal bench mechanics; electronics, spring and structural acceptance unresolved."
+            "description": "DOCK-IF-01 r0.2.0 rounded-shelter bench reference; manual fork, unchanged structural interfaces and unresolved physical acceptance."
         },
         {
             "id": "dock-bench-hardware",

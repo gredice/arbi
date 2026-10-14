@@ -11,13 +11,13 @@
 - Build: arbi-v1
 - Destination: hr-zagreb
 - Quote snapshot: hr-zagreb-2026-10-08-coupling
-- Input digest: sha256:1eb8cd17b83e0b0b8372113ac67fdfc3c1eba991e97fe5f58dd1977a1b510154
+- Input digest: sha256:44d4437f4feeb02745fa363497a599bbedf4f1953d90155a11f385f8a2eb6014
 - Complete landed total: **unavailable**
 - Known quoted goods subtotal: **EUR 814.67**
 - Known checkout-group shipping subtotal: **EUR 43.38**
 - Known partial subtotal: **EUR 858.05**
-- Estimated print materials: **EUR 402.26**
-- Estimated partial subtotal (known amounts + print materials): **EUR 1260.31**
+- Estimated print materials: **EUR 404.71**
+- Estimated partial subtotal (known amounts + print materials): **EUR 1262.76**
 
 The known partial subtotal is evidence about recorded values only. It excludes every unresolved amount and must not be presented as the project cost.
 
@@ -47,11 +47,11 @@ Solid CAD volume × each component's material density × observed roll price / r
 | [camera-pod-chassis](parts/camera-pod-chassis.md) | 1 | PETG Matte + PETG Basic | 206.933 g | EUR 2.36 |
 | [corner-head-printed-kit](parts/corner-head-printed-kit.md) | 4 | ASA + PETG Matte | 6576.581 g | EUR 148.04 |
 | [corner-head-printed-marking-template](parts/corner-head-printed-marking-template.md) | 1 | ASA | 42.909 g | EUR 1.07 |
-| [dock-funnel](parts/dock-funnel.md) | 1 | PETG Basic | 149.073 g | EUR 1.70 |
-| [dock-latch-hardware](parts/dock-latch-hardware.md) | 1 | PETG Basic | 126.828 g | EUR 1.44 |
+| [dock-funnel](parts/dock-funnel.md) | 1 | PETG Basic | 143.821 g | EUR 1.64 |
+| [dock-latch-hardware](parts/dock-latch-hardware.md) | 1 | PETG Basic | 127.841 g | EUR 1.46 |
 | [dock-nest](parts/dock-nest.md) | 1 | PETG Basic | 216.782 g | EUR 2.47 |
 | [dock-support-arm](parts/dock-support-arm.md) | 1 | PETG Basic | 1602.762 g | EUR 18.26 |
-| [dock-weather-hood](parts/dock-weather-hood.md) | 1 | PETG Basic | 299.523 g | EUR 3.41 |
+| [dock-weather-hood](parts/dock-weather-hood.md) | 1 | PETG Matte + PETG Basic | 518.292 g | EUR 5.90 |
 | [winch-drum](parts/winch-drum.md) | 4 | PETG Basic | 4980.607 g | EUR 56.73 |
 | [winch-full-cover](parts/winch-full-cover.md) | 4 | ASA + PETG Matte | 12527.69 g | EUR 147.84 |
 | [winch-mount-and-guard](parts/winch-mount-and-guard.md) | 4 | PETG Matte + PETG Basic | 1613.452 g | EUR 18.37 |

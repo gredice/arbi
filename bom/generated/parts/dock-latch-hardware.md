@@ -44,7 +44,7 @@ Quantities are per assembly definition, before build multipliers. Optional and d
 - [hardware/assemblies/dock/dock-latch-fork.scad](../../../hardware/assemblies/dock/dock-latch-fork.scad) — module `dock_latch_fork`; revision 0.1.0.
 - [hardware/assemblies/dock/dock-pod-bridge.scad](../../../hardware/assemblies/dock/dock-pod-bridge.scad) — module `dock_pod_bridge`; revision 0.1.0.
 - [hardware/assemblies/dock/dock-pod-bridge-shoe.scad](../../../hardware/assemblies/dock/dock-pod-bridge-shoe.scad) — module `dock_pod_bridge_shoe`; revision 0.1.0.
-- [hardware/assemblies/dock/dock-pod-stud.scad](../../../hardware/assemblies/dock/dock-pod-stud.scad) — module `dock_pod_stud`; revision 0.1.0.
+- [hardware/assemblies/dock/dock-pod-stud.scad](../../../hardware/assemblies/dock/dock-pod-stud.scad) — module `dock_pod_stud`; revision 0.1.1.
 
 ### Print material estimate
 
@@ -55,23 +55,23 @@ Build arbi-v1; batch represents 1 BOM unit(s). Solid CAD volume material estimat
 | dock-latch-fork r0.1.0 | 1 | Bambu Lab PETG Basic / black | 7.021294 cm³ |
 | dock-pod-bridge r0.1.0 | 1 | Bambu Lab PETG Basic / black | 50.561306 cm³ |
 | dock-pod-bridge-shoe r0.1.0 | 4 | Bambu Lab PETG Basic / black | 6.747810 cm³ |
-| dock-pod-stud r0.1.0 | 1 | Bambu Lab PETG Basic / black | 16.888763 cm³ |
+| dock-pod-stud r0.1.1 | 1 | Bambu Lab PETG Basic / black | 17.699039 cm³ |
 
 Selected recipe consumption:
 
 | Material / colour | Roll price basis | Estimated batch weight | Estimated batch cost |
 | --- | --- | ---: | ---: |
-| [Bambu Lab PETG Basic](https://eu.store.bambulab.com/products/petg-basic) / black | 11.39 EUR / 1000 g; 10+ eligible mixed rolls | 126.828 g | 1.44 EUR |
-| **Selected recipe total** | | **126.828 g** | **1.44 EUR** |
+| [Bambu Lab PETG Basic](https://eu.store.bambulab.com/products/petg-basic) / black | 11.39 EUR / 1000 g; 10+ eligible mixed rolls | 127.841 g | 1.46 EUR |
+| **Selected recipe total** | | **127.841 g** | **1.46 EUR** |
 
 Comparisons below assume every component uses the same material; the selected mixed recipe above is costed separately.
 
 | Material | Density | Roll price | Estimated batch weight | Estimated batch cost |
 | --- | ---: | ---: | ---: | ---: |
-| [Bambu Lab PLA Basic](https://eu.store.bambulab.com/products/pla-basic-filament) | [1.24 g/cm³](https://store.bblcdn.com/s1/default/58b85d0f3db94878854a28fdb8a0006e/Bambu_PLA_Basic_Technical_Data_Sheet.pdf) | 11.99 EUR / 1000 g; 10+ eligible mixed rolls | 125.814 g | 1.51 EUR |
-| [Bambu Lab PETG Basic](https://eu.store.bambulab.com/products/petg-basic) | [1.25 g/cm³](https://store.bblcdn.com/s1/default/cb94589bf7994fdcbfa833badefae9cd/Bambu_PETG_Basic_Technical_Data_Sheet.pdf) | 11.39 EUR / 1000 g; 10+ eligible mixed rolls | 126.828 g | 1.44 EUR |
-| [Bambu Lab PETG Matte](https://eu.store.bambulab.com/products/petg-matte) | [1.37 g/cm³](https://store.bblcdn.eu/s8/default/240fb0c791fb4903a9d72934895e9a16/PETG_Matte.pdf) | 11.39 EUR / 1000 g; 10+ eligible mixed rolls | 139.004 g | 1.58 EUR |
-| [Bambu Lab ASA](https://eu.store.bambulab.com/products/asa-filament) | [1.05 g/cm³](https://store.bblcdn.com/ad7b08230c164e72856cffbe06bb7dc9.pdf) | 24.99 EUR / 1000 g; single spool | 106.536 g | 2.66 EUR |
+| [Bambu Lab PLA Basic](https://eu.store.bambulab.com/products/pla-basic-filament) | [1.24 g/cm³](https://store.bblcdn.com/s1/default/58b85d0f3db94878854a28fdb8a0006e/Bambu_PLA_Basic_Technical_Data_Sheet.pdf) | 11.99 EUR / 1000 g; 10+ eligible mixed rolls | 126.818 g | 1.52 EUR |
+| [Bambu Lab PETG Basic](https://eu.store.bambulab.com/products/petg-basic) | [1.25 g/cm³](https://store.bblcdn.com/s1/default/cb94589bf7994fdcbfa833badefae9cd/Bambu_PETG_Basic_Technical_Data_Sheet.pdf) | 11.39 EUR / 1000 g; 10+ eligible mixed rolls | 127.841 g | 1.46 EUR |
+| [Bambu Lab PETG Matte](https://eu.store.bambulab.com/products/petg-matte) | [1.37 g/cm³](https://store.bblcdn.eu/s8/default/240fb0c791fb4903a9d72934895e9a16/PETG_Matte.pdf) | 11.39 EUR / 1000 g; 10+ eligible mixed rolls | 140.114 g | 1.6 EUR |
+| [Bambu Lab ASA](https://eu.store.bambulab.com/products/asa-filament) | [1.05 g/cm³](https://store.bblcdn.com/ad7b08230c164e72856cffbe06bb7dc9.pdf) | 24.99 EUR / 1000 g; single spool | 107.387 g | 2.68 EUR |
 
 Volume evidence: current local OpenSCAD exports; [canonical recipes, mesh checksums and source hashes](../../catalog/fabrication.json).
 
