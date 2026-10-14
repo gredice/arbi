@@ -42,6 +42,14 @@ display. The floor is excluded from CAD envelopes and
 camera fitting. Lighting, shadow and environment resources are released when
 switching views. Line and ink drawings keep their exact flat colors.
 
+Shaded assemblies and individual models use checksum-checked surface meshes
+with the colors authored in canonical OpenSCAD. Silver fasteners, brass inserts,
+green boards, colored leads, white shells and charcoal structures keep their
+finishes across both views. Explicit materials such as the translucent servo
+case take precedence over generic display finishes. Production requires a
+current material set for every registered model; geometry downloads and
+engineering evidence status are unchanged.
+
 Embedded viewers preserve vertical touch scrolling, browser pinch zoom and
 mouse-wheel page scrolling. Mouse dragging still rotates a model. The cover's
 explosion follows page scrolling; assembly pages also have an explosion slider.

@@ -38,6 +38,8 @@ export type ScenePart = {
     explode: Vec3;
     /** STL path under /data (STL scenes). */
     url?: string;
+    /** Source-colored surfaces in the same local coordinates as the STL. */
+    components?: MaterialComponent[];
     /** Row-major 4×4 placement (STL scenes). */
     matrix?: number[][];
 };

@@ -77,6 +77,24 @@ test('one corrupt, missing or unsafe inspection component rejects the entire sce
   assert.deepEqual(previewAssets(pack(), models, (path) => changed[path]).scenes, {});
 });
 
+test('nested source-colored inspection surfaces are accepted atomically', () => {
+  const colored = (change = () => {}) => pack((entry, files) => {
+    const part = entry.scene.parts[0];
+    const mesh = `appearances/${reference.id}-${part.node}/silver.stl`;
+    part.appearance = { envelope: [1, 1, 1], parts: [{ node: 'silver', mesh, sha256: digest(stl),
+      material: { color: [0.66, 0.7, 0.73], roughness: 0.28, metalness: 0.8, transmission: 0, thickness: 0, ior: 1.5 } }] };
+    files[root + mesh] = stl;
+    change(part, files);
+  });
+  const scene = previewAssets(colored(), models, (path) => sources[path]).scenes['control-cabinet'];
+  assert.equal(scene.parts[0].appearance.parts[0].material.metalness, 0.8);
+  for (const change of [
+    (part, files) => { delete files[root + part.appearance.parts[0].mesh]; },
+    (part) => { part.appearance.parts[0].mesh = '../unexpected.stl'; },
+    (part) => { part.appearance.parts[0].sha256 = 'corrupt'; },
+  ]) assert.deepEqual(previewAssets(colored(change), models, (path) => sources[path]).scenes, {});
+});
+
 test('site compiler exposes the assembled cabinet, counts supplies and links real BOM owners', () => {
   const output = mkdtempSync(join(tmpdir(), 'arbi-cabinet-site-'));
   try {

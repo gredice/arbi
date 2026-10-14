@@ -6,4 +6,4 @@ include <../../lib/catalog-visualizations.scad>
 
 shape = "box";
 dimensions = [100, 100, 4000];
-arbi_catalog_visualization(shape, dimensions);
+color([.63,.53,.39]) cv_box(dimensions);

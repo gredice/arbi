@@ -16,6 +16,12 @@ The owner selected the integrated camera pod concept on 7 October 2026. This rec
 
 These are presentation colors, not a filament, coating, UV rating or material approval. Shared OpenSCAD colors live in [arbi.scad](../../hardware/lib/arbi.scad); mesh renderers use the same roles. Booklets use white backgrounds, dark typography, thin gray dividers, numbered steps and restrained dark arrows. Identify components by IDs and callouts rather than alternate blue/orange product colors.
 
+Shaded web previews preserve the canonical component colors in assemblies and
+individual models. Hardware uses silver or brass display finishes, boards use
+green with dark components and metal connectors, and leads retain their source
+colors. White protective parts keep the same finish when viewed alone. These
+display finishes do not certify supplier coatings or physical material properties.
+
 Use rounded rectangles, capsule-ended arms and broad shoulders. Avoid a stack of unrelated visible electronics boxes. A compact shell covers the fixed electronics; a continuous dark perimeter links the shell visually to the spider. Preserve removable panels, fastener access, drainage, ventilation and harness exits. The one-piece black outer head narrows continuously from its broad upper shoulder to its smallest lower section. It moves in pan around a separate internal carrier, concealing the servo and brackets. Its front/underside opening must clear the full camera tilt and optical envelope; preserve the accepted movement range when shaping it.
 
 Assembly booklet illustrations use opaque white faces with dark silhouettes and

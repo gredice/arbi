@@ -22,22 +22,24 @@ module cm3_round_plate(size,r) {
 module raspberry_pi_camera_module_3(wide=true) {
     difference() {
         union() {
-            cm3_round_plate(CM3_PCB,2);
+            color([.13,.32,.16]) cm3_round_plate(CM3_PCB,2);
             // Sensor flex and carrier: bounding primitives from STEP solids.
             // Connect to the carrier for a single inspectable reference solid.
-            cm3_box([11.15,18.1,2.02],[.175,-1.181],1.10);
-            cm3_box([10.8,10.8,wide?4.07:3.26],[0,CM3_LENS_Y],2.67);
+            color([.12,.14,.15]) cm3_box([11.15,18.1,2.02],[.175,-1.181],1.10);
+            color([.12,.14,.15]) cm3_box([10.8,10.8,wide?4.07:3.26],[0,CM3_LENS_Y],2.67);
             // The tall autofocus assembly is square, not just a small cylinder.
-            cm3_box([8.5,8.5,wide?2.60:2.35],[0,CM3_LENS_Y],wide?6.70:5.90);
-            translate([0,CM3_LENS_Y,wide?9.28:8.23])
+            color([.12,.14,.15]) cm3_box([8.5,8.5,wide?2.60:2.35],[0,CM3_LENS_Y],wide?6.70:5.90);
+            color([.025,.025,.03]) translate([0,CM3_LENS_Y,wide?9.28:8.23])
                 cylinder(d=wide?6.95:5.75,h=wide?.37:.52,$fn=96);
             // Standard STEP rear CSI connector: 22.92 × 6.54 at the +Y edge.
-            cm3_box([22.92,6.54,2.77],[0,8.291],CM3_REAR_LIMIT);
+            color([.94,.94,.92]) cm3_box([22.92,6.54,2.77],[0,8.291],CM3_REAR_LIMIT);
             // Smaller populated rear-side regions, bounded from the STEP.
-            cm3_box([4.9,6,1.77],[1.4,-3.931],-1.75);
-            cm3_box([2.5,3.2,.95],[-6.6,-7.681],-.93);
-            for(x=[-8,-3.3])cm3_box([2.9,2.8,1.47],[x,-3.531],-1.45);
-            cm3_box([2.9,2.8,1.47],[8,-2.131],-1.45);
+            color([.12,.14,.15]) {
+                cm3_box([4.9,6,1.77],[1.4,-3.931],-1.75);
+                cm3_box([2.5,3.2,.95],[-6.6,-7.681],-.93);
+                for(x=[-8,-3.3])cm3_box([2.9,2.8,1.47],[x,-3.531],-1.45);
+                cm3_box([2.9,2.8,1.47],[8,-2.131],-1.45);
+            }
         }
         for(x=[-10.5,10.5],y=[-9.931,2.569])
             translate([x,y,-3])cylinder(d=2.2,h=13,$fn=64);

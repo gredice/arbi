@@ -9,9 +9,9 @@ module cv_box(d) { translate([-d[0]/2,-d[1]/2,0]) cube(d); }
 module cv_ring(d) { arbi_tube(d[0],d[1],d[2],facets=40); }
 module cv_rod(d) { cylinder(d=d[0],h=d[1]); }
 module cv_board(d) {
-    cv_box([d[0],d[1],1.6]);
-    translate([0,0,1.5]) cv_box([d[0]*.4,d[1]*.5,d[2]-1.5]);
-    for(x=[-1,1]) translate([x*d[0]*.38,0,1.5]) cv_box([d[0]*.18,d[1]*.65,5]);
+    color([.13,.32,.16]) cv_box([d[0],d[1],1.6]);
+    color(ARBI_CORE) translate([0,0,1.5]) cv_box([d[0]*.4,d[1]*.5,d[2]-1.5]);
+    color(ARBI_CORE) for(x=[-1,1]) translate([x*d[0]*.38,0,1.5]) cv_box([d[0]*.18,d[1]*.65,5]);
 }
 module cv_bolt(d) {
     cylinder(d=d[0],h=d[1]);
@@ -40,9 +40,9 @@ module cv_enclosure(d) {
     translate([0,0,d[2]-.02]) cv_box([d[0],d[1],3]);
 }
 module cv_terminal(d) {
-    cv_box(d);
-    for(x=[-3:3]) translate([x*d[0]/8,0,d[2]-.02]) cylinder(d=4,h=2);
-    translate([0,0,-3]) cv_box([d[0]*.8,35,3.02]);
+    color(ARBI_CORE) cv_box(d);
+    color(ARBI_METAL) for(x=[-3:3]) translate([x*d[0]/8,0,d[2]-.02]) cylinder(d=4,h=2);
+    color(ARBI_METAL) translate([0,0,-3]) cv_box([d[0]*.8,35,3.02]);
 }
 module cv_plate(d) {
     difference() {
@@ -62,9 +62,9 @@ module cv_angle(d) {
     }
 }
 module cv_driver(d) {
-    cv_box(d);
-    for(x=[-1,1]) translate([x*d[0]*.42,0,d[2]-.02]) cv_box([d[0]*.14,d[1]*.8,8]);
-    for(y=[-d[1]*.3:8:d[1]*.3]) translate([0,y,d[2]-.02]) cv_box([d[0]*.55,2,3]);
+    color(ARBI_CORE) cv_box(d);
+    color([.13,.32,.16]) for(x=[-1,1]) translate([x*d[0]*.42,0,d[2]-.02]) cv_box([d[0]*.14,d[1]*.8,8]);
+    color(ARBI_CORE) for(y=[-d[1]*.3:8:d[1]*.3]) translate([0,y,d[2]-.02]) cv_box([d[0]*.55,2,3]);
 }
 module cv_psu(d) {
     difference() {
@@ -72,15 +72,15 @@ module cv_psu(d) {
         for(x=[-d[0]*.35:15:d[0]*.35],y=[-d[1]*.3:15:d[1]*.3])
             translate([x,y,d[2]-2]) cylinder(d=6,h=3);
     }
-    translate([0,-d[1]/2,0]) cv_box([d[0]*.7,12,15]);
+    color(ARBI_CORE) translate([0,-d[1]/2,0]) cv_box([d[0]*.7,12,15]);
 }
 module cv_capacitor(d) {
-    cylinder(d=d[0],h=d[1]);
-    for(x=[-2.5,2.5]) translate([x,0,-5]) cylinder(d=.6,h=5.1);
+    color(ARBI_CORE) cylinder(d=d[0],h=d[1]);
+    color(ARBI_METAL) for(x=[-2.5,2.5]) translate([x,0,-5]) cylinder(d=.6,h=5.1);
 }
 module cv_microsd() {
-    linear_extrude(.8) polygon([[0,0],[11,0],[11,15],[1.5,15],[0,13],[0,8],[1,7],[0,6]]);
-    for(x=[2:1.1:9]) translate([x,9,.79]) cube([.7,4,.03]);
+    color(ARBI_CORE) linear_extrude(.8) polygon([[0,0],[11,0],[11,15],[1.5,15],[0,13],[0,8],[1,7],[0,6]]);
+    color([.73,.65,.36]) for(x=[2:1.1:9]) translate([x,9,.79]) cube([.7,4,.03]);
 }
 module cv_servo(d) {
     difference() {
@@ -111,8 +111,8 @@ module cv_camera() {
 }
 module cv_pico() {
     cv_board([51,21,4]);
-    for(y=[-9,9]) translate([0,y,1.5]) cv_box([49,2.5,8]);
-    translate([24,0,1.5]) cv_box([7,8,3]);
+    color(ARBI_CORE) for(y=[-9,9]) translate([0,y,1.5]) cv_box([49,2.5,8]);
+    color(ARBI_METAL) translate([24,0,1.5]) cv_box([7,8,3]);
 }
 module cv_motor(d) {
     difference() {
@@ -131,9 +131,9 @@ module cv_collar(d) {
     }
 }
 module cv_coupling(d) {
-    cv_ring(d);
+    color(ARBI_METAL) cv_ring(d);
     // Segmentation cue only; jaw/tooth fit is unspecified.
-    translate([0,0,d[2]*.45]) cv_ring([d[0]+.3,d[1],d[2]*.1]);
+    color(ARBI_CORE) translate([0,0,d[2]*.45]) cv_ring([d[0]+.3,d[1],d[2]*.1]);
 }
 module cv_slip_ring(d) {
     cylinder(d=d[0],h=d[1]);
@@ -141,9 +141,9 @@ module cv_slip_ring(d) {
     for(x=[-2.5:1:2.5]) translate([x,0,-12]) cylinder(d=.6,h=12.1);
 }
 module cv_switch(d) {
-    cylinder(d=d[0],h=25);
-    translate([0,0,24.9]) cylinder(d=d[1],h=14);
-    translate([0,0,-12]) cv_box([30,20,12.1]);
+    color(ARBI_METAL) cylinder(d=d[0],h=25);
+    color([.8,.025,.035]) translate([0,0,24.9]) cylinder(d=d[1],h=14);
+    color(ARBI_CORE) translate([0,0,-12]) cv_box([30,20,12.1]);
 }
 module cv_shackle(d) {
     difference() {
@@ -239,6 +239,12 @@ module cv_can(d) {
     translate([0,0,d[1]+9.9]) cylinder(d=8,h=8);
 }
 module arbi_catalog_visualization(shape,d) {
+    // Presentation finishes; approximate shapes and evidence status are unchanged.
+    metal_shapes = ["ring","tube","rod","bolt","nut","plate","angle","psu",
+        "collar","shackle","anchor","turnbuckle","springs","fasteners",
+        "rope_clamp","thimble","drum_hardware","mount_hardware","pole_hardware"];
+    color(shape=="inserts" ? [.72,.55,.22] : shape=="enclosure" || shape=="hood" ? ARBI_SHELL
+        : len([for(candidate=metal_shapes) if(shape==candidate) true])>0 ? ARBI_METAL : ARBI_CORE)
     if(shape=="box") cv_box(d);
     else if(shape=="ring" || shape=="tube") cv_ring(d);
     else if(shape=="rod") cv_rod(d);

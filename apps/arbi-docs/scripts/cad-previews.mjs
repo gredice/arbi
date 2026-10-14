@@ -46,8 +46,9 @@ export function previewAssets(bytes, models, readSource) {
       const stl = files[root + entry.referenceMesh];
       if (stl?.length && digest(stl) === entry.referenceMeshSha256) referenceMeshes[model.id] = stl;
     }
-    if (entry.appearance) {
-      const { envelope, parts } = entry.appearance;
+    const readAppearance = (appearance, id) => {
+      if (!appearance) return null;
+      const { envelope, parts } = appearance;
       const vector = (v) => Array.isArray(v) && v.length === 3 && v.every(Number.isFinite);
       const unit = (v) => Number.isFinite(v) && v >= 0 && v <= 1;
       const nodes = new Set();
@@ -55,14 +56,16 @@ export function previewAssets(bytes, models, readSource) {
         if (!part || typeof part.node !== 'string' || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(part.node) || nodes.has(part.node)) return false;
         nodes.add(part.node);
         const m = part.material;
-        if (part.mesh !== `appearances/${model.id}/${part.node}.stl` || !m || !vector(m.color) || !m.color.every(unit) ||
+        if (part.mesh !== `appearances/${id}/${part.node}.stl` || !m || !vector(m.color) || !m.color.every(unit) ||
           ![m.roughness, m.metalness, m.transmission].every(unit) || !Number.isFinite(m.thickness) || m.thickness < 0 ||
           !Number.isFinite(m.ior) || m.ior < 1 || m.ior > 2.333) return false;
         const stl = files[root + part.mesh];
         return stl?.length > 0 && digest(stl) === part.sha256;
       });
-      if (valid) appearances[model.id] = { envelope, parts: parts.map((part) => ({ ...part, bytes: files[root + part.mesh] })) };
-    }
+      return valid ? { envelope, parts: parts.map((part) => ({ ...part, bytes: files[root + part.mesh] })) } : null;
+    };
+    const appearance = readAppearance(entry.appearance, model.id);
+    if (appearance) appearances[model.id] = appearance;
     // Visualization meshes share the figure's checked source dependency closure.
     // Assembly CSG previews must never become downloadable fabrication meshes.
     if (model.artifactRole === 'visualization' && entry.mesh === `meshes/${model.output}`) {
@@ -74,6 +77,7 @@ export function previewAssets(bytes, models, readSource) {
     if (model.artifactRole === 'reference' && entry.scene?.slug === model.assembly) {
       const scene = entry.scene;
       const nodes = new Set();
+      const surfaces = {};
       const vector = (value) => Array.isArray(value) && value.length === 3 && value.every(Number.isFinite);
       const valid = typeof scene.configuration === 'string' && typeof scene.pose === 'string' &&
         Array.isArray(scene.parts) && scene.parts.length > 0 && scene.parts.every((part) => {
@@ -82,13 +86,17 @@ export function previewAssets(bytes, models, readSource) {
           if (part.mesh !== `assemblies/${model.id}/${part.node}.stl` || !['fixed', 'cover'].includes(part.group) ||
             typeof part.registered !== 'boolean' || (part.bomPartId != null && typeof part.bomPartId !== 'string') ||
             !vector(part.color) || part.color.some((v) => v < 0 || v > 1) || !vector(part.explode)) return false;
+          if (part.appearance) {
+            surfaces[part.node] = readAppearance(part.appearance, `${model.id}-${part.node}`);
+            if (!surfaces[part.node]) return false;
+          }
           const linked = models.find((item) => item.id === part.model);
           if (part.registered && (!linked || linked.assembly !== model.assembly || linked.artifactRole !== 'visualization' ||
             !linked.bomPartIds.includes(part.bomPartId))) return false;
           const stl = files[root + part.mesh];
           return stl?.length > 0 && digest(stl) === part.sha256;
         });
-      if (valid) scenes[scene.slug] = { ...scene, parts: scene.parts.map((part) => ({ ...part, bytes: files[root + part.mesh] })) };
+      if (valid) scenes[scene.slug] = { ...scene, parts: scene.parts.map((part) => ({ ...part, appearance: surfaces[part.node], bytes: files[root + part.mesh] })) };
     }
   }
   return { figures, meshes, referenceMeshes, scenes, appearances };

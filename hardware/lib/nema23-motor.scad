@@ -49,23 +49,23 @@ module arbi_nema23_motor(frame_mm=nema23_frame_max_mm,
 
     union() {
         // Four supplier Ø5.1 THROUGH holes belong to the front mounting flange.
-        difference() {
+        color([.66,.70,.73]) difference() {
             cap(front_cap_mm);
             for(x=[-nema23_mount_pitch_mm/2,nema23_mount_pitch_mm/2],
                 y=[-nema23_mount_pitch_mm/2,nema23_mount_pitch_mm/2])
                 translate([x,y,-epsilon_mm]) cylinder(d=nema23_mount_hole_mm,
                     h=front_cap_mm+2*epsilon_mm,$fn=96);
         }
-        translate([0,0,front_cap_mm-epsilon_mm])
+        color([.12,.14,.15]) translate([0,0,front_cap_mm-epsilon_mm])
             stator(encoder_start_mm-rear_cap_mm-front_cap_mm+2*epsilon_mm);
-        translate([0,0,encoder_start_mm-rear_cap_mm]) cap(rear_cap_mm+epsilon_mm);
-        translate([0,0,encoder_start_mm]) cap(nema23_encoder_length_mm);
-        translate([-outlet_width_mm/2,-half_mm-nema23_outlet_drop_mm,
+        color([.66,.70,.73]) translate([0,0,encoder_start_mm-rear_cap_mm]) cap(rear_cap_mm+epsilon_mm);
+        color([.12,.14,.15]) translate([0,0,encoder_start_mm]) cap(nema23_encoder_length_mm);
+        color([.12,.14,.15]) translate([-outlet_width_mm/2,-half_mm-nema23_outlet_drop_mm,
             body_length_mm-nema23_outlet_length_mm])
             cube([outlet_width_mm,nema23_outlet_drop_mm+epsilon_mm,nema23_outlet_length_mm]);
-        translate([0,0,-nema23_pilot_length_mm])
+        color([.66,.70,.73]) translate([0,0,-nema23_pilot_length_mm])
             cylinder(d=nema23_pilot_diameter_mm,h=nema23_pilot_length_mm+epsilon_mm,$fn=128);
-        difference() {
+        color([.66,.70,.73]) difference() {
             translate([0,0,-shaft_length_mm])
                 cylinder(d=nema23_shaft_diameter_mm,h=shaft_length_mm+epsilon_mm,$fn=128);
             // P-P 7.5 mm is the remaining section: flat plane Y=7.5-8/2=3.5.

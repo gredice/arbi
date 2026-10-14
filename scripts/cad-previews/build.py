@@ -15,6 +15,7 @@ import vtk
 from reference_meshes import default_jobs, positive_jobs, prepare_references
 from assembly_scenes import assembly_scene
 from appearances import model_appearance
+from source_appearances import compile_sources, source_appearance, scene_appearances
 
 REPO = Path(__file__).resolve().parents[2]
 SIZE = (480, 360)
@@ -167,7 +168,10 @@ def build(cad, output, jobs):
                 raise ValueError(f"Missing CAD export: {mesh}")
         # Only OpenSCAD processes run concurrently. VTK contexts stay on this
         # thread; component order, transforms and the shared cache are preserved.
-        references = prepare_references([mesh for mesh in exports if mesh.suffix == ".csg"], work, jobs)
+        sources = compile_sources(registry["models"], cad, REPO, work, jobs)
+        paths = dict.fromkeys([mesh for mesh in exports if mesh.suffix == ".csg"] +
+                              [path for path, colors in sources.values() if len(set(colors)) > 1])
+        references = prepare_references(paths, work, jobs)
         for model in registry["models"]:
             mesh = cad / model["output"]
             figure = f"figures/{model['id']}.png"
@@ -188,8 +192,12 @@ def build(cad, output, jobs):
                     referenceMesh=f"references/{model['id']}.stl", referenceMeshSha256=digest(target))
             scene = assembly_scene(model, REPO, work, jobs)
             if scene:
+                scene_appearances(scene, model, REPO, work, jobs, mesh_data, write_reference_mesh)
                 manifest["models"][model["id"]]["scene"] = scene
             appearance = model_appearance(model, REPO, work, jobs)
+            if not appearance:
+                appearance = source_appearance(model, sources[model["id"]], cad, work, references,
+                                               mesh_data, write_reference_mesh)
             if appearance:
                 manifest["models"][model["id"]]["appearance"] = appearance
             if model["artifactRole"] == "visualization":

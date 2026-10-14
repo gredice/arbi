@@ -6,4 +6,4 @@ include <../../lib/catalog-visualizations.scad>
 
 shape = "coil";
 dimensions = [3, 80];
-arbi_catalog_visualization(shape, dimensions);
+color(ARBI_METAL) cv_coil(dimensions);

@@ -1,5 +1,5 @@
 import unittest
-from csg import components
+from csg import components, colored_components
 
 
 class ComponentTests(unittest.TestCase):
@@ -47,6 +47,51 @@ text(text="{camera}");
         for source in ['group() {', '}', 'unexpected geometry']:
             with self.assertRaises(ValueError):
                 components(source)
+
+    def test_nested_colors_and_boolean_cuts_keep_component_finishes(self):
+        source = '''multmatrix([[1,0,0,10],[0,1,0,0],[0,0,1,0],[0,0,0,1]]) {
+color([0.12,0.14,0.15,1]) {
+union() {
+cube(size=[10,10,1]);
+color([0.66,0.7,0.73,1]) {
+difference() {
+cylinder(h=10,r=2);
+cylinder(h=12,r=1);
+}
+}
+}
+}
+}'''
+        parts = colored_components(source)
+        self.assertEqual([c for _, c in parts], [(0.12,0.14,0.15), (0.66,0.7,0.73)])
+        self.assertIn('difference()', parts[1][0])
+        self.assertIn('h=12', parts[1][0])
+        self.assertTrue(all(g.startswith('multmatrix(') for g, _ in parts))
+
+    def test_multicolor_difference_distributes_every_cut_in_original_coordinates(self):
+        parts = colored_components('''difference() {
+union() {
+color([0.13,0.32,0.16,1]) {
+cube(size=[25,24,1]);
+}
+color([0.12,0.14,0.15,1]) {
+multmatrix([[1,0,0,5],[0,1,0,0],[0,0,1,0],[0,0,0,1]]) {
+cube(size=[8,8,6]);
+}
+}
+}
+cylinder(h=20,r=1);
+}''')
+        self.assertEqual(len(parts), 2)
+        for geometry, _ in parts:
+            self.assertTrue(geometry.startswith('difference()'))
+            self.assertIn('cylinder(h=20,r=1);', geometry)
+        self.assertIn('multmatrix(', parts[1][0])
+
+    def test_invalid_color_is_rejected(self):
+        for value in ('[2,0,0,1]', '[0,0,0]', '[0,0,0,null]'):
+            with self.assertRaises(ValueError):
+                colored_components(f'color({value}) {{\ncube(size=[1,1,1]);\n}}')
 
 
 if __name__ == '__main__':

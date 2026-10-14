@@ -267,7 +267,9 @@ function lineupScene(slug, models, meshes, release) {
     if (!mesh?.bounds) continue;
     const { min, max } = mesh.bounds;
     const matrix = [[1, 0, 0, x - min[0]], [0, 1, 0, -(min[1] + max[1]) / 2], [0, 0, 1, -min[2]], [0, 0, 0, 1]];
-    parts.push({ node: m.id, model: m.id, registered: true, href: `/parts/${m.id}`, group: 'fixed', color: CORE, url: mesh.url, matrix, explode: [0, 0, 0] });
+    parts.push({ node: m.id, model: m.id, registered: true, href: `/parts/${m.id}`, group: 'fixed',
+      color: mesh.kind === 'components' ? mesh.parts[0].material.color : CORE,
+      url: mesh.url, components: mesh.kind === 'components' ? mesh.parts : undefined, matrix, explode: [0, 0, 0] });
     x += max[0] - min[0] + 40;
   }
   return parts.length ? { kind: 'stl', layout: 'lineup', source: { kind: 'release', tag: release?.tag, current: true }, pose: null, figures: [], parts } : null;
@@ -412,13 +414,23 @@ try {
         write(join(OUT, url), bytes);
         return { node, url, material };
       });
-      modelAppearances[id] = { kind: 'components', parts, envelope: appearance.envelope };
+      const boxes = appearance.parts.map(({ bytes }) => stlBounds(bytes));
+      const bounds = { min: [0, 1, 2].map((a) => Math.min(...boxes.map((b) => b.min[a]))),
+        max: [0, 1, 2].map((a) => Math.max(...boxes.map((b) => b.max[a]))) };
+      const mesh = { kind: 'components', parts, envelope: appearance.envelope, bounds };
+      if (registry.models.find((model) => model.id === id).artifactRole === 'reference') referenceMeshes[id] = mesh;
+      else modelAppearances[id] = mesh;
     }
     for (const [slug, assembly] of Object.entries(assets.scenes)) {
-      const parts = assembly.parts.map(({ bytes, mesh, sha256: _checksum, bomPartId, ...part }) => {
+      const parts = assembly.parts.map(({ bytes, mesh, appearance, sha256: _checksum, bomPartId, ...part }) => {
         const url = `inspection/${mesh}`;
         write(join(OUT, url), bytes);
-        return { ...part, url, href: sceneHref(part.model, part.registered, bomPartId, catalogIds),
+        const components = appearance?.parts.map(({ bytes, mesh, material, node }) => {
+          const url = `inspection/${mesh}`;
+          write(join(OUT, url), bytes);
+          return { node, url, material };
+        });
+        return { ...part, url, components, href: sceneHref(part.model, part.registered, bomPartId, catalogIds),
           matrix: [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]] };
       });
       inspectionScenes[slug] = { kind: 'stl', layout: 'assembly', parts, figures: [],
@@ -440,8 +452,8 @@ if (PRODUCTION && registry.models.some((model) => model.artifactRole === 'refere
   throw new Error('Production requires current inspection meshes for every CSG reference');
 }
 if (PRODUCTION && registry.models.some((model) =>
-  readFileSync(join(REPO, model.entrypoint), 'utf8').includes('ARBI_MODEL_APPEARANCE') && !modelAppearances[model.id])) {
-  throw new Error('Production requires complete current material components for declared model appearances');
+  !(modelAppearances[model.id] ?? (referenceMeshes[model.id]?.kind === 'components' && referenceMeshes[model.id])))) {
+  throw new Error('Production requires complete current material components for every registered model');
 }
 if (PRODUCTION && registry.models.some((model) => model.artifactRole === 'reference' &&
   readFileSync(join(REPO, model.entrypoint), 'utf8').includes('ARBI_ASSEMBLY_SCENE') && !inspectionScenes[model.assembly])) {
@@ -486,7 +498,16 @@ for (const slug of [...new Set(registry.models.map((m) => m.assembly))]) {
 for (const [slug, scene] of Object.entries(scenes)) {
   const min = [Infinity, Infinity, Infinity], max = [-Infinity, -Infinity, -Infinity];
   for (const part of scene.parts) {
-    const bounds = stlBounds(readFileSync(join(OUT, part.url)));
+    // Booklet meshes carry local coordinates; reuse the registered model's
+    // checked surfaces with the booklet's original placement and explosion.
+    // Explicit inspection scenes already contain world-placed component meshes.
+    if (scene !== inspectionScenes[slug] && part.registered && modelAppearances[part.model]) {
+      part.components = modelAppearances[part.model].parts;
+      part.color = part.components[0].material.color;
+    }
+    const boxes = (part.components ?? [{ url: part.url }]).map(({ url }) => stlBounds(readFileSync(join(OUT, url))));
+    const bounds = { min: [0, 1, 2].map((a) => Math.min(...boxes.map((b) => b.min[a]))),
+      max: [0, 1, 2].map((a) => Math.max(...boxes.map((b) => b.max[a]))) };
     for (const x of [bounds.min[0], bounds.max[0]])
       for (const y of [bounds.min[1], bounds.max[1]])
         for (const z of [bounds.min[2], bounds.max[2]])

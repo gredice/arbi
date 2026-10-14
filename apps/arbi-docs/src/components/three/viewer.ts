@@ -11,7 +11,7 @@ import { GTAOPass } from "three/addons/postprocessing/GTAOPass.js";
 import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
 import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
 import { FXAAShader } from "three/addons/shaders/FXAAShader.js";
-import type { MeshRef, Scene, ScenePart, Vec3 } from "@/lib/types";
+import type { MaterialComponent, MeshRef, Scene, ScenePart, Vec3 } from "@/lib/types";
 import { OutlineGeometry } from "./outlines";
 import { configurePageControls } from "./page-controls";
 import { StudioLighting } from "./studio-lighting";
@@ -79,6 +79,19 @@ const glbCache = new Map<string, Promise<GLTF>>();
 function loadGLB(url: string) {
     if (!glbCache.has(url)) glbCache.set(url, new GLTFLoader().loadAsync(DATA + url).catch((error) => { glbCache.delete(url); throw error; }));
     return glbCache.get(url)!;
+}
+
+async function loadComponents(parts: MaterialComponent[]) {
+    const group = new THREE.Group();
+    // Fail before allocating materials if any component is unavailable.
+    const geometries = await Promise.all(parts.map((part) => loadSTL(part.url)));
+    parts.forEach((part, i) => {
+        const mesh = new THREE.Mesh(geometries[i], surfaceMaterial(part.material));
+        mesh.name = part.node;
+        mesh.userData.authoredMaterial = mesh.userData.ownedSourceMaterial = true;
+        group.add(mesh);
+    });
+    return group;
 }
 
 type Events = { pick: (part: ScenePart) => void; hover: (part: ScenePart | null) => void; frame: () => void };
@@ -302,8 +315,8 @@ export class Viewer {
                 wrap.traverse((o) => { if ((o as THREE.Mesh).isMesh) o.userData.authoredMaterial = true; });
                 return wrap;
             }
-            const mesh = new THREE.Mesh(await loadSTL(part.url!));
-            mesh.userData.ownedSourceMaterial = true;
+            const mesh = part.components ? await loadComponents(part.components) : new THREE.Mesh(await loadSTL(part.url!));
+            if (!part.components) mesh.userData.ownedSourceMaterial = true;
             mesh.applyMatrix4(new THREE.Matrix4().set(...(part.matrix!.flat() as Parameters<THREE.Matrix4["set"]>)));
             return mesh;
         }, (object, part) => {
@@ -333,16 +346,7 @@ export class Viewer {
                 obj.add(node);
                 obj.traverse((o) => { if ((o as THREE.Mesh).isMesh) o.userData.authoredMaterial = true; });
             } else if (mesh.kind === "components") {
-                const group = new THREE.Group();
-                // Load all geometry first so a failed component leaves no owned GPU materials.
-                const geometries = await Promise.all(mesh.parts.map((part) => loadSTL(part.url)));
-                mesh.parts.forEach((part, i) => {
-                    const object = new THREE.Mesh(geometries[i], surfaceMaterial(part.material));
-                    object.name = part.node;
-                    object.userData.authoredMaterial = object.userData.ownedSourceMaterial = true;
-                    group.add(object);
-                });
-                obj = group;
+                obj = await loadComponents(mesh.parts);
             } else {
                 obj = new THREE.Mesh(await loadSTL(mesh.url));
                 obj.userData.ownedSourceMaterial = true;

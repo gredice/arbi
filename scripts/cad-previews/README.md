@@ -90,3 +90,23 @@ multi-material models can use the same path. These assets supplement the
 ordinary release STL; they do not change engineering status or create new
 fabrication entrypoints. Authored GLTF materials are also preserved in shaded
 views instead of being replaced with a single colour.
+
+Every other registered model receives the same appearance asset format from its
+compiled OpenSCAD colors. Single-finish parts reuse their exact released STL;
+multicolor models and CSG references retain additive surfaces and world
+placement, grouped by finish without an assembly-wide boolean union. A difference
+with a multicolor additive first operand distributes all its cuts over those
+surfaces; other booleans stay intact. Nested source colors override coarse assembly
+role colors. Selectable inspection scenes retain these finishes within each
+world-placed component, while booklet scenes apply local colored surfaces with
+the original part transform and exploded offset.
+
+Uncolored structures use the shared charcoal role. Source display colors select
+satin plastic or silver/brass display finishes; they do not establish an actual
+material specification. OpenSCAD preview alpha is not interpreted as physical
+transparency. Explicit appearance declarations retain their physical display
+parameters and envelope, including the servo's translucent case. Each surface has
+a checked mesh SHA-256 and shares the complete source dependency closure.
+Production requires complete appearance coverage for all registered models.
+Colored reference surfaces stay in the inspection inventory and their download
+remains the released CSG. Line art keeps its monochrome drawing convention.
