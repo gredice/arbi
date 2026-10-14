@@ -113,6 +113,8 @@ module cm3_glass(wide=true) {
         cylinder(d=3.28,h=.17,$fn=96);
 }
 module cm3_silkscreen(wide=true) {
+    // Keep tiny lettering independent of a caller's assembly-wide resolution.
+    $fn=0; $fa=12; $fs=2;
     // Identity only: no fabricated serial numbers or QR codes.
     translate([-7.5,-2,1.115])rotate([0,0,90])linear_extrude(.025)
         text("Raspberry Pi",size=1.05,halign="center",font="DejaVu Sans");

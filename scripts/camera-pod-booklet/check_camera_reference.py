@@ -77,19 +77,35 @@ def main():
     assert len(appearance['parts']) == 8
     assert appearance['envelope'] == [25, 23.862, 12.4]
     combined = mf.Manifold()
+    surfaces = {}
     for part in appearance['parts']:
         component = trimesh.load_mesh(output / part['mesh'])
         assert component.is_watertight and component.is_winding_consistent
         assert component.volume > 0, part['node']
-        combined += solid(component)
+        surfaces[part['node']] = solid(component)
+        combined += surfaces[part['node']]
     differences = [float((camera - combined).volume()), float((combined - camera).volume())]
     assert max(differences) < .02, differences
+    # The booklet sets $fn=64. Its caller resolution must not multiply the tiny
+    # font outlines or produce different public/booklet silkscreen geometry.
+    caller = output / 'caller-resolution.scad'
+    library = (REPO / 'hardware/lib/raspberry-pi-camera-module-3.scad').as_posix()
+    caller.write_text(f'use <{library}>\n$fn=64; $fa=1; $fs=.05;\ncm3_silkscreen(wide=true);\n')
+    target = output / 'caller-silkscreen.stl'
+    result = subprocess.run(['openscad', '-o', str(target), str(caller)],
+                            capture_output=True, text=True, timeout=120, check=True)
+    assert 'WARNING:' not in result.stderr and 'ERROR:' not in result.stderr, result.stderr
+    called = solid(trimesh.load_mesh(target))
+    letters = surfaces['white-silkscreen']
+    caller_difference = [float((letters - called).volume()), float((called - letters).volume())]
+    assert max(caller_difference) < .0001, caller_difference
     assert source_hashes(model['entrypoint']) == sources, 'Camera sources changed during export'
     report = dict(model=model['id'], revision=model['revision'], date=date.today().isoformat(),
                   status='Nominal CAD/material consistency only; physical acceptance unverified',
                   openScadVersion=registry['openScadVersion'], boundsMm=mesh.bounds.tolist(),
                   watertight=True, connectedBodies=mesh.body_count, volumeMm3=float(mesh.volume),
                   probes=probes, appearanceDifferenceMm3=differences,
+                  callerSilkscreenDifferenceMm3=caller_difference,
                   materials=appearance['parts'], sourceHashes=sources,
                   checkerSha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
                   limits='Conservative focus envelope; illustrative fine detail and materials. '

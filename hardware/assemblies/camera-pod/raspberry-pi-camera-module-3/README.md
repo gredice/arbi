@@ -33,6 +33,8 @@ blue-black optical glass and white silkscreen. Colors, roughness, metalness and
 glass transmission are approximate visual choices, not measured material data.
 No external ribbon pose, real serial/QR code or optical prescription is invented.
 Line view, combined STL and booklet camera use these same source components.
+Silkscreen fixes its own curve sampling so an assembly's global resolution does
+not change the lettering mesh or multiply its export cost.
 
 PCB thickness, mounting pitch/bores, lens datum and the overall 12.4 mm Wide
 focus allowance are retained. Cosmetic folds, cavity walls, plating, markings
