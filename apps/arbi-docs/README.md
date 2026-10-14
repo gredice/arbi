@@ -50,6 +50,13 @@ case take precedence over generic display finishes. Production requires a
 current material set for every registered model; geometry downloads and
 engineering evidence status are unchanged.
 
+Camera-pod booklet STLs are translated onto the print bed. When replacing them
+with canonical colored surfaces, the compiler composes the booklet pose with
+the mesh manifest's source-to-export transform. This keeps installed and
+exploded parts in the same place with either mesh representation. Winch, pulley
+head and dock assembly figures use source-coordinate meshes; cabinet and mounted
+corner inspection components are already placed in world coordinates.
+
 Embedded viewers preserve vertical touch scrolling, browser pinch zoom and
 mouse-wheel page scrolling. Mouse dragging still rotates a model. The cover's
 explosion follows page scrolling; assembly pages also have an explosion slider.
