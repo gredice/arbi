@@ -1,4 +1,4 @@
-// DOCK-IF-01 r0.1.0 - concept-unvalidated, millimetres.
+// DOCK-IF-01 r0.2.0 - concept-unvalidated, millimetres.
 // Candidate bench mechanics only. No load rating or installed authority.
 // Shared post parameters and spider dimensions retain their owning sources.
 include <corner-head.scad>
@@ -17,6 +17,10 @@ dk_slot = 17;
 dk_bridge_r = 90;
 dk_bridge_z = 70;
 dk_facets = 64;
+dk_roof_wall = 2.8;
+dk_roof_bottom = 175;
+dk_roof_profiles = [[300,40,175], [300,40,195], [296,38,207],
+                    [280,34,215], [220,26,219], [1,.5,219.98]];
 
 module dk_box(size,center=[0,0],z=0) {
     translate([center[0]-size[0]/2,center[1]-size[1]/2,z])cube(size);
@@ -24,6 +28,16 @@ module dk_box(size,center=[0,0],z=0) {
 module dk_cyl(d,h,p=[0,0,0]) {translate(p)cylinder(d=d,h=h,$fn=dk_facets);}
 module dk_link(a,b,w,h,z) {
     hull()for(p=[a,b])dk_cyl(w,h,[p[0],p[1],z]);
+}
+module dk_round_plan(size,r) {
+    hull()for(x=[-size[0]/2+r,size[0]/2-r],
+               y=[-size[1]/2+r,size[1]/2-r])
+        translate([x,y])circle(r=r,$fn=64);
+}
+// Edge-open passage: the round inner end is at radius 95 mm.
+// Only a synthetic vertical line pose is accepted by the nominal bench checks.
+module dk_line_slot(z,h) {
+    rotate([0,0,45])hull()for(r=[104,235])dk_cyl(18,h,[r,0,z]);
 }
 module dk_checks() {
     assert(post_shape=="round","Dock study uses the shared round-post configuration.");
@@ -49,8 +63,7 @@ module dock_guide_quarter_tapered() {
         dk_cyl(4.5,8,[30,30,114]);
         // Underside tool/nut relief; the tab's flat seat stays at Z115.
         dk_cyl(10,10,[30,30,105]);
-        // Synthetic vertical corridor; surveyed line sweeps remain open.
-        dk_cyl(18,65,[104*cos(45),104*sin(45),60]);
+        dk_line_slot(60,65);
     }
 }
 
@@ -124,8 +137,9 @@ module dock_pod_stud() {
         union() {
             dk_cyl(32,4,[0,0,75]);
             dk_cyl(dk_stem_d,70.8,[0,0,79]);
-            translate([0,0,149.8])cylinder(d1=14,d2=24,h=5,$fn=dk_facets);
-            dk_cyl(dk_head_d,6,[0,0,154.8]);
+            // Flat shoulder settles 0.2 mm onto the Z149.6 fork top.
+            // A taper at the retained contact would wedge against the slot edge.
+            dk_cyl(dk_head_d,11,[0,0,149.8]);
         }
         dk_cyl(4.5,85.84,[0,0,74.98]);
     }
@@ -176,19 +190,38 @@ module dock_post_rear_pad() {
     }
 }
 
-// One quarter of the 300 x 300 roof, with seam flanges and a flat spacer seat.
-module dock_roof_quarter() {
+// Rounded removable appearance shell; it is not the pod retention load path.
+// Hull profiles form a shallow crown and an open underside. Inner profiles
+// are inset 2.8 mm in XY and Z; sampled mesh sections check actual skin thickness.
+module dk_roof_envelope(inset=0) {
+    hull()for(p=dk_roof_profiles) {
+        w=max(1,p[0]-2*inset);
+        r=max(.5,min(w/2,p[1]-inset));
+        z=p[2]-inset;
+        translate([0,0,z])linear_extrude(height=.02)dk_round_plan([w,w],r);
+    }
+    if(inset>0)translate([0,0,170])linear_extrude(height=6)
+        dk_round_plan([300-2*inset,300-2*inset],40-inset);
+}
+// Four identical quadrants retain the existing roof bolt and seam axes.
+// Print rim-down with reviewed supports, not on the curved exterior.
+module dock_roof_quarter(open_lines=true) {
     difference() {
         union() {
-            polyhedron(points=[[0,0,220],[150,0,207.5],[150,150,195],[0,150,207.5],
-                [0,0,217.6],[150,0,205.1],[150,150,192.6],[0,150,205.1]],
-                faces=[[0,1,2,3],[7,6,5,4],[0,4,5,1],[1,5,6,2],[2,6,7,3],[3,7,4,0]]);
-            dk_cyl(12,10,[40,40,205]);
-            dk_box([3,30,18],[1.5,80],198);
-            dk_box([30,3,18],[80,1.5],198);
+            intersection() {
+                difference(){dk_roof_envelope();dk_roof_envelope(dk_roof_wall);}
+                dk_box([150,150,60],[75,75],170);
+            }
+            // Flat Z205 spacer contact, Z215 washer pocket floor; the boss
+            // reaches the crown so the fastener is not a disconnected island.
+            dk_cyl(16,14.2,[40,40,205]);
+            dk_box([3,30,20],[1.5,80],198);
+            dk_box([30,3,20],[80,1.5],198);
         }
-        dk_cyl(4.5,18,[40,40,204]);
-        dk_cyl(18,40,[104*cos(45),104*sin(45),190]);
+        dk_cyl(4.5,28,[40,40,204]);
+        dk_cyl(11,20,[40,40,215]);
+        if(open_lines)dk_line_slot(170,65);
+        else dk_cyl(18,65,[104*cos(45),104*sin(45),170]);
         translate([-1,80,203])rotate([0,90,0])cylinder(d=3.5,h=5,$fn=24);
         translate([80,-1,203])rotate([-90,0,0])cylinder(d=3.5,h=5,$fn=24);
     }

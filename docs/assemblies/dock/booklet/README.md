@@ -3,6 +3,10 @@
 The DOCK-IF-01 nine-page illustrated assembly guide and matching print/source ZIP
 are generated from the current canonical dock and compact-pod meshes.
 They describe a concept-unvalidated, supported-dummy bench kit.
+The current source configuration includes roof/guide quadrants and the
+assembled reference at revision `0.2.0`, with a rim-down hollow rounded crown
+and edge-open line passages. See the [rounded-shelter record](../rounded-shelter.md)
+for dimensions, reprint scope and nominal service checks.
 
 The versioned [CAD releases](https://github.com/gredice/arbi/releases) publish:
 

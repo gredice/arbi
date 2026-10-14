@@ -15,6 +15,7 @@ files and usage rules. The assets live in [brand](brand):
 ## Concept imagery
 
 - `camera-pod-concept.png`: owner-supplied integrated camera-pod concept, selected on 7 October 2026. The appearance is recorded in the [design conventions](../project/industrial-design.md).
+- [Dock appearance board](dock/concept-board-2026-10-14.png): high-dock styling generated and selected by the owner on 14 October 2026, using the selected camera-pod appearance, compact-pod CAD preview and covered winch illustration as references. Shows parked and upward-approach views with warm-white protection, charcoal structure and silver hardware; positioning lines are omitted for clarity. The [rounded-shelter design record](../assemblies/dock/rounded-shelter.md) translates the appearance into canonical CAD; the artwork remains a style reference, not dimensional CAD or physical evidence. The [generation record](dock/generation.json) preserves the built-in image tool, references and exact prompts.
 - `arbi-cover.png`: scenic concept imagery updated with the built-in image-generation tool on 7 October 2026, using the preceding repository cover as the edit target and the selected camera pod as the appearance reference. It is not CAD, an installation photo or dimensional engineering evidence.
 
 ## Scenic-cover edit prompt

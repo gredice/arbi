@@ -328,7 +328,7 @@
         "printed"
       ],
       "requirements": [
-        "Four quadrants form a nominal 275 mm mouth and 60 mm throat; tabs attach through the support platform to the locator flange."
+        "Four quadrants form a nominal 275 mm mouth and 60 mm throat with edge-open 18 mm line slots; tabs attach through the support platform to the locator flange. Slots do not establish surveyed line routing."
       ],
       "fabrication": {
         "process": "openscad",
@@ -338,7 +338,7 @@
             "path": "hardware/assemblies/dock/dock-guide-quarter.scad",
             "module": "dock_guide_quarter_tapered",
             "modelId": "dock-guide-quarter",
-            "revision": "0.1.0"
+            "revision": "0.2.0"
           }
         ]
       },
@@ -416,7 +416,7 @@
             "path": "hardware/assemblies/dock/dock-pod-stud.scad",
             "module": "dock_pod_stud",
             "modelId": "dock-pod-stud",
-            "revision": "0.1.0"
+            "revision": "0.1.1"
           }
         ]
       },
@@ -436,7 +436,7 @@
         "printed"
       ],
       "requirements": [
-        "Four roof quadrants form a 300 x 300 mm sloped cover on four spacers. Seams, drainage and ingress remain unqualified."
+        "Four rounded warm-white crown quadrants form a 300 x 300 mm R40 cover, open below Z175 with a Z220 crown, nominal 2.8 mm skin and edge-open 18 mm line slots. Recessed roof bolts retain the existing Z205 spacer / Z215 washer seats; seam, drainage, print process and ingress remain unqualified."
       ],
       "fabrication": {
         "process": "openscad",
@@ -446,7 +446,7 @@
             "path": "hardware/assemblies/dock/dock-roof-quarter.scad",
             "module": "dock_roof_quarter",
             "modelId": "dock-roof-quarter",
-            "revision": "0.1.0"
+            "revision": "0.2.0"
           },
           {
             "path": "hardware/assemblies/dock/dock-roof-spacer.scad",

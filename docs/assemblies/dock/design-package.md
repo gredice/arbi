@@ -2,9 +2,10 @@
 
 Proposed interface study DOCK-IF-01 covers the shared post configuration,
 compact-pod compatibility, load paths, observations and docking sequence.
-The registered r0.1.0 bench geometry is available; physical acceptance remains pending.
+The registered bench geometry includes the rounded shelter and edge-open line
+passages at revision `0.2.0`; physical acceptance remains pending.
 
-9 October 2026. Documentation revision `0.1.0`; interface study `DOCK-IF-01`.
+14 October 2026. Documentation revision `0.2.0`; interface study `DOCK-IF-01`.
 **Supported-dummy bench candidate; physical acceptance pending.** Read the
 [proposal](design-proposal.md), [baseline](README.md) and
 [bench plan](bench-test-plan.md) together. The historical `dock-funnel` and `dock-nest` are archived, superseded by the
@@ -46,16 +47,30 @@ post-face projection, Ø275/60 split guide, Ø26 final bore, Ø14/24 stud, Ø17 
 slot and 40 mm manual release. Dock frame D uses the pod spider origin in the
 nominal seated pose; the post axis is X=-450 for shared round-120. Z65 is the
 guide mouth, Z120 throat, Z145.6–149.6 fork, Z160.8 head upper stop and Z220 roof
-peak. The bridge top is Z75, above the fixed pod hood Z49.5. These are CAD datums,
+peak. The rounded shelter has a 300 × 300 mm R40 footprint, skirt bottom Z175
+and nominal 2.8 mm hollow skin. The bridge top is Z75, above the fixed pod hood
+Z49.5. These are CAD datums,
 not site elevations.
+
+The revision `0.1.1` stud replaces its flared retained edge with a flat Ø24
+head 11 mm thick, from Z149.8–160.8. At the head stop its underside has a
+nominal 0.2 mm gap above fork top Z149.6, then seats flat during supported
+settling. Stem/head diameters, through-bolt, locator and fork remain unchanged;
+the new shoulder avoids initial wedge contact without establishing bearing
+strength or toleranced acceptance.
 
 Guide tabs Z115–120 clamp beneath the arm platform Z120–150 and locator
 flange Z150–156; the arm includes a recess for the fork guide and rear reaction
 bridge. Roof fasteners are
 at (+/-40,+/-40), guide fasteners (+/-30,+/-30). Roof spacers run Z156–205; four underside
-Ø11 recesses put roof-bolt washer seats at Z125. Nominal 18 mm corridors at the
-four radius 104 mm spider axes clear a synthetic vertical 1.5 mm line pose. Actual
-approach and installed line/harness sweeps remain required.
+Ø11 recesses put lower roof-bolt washer seats at Z125. The Ø16 roof bosses run
+Z205–219.2; Ø11 top pockets seat the upper washer at Z215 and bolt head at Z216.
+The four M3 seam axes remain at radius 80 mm on split boundaries, Z203; tabs
+extend Z198–218 to join the curved skin. Nominal 18 mm passages at the four
+radius 104 mm spider axes extend radially to the roof/guide outer edges,
+beginning at radius 95 mm. They clear a synthetic vertical 1.5 mm line pose;
+actual approach and installed line/harness sweeps remain required. See the
+[rounded-shelter record](rounded-shelter.md) for styling and service boundaries.
 
 The bridge shoes positively constrain arm width; radial retention depends on
 clamping friction and requires slip/creep tests or a revised positive stop.
@@ -69,6 +84,8 @@ The PDF and source/STL ZIP contain only the round-120 nominal checked pack.
 Shared 100–140 round parameters exist in source but require their own regenerated
 geometry, stacks, print poses and acceptance records. The nominal 256 mm cube
 with 5 mm XY reserve is an existing study envelope, not a measured user printer.
+Roof quadrants use a rim-down print pose and require support planning for the
+curved skin and integral bosses; no support-free manufacturing claim is made.
 
 ## Final-locator calculation
 
@@ -118,7 +135,7 @@ comparison alone does not establish retained contact area or load capacity.
 | DI-03 | Maximum/minimum line tensions and directions, approach error, swing/tilt, speed/acceleration and stop envelope | Winch/control/site; values require calculation and measurements |
 | DI-04 | Bench and field wind, temperature, rain, contamination and icing envelope; storage exposure and lifetime | Site/dock; no new weather limit selected |
 | DI-05 | Printer volume/process, materials, tolerances, split joints and permitted bought/fabricated structural parts | Eleven split models fit the nominal 256 mm cube with 5 mm XY reserve. Actual printer, slices and print-process acceptance pending |
-| DI-06 | Pod-side structural bridge versus independent mast; complete assembly/service clearance and added mass | Spider bridge/shoes/stud mesh against the current pod. About 94.44 cm³ / 118 g solid PETG before hardware; complete mass, radial clamp retention and swept/service envelopes pending |
+| DI-06 | Pod-side structural bridge versus independent mast; complete assembly/service clearance and added mass | Spider bridge/shoes/stud mesh against the current pod. About 95.25 cm³ / 119 g solid PETG before hardware; complete mass, radial clamp retention and swept/service envelopes pending |
 | DI-07 | Locator/fork versus rotary-pawl geometry; retention overlap, wear, jam and secondary-retention analysis | Manual sliding fork implemented; nominal travel checked. Automatic capture, tolerance, contact/load, wear and jam evidence pending |
 | DI-08 | Release actuator/linkage, maximum travel/duration/force, power-off/reset position and manual recovery | Dock/cabinet; stationary actuator proposed, product and circuit unselected |
 | DI-09 | Seating/engagement/release observations, diagnostics, redundancy, debounce, freshness and response deadlines | Dock/Pico/edge; separate physical observations proposed, circuits unreviewed |
