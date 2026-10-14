@@ -6,11 +6,11 @@
   "source_url": "https://www.omc-stepperonline.com/image/catalog/dimensions/23HS40-5004D-E1000_Dimension-1.svg",
   "source_hashes": {
     "hardware/assemblies/winch/nema23-closed-loop-motor.scad": "be55036ef2c61330614e16578159a927320c34b988a3c2dffcdd1875d2114c36",
-    "hardware/lib/nema23-motor.scad": "876aadaeb7b70367ad9ccfdc4a8f1311f3127cbca6f7216bf5b48b7a057fe620",
+    "hardware/lib/nema23-motor.scad": "7b91dde9ea93489b0347bd69322822a99ac52b01c16a24581f5fa81885d6fa45",
     "scripts/check-nema23-motor-mesh.py": "54b7381b5604c55c8d741a0266f8f090b6e904056549acc888cc1e6f704e9c59",
     "scripts/winch-booklet/reference-parts.scad": "f7865224cff5367050560a717b357325d2db9342d348f777328405838a89fe9d"
   },
-  "mesh_sha256": "40adbb9367d750f13fdf32c6b7e48ee93d4079f854be24c38444ef663be979ea",
+  "mesh_sha256": "1ae387884e4afe86d649523e80dffa8361fa40f446728ce49c68bfc13961d9d2",
   "checks": {
     "closed_connected_mesh": true,
     "bounds_mm": [
@@ -51,5 +51,12 @@
     "Cap thickness, stator/corner contours and outlet width are illustrative.",
     "Flexible 300 mm motor/encoder tails and connectors are omitted.",
     "Rigid loom references are disconnected in service poses; no physical cable service sweep is established."
-  ]
+  ],
+  "appearance_recheck": {
+    "date": "2026-10-14",
+    "baseline_release": "cad-v0.1.32",
+    "geometry_comparison": "Canonical triangle coordinates are exactly identical to the released r1.0.0 mesh after sorting triangles and vertices; display colors only.",
+    "nominal_mesh_and_stand_checks": "scripts/check-nema23-motor-mesh.py rerun with the current motor and winch-motor-stand meshes; passed at -2, 0 and +2 mm adjustment.",
+    "physical_fit": "unverified"
+  }
 }

@@ -7,6 +7,12 @@ The [machine-readable CAD record](nema23-closed-loop-motor-cad-check.json) pins
 the entrypoint, shared motor module, mesh checker and booklet reference source.
 The registry uses the repository's `drawing-derived` evidence status.
 
+The 14 October 2026 appearance update adds silver caps/shaft and a dark motor
+body. The independent motor section and stand-interference checks were rerun;
+canonical triangle coordinates match the `cad-v0.1.32` r1.0.0 mesh exactly after
+sorting. The machine-readable record pins the updated source and mesh hashes.
+Dimensions, revision and physical-fit status are unchanged.
+
 ## Source and transcription
 
 The StepperOnline

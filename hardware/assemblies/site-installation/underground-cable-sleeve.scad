@@ -6,4 +6,4 @@ include <../../lib/catalog-visualizations.scad>
 
 shape = "tube";
 dimensions = [25, 20, 100];
-arbi_catalog_visualization(shape, dimensions);
+color(ARBI_CORE) cv_ring(dimensions);

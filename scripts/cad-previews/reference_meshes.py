@@ -45,7 +45,8 @@ def prepare_references(paths, work, jobs):
 
     executor = ThreadPoolExecutor(max_workers=jobs)
     try:
-        futures = [executor.submit(export_component, task) for task in tasks.values()]
+        futures = [executor.submit(export_component, task) for task in tasks.values()
+                   if not task[2].is_file()]
         for future in as_completed(futures):
             future.result()
     finally:

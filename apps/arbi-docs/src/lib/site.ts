@@ -56,7 +56,7 @@ type RawSite = {
     release: ReleaseInfo | null;
     scenes: Record<string, SceneMeta>;
     meshes: Record<string, MeshRef | { kind: "glb"; node: string }>;
-    referenceMeshes: Record<string, { kind: "stl"; url: string }>;
+    referenceMeshes: Record<string, MeshRef>;
     figures: Record<string, string>;
     downloads: Record<string, { release: { url: string; sha256: string; tag: string } | null; packs: { path: string; name: string; url: string }[] }>;
     snapshots: Snapshot[];
