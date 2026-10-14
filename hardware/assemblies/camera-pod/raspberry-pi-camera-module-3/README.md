@@ -133,20 +133,9 @@ contact orientation and disconnect power before inserting/removing a ribbon.
 
 ## Hood, insertion and acceptance
 
-[Integrated hood r0.1.2](../camera-pod-integrated-camera-hood.scad) replaces the
-old restricted face with 12.2 mm rounded-square clearance for the complete square autofocus body.
-Its rear cavity is 27.8 × 26.6 and the front-to-seat distance is 2 mm shorter.
-The four 1.4-thick M2 lands move from Z=10..11.4 to Z=8..9.4; assembly r0.3.9
-moves the hood 2 mm rearward, preserving the installed PCB, cradle, bolt and
-washer planes. The original four M2 ×12 screws/four nuts/eight washers remain.
+[Integrated hood r0.1.3](../camera-pod-integrated-camera-hood.scad) responds to the owner's repeat fit failure on 14 October 2026. Its 13.6 mm square optical opening, 29.4 ×28.2 mm flared cavity and lowered walls add handling clearance. The rear CSI edge is open. The PCB seat remains at local Z=9.4 and assembly r0.3.10 retains the previous hood placement, cradle and four M2 ×12 screws/four nuts/eight washers.
 
-Insert the camera **lens first from the open rear**; its PCB front rests **on**
-the exposed rear lands. Do not bend the board or tuck it underneath plastic.
-Disconnect power and keep the rear CSI connector/latch accessible. Reprint P09
-and the black outer head r0.1.5, whose lower opening clears Wide rays;
-[the reconciled Wide fit record](../../../../docs/evidence/camera-module-3-wide-2026-10-14.md)
-owns insertion, aperture, fastener, optical and motion-check results. Earlier
-Standard records and images remain historical evidence for their stated revisions.
+Prepare the camera in the **loose hood on the bench**: lower it lens-first from the open rear, align it flat, and rest all four holes on the exposed seats. Keep the rear CSI connector at the open edge; connect its ribbon while accessible, with power disconnected. Then offer the seated pair to the cradle and clamp evenly. Do not tuck PCB corners under plastic. Only P09 needs reprinting for this revision. The [photo-driven assembly record](../../../../docs/evidence/camera-cover-assembly-2026-10-14.md) identifies the new padded/angled loading checks and previous-hood clearance controls. The [earlier Wide record](../../../../docs/evidence/camera-module-3-wide-2026-10-14.md) applies to its stated r0.1.2 hood. Exact printed revision and interference dimensions cannot be read from the photograph.
 
 After reprinting, inspect seating, screw-head/washer support, cable insertion,
 focus, all pan/tilt corners, vignetting, rain paths and actual mass. The Wide

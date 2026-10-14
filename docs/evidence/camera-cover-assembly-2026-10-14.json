@@ -1,0 +1,344 @@
+{
+  "date": "2026-10-14",
+  "reviewer": "Codex source, mesh and assembly-path inspection",
+  "status": "CAD-only; concept-unvalidated",
+  "base_commit": "8ebfe11dce98873e5bb8a40fa334e3a25a934d55",
+  "model_revisions": {
+    "camera-pod-integrated-camera-hood": "0.1.3",
+    "camera-pod-assembly": "0.3.10",
+    "raspberry-pi-camera-module-3": "0.2.0",
+    "camera-pod-integrated-camera-cradle": "0.1.1"
+  },
+  "camera_fit": {
+    "variant": "Camera Module 3 Wide, IR-cut",
+    "status": "nominal CAD only",
+    "camera_bounds_mm": [
+      [
+        -12.5,
+        -11.930999755859375,
+        -2.75
+      ],
+      [
+        12.5,
+        11.930999755859375,
+        9.649999618530273
+      ]
+    ],
+    "mounting_bore_probes": [
+      {
+        "xy_mm": [
+          -10.5,
+          -9.931
+        ],
+        "intersection_mm3": 0.0
+      },
+      {
+        "xy_mm": [
+          -10.5,
+          2.569
+        ],
+        "intersection_mm3": 0.0
+      },
+      {
+        "xy_mm": [
+          10.5,
+          -9.931
+        ],
+        "intersection_mm3": 0.0
+      },
+      {
+        "xy_mm": [
+          10.5,
+          2.569
+        ],
+        "intersection_mm3": 0.0
+      }
+    ],
+    "camera_in_hood_matrix": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        -1.0,
+        -1.2246467991473532e-16,
+        0.0
+      ],
+      [
+        0.0,
+        1.2246467991473532e-16,
+        -1.0,
+        8.519999999999996
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "installed_intersection_mm3": 0.0015211892234614488,
+    "rear_loading": {
+      "poses": 81,
+      "step_mm": 0.25,
+      "PCB_allowance_mm": [
+        25.4,
+        24.4,
+        1.52
+      ],
+      "failures": []
+    },
+    "source_sha256": {
+      "models/reference/camera-module-3-wide-reference.stl": "f222abc3480d18eb4828e248b33bd774e00400a7ec0ef9cda2807532686c573a",
+      "models/printable/camera-pod-integrated-camera-hood-r0.1.3.stl": "ff76b2daa637ee3ed55bb6f8b3a76b30a9d6dac9723f4d64d88277e34ec77518"
+    },
+    "limits": "Detailed supplier-derived reference with conservative overall allowances; PCB/STEP differ. Printed fit, lens calibration, latch/cable movement and rain performance require physical inspection.",
+    "full_square_front_clearance": {
+      "square_mm": 10.95,
+      "z_mm": [
+        2,
+        3.2
+      ],
+      "intersection_mm3": 0.0
+    },
+    "guided_loading": {
+      "autofocus_allowance_mm": [
+        11.6,
+        11.6,
+        7.2
+      ],
+      "initial_lateral_offset_mm": 0.8,
+      "alignment_distance_mm": 12,
+      "paths": [
+        {
+          "axis": "x",
+          "initial_angle_deg": -20,
+          "positions": 81,
+          "failures": []
+        },
+        {
+          "axis": "x",
+          "initial_angle_deg": 20,
+          "positions": 81,
+          "failures": []
+        },
+        {
+          "axis": "y",
+          "initial_angle_deg": -20,
+          "positions": 81,
+          "failures": []
+        },
+        {
+          "axis": "y",
+          "initial_angle_deg": 20,
+          "positions": 81,
+          "failures": []
+        }
+      ],
+      "scope": "Hand approach up to 20 degrees; align continuously over the last 12 mm before the PCB contacts its seats."
+    },
+    "print_alignment_clearance": {
+      "square_mm": 11.6,
+      "probes": [
+        {
+          "offset_x_mm": -0.8,
+          "current_intersection_mm3": 0.0,
+          "previous_intersection_mm3": 6.397510743750263
+        },
+        {
+          "offset_x_mm": 0.8,
+          "current_intersection_mm3": 0.0,
+          "previous_intersection_mm3": 6.397510743750264
+        }
+      ],
+      "previous_fixture_sha256": "d1fc0e18045314e1984be4f347023b24559c6153a84b9c398fcd945fbdb1f087"
+    },
+    "rear_access": {
+      "above_PCB_seat_intersection_mm3": 0.0,
+      "CSI_edge_envelope_mm": [
+        24,
+        18,
+        5
+      ],
+      "CSI_edge_y_mm": [
+        -27,
+        -9
+      ],
+      "CSI_edge_intersection_mm3": 0.0,
+      "previous_CSI_edge_intersection_mm3": 678.1962725592797,
+      "short_exit_fixture_sha256": "4e59bbe991c7abf7b6720d51ec7eeab9c3d6a93f86e6ecd1962538fec38231c9",
+      "closing_lip_control_intersection_mm3": 18.531874257092575
+    },
+    "old_hood_controls": {
+      "fixture_sha256": "b758a60e1d5f84bf4379fb932e25e6ea8a230f0ba9cdc751560edf4333ac78e4",
+      "full_square_body_collision_mm3": 2.7901951826759643,
+      "PCB_1mm_under_lands_collision_mm3": 53.90030647190098,
+      "detected": true,
+      "scope": "Old full-square front restriction and incorrect under-tab loading; the earlier nominal assembled Standard pose was clear."
+    }
+  },
+  "integration": {
+    "neutral_collisions": [],
+    "motion_grid": {
+      "poses": 555,
+      "pan_deg": [
+        -90,
+        90,
+        5
+      ],
+      "tilt_deg": [
+        0,
+        70,
+        5
+      ],
+      "failures": []
+    },
+    "hard_stop_overtravel": {
+      "pan-negative": {
+        "pan": -96,
+        "tilt": 0,
+        "stop_detected": true,
+        "collisions": [
+          {
+            "a": "pan-mount",
+            "b": "pan-yoke",
+            "intersection_mm3": 2.08938
+          }
+        ]
+      },
+      "pan-positive": {
+        "pan": 96,
+        "tilt": 0,
+        "stop_detected": true,
+        "collisions": [
+          {
+            "a": "pan-mount",
+            "b": "pan-yoke",
+            "intersection_mm3": 2.08938
+          }
+        ]
+      },
+      "tilt-negative": {
+        "pan": 0,
+        "tilt": -6,
+        "stop_detected": true,
+        "collisions": [
+          {
+            "a": "tilt-pivot-support",
+            "b": "camera-cradle",
+            "intersection_mm3": 0.07923
+          }
+        ]
+      },
+      "tilt-positive": {
+        "pan": 0,
+        "tilt": 76,
+        "stop_detected": true,
+        "collisions": [
+          {
+            "a": "tilt-pivot-support",
+            "b": "camera-cradle",
+            "intersection_mm3": 0.07921
+          }
+        ]
+      }
+    },
+    "solid_total_PETG_g": 249.88550733935799
+  },
+  "service": {
+    "assembly_paths": 30,
+    "tool_envelopes": 22,
+    "optical_poses": 15,
+    "all_paths_clear": true,
+    "all_tools_clear": true,
+    "all_optical_poses_clear": true,
+    "fixed_route_poses": 111
+  },
+  "source_hashes": {
+    "hardware/lib/camera-pod-enclosure.scad": "7322f8ca0ec763c89b7ae5f93ab8d85fea9ccf8d4548ed783a0aabac62130cd3",
+    "hardware/assemblies/camera-pod/camera-pod-integrated-camera-hood.scad": "8682d88a991fdd5a3fe7d9a0f19558802288dfd1526aad7950d047f9d76449b9",
+    "hardware/assemblies/camera-pod/camera-pod-assembly.scad": "22eaf90055fc8fef571a24366f77cc1454b60f456f298ecccc6105e57bec9101",
+    "hardware/models.json": "dab92313e13ad9688f3c4cf3a1c565743001fb04727c15d3b69c358f9d4ad4c9",
+    "scripts/camera-pod-booklet/check_camera_fit.py": "cb081b5eeeb29057f0fee699abbdcc4eba0c504f5e1366bbf03d1d95810dbbf7",
+    "scripts/camera-pod-booklet/build_booklet.py": "57213106412bfb24b54ba9b39bf4b03aad612ebe3c6ae6d2f712a8564f3e8bda",
+    "scripts/camera-pod-booklet/render_figures.py": "9246aac255c80369b5bcecc973406a67414a3de3afac1e7def541686d3c50f53",
+    "hardware/lib/raspberry-pi-camera-module-3.scad": "e46136b47d93b250d2cea465e0b8ee4f77d3cd38a69ebcc24614d1b6444089a8",
+    "scripts/camera-pod-booklet/check_camera_reference.py": "5be1b67c51eef71570c95ee207ec69f7a792c9923633a510ada36f68f4ed85b6"
+  },
+  "local_export_scope": "Clean source export of all camera-pod meshes after merging accepted camera reference r0.2.0; camera reference, fit, assembly/service, motion and source-pack checks rerun.",
+  "limits": [
+    "The photo does not identify the printed revision or interference dimensions.",
+    "Allowance dimensions are ARBI design choices, not received-camera measurements.",
+    "Nominal rigid CAD only; physical reprint fit, latch/ribbon access, washer/land support and rain/strength remain pending."
+  ],
+  "accepted_camera_reference_commit": "ca97d7b1741e02c59474191468717b070b7156d1",
+  "camera_reference": {
+    "revision": "0.2.0",
+    "status": "Nominal CAD/material consistency only; physical acceptance unverified",
+    "boundsMm": [
+      [
+        -12.5,
+        -11.931,
+        -2.75
+      ],
+      [
+        12.5,
+        11.931,
+        9.65
+      ]
+    ],
+    "watertight": true,
+    "connectedBodies": 1,
+    "probes": [
+      {
+        "name": "Mounting bore -10.5,-9.931",
+        "intersectionMm3": 0.0
+      },
+      {
+        "name": "Mounting bore -10.5,2.569",
+        "intersectionMm3": 0.0
+      },
+      {
+        "name": "Mounting bore 10.5,-9.931",
+        "intersectionMm3": 0.0
+      },
+      {
+        "name": "Mounting bore 10.5,2.569",
+        "intersectionMm3": 0.0
+      },
+      {
+        "name": "Air above flex tail",
+        "intersectionMm3": 0.0
+      },
+      {
+        "name": "Round upper barrel corner",
+        "intersectionMm3": 0.0
+      },
+      {
+        "name": "Recess in front of glass",
+        "intersectionMm3": 0.0
+      },
+      {
+        "name": "Rear CSI cable entry",
+        "intersectionMm3": 0.0
+      }
+    ],
+    "appearanceDifferenceMm3": [
+      2.568846165758609e-08,
+      9.308764599602161e-07
+    ],
+    "callerSilkscreenDifferenceMm3": [
+      0.0,
+      0.0
+    ],
+    "sourceHashes": {
+      "hardware/assemblies/camera-pod/raspberry-pi-camera-module-3.scad": "57f00524ba48c63e5df9ee650bf5bf9c67515a67b9ef230fe260238d8e4338dd",
+      "hardware/lib/raspberry-pi-camera-module-3.scad": "e46136b47d93b250d2cea465e0b8ee4f77d3cd38a69ebcc24614d1b6444089a8"
+    },
+    "checkerSha256": "5be1b67c51eef71570c95ee207ec69f7a792c9923633a510ada36f68f4ed85b6",
+    "limits": "Conservative focus envelope; illustrative fine detail and materials. No physical fit, flexible cable, focus or optical validation."
+  }
+}

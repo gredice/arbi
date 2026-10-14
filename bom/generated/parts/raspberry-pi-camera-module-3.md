@@ -19,7 +19,7 @@
 
 ## Notes
 
-Owner confirmed Wide (120°) on 2026-10-12 and reported interference with the prior Standard hood. Official Wide drawing RP-008155-DS-1, Standard/Wide STEP archive RP-008154-DS-1 and reference schematic RP-008969-SD R1 reviewed. Sources, hashes, pinout and conservative model limits: hardware/assemblies/camera-pod/raspberry-pi-camera-module-3/README.md. Hood r0.1.2 needs reprinting and physical acceptance.
+Owner confirmed Wide (120°) on 2026-10-12 and reported interference with the prior Standard hood. Official Wide drawing RP-008155-DS-1, Standard/Wide STEP archive RP-008154-DS-1 and reference schematic RP-008969-SD R1 reviewed. Sources, hashes, pinout and conservative model limits: hardware/assemblies/camera-pod/raspberry-pi-camera-module-3/README.md. Hood r0.1.3 needs reprinting and physical acceptance.
 
 ## Used in
 
