@@ -71,17 +71,17 @@ def enclosure_booklet():
  step(3,16,215,'Attach the tilt horn before the camera','On separate P07, secure the stock tilt horn with P08, 2 x M2 x 8 countersunk screws, two rear washers and two nuts. With P06 off, engage the spline and fit the OEM centre screw before adding the camera.')
  note(256,'Populate P05 on a supported bench with P12 removed. Servo, stock horn, fasteners and leads stay accessible before the body encloses the carrier. Inspect actual hardware before fitting the camera.')
 
- begin('07  Fit the Wide camera','Reprint P09 r0.1.3. Its low, flared walls leave the PCB visible. Prepare the loose hood and camera on the bench before fitting them to the cradle.')
- fig('camera-exploded',16,52,88,97);fig('camera-seat-loading',107,52,87,97)
- step(1,16,158,'Seat the camera in the loose hood','Disconnect power. Support P09 by its rim, rear up, with 3 mm free space below the lens opening. Lower the camera lens-first and align it flat on all four seats. Keep the CSI connector at the open edge; connect the ribbon while accessible.')
- step(2,16,204,'Clamp the seated camera to the cradle','Secure the horn centre screw first. Offer the camera and P09 to P07 together. Insert four M2 x 12 screws and front washers through the 5.4 mm tunnels. Add four rear washers and nuts; tighten evenly without bending the PCB.')
- note(261,'Check all four seats before tightening. No PCB corner goes underneath plastic. Keep the ribbon relaxed and lens free. For service, remove the upper stack and lower the outer head before releasing the four rear camera nuts.')
-
- begin('08  Close the supported pivot','Fit the opposite support after spline engagement. The pivot must rotate freely without squeezing the cradle.')
+ begin('07  Close the supported pivot','Fit the opposite support after spline engagement, before mounting the camera. The pivot must rotate freely without squeezing the cradle.')
  fig('pivot-exploded',16,52,178,104)
  step(1,16,163,'Drop in the M3 pivot nut','Insert the plain M3 nut through the open-top cradle pocket. Slide the short P06 inward from the right; its stop pins face the cradle tab.')
  step(2,16,199,'Fasten the removable support','Use 2 x M2 x 12 screws, four M2 washers and two nuts at the yoke top pad.')
  step(3,16,235,'Fit the pivot and shim','Use M3 x 12 with a 0.5 mm outer washer and 0.7 mm gap shim. Adjust for free motion and retain the joint without locking the pivot.')
+
+ begin('08  Fit the Wide camera','Reprint P09 r0.1.3. Its low, flared walls leave the PCB visible. Prepare the loose hood and camera on the bench before fitting them to the cradle.')
+ fig('camera-exploded',16,52,88,97);fig('camera-seat-loading',107,52,87,97)
+ step(1,16,158,'Seat the camera in the loose hood','Disconnect power. Support P09 by its rim, rear up, with 3 mm free space below the lens opening. Lower the camera lens-first and align it flat on all four seats. Keep the CSI connector at the open edge; connect the ribbon while accessible.')
+ step(2,16,204,'Clamp the seated camera to the cradle','With the horn centre screw and opposite pivot support secured, offer the camera and P09 to P07 together. Insert four M2 x 12 screws and front washers through the 5.4 mm tunnels. Add four rear washers and nuts; tighten evenly without bending the PCB.')
+ note(261,'Check all four seats before tightening. No PCB corner goes underneath plastic. Keep the ribbon relaxed and lens free. For service, remove the upper stack and lower the outer head before releasing the four rear camera nuts.')
 
  begin('09  Preassemble compute and power','Prepare P02 outside the tray so its underside fasteners remain accessible. Work with power disconnected.')
  fig('deck-loaded',16,52,178,93)

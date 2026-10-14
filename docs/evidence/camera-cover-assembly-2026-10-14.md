@@ -31,7 +31,8 @@ With power disconnected, support the loose hood by its outer rim with the rear
 facing up and at least 3 mm free space below the lens opening. Lower the camera
 lens-first from its open rear, level it before contact and check all
 four PCB holes rest on the seats. Keep the CSI connector at the open edge and
-connect the ribbon while accessible. Offer the seated pair to the cradle, then
+connect the ribbon while accessible. Secure the horn centre screw and opposite
+pivot support before offering the seated pair to the cradle, then
 fit the existing screws/washers/nuts and tighten evenly without bending the PCB.
 No PCB corner goes underneath plastic. The updated enclosure booklet is
 revision 9 and illustrates the loose-hood loading step with actual CAD meshes.

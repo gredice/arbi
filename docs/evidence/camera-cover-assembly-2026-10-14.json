@@ -251,7 +251,7 @@
     "hardware/assemblies/camera-pod/camera-pod-assembly.scad": "22eaf90055fc8fef571a24366f77cc1454b60f456f298ecccc6105e57bec9101",
     "hardware/models.json": "4b9b423c1c08a104c6473dbe3904f15accea969812accb4e3624197e8b582389",
     "scripts/camera-pod-booklet/check_camera_fit.py": "ce273719aa8ec6f67d815785673c0d376837ec6caea8bdac411af57f94c94ae9",
-    "scripts/camera-pod-booklet/build_booklet.py": "86930e42f34bdbacac32df5c327f989e599a811af7dbf6e77169d8946c6fac87",
+    "scripts/camera-pod-booklet/build_booklet.py": "5fc49d83e4ad92bf262e1c3cc99b428a4a341023db8c5dcae5aab722496ace6b",
     "scripts/camera-pod-booklet/render_figures.py": "9246aac255c80369b5bcecc973406a67414a3de3afac1e7def541686d3c50f53"
   },
   "local_export_scope": "Complete initial 43-mesh export, then re-exported the hood after extending its washer recess; unchanged modules retained. Full clean source rebuild is required in CI.",
