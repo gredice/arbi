@@ -2,6 +2,7 @@
 // All dimensions are illustrative unless the entrypoint identifies a catalog basis.
 // Not fabrication geometry; inspect the selected hardware before using an interface.
 include <arbi.scad>
+use <raspberry-pi-camera-module-3.scad>
 $fn = 40;
 
 module cv_box(d) { translate([-d[0]/2,-d[1]/2,0]) cube(d); }
@@ -106,15 +107,7 @@ module cv_pi() {
     }
 }
 module cv_camera() {
-    difference() {
-        union() {
-            cv_box([25,23.862,1.12]);
-            translate([0,2.5,1.1]) cv_box([10.8,10.8,4.48]);
-            translate([0,2.5,5.55]) cylinder(d=5.75,h=3);
-            translate([0,-8.4,-2.75]) cv_box([19.61,5,2.77]);
-        }
-        for(x=[-10.5,10.5],y=[-9.931,2.569]) translate([x,y,-3]) cylinder(d=2.2,h=15);
-    }
+    raspberry_pi_camera_module_3(wide=true);
 }
 module cv_pico() {
     cv_board([51,21,4]);

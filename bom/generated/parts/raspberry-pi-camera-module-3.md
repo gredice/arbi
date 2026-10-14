@@ -1,4 +1,4 @@
-# Raspberry Pi Camera Module 3 Standard
+# Raspberry Pi Camera Module 3 Wide
 
 > Generated from canonical BOM inputs by `pnpm bom:generate`. Do not edit this page by hand.
 
@@ -13,7 +13,13 @@
 
 ## Requirements
 
-- Standard-FOV 12 MP autofocus version, Wide or Standard.
+- Received Camera Module 3 Wide with IR-cut filter and 12 MP Sony IMX708 autofocus sensor; 120° diagonal / 102° horizontal / 67° vertical field of view. Normal-FOV Standard and NoIR are not the selected variant.
+- Published Wide product envelope 25 × 24 × 12.4 mm; official Wide drawing gives a 25 × 23.862 mm PCB, 1.12 mm PCB thickness and four Ø2.2 mm holes at 21 × 12.5 mm pitch.
+- 15-contact, 1 mm pitch CSI connector; use a Standard-Standard camera ribbon with the Pi 3A+. Inspect focus travel, connector access and actual ribbon clearance through the full gimbal range.
+
+## Notes
+
+Owner confirmed Wide (120°) on 2026-10-12 and reported interference with the prior Standard hood. Official Wide drawing RP-008155-DS-1, Standard/Wide STEP archive RP-008154-DS-1 and reference schematic RP-008969-SD R1 reviewed. Sources, hashes, pinout and conservative model limits: hardware/assemblies/camera-pod/raspberry-pi-camera-module-3/README.md. Hood r0.1.2 needs reprinting and physical acceptance.
 
 ## Used in
 

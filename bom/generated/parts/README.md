@@ -71,7 +71,7 @@ Archived items retain their stable pages and purchasing evidence, but are exclud
 | [M12 × 160 galvanized 8.8 through-bolt for pulley bracket](pulley-bracket-through-bolt-m12x160.md) | pulley-bracket-through-bolt-m12x160 | archived | None recorded |
 | [M12 DIN 9021 large washer for pulley bracket](pulley-bracket-washer-m12.md) | pulley-bracket-washer-m12 | archived | None recorded |
 | [Raspberry Pi 3A+](raspberry-pi-3a-plus.md) | raspberry-pi-3a-plus | active | None recorded |
-| [Raspberry Pi Camera Module 3 Standard](raspberry-pi-camera-module-3.md) | raspberry-pi-camera-module-3 | active | None recorded |
+| [Raspberry Pi Camera Module 3 Wide](raspberry-pi-camera-module-3.md) | raspberry-pi-camera-module-3 | active | None recorded |
 | [Raspberry Pi Pico 2 W with headers](raspberry-pi-pico-2-w.md) | raspberry-pi-pico-2-w | active | None recorded |
 | [Winch home/reference and docked position roller microswitch](roller-lever-microswitch.md) | roller-lever-microswitch | active | None recorded |
 | [8 mm clamp shaft collar](shaft-collar-8mm.md) | shaft-collar-8mm | active | None recorded |

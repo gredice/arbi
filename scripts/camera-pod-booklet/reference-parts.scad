@@ -4,6 +4,7 @@
 include <arbi-hardware/lib/buck-converter-48v-5v.scad>
 include <arbi-hardware/lib/micro-pan-tilt-servo.scad>
 include <arbi-hardware/lib/raspberry-pi-3a-plus.scad>
+use <arbi-hardware/lib/raspberry-pi-camera-module-3.scad>
 part = "raspberry-pi-3a-plus-reference";
 $fn = 64;
 eps = 0.02;
@@ -25,18 +26,7 @@ module pi_board() {
     raspberry_pi_3a_plus();
 }
 module camera() {
-    // Simplified Standard camera: 25 x 23.862 PCB; 21 x 12.5 hole pitch.
-    // Lens/connector outline is approximate; do not design a fitted hood from it.
-    translate([-12.5,-11.931,0]) difference() {
-        union() {
-            rounded_plate(25,23.862,1.12,1);
-            translate([7.1,9,1.1]) cube([10.8,10.8,4.48]);
-            translate([12.5,14.4,5.55]) cylinder(d=5.75,h=3);
-            translate([2.695,1,-2.75]) cube([19.61,5,2.77]);
-            translate([8,8,-1]) cube([9,8,1.02]);
-        }
-        for(x=[2,23],y=[2,14.5]) translate([x,y,-3]) cylinder(d=2.2,h=15);
-    }
+    raspberry_pi_camera_module_3(wide=true);
 }
 module servo() {
     // Flexible display leads are excluded from the rigid collision proxy.
@@ -80,7 +70,7 @@ module nut(d) {
     difference(){cylinder(d=af/cos(30),h=.8*d,$fn=6);translate([0,0,-eps])cylinder(d=d,h=d+eps);}
 }
 if(part=="raspberry-pi-3a-plus-reference") pi_board();
-else if(part=="camera-module-3-standard-reference") camera();
+else if(part=="camera-module-3-wide-reference") camera();
 else if(part=="micro-servo-3p7g-UNVERIFIED") servo();
 else if(part=="servo-horn-UNVERIFIED") horn();
 else if(part=="buck-converter-measured-reference") buck();

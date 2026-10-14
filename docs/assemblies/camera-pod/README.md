@@ -11,7 +11,7 @@ The [winches](../winch/README.md) own the positioning lines and line-side tensil
 | Component | Repository estimate | Notes |
 | --- | ---: | --- |
 | Raspberry Pi 3A+ | Approximately 29 g | Fixed to pod |
-| Camera Module 3 Standard | Approximately 4 g | Moves with gimbal |
+| Camera Module 3 Wide | Approximately 4 g | Moves with gimbal |
 | 48 V to 5 V, approximately 3 A converter | Module-dependent | Fixed; at least 60 V input rating target |
 | Approximately 1000 µF bulk capacitor | Module-dependent | Fixed near 5 V distribution |
 | 2 × approximately 3.7 g digital servos | Approximately 7.4 g total | Moving gimbal actuators |
@@ -41,7 +41,15 @@ The design must define:
 
 ## Gimbal and camera
 
-V1 uses Raspberry Pi Camera Module 3 Standard, the normal-field-of-view autofocus version. The baseline range is:
+The baseline is Camera Module 3 Wide with wide FOV and an IR-cut filter.
+The [official geometry and electrical source review](../../../hardware/assemblies/camera-pod/raspberry-pi-camera-module-3/README.md)
+records the manufacturer mechanical drawing, Wide STEP model, reference
+schematic, sensor-assembly tolerances and CSI pinout, retrieved 12 October 2026.
+It distinguishes the 12.0 mm drawing thickness from the rounded 12.4 mm product
+envelope. ARBI's camera visualization and assembly references remain nominal;
+the source model is shared with the booklet; physical mounting, focus and ribbon travel remain unverified.
+
+V1 uses Raspberry Pi Camera Module 3 Wide, the 120° diagonal-field-of-view autofocus version. The baseline range is:
 
 - pan: approximately ±90 degrees from its reference direction;
 - tilt: 0 degrees straight down to approximately 70 degrees toward sideways.
@@ -80,7 +88,7 @@ The [camera pod mount family](../../../hardware/assemblies/camera-pod/camera-pod
 
 The [integrated black/white enclosure](../../../hardware/assemblies/camera-pod/camera-pod-enclosure.md) uses a centred rounded white electronics hood above a continuously narrowing one-piece black head and separate internal carrier. The compact gimbal raises the camera tilt axis 14 mm to Y=3, Z=-45 and rotates the tilt servo horizontally, with the driven horn 2 mm inboard at X=-19.8. Head r0.1.3, carrier r0.1.1 and new integrated cradle/pivot-support r0.1.0 prints replace the earlier gimbal arrangement. The rear cowl and four secondary nuts are omitted; the camera uses four M2 × 12 screws, four primary nuts and eight washers. Tray r0.2.3 adds a rolled underside shoulder around the head's circular Ø100 mm neck. Its Ø103 mm throat provides a nominal 1.5 mm radial seam while preserving pan motion, spider reliefs, drainage and supported removal. The received converter requires electronics deck r0.1.1; the upper shell and white optical surround retain their revisions. The head/carrier move in pan and the camera/surround tilt inside. The configuration document owns 13 fabrication models, 16 installed prints, four captive M2 head clamps, supported service, and separate relaxed cable loops.
 
-The [current CAD record](../../../hardware/assemblies/camera-pod/camera-pod-enclosure-check.md) identifies these compact-gimbal revisions and passing nominal rigid, taper, service, optical and routing checks. Its 16 installed prints total 253.622 g as a solid-volume PETG estimate at 1.27 g/cm³, excluding hardware and electronics. Sliced/printed and assembled mass, pan-servo torque/settling and rain protection of the camera and CSI loops remain unverified against the 170 g complete-pod ceiling and imaging targets.
+The [reconciled Wide-camera record](../../evidence/camera-module-3-wide-2026-10-14.md) owns current hood r0.1.2, outer head r0.1.5 and assembly r0.3.9 checks: camera rear insertion, full-square module clearance, Wide optical volume, service and sampled motion pass. The [earlier compact-gimbal record](../../../hardware/assemblies/camera-pod/camera-pod-enclosure-check.md) remains evidence for its stated previous revisions. The current sixteen installed prints total 251.734 g as a solid-volume PETG estimate at 1.27 g/cm³, excluding hardware and electronics. Sliced/printed and assembled mass, pan-servo torque/settling and rain protection of the camera and CSI loops remain unverified against the 170 g complete-pod ceiling and imaging targets.
 
 The camera-pod concept family below remains available as a separate arrangement. Both families share the spider and remain **concept-unvalidated**; do not combine their gimbal or electronics mounts into one print kit. The bench set does not resolve the docking or load-rated line interfaces.
 

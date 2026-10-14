@@ -21,7 +21,7 @@ def table(rows,y,widths,small=8.5):
 def enclosure_booklet():
  service=json.loads((ROOT/'service-check.json').read_text())
  by={e['model_id']:e for e in models}
- begin('Build the rain enclosure','Rounded white roof and black lower chassis; Camera Module 3 Standard, Pi 3A+ and two micro servos. Ordinary-rain/splash concept.')
+ begin('Build the rain enclosure','Rounded white roof and black lower chassis; Camera Module 3 Wide, Pi 3A+ and two micro servos. Ordinary-rain/splash concept.')
  fig('assembled-covered',13,53,184,142)
  text(16,201,'CURRENT CAD, COMPLETE ASSEMBLY',11,True,BLUE)
  para(16,209,178,'Every illustration uses the checked STL meshes. The one-piece black head tapers from its broad shoulder to a narrow chin around the camera. It conceals the sideways servo and compact internal carrier. This presentation uses pan 0 / tilt 55 degrees; neutral points down.',max_h=23)
@@ -44,7 +44,7 @@ def enclosure_booklet():
   fig('part-'+name,x,y,56,60);para(x,y+61,57,'<b>'+title+'</b>',small=True,max_h=10);para(x,y+70,57,body,small=True,max_h=24)
  fig('gimbal-front',39,151,132,92)
  text(41,250,'COMPACT MECHANISM WITH OUTER HEAD REMOVED',8,True,BLUE)
- note(261,'Reprint P11 r0.2.3 and P12 r0.1.4 together. Keep their clearance seam free of support scars. Drainage, prints, outdoor exposure and complete mass need physical inspection.')
+ note(261,'Retain P11 r0.2.3; reprint P09 r0.1.2 and P12 r0.1.5 for Wide. Keep the existing neck seam free of support scars. Printed fit, rain and complete mass need physical inspection.')
 
  begin('03  Measure actual hardware','The Pi/camera mounting patterns follow cited drawings. Servo/converter envelopes and hole pitches are measured; shaft, horn, capacitor and connector details remain nominal.')
  fig('part-camera-pod-servo-fit-coupon',16,54,73,51)
@@ -70,7 +70,7 @@ def enclosure_booklet():
  step(2,16,197,'Retain the servo directly','Use 2 x M1.6 x 6 countersunk ear screws from the inner lug face and two nuts outside the lug plate. P12 covers the servo after carrier assembly; there is no separate servo boot.')
  note(256,'Populate P05 on a supported bench with P12 removed. Servo, stock horn, fasteners and leads stay accessible before the body encloses the carrier. Inspect actual hardware before fitting the camera.')
 
- begin('07  Fit the compact camera cradle','Secure the tilt horn centre screw before fitting the camera. P09 remains at the optical face. The outer head provides rear coverage; no separate camera cowl is installed.')
+ begin('07  Fit the Wide camera','Reprint P09 r0.1.2. Rear-load the camera lens-first onto the exposed lands; do not bend the PCB beneath plastic. Secure the horn centre screw first.')
  fig('camera-exploded',16,52,88,97);fig('camera-rear',107,52,87,97)
  step(1,16,158,'Capture the horn before engaging it','On the separate cradle, fasten P08 with 2 x M2 x 8 countersunk screws, two rear washers and two nuts. Then slide onto the servo spline with P06 removed and fit the original centre screw.')
  step(2,16,204,'Retain the camera directly','Insert each M2 x 12 screw with its front washer through the 5.4 mm P09 tunnel, PCB and cradle. Fit four rear washers and four nuts. Inspect the thin webs beside the lens opening.')
@@ -114,7 +114,7 @@ def enclosure_booklet():
  begin('14  CAD evidence and limits','Geometry checks use final exported meshes and the same assembly transforms as these figures. Complete assembly, load and rain acceptance remain unverified.')
  for i,n in enumerate(['motion-left','motion-down','motion-right']):fig(n,16+61*i,54,56,62)
  for x,label in [(16,'PAN -90 / TILT 70'),(77,'PAN 0 / TILT 0'),(138,'PAN +90 / TILT 70')]:text(x,122,label,8,True,BLUE)
- table([['<b>Check</b>','<b>Result / scope</b>'],['Rigid motion grid',f"{report['motion_grid']['poses']} poses; 5-degree steps; no intersections above 0.005 mm3"],['Mechanical stops','Contact outside usable +/-90 pan, 0..70 tilt'],['Neck seam',f"{report['neck_clearance']['minimum_clearance_mm']:.3f} mm minimum in 41 sections; oversized-neck control detects interference"],['Assembly and service',f"{len(service['assembly_paths'])} sampled paths; local sockets and staged head/centre-screw access"],['Cable outlets',f"{len(service['wiring_ports'])} nominal opening envelopes; no flexible-cable simulation"],['Fixed power route',f"{service['fixed_power_route']['poses']} rigid-route poses; misplaced central-drop control detects the pan stop"],['Optical opening','66 x 41 degree Standard-camera viewing volume to 80 mm'],['Full-solid PETG mass',f"{report['solid_total_PETG_g']:.1f} g before electronics, wires and metal hardware"]],135,[57,121])
+ table([['<b>Check</b>','<b>Result / scope</b>'],['Rigid motion grid',f"{report['motion_grid']['poses']} poses; 5-degree steps; no intersections above 0.005 mm3"],['Mechanical stops','Contact outside usable +/-90 pan, 0..70 tilt'],['Neck seam',f"{report['neck_clearance']['minimum_clearance_mm']:.3f} mm minimum in 41 sections; oversized-neck control detects interference"],['Assembly and service',f"{len(service['assembly_paths'])} sampled paths; local sockets and staged head/centre-screw access"],['Cable outlets',f"{len(service['wiring_ports'])} nominal opening envelopes; no flexible-cable simulation"],['Fixed power route',f"{service['fixed_power_route']['poses']} rigid-route poses; misplaced central-drop control detects the pan stop"],['Optical opening','102 x 67 degree Wide-camera viewing volume to 80 mm'],['Full-solid PETG mass',f"{report['solid_total_PETG_g']:.1f} g before electronics, wires and metal hardware"]],135,[57,121])
  note(258,'Weigh the completed build; the 170 g flying ceiling is not demonstrated. The head loads the pan servo: verify torque, current and heat on the bench. Rigid checks do not prove sealing, strength or safe flight.')
 
  begin('15  Final supported bench check','Support the spider with the camera free. Do not rest the assembly on the camera hood or force geared servos by hand.')
@@ -130,7 +130,7 @@ if ENCLOSURE:
  enclosure_booklet()
  raise SystemExit(0)
 
-begin('Build the camera pod','Pi 3A+ / Camera Module 3 Standard / two micro servos. Dry bench alternative; deck/yoke r0.1.2, pan mount/coupon r0.1.1; other revisions as registered.')
+begin('Build the camera pod','Pi 3A+ / Camera Module 3 Wide / two micro servos. Dry bench alternative; deck/yoke r0.1.2, pan mount/coupon r0.1.1; other revisions as registered.')
 fig('assembled-open',10,52,190,140)
 text(16,199,'THE MISSING PRINTED STRUCTURE IS NOW INCLUDED',10.5,True,BLUE)
 para(16,206,178,'A fixed electronics deck, both servo mounts, stock-horn retainers, supported camera cradle, removable pivot support, optical hood and electronics cover. Every illustration uses the supplied STL files.',max_h=23)

@@ -37,6 +37,21 @@ class SourcePackTests(unittest.TestCase):
             with self.assertRaisesRegex(AssertionError, 'Missing packed SCAD dependency'):
                 self.check_files(files)
 
+    def test_corner_pack_collects_catalog_camera_dependency(self):
+        root = Path(__file__).resolve().parents[2]
+        spec = importlib.util.spec_from_file_location('corner_build', root / 'scripts/corner-support/build.py')
+        corner = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(corner)
+        sources = corner.with_scad_dependencies([root / 'hardware/lib/catalog-visualizations.scad'])
+        camera = root / 'hardware/lib/raspberry-pi-camera-module-3.scad'
+        self.assertIn(camera, sources)
+        files = {'kit/source/repository/' + path.relative_to(root).as_posix(): path.read_text()
+                 for path in sources}
+        self.check_files(files)
+        del files['kit/source/repository/hardware/lib/raspberry-pi-camera-module-3.scad']
+        with self.assertRaisesRegex(AssertionError, 'Missing packed SCAD dependency.*raspberry-pi-camera-module-3'):
+            self.check_files(files)
+
 
 if __name__ == '__main__':
     unittest.main()

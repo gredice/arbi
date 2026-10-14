@@ -24,7 +24,7 @@ The current V1 baseline assumes:
 - four motorized positioning lines, one from each corner;
 - three normal Dyneema lines and one hybrid Dyneema line carrying pod power conductors;
 - one fixed winch and closed-loop stepper system at each corner;
-- one lightweight pod with a Raspberry Pi 3A+, Camera Module 3 Standard, a two-axis micro-servo gimbal, a 48 V to 5 V converter, and local bulk capacitance;
+- one lightweight pod with a Raspberry Pi 3A+, [Camera Module 3 Wide (120° diagonal)](../evidence/camera-module-3-wide-2026-10-12.md), a two-axis micro-servo gimbal, a 48 V to 5 V converter, and local bulk capacitance;
 - one high, corner-mounted dock with a passive structural latch and sheltered parked state;
 - one central cabinet containing mains protection, two 48 V supplies, fused distribution, and a Pico 2 W motion controller;
 - a local edge service that owns job orchestration and communicates with the motion controller and pod;

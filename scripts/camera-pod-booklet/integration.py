@@ -53,7 +53,7 @@ def assembly(pan=0,tilt=0,cover=True,hardware=True,enclosure=None):
  if enclosure:add('gimbal-head','camera-pod-integrated-gimbal-head',group='pan')
  add('tilt-pivot-support','camera-pod-integrated-tilt-pivot-support' if enclosure else 'camera-pod-tilt-pivot-support',group='pan')
  add('camera-cradle','camera-pod-integrated-camera-cradle' if enclosure else 'camera-pod-camera-cradle',group='tilt')
- add('camera-hood','camera-pod-integrated-camera-hood' if enclosure else 'camera-pod-camera-hood',compact@T(0,-5,-76.52),group='tilt')
+ add('camera-hood','camera-pod-integrated-camera-hood' if enclosure else 'camera-pod-camera-hood',compact@T(0,-5,-74.52 if enclosure else -76.52),group='tilt')
  if enclosure:parts[-1]['color']=WHITE
  add('pan-horn-retainer','camera-pod-horn-retainer',T(0,0,-27.2),group='pan')
  H=T(-21.8+(ENCLOSURE_DRIVE_SHIFT_X if enclosure else 0),axis_y,axis_z)@R('y',-90)
@@ -72,7 +72,7 @@ def assembly(pan=0,tilt=0,cover=True,hardware=True,enclosure=None):
  add('tilt-servo','micro-servo-3p7g-UNVERIFIED',T(-42+ENCLOSURE_DRIVE_SHIFT_X,axis_y-5,axis_z)@R('x',90)@R('y',90) if enclosure else T(-42,0,-54)@R('y',90),group='pan',color=(.08,.32,.86))
  add('pan-horn','servo-horn-UNVERIFIED',T(0,0,-29.4),group='pan',color=GRAY)
  add('tilt-horn','servo-horn-UNVERIFIED',H@T(0,0,-2.2),group='tilt',color=GRAY)
- add('camera','camera-module-3-standard-reference',compact@T(0,-5,-64)@R('x',180),group='tilt',color=GREEN)
+ add('camera','camera-module-3-wide-reference',compact@T(0,-5,-64)@R('x',180),group='tilt',color=GREEN)
  if not hardware:return parts
  add('capacitor-tie','capacitor-tie-reference',T(32,-34,0) if enclosure else T(48,26,0),color=DARK)
  add('pan-horn-center-screw','bolt-OEM-horn-UNVERIFIED',T(0,0,-29.4),group='pan',color=GRAY)
