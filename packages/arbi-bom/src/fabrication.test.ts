@@ -60,9 +60,8 @@ test("dock bundle costs are attributed once and print estimates do not turn unkn
   const repository = await loadBomRepository(root);
   const base = calculateBom(repository);
   assert.equal(base.knownSubtotal, "858.05");
-  // The Wide hood/head revision reduces the source-derived print allowance.
-  assert.equal(base.estimatedMaterialSubtotal, "402.27");
-  assert.equal(base.estimatedPartialSubtotal, "1260.32");
+  assert.equal(base.estimatedMaterialSubtotal, "402.28");
+  assert.equal(base.estimatedPartialSubtotal, "1260.33");
   assert.equal(base.completeLandedTotal, null);
   const allocated = base.assemblyEstimatedMaterials.reduce((sum, row) => sum.add(Decimal.parse(row.amount)), Decimal.zero());
   assert.equal(allocated.toString(), base.estimatedMaterialSubtotal);

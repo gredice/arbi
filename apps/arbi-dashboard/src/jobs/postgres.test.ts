@@ -9,6 +9,7 @@ import pg from "pg";
 import type { AuthorizedContext } from "@arbi/gredice";
 import type { AuditEvent, Command, Event } from "@arbi/protocol";
 import { postgresDatabase } from "../enrollment/store";
+import type { SqlDatabase } from "../enrollment/store";
 import type { Job } from "./contracts";
 import { createJobsServer } from "./server";
 import { recordDeniedAttempt } from "./attempts";
@@ -94,30 +95,45 @@ test("native PostgreSQL jobs: independent connections, fences, crash/replay, sig
   // HTTP against real migrated PostgreSQL and current signed identity; browser claims confer no authority.
   const h = await setup();
   const abuse = await setup(), abuseSite = abuse.f.registry.siteId;
+  // Freeze only this fixture's database clock at the last millisecond of a minute.
+  // Row locks, counters, audit writes and commits still use independent native connections.
+  let attemptNow = Math.floor(Date.now()/60_000)*60_000+59_999;
+  function attemptStore(connection: pg.Pool) {
+    const native = postgresDatabase(connection);
+    const db: SqlDatabase = { transaction: work => native.transaction(sql => work({
+      query: (statement, parameters) => statement === "SELECT floor(extract(epoch FROM clock_timestamp())*1000)::text AS now"
+        ? sql.query("SELECT $1::text AS now",[String(attemptNow)]) : sql.query(statement,parameters),
+    })) };
+    return new PostgresJobStore(db,realm,abuse.f.currentAuthority);
+  }
+  const attemptA = attemptStore(pool), attemptB = attemptStore(independent);
   const denial = { realm,siteId: abuseSite,actor: {kind:"human" as const,id:abuse.one.context.actor.id},sessionId: abuse.one.context.sessionId,
     observedAtMs: Date.now(),surface: "http" as const,resource: { kind: "site" as const,id: abuseSite },reason: null,membershipRevision: null,
     correlationId: "denial-fixture",capability: "manipulation.request" as const,decision: "denied" as const };
   // Two instances and distinct HTTP attempts converge on one durable first fact plus an exact open count.
   const signal = new AbortController().signal;
-  for(let i=0;i<40;i++) await (i%2 ? abuse.a : abuse.b).authorization(denial,signal);
+  for(let i=0;i<40;i++) await (i%2 ? attemptA : attemptB).authorization(denial,signal);
   assert.equal((await pool.query("SELECT attempt_count FROM arbi_job_attempts WHERE site_id=$1",[abuseSite])).rows[0].attempt_count,40);
   assert.equal((await pool.query("SELECT count(*) FROM arbi_audit_events WHERE site_id=$1",[abuseSite])).rows[0].count,"1");
-  for(let i=0;i<40;i++) await abuse.a.authorization({...denial,actor:{kind:"human",id:`denied-${i}`},sessionId:`session-${i}`},signal);
+  for(let i=0;i<40;i++) await attemptA.authorization({...denial,actor:{kind:"human",id:`denied-${i}`},sessionId:`session-${i}`},signal);
   assert.equal((await pool.query("SELECT count(*) FROM arbi_job_attempts WHERE site_id=$1",[abuseSite])).rows[0].count,"33");
   const overflow = (await pool.query("SELECT * FROM arbi_job_attempts WHERE site_id=$1 AND key='overflow'",[abuseSite])).rows[0];
   assert.equal(overflow.mixed,true);assert.equal(overflow.attempt_count,9);
   const overflowEvent = (await pool.query("SELECT record FROM arbi_audit_events WHERE id=$1",[overflow.first_event_id])).rows[0].record;
   assert.deepEqual(overflowEvent.actor,{kind:"service",id:"job-attempt-aggregation"});
-  // Controlled counter-clock transition: close all previous windows under the same native registry lock.
-  await abuse.b.transaction(abuseSite,async tx=> {
-    await recordDeniedAttempt(tx.sql,realm,abuseSite,tx.now+120_000,"stale-command",abuse.one.context.actor,abuse.one.context.sessionId,
-      async(actor,sessionId)=>abuse.b.event(tx,{...abuse.one.context,actor,sessionId:sessionId!},"authorization.check",{kind:"site",id:abuseSite,deviceId:null}),
-      async(event)=>{await abuse.b.audit.stage(tx.sql,event,{...event,authenticatedSource:event.source});});
+  // Crossing exactly one minute boundary closes the old buckets under the same native registry lock.
+  attemptNow += 1;
+  await attemptB.transaction(abuseSite,async tx=> {
+    await recordDeniedAttempt(tx.sql,realm,abuseSite,tx.now,"stale-command",abuse.one.context.actor,abuse.one.context.sessionId,
+      async(actor,sessionId)=>attemptB.event(tx,{...abuse.one.context,actor,sessionId:sessionId!},"authorization.check",{kind:"site",id:abuseSite,deviceId:null}),
+      async(event)=>{await attemptB.audit.stage(tx.sql,event,{...event,authenticatedSource:event.source});});
   });
   const summaries = (await pool.query("SELECT record FROM arbi_audit_events WHERE site_id=$1 AND record->'metadata'->>'aggregation' LIKE '%summary'",[abuseSite])).rows.map(row=>row.record as AuditEvent);
   assert.ok(summaries.some(e=>e.metadata.attemptCount === 40 && e.links.causationEventId));
   assert.ok(summaries.some(e=>e.metadata.attemptCount === 9 && e.metadata.aggregation === 'mixed-actors-summary'));
   assert.equal((await pool.query("SELECT count(*) FROM arbi_job_attempts WHERE site_id=$1",[abuseSite])).rows[0].count,"1");
+  const nextWindow = (await pool.query("SELECT window_start_ms,attempt_count FROM arbi_job_attempts WHERE site_id=$1",[abuseSite])).rows[0];
+  assert.equal(Number(nextWindow.window_start_ms),attemptNow);assert.equal(nextWindow.attempt_count,1);
   const http = createJobsServer({ db: postgresDatabase(pool),realm,identity: h.f.identity.adapter,resolveSite: h.f.identity.resolveResource,
     currentAuthority: h.f.currentAuthority,browserOrigins: ["https://synthetic.test"] });
   function req(action: string,body: unknown,token = h.one.token,extra: Record<string,string> = {}) {

@@ -193,6 +193,15 @@ The [round-pole kit](round-pole.md) adds matching machined-metal saddles, remova
 
 These `visualization` models show catalog items in the Parts inventory. They are **Unverified** and are not manufacturing sources. Shape is not yet fully defined and needs rework against the selected supplier drawing or measured item before fit or clearance decisions. Nominal dimensions recorded in the catalog remain requirements, not measurement evidence. Threads, connectors, internal construction and fine detail are simplified. Kits and assortments show representative samples, not quantities; cable loops and lengths show samples, not installed routing.
 
+The received **KW11-3Z microswitch** r1.0.0 now uses the supplied drawing and
+[owner measurements](../../../docs/evidence/kw11-3z-2026-10-12.md), including
+the asymmetric hole placement and 21.0 / approximately 18 / 16 mm roller-top
+heights above the case bottom for released / clicked / fully pressed poses.
+Its default export is released. Attachment, horizontal roller coordinates and
+spring motion remain approximate; the fully pressed endpoint is not rated
+overtravel. This replaces the KW12-class placeholder without establishing a
+winch or dock mount, target, wiring or accepted actuation stroke.
+
 | BOM item / source | Shape | Dimension basis and remaining uncertainty |
 | --- | --- | --- |
 | [as5600-angle-sensor](as5600-angle-sensor.scad) · [BOM](../../../bom/generated/parts/as5600-angle-sensor.md) | board | Assumed 23 × 23 mm breakout with a representative magnet; no selected board outline is recorded. |
@@ -201,9 +210,9 @@ These `visualization` models show catalog items in the Parts inventory. They are
 | [extension-spring-assortment](extension-spring-assortment.scad) · [BOM](../../../bom/generated/parts/extension-spring-assortment.md) | springs | Representative coil spring sizes; wire gauge, end hooks and pack contents are unknown. |
 | [flexible-jaw-coupling-8mm](flexible-jaw-coupling-8mm.scad) · [BOM](../../../bom/generated/parts/flexible-jaw-coupling-8mm.md) | coupling | Catalog approximate Ø20 × 25 mm body and 8 mm bores; jaws and elastomer simplified. |
 | [matched-motor-cable](matched-motor-cable.scad) · [BOM](../../../bom/generated/parts/matched-motor-cable.md) | cable | Assumed Ø8 mm cable sample with connector envelopes; selected motor/encoder connectors unknown. |
-| [nema23-closed-loop-motor](nema23-closed-loop-motor.scad) · [BOM](../../../bom/generated/parts/nema23-closed-loop-motor.md) | motor | Existing winch booklet nominal 57 mm face, 122 mm body and 8 mm shaft; confirm supplied kit motor. |
+| [nema23-closed-loop-motor](nema23-closed-loop-motor.scad) · [BOM](../../../bom/generated/parts/nema23-closed-loop-motor.md) | motor | [Supplier drawing and nominal mesh checks](motor-drawing-check.md): 57.3 mm maximum frame, 122 mm body, Ø8 × 22 mm D-shaft, Ø38.1 mm pilot and four Ø5.1 mm through-holes at 47.14 mm pitch. Undimensioned details and cable routing remain simplified. |
 | [post-electronics-enclosure](post-electronics-enclosure.scad) · [BOM](../../../bom/generated/parts/post-electronics-enclosure.md) | enclosure | Catalog approximate 150 × 100 × 70 mm box; flange, gasket and driver clearance unknown. |
-| [roller-lever-microswitch](roller-lever-microswitch.scad) · [BOM](../../../bom/generated/parts/roller-lever-microswitch.md) | microswitch | Assumed KW12-class 20 × 10 × 6 mm body with lever and roller; mounting and travel unspecified. |
+| [roller-lever-microswitch](roller-lever-microswitch.scad) · [BOM](../../../bom/generated/parts/roller-lever-microswitch.md) | microswitch | Received KW11-3Z: drawing case 20 × 10.7 × 6.7 mm, Ø2.5 mm bores at X=5.5/15.0, Z=2.8; measured Ø4.8 × 4 mm roller, 7.2 mm axle span and 4 × 0.3 mm lever. [Receipt/dimensions](../../../docs/evidence/kw11-3z-2026-10-12.md); attachment and moving interface remain approximate. |
 | [shaft-collar-8mm](shaft-collar-8mm.scad) · [BOM](../../../bom/generated/parts/shaft-collar-8mm.md) | collar | Existing winch booklet nominal Ø20 × 10 mm body, 8 mm bore; clamp slot and screw simplified. |
 | [winch-drum-shaft-8mm](winch-drum-shaft-8mm.scad) · [BOM](../../../bom/generated/parts/winch-drum-shaft-8mm.md) | rod | Catalog 8 mm shaft; representative 340 mm passive cut from the existing winch booklet, not all purchased stock. |
 | [winch-fail-safe-brake](winch-fail-safe-brake.scad) · [BOM](../../../bom/generated/parts/winch-fail-safe-brake.md) | brake | Assumed Ø60 × 40 mm brake envelope with 8 mm bore; mechanism and safety function not yet defined. |

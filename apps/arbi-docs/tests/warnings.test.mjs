@@ -1,6 +1,16 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { modelWarnings, uniqueWarnings, warningCounts } from '../src/lib/warnings.ts';
+import { fmt } from '../src/lib/format.ts';
+
+test('official drawing references clear approximate geometry without claiming measurement or physical approval', () => {
+  const model = { id: 'pi', status: 'concept-unvalidated', bomPartIds: ['pi'], assembly: 'pod', geometry: { status: 'drawing-derived', rework: 'Inspect nominal thickness, hole diameter and plugged cables.' } };
+  const warnings = modelWarnings(model, []);
+  assert.ok(warnings.some(warning => warning.code === 'drawing-reference-limits' && warning.severity === 'warning'));
+  assert.ok(warnings.some(warning => warning.code === 'unconfirmed-concept'));
+  assert.ok(!warnings.some(warning => warning.code === 'approximate-geometry' || warning.code === 'simplified-details'));
+  assert.equal(fmt.geometry(model.geometry.status), 'Official drawing reference · fit unverified');
+});
 
 test('measured envelopes retain detail and physical-acceptance warnings without claiming approximate sizing', () => {
   const model = { id: 'converter', status: 'concept-unvalidated', bomPartIds: ['converter'], assembly: 'pod', geometry: { status: 'measured-envelope', rework: 'Confirm PCB thickness and component detail.' } };

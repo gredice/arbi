@@ -25,20 +25,24 @@ for the long variant; `show_drum=false` exposes the supports and base holes;
 
 ## Evidence and adjustable interfaces
 
-The existing BOM kit is `4-CLYS30-V20`. The manufacturer's
-[kit page](https://www.omc-stepperonline.com/ys-series-4-axis-closed-loop-stepper-cnc-kit-v2-0-3-00nm-424-83oz-in-nema-23-motor-w-2-0m-cables-power-supply-4-clys30-v20),
-accessed 2026-09-08, identifies `23HS40-5004D-E1000`, a 57 × 57 mm frame,
-122 mm body and 8 mm shaft projecting 22 mm. These values define the motor
-context; the received kit revision still needs a physical match.
+The existing BOM kit is `4-CLYS30-V20`. Its selected motor is
+`23HS40-5004D-E1000`; confirm that identity on the received kit. The supplier's
+[dimensional SVG](https://www.omc-stepperonline.com/image/catalog/dimensions/23HS40-5004D-E1000_Dimension-1.svg)
+was inspected in a browser on **2026-10-12**. The
+[drawing transcription and nominal CAD checks](motor-drawing-check.md) record
+57.3 mm maximum frame width, 122 ±1 mm body including the encoder, Ø8 mm shaft
+projecting 22 ±0.5 mm, four **Ø5.1 mm through-holes at 47.14 ±0.2 mm square pitch**,
+and a Ø38.1 mm pilot projecting 1.6 ±0.2 mm. Pitch and pilot are now supported by
+this exact motor drawing rather than generic NEMA23 assumptions.
 
-The linked dimensional SVG and full datasheet could not be retrieved (unsupported
-web content type; direct download returned HTTP 403). Accordingly **47.14 mm bolt
-pitch and 38.1 mm pilot are explicit NEMA23 starting assumptions**, not verified
-measurements from that motor drawing. The model exposes their parameters and uses
-5.5 mm mounting slots and a 38.6 mm pilot clearance, with ±2 mm vertical travel.
-Inspect the received motor's hole type and flange thickness before selecting its
-four screws; M4×25 through-screws/nuts are only a procurement allowance. Do not
-assume blind threaded holes or force a screw into the motor.
+The stand retains 5.5 mm mounting slots and a 38.6 mm pilot clearance, with ±2 mm
+vertical travel. Its printed geometry is unchanged. The shared motor reference
+adds the supplier's shaft flat, encoder envelope and rear cable-outlet envelope.
+Undimensioned flange thickness and contours remain simplified. Inspect the
+received flange thickness, through-hole access, actual screw/nut/washer stack
+and cable bend/routing clearance before selecting the four screws. M4×25
+through-screws/nuts remain a procurement allowance; the drawing is not evidence
+that this length fits. Do not assume blind threaded holes.
 
 608 dimensions remain the BOM's 8 × 22 × 7 mm. The split housing seat is 22.2 mm
 in diameter and 7.2 mm axially; outer-ring retaining lips are 1.5 mm thick with

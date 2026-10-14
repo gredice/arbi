@@ -118,7 +118,7 @@
             "path": "hardware/assemblies/camera-pod/camera-pod-servo-fit-coupon.scad",
             "module": "camera_pod_servo_fit_coupon",
             "modelId": "camera-pod-servo-fit-coupon",
-            "revision": "0.1.0"
+            "revision": "0.1.1"
           },
           {
             "path": "hardware/assemblies/camera-pod/camera-pod-integrated-camera-hood.scad",
@@ -130,17 +130,17 @@
             "path": "hardware/assemblies/camera-pod/camera-pod-integrated-gimbal-head.scad",
             "module": "camera_pod_integrated_gimbal_head",
             "modelId": "camera-pod-integrated-gimbal-head",
-            "revision": "0.1.4"
+            "revision": "0.1.5"
           },
           {
             "path": "hardware/assemblies/camera-pod/camera-pod-integrated-gimbal-carrier.scad",
             "module": "camera_pod_integrated_gimbal_carrier",
             "modelId": "camera-pod-integrated-gimbal-carrier",
-            "revision": "0.1.1"
+            "revision": "0.1.2"
           }
         ]
       },
-      "notes": "Current compact enclosure uses camera-pod-integrated-gimbal-head r0.1.4 (Wide optical opening; reprint), camera-pod-integrated-gimbal-carrier r0.1.1, reinforced integrated cradle r0.1.1 and pivot support r0.1.0, horn retainers and camera-pod-integrated-camera-hood r0.1.2 (short open rear seat and 12.2 mm rounded-square module clearance; reprint). Historical concept and dry bench gimbal parts, fixed fairing, tilt-servo boot and rear camera cowl are archived and excluded from this BOM. Four M2 x 10 clamp stacks join head and carrier; four M2 x 12 camera screws retain four primary nuts and eight washers. The selected kit exports 13 fabrication models including the optional coupon and installs 16 printed pieces. See hardware/assemblies/camera-pod/camera-pod-enclosure.md for quantities and service routes. Servo and installed ribbon dimensions, physical fit, rain protection and complete flying mass remain unverified."
+      "notes": "Current compact enclosure uses camera-pod-integrated-gimbal-head r0.1.5 (Wide optical opening and measured-servo clearance; reprint), camera-pod-integrated-gimbal-carrier r0.1.2, reinforced integrated cradle r0.1.1 and pivot support r0.1.0, horn retainers and camera-pod-integrated-camera-hood r0.1.2 (open rear seat and full-square module clearance; reprint). Historical concept and dry bench gimbal parts, fixed fairing, tilt-servo boot and rear camera cowl are archived and excluded from this BOM. Four M2 x 10 clamp stacks join head and carrier; four M2 x 12 camera screws retain four primary nuts and eight washers. The selected kit exports 13 fabrication models including the optional coupon and installs 16 printed pieces. See hardware/assemblies/camera-pod/camera-pod-enclosure.md for quantities and service routes. Servo/connector dimensions, complete assembly fit, rain protection and complete flying mass remain unverified. The owner accepted the revised servo body/mounting fit on 12 October 2026; see docs/evidence/micro-servo-2026-10-12.md."
     },
     {
       "id": "camera-pod-chassis",
@@ -174,7 +174,7 @@
             "path": "hardware/assemblies/camera-pod/camera-pod-pan-servo-mount.scad",
             "module": "camera_pod_pan_servo_mount",
             "modelId": "camera-pod-pan-servo-mount",
-            "revision": "0.1.0"
+            "revision": "0.1.1"
           },
           {
             "path": "hardware/assemblies/camera-pod/camera-pod-spider-spacer.scad",
@@ -623,7 +623,8 @@
       ],
       "requirements": [
         "~3.7 g digital micro servo; two-axis camera gimbal only, Pi/power stage remain fixed to pod."
-      ]
+      ],
+      "notes": "Owner-reported 12 October 2026: 31.8 × 9 × 24.5 mm including shaft, 25 mm end-hole pitch and 145 mm white/red/black leads exiting the shaft end of a translucent blue case. Owner checked and accepted the revised body/mounting fit for continued use. See docs/evidence/micro-servo-2026-10-12.md. Mass, pinout, horn, spline and detailed interfaces remain unverified."
     },
     {
       "id": "microsd-card-32gb",
@@ -672,7 +673,7 @@
         "off-the-shelf"
       ],
       "requirements": [
-        "Provided by the selected StepperOnline 4-axis V2.0 kit; exact included model must match the captured kit specification."
+        "Provided by the selected StepperOnline 4-axis V2.0 kit; confirm the received motor is 23HS40-5004D-E1000. Supplier dimensional SVG inspected 2026-10-12: 57.3 mm maximum square frame, 122 ±1 mm body including 22 ±1 mm encoder housing, Ø8 mm shaft with 22 ±0.5 mm projection and 15 ±0.2 mm D-flat; four Ø5.1 mm through mounting holes on 47.14 ±0.2 mm square pitch and Ø38.1 mm pilot projecting 1.6 ±0.2 mm. Drawing and CAD evidence: hardware/assemblies/winch/motor-drawing-check.md."
       ]
     },
     {
@@ -993,8 +994,11 @@
         "off-the-shelf"
       ],
       "requirements": [
-        "Roller-lever microswitch, e.g. KW12-3 class. Four installed for lines and 1 for docking + spares."
-      ]
+        "Received KW11-3Z roller-lever microswitch; current assembly quantities cover four winches and two dock observations.",
+        "Drawing case 20 x 10.7 x 6.7 mm; two diameter-2.5 mm holes at 9.5 mm pitch, centres 2.8 mm above case bottom and 5.5 / 15.0 mm from the left edge.",
+        "Measured roller diameter 4.8 mm, width 4 mm, axle span 7.2 mm; lever width 4 mm and thickness 0.3 mm."
+      ],
+      "notes": "Owner confirmed receipt and KW11-3Z variant on 2026-10-12. Roller-top heights from case bottom: 21.0 mm released, approximately 18 mm at electrical click on pressing, 16 mm fully pressed. Received quantity was not reconfirmed. Source and dimensional evidence: docs/evidence/kw11-3z-2026-10-12.md. Case, hole diameter/pitch/height and terminal dimensions use the supplied drawing; other listed measurements are owner-reported. Attachment, horizontal roller position, spring flex, bends and terminal offsets remain approximate. The fully pressed position does not establish allowable overtravel, electrical release, operating force, weather resistance or installation acceptance. No new price, stock or commercial observation is claimed."
     },
     {
       "id": "shaft-collar-8mm",

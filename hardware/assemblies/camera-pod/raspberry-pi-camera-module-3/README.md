@@ -105,15 +105,15 @@ contact orientation and disconnect power before inserting/removing a ribbon.
 [Integrated hood r0.1.2](../camera-pod-integrated-camera-hood.scad) replaces the
 old restricted face with 12.2 mm rounded-square clearance for the complete square autofocus body.
 Its rear cavity is 27.8 × 26.6 and the front-to-seat distance is 2 mm shorter.
-The four 1.4-thick M2 lands move from Z=10..11.4 to Z=8..9.4; assembly r0.3.8
+The four 1.4-thick M2 lands move from Z=10..11.4 to Z=8..9.4; assembly r0.3.9
 moves the hood 2 mm rearward, preserving the installed PCB, cradle, bolt and
 washer planes. The original four M2 ×12 screws/four nuts/eight washers remain.
 
 Insert the camera **lens first from the open rear**; its PCB front rests **on**
 the exposed rear lands. Do not bend the board or tuck it underneath plastic.
 Disconnect power and keep the rear CSI connector/latch accessible. Reprint P09
-and the black outer head r0.1.4, whose lower opening clears Wide rays;
-[the dated Wide fit record](../../../../docs/evidence/camera-module-3-wide-2026-10-12.md)
+and the black outer head r0.1.5, whose lower opening clears Wide rays;
+[the reconciled Wide fit record](../../../../docs/evidence/camera-module-3-wide-2026-10-14.md)
 owns insertion, aperture, fastener, optical and motion-check results. Earlier
 Standard records and images remain historical evidence for their stated revisions.
 

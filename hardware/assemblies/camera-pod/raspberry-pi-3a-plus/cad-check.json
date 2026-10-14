@@ -1,0 +1,358 @@
+{
+  "model_revision": "0.2.0",
+  "openScadVersion": "2021.01",
+  "evidence": "drawing-derived nominal CAD; physical fit unverified",
+  "drawing_sha256": "3a57851b81c319005ed04ef3bd303a66857cee65226e54d9f89a73f60d141923",
+  "source_hashes": {
+    "hardware/assemblies/camera-pod/raspberry-pi-3a-plus.scad": "d9eb7e1595cb6097e7e6a06ff19502becbfd877f8148b7e6e216eeda5c9a8942",
+    "hardware/lib/raspberry-pi-3a-plus.scad": "b39d15f5ba17f6f477d323d730ff1b096b43bd6a2dd6197ea00455552505d1e3",
+    "scripts/camera-pod-booklet/reference-parts.scad": "998a63211e931f4a760d7af3a4d766d3cfe3e064b1742e08d334fd339706d636",
+    "hardware/assemblies/camera-pod/raspberry-pi-3a-plus/drawing-trace.json": "1440f1ee05e44932d97c2b83c17b1c558e73501718caefa46cdcacba5fa4b84a",
+    "scripts/camera-pod-booklet/check_pi_reference.py": "2d3ab50bcc9b4e6b1ada03dd8110ab666ea9850a8924c06526251a300cdb7dae"
+  },
+  "checks": {
+    "booklet_matches_public_reference": true,
+    "closed_connected_mesh": true,
+    "pcb_size_mm": [
+      65,
+      56,
+      1.6
+    ],
+    "corner_radius_mm": 3,
+    "gpio_pin_count": 40,
+    "mounting_holes": [
+      {
+        "centre_xy_mm": [
+          -29,
+          -24.5
+        ],
+        "shifted_control_intersection_mm3": 3.6776786008340503
+      },
+      {
+        "centre_xy_mm": [
+          -29,
+          24.5
+        ],
+        "shifted_control_intersection_mm3": 3.6776786008340507
+      },
+      {
+        "centre_xy_mm": [
+          29,
+          -24.5
+        ],
+        "shifted_control_intersection_mm3": 3.6776786008340525
+      },
+      {
+        "centre_xy_mm": [
+          29,
+          24.5
+        ],
+        "shifted_control_intersection_mm3": 3.6776786008340525
+      }
+    ],
+    "plan_comparisons": {
+      "gpio": {
+        "traced_plan_bounds_mm": [
+          [
+            -25.398399443284625,
+            21.986273718207492
+          ],
+          [
+            25.39839944328461,
+            26.982640290674183
+          ]
+        ],
+        "max_plan_error_mm": 0.017359709325816652
+      },
+      "usb": {
+        "traced_plan_bounds_mm": [
+          [
+            20.8072372999304,
+            -3.854662898667751
+          ],
+          [
+            35.01043841336116,
+            10.829228905934578
+          ]
+        ],
+        "max_plan_error_mm": 0.045337101332248775
+      },
+      "hdmi": {
+        "traced_plan_bounds_mm": [
+          [
+            -7.757480862908835,
+            -29.49212757367785
+          ],
+          [
+            6.739735560194859,
+            -17.351635042389994
+          ]
+        ],
+        "max_plan_error_mm": 0.010264439805141023
+      },
+      "power": {
+        "traced_plan_bounds_mm": [
+          [
+            -25.918580375782884,
+            -29.198223657650384
+          ],
+          [
+            -17.889700765483646,
+            -23.2749293500202
+          ]
+        ],
+        "max_plan_error_mm": 0.025070649979799242
+      },
+      "audio": {
+        "traced_plan_bounds_mm": [
+          [
+            17.50521920668057,
+            -30.48687928946307
+          ],
+          [
+            24.4937369519833,
+            -15.497779572062978
+          ]
+        ],
+        "max_plan_error_mm": 0.013120710536931313
+      },
+      "dsi": {
+        "traced_plan_bounds_mm": [
+          [
+            -31.007306889352822,
+            -11.202260799354065
+          ],
+          [
+            -27.049408489909535,
+            11.202260799354043
+          ]
+        ],
+        "max_plan_error_mm": 0.00730688935282231
+      },
+      "csi": {
+        "traced_plan_bounds_mm": [
+          [
+            11.059498956158663,
+            -27.683488090431982
+          ],
+          [
+            14.994780793319414,
+            -5.301574485264453
+          ]
+        ],
+        "max_plan_error_mm": 0.016511909568016847
+      },
+      "soc": {
+        "traced_plan_bounds_mm": [
+          [
+            -12.529575504523311,
+            -3.4703270084780122
+          ],
+          [
+            1.470076548364645,
+            10.524020993136837
+          ]
+        ],
+        "max_plan_error_mm": 0.029923451635355036
+      }
+    },
+    "socket_probe_intersections_mm3": {
+      "usb": 0.0,
+      "hdmi": 0.0,
+      "power": 0.0,
+      "audio": 0.0,
+      "csi": 0.0,
+      "dsi": 0.0
+    }
+  },
+  "meshes": {
+    "pi": {
+      "bounds_mm": [
+        [
+          -32.5,
+          -30.5,
+          -1.1
+        ],
+        [
+          35.0,
+          28.0,
+          10.1
+        ]
+      ],
+      "volume_mm3": 9863.582738799998,
+      "triangles": 2820,
+      "stl_sha256": "a3f86e8c76833bfb9c3f4ae2cb2f10f6e18a999ea0c80603cac7930f42f1593e"
+    },
+    "pcb": {
+      "bounds_mm": [
+        [
+          -32.5,
+          -28.0,
+          0.0
+        ],
+        [
+          32.5,
+          28.0,
+          1.6
+        ]
+      ],
+      "volume_mm3": 5773.6140515199995,
+      "triangles": 1308,
+      "stl_sha256": "6f64dba52f7221a960ff9ed5e25d316b8e4c183d388f11875db8f5f0a83f99f6"
+    },
+    "gpio": {
+      "bounds_mm": [
+        [
+          -25.4,
+          22.0,
+          1.58
+        ],
+        [
+          25.4,
+          27.0,
+          10.1
+        ]
+      ],
+      "volume_mm3": 738.3839923199997,
+      "triangles": 652,
+      "stl_sha256": "9498d0eb0ab3e31c42b900980f17bc667c23877d3fff2acbfc9fada5cc3be5f2"
+    },
+    "usb": {
+      "bounds_mm": [
+        [
+          20.8,
+          -3.9,
+          1.58
+        ],
+        [
+          35.0,
+          10.8,
+          8.7
+        ]
+      ],
+      "volume_mm3": 753.5208003149996,
+      "triangles": 124,
+      "stl_sha256": "0cf0ba177856c0f4430231c42a3dfa7b54f244eab3e93fdbeced09b8451fd5aa"
+    },
+    "hdmi": {
+      "bounds_mm": [
+        [
+          -7.75,
+          -29.5,
+          1.58
+        ],
+        [
+          6.75,
+          -17.35,
+          8.1
+        ]
+      ],
+      "volume_mm3": 712.17307824,
+      "triangles": 44,
+      "stl_sha256": "88cdaaca52260f6d8678a7fe36f9ef695e7440c86325267babc4bfcf220e59bf"
+    },
+    "power": {
+      "bounds_mm": [
+        [
+          -25.9,
+          -29.2,
+          1.58
+        ],
+        [
+          -17.9,
+          -23.3,
+          4.4
+        ]
+      ],
+      "volume_mm3": 67.36500000000001,
+      "triangles": 44,
+      "stl_sha256": "faa5710a0f0ebc19a49e415bd61fadec7b49d0e07e62b284c1b8c87dec2a137b"
+    },
+    "audio": {
+      "bounds_mm": [
+        [
+          17.5,
+          -30.5,
+          1.58
+        ],
+        [
+          24.5,
+          -15.5,
+          7.6
+        ]
+      ],
+      "volume_mm3": 477.40220539000006,
+      "triangles": 460,
+      "stl_sha256": "f20e1b0be1a2c5df6638338d059972cfef9794e71d2315352af15c82f04bd741"
+    },
+    "dsi": {
+      "bounds_mm": [
+        [
+          -31.0,
+          -11.2,
+          1.58
+        ],
+        [
+          -27.05,
+          11.2,
+          7.1
+        ]
+      ],
+      "volume_mm3": 427.5093331200001,
+      "triangles": 44,
+      "stl_sha256": "0ea1d9b96b174b5ca864664bc0316bdd4f6688a9546ec4c29fb908e3f5753df2"
+    },
+    "csi": {
+      "bounds_mm": [
+        [
+          11.05,
+          -27.7,
+          1.58
+        ],
+        [
+          15.0,
+          -5.3,
+          7.1
+        ]
+      ],
+      "volume_mm3": 427.50926825999977,
+      "triangles": 44,
+      "stl_sha256": "b19172ddb691cd5fdcc4881a67ff71b83f883661af5e2b95538b9bf33a4e492c"
+    },
+    "soc": {
+      "bounds_mm": [
+        [
+          -12.5,
+          -3.5,
+          1.58
+        ],
+        [
+          1.5,
+          10.5,
+          3.6
+        ]
+      ],
+      "volume_mm3": 395.92,
+      "triangles": 12,
+      "stl_sha256": "8d1f90a235f51ab5587c9947684aa758b337555b53f526bf4c55a8060be80654"
+    },
+    "booklet": {
+      "bounds_mm": [
+        [
+          -32.5,
+          -30.5,
+          -1.1
+        ],
+        [
+          35.0,
+          28.0,
+          10.1
+        ]
+      ],
+      "volume_mm3": 9863.582738799998,
+      "triangles": 2820,
+      "stl_sha256": "04990e3fe521bc5501c7f18bc5012ab3700ba8646911d321f5630cc03b4c0da5"
+    }
+  },
+  "limits": "Plan trace agreement within 0.08 mm is a source reproduction check, not a manufacturing tolerance. PCB thickness, hole diameter, Z datum, underside and mating details are nominal. No received-board, electrical or physical assembly acceptance."
+}

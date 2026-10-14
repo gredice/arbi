@@ -1,0 +1,198 @@
+{
+  "status": "nominal CAD only",
+  "model_revision": "1.0.0",
+  "source_hashes": {
+    "hardware/assemblies/winch/roller-lever-microswitch.scad": "db91d414085ad0bd4aa1f9ded60a61aea3f6cb4cca6db2d952e4d83c356d3167",
+    "hardware/lib/arbi.scad": "285964a38a24304ca0f6e6ada12d1de341df9673a31d14dc366abacd83d345c3",
+    "hardware/models.json": "b45bb87d50c4cd7441669e9db70a97bae3222382a18ab075a99646b85c59a999",
+    "scripts/check-microswitch.py": "6ce0ed3f975dd80977312d36f96614b4d5e4a7e3846a3043e21f215b2657ddac"
+  },
+  "meshes": {
+    "case": {
+      "bounds_mm": [
+        [
+          0.0,
+          -3.35,
+          8.58307e-06
+        ],
+        [
+          20.0,
+          3.35,
+          10.7
+        ]
+      ],
+      "triangles": 1084,
+      "stl_sha256": "96b3c8efbb960a8b13a7aaec79d221ea7f191d2066875800512fd89a7cc3dea2"
+    },
+    "released-roller": {
+      "bounds_mm": [
+        [
+          14.2092,
+          -2.0,
+          16.2007
+        ],
+        [
+          19.0078,
+          2.0,
+          20.9993
+        ]
+      ],
+      "triangles": 380,
+      "stl_sha256": "24596d67ca4b1a40c1d15bc76ec3926f736d8a432b21d98a0851f73f6974bacd"
+    },
+    "released": {
+      "bounds_mm": [
+        [
+          0.0,
+          -3.6,
+          -3.3
+        ],
+        [
+          20.0,
+          3.6,
+          20.9993
+        ]
+      ],
+      "triangles": 4616,
+      "stl_sha256": "1779404b680cac2458627fba837cd4d2b8095adba957cfdb179302f284ae3565"
+    },
+    "clicked-roller": {
+      "bounds_mm": [
+        [
+          15.5414,
+          -2.0,
+          13.2008
+        ],
+        [
+          20.3399,
+          2.0,
+          17.9992
+        ]
+      ],
+      "triangles": 380,
+      "stl_sha256": "109b44a43626f2d4547d58a87596eeea8d5f4f30b115db3f617a8248637bbe36"
+    },
+    "clicked": {
+      "bounds_mm": [
+        [
+          0.0,
+          -3.6,
+          -3.3
+        ],
+        [
+          20.3399,
+          3.6,
+          17.9992
+        ]
+      ],
+      "triangles": 4616,
+      "stl_sha256": "d495a33036e0767a42be3c4360735962bd0fc46ac662f58b8bd72a1df95fff15"
+    },
+    "fully-pressed-roller": {
+      "bounds_mm": [
+        [
+          16.0416,
+          -2.0,
+          11.2006
+        ],
+        [
+          20.8404,
+          2.0,
+          15.9994
+        ]
+      ],
+      "triangles": 380,
+      "stl_sha256": "b84fdf694a115e7537ecf0b359808036e2efc9af3a60f2cb4fc99e38cd3183e4"
+    },
+    "fully-pressed": {
+      "bounds_mm": [
+        [
+          0.0,
+          -3.6,
+          -3.3
+        ],
+        [
+          20.8404,
+          3.6,
+          15.9994
+        ]
+      ],
+      "triangles": 4616,
+      "stl_sha256": "4abf0b8f01bcb7644c12b67af84f88ee96e00dcd3c7a0211db25fd0ccdc806f8"
+    }
+  },
+  "hole_probes": [
+    {
+      "centre_xz_mm": [
+        5.5,
+        2.8
+      ],
+      "probe_diameter_mm": 2.4,
+      "intersection_mm3": 0.0,
+      "shifted_0_5_mm_intersection_mm3": 6.900754308333622
+    },
+    {
+      "centre_xz_mm": [
+        15.0,
+        2.8
+      ],
+      "probe_diameter_mm": 2.4,
+      "intersection_mm3": 0.0,
+      "shifted_0_5_mm_intersection_mm3": 6.900608529237587
+    }
+  ],
+  "poses": {
+    "released": {
+      "recorded_roller_top_mm": 21.0,
+      "mesh_roller_top_mm": 20.9993,
+      "full_bounds_mm": [
+        [
+          0.0,
+          -3.6,
+          -3.3
+        ],
+        [
+          20.0,
+          3.6,
+          20.9993
+        ]
+      ],
+      "watertight_components": 1
+    },
+    "clicked": {
+      "recorded_roller_top_mm": 18.0,
+      "mesh_roller_top_mm": 17.9992,
+      "full_bounds_mm": [
+        [
+          0.0,
+          -3.6,
+          -3.3
+        ],
+        [
+          20.3399,
+          3.6,
+          17.9992
+        ]
+      ],
+      "watertight_components": 1
+    },
+    "fully-pressed": {
+      "recorded_roller_top_mm": 16.0,
+      "mesh_roller_top_mm": 15.9994,
+      "full_bounds_mm": [
+        [
+          0.0,
+          -3.6,
+          -3.3
+        ],
+        [
+          20.8404,
+          3.6,
+          15.9994
+        ]
+      ],
+      "watertight_components": 1
+    }
+  },
+  "limits": "Owner/drawing dimensions. Lever attachment, horizontal positions and motion path remain approximate. No rated overtravel or physical fit acceptance."
+}

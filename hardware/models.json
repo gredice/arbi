@@ -32,13 +32,13 @@
         },
         {
             "id": "camera-pod-assembly",
-            "revision": "0.3.8",
+            "revision": "0.3.9",
             "status": "concept-unvalidated",
             "artifactRole": "reference",
             "bomPartIds": [],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/camera-pod-assembly.scad",
-            "output": "camera-pod-assembly-r0.3.8.csg",
+            "output": "camera-pod-assembly-r0.3.9.csg",
             "documentation": "hardware/assemblies/camera-pod/README.md",
             "description": "Integrated rain-camera pod reference by default; show_legacy=true retains the historical separate concept layout."
         },
@@ -294,7 +294,7 @@
         },
         {
             "id": "camera-pod-pan-servo-mount",
-            "revision": "0.1.0",
+            "revision": "0.1.1",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
             "bomPartIds": [
@@ -302,7 +302,7 @@
             ],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/camera-pod-pan-servo-mount.scad",
-            "output": "camera-pod-pan-servo-mount-r0.1.0.stl",
+            "output": "camera-pod-pan-servo-mount-r0.1.1.stl",
             "documentation": "hardware/assemblies/camera-pod/README.md",
             "description": "Bench prototype pan servo mount; nominal servo interfaces require measurement."
         },
@@ -322,7 +322,7 @@
         },
         {
             "id": "camera-pod-servo-fit-coupon",
-            "revision": "0.1.0",
+            "revision": "0.1.1",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
             "bomPartIds": [
@@ -330,7 +330,7 @@
             ],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/camera-pod-servo-fit-coupon.scad",
-            "output": "camera-pod-servo-fit-coupon-r0.1.0.stl",
+            "output": "camera-pod-servo-fit-coupon-r0.1.1.stl",
             "documentation": "hardware/assemblies/camera-pod/README.md",
             "description": "Bench prototype servo fit coupon; nominal servo interfaces require measurement."
         },
@@ -766,7 +766,7 @@
         },
         {
             "id": "camera-pod-integrated-gimbal-head",
-            "revision": "0.1.4",
+            "revision": "0.1.5",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
             "bomPartIds": [
@@ -774,13 +774,13 @@
             ],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/camera-pod-integrated-gimbal-head.scad",
-            "output": "camera-pod-integrated-gimbal-head-r0.1.4.stl",
+            "output": "camera-pod-integrated-gimbal-head-r0.1.5.stl",
             "documentation": "hardware/assemblies/camera-pod/README.md",
-            "description": "One-piece tapered moving head with preserved circular neck and clamps; widened lower optical opening clears the selected Wide camera rays. Physical fit/rain performance unverified."
+            "description": "One-piece tapered moving head with preserved neck/clamps, measured-servo rear clearance and a wider lower opening for Wide camera rays. Physical assembly/rain performance unverified."
         },
         {
             "id": "camera-pod-integrated-gimbal-carrier",
-            "revision": "0.1.1",
+            "revision": "0.1.2",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
             "bomPartIds": [
@@ -788,7 +788,7 @@
             ],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/camera-pod-integrated-gimbal-carrier.scad",
-            "output": "camera-pod-integrated-gimbal-carrier-r0.1.1.stl",
+            "output": "camera-pod-integrated-gimbal-carrier-r0.1.2.stl",
             "documentation": "hardware/assemblies/camera-pod/README.md",
             "description": "Separate pan-moving internal carrier for the compact enclosed gimbal, with a relocated horizontal tilt servo and four M2 attachment tabs for the one-piece outer head."
         },
@@ -1347,7 +1347,7 @@
         },
         {
             "id": "micro-pan-tilt-servo",
-            "revision": "0.1.0",
+            "revision": "0.2.0",
             "status": "concept-unvalidated",
             "artifactRole": "visualization",
             "bomPartIds": [
@@ -1355,13 +1355,13 @@
             ],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/micro-pan-tilt-servo.scad",
-            "output": "micro-pan-tilt-servo-r0.1.0.stl",
+            "output": "micro-pan-tilt-servo-r0.2.0.stl",
             "documentation": "hardware/assemblies/camera-pod/README.md",
-            "description": "Approximate visualization of Micro pan/tilt servo. Uses the existing payload booklet assumption of 20 × 8.5 × 18 mm; not a measured servo or horn.",
+            "description": "Measured-envelope servo reference with translucent blue case and three coloured leads; fine interfaces remain nominal.",
             "geometry": {
-                "status": "approximate",
-                "basis": "Uses the existing payload booklet assumption of 20 × 8.5 × 18 mm; not a measured servo or horn.",
-                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+                "status": "measured-envelope",
+                "basis": "Owner-reported 12 October 2026: 31.8 × 9 × 24.5 mm rigid envelope including shaft, 25 mm end-hole pitch, 145 mm white/red/black leads, translucent blue case; body opening and revised 25 mm mounting fit accepted by the owner. See docs/evidence/micro-servo-2026-10-12.md.",
+                "rework": "Owner accepted the revised fit on 12 October 2026. Fine shaft, spline, horn and lug details remain nominal; inspect assembled travel, screw seating and wire slack before full-pod acceptance."
             }
         },
         {
@@ -1404,7 +1404,7 @@
         },
         {
             "id": "nema23-closed-loop-motor",
-            "revision": "0.1.0",
+            "revision": "1.0.0",
             "status": "concept-unvalidated",
             "artifactRole": "visualization",
             "bomPartIds": [
@@ -1412,13 +1412,14 @@
             ],
             "assembly": "winch",
             "entrypoint": "hardware/assemblies/winch/nema23-closed-loop-motor.scad",
-            "output": "nema23-closed-loop-motor-r0.1.0.stl",
+            "output": "nema23-closed-loop-motor-r1.0.0.stl",
             "documentation": "hardware/assemblies/winch/README.md",
-            "description": "Approximate visualization of 3.0 Nm NEMA 23 closed-loop motor. Existing winch booklet nominal 57 mm face, 122 mm body and 8 mm shaft; confirm supplied kit motor.",
+            "description": "StepperOnline 23HS40-5004D-E1000 supplier-drawing reference: 57.3 mm maximum frame, 122 mm body including encoder, Ø8 × 22 mm D-shaft and four Ø5.1 mm mounting holes.",
             "geometry": {
-                "status": "approximate",
-                "basis": "Existing winch booklet nominal 57 mm face, 122 mm body and 8 mm shaft; confirm supplied kit motor.",
-                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+                "status": "drawing-derived",
+                "basis": "StepperOnline 23HS40-5004D-E1000 dimensional SVG inspected 2026-10-12; dimensions, tolerances, datum and nominal mesh checks are recorded in hardware/assemblies/winch/motor-drawing-check.md.",
+                "rework": "Supplier dimensions define the frame, pilot, shaft, mounting pitch and rear outlet envelope. Undimensioned flange thickness, housing contours and outlet width are simplified; 300 mm flexible leads and connectors are omitted. Confirm the received kit model, fastener stack and installed cable routing before physical fit or clearance acceptance.",
+                "evidence": "hardware/assemblies/winch/nema23-closed-loop-motor-cad-check.json"
             }
         },
         {
@@ -1556,7 +1557,7 @@
         },
         {
             "id": "raspberry-pi-3a-plus",
-            "revision": "0.1.0",
+            "revision": "0.2.0",
             "status": "concept-unvalidated",
             "artifactRole": "visualization",
             "bomPartIds": [
@@ -1564,13 +1565,14 @@
             ],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/raspberry-pi-3a-plus.scad",
-            "output": "raspberry-pi-3a-plus-r0.1.0.stl",
-            "documentation": "hardware/assemblies/camera-pod/README.md",
-            "description": "Approximate visualization of Raspberry Pi 3A+. Existing payload booklet nominal 65 × 56 mm PCB and 58 × 49 mm mounting pitch; connectors simplified.",
+            "output": "raspberry-pi-3a-plus-r0.2.0.stl",
+            "documentation": "hardware/assemblies/camera-pod/raspberry-pi-3a-plus/README.md",
+            "description": "Raspberry Pi 3 Model A+ reference rebuilt from official mechanical drawings and revision 1.0 connector schematic. Rounded PCB, GPIO pins and all major ports share one checked model with the camera-pod booklet.",
             "geometry": {
-                "status": "approximate",
-                "basis": "Existing payload booklet nominal 65 × 56 mm PCB and 58 × 49 mm mounting pitch; connectors simplified.",
-                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+                "status": "drawing-derived",
+                "basis": "Official 65 × 56 mm PCB, R3 corners and 58 × 49 mm mounting pitch; connector plan outlines traced from RP-008330 and published connector heights. Source comparison and mesh inspection are committed in the linked review.",
+                "rework": "Inspect nominal Ø2.75 mm holes, 1.6 mm PCB thickness, underside socket and mating details against the received board. USB uses the larger published 7.1 mm height; model heights use an explicit PCB-top datum. Physical fit and plugged-cable access remain unverified.",
+                "evidence": "hardware/assemblies/camera-pod/raspberry-pi-3a-plus/cad-check.json"
             }
         },
         {
@@ -1613,7 +1615,7 @@
         },
         {
             "id": "roller-lever-microswitch",
-            "revision": "0.1.0",
+            "revision": "1.0.0",
             "status": "concept-unvalidated",
             "artifactRole": "visualization",
             "bomPartIds": [
@@ -1621,13 +1623,13 @@
             ],
             "assembly": "winch",
             "entrypoint": "hardware/assemblies/winch/roller-lever-microswitch.scad",
-            "output": "roller-lever-microswitch-r0.1.0.stl",
+            "output": "roller-lever-microswitch-r1.0.0.stl",
             "documentation": "hardware/assemblies/winch/README.md",
-            "description": "Approximate visualization of Winch home/reference and docked position roller microswitch. Assumed KW12-class 20 × 10 × 6 mm body with lever and roller; mounting and travel unspecified.",
+            "description": "Received KW11-3Z reference: drawing-based 20 x 10.7 x 6.7 mm case and two diameter-2.5 mm bores at 9.5 mm pitch; owner-measured bore offset, roller, lever and three roller-top heights. Attachment and motion geometry remain approximate.",
             "geometry": {
                 "status": "approximate",
-                "basis": "Assumed KW12-class 20 × 10 × 6 mm body with lever and roller; mounting and travel unspecified.",
-                "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
+                "basis": "Received KW11-3Z, owner-confirmed 2026-10-12: first hole 5.5 mm from the left edge, roller diameter 4.8 mm / width 4 mm / axle span 7.2 mm, lever 4 x 0.3 mm. Roller top above case bottom: released 21.0 mm, click approximately 18 mm, fully pressed 16 mm. Drawing case 20 x 10.7 x 6.7 mm, two diameter-2.5 mm holes at 9.5 mm pitch and 2.8 mm height. Evidence: docs/evidence/kw11-3z-2026-10-12.md.",
+                "rework": "Lever attachment, horizontal roller positions, spring flex, bends and terminal offsets remain approximate. Measure these before final cam, target or bracket design. Fully pressed height does not establish allowable overtravel; electrical release position, force, rated stroke and physical fit remain unverified."
             }
         },
         {
@@ -2449,13 +2451,13 @@
         },
         {
             "id": "camera-pod-pan-yoke",
-            "revision": "0.1.1",
+            "revision": "0.1.2",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
             "bomPartIds": [],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/camera-pod-pan-yoke.scad",
-            "output": "camera-pod-pan-yoke-r0.1.1.stl",
+            "output": "camera-pod-pan-yoke-r0.1.2.stl",
             "documentation": "hardware/assemblies/camera-pod/README.md",
             "description": "Pan yoke r0.1.1 with removable tilt-servo boot attachment ears; provisional servo/horn fit.",
             "archiveReason": "Dry bench alternative; excluded from the current compact enclosure print kit and BOM.",

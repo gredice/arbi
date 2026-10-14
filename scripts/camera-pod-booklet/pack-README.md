@@ -22,7 +22,7 @@ Eleven printable files; fourteen installed printed pieces including the existing
 
 ## Check the actual parts first
 
-The provisional servo is 20 x 8.5 x 18 mm, ear span 27 mm, hole pitch 24 mm, shaft offset 5 mm and output tip 22 mm above its case bottom. The stock horn reference has an 8 mm hub and one 12 mm arm, 2 mm hub thickness / 1.5 mm arm thickness. Measure the real case, lug heights, shaft, horn and lead exit. Print the coupon before the complete set. No supplier model, spline or OEM screw thread has been verified.
+The owner reports a 31.8 x 9 x 24.5 mm servo envelope including the shaft, 25 mm end-hole pitch, and 145 mm white/red/black leads from the shaft end of a translucent blue case. The owner checked and accepted the revised body/mounting fit on 12 October 2026. The coupon preserves the 20.8 x 9.3 mm opening. Case length, case/shaft height split, lug heights, shaft offset, spline, horn and OEM screw thread remain nominal. The stock horn reference has an 8 mm hub and one 12 mm arm, 2 mm hub thickness / 1.5 mm arm thickness. Measure these interfaces before accepting the complete set. The rigid assembly checks exclude flexible leads and connectors.
 
 Converter: received 50 x 30 x 17 mm envelope; four diameter-3 mm holes at 45 x 24 mm pitch, four M2.5 x 10 screw stacks. PCB thickness is nominal 1.6 mm. Capacitor: provisional 10 x 16 mm can with separate strap. The camera/Pi board mounting patterns follow their cited drawings; connector/component envelopes remain simplified. All source URLs and assumptions are in sources.json.
 

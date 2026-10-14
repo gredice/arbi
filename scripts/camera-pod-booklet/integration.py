@@ -68,8 +68,8 @@ def assembly(pan=0,tilt=0,cover=True,hardware=True,enclosure=None):
  add('converter','buck-converter-measured-reference',T(35,0,22.5)@R('z',90) if enclosure else T(46,0,22.5),color=GREEN)
  parts[-1]['bomPartId']='pod-buck-converter-48v-5v'
  add('capacitor','capacitor-1000uf-UNVERIFIED',T(32,-34,23.5) if enclosure else T(48,26,23.5),color=DARK)
- add('pan-servo','micro-servo-3p7g-UNVERIFIED',T(-5,0,-7)@R('x',180),color=DARK)
- add('tilt-servo','micro-servo-3p7g-UNVERIFIED',T(-42+ENCLOSURE_DRIVE_SHIFT_X,axis_y-5,axis_z)@R('x',90)@R('y',90) if enclosure else T(-42,0,-54)@R('y',90),group='pan',color=DARK)
+ add('pan-servo','micro-servo-3p7g-UNVERIFIED',T(-5,0,-7)@R('x',180),color=(.08,.32,.86))
+ add('tilt-servo','micro-servo-3p7g-UNVERIFIED',T(-42+ENCLOSURE_DRIVE_SHIFT_X,axis_y-5,axis_z)@R('x',90)@R('y',90) if enclosure else T(-42,0,-54)@R('y',90),group='pan',color=(.08,.32,.86))
  add('pan-horn','servo-horn-UNVERIFIED',T(0,0,-29.4),group='pan',color=GRAY)
  add('tilt-horn','servo-horn-UNVERIFIED',H@T(0,0,-2.2),group='tilt',color=GRAY)
  add('camera','camera-module-3-wide-reference',compact@T(0,-5,-64)@R('x',180),group='tilt',color=GREEN)
@@ -99,10 +99,10 @@ def assembly(pan=0,tilt=0,cover=True,hardware=True,enclosure=None):
   hw(f'pi-top-washer-{i}','washer-M2p5-reference',T(x,y,32.1))
   hw(f'pi-bottom-washer-{i}','washer-M2p5-reference',T(x,y,17))
   hw(f'pi-nut-{i}','nut-M2p5-reference',T(x,y,15))
- for i,x in enumerate([-17,7]):
+ for i,x in enumerate([-17.5,7.5]):
   hw(f'pan-servo-bolt-{i}','csk-M1p6x6-reference',T(x,0,-25))
   hw(f'pan-servo-nut-{i}','nut-M1p6-reference',T(x,0,-20.5))
- for i,z in enumerate([-66,-42]):
+ for i,z in enumerate([-66.5,-41.5]):
   ear_y=axis_y-(z+59)
   hw(f'tilt-servo-bolt-{i}','csk-M1p6x6-reference',T(-24+ENCLOSURE_DRIVE_SHIFT_X,ear_y,axis_z)@R('x',90)@R('y',-90) if enclosure else T(-24,0,z)@R('y',-90),'pan')
   hw(f'tilt-servo-nut-{i}','nut-M1p6-reference',T(-28.5+ENCLOSURE_DRIVE_SHIFT_X,ear_y,axis_z)@R('x',90)@R('y',-90) if enclosure else T(-28.5,0,z)@R('y',-90),'pan')

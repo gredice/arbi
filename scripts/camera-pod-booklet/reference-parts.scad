@@ -1,16 +1,14 @@
 // ARBI camera pod illustration references, millimetres. Not replacement hardware.
 // Pi/camera board interfaces follow the cited drawings; component detail is simplified.
-// Servo/horn/capacitor remain provisional. Converter envelope/holes are measured.
+// Servo envelope/pitch and converter envelope/holes are measured; horn/capacitor detail remains provisional.
 include <arbi-hardware/lib/buck-converter-48v-5v.scad>
+include <arbi-hardware/lib/micro-pan-tilt-servo.scad>
+include <arbi-hardware/lib/raspberry-pi-3a-plus.scad>
 use <arbi-hardware/lib/raspberry-pi-camera-module-3.scad>
 part = "raspberry-pi-3a-plus-reference";
 $fn = 64;
 eps = 0.02;
 
-servo_body = [20, 8.5, 18];
-servo_lug_span = 27;
-servo_hole_pitch = 24;
-servo_shaft_offset = 5;
 capacitor_diameter = 10;
 capacitor_height = 16;
 
@@ -25,41 +23,14 @@ module ring(od,id,h) {
     }
 }
 module pi_board() {
-    // Local XY: 65 x 56 PCB. Four nominal 2.75 holes, 58 x 49 pitch.
-    // USB/HDMI/CSI/header envelopes are illustrative, not connector-fit CAD.
-    translate([-32.5,-28,0]) difference() {
-        union() {
-            rounded_plate(65,56,1.6,3);
-            translate([50,22,1.5]) cube([17,14,7.5]); // USB overhang
-            translate([24,-1.5,1.5]) cube([16,12,6.5]); // HDMI
-            translate([7,-1,1.5]) cube([8,5.5,3]); // power
-            translate([48,-1.5,1.5]) cube([7,12,6]); // AV jack
-            translate([6.8,49.5,1.5]) cube([51,5.4,2.7]);
-            for(x=[0:19],y=[0:1])
-                translate([8.1+2.54*x,50.8+2.54*y,4.1]) cube([.64,.64,5.7]);
-            translate([23,24,1.5]) cube([14,14,2]); // processor envelope
-            translate([42,4,1.5]) cube([3,21,4]); // CSI connector
-            translate([.2,20,-1.1]) cube([13.5,15,1.2]); // SD socket
-        }
-        for(x=[3.5,61.5],y=[3.5,52.5])
-            translate([x,y,-2]) cylinder(d=2.75,h=15);
-        translate([55,24,3]) cube([13,10,4.3]); // USB opening
-    }
+    raspberry_pi_3a_plus();
 }
 module camera() {
     raspberry_pi_camera_module_3(wide=true);
 }
 module servo() {
-    difference() {
-        union() {
-            translate([-servo_body[0]/2,-servo_body[1]/2,0]) cube(servo_body);
-            translate([-servo_lug_span/2,-servo_body[1]/2,13.5]) cube([servo_lug_span,servo_body[1],2]);
-            translate([servo_shaft_offset,0,17.9]) cylinder(d=7,h=1.8);
-            translate([servo_shaft_offset,0,19.5]) cylinder(d=3.6,h=2.5);
-        }
-        for(x=[-servo_hole_pitch/2,servo_hole_pitch/2])
-            translate([x,0,13]) cylinder(d=1.7,h=3);
-    }
+    // Flexible display leads are excluded from the rigid collision proxy.
+    micro_pan_tilt_servo(leads=false,solid=true);
 }
 module horn() {
     difference() {

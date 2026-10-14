@@ -8,6 +8,7 @@ import argparse
 import hashlib
 import json
 import math
+import re
 import struct
 import subprocess
 import tempfile
@@ -54,6 +55,29 @@ def volume_cm3(raw):
     return f'{volume:.6f}'
 
 
+def recipe_inputs(root, registry, ids):
+    """Pin every transitive source of costed meshes, excluding unrelated references."""
+    root = root.resolve()
+    hardware = root / 'hardware'
+    models = {m['id']: m for m in registry['models']}
+    pending = [root / models[id]['entrypoint'] for id in ids]
+    sources = set()
+    while pending:
+        path = pending.pop().resolve()
+        if not path.is_relative_to(hardware) or path.is_relative_to(hardware / 'generated'):
+            raise ValueError(f'Noncanonical fabrication dependency: {path}')
+        if path in sources:
+            continue
+        sources.add(path)
+        text = re.sub(r'/\*.*?\*/|//[^\n]*', '', path.read_text(), flags=re.S)
+        for reference in re.findall(r'\b(?:include|use)\s*<([^>]+)>', text):
+            dependency = (path.parent / reference).resolve()
+            if not dependency.is_file():
+                raise ValueError(f'Unresolved fabrication dependency: {path}: {reference}')
+            pending.append(dependency)
+    return [hardware / 'models.json', *sorted(sources)]
+
+
 def capture(directory):
     catalog_path = ROOT / 'bom/catalog/fabrication.json'
     catalog = json.loads(catalog_path.read_text())
@@ -63,9 +87,12 @@ def capture(directory):
                      for line in (directory / 'SHA256SUMS.txt').read_text().splitlines() if line.strip())
     if hashlib.sha256((directory / 'cad-release.json').read_bytes()).hexdigest() != checksums['cad-release.json']:
         raise ValueError('Release manifest checksum mismatch')
-    sources = {p: h for p, h in release['inputs'].items()
-               if p.startswith('hardware/') and (p.endswith('.scad') or p == 'hardware/models.json')}
     ids = {component['modelId'] for recipe in catalog['recipes'] for component in recipe['components']}
+    required = [str(p.relative_to(ROOT)) for p in recipe_inputs(ROOT, registry, ids)]
+    missing = set(required) - release['inputs'].keys()
+    if missing:
+        raise ValueError(f'Release lacks fabrication dependencies: {sorted(missing)}')
+    sources = {p: release['inputs'][p] for p in required}
     for path, expected in sources.items():
         actual = hashlib.sha256((ROOT / path).read_bytes()).hexdigest()
         if path == 'hardware/models.json' and actual != expected:
@@ -111,7 +138,7 @@ def canonical_inputs(root):
             if not p.is_relative_to(hardware / 'generated'))]
 
 
-def capture_current():
+def capture_current(export_timeout_seconds=120):
     """Export fresh current geometry when no matching release exists yet."""
     catalog_path = ROOT / 'bom/catalog/fabrication.json'
     catalog = json.loads(catalog_path.read_text())
@@ -133,7 +160,7 @@ def capture_current():
                 raise ValueError(f'Not a fabrication mesh: {model["id"]}')
             target = Path(temp) / model['output']
             result = subprocess.run(['openscad', '-o', str(target), str(ROOT / model['entrypoint'])],
-                                    capture_output=True, text=True, timeout=120)
+                                    capture_output=True, text=True, timeout=export_timeout_seconds)
             if result.returncode or 'ERROR:' in result.stderr or 'WARNING:' in result.stderr:
                 raise ValueError(f'OpenSCAD export failed: {model["id"]}\n{result.stderr}')
             raw = target.read_bytes()
@@ -153,8 +180,12 @@ def capture_current():
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('release_directory', type=Path, nargs='?', help='Verified release assets; omit to export current CAD with pinned OpenSCAD')
+    parser.add_argument('--export-timeout-seconds', type=int, default=120,
+                        help='Bound each local OpenSCAD export; default 120 seconds')
     args = parser.parse_args()
+    if args.export_timeout_seconds <= 0:
+        parser.error('--export-timeout-seconds must be positive')
     if args.release_directory is None:
-        capture_current()
+        capture_current(args.export_timeout_seconds)
     else:
         capture(args.release_directory)

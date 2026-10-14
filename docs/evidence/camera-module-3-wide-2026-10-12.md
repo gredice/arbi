@@ -1,5 +1,7 @@
 # Received Camera Module 3 Wide and hood fit revision — 12 October 2026
 
+**Historical configuration:** the [14 October current-main reconciliation](camera-module-3-wide-2026-10-14.md) combines this Wide fit with the later accepted servo mounts and Pi reference. The figures and hashes below retain their original revisions.
+
 The owner confirmed the received camera is **Wide (120° diagonal FOV)** and
 reported that it could not fit the previous integrated hood or get beneath the
 plastic screw mounts. This is an owner-reported fit failure and variant identity,

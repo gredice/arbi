@@ -392,6 +392,7 @@ const figures = {};
 const visualizationMeshes = {};
 const referenceMeshes = {};
 const inspectionScenes = {};
+const modelAppearances = {};
 try {
   if (PRODUCTION && process.env.ARBI_CAD_PREVIEW_PACK) throw new Error('Production requires the verified release preview pack');
   const bytes = process.env.ARBI_CAD_PREVIEW_PACK
@@ -404,6 +405,14 @@ try {
       const url = `inspection/references/${id}.stl`;
       write(join(OUT, url), bytes);
       referenceMeshes[id] = { kind: 'stl', url };
+    }
+    for (const [id, appearance] of Object.entries(assets.appearances)) {
+      const parts = appearance.parts.map(({ bytes, mesh, material, node }) => {
+        const url = `inspection/${mesh}`;
+        write(join(OUT, url), bytes);
+        return { node, url, material };
+      });
+      modelAppearances[id] = { kind: 'components', parts, envelope: appearance.envelope };
     }
     for (const [slug, assembly] of Object.entries(assets.scenes)) {
       const parts = assembly.parts.map(({ bytes, mesh, sha256: _checksum, bomPartId, ...part }) => {
@@ -430,6 +439,10 @@ if (PRODUCTION && Object.keys(figures).length !== registry.models.length) throw 
 if (PRODUCTION && registry.models.some((model) => model.artifactRole === 'reference' && !referenceMeshes[model.id])) {
   throw new Error('Production requires current inspection meshes for every CSG reference');
 }
+if (PRODUCTION && registry.models.some((model) =>
+  readFileSync(join(REPO, model.entrypoint), 'utf8').includes('ARBI_MODEL_APPEARANCE') && !modelAppearances[model.id])) {
+  throw new Error('Production requires complete current material components for declared model appearances');
+}
 if (PRODUCTION && registry.models.some((model) => model.artifactRole === 'reference' &&
   readFileSync(join(REPO, model.entrypoint), 'utf8').includes('ARBI_ASSEMBLY_SCENE') && !inspectionScenes[model.assembly])) {
   throw new Error('Production requires complete current inspection assets for declared assembly scenes');
@@ -437,10 +450,11 @@ if (PRODUCTION && registry.models.some((model) => model.artifactRole === 'refere
 
 // Per-model mesh for 3D: individual booklet-pack STL, else verified release STL.
 const meshes = {};
+Object.assign(meshes, modelAppearances);
 for (const model of registry.models.filter((item) => visualizationMeshes[item.id])) {
   const bytes = visualizationMeshes[model.id];
   write(join(OUT, 'visualizations', model.output), bytes);
-  meshes[model.id] = { kind: 'stl', url: `visualizations/${model.output}`, bounds: stlBounds(bytes) };
+  meshes[model.id] ??= { kind: 'stl', url: `visualizations/${model.output}`, bounds: stlBounds(bytes) };
 }
 for (const p of pod?.parts ?? []) if (p.registered && pod.source.current) meshes[p.model] ??= { kind: 'stl', url: p.url, bounds: stlBounds(readFileSync(join(OUT, p.url))) };
 for (const scene of [corner, dock]) for (const p of scene?.parts ?? []) if (p.registered && scene.source.current) meshes[p.model] ??= { kind: 'stl', url: p.url, bounds: stlBounds(readFileSync(join(OUT, p.url))) };
@@ -509,7 +523,7 @@ const site = {
   scenes: Object.fromEntries(Object.entries(scenes).map(([slug, s]) => [slug, { file: `scenes/${slug}.json`, kind: s.kind, layout: s.layout, pose: s.pose, source: s.source,
     hero: s.hero ? `${s.figureDir}/figures/${s.hero}.png` : figures[`${slug}-assembly`] ?? null,
     exploded: s.pose && s.figureDir ? `${s.figureDir}/figures/${s.pose}.png` : null, parts: s.parts.length }])),
-  meshes: Object.fromEntries(Object.entries(meshes).map(([id, m]) => [id, { kind: m.kind, node: m.node, url: m.url }])),
+  meshes: Object.fromEntries(Object.entries(meshes).map(([id, m]) => [id, m.kind === 'components' ? m : { kind: m.kind, node: m.node, url: m.url }])),
   referenceMeshes,
   downloads,
   figures,
