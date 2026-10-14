@@ -18,7 +18,7 @@
   ],
   "watertight": true,
   "connectedBodies": 1,
-  "volumeMm3": 1871.6266127497784,
+  "volumeMm3": 1873.246612269778,
   "probes": [
     {
       "name": "Mounting bore -10.5,-9.931",
@@ -55,7 +55,7 @@
   ],
   "appearanceDifferenceMm3": [
     2.568846165758609e-08,
-    9.308764599684561e-07
+    9.308764599602161e-07
   ],
   "materials": [
     {
@@ -73,7 +73,7 @@
         "thickness": 0,
         "ior": 1.5
       },
-      "sha256": "72c8975f6cbb8ed2dbeed5e95fcb45164871564809cc3fe7007dbadd8b7c9dde"
+      "sha256": "44a2db44c3c6066e82158232548e359dba93177f1ca2be2d8e8de8c0f9c68cb7"
     },
     {
       "node": "gold-pads",
@@ -90,7 +90,7 @@
         "thickness": 0,
         "ior": 1.5
       },
-      "sha256": "fc9f9ec401335ff287b914e544e535cbe24c5655eb8a33dd9ae4c852af95436f"
+      "sha256": "bdfc0efa431ceddc300910b3142b9781cc2c0873233dc5f2cccf9264f19a3267"
     },
     {
       "node": "amber-flex",
@@ -124,7 +124,7 @@
         "thickness": 0,
         "ior": 1.5
       },
-      "sha256": "34f4074accb65f1d88ed6d2db539f49e5caacfa18fb791b75c79350415deabb0"
+      "sha256": "667ef6c3d502a455b594d32b7fd41d45cadc578ec4f64f2d0416b69d98a8f59e"
     },
     {
       "node": "autofocus-shield",
@@ -141,7 +141,7 @@
         "thickness": 0,
         "ior": 1.5
       },
-      "sha256": "827878bb214125d8a4f1590887b9602bcf32ff71269b8abf6b59d1cf56182435"
+      "sha256": "e517ca246c6367dd32863cfafe1da9f0ccbb7b5e5042efab445e07e088a62e8b"
     },
     {
       "node": "connector-latch",
@@ -197,7 +197,7 @@
   ],
   "sourceHashes": {
     "hardware/assemblies/camera-pod/raspberry-pi-camera-module-3.scad": "57f00524ba48c63e5df9ee650bf5bf9c67515a67b9ef230fe260238d8e4338dd",
-    "hardware/lib/raspberry-pi-camera-module-3.scad": "01e8d40c072826f1bc7950883a32b5db0e16ec59e4813fa7d87af72404f5f300"
+    "hardware/lib/raspberry-pi-camera-module-3.scad": "5a3ece2d8f4681cab04ac2a6cd19d40c7f6ceca2ea03afb4d2910e408390cc82"
   },
   "checkerSha256": "127a19b99cd91719493be6aa82981b3d215c24d2d21b3ae554117a15ded5f657",
   "limits": "Conservative focus envelope; illustrative fine detail and materials. No physical fit, flexible cable, focus or optical validation."

@@ -46,7 +46,7 @@ module cm3_pads() {
         }
     }
     // 15 rear CSI contact positions, 1 mm pitch.
-    for(x=[-7:7])cm3_box([.45,2.4,.12],[x,6.65],-.10);
+    for(x=[-7:7])cm3_box([.45,2.4,.12],[x,9.8],-1.94);
     translate([-10,-5.9,1.10])cylinder(d=1.2,h=.055,$fn=32);
 }
 module cm3_flex() {
@@ -112,14 +112,14 @@ module cm3_glass(wide=true) {
     translate([0,CM3_LENS_Y,(wide?9.65:8.75)-.56])
         cylinder(d=3.28,h=.17,$fn=96);
 }
-module cm3_silkscreen() {
+module cm3_silkscreen(wide=true) {
     // Identity only: no fabricated serial numbers or QR codes.
     translate([-7.5,-2,1.115])rotate([0,0,90])linear_extrude(.025)
         text("Raspberry Pi",size=1.05,halign="center",font="DejaVu Sans");
     translate([8,-1,1.115])rotate([0,0,90])linear_extrude(.025)
-        text("Camera 3 Wide",size=1.05,halign="center",font="DejaVu Sans");
+        text(wide?"Camera 3 Wide":"Camera 3",size=1.05,halign="center",font="DejaVu Sans");
     translate([.2,-8.2,2.005])rotate([0,0,180])linear_extrude(.025)
-        text("TNBA2004",size=.8,halign="center",valign="center",font="DejaVu Sans");
+        text(wide?"TNBA2004":"TNBA1392",size=.8,halign="center",valign="center",font="DejaVu Sans");
 }
 module cm3_component(index,wide=true) {
     if(index==0)cm3_pcb();
@@ -129,7 +129,7 @@ module cm3_component(index,wide=true) {
     else if(index==4)cm3_shield();
     else if(index==5)cm3_latch();
     else if(index==6)cm3_glass(wide);
-    else if(index==7)cm3_silkscreen();
+    else if(index==7)cm3_silkscreen(wide);
 }
 module raspberry_pi_camera_module_3(wide=true) {
     colors=[cm3_green,cm3_gold,cm3_amber,cm3_black,cm3_silver,
