@@ -97,6 +97,7 @@ else if(part=="bolt-M2x12-reference") bolt(2,12);
 else if(part=="bolt-M2x18-reference") bolt(2,18);
 else if(part=="bolt-M2x25-reference") bolt(2,25);
 else if(part=="bolt-M3x12-reference") bolt(3,12);
+else if(part=="bolt-M3x25-reference") bolt(3,25);
 else if(part=="bolt-M3x35-reference") bolt(3,35);
 else if(part=="nut-M1p6-reference") nut(1.6);
 else if(part=="nut-M3-reference") nut(3);

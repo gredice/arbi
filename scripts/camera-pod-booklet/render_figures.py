@@ -99,6 +99,8 @@ def main():
   render('camera-seat-loading',shift(seat,lambda p:T(0,0,9) if p['name']=='camera' else T()),direction=(.55,-.9,1.4),size=(1100,1100))
  def cam_ex(p):
   n=p['name']
+  if ENCLOSURE and n.startswith('camera-bolt-'):return T(0,0,12)
+  if ENCLOSURE and n.startswith('camera-nut-'):return T(0,0,-38)
   if n=='camera':return T(0,0,-12)
   if n=='camera-hood':return T(0,0,-26)
   if n=='camera-cowl':return T(0,0,20)

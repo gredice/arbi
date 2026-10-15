@@ -1,0 +1,819 @@
+{
+  "date": "2026-10-15",
+  "proposal": "https://github.com/gredice/arbi/issues/225",
+  "status": "proposed local revision; nominal CAD checks passed; physical acceptance pending",
+  "baseCommit": "b3bdd81a8bd8ca16a1e53eba17b8820208571650",
+  "sourceState": "Modified working tree, identified by hashes; not an accepted merged baseline.",
+  "configuration": {
+    "variant": "enclosure",
+    "units": "mm",
+    "pan_deg": [
+      -90,
+      90,
+      5
+    ],
+    "tilt_deg": [
+      0,
+      70,
+      5
+    ],
+    "hardware_basis": "received servo/converter envelopes measured; Pi reference drawing-derived; remaining hardware detail nominal",
+    "evidence_date": "2026-10-15",
+    "fabrication_models": [
+      {
+        "id": "camera-pod-spider",
+        "revision": "0.1.0",
+        "output": "camera-pod-spider-r0.1.0.stl"
+      },
+      {
+        "id": "camera-pod-pan-servo-mount",
+        "revision": "0.1.1",
+        "output": "camera-pod-pan-servo-mount-r0.1.1.stl"
+      },
+      {
+        "id": "camera-pod-horn-retainer",
+        "revision": "0.1.0",
+        "output": "camera-pod-horn-retainer-r0.1.0.stl"
+      },
+      {
+        "id": "camera-pod-servo-fit-coupon",
+        "revision": "0.1.1",
+        "output": "camera-pod-servo-fit-coupon-r0.1.1.stl"
+      },
+      {
+        "id": "camera-pod-rain-hood",
+        "revision": "0.3.0",
+        "output": "camera-pod-rain-hood-r0.3.0.stl"
+      },
+      {
+        "id": "camera-pod-enclosure-base",
+        "revision": "0.2.3",
+        "output": "camera-pod-enclosure-base-r0.2.3.stl"
+      },
+      {
+        "id": "camera-pod-integrated-gimbal-head",
+        "revision": "0.2.0",
+        "output": "camera-pod-integrated-gimbal-head-r0.2.0.stl"
+      },
+      {
+        "id": "camera-pod-integrated-gimbal-carrier",
+        "revision": "0.2.0",
+        "output": "camera-pod-integrated-gimbal-carrier-r0.2.0.stl"
+      },
+      {
+        "id": "camera-pod-integrated-camera-cradle",
+        "revision": "0.2.0",
+        "output": "camera-pod-integrated-camera-cradle-r0.2.0.stl"
+      },
+      {
+        "id": "camera-pod-integrated-tilt-pivot-support",
+        "revision": "0.2.0",
+        "output": "camera-pod-integrated-tilt-pivot-support-r0.2.0.stl"
+      },
+      {
+        "id": "camera-pod-integrated-deck",
+        "revision": "0.2.0",
+        "output": "camera-pod-integrated-deck-r0.2.0.stl"
+      },
+      {
+        "id": "camera-pod-integrated-camera-hood",
+        "revision": "0.2.0",
+        "output": "camera-pod-integrated-camera-hood-r0.2.0.stl"
+      }
+    ]
+  },
+  "assemblyRevision": "0.4.0",
+  "installedPrints": {
+    "camera-pod-spider": 1,
+    "camera-pod-integrated-deck": 1,
+    "camera-pod-pan-servo-mount": 1,
+    "camera-pod-integrated-gimbal-carrier": 1,
+    "camera-pod-integrated-gimbal-head": 1,
+    "camera-pod-integrated-tilt-pivot-support": 1,
+    "camera-pod-integrated-camera-cradle": 1,
+    "camera-pod-integrated-camera-hood": 1,
+    "camera-pod-horn-retainer": 2,
+    "camera-pod-enclosure-base": 1,
+    "camera-pod-rain-hood": 1
+  },
+  "installedPrintCount": 12,
+  "fabricationModelCount": 12,
+  "exportedMeshCount": 34,
+  "hardware": {
+    "screwCounts": {
+      "bolt-M2x8-reference": 12,
+      "bolt-M3x25-reference": 8,
+      "csk-M1p6x6-reference": 4,
+      "csk-M2x8-reference": 4,
+      "bolt-M3x12-reference": 7
+    },
+    "boughtScrews": 35,
+    "flatWashers": 45,
+    "pivotShims": 1,
+    "plainNuts": 35,
+    "OEMHornCentreScrews": 2,
+    "newJointMinimumTipProjectionMm": 0.8,
+    "nutEngagement": [
+      {
+        "joint": "converter-bolt-0",
+        "diameter_mm": 2.0,
+        "length_mm": 8,
+        "nut_axial_mm": [
+          5.299999976158141,
+          6.899999999999999
+        ],
+        "tip_projection_mm": 1.1,
+        "received_hardware_verified": false
+      },
+      {
+        "joint": "converter-bolt-1",
+        "diameter_mm": 2.0,
+        "length_mm": 8,
+        "nut_axial_mm": [
+          5.299999976158141,
+          6.899999999999999
+        ],
+        "tip_projection_mm": 1.1,
+        "received_hardware_verified": false
+      },
+      {
+        "joint": "converter-bolt-2",
+        "diameter_mm": 2.0,
+        "length_mm": 8,
+        "nut_axial_mm": [
+          5.299999976158141,
+          6.899999999999999
+        ],
+        "tip_projection_mm": 1.1,
+        "received_hardware_verified": false
+      },
+      {
+        "joint": "converter-bolt-3",
+        "diameter_mm": 2.0,
+        "length_mm": 8,
+        "nut_axial_mm": [
+          5.299999976158141,
+          6.899999999999999
+        ],
+        "tip_projection_mm": 1.1,
+        "received_hardware_verified": false
+      },
+      {
+        "joint": "frame-bolt-0",
+        "diameter_mm": 3.0,
+        "length_mm": 25,
+        "nut_axial_mm": [
+          20.2,
+          22.60000009536743
+        ],
+        "tip_projection_mm": 2.4,
+        "received_hardware_verified": false
+      },
+      {
+        "joint": "frame-bolt-1",
+        "diameter_mm": 3.0,
+        "length_mm": 25,
+        "nut_axial_mm": [
+          20.2,
+          22.60000009536743
+        ],
+        "tip_projection_mm": 2.4,
+        "received_hardware_verified": false
+      },
+      {
+        "joint": "frame-bolt-2",
+        "diameter_mm": 3.0,
+        "length_mm": 25,
+        "nut_axial_mm": [
+          20.2,
+          22.60000009536743
+        ],
+        "tip_projection_mm": 2.4,
+        "received_hardware_verified": false
+      },
+      {
+        "joint": "frame-bolt-3",
+        "diameter_mm": 3.0,
+        "length_mm": 25,
+        "nut_axial_mm": [
+          20.2,
+          22.60000009536743
+        ],
+        "tip_projection_mm": 2.4,
+        "received_hardware_verified": false
+      },
+      {
+        "joint": "pi-bolt-0",
+        "diameter_mm": 2.0,
+        "length_mm": 8,
+        "nut_axial_mm": [
+          5.299999976158141,
+          6.899999999999999
+        ],
+        "tip_projection_mm": 1.1,
+        "received_hardware_verified": false
+      },
+      {
+        "joint": "pi-bolt-1",
+        "diameter_mm": 2.0,
+        "length_mm": 8,
+        "nut_axial_mm": [
+          5.299999976158141,
+          6.899999999999999
+        ],
+        "tip_projection_mm": 1.1,
+        "received_hardware_verified": false
+      },
+      {
+        "joint": "pi-bolt-2",
+        "diameter_mm": 2.0,
+        "length_mm": 8,
+        "nut_axial_mm": [
+          5.299999976158141,
+          6.899999999999999
+        ],
+        "tip_projection_mm": 1.1,
+        "received_hardware_verified": false
+      },
+      {
+        "joint": "pi-bolt-3",
+        "diameter_mm": 2.0,
+        "length_mm": 8,
+        "nut_axial_mm": [
+          5.299999976158141,
+          6.899999999999999
+        ],
+        "tip_projection_mm": 1.1,
+        "received_hardware_verified": false
+      },
+      {
+        "joint": "pan-servo-bolt-0",
+        "diameter_mm": 1.6,
+        "length_mm": 6,
+        "nut_axial_mm": [
+          4.5,
+          5.7799999713897705
+        ],
+        "tip_projection_mm": 0.22,
+        "received_hardware_verified": false
+      },
+      {
+        "joint": "pan-servo-bolt-1",
+        "diameter_mm": 1.6,
+        "length_mm": 6,
+        "nut_axial_mm": [
+          4.5,
+          5.7799999713897705
+        ],
+        "tip_projection_mm": 0.22,
+        "received_hardware_verified": false
+      },
+      {
+        "joint": "tilt-servo-bolt-0",
+        "diameter_mm": 1.6,
+        "length_mm": 6,
+        "nut_axial_mm": [
+          4.5,
+          5.7799999713897705
+        ],
+        "tip_projection_mm": 0.22,
+        "received_hardware_verified": false
+      },
+      {
+        "joint": "tilt-servo-bolt-1",
+        "diameter_mm": 1.6,
+        "length_mm": 6,
+        "nut_axial_mm": [
+          4.5,
+          5.7799999713897705
+        ],
+        "tip_projection_mm": 0.22,
+        "received_hardware_verified": false
+      },
+      {
+        "joint": "pan-retainer-bolt-0",
+        "diameter_mm": 2.0,
+        "length_mm": 8,
+        "nut_axial_mm": [
+          5.599999976158145,
+          7.200000000000003
+        ],
+        "tip_projection_mm": 0.8,
+        "received_hardware_verified": false
+      },
+      {
+        "joint": "tilt-retainer-bolt-0",
+        "diameter_mm": 2.0,
+        "length_mm": 8,
+        "nut_axial_mm": [
+          5.499999976158142,
+          7.1
+        ],
+        "tip_projection_mm": 0.9,
+        "received_hardware_verified": false
+      },
+      {
+        "joint": "pan-retainer-bolt-1",
+        "diameter_mm": 2.0,
+        "length_mm": 8,
+        "nut_axial_mm": [
+          5.599999976158145,
+          7.200000000000003
+        ],
+        "tip_projection_mm": 0.8,
+        "received_hardware_verified": false
+      },
+      {
+        "joint": "tilt-retainer-bolt-1",
+        "diameter_mm": 2.0,
+        "length_mm": 8,
+        "nut_axial_mm": [
+          5.499999976158145,
+          7.100000000000003
+        ],
+        "tip_projection_mm": 0.9,
+        "received_hardware_verified": false
+      },
+      {
+        "joint": "camera-bolt-0",
+        "diameter_mm": 2.0,
+        "length_mm": 8,
+        "nut_axial_mm": [
+          5.519999976158147,
+          7.1200000000000045
+        ],
+        "tip_projection_mm": 0.88,
+        "received_hardware_verified": false
+      },
+      {
+        "joint": "camera-bolt-1",
+        "diameter_mm": 2.0,
+        "length_mm": 8,
+        "nut_axial_mm": [
+          5.519999976158147,
+          7.1200000000000045
+        ],
+        "tip_projection_mm": 0.88,
+        "received_hardware_verified": false
+      },
+      {
+        "joint": "camera-bolt-2",
+        "diameter_mm": 2.0,
+        "length_mm": 8,
+        "nut_axial_mm": [
+          5.519999976158147,
+          7.1200000000000045
+        ],
+        "tip_projection_mm": 0.88,
+        "received_hardware_verified": false
+      },
+      {
+        "joint": "camera-bolt-3",
+        "diameter_mm": 2.0,
+        "length_mm": 8,
+        "nut_axial_mm": [
+          5.519999976158147,
+          7.1200000000000045
+        ],
+        "tip_projection_mm": 0.88,
+        "received_hardware_verified": false
+      },
+      {
+        "joint": "pivot-support-bolt-0",
+        "diameter_mm": 3.0,
+        "length_mm": 12,
+        "nut_axial_mm": [
+          8.49999990463257,
+          10.900000000000002
+        ],
+        "tip_projection_mm": 1.1,
+        "received_hardware_verified": false
+      },
+      {
+        "joint": "pivot-support-bolt-1",
+        "diameter_mm": 3.0,
+        "length_mm": 12,
+        "nut_axial_mm": [
+          8.49999990463257,
+          10.900000000000002
+        ],
+        "tip_projection_mm": 1.1,
+        "received_hardware_verified": false
+      },
+      {
+        "joint": "pivot-bolt",
+        "diameter_mm": 3.0,
+        "length_mm": 12,
+        "nut_axial_mm": [
+          7.499999904632569,
+          9.9
+        ],
+        "tip_projection_mm": 2.1,
+        "received_hardware_verified": false
+      },
+      {
+        "joint": "head-bolt-0",
+        "diameter_mm": 3.0,
+        "length_mm": 12,
+        "nut_axial_mm": [
+          6.4999999046325705,
+          8.900000000000002
+        ],
+        "tip_projection_mm": 3.1,
+        "received_hardware_verified": false
+      },
+      {
+        "joint": "head-bolt-1",
+        "diameter_mm": 3.0,
+        "length_mm": 12,
+        "nut_axial_mm": [
+          6.4999999046325705,
+          8.900000000000002
+        ],
+        "tip_projection_mm": 3.1,
+        "received_hardware_verified": false
+      },
+      {
+        "joint": "head-bolt-2",
+        "diameter_mm": 3.0,
+        "length_mm": 12,
+        "nut_axial_mm": [
+          6.4999999046325705,
+          8.900000000000002
+        ],
+        "tip_projection_mm": 3.1,
+        "received_hardware_verified": false
+      },
+      {
+        "joint": "head-bolt-3",
+        "diameter_mm": 3.0,
+        "length_mm": 12,
+        "nut_axial_mm": [
+          6.4999999046325705,
+          8.900000000000002
+        ],
+        "tip_projection_mm": 3.1,
+        "received_hardware_verified": false
+      },
+      {
+        "joint": "cover-bolt-0",
+        "diameter_mm": 3.0,
+        "length_mm": 25,
+        "nut_axial_mm": [
+          21.3,
+          23.700000095367432
+        ],
+        "tip_projection_mm": 1.3,
+        "received_hardware_verified": false
+      },
+      {
+        "joint": "cover-bolt-1",
+        "diameter_mm": 3.0,
+        "length_mm": 25,
+        "nut_axial_mm": [
+          21.3,
+          23.700000095367432
+        ],
+        "tip_projection_mm": 1.3,
+        "received_hardware_verified": false
+      },
+      {
+        "joint": "cover-bolt-2",
+        "diameter_mm": 3.0,
+        "length_mm": 25,
+        "nut_axial_mm": [
+          21.3,
+          23.700000095367432
+        ],
+        "tip_projection_mm": 1.3,
+        "received_hardware_verified": false
+      },
+      {
+        "joint": "cover-bolt-3",
+        "diameter_mm": 3.0,
+        "length_mm": 25,
+        "nut_axial_mm": [
+          21.3,
+          23.700000095367432
+        ],
+        "tip_projection_mm": 1.3,
+        "received_hardware_verified": false
+      }
+    ]
+  },
+  "checks": {
+    "registry": {
+      "modelsCompiled": 144,
+      "command": "pnpm cad:check -- --require-openscad --jobs 4",
+      "OpenSCAD": "2021.01",
+      "platform": "linux/arm64",
+      "officialImage": "openscad/openscad@sha256:a7f0ef7ef917ddb5817c1b50f65ca011f9d0b01c8aebe1d6f7895ab5eabcb602"
+    },
+    "neutralCollisions": [],
+    "motionGrid": {
+      "poses": 555,
+      "pan_deg": [
+        -90,
+        90,
+        5
+      ],
+      "tilt_deg": [
+        0,
+        70,
+        5
+      ],
+      "failures": []
+    },
+    "hardStopOvertravel": {
+      "pan-negative": {
+        "pan": -96,
+        "tilt": 0,
+        "stop_detected": true,
+        "collisions": [
+          {
+            "a": "pan-mount",
+            "b": "pan-yoke",
+            "intersection_mm3": 2.08938
+          }
+        ]
+      },
+      "pan-positive": {
+        "pan": 96,
+        "tilt": 0,
+        "stop_detected": true,
+        "collisions": [
+          {
+            "a": "pan-mount",
+            "b": "pan-yoke",
+            "intersection_mm3": 2.08938
+          }
+        ]
+      },
+      "tilt-negative": {
+        "pan": 0,
+        "tilt": -6,
+        "stop_detected": true,
+        "collisions": [
+          {
+            "a": "tilt-pivot-support",
+            "b": "camera-cradle",
+            "intersection_mm3": 0.07923
+          }
+        ]
+      },
+      "tilt-positive": {
+        "pan": 0,
+        "tilt": 76,
+        "stop_detected": true,
+        "collisions": [
+          {
+            "a": "tilt-pivot-support",
+            "b": "camera-cradle",
+            "intersection_mm3": 0.07921
+          }
+        ]
+      }
+    },
+    "headTaperSections": 1571,
+    "headTaperFailures": [],
+    "minimumNeckClearanceMm": 1.4226778265872468,
+    "servicePaths": 30,
+    "servicePathFailures": 0,
+    "toolEnvelopes": 24,
+    "toolHits": 0,
+    "WideOpticalPoses": 15,
+    "WideOpticalHits": 0,
+    "captivePreloadPaths": 12,
+    "M3PCBInterferenceControls": [
+      {
+        "board": "pi",
+        "local_xy_mm": [
+          -29,
+          -24.5
+        ],
+        "M3_interference_detected": true,
+        "hits": [
+          {
+            "part": "pi",
+            "volume_mm3": 1.80346
+          }
+        ]
+      },
+      {
+        "board": "pi",
+        "local_xy_mm": [
+          -29,
+          24.5
+        ],
+        "M3_interference_detected": true,
+        "hits": [
+          {
+            "part": "pi",
+            "volume_mm3": 1.80346
+          }
+        ]
+      },
+      {
+        "board": "pi",
+        "local_xy_mm": [
+          29,
+          -24.5
+        ],
+        "M3_interference_detected": true,
+        "hits": [
+          {
+            "part": "pi",
+            "volume_mm3": 1.80346
+          }
+        ]
+      },
+      {
+        "board": "pi",
+        "local_xy_mm": [
+          29,
+          24.5
+        ],
+        "M3_interference_detected": true,
+        "hits": [
+          {
+            "part": "pi",
+            "volume_mm3": 1.80346
+          }
+        ]
+      },
+      {
+        "board": "camera",
+        "local_xy_mm": [
+          -10.5,
+          -9.931
+        ],
+        "M3_interference_detected": true,
+        "hits": [
+          {
+            "part": "camera",
+            "volume_mm3": 3.65348
+          }
+        ]
+      },
+      {
+        "board": "camera",
+        "local_xy_mm": [
+          -10.5,
+          2.569
+        ],
+        "M3_interference_detected": true,
+        "hits": [
+          {
+            "part": "camera",
+            "volume_mm3": 3.65347
+          }
+        ]
+      },
+      {
+        "board": "camera",
+        "local_xy_mm": [
+          10.5,
+          -9.931
+        ],
+        "M3_interference_detected": true,
+        "hits": [
+          {
+            "part": "camera",
+            "volume_mm3": 3.65348
+          }
+        ]
+      },
+      {
+        "board": "camera",
+        "local_xy_mm": [
+          10.5,
+          2.569
+        ],
+        "M3_interference_detected": true,
+        "hits": [
+          {
+            "part": "camera",
+            "volume_mm3": 3.65347
+          }
+        ]
+      }
+    ],
+    "converter": "Four bores, insertion/removal, driver/pad access and displaced-hole/board controls passed.",
+    "camera": "Installed, padded/guided loading, focus allowance, rear/latch access and old-hood controls passed.",
+    "benchRegression": {
+      "selectedModels": 11,
+      "unchangedTransitiveCADFiles": 48,
+      "identicalAssemblyPartsAndTransforms": 137,
+      "comparison": "Current bench selection, transitive CAD text and assembly definition compared with baseCommit."
+    },
+    "bomTypeScriptTests": 50,
+    "bomPythonTests": 5,
+    "documentationSiteTests": 53,
+    "bomReportsCurrent": true,
+    "visibleBOMWarnings": 240,
+    "booklet": {
+      "revision": 10,
+      "A4Pages": 16,
+      "lineArtFigures": 39,
+      "archiveChecks": "passed",
+      "visualQA": "All 16 rendered pages inspected; final support/key notes re-rendered and unaffected pages compared pixel-for-pixel."
+    }
+  },
+  "compilerInvestigation": {
+    "unchangedModel": "micro-pan-tilt-servo",
+    "macOSIntelAppRenderSeconds": 181.448,
+    "ARM64ContainerRenderSeconds": 52.802,
+    "registryPerModelTimeoutSeconds": 120,
+    "boundsAndVolumeMatch": true,
+    "sourceChangeRequired": false
+  },
+  "runtime": {
+    "Python": "3.12.14",
+    "numpy": "2.5.4",
+    "trimesh": "5.1.1",
+    "manifold3d": "3.5.4",
+    "vtk": "9.5.2",
+    "reportlab": "4.5.1",
+    "pypdf": "6.19.0"
+  },
+  "solidPrintEstimate": {
+    "grams": 251.66237114950306,
+    "densityGPerCm3": 1.27,
+    "basis": "12 installed prints at fully solid PETG density; excludes electronics, metal, harness and supports; not sliced or measured mass."
+  },
+  "sourceHashes": {
+    "bom/catalog/fabrication.json": "430b207267d04d40aed41fcb371824a535c0f728e0e7e4ac436b24520b300c72",
+    "bom/catalog/parts.json": "184b6292adc914692be8a153c3a38ee1b880cdbffa9d20dd41ded421e55d6331",
+    "hardware/assemblies/camera-pod/camera-pod-assembly.scad": "5490b4bf1f5f7b7b2ee585f18f6a0e4962a85d8ee43f8254a1960c67f1ac738c",
+    "hardware/assemblies/camera-pod/camera-pod-integrated-camera-cradle.scad": "3608f90d85a3ac102bc1f4eb299b5405beeb61d238147bf32192f6f26f6698dd",
+    "hardware/assemblies/camera-pod/camera-pod-integrated-camera-hood.scad": "5985b25ce232e3649fd6b53a1ba41b2bf968c80d30bd3c838ef1de7fe6210534",
+    "hardware/assemblies/camera-pod/camera-pod-integrated-gimbal-carrier.scad": "c9009b7bcaddc2e06053df81d91f4feaf842115d328a0122fc07fa556aa3246a",
+    "hardware/assemblies/camera-pod/camera-pod-integrated-gimbal-head.scad": "a1cb2c94660bfd0e27ca1cb6125b44630f88ab60a7cc79a870dfa2c53c3f2bb6",
+    "hardware/assemblies/camera-pod/camera-pod-integrated-tilt-pivot-support.scad": "25b36514d2528c739937903be1bf24c0fb1d0c1216a0525b0b9df77e217ae973",
+    "hardware/assemblies/camera-pod/camera-pod-rain-hood.scad": "34bf5e6359f39b02dcb405ff1e4dab26505203ef37d93e0215c49975fbe359a1",
+    "hardware/assemblies/camera-pod/raspberry-pi-3a-plus/cad-check.json": "8c5025cd86ff08d5a5de4cfa227dd3359f522ba3e673f56aa11e1d21bc641316",
+    "hardware/assemblies/camera-pod/raspberry-pi-camera-module-3/cad-check.json": "b3b9ef8fe11f847e96888d7ba610eed17b7215f74335fa794a6a943f0a7ed51e",
+    "hardware/lib/camera-pod-enclosure.scad": "aa6e3729a9b8f859ab7338fca5582d6ecb762506c8585c544b20ebfaf3a7863c",
+    "hardware/lib/camera-pod-integrated-deck.scad": "28b15d4dc9f0f92c0ee8758b604c02cf498a854e6e70347a94c390d5a2ee32f3",
+    "hardware/lib/camera-pod-integrated-gimbal.scad": "279fa4c80cd5a3070e7cbf5d4ce0b4850c2b16ac28a8585a93b4e1065413a49c",
+    "hardware/lib/camera-pod-integrated-head.scad": "df8b593a7a38449fa0c4c5daa5e0db95d77a4fd890f11bedf341e82b17adadf1",
+    "hardware/models.json": "b5669363b5f919e7245cd9d767b647ad480386b0f7e8515b6f3f86e3d62694fc",
+    "scripts/camera-pod-booklet/README.md": "9a76e310ce089a4e9db6926d8cc2126ee0521bf2cd5d81fc55c5ae9edb5780ba",
+    "scripts/camera-pod-booklet/build.py": "59e5c8a6cd2dc87bf97e726b013db5dfed11f1e459bddd3488343b0b5b060240",
+    "scripts/camera-pod-booklet/build_booklet.py": "8797c1bcedc10b04fc94d191f02cbe5fca4a079d0274a23a0d9b82a40dbb6f76",
+    "scripts/camera-pod-booklet/check_converter.py": "9d7164ce97dba0a802bab2c94485019479f32b26ed4908e9a90a9041048d9f56",
+    "scripts/camera-pod-booklet/check_fasteners.py": "79f2fd2d69e2efef2fa13483cb56c45ef5304ceda85930253e189e5fd2c1abb4",
+    "scripts/camera-pod-booklet/check_service.py": "2cf82d19f307116603c3b92e3929e30c3d31e98cbdafb5bdd5131d9c209992c2",
+    "scripts/camera-pod-booklet/export_models.py": "fdea37522197ffd9fe96af4ae624b1740557a924ac8987d6ff1fda56d1623e06",
+    "scripts/camera-pod-booklet/integration.py": "5d0277cc5a45ee6a44dcf24aa882140d38ef8178b0c60c407941e48355c63510",
+    "scripts/camera-pod-booklet/reference-parts.scad": "aab5aacbd37368799a5f640921bfb2825800c772562305a8d40a75d95cb5a11d",
+    "scripts/camera-pod-booklet/render_figures.py": "edaf50b8bae18a70251d7221e0befdc186134610a8345a574360d3b3344f87a1"
+  },
+  "artifacts": {
+    "ARBI-camera-pod-enclosure-assembly-STL.pdf": {
+      "sha256": "f3582e0c2c95a57bff4a5eb69b1a792cac003a43aa39bbc01d2ca7d7162605db",
+      "bytes": 845556
+    },
+    "ARBI-camera-pod-enclosure-STL-pack.zip": {
+      "sha256": "f75ec665917f8221299f621b64f8091b85eb49827a4d468cd7a67672e115a0c2",
+      "bytes": 6413054
+    }
+  },
+  "rawReportHashes": {
+    "integration-check.json": "37fa9a14a4b82aac82aefa9b564f77fe8cc167039ca3736e22b1c2b04d6ec30d",
+    "service-check.json": "db19ff67ac39e8fac9e9f6a000285e3a9d4843b589611d4aa6705af97da5d692",
+    "fastener-check.json": "2679dcbfb5d70a9a2b24bda5b34a3df7c2abd8a088f542590e26f27dab860c0f",
+    "converter-check.json": "313e00b13645f51127a35a2b2be491dc1144c63ad9dc9e471cfb5c4f8468b0e2",
+    "camera-fit-check.json": "fdf9bf7a4ee6dfdb8aea4a4ecb2f88887d00df9e56e862e746ca6867359413d0",
+    "cradle-check.json": "bd774b1263fdbcc0a7823a6f376d92f417968363610097b2a675637f38b87d41",
+    "mesh-manifest.json": "e8deafeb9d5fbd5c2c617a190e589e9854b2fea40a25871bc2898fcc43e4989b",
+    "source-provenance.json": "174cf1316cb2bc49062062ed59754dbc4d5cd7a5dd0b40c33acc241863db8d0e"
+  },
+  "limits": [
+    "Actual M2/M3 stock quantities and head styles have not been supplied.",
+    "Received heads, nuts, thread engagement, print/pocket fit, PCB support and electrical isolation need inspection.",
+    "Integral deck posts require slicer/support/removal review; print strength, creep and frame/clamp loads remain unverified.",
+    "Camera rear access checks an 8 mm straight tip; actual hex-key elbow/handle access needs a bench trial.",
+    "Complete mass, servo torque/settling, harness fatigue, dock, line terminations, rain and thermal acceptance are not established.",
+    "CAD compilation and source checks do not authorize suspended or public operation."
+  ],
+  "integrationValidation": {
+    "baseCommit": "b7a631a2cdf3f9cfddeec3f4a183fefc4ee9cf0a",
+    "note": "Rebased onto the merged camera-pod viewer correction and dock lower-enclosure design. Original sourceHashes, artifacts and 144-model compilation above identify the pre-integration validation snapshot. Camera-pod CAD and booklet generators are unchanged; this section identifies the combined registry and BOM inputs. Full combined CAD/booklet checks are required by the pull request CI.",
+    "sourceHashes": {
+      "bom/catalog/fabrication.json": "8c4a29e402d4cdd3b2be4ae62670f321e4b263305a45d8966122fc59c2cc0ab0",
+      "bom/catalog/parts.json": "8e55c7edee053724a6d33c1e7e3a397d0aeb4769d3586e7d96d03fb16a87d76c",
+      "hardware/models.json": "37bd5f6face831e9c0d7368a180a733b5f9071de30370d0a99b58229dc74016d",
+      "packages/arbi-bom/src/fabrication.test.ts": "3510663e8778d9b625e48eba19b066f1fbd31657052dec36e7177d10bb73ba58"
+    },
+    "registeredModels": 146,
+    "bomReportsCurrent": true,
+    "visibleBOMWarnings": 243,
+    "bomTypeScriptTests": 50,
+    "bomPythonTests": 5,
+    "documentationSiteTests": 55,
+    "markdownFilesChecked": 388,
+    "estimatedMaterialSubtotalEUR": "410.01",
+    "estimatedPartialSubtotalEUR": "1268.06"
+  }
+}

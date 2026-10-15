@@ -45,7 +45,8 @@ test("base print kits exclude alternatives and multiply repeated pieces and vari
   assert.equal(recipe.components.find((item) => item.modelId === "winch-drum-alignment-pin")!.quantity, "13");
   assert.equal(recipe.components.find((item) => item.modelId === "winch-drum-passive-1")!.quantity, "3");
   const chassis = repository.fabrication.recipes.find((item) => item.partId === "camera-pod-chassis")!;
-  assert.equal(chassis.components.find((item) => item.modelId === "camera-pod-spider-spacer")!.quantity, "4");
+  assert.ok(!chassis.components.some((item) => item.modelId === "camera-pod-spider-spacer"));
+  assert.equal(chassis.components.find((item) => item.modelId === "camera-pod-integrated-deck")!.quantity, "1");
   assert.ok(!chassis.components.some((item) => item.modelId === "camera-pod-electronics-deck"));
   const base = calculateBom(repository);
   assert.ok(!base.fabrication.some((item) => item.partId === "winch-desk-feet"));
@@ -60,8 +61,8 @@ test("dock bundle costs are attributed once and print estimates do not turn unkn
   const repository = await loadBomRepository(root);
   const base = calculateBom(repository);
   assert.equal(base.knownSubtotal, "858.05");
-  assert.equal(base.estimatedMaterialSubtotal, "409.99");
-  assert.equal(base.estimatedPartialSubtotal, "1268.04");
+  assert.equal(base.estimatedMaterialSubtotal, "410.01");
+  assert.equal(base.estimatedPartialSubtotal, "1268.06");
   assert.equal(base.completeLandedTotal, null);
   const allocated = base.assemblyEstimatedMaterials.reduce((sum, row) => sum.add(Decimal.parse(row.amount)), Decimal.zero());
   assert.equal(allocated.toString(), base.estimatedMaterialSubtotal);

@@ -100,13 +100,13 @@
             "path": "hardware/assemblies/camera-pod/camera-pod-integrated-camera-cradle.scad",
             "module": "camera_pod_integrated_camera_cradle",
             "modelId": "camera-pod-integrated-camera-cradle",
-            "revision": "0.1.1"
+            "revision": "0.2.0"
           },
           {
             "path": "hardware/assemblies/camera-pod/camera-pod-integrated-tilt-pivot-support.scad",
             "module": "camera_pod_integrated_tilt_pivot_support",
             "modelId": "camera-pod-integrated-tilt-pivot-support",
-            "revision": "0.1.0"
+            "revision": "0.2.0"
           },
           {
             "path": "hardware/assemblies/camera-pod/camera-pod-horn-retainer.scad",
@@ -124,19 +124,19 @@
             "path": "hardware/assemblies/camera-pod/camera-pod-integrated-camera-hood.scad",
             "module": "camera_pod_integrated_camera_hood",
             "modelId": "camera-pod-integrated-camera-hood",
-            "revision": "0.1.3"
+            "revision": "0.2.0"
           },
           {
             "path": "hardware/assemblies/camera-pod/camera-pod-integrated-gimbal-head.scad",
             "module": "camera_pod_integrated_gimbal_head",
             "modelId": "camera-pod-integrated-gimbal-head",
-            "revision": "0.1.5"
+            "revision": "0.2.0"
           },
           {
             "path": "hardware/assemblies/camera-pod/camera-pod-integrated-gimbal-carrier.scad",
             "module": "camera_pod_integrated_gimbal_carrier",
             "modelId": "camera-pod-integrated-gimbal-carrier",
-            "revision": "0.1.2"
+            "revision": "0.2.0"
           }
         ]
       },
@@ -159,7 +159,7 @@
       "requirements": [
         "ASA/PETG lightweight cable spider and electronics chassis sized for Raspberry Pi 3A+, 48 V → 5 V converter and bulk capacitor fixed on the pod. Complete flying pod target ~100–120 g; hard design limit 170 g."
       ],
-      "notes": "Current compact ordinary-rain/splash chassis uses camera-pod-spider, camera-pod-integrated-deck r0.1.1, spacers, pan-servo mount, camera-pod-rain-hood r0.2.1 and camera-pod-enclosure-base r0.2.3. Historical concept parts, the dry bench deck/cover and fixed fairing are archived and excluded from this BOM. Select the current print quantities in hardware/assemblies/camera-pod/camera-pod-enclosure.md; the dry bench configuration remains an explicit alternative in camera-pod-mounts.md. Docking and line-termination interfaces, physical fit, rain/thermal behavior and complete flying mass remain unverified.",
+      "notes": "Current compact ordinary-rain/splash chassis uses camera-pod-spider, camera-pod-integrated-deck r0.2.0 with integral spacer posts, pan-servo mount, camera-pod-rain-hood r0.3.0 and camera-pod-enclosure-base r0.2.3. Historical concept parts, the dry bench deck/cover and fixed fairing are archived and excluded from this BOM. Select the current print quantities in hardware/assemblies/camera-pod/camera-pod-enclosure.md; the dry bench configuration remains an explicit alternative in camera-pod-mounts.md. Docking and line-termination interfaces, physical fit, rain/thermal behavior and complete flying mass remain unverified.",
       "fabrication": {
         "process": "openscad",
         "modelStatus": "concept-unvalidated",
@@ -177,16 +177,10 @@
             "revision": "0.1.1"
           },
           {
-            "path": "hardware/assemblies/camera-pod/camera-pod-spider-spacer.scad",
-            "module": "camera_pod_spider_spacer",
-            "modelId": "camera-pod-spider-spacer",
-            "revision": "0.1.0"
-          },
-          {
             "path": "hardware/assemblies/camera-pod/camera-pod-rain-hood.scad",
             "module": "camera_pod_rain_hood",
             "modelId": "camera-pod-rain-hood",
-            "revision": "0.2.1"
+            "revision": "0.3.0"
           },
           {
             "path": "hardware/assemblies/camera-pod/camera-pod-enclosure-base.scad",
@@ -198,7 +192,7 @@
             "path": "hardware/assemblies/camera-pod/camera-pod-integrated-deck.scad",
             "module": "camera_pod_integrated_deck",
             "modelId": "camera-pod-integrated-deck",
-            "revision": "0.1.1"
+            "revision": "0.2.0"
           }
         ]
       },
@@ -2252,18 +2246,17 @@
         "off-the-shelf"
       ],
       "requirements": [
-        "4 M4 x 35 frame bolts, 8 M4 washers, 4 plain M4 nuts.",
-        "4 M2.5 x 20 Pi bolts, 8 M2.5 washers, 4 plain M2.5 nuts.",
-        "4 M2.5 x 10 converter bolts, 8 M2.5 washers and 4 plain M2.5 nuts; nominal 1.6 mm PCB and 2 mm printed support stack. Confirm actual stack and electrical isolation.",
-        "4 M1.6 x 6 countersunk servo-ear screws and 4 plain M1.6 nuts.",
-        "2 M2 x 10 countersunk pan-retainer screws; 2 M2 x 8 countersunk tilt-retainer screws. Each retainer screw has one lower M2 washer and one plain M2 nut; no washer beneath a countersunk head.",
-        "6 M2 x 12 screws (4 camera, 2 pivot support), 12 M2 washers, 6 plain M2 nuts.",
-        "4 M2 x 10 outer-head clamp screws, 8 M2 washers, 4 plain M2 nuts.",
-        "1 M3 x 12 pivot screw, 1 M3 outer washer (nominal 0.5 mm), 1 M3 shim (nominal 0.7 mm), 1 plain M3 nut.",
-        "4 M3 x 35 enclosure bolts, 4 M3 washers, 4 plain M3 nuts.",
-        "Two OEM horn centre screws and stock horns belong to the selected servo supply; confirm both are included, rather than buying duplicate unspecified screws."
+        "8 M3 x 25 screws (4 frame, 4 enclosure), 12 M3 washers, 8 plain M3 nuts; frame washers/nuts load into the integral deck posts, enclosure nuts into the lowered hood pockets.",
+        "7 M3 x 12 screws (4 outer-head clamps, 2 pivot-support attachments, 1 pivot), 13 M3 washers, 7 plain M3 nuts and one 0.7 mm M3 pivot shim.",
+        "12 M2 x 8 screws (4 Pi, 4 converter, 4 camera), 16 M2 washers and 12 plain M2 nuts; use the revised captive/recessed seats without modifying PCB holes.",
+        "4 M2 x 8 countersunk horn-retainer screws (2 pan, 2 tilt), 4 lower M2 washers and 4 plain M2 nuts; no washer beneath a countersunk head.",
+        "4 M1.6 x 6 countersunk servo-ear screws and 4 plain M1.6 nuts; no washers.",
+        "Two OEM horn centre screws and stock horns belong to the selected servo supply; confirm both are included.",
+        "Nominal washers: M2 inside diameter 2.2 mm, outside diameter 5 mm, thickness 0.3 mm; M3 inside diameter 3.2 mm, outside diameter 7 mm, thickness 0.5 mm. The pivot shim has the M3 diameters and thickness 0.7 mm.",
+        "Total: 35 bought screws in five variants, 45 flat washers, one pivot shim and 35 plain nuts. All ordinary screw lengths are at most 25 mm; actual stock counts/head styles remain to be confirmed.",
+        "Camera M2 x 8 screws enter from the rear into front captive hood nuts; both bear on printed seats, not directly on the PCB. No camera washers. The cradle head recess and hood nut tunnels require their matching r0.2.0 prints."
       ],
-      "notes": "One installed set per compact enclosed pod, derived from scripts/camera-pod-booklet/integration.py and camera-pod-enclosure.md. This supplies explicit M1.6/M2/M2.5 and length-level requirements missing from the generic M3/M4/M5/M6 shared assortment. No supplier or price selected. Shared stock is an unallocated purchasing bucket; reconcile it against this installed kit before ordering so hardware is not purchased twice. Received screw heads, pocket fit, stack lengths and thread engagement remain unverified.",
+      "notes": "One installed set per compact enclosed pod, derived from scripts/camera-pod-booklet/integration.py and the fastener standardization proposal (GitHub #225). M3 x 12/25 printed joints and M2 x 8 board joints eliminate M2.5/M4 without drilling the PCBs; the integrated deck replaces four loose spacers. This is a proposed nominal-CAD configuration, not received-hardware or load acceptance. Socket/cap reference heads and countersunk retainer/ear heads are distinct. Reconcile shared purchasing stock and servo-supplied accessories before ordering.",
       "baseUnit": "each",
       "kind": "component",
       "lifecycle": "planned"

@@ -1,7 +1,7 @@
 {
   "model": "raspberry-pi-camera-module-3",
   "revision": "0.2.0",
-  "date": "2026-10-14",
+  "date": "2026-10-15",
   "status": "Nominal CAD/material consistency only; physical acceptance unverified",
   "openScadVersion": "2021.01",
   "boundsMm": [
@@ -77,7 +77,7 @@
         "thickness": 0,
         "ior": 1.5
       },
-      "sha256": "3435f01b020b70e73bec69c8491ca7d649f63022b6d047f6e21b14f3f907330b"
+      "sha256": "1a6c7fec179e80f59fd9bf6fb9c2e402cecb75a3dbf4f10889b6a9b40fbc1bef"
     },
     {
       "node": "gold-pads",
@@ -94,7 +94,7 @@
         "thickness": 0,
         "ior": 1.5
       },
-      "sha256": "9633953c5a7cc042262561a0492f2b58391001494cb3bff89cfe3f6449ee333a"
+      "sha256": "97ca22805f4f488b228a2895e62b1e3ed02e4845fd0c67072c6b7948d7970292"
     },
     {
       "node": "amber-flex",
@@ -128,7 +128,7 @@
         "thickness": 0,
         "ior": 1.5
       },
-      "sha256": "8287c467d5de9c83a3ae18d846392f4809808f519e44b21b2505560eab9071a3"
+      "sha256": "9ff78477efcfc88690c94e8cdb92678751ff22c9a7faa5c5be88a236c2eafee6"
     },
     {
       "node": "autofocus-shield",
@@ -145,7 +145,7 @@
         "thickness": 0,
         "ior": 1.5
       },
-      "sha256": "4225560ba7f2419113552bbd97a155e6b784a0ae2f4dde8207677ca9c53ac7bd"
+      "sha256": "28902c9fd3dbbdd668f1f884d408791f228530d2c9557addf2a9c81f33aa8728"
     },
     {
       "node": "connector-latch",
