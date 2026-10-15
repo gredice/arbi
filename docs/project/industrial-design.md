@@ -44,8 +44,12 @@ Apply the role palette to winch drum/mount previews and all published booklets. 
 The owner selected the [dock appearance board](../assets/dock/concept-board-2026-10-14.png)
 on 14 October 2026. Its [rounded-shelter design record](../assemblies/dock/rounded-shelter.md)
 applies a broad removable warm-white crown over the charcoal guide, locator,
-fork and arm. Four printed quadrants retain restrained service seams, neutral
-hardware and open line corridors. The artwork's proportions are illustrative;
+fork and arm. The [removable charcoal underside](../assemblies/dock/lower-enclosure.md)
+extends that design with a tapered bowl around the retained guide. Four white
+roof quadrants and four black cardinal panels preserve restrained service
+seams, neutral hardware, open cable paths and a rear arm/fork opening.
+Dedicated panel fasteners preserve the structural joints during lower-shell
+service. The artwork's proportions are illustrative;
 the canonical dock sources govern dimensions. Pod-retention loads continue
 through the structural bridge/stud and fork/locator/arm, with no load carried by
 the cosmetic pod hood or shelter. Physical and automatic-docking acceptance

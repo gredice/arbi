@@ -2023,7 +2023,7 @@
         },
         {
             "id": "dock-roof-quarter",
-            "revision": "0.2.0",
+            "revision": "0.3.0",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
             "bomPartIds": [
@@ -2031,9 +2031,37 @@
             ],
             "assembly": "dock",
             "entrypoint": "hardware/assemblies/dock/dock-roof-quarter.scad",
-            "output": "dock-roof-quarter-r0.2.0.stl",
+            "output": "dock-roof-quarter-r0.3.0.stl",
             "documentation": "hardware/assemblies/dock/README.md",
-            "description": "Rounded warm-white removable crown quadrant with edge-open cable passage and recessed existing bolt stack; supported-dummy bench only."
+            "description": "Rounded crown quadrant with dedicated lower-panel contact bosses and captive nut pockets; structural roof stack unchanged, supported-dummy bench only."
+        },
+        {
+            "id": "dock-lower-panel",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "dock-lower-enclosure"
+            ],
+            "assembly": "dock",
+            "entrypoint": "hardware/assemblies/dock/dock-lower-panel.scad",
+            "output": "dock-lower-panel-r0.1.0.stl",
+            "documentation": "hardware/assemblies/dock/README.md",
+            "description": "Cardinal charcoal underside panel, three per dock, with diagonal cable corridors and dedicated crown attachment; no retention load."
+        },
+        {
+            "id": "dock-lower-rear-panel",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "dock-lower-enclosure"
+            ],
+            "assembly": "dock",
+            "entrypoint": "hardware/assemblies/dock/dock-lower-rear-panel.scad",
+            "output": "dock-lower-rear-panel-r0.1.0.stl",
+            "documentation": "hardware/assemblies/dock/README.md",
+            "description": "Rear charcoal underside panel with open-top arm/service notch; removes independently of structural fasteners; no retention load."
         },
         {
             "id": "dock-roof-spacer",
@@ -2093,19 +2121,19 @@
         },
         {
             "id": "dock-assembly",
-            "revision": "0.2.0",
+            "revision": "0.3.0",
             "status": "concept-unvalidated",
             "artifactRole": "reference",
             "bomPartIds": [],
             "assembly": "dock",
             "entrypoint": "hardware/assemblies/dock/dock-assembly.scad",
-            "output": "dock-assembly-r0.2.0.csg",
+            "output": "dock-assembly-r0.3.0.csg",
             "documentation": "hardware/assemblies/dock/README.md",
-            "description": "DOCK-IF-01 r0.2.0 rounded-shelter bench reference; manual fork, unchanged structural interfaces and unresolved physical acceptance."
+            "description": "DOCK-IF-01 r0.3.0 rounded crown and removable charcoal underside; manual fork and unchanged receiving/load interfaces; physical acceptance unresolved."
         },
         {
             "id": "dock-bench-hardware",
-            "revision": "0.1.0",
+            "revision": "0.2.0",
             "status": "concept-unvalidated",
             "artifactRole": "visualization",
             "bomPartIds": [
@@ -2113,12 +2141,12 @@
             ],
             "assembly": "dock",
             "entrypoint": "hardware/assemblies/dock/dock-bench-hardware.scad",
-            "output": "dock-bench-hardware-r0.1.0.stl",
+            "output": "dock-bench-hardware-r0.2.0.stl",
             "documentation": "hardware/assemblies/dock/README.md",
             "description": "Provisional nominal fitted bought fastener set for DOCK-IF-01; received geometry unverified.",
             "geometry": {
                 "status": "approximate",
-                "basis": "Nominal M12/M8/M4/M3 fitted stacks including simplified heads, washers and nuts, not a supplier drawing.",
+                "basis": "Nominal M12/M8/M4/M3 fitted stacks including simplified heads, washers and nuts, not a supplier drawing. Dedicated lower-enclosure M3 nuts use the Intafast DIN 985 drawing height 4 mm and AF5.5; remaining new socket/washer envelopes are nominal.",
                 "rework": "Measure received heads, washers, nuts, shanks and locking zones before fit and load use. Quantities and stack selections are in the BOM and assembly guide."
             }
         },

@@ -2,21 +2,23 @@
 
 DOCK-IF-01 assembles the split guide, locator/fork, structural pod attachment,
 support arm and rounded shelter on a restrained bench fixture with a supported
-dummy. Roof/guide quadrants and the assembled reference are revision `0.2.0`;
-the flat-shoulder stud is revision `0.1.1`. Locator/fork and bridge interfaces
+dummy. Roof quadrants and the assembled reference are revision `0.3.0`;
+lower panels are `0.1.0`, guide quadrants `0.2.0` and the flat-shoulder stud
+`0.1.1`. Locator/fork and bridge interfaces
 retain their current revisions.
 **Concept-unvalidated; no suspended or automatic operation.**
 
-The illustrated nine-page PDF and matching print/source ZIP are published as
+The illustrated ten-page PDF and matching print/source ZIP are published as
 [CAD-release artifacts](booklet/README.md). Read the
 [design package](design-package.md), [bench plan](bench-test-plan.md) and
 [acceptance record](acceptance-record.md) before testing. The BOM owns quantities;
 [hardware sources](../../../hardware/assemblies/dock/README.md) identify every
 current entrypoint. Historical funnel/nest and pod-stud files are excluded.
 
-Replace four roof and four guide quadrants with revision `0.2.0`, and the
-stud with revision `0.1.1`. Existing arm, rear pad, locator, fork, bridge,
-shoe and spacer prints remain revision
+Replace four white roof quadrants with revision `0.3.0`; add three ordinary
+lower panels and one rear lower panel at `0.1.0`. The current guide quadrants
+`0.2.0` and stud `0.1.1` remain compatible. Existing arm, rear pad, locator,
+fork, bridge, shoe and spacer prints remain revision
 `0.1.0`; inspect fit, damage and hardware stacks before reuse. The changed
 crown dead load and wind area require a renewed LC-05 arm/post review.
 
@@ -34,9 +36,11 @@ never print that context as a dock part. Each part individually fits a nominal
 256 mm cube with 5 mm XY edge reserve. Brim, supports, purge and exclusions are
 outside that bound. Confirm the user's actual printer and the full sliced preview.
 
-The arm root lies on a wide web face; each roof quadrant prints rim down from
-its Z175 underside datum. The hollow rounded crown and integral bosses need
-support planning. Review supports for the guide overhangs, bridge top links and
+The arm root lies on a wide web face; each roof quadrant prints mounting-seat
+down from its dedicated Z174 boss contacts. The perimeter at Z175, hollow
+rounded crown and integral bosses need support planning. Lower panels print
+top-tray down after 45-degree Z and 180-degree X rotations in the supplied
+print meshes. Review supports for the guide overhangs, bridge top links and
 locator flange/fork channel too. Inspect support contact/removal without
 damaging the 2.8 mm skin, access pockets or seam tabs. These print poses do not
 assert support-free manufacture.
@@ -58,6 +62,7 @@ is a solid-volume estimate, not a validated load-bearing print prescription.
 | Pod bridge / lower shoe / axial-bolt stud | 1 / 4 / 1 |
 | Arm root / extension / rear pad | 1 / 1 / 2 |
 | Roof quadrant / 49 mm roof spacer | 4 / 4 |
+| Ordinary lower panel / rear lower panel | 3 / 1 |
 
 The pod bridge, shoes and stud are dock-owned parts fitted to the pod. Do not
 count them again in the camera-pod fabrication recipe. The following bought
@@ -74,6 +79,9 @@ set is a nominal sizing proposal with no selected supplier or quoted price.
 | M3 × 30 bridge clamp bolt | 8 |
 | M3 × 16 roof-seam bolt | 4 |
 | M3 washer / locking nut | 24 / 12 |
+| M3 × 25 lower-enclosure socket-head bolt | 8 |
+| M3 lower-enclosure washer, Ø7 × 1 mm | 16 |
+| DIN 985 M3 lower-enclosure locking nut, 4 mm high | 8 |
 
 One spring assortment and two microswitches remain BOM allowances. Spring
 product/force, switch mounts/targets/circuit and stationary release actuator are
@@ -166,7 +174,9 @@ The 300 × 300 mm R40 crown has a nominal 2.8 mm hollow skin, skirt bottom
 Z175 and apex Z220. Open passages and seams have no accepted weather/IP
 rating. Preserve inspection access, optical access and runoff away from the pod.
 
-For roof service, independently support the dummy and locator before removing
+For roof service, remove all four lower panels first using section 5. Then
+slide the eight upper enclosure washers and eight nuts inward from their
+now-accessible roof pockets. Independently support the dummy and locator before removing
 all four seam and all four roof-stack bolts with their washers/nuts. Keep
 guide/carrier fasteners fitted. Lift one quarter 60 mm, then slide it 100 mm
 inward along that quarter's diagonal so the line exits its outer slot. Reverse
@@ -175,7 +185,46 @@ afterward. The builder samples this path against all four full-height vertical
 line probes; it does not model continuous motion, sloping lines, the harness or
 hands. This is an unloaded bench procedure requiring physical acceptance.
 
-## 5. Record supported bench results
+## 5. Fit and service the removable charcoal panels
+
+1. With the dummy supported, fit the rear panel at 180 degrees toward the post
+   and ordinary panels at 0/90/270 degrees. Preserve the open diagonal cable
+   seams, rear arm/fork opening and downward guide mouth. The Z105–171 tapered
+   walls must remain clear of the existing guide.
+2. Insert the nominal upper washers and DIN 985 nuts into the crown's side-load
+   pockets. Fit two M3 × 25 socket-head bolts per panel, with one Ø7 × 1 lower
+   washer per bolt. The panel tray ends at Z174 against the dedicated roof boss
+   contact; the white perimeter ends at Z175, leaving its 1 mm shadow gap.
+   There is no open gap inside the clamped contact stack.
+3. Check head Z167–170, lower washer Z170–171, tray Z171–174, upper washer
+   Z185–186 and locking nut Z186–190. Bolts bear at Z170 and end at Z195,
+   with 5 mm nominal nut projection. Inspect received locking engagement,
+   pocket fit/anti-rotation and local tool access. Do not infer a torque or
+   strength limit from these nominal dimensions.
+4. For supported, unloaded service, remove the panel's two M3 bolts and their
+   two lower washers. Keep other panels' fasteners fitted and all upper
+   washers/nuts in the roof pockets. For an ordinary panel, move 110 mm outward
+   horizontally in its cardinal direction, then lower 100 mm. For the rear
+   panel, move 60 mm toward the post, lower 20 mm, move another 50 mm outward,
+   then lower another 80 mm: cumulative 110 mm outward and 100 mm down. The
+   staged rear path clears retained M8 lap hardware at the sampled nominal
+   poses. The pack's checks do not establish continuous or physical clearance.
+   Do not pull
+   straight down around the flared guide. Remove
+   the rear panel for complete manual fork/core access. Keep the structural
+   M4 guide/carrier and roof/carrier/arm fasteners installed during panel service.
+
+Reverse the checked removal path to install. Recheck shell gaps, cable seams,
+rear clearance and all fasteners. See [lower-enclosure details](lower-enclosure.md)
+for the dedicated nominal stack, print poses and remaining load/weather gates.
+Remove all black panels before roof service. No loaded or installed service
+permission is implied.
+
+Only after panels are clear, slide the upper washers/nuts inward out of the
+pockets for white-quarter service. Reverse this order when rebuilding the
+roof and panels.
+
+## 6. Record supported bench results
 
 Run the declared DT01–DT12 stages in order, recording every trial and failure.
 Start with fit, manually supported insertion/release, fork travel and false seating.

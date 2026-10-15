@@ -4,9 +4,8 @@
   "note": "Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
   "geometry": {
     "releaseTag": null,
-    "sourceCommit": "63a9a5e63d451ac9a3e592573a02715d56a9b1e2",
+    "sourceCommit": "b3bdd81a8bd8ca16a1e53eba17b8820208571650",
     "sourceHashes": {
-      "hardware/models.json": "dab92313e13ad9688f3c4cf3a1c565743001fb04727c15d3b69c358f9d4ad4c9",
       "hardware/assemblies/camera-pod/bulk-capacitor-1000uf.scad": "b7125e5371d0aa55110fbcae7300b3a98bd4a3474341a0fed3bf199a6fb4a92e",
       "hardware/assemblies/camera-pod/camera-gimbal-base.scad": "aaa44f020ea99055c07d5aeb165f76da34c90562f1bccd29fe6ab8a746ccde2f",
       "hardware/assemblies/camera-pod/camera-gimbal-camera-plate.scad": "ee46401f166414b9c65f8b361e84a9694128b8a04de4aab8f35e343f69d9c535",
@@ -105,19 +104,21 @@
       "hardware/assemblies/corner-station/zinc-spray.scad": "5473851bd125496d6f3a4383e033a14e38d18f928bcd541516cfcd42dc9e5335",
       "hardware/assemblies/dock/dock-arm-extension.scad": "8b7d1a115235d65e03a72d178a5ffca6f9c8aaab55f1c0b4b96b2f61215ba0e0",
       "hardware/assemblies/dock/dock-arm-root.scad": "882d8870dbd4e185daf2c780bfff0a341423f5c31ea011508cc3b830be6e1da5",
-      "hardware/assemblies/dock/dock-assembly.scad": "6da223d8a85b9d60b83dd8c4162ea4ae10cad0685fd2031c04a8c503ec156948",
-      "hardware/assemblies/dock/dock-bench-hardware.scad": "911d479b17c51246042a45d57e85aa4f0d88c52f60f965d3ef6055c8ac62d8b8",
+      "hardware/assemblies/dock/dock-assembly.scad": "46e0ba4f242bb1576967fb4dbbbcb4e9a1863a6c4d0f2fa24433526485d126fb",
+      "hardware/assemblies/dock/dock-bench-hardware.scad": "03b8b13c9dac53e16fb7af489a7e4fed768970edb139542cdee2b42b312df5f0",
       "hardware/assemblies/dock/dock-funnel.scad": "14422530ce7c18eb583ff01628531af8a4a84d7617b02ab58bccb6744bade2cd",
       "hardware/assemblies/dock/dock-guide-quarter.scad": "9afe4f1b534db778803bea553696cd06a80dec84da2e1668b814f3c9cce93811",
       "hardware/assemblies/dock/dock-latch-fork.scad": "d7bd9d89fde7f0069bb88490f42abb90594dc455eabd8f97f4fca3dbc7eb1db8",
       "hardware/assemblies/dock/dock-latch-hardware.scad": "ae40037a882580b15367b47d39c0fff30361cf6f1457313020b26dde8fa0400f",
       "hardware/assemblies/dock/dock-locator-carrier.scad": "1cedd0cd765b28652ce211d9314f31bb521c123f1ef0d13bfe6030d5ed94acf1",
+      "hardware/assemblies/dock/dock-lower-panel.scad": "aa54a6216be8f3658d9d20cbdb21037a681c52da3f6c28dee83a9c654e0d9e82",
+      "hardware/assemblies/dock/dock-lower-rear-panel.scad": "d6e018d0e32ba982d75738fdc28634d1d9fec0ce778d1b2b8745d2a4abffb528",
       "hardware/assemblies/dock/dock-nest.scad": "af355c65ac3b4ec2f8dc1435e0e42c8c74fd656e911fa21ee9ab15aa1034eb56",
       "hardware/assemblies/dock/dock-pod-bridge-shoe.scad": "3893a0e707e787848fcf292fec332a51cbdcca4f5fc3bc7d50c733b5532b48c6",
       "hardware/assemblies/dock/dock-pod-bridge.scad": "7e469cdda009682aef6bf9828eb96f73d7cbf9d74124a662b74d5c762fc1dc35",
       "hardware/assemblies/dock/dock-pod-stud.scad": "26e71b5113410aeeac46d2e1f0412bf9d5aeb550f23dabc97e5e9fd55128b895",
       "hardware/assemblies/dock/dock-post-rear-pad.scad": "22193b3204340ea03ad5d1f9de6fc220282e2d3d5113ebbce23a08bcc45b399e",
-      "hardware/assemblies/dock/dock-roof-quarter.scad": "fd85ae1f3f50b5eff84ee4b9bbd620e0d0d25c5d8456fc65cd3080639ecf86d5",
+      "hardware/assemblies/dock/dock-roof-quarter.scad": "b3d09442c9e7fa77cf3383dae11c54979fd7e8eed94a89a9f0356bcdba6362a8",
       "hardware/assemblies/dock/dock-roof-spacer.scad": "a44be8708e8b8f4355164fa29561e7691171df5ba6f3a59329a6c802aa9c9707",
       "hardware/assemblies/dock/dock-weather-hood.scad": "cc5c8d12501f3a417ed75c6232d7ecd68090fc50fc22f0bdb401c00d8a20ea0a",
       "hardware/assemblies/shared-procurement-stock/cable-gland-assortment.scad": "dd54eead338fc19bd285d50058e1fae48195cc994c7dcc85bf113c7b70bf4200",
@@ -210,7 +211,7 @@
       "hardware/lib/corner-head-printed.scad": "c83323cb77e0b2c3f9475fb20499a121563203170ead05e57c1ac072a5edcefa",
       "hardware/lib/corner-head.scad": "0fff8dae1a356d48c14612e0299cb5c454fac3f5b1e94d5694d8a2a38ddf7d8a",
       "hardware/lib/corner-stand-adapter.scad": "4b584e47664635aa005300186557913dda0f063a7eb2c6456cc227ea6b65c75c",
-      "hardware/lib/dock.scad": "dae3ce0d06d5401e1293ac27579f29426009aee3f942cb06728bef4f3668b85c",
+      "hardware/lib/dock.scad": "7d3a8e5251cef8fc9409373bb50c6dd38fb7456012bd32737b75354273f8bd32",
       "hardware/lib/micro-pan-tilt-servo.scad": "8e796df6e933291bc5d8ef3a6ee3caf3fc9f81626d6e2d16ee22da2fac3f6e1b",
       "hardware/lib/nema23-motor.scad": "7b91dde9ea93489b0347bd69322822a99ac52b01c16a24581f5fa81885d6fa45",
       "hardware/lib/pole-pulley-mount.scad": "193957b370e09d75e78dbe486654bab723ed0b591fe53dd3bc156cb8e0867ac0",
@@ -221,6 +222,7 @@
       "hardware/lib/winch-drum.scad": "0684c28615d398d1b7a2beb7d15a4fa4e27d62382b8a8bde1470367f5de1e837",
       "hardware/lib/winch-mount.scad": "14c45ece0170d198ac5322dcb34a8b4b844fa6cc6efddb7bf683c96bed8d0bd3",
       "hardware/lib/winch-pole.scad": "58e2f446a74cb8d38e31c332727ae31ab6e10ec49ce38ba16dcd88a20ba8fc85",
+      "hardware/models.json": "4e83dc0f28f037eb3380019295b4b482d6a98d2da524210df9d43e5893ffc7dd",
       "hardware/vendor/BOSL2/affine.scad": "035629bc49574b7b745afd2cb493efb1ff8d7bdf6f7fa7cf0abe92d6f99b76c8",
       "hardware/vendor/BOSL2/attachments.scad": "d7eb1f2d0ec74b713ceb14532bcb2b3ec7bc04c28ff0ef12eaf1c886562cc8cb",
       "hardware/vendor/BOSL2/ball_bearings.scad": "6db8a93775a4e7ee222df949a73bf181b065094b4ac1e9cf44706201ebd614bb",
@@ -442,6 +444,18 @@
         "stlSha256": "e3f0bcc11e8b3a84509ad4a1b8757d3099b4d01a56de14df6254df41770edbf4"
       },
       {
+        "modelId": "dock-lower-panel",
+        "revision": "0.1.0",
+        "volumeCm3": "86.435493",
+        "stlSha256": "ce67d99dfdddfa2518980f6e504c4997b78cdd10192017ae4c2eafec36d4ad70"
+      },
+      {
+        "modelId": "dock-lower-rear-panel",
+        "revision": "0.1.0",
+        "volumeCm3": "54.244505",
+        "stlSha256": "cabbbd4701081bb329d98be8055ee7d3edcfa25989df96251aa5ff93494ac3bf"
+      },
+      {
         "modelId": "dock-pod-bridge",
         "revision": "0.1.0",
         "volumeCm3": "50.561306",
@@ -467,9 +481,9 @@
       },
       {
         "modelId": "dock-roof-quarter",
-        "revision": "0.2.0",
-        "volumeCm3": "91.782998",
-        "stlSha256": "0f204fd81edb1dddfa814f26c85d63c929470ab327bac49a8fd9031f93ba46b7"
+        "revision": "0.3.0",
+        "volumeCm3": "98.015503",
+        "stlSha256": "2e33664b75f2949c3fa50b6273472ebd0212d99e44543e6d704ab7398f780634"
       },
       {
         "modelId": "dock-roof-spacer",
@@ -1234,6 +1248,25 @@
         }
       ],
       "note": "Solid CAD volume material estimate for one DOCK-IF-01 bench kit; slicing, supports, load and outdoor acceptance pending."
+    },
+    {
+      "partId": "dock-lower-enclosure",
+      "buildId": "arbi-v1",
+      "representedQuantity": "1",
+      "materialId": "petg-matte",
+      "components": [
+        {
+          "modelId": "dock-lower-panel",
+          "quantity": "3",
+          "color": "black"
+        },
+        {
+          "modelId": "dock-lower-rear-panel",
+          "quantity": "1",
+          "color": "black"
+        }
+      ],
+      "note": "Solid nominal CAD material estimate for removable cosmetic panels; supports, slicing, weather, received fit and strength remain unresolved."
     },
     {
       "partId": "dock-support-arm",

@@ -2,10 +2,11 @@
 
 Proposed interface study DOCK-IF-01 covers the shared post configuration,
 compact-pod compatibility, load paths, observations and docking sequence.
-The registered bench geometry includes the rounded shelter and edge-open line
-passages at revision `0.2.0`; physical acceptance remains pending.
+The registered bench geometry includes the rounded shelter at revision `0.3.0`,
+edge-open guide passages at `0.2.0` and removable lower panels at `0.1.0`;
+physical acceptance remains pending.
 
-14 October 2026. Documentation revision `0.2.0`; interface study `DOCK-IF-01`.
+15 October 2026. Documentation revision `0.3.0`; interface study `DOCK-IF-01`.
 **Supported-dummy bench candidate; physical acceptance pending.** Read the
 [proposal](design-proposal.md), [baseline](README.md) and
 [bench plan](bench-test-plan.md) together. The historical `dock-funnel` and `dock-nest` are archived, superseded by the
@@ -72,6 +73,14 @@ beginning at radius 95 mm. They clear a synthetic vertical 1.5 mm line pose;
 actual approach and installed line/harness sweeps remain required. See the
 [rounded-shelter record](rounded-shelter.md) for styling and service boundaries.
 
+The [removable lower enclosure](lower-enclosure.md) surrounds the retained
+guide with three ordinary cardinal panels and one rear arm/fork panel. Its
+Z105–171 charcoal cone and Z171–174 top tray connect to dedicated crown bosses
+at Z174; the white perimeter remains at Z175. Eight M3 × 25 bolts, sixteen
+washers and eight DIN 985 locking nuts retain only these panels. Remove all
+black panels before roof service; their own removal keeps the structural M4
+fasteners fitted. The guide, locator, fork, stud and bridge remain unchanged.
+
 The bridge shoes positively constrain arm width; radial retention depends on
 clamping friction and requires slip/creep tests or a revised positive stop.
 Added solid print volume is reported in the generated geometry report and
@@ -84,8 +93,10 @@ The PDF and source/STL ZIP contain only the round-120 nominal checked pack.
 Shared 100–140 round parameters exist in source but require their own regenerated
 geometry, stacks, print poses and acceptance records. The nominal 256 mm cube
 with 5 mm XY reserve is an existing study envelope, not a measured user printer.
-Roof quadrants use a rim-down print pose and require support planning for the
-curved skin and integral bosses; no support-free manufacturing claim is made.
+Roof quadrants use a mounting-seat-down print pose from the Z174 dedicated
+boss contacts, requiring support planning for the elevated perimeter, curved
+skin and integral bosses. Lower panels print top-tray down after the supplied
+rotations; no support-free manufacturing claim is made.
 
 ## Final-locator calculation
 
@@ -209,8 +220,8 @@ Approach, offset/tilt, optical/gimbal/harness sweeps, service and real site line
 envelopes still require their own evidence. Derive installed mounting rows and
 stacks from the measured station before installation.
 
-Canonical BOM recipes count 24 printed pieces across 11 registered fabrication
-models and a 100-piece nominal bought-hardware set. Spring stock and two
+Canonical BOM recipes count 28 printed pieces across 13 registered fabrication
+models and a 132-piece nominal bought-hardware set. Spring stock and two
 microswitches remain development allowances; actuator, circuit, spring force and
 sensor targets/mounts are unselected. Historical standalone dock samples are
 archived and excluded from current fabrication quantities.

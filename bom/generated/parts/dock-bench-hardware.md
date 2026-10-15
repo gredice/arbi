@@ -28,6 +28,9 @@
 - 4 M3 x 16 roof seam bolt
 - 24 M3 washer
 - 12 M3 locking nut
+- 8 M3 x 25 lower-enclosure socket-head bolt
+- 16 M3 lower-enclosure washer 7 x 1
+- 8 DIN 985 M3 lower-enclosure locking nut
 
 ## Notes
 

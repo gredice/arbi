@@ -11,13 +11,13 @@
 - Build: arbi-v1
 - Destination: hr-zagreb
 - Quote snapshot: hr-zagreb-2026-10-08-coupling
-- Input digest: sha256:d63fe8d2eecc03908fc0fca616d1e7e82461a19657a5913de7c75af519a0ffa9
+- Input digest: sha256:afced9766dda7650bdb6a7ae728959a25966ec624f427157773b121f616c3eaa
 - Complete landed total: **unavailable**
 - Known quoted goods subtotal: **EUR 814.67**
 - Known checkout-group shipping subtotal: **EUR 43.38**
 - Known partial subtotal: **EUR 858.05**
-- Estimated print materials: **EUR 404.71**
-- Estimated partial subtotal (known amounts + print materials): **EUR 1262.76**
+- Estimated print materials: **EUR 409.99**
+- Estimated partial subtotal (known amounts + print materials): **EUR 1268.04**
 
 The known partial subtotal is evidence about recorded values only. It excludes every unresolved amount and must not be presented as the project cost.
 
@@ -49,9 +49,10 @@ Solid CAD volume × each component's material density × observed roll price / r
 | [corner-head-printed-marking-template](parts/corner-head-printed-marking-template.md) | 1 | ASA | 42.909 g | EUR 1.07 |
 | [dock-funnel](parts/dock-funnel.md) | 1 | PETG Basic | 143.821 g | EUR 1.64 |
 | [dock-latch-hardware](parts/dock-latch-hardware.md) | 1 | PETG Basic | 127.841 g | EUR 1.46 |
+| [dock-lower-enclosure](parts/dock-lower-enclosure.md) | 1 | PETG Matte | 429.565 g | EUR 4.89 |
 | [dock-nest](parts/dock-nest.md) | 1 | PETG Basic | 216.782 g | EUR 2.47 |
 | [dock-support-arm](parts/dock-support-arm.md) | 1 | PETG Basic | 1602.762 g | EUR 18.26 |
-| [dock-weather-hood](parts/dock-weather-hood.md) | 1 | PETG Matte + PETG Basic | 518.292 g | EUR 5.90 |
+| [dock-weather-hood](parts/dock-weather-hood.md) | 1 | PETG Matte + PETG Basic | 552.446 g | EUR 6.29 |
 | [winch-drum](parts/winch-drum.md) | 4 | PETG Basic | 4980.607 g | EUR 56.73 |
 | [winch-full-cover](parts/winch-full-cover.md) | 4 | ASA + PETG Matte | 12527.69 g | EUR 147.84 |
 | [winch-mount-and-guard](parts/winch-mount-and-guard.md) | 4 | PETG Matte + PETG Basic | 1613.452 g | EUR 18.37 |
@@ -163,6 +164,7 @@ aliexpress-hr: EUR 3.00 per item type (not per piece), order goods strictly belo
 | [dock-bench-hardware](parts/dock-bench-hardware.md) | 1 each | dock (1 each) | unresolved |
 | [dock-funnel](parts/dock-funnel.md) | 1 each | dock (1 each) | in-house-fabrication-dock-capture-set |
 | [dock-latch-hardware](parts/dock-latch-hardware.md) | 1 each | dock (1 each) | in-house-fabrication-dock-latch-hardware |
+| [dock-lower-enclosure](parts/dock-lower-enclosure.md) | 1 each | dock (1 each) | unresolved |
 | [dock-nest](parts/dock-nest.md) | 1 each | dock (1 each) | in-house-fabrication-dock-capture-set |
 | [dock-support-arm](parts/dock-support-arm.md) | 1 each | dock (1 each) | unresolved |
 | [dock-weather-hood](parts/dock-weather-hood.md) | 1 each | dock (1 each) | in-house-fabrication-dock-weather-hood |
@@ -214,7 +216,7 @@ Critical warnings identify unknown dimensions, approximate geometry, missing man
 - **Critical:** camera-pod-wiring-kit: The capacitor tie and harness retention are shown without a complete procurement specification or quantity. Record the missing hardware data and replace those ties with dedicated mounts and strain relief; cable ties are temporary bench workarounds only.
 - **Critical:** wire-rope-thimble-3mm: Part requirements are missing; record the specification before selecting or building this part.
 
-### Warning (63)
+### Warning (64)
 
 - **Warning:** aliexpress-bearing-608-2rs: Qualification is baseline-selected; the recorded selection is not engineering approval.
 - **Warning:** aliexpress-bulk-capacitor-1000uf: Qualification is baseline-selected; the recorded selection is not engineering approval.
@@ -254,6 +256,7 @@ Critical warnings identify unknown dimensions, approximate geometry, missing man
 - **Warning:** dive-store-dyneema-positioning-line: Qualification is baseline-selected; the recorded selection is not engineering approval.
 - **Warning:** dock-funnel: Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
 - **Warning:** dock-latch-hardware: Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
+- **Warning:** dock-lower-enclosure: Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
 - **Warning:** dock-nest: Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
 - **Warning:** dock-support-arm: Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
 - **Warning:** dock-weather-hood: Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
@@ -280,7 +283,7 @@ Critical warnings identify unknown dimensions, approximate geometry, missing man
 - **Warning:** winch-full-cover: Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
 - **Warning:** winch-mount-and-guard: Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.
 
-### Issues (173)
+### Issues (175)
 
 - **Issues:** aliexpress-bearing-608-2rs: Availability is unknown.
 - **Issues:** aliexpress-bearing-608-2rs: Price and availability observation date is unknown; quote capture time is not verification time.
@@ -373,6 +376,7 @@ Critical warnings identify unknown dimensions, approximate geometry, missing man
 - **Issues:** dive-store-hr: Shipping tax/VAT treatment is unknown.
 - **Issues:** dock-funnel: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
 - **Issues:** dock-latch-hardware: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
+- **Issues:** dock-lower-enclosure: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
 - **Issues:** dock-nest: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
 - **Issues:** dock-support-arm: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
 - **Issues:** dock-weather-hood: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.
@@ -417,6 +421,7 @@ Critical warnings identify unknown dimensions, approximate geometry, missing man
 - **Issues:** Required part corner-head-printed-kit has no pinned offer.
 - **Issues:** Required part corner-head-printed-marking-template has no pinned offer.
 - **Issues:** Required part dock-bench-hardware has no pinned offer.
+- **Issues:** Required part dock-lower-enclosure has no pinned offer.
 - **Issues:** Required part dock-support-arm has no pinned offer.
 - **Issues:** Required part extension-spring-assortment has no pinned offer.
 - **Issues:** Required part winch-full-cover has no pinned offer.

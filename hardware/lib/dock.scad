@@ -1,4 +1,4 @@
-// DOCK-IF-01 r0.2.0 - concept-unvalidated, millimetres.
+// DOCK-IF-01 r0.3.0 - concept-unvalidated, millimetres.
 // Candidate bench mechanics only. No load rating or installed authority.
 // Shared post parameters and spider dimensions retain their owning sources.
 include <corner-head.scad>
@@ -21,6 +21,8 @@ dk_roof_wall = 2.8;
 dk_roof_bottom = 175;
 dk_roof_profiles = [[300,40,175], [300,40,195], [296,38,207],
                     [280,34,215], [220,26,219], [1,.5,219.98]];
+// Lower cosmetic bowl: 2.8 mm normal conical wall, separate from the guide.
+dk_lower_inset = 2.8*sqrt(1+pow((283-140)/2/66,2));
 
 module dk_box(size,center=[0,0],z=0) {
     translate([center[0]-size[0]/2,center[1]-size[1]/2,z])cube(size);
@@ -204,7 +206,7 @@ module dk_roof_envelope(inset=0) {
         dk_round_plan([300-2*inset,300-2*inset],40-inset);
 }
 // Four identical quadrants retain the existing roof bolt and seam axes.
-// Print rim-down with reviewed supports, not on the curved exterior.
+// Print mounting-seat-down at Z174, with supports beneath the Z175 rim.
 module dock_roof_quarter(open_lines=true) {
     difference() {
         union() {
@@ -217,6 +219,10 @@ module dock_roof_quarter(open_lines=true) {
             dk_cyl(16,14.2,[40,40,205]);
             dk_box([3,30,20],[1.5,80],198);
             dk_box([30,3,20],[80,1.5],198);
+            // Dedicated lower-panel contacts at Z174 close the clamp stack;
+            // the surrounding crown rim stays at Z175. No structural bolt moves.
+            dk_cyl(16,19,[141,60,174]);
+            dk_cyl(16,19,[60,141,174]);
         }
         dk_cyl(4.5,28,[40,40,204]);
         dk_cyl(11,20,[40,40,215]);
@@ -224,7 +230,48 @@ module dock_roof_quarter(open_lines=true) {
         else dk_cyl(18,65,[104*cos(45),104*sin(45),170]);
         translate([-1,80,203])rotate([0,90,0])cylinder(d=3.5,h=5,$fn=24);
         translate([80,-1,203])rotate([-90,0,0])cylinder(d=3.5,h=5,$fn=24);
+        // Both pockets load toward the center with their panel removed.
+        dk_lower_nut_pocket([141,60]);
+        translate([60,141,0])rotate([0,0,90])dk_lower_nut_pocket([0,0]);
     }
+}
+// Side-load a 7 x 1 washer, then an AF5.5 x 4 DIN985 M3 nut.
+// Nominal socket/pocket clearance is not received-hardware fit acceptance.
+module dk_lower_nut_pocket(p) {
+    translate([p[0],p[1],0]) {
+        dk_cyl(3.5,28,[0,0,173]);
+        dk_box([20,7.4,1.2],[-8,0],185);
+        dk_cyl(7.4,1.2,[0,0,185]);
+        dk_box([20,5.9,4.2],[-8,0],186);
+        translate([0,0,186])cylinder(d=6.9,h=4.2,$fn=6);
+    }
+}
+
+// Three identical cardinal panels plus one rear panel with an open-top arm
+// notch. Diagonal seams carry the cables; each connected panel withdraws out.
+module dock_lower_panel(rear=false,open_lines=true,open_arm=true) {
+    difference() {
+        intersection() {
+            union() {
+                difference() {
+                    translate([0,0,105])cylinder(h=66.02,d1=140,d2=283,$fn=128);
+                    translate([0,0,104.98])cylinder(h=66.06,
+                        d1=140-2*dk_lower_inset,d2=283-2*dk_lower_inset,$fn=128);
+                }
+                difference() {
+                    translate([0,0,171])linear_extrude(height=3)dk_round_plan([300,300],40);
+                    dk_cyl(148,5,[0,0,170]);
+                }
+            }
+            rotate([0,0,-45])translate([0,0,100])cube([240,240,80]);
+        }
+        if(open_lines)for(a=[-45,45])rotate([0,0,a])dk_box([300,18,80],[150,0],100);
+        if(rear && open_arm)dk_box([300,70,70],[150,0],118);
+        for(y=[-60,60])dk_cyl(3.5,5,[141,y,170]);
+    }
+}
+module dock_lower_rear_panel(open_lines=true,open_arm=true) {
+    dock_lower_panel(rear=true,open_lines=open_lines,open_arm=open_arm);
 }
 module dock_roof_spacer() {
     difference() {dk_cyl(10,49);dk_cyl(4.5,49.04,[0,0,-.02]);}
@@ -240,6 +287,8 @@ module dock_assembly(released=false) {
         dock_pod_bridge();dock_pod_stud();
         for(a=[45,135,225,315])rotate([0,0,a])translate([dk_bridge_r,0,0])dock_pod_bridge_shoe();
         for(x=[-40,40],y=[-40,40])translate([x,y,156])dock_roof_spacer();
+        for(a=[0,90,270])rotate([0,0,a])dock_lower_panel();
+        rotate([0,0,180])dock_lower_rear_panel();
     }
     color(ARBI_SHELL)for(a=[0,90,180,270])rotate([0,0,a])dock_roof_quarter();
     color([.66,.70,.73])dock_bench_hardware();
@@ -286,5 +335,12 @@ module dock_bench_hardware() {
     for(a=[0,90,180,270])rotate([0,0,a])translate([0,80,203])rotate([0,90,0]) {
         dk_bolt(3,16,3.5,5.5,2);dk_washer(3,7,.5,3);
         dk_washer(3,7,.5,-3.5);dk_nut(3,5.5,2.4,-5.9);
+    }
+    // Append cosmetic-only hardware to preserve the existing reference order.
+    for(a=[0,90,180,270])rotate([0,0,a])for(y=[-60,60])translate([141,y,0]) {
+        dk_cyl(3,25,[0,0,170]);
+        dk_cyl(5.5,3,[0,0,167]);
+        dk_washer(3,7,1,170);dk_washer(3,7,1,185);
+        dk_nut(3,5.5/cos(30),4,186);
     }
 }

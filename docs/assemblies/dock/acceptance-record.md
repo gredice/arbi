@@ -19,7 +19,7 @@ record per exact configuration and test stage; link the
 | Material/lot, printer/nozzle, orientation, conditioning and full slicer/process record | Pending |
 | Actual critical dimensions, tolerances, fasteners, locking and tool/service access | Pending |
 | Station/post/site or synthetic rig geometry, transforms and survey uncertainty | Pending |
-| Arm, station attachment, roof and full LC-01–LC-06 analysis | Pending |
+| Arm, station attachment, roof/lower enclosure with dedicated captive fasteners and full LC-01–LC-06 analysis | Pending |
 | Declared capture offsets/angles/swing/speeds, trial matrix and repeat counts | Pending |
 | Proof/dwell/cycle directions, forces/moments/durations and accepted deflection/residual set | Pending |
 | Actuator/linkage, supply/protection/isolation, travel/force/time and reset/power-off states | Pending |
@@ -41,7 +41,7 @@ record per exact configuration and test stage; link the
 | DT-06 False-state prevention and electrical/input faults; LS-16 | Pending |
 | DT-07 Interrupted power/link/reset and recovery; LS-16/17 | Pending |
 | DT-08 Cycling/dwell, contamination/temperature and post-test inspection | Pending |
-| DT-09 Shelter, drainage, rain/condensation and heat | Pending |
+| DT-09 Shelter/panel retention and service, drainage, rain/condensation and heat | Pending |
 | DT-10 Maintenance, failed-capture/release and no-power recovery | Pending |
 | DT-11 Secured four-line forces/clearance and fault behavior | Pending |
 | DT-12 As-built installed clearance through disable/partial/total power loss; LS-18 | Pending |
