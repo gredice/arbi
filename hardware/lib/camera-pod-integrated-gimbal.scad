@@ -1,6 +1,7 @@
-// ARBI compact integrated gimbal r0.1.0, millimetres.
+// ARBI compact integrated gimbal r0.3.0, millimetres.
 // Concept-unvalidated. The dry bench mounts remain in camera-pod-mounts.scad.
 include <camera-pod-mounts.scad>
+use <camera-pod-retention.scad>
 
 pg_tilt_y = 3;
 pg_tilt_z = -45;
@@ -18,6 +19,10 @@ module camera_pod_integrated_gimbal_carrier() {
                 camera_pod_pan_yoke();
                 pm_box([160,160,70],[0,0],-31.7);
             }
+            // Replace the legacy soft-wrap slots with stopped removable clamps.
+            pm_box([22,6,2.5],[0,-23],-31.7);
+            translate([0,-19,-35])rotate([180,0,0])pr_flat_base(pr_ribbon());
+            translate([0,-7,-34.6])rotate([180,0,0])pr_flat_base(pr_loom());
             // Four M3 attachment axes for the removable outer head.
             for(x=[-8,8]) {
                 pm_link([x,10],[x,30.5],7,2.5,-31.7);
@@ -38,8 +43,14 @@ module camera_pod_integrated_gimbal_carrier() {
                 pm_link([pg_lug_inner_x-2.5,wrap_y],[-8,wrap_y],5,4.5,-31.7);
             }
         }
+        translate([0,-19,-35])rotate([180,0,0])pr_flat_bores(pr_ribbon(),4);
+        translate([0,-7,-34.6])rotate([180,0,0])pr_flat_bores(pr_loom(),4);
+        // Preserve the original rear M2 retainer nut/washer seat through
+        // the added loom base; the open edge leaves 5.1 mm of lined grip.
+        pm_cyl(5.4,3.41,[0,-10,-34.71]);
+        translate([0,0,-27.2])pm_horn_pocket();
         // The original crossbeam crosses the newly raised driven panel. The
-        // two ties above reconnect the outboard rail around this swept relief.
+        // two printed webs above reconnect the outboard rail around this swept relief.
         // Extend its inner edge 3 mm for the cradle/horn spline seating path.
         pm_box([10.2,28,12],[-18.9+pg_drive_shift,pg_tilt_y],-31.71);
         for(x=[-8,8],y=[-30.5,30.5])pm_cyl(3.3,7,[x,y,-32]);
@@ -65,7 +76,7 @@ module pg_legacy_drive_panel() {
 }
 
 // Keep the camera frame and horn plate inside the original envelope. Broad
-// ties flank the horn access instead of leaving two 2.75 x 2.5 mm ligaments.
+// webs flank the horn access instead of leaving two 2.75 x 2.5 mm ligaments.
 module pg_cradle_braces() {
     for(y=[-7,7]) {
         pm_box([8,4,2.5],[-15.8,y],-60);

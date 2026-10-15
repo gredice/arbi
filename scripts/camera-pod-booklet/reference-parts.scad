@@ -104,6 +104,12 @@ else if(part=="nut-M3-reference") nut(3);
 else if(part=="washer-M3-reference") ring(7,3.2,.5);
 else if(part=="washer-M3x0p7-reference") ring(7,3.2,.7);
 else if(part=="bolt-OEM-horn-UNVERIFIED") bolt(1.4,4);
+else if(part=="power-liner-reference") difference() {
+    cylinder(d=6.8,h=10,$fn=24);
+    translate([0,0,-.01])cylinder(d=6,h=10.02,$fn=24);
+}
+else if(part=="ribbon-liner-reference")translate([-8,-6,0])cube([16,12,.4]);
+else if(part=="loom-liner-reference")translate([-2,-5,0])cube([4,10,.4]);
 else if(part=="capacitor-tie-reference") difference() {
     translate([-9.4,-1.25,16.7])cube([18.8,2.5,23.6]);
     translate([-8.6,-1.3,17.5])cube([17.2,2.6,22]);

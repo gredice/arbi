@@ -5,6 +5,8 @@ ENCLOSURE_ONLY = {
     'camera-pod-integrated-gimbal-head', 'camera-pod-integrated-gimbal-carrier',
     'camera-pod-integrated-camera-cradle', 'camera-pod-integrated-tilt-pivot-support',
     'camera-pod-rain-hood', 'camera-pod-enclosure-base',
+    'camera-pod-capacitor-retainer', 'camera-pod-power-clamp',
+    'camera-pod-ribbon-clamp', 'camera-pod-loom-clamp',
 }
 
 

@@ -17,7 +17,7 @@
 
 ## Design warnings
 
-- **Critical:** A cable tie currently retains the pod capacitor. Replace it with a dedicated insulated removable holder; cable ties are temporary bench workarounds only, never final retention.
+- **Critical:** The compact pod uses a bolted insulated cup/rim retainer. Actual can diameter, height, vent clearance, lead isolation, print retention and physical loads remain unverified.
 
 ## Used in
 

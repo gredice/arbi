@@ -9,13 +9,16 @@ import { renderMarkdown } from "./report.js";
 
 const root = fileURLToPath(new URL("../../../", import.meta.url));
 
-test("temporary cable-tie retention is critical on the owning parts and included BOM", async () => {
+test("tie-based winch retention and untested pod retainers remain critical", async () => {
   const result = calculateBom(await loadBomRepository(root));
-  for (const id of ["camera-pod-chassis", "bulk-capacitor-1000uf", "camera-pod-wiring-kit", "winch-round-pole-covers", "winch-round-pole-hardware"]) {
+  for (const id of ["winch-round-pole-covers", "winch-round-pole-hardware"]) {
     assert.ok(result.partWarnings[id]?.some((warning) => warning.code === "temporary-cable-tie" && warning.severity === "critical"), id);
   }
   assert.ok(!result.partWarnings["pod-buck-converter-48v-5v"]?.some((warning) => warning.code === "temporary-cable-tie"), "received converter uses screw mounts");
-  assert.ok(result.warningDetails.some((warning) => warning.code === "temporary-cable-tie" && warning.assemblyIds.includes("camera-pod")));
+  for (const id of ["camera-pod-chassis", "bulk-capacitor-1000uf", "camera-pod-wiring-kit"]) {
+    assert.ok(!result.partWarnings[id]?.some((warning) => warning.code === "temporary-cable-tie"), id);
+    assert.ok(result.partWarnings[id]?.some((warning) => warning.severity === "critical" && warning.code.endsWith("-unverified")), id);
+  }
   assert.equal(result.complete, false);
 });
 
@@ -39,11 +42,13 @@ test("missing pinned offers and basket shipping reach the affected part warning 
   assert.ok(Object.values(result.partWarnings).flat().some((warning) => warning.message.includes("Shipping is unknown") && warning.severity === "issue"));
 });
 
-test("cable-tie and approximate-geometry warnings cannot be downgraded; missing specifications are critical", async () => {
+test("retention and approximate-geometry warnings cannot be downgraded; missing specifications are critical", async () => {
   const repository = await loadBomRepository(root);
   const part = repository.parts.parts.find((part) => part.id === "camera-pod-chassis")!;
-  part.designWarnings![0]!.severity = "warning";
-  await assert.rejects(assertJsonSchema("part catalog", repository.parts, `${root}/bom/schemas/parts.schema.json`), /JSON Schema validation failed/);
+  for (const code of ["temporary-cable-tie", "capacitor-retention-unverified", "retention-unverified", "strain-relief-unverified"]) {
+    part.designWarnings = [{ code, severity: "warning", message: "Physical retention remains unverified." }];
+    await assert.rejects(assertJsonSchema("part catalog", repository.parts, `${root}/bom/schemas/parts.schema.json`), /JSON Schema validation failed/);
+  }
   part.requirements = [];
   assert.ok(designWarnings(part).some((warning) => warning.code === "missing-information" && warning.severity === "critical"));
   part.designWarnings = [{ code: "approximate-geometry", severity: "issue", message: "Measure dimensions." }];

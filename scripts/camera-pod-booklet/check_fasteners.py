@@ -14,13 +14,13 @@ def main():
     assert ENCLOSURE,'Stock fasteners belong to the compact enclosure only'
     parts=assembly();by={p['name']:p for p in parts}
     bolts=[p for p in parts if '-bolt-' in p['name'] or p['name']=='pivot-bolt']
-    expected={'bolt-M3x25-reference':8,'bolt-M3x12-reference':7,
+    expected={'bolt-M3x25-reference':8,'bolt-M3x12-reference':19,
               'bolt-M2x8-reference':12,'csk-M2x8-reference':4,
               'csk-M1p6x6-reference':4}
     actual=dict(Counter(p['model'] for p in bolts))
     assert actual==expected,actual
-    assert sum('washer' in p['name'] for p in parts)==45
-    assert len([p for p in parts if '-nut-' in p['name'] or p['name']=='pivot-nut'])==35
+    assert sum('washer' in p['name'] for p in parts)==61
+    assert len([p for p in parts if '-nut-' in p['name'] or p['name']=='pivot-nut'])==47
     assert 'pivot-gap-shim' in by
     engagement=[]
     for bolt in bolts:
@@ -67,12 +67,12 @@ def main():
             assert collision,('Direct M3 substitution control missed',name,x,y)
             controls.append({'board':name,'local_xy_mm':[x,y],'M3_interference_detected':True,'hits':collision})
     report={'status':'nominal CAD only; proposed configuration','screw_counts':actual,
-            'bought_screws':35,'flat_washers':45,'plain_nuts':35,'pivot_shims':1,
+            'bought_screws':47,'flat_washers':61,'plain_nuts':47,'pivot_shims':1,
             'OEM_centre_screws':2,'nut_engagement':engagement,'preload_paths':paths,
             'direct_M3_PCB_controls':controls,
             'limits':'Actual head styles, stock counts, thread/nut dimensions, print retention/strength, PCB support, isolation and assembled loads require inspection.'}
     (ROOT/'fastener-check.json').write_text(json.dumps(report,indent=2)+'\n')
-    print('PASS stocked fasteners: five variants/35 screws, nut engagement, captive-seat access and PCB M3 interference controls.',flush=True)
+    print('PASS stocked fasteners: five variants/47 screws, nut engagement, captive-seat access and PCB M3 interference controls.',flush=True)
 
 
 if __name__=='__main__':main()

@@ -11,13 +11,13 @@
 - Build: arbi-v1
 - Destination: hr-zagreb
 - Quote snapshot: hr-zagreb-2026-10-08-coupling
-- Input digest: sha256:661e3966f2c22fb8293c31ab448929a9c4a5491de2a5d48087b9cb86ba6cd60a
+- Input digest: sha256:531468ad5b35ed67129e1d9afe6cf2465a2d9b64272a6581644d39f31059b1df
 - Complete landed total: **unavailable**
 - Known quoted goods subtotal: **EUR 814.67**
 - Known checkout-group shipping subtotal: **EUR 43.38**
 - Known partial subtotal: **EUR 858.05**
-- Estimated print materials: **EUR 410.01**
-- Estimated partial subtotal (known amounts + print materials): **EUR 1268.06**
+- Estimated print materials: **EUR 410.20**
+- Estimated partial subtotal (known amounts + print materials): **EUR 1268.25**
 
 The known partial subtotal is evidence about recorded values only. It excludes every unresolved amount and must not be presented as the project cost.
 
@@ -43,8 +43,8 @@ Solid CAD volume × each component's material density × observed roll price / r
 
 | Part | Required | Material | Estimated weight | Estimated material cost |
 | --- | ---: | --- | ---: | ---: |
-| [camera-gimbal](parts/camera-gimbal.md) | 1 | PETG Matte + PETG Basic | 50.939 g | EUR 0.58 |
-| [camera-pod-chassis](parts/camera-pod-chassis.md) | 1 | PETG Matte + PETG Basic | 207.819 g | EUR 2.37 |
+| [camera-gimbal](parts/camera-gimbal.md) | 1 | PETG Matte + PETG Basic | 52.942 g | EUR 0.60 |
+| [camera-pod-chassis](parts/camera-pod-chassis.md) | 1 | PETG Matte + PETG Basic | 222.567 g | EUR 2.54 |
 | [corner-head-printed-kit](parts/corner-head-printed-kit.md) | 4 | ASA + PETG Matte | 6576.581 g | EUR 148.04 |
 | [corner-head-printed-marking-template](parts/corner-head-printed-marking-template.md) | 1 | ASA | 42.909 g | EUR 1.07 |
 | [dock-funnel](parts/dock-funnel.md) | 1 | PETG Basic | 143.821 g | EUR 1.64 |
@@ -211,9 +211,9 @@ Critical warnings identify unknown dimensions, approximate geometry, missing man
 
 ### Critical (4)
 
-- **Critical:** bulk-capacitor-1000uf: A cable tie currently retains the pod capacitor. Replace it with a dedicated insulated removable holder; cable ties are temporary bench workarounds only, never final retention.
-- **Critical:** camera-pod-chassis: The current deck screw-mounts the converter, but retains the capacitor and harness with cable ties. Replace those ties with dedicated removable mounts and strain relief; cable ties are temporary bench workarounds only, never the final assembly solution.
-- **Critical:** camera-pod-wiring-kit: The capacitor tie and harness retention are shown without a complete procurement specification or quantity. Record the missing hardware data and replace those ties with dedicated mounts and strain relief; cable ties are temporary bench workarounds only.
+- **Critical:** bulk-capacitor-1000uf: The compact pod uses a bolted insulated cup/rim retainer. Actual can diameter, height, vent clearance, lead isolation, print retention and physical loads remain unverified.
+- **Critical:** camera-pod-chassis: Compact deck/carrier screw-fastened retainers replace ties. Received fit, captive-pocket retention, print strength/creep and complete mass require physical inspection and testing.
+- **Critical:** camera-pod-wiring-kit: Stopped lined power, CSI and servo clamps replace ties. Actual cable/FPC dimensions, liner compatibility/compression, pull-out, electrical isolation, relaxed loops and flex fatigue remain unverified. These clamps do not terminate positioning-line tension.
 - **Critical:** wire-rope-thimble-3mm: Part requirements are missing; record the specification before selecting or building this part.
 
 ### Warning (64)

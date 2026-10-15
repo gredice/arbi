@@ -32,13 +32,13 @@
         },
         {
             "id": "camera-pod-assembly",
-            "revision": "0.4.0",
+            "revision": "0.5.0",
             "status": "concept-unvalidated",
             "artifactRole": "reference",
             "bomPartIds": [],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/camera-pod-assembly.scad",
-            "output": "camera-pod-assembly-r0.4.0.csg",
+            "output": "camera-pod-assembly-r0.5.0.csg",
             "documentation": "hardware/assemblies/camera-pod/README.md",
             "description": "Integrated rain-camera pod reference by default; show_legacy=true retains the historical separate concept layout."
         },
@@ -766,7 +766,7 @@
         },
         {
             "id": "camera-pod-integrated-gimbal-carrier",
-            "revision": "0.2.0",
+            "revision": "0.3.0",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
             "bomPartIds": [
@@ -774,7 +774,7 @@
             ],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/camera-pod-integrated-gimbal-carrier.scad",
-            "output": "camera-pod-integrated-gimbal-carrier-r0.2.0.stl",
+            "output": "camera-pod-integrated-gimbal-carrier-r0.3.0.stl",
             "documentation": "hardware/assemblies/camera-pod/README.md",
             "description": "Separate pan-moving internal carrier for the compact enclosed gimbal, with a relocated horizontal tilt servo and four M3 attachment tabs for the one-piece outer head."
         },
@@ -808,7 +808,7 @@
         },
         {
             "id": "camera-pod-integrated-deck",
-            "revision": "0.2.0",
+            "revision": "0.3.0",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
             "bomPartIds": [
@@ -816,7 +816,7 @@
             ],
             "assembly": "camera-pod",
             "entrypoint": "hardware/assemblies/camera-pod/camera-pod-integrated-deck.scad",
-            "output": "camera-pod-integrated-deck-r0.2.0.stl",
+            "output": "camera-pod-integrated-deck-r0.3.0.stl",
             "documentation": "hardware/assemblies/camera-pod/README.md",
             "description": "Compact Pi, received converter and capacitor carrier; four converter screw supports at the measured 45 x 24 mm pitch. Alternative to the dry bench deck."
         },
@@ -2303,6 +2303,62 @@
                 "basis": "Illustrative set geometry; sizes and counts shown are representative samples, not the complete installed inventory or selected supplier products.",
                 "rework": "Use the canonical BOM requirements and reviewed assembly/electrical design; select and measure received components before fit or installation."
             }
+        },
+        {
+            "id": "camera-pod-capacitor-retainer",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "camera-pod-chassis"
+            ],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/camera-pod-capacitor-retainer.scad",
+            "output": "camera-pod-capacitor-retainer-r0.1.0.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Removable capacitor retainer for the compact pod; nominal hard-stop retention, physical fit/loads unverified."
+        },
+        {
+            "id": "camera-pod-power-clamp",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "camera-pod-chassis"
+            ],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/camera-pod-power-clamp.scad",
+            "output": "camera-pod-power-clamp-r0.1.0.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Removable power clamp for the compact pod; nominal hard-stop retention, physical fit/loads unverified."
+        },
+        {
+            "id": "camera-pod-ribbon-clamp",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "camera-pod-chassis"
+            ],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/camera-pod-ribbon-clamp.scad",
+            "output": "camera-pod-ribbon-clamp-r0.1.0.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Removable ribbon clamp for the compact pod; nominal hard-stop retention, physical fit/loads unverified."
+        },
+        {
+            "id": "camera-pod-loom-clamp",
+            "revision": "0.1.0",
+            "status": "concept-unvalidated",
+            "artifactRole": "fabrication",
+            "bomPartIds": [
+                "camera-pod-chassis"
+            ],
+            "assembly": "camera-pod",
+            "entrypoint": "hardware/assemblies/camera-pod/camera-pod-loom-clamp.scad",
+            "output": "camera-pod-loom-clamp-r0.1.0.stl",
+            "documentation": "hardware/assemblies/camera-pod/README.md",
+            "description": "Removable loom clamp for the compact pod; nominal hard-stop retention, physical fit/loads unverified."
         }
     ],
     "archivedModels": [

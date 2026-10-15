@@ -51,8 +51,8 @@ if __name__=='__main__':
     unused={'nut-M2p5-reference','nut-M4-reference','washer-M2p5-reference',
             'washer-M4-reference','bolt-M4x35-reference','bolt-M2p5x20-reference',
             'bolt-M2x12-reference','bolt-M3x35-reference','bolt-M2p5x10-reference',
-            'csk-M2x10-reference'}
-    names=([n for n in NAMES if n not in unused]+['bolt-M2x8-reference','bolt-M3x25-reference']) if ENCLOSURE else NAMES
+            'csk-M2x10-reference','capacitor-tie-reference'}
+    names=([n for n in NAMES if n not in unused]+['bolt-M2x8-reference','bolt-M3x25-reference','power-liner-reference','ribbon-liner-reference','loom-liner-reference']) if ENCLOSURE else NAMES
     jobs=[(n,ROOT/'source/reference-parts.scad','reference',[f'part="{n}"'],
       'unverified placeholder' if 'UNVERIFIED' in n else 'simplified hardware reference',n) for n in names]
     registry=json.loads((ROOT/'source/arbi-hardware/models.json').read_text())

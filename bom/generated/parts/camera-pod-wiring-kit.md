@@ -15,12 +15,14 @@
 
 - One 15-pin CSI ribbon between Pi 3A+ and Camera Module 3; final length, end stiffeners, bend radius and fatigue behaviour must match the compact pan/tilt route. Check whether the selected camera supply includes a usable ribbon.
 - Fixed 5 V/ground distribution and two servo power/signal leads, capacitor connections and insulated incoming power termination. Connector types, conductor gauges and cut lengths remain unselected.
-- One soft incoming-lead sleeve/grommet and separate soft retention for power, CSI and servo service loops. The converter uses four screw stacks; the remaining capacitor tie and harness retention are temporary bench workarounds only. Final dedicated capacitor retention and strain relief remain unresolved.
 - Independent positioning-line tensile termination belongs to the winch line interface; internal conductors and connectors must carry no positioning load.
+- One split soft insulating power-clamp liner, nominal free ID6/OD7 x 10 mm long, for the stopped 6.8 mm bore and nominal 6 mm sleeved lead. Measure received insulation and select compatible liner hardness/thickness before printing.
+- Four insulating silicone CSI pads, 16 x 12 x 0.5 mm free, and four servo pads, 4 x 10 x 0.5 mm free; two pads per clamp. Nominal loaded thickness is 0.4 mm per pad (1.1 mm CSI / 2.8 mm servo stopped gaps). These are design assumptions, not qualified compression or grip specifications.
+- Protect the three base outlets with received-fit soft edge lining/grommets and inspect drip loops. Actual connector sizes, cable gauge/cut length and edge-liner product/dimensions remain unselected; no ties are used in the current compact design.
 
 ## Design warnings
 
-- **Critical:** The capacitor tie and harness retention are shown without a complete procurement specification or quantity. Record the missing hardware data and replace those ties with dedicated mounts and strain relief; cable ties are temporary bench workarounds only.
+- **Critical:** Stopped lined power, CSI and servo clamps replace ties. Actual cable/FPC dimensions, liner compatibility/compression, pull-out, electrical isolation, relaxed loops and flex fatigue remain unverified. These clamps do not terminate positioning-line tension.
 - **Warning:** This part is planned; confirm its specification and selection with committed evidence.
 
 ## Notes

@@ -6,7 +6,7 @@
   "source_hashes": {
     "hardware/assemblies/camera-pod/raspberry-pi-3a-plus.scad": "d9eb7e1595cb6097e7e6a06ff19502becbfd877f8148b7e6e216eeda5c9a8942",
     "hardware/lib/raspberry-pi-3a-plus.scad": "b39d15f5ba17f6f477d323d730ff1b096b43bd6a2dd6197ea00455552505d1e3",
-    "scripts/camera-pod-booklet/reference-parts.scad": "aab5aacbd37368799a5f640921bfb2825800c772562305a8d40a75d95cb5a11d",
+    "scripts/camera-pod-booklet/reference-parts.scad": "138f8f58f5fc7ff0378d8ee7c9ada4715356092108a95f363de9bfd3595e7c5c",
     "hardware/assemblies/camera-pod/raspberry-pi-3a-plus/drawing-trace.json": "1440f1ee05e44932d97c2b83c17b1c558e73501718caefa46cdcacba5fa4b84a",
     "scripts/camera-pod-booklet/check_pi_reference.py": "2d3ab50bcc9b4e6b1ada03dd8110ab666ea9850a8924c06526251a300cdb7dae"
   },
@@ -181,7 +181,7 @@
       ],
       "volume_mm3": 9863.582738799998,
       "triangles": 2820,
-      "stl_sha256": "d62628dcfa7e9fda2b0d108d5f69bc57338e2dfcb63da8496118066545ea688c"
+      "stl_sha256": "aac930e92fa6220d6cf0881f81d204e4716c6ed67518212368eada10dab75ed4"
     },
     "pcb": {
       "bounds_mm": [
@@ -198,7 +198,7 @@
       ],
       "volume_mm3": 5773.6140515199995,
       "triangles": 1308,
-      "stl_sha256": "f4c98842066e2d46a01447f2a9e6a4cf3263150c312b7f49bc71924f9c13fd43"
+      "stl_sha256": "6523df928d92a6df9cac39f0ad12711da57f2e893f459f172c1eb90a876ed7fc"
     },
     "gpio": {
       "bounds_mm": [
@@ -281,9 +281,9 @@
           7.6
         ]
       ],
-      "volume_mm3": 477.40220539000006,
+      "volume_mm3": 477.40220539,
       "triangles": 460,
-      "stl_sha256": "993173712c0cc9583e3cbc08a6ee2806138bfbfb892e2184983e555a84e3b7d6"
+      "stl_sha256": "4d177dbfedf274d38788673b6ee4209d3a46bc25cb615148d180816e1940d8b2"
     },
     "dsi": {
       "bounds_mm": [
@@ -300,7 +300,7 @@
       ],
       "volume_mm3": 427.5093331200001,
       "triangles": 44,
-      "stl_sha256": "0ea1d9b96b174b5ca864664bc0316bdd4f6688a9546ec4c29fb908e3f5753df2"
+      "stl_sha256": "92c117068727a85ce747a1a1625f2880e59cda269cf140654bcde6b34d169aad"
     },
     "csi": {
       "bounds_mm": [
@@ -351,7 +351,7 @@
       ],
       "volume_mm3": 9863.582738799998,
       "triangles": 2820,
-      "stl_sha256": "b58ab9abb828a916841d99e16c0e1e76afce5bd7cde7017d44212f157a606210"
+      "stl_sha256": "65e466f1c08d4483689d033afef7ecaf93fb8241075b7fccc2da6cd56f9d53bc"
     }
   },
   "limits": "Plan trace agreement within 0.08 mm is a source reproduction check, not a manufacturing tolerance. PCB thickness, hole diameter, Z datum, underside and mating details are nominal. No received-board, electrical or physical assembly acceptance."

@@ -1,5 +1,9 @@
 # Camera pod fastener standardization
 
+This records stock-fastener assembly r0.4.0. The current r0.5.0
+[tie-free retention kit](tie-free-retention.md) adds twelve M3 × 12 screws and
+sixteen M3 washers; use its complete inventory when building the current pod.
+
 Design proposal: [#225](https://github.com/gredice/arbi/issues/225).
 
 Status: proposed interface revision; nominal CAD and physical acceptance are separate.
@@ -58,7 +62,7 @@ Source evidence: [Pi review](../../../hardware/assemblies/camera-pod/raspberry-p
    Recess the pan carrier's lower seats by 0.4 mm for nominal thread projection. A socket
    head is not interchangeable with the required flush countersunk head.
 
-## Target installed list
+## Stock-fastener r0.4.0 installed list
 
 | Screw | Quantity | Use |
 | --- | ---: | --- |
@@ -97,7 +101,7 @@ servo loads and complete pod mass. Smaller frame screws and integrated printed
 posts require renewed mechanical acceptance; source checks do not establish
 load capacity or authorize suspended operation.
 
-## Washer and nut inventory
+## Stock-fastener r0.4.0 washer and nut inventory
 
 | Item | Quantity | Nominal dimensions, mm | Use |
 | --- | ---: | --- | --- |

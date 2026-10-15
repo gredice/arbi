@@ -81,7 +81,7 @@ All remain concept-unvalidated. The [7 October CAD checks](camera-pod-geometry-c
 
 ## Integrated rain enclosure
 
-The [compact enclosure configuration](camera-pod-enclosure.md) follows [stock fastener proposal #225](../../../docs/assemblies/camera-pod/fastener-standardization.md). Assembly r0.4.0 uses deck/carrier/head/cradle/support/white optical hood r0.2.0 and upper rain hood r0.3.0, with existing tray r0.2.3. Integral deck posts replace four loose spacers. The kit has 12 installed prints from 11 model types and 12 fabrication models including the optional coupon. Printed joints use M3 × 12/25; PCB mounts use M2 × 8. Camera screws enter from the rear into captive front hood nuts without camera washers. Board locations and holes, compact tilt axis and neck seam remain unchanged. Reprint the seven changed parts as a matched kit; earlier sources and snapshots retain their stated hardware. [ADR-0009](../../../docs/decisions/0009-compact-integrated-camera-pod.md) records the original packaging direction; the fastener revision has its own nominal and physical acceptance boundaries.
+The [compact enclosure configuration](camera-pod-enclosure.md) follows [stock fastener proposal #225](../../../docs/assemblies/camera-pod/fastener-standardization.md). Assembly r0.5.0 uses deck/carrier r0.3.0 and head/cradle/support/white optical hood r0.2.0 and upper rain hood r0.3.0, with existing tray r0.2.3. Integral deck posts replace four loose spacers. The kit has 18 installed prints from 15 model types and 16 fabrication models including the optional coupon. Printed joints use M3 × 12/25; PCB mounts use M2 × 8. Camera screws enter from the rear into captive front hood nuts without camera washers. Board locations and holes, compact tilt axis and neck seam remain unchanged. From r0.4.0, reprint the deck/carrier and add six removable retainer prints; earlier sources and snapshots retain their stated hardware. [ADR-0009](../../../docs/decisions/0009-compact-integrated-camera-pod.md) records the original packaging direction; the fastener revision has its own nominal and physical acceptance boundaries.
 
 The enclosure document owns print counts, colours, captive head clamps, supported assembly/service sequence, harness passages and unresolved fit/rain/thermal/mass acceptance. The [servo correction](../../../docs/evidence/micro-servo-2026-10-12.md) updates the coupon and pan mount to r0.1.1 and compact carrier to r0.1.2; reprint those parts for the accepted fit and inspect the complete assembly. The [earlier cradle CAD record](camera-pod-camera-cradle-check.md) and [machine-readable results](camera-pod-camera-cradle-check.json) identify passing nominal compact-gimbal motion, taper, service, optical and routing checks. The updated [servo CAD record](../../../docs/evidence/micro-servo-cad-2026-10-12.json) covers both 555-pose sweeps and service checks. The earlier Standard/servo configuration totalled 254.516 g; the [reconciled Wide record](../../../docs/evidence/camera-module-3-wide-2026-10-14.md) owns the previous r0.1.2 estimate as a solid-volume PETG estimate at 1.27 g/cm³, before hardware and electronics. Sliced and measured mass, servo torque/settling, received-part fit and rain protection around the camera/CSI loops remain unverified. The shell has no ingress rating; CAD checks do not establish the 170 g complete-pod ceiling or flying operation.
 
@@ -118,3 +118,12 @@ the installed PCB, screw axes and four M2 ×12 stacks. [The new fit record](../.
 owns the guided-loading, allowance and assembly checks; [earlier Wide evidence](../../../docs/evidence/camera-module-3-wide-2026-10-14.md)
 applies to hood r0.1.2. Physical reprint, ribbon, calibration and rain acceptance
 remain pending.
+
+## Current removable retention
+
+Assembly r0.5.0 uses the [tie-free retention kit](../../../docs/assemblies/camera-pod/tie-free-retention.md):
+deck and carrier r0.3.0 plus six removable retainer prints. It specifies zero
+installed ties, separate fixed/pan CSI and servo anchors, a split power jaw
+and a capacitor rim ring. The updated booklet has 18 pages; historical dry-bench
+sources and evidence keep their original configurations. Actual fit, grip,
+isolation, fatigue, print strength and complete mass remain unverified.

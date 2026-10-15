@@ -21,7 +21,7 @@
 
 ## Notes
 
-Current compact enclosure uses camera-pod-integrated-gimbal-head, camera-pod-integrated-gimbal-carrier, reinforced integrated cradle, pivot support and camera-pod-integrated-camera-hood at r0.2.0, plus unchanged horn retainers. Historical concept and dry bench gimbal parts, fixed fairing, tilt-servo boot and rear camera cowl are archived and excluded from this BOM. Four M3 x 12 clamp stacks join head and carrier; four M2 x 8 rear camera screws engage captive front nuts without camera washers. The selected kit exports 12 fabrication models including the optional coupon and installs 12 printed pieces. See hardware/assemblies/camera-pod/camera-pod-enclosure.md for quantities and service routes. Servo/connector dimensions, complete assembly fit, rain protection and complete flying mass remain unverified. The owner accepted the revised servo body/mounting fit on 12 October 2026; see docs/evidence/micro-servo-2026-10-12.md.
+Current compact enclosure uses head, reinforced cradle, pivot support and optical hood at r0.2.0, carrier r0.3.0 with removable pan harness clamps, and unchanged horn retainers. Historical concept and dry bench gimbal parts, fixed fairing, tilt-servo boot and rear camera cowl are archived and excluded from this BOM. Four M3 x 12 clamp stacks join head and carrier; four M2 x 8 rear camera screws engage captive front nuts without camera washers. The selected kit exports 16 fabrication models including the optional coupon and installs 18 printed pieces. See hardware/assemblies/camera-pod/camera-pod-enclosure.md for quantities and service routes. Servo/connector dimensions, complete assembly fit, rain protection and complete flying mass remain unverified. The owner accepted the revised servo body/mounting fit on 12 October 2026; see docs/evidence/micro-servo-2026-10-12.md.
 
 ## Used in
 
@@ -47,7 +47,7 @@ Quantities are per assembly definition, before build multipliers. Optional and d
 - [hardware/assemblies/camera-pod/camera-pod-servo-fit-coupon.scad](../../../hardware/assemblies/camera-pod/camera-pod-servo-fit-coupon.scad) — module `camera_pod_servo_fit_coupon`; revision 0.1.1.
 - [hardware/assemblies/camera-pod/camera-pod-integrated-camera-hood.scad](../../../hardware/assemblies/camera-pod/camera-pod-integrated-camera-hood.scad) — module `camera_pod_integrated_camera_hood`; revision 0.2.0.
 - [hardware/assemblies/camera-pod/camera-pod-integrated-gimbal-head.scad](../../../hardware/assemblies/camera-pod/camera-pod-integrated-gimbal-head.scad) — module `camera_pod_integrated_gimbal_head`; revision 0.2.0.
-- [hardware/assemblies/camera-pod/camera-pod-integrated-gimbal-carrier.scad](../../../hardware/assemblies/camera-pod/camera-pod-integrated-gimbal-carrier.scad) — module `camera_pod_integrated_gimbal_carrier`; revision 0.2.0.
+- [hardware/assemblies/camera-pod/camera-pod-integrated-gimbal-carrier.scad](../../../hardware/assemblies/camera-pod/camera-pod-integrated-gimbal-carrier.scad) — module `camera_pod_integrated_gimbal_carrier`; revision 0.3.0.
 
 ### Print material estimate
 
@@ -55,7 +55,7 @@ Build arbi-v1; batch represents 1 BOM unit(s). Current compact rain-enclosure gi
 
 | Model | Copies in batch | Material / colour | Solid volume per copy |
 | --- | ---: | --- | ---: |
-| camera-pod-integrated-gimbal-carrier r0.2.0 | 1 | Bambu Lab PETG Basic / black | 8.540409 cm³ |
+| camera-pod-integrated-gimbal-carrier r0.3.0 | 1 | Bambu Lab PETG Basic / black | 10.143084 cm³ |
 | camera-pod-integrated-gimbal-head r0.2.0 | 1 | Bambu Lab PETG Matte / black | 22.521446 cm³ |
 | camera-pod-integrated-camera-cradle r0.2.0 | 1 | Bambu Lab PETG Basic / black | 3.270418 cm³ |
 | camera-pod-integrated-tilt-pivot-support r0.2.0 | 1 | Bambu Lab PETG Basic / black | 1.182410 cm³ |
@@ -68,17 +68,17 @@ Selected recipe consumption:
 | --- | --- | ---: | ---: |
 | [Bambu Lab PETG Matte](https://eu.store.bambulab.com/products/petg-matte?id=775952393450868774) / black | 11.39 EUR / 1000 g; 10+ eligible mixed rolls | 30.854 g | 0.35 EUR |
 | [Bambu Lab PETG Matte](https://eu.store.bambulab.com/products/petg-matte?id=775952393450868758) / white | 11.39 EUR / 1000 g; 10+ eligible mixed rolls | 2.48 g | 0.03 EUR |
-| [Bambu Lab PETG Basic](https://eu.store.bambulab.com/products/petg-basic) / black | 11.39 EUR / 1000 g; 10+ eligible mixed rolls | 17.605 g | 0.2 EUR |
-| **Selected recipe total** | | **50.939 g** | **0.58 EUR** |
+| [Bambu Lab PETG Basic](https://eu.store.bambulab.com/products/petg-basic) / black | 11.39 EUR / 1000 g; 10+ eligible mixed rolls | 19.608 g | 0.22 EUR |
+| **Selected recipe total** | | **52.942 g** | **0.6 EUR** |
 
 Comparisons below assume every component uses the same material; the selected mixed recipe above is costed separately.
 
 | Material | Density | Roll price | Estimated batch weight | Estimated batch cost |
 | --- | ---: | ---: | ---: | ---: |
-| [Bambu Lab PLA Basic](https://eu.store.bambulab.com/products/pla-basic-filament) | [1.24 g/cm³](https://store.bblcdn.com/s1/default/58b85d0f3db94878854a28fdb8a0006e/Bambu_PLA_Basic_Technical_Data_Sheet.pdf) | 11.99 EUR / 1000 g; 10+ eligible mixed rolls | 47.635 g | 0.57 EUR |
-| [Bambu Lab PETG Basic](https://eu.store.bambulab.com/products/petg-basic) | [1.25 g/cm³](https://store.bblcdn.com/s1/default/cb94589bf7994fdcbfa833badefae9cd/Bambu_PETG_Basic_Technical_Data_Sheet.pdf) | 11.39 EUR / 1000 g; 10+ eligible mixed rolls | 48.019 g | 0.55 EUR |
-| [Bambu Lab PETG Matte](https://eu.store.bambulab.com/products/petg-matte) | [1.37 g/cm³](https://store.bblcdn.eu/s8/default/240fb0c791fb4903a9d72934895e9a16/PETG_Matte.pdf) | 11.39 EUR / 1000 g; 10+ eligible mixed rolls | 52.629 g | 0.6 EUR |
-| [Bambu Lab ASA](https://eu.store.bambulab.com/products/asa-filament) | [1.05 g/cm³](https://store.bblcdn.com/ad7b08230c164e72856cffbe06bb7dc9.pdf) | 24.99 EUR / 1000 g; single spool | 40.336 g | 1.01 EUR |
+| [Bambu Lab PLA Basic](https://eu.store.bambulab.com/products/pla-basic-filament) | [1.24 g/cm³](https://store.bblcdn.com/s1/default/58b85d0f3db94878854a28fdb8a0006e/Bambu_PLA_Basic_Technical_Data_Sheet.pdf) | 11.99 EUR / 1000 g; 10+ eligible mixed rolls | 49.623 g | 0.59 EUR |
+| [Bambu Lab PETG Basic](https://eu.store.bambulab.com/products/petg-basic) | [1.25 g/cm³](https://store.bblcdn.com/s1/default/cb94589bf7994fdcbfa833badefae9cd/Bambu_PETG_Basic_Technical_Data_Sheet.pdf) | 11.39 EUR / 1000 g; 10+ eligible mixed rolls | 50.023 g | 0.57 EUR |
+| [Bambu Lab PETG Matte](https://eu.store.bambulab.com/products/petg-matte) | [1.37 g/cm³](https://store.bblcdn.eu/s8/default/240fb0c791fb4903a9d72934895e9a16/PETG_Matte.pdf) | 11.39 EUR / 1000 g; 10+ eligible mixed rolls | 54.825 g | 0.62 EUR |
+| [Bambu Lab ASA](https://eu.store.bambulab.com/products/asa-filament) | [1.05 g/cm³](https://store.bblcdn.com/ad7b08230c164e72856cffbe06bb7dc9.pdf) | 24.99 EUR / 1000 g; single spool | 42.019 g | 1.05 EUR |
 
 Volume evidence: current local OpenSCAD exports; [canonical recipes, mesh checksums and source hashes](../../catalog/fabrication.json).
 

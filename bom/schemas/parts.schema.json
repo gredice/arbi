@@ -168,7 +168,10 @@
                         "enum": [
                           "temporary-cable-tie",
                           "missing-information",
-                          "approximate-geometry"
+                          "approximate-geometry",
+                          "capacitor-retention-unverified",
+                          "retention-unverified",
+                          "strain-relief-unverified"
                         ]
                       }
                     }

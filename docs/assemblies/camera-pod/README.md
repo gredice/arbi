@@ -84,7 +84,7 @@ The pod has no battery. It must start, stop, and recover deterministically when 
 
 ## Printed parts and fasteners
 
-The [camera pod mount family](../../../hardware/assemblies/camera-pod/camera-pod-mounts.md) has canonical CAD and a [illustrated enclosure and dry bench booklets](booklet/README.md). It supplies the fixed electronics deck, servo mounts, supported camera cradle, removable pivot support, horn retainers, cover, hood and tie pads. The [7 October dry bench geometry checks](../../../hardware/assemblies/camera-pod/camera-pod-geometry-check.md) use provisional servo/power envelopes and apply to the revised r0.1.1 deck/yoke dry bench configuration; physical fits and the flying mass limit are not demonstrated.
+The [camera pod mount family](../../../hardware/assemblies/camera-pod/camera-pod-mounts.md) has canonical CAD and a [illustrated enclosure and dry bench booklets](booklet/README.md). It supplies the fixed electronics deck, servo mounts, supported camera cradle, removable pivot support, horn retainers, cover, hood and historical tie pads. The current compact kit replaces tie pads with removable retainers. The [7 October dry bench geometry checks](../../../hardware/assemblies/camera-pod/camera-pod-geometry-check.md) use provisional servo/power envelopes and apply to the revised r0.1.1 deck/yoke dry bench configuration; physical fits and the flying mass limit are not demonstrated.
 
 The [integrated black/white enclosure](../../../hardware/assemblies/camera-pod/camera-pod-enclosure.md) uses a rounded white fixed hood, a separate compact carrier and a one-piece black moving head. The compact tilt axis stays at Y=3, Z=-45, with its horizontal servo 2 mm inboard. [Stock fastener proposal #225](fastener-standardization.md) updates assembly r0.4.0: deck/carrier/head/cradle/support r0.2.0 and rain hood r0.3.0 use M3 × 12/25 printed joints and M2 × 8 board joints. The deck integrates the four former spacers, giving 12 installed prints and 12 fabrication models including the optional coupon. Four M3 head clamps replace M2. The camera/white hood retain four M2 × 8 rear screws and four captive front nuts; no camera washers. PCB holes, electronics heights, tray r0.2.3, optical geometry and the neck seam are retained; hood r0.2.0 adds captive front nuts. Supported service and separate relaxed cable loops remain necessary.
 
@@ -165,3 +165,12 @@ Do not reposition the gimbal during a normal Skycam move.
 The [12 October 2026 receipt and measurement record](../../evidence/buck-converter-2026-10-12.md) identifies the fixed-5 V unit shared by the camera pod and cabinet. Its 50 × 30 × 17 mm envelope and four Ø3 mm holes at 45 × 24 mm pitch replace the former 45 × 25 × 15 mm assumption. Component detail, PCB thickness, electrical/thermal suitability and installed physical fit remain unverified.
 
 The [15 October stock-fastener CAD record](../../evidence/camera-pod-stock-fasteners-2026-10-15.md) covers the proposed r0.4.0 kit, all 555 motion poses, the new captive/recessed seats, reverse camera joints and updated booklet. Its source checks are separate from physical acceptance.
+
+## Current removable retention
+
+Assembly r0.5.0 uses the [tie-free retention kit](tie-free-retention.md):
+deck and carrier r0.3.0 plus six removable retainer prints. It specifies zero
+installed ties, separate fixed/pan CSI and servo anchors, a split power jaw
+and a capacitor rim ring. The updated booklet has 18 pages; historical dry-bench
+sources and evidence keep their original configurations. Actual fit, grip,
+isolation, fatigue, print strength and complete mass remain unverified.

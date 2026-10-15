@@ -37,10 +37,14 @@ def cylinder(d,length,mat):
 
 def main():
  results=[]
+ service_angle=50 if ENCLOSURE else 0
+ service_rotation=R('x',service_angle)
+ camera_pose=assembly(0,service_angle);camera_by={p['name']:p for p in camera_pose}
+ def camera_offset(z):return T(*(service_rotation[:3,:3]@np.array([0,0,z])))
  results.append(path('pan servo inserted downward through the upper opening',[by['pan-servo']],[by['pan-mount']],[T(0,0,z) for z in range(36,-1,-1)]))
  results.append(path('tilt servo inserted inward from the left with outer head removed' if ENCLOSURE else 'tilt servo inserted inward from the left',[by['tilt-servo']],[by['pan-yoke']],[T(-x) for x in range(30,-1,-1)]))
- camera_loading=[by['camera'],by['camera-hood']]+([p for p in parts if p['name'].startswith('camera-nut-')] if ENCLOSURE else [])
- results.append(path('camera and hood inserted upward after horn attachment',camera_loading,[by['camera-cradle']],[T(0,0,-z) for z in range(25,-1,-1)]))
+ camera_loading=[camera_by['camera'],camera_by['camera-hood']]+([p for p in camera_pose if p['name'].startswith('camera-nut-')] if ENCLOSURE else [])
+ results.append(path('camera and hood inserted along camera normal at 50-degree service tilt' if ENCLOSURE else 'camera and hood inserted upward after horn attachment',camera_loading,[camera_by['camera-cradle']],[camera_offset(-z) for z in range(25,-1,-1)]))
  if ENCLOSURE:
   results.append(path('rain hood lifts vertically with captive nuts after lower bolts are removed',[by['rain-hood']]+[p for p in parts if p['name'].startswith('cover-nut-')],[p for p in parts if p['name']!='rain-hood' and not p['name'].startswith('cover-')],[T(0,0,z) for z in range(61)]))
   results.append(path('upper rain tray lifts off spider before integral deck posts and gimbal are fitted',[by['enclosure-base']],[by['spider']],[T(0,0,z) for z in range(61)]))
@@ -69,18 +73,19 @@ def main():
     [p for p in service_parts if p['name'] not in [f'head-bolt-{i}',f'head-upper-washer-{i}']],
     [T(0,0,z) for z in np.arange(40,-.01,-.5)]))
   bare_carrier=[p for p in service_parts if p['name'] not in outer_removed]
+  camera_bare=[p for p in camera_pose if p['name'] not in upper_removed+outer_removed]
   # The carrier remains assembled. Ten millimetres of initial lift clears
   # the full 8 mm shank; the old 20 mm path crossed its overhead crossbeam.
   for i in range(4):
-   results.append(path(f'camera M2x8 rear bolt {i} fitted with upper stack and outer head removed',
-    [by[f'camera-bolt-{i}']],
-    [p for p in bare_carrier if p['name']!=f'camera-bolt-{i}'],
-    [T(0,0,z) for z in np.arange(10,-.01,-.5)]))
+   results.append(path(f'camera M2x8 rear bolt {i} fitted at 50-degree tilt with upper stack and outer head removed',
+    [camera_by[f'camera-bolt-{i}']],
+    [p for p in camera_bare if p['name']!=f'camera-bolt-{i}'],
+    [camera_offset(z) for z in np.arange(10,-.01,-.5)]))
   camera_removed=[p['name'] for p in parts if p['name'] in ['camera','camera-hood'] or p['name'].startswith('camera-') and p['name']!='camera-cradle']
-  camera_front=[p for p in parts if p['name'] in ['camera','camera-hood'] or p['name'].startswith('camera-nut-')]
+  camera_front=[p for p in camera_pose if p['name'] in ['camera','camera-hood'] or p['name'].startswith('camera-nut-')]
   retained_carrier=[p for p in bare_carrier if p['name'] not in camera_removed]
-  camera_release=path('with outer body and rear camera screws removed, camera hood PCB and captive front nuts lower from retained cradle',
-   camera_front,retained_carrier,[T(0,0,-z) for z in range(31)])
+  camera_release=path('at 50-degree service tilt with outer body and rear screws removed, camera hood PCB and nuts leave along the camera normal',
+   camera_front,[p for p in camera_bare if p['name'] not in camera_removed],[camera_offset(-z) for z in range(31)])
   camera_release['removed_before']=upper_removed+outer_removed+[p['name'] for p in parts if p['name'].startswith('camera-bolt-')]
   results.append(camera_release)
   screw_release=path('with outer body and camera removed, OEM pan centre screw withdraws through open cradle',
@@ -125,9 +130,12 @@ def main():
   tool('pan OEM centre driver through open cradle after outer body and camera removal',2.5,65,T(0,0,-30.81)@R('x',180),[p for p in retained_carrier if p['name']!='pan-horn-center-screw'])
  else:tool('pan OEM centre driver',2.5,15,T(0,0,-30.81)@R('x',180),[by['pan-yoke']])
  tool('tilt OEM centre driver before camera mounting',2.5,15,T(-18.19+DRIVE_SHIFT,AXIS_Y,AXIS_Z)@R('y',90),[by['camera-cradle']])
- for x in [-10.5,10.5]:
-  for y in [4.931,-7.569]:
-   tool('camera rear short driver through cradle recess' if ENCLOSURE else 'camera front driver',2,8 if ENCLOSURE else 15,CAMERA_SHIFT@T(x,y,-58.99) if ENCLOSURE else CAMERA_SHIFT@T(x,y,-68.83)@R('x',180),bare_carrier if ENCLOSURE else [by['camera-hood'],by['camera'],by['camera-cradle']])
+ if ENCLOSURE:
+  for i in range(4):
+   tool('camera rear short driver at 50-degree service tilt',2,8,np.array(camera_by[f'camera-bolt-{i}']['matrix'])@T(0,0,-2.01)@R('x',180),camera_bare)
+ else:
+  for x in [-10.5,10.5]:
+   for y in [4.931,-7.569]:tool('camera front driver',2,15,CAMERA_SHIFT@T(x,y,-68.83)@R('x',180),[by['camera-hood'],by['camera'],by['camera-cradle']])
  if ENCLOSURE:
   for x in ENCLOSURE_COVER_X:
    for y in ENCLOSURE_COVER_Y:
@@ -196,15 +204,23 @@ def main():
   failures=[];pose_count=0
   for pan in range(-90,91,5):
    for tilt in [0,35,70]:
-    h=hits(route_mesh,assembly(pan,tilt));pose_count+=1
+    h=hits(route_mesh,[p for p in assembly(pan,tilt) if p['name']!='power-liner']);pose_count+=1
     if h:failures.append({'pan':pan,'tilt':tilt,'hits':h})
   # Keep an intentionally misplaced drop near the pan stop as a sensitivity
   # control; it is separate from the compact deck's relocated power outlet.
   incorrect=hits(cylinder(6,94,T(-8,31,-70)),assembly(15,0))
   route_report={'diameter_mm':6,'centerline_mm':points.tolist(),'poses':pose_count,'pan_deg':[-90,90,5],'tilt_deg':[0,35,70],
     'file':entry['file'],'failures':failures,'incorrect_straight_route_control':{'description':'Deliberately misplaced central drop beside the pan stop; not the selected power outlet','axis_mm':[-8,31],'z_mm':[-70,24],'expected_collision_detected':any(h['part']=='pan-yoke' for h in incorrect),'hits':incorrect},
-    'limits':'Rigid swept tube around a nominal polyline; actual bend radius, flexible loops, shrinkage, sleeves, ties and lead construction require bench inspection.'}
- report={'configuration':CONFIG,'enclosure_service_sequence':(['Support the pan mount and spider with a bench fixture, isolate power and release the flexible harness. Remove the upper hood, electronics deck and tray stack to reach the four head bolts from above.','At neutral remove the four head bolts and upper washers, then lower the one-piece outer body with its captive lower washers and nuts clear of the complete carrier.','Remove the four rear camera screws, then lower the camera/optical hood with its captive front nuts from the retained cradle.','With the camera out, reach the OEM pan centre screw through the open cradle, remove it and lower the supported carrier from the fixed servo if required.','For assembly, fasten the stock tilt horn and retainer to the separate cradle before engaging the mounted servo spline; the horizontal servo blocks one retainer driver after engagement. Preload the four lower washers and nuts through the body inside openings, populate the carrier outside the body, then fit the body and four upper bolts before the upper tray and electronics.'] if ENCLOSURE else []),'fixed_power_route':route_report,'assembly_paths':results,'wiring_ports':wiring,'tool_access':tools,'view_check':{'horizontal_deg':102,'vertical_deg':67,'depth_mm':80,'poses':optics},
+    'intended_soft_contact':'Power proxy contacts the compressed power liner; liner is excluded only from this rigid-route collision test. Retainer jaws remain included.',
+    'limits':'Rigid swept tube around a nominal polyline; actual bend radius, flexible loops, sleeve grip and lead construction require bench inspection.'}
+ neutral_camera_control=[]
+ if ENCLOSURE:
+  for i in [1,3]:
+   matrix=np.array(by[f'camera-bolt-{i}']['matrix'])@T(0,0,-2.01)@R('x',180)
+   collision=hits(cylinder(2,8,matrix),bare_carrier)
+   assert any(h['part'].startswith('pan-loom') for h in collision),'Neutral camera-service control missed'
+   neutral_camera_control.append({'bolt':i,'hits':collision})
+ report={'neutral_camera_service_control':neutral_camera_control,'camera_service_tilt_deg':service_angle,'configuration':CONFIG,'enclosure_service_sequence':(['Support the pan mount and spider with a bench fixture, isolate power and release the flexible harness. Remove the upper hood, electronics deck and tray stack to reach the four head bolts from above.','At neutral remove the four head bolts and upper washers, then lower the one-piece outer body with its captive lower washers and nuts clear of the complete carrier.','Set camera tilt to 50 degrees using the supported bench controller, isolate power, remove the four rear camera screws and withdraw camera/hood along its normal. Neutral access is blocked by the retained loom clamp. After camera removal return to neutral before the pan-centre step.','With the camera out, reach the OEM pan centre screw through the open cradle, remove it and lower the supported carrier from the fixed servo if required.','For assembly, fasten the stock tilt horn and retainer to the separate cradle before engaging the mounted servo spline; the horizontal servo blocks one retainer driver after engagement. Preload the four lower washers and nuts through the body inside openings, populate the carrier outside the body, then fit the body and four upper bolts before the upper tray and electronics.'] if ENCLOSURE else []),'fixed_power_route':route_report,'assembly_paths':results,'wiring_ports':wiring,'tool_access':tools,'view_check':{'horizontal_deg':102,'vertical_deg':67,'depth_mm':80,'poses':optics},
  'proud_head_regression_control':{'expected_collision_detected':bool(regression),'hits':regression},
  'limits':['Port checks cover only local openings; a straight downward power/CSI/servo route may hit the spider or gimbal. Route outboard before the sweep and inspect actual flex.',
            'Rigid nominal envelopes only; flexible leads, connectors and ribbon routing need a bench check.',
