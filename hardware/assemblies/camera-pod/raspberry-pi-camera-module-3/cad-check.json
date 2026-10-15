@@ -18,7 +18,7 @@
   ],
   "watertight": true,
   "connectedBodies": 1,
-  "volumeMm3": 1873.246612269778,
+  "volumeMm3": 1873.262312012129,
   "probes": [
     {
       "name": "Mounting bore -10.5,-9.931",
@@ -54,8 +54,8 @@
     }
   ],
   "appearanceDifferenceMm3": [
-    2.568846165758609e-08,
-    9.308764599602161e-07
+    2.5688461658053653e-08,
+    9.308764599879717e-07
   ],
   "callerSilkscreenDifferenceMm3": [
     0.0,
@@ -77,7 +77,7 @@
         "thickness": 0,
         "ior": 1.5
       },
-      "sha256": "1a6c7fec179e80f59fd9bf6fb9c2e402cecb75a3dbf4f10889b6a9b40fbc1bef"
+      "sha256": "e846421b9e45b67814f7f2f75a033c6e2fac13965d1dd1650be45afa2c994475"
     },
     {
       "node": "gold-pads",
@@ -94,7 +94,7 @@
         "thickness": 0,
         "ior": 1.5
       },
-      "sha256": "97ca22805f4f488b228a2895e62b1e3ed02e4845fd0c67072c6b7948d7970292"
+      "sha256": "ab4398ad1c0349d8a465009466a074703d543a7a9159d70e991473f59d22fcaa"
     },
     {
       "node": "amber-flex",
@@ -111,7 +111,7 @@
         "thickness": 0,
         "ior": 1.5
       },
-      "sha256": "05d291cb4a2923df2cb088a8a609adeab7484cb1d1e43c58855d898280243465"
+      "sha256": "ba01714b00bff749e3ddd3dbf97d15050b365ee95e458675295d100fa0ca23ef"
     },
     {
       "node": "black-components",
@@ -128,7 +128,7 @@
         "thickness": 0,
         "ior": 1.5
       },
-      "sha256": "9ff78477efcfc88690c94e8cdb92678751ff22c9a7faa5c5be88a236c2eafee6"
+      "sha256": "9b011fb04f51fcd883b287686ae3d774320d6123bd472425e3b92180e08c99a2"
     },
     {
       "node": "autofocus-shield",
@@ -145,7 +145,7 @@
         "thickness": 0,
         "ior": 1.5
       },
-      "sha256": "28902c9fd3dbbdd668f1f884d408791f228530d2c9557addf2a9c81f33aa8728"
+      "sha256": "c26c24eb2d6921e4ca9b742be20e40a7b9fe752cb00afd2a228ab0072016d47f"
     },
     {
       "node": "connector-latch",
@@ -179,7 +179,7 @@
         "thickness": 0.16,
         "ior": 1.52
       },
-      "sha256": "4f5e3c652789fd1689086b1d406a6c851db052f99e483fc20d9ac80d148c73ff"
+      "sha256": "15bb7dcccf06a3a05788e4b8beacccc06921d73206dcad4a084294d1d8502adc"
     },
     {
       "node": "white-silkscreen",
@@ -196,7 +196,7 @@
         "thickness": 0,
         "ior": 1.5
       },
-      "sha256": "cc38bb829e1556211e2e55047da993190d274b963bcfb7e69374fd92d489ab6a"
+      "sha256": "8f41ba190f66079b1711b5ba5ef09f04b109130f35b1fd752a4fe7fed90eb114"
     }
   ],
   "sourceHashes": {

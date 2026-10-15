@@ -30,6 +30,9 @@ def R(axis,deg):
  if axis=='z':m[:3,:3]=[[c,-s,0],[s,c,0],[0,0,1]]
  return m
 
+def retention_matrix(pos,group):
+ return T(*pos)@(R('x',180) if group=='pan' else np.eye(4))
+
 def assembly(pan=0,tilt=0,cover=True,hardware=True,enclosure=None):
  if enclosure is None:enclosure=ENCLOSURE
  manifest=json.loads((ROOT/'mesh-manifest.json').read_text());byid={e['model_id'] if 'model_id' in e else e['id']:e for e in manifest}
@@ -74,11 +77,37 @@ def assembly(pan=0,tilt=0,cover=True,hardware=True,enclosure=None):
  add('pan-horn','servo-horn-UNVERIFIED',T(0,0,-29.4),group='pan',color=GRAY)
  add('tilt-horn','servo-horn-UNVERIFIED',H@T(0,0,-2.2),group='tilt',color=GRAY)
  add('camera','camera-module-3-wide-reference',compact@T(0,-5,-64)@R('x',180),group='tilt',color=GREEN)
+ if enclosure:
+  add('capacitor-retainer','camera-pod-capacitor-retainer',T(32,-34,39.8))
+  add('power-clamp','camera-pod-power-clamp',T(10,40,20.5))
+  for label,pos,model,group in [('fixed-ribbon-clamp',(0,-39,24),'camera-pod-ribbon-clamp','fixed'),('pan-ribbon-clamp',(0,-19,-35),'camera-pod-ribbon-clamp','pan'),('fixed-loom-clamp',(-40,11,21.5),'camera-pod-loom-clamp','fixed'),('pan-loom-clamp',(0,-7,-34.6),'camera-pod-loom-clamp','pan')]:
+   add(label,model,retention_matrix(pos,group),group)
  if not hardware:return parts
- add('capacitor-tie','capacitor-tie-reference',T(32,-34,0) if enclosure else T(48,26,0),color=DARK)
+ if not enclosure:add('capacitor-tie','capacitor-tie-reference',T(48,26,0),color=DARK)
+
  add('pan-horn-center-screw','bolt-OEM-horn-UNVERIFIED',T(0,0,-29.4),group='pan',color=GRAY)
  add('tilt-horn-center-screw','bolt-OEM-horn-UNVERIFIED',H@T(0,0,-2.2),group='tilt',color=GRAY)
  def hw(n,model,mat,group='fixed'):add(n,model,mat,group,GRAY)
+ if enclosure:
+  add('power-liner','power-liner-reference',T(10,40,20.5),color=GRAY)
+  for label,(cx,cy,z),gap,model,group in [('fixed-ribbon',(0,-39,24),1.1,'ribbon-liner-reference','fixed'),('pan-ribbon',(0,-19,-35),1.1,'ribbon-liner-reference','pan'),('fixed-loom',(-40,11,21.5),2.8,'loom-liner-reference','fixed'),('pan-loom',(0,-7,-34.6),2.8,'loom-liner-reference','pan')]:
+   for side,lift in [('lower',0),('upper',gap-.4)]:add(label+'-'+side+'-liner',model,retention_matrix((cx,cy,z),group)@T(0,0,lift),group,color=GRAY)
+  for i,x in enumerate([21,43]):
+   hw(f'capacitor-bolt-{i}','bolt-M3x12-reference',T(x,-31,43)@R('x',180))
+   hw(f'capacitor-top-washer-{i}','washer-M3-reference',T(x,-31,42.5))
+   hw(f'capacitor-bottom-washer-{i}','washer-M3-reference',T(x,-31,34.9))
+   hw(f'capacitor-nut-{i}','nut-M3-reference',T(x,-31,32.5))
+  for i,y in enumerate([32,48]):
+   hw(f'power-bolt-{i}','bolt-M3x12-reference',T(13.5,y,25.5)@R('y',-90))
+   hw(f'power-top-washer-{i}','washer-M3-reference',T(13,y,25.5)@R('y',90))
+   hw(f'power-bottom-washer-{i}','washer-M3-reference',T(5.4,y,25.5)@R('y',90))
+   hw(f'power-nut-{i}','nut-M3-reference',T(3,y,25.5)@R('y',90))
+  for label,(cx,cy,z),gap,pitch,group in [('fixed-ribbon',(0,-39,24),1.1,13,'fixed'),('pan-ribbon',(0,-19,-35),1.1,13,'pan'),('fixed-loom',(-40,11,21.5),2.8,7.5,'fixed'),('pan-loom',(0,-7,-34.6),2.8,7.5,'pan')]:
+   frame=retention_matrix((cx,cy,z),group)
+   for i,x in enumerate([-pitch,pitch]):
+    hw(f'{label}-bolt-{i}','bolt-M3x12-reference',frame@T(x,0,gap+2.5)@R('x',180),group)
+    hw(f'{label}-top-washer-{i}','washer-M3-reference',frame@T(x,0,gap+2),group)
+    hw(f'{label}-nut-{i}','nut-M3-reference',frame@T(x,0,gap-8.5),group)
  # M2.5x10: PCB1.6 + top washer.5 + support2 + deck3 + washer.5 + nut2 = 9.6.
  # Converter dimensions other than its envelope/hole pattern remain nominal.
  for i,(x,y) in enumerate([(x,y) for x in ([23,47] if enclosure else [23.5,68.5]) for y in ([-22.5,22.5] if enclosure else [-12,12])]):

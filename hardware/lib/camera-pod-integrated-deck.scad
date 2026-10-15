@@ -1,7 +1,8 @@
-// ARBI compact integrated camera pod deck r0.2.0, millimetres.
+// ARBI compact integrated camera pod deck r0.3.0, millimetres.
 // Appearance-led rearrangement; concept-unvalidated. The dry bench deck is separate.
 // Assembly frame: spider mid-plane Z=0, fixed electronics above the spider.
 include <camera-pod-mounts.scad>
+use <camera-pod-retention.scad>
 
 pi_deck_z = 17.5;
 pi_deck_thickness = 3;
@@ -30,7 +31,8 @@ module pd_link(a,b,w,h,z) {
 // Keep the electronics at their existing assembly heights. The four M3 frame
 // axes stay at +/-22/sqrt(2); the board's nominal SD socket underside is Z=29.4.
 // Received converter rotated 90 degrees: four screws at X=23/47, Y=+/-22.5.
-module camera_pod_integrated_deck() {
+module camera_pod_integrated_deck(can_d=10,can_h=16) {
+    cap_pitch=(can_d+12)/2;
     difference() {
         union() {
             // Open Pi perimeter and four 10 mm board standoffs.
@@ -67,11 +69,17 @@ module camera_pod_integrated_deck() {
                     pd_link([7,y],[16,y],6,pi_deck_thickness,pi_deck_z);
             }
 
-            // Capacitor rests at Z=23.5 inside a loose 10.6 mm cup. Two separate
-            // slots carry the nominal strap; leads pass through the central bore.
+            // Capacitor rests at Z=23.5 inside a loose 10.6 mm cup. A removable
+            // vent-clear rim retainer closes it; leads pass through the bore.
             pd_link([32,-24.5],pi_capacitor_center,14,pi_deck_thickness,pi_deck_z);
-            pd_cyl(13.4,9,[pi_capacitor_center[0],pi_capacitor_center[1],pi_deck_top]);
-            pd_link([23,-34],[41,-34],6,pi_deck_thickness,pi_deck_z);
+            pd_cyl(can_d+3.4,9,[pi_capacitor_center[0],pi_capacitor_center[1],pi_deck_top]);
+            pd_link([32-cap_pitch,-31],[32+cap_pitch,-31],10.4,pi_deck_thickness,pi_deck_z);
+            translate([32,-34,20.5])pr_capacitor_posts(can_d,can_h);
+            translate([10,40,20.5])pr_power_base();
+            pd_link([7,24.5],[5,32],8,3,17.5);
+            pd_link([22,46],[5,48],8,3,17.5);
+            translate([0,-39,24])pr_flat_base(pr_ribbon());
+            translate([-40,11,21.5])pr_flat_base(pr_loom());
 
             // Hood + deck + tray share four bottom-up M3 clamp stacks.
             for(x=pi_cover_x,y=pi_cover_y) {
@@ -81,13 +89,12 @@ module camera_pod_integrated_deck() {
 
             // Rear CSI passage lies between the hood columns and clear of the
             // spider. Two bridges join its pad to the Pi frame without crossing
-            // the passage. Soft wraps stay on the Pi side of the opening, with
+            // the passage. The lined ribbon clamp stays on the Pi side of the opening, with
             // 3.1 mm outer webs. The servo outlet at [-40,-15] is in an open bay.
             pm_box([26,20,pi_deck_thickness],[0,-44],pi_deck_z);
             for(x=[-9,7])
                 pd_link([x,-34],[x,-24.5],6,pi_deck_thickness,pi_deck_z);
-            // Sleeved incoming wire restraint, never a positioning-line anchor.
-            pd_link([29,25],[29,42],9,pi_deck_thickness,pi_deck_z);
+
         }
 
         for(x=[-pm_mount_xy,pm_mount_xy],y=[-pm_mount_xy,pm_mount_xy]) {
@@ -113,15 +120,13 @@ module camera_pod_integrated_deck() {
             // nut at Z17.5-19.1. The unchanged PCB accepts an M2 x 8 screw.
             pd_cyl(5.4,1.9+PM_EPS,[x,y,pi_deck_z-PM_EPS]);
         }
-        pd_cyl(10.6,6+PM_EPS,[pi_capacitor_center[0],pi_capacitor_center[1],23.5]);
+        pd_cyl(can_d+.6,can_h+PM_EPS,[pi_capacitor_center[0],pi_capacitor_center[1],23.5]);
         pd_cyl(6.2,6+2*PM_EPS,[pi_capacitor_center[0],pi_capacitor_center[1],pi_deck_z-PM_EPS]);
-        for(x=[23,41])
-            pm_box([1.8,3.2,pi_deck_thickness+2*PM_EPS],[x,-34],pi_deck_z-PM_EPS);
+
 
         pm_box([18.8,4.8,pi_deck_thickness+2*PM_EPS],pi_ribbon_port,pi_deck_z-PM_EPS);
-        for(x=[-9,9])
-            pm_box([1.8,3.2,pi_deck_thickness+2*PM_EPS],[x,-39],pi_deck_z-PM_EPS);
-        for(y=[34,40])
-            pm_box([3.2,1.8,pi_deck_thickness+2*PM_EPS],[29,y],pi_deck_z-PM_EPS);
+
+        translate([0,-39,24])pr_flat_bores(pr_ribbon());
+        translate([-40,11,21.5])pr_flat_bores(pr_loom());
     }
 }

@@ -39,7 +39,7 @@ def check(root, variant):
     artifact, pages, revision, label = {
         'winch': ('ARBI-winch', 20, 9, 'PASSIVE / COVER KIT'),
         'bench': ('ARBI-camera-pod-bench', 14, 7, 'MOUNT SET / BENCH EDITION'),
-        'enclosure': ('ARBI-camera-pod-enclosure', 16, 10, 'RAIN / SPLASH EDITION'),
+        'enclosure': ('ARBI-camera-pod-enclosure', 18, 11, 'RAIN / SPLASH EDITION'),
     }[variant]
     pdf = root / (artifact + '-assembly-STL.pdf')
     reader = PdfReader(pdf)

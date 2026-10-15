@@ -1,0 +1,1039 @@
+{
+  "date": "2026-10-15",
+  "status": "nominal CAD checks passed; concept-unvalidated; physical acceptance pending",
+  "proposal": "https://github.com/gredice/arbi/issues/228",
+  "baseline_commit": "05d4b730030f385037aa6e073e365bc20ef39f05",
+  "source_state": "modified working tree identified by hashes; baseline commit alone does not contain these changes",
+  "configuration": {
+    "variant": "enclosure",
+    "units": "mm",
+    "pan_deg": [
+      -90,
+      90,
+      5
+    ],
+    "tilt_deg": [
+      0,
+      70,
+      5
+    ],
+    "hardware_basis": "received servo/converter envelopes measured; Pi reference drawing-derived; remaining hardware detail nominal",
+    "evidence_date": "2026-10-15",
+    "fabrication_models": [
+      {
+        "id": "camera-pod-spider",
+        "revision": "0.1.0",
+        "output": "camera-pod-spider-r0.1.0.stl"
+      },
+      {
+        "id": "camera-pod-pan-servo-mount",
+        "revision": "0.1.1",
+        "output": "camera-pod-pan-servo-mount-r0.1.1.stl"
+      },
+      {
+        "id": "camera-pod-horn-retainer",
+        "revision": "0.1.0",
+        "output": "camera-pod-horn-retainer-r0.1.0.stl"
+      },
+      {
+        "id": "camera-pod-servo-fit-coupon",
+        "revision": "0.1.1",
+        "output": "camera-pod-servo-fit-coupon-r0.1.1.stl"
+      },
+      {
+        "id": "camera-pod-rain-hood",
+        "revision": "0.3.0",
+        "output": "camera-pod-rain-hood-r0.3.0.stl"
+      },
+      {
+        "id": "camera-pod-enclosure-base",
+        "revision": "0.2.3",
+        "output": "camera-pod-enclosure-base-r0.2.3.stl"
+      },
+      {
+        "id": "camera-pod-integrated-gimbal-head",
+        "revision": "0.2.0",
+        "output": "camera-pod-integrated-gimbal-head-r0.2.0.stl"
+      },
+      {
+        "id": "camera-pod-integrated-gimbal-carrier",
+        "revision": "0.3.0",
+        "output": "camera-pod-integrated-gimbal-carrier-r0.3.0.stl"
+      },
+      {
+        "id": "camera-pod-integrated-camera-cradle",
+        "revision": "0.2.0",
+        "output": "camera-pod-integrated-camera-cradle-r0.2.0.stl"
+      },
+      {
+        "id": "camera-pod-integrated-tilt-pivot-support",
+        "revision": "0.2.0",
+        "output": "camera-pod-integrated-tilt-pivot-support-r0.2.0.stl"
+      },
+      {
+        "id": "camera-pod-integrated-deck",
+        "revision": "0.3.0",
+        "output": "camera-pod-integrated-deck-r0.3.0.stl"
+      },
+      {
+        "id": "camera-pod-integrated-camera-hood",
+        "revision": "0.2.0",
+        "output": "camera-pod-integrated-camera-hood-r0.2.0.stl"
+      },
+      {
+        "id": "camera-pod-capacitor-retainer",
+        "revision": "0.1.0",
+        "output": "camera-pod-capacitor-retainer-r0.1.0.stl"
+      },
+      {
+        "id": "camera-pod-power-clamp",
+        "revision": "0.1.0",
+        "output": "camera-pod-power-clamp-r0.1.0.stl"
+      },
+      {
+        "id": "camera-pod-ribbon-clamp",
+        "revision": "0.1.0",
+        "output": "camera-pod-ribbon-clamp-r0.1.0.stl"
+      },
+      {
+        "id": "camera-pod-loom-clamp",
+        "revision": "0.1.0",
+        "output": "camera-pod-loom-clamp-r0.1.0.stl"
+      }
+    ]
+  },
+  "assembly_revision": "0.5.0",
+  "toolchain": {
+    "node": "v24.15.0",
+    "pnpm": "11.5.2",
+    "python": "3.12.14",
+    "VTK": "9.5.2",
+    "OpenSCAD": "2021.01",
+    "container_platform": "linux/arm64",
+    "container_image": "openscad/openscad@sha256:a7f0ef7ef917ddb5817c1b50f65ca011f9d0b01c8aebe1d6f7895ab5eabcb602"
+  },
+  "inventory": {
+    "installed_ties": 0,
+    "installed_printed_pieces": 18,
+    "installed_model_types": 15,
+    "fabrication_model_types_including_optional_coupon": 16,
+    "bought_screws": 47,
+    "screw_variants": {
+      "bolt-M3x12-reference": 19,
+      "bolt-M2x8-reference": 12,
+      "bolt-M3x25-reference": 8,
+      "csk-M1p6x6-reference": 4,
+      "csk-M2x8-reference": 4
+    },
+    "flat_washers": 61,
+    "plain_nuts": 47,
+    "pivot_shims": 1,
+    "OEM_centre_screws": 2,
+    "insulating_liners": 9
+  },
+  "checks": {
+    "registry_compilation": {
+      "active_models": 150,
+      "compiled_models": 150,
+      "exit_code": 0,
+      "command": "pnpm cad:check -- --require-openscad --jobs 4"
+    },
+    "motion": {
+      "poses": 555,
+      "pan_deg": [
+        -90,
+        90,
+        5
+      ],
+      "tilt_deg": [
+        0,
+        70,
+        5
+      ],
+      "neutral_collisions": 0,
+      "motion_failures": 0,
+      "intersection_tolerance_mm3": 0.005,
+      "hard_stop_overtravel": {
+        "pan-negative": {
+          "pan": -96,
+          "tilt": 0,
+          "stop_detected": true,
+          "collisions": [
+            {
+              "a": "pan-mount",
+              "b": "pan-yoke",
+              "intersection_mm3": 2.08938
+            }
+          ]
+        },
+        "pan-positive": {
+          "pan": 96,
+          "tilt": 0,
+          "stop_detected": true,
+          "collisions": [
+            {
+              "a": "pan-mount",
+              "b": "pan-yoke",
+              "intersection_mm3": 2.08938
+            }
+          ]
+        },
+        "tilt-negative": {
+          "pan": 0,
+          "tilt": -6,
+          "stop_detected": true,
+          "collisions": [
+            {
+              "a": "tilt-pivot-support",
+              "b": "camera-cradle",
+              "intersection_mm3": 0.07923
+            },
+            {
+              "a": "camera-cradle",
+              "b": "pan-loom-bolt-0",
+              "intersection_mm3": 1.96176
+            },
+            {
+              "a": "camera-cradle",
+              "b": "pan-loom-bolt-1",
+              "intersection_mm3": 1.96176
+            }
+          ]
+        },
+        "tilt-positive": {
+          "pan": 0,
+          "tilt": 76,
+          "stop_detected": true,
+          "collisions": [
+            {
+              "a": "tilt-pivot-support",
+              "b": "camera-cradle",
+              "intersection_mm3": 0.07921
+            }
+          ]
+        }
+      }
+    },
+    "retention": {
+      "installed_ties": 0,
+      "can_capture_controls": [
+        {
+          "offset_mm": [
+            0.5,
+            0.0,
+            0.0
+          ],
+          "capture_hits": [
+            {
+              "part": "deck",
+              "volume_mm3": 9.54885
+            }
+          ]
+        },
+        {
+          "offset_mm": [
+            -0.5,
+            0.0,
+            0.0
+          ],
+          "capture_hits": [
+            {
+              "part": "deck",
+              "volume_mm3": 9.54887
+            }
+          ]
+        },
+        {
+          "offset_mm": [
+            0.0,
+            0.5,
+            0.0
+          ],
+          "capture_hits": [
+            {
+              "part": "deck",
+              "volume_mm3": 9.08251
+            }
+          ]
+        },
+        {
+          "offset_mm": [
+            0.0,
+            -0.5,
+            0.0
+          ],
+          "capture_hits": [
+            {
+              "part": "deck",
+              "volume_mm3": 9.08248
+            }
+          ]
+        },
+        {
+          "offset_mm": [
+            0.0,
+            0.0,
+            0.5
+          ],
+          "capture_hits": [
+            {
+              "part": "capacitor-retainer",
+              "volume_mm3": 4.19739
+            }
+          ]
+        },
+        {
+          "offset_mm": [
+            0.0,
+            0.0,
+            -0.5
+          ],
+          "capture_hits": [
+            {
+              "part": "deck",
+              "volume_mm3": 24.28331
+            }
+          ]
+        }
+      ],
+      "nominal_vent_probe_diameter_mm": 8,
+      "loading_removal_paths": 19,
+      "path_failures": 0,
+      "driver_probes": 12,
+      "tool_hits": 0,
+      "channels": [
+        {
+          "name": "fixed-ribbon",
+          "stopped_gap_mm": 1.1,
+          "free_liners_mm": [
+            0.5,
+            0.5
+          ],
+          "nominal_compressed_liners_mm": [
+            0.4,
+            0.4
+          ],
+          "nominal_wire_section_mm": [
+            16,
+            0.30000000000000004
+          ],
+          "oversize_stack_control": [
+            {
+              "part": "fixed-ribbon-clamp",
+              "volume_mm3": 57.6
+            }
+          ]
+        },
+        {
+          "name": "pan-ribbon",
+          "stopped_gap_mm": 1.1,
+          "free_liners_mm": [
+            0.5,
+            0.5
+          ],
+          "nominal_compressed_liners_mm": [
+            0.4,
+            0.4
+          ],
+          "nominal_wire_section_mm": [
+            16,
+            0.30000000000000004
+          ],
+          "oversize_stack_control": [
+            {
+              "part": "pan-ribbon-clamp",
+              "volume_mm3": 57.6
+            }
+          ]
+        },
+        {
+          "name": "fixed-loom",
+          "stopped_gap_mm": 2.8,
+          "free_liners_mm": [
+            0.5,
+            0.5
+          ],
+          "nominal_compressed_liners_mm": [
+            0.4,
+            0.4
+          ],
+          "nominal_wire_section_mm": [
+            4,
+            1.9999999999999998
+          ],
+          "oversize_stack_control": [
+            {
+              "part": "fixed-loom-clamp",
+              "volume_mm3": 14.40003
+            }
+          ]
+        },
+        {
+          "name": "pan-loom",
+          "stopped_gap_mm": 2.8,
+          "free_liners_mm": [
+            0.5,
+            0.5
+          ],
+          "nominal_compressed_liners_mm": [
+            0.4,
+            0.4
+          ],
+          "nominal_wire_section_mm": [
+            4,
+            1.9999999999999998
+          ],
+          "oversize_stack_control": [
+            {
+              "part": "pan-loom-clamp",
+              "volume_mm3": 14.39997
+            }
+          ]
+        }
+      ],
+      "power_sleeve": {
+        "free_ID_OD_length_mm": [
+          6,
+          7,
+          10
+        ],
+        "stopped_bore_mm": 6.8,
+        "nominal_diametral_compression_mm": 0.2
+      },
+      "raised_carrier_clamp_control": {
+        "pan_deg": -90,
+        "upward_error_mm": 12,
+        "hits": [
+          {
+            "part": "pan-mount",
+            "volume_mm3": 105.13715
+          }
+        ]
+      }
+    },
+    "fasteners": {
+      "new_M3_joints": 12,
+      "new_joint_minimum_tip_projection_mm": 1.0,
+      "received_hardware_verified": false,
+      "PCB_M3_interference_controls": [
+        {
+          "board": "pi",
+          "local_xy_mm": [
+            -29,
+            -24.5
+          ],
+          "M3_interference_detected": true,
+          "hits": [
+            {
+              "part": "pi",
+              "volume_mm3": 1.80346
+            }
+          ]
+        },
+        {
+          "board": "pi",
+          "local_xy_mm": [
+            -29,
+            24.5
+          ],
+          "M3_interference_detected": true,
+          "hits": [
+            {
+              "part": "pi",
+              "volume_mm3": 1.80346
+            }
+          ]
+        },
+        {
+          "board": "pi",
+          "local_xy_mm": [
+            29,
+            -24.5
+          ],
+          "M3_interference_detected": true,
+          "hits": [
+            {
+              "part": "pi",
+              "volume_mm3": 1.80346
+            }
+          ]
+        },
+        {
+          "board": "pi",
+          "local_xy_mm": [
+            29,
+            24.5
+          ],
+          "M3_interference_detected": true,
+          "hits": [
+            {
+              "part": "pi",
+              "volume_mm3": 1.80346
+            }
+          ]
+        },
+        {
+          "board": "camera",
+          "local_xy_mm": [
+            -10.5,
+            -9.931
+          ],
+          "M3_interference_detected": true,
+          "hits": [
+            {
+              "part": "camera",
+              "volume_mm3": 3.65348
+            }
+          ]
+        },
+        {
+          "board": "camera",
+          "local_xy_mm": [
+            -10.5,
+            2.569
+          ],
+          "M3_interference_detected": true,
+          "hits": [
+            {
+              "part": "camera",
+              "volume_mm3": 3.65347
+            }
+          ]
+        },
+        {
+          "board": "camera",
+          "local_xy_mm": [
+            10.5,
+            -9.931
+          ],
+          "M3_interference_detected": true,
+          "hits": [
+            {
+              "part": "camera",
+              "volume_mm3": 3.65348
+            }
+          ]
+        },
+        {
+          "board": "camera",
+          "local_xy_mm": [
+            10.5,
+            2.569
+          ],
+          "M3_interference_detected": true,
+          "hits": [
+            {
+              "part": "camera",
+              "volume_mm3": 3.65347
+            }
+          ]
+        }
+      ]
+    },
+    "service": {
+      "assembly_paths": 30,
+      "path_failures": 0,
+      "driver_probes": 24,
+      "driver_hits": 0,
+      "wiring_envelopes": 6,
+      "camera_service_tilt_deg": 50,
+      "neutral_camera_service_control": [
+        {
+          "bolt": 1,
+          "hits": [
+            {
+              "part": "pan-loom-clamp",
+              "volume_mm3": 9.37198
+            },
+            {
+              "part": "pan-loom-top-washer-0",
+              "volume_mm3": 0.39279
+            }
+          ]
+        },
+        {
+          "bolt": 3,
+          "hits": [
+            {
+              "part": "pan-loom-clamp",
+              "volume_mm3": 9.37198
+            },
+            {
+              "part": "pan-loom-top-washer-1",
+              "volume_mm3": 0.39279
+            }
+          ]
+        }
+      ],
+      "optical_poses": 15,
+      "view_volume_deg": [
+        102,
+        67
+      ],
+      "view_depth_mm": 80,
+      "fixed_power_route_poses": 111,
+      "route_failures": 0,
+      "intentional_soft_contact": "Power proxy contacts the compressed power liner; liner is excluded only from this rigid-route collision test. Retainer jaws remain included."
+    },
+    "neck": {
+      "sections": 41,
+      "minimum_clearance_mm": 1.4226778265872468,
+      "head_taper_sections": 1571
+    },
+    "solid_printed_mass": {
+      "PETG_density_g_cm3": 1.27,
+      "grams": 268.68196346891654,
+      "basis": "full-solid STL volumes, before electronics, wires and metal; not sliced/measured mass"
+    },
+    "booklet": {
+      "revision": 11,
+      "pages": 18,
+      "meshes": 40,
+      "line_art_figures": 46,
+      "visual_review": "all 18 pages rendered and inspected; final render compared pixel-for-pixel with reviewed pages",
+      "paired_PDF_ZIP_check": "passed"
+    },
+    "local_tests": {
+      "CAD_validator_tests": 18,
+      "booklet_model_selection_tests": 1,
+      "BOM_Node_tests": 50,
+      "BOM_Python_tests": 5,
+      "docs_site_tests": 55,
+      "BOM_check": "passed; 243 visible prioritized warnings",
+      "docs_check": "passed",
+      "diff_check": "passed"
+    }
+  },
+  "mesh_evidence": [
+    {
+      "id": "raspberry-pi-3a-plus-reference",
+      "file": "models/reference/raspberry-pi-3a-plus-reference.stl",
+      "sha256": "96f0eeb3b6b562491218a02bc16dfaeee569f9dcb0bae3d08de3d03681455c80",
+      "volume_mm3": 9863.582935197259,
+      "watertight": true,
+      "winding_consistent": true,
+      "body_count": 1
+    },
+    {
+      "id": "camera-module-3-wide-reference",
+      "file": "models/reference/camera-module-3-wide-reference.stl",
+      "sha256": "26eb311ff7976b3ef9a229ece6f1f850c1793ac784988de44b5ed15198b868aa",
+      "volume_mm3": 1873.2622846967922,
+      "watertight": true,
+      "winding_consistent": true,
+      "body_count": 1
+    },
+    {
+      "id": "micro-servo-3p7g-UNVERIFIED",
+      "file": "models/reference/micro-servo-3p7g-UNVERIFIED.stl",
+      "sha256": "62a2aa066e768431f528381a8789b86fee0d0343d0258054ff9c6a0ca15a4c97",
+      "volume_mm3": 3982.042193441956,
+      "watertight": true,
+      "winding_consistent": true,
+      "body_count": 1
+    },
+    {
+      "id": "servo-horn-UNVERIFIED",
+      "file": "models/reference/servo-horn-UNVERIFIED.stl",
+      "sha256": "efbf78c8df9cafaaf32e8c0c7f529d47ce1b9c9d8821c3f9bbfc1a443ffe4309",
+      "volume_mm3": 140.0070144973305,
+      "watertight": true,
+      "winding_consistent": true,
+      "body_count": 1
+    },
+    {
+      "id": "buck-converter-measured-reference",
+      "file": "models/reference/buck-converter-measured-reference.stl",
+      "sha256": "9d096b888d8d68edace2154c53bec5221ec45c939dd39a864a2f7cf97dea2b0d",
+      "volume_mm3": 6209.3084480494645,
+      "watertight": true,
+      "winding_consistent": true,
+      "body_count": 1
+    },
+    {
+      "id": "capacitor-1000uf-UNVERIFIED",
+      "file": "models/reference/capacitor-1000uf-UNVERIFIED.stl",
+      "sha256": "d8d99675b0a3bd8385443f1f263c1584a18ceabd95554f51fd8092148c1788da",
+      "volume_mm3": 1257.4423462324303,
+      "watertight": true,
+      "winding_consistent": true,
+      "body_count": 1
+    },
+    {
+      "id": "microsd-reference",
+      "file": "models/reference/microsd-reference.stl",
+      "sha256": "f2c07472383626694fa8f2a3428a6a45be6b602a14fc838458e10a40ade18ac0",
+      "volume_mm3": 130.00000193715096,
+      "watertight": true,
+      "winding_consistent": true,
+      "body_count": 1
+    },
+    {
+      "id": "csi-15pin-flat-reference",
+      "file": "models/reference/csi-15pin-flat-reference.stl",
+      "sha256": "3e62a5870e394e21035180878391079bee325c3a849bbb8a376000b56a8c30a0",
+      "volume_mm3": 288.0000114440918,
+      "watertight": true,
+      "winding_consistent": true,
+      "body_count": 1
+    },
+    {
+      "id": "nut-M2-reference",
+      "file": "models/reference/nut-M2-reference.stl",
+      "sha256": "8e4ca4f3dcbfeaba7d70cf60d7c7007d9c70322359f5df1b53c1cd0d6f2a27d1",
+      "volume_mm3": 17.15176845333282,
+      "watertight": true,
+      "winding_consistent": true,
+      "body_count": 1
+    },
+    {
+      "id": "washer-M2-reference",
+      "file": "models/reference/washer-M2-reference.stl",
+      "sha256": "13842d7754a219d61e3726d9a50018e69019b823ecf3c1701a40d2b1d374e34b",
+      "volume_mm3": 4.742444630891883,
+      "watertight": true,
+      "winding_consistent": true,
+      "body_count": 1
+    },
+    {
+      "id": "bolt-M3x12-reference",
+      "file": "models/reference/bolt-M3x12-reference.stl",
+      "sha256": "0fc3b79719f794754cccc33d212a4aa38caa1fabe6996638d578bcd33e60dfb1",
+      "volume_mm3": 144.68372933060255,
+      "watertight": true,
+      "winding_consistent": true,
+      "body_count": 1
+    },
+    {
+      "id": "nut-M1p6-reference",
+      "file": "models/reference/nut-M1p6-reference.stl",
+      "sha256": "ac6290a0db3449229c492eecd1aaa059cf1e784a7490074268ee05f324b97a6d",
+      "volume_mm3": 8.781705828131576,
+      "watertight": true,
+      "winding_consistent": true,
+      "body_count": 1
+    },
+    {
+      "id": "nut-M3-reference",
+      "file": "models/reference/nut-M3-reference.stl",
+      "sha256": "5eded226b34ea7b69b31b137ae0143c78b20b95a4712cf7a322f0bacb9ab20a6",
+      "volume_mm3": 45.93608407796021,
+      "watertight": true,
+      "winding_consistent": true,
+      "body_count": 1
+    },
+    {
+      "id": "washer-M3-reference",
+      "file": "models/reference/washer-M3-reference.stl",
+      "sha256": "25fd67d79d4656f309e9c1d3023e1a4be5f527d5a345a7f99d3c84a9499703f2",
+      "volume_mm3": 15.196587163791598,
+      "watertight": true,
+      "winding_consistent": true,
+      "body_count": 1
+    },
+    {
+      "id": "washer-M3x0p7-reference",
+      "file": "models/reference/washer-M3x0p7-reference.stl",
+      "sha256": "fe5d9e45d9c2aab0aa90a8f4f704cbab1b258ce495dd94bee5b7eb9f43809031",
+      "volume_mm3": 21.275221666993364,
+      "watertight": true,
+      "winding_consistent": true,
+      "body_count": 1
+    },
+    {
+      "id": "bolt-OEM-horn-UNVERIFIED",
+      "file": "models/reference/bolt-OEM-horn-UNVERIFIED.stl",
+      "sha256": "a76b95a1ef0381ac75bd5dfd9579968c38b31408fcade9ba7692cf5f90d8802b",
+      "volume_mm3": 12.257328578929735,
+      "watertight": true,
+      "winding_consistent": true,
+      "body_count": 1
+    },
+    {
+      "id": "csk-M1p6x6-reference",
+      "file": "models/reference/csk-M1p6x6-reference.stl",
+      "sha256": "78d82b1ff6f0fd09bf6c68d48b09aa3be01739cfc4460edcea2bd67b9257df33",
+      "volume_mm3": 14.365962374841503,
+      "watertight": true,
+      "winding_consistent": true,
+      "body_count": 1
+    },
+    {
+      "id": "csk-M2x8-reference",
+      "file": "models/reference/csk-M2x8-reference.stl",
+      "sha256": "fc526b06be9ce3aed5993282432c1efca9f9aaf65bfedb5c9d468c3bdb6b25e4",
+      "volume_mm3": 29.046671555038937,
+      "watertight": true,
+      "winding_consistent": true,
+      "body_count": 1
+    },
+    {
+      "id": "bolt-M2x8-reference",
+      "file": "models/reference/bolt-M2x8-reference.stl",
+      "sha256": "260f79c53d2babc6ad42f94867e995fc007e552c22ccc8fc8f982cbc5253b74f",
+      "volume_mm3": 42.88481922815871,
+      "watertight": true,
+      "winding_consistent": true,
+      "body_count": 1
+    },
+    {
+      "id": "bolt-M3x25-reference",
+      "file": "models/reference/bolt-M3x25-reference.stl",
+      "sha256": "f60f46b87e8b3645fbb4c05b1fe844100330a0c182f51afa7113d1095c0123d5",
+      "volume_mm3": 236.42779968424517,
+      "watertight": true,
+      "winding_consistent": true,
+      "body_count": 1
+    },
+    {
+      "id": "power-liner-reference",
+      "file": "models/reference/power-liner-reference.stl",
+      "sha256": "e3179cf471cdbadb07960b3c77a1532a9704eb72e587de9249d0ceecbb9e7dc1",
+      "volume_mm3": 79.50908037108722,
+      "watertight": true,
+      "winding_consistent": true,
+      "body_count": 1
+    },
+    {
+      "id": "ribbon-liner-reference",
+      "file": "models/reference/ribbon-liner-reference.stl",
+      "sha256": "a634f151d6dc10417d38754fed5be85c70f892b4acbf51c4eabaf1fb541b7c5b",
+      "volume_mm3": 76.80000114440918,
+      "watertight": true,
+      "winding_consistent": true,
+      "body_count": 1
+    },
+    {
+      "id": "loom-liner-reference",
+      "file": "models/reference/loom-liner-reference.stl",
+      "sha256": "0c09d8b6d89230876d4b9d0d4323278ffa436295426ad5e66ac3aab00307ec49",
+      "volume_mm3": 16.00000023841858,
+      "watertight": true,
+      "winding_consistent": true,
+      "body_count": 1
+    },
+    {
+      "id": "camera-pod-spider",
+      "file": "models/printable/camera-pod-spider-r0.1.0.stl",
+      "sha256": "f8045b994daf79a9f8f74a2aadf28784fa190962b6a243c32876375c65b0c160",
+      "volume_mm3": 66232.46898963708,
+      "watertight": true,
+      "winding_consistent": true,
+      "body_count": 1
+    },
+    {
+      "id": "camera-pod-pan-servo-mount",
+      "file": "models/printable/camera-pod-pan-servo-mount-r0.1.1.stl",
+      "sha256": "40c82102966cc529f614d42e6f6a9279e4325edd39595c7a7d6e5a6a159c9416",
+      "volume_mm3": 8273.944138295654,
+      "watertight": true,
+      "winding_consistent": true,
+      "body_count": 1
+    },
+    {
+      "id": "camera-pod-horn-retainer",
+      "file": "models/printable/camera-pod-horn-retainer-r0.1.0.stl",
+      "sha256": "67fd467c7ce7cd93e98e7096799092490b35343952192d8c89ae8302c371dc97",
+      "volume_mm3": 545.2526423469156,
+      "watertight": true,
+      "winding_consistent": true,
+      "body_count": 1
+    },
+    {
+      "id": "camera-pod-servo-fit-coupon",
+      "file": "models/printable/camera-pod-servo-fit-coupon-r0.1.1.stl",
+      "sha256": "dfd502ed5d98b5690f76698bf25363623fe888a703cb7036330ca29c84aa1dd1",
+      "volume_mm3": 844.7463024216191,
+      "watertight": true,
+      "winding_consistent": true,
+      "body_count": 1
+    },
+    {
+      "id": "camera-pod-rain-hood",
+      "file": "models/printable/camera-pod-rain-hood-r0.3.0.stl",
+      "sha256": "050ce08f42b3a978f1e7939589dd4e1969dcbe3d6df05176a890d204199ca593",
+      "volume_mm3": 36443.43057076308,
+      "watertight": true,
+      "winding_consistent": true,
+      "body_count": 1
+    },
+    {
+      "id": "camera-pod-enclosure-base",
+      "file": "models/printable/camera-pod-enclosure-base-r0.2.3.stl",
+      "sha256": "708c95c81550a8ad45b3b1bfe21aa2c2bf3120091d6885f322b1e4937e8f3ca3",
+      "volume_mm3": 31381.276798760537,
+      "watertight": true,
+      "winding_consistent": true,
+      "body_count": 1
+    },
+    {
+      "id": "camera-pod-integrated-gimbal-head",
+      "file": "models/printable/camera-pod-integrated-gimbal-head-r0.2.0.stl",
+      "sha256": "3d4f1365e2150ddbaf40a718a6a26aff381465a6e84b13c007cb273b776520df",
+      "volume_mm3": 22521.44616974118,
+      "watertight": true,
+      "winding_consistent": true,
+      "body_count": 1
+    },
+    {
+      "id": "camera-pod-integrated-gimbal-carrier",
+      "file": "models/printable/camera-pod-integrated-gimbal-carrier-r0.3.0.stl",
+      "sha256": "74de6a908c49ab70dc0b91e3927496ace578a4afd4d8b34e20522a519dd41fff",
+      "volume_mm3": 10143.083715104325,
+      "watertight": true,
+      "winding_consistent": true,
+      "body_count": 1
+    },
+    {
+      "id": "camera-pod-integrated-camera-cradle",
+      "file": "models/printable/camera-pod-integrated-camera-cradle-r0.2.0.stl",
+      "sha256": "96b8301dd44b3416c95ae91452e343f549791e9411ae4e71111a44115c4d43fe",
+      "volume_mm3": 3270.417542302497,
+      "watertight": true,
+      "winding_consistent": true,
+      "body_count": 1
+    },
+    {
+      "id": "camera-pod-integrated-tilt-pivot-support",
+      "file": "models/printable/camera-pod-integrated-tilt-pivot-support-r0.2.0.stl",
+      "sha256": "dd5911b98f11eb6a5d3c0a46ea4e469733843743a863146633a64c330b9f3008",
+      "volume_mm3": 1182.4099147917484,
+      "watertight": true,
+      "winding_consistent": true,
+      "body_count": 1
+    },
+    {
+      "id": "camera-pod-integrated-deck",
+      "file": "models/printable/camera-pod-integrated-deck-r0.3.0.stl",
+      "sha256": "6bf19b8f0396262a2be9890443b11d0e3fab8e3a70301456adc895f106fff9c4",
+      "volume_mm3": 23825.674924910567,
+      "watertight": true,
+      "winding_consistent": true,
+      "body_count": 1
+    },
+    {
+      "id": "camera-pod-integrated-camera-hood",
+      "file": "models/printable/camera-pod-integrated-camera-hood-r0.2.0.stl",
+      "sha256": "9f6be777bb99354c6744ec2adae82844149225b9eb5d6b6376081642ac3e2f91",
+      "volume_mm3": 1810.2848473251115,
+      "watertight": true,
+      "winding_consistent": true,
+      "body_count": 1
+    },
+    {
+      "id": "camera-pod-capacitor-retainer",
+      "file": "models/printable/camera-pod-capacitor-retainer-r0.1.0.stl",
+      "sha256": "e58c3c367ee07cc19a3e83772ca77ff3611a809e547f6fd312e6ed5e91af919f",
+      "volume_mm3": 754.3055031197374,
+      "watertight": true,
+      "winding_consistent": true,
+      "body_count": 1
+    },
+    {
+      "id": "camera-pod-power-clamp",
+      "file": "models/printable/camera-pod-power-clamp-r0.1.0.stl",
+      "sha256": "2153b8082f34313ddde0e30b2f28c2af63921cdd9cfc970060922d006e2c0b6f",
+      "volume_mm3": 903.4063713544723,
+      "watertight": true,
+      "winding_consistent": true,
+      "body_count": 1
+    },
+    {
+      "id": "camera-pod-ribbon-clamp",
+      "file": "models/printable/camera-pod-ribbon-clamp-r0.1.0.stl",
+      "sha256": "fb53f6cad0ae773ec39afe200c0eaf08daf8e407f59d2b029599fcb158fc1a0f",
+      "volume_mm3": 982.7858527637359,
+      "watertight": true,
+      "winding_consistent": true,
+      "body_count": 1
+    },
+    {
+      "id": "camera-pod-loom-clamp",
+      "file": "models/printable/camera-pod-loom-clamp-r0.1.0.stl",
+      "sha256": "8c8e73519f02bb0ae4e78c62583e800294c6046c817f9cb16afa4e42f4c98fd3",
+      "volume_mm3": 881.1873401499455,
+      "watertight": true,
+      "winding_consistent": true,
+      "body_count": 1
+    },
+    {
+      "id": "fixed-power-route-6mm-NOMINAL",
+      "file": "models/reference/fixed-power-route-6mm-NOMINAL.stl",
+      "sha256": "63dedc46aae2a92430d49dd574236eb8ed922e5fb5e6fc5291f1983459241bc7",
+      "volume_mm3": 3334.8044569467716,
+      "watertight": true,
+      "winding_consistent": true,
+      "body_count": 1
+    }
+  ],
+  "source_sha256": {
+    "apps/arbi-docs/tests/cad-previews.test.mjs": "b16e3e693dcd3584e66dedb3b1d4437db8ddb7a7bcf11f7cd0afcf399f22c04b",
+    "bom/catalog/fabrication.json": "3894c0879ad9975a143be408d5708d2427f2d98c4b2455f0f72056f594d6b39d",
+    "bom/catalog/parts.json": "21521d5c7c7c28ad0bac87e23431f333a0512b6489b82c5aeff3559258f64136",
+    "bom/schemas/parts.schema.json": "678ec923601e66f5966584035eba05996263945e7b018cf26c36f5857f22a5bc",
+    "hardware/assemblies/camera-pod/camera-pod-assembly.scad": "d3feb5dcf3d2547c485746b4aa3bf28d01c82156b617094b96555cf2ad229628",
+    "hardware/assemblies/camera-pod/camera-pod-capacitor-retainer.scad": "3955e14b2f7af8c17d3fe72daa72a02ce7db434388c048aca9f4ee621b5bc276",
+    "hardware/assemblies/camera-pod/camera-pod-integrated-deck.scad": "2c28293a37a96f14b7701575a47d5a0fe1620c8a17ba027db0420a158ccfa59d",
+    "hardware/assemblies/camera-pod/camera-pod-integrated-gimbal-carrier.scad": "16b2973db2c17ea36c7ebaafbec90acdb7687b541cfdaeb27dff62b0ed956e7e",
+    "hardware/assemblies/camera-pod/camera-pod-loom-clamp.scad": "e2678f4ea35e1c1daf5dad76c6dc6a7c6403539e0e99aebe92099ba95810f3ac",
+    "hardware/assemblies/camera-pod/camera-pod-power-clamp.scad": "a6fc58e5f346b16b026fe58677e9d387d084780c44581d1b097dc6f712d8a22f",
+    "hardware/assemblies/camera-pod/camera-pod-ribbon-clamp.scad": "0f9ce18aaca22fdccf299f9a42bc411756eb1ad7ccc2484de89ec2094935fe7c",
+    "hardware/assemblies/camera-pod/raspberry-pi-3a-plus/cad-check.json": "8bb67f74e59440b153fe73bb5c48e405032a4658b8d3d12dbe8c7989a202dd11",
+    "hardware/assemblies/camera-pod/raspberry-pi-camera-module-3/cad-check.json": "1d0b888cc492e4dded5e3b8de371dd22dbdae1c116822bc3201ef2a1f6df4a69",
+    "hardware/lib/camera-pod-integrated-deck.scad": "0667daf61ba9d9525dda831cc5d5ec67152f3e8c91d96c841d7cd931f0d83107",
+    "hardware/lib/camera-pod-integrated-gimbal.scad": "b2eaee272d78b08d246aeb640efd0ead87287ed2573dc7c69a783c4fa25331e4",
+    "hardware/lib/camera-pod-retention.scad": "0d082afcd4850447913d9185748a7427fb3a2b8abbefcb6ea2aab64e9cc9367f",
+    "hardware/models.json": "65b491fcd281cc845d3d9ee52ff011baca001c983dede5f56e8426cd057544e8",
+    "packages/arbi-bom/src/fabrication.test.ts": "82b379d5b9c42e1c6053ef17dc4ec6a55008303c4086201fd9a16095e0e35b0f",
+    "packages/arbi-bom/src/warnings.test.ts": "7e9932ce508d3d1a0f1ff419fefa9aaaf28abb0b5420244b9857728b677f5c2a",
+    "scripts/camera-pod-booklet/build.py": "88e7d8bb7f54d2f717460e0ddf147f9702607dfb1c6f1d1b030c5769227b4ac6",
+    "scripts/camera-pod-booklet/build_booklet.py": "58193a335cc64eaa18a8bd6678a758496020037fe3140695e90d1da0609c8e81",
+    "scripts/camera-pod-booklet/check-servo-fit.py": "4b255c9add38e685a468fdbc0868e7d86b379a95c2fddd8667d552281ae9c72e",
+    "scripts/camera-pod-booklet/check_camera_fit.py": "cb081b5eeeb29057f0fee699abbdcc4eba0c504f5e1366bbf03d1d95810dbbf7",
+    "scripts/camera-pod-booklet/check_camera_reference.py": "5be1b67c51eef71570c95ee207ec69f7a792c9923633a510ada36f68f4ed85b6",
+    "scripts/camera-pod-booklet/check_converter.py": "9d7164ce97dba0a802bab2c94485019479f32b26ed4908e9a90a9041048d9f56",
+    "scripts/camera-pod-booklet/check_cradle.py": "23b6a5d0dfcffd7b5673cfd445799d25c77d44ced85469a6234dc0099753b680",
+    "scripts/camera-pod-booklet/check_fasteners.py": "33e4f7fa4c48c596f7edc75fc3cd5105add90d6f0ef3744ab122fe23ab8f2eb5",
+    "scripts/camera-pod-booklet/check_integration.py": "b04e0b3a2bf5ca73e94f2c6fda2150566c08ecfe5698e2fbd7047303c9e4144f",
+    "scripts/camera-pod-booklet/check_pi_reference.py": "2d3ab50bcc9b4e6b1ada03dd8110ab666ea9850a8924c06526251a300cdb7dae",
+    "scripts/camera-pod-booklet/check_retention.py": "bd43b72d5b0651803824034bbd9f0c692842e3ce3c9bd1abf4e547b7c68f3b06",
+    "scripts/camera-pod-booklet/check_service.py": "5bab2f169fc61f0ff871dca88e1fee4d8f11bde5029a1de1929132d8f68bb22e",
+    "scripts/camera-pod-booklet/export_models.py": "d92e562c9e2ec2f5ef99f2be70ee41d02033d47b561af7a069cb2999d5d89063",
+    "scripts/camera-pod-booklet/integration.py": "b72bc6d8139c1738f0559bfd77770c366411a3ab148406aebb8e3cfe11267161",
+    "scripts/camera-pod-booklet/model_selection.py": "f0ccaa0c73eb16c95da32e6c22d641155ddb30a9be6803e9624552738f7be1ce",
+    "scripts/camera-pod-booklet/reference-parts.scad": "138f8f58f5fc7ff0378d8ee7c9ada4715356092108a95f363de9bfd3595e7c5c",
+    "scripts/camera-pod-booklet/render_figures.py": "1ca14779d43fa51da6292f5cf07fefde6ee98b5636ba17306cc9d654e9c8673c",
+    "scripts/camera-pod-booklet/render_preview.py": "c8b0c36652ab5d41b86edd035313e165b0cdafd616bc7bbeebf01cfa3c186554",
+    "scripts/camera-pod-booklet/test_model_selection.py": "a5007cbb749357c8bfce9c85653c8d63518c44d83a1268b6c740f0fc51bb0abb",
+    "scripts/check-booklet.py": "f8cfbf2efb86ece55648c9723ce8e0d83c020c8c6ea19647fe90b153f1abf9cc"
+  },
+  "report_sha256": {
+    "camera-fit-check.json": "1ce46f5341299afda2ccce2444e568be11aeb6abbe55e391f5a88f2a3a4a2046",
+    "camera-pod-enclosure-check.json": "37d5755b8801989f8b0a53faaea3a7fe55862e4e503f52bdf5236f3dc73aece7",
+    "camera-reference-check.json": "2b25fb768253aa3aa3f40701ed0f3aa385bf03ca56a08804cc98eddb9b23a9d5",
+    "converter-check.json": "313e00b13645f51127a35a2b2be491dc1144c63ad9dc9e471cfb5c4f8468b0e2",
+    "cradle-check.json": "0f496eb7f2b11cd2e29d3e38abfc681308aeba6d7719766e465fd5b8336ef324",
+    "fastener-check.json": "73a566a74029e99caea176678b09b1659b3ebe156a97dd5f48258541c759b241",
+    "integration-check.json": "71a5ab0bb4ad0a3ee2439b9671cf3f1b2e4c3c98ccd114e17deec708490719da",
+    "pi-reference-check.json": "bd2d27ee886e474fc44f6a8fcd428a8048e8a55ad337359f24a664e38dc6d23c",
+    "retention-check.json": "f44d4458d1a4c62d35baef3ff187b528dee9fa416f29c280ec0cc8e9671436d6",
+    "service-check.json": "7951ecb788095041d08ada098bf27ba74fff7b6785d38cf9efb0d4858dc0c940"
+  },
+  "artifact_evidence": {
+    "ARBI-camera-pod-enclosure-assembly-STL.pdf": {
+      "sha256": "e7953ca79546519d16ab1955e93eaaa08b035a5976f7de6f620c88c1c1280d98",
+      "bytes": 1054432
+    },
+    "ARBI-camera-pod-enclosure-STL-pack.zip": {
+      "sha256": "904d757d30fcdfde5e30002000359bdcedd5afabb8468e4cd826b8e1c0f9ebca",
+      "bytes": 6992409
+    }
+  },
+  "physical_limits": [
+    "Capacitor \u00d810 \u00d7 16 mm and central \u00d88 mm vent probe are nominal; received can/vent dimensions pending.",
+    "Power jacket \u00d86 mm, FPC 16 \u00d7 0.3 mm and servo loom 4 \u00d7 2 mm are nominal.",
+    "Liner material, compression/grip, isolation, connector unloading, bend radius and fatigue require bench tests.",
+    "Print tolerances, strength/creep, complete mass, torque, power/heat and rain remain unverified.",
+    "Clamps do not terminate positioning-line tension or authorize suspended/public operation."
+  ]
+}

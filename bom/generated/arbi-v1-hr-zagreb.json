@@ -6,7 +6,7 @@
   "destinationId": "hr-zagreb",
   "destinationName": "Zagreb, Croatia",
   "quoteSnapshotId": "hr-zagreb-2026-10-08-coupling",
-  "inputDigest": "sha256:661e3966f2c22fb8293c31ab448929a9c4a5491de2a5d48087b9cb86ba6cd60a",
+  "inputDigest": "sha256:531468ad5b35ed67129e1d9afe6cf2465a2d9b64272a6581644d39f31059b1df",
   "reportCurrency": "EUR",
   "complete": false,
   "completeLandedTotal": null,
@@ -38,8 +38,8 @@
   ],
   "knownShippingSubtotal": "43.38",
   "knownSubtotal": "858.05",
-  "estimatedMaterialSubtotal": "410.01",
-  "estimatedPartialSubtotal": "1268.06",
+  "estimatedMaterialSubtotal": "410.2",
+  "estimatedPartialSubtotal": "1268.25",
   "fabrication": [
     {
       "partId": "camera-gimbal",
@@ -79,8 +79,8 @@
         {
           "materialId": "petg",
           "name": "Bambu Lab PETG Basic",
-          "weightGrams": "17.605",
-          "materialCost": "0.2",
+          "weightGrams": "19.608",
+          "materialCost": "0.22",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
@@ -95,8 +95,8 @@
         {
           "materialId": "petg",
           "name": "Bambu Lab PETG Basic",
-          "weightGrams": "10.676",
-          "materialCost": "0.1216",
+          "weightGrams": "12.679",
+          "materialCost": "0.1444",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
@@ -189,16 +189,16 @@
           "color": "white"
         }
       ],
-      "weightGrams": "50.939",
-      "materialCost": "0.58",
+      "weightGrams": "52.942",
+      "materialCost": "0.6",
       "currency": "EUR",
       "note": "Current compact rain-enclosure gimbal; excludes earlier gimbal and dry-bench alternatives. Cosmetic shell surfaces use PETG Matte White (35100) or Black (35101) as listed per component; functional parts retain their existing material assumptions. Material and colour selections require physical fit, retention, weather and thermal checks. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
       "alternatives": [
         {
           "materialId": "pla",
           "name": "Bambu Lab PLA Basic",
-          "weightGrams": "47.635",
-          "materialCost": "0.57",
+          "weightGrams": "49.623",
+          "materialCost": "0.59",
           "spoolPrice": "11.99",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
@@ -210,8 +210,8 @@
         {
           "materialId": "petg",
           "name": "Bambu Lab PETG Basic",
-          "weightGrams": "48.019",
-          "materialCost": "0.55",
+          "weightGrams": "50.023",
+          "materialCost": "0.57",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
@@ -223,8 +223,8 @@
         {
           "materialId": "petg-matte",
           "name": "Bambu Lab PETG Matte",
-          "weightGrams": "52.629",
-          "materialCost": "0.6",
+          "weightGrams": "54.825",
+          "materialCost": "0.62",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte",
@@ -236,8 +236,8 @@
         {
           "materialId": "asa",
           "name": "Bambu Lab ASA",
-          "weightGrams": "40.336",
-          "materialCost": "1.01",
+          "weightGrams": "42.019",
+          "materialCost": "1.05",
           "spoolPrice": "24.99",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
@@ -286,8 +286,8 @@
         {
           "materialId": "petg",
           "name": "Bambu Lab PETG Basic",
-          "weightGrams": "114.899",
-          "materialCost": "1.31",
+          "weightGrams": "129.647",
+          "materialCost": "1.48",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
@@ -318,8 +318,8 @@
         {
           "materialId": "petg",
           "name": "Bambu Lab PETG Basic",
-          "weightGrams": "21.766",
-          "materialCost": "0.2479",
+          "weightGrams": "29.782",
+          "materialCost": "0.3392",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
@@ -378,18 +378,82 @@
           "modelId": "camera-pod-enclosure-base",
           "quantity": "1",
           "color": "black"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "0.943",
+          "materialCost": "0.0107",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
+          "modelId": "camera-pod-capacitor-retainer",
+          "quantity": "1",
+          "color": "black"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "1.129",
+          "materialCost": "0.0129",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
+          "modelId": "camera-pod-power-clamp",
+          "quantity": "1",
+          "color": "black"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "2.457",
+          "materialCost": "0.028",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
+          "modelId": "camera-pod-ribbon-clamp",
+          "quantity": "2",
+          "color": "black"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "2.203",
+          "materialCost": "0.0251",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
+          "modelId": "camera-pod-loom-clamp",
+          "quantity": "2",
+          "color": "black"
         }
       ],
-      "weightGrams": "207.819",
-      "materialCost": "2.37",
+      "weightGrams": "222.567",
+      "materialCost": "2.54",
       "currency": "EUR",
       "note": "Current rain-enclosure kit from camera-pod-enclosure.md; excludes dry-bench alternatives and test coupons. Cosmetic shell surfaces use PETG Matte White (35100) or Black (35101) as listed per component; functional parts retain their existing material assumptions. Material and colour selections require physical fit, retention, weather and thermal checks. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
       "alternatives": [
         {
           "materialId": "pla",
           "name": "Bambu Lab PLA Basic",
-          "weightGrams": "198.082",
-          "materialCost": "2.38",
+          "weightGrams": "212.713",
+          "materialCost": "2.55",
           "spoolPrice": "11.99",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
@@ -401,8 +465,8 @@
         {
           "materialId": "petg",
           "name": "Bambu Lab PETG Basic",
-          "weightGrams": "199.68",
-          "materialCost": "2.27",
+          "weightGrams": "214.428",
+          "materialCost": "2.44",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
@@ -414,8 +478,8 @@
         {
           "materialId": "petg-matte",
           "name": "Bambu Lab PETG Matte",
-          "weightGrams": "218.849",
-          "materialCost": "2.49",
+          "weightGrams": "235.013",
+          "materialCost": "2.68",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte",
@@ -427,8 +491,8 @@
         {
           "materialId": "asa",
           "name": "Bambu Lab ASA",
-          "weightGrams": "167.731",
-          "materialCost": "4.19",
+          "weightGrams": "180.12",
+          "materialCost": "4.5",
           "spoolPrice": "24.99",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
@@ -2296,8 +2360,8 @@
         {
           "materialId": "petg",
           "name": "Bambu Lab PETG Basic",
-          "weightGrams": "17.605",
-          "materialCost": "0.2",
+          "weightGrams": "19.608",
+          "materialCost": "0.22",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
@@ -2312,8 +2376,8 @@
         {
           "materialId": "petg",
           "name": "Bambu Lab PETG Basic",
-          "weightGrams": "10.676",
-          "materialCost": "0.1216",
+          "weightGrams": "12.679",
+          "materialCost": "0.1444",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
@@ -2406,16 +2470,16 @@
           "color": "white"
         }
       ],
-      "weightGrams": "50.939",
-      "materialCost": "0.58",
+      "weightGrams": "52.942",
+      "materialCost": "0.6",
       "currency": "EUR",
       "note": "Current compact rain-enclosure gimbal; excludes earlier gimbal and dry-bench alternatives. Cosmetic shell surfaces use PETG Matte White (35100) or Black (35101) as listed per component; functional parts retain their existing material assumptions. Material and colour selections require physical fit, retention, weather and thermal checks. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
       "alternatives": [
         {
           "materialId": "pla",
           "name": "Bambu Lab PLA Basic",
-          "weightGrams": "47.635",
-          "materialCost": "0.57",
+          "weightGrams": "49.623",
+          "materialCost": "0.59",
           "spoolPrice": "11.99",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
@@ -2427,8 +2491,8 @@
         {
           "materialId": "petg",
           "name": "Bambu Lab PETG Basic",
-          "weightGrams": "48.019",
-          "materialCost": "0.55",
+          "weightGrams": "50.023",
+          "materialCost": "0.57",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
@@ -2440,8 +2504,8 @@
         {
           "materialId": "petg-matte",
           "name": "Bambu Lab PETG Matte",
-          "weightGrams": "52.629",
-          "materialCost": "0.6",
+          "weightGrams": "54.825",
+          "materialCost": "0.62",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte",
@@ -2453,8 +2517,8 @@
         {
           "materialId": "asa",
           "name": "Bambu Lab ASA",
-          "weightGrams": "40.336",
-          "materialCost": "1.01",
+          "weightGrams": "42.019",
+          "materialCost": "1.05",
           "spoolPrice": "24.99",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
@@ -2503,8 +2567,8 @@
         {
           "materialId": "petg",
           "name": "Bambu Lab PETG Basic",
-          "weightGrams": "114.899",
-          "materialCost": "1.31",
+          "weightGrams": "129.647",
+          "materialCost": "1.48",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
@@ -2535,8 +2599,8 @@
         {
           "materialId": "petg",
           "name": "Bambu Lab PETG Basic",
-          "weightGrams": "21.766",
-          "materialCost": "0.2479",
+          "weightGrams": "29.782",
+          "materialCost": "0.3392",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
@@ -2595,18 +2659,82 @@
           "modelId": "camera-pod-enclosure-base",
           "quantity": "1",
           "color": "black"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "0.943",
+          "materialCost": "0.0107",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
+          "modelId": "camera-pod-capacitor-retainer",
+          "quantity": "1",
+          "color": "black"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "1.129",
+          "materialCost": "0.0129",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
+          "modelId": "camera-pod-power-clamp",
+          "quantity": "1",
+          "color": "black"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "2.457",
+          "materialCost": "0.028",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
+          "modelId": "camera-pod-ribbon-clamp",
+          "quantity": "2",
+          "color": "black"
+        },
+        {
+          "materialId": "petg",
+          "name": "Bambu Lab PETG Basic",
+          "weightGrams": "2.203",
+          "materialCost": "0.0251",
+          "spoolPrice": "11.39",
+          "spoolWeightGrams": "1000",
+          "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
+          "observedAt": "2026-10-08T19:56:19Z",
+          "priceBasis": "bulk-spool",
+          "minimumBulkRolls": 10,
+          "bulkSourceUrl": "https://eu.store.bambulab.com/pages/promotions/filament-bulk-sale",
+          "modelId": "camera-pod-loom-clamp",
+          "quantity": "2",
+          "color": "black"
         }
       ],
-      "weightGrams": "207.819",
-      "materialCost": "2.37",
+      "weightGrams": "222.567",
+      "materialCost": "2.54",
       "currency": "EUR",
       "note": "Current rain-enclosure kit from camera-pod-enclosure.md; excludes dry-bench alternatives and test coupons. Cosmetic shell surfaces use PETG Matte White (35100) or Black (35101) as listed per component; functional parts retain their existing material assumptions. Material and colour selections require physical fit, retention, weather and thermal checks. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
       "alternatives": [
         {
           "materialId": "pla",
           "name": "Bambu Lab PLA Basic",
-          "weightGrams": "198.082",
-          "materialCost": "2.38",
+          "weightGrams": "212.713",
+          "materialCost": "2.55",
           "spoolPrice": "11.99",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
@@ -2618,8 +2746,8 @@
         {
           "materialId": "petg",
           "name": "Bambu Lab PETG Basic",
-          "weightGrams": "199.68",
-          "materialCost": "2.27",
+          "weightGrams": "214.428",
+          "materialCost": "2.44",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
@@ -2631,8 +2759,8 @@
         {
           "materialId": "petg-matte",
           "name": "Bambu Lab PETG Matte",
-          "weightGrams": "218.849",
-          "materialCost": "2.49",
+          "weightGrams": "235.013",
+          "materialCost": "2.68",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte",
@@ -2644,8 +2772,8 @@
         {
           "materialId": "asa",
           "name": "Bambu Lab ASA",
-          "weightGrams": "167.731",
-          "materialCost": "4.19",
+          "weightGrams": "180.12",
+          "materialCost": "4.5",
           "spoolPrice": "24.99",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
@@ -4983,7 +5111,7 @@
   "assemblyEstimatedMaterials": [
     {
       "assemblyId": "camera-pod",
-      "amount": "2.95"
+      "amount": "3.14"
     },
     {
       "assemblyId": "corner-support-set",
@@ -5001,7 +5129,7 @@
   "assemblyPartialGoods": [
     {
       "assemblyId": "camera-pod",
-      "amount": "118.02"
+      "amount": "118.21"
     },
     {
       "assemblyId": "control-cabinet",
@@ -7381,16 +7509,16 @@
     "bauhaus-wire-rope-thimble-3mm: Package size/MOQ is unknown.",
     "bauhaus-wire-rope-thimble-3mm: Price and availability observation date is unknown; quote capture time is not verification time.",
     "bauhaus-wire-rope-thimble-3mm: Qualification is baseline-selected; the recorded selection is not engineering approval.",
-    "bulk-capacitor-1000uf: A cable tie currently retains the pod capacitor. Replace it with a dedicated insulated removable holder; cable ties are temporary bench workarounds only, never final retention.",
+    "bulk-capacitor-1000uf: The compact pod uses a bolted insulated cup/rim retainer. Actual can diameter, height, vent clearance, lead isolation, print retention and physical loads remain unverified.",
     "cabinet-installation-kit: This part is planned; confirm its specification and selection with committed evidence.",
     "cabinet-protection-kit: This part is planned; confirm its specification and selection with committed evidence.",
     "camera-gimbal: Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.",
     "camera-gimbal: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.",
+    "camera-pod-chassis: Compact deck/carrier screw-fastened retainers replace ties. Received fit, captive-pocket retention, print strength/creep and complete mass require physical inspection and testing.",
     "camera-pod-chassis: Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.",
     "camera-pod-chassis: Print material cost is estimated from solid CAD volume; supports, waste, shipping, tax adjustment, energy, machine time and labour are unresolved.",
-    "camera-pod-chassis: The current deck screw-mounts the converter, but retains the capacitor and harness with cable ties. Replace those ties with dedicated removable mounts and strain relief; cable ties are temporary bench workarounds only, never the final assembly solution.",
     "camera-pod-fastener-kit: This part is planned; confirm its specification and selection with committed evidence.",
-    "camera-pod-wiring-kit: The capacitor tie and harness retention are shown without a complete procurement specification or quantity. Record the missing hardware data and replace those ties with dedicated mounts and strain relief; cable ties are temporary bench workarounds only.",
+    "camera-pod-wiring-kit: Stopped lined power, CSI and servo clamps replace ties. Actual cable/FPC dimensions, liner compatibility/compression, pull-out, electrical isolation, relaxed loops and flex fatigue remain unverified. These clamps do not terminate positioning-line tension.",
     "camera-pod-wiring-kit: This part is planned; confirm its specification and selection with committed evidence.",
     "corner-head-printed-hardware: This part is planned; confirm its specification and selection with committed evidence.",
     "corner-head-printed-kit: Fabrication status is concept-unvalidated; fit, materials and physical acceptance still need committed evidence.",
@@ -7515,9 +7643,9 @@
   ],
   "warningDetails": [
     {
-      "message": "bulk-capacitor-1000uf: A cable tie currently retains the pod capacitor. Replace it with a dedicated insulated removable holder; cable ties are temporary bench workarounds only, never final retention.",
+      "message": "bulk-capacitor-1000uf: The compact pod uses a bolted insulated cup/rim retainer. Actual can diameter, height, vent clearance, lead isolation, print retention and physical loads remain unverified.",
       "severity": "critical",
-      "code": "temporary-cable-tie",
+      "code": "capacitor-retention-unverified",
       "partIds": [
         "bulk-capacitor-1000uf"
       ],
@@ -7526,9 +7654,9 @@
       ]
     },
     {
-      "message": "camera-pod-chassis: The current deck screw-mounts the converter, but retains the capacitor and harness with cable ties. Replace those ties with dedicated removable mounts and strain relief; cable ties are temporary bench workarounds only, never the final assembly solution.",
+      "message": "camera-pod-chassis: Compact deck/carrier screw-fastened retainers replace ties. Received fit, captive-pocket retention, print strength/creep and complete mass require physical inspection and testing.",
       "severity": "critical",
-      "code": "temporary-cable-tie",
+      "code": "retention-unverified",
       "partIds": [
         "camera-pod-chassis"
       ],
@@ -7537,9 +7665,9 @@
       ]
     },
     {
-      "message": "camera-pod-wiring-kit: The capacitor tie and harness retention are shown without a complete procurement specification or quantity. Record the missing hardware data and replace those ties with dedicated mounts and strain relief; cable ties are temporary bench workarounds only.",
+      "message": "camera-pod-wiring-kit: Stopped lined power, CSI and servo clamps replace ties. Actual cable/FPC dimensions, liner compatibility/compression, pull-out, electrical isolation, relaxed loops and flex fatigue remain unverified. These clamps do not terminate positioning-line tension.",
       "severity": "critical",
-      "code": "temporary-cable-tie",
+      "code": "strain-relief-unverified",
       "partIds": [
         "camera-pod-wiring-kit"
       ],
@@ -10461,8 +10589,8 @@
     "bulk-capacitor-1000uf": [
       {
         "severity": "critical",
-        "code": "temporary-cable-tie",
-        "message": "A cable tie currently retains the pod capacitor. Replace it with a dedicated insulated removable holder; cable ties are temporary bench workarounds only, never final retention.",
+        "code": "capacitor-retention-unverified",
+        "message": "The compact pod uses a bolted insulated cup/rim retainer. Actual can diameter, height, vent clearance, lead isolation, print retention and physical loads remain unverified.",
         "partIds": [
           "bulk-capacitor-1000uf"
         ],
@@ -10815,8 +10943,8 @@
     "camera-pod-chassis": [
       {
         "severity": "critical",
-        "code": "temporary-cable-tie",
-        "message": "The current deck screw-mounts the converter, but retains the capacitor and harness with cable ties. Replace those ties with dedicated removable mounts and strain relief; cable ties are temporary bench workarounds only, never the final assembly solution.",
+        "code": "retention-unverified",
+        "message": "Compact deck/carrier screw-fastened retainers replace ties. Received fit, captive-pocket retention, print strength/creep and complete mass require physical inspection and testing.",
         "partIds": [
           "camera-pod-chassis"
         ],
@@ -15564,8 +15692,8 @@
     "camera-pod-wiring-kit": [
       {
         "severity": "critical",
-        "code": "temporary-cable-tie",
-        "message": "The capacitor tie and harness retention are shown without a complete procurement specification or quantity. Record the missing hardware data and replace those ties with dedicated mounts and strain relief; cable ties are temporary bench workarounds only.",
+        "code": "strain-relief-unverified",
+        "message": "Stopped lined power, CSI and servo clamps replace ties. Actual cable/FPC dimensions, liner compatibility/compression, pull-out, electrical isolation, relaxed loops and flex fatigue remain unverified. These clamps do not terminate positioning-line tension.",
         "partIds": [
           "camera-pod-wiring-kit"
         ],

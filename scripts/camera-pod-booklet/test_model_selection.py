@@ -12,7 +12,7 @@ class SelectionTests(unittest.TestCase):
         enclosed = {m['id'] for m in selected_models(registry, True)}
         bench = {m['id'] for m in selected_models(registry, False)}
         archived = {m['id'] for m in registry['archivedModels']}
-        self.assertEqual(len(enclosed), 12)
+        self.assertEqual(len(enclosed), 16)
         self.assertEqual(len(bench), 11)
         self.assertFalse(enclosed & archived)
         self.assertIn('camera-pod-integrated-deck', enclosed)

@@ -62,6 +62,7 @@ def main():
  # Retain a separately named neutral inspection view and neutral GLB/manifest.
  render('assembled-covered',assembly(0,55) if ENCLOSURE else allparts,direction=(.7,1,.4) if ENCLOSURE else (.7,-1,.48),size=(1400,1250))
  if ENCLOSURE:render('assembled-neutral',allparts,direction=(.7,1,.4),size=(1400,1250))
+ if ENCLOSURE:render('camera-service-50',[p for p in assembly(0,50,cover=False) if p['group']!='fixed' and p['name']!='gimbal-head' and not p['name'].startswith('head-')],direction=(.6,-1,-.65),size=(1400,1200))
  manifest=json.loads((ROOT/'mesh-manifest.json').read_text())
  for e in manifest:
   if e['file'].startswith('models/printable/'):
@@ -75,9 +76,31 @@ def main():
   if n=='pan-mount' or n.startswith('frame-bolt') or n.startswith('frame-lower'):return T(0,0,-18)
   return T()
  render('frame-exploded',shift(fixed,frame_ex),direction=(.3,-1,.6),size=(1550,1200))
- deckparts=[p for p in openparts if p['name']=='deck' or p['name'] in ['pi','converter','capacitor'] or any(p['name'].startswith(q) for q in ['pi-','converter-','capacitor-'])]
+ deckparts=[p for p in openparts if p['name']=='deck' or p['name'] in ['pi','converter','capacitor'] or any(p['name'].startswith(q) for q in ['pi-','converter-','capacitor-']+(['power-','fixed-'] if ENCLOSURE else []))]
  render('deck-loaded',deckparts,direction=(.25,-1,1.1),size=(1500,1000))
  render('deck-top',deckparts,direction=(0,0,1),up=(0,1,0),size=(1500,950))
+ if ENCLOSURE:
+  def retained_ex(p):
+   n=p['name']
+   if n.startswith(('pan-ribbon','pan-loom')):
+    if '-nut-' in n:return T(0,0,10)
+    if '-bolt-' in n:return T(0,0,-22)
+    if 'top-washer' in n:return T(0,0,-16)
+    if n.endswith('-clamp'):return T(0,0,-12)
+    return T()
+   if n=='power-clamp':return T(13)
+   if n.startswith('power-') and '-bolt-' in n:return T(22)
+   if n.startswith('power-') and 'top-washer' in n:return T(16)
+   if n.startswith('power-') and ('nut-' in n or 'bottom-washer' in n):return T(0,0,12)
+   if n.endswith('-clamp') or n=='capacitor-retainer':return T(0,0,12)
+   if '-bolt-' in n:return T(0,0,22)
+   if 'top-washer' in n:return T(0,0,16)
+   if '-nut-' in n:return T(0,0,-10)
+   return T()
+  retained=[p for p in deckparts if p['name'] not in ['pi','converter'] and not p['name'].startswith(('pi-','converter-'))]
+  render('retention-deck-exploded',shift(retained,retained_ex),direction=(.4,-1,1.0),size=(1500,1150))
+  retained=[p for p in openparts if p['name']=='pan-yoke' or p['name'].startswith(('pan-ribbon','pan-loom'))]
+  render('retention-carrier-exploded',shift(retained,retained_ex),direction=(.8,-1,-.55),size=(1400,1100))
  pan=[p for p in openparts if p['name'] in ['pan-mount','pan-servo'] or p['name'].startswith('pan-servo-')]
  render('pan-servo-insertion',shift(pan,lambda p:T() if p['name']=='pan-mount' else T(0,0,-8 if 'bolt' in p['name'] else 36)),direction=(.65,-1,.4),size=(1100,1150))
  horn=[p for p in openparts if p['name'] in ['pan-yoke','pan-horn','pan-horn-retainer','pan-horn-center-screw'] or p['name'].startswith('pan-retainer-')]

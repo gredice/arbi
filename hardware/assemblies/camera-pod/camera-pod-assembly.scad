@@ -1,21 +1,26 @@
-// ARBI camera-pod-assembly r0.4.0 — concept-unvalidated reference. Do not print.
+// ARBI camera-pod-assembly r0.5.0; concept-unvalidated.
 include <../../lib/camera-pod.scad>
 include <../../lib/camera-pod-enclosure.scad>
 include <../../lib/camera-pod-integrated-gimbal.scad>
 use <../../lib/camera-pod-integrated-deck.scad>
 use <../../lib/camera-pod-integrated-head.scad>
+use <../../lib/camera-pod-retention.scad>
 use <camera-pod-spider.scad>
 show_legacy = false;
 show_context = false;
 pan = 0;
 tilt = 0;
 show_hood = true;
-module camera_pod_assembly(pan=0,tilt=0,show_hood=true) {
+module camera_pod_assembly(pan=0,tilt=0,show_hood=true,can_d=10,can_h=16) {
     assert(pan >= -95 && pan <= 95,"Outside nominal mechanical pan limits");
     assert(tilt >= -5 && tilt <= 75,"Outside nominal mechanical tilt limits");
     color(ARBI_CORE) {
         camera_pod_spider(230,22,7,54,18,6,22,4.5,96);
-        camera_pod_integrated_deck();
+        camera_pod_integrated_deck(can_d,can_h);
+        translate([32,-34,23.5+can_h+.3])camera_pod_capacitor_retainer(can_d);
+        translate([10,40,20.5])camera_pod_power_clamp();
+        translate([0,-39,24])camera_pod_ribbon_clamp();
+        translate([-40,11,21.5])camera_pod_loom_clamp();
         camera_pod_pan_servo_mount();
         camera_pod_enclosure_base();
     }
@@ -24,6 +29,8 @@ module camera_pod_assembly(pan=0,tilt=0,show_hood=true) {
         color(ARBI_CORE) {
             camera_pod_integrated_gimbal_head();
             camera_pod_integrated_gimbal_carrier();
+            translate([0,-19,-35])rotate([180,0,0])camera_pod_ribbon_clamp();
+            translate([0,-7,-34.6])rotate([180,0,0])camera_pod_loom_clamp();
             camera_pod_integrated_tilt_pivot_support();
             translate([0,0,-27.2])camera_pod_horn_retainer();
         }

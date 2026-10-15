@@ -14,13 +14,13 @@
 ## Requirements
 
 - 8 M3 x 25 screws (4 frame, 4 enclosure), 12 M3 washers, 8 plain M3 nuts; frame washers/nuts load into the integral deck posts, enclosure nuts into the lowered hood pockets.
-- 7 M3 x 12 screws (4 outer-head clamps, 2 pivot-support attachments, 1 pivot), 13 M3 washers, 7 plain M3 nuts and one 0.7 mm M3 pivot shim.
+- 19 M3 x 12 screws (4 head clamps, 2 pivot-support attachments, 1 pivot, 2 capacitor-retainer, 2 power-jaw, 4 ribbon-clamp and 4 loom-clamp), 29 M3 washers, 19 plain M3 nuts and one 0.7 mm M3 pivot shim.
 - 12 M2 x 8 screws (4 Pi, 4 converter, 4 camera), 16 M2 washers and 12 plain M2 nuts; use the revised captive/recessed seats without modifying PCB holes.
 - 4 M2 x 8 countersunk horn-retainer screws (2 pan, 2 tilt), 4 lower M2 washers and 4 plain M2 nuts; no washer beneath a countersunk head.
 - 4 M1.6 x 6 countersunk servo-ear screws and 4 plain M1.6 nuts; no washers.
 - Two OEM horn centre screws and stock horns belong to the selected servo supply; confirm both are included.
 - Nominal washers: M2 inside diameter 2.2 mm, outside diameter 5 mm, thickness 0.3 mm; M3 inside diameter 3.2 mm, outside diameter 7 mm, thickness 0.5 mm. The pivot shim has the M3 diameters and thickness 0.7 mm.
-- Total: 35 bought screws in five variants, 45 flat washers, one pivot shim and 35 plain nuts. All ordinary screw lengths are at most 25 mm; actual stock counts/head styles remain to be confirmed.
+- Total: 47 bought screws in five variants, 61 flat washers, one pivot shim and 47 plain nuts. All ordinary screw lengths are at most 25 mm; actual stock counts/head styles remain to be confirmed.
 - Camera M2 x 8 screws enter from the rear into front captive hood nuts; both bear on printed seats, not directly on the PCB. No camera washers. The cradle head recess and hood nut tunnels require their matching r0.2.0 prints.
 
 ## Design warnings
@@ -29,7 +29,7 @@
 
 ## Notes
 
-One installed set per compact enclosed pod, derived from scripts/camera-pod-booklet/integration.py and the fastener standardization proposal (GitHub #225). M3 x 12/25 printed joints and M2 x 8 board joints eliminate M2.5/M4 without drilling the PCBs; the integrated deck replaces four loose spacers. This is a proposed nominal-CAD configuration, not received-hardware or load acceptance. Socket/cap reference heads and countersunk retainer/ear heads are distinct. Reconcile shared purchasing stock and servo-supplied accessories before ordering.
+One installed set per compact enclosed pod, derived from scripts/camera-pod-booklet/integration.py and the fastener standardization proposal (GitHub #225) and tie-free retention proposal (#228). M3 x 12/25 printed joints and M2 x 8 board joints eliminate M2.5/M4 without drilling the PCBs; the integrated deck replaces four loose spacers. This is a proposed nominal-CAD configuration, not received-hardware or load acceptance. Socket/cap reference heads and countersunk retainer/ear heads are distinct. Reconcile shared purchasing stock and servo-supplied accessories before ordering.
 
 ## Used in
 
