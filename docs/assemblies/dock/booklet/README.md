@@ -1,18 +1,19 @@
 # Dock assembly PDF and STL/source pack
 
-The DOCK-IF-01 nine-page illustrated assembly guide and matching print/source ZIP
+The DOCK-IF-01 ten-page illustrated assembly guide and matching print/source ZIP
 are generated from the current canonical dock and compact-pod meshes.
 They describe a concept-unvalidated, supported-dummy bench kit.
-The current source configuration includes roof/guide quadrants and the
-assembled reference at revision `0.2.0`, with a rim-down hollow rounded crown
-and edge-open line passages. See the [rounded-shelter record](../rounded-shelter.md)
-for dimensions, reprint scope and nominal service checks.
+The current source configuration includes roof quadrants and the assembled
+reference at revision `0.3.0`, guide quadrants at `0.2.0` and four new lower
+panels at `0.1.0`. See the [rounded-shelter record](../rounded-shelter.md) and
+[lower-enclosure record](../lower-enclosure.md) for dimensions, reprint scope,
+dedicated fastening and nominal service checks.
 
 The versioned [CAD releases](https://github.com/gredice/arbi/releases) publish:
 
 - `ARBI-dock-assembly-STL.pdf`: actual-mesh assembly steps, inventory, inspection
   and remaining acceptance gates.
-- `ARBI-dock-STL-pack.zip`: that exact PDF, eleven fabrication models in installed
+- `ARBI-dock-STL-pack.zip`: that exact PDF, thirteen fabrication models in installed
   and print poses, contextual current pod/post/lines, canonical sources, figures,
   geometry report and complete file hashes.
 

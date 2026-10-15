@@ -3,6 +3,12 @@
 14 October 2026. **Owner-selected appearance direction; implemented nominal
 CAD. Physical acceptance pending.**
 
+This records the initial rounded-crown revision `0.2.0`. The
+[15 October lower-enclosure follow-up](lower-enclosure.md) adds dedicated panel
+bosses to crown/reference revision `0.3.0`; its quantities, print datum,
+service order and additional dead load govern the current kit. The original
+crown shape and retained guide/stud interfaces below remain applicable.
+
 The owner selected the [dock appearance board](../../assets/dock/concept-board-2026-10-14.png)
 to align the dock with the [camera pod and covered winch product language](../../project/industrial-design.md).
 The board guides shape and finish only. It omits positioning lines and cannot
@@ -44,7 +50,7 @@ remain at radius 80 mm on the split boundaries, Z203; the seam tabs extend
 Z198–218 to connect to the curved skin. These are nominal CAD datums, not an
 accepted dimensional tolerance or material specification.
 
-`dock-roof-quarter`, `dock-guide-quarter` and the `dock-assembly` reference are
+In this initial record, `dock-roof-quarter`, `dock-guide-quarter` and the `dock-assembly` reference are
 revision `0.2.0`; the pod stud is revision `0.1.1`. The roof and guide have four
 18 mm passages open radially
 to their outer edges, beginning at radius 95 mm with an end center at radius
@@ -52,7 +58,7 @@ to their outer edges, beginning at radius 95 mm with an end center at radius
 route instead of enclosing the permanently attached lines in holes. Surveyed
 sloping lines, their fittings/conductors and full approach sweeps remain open.
 
-Reprint four roof and four guide quadrants and one stud for this revision.
+The initial revision replaces four roof and four guide quadrants and one stud.
 The arm root, extension, rear pads, locator, fork, bridge, shoes and spacers retain
 revision `0.1.0`; inspect existing prints and received hardware before reuse.
 
@@ -65,11 +71,14 @@ overlap per side before offset/tolerance. No bearing strength is established.
 Print the stud head down, with supports reviewed beneath its upper Ø32 flange;
 inspect the Ø4.5 axial bore, head face and washer seat afterward.
 
-Print roof quadrants rim down, using the supplied print-coordinate meshes.
-Review and fit supports for the crown and bosses; the hollow shell is not a
+Initial `0.2.0` roof quadrants print rim down from Z175. Current `0.3.0`
+quadrants print mounting-seat down from Z174; use the current supplied meshes
+and the lower-enclosure record's support guidance. Review and fit supports
+for the crown and bosses; the hollow shell is not a
 support-free print claim. One quarter per bed preserves the existing nominal
 256 mm study envelope, subject to the full slice and actual printer.
 
+For the current kit, remove all four lower panels before this roof service path.
 The nominal service path removes all four roof-stack bolts and seam bolts,
 lifts one quarter 60 mm, then translates it 100 mm toward the center along its
 diagonal. Reverse to install. The [booklet builder](../../../scripts/dock-booklet/README.md)
@@ -97,6 +106,9 @@ material changes. With `g=9.80665 m/s²` and the roof center 0.390 m inward of
 the post face, `mass=volume×density`, `weight=mass×g` and
 `post-face moment=weight×0.390` give:
 
+Convert the volume-derived mass from grams to kilograms before applying
+gravity; the lever is in metres.
+
 | Four roof quarters only | Solid volume | Estimated mass | Weight | Post-face moment |
 | --- | ---: | ---: | ---: | ---: |
 | Old sloping roof, PETG Basic | 227.361 cm³ | 284.202 g | 2.787 N | 1.087 N·m |
@@ -111,6 +123,9 @@ reviewed forces before load testing or installation. The revised pod-side
 bridge, four shoes and stud total 95.251585 cm³, or 119.064 g at the catalog's
 PETG Basic density, before hardware. That flying-mass addition remains a
 separate complete-pod acceptance gate.
+The current `0.3.0` crown's added bosses and lower panels are outside this
+historical `0.2.0` roof-only comparison; use the lower-enclosure record and
+current fabrication catalog for their contribution.
 
 ## Feasibility and acceptance
 

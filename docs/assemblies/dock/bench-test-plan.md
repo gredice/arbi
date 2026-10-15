@@ -3,7 +3,7 @@
 Proposed staged tests for fit, capture, retention, release, sensor faults, power
 interruption and recovery. No physical test has been performed.
 
-9 October 2026. Plan revision `0.1.0`, proposed for `DOCK-IF-01`.
+15 October 2026. Plan revision `0.2.0`, proposed for `DOCK-IF-01`.
 **No physical test has been performed by this change.** This is an evidence plan, not
 authorization to actuate a rig or load overhead hardware. Use the
 [design package](design-package.md), [blank acceptance record](acceptance-record.md)
@@ -47,7 +47,7 @@ select an acceptance threshold after observing its results.
 | DT-06 Sensor bench/HIL | Exercise empty, partial, seated-but-unlatched, fully latched, released-but-present and clear states; inject open/short/stuck/bounce/stale/disagreement faults | No false `Parked`, release or clear assertion; detection/response meet reviewed deadlines; absent real channels remain unavailable |
 | DT-07 Interruption bench/HIL | Interrupt release supply, sensor supply, communications and controller execution/reset at each latch phase; use secured substitutes first | No unintended release/restart; truthful unknown/fault observations; reviewed retention and bounded recovery; no output replay |
 | DT-08 Durability bench | Run frozen cycles and sustained-load dwell with reviewed temperature, moisture and contamination cases; inspect wear, spring/fork/pin/fastener changes | All intermediate/end inspections meet fixed limits; preserve failed results; cycle count is justified for intended life |
-| DT-09 Shelter bench | Fit actual roof/pod geometry; inspect drainage and lines, then review/test direct and wind-driven rain, splash, condensation and sheltered heat | Defined dry/contact/thermal limits; no water directed into vulnerable pod interfaces; no inferred ingress rating |
+| DT-09 Shelter bench | Fit actual roof/lower enclosure/pod geometry; inspect guide/cable/rear access and runoff; review captive panel fastener pull-through/creep, added dead/wind load and unloaded removal; then test direct and wind-driven rain, splash, condensation and sheltered heat | Defined mechanical/service/dry/contact/thermal limits; appearance panels remain outside pod-retention load path; no water directed into vulnerable pod interfaces; no inferred ingress rating |
 | DT-10 Recovery bench/frame | Simulate missed capture, obstructed dock, blocked release and no-power service under the reviewed restraint procedure | Deliberate bounded recovery; remote/automatic work inhibited; no automatic low maintenance positioning or hands in loaded mechanism |
 | DT-11 Secured four-line frame | Integrate actual four lines/pulleys/winches, loaded pod and accepted dock; measure force/pose/clearance, repeat DT-03/05/07 relevant cases | Accepted component prerequisites and rig limits; normal and fault cable behavior measured independently of commanded pose |
 | DT-12 Installed/qualified | Repeat relevant cases for as-built site and exposure, including disable and total/partial power loss with approved all-line restraint | Accepted minimum clearance, structural/electrical review, local weather/access/recovery and inspection procedure |

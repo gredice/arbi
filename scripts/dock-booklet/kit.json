@@ -63,5 +63,17 @@
       "dock_post_rear_pad",
       2
     ]
+  ],
+  "dock-lower-enclosure": [
+    [
+      "dock-lower-panel",
+      "dock_lower_panel",
+      3
+    ],
+    [
+      "dock-lower-rear-panel",
+      "dock_lower_panel",
+      1
+    ]
   ]
 }

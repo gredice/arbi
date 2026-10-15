@@ -321,7 +321,7 @@
       "kind": "physical",
       "parentAssemblyId": null,
       "name": "Dock",
-      "description": "DOCK-IF-01 bench capture kit for the shared non-powered round-post corner: split guide, locator/fork, structural pod bridge, split arm and roof; fit/load/actuation unvalidated.",
+      "description": "DOCK-IF-01 supported-dummy bench kit: stationary guide/locator/fork, pod bridge, split arm, rounded crown and removable charcoal underside; physical acceptance pending.",
       "disciplines": [
         "mechanical",
         "electronics",
@@ -351,6 +351,11 @@
         },
         {
           "partId": "dock-weather-hood",
+          "quantity": "1",
+          "inclusion": "base"
+        },
+        {
+          "partId": "dock-lower-enclosure",
           "quantity": "1",
           "inclusion": "base"
         },

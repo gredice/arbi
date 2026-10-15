@@ -23,6 +23,8 @@ post/pulley geometry and printer build volume remain open.
   limits, raw evidence and stage authorization; all results remain pending.
 - [Rounded-shelter design record](rounded-shelter.md): owner-selected dock
   appearance, removable crown, service/manufacture and evidence boundaries.
+- [Removable lower enclosure](lower-enclosure.md): charcoal panels, dedicated
+  fasteners, assembly/service order and nominal evidence boundaries.
 
 The current DOCK-IF-01 sources define a **supported-dummy bench kit**:
 four guide quadrants, final locator and manually released fork, structural
@@ -31,11 +33,18 @@ nest, latch sample and hood sample are archived. Use the
 [assembly guide](assembly-guide.md) and [PDF/STL publication](booklet/README.md).
 
 The owner-selected rounded shelter uses a hollow warm-white 300 × 300 mm R40
-crown above the charcoal mechanical core. Roof and guide quadrants and the
-assembled reference are revision `0.2.0`; four edge-open radial line passages
+crown above a removable charcoal bowl and the mechanical core. Roof quadrants
+and the assembled reference are revision `0.3.0`; guide quadrants remain
+`0.2.0`. Four edge-open radial line passages
 preserve a removable cover. The stud is revision `0.1.1`, with a flat retained
 shoulder instead of a wedging flare. The locator, manual fork and bridge
 interfaces remain as documented in the design package.
+
+The underside uses three ordinary panels and one rear panel at revision
+`0.1.0`, with diagonal cable seams and a rear arm/fork opening. Eight dedicated
+M3 × 25 bolts retain the black panels separately from the structural M4 stack.
+Remove all four black panels before roof service, and remove the rear panel
+for complete manual fork/core access. The new shell does not carry pod loads.
 
 Automatic spring capture, release actuator/circuit, accepted sensors, complete-pod
 mass, line sweep and structural/weather acceptance remain unresolved. The kit's

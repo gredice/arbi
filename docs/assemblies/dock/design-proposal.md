@@ -14,6 +14,9 @@ owner-selected appearance through roof/guide quadrants and an assembled
 reference at revision `0.2.0`; it retains the current capture/retention interfaces.
 The stud revision `0.1.1` replaces the flared retained edge with a flat shoulder;
 nominal bearing geometry and physical retention acceptance remain separate.
+The [15 October lower-enclosure record](lower-enclosure.md) adds four removable
+charcoal panels and dedicated cosmetic fasteners under crown/reference
+revision `0.3.0`. It retains the guide and pod-retention interfaces.
 
 ## Problem and affected boundaries
 

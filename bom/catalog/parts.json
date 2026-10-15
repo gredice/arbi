@@ -436,7 +436,8 @@
         "printed"
       ],
       "requirements": [
-        "Four rounded warm-white crown quadrants form a 300 x 300 mm R40 cover, open below Z175 with a Z220 crown, nominal 2.8 mm skin and edge-open 18 mm line slots. Recessed roof bolts retain the existing Z205 spacer / Z215 washer seats; seam, drainage, print process and ingress remain unqualified."
+        "Four rounded warm-white crown quadrants form a 300 x 300 mm R40 cover, open below Z175 with a Z220 crown, nominal 2.8 mm skin and edge-open 18 mm line slots. Recessed roof bolts retain the existing Z205 spacer / Z215 washer seats; seam, drainage, print process and ingress remain unqualified.",
+        "Eight dedicated lower-panel socket screws clamp against Z174 contact bosses, with inward side-loaded washer and M3 nut pockets; the existing structural M4 axes and seats remain unchanged."
       ],
       "fabrication": {
         "process": "openscad",
@@ -446,7 +447,7 @@
             "path": "hardware/assemblies/dock/dock-roof-quarter.scad",
             "module": "dock_roof_quarter",
             "modelId": "dock-roof-quarter",
-            "revision": "0.2.0"
+            "revision": "0.3.0"
           },
           {
             "path": "hardware/assemblies/dock/dock-roof-spacer.scad",
@@ -457,6 +458,43 @@
         ]
       },
       "notes": "DOCK-IF-01 bench-development kit, not accepted for suspended installation. Bought hardware is counted separately."
+    },
+    {
+      "id": "dock-lower-enclosure",
+      "name": "Removable charcoal dock lower enclosure",
+      "baseUnit": "each",
+      "kind": "component",
+      "lifecycle": "active",
+      "disciplines": [
+        "mechanical"
+      ],
+      "traits": [
+        "fabricated",
+        "printed"
+      ],
+      "requirements": [
+        "Three identical cardinal panels plus one rear panel form a removable 300 mm R40 underside tray and conical bowl, with four diagonal 18 mm cable corridors.",
+        "Nominal 2.8 mm normal conical skin from Z105 to Z171, 3 mm tray from Z171 to Z174, Ø148 top opening and 70 mm open-top rear arm notch. Dedicated crown fasteners only; no retention load or sealing qualification."
+      ],
+      "fabrication": {
+        "process": "openscad",
+        "modelStatus": "concept-unvalidated",
+        "sources": [
+          {
+            "path": "hardware/assemblies/dock/dock-lower-panel.scad",
+            "module": "dock_lower_panel",
+            "modelId": "dock-lower-panel",
+            "revision": "0.1.0"
+          },
+          {
+            "path": "hardware/assemblies/dock/dock-lower-rear-panel.scad",
+            "module": "dock_lower_rear_panel",
+            "modelId": "dock-lower-rear-panel",
+            "revision": "0.1.0"
+          }
+        ]
+      },
+      "notes": "DOCK-IF-01 supported-dummy bench only. Remove lower panels before servicing the white crown. Bought hardware counted separately; print/supports, real line slope, weather and installed loads remain unqualified."
     },
     {
       "id": "dyneema-positioning-line",
@@ -2143,7 +2181,10 @@
         "8 M3 x 30 pod bridge clamp bolt",
         "4 M3 x 16 roof seam bolt",
         "24 M3 washer",
-        "12 M3 locking nut"
+        "12 M3 locking nut",
+        "8 M3 x 25 lower-enclosure socket-head bolt",
+        "16 M3 lower-enclosure washer 7 x 1",
+        "8 DIN 985 M3 lower-enclosure locking nut"
       ],
       "notes": "One set per bench dock, round-120 nominal lengths. No supplier or price selected. Verify received head/washer/nut dimensions, post stack and locking engagement; other shared post sizes require recalculated M12 length. Not the corner-head fastener set."
     },

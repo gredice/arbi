@@ -41,6 +41,7 @@ Archived items retain their stable pages and purchasing evidence, but are exclud
 | [DOCK-IF-01 bought fastener set](dock-bench-hardware.md) | dock-bench-hardware | active | None recorded |
 | [High-dock alignment funnel](dock-funnel.md) | dock-funnel | active | 1 warning |
 | [DOCK-IF-01 fork, structural pod bridge and stud print set](dock-latch-hardware.md) | dock-latch-hardware | active | 1 warning |
+| [Removable charcoal dock lower enclosure](dock-lower-enclosure.md) | dock-lower-enclosure | active | 1 warning |
 | [High-dock locating nest](dock-nest.md) | dock-nest | active | 1 warning |
 | [Split dock support arm and rear pads](dock-support-arm.md) | dock-support-arm | active | 1 warning |
 | [Dock weather roof / hood](dock-weather-hood.md) | dock-weather-hood | active | 1 warning |
