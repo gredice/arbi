@@ -801,10 +801,12 @@
     "baseCommit": "b7a631a2cdf3f9cfddeec3f4a183fefc4ee9cf0a",
     "note": "Rebased onto the merged camera-pod viewer correction and dock lower-enclosure design. Original sourceHashes, artifacts and 144-model compilation above identify the pre-integration validation snapshot. Camera-pod CAD and booklet generators are unchanged; this section identifies the combined registry and BOM inputs. Full combined CAD/booklet checks are required by the pull request CI.",
     "sourceHashes": {
-      "bom/catalog/fabrication.json": "8c4a29e402d4cdd3b2be4ae62670f321e4b263305a45d8966122fc59c2cc0ab0",
-      "bom/catalog/parts.json": "8e55c7edee053724a6d33c1e7e3a397d0aeb4769d3586e7d96d03fb16a87d76c",
-      "hardware/models.json": "37bd5f6face831e9c0d7368a180a733b5f9071de30370d0a99b58229dc74016d",
-      "packages/arbi-bom/src/fabrication.test.ts": "3510663e8778d9b625e48eba19b066f1fbd31657052dec36e7177d10bb73ba58"
+      "bom/catalog/fabrication.json": "547a38a083a650b42af1f78e10b142b9fdc211ef8125ea10cc97da321b71af00",
+      "bom/catalog/parts.json": "4ed84b0cf1618de2a3818925bf3285ddaa5dc29552db3b60af80132a4e2ba4f5",
+      "hardware/models.json": "55f076fade35fa0530711fdc35aedc8e23ea54e63020ad3c895eba8c4060de84",
+      "packages/arbi-bom/src/fabrication.test.ts": "3510663e8778d9b625e48eba19b066f1fbd31657052dec36e7177d10bb73ba58",
+      "scripts/camera-pod-booklet/test_model_selection.py": "540a6da7199f4203584b37d1fc8d4f756c74422e509e02c52024a1423f922422",
+      "scripts/camera-pod-booklet/README.md": "07b0c1041f2a428f664427939da17bcee0a403be0f40866c5d30400b6932a2ee"
     },
     "registeredModels": 146,
     "bomReportsCurrent": true,
@@ -814,6 +816,7 @@
     "documentationSiteTests": 55,
     "markdownFilesChecked": 388,
     "estimatedMaterialSubtotalEUR": "410.01",
-    "estimatedPartialSubtotalEUR": "1268.06"
+    "estimatedPartialSubtotalEUR": "1268.06",
+    "cadValidatorTests": 18
   }
 }

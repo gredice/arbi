@@ -222,7 +222,7 @@
       "hardware/lib/winch-drum.scad": "0684c28615d398d1b7a2beb7d15a4fa4e27d62382b8a8bde1470367f5de1e837",
       "hardware/lib/winch-mount.scad": "14c45ece0170d198ac5322dcb34a8b4b844fa6cc6efddb7bf683c96bed8d0bd3",
       "hardware/lib/winch-pole.scad": "58e2f446a74cb8d38e31c332727ae31ab6e10ec49ce38ba16dcd88a20ba8fc85",
-      "hardware/models.json": "37bd5f6face831e9c0d7368a180a733b5f9071de30370d0a99b58229dc74016d",
+      "hardware/models.json": "55f076fade35fa0530711fdc35aedc8e23ea54e63020ad3c895eba8c4060de84",
       "hardware/vendor/BOSL2/affine.scad": "035629bc49574b7b745afd2cb493efb1ff8d7bdf6f7fa7cf0abe92d6f99b76c8",
       "hardware/vendor/BOSL2/attachments.scad": "d7eb1f2d0ec74b713ceb14532bcb2b3ec7bc04c28ff0ef12eaf1c886562cc8cb",
       "hardware/vendor/BOSL2/ball_bearings.scad": "6db8a93775a4e7ee222df949a73bf181b065094b4ac1e9cf44706201ebd614bb",

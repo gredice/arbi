@@ -776,7 +776,7 @@
             "entrypoint": "hardware/assemblies/camera-pod/camera-pod-integrated-gimbal-carrier.scad",
             "output": "camera-pod-integrated-gimbal-carrier-r0.2.0.stl",
             "documentation": "hardware/assemblies/camera-pod/README.md",
-            "description": "Separate pan-moving internal carrier for the compact enclosed gimbal, with a relocated horizontal tilt servo and four M2 attachment tabs for the one-piece outer head."
+            "description": "Separate pan-moving internal carrier for the compact enclosed gimbal, with a relocated horizontal tilt servo and four M3 attachment tabs for the one-piece outer head."
         },
         {
             "id": "camera-pod-integrated-camera-cradle",

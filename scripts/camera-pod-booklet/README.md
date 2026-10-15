@@ -14,7 +14,7 @@ OpenSCAD must be the registry-pinned 2021.01. VTK 9.5.2 is pinned for rendering.
 
 `--reuse-models` requires the same variant, matching CAD input hashes and STL hashes, then reruns assembly/service checks and rendering. `--checks-only` exports and checks without rendering a PDF or creating a ZIP. `--publish` copies the PDF and ZIP into the camera-pod documentation folder when a repository snapshot has been requested.
 
-The assembly definition is `integration.py`. `check_integration.py` checks nominal rigid interference through 555 pan/tilt poses and overtravel stops. `check_service.py` checks assembly paths, staged tool access, the nominal viewing volume, and a deliberately incorrect proud-head regression control. The enclosure adds a 111-pose rigid fixed-power-route proxy and an intentionally misplaced central-drop regression control. The compact-gimbal build passes the staged service paths, the tool envelopes, six port/drain envelopes, 15 optical poses and the 111-pose route check, with both negative controls detected. The paths include complete M2 camera bolts and Ø5 mm front washers through optical hood tunnels, head nut/washer preloading, top-down head bolts, lateral pivot-support fitting and removal of the head, camera and carrier. Regenerate these outcomes whenever the selected revisions change; the earlier cowl-based service report does not apply. Both checkers must pass before the PDF is built. For cradle r0.1.1, `check_cradle.py` also verifies the original bounding box, open interfaces and at least 30 mm² through three horn/frame sections; a deliberately thin joint must fail. Its report is included in the enclosure evidence. Print this cradle with the outer horn face on the bed (−90° about Y, then place on bed); inspect remaining bridges and use local supports where needed. See the [cradle record](../../hardware/assemblies/camera-pod/camera-pod-camera-cradle-check.md).
+The assembly definition is `integration.py`. `check_integration.py` checks nominal rigid interference through 555 pan/tilt poses and overtravel stops. `check_service.py` checks assembly paths, staged tool access, the nominal viewing volume, and a deliberately incorrect proud-head regression control. The enclosure adds a 111-pose rigid fixed-power-route proxy and an intentionally misplaced central-drop regression control. The compact-gimbal build passes the staged service paths, the tool envelopes, six port/drain envelopes, 15 optical poses and the 111-pose route check, with both negative controls detected. The paths include rear M2 camera bolts through cradle recesses and front nut preloading into the loose optical hood, head nut/washer preloading, top-down head bolts, lateral pivot-support fitting and removal of the head, camera and carrier. Regenerate these outcomes whenever the selected revisions change; the earlier cowl-based service report does not apply. Both checkers must pass before the PDF is built. For cradle r0.1.1, `check_cradle.py` also verifies the original bounding box, open interfaces and at least 30 mm² through three horn/frame sections; a deliberately thin joint must fail. Its report is included in the enclosure evidence. Print this cradle with the outer horn face on the bed (−90° about Y, then place on bed); inspect remaining bridges and use local supports where needed. See the [cradle record](../../hardware/assemblies/camera-pod/camera-pod-camera-cradle-check.md).
 
 Populate the carrier outside the body and fit the pan OEM centre screw before installing the camera. At the bench, fasten the stock tilt horn and retainer to the separate cradle before engaging the mounted tilt servo; its case blocks the rear retainer driver afterward. Seat the cradle, secure the tilt OEM centre screw, then slide the opposite support inward along -X from 12 mm to its right. Secure the support and existing M3 pivot before fitting the camera; the previous upward support path collides with this geometry. Slide each body M3 nut and lower washer 13 mm outward from its inward-facing opening, raise the body around the complete neutral carrier, and install four M3 x 12 bolts from above before fitting the upper tray and electronics. For service, support the spider and fixed pan mount with a bench fixture, release the harness and remove the upper stack. At neutral, remove the four upper head bolts/washers and lower the body with its captured lower hardware. With the body off, remove the four rear camera screws, then lower the camera/optical hood with its front nuts. There is no separate cowl-removal stage. The open cradle then admits the OEM pan-centre driver and screw removal before lowering the supported carrier from the fixed servo. The report records the parts removed at each stage and checks 80 mm head-bolt and 65 mm pan-centre driver shafts; handles and wrench turning remain unmodeled.
 
@@ -65,8 +65,10 @@ See [mount interfaces and quantities](../../hardware/assemblies/camera-pod/camer
 ## Wide camera and open rear hood
 
 The selected module is Camera Module 3 Wide, confirmed by the owner on
-12 October 2026. Reprint only P09 integrated hood r0.1.3 and use assembly r0.4.0.
-Its low flared walls, 13.6 mm optical opening and open CSI edge give more room
+12 October 2026. The earlier P09 integrated hood r0.1.3 addressed the repeat
+insertion failure; the stock-fastener assembly r0.4.0 now requires the seven
+[replacement prints](../../docs/assemblies/camera-pod/fastener-standardization.md#replacement-prints),
+including hood r0.2.0. Its low flared walls, 13.6 mm optical opening and open CSI edge give more room
 for the repeat insertion failure reported on 14 October. Camera r0.2.0 and the
 booklet share `hardware/lib/raspberry-pi-camera-module-3.scad`.
 
@@ -74,11 +76,11 @@ booklet share `hardware/lib/raspberry-pi-camera-module-3.scad`.
 paths from ±20 degrees, a larger autofocus allowance, front alignment margin,
 rear access and previous-hood collision controls. The guided path aligns over
 the final 12 mm before seating; it does not certify arbitrary tilted insertion.
-`check_service.py` checks camera bolts/washers, cradle insertion and 102° ×67°
+`check_service.py` checks rear camera bolts, captive front nuts, cradle insertion and 102° ×67°
 Wide optics. Prepare the camera in the loose hood lens-first on the bench,
 align the PCB flat on all four seats, connect the ribbon at the open edge,
-then clamp the pair to the cradle. Use four M2 ×8 bolts in the recessed cradle, four nuts and eight
-washers. Enclosure revision 10 illustrates this sequence; bench revision 7 is
+then clamp the pair to the cradle. Use four rear M2 ×8 bolts in the recessed
+cradle and four captive front M2 nuts, without camera washers. Enclosure revision 10 illustrates this sequence; bench revision 7 is
 unchanged. [The current fit record](../../docs/evidence/camera-cover-assembly-2026-10-14.md)
 distinguishes these nominal checks from the required reprint/received-unit trial.
 
