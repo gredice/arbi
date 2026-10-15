@@ -17,20 +17,22 @@ def main():
                                  and not p['name'].startswith('converter-')])
     assert not envelope_hits,('Full measured envelope',envelope_hits)
     probes=[];controls=[];access=[];paths=[]
-    shift=3 if ENCLOSURE else 6
+    # The new frame nuts are below the converter, so the former X32/M4
+    # collision is historical. A gross inward shift must still be detected.
+    shift=30 if ENCLOSURE else 6
     old=dict(converter,matrix=(T(-shift,0,0)@np.array(converter['matrix'])).tolist())
     old_solid,_=solid(old)
     collisions=[]
     for p in parts:
-        if p['name'].startswith('frame-nut-'):
+        if p['name']=='pi' if ENCLOSURE else p['name'].startswith('frame-nut-'):
             volume=float((old_solid^solid(p)[0]).volume())
             if volume>EPS_VOLUME:collisions.append({'part':p['name'],'volume_mm3':volume})
-    assert collisions,'Original converter/frame-nut interference control missed'
-    old_position_control={'centre_xy_mm':[32 if ENCLOSURE else 40,0],
+    assert collisions,'Misplaced converter interference control missed'
+    old_position_control={'centre_xy_mm':[5 if ENCLOSURE else 40,0],
                           'collision_detected':True,'hits':collisions}
     for i in range(4):
         bolt=by[f'converter-bolt-{i}'];x,y=np.array(bolt['matrix'])[:2,3]
-        for name,d,z,h in [('measured PCB hole',2.9,22.49,1.63),('printed support bore',2.7,17.49,5.03)]:
+        for name,d,z,h in [('measured PCB hole',2.9,22.49,1.63),('printed support bore',2.1 if ENCLOSURE else 2.7,17.49,5.03)]:
             targets=[converter] if name=='measured PCB hole' else [by['deck']]
             collision=hits(cylinder(d,h,T(x,y,z)),targets)
             assert not collision,(name,i,collision)

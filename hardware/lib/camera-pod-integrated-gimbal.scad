@@ -18,11 +18,14 @@ module camera_pod_integrated_gimbal_carrier() {
                 camera_pod_pan_yoke();
                 pm_box([160,160,70],[0,0],-31.7);
             }
-            // Four unchanged M2 attachment axes for the removable outer head.
+            // Four M3 attachment axes for the removable outer head.
             for(x=[-8,8]) {
                 pm_link([x,10],[x,30.5],7,2.5,-31.7);
                 pm_cyl(7,2.5,[x,-30.5,-31.7]);
             }
+            // Wider support pad fills the old M2 axes before recutting the
+            // M3 pair at +/-9, clear of the support's central leg.
+            pm_box([10,26,4.5],[23,0],-31.7);
             // The servo is rolled 90 degrees about its X output axis: its
             // 20 mm nominal body length and measured 25 mm ear-hole pitch run along Y.
             pm_box([2.5,33,14],[pg_lug_inner_x-1.25,pg_servo_y],pg_tilt_z-7);
@@ -39,7 +42,11 @@ module camera_pod_integrated_gimbal_carrier() {
         // two ties above reconnect the outboard rail around this swept relief.
         // Extend its inner edge 3 mm for the cradle/horn spline seating path.
         pm_box([10.2,28,12],[-18.9+pg_drive_shift,pg_tilt_y],-31.71);
-        for(x=[-8,8],y=[-30.5,30.5])pm_cyl(2.3,7,[x,y,-32]);
+        for(x=[-8,8],y=[-30.5,30.5])pm_cyl(3.3,7,[x,y,-32]);
+        for(y=[-9,9])pm_cyl(3.3,6,[23,y,-32]);
+        // Pan retainer: recover 0.4 mm of projection for M2 x 8 without
+        // raising its flush head toward the fixed servo body.
+        for(y=[-10,10])pm_cyl(5.4,.41,[0,y,-31.71]);
         pm_box([4,pm_servo_window[0],pm_servo_window[1]],
             [pg_lug_inner_x-1.25,pg_servo_y],pg_tilt_z-pm_servo_window[1]/2);
         for(y=[pg_servo_y-pm_servo_lug_pitch/2,pg_servo_y+pm_servo_lug_pitch/2]) {
@@ -91,6 +98,10 @@ module camera_pod_integrated_camera_cradle() {
                 pm_box([120,100,100],[0,0],-64.5);
             }
             pg_cradle_braces();
+            // Recess rear screw heads, away from the CSI envelope. The
+            // camera's front nuts load into the unchanged optical-hood lands.
+            for(x=[-10.5,10.5],y=[4.931,-7.569])
+                pm_cyl(6,3.6,[x,y,-61.1]);
         }
         // Recut the complete shifted clamp through the reused frame: unioning
         // the translated panel must not refill the horn pocket or screw tips.
@@ -102,9 +113,9 @@ module camera_pod_integrated_camera_cradle() {
         }
         // Recut both the full screw bores and the rear washer/socket lands;
         // the rib feet slightly overlap the original left camera bosses.
-        for(y=[4.931,-7.569]) {
-            pm_cyl(2.3,8,[-10.5,y,-64.01]);
-            pm_cyl(5.5,4,[-10.5,y,-57.5]);
+        for(x=[-10.5,10.5],y=[4.931,-7.569]) {
+            pm_cyl(2.3,8,[x,y,-64.01]);
+            pm_cyl(4.2,8,[x,y,-61]);
         }
     }
 }
@@ -113,7 +124,7 @@ module camera_pod_integrated_tilt_pivot_support() {
     difference() {
         union() {
             // Existing two-bolt upper pad; only the leg below it is shortened.
-            pm_box([10,22,3],[23,0],-34.7);
+            pm_box([10,26,3],[23,0],-34.7);
             hull() {
                 pm_box([3,8,2],[23.5,0],-36.7);
                 pm_box([3,8,2],[23.5,pg_tilt_y],pg_tilt_z);
@@ -127,7 +138,7 @@ module camera_pod_integrated_tilt_pivot_support() {
                 pm_xcyl(3,3.6,[21.4,yy,zz]);
             }
         }
-        for(y=[-7,7])pm_cyl(2.3,4,[23,y,-34.71]);
+        for(y=[-9,9])pm_cyl(3.3,4,[23,y,-34.71]);
         pm_xcyl(3.3,5,[21,pg_tilt_y,pg_tilt_z]);
     }
 }

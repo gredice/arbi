@@ -103,8 +103,9 @@ module camera_pod_rain_hood() {
         for(x=pe_cover_x,y=pe_cover_y) {
             pm_cyl(3.3,27.3,[x,y,20.49]);
             // Side-loaded M3 plain nut pocket; roof above it remains closed.
-            translate([x,y,44])cylinder(d=5.8/cos(30),h=2.7,$fn=6);
-            pm_box([7,9,2.7],[x,y+(y<0?4.5:-4.5)],44);
+            // Ten millimetres lower than the old pocket, for M3 x 25.
+            translate([x,y,34])cylinder(d=5.8/cos(30),h=2.7,$fn=6);
+            pm_box([7,9,2.7],[x,y+(y<0?4.5:-4.5)],34);
         }
     }
 }
@@ -266,6 +267,11 @@ module camera_pod_integrated_camera_hood() {
         // is unchanged because the assembled hood translates 2 mm rearward.
         // Clear the complete front washer up to the Z=8 land underside,
         // including the outside gusset's overlap with the tunnel wall.
-        for(x=[-10.5,10.5],y=[9.931,-2.569])pm_cyl(5.4,6.01,[x,y,1.99]);
+        for(x=[-10.5,10.5],y=[9.931,-2.569]) {
+            // M2 front nut slides through a hex tunnel to the printed land.
+            // Rear heads recess in the cradle. Both metal bearing faces
+            // contact printed seats, not the PCB; camera washers are omitted.
+            translate([x,y,1.99])cylinder(d=4.4/cos(30),h=6.01,$fn=6);
+        }
     }
 }

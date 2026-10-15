@@ -1,4 +1,4 @@
-// ARBI camera-pod-assembly r0.3.10 — concept-unvalidated reference. Do not print.
+// ARBI camera-pod-assembly r0.4.0 — concept-unvalidated reference. Do not print.
 include <../../lib/camera-pod.scad>
 include <../../lib/camera-pod-enclosure.scad>
 include <../../lib/camera-pod-integrated-gimbal.scad>
@@ -16,8 +16,6 @@ module camera_pod_assembly(pan=0,tilt=0,show_hood=true) {
     color(ARBI_CORE) {
         camera_pod_spider(230,22,7,54,18,6,22,4.5,96);
         camera_pod_integrated_deck();
-        for(x=[-pm_mount_xy,pm_mount_xy],y=[-pm_mount_xy,pm_mount_xy])
-            translate([x,y,3.5])camera_pod_spider_spacer();
         camera_pod_pan_servo_mount();
         camera_pod_enclosure_base();
     }

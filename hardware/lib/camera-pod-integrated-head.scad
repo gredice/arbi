@@ -1,4 +1,4 @@
-// ARBI one-piece moving camera pod head r0.1.5, millimetres.
+// ARBI one-piece moving camera pod head r0.2.0, millimetres.
 // Concept-unvalidated: the outer enclosure pans with the separate inner carrier.
 include <camera-pod-enclosure.scad>
 include <camera-pod-integrated-gimbal.scad>
@@ -67,7 +67,7 @@ module camera_pod_integrated_gimbal_head() {
             for(x=ph_mount_x,y=ph_mount_y) {
                 // Captive plain nut and washer load from the inside before the
                 // carrier enters; no hidden wrench is needed inside the head.
-                pm_cyl(8.2,5.8,[x,y,-37.5]);
+                pm_cyl(10.4,6.8,[x,y,-38.5]);
                 intersection() {
                     pm_link([x,y],[x,y<0?-48:48],5,3,-34.7);
                     ph_volume();
@@ -75,10 +75,10 @@ module camera_pod_integrated_gimbal_head() {
             }
         }
         for(x=ph_mount_x,y=ph_mount_y) {
-            pm_cyl(2.3,6,[x,y,-37.6]);
-            translate([x,y,-36.8])cylinder(d=4.4/cos(30),h=1.8,$fn=6);
-            pm_cyl(5.4,.3,[x,y,-35]);
-            pm_box([5.4,8,2.1],[x,y+(y<0?4:-4)],-36.8);
+            pm_cyl(3.3,10,[x,y,-41]);
+            translate([x,y,-37.8])cylinder(d=5.8/cos(30),h=2.6,$fn=6);
+            pm_cyl(7.4,.5,[x,y,-35.2]);
+            pm_box([7.4,10,3.1],[x,y+(y<0?5:-5)],-37.8);
         }
     }
 }

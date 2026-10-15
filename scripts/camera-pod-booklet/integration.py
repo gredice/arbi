@@ -47,7 +47,8 @@ def assembly(pan=0,tilt=0,cover=True,hardware=True,enclosure=None):
  add('spider','camera-pod-spider',color=BLACK if enclosure else BLUE)
  add('deck','camera-pod-integrated-deck' if enclosure else 'camera-pod-electronics-deck')
  u=22/math.sqrt(2)
- for i,(x,y) in enumerate([(x,y) for x in [-u,u] for y in [-u,u]]):add(f'spider-spacer-{i}','camera-pod-spider-spacer',T(x,y,3.5))
+ if not enclosure:
+  for i,(x,y) in enumerate([(x,y) for x in [-u,u] for y in [-u,u]]):add(f'spider-spacer-{i}','camera-pod-spider-spacer',T(x,y,3.5))
  add('pan-mount','camera-pod-pan-servo-mount')
  add('pan-yoke','camera-pod-integrated-gimbal-carrier' if enclosure else 'camera-pod-pan-yoke',group='pan')
  if enclosure:add('gimbal-head','camera-pod-integrated-gimbal-head',group='pan')
@@ -81,24 +82,24 @@ def assembly(pan=0,tilt=0,cover=True,hardware=True,enclosure=None):
  # M2.5x10: PCB1.6 + top washer.5 + support2 + deck3 + washer.5 + nut2 = 9.6.
  # Converter dimensions other than its envelope/hole pattern remain nominal.
  for i,(x,y) in enumerate([(x,y) for x in ([23,47] if enclosure else [23.5,68.5]) for y in ([-22.5,22.5] if enclosure else [-12,12])]):
-  hw(f'converter-bolt-{i}','bolt-M2p5x10-reference',T(x,y,24.6)@R('x',180))
-  hw(f'converter-top-washer-{i}','washer-M2p5-reference',T(x,y,24.1))
-  hw(f'converter-bottom-washer-{i}','washer-M2p5-reference',T(x,y,17))
-  hw(f'converter-nut-{i}','nut-M2p5-reference',T(x,y,15))
+  hw(f'converter-bolt-{i}','bolt-M2x8-reference' if enclosure else 'bolt-M2p5x10-reference',T(x,y,24.4 if enclosure else 24.6)@R('x',180))
+  hw(f'converter-top-washer-{i}','washer-M2-reference' if enclosure else 'washer-M2p5-reference',T(x,y,24.1))
+  hw(f'converter-bottom-washer-{i}','washer-M2-reference' if enclosure else 'washer-M2p5-reference',T(x,y,19.1 if enclosure else 17))
+  hw(f'converter-nut-{i}','nut-M2-reference' if enclosure else 'nut-M2p5-reference',T(x,y,17.5 if enclosure else 15))
   for p in parts[-4:]:p['bomPartId']='camera-pod-fastener-kit'
  # Screw reference shank +Z, head below Z=0. Washer reference +Z.
  for i,(x,y) in enumerate([(x,y) for x in [-u,u] for y in [-u,u]]):
-  hw(f'frame-bolt-{i}','bolt-M4x35-reference',T(x,y,-7.3)@(R('z',30) if enclosure else np.eye(4)))
-  hw(f'frame-lower-washer-{i}','washer-M4-reference',T(x,y,-7.3)@(R('z',30) if enclosure else np.eye(4)))
-  hw(f'frame-upper-washer-{i}','washer-M4-reference',T(x,y,20.5))
+  hw(f'frame-bolt-{i}','bolt-M3x25-reference' if enclosure else 'bolt-M4x35-reference',T(x,y,-7 if enclosure else -7.3))
+  hw(f'frame-lower-washer-{i}','washer-M3-reference' if enclosure else 'washer-M4-reference',T(x,y,-7 if enclosure else -7.3))
+  hw(f'frame-upper-washer-{i}','washer-M3-reference' if enclosure else 'washer-M4-reference',T(x,y,12.7 if enclosure else 20.5))
   # Align hex flats toward the compact converter; preserve the bench orientation.
-  hw(f'frame-nut-{i}','nut-M4-reference',T(x,y,21.3)@R('z',30 if enclosure else 0))
+  hw(f'frame-nut-{i}','nut-M3-reference' if enclosure else 'nut-M4-reference',T(x,y,13.2 if enclosure else 21.3))
  for i,(x,y) in enumerate([(x,y) for x in ([-51,7] if enclosure else [-66,-8]) for y in [-24.5,24.5]]):
   # 20 mm screws: board1.6 + washer.5 + post10 + deck3 + washer.5 + nut2 =17.6.
-  hw(f'pi-bolt-{i}','bolt-M2p5x20-reference',T(x,y,32.6)@R('x',180))
-  hw(f'pi-top-washer-{i}','washer-M2p5-reference',T(x,y,32.1))
-  hw(f'pi-bottom-washer-{i}','washer-M2p5-reference',T(x,y,17))
-  hw(f'pi-nut-{i}','nut-M2p5-reference',T(x,y,15))
+  hw(f'pi-bolt-{i}','bolt-M2x8-reference' if enclosure else 'bolt-M2p5x20-reference',T(x,y,32.4 if enclosure else 32.6)@R('x',180))
+  hw(f'pi-top-washer-{i}','washer-M2-reference' if enclosure else 'washer-M2p5-reference',T(x,y,32.1))
+  hw(f'pi-bottom-washer-{i}','washer-M2-reference' if enclosure else 'washer-M2p5-reference',T(x,y,27.1 if enclosure else 17))
+  hw(f'pi-nut-{i}','nut-M2-reference' if enclosure else 'nut-M2p5-reference',T(x,y,25.5 if enclosure else 15))
  for i,x in enumerate([-17.5,7.5]):
   hw(f'pan-servo-bolt-{i}','csk-M1p6x6-reference',T(x,0,-25))
   hw(f'pan-servo-nut-{i}','nut-M1p6-reference',T(x,0,-20.5))
@@ -107,38 +108,38 @@ def assembly(pan=0,tilt=0,cover=True,hardware=True,enclosure=None):
   hw(f'tilt-servo-bolt-{i}','csk-M1p6x6-reference',T(-24+ENCLOSURE_DRIVE_SHIFT_X,ear_y,axis_z)@R('x',90)@R('y',-90) if enclosure else T(-24,0,z)@R('y',-90),'pan')
   hw(f'tilt-servo-nut-{i}','nut-M1p6-reference',T(-28.5+ENCLOSURE_DRIVE_SHIFT_X,ear_y,axis_z)@R('x',90)@R('y',-90) if enclosure else T(-28.5,0,z)@R('y',-90),'pan')
  for i,y in enumerate([-10,10]):
-  hw(f'pan-retainer-bolt-{i}','csk-M2x10-reference',T(0,y,-26)@R('x',180),'pan')
-  hw(f'pan-retainer-bottom-washer-{i}','washer-M2-reference',T(0,y,-32),'pan')
-  hw(f'pan-retainer-nut-{i}','nut-M2-reference',T(0,y,-33.6),'pan')
+  hw(f'pan-retainer-bolt-{i}','csk-M2x8-reference' if enclosure else 'csk-M2x10-reference',T(0,y,-26)@R('x',180),'pan')
+  hw(f'pan-retainer-bottom-washer-{i}','washer-M2-reference',T(0,y,-31.6 if enclosure else -32),'pan')
+  hw(f'pan-retainer-nut-{i}','nut-M2-reference',T(0,y,-33.2 if enclosure else -33.6),'pan')
   hw(f'tilt-retainer-bolt-{i}','csk-M2x8-reference',H@T(0,y,1.2)@R('x',180),'tilt')
   hw(f'tilt-retainer-bottom-washer-{i}','washer-M2-reference',H@T(0,y,-4.3),'tilt')
   hw(f'tilt-retainer-nut-{i}','nut-M2-reference',H@T(0,y,-5.9),'tilt')
  for i,(x,y) in enumerate([(x,y) for x in [-10.5,10.5] for y in [4.931,-7.569]]):
-  hw(f'camera-bolt-{i}','bolt-M2x12-reference',compact@T(x,y,-66.82), 'tilt')
-  hw(f'camera-front-washer-{i}','washer-M2-reference',compact@T(x,y,-66.82),'tilt')
-  hw(f'camera-back-washer-{i}','washer-M2-reference',compact@T(x,y,-57.5),'tilt')
-  hw(f'camera-nut-{i}','nut-M2-reference',compact@T(x,y,-57.2),'tilt')
- for i,y in enumerate([-7,7]):
-  hw(f'pivot-support-bolt-{i}','bolt-M2x12-reference',T(23,y,-26.9)@R('x',180),'pan')
-  hw(f'pivot-support-top-washer-{i}','washer-M2-reference',T(23,y,-27.2),'pan')
-  hw(f'pivot-support-bottom-washer-{i}','washer-M2-reference',T(23,y,-35),'pan')
-  hw(f'pivot-support-nut-{i}','nut-M2-reference',T(23,y,-36.6),'pan')
+  hw(f'camera-bolt-{i}','bolt-M2x8-reference' if enclosure else 'bolt-M2x12-reference',compact@T(x,y,-61)@R('x',180) if enclosure else compact@T(x,y,-66.82), 'tilt')
+  if not enclosure:hw(f'camera-front-washer-{i}','washer-M2-reference',compact@T(x,y,-66.82),'tilt')
+  if not enclosure:hw(f'camera-back-washer-{i}','washer-M2-reference',compact@T(x,y,-57.5),'tilt')
+  hw(f'camera-nut-{i}','nut-M2-reference',compact@T(x,y,-68.12 if enclosure else -57.2),'tilt')
+ for i,y in enumerate([-9,9] if enclosure else [-7,7]):
+  hw(f'pivot-support-bolt-{i}','bolt-M3x12-reference' if enclosure else 'bolt-M2x12-reference',T(23,y,-26.7 if enclosure else -26.9)@R('x',180),'pan')
+  hw(f'pivot-support-top-washer-{i}','washer-M3-reference' if enclosure else 'washer-M2-reference',T(23,y,-27.2),'pan')
+  hw(f'pivot-support-bottom-washer-{i}','washer-M3-reference' if enclosure else 'washer-M2-reference',T(23,y,-35.2 if enclosure else -35),'pan')
+  hw(f'pivot-support-nut-{i}','nut-M3-reference' if enclosure else 'nut-M2-reference',T(23,y,-37.6 if enclosure else -36.6),'pan')
  hw('pivot-bolt','bolt-M3x12-reference',compact@T(25.5,0,-59)@R('y',-90),'tilt')
  hw('pivot-outer-washer','washer-M3-reference',compact@T(25,0,-59)@R('y',90),'pan')
  hw('pivot-gap-shim','washer-M3x0p7-reference',compact@T(21.3,0,-59)@R('y',90),'pan')
  hw('pivot-nut','nut-M3-reference',compact@T(15.6,0,-59)@R('y',90),'tilt')
  if enclosure:
   for i,(x,y) in enumerate([(x,y) for x in [-8,8] for y in [-30.5,30.5]]):
-   hw(f'head-bolt-{i}','bolt-M2x10-reference',T(x,y,-28.9)@R('x',180),'pan')
-   hw(f'head-upper-washer-{i}','washer-M2-reference',T(x,y,-29.2),'pan')
-   hw(f'head-lower-washer-{i}','washer-M2-reference',T(x,y,-35),'pan')
-   hw(f'head-nut-{i}','nut-M2-reference',T(x,y,-36.6),'pan')
+   hw(f'head-bolt-{i}','bolt-M3x12-reference',T(x,y,-28.7)@R('x',180),'pan')
+   hw(f'head-upper-washer-{i}','washer-M3-reference',T(x,y,-29.2),'pan')
+   hw(f'head-lower-washer-{i}','washer-M3-reference',T(x,y,-35.2),'pan')
+   hw(f'head-nut-{i}','nut-M3-reference',T(x,y,-37.6),'pan')
  if cover:
   for i,(x,y) in enumerate([(x,y) for x in (ENCLOSURE_COVER_X if enclosure else [-72,65]) for y in (ENCLOSURE_COVER_Y if enclosure else [-32,32])]):
    if enclosure:
-    hw(f'cover-bolt-{i}','bolt-M3x35-reference',T(x,y,12.7))
+    hw(f'cover-bolt-{i}','bolt-M3x25-reference',T(x,y,12.7))
     hw(f'cover-bottom-washer-{i}','washer-M3-reference',T(x,y,12.7))
-    hw(f'cover-nut-{i}','nut-M3-reference',T(x,y,44))
+    hw(f'cover-nut-{i}','nut-M3-reference',T(x,y,34))
    else:
     hw(f'cover-bolt-{i}','bolt-M3x35-reference',T(x,y,46.5)@R('x',180))
     hw(f'cover-top-washer-{i}','washer-M3-reference',T(x,y,46))

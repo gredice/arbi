@@ -11,13 +11,13 @@
 - Build: arbi-v1
 - Destination: hr-zagreb
 - Quote snapshot: hr-zagreb-2026-10-08-coupling
-- Input digest: sha256:afced9766dda7650bdb6a7ae728959a25966ec624f427157773b121f616c3eaa
+- Input digest: sha256:661e3966f2c22fb8293c31ab448929a9c4a5491de2a5d48087b9cb86ba6cd60a
 - Complete landed total: **unavailable**
 - Known quoted goods subtotal: **EUR 814.67**
 - Known checkout-group shipping subtotal: **EUR 43.38**
 - Known partial subtotal: **EUR 858.05**
-- Estimated print materials: **EUR 409.99**
-- Estimated partial subtotal (known amounts + print materials): **EUR 1268.04**
+- Estimated print materials: **EUR 410.01**
+- Estimated partial subtotal (known amounts + print materials): **EUR 1268.06**
 
 The known partial subtotal is evidence about recorded values only. It excludes every unresolved amount and must not be presented as the project cost.
 
@@ -43,8 +43,8 @@ Solid CAD volume × each component's material density × observed roll price / r
 
 | Part | Required | Material | Estimated weight | Estimated material cost |
 | --- | ---: | --- | ---: | ---: |
-| [camera-gimbal](parts/camera-gimbal.md) | 1 | PETG Matte + PETG Basic | 50.008 g | EUR 0.57 |
-| [camera-pod-chassis](parts/camera-pod-chassis.md) | 1 | PETG Matte + PETG Basic | 206.933 g | EUR 2.36 |
+| [camera-gimbal](parts/camera-gimbal.md) | 1 | PETG Matte + PETG Basic | 50.939 g | EUR 0.58 |
+| [camera-pod-chassis](parts/camera-pod-chassis.md) | 1 | PETG Matte + PETG Basic | 207.819 g | EUR 2.37 |
 | [corner-head-printed-kit](parts/corner-head-printed-kit.md) | 4 | ASA + PETG Matte | 6576.581 g | EUR 148.04 |
 | [corner-head-printed-marking-template](parts/corner-head-printed-marking-template.md) | 1 | ASA | 42.909 g | EUR 1.07 |
 | [dock-funnel](parts/dock-funnel.md) | 1 | PETG Basic | 143.821 g | EUR 1.64 |
