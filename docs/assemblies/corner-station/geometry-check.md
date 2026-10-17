@@ -2,8 +2,8 @@
 
 Historical r0.1.0 record. For the measured Barton interface and current carrier
 revision see the [11 October geometry record](barton-geometry-check.md). The
-[tie-free cover contract](tie-free-covers.md) defines the r1.1.0 carrier /
-r0.2.0 pad-and-cover interfaces and current verification requirements. The
+[tie-free cover contract](tie-free-covers.md) defines the r1.2.0 carrier /
+r0.3.0 pad-and-cover interfaces and current verification requirements. The
 results below retain their original geometry and do not describe those revisions.
 
 8 October 2026. New printed models r0.1.0, **concept-unvalidated**.

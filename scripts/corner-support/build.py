@@ -127,11 +127,11 @@ def print_pose(mid, size, line):
     tip = front+3-math.ceil((size+70)/10)*10
     rotation = trimesh.transformations.rotation_matrix
     if mid.endswith('left'):
-        return pose(y=205,z=60.5)@rotation(math.pi/2,[1,0,0])
+        return pose(y=205,z=60.2)@rotation(math.pi/2,[1,0,0])
     if mid.endswith('right'):
-        return pose(z=60.5)@rotation(-math.pi/2,[1,0,0])
+        return pose(z=60.2)@rotation(-math.pi/2,[1,0,0])
     if mid.endswith('rear-pad'):
-        return pose(25,44.5,14-rear)@rotation(-math.pi/2,[0,1,0])
+        return pose(22-rear,44.2,25)
     if mid.endswith('front-cover'):
         return pose(0,65,front+36)@rotation(math.pi/2,[0,1,0])
     if mid.endswith('rear-cover'):
@@ -215,14 +215,14 @@ def build(out):
     subprocess.run([sys.executable, str(ROOT/'scripts/corner-support/check-stand-adapter.py'),
                     '--record', str(out/'stand-adapter-check.json')], check=True)
     # The temporary old-head adapter is checked and shipped separately from the
-    # r1.1.0 booklet's installed print quantities and assembly illustrations.
+    # r1.2.0 booklet's installed print quantities and assembly illustrations.
     subprocess.run([sys.executable, str(ROOT/'scripts/corner-support/check-legacy-adapter.py'),
                     '--output', str(out/'legacy-pulley-adapter')], check=True)
     # Build in an empty directory, then copy a complete fresh snapshot. Stale
     # meshes in an existing output directory cannot enter the archive.
     registry = json.loads((ROOT/'hardware/models.json').read_text())
     models = {m['id']: m for m in registry['models']}
-    report = dict(revision='1.1.0', status='concept-unvalidated', configuration='Printed round 120 / passive line; concept-unvalidated',
+    report = dict(revision='1.2.0', status='concept-unvalidated', configuration='Printed round 120 / passive line; concept-unvalidated',
                   fabrication_ids=IDS, printed_model_ids=IDS, openscad='2021.01', checks=0, tangent_tolerance_mm=.001,
                   printer_envelope_mm=[BED_MM]*3, bed_edge_reserve_mm=BED_RESERVE_MM,
                   variants={}, statics=verify_load_reference(), block_equilibrium=verify_block_equilibrium())
@@ -333,13 +333,17 @@ def build(out):
                     limitation='One-part bounding box only; brim, supports and slicing are not qualified.')
             refs = {}
             for name, call in dict(post='pch_post();', hardware='pch_hardware();', cross_hardware='pch_cross_hardware();',
-                                   block='pch_block();', line='pch_line();',
-                                   front_cover_hardware='pch_cover_hardware("front");',
-                                   rear_cover_hardware='pch_cover_hardware("rear");').items():
+                                   block='pch_block();', line='pch_line();').items():
                 source = work/f'{name}.scad'
                 source.write_text(f'include <{LIB.as_posix()}>\n{call}\n')
                 path = (references if default else directory/'references')/(name+'.stl')
                 refs[name] = export(source, path, defines)
+            released = {}
+            for which in ['front','rear']:
+                source = work/f'{which}-cover-released.scad'
+                source.write_text(f'include <{LIB.as_posix()}>\ncorner_head_printed_{which}_cover(true);\n')
+                control = (work/'models/controls' if default else directory/'controls')/(which+'-cover-released.stl')
+                released[which] = export(source,control,defines)
             installed = instances(meshes)
             assert np.allclose(meshes['corner-head-printed-template'].extents,[205,50,4]), (key,'template')
             pin = size/2+33+(130.3 if line==1.5 else 130.9)+15-line/2-42/math.sqrt(2)
@@ -392,21 +396,23 @@ def build(out):
                 for other,other_mesh in list(installed.items())[i+1:]:
                     clear(mesh,other_mesh,key+'/'+mid+'/'+other)
             front_cover, rear_cover = meshes['corner-head-printed-front-cover'], meshes['corner-head-printed-rear-cover']
-            fixed = {**{k:m for k,m in refs.items() if k not in ['front_cover_hardware','rear_cover_hardware']},
+            fixed = {**refs,
                      **{k:m for k,m in installed.items() if not k.endswith(('front-cover','rear-cover'))}}
-            for travel in [1,5,10,20,40,80,100,150,180,190]:
+            for travel in [.25,1,3,5,6,8,10,20,40,80,100,150,180,190]:
+                moving_front = released['front'] if travel<=8 else front_cover
+                moving_rear = released['rear'] if travel<=6 else rear_cover
                 for name, reference in fixed.items():
-                    clear(translated(front_cover,[0,0,-travel]),reference,key+f'/front-cover/down-{travel}/'+name)
-                clear(translated(front_cover,[0,0,-travel]),rear_cover,key+f'/front-cover/down-{travel}/rear-cover')
+                    clear(translated(moving_front,[0,0,-travel]),reference,key+f'/front-cover/down-{travel}/'+name)
+                clear(translated(moving_front,[0,0,-travel]),rear_cover,key+f'/front-cover/down-{travel}/rear-cover')
                 if travel<=100:
                     for name, reference in fixed.items():
                         clear(translated(front_cover,[0,travel,-190]),reference,key+f'/front-cover/side-{travel}/'+name)
                     clear(translated(front_cover,[0,travel,-190]),rear_cover,key+f'/front-cover/side-{travel}/rear-cover')
                 if travel<=80:
                     for name, reference in fixed.items():
-                        clear(translated(rear_cover,[-travel,0,0]),reference,key+f'/rear-cover/removal-{travel}/'+name)
-                    clear(translated(rear_cover,[-travel,0,0]),front_cover,key+f'/rear-cover/removal-{travel}/front-cover')
-            retention = check_cover_retention.verify(meshes, refs, size, overlap, clear)
+                        clear(translated(moving_rear,[-travel,0,0]),reference,key+f'/rear-cover/removal-{travel}/'+name)
+                    clear(translated(moving_rear,[-travel,0,0]),front_cover,key+f'/rear-cover/removal-{travel}/front-cover')
+            retention = check_cover_retention.verify(meshes, refs, size, overlap, clear, released)
             report['checks'] += retention['checks']
             radius = size/2
             for z in [45,155]:
@@ -462,7 +468,7 @@ def build(out):
         spec.loader.exec_module(renderer)
         def item(file,color,matrix=None):
             owners={'hardware':'corner-head-printed-hardware','cross_hardware':'corner-head-printed-hardware','post':'corner-post-treated-timber',
-                    'block':'top-positioning-line-pulley','line':'dyneema-positioning-line','front_cover_hardware':'corner-head-printed-hardware','rear_cover_hardware':'corner-head-printed-hardware'}
+                    'block':'top-positioning-line-pulley','line':'dyneema-positioning-line'}
             return dict(file=file,color=color,matrix=(np.eye(4) if matrix is None else matrix).tolist(),
                         **({'bomPartId':owners[Path(file).stem]} if Path(file).stem in owners else {}))
         parts = [item('models/reference/'+name+'.stl',[.66,.70,.73]) for name in ['hardware','cross_hardware']]
@@ -471,14 +477,16 @@ def build(out):
         parts += [item('models/arbi/'+models[mid]['output'],[.12,.14,.15]) for mid in IDS if mid.endswith(('left','right'))]
         parts += [item('models/arbi/'+models['corner-head-printed-rear-pad']['output'],[.12,.14,.15],pose(z=z)) for z in [45,155]]
         shields = [item('models/arbi/'+models[mid]['output'],[.94,.94,.92]) for mid in ['corner-head-printed-front-cover','corner-head-printed-rear-cover']]
-        cover_hardware = [item('models/reference/'+name+'_cover_hardware.stl',[.66,.70,.73]) for name in ['front','rear']]
-        renderer.render('covered',parts+shields+cover_hardware,direction=(.6,-1,.7),size=(1600,1100))
+        renderer.render('covered',parts+shields,direction=(.6,-1,.7),size=(1600,1100))
         renderer.render('open',parts,direction=(.6,-1,.7),size=(1600,1100))
         exploded = []
         for part, shift in zip(shields,[[0,100,-190],[-80,0,0]]):
             matrix=np.eye(4);matrix[:3,3]=shift
             exploded.append({**part,'matrix':matrix.tolist()})
         renderer.render('exploded',parts+exploded,direction=(.6,-1,.7),size=(1600,1100))
+        rear_inside = pose(x=125,y=240)@trimesh.transformations.rotation_matrix(math.pi,[0,0,1])
+        renderer.render('concealed-latches',[shields[0],{**shields[1],'matrix':rear_inside.tolist()}],
+                        direction=(-1,-.6,.55),size=(1600,1100))
         renderer.render('print-left',[item('models/print/'+models['corner-head-printed-left']['output'],[.12,.14,.15])],direction=(.5,-1,.75),size=(1500,1050))
         renderer.render('template',[item('models/arbi/'+models['corner-head-printed-template']['output'],[.12,.14,.15])],direction=(0,0,1),up=(0,1,0),size=(1300,650))
         stand_instructions.build(work, models, renderer, export, report)
@@ -499,13 +507,13 @@ def build(out):
             'before assembly.\n')
         (work/'figure-manifest.json').write_text(json.dumps(renderer.manifest,indent=2)+'\n')
         scene = trimesh.Scene()
-        for i,part in enumerate(parts+shields+cover_hardware):
+        for i,part in enumerate(parts+shields):
             mesh = trimesh.load_mesh(work/part['file'])
             mesh.visual.face_colors = [*[round(c*255) for c in part['color']],255]
             mesh.apply_transform(part['matrix'])
             scene.add_geometry(mesh,node_name=f'part-{i}',geom_name=Path(part['file']).stem)
         scene.apply_scale(.001)
-        (work/'corner-head-assembly-r1.1.0.glb').write_bytes(scene.export(file_type='glb'))
+        (work/'corner-head-assembly-r1.2.0.glb').write_bytes(scene.export(file_type='glb'))
         booklet(work, report)
         for path in work.rglob('*.stl'):
             report.setdefault('mesh_sha256',{})[path.relative_to(work).as_posix()] = digest(path)
@@ -517,7 +525,7 @@ def build(out):
         for path in (work/'source').rglob('__pycache__'):
             shutil.rmtree(path)
         (work/'README.txt').write_text(
-            'ARBI Corner support set r1.1.0 - concept-unvalidated\n'
+            'ARBI Corner support set r1.2.0 - concept-unvalidated\n'
             'Default: printed carrier, 120 mm round pole, passive 1.5 mm line.\n'
             'Pages 9-14 cover the optional WT-806 unloaded indoor fixture.\n'
             'models/stand/print contains current adapter STLs already posed for printing.\n'
@@ -538,7 +546,7 @@ def build(out):
         with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED) as pack:
             for path in sorted(work.rglob('*')):
                 if path.is_file():pack.write(path,ARTIFACT+'-STL-pack/'+path.relative_to(work).as_posix())
-        for name in [PDF,'geometry-report.json','manifest.json','figure-manifest.json','corner-head-assembly-r1.1.0.glb']:
+        for name in [PDF,'geometry-report.json','manifest.json','figure-manifest.json','corner-head-assembly-r1.2.0.glb']:
             shutil.copy2(work/name,out/name)
         shutil.copytree(work/'figures',out/'figures',dirs_exist_ok=True)
         with zipfile.ZipFile(archive) as pack:
@@ -594,15 +602,15 @@ def booklet(work, report):
         'The steel angle, machined saddles and stacked backing plates are replaced by a print-oriented carrier. Standard metal through-bolts, washers, locking nuts, crossbars and pulley pin remain. No custom metal fabrication is required by this proposed head.',
         'The block envelope and clevis dimensions are owner measurements; cheek/groove and locking detail surfaces remain reconstructed. Printed load parts need process, load and creep acceptance before loaded installation. The cosmetic covers conceal the M12 mounting stack; the upper M8 cross-bolt and pulley remain exposed for inspection.'], 'covered')
     page(2,'Inventory and print selection',[
-        '<b>One head:</b> 1 printed left carrier, 1 right carrier, 2 identical rear pads, 1 front cover, 1 rear cover. Cover retention uses 8 M3 x 12 socket screws, 8 OD7 x 0.5 washers and 8 plain AF5.5 x 2.4 nuts, four stacks per cover; no ties. One shared centre-marking template serves all four heads.',
+        '<b>One head:</b> 1 printed left carrier, 1 right carrier, 2 identical rear pads, 1 front cover, 1 rear cover. Both covers use internal printed T-guides and hidden releasable latches. No cover screws, washers, nuts or ties are installed. One shared centre-marking template serves all four heads.',
         '<b>Metal hardware per head:</b> 2 M12 through-bolts, 4 large washers and 2 locking nuts; 2 M8 x 100 carrier cross-bolts, 4 M8 washers and 2 locking nuts; the received pulley with a compatible retained attachment pin. Verify every actual dimension and locking zone.',
-        '<b>Four heads:</b> 4 left and 4 right carriers, 8 rear pads, 4 front and 4 rear covers, 32 M3 screws, 32 M3 washers, 32 M3 nuts, 8 M12 bolts, 16 large washers, 8 M12 nuts, 8 cross-bolts, 16 M8 washers, 8 M8 nuts and 4 pulleys.',
-        'Replace the angle/saddle/backing stack and select the new bolt lengths. Keep the historical metal alternative separate; do not combine its source STLs with the printed head. Actual print/pin locking engagement and thin-line retention remain open. Reprint both r1.1.0 carriers, two r0.2.0 pads and both r0.2.0 covers. The shared template is unchanged.',
+        '<b>Four heads:</b> 4 left and 4 right carriers, 8 rear pads, 4 front and 4 rear covers, 8 M12 bolts, 16 large washers, 8 M12 nuts, 8 cross-bolts, 16 M8 washers, 8 M8 nuts and 4 pulleys.',
+        'Replace the angle/saddle/backing stack and select the new bolt lengths. Keep the historical metal alternative separate; do not combine its source STLs with the printed head. Actual print/pin locking engagement and thin-line retention remain open. Reprint both r1.2.0 carriers, two r0.3.0 pads and both r0.3.0 covers. The shared template is unchanged.',
         'The site still requires four posts, reviewed guy connections, anchors, turnbuckles and wire-rope terminations. Their quantities and structural qualification remain separately owned.'], 'open')
     page(3,'Print pose and process record',[
-        'Use <b>models/print</b> meshes, not the installed-coordinate <b>models/arbi</b> files. The source pack records the installed-to-print rigid matrices and actual mesh bounds for every configuration. The carrier load plane remains parallel to the bed; outer cover tabs contact the bed with the broad webs 20.5 mm above it. Rear-pad ears contact the bed with the main pad back face 14 mm above it. Review supports below these elevated faces and inspect roots after removal.',
+        'Use <b>models/print</b> meshes, not the installed-coordinate <b>models/arbi</b> files. The source pack records the installed-to-print rigid matrices and actual mesh bounds for every configuration. The carrier load plane remains parallel to the bed; outer cover tabs contact the bed with the broad webs 20.2 mm above it. Rear pads rest on their lower Z face; review local supports under the rearward latch catch and horizontal M12 bore. Review carrier supports and inspect all supported roots after removal.',
         'Each part separately fits the nominal 256 x 256 x 256 mm printer envelope with 5 mm XY edge reserve. This bounding-box check excludes brim, supports, purge lines, shrinkage and printer exclusions; inspect the final sliced preview before printing.',
-        'The central pulley lug has a local overhang that needs a reviewed support arrangement. The cover tabs and top-loading nut pockets require fresh process and retention qualification. Inspect the M12 row channels, vertical M8 bores and local lug supports in the slicer. The mesh check does not establish support-free printing or layer adhesion.',
+        'The central pulley lug has a local overhang that needs a reviewed support arrangement. The internal T-guides, retaining lips and cantilever latches require fresh process and retention qualification. Inspect the M12 row channels, vertical M8 bores and local lug supports in the slicer. The mesh check does not establish support-free printing or layer adhesion.',
         'ASA is an outdoor prototype candidate. Record filament grade/lot, drying, printer, nozzle, plate, enclosure, walls/infill, supports, layer height and temperatures. Derive the process in design-package.md; no generic infill percentage establishes load capacity.',
         'Inspect pores, delamination, dimensions, flatness and hole clearance. Record a representative loaded/creep test of the chosen print direction, process, temperature and exposure. Reject a failed part and its unqualified process.'], 'print-left')
     page(4,'Mark timber and assemble the carriers',[
@@ -612,22 +620,21 @@ def booklet(work, report):
         '<b>M12 study lengths:</b> 100 / 120 / 140 mm posts use 170 / 190 / 210 mm. The represented stack is post size +66 mm, leaving 4 mm projection. M12 x180 fails the 120 mm printed stack; verify full locking-zone engagement and at least two threads.',
         'Do not infer torque from bolt diameter or compress the printed/timber seats to an invented preload. Record the reviewed assembly procedure and post-settlement recheck. Printed parts retain the selected load path; ordinary fasteners do not bypass their creep limits.'], 'template')
     page(5,'Fit the block and align the line',[
-        'The r1.1.0 rounded central lug is 14.8 mm thick with a 5.2 mm bore. The received BA01090 has a measured 15.8 mm clear tang gap and 4.7 mm pin: nominal side allowance is 0.5 mm each side and diametral allowance is 0.5 mm. Inspect the finished print, usable pin length and locking engagement before use.',
+        'The r1.2.0 rounded central lug is 14.8 mm thick with a 5.2 mm bore. The received BA01090 has a measured 15.8 mm clear tang gap and 4.7 mm pin: nominal side allowance is 0.5 mm each side and diametral allowance is 0.5 mm. Inspect the finished print, usable pin length and locking engagement before use.',
         'Use the supplied 4.7 mm pin and its positive locking ring after checking engagement. Do not enlarge the factory tang holes, force an M8 bolt, omit a locking feature or count on plastic threads to retain the suspended block.',
         'Equal horizontal and descending tension rotates the freely pivoting block -45 degrees about Y. With the measured 42 mm pin-to-sheave distance, the sheave is at Z=135.302; the attachment axis is 147.852 mm from the post surface for passive line or 146.952 mm for the powered study. The sheave centre remains 177.55 / 176.65 mm from the post. The loaded drop follows the canonical round-winch tangent: 163.3 / 163.9 mm from the post.',
         'A maximum rope-size listing does not qualify 1.5 mm retention. Inspect groove, side gaps and the complete line sweep under span angles, reversing, full drum width and slack setup. The structural top chord and cosmetic covers do not qualify a fitted keeper; this package does not freeze one.',
         'The nominal Y-axis pivot does not establish yaw freedom or acceptable side lead at arbitrary span azimuth. Received articulation, fleet angle, powered-line bend/fatigue and electrical insulation require their own acceptance. A static mesh alignment result is not an installed operation test.'], 'open')
-    page(6,'Fit covers and preserve service access',[
-        'Inspect the entire carrier and hardware before fitting white covers. Preload eight M3 plain nuts into the open-top tab pockets. Slide the front cover upward from below; fit the rear from -X. Fit four M3 x 12 socket screws and four OD7 x 0.5 washers per cover. Front rows: Z20/170; rear: Z45/155, both sides.',
-        'The covers leave the pulley visible and drain below. They do not carry line loads, retain the block, close hazardous thin-line side gaps or establish an IP rating. The roof is integrated into the load carrier; there is no separate roof part. The 0.5 mm tab/shell gap and 1.3 mm nominal screw projection need physical inspection. Snug only; do not crush the shell or assign a structural torque.',
-        'For service, isolate and secure the line, support any suspended equipment and retain loose covers before removing all eight M3 screws and washers; retain the nuts. Front cover: lower 190 mm -Z, then slide 100 mm +Y. Rear cover: pull 80 mm -X. Reserve these movements in the guy/dock layout.',
-        'The builder samples the stated removal segments against the fixed post, carriers, pads and represented hardware. The previous +X40/+Y5 front-cover path hits a rib and is rejected. It checks front/rear and crossbar socket envelopes with covers removed. It does not qualify hands, actual tools or every continuous path point.',
-        'Check cover screws and captive-nut pockets, print cracks, witness marks, structural nut locking, timber settlement and drainage before refitting. Remove any part showing permanent distortion, delamination or movement and record the cause.'], 'exploded')
+    page(6,'Concealed cover guides and release',[
+        'The interior view shows both actual shell meshes. All visible front, back and side faces are smooth. Four T-followers per cover enter continuous internal guides. Slide the front cover upward from below and rear cover toward the post until each hidden latch engages; check every guide and catch by hand. No cover metal or ties are used.',
+        'For service, isolate and independently secure/unload the line and loose covers. Use a nominal 0.6 mm flat blade: front access is from below alongside the central beam; rock its tip toward +X. Rear access is the 3 x 7 mm underside port; use a 2 mm-wide blade and rock its tip toward +Y. Do not pry on an outer skin.',
+        'Hold the front latch released for the first 8 mm -Z, withdraw the blade, then lower to 190 mm and slide 100 mm +Y. Hold the rear latch released for the first 6 mm -X, withdraw the blade, then continue to 80 mm. Structural M12/M8 joints remain fitted. Never pull a locked cover or force a failed latch.',
+        'The guide end stops and positive catches are checked nominally. The released rigid-pivot meshes establish available travel only; actual blade fit, required bending/release force, vibration retention, fatigue and creep remain unverified. Inspect lips, beams, catch roots and drainage after each prototype service. The covers carry no line load and establish no IP rating.'], 'concealed-latches')
     page(7,'Station layout and load review',[
         'Survey all four pulley centres, pole axes, bed frame, access/public zones and outward anchors. Starting pulley height is 3 m and winch height 0.5-1.0 m; actual posts, embedment and service access follow site review.',
         'At a frictionless 90-degree turn with equal tension T, pulley reaction is sqrt(2) T. The executable statics reference retains span elevation, azimuth, unequal tensions and eccentric moment. Its 10 N examples are synthetic, not operating limits.',
         'One outward guy opposes only one horizontal direction. It leaves transverse force and eccentric vertical-line moment. Review the print lug/chord/web, layer direction, bolt bearing, contact, creep, timber, guy, soil and anchor using maximum operating and fault loads.',
-        'The guy-to-post attachment remains unresolved. Define the rated connection and height, wire terminations, adjustment and locking before installation. Neither printed covers nor M3 cover screws form that connection.',
+        'The guy-to-post attachment remains unresolved. Define the rated connection and height, wire terminations, adjustment and locking before installation. Neither printed covers nor their cosmetic latches form that connection.',
         'Dock corner: combine parked camera pod, restraint, shelter and wind loads with service space. Powered corner: protect wiring, bend radius, insulation, short motor/encoder leads, drip loops and driver box drainage. Neither variant is accepted by a head mesh check.'])
     page(8,'Acceptance and maintenance record',[
         '<b>Record before prototype use:</b> station ID; CAD configuration and hashes; received tang/pin/groove dimensions; measured post; print orientation and full process; dimensional inspection; actual bolt lengths and locking-zone engagement; surveyed tangent and height.',

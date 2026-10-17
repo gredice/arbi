@@ -4,9 +4,9 @@
   "note": "Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
   "geometry": {
     "releaseTag": null,
-    "sourceCommit": "ca76a561b1546a8c58b09d230b50217383fca6e6",
+    "sourceCommit": "9aaa5bd98498bf88b69675908915d311f197f558",
     "sourceHashes": {
-      "hardware/models.json": "caa599df7896e8d6133917a72e1a0f0d52f1bc17266b14e4d1385102b8e72753",
+      "hardware/models.json": "b9c5327612280898f14639d3fc75909379794adbb62e9e7ad632980c72f1457a",
       "hardware/assemblies/camera-pod/bulk-capacitor-1000uf.scad": "b7125e5371d0aa55110fbcae7300b3a98bd4a3474341a0fed3bf199a6fb4a92e",
       "hardware/assemblies/camera-pod/camera-gimbal-base.scad": "aaa44f020ea99055c07d5aeb165f76da34c90562f1bccd29fe6ab8a746ccde2f",
       "hardware/assemblies/camera-pod/camera-gimbal-camera-plate.scad": "ee46401f166414b9c65f8b361e84a9694128b8a04de4aab8f35e343f69d9c535",
@@ -70,13 +70,13 @@
       "hardware/assemblies/corner-station/corner-head-legacy-adapter-left.scad": "38509edf7ec45f7fa1945c7a96c9d09a033c5ca9903780a5c0107542e91cb19c",
       "hardware/assemblies/corner-station/corner-head-legacy-adapter-right.scad": "37f7f3cdf75b870285a4005cf573420023b50d764b455a2a1fffee44f7a22369",
       "hardware/assemblies/corner-station/corner-head-marking-template.scad": "77eaa8242e709249b28f506544aff659be9e53b169cf172483ee0dd68b8760b1",
-      "hardware/assemblies/corner-station/corner-head-printed-assembly.scad": "f9fb355038abc46e456b125e9a9a6009068d9d07f150163d528f36a79246406f",
-      "hardware/assemblies/corner-station/corner-head-printed-front-cover.scad": "d65212a3d660354528d8316281dd63cf8f066a09b040c50349622abc85bcbc89",
-      "hardware/assemblies/corner-station/corner-head-printed-hardware.scad": "24c53b7bb1a1c75a53ca1a8afdacccaaf56c8455c837229fcb5dda4bd9cc87fb",
-      "hardware/assemblies/corner-station/corner-head-printed-left.scad": "04fdf7984ef2486888b4e7c9f99c8fa857c86ebf86f5eee924693fe1086a32db",
-      "hardware/assemblies/corner-station/corner-head-printed-rear-cover.scad": "67de51c0aa9526ce05c8e2e41f8ca75812fb0d15f23e3e7f00803c310bc7ca2e",
-      "hardware/assemblies/corner-station/corner-head-printed-rear-pad.scad": "72cbcf5e056a6230347194118e3aba2be090dd4d93e2b1dae9eef122983fd6ee",
-      "hardware/assemblies/corner-station/corner-head-printed-right.scad": "7b0ea9133f7069537e87a387dde5b21929576a7c6a7ef267c544b3a49bd99fc6",
+      "hardware/assemblies/corner-station/corner-head-printed-assembly.scad": "98f9237a0a4a2fb6f5387f983700330e4ce1d13535ebf999a7c4778953247762",
+      "hardware/assemblies/corner-station/corner-head-printed-front-cover.scad": "1e7603f1521f6cf37a168ad36fd2853b9b37d5214bea31b12f4dbb50ca86645c",
+      "hardware/assemblies/corner-station/corner-head-printed-hardware.scad": "94046656724581c7960ec4435403106ac3061c7743b709cc9456f05a7b6d0a64",
+      "hardware/assemblies/corner-station/corner-head-printed-left.scad": "af7616d4dd2246b0f8892d323d820509e6e82066b411b0fa60fb6305149f9ffb",
+      "hardware/assemblies/corner-station/corner-head-printed-rear-cover.scad": "a9196bbf89f07a697a348044b8ce266788c77f54398adb62fd1b372a27e9edeb",
+      "hardware/assemblies/corner-station/corner-head-printed-rear-pad.scad": "56ee42d74defc8aaaadc682b591563dbff96aeaacb21d6767e6ad8171afd7c40",
+      "hardware/assemblies/corner-station/corner-head-printed-right.scad": "7778ae573828b58abc013f3001f882e3649548aee2de482cc222dd08758e0fc9",
       "hardware/assemblies/corner-station/corner-head-printed-template.scad": "75d4fe1a5ef3938a4405a4d4857ad8af8e48994ceefaa35ddd6d992b3d69a162",
       "hardware/assemblies/corner-station/corner-head-rear-cover.scad": "7313be0ca7f787f2fe086298cf7f7b52ffa8b3ead574d820a11350b4ad331ee0",
       "hardware/assemblies/corner-station/corner-head-rear-saddle.scad": "5254fe048f76dfd285aa58c4fd1b299a16f5d81ac60ac96db175e976ab64f730",
@@ -84,12 +84,12 @@
       "hardware/assemblies/corner-station/corner-head-roof.scad": "b91e02f3e900d75fa47ed8ae081287a14ae91a67da5f55c303489497042ac3fa",
       "hardware/assemblies/corner-station/corner-head-through-bolts.scad": "ee54adcbd713368e1eaadf1b17d2b1781369424b9b236668c813d461ddd4bdbc",
       "hardware/assemblies/corner-station/corner-post-treated-timber.scad": "b0dd60d95b5215c1f0b28588678f638731587e9aca18bb7757fd0495d99a7b13",
-      "hardware/assemblies/corner-station/corner-stand-assembly.scad": "d49f2d196038d3af8d2b536f1f2474dc1e4a331837fec051d2515f5f0b66832a",
+      "hardware/assemblies/corner-station/corner-stand-assembly.scad": "a6617344c6556d57552cc7fc3ef166453ae52f2331164ce5933a2d8ec5afccba",
       "hardware/assemblies/corner-station/corner-stand-head-front.scad": "0e81720f428404ba624c50bfc1e6d24915f57901292e7307712c8b921b16525f",
       "hardware/assemblies/corner-station/corner-stand-head-rear.scad": "ddb623ee7b205cf48a631f8011cab99dcaa7b5419fad67bd65ebbcd8fbd379dd",
       "hardware/assemblies/corner-station/corner-stand-winch-front.scad": "c2b99e4bc1e31739940f6b3623f056a15108da3567a7885cfe7ad4089f2bb9c2",
       "hardware/assemblies/corner-station/corner-stand-winch-rear.scad": "c9cd599e6ff9b1bc6d014c89056a333d2e4edb1f4ff1e64e6292b031b13653ec",
-      "hardware/assemblies/corner-station/corner-station-assembly.scad": "6e117352dd821fb5d4c91fd589a4f11a2ab76d4a068b77c9cb2796fc4326524f",
+      "hardware/assemblies/corner-station/corner-station-assembly.scad": "973e8d64e1038d511e052bd39988bdaf475570c7ba882287212684d8f358e8aa",
       "hardware/assemblies/corner-station/guy-ground-anchor.scad": "56c935ca68c9464316bf77775f717da2d261ef61db09eda6e7e663bccb695fbb",
       "hardware/assemblies/corner-station/guy-turnbuckle-m12.scad": "c8f1a26d38187a2f562eb043b53eb52e6e1d32024f0faf028c919ffcc36cb321",
       "hardware/assemblies/corner-station/guy-wire-3mm.scad": "c2fb063566d0d3dab328b732afc0b45bdb3488f75c2327f68d749146695b39f7",
@@ -214,7 +214,7 @@
       "hardware/lib/catalog-visualizations.scad": "063cc3cf4e4893bee941e3cf6bb5c0f07bc4693226ceef52048761c8f66a7642",
       "hardware/lib/corner-head-legacy-adapter.scad": "5688a17227ac3bcf4c8b04526a81234c48b48296c903926a670a3e4e5178b9e3",
       "hardware/lib/corner-head-legacy-interface.scad": "f1150bd1ab4a1b6cc81eb17737a19d157669053619a265af037b60b1f79aabd1",
-      "hardware/lib/corner-head-printed.scad": "644d08c040d6020897b4348f99b615535a702342d1577612c65094e1c919987f",
+      "hardware/lib/corner-head-printed.scad": "ec678c589a973c0c4c90b0b438b253404033e815d42741650fdc164e8d8ca5f7",
       "hardware/lib/corner-head.scad": "0fff8dae1a356d48c14612e0299cb5c454fac3f5b1e94d5694d8a2a38ddf7d8a",
       "hardware/lib/corner-stand-adapter.scad": "4b584e47664635aa005300186557913dda0f063a7eb2c6456cc227ea6b65c75c",
       "hardware/lib/dock.scad": "7d3a8e5251cef8fc9409373bb50c6dd38fb7456012bd32737b75354273f8bd32",
@@ -378,39 +378,39 @@
       },
       {
         "modelId": "corner-head-printed-front-cover",
-        "revision": "0.2.0",
-        "volumeCm3": "104.271461",
-        "stlSha256": "e84dbb912f734259eb620b989cf4d09f23039afedc62e249d8fc1a989d193248"
+        "revision": "0.3.0",
+        "volumeCm3": "124.693067",
+        "stlSha256": "28561d0fc9a60a55242897c327483c120a647f8432a709118920b661384af8be"
       },
       {
         "modelId": "corner-head-printed-left",
-        "revision": "1.1.0",
-        "volumeCm3": "576.133210",
-        "stlSha256": "b203bda5d55a3f001aad4e642288217100000ed1872a2e3f66d847c0dd99a491"
+        "revision": "1.2.0",
+        "volumeCm3": "572.575054",
+        "stlSha256": "816bed05e9f451bb840ae7ad613a83504beda2f6febe4c726920e8a543906a16"
       },
       {
         "modelId": "corner-head-printed-rear-cover",
-        "revision": "0.2.0",
-        "volumeCm3": "114.791580",
-        "stlSha256": "bc3f2ff40eba0d5baaa3e1edfd4cb743fc821789198c6dac8455853f93f7f728"
+        "revision": "0.3.0",
+        "volumeCm3": "122.075650",
+        "stlSha256": "2c48f49037bddc526b950e64c1c6b2d565e362e6fc1c2b8ea251b227f10af629"
       },
       {
         "modelId": "corner-head-printed-rear-pad",
-        "revision": "0.2.0",
-        "volumeCm3": "84.908368",
-        "stlSha256": "a0147221f665ef98635b462683cd9fc5f82637860bea50b60e3a23fa7ccf55a4"
+        "revision": "0.3.0",
+        "volumeCm3": "82.950632",
+        "stlSha256": "9ae06a01045cc42c55898681d3bac00a390a2094be17420fcd639de6af0c0ff1"
       },
       {
         "modelId": "corner-head-printed-right",
-        "revision": "1.1.0",
-        "volumeCm3": "576.133209",
-        "stlSha256": "a2fe62e97dee6b2c77af28fb08c43d0dea52af28f825f57aa792c460f1106005"
+        "revision": "1.2.0",
+        "volumeCm3": "572.575054",
+        "stlSha256": "afbdce535150fb52e42a54f2b41e69074a3ca3c7a97812410560b86926960193"
       },
       {
         "modelId": "corner-head-printed-template",
         "revision": "0.1.0",
         "volumeCm3": "40.865757",
-        "stlSha256": "044810fb94b02c28252d3348f199060e9c815a911980db3c3d00ab15626ba5cc"
+        "stlSha256": "5b74c3e279ff69a0f782876f61fde7ba14294139b85d5bf6994aedf60f18111c"
       },
       {
         "modelId": "corner-stand-head-front",
