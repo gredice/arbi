@@ -1,7 +1,7 @@
 # Corner support printed-head acceptance record
 
-Commissioning record: r1.1.0 carrier halves / measured Barton interface;
-rear pads and covers r0.2.0 with [tie-free M3 joints](tie-free-covers.md);
+Commissioning record: r1.2.0 carrier halves / measured Barton interface;
+rear pads and covers r0.3.0 with [concealed printed slides/latches](tie-free-covers.md);
 unchanged marking template r0.1.0. Owner dimensions are evidence for the reference
 model, not completed station acceptance.
 **No physical test has been performed by this change.** Record one form per
@@ -17,7 +17,7 @@ and mesh checks do not fill them.
 | Site survey: pulley centre, pole axis, bed frame, guy anchor, access zone | Pending |
 | Carrier/pad material, manufacturer/lot, drying and conditioning | Pending |
 | Printer/nozzle, orientation, layer height, walls/infill, temperatures, enclosure, supports/seams | Pending |
-| Slicer support plan beneath carrier webs 20.5 mm above bed and rear-pad body 14 mm above bed; support-removal inspection of undersides, boss/ear roots, holes and nut pockets | Pending |
+| Slicer support plan beneath carrier webs 20.2 mm above bed; rear pads printed on original lower face with main body on bed and localized supports for rearward catch bridge/horizontal M12 bore; support-removal inspection of undersides, follower/catch roots, structural holes, guide lips and latch beams/hooks | Pending |
 | Printed dimensions, fit allowance, hole finishing, voids/layer inspection and retained wall/edge dimensions | Pending |
 | M12/M8 bolt grades/lengths, washers/nuts, locking engagement, protrusion and tool/cover clearance | Pending |
 | Reviewed clamp process/preload; carrier/rear-pad pressure, timber contact and settlement | Pending |
@@ -27,8 +27,8 @@ and mesh checks do not fill them.
 | Fitted removable keeper: gap, full line sweep, slack/derailment behavior | Pending |
 | Winch drum tangent depth, loaded deflection and lateral alignment across winding travel | Pending |
 | Cosmetic cover print process, intact fascia, open rib-channel fit and drainage | Pending |
-| Eight M3 × 12 screws, OD7 washers, plain AF5.5 × 2.4 nuts; printed nut capture, actual tip projection, seating and tool access | Pending |
-| Cover retention/loosening, boss/ear cracking and repeated removal; front -Z190 then +Y100 / rear -X80 with structural bolts untouched | Pending |
+| Smooth exterior with no cover hardware or fastening holes; actual T-guide clearance, stop seating, latch engagement and underside release access | Pending |
+| Cover insertion/release force, latch fatigue and creep, follower/guide cracking, vibration retention and repeated removal; release from below then front -Z190/+Y100 or rear -X80 with structural bolts untouched | Pending |
 | Reviewed bought guy-to-post connection dimensions/height/rating and timber load path | Pending |
 | Wire, thimble, clamp specification/count/spacing/tails and turnbuckle locking | Pending |
 | Maximum span/winch tensions, angles, dynamics, wind, fault and dock cases | Pending |
@@ -39,7 +39,7 @@ and mesh checks do not fill them.
 | Soil, embedment and anchor review; approved proof procedure and quantitative movement limits | Pending |
 | Dock combined loads, capture/parking/retention and service access | Pending |
 | Powered line bending/electrical/fatigue; box/cable/thermal/weather review | Pending |
-| Material/contact/corrosion review; print/M3-joint outdoor aging and maintenance | Pending |
+| Material/contact/corrosion review; printed guide/latch outdoor aging and maintenance | Pending |
 | Inspection interval, settlement recheck, quantitative discard and replacement criteria | Pending |
 | Requalification policy for material, printer, orientation or slicer changes | Pending |
 | Dated result, reviewer and authorization for named stage/configuration/load | Pending |

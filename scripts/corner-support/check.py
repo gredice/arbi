@@ -44,7 +44,7 @@ def check(output):
         outputs = {models[mid]['output'] for mid in IDS}
         current = {Path(name).name for name in report['mesh_sha256'] if name.startswith('models/arbi/')}
         assert outputs==current, 'Wrong fabrication revisions'
-        assert report['revision']=='1.1.0'
+        assert report['revision']=='1.2.0'
         barton=json.loads(pack.read(PREFIX+'barton-block-check.json'))
         assert barton['measured_envelope_mm']==[65,36,24] and barton['pin_to_sheave_mm']==42
         assert barton['rejected_M8_pin_collision_mm3']>1 and barton['rejected_16mm_lug_collision_mm3']>1
@@ -71,7 +71,8 @@ def check(output):
         assert set(report['variants'])==VARIANTS and report['checks']>400
         assert report['printer_envelope_mm']==[256,256,256] and report['bed_edge_reserve_mm']==5
         assert 'scripts/corner-support/check_cover_retention.py' in report['sources_sha256']
-        assert not any(Path(name).stem=='straps' for name in report['mesh_sha256']), 'Tie mesh remains in current pack'
+        assert not any(Path(name).stem=='straps' or 'cover_hardware' in Path(name).stem
+                       for name in report['mesh_sha256']), 'Cover metal or tie mesh remains in current pack'
         for key, variant in report['variants'].items():
             assert variant['tip_projection_mm']>=3.5
             assert abs(variant['tangent_error_mm'])<.001
@@ -81,36 +82,45 @@ def check(output):
             assert abs(variant['sheave_center_Z_mm']-(165-42/np.sqrt(2)))<.001
             assert abs(variant['line_center_Z_from_mesh_mm']-variant['sheave_center_Z_mm'])<.001
             retention=variant['cover_retention']
-            assert retention['checks']>=80
-            assert (retention['screw_count'],retention['washer_count'],retention['plain_nut_count'])==(8,8,8)
-            assert retention['old_tie_slots_closed'] and retention['filled_bore_negative_control_rejected']
-            assert retention['driver_envelope_diameter_mm']==6 and retention['driver_envelope_length_mm']==30
+            assert retention['checks']>=70
+            assert (retention['follower_count'],retention['front_follower_count'],retention['rear_follower_count'])==(8,4,4)
+            assert all(retention[name]==0 for name in ['cover_screw_count','cover_washer_count','cover_nut_count','cover_tie_count'])
+            assert retention['exterior_skins_closed'] and retention['former_M3_holes_closed']
+            assert retention['former_tie_slots_closed'] and retention['hidden_underside_release']
             size=int(key.split('-')[1])
-            expected_axes={(size/2+42,side*65,z) for side in [-1,1] for z in [20,170]}
-            expected_axes|={(-size/2-24,side*49,z) for side in [-1,1] for z in [45,155]}
-            assert {tuple(axis) for axis in retention['screw_axes_mm']}==expected_axes
-            assert len(retention['interfaces'])==8
+            assert len(retention['followers'])==8
             actual_interfaces=set()
-            for joint in retention['interfaces']:
+            for joint in retention['followers']:
                 which,side=joint['cover'],joint['side']
                 assert which in ['front','rear'] and side in [-1,1]
                 actual_interfaces.add((which,side,joint['Z_mm']))
-                assert joint['screw_axis']=='Y' and joint['screw_length_mm']==12
-                assert joint['washer_thickness_mm']==.5
-                assert joint['nut_across_flats_mm']==5.5 and joint['nut_thickness_mm']==2.4
-                assert joint['anchor_land_probe_mm3']>=.99
-                assert set(joint['hardware_probes'])=={'shank','tip','head','washer','nut'}
-                assert all(value>=.98 for value in joint['hardware_probes'].values())
-                assert joint['nut_projection_mm']==1.3
-                assert abs(joint['underhead_Y_mm']-joint['screw_tip_Y_mm'])==12
-                assert abs(joint['nut_center_Y_mm'])==(56 if which=='front' else 40)
+                assert joint['X_mm']==(size/2+36 if which=='front' else -size/2-24)
+                assert set(joint['material_fractions'])=={'root','neck','head'}
+                assert all(value>=.99 for value in joint['material_fractions'].values())
+                assert joint['outward_pull_collision_mm3']>=.99
             assert actual_interfaces=={(which,side,z) for which,rows in [('front',[20,170]),('rear',[45,155])]
                                        for side in [-1,1] for z in rows}
+            assert len(retention['continuous_guide_samples'])==18
+            assert all(point['wall_fraction']>=.99 for point in retention['continuous_guide_samples'])
+            assert set(retention['latches'])=={'front','rear'}
+            for which,hold,blade in [('front',8,[.6,2,74]),('rear',6,[2,.6,54])]:
+                latch=retention['latches'][which]
+                assert latch['engaged_first_motion_collision_mm3']>.5
+                assert latch['fixed_catch_material_fraction']>=.99
+                assert latch['released_first_motion_clear'] and latch['hold_released_travel_mm']==hold
+                assert latch['underside_tool_path_clear'] and latch['underside_blade_envelope_mm']==blade
+                assert latch['blade_actuation_contact_mm3']>.1
+                assert latch['blade_released_contact_mm3']>.01
+                assert latch['blade_rotation_deg']==(2.8 if which=='front' else -4)
+                assert (latch['released_rotation_deg']>0 if which=='front' else latch['released_rotation_deg']<0)
             assert set(variant['print_parts'])==set(IDS)
             directory = 'models/arbi' if key=='round-120-printed-line-1.5' else 'variants/'+key
-            reference_directory='models/reference' if key=='round-120-printed-line-1.5' else directory+'/references'
+            control_directory='models/controls' if key=='round-120-printed-line-1.5' else directory+'/controls'
             for which in ['front','rear']:
-                assert reference_directory+'/'+which+'_cover_hardware.stl' in report['mesh_sha256']
+                filename=control_directory+'/'+which+'-cover-released.stl'
+                assert filename in report['mesh_sha256'], 'Missing released-latch control: '+filename
+                control=trimesh.load_mesh(io.BytesIO(pack.read(PREFIX+filename)),file_type='stl')
+                assert control.is_watertight and control.is_winding_consistent and control.volume>0 and control.body_count==1
             for mid, record in variant['print_parts'].items():
                 canonical = trimesh.load_mesh(io.BytesIO(pack.read(PREFIX+directory+'/'+models[mid]['output'])),file_type='stl')
                 printed = trimesh.load_mesh(io.BytesIO(pack.read(PREFIX+record['file'])),file_type='stl')
@@ -138,7 +148,7 @@ def check(output):
         assert np.allclose(equilibrium['rejected_vertical_10N_moment_Nmm'],[0,-420,0])
         assert report['service_paths_mm']==dict(front_cover=[[0,0,-190],[0,100,-190]],rear_cover=[[-80,0,0]])
         figures=json.loads(pack.read(PREFIX+'figure-manifest.json'))
-        assert {'covered','open','exploded','print-left','template',*STAND_FIGURES}==set(figures)
+        assert {'covered','open','exploded','concealed-latches','print-left','template',*STAND_FIGURES}==set(figures)
         for name, figure in figures.items():
             assert figure['render_style']=='assembly-line-art-v1'
             with Image.open(output/'figures'/(name+'.png')) as image:
@@ -148,12 +158,9 @@ def check(output):
                 assert part['file'] in report['mesh_sha256']
                 if name in ['covered','open','exploded']:
                     assert not any(old in part['file'] for old in ['bracket','backing','saddle','connector'])
-                    assert Path(part['file']).stem!='straps', 'Tie mesh remains in assembly figure'
-        covered_hardware={Path(part['file']).stem for part in figures['covered']['parts']
-                          if 'cover_hardware' in Path(part['file']).stem}
-        assert covered_hardware=={'front_cover_hardware','rear_cover_hardware'}, 'Cover fasteners omitted from assembled figure'
-        for name in ['open','exploded']:
-            assert not any('cover_hardware' in part['file'] for part in figures[name]['parts']), 'Service figure retains cover screws'
+                assert Path(part['file']).stem!='straps' and 'cover_hardware' not in part['file'], 'Cover metal or tie mesh remains in figure'
+        concealed={Path(part['file']).name for part in figures['concealed-latches']['parts']}
+        assert {models[mid]['output'] for mid in ['corner-head-printed-front-cover','corner-head-printed-rear-cover']}<=concealed
         pads = [part for part in figures['covered']['parts'] if models['corner-head-printed-rear-pad']['output'] in part['file']]
         assert len(pads)==2 and sorted(part['matrix'][2][3] for part in pads)==[45,155]
         stand=report['stand_instructions']

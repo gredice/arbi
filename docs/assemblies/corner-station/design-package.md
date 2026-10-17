@@ -1,9 +1,11 @@
 # Corner support set printed design package
 
-17 October 2026. The carrier halves and assembly are revision `1.1.0`;
-rear pads and both covers are `0.2.0`; the unchanged template remains `0.1.0`.
-The [tie-free cover proposal #230](tie-free-covers.md) replaces cosmetic straps
-with eight independent M3 screw joints. All are
+17 October 2026. The carrier halves and assembly are revision `1.2.0`;
+rear pads and both covers are `0.3.0`; the unchanged template remains `0.1.0`.
+The [concealed cover proposal #232](tie-free-covers.md) replaces exposed M3
+cover joints with internal printed T-slides and positive underside-releasable
+latches. The cover side/front/back faces have no screw heads, nuts or fastening
+holes; underside release access and drainage remain. All are
 **concept-unvalidated**. The owner selected this
 [printed-head proposal](design-proposal.md) for design development. The package
 defines nominal geometry, print-kit selection and assembly; structural and
@@ -38,11 +40,11 @@ square-100 and round-120/powered-4.5 are separate study configurations.
 | Pin diameter / lug bore | Measured 4.7 / 5.2 | Supplied retained pin; 0.5 diametral print allowance |
 | Rounded lug width / height | 16 / 41 | Lower nose radius 8; bore radial ligament 5.4; Z157–198 |
 | Carrier end | Pulley pin X + 16 | Terminal edge material remains subject to strength review |
-| Front / rear cosmetic cover | 39 × 130 × 180 / nominal 25.25 × 98 × 180 | Default round-120 bolt stack; regenerate other configurations |
+| Front / rear cosmetic cover | 41 × 130 × 180 including front internal guides / nominal rear 25.25 × 98 × 180 | Default round-120 bolt stack; original front skin spans 39 in X, with guides extending 2 farther rearward; regenerate other configurations |
 | Front fascia | 3 thick, X=front seat + 33…36 | Intact face; no strap cuts |
 | Front rib-clearance channels | 18 wide, Y=23…41 / -41…-23; open above Z=30 | Clear structural webs; cover remains connected through its lower bridge/sidewalls |
-| Front cover screws | Four M3 × 12 at X=front seat + 10, Z=20/170, both Y sides | Captive plain hex nuts; bosses end Y=±60.5 under inner walls ±61 |
-| Rear cover screws | Four M3 × 12 at X=rear seat - 8, Z=45/155, both Y sides | Captive nuts in added pad ears; independent of M12 hardware |
+| Front cover retention | Four T-followers at X=front seat + 4, Z=20/170, both Y sides | Continuous internal vertical guides plus one positive latch; release from underside |
+| Rear cover retention | Four T-followers at X=rear seat - 8, Z=45/155, both Y sides | Continuous internal X guides plus one positive latch; release from underside, independent of M12 hardware |
 | Shared marking tool size | 205 × 50 × 4 | 3 mm centre marks at 45/155; not a drill bush |
 | Shared marking tool | One per four-station set | Check printed scale; remove before drilling |
 
@@ -51,10 +53,12 @@ The canonical
 entrypoints own geometry. Re-export the whole selected configuration after a
 post, line or fit parameter changes; do not combine halves or rear pads from
 different exports. Printed clearance is not final manufactured clearance.
-The front and rear covers each use four independent M3 × 12 screws, washers
-and top-loaded plain hex nuts. The [attachment contract](tie-free-covers.md)
-defines their complete nominal stacks, clearances and service sequence. No
-ties or strap channels remain. Open rib channels and the underside permit
+The smooth front and rear shells engage four printed followers each through
+continuous internal T-slide guides. A positive printed latch on each cover
+blocks reverse travel until released from underneath. The
+[attachment contract](tie-free-covers.md) defines the guide sections, clearances
+and service sequence. There are no cosmetic screws, washers, nuts, ties or
+strap channels. Open rib channels and the underside permit
 clearance and drainage; the covers have no sealed-enclosure or weather rating.
 
 ## Line alignment
@@ -106,7 +110,7 @@ finished print, actual bore, usable supplied pin length and positive ring
 engagement. Do not force an M8 pin, enlarge factory holes or omit the locking
 ring. Check local bearing, edge distance, pin bending and the actual articulation
 under changing line angles. The old 8 mm lug and M8 pin references are incompatible with this interface.
-Reprint both carrier halves at r1.1.0, both pads and both covers at r0.2.0
+Reprint both carrier halves at r1.2.0, both pads and both covers at r0.3.0
 for the matching tie-free attachments. The shared marking template and stand
 clamp fabrication geometry remain unchanged.
 
@@ -159,9 +163,9 @@ No metal compression sleeve, torque value or structural rating is assigned.
 The cosmetic covers shield the M12 mounting stack. The upper M8 cross-bolt
 at Z=190 remains exposed above the 180 mm front cover and must stay inspectable.
 The earlier cosmetic strap channels through the webs are removed. Added
-M3 cover bosses, rear-pad ears and captive-nut bores/slots still require root,
-net-section and print-orientation review with complete-head tests. The
-cosmetic joints carry no line or guy load; their clearance does not establish
+printed follower roots, internal guide lips and cantilever latch sections
+still require root, net-section and print-orientation review with complete-head
+tests. The cosmetic joints carry no line or guy load; their clearance does not establish
 carrier or pad strength.
 
 ## Prototype printing and qualification
@@ -175,14 +179,16 @@ sources.
 
 Use the exported print orientations and inspect them in the slicer. The
 carrier X/Z load plane remains parallel to printer XY, but the added cover
-bosses extend to Y=±60.5. In the normalized print poses their outer faces reach
-the bed and the broad carrier web faces sit 20.5 mm above it. The rear pads
-rest on their rearward ear faces, placing the main pad backplane 14 mm above
-the bed. Both geometries require reviewed supports beneath the broad webs
-and pad body, as well as review around lug, boss and ear transitions. The
-exported pose does not establish printable bridging or support-free fabrication.
+followers extend to Y=±60.2. In the normalized print poses their outer faces
+reach the bed and the broad carrier web faces sit 20.2 mm above it. The rear
+pads print on their original local Z=-25 lower face, translated 25 mm upward
+without rotation, so the main pad body contacts the bed. Review supports beneath
+the broad carrier webs, rearward pad-catch bridge and horizontal M12 bore, plus
+lug/follower transitions and internal guide/latch overhangs. The exported poses
+do not establish printable bridging or support-free fabrication.
 Verify transformed holes and lug faces against the installed model, and check
-that support can be removed without damaging loaded sections or nut pockets.
+that support can be removed without damaging loaded sections, guide lips or
+latch beams/hooks.
 Covers need their own slicer review. Record material manufacturer/lot, drying
 and conditioning, nozzle,
 layer height, wall count, infill, temperatures, enclosure, supports, seam
@@ -191,8 +197,8 @@ continuous walls around bolt and pin holes and avoid sparse infill as the only
 connection between loaded features. Final settings must come from testing.
 
 The round-120 carrier mesh encloses roughly half a litre per half. The generated
-report records the revised r1.1.0 carrier and r0.2.0 pad/cover solid volumes. These are substantial
-prototype prints. The generated geometry report owns the exact solid volume
+report records the revised r1.2.0 carrier and r0.3.0 pad/cover solid volumes.
+These are substantial prototype prints. The generated geometry report owns the exact solid volume
 for each configuration; older exports with different bore or pulley-pin geometry
 do not describe the current carrier. CAD volume is not a filament, finished-mass,
 print-time or strength estimate.
@@ -203,9 +209,9 @@ be covered by qualification.
 
 Inspect holes, first-layer distortion, voids, layer bonding, support damage,
 root curves and bolt-seat surfaces before bench assembly. After support removal,
-inspect the broad web undersides, boss/ear roots and main rear-pad body for
-cracks, gouges, missing layers and damaged bores or captive-nut pockets; record
-the result before fitting hardware. Do not install a
+inspect the broad web undersides, follower roots and main rear-pad body for
+cracks, gouges, missing layers and damaged structural bores, guide lips or
+latch beams/hooks; record the result before fitting hardware. Do not install a
 part with visible cracking or a damaged hole. Any reaming/finishing must retain
 reviewed wall/edge dimensions and be recorded. Keep spare prints as replaceable
 parts after a validated process exists; a fresh print does not automatically
@@ -239,7 +245,7 @@ are invented for the new items.
 | M12 large washers / locking nuts | 4 / 2 | 16 / 8 |
 | M8 × 100 cross-bolts / washers / locking nuts | 2 / 4 / 2 | 8 / 16 / 8 |
 | Received pulley / compatible bought pin set | 1 / 1 | 4 / 4 |
-| M3 × 12 cover screws / OD7 washers / plain hex nuts | 8 / 8 / 8 | 32 / 32 / 32 |
+| Cosmetic screws / washers / nuts | 0 / 0 / 0 | 0 / 0 / 0 |
 | Ties / straps | 0 | 0 |
 | Shared printed marking tool | — | 1 |
 
@@ -254,7 +260,7 @@ unresolved interfaces, not completed parts supplied by this print kit.
 
 Existing 16 m guy wire / 16 clamps / 8 thimbles are allowances. Site geometry,
 tails and the selected termination specification determine final quantities.
-Guy loads must not be assigned to a cosmetic M3 joint or the printed cover.
+Guy loads must not be assigned to a cosmetic slide/latch joint or the printed cover.
 
 ## Assembly, routing and service
 
@@ -275,18 +281,23 @@ Guy loads must not be assigned to a cosmetic M3 joint or the printed cover.
    tang articulation through the nominal 45° pose, line sweep and fitted keeper.
    Align with the lower winch
    tangent across its complete winding travel and both directions.
-6. Fit the front cover from below, sliding its open rib channels around the
-   structural webs; fit the rear cover from -X. Preload the eight captive plain
-   M3 nuts before fitting covers, then install four M3 × 12 screws and washers
-   per cover from the Y sides. Snug cosmetic clamps only; no torque is assigned.
-   Covers and their M3 joints retain no pulley, carrier or bolt load. The top chord is part of
-   the structural carrier and must not be removed as a service roof.
+6. Fit the front cover from below, aligning all four followers with the open
+   tops of its internal guides and the rib-clearance channels around the webs.
+   Slide it upward to its stops and latch. Fit the rear cover from -X and slide
+   toward +X to its stops and latch. Check positive engagement and underside
+   release access on both shells; no screws, nuts or ties are fitted. Covers
+   and their printed joints retain no pulley, carrier or bolt load. The top
+   chord is part of the structural carrier and must not be removed as a service
+   roof.
 7. Before service, isolate and independently secure/unload the line and loose
-   covers. Remove all eight M3 screws and washers, leaving structural M12/M8
-   fasteners installed. Lower the front cover 190 mm -Z, then slide
-   100 mm +Y; pull the rear cover 80 mm -X. Inspect holes, web roots,
-   pads, cover bosses/ears, captive nuts, cracks, witness marks, bolt engagement
-   and drainage. Inspect and retain the M3 hardware for refitting.
+   covers. Release each printed latch from underneath using a thin blade;
+   hold the front released for the first 8 mm -Z, or the rear for the first
+   6 mm -X, then withdraw the blade. The [attachment contract](tie-free-covers.md#assembly-and-service)
+   defines blade access and rocking direction. Leave structural M12/M8 fasteners
+   installed. Lower the front cover 190 mm -Z, then slide 100 mm +Y;
+   pull the rear cover 80 mm -X. Inspect holes, web/follower roots, pads, guide
+   lips, stops, latch beams/hooks, cracks, witness marks, bolt engagement and
+   drainage before refitting. Replace damaged prints; do not force tight guides.
    Structural carrier, pad or fastener removal requires the reviewed unloaded
    procedure; do not transfer load to one remaining carrier half.
 

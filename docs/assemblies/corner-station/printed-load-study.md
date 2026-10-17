@@ -16,7 +16,7 @@ duration remain inputs to establish through system characterization.
 ## Nominal CAD section and attachment contract
 
 The [printed CAD library](../../../hardware/lib/corner-head-printed.scad) is
-canonical. The values below describe its r1.1.0 carrier and r0.2.0 rear-pad
+canonical. The values below describe its r1.2.0 carrier and r0.3.0 rear-pad
 source with [tie-free cover joints](tie-free-covers.md), before physical
 qualification. Re-read the library and regenerate the owning geometry report
 when a parameter or section changes. Dimensions are millimetres; `Rpost` is
@@ -26,14 +26,14 @@ the nominal post radius, 60 in the round-120 default.
 | --- | --- | --- |
 | Attachment datum | Passive sheave X=`Rpost + 177.55`, pin X=`Rpost + 177.55 - 42/sqrt(2)`; pin Z=165, sheave Z=`165 - 42/sqrt(2)` | The powered 4.5 mm line substitutes 176.65 for 177.55. The measured 42 mm pin-to-sheave spacing is pitched 45° for equal leg tensions and the horizontal/vertical turn; groove seating, printed fit and other equilibrium angles remain unverified. |
 | Front seat and bolt rows | Flat washer seat X=`Rpost + 32`; rows Z=45/155, Y=0; body height 205 | Row centroid Z=100 and pitch 110. For moments about the front-seat plane, passive `e=115.851515`, `h=65`; this is an accounting datum, not proof that support/contact acts at that plane. |
-| Main side webs | Two 16 mm Y-thick webs at Y=24…40 and -40…-24; tapered XZ profile with an opening | Combined nominal thickness is 32 only where both webs are actually present. Their taper, opening, bosses, row bores and cover fastener cuts prevent treating the whole carrier as a uniform rectangular beam. |
+| Main side webs | Two 16 mm Y-thick webs at Y=24…40 and -40…-24; tapered XZ profile with an opening | Combined nominal thickness is 32 only where both webs are actually present. Their taper, opening, bosses, row bores and follower roots prevent treating the whole carrier as a uniform rectangular beam. |
 | Upper chord | Full Y width 80, Z=185…205, thickness 20 | An isolated full rectangular chord would have `I=53333.3 mm⁴`, `S=5333.3 mm³` for vertical bending; this is not the composite carrier section or a capacity. |
 | Direct attachment lug | One assembled 14.8 mm Y-thick lug, split into two 7.4 mm halves; rounded width 16, Z=157…198; bore 5.2, supplied pin 4.7, centre Z=165 | Nominal minimum radial nose ligament 5.4; upper chord connection and rounded root need separate bending review. Use the load direction and actual printed bore, split/joint behaviour and local stress concentrations. |
 | Cross-bolt bosses | OD 26, bore 8.6 at X=`Rpost + 50`, Z=100/190; M8 × 100 cross-bolts, washer 1.6, nut 6.5 | Nominal radial ligament 8.7. These are assembly/load-transfer joints between halves; they need clamp, joint slip and bearing evidence rather than an assumption of monolithic material. |
 | Through-bolt seats | M12, clearance 13, washers OD 37/ID 13/thickness 3; front central printed depth 31.75 | Curved front contact and split seam complicate washer support. No friction or full-area pressure distribution is assumed. |
 | Rear contact | Two separate printed pads, each Y width 80, Z height 50, central depth 15.75 | Nominal curved bore radius is `Rpost + 0.25`; actual timber shape and settlement determine support. Pads do not replace timber/anchor review. |
-| Front cosmetic screw bosses | Added to Y=±60.5 at X=`front + 10`, Z=20/170; Y-axis 3.4 bores and top-loaded AF5.7 × 2.8 nut slots | Earlier strap tunnels are removed. Review boss roots, bores/slots, local net section, layer continuity and cracks; cosmetic M3 joints add no rated line/guy load path. |
-| Rear cosmetic screw ears | Added to both pads at X=`rear - 14…rear + 4`, Y=±44.5, local Z=±8; screws X=`rear - 8`, Z=45/155 | Review ear roots, nut capture and local print sections separately from the unchanged central M12 bearing seat; screw retention and weather acceptance remain pending. |
+| Front cosmetic followers | T-followers added to Y=±60.2 at X=`front + 4`, Z=20/170; continuous internal cover guides with 0.3/0.4 nominal clearances | Earlier strap tunnels, screw bores and nut slots are removed. Review follower/catch roots, local net section, layer continuity and cracks; cosmetic printed guides/latch add no rated line/guy load path. |
+| Rear cosmetic followers | Added to both pads at X=`rear - 8`, Z=45/155, on both Y sides; front T-section shifted 16 inward along Y | Review follower/catch roots and local print sections separately from the unchanged central M12 bearing seat; guide/latch retention, fatigue, creep and weather acceptance remain pending. |
 
 There is no custom metal fabrication in this proposed head's carrier/contact
 stack. Standard metal fasteners and the received pulley are retained. A
@@ -132,7 +132,7 @@ below first exercise the nominal attachment contract, then deliberately define
 a separate simple beam/lug surrogate independently of the detailed CAD.
 
 With equal horizontal/vertical 10 N leg tensions and the passive front-seat
-datum `e=115.851515`, `h=65`, `s=110`, r1.1.0 nominal bookkeeping gives
+datum `e=115.851515`, `h=65`, `s=110`, r1.2.0 nominal bookkeeping gives
 `My=1808.515 N mm` and row normal forces `21.441/-11.441 N`. Each row's vertical
 shear is 5 N in magnitude. Projected row bearing over the central front/rear
 seat depths is `0.0131/0.0265 MPa`; contact distribution and joint slip remain
@@ -216,13 +216,14 @@ environmental effects and use of metallic hard points. Its cited Nylon 12/12CF
 weather guidance is not a PAHT-CF qualification. Consequently the proposed
 carrier's main XZ load plane is oriented parallel to printer XY, with
 continuous rib/perimeter paths and broad washer seats as process requirements.
-The retained print poses put the new cover-boss outer faces on the bed, leaving
-the broad carrier web faces 20.5 mm above it. The rear-pad ear faces reach the
-bed with the main pad backplane 14 mm above it. Reviewed supports beneath the
-webs and pad body are required; the geometry does not establish support-free
-fabrication. Support placement/removal must preserve the loaded sections,
-boss/ear roots, washer seats and nut pockets, with inspection recorded after
-removal. Transverse loading still crosses layers. Sheltering the core, using fillets and retaining metal
+The retained print poses put the new cover-follower outer faces on the bed,
+leaving the broad carrier web faces 20.2 mm above it. Rear pads now print on
+their original local Z=-25 lower face, translated 25 mm upward without rotation;
+the main pad body contacts the bed. Review supports beneath the carrier webs,
+rearward pad-catch bridge and horizontal M12 bore. The geometry does not
+establish support-free fabrication or qualify the changed layer orientation. Support placement/removal must preserve the loaded sections,
+follower/catch roots, washer seats, guide lips and latch beams/hooks, with
+inspection recorded after removal. Transverse loading still crosses layers. Sheltering the core, using fillets and retaining metal
 washers/sleeves are design responses, not demonstrated life or capacity.
 [Stratasys FDM tooling design guide, sections 2.2–2.3](https://www.stratasys.com/contentassets/1a0cc7a8e7d14f29ac972189bfeade4c/dg_fdm_designconsiderationsfdmtooling_0718a.pdf?v=48fbe5).
 

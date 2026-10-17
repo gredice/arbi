@@ -1,8 +1,8 @@
-"""Independent nominal checks for the printed head's dedicated cover screws.
+"""Independent nominal regressions for concealed printed cover retention.
 
-Coordinates and standard-hardware envelopes here are deliberately derived from
-the documented assembly interfaces rather than queried from the SCAD helpers.
-These checks establish source geometry, not printed fit or retention strength.
+The dimensions below are derived from the documented interfaces, independently
+of SCAD functions. Rigid released-latch and tool envelopes establish nominal
+access only; they do not model printed flexibility, force or retention life.
 """
 import math
 
@@ -16,159 +16,168 @@ def _box(center, size):
     return mesh
 
 
-def _y_cylinder(diameter, length, center, sections=96):
-    mesh = trimesh.creation.cylinder(radius=diameter/2, height=length, sections=sections)
-    mesh.apply_transform(trimesh.transformations.rotation_matrix(math.pi/2, [1, 0, 0]))
-    mesh.apply_translation(center)
-    return mesh
+def _moved(mesh, xyz):
+    result = mesh.copy()
+    result.apply_translation(xyz)
+    return result
 
 
-def _nut(center, across_flats=5.5, thickness=2.4):
-    # A 30-degree planar rotation gives the hexagon flat X faces. Its axis is Y.
-    mesh = trimesh.creation.cylinder(radius=across_flats/math.sqrt(3), height=thickness, sections=6)
-    mesh.apply_transform(trimesh.transformations.rotation_matrix(math.pi/6, [0, 0, 1]))
-    mesh.apply_transform(trimesh.transformations.rotation_matrix(math.pi/2, [1, 0, 0]))
-    mesh.apply_translation(center)
-    return mesh
+def _pivot(mesh, angle, axis, center):
+    result = mesh.copy()
+    result.apply_transform(trimesh.transformations.rotation_matrix(angle, axis, center))
+    return result
 
 
-def verify(meshes, refs, size, overlap, clear):
-    """Return a report, raising when any independently defined interface fails.
+def verify(meshes, refs, size, overlap, clear, released):
+    """Check actual normal/released meshes and return portable pack evidence."""
+    checks = 0
 
-    ``meshes`` uses the registered fabrication IDs. ``refs`` includes separate
-    front_cover_hardware and rear_cover_hardware meshes. ``clear`` is the owning
-    builder's counted pairwise-interference assertion; ``overlap`` returns mm3.
-    """
-    assert 'straps' not in refs, 'Tie reference remains in the installed scene'
-    checks = 1
-    front, rear = size/2+32, -size/2-16
-    fixed = {name: mesh for name, mesh in meshes.items() if not name.endswith(('template', 'rear-pad'))}
-    rear_pad = meshes['corner-head-printed-rear-pad']
-    for row in [45, 155]:
-        pad = rear_pad.copy()
-        pad.apply_translation([0, 0, row])
-        fixed[f'rear-pad-{row}'] = pad
-    fixed.update({name: mesh for name, mesh in refs.items()
-                  if name not in ['front_cover_hardware', 'rear_cover_hardware']})
+    def require(condition, label):
+        nonlocal checks
+        checks += 1
+        assert condition, label
 
     def clear_near(a, b, label):
-        # Disjoint bounds prove zero intersection without a costly mesh boolean.
         if np.any(a.bounds[1] <= b.bounds[0]+1e-7) or np.any(b.bounds[1] <= a.bounds[0]+1e-7):
             return
         clear(a, b, label)
 
-    fixed_nuts = {}
-    for which, x, rows, nut_y in [('front', front+10, [20, 170], 56),
-                                 ('rear', rear-8, [45, 155], 40)]:
-        for row in rows:
-            for side in [-1, 1]:
-                center = [x, side*nut_y, row]
-                fixed_nuts[f'{which}/{row}/{side}'] = trimesh.boolean.difference(
-                    [_nut(center), _y_cylinder(3.2, 2.42, center)], engine='manifold')
+    def material(mesh, center, label, dimensions=(1, 1, 1)):
+        probe = _box(center, dimensions)
+        fraction = overlap(mesh, probe)/probe.volume
+        require(fraction >= .99, (label, 'missing material', fraction))
+        return round(fraction, 6)
 
-    axes = []
-    results = []
-    filled_bore_rejected = False
-    for which, x, rows, outer, nut_y in [('front', front+10, [20, 170], 65, 56),
-                                        ('rear', rear-8, [45, 155], 49, 40)]:
-        cover = meshes[f'corner-head-printed-{which}-cover']
-        hardware = refs[f'{which}_cover_hardware']
+    require(set(refs) == {'post', 'hardware', 'cross_hardware', 'block', 'line'},
+            'Cover metal or tie reference remains in the installed scene')
+    require(set(released) == {'front', 'rear'}, 'Missing released-latch control mesh')
+    front, rear = size/2+32, -size/2-16
+    # The selected M12 length is post size + 70 for every supported size.
+    back = front+3-(size+70)-3
+    covers = {which: meshes[f'corner-head-printed-{which}-cover'] for which in ['front', 'rear']}
+    fixed = {name: mesh for name, mesh in meshes.items()
+             if not name.endswith(('template', 'rear-pad', 'front-cover', 'rear-cover'))}
+    for row in [45, 155]:
+        fixed[f'rear-pad-{row}'] = _moved(meshes['corner-head-printed-rear-pad'], [0, 0, row])
+    fixed.update(refs)
+    followers = []
+    for which, x, rows, root_y, neck_y, head_y in [
+        ('front', front+4, [20, 170], 45, 56, 59.1),
+        ('rear', rear-8, [45, 155], 36, 40, 43.1)]:
+        cover = covers[which]
         for row in rows:
             for side in [-1, 1]:
-                name = f'{which}/Z{row}/Y{side:+d}'
+                label = f'{which}/Z{row}/Y{side:+d}'
                 anchor = (meshes['corner-head-printed-left' if side < 0 else 'corner-head-printed-right']
                           if which == 'front' else fixed[f'rear-pad-{row}'])
-                underhead, tip = outer+.5, outer+.5-12
-                nut_inner = nut_y-1.2
-                projection = nut_inner-tip
-                assert math.isclose(projection, 1.3, abs_tol=1e-10)
-                assert projection >= 2*.5, (name, 'less than two M3 threads beyond plain nut')
-                assert tip < nut_inner < nut_y+1.2 < underhead
-                checks += 3
+                head_center = [x+5.5, side*head_y, row] if which == 'front' else [x, side*head_y, row+5.5]
+                lands = dict(root=material(anchor, [x, side*root_y, row], label+'/root'),
+                             neck=material(anchor, [x, side*neck_y, row], label+'/neck'),
+                             head=material(anchor, head_center, label+'/T head'))
+                clear_near(anchor, cover, label+'/installed follower')
+                # Each head must be mechanically captured by the narrower
+                # printed throat, independently of the latch's travel stop.
+                capture = overlap(_box(head_center, [1, 1, 1]), _moved(cover, [0, side*2, 0]))
+                require(capture >= .99, (label, 'T head escapes outward Y', capture))
+                followers.append(dict(cover=which, side=side, X_mm=x, Z_mm=row,
+                    material_fractions=lands, outward_pull_collision_mm3=round(capture, 6)))
 
-                # A 3.2 mm gauge must pass the actual 3.4 mm bore through both
-                # independent parts, not merely miss a disconnected boss.
-                bore = _y_cylinder(3.2, outer+1-(nut_y-3), [x, side*((outer+1+nut_y-3)/2), row])
-                clear(bore, anchor, name+'/open anchor bore')
-                clear(bore, cover, name+'/open shell bore')
-                land = _box([x+3.5, side*(outer-6), row], [1, 1, 1])
-                retained = overlap(land, anchor)
-                assert retained >= .99, (name, 'missing screw land', retained)
-                checks += 1
-
-                # The fixed nut fits its pocket and loads vertically with the
-                # shell removed. Sampling includes both hex-to-slot transition
-                # and a completely withdrawn nut above the 16 mm-high boss.
-                for travel in [0, .5, 1, 2, 4, 8, 12]:
-                    clear_near(_nut([x, side*nut_y, row+travel]), anchor,
-                          name+f'/nut top insertion {travel}')
-
-                # Inspect the written bought reference as well as the empty
-                # bores. These small probes distinguish screws, washers and
-                # nuts even when their STL bodies share nominal contact faces.
-                material = {}
-                for label, center, dims in [
-                    ('shank', [x, side*(underhead-6), row], [.5, .5, .5]),
-                    ('tip', [x, side*(tip+.35), row], [.5, .5, .5]),
-                    ('head', [x, side*(underhead+1.5), row], [.5, .5, .5]),
-                    ('washer', [x+3, side*(outer+.25), row], [.25, .25, .25]),
-                    ('nut', [x+2.2, side*nut_y, row], [.25, .25, .25])]:
-                    probe = _box(center, dims)
-                    fraction = overlap(probe, hardware)/probe.volume
-                    assert fraction >= .98, (name, label, 'missing bought hardware', fraction)
-                    checks += 1
-                    material[label] = round(fraction, 6)
-                clear(_box([x, side*(tip-.35), row], [.5, .5, .5]), hardware,
-                      name+'/no overlong screw tip')
-
-                # A conservative 6 mm driver envelope approaches along the
-                # actual Y screw axis. M12 and M8 structural joints stay fitted.
-                driver = _y_cylinder(6, 30, [x, side*(underhead+3+15), row])
-                for other, mesh in fixed.items():
-                    clear_near(driver, mesh, name+'/driver/'+other)
-
-                # Remove the screw and washer outwards while retaining every
-                # structural part, both covers and all plain nuts in place.
-                # A solid washer envelope is conservative after outward travel.
-                for travel in [.5, 1, 3, 6, 12, 16]:
-                    components = [
-                        _y_cylinder(3, 12, [x, side*(underhead-6+travel), row]),
-                        _y_cylinder(5.5, 3, [x, side*(underhead+1.5+travel), row]),
-                        _y_cylinder(7, .5, [x, side*(outer+.25+travel), row])]
-                    for other, mesh in {**fixed, **fixed_nuts}.items():
-                        for part in components:
-                            clear_near(part, mesh, name+f'/screw extraction {travel}/'+other)
-
-                # Reinstating a solid wall across a shell hole must fail the
-                # same bore gauge, preventing an empty-space-only regression.
-                old_shell = _box([x, side*(outer-2), row], [8, 4, 8])
-                filled_bore_volume = overlap(bore, old_shell)
-                assert filled_bore_volume > 20, (name, 'filled-bore negative control did not fail')
-                checks += 1
-                filled_bore_rejected = True
-                axes.append([x, side*outer, row])
-                results.append(dict(cover=which, side=side, Z_mm=row, X_mm=x,
-                    screw_axis='Y', screw_length_mm=12, washer_thickness_mm=.5,
-                    nut_across_flats_mm=5.5, nut_thickness_mm=2.4,
-                    nut_center_Y_mm=side*nut_y, underhead_Y_mm=side*underhead,
-                    screw_tip_Y_mm=side*tip, nut_projection_mm=round(projection, 3),
-                    anchor_land_probe_mm3=round(retained, 6), hardware_probes=material))
-
-        # Former tie slots through both cover sidewalls are now closed material;
-        # the dedicated screw holes are at different X/Z coordinates.
+        # Former tie slots and all former M3 cover bores are solid skin now.
         for side in [-1, 1]:
+            for row in rows:
+                point = [front+10 if which == 'front' else x, side*(63 if which == 'front' else 47), row]
+                material(cover, point, which+'/closed former M3 bore')
+                material(released[which], point, which+'/released shell remains fixed')
             for z in [21.5, 171.5]:
-                center = [front+30, side*63, z] if which == 'front' else [rear-10.5, side*47, z]
-                retained = overlap(_box(center, [1, 1, 1]), cover)
-                assert retained >= .99, (which, side, z, 'old tie slot remains', retained)
-                checks += 1
+                point = [front+30, side*63, z] if which == 'front' else [rear-10.5, side*47, z]
+                material(cover, point, which+'/closed former tie slot')
+        require(np.allclose(cover.bounds[:, 1], [-65, 65] if which == 'front' else [-49, 49], atol=.002),
+                which+'/external head or nut protrusion')
 
-    assert len(axes) == 8 and len({tuple(axis) for axis in axes}) == 8
-    checks += 1
-    return dict(checks=checks, screw_count=8, washer_count=8, plain_nut_count=8,
-                screw_axes_mm=axes, interfaces=results,
-                nut_insertion_direction='+Z with cover removed',
-                screw_extraction_direction='outward Y; remove all four before each cover service',
-                driver_envelope_diameter_mm=6, driver_envelope_length_mm=30,
-                old_tie_slots_closed=True, filled_bore_negative_control_rejected=filled_bore_rejected,
-                limitation='Nominal source geometry only; physical fit, clamp retention and outdoor life remain unverified.')
+    # Continuous female channels must retain their walls between followers.
+    guide_samples = []
+    for side in [-1, 1]:
+        for z in [20, 50, 100, 150, 178]:
+            wall = material(covers['front'], [front+12, side*56, z], 'front/continuous guide wall')
+            for point in [[front+4, side*56, z], [front+10, side*59, z]]:
+                clear_near(_box(point, [1, 1, 1]), covers['front'], 'front/open guide cross-section')
+            guide_samples.append(dict(cover='front', side=side, station_mm=z, wall_fraction=wall))
+        for row in [45, 155]:
+            for x in [rear-10, rear-3]:
+                wall = material(covers['rear'], [x, side*40, row+8], 'rear/continuous guide wall')
+                for point in [[x, side*40, row], [x, side*43, row+6]]:
+                    clear_near(_box(point, [1, 1, 1]), covers['rear'], 'rear/open guide cross-section')
+                guide_samples.append(dict(cover='rear', side=side, station_mm=x, Z_mm=row, wall_fraction=wall))
+    require(len(followers) == 8, 'Expected four T followers per cover')
+
+    front_angle, rear_angle = math.atan(1.5/36), -math.atan(1.5/26)
+    front_hook = _box([front+28, 0, 76], [.25, .25, .25])
+    rear_hook = _box([back+2.5, 9, 67], [.25, .25, .25])
+    latch_results = {}
+    for which, hook, angle, axis, pivot, first, hold in [
+        ('front', front_hook, front_angle, [0, 1, 0], [front+30.25, 0, 40.5], [0, 0, -1], 8),
+        ('rear', rear_hook, rear_angle, [1, 0, 0], [back+4, 10.75, 40.5], [-1, 0, 0], 6)]:
+        normal = covers[which]
+        catch_land = (material(fixed['corner-head-printed-left'], [front+28, -3, 73.5], 'front/fixed catch')
+                      if which == 'front' else material(fixed['rear-pad-45'], [back+1.1, 8.5, 67],
+                                                       'rear/fixed catch', [.5, .5, .5]))
+        require(overlap(hook, normal)/hook.volume >= .99, which+'/missing positive latch hook')
+        require(overlap(_pivot(hook, angle, axis, pivot), released[which])/hook.volume >= .99,
+                which+'/released hook does not follow independent pivot')
+        clear_near(hook, released[which], which+'/hook actually released')
+        blocked = sum(overlap(_moved(normal, first), part) for part in fixed.values())
+        require(blocked > .5, (which, 'engaged latch permits first removal motion', blocked))
+        for travel in [.5, 1, 2, 4, hold]:
+            vector = [0, 0, -travel] if which == 'front' else [-travel, 0, 0]
+            for name, part in fixed.items():
+                clear_near(_moved(released[which], vector), part, which+f'/released first travel {travel}/'+name)
+            clear_near(_moved(released[which], vector), covers['rear' if which == 'front' else 'front'],
+                       which+f'/released first travel {travel}/other cover')
+        # Once the hook passes its catch, it may return to its ordinary shape.
+        ordinary = [8, 10, 20, 40, 80, 100, 150, 180, 190] if which == 'front' else [6, 8, 10, 20, 40, 80]
+        for travel in ordinary:
+            vector = [0, 0, -travel] if which == 'front' else [-travel, 0, 0]
+            for name, part in fixed.items():
+                clear_near(_moved(normal, vector), part, which+f'/unlatched remaining travel {travel}/'+name)
+        latch_results[which] = dict(engaged_first_motion_collision_mm3=round(blocked, 6),
+            fixed_catch_material_fraction=catch_land,
+            released_first_motion_clear=True, hold_released_travel_mm=hold,
+            released_rotation_deg=round(math.degrees(angle), 6), release_pivot_mm=pivot)
+
+    # Underside blades approach with both covers and structural joints fitted.
+    # Exclude only the deliberate flexible beam/hook from the rigid-skin check;
+    # fixed catches, roots and all other cover material remain collision targets.
+    flexible = {
+        'front': _box([front+29.5, 0, 60.5], [7, 10.2, 40]),
+        'rear': _box([back+4, 9.75, 55.25], [4.4, 4.5, 29.5])}
+    blades = {'front': _box([front+29, 0, 37], [.6, 2, 74]),
+              'rear': _box([back+4, 9.5, 37], [2, .6, 54])}
+    for which, angle, axis, pivot in [('front', math.radians(2.8), [0, 1, 0], [front+29, 0, 41]),
+                                     ('rear', math.radians(-4), [1, 0, 0], [back+4, 10.75, 41])]:
+        rigid_skin = trimesh.boolean.difference([covers[which], flexible[which]], engine='manifold')
+        targets = {**fixed, 'rigid_skin': rigid_skin, 'other_cover': covers['rear' if which == 'front' else 'front']}
+        for travel in [-80, -40, -10, 0]:
+            tool = _moved(blades[which], [0, 0, travel])
+            for name, part in targets.items():
+                clear_near(tool, part, which+f'/blade insertion {travel}/'+name)
+        for fraction in [0, .25, .5, .75, 1]:
+            tool = _pivot(blades[which], angle*fraction, axis, pivot)
+            for name, part in targets.items():
+                clear_near(tool, part, which+f'/blade release {fraction}/'+name)
+        actuation_contact = overlap(tool, covers[which])
+        require(actuation_contact > .1, (which, 'underside blade never reaches latch beam', actuation_contact))
+        released_contact = overlap(tool, released[which])
+        require(released_contact > .01, (which, 'underside blade does not reach released beam', released_contact))
+        latch_results[which]['underside_blade_envelope_mm'] = [.6, 2, 74] if which == 'front' else [2, .6, 54]
+        latch_results[which]['underside_tool_path_clear'] = True
+        latch_results[which]['blade_actuation_contact_mm3'] = round(actuation_contact, 6)
+        latch_results[which]['blade_released_contact_mm3'] = round(released_contact, 6)
+        latch_results[which]['blade_rotation_deg'] = round(math.degrees(angle), 6)
+
+    return dict(checks=checks, design='concealed printed T guides and positive latches',
+        follower_count=8, front_follower_count=4, rear_follower_count=4,
+        cover_screw_count=0, cover_washer_count=0, cover_nut_count=0, cover_tie_count=0,
+        exterior_skins_closed=True, former_M3_holes_closed=True, former_tie_slots_closed=True,
+        followers=followers, continuous_guide_samples=guide_samples, latches=latch_results,
+        hidden_underside_release=True,
+        limitation='Rigid nominal envelopes only; printed flexure force, fit, fatigue, creep and retention remain unverified.')

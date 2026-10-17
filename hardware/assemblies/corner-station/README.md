@@ -9,7 +9,7 @@ carrier halves with two small socket prints and an extra M8 bolt. Its separate
 rounded lug takes the received block's supplied pin, without drilling the
 pulley or carrier. The [inspection assembly](corner-head-legacy-adapter-assembly.scad)
 shows the old interface and lower pulley position. It is an optional
-`concept-unvalidated` fit/hand-routing trial while current r1.1.0 halves are fabricated;
+`concept-unvalidated` fit/hand-routing trial while current r1.2.0 halves are fabricated;
 see the instructions for revision identification, print poses, hardware,
 35 mm height change and physical test limits.
 
@@ -19,7 +19,7 @@ The [print and assembly instructions](stand-adapter.md) define removable tube
 clamps for the owner's two Walimex pro WT-806 stands. Four fabrication models
 install eight prints per stand: two head fronts/rears on a nominal 26 mm tube,
 and two winch fronts/rears on a nominal 35 mm tube. The 30 mm section can be
-selected with matching exports. The four clamp solids are r0.1.0; the revised head and stand assembly references are r1.1.0,
+selected with matching exports. The four clamp solids are r0.1.0; the revised head and stand assembly references are r1.2.0,
 `concept-unvalidated`; their optional BOM kit is excluded from installed poles.
 
 The [mounting assembly guide](../../../docs/assemblies/corner-station/stand-assembly.md)
@@ -49,16 +49,17 @@ for development. Two ribbed carrier halves integrate the front round/square
 post adapter and terminal lug. Two rear pads react the M12 washer seats.
 Ordinary bought M12/M8 fasteners and a compatible purchased pulley pin complete
 the head without a custom metal angle, machined saddles or backing plates.
-The front/rear cosmetic covers each use four independent M3 × 12 screws,
-washers and captive plain hex nuts; no ties or strap channels remain. These
+The smooth front/rear cosmetic covers use continuous internal T-slide guides
+and a positive underside-releasable printed latch per shell. No cover screw
+heads, nuts, fastening holes, ties or strap channels remain. These printed
 cosmetic joints are non-structural. The integrated top chord is part of the
 load-bearing carrier, not a removable weather roof. The front cover retains a
 3 mm fascia and two open-top 18 mm channels for the structural webs. The
 [tie-free attachment contract](../../../docs/assemblies/corner-station/tie-free-covers.md)
-defines carrier bosses, rear-pad ears and removable cover stacks. The covers
-remain open cosmetic shields; drainage and received-fit review remain required.
+defines carrier/pad followers, internal guide sections and latch release. The
+covers remain open cosmetic shields; drainage and received-fit review remain required.
 
-Carrier halves and assembly are r1.1.0; pads and covers are r0.2.0; the marking
+Carrier halves and assembly are r1.2.0; pads and covers are r0.3.0; the marking
 template remains r0.1.0. Reprint all six installed prints as a matching kit.
 All are `concept-unvalidated`:
 
@@ -86,11 +87,13 @@ records dimensions, bolt stacks, print process and alternative selection.
 [Build instructions](../../../scripts/corner-support/README.md) produce actual
 meshes, print poses, booklet, GLB, source/STL ZIP and a hash/geometry report.
 The carrier's broad web plane remains parallel to printer XY in the recorded
-print transform. Added bosses reach the bed first, leaving the broad web faces
-20.5 mm above it; rear-pad ears leave the main pad backplane 14 mm above it.
-Review supports beneath both bodies and around lug/boss/ear transitions in the
-slicer. Inspect supported surfaces, roots, holes and nut pockets after support
-removal; do not assume support-free printing. A bed-fit mesh is not a sliced
+print transform. Added follower faces reach the bed first, leaving the broad
+web faces 20.2 mm above it. Rear pads now print on their original local Z=-25
+lower face, translated 25 mm upward without rotation; the main pad body contacts
+the bed. Review supports beneath the carrier webs, around lug/follower
+transitions, beneath the rearward pad-catch bridge and inside the horizontal
+M12 bore in the slicer. Inspect supported surfaces, roots, structural holes, guide lips and
+latch beams/hooks after support removal; do not assume support-free printing. A bed-fit mesh is not a sliced
 or manufactured part. Walls, infill, bonding, shrinkage and the complete print
 process remain unqualified.
 
@@ -218,4 +221,4 @@ These `visualization` models retain catalog references, including archived metal
 | [corner-head-angle-200](corner-head-angle-200.scad) · [BOM](../../../bom/generated/parts/corner-head-angle-200.md) | angle | Catalog historical 200 × 40 × 200 mm, 5 mm steel angle; illustrative holes and bend are simplified and do not define the proposed drilling pattern. |
 | [corner-head-through-bolts](corner-head-through-bolts.scad) · [BOM](../../../bom/generated/parts/corner-head-through-bolts.md) | bolt | Catalog M12 with one representative 180 mm shank and assumed 19 mm hex head; the 160/180/200 mm pair variants, threads and received stack remain undefined. |
 | [corner-guy-post-connection](corner-guy-post-connection.scad) · [BOM](../../../bom/generated/parts/corner-guy-post-connection.md) | shackle | Assumed M8 shackle silhouette representing an unselected bought attachment set; post mounting, height, load path and capacity are undefined. |
-| [corner-head-printed-hardware](corner-head-printed-hardware.scad) · [BOM](../../../bom/generated/parts/corner-head-printed-hardware.md) | hardware sample | Representative M12 × 190, M8 × 100 and M3 × 12 socket-head bolts with nominal washers and nuts; M3 plain hex nuts AF5.5 × 2.4 and washers OD7 × bore3.2 × 0.5; grade, threads, locking, pulley pin and received stack remain undefined. No ties. |
+| [corner-head-printed-hardware](corner-head-printed-hardware.scad) · [BOM](../../../bom/generated/parts/corner-head-printed-hardware.md) | hardware sample | Representative M12 × 190 and M8 × 100 bolts with nominal washers and nuts; grade, threads, locking, pulley pin and received stack remain undefined. Covers use entirely printed slides/latches; no ties or cosmetic hardware. |
