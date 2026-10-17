@@ -484,7 +484,7 @@ def build(out):
             matrix=np.eye(4);matrix[:3,3]=shift
             exploded.append({**part,'matrix':matrix.tolist()})
         renderer.render('exploded',parts+exploded,direction=(.6,-1,.7),size=(1600,1100))
-        rear_inside = pose(x=125,y=150)@trimesh.transformations.rotation_matrix(math.pi,[0,0,1])
+        rear_inside = pose(x=125,y=240)@trimesh.transformations.rotation_matrix(math.pi,[0,0,1])
         renderer.render('concealed-latches',[shields[0],{**shields[1],'matrix':rear_inside.tolist()}],
                         direction=(-1,-.6,.55),size=(1600,1100))
         renderer.render('print-left',[item('models/print/'+models['corner-head-printed-left']['output'],[.12,.14,.15])],direction=(.5,-1,.75),size=(1500,1050))
