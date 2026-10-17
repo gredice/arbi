@@ -139,7 +139,7 @@ def pages(page, table):
         '<b>Indoor insert, pages 9-14. One stand = one round-120 pulley head + one complete passive winch (including its motor), mounted by four clamp pairs. Two stands = two kits and sixteen adapter prints.</b>',
         'A: head front, curved seat, 26 mm default. B: head rear, 26 mm default. C: winch front, flat plate and two M8 holes, 35 mm default. D: winch rear, 35 mm default. Print two of each per stand; four of each for the two-stand batch. Never swap the rear halves between tube diameters.',
         'Retain one left and one right round-120 carrier per head, two M8 x 100 cross-bolts, four M8 washers, two locking nuts, the BA01090 block and its measured compatible retained pin. Build the passive winch using its owning booklet; this insert covers its mounting interface.',
-        'Omit timber rear pads, drilling template, long M12 timber bolts, both head cosmetic covers and their straps for the first inspection. Omit the timber saddle/pole mounting stack and closeout over the winch mounting holes. No drilling of the stand or use of its top thread.'],
+        'Omit timber rear pads, drilling template, long M12 timber bolts, both head cosmetic covers and their M3 hardware for the first inspection. Omit the timber saddle/pole mounting stack and closeout over the winch mounting holes. No drilling of the stand or use of its top thread.'],
         'stand-inventory', labels=True)
     page(10,'WT-806 / metal fastener inventory',[
         'Adapter hardware below is additional to the complete head and passive winch. Lengths are under the bolt head; washer dimensions are OD x thickness in mm. Threads and locking inserts are simplified in the illustrations.'],

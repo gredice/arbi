@@ -1,4 +1,4 @@
-// corner-station-assembly r1.0.0 — concept-unvalidated. Units: mm.
+// corner-station-assembly r1.1.0 — concept-unvalidated. Units: mm.
 // Mounted ordinary winch + proposed printed head, on one abbreviated round post.
 // The missing post length and line length are DRAWING BREAKS, not cuts to make.
 include <../../lib/corner-head-printed.scad>
@@ -64,9 +64,12 @@ station_parts = [
 module station_geometry(i) {
     if(i==0) station_post();
     else if(i==1) station_head_pose() { corner_head_printed_left(); corner_head_printed_right(); pch_rear_pads(); }
-    else if(i==2) station_head_pose() { pch_hardware(); pch_cross_hardware(); }
+    else if(i==2) station_head_pose() {
+        pch_hardware(); pch_cross_hardware();
+        pch_cover_hardware("front"); pch_cover_hardware("rear");
+    }
     else if(i==3) station_head_pose() pch_block();
-    else if(i==4) station_head_pose() { corner_head_printed_front_cover(); corner_head_printed_rear_cover(); pch_straps(); }
+    else if(i==4) station_head_pose() { corner_head_printed_front_cover(); corner_head_printed_rear_cover(); }
     else if(i>=5 && i<=7) station_winch_pose() wc_panel_installed(false,i-5);
     else if(i==8) station_winch_pose() wc_base(false);
     else if(i==9) station_winch_pose() {

@@ -1,4 +1,4 @@
-// Printed corner head r1.0.0 — concept-unvalidated, millimetres.
+// Printed corner head r1.1.0 — concept-unvalidated, millimetres.
 // Primary printed parts require process, load, creep and installed qualification.
 include <corner-head.scad>
 
@@ -14,7 +14,7 @@ function pch_sheave_z() = 165-pch_block_drop()/sqrt(2);
 function pch_bolt_length() = ceil((post_size_mm+70)/10)*10;
 function pch_bolt_tip() = pch_front()+3-pch_bolt_length();
 function pch_rows() = [45,155];
-function pch_reach() = max(68,pch_radius()+3);
+function pch_cover_rows() = [20,170];
 module pch_checks() {
     assert(post_shape=="round" || post_shape=="square");
     assert(post_size_mm>=100 && post_size_mm<=140);
@@ -44,10 +44,22 @@ module pch_web() {
             polygon([[pch_front()+22,62],[pch_pin_x()-40,178],[pch_front()+22,178]]);
         }
 }
-module pch_strap_channels() {
-    // Small rounded cosmetic strap tunnels; assess their stress concentration.
-    for(z=[21.5,171.5]) hull()
-        for(x=[pch_front()+30.5,pch_front()+32.5]) translate([x,0,z]) ch_ycyl(3,140);
+module pch_cover_nut_slot(y) {
+    // Plain M3 nut, AF5.5 x 2.4 nominal. AF5.7 x 2.8 top-loading pocket;
+    // flats face X so a nut can enter vertically with the cover removed.
+    translate([0,y,0]) {
+        rotate([90,0,0]) rotate([0,0,30])
+            cylinder(d=5.7/cos(30),h=2.8,center=true,$fn=6);
+        translate([-2.85,-1.4,0]) cube([5.7,2.8,9]);
+    }
+}
+module pch_front_cover_tabs() {
+    for(z=pch_cover_rows()) for(side=[-1,1])
+        translate([pch_front()+10,0,z]) difference() {
+            translate([-12,side>0 ? 34 : -60.5,-8]) cube([24,26.5,16]);
+            translate([0,side*48,0]) ch_ycyl(3.4,29);
+            pch_cover_nut_slot(side*56);
+        }
 }
 module pch_carrier_body() {
     difference() {
@@ -61,6 +73,7 @@ module pch_carrier_body() {
             translate([pch_pin_x(),0,165]) barton_mount_lug(fn=facets);
             // Solid cross-bolt bosses avoid squeezing two unsupported ribs.
             for(z=[100,190]) translate([pch_radius()+50,0,z]) ch_ycyl(26,80);
+            pch_front_cover_tabs();
         }
         pch_post_void();
         // Through-row cutters end at the root face, before the terminal lug.
@@ -68,27 +81,34 @@ module pch_carrier_body() {
         for(z=[100,190]) translate([pch_radius()+50,0,z]) ch_ycyl(8.6,100);
         // The bought pin passes only through the central lug, not side webs.
         translate([pch_pin_x(),0,165]) ch_ycyl(barton_lug_bore(),barton_tang_gap());
-        pch_strap_channels();
     }
 }
 module corner_head_printed_left() {
     pch_checks() intersection() {
         pch_carrier_body();
-        translate([-1,-41,-1]) cube([pch_pin_x()+30,41,210]);
+        translate([-1,-61,-1]) cube([pch_pin_x()+30,61,210]);
     }
 }
 module corner_head_printed_right() {
     pch_checks() intersection() {
         pch_carrier_body();
-        translate([-1,0,-1]) cube([pch_pin_x()+30,41,210]);
+        translate([-1,0,-1]) cube([pch_pin_x()+30,61,210]);
     }
 }
 module corner_head_printed_rear_pad() {
     // Export centered at Z=0; install two copies at the bolt row heights.
     pch_checks() difference() {
-        translate([pch_rear(),-40,-25]) cube([-pch_rear(),80,50]);
+        union() {
+            translate([pch_rear(),-40,-25]) cube([-pch_rear(),80,50]);
+            for(side=[-1,1]) translate([pch_rear()-14,side>0 ? 34 : -44.5,-8])
+                cube([18,10.5,16]);
+        }
         pch_post_void(52,-26);
         translate([0,0,0]) ch_xcyl(13,post_size_mm+100);
+        for(side=[-1,1]) translate([pch_rear()-8,0,0]) {
+            translate([0,side*40,0]) ch_ycyl(3.4,16);
+            pch_cover_nut_slot(side*40);
+        }
     }
 }
 module pch_rear_pads() {
@@ -132,23 +152,34 @@ module corner_head_printed_front_cover() {
         // Open-top rib channels keep the fascia clear of both structural webs;
         // the lower bridge and outer sidewalls retain one connected cover.
         for(y=[-41,23]) translate([pch_front()-5,y,30]) cube([43,18,151]);
-        // Straps enter the sidewalls behind the intact 3 mm fascia.
-        for(z=[20,170]) translate([pch_front()+27,-67,z]) cube([6,134,3]);
+        for(z=pch_cover_rows()) translate([pch_front()+10,0,z]) ch_ycyl(3.4,134);
     }
 }
 module corner_head_printed_rear_cover() {
     pch_checks() difference() {
         translate([pch_bolt_tip()-7,-49,10]) arbi_rounded_box([pch_rear()-.75-pch_bolt_tip()+7,98,180],3,facets=32);
         translate([pch_bolt_tip()-3,-45,14]) cube([pch_rear()-pch_bolt_tip()+8,90,172]);
-        for(z=[20,170]) translate([pch_rear()-14,-51,z]) cube([7,102,3]);
+        for(z=pch_rows()) translate([pch_rear()-8,0,z]) ch_ycyl(3.4,102);
         for(y=[-30,30]) translate([pch_rear()-8,y,9]) cylinder(d=4,h=10,$fn=32);
     }
 }
-module pch_straps() {
-    for(z=[20.8,170.8]) difference() {
-        translate([pch_rear()-11,-pch_reach(),z]) cube([pch_front()-pch_rear()+43.5,2*pch_reach(),1]);
-        translate([pch_rear()-8.5,-pch_reach()+2.5,z-.01]) cube([pch_front()-pch_rear()+38.5,2*pch_reach()-5,1.02]);
-    }
+module pch_cover_screw(side=1,outer=65) {
+    // M3 x 12 socket screw and OD7 x 0.5 washer; threads/socket simplified.
+    translate([0,side*(outer+.5-6),0]) ch_ycyl(3,12);
+    translate([0,side*(outer+2),0]) ch_ycyl(5.5,3);
+    translate([0,side*(outer+.25),0]) pch_ring_y(7,3.2,.5);
+}
+module pch_cover_hardware(which="front") {
+    front = which=="front";
+    for(z=front ? pch_cover_rows() : pch_rows()) for(side=[-1,1])
+        translate([front ? pch_front()+10 : pch_rear()-8,0,z]) {
+            pch_cover_screw(side,front ? 65 : 49);
+            translate([0,side*(front ? 56 : 40),0]) difference() {
+                rotate([90,0,0]) rotate([0,0,30])
+                    cylinder(d=5.5/cos(30),h=2.4,center=true,$fn=6);
+                ch_ycyl(3,2.42);
+            }
+        }
 }
 module corner_head_printed_template() {
     difference() {
@@ -159,9 +190,9 @@ module corner_head_printed_template() {
 }
 // Print poses map installed XZ to printer XY. Local supports may be needed at
 // the central lug/boss transitions; exports are not slicer/process approval.
-module pch_print_left() { translate([0,205,40]) rotate([90,0,0]) corner_head_printed_left(); }
-module pch_print_right() { translate([0,0,40]) rotate([-90,0,0]) corner_head_printed_right(); }
-module pch_print_rear_pad() { translate([25,40,-pch_rear()]) rotate([0,-90,0]) corner_head_printed_rear_pad(); }
+module pch_print_left() { translate([0,205,60.5]) rotate([90,0,0]) corner_head_printed_left(); }
+module pch_print_right() { translate([0,0,60.5]) rotate([-90,0,0]) corner_head_printed_right(); }
+module pch_print_rear_pad() { translate([25,44.5,14-pch_rear()]) rotate([0,-90,0]) corner_head_printed_rear_pad(); }
 module pch_print_front_cover() { translate([0,65,pch_front()+36]) rotate([0,90,0]) corner_head_printed_front_cover(); }
 module pch_print_rear_cover() { translate([190,49,-pch_bolt_tip()+7]) rotate([0,-90,0]) corner_head_printed_rear_cover(); }
 module pch_print_template() { corner_head_printed_template(); }
@@ -175,6 +206,8 @@ module corner_head_printed_assembly(show_covers=true,explode_mm=0) {
             translate([0,explode_mm,explode_mm>0 ? -190 : 0]) corner_head_printed_front_cover();
             translate([-explode_mm,0,0]) corner_head_printed_rear_cover();
         }
-        if(show_covers && explode_mm==0) color(ARBI_CORE) pch_straps();
+        if(show_covers && explode_mm==0) color(ARBI_METAL) {
+            pch_cover_hardware("front"); pch_cover_hardware("rear");
+        }
     }
 }

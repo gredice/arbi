@@ -65,8 +65,8 @@ positioning line → pulley → compatible bought metal pin
 
 The printed head uses two M8 cross-bolts to join its carrier halves; no steel
 angle, metal saddle or rear plate is part of that variant. Both halves and all
-fasteners must be present. Cosmetic covers and straps carry no positioning-line
-or guy load.
+structural fasteners must be present. Cosmetic covers and their independent
+M3 joints carry no positioning-line or guy load.
 
 The pod is light, but configured line tension can dominate post loading. The
 outward guy opposes one inward load direction; transverse and eccentric loads
@@ -127,15 +127,19 @@ Material compatibility, galvanic exposure, locking method, actual edge distances
 The new printed carrier halves and rear pads are primary structural concepts.
 PAHT-CF or tested ASA are candidates pending a recorded print process, received
 fit, anisotropic strength, fastener-seat pressure, sustained-load creep, cyclic
-reversal and outdoor conditioning tests. Carrier print poses place the main
-web plane in deposited layers; slicer/support review and physical tests still
-apply. The [package](design-package.md#prototype-printing-and-qualification)
+reversal and outdoor conditioning tests. Carrier print poses keep the main
+web plane parallel to printer XY; cover bosses put the broad webs 20.5 mm
+above the bed. Rear-pad ears put the main pad backplane 14 mm above the bed.
+Reviewed supports beneath both bodies and inspection after support removal
+are required; print-process qualification remains open. The [package](design-package.md#prototype-printing-and-qualification)
 defines process records and [acceptance](acceptance-record.md) keeps loads,
 limits and authorized stages open. No torque or load rating is assigned.
 
 The removable front/rear cosmetic covers are separate from the load-bearing
-carrier. Two bought straps retain them; the structural top chord is an integral
-roof and must not be removed for service. The following keeper requirements
+carrier. The [tie-free attachment proposal](tie-free-covers.md) uses four
+independent M3 × 12 screw/washer/captive-nut joints per cover, with no ties or
+strap channels. Carrier bosses and rear-pad ears carry only cosmetic retention.
+The structural top chord is an integral roof and must not be removed for service. The following keeper requirements
 apply to a separate fitted keeper, not to the carrier or cosmetic covers.
 
 The removable keeper should:
@@ -150,11 +154,13 @@ weather suitability does not qualify the printed carrier. PETG has no recorded
 load-bearing qualification here. The keeper is expressly non-structural.
 The [Barton measurement/specification record](../../../bom/sourcing/barton-n01090-2026-10-11.md)
 now defines the received 65 × 36 × 24 mm block and its 4.7 mm pin, 15.8 mm gap,
-1.5 mm tangs and 42 mm centres. Carrier halves/assemblies are r1.0.0; use the
+1.5 mm tangs and 42 mm centres. Carrier halves/assemblies are r1.1.0 with
+r0.2.0 pads and covers; use the
 native retained pin inside the 14.8 mm lug with 5.2 mm bore. The standalone
 keeper r1.0.0 surrounds the measured cheek envelope but remains a candidate:
 attachment and minimum-line retention are not accepted. It is not installed in
-the printed head. See the [current nominal record](barton-geometry-check.md).
+the printed head. See the [measured Barton nominal record](barton-geometry-check.md)
+and the [current cover verification contract](tie-free-covers.md#nominal-verification-and-physical-evidence).
 
 ## Winch and line alignment
 

@@ -3,6 +3,17 @@
 include <corner-head-printed.scad>
 
 function lch_pin_x() = pch_sheave_x()-40/sqrt(2);
+module lch_strap_channels() {
+    for(z=[21.5,171.5]) hull()
+        for(x=[pch_front()+30.5,pch_front()+32.5]) translate([x,0,z]) ch_ycyl(3,140);
+}
+module lch_rear_pads() {
+    for(z=pch_rows()) translate([0,0,z]) difference() {
+        translate([pch_rear(),-40,-25]) cube([-pch_rear(),80,50]);
+        pch_post_void(52,-26);
+        ch_xcyl(13,post_size_mm+100);
+    }
+}
 module lch_web() {
     rotate([90,0,0]) linear_extrude(height=16)
         difference() {
@@ -25,6 +36,6 @@ module lch_carrier() {
         for(z=pch_rows()) translate([pch_front()/2,0,z]) ch_xcyl(13,pch_front()+2);
         for(z=[100,190]) translate([pch_radius()+50,0,z]) ch_ycyl(8.6,100);
         translate([lch_pin_x(),0,165]) ch_ycyl(8.6,10);
-        pch_strap_channels();
+        lch_strap_channels();
     }
 }

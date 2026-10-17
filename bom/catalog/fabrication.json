@@ -4,8 +4,9 @@
   "note": "Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
   "geometry": {
     "releaseTag": null,
-    "sourceCommit": "05d4b730030f385037aa6e073e365bc20ef39f05",
+    "sourceCommit": "ca76a561b1546a8c58b09d230b50217383fca6e6",
     "sourceHashes": {
+      "hardware/models.json": "caa599df7896e8d6133917a72e1a0f0d52f1bc17266b14e4d1385102b8e72753",
       "hardware/assemblies/camera-pod/bulk-capacitor-1000uf.scad": "b7125e5371d0aa55110fbcae7300b3a98bd4a3474341a0fed3bf199a6fb4a92e",
       "hardware/assemblies/camera-pod/camera-gimbal-base.scad": "aaa44f020ea99055c07d5aeb165f76da34c90562f1bccd29fe6ab8a746ccde2f",
       "hardware/assemblies/camera-pod/camera-gimbal-camera-plate.scad": "ee46401f166414b9c65f8b361e84a9694128b8a04de4aab8f35e343f69d9c535",
@@ -16,6 +17,7 @@
       "hardware/assemblies/camera-pod/camera-pod-camera-cowl.scad": "3161c4e209eb3db5769ca5a9f6be6ddac760159e0b1d2a78c7e4634acf79fcc3",
       "hardware/assemblies/camera-pod/camera-pod-camera-cradle.scad": "0b8757bfd228a84930b1da61a0571e73984065b31bd1de5f8249f7bdfcb91c5f",
       "hardware/assemblies/camera-pod/camera-pod-camera-hood.scad": "9916f9a8709aaff701d527a095bbbb684e2213fcdaee68222ebdf0cd1c23b2f3",
+      "hardware/assemblies/camera-pod/camera-pod-capacitor-retainer.scad": "3955e14b2f7af8c17d3fe72daa72a02ce7db434388c048aca9f4ee621b5bc276",
       "hardware/assemblies/camera-pod/camera-pod-docking-stud.scad": "b4d26a0e2d8914c77383e1556db1f9e86b6c2dc92ff6a8e3d9744c9ee59bfc1f",
       "hardware/assemblies/camera-pod/camera-pod-electronics-cover.scad": "1b1168c3b693086d83cb622eb85428d0e3800d1cb8897c5eee868ffd487337e5",
       "hardware/assemblies/camera-pod/camera-pod-electronics-deck.scad": "e6ccda242c2016d99796a737f07e27bff4fdb4dff38d61d809bc55afae151407",
@@ -31,10 +33,13 @@
       "hardware/assemblies/camera-pod/camera-pod-integrated-gimbal-head.scad": "a1cb2c94660bfd0e27ca1cb6125b44630f88ab60a7cc79a870dfa2c53c3f2bb6",
       "hardware/assemblies/camera-pod/camera-pod-integrated-tilt-pivot-support.scad": "25b36514d2528c739937903be1bf24c0fb1d0c1216a0525b0b9df77e217ae973",
       "hardware/assemblies/camera-pod/camera-pod-line-strain-relief.scad": "55ebe149da5f2025f8a46e056c47cb866a63d8f9016b7bd20ef45ae3e1aa1fba",
+      "hardware/assemblies/camera-pod/camera-pod-loom-clamp.scad": "e2678f4ea35e1c1daf5dad76c6dc6a7c6403539e0e99aebe92099ba95810f3ac",
       "hardware/assemblies/camera-pod/camera-pod-pan-fairing.scad": "98237953189f5ef08e620b7dec1d0798d685b9cc8e831a0d5ad609e206024f2e",
       "hardware/assemblies/camera-pod/camera-pod-pan-servo-mount.scad": "029e77b09d205f2a80d3972bf97c02a4178f1dc85936c63956dbdfab69b16336",
       "hardware/assemblies/camera-pod/camera-pod-pan-yoke.scad": "535de9f0abc1140e64e2da8ea59d2717fafb4728a134d18ee29663a2b236e6be",
+      "hardware/assemblies/camera-pod/camera-pod-power-clamp.scad": "a6fc58e5f346b16b026fe58677e9d387d084780c44581d1b097dc6f712d8a22f",
       "hardware/assemblies/camera-pod/camera-pod-rain-hood.scad": "34bf5e6359f39b02dcb405ff1e4dab26505203ef37d93e0215c49975fbe359a1",
+      "hardware/assemblies/camera-pod/camera-pod-ribbon-clamp.scad": "0f9ce18aaca22fdccf299f9a42bc411756eb1ad7ccc2484de89ec2094935fe7c",
       "hardware/assemblies/camera-pod/camera-pod-servo-fit-coupon.scad": "c10c409eddad6232eb125ca3511578a517656d973479fac8bd21c4112ff1d840",
       "hardware/assemblies/camera-pod/camera-pod-spider-spacer.scad": "beb0f81506bc5462ed1eb4d540316b0dfb06c532dadbaee40ff6624175c3c52d",
       "hardware/assemblies/camera-pod/camera-pod-spider.scad": "6e914f806f9acdd605b2ff17b37b572d2591a1aa0b5d5d7044c818b7bcde7a29",
@@ -65,13 +70,13 @@
       "hardware/assemblies/corner-station/corner-head-legacy-adapter-left.scad": "38509edf7ec45f7fa1945c7a96c9d09a033c5ca9903780a5c0107542e91cb19c",
       "hardware/assemblies/corner-station/corner-head-legacy-adapter-right.scad": "37f7f3cdf75b870285a4005cf573420023b50d764b455a2a1fffee44f7a22369",
       "hardware/assemblies/corner-station/corner-head-marking-template.scad": "77eaa8242e709249b28f506544aff659be9e53b169cf172483ee0dd68b8760b1",
-      "hardware/assemblies/corner-station/corner-head-printed-assembly.scad": "d8a132db92bcd2101b345b2ecbfac6bb6ac6d721c4736926ead457f80280bf15",
-      "hardware/assemblies/corner-station/corner-head-printed-front-cover.scad": "893cafd28c32f4e6644f70d3fd1e1f66ad4b44b694965fc0ad85527cb68fd4be",
-      "hardware/assemblies/corner-station/corner-head-printed-hardware.scad": "8263e54ff734a33b4fddffbecb4f0135a9bd17260aaf7c9fe4534f17fd06c9f5",
-      "hardware/assemblies/corner-station/corner-head-printed-left.scad": "a7d51fd6273ef13bd0d07737a239d54a4a154d1b1742421ef154968711c9646e",
-      "hardware/assemblies/corner-station/corner-head-printed-rear-cover.scad": "3fdef008db3c82b0a4a48a92839d59b90ee9012090aab2830351dd3e9c0361f0",
-      "hardware/assemblies/corner-station/corner-head-printed-rear-pad.scad": "56e534384338f4c49eac181dc9d3bd9ac9a22e0c14800e8f71fe27948d070450",
-      "hardware/assemblies/corner-station/corner-head-printed-right.scad": "e2b0723ec6ae767355642b5a2b3fb236419eae35313f74072965101bc570597f",
+      "hardware/assemblies/corner-station/corner-head-printed-assembly.scad": "f9fb355038abc46e456b125e9a9a6009068d9d07f150163d528f36a79246406f",
+      "hardware/assemblies/corner-station/corner-head-printed-front-cover.scad": "d65212a3d660354528d8316281dd63cf8f066a09b040c50349622abc85bcbc89",
+      "hardware/assemblies/corner-station/corner-head-printed-hardware.scad": "24c53b7bb1a1c75a53ca1a8afdacccaaf56c8455c837229fcb5dda4bd9cc87fb",
+      "hardware/assemblies/corner-station/corner-head-printed-left.scad": "04fdf7984ef2486888b4e7c9f99c8fa857c86ebf86f5eee924693fe1086a32db",
+      "hardware/assemblies/corner-station/corner-head-printed-rear-cover.scad": "67de51c0aa9526ce05c8e2e41f8ca75812fb0d15f23e3e7f00803c310bc7ca2e",
+      "hardware/assemblies/corner-station/corner-head-printed-rear-pad.scad": "72cbcf5e056a6230347194118e3aba2be090dd4d93e2b1dae9eef122983fd6ee",
+      "hardware/assemblies/corner-station/corner-head-printed-right.scad": "7b0ea9133f7069537e87a387dde5b21929576a7c6a7ef267c544b3a49bd99fc6",
       "hardware/assemblies/corner-station/corner-head-printed-template.scad": "75d4fe1a5ef3938a4405a4d4857ad8af8e48994ceefaa35ddd6d992b3d69a162",
       "hardware/assemblies/corner-station/corner-head-rear-cover.scad": "7313be0ca7f787f2fe086298cf7f7b52ffa8b3ead574d820a11350b4ad331ee0",
       "hardware/assemblies/corner-station/corner-head-rear-saddle.scad": "5254fe048f76dfd285aa58c4fd1b299a16f5d81ac60ac96db175e976ab64f730",
@@ -79,12 +84,12 @@
       "hardware/assemblies/corner-station/corner-head-roof.scad": "b91e02f3e900d75fa47ed8ae081287a14ae91a67da5f55c303489497042ac3fa",
       "hardware/assemblies/corner-station/corner-head-through-bolts.scad": "ee54adcbd713368e1eaadf1b17d2b1781369424b9b236668c813d461ddd4bdbc",
       "hardware/assemblies/corner-station/corner-post-treated-timber.scad": "b0dd60d95b5215c1f0b28588678f638731587e9aca18bb7757fd0495d99a7b13",
-      "hardware/assemblies/corner-station/corner-stand-assembly.scad": "1d9fcbe1efc075fd1629c4af8bf0da84a1b2e6954bd59a9adbc4fa2e850ebbe2",
+      "hardware/assemblies/corner-station/corner-stand-assembly.scad": "d49f2d196038d3af8d2b536f1f2474dc1e4a331837fec051d2515f5f0b66832a",
       "hardware/assemblies/corner-station/corner-stand-head-front.scad": "0e81720f428404ba624c50bfc1e6d24915f57901292e7307712c8b921b16525f",
       "hardware/assemblies/corner-station/corner-stand-head-rear.scad": "ddb623ee7b205cf48a631f8011cab99dcaa7b5419fad67bd65ebbcd8fbd379dd",
       "hardware/assemblies/corner-station/corner-stand-winch-front.scad": "c2b99e4bc1e31739940f6b3623f056a15108da3567a7885cfe7ad4089f2bb9c2",
       "hardware/assemblies/corner-station/corner-stand-winch-rear.scad": "c9cd599e6ff9b1bc6d014c89056a333d2e4edb1f4ff1e64e6292b031b13653ec",
-      "hardware/assemblies/corner-station/corner-station-assembly.scad": "09e0b012f95f994f1b3fd8e1fdd301d0e235f9a77ca2b778fcef0c529271d045",
+      "hardware/assemblies/corner-station/corner-station-assembly.scad": "6e117352dd821fb5d4c91fd589a4f11a2ab76d4a068b77c9cb2796fc4326524f",
       "hardware/assemblies/corner-station/guy-ground-anchor.scad": "56c935ca68c9464316bf77775f717da2d261ef61db09eda6e7e663bccb695fbb",
       "hardware/assemblies/corner-station/guy-turnbuckle-m12.scad": "c8f1a26d38187a2f562eb043b53eb52e6e1d32024f0faf028c919ffcc36cb321",
       "hardware/assemblies/corner-station/guy-wire-3mm.scad": "c2fb063566d0d3dab328b732afc0b45bdb3488f75c2327f68d749146695b39f7",
@@ -204,11 +209,12 @@
       "hardware/lib/camera-pod-integrated-gimbal.scad": "b2eaee272d78b08d246aeb640efd0ead87287ed2573dc7c69a783c4fa25331e4",
       "hardware/lib/camera-pod-integrated-head.scad": "df8b593a7a38449fa0c4c5daa5e0db95d77a4fd890f11bedf341e82b17adadf1",
       "hardware/lib/camera-pod-mounts.scad": "76ea60a17d98febac514d01ddacb19af5219dc813cd5faf94446e03f5e88e240",
+      "hardware/lib/camera-pod-retention.scad": "0d082afcd4850447913d9185748a7427fb3a2b8abbefcb6ea2aab64e9cc9367f",
       "hardware/lib/camera-pod.scad": "324d1d886ddb52fd9b5545e9ba2116e1c6c42fac7b026951d18bbbb090d85379",
       "hardware/lib/catalog-visualizations.scad": "063cc3cf4e4893bee941e3cf6bb5c0f07bc4693226ceef52048761c8f66a7642",
-      "hardware/lib/corner-head-legacy-adapter.scad": "dde9807da8a80f99a4de31928c1c2b4bca98091c5759da2501bcfd6d0931d652",
-      "hardware/lib/corner-head-legacy-interface.scad": "654c5c456695128af8f7997bafedc5dfee75c8df1745ad6f114f7820dd18d0d4",
-      "hardware/lib/corner-head-printed.scad": "c83323cb77e0b2c3f9475fb20499a121563203170ead05e57c1ac072a5edcefa",
+      "hardware/lib/corner-head-legacy-adapter.scad": "5688a17227ac3bcf4c8b04526a81234c48b48296c903926a670a3e4e5178b9e3",
+      "hardware/lib/corner-head-legacy-interface.scad": "f1150bd1ab4a1b6cc81eb17737a19d157669053619a265af037b60b1f79aabd1",
+      "hardware/lib/corner-head-printed.scad": "644d08c040d6020897b4348f99b615535a702342d1577612c65094e1c919987f",
       "hardware/lib/corner-head.scad": "0fff8dae1a356d48c14612e0299cb5c454fac3f5b1e94d5694d8a2a38ddf7d8a",
       "hardware/lib/corner-stand-adapter.scad": "4b584e47664635aa005300186557913dda0f063a7eb2c6456cc227ea6b65c75c",
       "hardware/lib/dock.scad": "7d3a8e5251cef8fc9409373bb50c6dd38fb7456012bd32737b75354273f8bd32",
@@ -222,7 +228,6 @@
       "hardware/lib/winch-drum.scad": "0684c28615d398d1b7a2beb7d15a4fa4e27d62382b8a8bde1470367f5de1e837",
       "hardware/lib/winch-mount.scad": "14c45ece0170d198ac5322dcb34a8b4b844fa6cc6efddb7bf683c96bed8d0bd3",
       "hardware/lib/winch-pole.scad": "58e2f446a74cb8d38e31c332727ae31ab6e10ec49ce38ba16dcd88a20ba8fc85",
-      "hardware/models.json": "65b491fcd281cc845d3d9ee52ff011baca001c983dede5f56e8426cd057544e8",
       "hardware/vendor/BOSL2/affine.scad": "035629bc49574b7b745afd2cb493efb1ff8d7bdf6f7fa7cf0abe92d6f99b76c8",
       "hardware/vendor/BOSL2/attachments.scad": "d7eb1f2d0ec74b713ceb14532bcb2b3ec7bc04c28ff0ef12eaf1c886562cc8cb",
       "hardware/vendor/BOSL2/ball_bearings.scad": "6db8a93775a4e7ee222df949a73bf181b065094b4ac1e9cf44706201ebd614bb",
@@ -278,14 +283,15 @@
       "hardware/vendor/BOSL2/version.scad": "5919420c6986908eacc3ccea21fb0a6e0dfdb82af5323c733b314ef5272b6edd",
       "hardware/vendor/BOSL2/vnf.scad": "f4bae873b2d9c85f3bf1d45ad286f43d99891b71a09b04e75406b55959f94566",
       "hardware/vendor/BOSL2/walls.scad": "4d4b314c55417124adef666df31d0ede21db6b1622fdd76cc993faf4dcc827a7",
-      "hardware/vendor/BOSL2/wiring.scad": "d443504bb350883a7c1e7d5cf1a7edaeb810de682b7465f68fce78e911552574",
-      "hardware/lib/camera-pod-retention.scad": "0d082afcd4850447913d9185748a7427fb3a2b8abbefcb6ea2aab64e9cc9367f",
-      "hardware/assemblies/camera-pod/camera-pod-capacitor-retainer.scad": "3955e14b2f7af8c17d3fe72daa72a02ce7db434388c048aca9f4ee621b5bc276",
-      "hardware/assemblies/camera-pod/camera-pod-power-clamp.scad": "a6fc58e5f346b16b026fe58677e9d387d084780c44581d1b097dc6f712d8a22f",
-      "hardware/assemblies/camera-pod/camera-pod-ribbon-clamp.scad": "0f9ce18aaca22fdccf299f9a42bc411756eb1ad7ccc2484de89ec2094935fe7c",
-      "hardware/assemblies/camera-pod/camera-pod-loom-clamp.scad": "e2678f4ea35e1c1daf5dad76c6dc6a7c6403539e0e99aebe92099ba95810f3ac"
+      "hardware/vendor/BOSL2/wiring.scad": "d443504bb350883a7c1e7d5cf1a7edaeb810de682b7465f68fce78e911552574"
     },
     "models": [
+      {
+        "modelId": "camera-pod-capacitor-retainer",
+        "revision": "0.1.0",
+        "volumeCm3": "0.754306",
+        "stlSha256": "e58c3c367ee07cc19a3e83772ca77ff3611a809e547f6fd312e6ed5e91af919f"
+      },
       {
         "modelId": "camera-pod-enclosure-base",
         "revision": "0.2.3",
@@ -335,16 +341,34 @@
         "stlSha256": "a15205999e2993fc2452c9931ee5ffa594a5a2b081ab6d5d87ca79afad437b90"
       },
       {
+        "modelId": "camera-pod-loom-clamp",
+        "revision": "0.1.0",
+        "volumeCm3": "0.881187",
+        "stlSha256": "8c8e73519f02bb0ae4e78c62583e800294c6046c817f9cb16afa4e42f4c98fd3"
+      },
+      {
         "modelId": "camera-pod-pan-servo-mount",
         "revision": "0.1.1",
         "volumeCm3": "8.273944",
         "stlSha256": "8e09fbb09ecc374d00604375af6cd6c6ad705b7d603b21c9ea809dffb6b3acf0"
       },
       {
+        "modelId": "camera-pod-power-clamp",
+        "revision": "0.1.0",
+        "volumeCm3": "0.903406",
+        "stlSha256": "2153b8082f34313ddde0e30b2f28c2af63921cdd9cfc970060922d006e2c0b6f"
+      },
+      {
         "modelId": "camera-pod-rain-hood",
         "revision": "0.3.0",
         "volumeCm3": "36.443431",
         "stlSha256": "7d2a003fd6547a14229661b28bbdb7a5fa5de6c829153b149f359c0ebd3881dd"
+      },
+      {
+        "modelId": "camera-pod-ribbon-clamp",
+        "revision": "0.1.0",
+        "volumeCm3": "0.982786",
+        "stlSha256": "fb53f6cad0ae773ec39afe200c0eaf08daf8e407f59d2b029599fcb158fc1a0f"
       },
       {
         "modelId": "camera-pod-spider",
@@ -354,39 +378,39 @@
       },
       {
         "modelId": "corner-head-printed-front-cover",
-        "revision": "0.1.0",
-        "volumeCm3": "104.128616",
-        "stlSha256": "5d47cb5baeee84627dc1114457476650995b0ce1c2993e82c857ace9e0ac9615"
+        "revision": "0.2.0",
+        "volumeCm3": "104.271461",
+        "stlSha256": "e84dbb912f734259eb620b989cf4d09f23039afedc62e249d8fc1a989d193248"
       },
       {
         "modelId": "corner-head-printed-left",
-        "revision": "1.0.0",
-        "volumeCm3": "560.129193",
-        "stlSha256": "23c8c63e9a28403305339822a4fabb298a2d3a241094508614e671c4115ab730"
+        "revision": "1.1.0",
+        "volumeCm3": "576.133210",
+        "stlSha256": "b203bda5d55a3f001aad4e642288217100000ed1872a2e3f66d847c0dd99a491"
       },
       {
         "modelId": "corner-head-printed-rear-cover",
-        "revision": "0.1.0",
-        "volumeCm3": "114.600742",
-        "stlSha256": "3953a749c0efbafe03b27b20ddd969cb6429dca90c3dff191a9bfd0bd564e0cf"
+        "revision": "0.2.0",
+        "volumeCm3": "114.791580",
+        "stlSha256": "bc3f2ff40eba0d5baaa3e1edfd4cb743fc821789198c6dac8455853f93f7f728"
       },
       {
         "modelId": "corner-head-printed-rear-pad",
-        "revision": "0.1.0",
-        "volumeCm3": "80.102232",
-        "stlSha256": "56b2c44ca2213163e4c5b7591f23124cd2282da6ee33f33af0342ddba4b5f067"
+        "revision": "0.2.0",
+        "volumeCm3": "84.908368",
+        "stlSha256": "a0147221f665ef98635b462683cd9fc5f82637860bea50b60e3a23fa7ccf55a4"
       },
       {
         "modelId": "corner-head-printed-right",
-        "revision": "1.0.0",
-        "volumeCm3": "560.129192",
-        "stlSha256": "572a1c404f9c4e4f320eaedd54ab42030d1eea8a16ee8b053ccd1e2001e3cdc7"
+        "revision": "1.1.0",
+        "volumeCm3": "576.133209",
+        "stlSha256": "a2fe62e97dee6b2c77af28fb08c43d0dea52af28f825f57aa792c460f1106005"
       },
       {
         "modelId": "corner-head-printed-template",
         "revision": "0.1.0",
         "volumeCm3": "40.865757",
-        "stlSha256": "3e8029781eda2c0cde43a71718929fea9de9a50d8e294b6d3613294fa4d7f8d7"
+        "stlSha256": "044810fb94b02c28252d3348f199060e9c815a911980db3c3d00ab15626ba5cc"
       },
       {
         "modelId": "corner-stand-head-front",
@@ -729,30 +753,6 @@
         "revision": "0.1.0",
         "volumeCm3": "16.878400",
         "stlSha256": "8c4864d175d3008b51defefd254eb015b4bae7dabdc4d994f6c46e008b38c74c"
-      },
-      {
-        "modelId": "camera-pod-capacitor-retainer",
-        "revision": "0.1.0",
-        "volumeCm3": "0.754306",
-        "stlSha256": "e58c3c367ee07cc19a3e83772ca77ff3611a809e547f6fd312e6ed5e91af919f"
-      },
-      {
-        "modelId": "camera-pod-power-clamp",
-        "revision": "0.1.0",
-        "volumeCm3": "0.903406",
-        "stlSha256": "2153b8082f34313ddde0e30b2f28c2af63921cdd9cfc970060922d006e2c0b6f"
-      },
-      {
-        "modelId": "camera-pod-ribbon-clamp",
-        "revision": "0.1.0",
-        "volumeCm3": "0.982786",
-        "stlSha256": "fb53f6cad0ae773ec39afe200c0eaf08daf8e407f59d2b029599fcb158fc1a0f"
-      },
-      {
-        "modelId": "camera-pod-loom-clamp",
-        "revision": "0.1.0",
-        "volumeCm3": "0.881187",
-        "stlSha256": "8c8e73519f02bb0ae4e78c62583e800294c6046c817f9cb16afa4e42f4c98fd3"
       }
     ]
   },
