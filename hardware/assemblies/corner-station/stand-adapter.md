@@ -106,8 +106,13 @@ Reuse each head's two carrier-joining M8 cross-bolts, measured compatible pulley
 pin and pulley. Retain both printed carrier halves. Omit the timber rear pads,
 long M12 through-bolts and rear cosmetic cover. The first fit/rotation setup also
 omits the front cosmetic cover, so fasteners and line contact remain visible.
-Any later cover retention needs a separately inspected strap route on this
-fixture; the stock timber strap loop is not a stand retention method.
+The current r1.1.0 carrier includes captive-nut bosses for the matching r0.2.0
+front cover; the stand assembly reference is r1.1.0, with no change to adapter
+fabrication geometry. The first fit omits both covers and all M3 cosmetic
+hardware. Later front-cover fitting requires a separate inspection of the
+[tie-free screw interface](../../../docs/assemblies/corner-station/tie-free-covers.md)
+and stand tool/service access; the rear cover requires timber pads and is not
+part of this fixture. No cover joint retains the stand.
 
 Clamp bolt length is `ceil((tube diameter + 20 + 3.2 + 6 + 3)/5) × 5` mm:
 60 / 65 / 70 for 26 / 30 / 35 mm tubes. This gives at least 3 mm nominal thread

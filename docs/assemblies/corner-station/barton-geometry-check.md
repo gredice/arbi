@@ -1,5 +1,10 @@
 # Measured Barton block and mating CAD: nominal record
 
+Historical r1.0.0 carrier record from 11 October 2026. The measured Barton
+interface remains the reference; the [tie-free cover update](tie-free-covers.md)
+changes carrier/pad/cover geometry and requires fresh nominal checks. These
+earlier results do not validate the new cover joints.
+
 11 October 2026. Carrier halves, block, keeper, split-collar front and assembly
 references revision `1.0.0`, all `concept-unvalidated`. Unchanged pads, covers,
 template and stand clamp fabrication remain `0.1.0`. The

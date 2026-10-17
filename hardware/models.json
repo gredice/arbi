@@ -836,7 +836,7 @@
         },
         {
             "id": "corner-head-printed-left",
-            "revision": "1.0.0",
+            "revision": "1.1.0",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
             "bomPartIds": [
@@ -844,13 +844,13 @@
             ],
             "assembly": "corner-station",
             "entrypoint": "hardware/assemblies/corner-station/corner-head-printed-left.scad",
-            "output": "corner-head-printed-left-r1.0.0.stl",
+            "output": "corner-head-printed-left-r1.1.0.stl",
             "documentation": "hardware/assemblies/corner-station/README.md",
-            "description": "Two-piece ribbed printed carrier, left half with integrated curved front seat; process and structural qualification open."
+            "description": "Two-piece ribbed printed carrier, left half with curved front seat and independent captive-nut cover bosses; no tie channels; process and structural qualification open."
         },
         {
             "id": "corner-head-printed-right",
-            "revision": "1.0.0",
+            "revision": "1.1.0",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
             "bomPartIds": [
@@ -858,13 +858,13 @@
             ],
             "assembly": "corner-station",
             "entrypoint": "hardware/assemblies/corner-station/corner-head-printed-right.scad",
-            "output": "corner-head-printed-right-r1.0.0.stl",
+            "output": "corner-head-printed-right-r1.1.0.stl",
             "documentation": "hardware/assemblies/corner-station/README.md",
-            "description": "Two-piece ribbed printed carrier, right half; direct provisional double-tang lug and printed cross-bolt bosses."
+            "description": "Two-piece ribbed printed carrier, right half with measured double-tang lug and independent captive-nut cover bosses; no tie channels."
         },
         {
             "id": "corner-head-printed-rear-pad",
-            "revision": "0.1.0",
+            "revision": "0.2.0",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
             "bomPartIds": [
@@ -872,13 +872,13 @@
             ],
             "assembly": "corner-station",
             "entrypoint": "hardware/assemblies/corner-station/corner-head-printed-rear-pad.scad",
-            "output": "corner-head-printed-rear-pad-r0.1.0.stl",
+            "output": "corner-head-printed-rear-pad-r0.2.0.stl",
             "documentation": "hardware/assemblies/corner-station/README.md",
-            "description": "Printed curved rear load-spreading pad; two instances per head; clamp preload and creep unverified."
+            "description": "Printed curved rear load-spreading pad with lateral captive-nut cover ears; two instances per head; clamp preload and creep unverified."
         },
         {
             "id": "corner-head-printed-front-cover",
-            "revision": "0.1.0",
+            "revision": "0.2.0",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
             "bomPartIds": [
@@ -886,13 +886,13 @@
             ],
             "assembly": "corner-station",
             "entrypoint": "hardware/assemblies/corner-station/corner-head-printed-front-cover.scad",
-            "output": "corner-head-printed-front-cover-r0.1.0.stl",
+            "output": "corner-head-printed-front-cover-r0.2.0.stl",
             "documentation": "hardware/assemblies/corner-station/README.md",
-            "description": "Non-structural removable white front cover, two strap passages; matched printed carrier only."
+            "description": "Non-structural removable white front cover with four independent M3 screw seats and open rib-clearance channels; matched r1.1.0 carriers only."
         },
         {
             "id": "corner-head-printed-rear-cover",
-            "revision": "0.1.0",
+            "revision": "0.2.0",
             "status": "concept-unvalidated",
             "artifactRole": "fabrication",
             "bomPartIds": [
@@ -900,9 +900,9 @@
             ],
             "assembly": "corner-station",
             "entrypoint": "hardware/assemblies/corner-station/corner-head-printed-rear-cover.scad",
-            "output": "corner-head-printed-rear-cover-r0.1.0.stl",
+            "output": "corner-head-printed-rear-cover-r0.2.0.stl",
             "documentation": "hardware/assemblies/corner-station/README.md",
-            "description": "Non-structural rear nut shield for the printed pad and bolt stack; drainage and strap retention need physical checks."
+            "description": "Non-structural rear nut shield with four independent M3 screw seats on matched r0.2.0 rear-pad ears; drainage and retention need physical checks."
         },
         {
             "id": "corner-head-printed-template",
@@ -920,15 +920,15 @@
         },
         {
             "id": "corner-head-printed-assembly",
-            "revision": "1.0.0",
+            "revision": "1.1.0",
             "status": "concept-unvalidated",
             "artifactRole": "reference",
             "bomPartIds": [],
             "assembly": "corner-station",
             "entrypoint": "hardware/assemblies/corner-station/corner-head-printed-assembly.scad",
-            "output": "corner-head-printed-assembly-r1.0.0.csg",
+            "output": "corner-head-printed-assembly-r1.1.0.csg",
             "documentation": "hardware/assemblies/corner-station/README.md",
-            "description": "Mostly printed through-bolted corner head with purchased pulley and standard metal fasteners; concept-unvalidated."
+            "description": "Mostly printed through-bolted corner head with purchased pulley, structural M12/M8 fasteners and eight independent M3 cover screws; concept-unvalidated."
         },
         {
             "id": "corner-head-legacy-adapter-left",
@@ -1906,7 +1906,7 @@
         },
         {
             "id": "corner-head-printed-hardware",
-            "revision": "0.1.0",
+            "revision": "0.2.0",
             "status": "concept-unvalidated",
             "artifactRole": "visualization",
             "bomPartIds": [
@@ -1914,12 +1914,12 @@
             ],
             "assembly": "corner-station",
             "entrypoint": "hardware/assemblies/corner-station/corner-head-printed-hardware.scad",
-            "output": "corner-head-printed-hardware-r0.1.0.stl",
+            "output": "corner-head-printed-hardware-r0.2.0.stl",
             "documentation": "hardware/assemblies/corner-station/README.md",
             "description": "Approximate visualization of Printed corner-head bought fastener and retention set; shape needs rework.",
             "geometry": {
                 "status": "approximate",
-                "basis": "Representative catalog M12 × 190 and M8 × 100 bolts with nominal washer/nut samples; grade, threads, locking, pulley pin, straps and received stack are undefined.",
+                "basis": "Representative catalog M12 × 190, M8 × 100 and M3 × 12 socket-head bolts with nominal washer/nut samples; M3 plain hex nuts AF5.5 × 2.4 and washers OD7 × bore3.2 × 0.5; grade, threads, locking, pulley pin and received stack remain undefined. No ties.",
                 "rework": "Shape is not yet fully defined. Confirm the selected item against supplier drawings or measurements, then rework this model before using it for fit, clearance or fabrication."
             }
         },
@@ -2206,25 +2206,25 @@
         },
         {
             "id": "corner-stand-assembly",
-            "revision": "1.0.0",
+            "revision": "1.1.0",
             "status": "concept-unvalidated",
             "artifactRole": "reference",
             "bomPartIds": [],
             "assembly": "corner-station",
             "entrypoint": "hardware/assemblies/corner-station/corner-stand-assembly.scad",
-            "output": "corner-stand-assembly-r1.0.0.csg",
+            "output": "corner-stand-assembly-r1.1.0.csg",
             "documentation": "hardware/assemblies/corner-station/README.md",
             "description": "WT-806 indoor fixture with actual round-120 printed head and passive winch; schematic tube samples, no tripod load qualification."
         },
         {
             "id": "corner-station-assembly",
-            "revision": "1.0.0",
+            "revision": "1.1.0",
             "status": "concept-unvalidated",
             "artifactRole": "reference",
             "bomPartIds": [],
             "assembly": "corner-station",
             "entrypoint": "hardware/assemblies/corner-station/corner-station-assembly.scad",
-            "output": "corner-station-assembly-r1.0.0.csg",
+            "output": "corner-station-assembly-r1.1.0.csg",
             "documentation": "hardware/assemblies/corner-station/README.md",
             "description": "Mounted ordinary winch and proposed printed pulley head on an abbreviated round-120 timber post; wavy drawing break omits middle length; schematic mounting heights."
         },

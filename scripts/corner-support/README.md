@@ -21,7 +21,7 @@ text copy of the original r0.1.0 carrier source, so shallow CI and portable
 source packs can reproduce the interface comparison. The optional temporary
 kit is shipped under `legacy-pulley-adapter/` with two print STLs, an inspection
 scene, nominal check report and installation notes. It does not change the
-r1.0.0 booklet's installed quantities. See the
+r1.1.0 booklet's installed quantities. See the
 [adapter instructions](../../hardware/assemblies/corner-station/legacy-pulley-adapter.md)
 for the 35 mm height change and unloaded-trial boundary.
 
@@ -52,8 +52,11 @@ uses metres and applies the real installed transforms.
 Each part is checked separately against a nominal 256 × 256 × 256 mm printer
 envelope, with a 5 mm edge reserve in XY: maximum footprint 246 × 246 mm. This
 bounding-box check is not slicing approval and does not reserve brim, supports,
-purge lines or machine-specific excluded areas. The carrier web faces lie on
-the bed; the central lug and horizontal holes need reviewed local supports.
+purge lines or machine-specific excluded areas. The carrier load planes are parallel to the bed; the cover-tab outer faces
+contact it and leave the broad webs 20.5 mm above it. Rear-pad ears contact
+the bed with the main back face 14 mm above it. Review supports beneath these
+elevated faces, the central lug and horizontal holes; inspect tab/pad roots
+after support removal. These poses do not establish support-free printing.
 See the [design package](../../docs/assemblies/corner-station/design-package.md)
 for process and load qualification. No numerical slicing settings or strength
 rating follows from a watertight mesh or a nominal bed fit.
@@ -70,7 +73,7 @@ The measured-reference block uses the frictionless equal-leg-tension 90-degree p
 -45° about its Y pin, with the owner-measured 42 mm pin-to-sheave distance. Its 65 x 36 x 24 mm
 envelope, 4.7 mm supplied pin, 15.8 mm gap and 1.5 mm tangs have an independent
 mesh regression (`check-barton-block.py`). M8 pins and a 16 mm lug are deliberate
-negative controls. The r1.0.0 rounded lug is 14.8 mm thick with a 5.2 mm bore;
+negative controls. The r1.1.0 rounded lug is 14.8 mm thick with a 5.2 mm bore;
 both carrier halves must be reprinted. Keeper/collar clearance and articulation
 are sampled nominal checks, not acceptance of received or printed parts. An independent
 moment calculation rejects the vertical block pose, and the actual block mesh
@@ -79,7 +82,11 @@ preserves the canonical winch tangent; arbitrary span azimuth and received
 articulation remain unqualified. One-mm³ lug/web probes reject accidental
 extended M12/pin cutters. Regression controls also reject an unrelieved cover
 fascia and the old front-cover X/Y removal. The checked service is front cover
-190 mm down then 100 mm sideways, and rear cover 80 mm backward.
+190 mm down then 100 mm sideways, and rear cover 80 mm backward, after removing
+all eight dedicated M3 cover screws. The independent `check_cover_retention.py`
+checks the eight axes, M3 x 12 engagement, top-loading plain nuts, washer lands,
+Y-axis driver and screw-extraction paths, and deliberately filled-bore controls.
+Both installed cover-hardware references replace all tie geometry.
 
 Render every PDF page with `pdftoppm` and inspect it after layout changes. These
 checks establish nominal geometry only. Actual printed pin fit/locking and BA01090 groove/retention,

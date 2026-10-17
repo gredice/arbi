@@ -56,7 +56,7 @@ module lpa_block(angle=45) {
 }
 module corner_head_legacy_adapter_assembly() {
     color([.63,.53,.39]) pch_post();
-    color(ARBI_CORE) { lch_carrier(); pch_rear_pads(); }
+    color(ARBI_CORE) { lch_carrier(); lch_rear_pads(); }
     color(ARBI_METAL) { pch_hardware(); pch_cross_hardware(); }
     translate([lch_pin_x(),0,165]) {
         color([.8,.48,.18]) { corner_head_legacy_adapter_left(); corner_head_legacy_adapter_right(); }

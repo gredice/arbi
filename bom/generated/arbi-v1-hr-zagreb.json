@@ -6,7 +6,7 @@
   "destinationId": "hr-zagreb",
   "destinationName": "Zagreb, Croatia",
   "quoteSnapshotId": "hr-zagreb-2026-10-08-coupling",
-  "inputDigest": "sha256:531468ad5b35ed67129e1d9afe6cf2465a2d9b64272a6581644d39f31059b1df",
+  "inputDigest": "sha256:5896b62d3f98687dbace2210de9bea5c102c3d50828b7767b7622335862bdf12",
   "reportCurrency": "EUR",
   "complete": false,
   "completeLandedTotal": null,
@@ -38,8 +38,8 @@
   ],
   "knownShippingSubtotal": "43.38",
   "knownSubtotal": "858.05",
-  "estimatedMaterialSubtotal": "410.2",
-  "estimatedPartialSubtotal": "1268.25",
+  "estimatedMaterialSubtotal": "414.59",
+  "estimatedPartialSubtotal": "1272.64",
   "fabrication": [
     {
       "partId": "camera-gimbal",
@@ -513,8 +513,8 @@
         {
           "materialId": "asa",
           "name": "Bambu Lab ASA",
-          "weightGrams": "5377.944",
-          "materialCost": "134.39",
+          "weightGrams": "5552.749",
+          "materialCost": "138.76",
           "spoolPrice": "24.99",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
@@ -527,8 +527,8 @@
         {
           "materialId": "petg-matte",
           "name": "Bambu Lab PETG Matte",
-          "weightGrams": "1198.637",
-          "materialCost": "13.65",
+          "weightGrams": "1200.465",
+          "materialCost": "13.67",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte?id=775952393450868758",
@@ -543,8 +543,8 @@
         {
           "materialId": "asa",
           "name": "Bambu Lab ASA",
-          "weightGrams": "2352.543",
-          "materialCost": "58.79",
+          "weightGrams": "2419.759",
+          "materialCost": "60.4698",
           "spoolPrice": "24.99",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
@@ -559,8 +559,8 @@
         {
           "materialId": "asa",
           "name": "Bambu Lab ASA",
-          "weightGrams": "2352.543",
-          "materialCost": "58.79",
+          "weightGrams": "2419.759",
+          "materialCost": "60.4698",
           "spoolPrice": "24.99",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
@@ -575,8 +575,8 @@
         {
           "materialId": "asa",
           "name": "Bambu Lab ASA",
-          "weightGrams": "672.859",
-          "materialCost": "16.8147",
+          "weightGrams": "713.23",
+          "materialCost": "17.8236",
           "spoolPrice": "24.99",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
@@ -591,8 +591,8 @@
         {
           "materialId": "petg-matte",
           "name": "Bambu Lab PETG Matte",
-          "weightGrams": "570.625",
-          "materialCost": "6.4994",
+          "weightGrams": "571.408",
+          "materialCost": "6.5083",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte?id=775952393450868758",
@@ -607,8 +607,8 @@
         {
           "materialId": "petg-matte",
           "name": "Bambu Lab PETG Matte",
-          "weightGrams": "628.012",
-          "materialCost": "7.1531",
+          "weightGrams": "629.058",
+          "materialCost": "7.165",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte?id=775952393450868758",
@@ -621,16 +621,16 @@
           "color": "white"
         }
       ],
-      "weightGrams": "6576.581",
-      "materialCost": "148.04",
+      "weightGrams": "6753.215",
+      "materialCost": "152.43",
       "currency": "EUR",
       "note": "Selected printed-head development configuration in the current BOM. ASA is a costing assumption using the recorded single-spool rate, not a qualified structural material or print process. Fully dense CAD consumption only; physical fit, load, creep and manufacturing labour remain unresolved. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
       "alternatives": [
         {
           "materialId": "pla",
           "name": "Bambu Lab PLA Basic",
-          "weightGrams": "7435.993",
-          "materialCost": "89.16",
+          "weightGrams": "7644.085",
+          "materialCost": "91.65",
           "spoolPrice": "11.99",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
@@ -642,8 +642,8 @@
         {
           "materialId": "petg",
           "name": "Bambu Lab PETG Basic",
-          "weightGrams": "7495.961",
-          "materialCost": "85.38",
+          "weightGrams": "7705.731",
+          "materialCost": "87.77",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
@@ -655,8 +655,8 @@
         {
           "materialId": "petg-matte",
           "name": "Bambu Lab PETG Matte",
-          "weightGrams": "8215.573",
-          "materialCost": "93.58",
+          "weightGrams": "8445.481",
+          "materialCost": "96.19",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte",
@@ -668,8 +668,8 @@
         {
           "materialId": "asa",
           "name": "Bambu Lab ASA",
-          "weightGrams": "6296.607",
-          "materialCost": "157.35",
+          "weightGrams": "6472.814",
+          "materialCost": "161.76",
           "spoolPrice": "24.99",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
@@ -2794,8 +2794,8 @@
         {
           "materialId": "asa",
           "name": "Bambu Lab ASA",
-          "weightGrams": "1344.486",
-          "materialCost": "33.6",
+          "weightGrams": "1388.187",
+          "materialCost": "34.69",
           "spoolPrice": "24.99",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
@@ -2808,8 +2808,8 @@
         {
           "materialId": "petg-matte",
           "name": "Bambu Lab PETG Matte",
-          "weightGrams": "299.659",
-          "materialCost": "3.41",
+          "weightGrams": "300.116",
+          "materialCost": "3.42",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte?id=775952393450868758",
@@ -2824,8 +2824,8 @@
         {
           "materialId": "asa",
           "name": "Bambu Lab ASA",
-          "weightGrams": "588.136",
-          "materialCost": "14.6975",
+          "weightGrams": "604.94",
+          "materialCost": "15.1174",
           "spoolPrice": "24.99",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
@@ -2840,8 +2840,8 @@
         {
           "materialId": "asa",
           "name": "Bambu Lab ASA",
-          "weightGrams": "588.136",
-          "materialCost": "14.6975",
+          "weightGrams": "604.94",
+          "materialCost": "15.1174",
           "spoolPrice": "24.99",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
@@ -2856,8 +2856,8 @@
         {
           "materialId": "asa",
           "name": "Bambu Lab ASA",
-          "weightGrams": "168.215",
-          "materialCost": "4.2037",
+          "weightGrams": "178.308",
+          "materialCost": "4.4559",
           "spoolPrice": "24.99",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
@@ -2872,8 +2872,8 @@
         {
           "materialId": "petg-matte",
           "name": "Bambu Lab PETG Matte",
-          "weightGrams": "142.656",
-          "materialCost": "1.6249",
+          "weightGrams": "142.852",
+          "materialCost": "1.6271",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte?id=775952393450868758",
@@ -2888,8 +2888,8 @@
         {
           "materialId": "petg-matte",
           "name": "Bambu Lab PETG Matte",
-          "weightGrams": "157.003",
-          "materialCost": "1.7883",
+          "weightGrams": "157.264",
+          "materialCost": "1.7912",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte?id=775952393450868758",
@@ -2902,16 +2902,16 @@
           "color": "white"
         }
       ],
-      "weightGrams": "1644.145",
-      "materialCost": "37.01",
+      "weightGrams": "1688.304",
+      "materialCost": "38.11",
       "currency": "EUR",
       "note": "Selected printed-head development configuration in the current BOM. ASA is a costing assumption using the recorded single-spool rate, not a qualified structural material or print process. Fully dense CAD consumption only; physical fit, load, creep and manufacturing labour remain unresolved. Material consumption at observed 10+ mixed eligible 1 kg filament-with-spool bulk rates for PLA Basic, PETG Basic and PETG Matte. The shared Bambu EU mix-and-match basket must contain at least 10 eligible rolls; this is a conditional estimate, not an order or whole-roll procurement total. ASA has no evidenced eligible bulk rate and retains its single-spool price. PETG Matte White/Black is selected only for cosmetic shell surfaces; functional parts retain existing material assumptions. EU displayed VAT may change at Croatian checkout; shipping, supports, purge, failed prints, energy, machine time and labour are unknown. Solid CAD volume represents fully dense plastic, not slicer infill or measured weight.",
       "alternatives": [
         {
           "materialId": "pla",
           "name": "Bambu Lab PLA Basic",
-          "weightGrams": "1858.998",
-          "materialCost": "22.29",
+          "weightGrams": "1911.021",
+          "materialCost": "22.91",
           "spoolPrice": "11.99",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
@@ -2923,8 +2923,8 @@
         {
           "materialId": "petg",
           "name": "Bambu Lab PETG Basic",
-          "weightGrams": "1873.99",
-          "materialCost": "21.34",
+          "weightGrams": "1926.433",
+          "materialCost": "21.94",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-basic",
@@ -2936,8 +2936,8 @@
         {
           "materialId": "petg-matte",
           "name": "Bambu Lab PETG Matte",
-          "weightGrams": "2053.893",
-          "materialCost": "23.39",
+          "weightGrams": "2111.37",
+          "materialCost": "24.05",
           "spoolPrice": "11.39",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/petg-matte",
@@ -2949,8 +2949,8 @@
         {
           "materialId": "asa",
           "name": "Bambu Lab ASA",
-          "weightGrams": "1574.152",
-          "materialCost": "39.34",
+          "weightGrams": "1618.204",
+          "materialCost": "40.44",
           "spoolPrice": "24.99",
           "spoolWeightGrams": "1000",
           "priceSourceUrl": "https://eu.store.bambulab.com/products/asa-filament",
@@ -5115,7 +5115,7 @@
     },
     {
       "assemblyId": "corner-support-set",
-      "amount": "149.11"
+      "amount": "153.5"
     },
     {
       "assemblyId": "dock",
@@ -5137,7 +5137,7 @@
     },
     {
       "assemblyId": "corner-support-set",
-      "amount": "205.91"
+      "amount": "210.3"
     },
     {
       "assemblyId": "dock",

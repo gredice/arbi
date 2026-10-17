@@ -1,6 +1,7 @@
 # WT-806 indoor mounting assembly guide
 
-Guide updated **11 October 2026** for adapter revision **0.1.0**,
+Guide updated **17 October 2026** for adapter revision **0.1.0**,
+current carrier/reference revision **1.1.0**,
 **concept-unvalidated**. This builds one round-120 printed pulley head and one
 complete **passive winch, including its motor**, onto each of the two owned
 WT-806 stands. Use it for isolated, unloaded fit, loose-line routing and
@@ -57,10 +58,12 @@ heads those quantities double. Assemble each passive winch using the
 and fastening order belong to that assembly.
 
 Omit the timber rear pads, head drilling template, long M12 timber through-bolts,
-both head cosmetic covers and their straps for the first inspection. Omit the
+both head cosmetic covers and all M3 cover screws, washers and nuts for the
+first inspection. Omit the
 winch's timber saddle/spacer/backing stack, pole through-bolts, saddle nut covers
 and common bench rear blank. Keep mounting holes and clamp witnesses accessible.
-No head strap, top spigot or top thread retains this fixture.
+The unchanged stand clamp interfaces retain the revised carriers. No cosmetic
+cover joint, top spigot or top thread retains this fixture.
 
 ## Collect the additional metal hardware
 

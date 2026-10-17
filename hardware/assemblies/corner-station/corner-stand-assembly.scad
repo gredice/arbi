@@ -1,4 +1,4 @@
-// corner-stand-assembly r1.0.0 — concept-unvalidated. Schematic tube locations.
+// corner-stand-assembly r1.1.0 — concept-unvalidated. Schematic tube locations.
 include <../../lib/corner-stand-adapter.scad>
 include <../../lib/corner-head-printed.scad>
 include <../../lib/winch-cover.scad>
@@ -36,7 +36,10 @@ for(z=pch_rows()) translate([0,0,head_bottom_mm+z]) {
 translate([virtual_post_offset_mm,0,head_bottom_mm]) {
     color(ARBI_CORE) { corner_head_printed_left(); corner_head_printed_right(); pch_block(); pch_line(); }
     color(ARBI_METAL) pch_cross_hardware();
-    if(show_front_cover) color(ARBI_SHELL) corner_head_printed_front_cover();
+    if(show_front_cover) {
+        color(ARBI_SHELL) corner_head_printed_front_cover();
+        color(ARBI_METAL) pch_cover_hardware("front");
+    }
 }
 for(z=[-60,60]) translate([0,0,winch_center_mm+z]) {
     color(ARBI_CORE) { corner_stand_winch_front(); corner_stand_rear_clamp(winch_tube_diameter_mm); }
